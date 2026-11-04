@@ -58,8 +58,13 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T007 | Serie gauge-averaged | Espansione di Fourier assolutamente convergente |
 | T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
 | T009 | Forma quadratica efficace Wilson | Identità rank(Q_eff)=rank(C)−rank(RC); ipotesi di rango Q6 e limite theta ancora da verificare |
+| [T010](theorems/T010-rumin-spectrum-poincare-sphere.md) | Riduzione spettrale di Rumin su S³/2I | Teorema di proiezione per quozienti finiti; benchmark scalare verificato; spettro Rumin completo ancora da calcolare |
 
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
+
+## Collegamento con il filone Nielsen/Hopf
+
+La bibliografia citata nel manoscritto di Jennifer Lorraine Nielsen è registrata separatamente in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 sviluppa un risultato matematico indipendente sul quoziente Hopf/Seifert (S^3/2I); non attribuisce il teorema a Nielsen e non considera il suo manoscritto una validazione delle affermazioni qui dimostrate.
 
 ## Regole scientifiche
 
