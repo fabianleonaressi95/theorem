@@ -10,9 +10,14 @@
 | J. Faraut, A. Korányi | Analysis on Symmetric Cones | Oxford University Press, 1994 | Monografia matematica |
 | Robert Hermann | Gauge Fields and Cartan–Ehresmann Connections | 1975 | Identificata; dettagli editoriali da completare |
 | Freeman Dyson | The Threefold Way: Algebraic Structure of Symmetry Groups and Ensembles in Quantum Mechanics | J. Math. Phys. 3, 1199–1215 (1962) | Identificata |
-| Robert Gilmore | Scaling of Wyler’s Expression for α | Phys. Rev. Lett. 28(7), 462–464 (1972), DOI: 10.1103/PhysRevLett.28.462 | Risposta primaria: motiva r=1 tramite la struttura dei rappresentanti di coset |\n| Robert Gilmore | Lie Groups, Lie Algebras, and Some of Their Applications | Wiley, 1974; Dover reprint 2005 | Monografia matematica |\n| Stephen L. Adler | Theories of the Fine Structure Constant α | FERMILAB-PUB-72/059-T (1972) | Analisi critica storica: classifica la formula di Wyler tra le speculazioni numerologiche e lascia aperta la sua base fisica |
+| Robert Gilmore | Scaling of Wyler’s Expression for α | Phys. Rev. Lett. 28(7), 462–464 (1972), DOI: 10.1103/PhysRevLett.28.462 | Risposta primaria: motiva r=1 tramite la struttura dei rappresentanti di coset |
+| Robert Gilmore | Lie Groups, Lie Algebras, and Some of Their Applications | Wiley, 1974; Dover reprint 2005 | Monografia matematica |
+| Stephen L. Adler | Theories of the Fine Structure Constant α | FERMILAB-PUB-72/059-T (1972) | Analisi critica storica: classifica la formula di Wyler tra le speculazioni numerologiche e lascia aperta la sua base fisica |
 | Institute for Advanced Study | Profilo Armand Wyler | https://www.ias.edu/scholars/armand-wyler | Contesto biografico |
 | Physical Geometry | Armand Wyler | https://physicalgeometry.wordpress.com/2016/08/30/armand-wyler/ | Fonte secondaria |
+
+## Audit delle fonti primarie
+- [Verifica Wyler–Robertson–Gilmore–Adler–Hua](PRIMARY_SOURCE_AUDIT.md): correzione dei metadati, confronto delle posizioni storiche e limiti di ciò che le fonti sostengono.
 
 ## Oggetto matematico nel repository
 Dominio di tipo IV / Lie ball complesso in dimensione 5, generic norm N(z), metrica di Bergman e densità candidata N(z)^(-5). Collegamenti:
