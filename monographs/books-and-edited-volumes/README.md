@@ -20,3 +20,13 @@
   - Wolfgang Kundt, “The Gold Effect”.
 - L'utente ha fornito capitoli/documenti relativi al volume. Metadati editoriali completi e pagine dei singoli contributi da verificare sull'esemplare caricato.
 - Collegamento: storia e sociologia della scienza, critiche ai processi di valutazione e paradigmi; eventuali tesi fisiche citate nei capitoli devono essere estratte e valutate separatamente.
+
+
+## 3. Salvatore Esposito, Erasmo Recami, Alwyn van der Merwe, Roberto Battiston (eds.) — *Ettore Majorana: Unpublished Research Notes on Theoretical Physics* (2009)
+- Editori: S. Esposito, E. Recami, A. van der Merwe, R. Battiston.
+- Editore: Springer Science + Business Media B.V., 2009.
+- Collana: Fundamental Theories of Physics, vol. 159.
+- ISBN 978-1-4020-9113-1; eISBN 978-1-4020-9114-8.
+- File Library: `Ettore_Majorana_Unpublished_Research_Not.pdf`, 496 pagine, caricato il 29 settembre 2026.
+- Natura: volume scientifico curato che raccoglie note di ricerca inedite di Majorana, con apparato editoriale.
+- Uso: storia e ricostruzione della fisica teorica di Majorana; trattare separatamente manoscritti originali, trascrizione e commento editoriale.
