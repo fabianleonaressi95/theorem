@@ -57,7 +57,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T006 | Quoziente gauge 5-toro | Identificazione tramite reticoli dei caratteri |
 | T007 | Serie gauge-averaged | Espansione di Fourier assolutamente convergente |
 | T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
-| T009 | Forma quadratica efficace Wilson | Derivazione gaussiana condizionale; rango 5 e limite theta da verificare sui dati Q6 |
+| T009 | Forma quadratica efficace Wilson | Identità rank(Q_eff)=rank(C)−rank(RC); ipotesi di rango Q6 e limite theta ancora da verificare |
 
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
