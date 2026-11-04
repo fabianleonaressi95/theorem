@@ -4,7 +4,7 @@ Catalogo centrale delle fonti RGS–PSU–PRISM–Q6. Le fonti sono separate dai
 
 Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori recuperati, dettagli mancanti); **DA DISAMBIGUARE** (titolo o riferimento incompleto); **CONTESTO** (fonte storica/critica/non standard).
 
-## Settori
+## Materiale monografico\n- [Catalogo di monografie, volumi curati, capitoli e tesi](../monographs/README.md)\n\n## Settori
 - [Vetri di spin](spin-glasses/README.md)
 - [Wyler, Hua e domini simmetrici](wyler-hua/README.md)
 - [Gauge, Wilson, Yang–Mills e QCD](gauge-wilson-qft/README.md)
