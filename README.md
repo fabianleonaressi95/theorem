@@ -7,7 +7,7 @@ Questo repository è l'indice centrale della ricerca. Non deve essere soltanto u
 ```text
 theroem/
 ├── README.md
-├── bibliography/
+├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── bibliography/
 │   ├── README.md
 │   ├── spin-glasses/
 │   ├── wyler-hua/
@@ -34,7 +34,7 @@ Le cartelle di bibliografia sono già create e popolate con il catalogo ricostru
 
 ## Indice di lavoro
 
-- **Bibliografia:** [catalogo generale](bibliography/README.md). Include esplicitamente vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce topologica/OAM, gravità/teleparallelismo e fonti critiche/non standard.
+- **Monografie e capitoli:** [catalogo monografico](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.\n- **Bibliografia degli articoli:** [catalogo generale](bibliography/README.md). Include esplicitamente vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce topologica/OAM, gravità/teleparallelismo e fonti critiche/non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
 - **Dimostrazioni:** [theorems/](theorems/).
 
