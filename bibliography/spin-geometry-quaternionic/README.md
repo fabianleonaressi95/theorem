@@ -17,6 +17,9 @@
 | Bär, Clarke | lavori su operatori di Dirac e geometria globale | titoli specifici non recuperati | **DA DISAMBIGUARE** |
 | Cherkis | lavori su monopoli e spazi di moduli | titoli specifici non recuperati | **DA DISAMBIGUARE** |
 
+| Walter Smilga | Structural Properties of Irreducible Two-Particle Representations of the Poincaré Group | Foundations of Physics 49, 728–740 (2019); preprint/arXiv 2022 | IDENTIFICATA |
+| Walter Smilga | Reverse Engineering Approach to Quantum Electrodynamics | Journal of Modern Physics 4(5), 561–571 (2013) | IDENTIFICATA |
+
 ## Ruolo nel progetto
 
 Queste fonti devono essere usate per verificare:
