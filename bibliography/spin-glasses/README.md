@@ -40,7 +40,7 @@ Nel repository `rgs-qlg-quaternion-bridge` è già stato integrato il modello Ed
 
 - PR #96, merged: [Add Edwards–Anderson spin glass model on Q6](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/96)
 - [Documento tecnico Q6_EDWARDS_ANDERSON_SPIN_GLASS.md](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/Q6_EDWARDS_ANDERSON_SPIN_GLASS.md)
-- Grafo: 64 vertici, 192 lati, grado 6; 240 facce esagonali/quadrate secondo la struttura cellulare adottata (specificare la convenzione delle facce nel documento tecnico).
+- Grafo: 64 vertici, 192 lati, grado 6; 240 facce quadrate (2-celle) del cubo binario Q6.
 - Variabili Ising ai vertici e accoppiamenti quenched Gaussiani o bimodali sugli archi.
 - Osservabili pertinenti: energia, frustrazione, overlap tra repliche, suscettività spin-glass e cumulante di Binder.
 
