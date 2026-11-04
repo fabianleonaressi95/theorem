@@ -146,7 +146,7 @@ Per (n=5) è esattamente la metrica usata in T002.
 
 Una verifica indipendente moderna della formula e della definizione del dominio è fornita da Dong, Li e Treuer (2023), che riportano la formula di Hua per i domini Cartan di tipo IV e definiscono il Bergman metric come Hessiana complessa di (log K(z,z)). Helgason, cap. VIII, §§3–7, fornisce il quadro dei domini limitati, kernel e spazi hermitiani simmetrici; Faraut–Korányi, cap. X, tratta i domini simmetrici di tipo tubo, contesto pertinente al tipo IV.
 
-**Audit numerico supplementare:** valutazioni indipendenti della matrice (g=-5partialarpartiallog N) in punti complessi interni generici di (D_5) hanno confermato (det g=10^5N^{-5}) entro l'errore floating-point (scarti relativi dell'ordine di (10^{-15}) nei campioni controllati). Questo controllo è una verifica numerica, non sostituisce la dimostrazione determinante nella sezione 3.
+**Audit numerico supplementare:** tre valutazioni indipendenti della matrice (g=-5partialarpartiallog N) in punti complessi interni generici di (D_5) hanno confermato (det g=10^5N^{-5}) entro l'errore floating-point (scarti relativi dell'ordine di (10^{-15}) nei campioni controllati). Questo controllo è una verifica numerica, non sostituisce la dimostrazione determinante nella sezione 3.
 
 Riferimento moderno:
 - R. X. Dong, S.-Y. Li e J. N. Treuer, “Sharp pointwise and uniform estimates for \\(\\bar\\partial\\)”, *Analysis & PDE* 16 (2023), 407–431, in particolare §2 e la formula del kernel dei domini di tipo IV riportata nella sezione 5; [PDF](https://msp.org/apde/2023/16-2/apde-v16-n2-p04-p.pdf).
