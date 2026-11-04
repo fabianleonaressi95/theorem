@@ -13,6 +13,7 @@ Questa sezione separa i manoscritti originali, le bozze, i progetti e i rapporti
 - `Morfodinamica_Quantistica_Nota_Introduttiva.pdf`: nota introduttiva interna al programma.
 - `Architettura_scientifica_RGS_PRISM_programma_integrato.docx`: documento di architettura interna.
 - `FORMULAZIONE.pdf`: documento di formulazione teleparallela/scalare-tensore; verificare derivazioni e convenzioni prima di citare come risultato.
+- [Computational Analysis of the Naressi Law](naressi-law/README.md): manoscritto su couplings aurei, catene di spin, reti quasicristalline e proposta di Quantum Morphodynamics; contiene una scheda critica con separazione tra identità algebriche, risultati numerici da riprodurre e ipotesi aperte.
 
 ## Regola
 Ogni manoscritto deve riportare autore, data, versione, stato editoriale, repository e differenze rispetto alle versioni precedenti. Non citare un manoscritto interno come conferma indipendente del modello che lo ha prodotto.
