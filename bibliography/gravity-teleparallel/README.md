@@ -1,18 +1,16 @@
-# Gravità, teleparallelismo, wormhole
+# Gravità, teleparallelismo, wormhole e geometria affine
 
-## Riferimenti già nominati
-
-| Autore / riferimento | Titolo o argomento | Dati | Stato |
+| Autore | Titolo | Dati | Stato / uso |
 |---|---|---|---|
-| Einstein / TEGR literature | teleparallel equivalent of GR | bibliografia primaria specifica da completare | **DA COMPLETARE** |
-| Einstein–Cartan literature | tetradi, torsione e connessioni | Hermann 1975 è già registrato in spin geometry | **DA COMPLETARE** |
-| EMS wormhole | Einstein–Maxwell–scalar wormhole e instantoni | risultati numerici interni, fonte primaria da associare | **DA DISAMBIGUARE** |
-| Hans De Aquino | soglia/struttura spettrale citata dall'utente | fonte esatta e validità da ricostruire | **CONTESTO / NON VALIDATO** |
+| Alexey Golovnev | The geometrical meaning of the Weitzenböck connection | arXiv:2302.13599v2, 21 May 2023 | Preprint identificato: geometria della connessione, torsione e Lorentz locale |
+| Einstein / letteratura TEGR | Teleparallel equivalent of GR | bibliografia primaria da completare | Riferimenti da selezionare |
+| Letteratura Einstein–Cartan | Tetradi, torsione e connessioni | riferimenti specifici da completare | Riferimenti da selezionare |
+| EMS wormhole | Einstein–Maxwell–scalar wormhole e instantoni | risultati numerici interni | Fonte primaria da associare |
+| Hans De Aquino | Soglia/struttura spettrale citata dall'utente | fonte esatta da ricostruire | Contesto non validato |
 
 ## Collegamenti RGS–PSU
-
-- Vierbein in spazio artificiale e connessione di Weitzenböck con \(\omega=0\).
+- Vierbein in spazio artificiale e connessione di Weitzenböck con omega=0.
 - Separazione fra invarianti Levi-Civita e invarianti di torsione.
 - Kerr–Schild, torsione, wormhole EMS e recupero della simmetria Lorentz PSU–Anti-Twin.
 
-I risultati numerici non sono teoremi e le proposte non standard non vanno presentate come fisica stabilita.
+Golovnev è un confronto diretto sulle interpretazioni geometriche della connessione di Weitzenböck e sulla questione dell'invarianza di Lorentz nelle teorie teleparallele modificate. Non è una convalida del modello RGS.
