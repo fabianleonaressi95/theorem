@@ -27,7 +27,7 @@ theroem/
 │   ├── T006-q6-wilson-five-torus-quotient.md
 │   ├── T007-q6-gauge-average-fourier-marginal.md
 │   └── 001-fixed-lattice-temporal-wilson-limit.md
-└── (prossime sezioni: models/, evidence/, open-problems/)
+└── (altre sezioni verranno aggiunte solo quando popolate)
 ```
 
 Le cartelle di bibliografia sono già create e popolate con il catalogo ricostruito. Le sezioni models/evidence/open-problems sono previste ma non ancora popolate: non le dichiaro completate.
