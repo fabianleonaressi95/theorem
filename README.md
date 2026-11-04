@@ -7,7 +7,7 @@ Questo repository è l'indice centrale della ricerca. Non deve essere soltanto u
 ```text
 theroem/
 ├── README.md
-├── library-inventory/\n│   └── README.md\n├── manuscripts/\n│   └── README.md\n├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── bibliography/
+├── library-inventory/\n│   └── README.md\n├── manuscripts/\n│   └── README.md\n├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── library-inventory/\n│   └── README.md\n├── manuscripts/\n│   └── README.md\n├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── bibliography/\n│   ├── spin-glasses/\n│   ├── wyler-hua/\n│   ├── gauge-wilson-qft/\n│   ├── spin-geometry-quaternionic/\n│   ├── quantum-light-foundations/\n│   ├── gravity-teleparallel/\n│   ├── holography-emergent-spacetime/\n│   ├── discrete-geometry-combinatorics/\n│   ├── information-theory/\n│   └── critical-and-nonstandard/
 │   ├── README.md
 │   ├── spin-glasses/
 │   ├── wyler-hua/
@@ -34,7 +34,7 @@ Le cartelle di bibliografia sono già create e popolate con il catalogo ricostru
 
 ## Indice di lavoro
 
-- **Inventario dei file:** [fonti recuperate dalla Library](library-inventory/README.md), separando pubblicazioni, manoscritti interni, dati e file tecnici.\n- **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.\n- **Monografie e capitoli:** [catalogo monografico](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.\n- **Bibliografia degli articoli:** [catalogo generale](bibliography/README.md). Include esplicitamente vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce topologica/OAM, gravità/teleparallelismo e fonti critiche/non standard.
+- **Inventario dei file:** [fonti recuperate dalla Library](library-inventory/README.md), separando pubblicazioni, manoscritti interni, dati e file tecnici. La Library è stata scandita a livello di metadati: 388 elementi totali, 118 documenti PDF/testo/Markdown; l'inventario registra le fonti già identificate e segnala i file ancora da classificare.\n- **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.\n- **Monografie e capitoli:** [catalogo monografico](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.\n- **Bibliografia degli articoli:** [catalogo generale](bibliography/README.md). Include esplicitamente vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce topologica/OAM, gravità/teleparallelismo e fonti critiche/non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
 - **Dimostrazioni:** [theorems/](theorems/).
 
