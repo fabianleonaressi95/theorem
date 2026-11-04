@@ -5,7 +5,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 ## Pubblicazioni e documenti identificati
 | File Library | Identificazione | Categoria |
 |---|---|---|
-| `BOOK.pdf` | Fran De Aquino, *Gravitational Energy Control* (2026) | Volume/raccolta; indice dei 99 contributi separato |
+| `BOOK.pdf` | Fran De Aquino, *Gravitational Energy Control* (2026) | Volume/raccolta; indice dei contributi da riconciliare |
 | `Ettore_Majorana_Unpublished_Research_Not.pdf` | Esposito, Recami, van der Merwe, Battiston (eds.), *Ettore Majorana: Unpublished Research Notes on Theoretical Physics* (2009) | Volume curato |
 | `Loop_Quantum_Gravity.pdf` | Carlo Rovelli, *Loop Quantum Gravity* (2008) | Review estesa |
 | `Tessellations_of_surfaces.pdf` | Gianluca Faraco, *Tessellations and Triangulation of Surfaces* (arXiv:2303.17263) | Survey/lecture note |
@@ -25,15 +25,24 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `IL-CAMBIO-DERA-David-Wilcock.pdf` | David Wilcock, *Il Cambio d'Era* | Libro/divulgazione speculativa |
 | `main.pdf` | Harrabi–Naressi, *Human Design as a Geometric Coding Layer...* (2026) | Manoscritto del programma correlato, non legge fisica |
 
-## Documenti tecnici interni da non schedare come letteratura esterna
-- `FORMULAZIONE.pdf`: formulazione teleparallela/scalare-tensore.
-- `dirac.pdf`: documento sul settore Dirac, da identificare dal frontespizio.
-- `f66e.9908.file.pdf`: tabella di correlazione EPR, tensori g/A e gruppi puntuali dei paramagneti; fonte originale da identificare.
-- `Morfodinamica_Quantistica_Nota_Introduttiva.pdf`.
-- `Architettura_scientifica_RGS_PRISM_programma_integrato.docx`.
-- `RGS_PSU_derivazione_audit_corretta.md`, `RGS_PSU_EMS_throat_derivation.md`, `INSERTO_MONOGRAFIA_NS_GAUGE.md` e i rapporti di audit sono risultati interni, non fonti indipendenti.
+## Manoscritti, note e documenti tecnici interni
+| File Library | Contenuto verificato | Natura e stato |
+|---|---|---|
+| `dirac.pdf` | Proposta di azione accoppiata Dirac–contorsione teleparallela; il testo stesso distingue oscillazione SCF, proxy ZPE e simmetria ±E da interpretazioni fisiche non dimostrate | Nota di ricerca RGS–Dirac/TEGR; formulazione da sottoporre a verifica variazionale |
+| `Documento senza titolo (1).pdf` | Ansatz di riduzione teleparallela 6D→3D e accoppiamento con campo bivettoriale interno | Nota tecnica; l'emergenza del termine misto è una derivazione proposta, non un teorema validato |
+| `Documento senza titolo.pdf` | Operatore di Dirac aperiodico, settore neutrini e mixing attivo/sterile su geometria cut-and-project | Documento teorico interno; ipotesi e operatori da definire e dimostrare |
+| `nuovo.pdf` | Matrici di riflessione/trasmissione, conservazione del flusso pesato, reciprocità e assemblaggio S globale | Rapporto numerico Jost/scattering; test parziali riportati, verifica globale S ancora aperta |
+| `f66e.9908.file.pdf` | Relazioni tra simmetria EPR, tensori g/A e gruppi puntuali; spettri EPR di sistemi disordinati | Materiale didattico/tecnico su EPR e paramagnetismo; fonte bibliografica originaria da identificare |
+| `formule.pdf` | Dump di matrici 188×188, manifest e risultati JSON dell'audit 188D | Archivio tecnico di calcolo, non pubblicazione |
+| `FORMULAZIONE.pdf` | Formulazione teleparallela/scalare-tensore | Documento interno da collegare al manoscritto pertinente |
+| `Morfodinamica_Quantistica_Nota_Introduttiva.pdf` | Nota introduttiva RGS | Documento interno |
+| `Architettura_scientifica_RGS_PRISM_programma_integrato.docx` | Architettura del programma RGS–PRISM | Documento di progetto |
+| `RGS_PSU_derivazione_audit_corretta.md`, `RGS_PSU_EMS_throat_derivation.md`, `INSERTO_MONOGRAFIA_NS_GAUGE.md` | Derivazioni e inserti interni | Materiali di lavoro, non fonti indipendenti |
 
 ## Da identificare
-I file con nomi generici (`Documento senza titolo.pdf`, `array.pdf`, `nuovo.pdf`, `formule.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf`, `soluzione.pdf`, `yess.pdf`, `DOC-20260719-WA0012.`) richiedono lettura del frontespizio e classificazione. Non vengono inventati titoli in base al nome del file.
+Restano da esaminare i file generici non ancora classificati: `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf`, `soluzione.pdf`, `yess.pdf`, `DOC-20260719-WA0012.` e gli eventuali duplicati o varianti di `Documento senza titolo`. I titoli non vengono inferiti dal solo nome del file.
 
-La Library contiene anche numerosi archivi ZIP, dataset, matrici, grafici, script e copie duplicate. Questi vanno nell'archivio dati/codice, non nella bibliografia.
+## Criterio di catalogazione
+Le pubblicazioni esterne, i capitoli in volumi collettanei, le review, le survey, le tesi, i manoscritti, le bibliografie interne, i documenti di progetto e gli output computazionali sono classi distinte. Una formula presente in una nota interna non diventa un teorema dimostrato per il solo fatto di essere scritta in forma matematica.
+
+La Library contiene inoltre archivi ZIP, dataset, matrici, grafici, script e copie duplicate. Questi materiali vanno nell'archivio dati/codice, con collegamento al documento o all'audit di provenienza, non nella bibliografia.
