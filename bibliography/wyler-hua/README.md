@@ -13,6 +13,7 @@
 | Robert Gilmore | Scaling of Wyler’s Expression for α | Phys. Rev. Lett. 28(7), 462–464 (1972), DOI: 10.1103/PhysRevLett.28.462 | Risposta primaria: motiva r=1 tramite la struttura dei rappresentanti di coset |
 | Robert Gilmore | Lie Groups, Lie Algebras, and Some of Their Applications | Wiley, 1974; Dover reprint 2005 | Monografia matematica |
 | Stephen L. Adler | Theories of the Fine Structure Constant α | FERMILAB-PUB-72/059-T (1972) | Analisi critica storica: classifica la formula di Wyler tra le speculazioni numerologiche e lascia aperta la sua base fisica |
+| Robert Xin Dong, Song-Ying Li, John N. Treuer | Sharp pointwise and uniform estimates for \\bar{\\partial} | Analysis & PDE 16 (2023), 407–431 | Fonte matematica moderna: definizione di tipo IV, kernel di Bergman e metrica; non tratta interpretazioni fisiche RGS |
 | Institute for Advanced Study | Profilo Armand Wyler | https://www.ias.edu/scholars/armand-wyler | Contesto biografico |
 | Physical Geometry | Armand Wyler | https://physicalgeometry.wordpress.com/2016/08/30/armand-wyler/ | Fonte secondaria |
 
