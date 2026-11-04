@@ -68,3 +68,44 @@ Robert de Mello Koch, Pedro Ornelas, Neelan Gounden, Bo-Qiang Lu, Isaac Nape e A
 Il lavoro riporta strutture topologiche in stati entangled di momento angolare orbitale (OAM), con conferma sperimentale fino a d=7, manifold di dimensione 48 e uno spettro di oltre 17.000 invarianti/topological maps. Il linguaggio SU(d) Yang–Mills e le mappe topologiche sono parte della costruzione teorico-sperimentale degli autori. Questo è un risultato sperimentale pertinente al filone luce–topologia–Yang–Mills; **non** dimostra automaticamente il modello OOU di McKoy, né una struttura 48D RGS/PRISM.
 
 McKoy, “The 48-Dimensional Topological Structure of Entangled Light as SO(6) Representation Content” (Zenodo 2026), DOI 10.5281/zenodo.19526947, è un preprint separato che interpreta il risultato tramite SO(6)/OOU. Tenere distinti i due lavori e i rispettivi livelli di evidenza.
+
+
+## Ricostruzione della pagina-sorgente “Physical Geometry” e correzione del nome Clarke
+
+La pagina autore [Physical Geometry – author index](https://physicalgeometry.wordpress.com/author/geometry2018/) conserva una lista di link personali che corrisponde ai nomi suggeriti dall'utente. Da essa emerge una correzione importante: il link Stanford `bfclarke` è **Brian Clarke**, non Bruce D. Clarke. La precedente attribuzione a Bruce D. Clarke era errata e va considerata superata.
+
+| Autore nella pagina Physical Geometry | Link personale originario | Pubblicazione/filone da verificare o già identificato |
+|---|---|---|
+| Julien Keller | http://www.latp.univ-mrs.fr/~jkeller/Julien-KELL | Geometria differenziale e geometria complessa; selezionare lavori su metriche speciali e strutture geometriche solo dopo verifica dei titoli. |
+| Jeff Viaclovsky | http://www.math.wisc.edu/~jeffv | Metriche critiche, orbifold Einstein, istantoni gravitazionali; vedi voci sopra. |
+| Jacoppo Stoppa (grafia riportata dalla pagina; probabilmente Jacopo Stoppa) | http://www-dimat.unipv.it/stoppa/ | Geometria algebrica/K-stabilità e metriche canoniche; verificare la grafia e il paper specifico. |
+| Bianca Santoro | http://www.sci.ccny.cuny.edu/~bsantoro | Link storico non più verificato; identità e pubblicazioni da disambiguare prima di attribuire risultati. |
+| Frederik Witt (pagina scrive “Fredreik”) | http://www.math.uni-muenster.de/u/frederik.witt | “Special metrics and Triality”, *Adv. Math.* 219 (2008), DOI 10.1016/j.aim.2008.07.017. |
+| Craig Van Coevering | http://staff.ustc.edu.cn/~craigvan | Geometria Sasakiana, metriche Einstein e coni; selezionare articoli pertinenti alla convergenza geometrica. |
+| Marco Kühnel (grafia pagina: Kuhnel) | http://home.mathematik.uni-freiburg.de/mkunel | Link storico; identificazione bibliografica da completare. |
+| Iona Șuvaina (pagina scrive Suvaina) | http://www.math.vanderbilt.edu/~suvaini | Metriche Ricci-flat/asintoticamente localmente euclidee e orbifold; collegamento con geometria delle singolarità, non prova del modello RGS. |
+| Christian Bär | http://geometrie.math.uni-potsdam.de/index.php/en/staff/prof-dr-christian-baer | Spettro di Dirac e space forms; vedi voce sopra. |
+| Brian Clarke | http://math.stanford.edu/~bfclarke/home/Home.html | **Nome corretto.** Non è Bruce D. Clarke e non è C. J. S. Clarke. Identità e lavori specifici da confermare dalla pagina originale o da un archivio istituzionale. |
+| Nobuhiro Honda | http://www.math.tohoku.ac.jp/~honda/ | Geometria complessa e varietà Kähler; selezionare i lavori pertinenti solo dopo verifica del profilo. |
+| Sergey Cherkis | http://www.maths.tcd.ie/~cherkis/home/Home.html | Cherkis–Kapustin, “Hyper-Kähler metrics from periodic monopoles”, *Phys. Rev. D* 65, 084015 (2002), DOI 10.1103/PhysRevD.65.084015. |
+| Andrei Moroianu | http://moroianu.perso.math.cnrs.fr/publications.html | Geometria spinoriale, Dirac e strutture quaternion-Kähler; vedi pubblicazioni e monografia sopra. |
+
+**Nota di metodo:** la pagina Physical Geometry è una fonte secondaria che aggrega link personali, non una bibliografia scientifica. È utile per ricostruire chi era stato indicato; non basta per attribuire a ciascun autore un teorema o una pubblicazione. Per gli autori con identità o pagina non più risolvibile, la voce resta esplicitamente “da verificare”.
+
+## Singer e il ponte spinoriale: fonti primarie
+
+- Michael F. Atiyah e Isadore M. Singer, “Index theory for skew-adjoint Fredholm operators”, *Publications Mathématiques de l'IHÉS* 37 (1969), 5–26, DOI 10.1007/BF02684885. [Fonte primaria](https://doi.org/10.1007/BF02684885).
+- Daniel S. Freed, “The Atiyah–Singer Index Theorem”, *Bulletin of the AMS* 58 (2021), 517–566, DOI 10.1090/bull/1747. [Articolo](https://doi.org/10.1090/bull/1747). È una rassegna moderna, non la fonte originale del teorema.
+- Nigel Hitchin, “The Dirac Operator”, *Bulletin of the AMS* 62 (2025), 3–16, DOI 10.1090/bull/1847. [Articolo](https://doi.org/10.1090/bull/1847). Rassegna storico-matematica del ruolo di Singer e del Dirac.
+- Per il nostro uso: il teorema dell'indice fornisce un vincolo topologico sull'indice di un operatore ellittico su varietà compatte con le ipotesi richieste. Non dimostra da solo la convergenza Mosco del nostro operatore discreto né l'identificazione del limite con Laplace–Beltrami–Yang–Mills.
+
+## Collegamento operativo ai teoremi già nel repository
+
+| Fonte | Teorema/filone repository | Cosa può sostenere | Cosa NON dimostra |
+|---|---|---|---|
+| Bär; Moroianu; Hitchin; Atiyah–Singer | spettro di Dirac, spin geometry, futuro ponte con (S^3/2I) | formule spettrali, condizioni spin, indice e vincoli topologici | che il grafo PRISM converga a una varietà spin o che il suo operatore discreto abbia già il limite Dirac |
+| Witt | spinori speciali e geometria 8D | modelli di strutture speciali e decomposizioni di rappresentazioni | che la geometria RGS 188D realizzi già una struttura PSU(3) o quaternion-Kähler |
+| Biquard; Viaclovsky; Cherkis | metriche Einstein, gauge, moduli, istantoni | strumenti analitici e geometrici per formulare problemi di esistenza/convergenza | una soluzione delle equazioni RGS–Yang–Mills o il limite Mosco-2 |
+| de Mello Koch et al. (2025) | filone QAT luce–topologia–Yang–Mills | esempio sperimentale di topologia OAM e mappe associate a SU(d) | equivalenza con Q6, PRISM, PSU o il modello OOU |
+| Atiyah–Singer/Freed | futura sezione indice topologico | strategia per confrontare indici discreti e continui, una volta definiti gli operatori e le ipotesi | un indice per l'operatore RGS prima della costruzione analitica completa |
+
