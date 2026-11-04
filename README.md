@@ -1,40 +1,46 @@
 # THEROEM — Programma matematico RGS–PSU–PRISM–Q6
 
-Questo repository è l'indice centrale della ricerca. Non deve essere soltanto una sequenza di teoremi: contiene una biblioteca organizzata, una mappa dei progetti, un registro delle evidenze e una sezione separata per le dimostrazioni.
+Repository centrale della ricerca: biblioteca organizzata, mappa dei progetti, inventario delle fonti, registro delle evidenze e dimostrazioni.
 
 ## Struttura effettiva
 
 ```text
 theroem/
 ├── README.md
-├── library-inventory/\n│   └── README.md\n├── manuscripts/\n│   └── README.md\n├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── library-inventory/\n│   └── README.md\n├── manuscripts/\n│   └── README.md\n├── monographs/\n│   ├── books-and-edited-volumes/\n│   ├── chapters/\n│   ├── theses/\n│   └── long-form-reviews/\n├── bibliography/\n│   ├── spin-glasses/\n│   ├── wyler-hua/\n│   ├── gauge-wilson-qft/\n│   ├── spin-geometry-quaternionic/\n│   ├── quantum-light-foundations/\n│   ├── gravity-teleparallel/\n│   ├── holography-emergent-spacetime/\n│   ├── discrete-geometry-combinatorics/\n│   ├── information-theory/\n│   └── critical-and-nonstandard/
-│   ├── README.md
+├── library-inventory/
+│   └── README.md
+├── manuscripts/
+│   └── README.md
+├── monographs/
+│   ├── books-and-edited-volumes/
+│   ├── chapters/
+│   ├── theses/
+│   └── long-form-reviews/
+├── bibliography/
 │   ├── spin-glasses/
 │   ├── wyler-hua/
 │   ├── gauge-wilson-qft/
 │   ├── spin-geometry-quaternionic/
 │   ├── quantum-light-foundations/
 │   ├── gravity-teleparallel/
+│   ├── holography-emergent-spacetime/
+│   ├── discrete-geometry-combinatorics/
+│   ├── information-theory/
 │   └── critical-and-nonstandard/
 ├── projects/
-│   └── README.md
-├── theorems/
-│   ├── T001-liouville-theorem.md
-│   ├── T002-d5-bergman-volume-density.md
-│   ├── T003-wilson-atomic-marginal-no-go.md
-│   ├── T004-riemann-sums-bergman-weak-limit.md
-│   ├── T005-q6-wilson-fiber-marginal-support.md
-│   ├── T006-q6-wilson-five-torus-quotient.md
-│   ├── T007-q6-gauge-average-fourier-marginal.md
-│   └── 001-fixed-lattice-temporal-wilson-limit.md
-└── (altre sezioni verranno aggiunte solo quando popolate)
+├── models/
+├── evidence/
+├── open-problems/
+└── theorems/
 ```
 
-Le cartelle di bibliografia sono già create e popolate con il catalogo ricostruito. Le sezioni models/evidence/open-problems sono previste ma non ancora popolate: non le dichiaro completate.
+Le directory sono state create. Le directory models/evidence/open-problems contengono registri iniziali; si aggiungeranno sottosezioni solo quando popolate.
 
-## Indice di lavoro
-
-- **Inventario dei file:** [fonti recuperate dalla Library](library-inventory/README.md), separando pubblicazioni, manoscritti interni, dati e file tecnici. La Library è stata scandita a livello di metadati: 388 elementi totali, 118 documenti PDF/testo/Markdown; l'inventario registra le fonti già identificate e segnala i file ancora da classificare.\n- **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.\n- **Monografie e capitoli:** [catalogo monografico](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.\n- **Bibliografia degli articoli:** [catalogo generale](bibliography/README.md). Include esplicitamente vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce topologica/OAM, gravità/teleparallelismo e fonti critiche/non standard.
+## Indice
+- **Inventario Library:** [fonti recuperate](library-inventory/README.md). La Library è stata scandita a livello di metadati: 388 elementi totali, 118 documenti PDF/testo/Markdown. L'inventario registra le fonti già identificate e segnala quelle ancora da classificare.
+- **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.
+- **Monografie e capitoli:** [catalogo](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.
+- **Bibliografia:** [catalogo generale](bibliography/README.md), con vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce, gravità, olografia, geometria discreta e fonti non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
 - **Dimostrazioni:** [theorems/](theorems/).
 
@@ -43,25 +49,25 @@ Le cartelle di bibliografia sono già create e popolate con il catalogo ricostru
 | ID | Oggetto | Stato / perimetro |
 |---|---|---|
 | T001 | Teorema di Liouville | Teorema classico dimostrato; applicazione PSU condizionale |
-| T002 | Densità di Bergman su D5 | Calcolo geometrico; definizione del dominio richiede audit/correzione prima di usarlo |
+| T002 | Densità di Bergman su D5 | Calcolo geometrico; definizione del dominio da sottoporre ad audit |
 | T003 | No-go marginale atomica | Dimostrato per push-forward atomico esatto; non esclude limiti deboli |
-| T004 | Riemann sums verso Bergman | Dimostrato sotto le ipotesi di compattezza e bordo nullo; non è una derivazione Wilson |
+| T004 | Riemann sums verso Bergman | Dimostrato sotto ipotesi di compattezza e bordo nullo; non è una derivazione Wilson |
 | T005 | Supporto marginale Wilson Q6 | Formula e positività; non genera cutoff duro a beta finito |
-| T006 | Quoziente gauge 5-toro | Dualità dei caratteri; richiede mantenere le ipotesi esatte sul reticolo intero |
+| T006 | Quoziente gauge 5-toro | Identificazione tramite reticoli dei caratteri |
 | T007 | Serie gauge-averaged | Espansione di Fourier assolutamente convergente |
 
-Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente del repository, non rinumerato nella sequenza T001–T007.
+Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
 ## Regole scientifiche
 
 1. Un teorema per volta, con enunciato, ipotesi, lemmi, prova e conseguenze.
 2. Niente workflow giganteschi e niente script come sostituti di dimostrazioni.
-3. Distinguere **dimostrato**, **condizionale**, **verificato numericamente**, **candidato**, **ipotesi** e **aperto**.
+3. Distinguere dimostrato, condizionale, verificato numericamente, candidato, ipotesi e aperto.
 4. Non ripetere audit già conclusi senza una ragione matematica.
 5. Le fonti si catalogano tutte; si usano in una prova solo quando sostengono un passaggio preciso.
-6. Non inventare titoli, DOI, autori o metadati: le lacune restano visibili nel catalogo.
+6. Non inventare titoli, DOI, autori o metadati: le lacune restano visibili.
 7. Le teorie non standard sono conservate e analizzate criticamente, non assunte vere né scartate senza esame.
 
-## Priorità di riordino
+## Stato del riordino
 
-La prima priorità è completare la biblioteca delle fonti già inviate dall'utente e associare ogni articolo a uno o più filoni. Solo dopo si decide quale teorema affrontare.
+La struttura bibliografica è stata avviata e collegata ai materiali recuperati dalla Library. Il catalogo non è ancora esaustivo: restano file con nomi generici, capitoli citati in conversazione ma non reperiti come file autonomi e riferimenti bibliografici da disambiguare.
