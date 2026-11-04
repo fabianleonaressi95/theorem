@@ -24,6 +24,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `Transcendental_Collapse_to_the_Golden_Ma.pdf` | *Transcendental Collapse to the Golden Master Equation* | Documento composito/sintesi |
 | `IL-CAMBIO-DERA-David-Wilcock.pdf` | David Wilcock, *Il Cambio d'Era* | Libro/divulgazione speculativa |
 | `main.pdf` | Harrabi–Naressi, *Human Design as a Geometric Coding Layer...* (2026) | Manoscritto del programma correlato, non legge fisica |
+| `DOC-20260719-WA0012.` | Fabian Leo Naressi, *Computational Analysis of the Naressi Law: Holistic Renormalization, Quasicrystalline Networks, and High-Voltage Pulse Optimization* (8 pp.; Library upload 28 Sep 2026) | Manoscritto di ricerca; modello TFIM inhomogeneo e applicazioni proposte. Non è una dimostrazione del mass gap Yang–Mills né prova di rimozione delle divergenze UV |
 
 ## Manoscritti, note e documenti tecnici interni
 | File Library | Contenuto verificato | Natura e stato |
@@ -45,7 +46,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `RGS_PSU_derivazione_audit_corretta.md`, `RGS_PSU_EMS_throat_derivation.md`, `INSERTO_MONOGRAFIA_NS_GAUGE.md` | Derivazioni e inserti interni | Materiali di lavoro, non fonti indipendenti |
 
 ## Da identificare
-Restano da esaminare `DOC-20260719-WA0012.` e gli eventuali duplicati o varianti di `Documento senza titolo`. Per `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf` e `soluzione.pdf` il contenuto è stato esaminato e la classificazione è riportata sopra; non è stato ricostruito un titolo editoriale perché sono dossier/estratti interni.
+Restano da esaminare gli eventuali duplicati o varianti di `Documento senza titolo`. Per `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf` e `soluzione.pdf` il contenuto è stato esaminato e la classificazione è riportata sopra; non è stato ricostruito un titolo editoriale perché sono dossier/estratti interni.
 
 ## Criterio di catalogazione
 Le pubblicazioni esterne, i capitoli in volumi collettanei, le review, le survey, le tesi, i manoscritti, le bibliografie interne, i documenti di progetto e gli output computazionali sono classi distinte. Una formula presente in una nota interna non diventa un teorema dimostrato per il solo fatto di essere scritta in forma matematica.
