@@ -10,6 +10,9 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 - [Inventario dei file recuperati dalla Library](../library-inventory/README.md)
 - [Bibliografia interna citata nel manoscritto Nielsen sulla fibrazione di Hopf](source-bibliographies/nielsen-hopf-manuscript.md)
 
+## Fonti citate online
+- [Autori, articoli e pagine online citati nelle conversazioni](online-citations/README.md): registro separato dai documenti caricati nella Library, con fonti verificate e lacune esplicite.
+
 ## Settori bibliografici
 - [Vetri di spin](spin-glasses/README.md)
 - [Wyler, Hua e domini simmetrici](wyler-hua/README.md)
