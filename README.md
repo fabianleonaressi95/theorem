@@ -55,6 +55,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T005 | Supporto marginale Wilson Q6 | Formula e positività; non genera cutoff duro a beta finito |
 | T006 | Quoziente gauge 5-toro | Identificazione tramite reticoli dei caratteri |
 | T007 | Serie gauge-averaged | Espansione di Fourier assolutamente convergente |
+| T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
 
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
