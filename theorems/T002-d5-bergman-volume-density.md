@@ -1,7 +1,7 @@
 # T002 — Volume di Bergman sul dominio di tipo IV in dimensione 5
 
 **Stato: DIMOSTRATO (identità geometrica esplicita).**  
-**Ruolo nel programma RGS–PSU–PRISM: identifica esattamente la densità di Bergman con una densità rispetto al volume euclideo/simplettico in coordinate; non dimostra che tale densità sia prodotta dalla marginalizzazione Wilson.**
+**Ruolo nel programma RGS–PSU–PRISM: identifica esattamente la densità di Bergman con una densità rispetto al volume piatto in coordinate; non dimostra che tale densità sia prodotta dalla marginalizzazione Wilson.**
 
 ## 1. Enunciato
 
@@ -10,7 +10,7 @@ Sia
 D_5=\{z\in\mathbb C^5:
 N(z)=1-2z^\dagger z+|z^Tz|^2>0,\quad |z^Tz|<1\}
 \]
-il dominio limitato irriducibile di tipo IV (dominio di Lie) in dimensione complessa 5. Poniamo
+il dominio limitato di tipo IV in dimensione complessa 5. Poniamo
 \[
 g_{i\bar j}= -5\,\partial_i\partial_{\bar j}\log N(z).
 \]
@@ -27,7 +27,12 @@ si ottiene
 \boxed{dV_g=N(z)^{-5}\,d\mu_0,\qquad
 d\mu_0=20^5\,d^{10}z.}
 \]
-Qui \(d^{10}z\) è il volume euclideo su \(\mathbb C^5\simeq\mathbb R^{10}\). Se le coordinate sono normalizzate come coordinate canoniche \((q,p)\) tramite \(z=(q+ip)/\sqrt{2}\), allora \(d\mu_0\) è una costante convenzionale per la misura di Liouville. La costante dipende dalla normalizzazione scelta per \(q,p,z\), mentre il fattore non costante \(N^{-5}\) è quello geometrico.
+
+Qui \(d^{10}z\) è il volume euclideo su \(\mathbb C^5\simeq\mathbb R^{10}\). Se \(z=(q+ip)/\sqrt2\), con \(\omega_0=\sum_{j=1}^5dq_j\wedge dp_j\), allora \(d^{10}z=2^{-5}d\mu_L\), dove \(d\mu_L=dq_1\cdots dq_5dp_1\cdots dp_5\) a meno dell'orientazione. Pertanto, con questa precisa normalizzazione,
+\[
+d\mu_0=10^5d\mu_L.
+\]
+La costante dipende dalla normalizzazione delle coordinate; il fattore non costante \(N^{-5}\) è quello geometrico.
 
 ## 2. Calcolo della matrice metrica
 
@@ -53,44 +58,51 @@ dove
 A_{i\bar j}=N N_{i\bar j}-N_iN_{\bar j}.
 \]
 
-## 3. Identità determinante
+## 3. Dimostrazione dell'identità determinante
 
-L'identità algebrica necessaria è
+Poniamo \(v=z\), \(w=\bar z\), e consideriamo \(U=(v\;w)\), matrice \(5\times2\). Dalle derivate precedenti,
 \[
-\boxed{\det A=(-2)^5N^5.}
+A=-2NI_5+UCU^T,
+\qquad
+C=4\begin{pmatrix}
+\bar t & N-t\bar t\\
+-1 & t
+\end{pmatrix}.
 \]
-
-La si verifica applicando il lemma del determinante
+Inoltre
 \[
-\det(M+UV^T)=\det(M)\det(I+V^TM^{-1}U)
+U^TU=G=\begin{pmatrix}t&s\\s&\bar t\end{pmatrix}.
 \]
-a \(M=-2NI_5\). Infatti, ponendo \(v=z\), \(w=\bar z\), la matrice \(A\) è una perturbazione di \(-2NI_5\) di rango al più due, perché
+Per il lemma del determinante (o sua forma rettangolare),
 \[
-A=-2NI_5+4Nvw^T
--4(w-\bar t v)(v^T-tw^T).
+\det A=(-2N)^5
+\det\left(I_2-\frac{1}{2N}CG\right).
 \]
-Si applica quindi il lemma nella forma a rango due, riducendo il determinante a quello di una matrice \(2\times2\). Sostituendo
+Il determinante ridotto, calcolato esplicitamente, è
 \[
-v^Tv=t,\quad w^Tw=\bar t,\quad v^Tw=w^Tv=s,
+\det\left(I_2-\frac{1}{2N}CG\right)
+=-\frac{2Ns-N-2s|t|^2+4s^2-2s}{N}.
 \]
-e \(N=1-2s+t\bar t\), il determinante ridotto si semplifica in \(N^5\); il fattore proveniente da \(-2NI_5\) dà precisamente
+Usando \(N=1-2s+|t|^2\), il numeratore tra parentesi si riduce a
 \[
-\det A=(-2N)^5\frac{N^5}{N^5}=(-2)^5N^5.
+2Ns-N-2s|t|^2+4s^2-2s=2s-|t|^2-1=-N.
 \]
-Questa è un'identità polinomiale, valida su tutto il dominio (e per continuità anche nei punti in cui la rappresentazione intermedia del lemma usa una matrice singolare).
-
+Quindi il determinante ridotto vale 1 e
+\[
+\boxed{\det A=(-2N)^5.}
+\]
 Ne segue
 \[
 \det g
 =\left(-\frac5{N^2}\right)^5\det A
-=\frac{5^5\,2^5}{N^5}
+=\frac{5^5 2^5}{N^5}
 =\frac{10^5}{N^5}.
 \]
-La positività della metrica sul dominio scelto è quella della metrica di Bergman del dominio di tipo IV; il calcolo determina il suo determinante nella normalizzazione qui fissata.
+Il calcolo vale dove si applica direttamente il lemma; l'identità si estende per continuità ai punti rimanenti del dominio.
 
 ## 4. Conseguenza per la misura
 
-Per definizione della convenzione adottata,
+Per la convenzione adottata,
 \[
 dV_g=2^5\det(g)\,d^{10}z
 =\frac{2^5 10^5}{N^5}d^{10}z
@@ -100,7 +112,7 @@ Dunque
 \[
 \boxed{dV_g=N^{-5}d\mu_0.}
 \]
-Questa è la relazione precisa fra volume di Bergman e volume piatto nella carta \(D_5\). Non è un'uguaglianza fra due misure invarianti senza specificare la carta e la normalizzazione.
+Questa è la relazione precisa fra volume metrico di Bergman e volume piatto nella carta \(D_5\), con le normalizzazioni dichiarate.
 
 ## 5. Cosa segue — e cosa non segue — per Liouville e Wilson
 
@@ -117,4 +129,4 @@ Il ponte ancora da dimostrare è quindi una mappa (o limite di mappe) dal settor
 - S. Helgason, *Differential Geometry, Lie Groups, and Symmetric Spaces*, Academic Press, 1978.
 - J. Faraut e A. Korányi, *Analysis on Symmetric Cones*, Oxford University Press, 1994.
 
-I riferimenti riguardano domini simmetrici, loro funzioni di Bergman e geometria; non sono presentati come prova di un'identificazione fisica con PSU o Q6.
+I riferimenti riguardano domini simmetrici, funzioni di Bergman e geometria; non sono presentati come prova di un'identificazione fisica con PSU o Q6.
