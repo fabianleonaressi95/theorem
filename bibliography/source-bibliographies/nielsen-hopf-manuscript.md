@@ -14,3 +14,9 @@ The manuscript's bibliography explicitly includes the following sources relevant
 - Barry Simon, *Holonomy, the quantum adiabatic theorem, and Berry’s phase* (1983).
 
 This is a provenance register only. The presence of a citation in the Nielsen manuscript does not validate the manuscript's claims or show that the cited source supports those claims. The primary sources must be checked independently.
+
+## Related independent theorem in THEROEM
+
+The Hopf-fibration research thread now also links to [T010 — Rumin spectral reduction on the Poincaré homology sphere](../../theorems/T010-rumin-spectrum-poincare-sphere.md). T010 studies the standard contact/Sasakian structure on (S^3/2I), the finite-group character projection of Rumin eigenspaces, and a separate scalar-Laplacian benchmark.
+
+This is an independent mathematical development, not a theorem attributed to Nielsen and not evidence that the Nielsen manuscript's physical or geometric claims are established. The bibliography above remains a record of sources cited by that manuscript.
