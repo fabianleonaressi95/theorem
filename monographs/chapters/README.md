@@ -6,7 +6,7 @@ Volume curato da Martín López-Corredoira e Carlos Castro Perelman.
 2. Tom Van Flandern — “Peer Pressure and Paradigms”.
 3. Wolfgang Kundt — “The Gold Effect”.
 
-## *Gravitational Energy Control* (2026)
+Indice completo dei contributi: [elenco dei 99 titoli con pagine](../books-and-edited-volumes/de-aquino-gravitational-energy-control-index.md).\n\n## *Gravitational Energy Control* (2026)
 Raccolta di Fran De Aquino. L'indice del volume è registrato in [books-and-edited-volumes](../books-and-edited-volumes/README.md). I 95 articoli dichiarati (indice con numerazione fino a 99) vanno trattati come contributi individuali, con pagine e metadati ricavati dal PDF, non come un unico argomento indistinto.
 
 ## Capitoli della tesi di Maurice Weiler
