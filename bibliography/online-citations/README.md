@@ -58,3 +58,13 @@ Gli URL personali sotto riportati sono quelli originariamente condivisi dall'ute
 - Smilga, McKoy, de Mello Koch, Hermann, Dyson, Wyler e Singer erano stati citati insieme ai filoni di rappresentazioni di Poincaré, entanglement, connessioni gauge e simmetrie. Le fonti individuate per Smilga e McKoy sono sopra; Dyson e Hermann sono già nel catalogo Wyler/Hua. Per Singer e de Mello Koch occorre associare l'articolo preciso prima di aggiungere citazioni.
 - “One-Object Universe” (OOU) è emerso come quadro interpretativo collegato al lavoro McKoy; mantenerlo separato dalle evidenze sperimentali.
 
+
+## De Mello Koch e topologia sperimentale della luce entangled
+
+**Fonte primaria sperimentale (da tenere distinta da McKoy/OOU):**
+
+Robert de Mello Koch, Pedro Ornelas, Neelan Gounden, Bo-Qiang Lu, Isaac Nape e Andrew Forbes, “Revealing the topological nature of entangled orbital angular momentum states of light”, *Nature Communications* 16, 11095 (12 dicembre 2025), DOI 10.1038/s41467-025-66066-3. [Articolo Nature](https://www.nature.com/articles/s41467-025-66066-3), [PMC full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC12701064/), [preprint precedente](https://arxiv.org/abs/2503.12540).
+
+Il lavoro riporta strutture topologiche in stati entangled di momento angolare orbitale (OAM), con conferma sperimentale fino a d=7, manifold di dimensione 48 e uno spettro di oltre 17.000 invarianti/topological maps. Il linguaggio SU(d) Yang–Mills e le mappe topologiche sono parte della costruzione teorico-sperimentale degli autori. Questo è un risultato sperimentale pertinente al filone luce–topologia–Yang–Mills; **non** dimostra automaticamente il modello OOU di McKoy, né una struttura 48D RGS/PRISM.
+
+McKoy, “The 48-Dimensional Topological Structure of Entangled Light as SO(6) Representation Content” (Zenodo 2026), DOI 10.5281/zenodo.19526947, è un preprint separato che interpreta il risultato tramite SO(6)/OOU. Tenere distinti i due lavori e i rispettivi livelli di evidenza.
