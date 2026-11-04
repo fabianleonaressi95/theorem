@@ -45,7 +45,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `RGS_PSU_derivazione_audit_corretta.md`, `RGS_PSU_EMS_throat_derivation.md`, `INSERTO_MONOGRAFIA_NS_GAUGE.md` | Derivazioni e inserti interni | Materiali di lavoro, non fonti indipendenti |
 
 ## Da identificare
-Restano da esaminare `yess.pdf`, `DOC-20260719-WA0012.` e gli eventuali duplicati o varianti di `Documento senza titolo`. Per `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf` e `soluzione.pdf` il contenuto è stato esaminato e la classificazione è riportata sopra; non è stato ricostruito un titolo editoriale perché sono dossier/estratti interni.
+Restano da esaminare `DOC-20260719-WA0012.` e gli eventuali duplicati o varianti di `Documento senza titolo`. Per `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf` e `soluzione.pdf` il contenuto è stato esaminato e la classificazione è riportata sopra; non è stato ricostruito un titolo editoriale perché sono dossier/estratti interni.
 
 ## Criterio di catalogazione
 Le pubblicazioni esterne, i capitoli in volumi collettanei, le review, le survey, le tesi, i manoscritti, le bibliografie interne, i documenti di progetto e gli output computazionali sono classi distinte. Una formula presente in una nota interna non diventa un teorema dimostrato per il solo fatto di essere scritta in forma matematica.
