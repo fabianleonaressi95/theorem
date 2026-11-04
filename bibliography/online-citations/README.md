@@ -123,3 +123,48 @@ Sono stati identificati alcuni articoli primari in più; i nomi per cui non è a
 - **Brian Clarke**: corretto il nome sulla base della pagina Physical Geometry, ma non ancora verificata una pubblicazione matematica riconducibile al profilo Stanford. La vecchia voce “Bruce D. Clarke” va ignorata; il Bruce D. Clarke emerso nelle ricerche è un ricercatore di letteratura/scienza e non è l'autore indicato da quel link.
 - **Julien Keller, Bianca Santoro, Marco Kühnel, Iona Șuvaina**: link personali riportati dalla pagina aggregatrice. Nessuna pubblicazione è stata ancora attribuita con certezza ai link storici, quindi non vengono inseriti titoli congetturali. Per Iona Șuvaina e Marco Kühnel la ricerca bibliografica va proseguita con l'identificazione istituzionale corretta.
 
+
+
+## Completamento dei cinque nomi rimasti in sospeso (ricerca bibliografica)
+
+### Julien Keller
+Identità confermata: matematico di geometria complessa, precedentemente all'Université de Provence/Aix-Marseille. Articoli primari:
+- Keller–Zheng, “Construction of constant scalar curvature Kähler cone metrics”, *Proceedings of the London Mathematical Society* 117(3) (2018), 527–573, DOI 10.1112/plms.12132. [Wiley](https://doi.org/10.1112/plms.12132). Il lavoro dimostra risultati di esistenza per metriche cscK con singolarità coniche e usa un risultato di alternativa di Fredholm per l'operatore di Lichnerowicz.
+- Keller, “About canonical Kähler metrics on Mumford semistable projective bundles over a curve”, *Journal of the London Mathematical Society* (2016), DOI 10.1112/jlms/jdv066. [Wiley](https://doi.org/10.1112/jlms/jdv066).
+- Keller, “Ricci iterations on Kähler classes”, *J. Inst. Math. Jussieu* 8(4) (2009), 743–768, DOI 10.1017/S1474748009000103. [Cambridge](https://doi.org/10.1017/S1474748009000103).
+**Connessione RGS:** strumenti per metriche canoniche, operatori ellittici e analisi di stabilità. Non dimostrano la convergenza Mosco-2 del grafo.
+
+### Bianca Santoro
+Identità confermata dal profilo CCNY e dai record MIT. Articoli:
+- “On the asymptotic expansion of complete Ricci-flat Kähler metrics on quasi-projective manifolds”, *Journal für die reine und angewandte Mathematik* 615 (2008), 59–91, DOI 10.1515/CRELLE.2008.010. [De Gruyter](https://doi.org/10.1515/CRELLE.2008.010), [arXiv](https://arxiv.org/abs/1205.1027).
+- “On complete Ricci-flat metrics on open Kähler manifolds”, *Matemática Contemporânea* 30 (2006), 145–168.
+- PhD thesis, *Asymptotic behavior of complete Ricci-flat metrics on open manifolds*, MIT (2006), [MIT handle](http://hdl.handle.net/1721.1/34618).
+**Connessione RGS:** asintotiche di metriche Ricci-flat e costruzioni approssimanti su varietà non compatte. Riferimento utile per formulare ipotesi di controllo asintotico; non è una prova di convergenza per PRISM.
+
+### Marco Kühnel
+Identità e pagina pubblicazioni confermate. Fonte primaria:
+- Kühnel–Koehler, “On asymptotics of complete Ricci-flat Kähler metrics on open manifolds”, *Manuscripta Mathematica* 132 (2010), 431–462.
+- Kühnel–Koehler, “On invariance and Ricci-flatness of Hermitian metrics on open manifolds”, *Commentarii Mathematici Helvetici* 81(3) (2006), 543–567, DOI 10.4171/CMH/63. [DOI](https://doi.org/10.4171/CMH/63).
+- Kühnel, *Ricci-flat Complex Geometry and its Applications*, Habilitationsschrift, Otto-von-Guericke-Universität Magdeburg (2010), [testo completo](https://opendata.uni-halle.de/bitstream/1981185920/11118/1/habil.pdf).
+**Connessione RGS:** geometria Hermitiana e Ricci-flat su varietà aperte, asintotiche e invarianti. Non identifica automaticamente la metrica RGS con una metrica Kähler.
+
+### Brian Clarke
+Identità confermata: è il matematico Brian Clarke associato alla pagina Stanford storica, non Bruce D. Clarke e non C. J. S. Clarke. Il suo filone è la geometria dello spazio delle metriche Riemanniane:
+- “The completion of the manifold of Riemannian metrics”, *Journal of Differential Geometry* (2013).
+- “Geodesics, distance, and the CAT(0) property for the manifold of Riemannian metrics”, *Mathematische Zeitschrift* (2013).
+- Clarke–Rubinstein, “Ricci flow and the metric completion of the space of Kähler metrics”, *American Journal of Mathematics* (2013).
+- Clarke–Jakobson–Kamran–Silberman–Taylor, “Gaussian measures on the space of Riemannian metrics”, *Annales mathématiques du Québec* (2015).
+Indice bibliografico del gruppo di ricerca: https://maigegroup.github.io/publications/
+**Connessione RGS:** spazio funzionale delle metriche, completamento metrico, geodetiche e proprietà CAT(0); utile per lo spazio delle vierbein/metriche e la nozione di convergenza, ma non sostituisce una dimostrazione Mosco.
+
+### Iona Șuvaina
+Il link storico riportato dalla pagina aggregatrice è stato identificato come profilo Vanderbilt, ma la ricerca non ha prodotto un record primario sufficientemente sicuro da associare a quel preciso link. **Non inserisco titoli congetturali.** Stato: identificazione bibliografica ancora aperta; serve verificare il profilo istituzionale e disambiguare la grafia del nome prima di associare lavori su ALE/Ricci-flat.
+
+## Priorità scientifica risultante
+
+La bibliografia ora individua tre famiglie di strumenti effettivamente pertinenti:
+1. **Metriche Ricci-flat e asintotiche:** Santoro, Kühnel–Koehler, Tian–Yau.
+2. **Operatori ellittici, metriche coniche e stabilità:** Keller–Zheng, Stoppa–Székelyhidi.
+3. **Spazio delle metriche, geometria spinoriale e operatori di Dirac:** Clarke, Bär, Moroianu, Witt, Atiyah–Singer.
+
+Per la dimostrazione RGS rimane il vero collo di bottiglia: specificare gli spazi di Hilbert, le forme quadratiche discrete, le identificazioni/interpolazioni, la coercività uniforme e la liminf/recovery sequence. Queste pubblicazioni forniscono strumenti e precedenti geometrici, ma nessuna dimostra da sola il limite Mosco-2 del grafo PRISM o la sua identificazione con l'operatore Laplace–Beltrami–Yang–Mills.
