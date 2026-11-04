@@ -8,6 +8,7 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 - [Monografie, volumi curati, capitoli, tesi e review](../monographs/README.md)
 - [Manoscritti e documenti di ricerca](../manuscripts/README.md)
 - [Inventario dei file recuperati dalla Library](../library-inventory/README.md)
+- [Bibliografia interna citata nel manoscritto Nielsen sulla fibrazione di Hopf](source-bibliographies/nielsen-hopf-manuscript.md)
 
 ## Settori bibliografici
 - [Vetri di spin](spin-glasses/README.md)
