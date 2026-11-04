@@ -139,7 +139,7 @@ La formula Fourier–Haar di T005 e l'integrazione sulle fibre del quoziente dan
 W_\beta([c])=
 \int_{H_L/G}
 \bar f_\beta([x])\,
-\overline{\chi_{[c]}([x])}\,
+\chi_{[c]}([x])\,
 d\mu_{H_L/G}([x]).
 }
 \]
