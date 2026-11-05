@@ -85,6 +85,7 @@ Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistent
 | [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
 | [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
 | [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Correlatore microscopico su Q6 e PRISM | Shell correlators, decomposizione self/pair e fit condizionali; dati fisici RGS–PSU ancora da fornire |
+| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |
 
 ## Collegamento con il filone Nielsen/Hopf
 
@@ -126,7 +127,7 @@ La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.
 T047 dimostra, nel modello minimale di Weyssenhoff con spin per particella conservato e media locale isotropa, che il termine quadratico algebrico di spin scala come a⁻⁶ e ha equazione di stato stiff. Questo esclude l'identificazione diretta con la componente fenomenologica dust-like a⁻³ della PR #77, sotto le ipotesi dichiarate. La derivazione e i test sono in `theorems/T047-ec-weyssenhoff-spin-scaling.md`, `scripts/ec_spin_fluid_scaling.py` e `tests/test_ec_spin_fluid_scaling.py`.
 ## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
 
-T049 costruisce il ponte tra corrente microscopica di spin, correlatore connesso e invariante quadratico; separa auto-correlazione e correlazione di coppia. T049A implementa il correlatore per shell su Q6 e PRISM, con repliche, occupazioni, volume fisico, decomposizione self/pair e fit condizionali. Non assume una correlazione RGS–PSU non standard: servono ancora i vettori microscopici con normalizzazione e prescrizione del contatto dichiarate. Vedi `theorems/T049-microscopic-spin-correlation-invariant.md`, `theorems/T049A-q6-prism-spin-correlator.md`, `scripts/q6_prism_spin_correlator.py` e i relativi test.
+T049 costruisce il ponte tra corrente microscopica di spin, correlatore connesso e invariante quadratico. T049A implementa il correlatore spaziale vettoriale per shell su Q6 e PRISM. T049B aggiunge la corrente assiale reale J5^a nella firma (-+++), il secondo momento lorentziano M^ab, il contatto EC, il correlatore tensoriale per shell e la decomposizione self/pair della cella. Il sorgente RGS–PSU possiede già un motore di ensemble EC–Dirac, ma non un dataset validato di J5^a sui vertici Q6/PRISM: servono gli spinori/bilineari con unità, normalizzazione e prescrizione del contatto dichiarate. Nessun esponente cosmologico fisico è quindi attribuito a RGS–PSU.
 
 T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
 
