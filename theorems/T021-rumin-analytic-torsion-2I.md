@@ -1,6 +1,6 @@
 # T021 — Character-twisted Rumin analytic torsion on the Poincaré sphere
 
-**Status:** exact finite-group/Molien reduction established; high-precision torsion values independently match the published spherical-space-form benchmark. The reduction is explicit and reproducible in principle, but the final Gamma-product identities and the operator/metric convention match between Kitaoka and Rumin–Seshadri still require a written symbolic proof. This file is an audit theorem with clearly delimited hypotheses, not a claim that every convention issue has been settled.
+**Status:** exact finite-group/Molien reduction established. T022 supplies the corrected eventual Hurwitz decomposition; T023 supplies exact Gamma-to-sine reductions (currently under review in PR #20); T024 proves the three-dimensional Kitaoka/Rumin–Seshadri operator and torsion-convention matching. The determinant-line volume normalization for the trivial local system is treated below. This remains an audit theorem with explicit hypotheses and does not imply any Q6/PRISM continuum result.
 
 **Object:** the quotient (M=S^3/2I), where (2I\subset SU(2)) is the binary icosahedral group of order 120.
 
@@ -184,12 +184,10 @@ Dowker–Chang independently report the same algebraic torsion values for the sp
 4. The period-60 reduction to a finite Hurwitz-zeta sum follows exactly.
 5. High-precision Gamma-product evaluations agree with the independent Dowker–Chang torsion table, with the label and metric conventions stated above.
 
-**Not yet claimed**
-1. A symbolic proof reducing all nine Gamma products to the displayed algebraic values.
-2. A complete operator-level identification of Kitaoka's modified Rumin Laplacians and the Rumin–Seshadri contact complex, including grading, determinant-line metric, and inverse/sign convention.
-3. A new theorem about PRISM/Q6 continuum limits, Yang–Mills, or physical matter. None follows from this finite-group torsion calculation.
-
-The equality between contact torsion and Ray–Singer torsion in Rumin–Seshadri is a theorem for their stated CR-Seifert setup and convention. Applying it to a particular Kitaoka normalization requires the operator-level matching just listed; the present numerical agreement is a consistency check, not a substitute for that matching.
+**Remaining qualifications**
+1. The exact Gamma-to-sine proof is recorded in T023 and awaits review/merge of PR #20.
+2. The operator and sign-convention identification is proved separately in [T024](T024-rumin-kitaoka-operator-matching-3d.md); it uses the special fact that all Kitaoka rescaling factors equal one when the contact dimension is three.
+3. No theorem about PRISM/Q6 continuum limits, Yang–Mills, or physical matter follows from this finite-group torsion calculation.
 
 ## 7. Reproducibility and next proof obligations
 
@@ -218,7 +216,7 @@ Acceptance tests for the next iteration:
 - **Exact derivation:** character projection, Molien covariants, period-60 Hurwitz reduction.
 - **High-precision numerical verification:** all nine torsion values and the contact-volume scaling.
 - **Independent published benchmark:** Dowker–Chang spherical-space-form table.
-- **Open:** symbolic Gamma identities and full operator/convention matching.
+- **Open/review:** acceptance of the exact Gamma identities in T023 (PR #20). The dimension-three operator and torsion-convention matching is proved in T024.
 
 
 ## 8. Erratum: eventual period versus the initial Dirichlet segment
