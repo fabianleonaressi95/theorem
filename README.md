@@ -64,6 +64,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T016 | Nielsen–Ninomiya e audit Q6 | Ipotesi/topologia ricostruite; identità finite Q6 verificate; nessuna evasione del no-go theorem |
 | [T017](theorems/T017-q6-dirac-refinement.md) | Raffinamento cubico Q6–Dirac | Raffinamento esplicito \((C_{2n})^{\square6}\); 64 corner zeros naïve; Wilson lift; limite di simbolo provato; convergenza spettrale completa aperta |
 | [T019](theorems/T019-q6-free-strong-resolvent.md) | Limite libero di risolvente forte Q6–Wilson | Convergenza forte generalizzata del risolvente sul toro piatto di lato 2; non è convergenza in norma né limite gauge-interagente |
+| [T020](theorems/T020-q6-smooth-gauge-resolvent.md) | Limite gauge-covariante regolare Q6–Wilson | Risolvente forte generalizzato per connessione SU(3) liscia fissata e link da trasporto parallelo; nessuna integrazione gauge o limite interagente |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
