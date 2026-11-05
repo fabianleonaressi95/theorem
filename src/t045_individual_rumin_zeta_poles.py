@@ -3,6 +3,12 @@
 The individual degree zeta functions have simple poles at s=0.  This module
 derives their residues from a Hurwitz expansion of the interior double sum.
 The alternating Rumin combination cancels these poles exactly.
+"""T045-R1: corrected local meromorphic audit of the separate Rumin zeta functions.
+
+The previous T045 residue calculation assigned singular contributions to the
+wrong binomial indices.  With the stated Hurwitz expansion, the only possible
+simple pole comes from k=1 and is proportional to sum_r(beta_r-alpha_r).
+The exact Molien moment identity makes this sum zero in every 2I sector.
 """
 from __future__ import annotations
 from fractions import Fraction
@@ -26,6 +32,7 @@ def quasipolynomial_data(label, verify_steps=4):
     (1-t^60)^2 A_rho(t) is a polynomial. Its degree gives a recurrence
     cutoff; beyond it, each residue class modulo 60 is affine in m.
     """
+    """Return exact b_(m,r)=alpha_r*m+beta_r beyond a certified cutoff."""
     if label not in IRREP_DIMENSIONS:
         raise KeyError(label)
     t, A = _molien_rational_function(label)
@@ -51,6 +58,8 @@ def quasipolynomial_data(label, verify_steps=4):
         "alpha": alpha,
         "beta": beta,
         "starts": starts,
+        "cutoff": cutoff, "polynomial_degree": int(Qpoly.degree()),
+        "alpha": alpha, "beta": beta, "starts": starts,
         "sum_alpha": sum(alpha.values(), Fraction(0)),
         "sum_beta": sum(beta.values(), Fraction(0)),
     }
@@ -66,6 +75,7 @@ def hurwitz_odd_progression(residue, z):
 
 def interior_hurwitz_expansion(label):
     """Return the exact convergent Hurwitz-series specification for H_rho."""
+    """Return the exact Hurwitz-series specification and correct pole ledger."""
     data = quasipolynomial_data(label)
     return {
         "cutoff": data["cutoff"],
@@ -73,6 +83,7 @@ def interior_hurwitz_expansion(label):
         "odd_variable_period": PERIOD_ODD,
         "odd_residues": list(ODD_RESIDUES),
         "m_residue": "r(A,B)=((A+B-2)/2) mod 60",
+        "m_residue": "r=((A+B-2)/2) mod 60",
         "weight": "alpha_r*(a+b)/2 + beta_r-alpha_r",
         "base_change": "Lambda=(ab-1)^2/16, a=2p+1, b=2q+1",
         "binomial": "(ab-1)^(-2s)=(ab)^(-2s)*sum_{k>=0}(2s)_k/(k!*(ab)^k)",
@@ -87,6 +98,20 @@ def interior_hurwitz_expansion(label):
             "k2_beta_minus_alpha": "double Hurwitz pole; residue contribution sum(beta-alpha)/480",
             "k3_alpha": "two double Hurwitz poles; total residue contribution sum(alpha)/480",
         },
+            "H_finite(s)+16^s*sum_k (2s)_k/k!*sum_(A,B)["
+            "alpha_r/2*(U_A(2s+k-1)U_B(2s+k)+U_A(2s+k)U_B(2s+k-1))"
+            "+(beta_r-alpha_r)*U_A(2s+k)U_B(2s+k)]"
+        ),
+        "pole_terms": {
+            "k1_beta_minus_alpha": (
+                "the only possible simple pole: (2s)_1*(beta-alpha)*"
+                "U_A(1+2s)*U_B(1+2s); total residue=sum(beta-alpha)/480"
+            ),
+            "k1_alpha_terms": "at most one Hurwitz pole, killed by (2s)_1=O(s)",
+            "k_ge_2": "at most one Hurwitz pole in alpha terms and none in beta terms; (2s)_k=O(s)",
+            "k0": "Hurwitz arguments are 0; regular at s=0",
+        },
+        "uniformity": "a,b>=3 gives 1/(ab)<=1/9; the binomial tail is locally uniformly geometric near s=0",
     }
 
 
@@ -108,6 +133,16 @@ def sector_residues(label):
         "residue_zeta0": str(residue_H),
         "residue_zeta1": str(2*residue_H),
         "residue_kappa": str(-2*residue_H+2*residue_H),
+    residue = (data["sum_beta"]-data["sum_alpha"])/480
+    if residue != 0:
+        raise AssertionError(f"individual zeta residue did not cancel in sector {label}")
+    return {
+        "dimension": d, "cutoff": data["cutoff"],
+        "sum_alpha": str(data["sum_alpha"]), "sum_beta": str(data["sum_beta"]),
+        "sum_beta_minus_alpha": str(data["sum_beta"]-data["sum_alpha"]),
+        "residue_interior_H": str(residue),
+        "residue_zeta0": str(residue), "residue_zeta1": str(2*residue),
+        "residue_kappa": str(-2*residue+2*residue),
     }
 
 
@@ -120,6 +155,12 @@ def audit():
         "residue_formulas": {
             "Res_zeta0_rho_at_0": "dim(rho)/960",
             "Res_zeta1_rho_at_0": "dim(rho)/480",
+        "task": "T045-R1",
+        "passed": True,
+        "individual_zeta_status": "regular at s=0 under the stated Hurwitz continuation",
+        "residue_formulas": {
+            "Res_zeta0_rho_at_0": "0",
+            "Res_zeta1_rho_at_0": "0",
             "Res_minus2zeta0_plus_zeta1": "0",
         },
         "sectors": sectors,
@@ -130,6 +171,14 @@ def audit():
             "eventual_multiplicity": "b_(m,rho)=alpha_(m mod 60)*m+beta_(m mod 60)",
             "periodicity_proof": "(1-t^60)^2*A_rho(t) is a polynomial",
             "Hurwitz_progressions": "U_A(z)=120^(-z)*zeta_H(z,a_A/120)",
+            "odd_substitution": "a=2p+1,b=2q+1",
+            "eigenvalue": "Lambda=(ab-1)^2/16",
+            "eventual_multiplicity": "b_(m,rho)=alpha_(m mod 60)*m+beta_(m mod 60)",
+            "periodicity_proof": "(1-t^60)^2*A_rho(t) is a polynomial",
+            "hurwitz_progressions": "U_A(z)=120^(-z)*zeta_H(z,a_A/120)",
+            "only_candidate_pole": "k=1 beta-alpha double-Hurwitz term",
+            "candidate_residue": "sum_r(beta_r-alpha_r)/480=0",
+            "boundary_terms": "B_rho and C_rho are regular at zero",
             "uniform_expansion_region": "a,b>=3 implies 1/(ab)<=1/9",
         },
         "status": {
@@ -146,6 +195,14 @@ def audit():
                 "ordinary individual zeta determinants exp(-zeta_k,rho'(0))",
             ],
             "next_possible_object": "Hadamard finite-part determinants with an explicitly fixed scale and subtraction convention",
+                "cancellation of the only candidate Hurwitz residue in all nine sectors",
+                "regularity at zero of the two separate degree zeta functions, subject to the stated locally uniform continuation",
+            ],
+            "not_yet_computed": [
+                "individual Laurent constants C_0 and C_1",
+                "individual derivatives D_0 and D_1",
+                "individual zeta determinant values",
+            ],
         },
     }
 

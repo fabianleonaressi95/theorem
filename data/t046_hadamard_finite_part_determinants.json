@@ -6,6 +6,12 @@
   "exact_residues": {
     "zeta0": "dim(rho)/960",
     "zeta1": "dim(rho)/480",
+  "task": "T046-R1",
+  "premise": "Corrected T045 gives zero individual residues; separate zeta functions are regular at zero under the stated continuation.",
+  "scheme": "Optional scaled determinant for regular zeta: log det_mu=-(D+2*C*log(mu)); at mu=1 this is the ordinary zeta determinant.",
+  "exact_residues": {
+    "zeta0": "0",
+    "zeta1": "0",
     "alternating": "0"
   },
   "exact_kappa_value_at_zero": {
@@ -16,6 +22,9 @@
     "all_scales": "log(det_FP,1,rho(mu))-2*log(det_FP,0,rho(mu))=-2*log(T_rho)",
     "determinant_ratio": "det_FP,1,rho(mu)/det_FP,0,rho(mu)^2=T_rho^(-2)",
     "scale_dependence": "the alternating ratio is independent of mu"
+    "all_scales": "D1_mu-2*D0_mu=2*log(T_rho)",
+    "constant": "C1-2*C0=0",
+    "scale_dependence": "the alternating derivative relation is independent of mu"
   },
   "individual_coefficients": {
     "C0": "not determined",

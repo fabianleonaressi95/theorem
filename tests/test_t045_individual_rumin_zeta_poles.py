@@ -6,6 +6,7 @@ from src.t045_individual_rumin_zeta_poles import (
     quasipolynomial_data, sector_residues,
 )
 
+
 @pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
 def test_affine_quasipolynomial_molien_tail(label):
     data = quasipolynomial_data(label, verify_steps=5)
@@ -21,9 +22,21 @@ def test_individual_zeta_residues(label):
     assert result["residue_zeta1"] == str(Fraction(d, 480))
     assert result["residue_kappa"] == "0"
 
+
+@pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
+def test_candidate_residue_cancels_exactly_in_every_sector(label):
+    result = sector_residues(label)
+    assert result["sum_beta_minus_alpha"] == "0"
+    assert result["residue_interior_H"] == "0"
+    assert result["residue_zeta0"] == "0"
+    assert result["residue_zeta1"] == "0"
+    assert result["residue_kappa"] == "0"
+
+
 def test_odd_residue_classes_are_all_present():
     assert len(ODD_RESIDUES) == 60
     assert ODD_RESIDUES[0] == 1 and ODD_RESIDUES[-1] == 119
+
 
 def test_hurwitz_progression_formula():
     import sympy as sp
@@ -38,3 +51,11 @@ def test_hurwitz_expansion_contains_only_expected_double_poles(label):
     assert "k2_beta_minus_alpha" in spec["pole_terms"]
     assert "k3_alpha" in spec["pole_terms"]
     assert spec["odd_variable_period"] == 120
+
+@pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
+def test_only_k1_beta_minus_alpha_is_a_candidate_pole(label):
+    spec = interior_hurwitz_expansion(label)
+    assert "k1_beta_minus_alpha" in spec["pole_terms"]
+    assert "k2_beta_minus_alpha" not in spec["pole_terms"]
+    assert "k3_alpha" not in spec["pole_terms"]
+    assert "sum_r(beta_r-alpha_r)/480" in spec["pole_terms"]["k1_beta_minus_alpha"]

@@ -92,4 +92,100 @@
   "pytest_executed": false,
   "github_actions_executed": false,
   "finite_part_determinants": "not defined until a subtraction and scale convention is specified"
+  "task": "T045-R1",
+  "correction": "The previous k=2/k=3 pole classification was incorrect. The only candidate is the k=1 beta-alpha term.",
+  "exact": true,
+  "conclusion": "The candidate residue is sum_r(beta_r-alpha_r)/480 and vanishes exactly because sum(alpha)=sum(beta)=dim(rho)/2. Both separate degree zeta functions are regular at s=0 under the stated locally uniform Hurwitz continuation.",
+  "residue_formulas": {
+    "zeta0": "0",
+    "zeta1": "0",
+    "alternating": "0"
+  },
+  "candidate_term": "(2s)_1*(beta_r-alpha_r)*U_A(1+2s)*U_B(1+2s)",
+  "candidate_residue": "sum_r(beta_r-alpha_r)/480",
+  "pole_classification": {
+    "k0": "all Hurwitz arguments regular at zero",
+    "k1": "only beta-alpha product has a double Hurwitz pole; alpha products have at most one",
+    "k_ge_2": "at most one Hurwitz pole in alpha products; no Hurwitz poles in beta products"
+  },
+  "molien_moments": "sum(alpha)=sum(beta)=dim(rho)/2",
+  "sectors": {
+    "1": {
+      "dimension": 1,
+      "sum_alpha": "1/2",
+      "sum_beta": "1/2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "2": {
+      "dimension": 2,
+      "sum_alpha": "1",
+      "sum_beta": "1",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "3": {
+      "dimension": 3,
+      "sum_alpha": "3/2",
+      "sum_beta": "3/2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "4": {
+      "dimension": 4,
+      "sum_alpha": "2",
+      "sum_beta": "2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "5": {
+      "dimension": 5,
+      "sum_alpha": "5/2",
+      "sum_beta": "5/2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "6": {
+      "dimension": 6,
+      "sum_alpha": "3",
+      "sum_beta": "3",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "2'": {
+      "dimension": 2,
+      "sum_alpha": "1",
+      "sum_beta": "1",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "3'": {
+      "dimension": 3,
+      "sum_alpha": "3/2",
+      "sum_beta": "3/2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    },
+    "4'": {
+      "dimension": 4,
+      "sum_alpha": "2",
+      "sum_beta": "2",
+      "candidate_residue": "0",
+      "residue_zeta0": "0",
+      "residue_zeta1": "0"
+    }
+  },
+  "execution": {
+    "tests_added": true,
+    "pytest_executed": false,
+    "github_actions_executed": false
+  }
 }
