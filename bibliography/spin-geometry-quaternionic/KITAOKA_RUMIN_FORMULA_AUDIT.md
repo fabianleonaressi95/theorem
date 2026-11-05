@@ -446,7 +446,7 @@ Per \(n=1\), poniamo
 Nel settore delle funzioni \(\mathcal E^0\), i pesi sono \(p=0,\ldots,m\). Il modo costante \((m,p)=(0,0)\) è armonico. Kitaoka usa esplicitamente la convenzione \(0^s=1\), quindi contribuisce con il termine costante 1. Quindi
 
 \[
-\boxed{\zeta_0(s)=\sum_{m\geq1}a_m\sum_{p=0}^{m}\Lambda_m(p)^{-s}.}
+\boxed{\zeta_0(s)=1+\sum_{m\geq1}a_m\sum_{p=0}^{m}\Lambda_m(p)^{-s}.}
 \]
 
 Nel grado centrale, \(\mathcal E^1=\mathcal E^{1,0}\oplus\mathcal E^{0,1}\). I due settori sono coniugati e hanno la stessa lista spettrale; per ciascuno, i pesi sono \(p=1,\ldots,m+1\), con \(q=m-p\) e includono il bordo VI a \(q=-1\). Pertanto
