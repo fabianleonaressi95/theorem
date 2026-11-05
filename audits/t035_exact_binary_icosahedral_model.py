@@ -79,7 +79,7 @@ def audit():
  for x in probes:
   for y in probes:
    if sp.simplify(rho2(qmul(x,y))-rho2(x)*rho2(y))!=sp.zeros(2): raise AssertionError("not multiplicative")
- return {"passed":True,"group":"2I","order":120,"field":"Q(sqrt(5)","construction":"600-cell unit quaternions",
+ return {"passed":True,"group":"2I","order":120,"field":"Q(sqrt(5))","construction":"600-cell unit quaternions",
  "closure_products_checked":14400,"unit_norms_checked":120,"identity_inverse_checks":240,
  "fundamental_SU2_determinants_checked":120,"fundamental_SU2_unitarity_checked":120,
  "class_sizes":sizes,"class_orders":CLASS_ORDERS,
