@@ -3,6 +3,7 @@
 Questa directory descrive i progetti e le loro dipendenze; non contiene duplicati dei codici nei repository originari.
 
 1. **RGS–PSU / geometria e gravità** — strutture geometriche, tetradi, torsione, simmetria Lorentz, Anti-Twin.
+   - Sottofilone cosmologico: [modello torsione–Lambda dust-like](../models/TORSION_LAMBDA_DUST_CLOSURE.md). È una chiusura FLRW fenomenologica; la derivazione da torsione Einstein–Cartan algebrica è aperta.
 2. **PRISM–Krist-All** — grafi prodotto, struttura spettrale, complessi e limiti geometrici.
 3. **Q6 / gauge / Wilson / D5** — complesso cubico, flussi interi, legge di Gauss, marginale Wilson, confronto con Bergman–Hua.
 4. **Vetri di spin Q6** — modello Edwards–Anderson su Q6; indipendente dal gauge SU(2) finché non è provato un ponte.
