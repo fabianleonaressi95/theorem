@@ -23,7 +23,7 @@ def test_constant_mode_has_zero_energy():
 
 def test_sampled_fourier_mode_energy_converges():
     errors = []
-    for n in (32, 64, 128, 256):
+    for n in (32, 64, 128, 256, 512):
         graph = PeriodicCycle(n)
         errors.append(abs(graph.energy(graph.sample_mode(2)) -
                           continuum_mode_energy(2)))
