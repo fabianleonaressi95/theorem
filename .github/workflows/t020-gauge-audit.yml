@@ -1,4 +1,5 @@
 name: T020 gauge-covariant Q6 audit
+# CI also checks the non-Abelian plaquette-to-curvature refinement.
 
 on:
   push:
