@@ -1,53 +1,75 @@
 # T049B — Corrente assiale lorentziana su Q6 e PRISM
 
-## Collegamento con l'implementazione EC–Dirac RGS–PSU
+## Convenzione EC–Dirac
 
-Il repository sorgente `rgs-qlg-quaternion-bridge` definisce la corrente reale contravariante (J_5^a), firma (eta=(-,+,+,+)), sorgente di Cartan
-[
-\Sigma_{abc}=-\frac12\epsilon_{abcd}J_5^d,qquad T_{abc}=\kappa\Sigma_{abc},
-]
-e identità
-[
-T_{abc}T^{abc}=-\frac32\kappa^2J_{5a}J_5^a.
-]
-Nella stessa convenzione l'azione efficace minimale contiene
-[
+Il repository sorgente rgs-qlg-quaternion-bridge fissa la corrente reale contravariante \(J_5^a\), la firma \(\eta=(-,+,+,+)\) e la sorgente di Cartan
+\[
+\Sigma_{abc}=-\frac12\epsilon_{abcd}J_5^d,\qquad T_{abc}=\kappa\Sigma_{abc}.
+\]
+Nella stessa convenzione:
+\[
+T_{abc}T^{abc}=-\frac32\kappa^2J_{5a}J_5^a,\qquad
 \mathcal L_{4f}=\frac{3\kappa}{16}J_{5a}J_5^a.
-]
-Il codice sorgente `src/rgs_ec_spin_ensemble.py` calcola già media, covarianza, secondo momento lorentziano e contributo di fluttuazione al contatto. T049B aggiunge la risoluzione spaziale su Q6/PRISM senza sostituire questa convenzione con un prodotto euclideo.
+\]
+Il modulo sorgente src/rgs_ec_spin_ensemble.py calcola già media, covarianza, secondo momento lorentziano e contributo di fluttuazione al contatto. T049B aggiunge la risoluzione spaziale Q6/PRISM e il calcolo diretto del bilineare dagli spinori.
 
-## Due correlatori, da non confondere
+## Corrente microscopica da spinori
 
-Per i campioni di corrente assiale sui vertici, il momento locale è
-[
-M^{ab}=\langle J_5^a(x)J_5^b(x)\rangle_{x,\mathrm{ensemble}},quad
+Per spinori nel frame ortonormale locale:
+\[
+J_5^a=i\bar\psi\gamma^5\gamma^a\psi,\qquad
+\bar\psi=i\psi^\dagger\gamma^0.
+\]
+Il codice implementa le matrici gamma e gamma5 della convenzione EC sorgente, controlla la realtà del bilineare e usa \(J_5^a\) per i momenti e i correlatori. Non genera né seleziona uno stato quantistico: lo spinore deve essere fornito.
+
+## Due invarianti da non confondere
+
+Il secondo momento locale è
+\[
+M^{ab}=\langle J_5^a(x)J_5^b(x)\rangle,\qquad
 C^{ab}=M^{ab}-\langle J_5^a\rangle\langle J_5^b\rangle.
-]
-Il contatto lorentziano è (eta_{ab}M^{ab}), che può essere negativo o nullo per cancellazione. La media nulla della corrente non implica un contatto nullo. Se viene fornita la 4-velocità unitaria del fluido, il codice calcola anche la proiezione spaziale h^a_b J5^b=(delta^a_b+u^a u_b)J5^b e il suo quadrato positivo nel frame di riposo. Questo è un candidato per il ponte con s^2 di Weyssenhoff, non ancora l'identificazione normalizzata: il coefficiente che lega il bilineare assiale al tensore di spin canonico deve essere derivato dalla variazione di Noether.
+\]
+Il contatto lorentziano è \(\eta_{ab}M^{ab}\), che può essere negativo o nullo per cancellazione. Una media nulla della corrente non implica un contatto nullo.
 
-Il correlatore geometrico connesso per shell è
-[
+L'invariante di Weyssenhoff, invece, è definito nel sistema di riposo del fluido e sotto la condizione di Frenkel. Se viene fornita una 4-velocità unitaria timelike \(u^a\), il codice calcola
+\[
+J_\perp^a=h^a{}_bJ_5^b,\qquad
+h^a{}_b=\delta^a_b+u^au_b,\qquad
+s^2_{\mathrm{axial,rest}}=\eta_{ab}J_\perp^aJ_\perp^b.
+\]
+Questo è un **candidato proiettato** per il ponte con \(s^2=\frac12S_{ij}S_{ij}\), non ancora un'identificazione normalizzata: il coefficiente che lega il bilineare assiale al tensore di spin canonico deve essere derivato dalla variazione di Noether e dalla convenzione per \(S_{\mu\nu}\). Il codice riporta separatamente contatto lorentziano e invariante proiettato, e stima l'esponente del secondo solo se è fornita \(u^a\).
+
+## Correlatore spaziale Q6–PRISM
+
+Il correlatore tensoriale connesso per shell è
+\[
 C^{ab}(r)=\langle\delta J_5^a(x)\delta J_5^b(y)\rangle_{d_G(x,y)=r},
-quad C_L(r)=\eta_{ab}C^{ab}(r).
-]
-In aggiunta il codice calcola l'invariante della corrente integrata nella cella e ne separa esattamente i contributi self e pair. Questo invariante di cella non va identificato automaticamente con il contatto locale (eta_{ab}M^{ab}).
+\qquad C_L(r)=\eta_{ab}C^{ab}(r).
+\]
+Il programma calcola inoltre l'invariante della corrente integrata nella cella e separa i contributi self e pair. Quest'ultimo non va identificato automaticamente con il contatto locale \(\eta_{ab}M^{ab}\).
 
-## Input e output
+Il confronto tra nodi è effettuato in una trivializzazione/frame comune fornita dall'utente. Il trasporto SU(2)/Spin lungo cammini non è ancora applicato: per un correlatore pienamente gauge-covariante occorre includere le olonomie orientate e gestire la dipendenza dal cammino nei cicli con curvatura.
 
-NPZ: `scale_factors (T,)`, e uno tra `spinors (T,N,4)` / `(T,R,N,4)` oppure `axial_currents (T,N,4)` / `(T,R,N,4)`, più facoltativamente `volumes (T,)` e `fluid_velocity (T,4)` (4-velocità unitaria timelike del fluido). Se si forniscono spinori, il codice calcola direttamente `J5^a=i bar(psi) gamma5 gamma^a psi` con le matrici e l'aggiunto di Dirac del modulo sorgente EC–Dirac. Gli spinori devono essere espressi nel frame ortonormale locale dichiarato. Ogni corrente al nodo è interpretata come contributo microscopico integrato alla corrente della cella; unità e normalizzazione vanno dichiarate dall'utente. `--kappa` aggiunge gli invarianti di torsione e il termine locale a quattro fermioni nelle convenzioni indicate.
+## Input e riproducibilità
 
-Comandi:
-```bash
+NPZ richiesto:
+- scale_factors: (T,)
+- uno tra spinors: (T,N,4) o (T,R,N,4), oppure axial_currents: (T,N,4) o (T,R,N,4)
+- volumes: (T,), opzionale
+- fluid_velocity: (T,4), opzionale, con \(\eta_{ab}u^au^b=-1\)
+
+Per Q6, \(N=64\); per PRISM, \(N=69120\). Se si forniscono spinori, il codice calcola direttamente \(J_5^a\). Ogni valore al nodo è interpretato come contributo microscopico integrato alla corrente della cella; unità e normalizzazione vanno dichiarate. Il parametro --kappa aggiunge \(T^2\) e \(\mathcal L_{4f}\).
+
+\`\`\`bash
 python -m pytest tests/test_q6_prism_axial_current_correlator.py -q
 python scripts/q6_prism_axial_current_correlator.py --input axial_q6.npz --geometry q6 --max-distance 6 --kappa KAPPA
 python scripts/q6_prism_axial_current_correlator.py --input axial_prism.npz --geometry prism --max-distance 3 --kappa KAPPA
-```
+\`\`\`
 
-Senza `fluid_velocity` il programma non dichiara un valore Weyssenhoff s^2; riporta soltanto il contatto assiale lorentziano.\n\nIl confronto tra componenti di nodi distinti è effettuato in una trivializzazione/frame comune fornita dall'utente. Non applica ancora trasporto parallelo SU(2)/Spin lungo cammini: per una correlazione pienamente gauge-covariante occorre includere le olonomie orientate lungo i cammini, tenendo conto della dipendenza dal cammino nei cicli con curvatura.\n\n## Stato epistemico
+## Stato epistemico
 
-- **Derivato nella convenzione EC–Dirac sorgente:** relazione di Cartan e coefficienti (T^2), (mathcal L_{4f}).
-- **Implementato e testato qui:** bilineare Dirac spinore→J5^a nella convenzione sorgente, momenti lorentziani, decomposizione media/fluttuazione, shell tensor correlators Q6/PRISM, contatto EC e decomposizione self/pair della cella.
-- **Non dimostrato:** che un eventuale campo di spinori fornito rappresenti lo stato quantistico fisico RGS–PSU/QLG. Il codice calcola il bilineare, ma non genera né seleziona lo stato fisico. Il confronto tra nodi resta in una trivializzazione comune, non ancora gauge-covariante.
-- **Dato mancante:** il repository sorgente contiene il motore di ensemble e gli operatori Dirac discreti, ma non un dataset validato di spinori o correnti (J_5^a(x)) su Q6/PRISM con unità, normalizzazione e prescrizione del contatto. Quindi non si dichiara un esponente cosmologico RGS–PSU.
-- **Aperto:** rinormalizzazione/ordinamento dell'operatore locale, convergenza in volume e scala di coarse-graining, derivazione dell'equazione di stato dalla variazione tetradica dell'azione efficace.
-
+- **Derivato nella convenzione EC–Dirac sorgente:** relazione di Cartan, invariante \(T^2\) e coefficiente del contatto minimale.
+- **Implementato e testato:** bilineare spinore→\(J_5^a\), momenti lorentziani, proiezione nel frame di riposo, correlatori tensoriali Q6/PRISM, contatto EC e decomposizione self/pair.
+- **Non dimostrato:** che un campo di spinori fornito rappresenti lo stato quantistico fisico RGS–PSU/QLG; il programma non costruisce lo stato fisico. Il correlatore tra nodi resta in un frame comune, non ancora gauge-covariante.
+- **Dato mancante:** non è presente un dataset validato di spinori o correnti \(J_5^a(x)\) su Q6/PRISM con unità, normalizzazione e prescrizione del contatto. Nessun esponente cosmologico fisico RGS–PSU viene quindi dichiarato.
+- **Aperto:** normalizzazione Noether \(J_5\leftrightarrow S_{\mu\nu}\), ordinamento/renormalizzazione dell'operatore locale, convergenza in volume e scala di coarse-graining, trasporto gauge-covariante e variazione tetradica per ricavare l'equazione di stato.
