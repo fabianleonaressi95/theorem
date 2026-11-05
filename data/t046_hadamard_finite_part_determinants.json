@@ -8,11 +8,14 @@
     "zeta1": "dim(rho)/480",
     "alternating": "0"
   },
-  "exact_alternating_relation": {
-    "at_unit_scale": "log(det_FP,1,rho)-2*log(det_FP,0,rho)=-2*log(T_rho)",
-    "at_scale_mu": "log(det_FP,1,rho(mu))-2*log(det_FP,0,rho(mu))=-2*log(T_rho)-2*kappa_rho(0)*log(mu)",
-    "kappa_zero": "2*[sum_(n<c)d_n+sum_(r=1)^60 e_r*(1/2-n_r/60)]",
-    "status": "exact rational expression, evaluated from T043 period-60 coefficients"
+  "exact_kappa_value_at_zero": {
+    "all_nine_sectors": "0",
+    "method": "period-60 finite Hurwitz formula evaluated in exact rational arithmetic"
+  },
+  "alternating_constraint": {
+    "all_scales": "log(det_FP,1,rho(mu))-2*log(det_FP,0,rho(mu))=-2*log(T_rho)",
+    "determinant_ratio": "det_FP,1,rho(mu)/det_FP,0,rho(mu)^2=T_rho^(-2)",
+    "scale_dependence": "the alternating ratio is independent of mu"
   },
   "individual_coefficients": {
     "C0": "not determined",
