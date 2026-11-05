@@ -702,3 +702,120 @@ T_{\mathcal E}\simeq1.3159472534785811492.
 - **Continuazione esplicita:** la combinazione torsionale \(\kappa(s)\) è espressa da una somma finita di zeta di Hurwitz e quindi continuata meromorficamente.
 - **Derivata in zero:** formula finita in termini di funzioni Gamma, con valutazione numerica riportata.
 - **Non rivendicato:** formule separate per \(\zeta'_0(0)\) e \(\zeta'_1(0)\); una formula per coefficienti locali o rappresentazioni non banali; confronto normalizzato con la convenzione Ray–Singer di altri complessi. La quantità qui calcolata è la torsione analitica del complesso Rumin nella normalizzazione di Kitaoka fissata in questo audit.
+
+
+## 10.4 Confronto con Reidemeister–Ray–Singer: identificazione geometrica del valore
+
+Questa sezione chiude il confronto di normalizzazione che era rimasto aperto in §10.3. Il confronto non va fatto con una torsione scalare aciclica: con coefficienti banali la sfera omologica di Poincaré ha
+\[
+H^0(M;\mathbb C)\simeq\mathbb C,\qquad
+H^1(M;\mathbb C)=H^2(M;\mathbb C)=0,\qquad
+H^3(M;\mathbb C)\simeq\mathbb C,
+\quad M=S^3/2I.
+\]
+La quantità naturale è la metrica sulla retta determinante
+\[
+\det H^*(M;\mathbb C)
+=\det H^0\otimes(\det H^1)^{-1}
+\otimes\det H^2\otimes(\det H^3)^{-1}.
+\]
+
+### 10.4.1 Il quoziente è CR Seifert
+
+Realizziamo \(S^3\) come gruppo \(SU(2)\). Il gruppo binario icosaedrale \(2I\) agisce per moltiplicazione a sinistra. La circonferenza di Hopf, realizzata dalla moltiplicazione scalare \(z\mapsto e^{it}z\), commuta con tale azione e discende quindi a \(S^3/2I\). L'azione circolare è localmente libera e preserva la struttura CR standard. Il quoziente è pertanto una varietà CR Seifert tridimensionale.
+
+Rumin–Seshadri, Theorem 4.2, dimostrano che su ogni CR Seifert tridimensionale, per ogni rappresentazione unitaria, la metrica di Ray–Singer del complesso di contatto coincide con quella del complesso di de Rham. Nella loro convenzione il numero di torsione del complesso di contatto è l'inverso della torsione di Ray–Singer:
+\[
+T_C=(T_{RS})^{-1}.
+\]
+La loro convenzione è opposta a quella di Kitaoka per il numero \(T_{\mathcal E}\) usato in §10.3. In dimensione tre, con la dualità spettrale tra i gradi, si ha
+\[
+\kappa_{\mathrm{Kitaoka}}(s)=-\kappa_C(s),
+\qquad
+T_{\mathcal E}=e^{\kappa'_{\mathrm{Kitaoka}}(0)/2}
+=(T_C)^{-1}=T_{RS}.
+\]
+Quindi il valore ottenuto dalla zeta Rumin è direttamente nella convenzione Ray–Singer, non nella convenzione inversa di Rumin–Seshadri. Riferimenti: Rumin–Seshadri, *Analytic torsions on contact manifolds*, Ann. Inst. Fourier 62 (2012), Theorem 4.2 e Remark 2.6; Kitaoka, SIGMA 18 (2022), Corollary 0.3. La prima fonte esplicita anche che la coincidenza delle metriche vale per rappresentazioni unitarie su CR Seifert tridimensionali.
+
+### 10.4.2 La metrica di coomologia fissa il fattore di volume
+
+Scegliamo le basi integrali canoniche \(1\in H^0(M;\mathbb Z)\) e \([M]^*\in H^3(M;\mathbb Z)\), con \(\int_M[M]^*=1\). Poiché \(M\) è una sfera omologica integrale, la norma di Reidemeister sulla retta determinante assegna norma 1 all'elemento
+\[
+1\otimes([M]^*)^{-1}.
+\]
+Sia \(V=\operatorname{Vol}(M,g_{\theta,J})\). Le norme armoniche L² delle due classi sono
+\[
+\|1\|_{L^2}=V^{1/2},\qquad
+\|[M]^*\|_{L^2}=V^{-1/2}.
+\]
+Di conseguenza la norma L² dell'elemento della retta determinante è
+\[
+\bigl\|1\otimes([M]^*)^{-1}\bigr\|_{L^2}=V.
+\]
+La metrica di Ray–Singer è, nella convenzione standard,
+\[
+\|\cdot\|_{RS}=T_{RS}^{-1}\|\cdot\|_{L^2}.
+\]
+L'identità di Cheeger–Müller per la metrica sulla retta determinante dà quindi
+\[
+1=T_{RS}^{-1}V,
+\qquad\boxed{T_{RS}=V.}
+\]
+Questo è il confronto non aciclico corretto: non si impone \(T=1\), ma si tiene conto delle basi integrali di \(H^0\) e \(H^3\) e della loro norma L².
+
+### 10.4.3 Volume della metrica di Kitaoka sul quoziente
+
+Nella normalizzazione sferica di Kitaoka, la metrica di contatto è \(g_{\theta,J}=4g_{\mathrm{std}}\), dove \(g_{\mathrm{std}}\) è la metrica rotonda sulla sfera unitaria \(S^3\). Moltiplicare la metrica in dimensione tre per 4 moltiplica il volume per \(4^{3/2}=8\). Poiché
+\[
+\operatorname{Vol}(S^3,g_{\mathrm{std}})=2\pi^2,
+\]
+si ha
+\[
+\operatorname{Vol}(S^3,g_{\theta,J})=16\pi^2.
+\]
+Il rivestimento \(S^3\to S^3/2I\) ha grado \(|2I|=120\), perciò
+\[
+\boxed{V=\operatorname{Vol}(S^3/2I,g_{\theta,J})
+=\frac{16\pi^2}{120}=\frac{2\pi^2}{15}.}
+\]
+
+### 10.4.4 Riduzione esatta della formula Gamma
+
+La formula di §10.3 dà
+\[
+T_{\mathcal E}
+=2\pi\left[
+\frac{
+\prod_{a\in\{31,7,11,13,17,19,23,29\}}
+\Gamma(a/30)}
+{\prod_{b\in\{6,10,12,15,18,20,24\}}
+\Gamma(b/30)}
+\right]^2.
+\]
+La formula di riflessione \(\Gamma(x)\Gamma(1-x)=\pi/\sin(\pi x)\), insieme alla formula di moltiplicazione di Gauss, riduce il rapporto finito al quadrato a
+\[
+\left[
+\frac{
+\prod_{a\in\{31,7,11,13,17,19,23,29\}}
+\Gamma(a/30)}
+{\prod_{b\in\{6,10,12,15,18,20,24\}}
+\Gamma(b/30)}
+\right]^2=\frac{\pi}{15}.
+\]
+Ne segue la forma chiusa
+\[
+\boxed{T_{\mathcal E}=\frac{2\pi^2}{15}
+=\operatorname{Vol}(S^3/2I,g_{\theta,J})
+=T_{RS}.}
+\]
+Il valore numerico precedente \(1.3159472534785811492\) coincide con \(2\pi^2/15\). La coincidenza non è un confronto con il numero aciclico 1: è esattamente il fattore di volume richiesto dalla metrica sulla retta determinante per la coomologia banale della sfera omologica.
+
+### 10.4.5 Stato epistemico e controlli residui
+
+- **Dimostrato dalla fonte primaria:** su CR Seifert tridimensionali la metrica di Ray–Singer del complesso di contatto coincide con quella de Rham; le convenzioni numeriche di Rumin–Seshadri e Kitaoka sono inverse.
+- **Derivato geometricamente:** la Hopf circle commuta con \(2I\), discende al quoziente ed è localmente libera; il volume della metrica indotta è \(16\pi^2/120\).
+- **Confronto topologico:** con le basi integrali di \(H^0\) e \(H^3\), Cheeger–Müller richiede \(T_{RS}=V\), non \(1\).
+- **Identificazione algebrica:** la formula Gamma di §10.3 si riduce a \(2\pi^2/15\) tramite riflessione e moltiplicazione di Gauss.
+- **Non dichiarato:** lo script Python dell'audit non è stato eseguito integralmente dopo gli ultimi aggiornamenti; il confronto analitico qui esposto non va presentato come un nuovo test end-to-end passato. Resta da aggiungere al programma un controllo numerico ad alta precisione dell'identità Gamma e da eseguirlo quando l'ambiente di calcolo sarà nuovamente disponibile.
+
+**Conclusione:** il confronto con Reidemeister–Ray–Singer non falsifica il risultato precedente; al contrario, con la corretta convenzione non aciclica e la metrica di Kitaoka, il valore calcolato coincide con il volume del quoziente. La torsione Rumin normalizzata in §10.3 è quindi identificata con la torsione di Ray–Singer nel caso banale, attraverso il teorema CR-Seifert di Rumin–Seshadri.
