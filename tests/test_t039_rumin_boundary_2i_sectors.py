@@ -39,3 +39,19 @@ def test_constant_boundary_representation(kind, index):
     report = audit_boundary_sector(kind, index)
     assert report["2I_irrep_multiplicities"]["1"] == 1
     assert report["2I_dimension_sum"] == 1
+
+
+def test_molien_dimension_identity_through_degree_80():
+    from src.t032_2i_molien import IRREP_DIMENSIONS, molien_coefficients
+    for degree in range(81):
+        total = sum(
+            IRREP_DIMENSIONS[label] * molien_coefficients(label, degree)[degree]
+            for label in IRREP_DIMENSIONS
+        )
+        assert total == degree + 1
+
+
+def test_trivial_molien_first_positive_boundary_degree():
+    from src.t032_2i_molien import molien_coefficients
+    assert [m for m in range(1, 13)
+            if molien_coefficients("1", m)[m] > 0] == [12]
