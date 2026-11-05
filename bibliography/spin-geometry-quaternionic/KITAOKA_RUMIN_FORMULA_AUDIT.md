@@ -531,8 +531,8 @@ quando \(\sin\theta_g\ne0\), con i valori centrali ottenuti per limite:
 \]
 Equivalentemente, per tutte le classi, si usa la ricorrenza esatta
 \[
-\chi_0(g)=1,\quad \chi_1(g)=\chi_1(g),\quad
-\chi_m(g)=\chi_1(g)\chi_{m-1}(g)-\chi_{m-2}(g).
+\chi_0(g)=1,\quad \chi_1(g)=x_g:=\operatorname{Tr}_{\mathbb C^2}(g),\quad
+\chi_m(g)=x_g\chi_{m-1}(g)-\chi_{m-2}(g).
 \]
 
 Per ogni classe \(C_j\), il contributo equivarante formale alle zeta positive è
