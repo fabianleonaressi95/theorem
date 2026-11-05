@@ -1,6 +1,11 @@
 name: T020 gauge-covariant Q6 audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/t020_gauge_covariant_q6_audit.py"
+      - ".github/workflows/t020-gauge-audit.yml"
   pull_request:
     paths:
       - "scripts/t020_gauge_covariant_q6_audit.py"
