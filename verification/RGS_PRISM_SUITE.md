@@ -80,3 +80,42 @@ Krist-All sections are conditional on user-supplied arrays. Floating-point
 residuals are numerical checks, not exact certificates. This suite does not
 establish Mosco-2 compactness, a second-order form limit, a
 Laplace-Beltrami-Yang-Mills limit, or a physical interpretation.
+
+
+## Auditing the recovered source archives
+
+The original source archives were recovered from the research Library:
+
+- `Q6_K_J_reconstruction.zip`
+- `188D_FINAL_BUNDLE.zip`
+
+Run the archive-aware verification:
+
+```bash
+python scripts/verify_archived_rgs_q6.py \
+  --q6-zip Q6_K_J_reconstruction.zip \
+  --188d-zip 188D_FINAL_BUNDLE.zip \
+  --output archived-rgs-q6-report.json
+```
+
+The Q6 archive contains `states_Q6.npy`, `A_Q6.npy`, `K6_laplacian.npy`,
+`J_antipodal.npy`, and `R_bit_rotation.npy`. The 188D archive contains
+`K0.npy`, `Kinv.npy`, `P_G.npy`, `J.npy`, `J_A.npy`, and `J_B.npy`.
+The script tests the actual stored arrays, including
+
+```
+K0 Kinv = Kinv K0 = I - P_G
+```
+
+The recovered Krist-All source package also runs
+`src/audit/verify_core_identities.py`, which checks the 69,120-state mixed-radix
+index bijection, the positive root of `psi^3 - psi^2 - 1 = 0`, and the
+simultaneous shift order 960. The archive-aware PRISM audit repeats these
+source-level identities.
+
+**Evidence boundary:** the 188D archive does not contain `Q_tangent`,
+`X_Oh_reconstructed`, or `B_T2U_TAN`; the full geometric 188D construction
+therefore remains unverified by this bundle. The recovered Krist-All package
+does not contain the 11,725-class operator matrix K, so `K^3 = K^2 + I`
+remains untested against that operator. No continuum or physical conclusion
+follows from these finite checks.
