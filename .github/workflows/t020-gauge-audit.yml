@@ -23,7 +23,7 @@ jobs:
       - name: Install NumPy
         run: python -m pip install --upgrade numpy
       - name: Run refinement audit
-        run: python scripts/t020_gauge_covariant_q6_audit.py --n 2 3 > t020-audit.json
+        run: python scripts/t020_gauge_covariant_q6_audit.py --n 2 3 --curvature-n 2 3 4 6 8 12 > t020-audit.json
       - name: Check audit invariants and refinement trend
         run: |
           python - <<'PY'
@@ -46,5 +46,13 @@ jobs:
               assert row["gauge_transform_det_one_max_residual"] < 1e-10
               assert row["clifford_relations_max_residual"] < 1e-10
           assert rows[1]["consistency_error"] < rows[0]["consistency_error"], rows
+          curvature = data["plaquette_curvature_results"]
+          assert len(curvature) == 6
+          for row in curvature:
+              assert row["plaquette_curvature_relative_rms_residual"] > 0
+          residuals = [row["plaquette_curvature_relative_rms_residual"] for row in curvature]
+          assert all(b < a for a, b in zip(residuals, residuals[1:])), curvature
+          orders = [row["observed_order_vs_previous"] for row in curvature[1:]]
+          assert min(orders) > 1.7, orders
           print(json.dumps(data, indent=2))
           PY

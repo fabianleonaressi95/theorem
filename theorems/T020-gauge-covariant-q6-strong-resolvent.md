@@ -123,7 +123,44 @@ The generator commutator norm is \(\sqrt2\), and the actual link commutator at t
 
 **Evidence label:** locally reproduced finite-dimensional numerical diagnostics. The GitHub Actions workflow has been added, but no successful Actions run is yet recorded. The decrease from two refinement levels is not an asymptotic convergence proof and does not establish (C).
 
-## 7. Scope
+
+## 7. Non-Abelian plaquette curvature audit
+
+The link commutator alone is not a curvature test. The audit evaluates, for every coordinate pair i<j, the based plaquette
+
+```
+P_ij(x) = U_i(x) U_j(x+h e_i) U_i(x+h e_j)^dagger U_j(x)^dagger
+```
+
+and the continuum curvature in the anti-Hermitian convention
+
+```
+F_ij = partial_i A_j - partial_j A_i + [A_i,A_j].
+```
+
+Since P_ij is based at x, the curvature at the plaquette centre x_c=x+h(e_i+e_j)/2 is transported back to that base point. The audit uses the two half-edge transporters W from x to x_c and compares
+
+```
+(P_ij(x)-I)/h^2  with  W F_ij(x_c) W^dagger.
+```
+
+This frame transport is essential: direct comparison with an untransported curvature matrix at the plaquette centre is not gauge-covariant.
+
+For alpha=0.35, 128 deterministic sampled base points and all 15 coordinate planes per point, the relative RMS residuals are:
+
+| n | h | Relative RMS residual | Observed order |
+|---:|---:|---:|---:|
+| 2 | 0.5 | 0.152670666 | — |
+| 3 | 0.3333 | 0.066368709 | 2.055 |
+| 4 | 0.25 | 0.038092113 | 1.930 |
+| 6 | 0.1667 | 0.017102969 | 1.975 |
+| 8 | 0.125 | 0.009675618 | 1.980 |
+| 12 | 0.0833 | 0.004303979 | 1.998 |
+
+The sampled residual exhibits second-order scaling over these six finite refinements. This is numerical evidence for the selected smooth connection and link convention, not a proof of a uniform estimate over all plaquettes, all smooth connections, or the continuum limit. The script and CI workflow compute and assert this refinement trend.
+
+## 8. Scope
+
 
 **Exact:** finite-lattice gauge covariance; Wilson positivity; uniform left-half-plane resolvent bound.
 
