@@ -52,18 +52,16 @@ Let C_kappa=kappa_rho(0) and D_kappa=kappa'_rho(0). Since the T043/T044 conventi
     D_(1,rho)-2*D_(0,rho)=2 log(T_rho),
     C_(1,rho)-2*C_(0,rho)=kappa_rho(0).
 
-At scale mu the logarithms of the finite-part determinants obey the exact relation
+The period-60 formula below gives kappa_rho(0)=0 exactly in all nine sectors. Therefore the scale terms cancel in the alternating combination and
 
-    log det_FP,1,rho(mu)
-      - 2 log det_FP,0,rho(mu)
-      = -2 log(T_rho)-2*kappa_rho(0)*log(mu).
+    log det_FP,1,rho(mu) - 2 log det_FP,0,rho(mu)
+      = -2 log(T_rho),
 
-Equivalently,
+or
 
-    det_FP,1,rho(mu) / det_FP,0,rho(mu)^2
-      = T_rho^(-2) * mu^(-2*kappa_rho(0)).
+    det_FP,1,rho(mu) / det_FP,0,rho(mu)^2 = T_rho^(-2).
 
-This is the strongest individual-determinant statement fixed by the alternating torsion without computing the two separate Laurent coefficients.
+This ratio is independent of mu, even though each individual finite-part determinant can depend on mu.
 
 ## 4. Exact value of kappa_rho(0)
 
@@ -83,7 +81,7 @@ Using zeta_H(0,x)=1/2-x gives the exact rational number
           + sum_(r=1)^60 e_(r,rho)*(1/2-n_r/60)
         ].
 
-The implementation evaluates this expression with fractions only. No numerical continuation is needed for kappa_rho(0).
+The implementation evaluates this expression with fractions only. Exact arithmetic gives kappa_rho(0)=0 for every one of the nine irreducible sectors. No numerical continuation is needed.
 
 ## 5. What T046 does and does not determine
 
@@ -93,8 +91,8 @@ T046 therefore does not invent individual determinant numbers. It provides:
 - an explicit finite-part prescription;
 - its exact scale law;
 - exact residues in all nine 2I sectors;
-- exact rational kappa_rho(0);
-- the exact relation between the two finite-part determinants and the known T044 torsion.
+- exact kappa_rho(0)=0 in all nine sectors;
+- the exact, scale-independent relation between the two finite-part determinants and the known T044 torsion.
 
 To obtain both individual values one must continue the two separate double spectral sums far enough to determine C_0 and D_0 (or C_1 and D_1) individually. The alternating sum alone cannot supply the missing data.
 
