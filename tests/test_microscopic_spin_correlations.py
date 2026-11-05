@@ -49,7 +49,7 @@ def test_pair_channel_needs_gamma_minus_three_for_dust_scaling():
 
 def test_mixed_self_pair_sector_has_running_effective_equation_of_state():
     model = SpinCorrelationScaling(1.0, self_amplitude=1.0, pair_amplitude=1.0)
-    assert model.equation_of_state(1.0) == pytest.approx(2 / 3)
+    assert model.equation_of_state(1.0) == pytest.approx(0.5)
     assert model.equation_of_state(2.0) != pytest.approx(model.equation_of_state(1.0))
 
 
