@@ -61,6 +61,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
 | T009 | Forma quadratica efficace Wilson | Identità rank(Q_eff)=rank(C)−rank(RC); ipotesi di rango Q6 e limite theta ancora da verificare |
 | [T010](theorems/T010-rumin-spectrum-poincare-sphere.md) | Riduzione spettrale di Rumin su S³/2I | Teorema di proiezione per quozienti finiti; benchmark scalare verificato; spettro Rumin completo ancora da calcolare |
+| [T021](theorems/T021-rumin-analytic-torsion-2I.md) | Torsione analitica di Rumin su S³/2I con twist irriducibili di 2I | Covarianti di Molien e riduzione Hurwitz-zeta esatte; valori Gamma verificati ad alta precisione contro Dowker–Chang; identità simboliche e matching completo delle convenzioni ancora aperti |
 | T016 | Nielsen–Ninomiya e audit Q6 | Ipotesi/topologia ricostruite; identità finite Q6 verificate; nessuna evasione del no-go theorem |
 | [T017](theorems/T017-q6-dirac-refinement.md) | Raffinamento cubico Q6–Dirac | Raffinamento esplicito \((C_{2n})^{\square6}\); 64 corner zeros naïve; Wilson lift; limite di simbolo provato; convergenza spettrale completa aperta |
 | [T019](theorems/T019-q6-free-strong-resolvent.md) | Limite libero di risolvente forte Q6–Wilson | Convergenza forte generalizzata del risolvente sul toro piatto di lato 2; non è convergenza in norma né limite gauge-interagente |
