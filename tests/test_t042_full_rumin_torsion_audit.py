@@ -21,7 +21,8 @@ def test_molien_invariants():
 
 @pytest.mark.parametrize("s", [1.25, 2.0])
 def test_spectral_cancellation(s):
-    assert abs(kappa_direct_partial(s, 80) - kappa_boundary_partial(s, 80)) < mp.mpf("1e-45")
+    with mp.workdps(60):
+        assert abs(kappa_direct_partial(s, 80) - kappa_boundary_partial(s, 80)) < mp.mpf("1e-55")
 
 def test_generating_function():
     assert verify_generating_function_identity()
@@ -44,3 +45,10 @@ def test_audit_scope():
     report = audit(80, 40)
     assert report["passed"]
     assert report["torsion"]["exact_target"] == "2*pi^2/15"
+
+
+def test_exact_sine_product_identity():
+    import sympy as sp
+    ratio = (sp.sin(sp.pi/5)*sp.sin(sp.pi/3)*sp.sin(2*sp.pi/5) /
+             (sp.sin(sp.pi/30)*sp.sin(7*sp.pi/30)*sp.sin(11*sp.pi/30)*sp.sin(13*sp.pi/30)))
+    assert sp.simplify(ratio**2 - 60) == 0
