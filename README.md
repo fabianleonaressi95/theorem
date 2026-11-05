@@ -71,6 +71,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | [T031](theorems/T031-rumin-2i-equivariance.md) | Equivarianza del complesso di Rumin sotto l'azione binaria icosaedrica | Discesa geometrica e twist unitari; non duplica T021/T024/T030; modelli espliciti completi delle nove irriducibili ancora aperti |
 | [T032](theorems/T032-2i-irrep-molien-projectors.md) | Molien covariants esatti e interfaccia dei proiettori isotypici di 2I | Coefficienti interi dalle nove serie T021; decomposizione dimensionale verificata via test; modelli matriciali e caratteri espliciti ancora aperti |
 | [T033](theorems/T033-equivariant-rumin-torsion-synthesis.md) | Decomposizione isotypica del complesso di Rumin e additività della torsione | Teorema astratto di gruppo finito; sintesi T021/T024/T031/T032 sotto ipotesi esplicite; nessun nuovo valore torsionale |
+| [T035](theorems/T035-twisted-quotient-spectral-descent.md) | Spettro Rumin con twist piatti come settore equivarante sul rivestimento | Identificazione unitaria con il sottospazio diagonale invariante; regola del duale rho* e ricostruzione dello spettro del rivestimento |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
