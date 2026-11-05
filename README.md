@@ -98,3 +98,14 @@ La bibliografia citata nel manoscritto di Jennifer Lorraine Nielsen è registrat
 ## Stato del riordino
 
 La struttura bibliografica è stata avviata e collegata ai materiali recuperati dalla Library. Il catalogo non è ancora esaustivo: restano file con nomi generici, capitoli citati in conversazione ma non reperiti come file autonomi e riferimenti bibliografici da disambiguare.
+
+
+## Benchmark dinamica cellulare RGS
+
+Il benchmark iniziale CA è versionato nel repository:
+- [Motore Python v0.1](scripts/rgs_cellular_dynamics_benchmark.py)
+- [Test automatici](tests/test_rgs_cellular_dynamics_benchmark.py)
+- [Guida d'uso](docs/RGS_CELLULAR_DYNAMICS_README.md)
+- [Roadmap scientifica](docs/RGS_CELLULAR_DYNAMICS_ROADMAP.md)
+
+Stato: implementazione e smoke test iniziali. Non è ancora un risultato teorico né una validazione statistica dell'evoluzione genetica. Il passo successivo è implementare la ricerca evolutiva con semi appaiati, validazione indipendente e obiettivi multi-criterio.
