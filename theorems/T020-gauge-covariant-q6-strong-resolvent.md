@@ -13,7 +13,7 @@ The domain is \(H^1(\mathbb T^6_2;\mathbb C^{24})\). The \(\Gamma_i\) are Hermit
 
 ## 2. Link fields and lattice operator
 
-For each oriented positive edge \((x_j,x_j+he_i)\), let \(U_{n,i}(j)\in SU(3)\) be the parallel transporter with the convention
+For each oriented positive edge \((x_j,x_j+he_i)\), let \(U_{n,i}(j)\in SU(3)\) be the inverse-oriented parallel transporter (from the endpoint fibre back to the base-point fibre), with the convention
 \[
 U_{n,i}(j)=U_i(x_j;h),\qquad \frac{d}{dt}U_i(x_j;t)=U_i(x_j;t)\mathcal A_i(x_j+te_i),\quad U_i(x_j;0)=I,\quad 0\le t\le h.
 \]
