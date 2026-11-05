@@ -1,6 +1,6 @@
 # T020 — Gauge-covariant strong-resolvent convergence of the Q6 Wilson refinement
 
-**Status: CONDITIONAL THEOREM / proof reduced to an explicit consistency hypothesis.** The finite-lattice gauge identities are exact for unitary links. The continuum-limit statement below follows if the sampled links satisfy the stated smooth parallel-transport consistency. The accompanying numerical audit is a reproducibility tool; it is not evidence until run and its output is recorded.
+**Status: CONDITIONAL THEOREM / proof reduced to an explicit consistency hypothesis.** The finite-lattice gauge identities are exact for unitary links. The continuum-limit statement below follows if the sampled links satisfy the stated smooth parallel-transport consistency. The accompanying numerical audit is recorded as finite-dimensional numerical evidence; it is not a substitute for the analytic consistency estimate.
 
 ## 1. Continuum data
 
@@ -121,7 +121,7 @@ The audit records link unitarity and determinant-one residuals, the non-Abelian 
 
 The generator commutator norm is \(\sqrt2\), and the actual link commutator at the origin has norms 0.03708029 and 0.01135974 at the two levels. The sitewise gauge matrices also pass unitarity and determinant-one checks at roundoff scale. The test is therefore not confined to a common Cartan subgroup. The JSON report is stored at evidence/T020-gauge-covariant-audit-local.json.
 
-**Evidence label:** locally reproduced finite-dimensional numerical diagnostics. The GitHub Actions workflow has been added, but no successful Actions run is yet recorded. The decrease from two refinement levels is not an asymptotic convergence proof and does not establish (C).
+**Evidence label:** locally reproduced finite-dimensional numerical diagnostics. The full-matrix link/Wilson checks passed GitHub Actions run #7; the plaquette-curvature refinement and its assertions passed run #9 (PR #73). These finite tests do not establish (C).
 
 
 ## 7. Non-Abelian plaquette curvature audit
