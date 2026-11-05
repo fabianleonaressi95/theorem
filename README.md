@@ -74,6 +74,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | [T034](theorems/T034-exact-2i-character-table.md) | Tabella esatta dei caratteri irriducibili di 2I | Ricostruzione su Q(√5) dai covarianti Molien T021/T032; ortogonalità e medie Molien sottoposte a test esatti |
 | [T035](theorems/T035-exact-binary-icosahedral-model.md) | Modello quaternionico esatto di 2I | 120 vertici 600-cell, tavola di moltiplicazione, classi e rappresentazione fondamentale su Q(√5) |
 | [T036](theorems/T036-explicit-2i-irreducible-models.md) | Modelli matriciali esatti delle nove irriducibili di 2I | Estrazione da potenze simmetriche, proiettori centrali, metriche hermitiane invarianti; test non ancora certificati in CI |
+| [T034](theorems/T034-explicit-2i-representations.md) | Nove rappresentazioni irriducibili esplicite di 2I, tabella dei caratteri esatta, proiettori e matrix units | Costruzione esatta su Q(√5, i); 19 test esatti eseguiti; Molien da caratteri valido per ogni grado; modelli unitari ortonormali per 3,3′,4′,5,6 e matrici di Rumin ancora aperti (nota: il numero T034 è già usato da `T034-exact-2i-character-table`; sovrapposizione parziale con T036, vedi nota nel teorema; da rinumerare a cura del maintainer) |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
