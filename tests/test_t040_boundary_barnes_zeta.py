@@ -13,6 +13,9 @@ def test_boundary_level_exact_data(kind):
         "kind": kind, "boundary_index": 1, "SU2_degree": 0,
         "eigenvalue": "1", "untwisted_2I_multiplicity": 1,
     }
+    assert boundary_level(kind, 2)["eigenvalue"] == "9/4"
+    assert boundary_level(kind, 3)["eigenvalue"] == "4"
+    assert boundary_level(kind, 4)["eigenvalue"] == "25/4"
     assert boundary_level(kind, 13)["eigenvalue"] == "49"
     assert boundary_level(kind, 13)["untwisted_2I_multiplicity"] == 1
 
