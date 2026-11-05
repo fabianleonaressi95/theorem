@@ -1,6 +1,6 @@
 # T020 — Gauge-covariant strong-resolvent convergence of the Q6 Wilson refinement
 
-**Status: CONDITIONAL THEOREM / proof reduced to an explicit consistency hypothesis.** The finite-lattice gauge identities are exact for unitary links. The continuum-limit statement below follows if the sampled links satisfy the stated smooth parallel-transport consistency. The accompanying numerical audit is recorded as finite-dimensional numerical evidence; it is not a substitute for the analytic consistency estimate.
+**Status: PROVED for each fixed smooth SU(3) connection on the periodic six-torus, with the cell-average discretization and parallel-transport links specified below.** The first-order consistency estimate (C) is proved in Section 4, and the generalized strong-resolvent conclusion follows in Section 5. This does not claim norm-resolvent convergence or an interacting gauge-field continuum limit.
 
 ## 1. Continuum data
 
@@ -9,7 +9,7 @@ Let \(\mathbb T^6_2=(\mathbb R/2\mathbb Z)^6\), \(h_n=1/n\), and \(\Lambda_n=(\m
 \mathcal H=L^2(\mathbb T^6_2;\mathbb C^8\otimes\mathbb C^3),\qquad
 A_{\mathcal A}=m_0I+\sum_{i=1}^6(\Gamma_i\otimes I_3)(\partial_i+\mathcal A_i).
 \]
-The domain is \(H^1(\mathbb T^6_2;\mathbb C^{24})\). The \(\Gamma_i\) are Hermitian Clifford matrices. Since \(\mathcal A_i\) is anti-Hermitian, each covariant derivative is skew-adjoint on the periodic torus, and the continuum operator is accretive after subtracting \(m_0\).
+The domain is \(H^1(\mathbb T^6_2;\mathbb C^{24})\). The \(\Gamma_i\) are Hermitian Clifford matrices. Since the free Dirac operator \(\sum_i\Gamma_i\partial_i\) is skew-adjoint on \(H^1\), and \(\sum_i\Gamma_i\mathcal A_i\) is a bounded skew-adjoint multiplication operator, \(A_{\mathcal A}-m_0\) is skew-adjoint on \(H^1\).
 
 ## 2. Link fields and lattice operator
 
@@ -186,7 +186,7 @@ The audit records link unitarity and determinant-one residuals, the non-Abelian 
 
 The generator commutator norm is \(\sqrt2\), and the actual link commutator at the origin has norms 0.03708029 and 0.01135974 at the two levels. The sitewise gauge matrices also pass unitarity and determinant-one checks at roundoff scale. The test is therefore not confined to a common Cartan subgroup. The JSON report is stored at evidence/T020-gauge-covariant-audit-local.json.
 
-**Evidence label:** locally reproduced finite-dimensional numerical diagnostics. The full-matrix link/Wilson checks passed GitHub Actions run #7; the plaquette-curvature refinement and its assertions passed run #9 (PR #73). These finite tests do not establish (C).
+**Evidence label:** the analytic cell-average estimate (C) is proved in Section 4. The finite-dimensional non-Abelian link/Wilson checks passed GitHub Actions run #7; the plaquette-curvature refinement and its assertions passed run #9 (PR #73). These numerical tests are independent corroboration, not the proof of (C).
 
 
 ## 7. Non-Abelian plaquette curvature audit
@@ -227,8 +227,6 @@ The sampled residual exhibits second-order scaling over these six finite refinem
 ## 8. Scope
 
 
-**Exact:** finite-lattice gauge covariance; Wilson positivity; uniform left-half-plane resolvent bound.
-
-**Conditional:** generalized strong-resolvent convergence, conditional on (C).
+**Proved:** first-order cell-average consistency (C) for fixed smooth connections; finite-lattice gauge covariance; Wilson positivity; uniform left-half-plane resolvent bound; generalized strong-resolvent convergence for every fixed smooth background connection.
 
 **Not established:** norm-resolvent convergence, gauge-field integration, reflection positivity of a full interacting theory, fermion determinant control, interacting continuum QCD, confinement, baryon masses, or a derivation of a physical \(3+1\)-dimensional theory.
