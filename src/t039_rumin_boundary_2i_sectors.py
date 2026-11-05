@@ -1,56 +1,50 @@
-"""T039: exact boundary eigenvalues and conditional 2I harmonic restriction."""
+"""T039: exact Rumin boundary spectrum and binary-icosahedral multiplicities.
+
+Kitaoka's n=1 boundary weights are (q,-p)=(-1,-p) and (q,1).
+Their SU(2) highest-weight degree is m=q+p, hence p-1 or q-1.
+"""
 from __future__ import annotations
 import argparse, json
 from pathlib import Path
-from typing import Any
 
 
-def boundary_eigenvalue(kind: str, index: int):
-    """Exact D*D boundary eigenvalue as a SymPy Rational."""
+def boundary_data(kind: str, index: int):
     import sympy as sp
     if kind not in ("q=-1", "p=-1"):
         raise ValueError("kind must be 'q=-1' or 'p=-1'")
     if not isinstance(index, int) or isinstance(index, bool) or index < 1:
         raise ValueError("boundary index must be an integer >= 1")
-    return sp.Rational((index + 1) ** 2, 4)
+    m = index - 1
+    return {
+        "kind": kind,
+        "boundary_index": index,
+        "highest_weight_U2": "(-1,-p)" if kind == "q=-1" else "(q,1)",
+        "SU2_symmetric_power_degree": m,
+        "SU2_module_dimension": m + 1,
+        "D_adjoint_D_eigenvalue": str(sp.Rational((index + 1) ** 2, 4)),
+    }
 
 
-def audit_boundary_sector(kind: str, index: int,
-                          representation_degree: int | None = None) -> dict[str, Any]:
-    """A supplied m is conditional; it is never inferred from the boundary index."""
-    eigenvalue = boundary_eigenvalue(kind, index)
-    result = {
-        "kind": kind, "boundary_index": index,
-        "D_adjoint_D_eigenvalue": str(eigenvalue),
-        "representation_identification":
-            "not supplied; geometric boundary-to-Sym^m identification remains open",
-    }
-    if representation_degree is None:
-        return result
-    if (not isinstance(representation_degree, int)
-            or isinstance(representation_degree, bool) or representation_degree < 0):
-        raise ValueError("representation_degree must be an integer >= 0")
-    from src.t037_rumin_harmonic_multiplicities import decompose_degree
-    from src.t036_2i_irreducible_models import build_all_models
-    group, chars, _, models = build_all_models()
-    decomposition = decompose_degree(representation_degree, group, chars, models)
-    irreps = {
-        label: {"dimension": int(entry["dimension"]),
-                "multiplicity": int(entry["Molien_multiplicity"]),
-                "isotypic_dimension": int(entry["isotypic_dimension"])}
-        for label, entry in decomposition.items()
-    }
-    total = sum(item["isotypic_dimension"] for item in irreps.values())
-    ambient = representation_degree + 1
-    if total != ambient:
-        raise AssertionError(f"2I decomposition dimension {total} != {ambient}")
+def audit_boundary_sector(kind: str, index: int):
+    """Return exact 2I isotypic multiplicities using T032 Molien coefficients."""
+    result = boundary_data(kind, index)
+    from src.t032_2i_molien import IRREP_DIMENSIONS, molien_coefficients
+    m = result["SU2_symmetric_power_degree"]
+    multiplicities = {label: int(molien_coefficients(label, m)[m])
+                      for label in IRREP_DIMENSIONS}
+    dimensions = {label: IRREP_DIMENSIONS[label] * multiplicities[label]
+                  for label in IRREP_DIMENSIONS}
+    total = sum(dimensions.values())
+    if total != m + 1:
+        raise AssertionError(f"2I decomposition dimension {total} != {m + 1}")
     result.update({
-        "representation_degree": representation_degree,
-        "representation_dimension": ambient,
-        "2I_irreducible_multiplicities": irreps,
+        "2I_irrep_multiplicities": multiplicities,
+        "2I_isotypic_dimensions": dimensions,
         "2I_dimension_sum": total,
-        "representation_identification":
-            "conditional audit of supplied Sym^m(C^2)|_2I; not proof this is the geometric boundary module",
+        "trivial_2I_multiplicity": multiplicities["1"],
+        "quotient_invariant_boundary_multiplicity": multiplicities["1"],
+        "method": "exact T032 Molien coefficients; sum(dim(rho)*b_m,rho)=m+1",
+        "geometric_identification": "Kitaoka n=1 Proposition 1.1 cases VI/VII: m=q+p=index-1",
     })
     return result
 
@@ -59,10 +53,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--kind", choices=("q=-1", "p=-1"), required=True)
     parser.add_argument("--index", type=int, required=True)
-    parser.add_argument("--representation-degree", type=int, default=None)
     parser.add_argument("--output", default="data/t039_rumin_boundary_2i_audit.json")
     args = parser.parse_args()
-    report = audit_boundary_sector(args.kind, args.index, args.representation_degree)
+    report = audit_boundary_sector(args.kind, args.index)
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
