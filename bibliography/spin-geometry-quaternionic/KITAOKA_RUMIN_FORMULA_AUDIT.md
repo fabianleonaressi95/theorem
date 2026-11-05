@@ -406,3 +406,23 @@ Applicandola anche ai due pesi di bordo ammessi nei casi VI e VII, al primo grad
 Ogni peso ammesso al grado m=12 contribuisce una dimensione invariante, poiché a_12=1. Quindi le liste sono liste di autovalori con molteplicità per il sottospazio 2I-invariante, prima di eventuali ulteriori coincidenze fra bidegrees nel Laplaciano globale. Il valore 49 nei settori E^(1,0) ed E^(0,1) proviene precisamente dai pesi di bordo (-1,-13) e (13,1) nelle convenzioni (q,-p); non compare nel settore scalare. Il codice riproducibile controlla queste tre liste con aritmetica razionale esatta.
 
 Questa è una sostituzione importante rispetto al conteggio dei soli autovalori scalari: i settori di forme hanno gli stessi gradi invarianti, ma i rispettivi intervalli di pesi sono traslati e includono un autovalore di bordo aggiuntivo. Resta da verificare nel dettaglio l'azione degli operatori di primo ordine e l'intertwiner centrale, nonché come i diversi contributi si combinano nelle zeta spettrali del complesso.
+
+
+### 9.2 Audit puntuale dei Casi VI–VII: controllo indipendente dei bordi
+
+Il controllo sul testo integrale conferma che i due pesi estremi non vanno trattati come una continuazione informale del caso interno. Nella Proposition 1.1 (Casi VI e VII), per n=1:
+
+- VI: i=0, j=0, q=-1, p>=1, con sottospazio Psi^(1,0)_(-1,0,0,p);
+- VII: i=0, j=0, p=-1, q>=1, con sottospazio Psi^(0,1)_(q,0,0,-1).
+
+Nel Caso VI, la sezione 2.3 afferma che non esistono sottospazi corrispondenti in E^0; pertanto gli aggiunti dei differenziali orizzontali si annullano sul componente Psi^(1,0). La formula di D (equazione (1.3)) si riduce, su quel componente, al contributo del campo di Reeb. Dalla formula (2.4), con i=j=0, segue 2 L_T psi = i(p-q) psi. Quindi il valore di D^dagger D, e del Laplaciano di Rumin sul sottospazio di bordo, è
+
+lambda_VI(p) = (p-q)^2/4 con q=-1 = (p+1)^2/4.
+
+Il Caso VII è il coniugato e dà lambda_VII(q)=(q+1)^2/4.
+
+Per il primo livello invariante m=12, i due bordi sono (q,p)=(-1,13) e (13,-1), entrambi con autovalore 49. Questo coincide con la sostituzione nella formula generale del Theorem 0.1, ma ora il valore è anche giustificato direttamente dal calcolo speciale dei Casi VI–VII. I valori numerici già riportati nelle liste E10/E01 restano invariati.
+
+**Verifica software aggiunta:** il programma definisce funzioni separate boundary_eigenvalue_case_vi e boundary_eigenvalue_case_vii, e asserisce che per il bordo a grado 12 entrambe restituiscano 49 e coincidano con la formula generale. Questo controllo riguarda il bordo; non calcola ancora le matrici degli intertwiners di D sui settori interni.
+
+**Fonte primaria puntuale:** Kitaoka, arXiv:1911.03092, Proposition 1.1 (Casi VI–VII), §2.3 (Casi VI–VII), equazioni (1.3) e (2.4). La decomposizione dei sette casi e il richiamo al Theorem 0.1 sono riprodotti anche in Kitaoka, SIGMA 18 (2022), 091, Proposition 2.1 e Proposition 2.3.
