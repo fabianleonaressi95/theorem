@@ -68,7 +68,7 @@ def kappa_direct_partial(label,s,M):
 
 def kappa_boundary_partial(label,s,M):
     b=multiplicities(label,M)
-    return 2*sum(b[m]*(mp.power((m+2)**2/4,-s)-mp.power(m**2/4,-s)) for m in range(1,M+1))
+    return 2*sum(b[m]*(mp.power(mp.mpf((m+2)**2)/4,-s)-mp.power(mp.mpf(m**2)/4,-s)) for m in range(1,M+1))
 
 def log_torsion(label,dps=50):
     if not isinstance(dps,int) or isinstance(dps,bool) or dps<20: raise ValueError("dps >= 20 required")
