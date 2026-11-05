@@ -1,0 +1,31 @@
+name: T045 exact 2I certificate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/t045_2i_representation_certificate.py"
+      - "src/t034_binary_icosahedral_representations.py"
+      - "src/t032_2i_molien.py"
+      - "tests/test_t045_2i_representation_certificate.py"
+      - ".github/workflows/t045-2i-certificate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/t045_2i_representation_certificate.py"
+      - "src/t034_binary_icosahedral_representations.py"
+      - "src/t032_2i_molien.py"
+      - "tests/test_t045_2i_representation_certificate.py"
+      - ".github/workflows/t045-2i-certificate.yml"
+
+jobs:
+  exact-certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run exhaustive exact certificate
+        run: python -m unittest tests.test_t045_2i_representation_certificate -v
