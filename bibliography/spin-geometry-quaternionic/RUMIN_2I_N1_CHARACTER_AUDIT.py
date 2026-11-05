@@ -322,6 +322,25 @@ def verify_torsion_gamma_identities():
     return True
 
 
+def torsion_volume_closed_form():
+    """Expected T_E = Vol(S^3/2I, 4*g_std) = 2*pi**2/15."""
+    return sp.Rational(2, 15) * sp.pi**2
+
+
+def verify_gamma_volume_identity(precision: int = 80):
+    """High-precision numerical check of the finite Gamma product vs volume.
+
+    This is a numerical cross-check, not a symbolic proof of the Gamma identity.
+    """
+    if precision < 30:
+        raise ValueError("Use at least 30 decimal digits")
+    gamma_value = sp.N(sp.exp(log_torsion_gamma_expression()), precision)
+    volume_value = sp.N(torsion_volume_closed_form(), precision)
+    residual = sp.N(gamma_value - volume_value, precision)
+    assert abs(residual) < sp.Float(10) ** (-(precision // 2))
+    return residual
+
+
 if __name__ == "__main__":
     max_degree = 80
     a = invariant_multiplicities(max_degree)
@@ -369,4 +388,5 @@ if __name__ == "__main__":
     assert verify_torsion_gamma_identities()
     print("Hurwitz torsion residue data:", torsion_periodic_residue_data())
     print("log T exact gamma expression:", log_torsion_gamma_expression())
-    print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and gamma identities")
+    print("Gamma/volume residual (high precision):", verify_gamma_volume_identity(80))
+    print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and Gamma/volume numerical comparison")
