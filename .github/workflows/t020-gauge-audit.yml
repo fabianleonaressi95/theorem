@@ -35,6 +35,8 @@ jobs:
           for row in rows:
               assert row["wilson_nonnegative"]
               assert row["wilson_quadratic_form"] >= -1e-12
+              assert row["wilson_identity_relative_residual"] < 1e-10
+              assert row["wilson_imaginary_form_relative_residual"] < 1e-10
               assert row["gauge_covariance_relative_residual"] < 1e-10
               assert row["link_unitarity_max_residual"] < 1e-10
               assert row["link_det_one_max_residual"] < 1e-10
