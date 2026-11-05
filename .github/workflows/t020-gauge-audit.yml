@@ -41,6 +41,9 @@ jobs:
               assert row["link_unitarity_max_residual"] < 1e-10
               assert row["link_det_one_max_residual"] < 1e-10
               assert row["nonabelian_generator_commutator_norm"] > 1e-6
+              assert row["nonabelian_link_commutator_norm_at_origin"] > 1e-6
+              assert row["gauge_transform_unitarity_max_residual"] < 1e-10
+              assert row["gauge_transform_det_one_max_residual"] < 1e-10
               assert row["clifford_relations_max_residual"] < 1e-10
           assert rows[1]["consistency_error"] < rows[0]["consistency_error"], rows
           print(json.dumps(data, indent=2))
