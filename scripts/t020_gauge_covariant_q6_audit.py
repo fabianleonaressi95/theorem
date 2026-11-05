@@ -109,6 +109,72 @@ def gauge_transform(links, mesh, eps=0.23):
         transformed.append(g @ u @ gf.conj().swapaxes(-1,-2))
     return g, transformed
 
+def scalar_field(i, x, alpha):
+    return alpha * (
+        math.sin(math.pi*x[(i+1) % 6])
+        + 0.31*math.cos(math.pi*x[(i+2) % 6])
+    )
+
+def connection_matrix(i, x, alpha):
+    return 1j * scalar_field(i, x, alpha) * LINK_GENERATORS[i]
+
+def scalar_derivative(j, coordinate, x, alpha):
+    c1, c2 = (j+1) % 6, (j+2) % 6
+    value = 0.0
+    if coordinate == c1:
+        value += alpha*math.pi*math.cos(math.pi*x[c1])
+    if coordinate == c2:
+        value -= 0.31*alpha*math.pi*math.sin(math.pi*x[c2])
+    return value
+
+def curvature_matrix(i, j, x, alpha):
+    d_i_Aj = 1j*scalar_derivative(j, i, x, alpha)*LINK_GENERATORS[j]
+    d_j_Ai = 1j*scalar_derivative(i, j, x, alpha)*LINK_GENERATORS[i]
+    A_i = connection_matrix(i, x, alpha)
+    A_j = connection_matrix(j, x, alpha)
+    return d_i_Aj - d_j_Ai + A_i@A_j - A_j@A_i
+
+def plaquette_curvature_audit(n, alpha, sample_count=128):
+    """Compare based plaquette holonomy with parallel-transported midpoint curvature."""
+    h, L = 1.0/n, 2*n
+    rng = np.random.default_rng(20261105)
+    indices = rng.integers(0, L, size=(sample_count, 6))
+    coordinates = (indices + 0.5)*h
+    residual_sq = curvature_sq = 0.0
+    count = 0
+    for x in coordinates:
+        for i in range(6):
+            for j in range(i+1, 6):
+                x_i = x.copy(); x_i[i] += h
+                x_j = x.copy(); x_j[j] += h
+                U_i = su3_exp_generator(LINK_GENERATORS[i], h*scalar_field(i, x, alpha))
+                U_j_xi = su3_exp_generator(LINK_GENERATORS[j], h*scalar_field(j, x_i, alpha))
+                U_i_xj = su3_exp_generator(LINK_GENERATORS[i], h*scalar_field(i, x_j, alpha))
+                U_j = su3_exp_generator(LINK_GENERATORS[j], h*scalar_field(j, x, alpha))
+                plaquette = U_i @ U_j_xi @ U_i_xj.conj().T @ U_j.conj().T
+
+                # Curvature is evaluated at the plaquette centre and parallel
+                # transported back to the base point of the based holonomy.
+                x_c = x.copy(); x_c[i] += h/2; x_c[j] += h/2
+                F_c = curvature_matrix(i, j, x_c, alpha)
+                x_m = x.copy(); x_m[i] += h/2
+                W = (
+                    su3_exp_generator(LINK_GENERATORS[i], 0.5*h*scalar_field(i, x, alpha))
+                    @ su3_exp_generator(LINK_GENERATORS[j], 0.5*h*scalar_field(j, x_m, alpha))
+                )
+                F_base = W @ F_c @ W.conj().T
+                defect = (plaquette-np.eye(3))/h**2 - F_base
+                residual_sq += float(np.linalg.norm(defect)**2)
+                curvature_sq += float(np.linalg.norm(F_base)**2)
+                count += 1
+    rel = math.sqrt(residual_sq/max(curvature_sq, 1e-30))
+    return {
+        "n": n, "h": h, "sampled_plaquettes": count,
+        "plaquette_curvature_relative_rms_residual": rel,
+        "plaquette_curvature_absolute_rms_residual": math.sqrt(residual_sq/count),
+        "transported_curvature_rms_norm": math.sqrt(curvature_sq/count),
+    }
+
 def relative(a, b):
     return float(np.linalg.norm((a-b).ravel()) /
                  max(np.linalg.norm(b.ravel()), 1e-30))
@@ -189,6 +255,7 @@ def main():
     p.add_argument("--alpha", type=float, default=0.35)
     p.add_argument("--r", type=float, default=1.0)
     p.add_argument("--m0", type=float, default=0.2)
+    p.add_argument("--curvature-n", nargs="+", type=int, default=[2,3,4,6,8,12])
     args = p.parse_args()
     if any(n < 2 for n in args.n):
         p.error("all n must be >= 2")
@@ -199,13 +266,22 @@ def main():
             math.log(rows[j-1]["consistency_error"]/row["consistency_error"])
             / math.log(rows[j-1]["h"]/row["h"])
         )
+    curvature_rows = [plaquette_curvature_audit(n, args.alpha) for n in args.curvature_n]
+    for j, row in enumerate(curvature_rows):
+        row["observed_order_vs_previous"] = (
+            None if j == 0 else
+            math.log(curvature_rows[j-1]["plaquette_curvature_relative_rms_residual"] /
+                     row["plaquette_curvature_relative_rms_residual"])
+            / math.log(curvature_rows[j-1]["h"] / row["h"])
+        )
     print(json.dumps({
         "audit": "T020 genuinely non-Abelian SU(3) link-field audit",
         "parameters": {"alpha": args.alpha, "r": args.r, "m0": args.m0,
-                       "n": args.n},
+                       "n": args.n, "curvature_n": args.curvature_n},
         "results": rows,
+        "plaquette_curvature_results": curvature_rows,
         "interpretation": (
-            "Finite-dimensional numerical diagnostics only. Exact covariance "
+            "Finite-dimensional numerical diagnostics only. Plaquette holonomy is compared with midpoint curvature parallel-transported to the plaquette base point. Exact covariance "
             "is tested for full SU(3) matrix links and noncommuting site gauge "
             "rotations; refinement data do not prove hypothesis (C), "
             "strong-resolvent convergence, or an interacting continuum limit."
