@@ -414,4 +414,5 @@ if __name__ == "__main__":
     print("Hurwitz torsion residue data:", torsion_periodic_residue_data())
     print("log T exact gamma expression:", log_torsion_gamma_expression())
     print("Gamma/volume residual (high precision):", verify_gamma_volume_identity(80))
+    print("Exact trivial-twist Gamma reduction:", verify_trivial_gamma_closed_form())
     print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and Gamma/volume numerical comparison")
