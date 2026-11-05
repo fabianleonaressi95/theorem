@@ -13,7 +13,7 @@ For every integer \(n\geq 1\), define
 Q_{6,n}=(C_{2n})^{\square 6},\qquad
 V_{6,n}=(\mathbb Z/(2n)\mathbb Z)^6,\qquad h_n=n^{-1}.
 \]
-Thus \(Q_{6,1}=Q_6\). The sequence is a sequence of six-dimensional periodic cubical lattices, not a claim that the original six-bit graph itself has a continuous momentum space. With physical side length \(2\pi\), the vertices are \(x=h_n j\), and the allowed momenta are \(p_j=2\pi m_j/(2n)=\pi m_j/n\).
+Thus \(Q_{6,1}=Q_6\). The sequence is a sequence of six-dimensional periodic cubical lattices, not a claim that the original six-bit graph itself has a continuous momentum space. With physical side length \(2\), the vertices are \(x=h_n j\), and the allowed momenta are \(p_j=2\pi m_j/(2n)=\pi m_j/n\).
 
 For \(n=1\), each coordinate translation satisfies \(T_j=T_j^{-1}\), so the centered difference vanishes exactly. For \(n\geq2\), it is generally nonzero.
 
