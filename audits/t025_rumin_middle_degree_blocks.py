@@ -61,15 +61,6 @@ def generic_block(p: int, q: int):
 
 
 def boundary_blocks(nmax: int):
-    rows = []
-    for r in range(1, nmax + 1):
-        val = Fraction((r + 1) ** 2, 4)
-        rows.append({
-            "case": "q=-1,p>=1" if len(rows) == 0 else None,
-            "index": r,
-            "DdaggerD_eigenvalue": str(val),
-            "exact": True,
-        })
     # Keep the two conjugate families explicitly distinct.
     return {
         "case_VI_q_minus_1": [
