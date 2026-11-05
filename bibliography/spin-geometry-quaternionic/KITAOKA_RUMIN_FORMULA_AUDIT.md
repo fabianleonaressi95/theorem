@@ -309,3 +309,83 @@ e per \(p=7,\ldots,12\) la lista è simmetrica rispetto a \(p=6\). Gli autovalor
 36,\ 289,\ 676,\ 1089,\ 1444,\ 1681,\ 1764.
 \]
 Le molteplicità spettrali nel quoziente non si ottengono contando solo i valori distinti: occorre sommare i contributi dei diversi pesi \((q,-p)\) che producono lo stesso autovalore e verificare i casi di bordo della decomposizione di Kitaoka. Questo è un audit del solo settore \(\mathcal E^0\), non della torsione completa.
+
+
+## 9. Decomposizione completa dei bidegrees per n=1 e restrizione a 2I
+
+La specializzazione corretta della Proposition 1.1 di Kitaoka (che richiama Julg–Kasparov, §4(b)) va fatta caso per caso. Per n=1, i casi II–V con indici strettamente positivi o con somma interna non producono termini; restano i casi I, VI e VII:
+\[
+\begin{aligned}
+\mathcal E^{0,0}
+&=\bigoplus_{q\geq0,\,p\geq0}
+\Psi^{(0,0)}_{(q,0,0,p)},\\
+\mathcal E^{1,0}
+&=\bigoplus_{q\geq-1,\,p\geq1}
+\Psi^{(1,0)}_{(q,0,0,p)},\\
+\mathcal E^{0,1}
+&=\bigoplus_{q\geq1,\,p\geq-1}
+\Psi^{(0,1)}_{(q,0,0,p)}.
+\end{aligned}
+\]
+Il peso massimo U(2) di ciascun termine è (q,-p). La condizione q≥-p è rispettata anche ai due bordi eccezionali (-1,-1) e (1,1).
+
+Poiché 2I è un sottogruppo di SU(2), la restrizione è
+\[
+V(q,-p)|_{SU(2)}
+\simeq \det^{(q-p)/2}\otimes
+\operatorname{Sym}^{q+p}(\mathbb C^2)|_{SU(2)}
+\simeq\operatorname{Sym}^{m}(\mathbb C^2),
+\qquad m=q+p.
+\]
+Il fattore determinante è banale su SU(2); quindi la molteplicità 2I-invariante dipende da m, non dal singolo peso U(2).
+
+Per ogni m≥0, il numero di coppie ammesse (q,p) è m+1 in ciascuno dei tre bidegrees:
+- E^(0,0): p=0,...,m, q=m-p;
+- E^(1,0): p=1,...,m+1, q=m-p≥-1;
+- E^(0,1): q=1,...,m+1, p=m-q≥-1.
+
+Di conseguenza, se a_m=dim(Sym^m C^2)^(2I), la molteplicità totale delle copie invarianti di grado m, in ciascun bidegree, è
+\[
+(m+1)a_m.
+\]
+Questo conteggio è una conseguenza della decomposizione e della restrizione; non è ancora una molteplicità spettrale, perché per quest'ultima occorre applicare la formula degli autovalori a ciascun peso ammesso e trattare correttamente i casi di bordo.
+
+### Calcolo esatto esteso
+
+È stato aggiunto il file RUMIN_2I_N1_CHARACTER_AUDIT.py. Usa aritmetica esatta in Q(sqrt(5)), la ricorrenza di caratteri
+\[
+\chi_m(x)=x\chi_{m-1}(x)-\chi_{m-2}(x),
+\qquad
+a_m=\frac1{120}\sum_{[g]}|[g]|\chi_m(g),
+\]
+e verifica integrità e non negatività delle molteplicità. L'audit esteso fino a m=80 restituisce i gradi non nulli:
+\[
+\begin{gathered}
+0,12,20,24,30,32,36,40,42,44,48,50,52,54,56,\\
+60,62,64,66,68,70,72,74,76,78,80.
+\end{gathered}
+\]
+Le molteplicità a_m sono 1, salvo a_60=a_72=a_80=2 nell'intervallo controllato. Il primo grado positivo rimane 12; in ciascuno dei tre bidegrees esso produce 13 copie invarianti di irriducibili U(2), una per ciascuna coppia ammessa (q,p). Il conteggio è esatto rispetto alla tavola di caratteri indicata nel §8; l'estensione numerica non sostituisce una dimostrazione della formula generale di Molien.
+
+### Compatibilità del differenziale centrale
+
+Per n=1, il differenziale centrale D=d_R^1:E^1→E^2 è di secondo ordine. Sulla sfera CR standard, la costruzione di Rumin/Kitaoka è U(2)-equivariante; in particolare, per ogni g in 2I⊂SU(2),
+\[
+D\rho_1(g)=\rho_2(g)D.
+\]
+Pertanto, con le proiezioni di Reynolds nei due spazi,
+\[
+P_{E^2}D=DP_{E^1}.
+\]
+Ne segue che D manda sezioni invarianti in sezioni invarianti: il quoziente per 2I eredita il differenziale centrale e il complesso ristretto è ben definito. Questa è la verifica strutturale di compatibilità richiesta.
+
+Non ancora calcolato: la matrice/scalare esplicito di D su ogni copia irriducibile e il suo eventuale nucleo immagine per immagine. L'equivarianza garantisce la stabilità del sottospazio invariante, ma non determina da sola il valore dell'intertwiner né lo spettro di D†D. Non si deve quindi dedurre da questo passaggio la zeta spettrale o la torsione del quoziente.
+
+### Stato epistemico aggiornato
+
+- Derivato dalla decomposizione citata: i tre insiemi di pesi U(2) per n=1, inclusi i due bordi q=-1 e p=-1.
+- Verificato esattamente per caratteri: a_m fino a m=80, con codice riproducibile.
+- Dimostrato per equivarianza: il differenziale centrale discende al quoziente S^3/2I.
+- Aperto: coefficienti espliciti di D sui singoli tipi, autovalori completi nei casi di bordo, zeta spettrali e torsione regolarizzata su S^3/2I.
+
+Riferimenti per questa specializzazione: A. Kitaoka, Analytic torsions associated with the Rumin complex on contact spheres, arXiv:1911.03092, §1 e Proposition 1.1; la stessa lista dei sette casi è riprodotta nella sezione introduttiva di A. Kitaoka, Ray–Singer Torsion and the Rumin Laplacian on Lens Spaces, SIGMA 18 (2022), 091, §1.2, dove i casi VI e VII sono esplicitati. Il secondo lavoro riguarda quozienti ciclici per la torsione, e non viene usato come se trattasse direttamente il gruppo non abeliano 2I.
