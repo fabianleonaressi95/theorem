@@ -1,24 +1,24 @@
 # T024 — Operator and torsion-convention matching for the Rumin complex on 3D CR-Seifert quotients
 
-**Status:** proved in dimension three, under the common contact metric and flat-unitary coefficient hypotheses stated below. The rescaled Rumin differential used by Kitaoka is exactly the unscaled Rumin differential used by Rumin–Seshadri when (n=1). Their fourth-order Laplacians therefore agree degree by degree. Hodge duality then identifies the full-degree Rumin–Seshadri torsion function with the negative of Kitaoka's lower-half torsion function. This closes the operator/sign-convention bridge needed for the (S^3/2I) application.
+**Status:** proved in dimension three, under the common contact metric and flat-unitary coefficient hypotheses stated below. The rescaled Rumin differential used by Kitaoka is exactly the unscaled Rumin differential used by Rumin–Seshadri when \\(n=1\\). Their fourth-order Laplacians therefore agree degree by degree. Hodge duality then identifies the full-degree Rumin–Seshadri torsion function with the negative of Kitaoka's lower-half torsion function. This closes the operator/sign-convention bridge needed for the (S^3/2I) application.
 
 ## 1. Setup and hypotheses
 
-Let ((M,H,	heta,J)) be a compact, oriented, three-dimensional strictly pseudoconvex CR contact manifold. Let (E\to M) be a flat Hermitian vector bundle with unitary holonomy. Use the same contact form, calibrated CR structure, induced (L^2) products, and formal adjoints throughout.
+Let ((M,H,	heta,J)) be a compact, oriented, three-dimensional strictly pseudoconvex CR contact manifold. Let (E\to M) be a flat Hermitian vector bundle with unitary holonomy. Use the same contact form, calibrated CR structure, induced \\(L^2\\) products, and formal adjoints throughout.
 
 The Rumin complex has the form
 \[
 \mathcal E^0\xrightarrow{d_R^0}\mathcal E^1
 \xrightarrow{D}\mathcal E^2\xrightarrow{d_R^2}\mathcal E^3.
 \]
-Here (D=d_R^1) is the second-order middle differential.
+Here \\(D=d_R^1\\) is the second-order middle differential.
 
 Kitaoka uses the rescaling
 \[
 d_E^k=a_kd_R^k,\qquad
 a_k=|n-k|^{-1/2}\ (k\ne n),\qquad a_n=1.
 \]
-For (n=1), the only first-order differentials have degrees (k=0,2), and
+For \\(n=1\\), the only first-order differentials have degrees \\(k=0,2\\), and
 \[
 a_0=|1-0|^{-1/2}=1,\qquad
 a_2=|1-2|^{-1/2}=1,\qquad a_1=1.
@@ -78,7 +78,7 @@ k,&k\le1,\\
 k+1,&k>1.
 \end{cases}
 \]
-Thus (w(0),w(1),w(2),w(3)=(0,1,3,4)), and
+Thus \\(w(0)=0,\\ w(1)=1,\\ w(2)=3,\\ w(3)=4\\), and
 \[
 \begin{aligned}
 \kappa_C(s)
@@ -115,9 +115,9 @@ Combining this theorem with Section 4 yields
 \]
 The determinant-line metric statement is not an extra numerical assumption: the canonical cohomology isomorphism is the one induced by the contact-complex resolution, and Theorem 4.2 identifies the corresponding metrics. The equality is valid for unitary flat coefficients, including the bundles associated with irreducible unitary representations of (2I).
 
-## 6. Application to the Poincaré sphere (S^3/2I)
+## 6. Application to the Poincaré sphere \\(S^3/2I\\)
 
-Realize (S^3\simeq SU(2)). The binary icosahedral group (2I\subset SU(2)) acts freely by left multiplication. The scalar Hopf circle action commutes with this left action, preserves the standard CR structure and contact form, and descends to a locally free Reeb circle action on (S^3/2I). Hence the quotient is a compact three-dimensional CR-Seifert manifold.
+Realize (S^3\simeq SU(2)). The binary icosahedral group (2I\subset SU(2)) acts freely by left multiplication. The scalar Hopf circle action commutes with this left action, preserves the standard CR structure and contact form, and descends to a locally free Reeb circle action on \\(S^3/2I\\). Hence the quotient is a compact three-dimensional CR-Seifert manifold.
 
 The hypotheses of Rumin–Seshadri Theorem 4.2 therefore hold for every unitary representation of
 \[
@@ -127,12 +127,12 @@ For each irreducible unitary representation \(\rho\), the character-twisted spec
 \[
 \boxed{T_{\mathcal E,\rho}(S^3/2I)=T_{RS,\rho}(S^3/2I).}
 \]
-For the trivial representation, the non-acyclic determinant line must still be normalized using the integral generators of (H^0) and (H^3); the contact metric volume factor is handled separately in T021. The present theorem does not replace that cohomological metric calculation.
+For the trivial representation, the non-acyclic determinant line must still be normalized using the integral generators of \\(H^0\\) and \\(H^3\\); the contact metric volume factor is handled separately in T021. The present theorem does not replace that cohomological metric calculation.
 
 ## 7. What is now closed and what remains open
 
 **Proved here**
-- The degreewise rescaling in Kitaoka is the identity for (n=1).
+- The degreewise rescaling in Kitaoka is the identity for \\(n=1\\).
 - The Kitaoka and Rumin–Seshadri fourth-order Laplacians coincide in all four degrees under the same metric.
 - Hodge-star duality gives \(\zeta_3=\zeta_0\) and \(\zeta_2=\zeta_1\).
 - The torsion functions obey \(\kappa_C=-\kappa_E\), hence \(T_C=T_E^{-1}\).
@@ -141,7 +141,7 @@ For the trivial representation, the non-acyclic determinant line must still be n
 **Still separate**
 - T021–T023's spectral/Molien input and exact evaluation of the nine irreducible twists.
 - The explicit determinant-line basis and (L^2)-norm calculation for the trivial coefficient system, already treated in T021.
-- Any higher-dimensional comparison: for (n>1), the rescaling factors are not all one and the above operator identity cannot be reused without a new conjugation/rescaling analysis.
+- Any higher-dimensional comparison: for \\(n>1\\), the rescaling factors are not all one and the above operator identity cannot be reused without a new conjugation/rescaling analysis.
 - Any implication for Q6, PRISM, Yang–Mills, or physical matter; none follows from this torsion comparison.
 
 ## References
