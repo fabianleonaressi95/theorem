@@ -115,7 +115,8 @@ def build_all_models():
 
 def verify_models(group, chars, degrees, models):
     labels=tuple(IRREP_DIMENSIONS)
-    checks=0
+    character_checks=0
+    metric_checks=0
     for label in labels:
         model=models[label]
         d=IRREP_DIMENSIONS[label]
@@ -132,19 +133,19 @@ def verify_models(group, chars, degrees, models):
             if sp.simplify(value-chars[label][j])!=0:
                 raise AssertionError(f"character mismatch {label}, class {j}")
             trace_by_class[j]=value
-            checks+=1
+            character_checks+=1
         # Every matrix preserves the induced positive Hermitian form.
         G=model["gram"]
         for R in model["matrices"]:
             if sp.simplify(R.conjugate().T*G*R-G)!=sp.zeros(d):
                 raise AssertionError(f"unitarity in invariant metric failed: {label}")
-            checks+=1
+            metric_checks+=1
     if sum(IRREP_DIMENSIONS[x]**2 for x in labels)!=120:
         raise AssertionError("sum of squares is not 120")
     return {"passed":True,"irreducibles":len(labels),
             "matrix_models":sum(len(models[x]["matrices"]) for x in labels),
-            "character_values_recovered":checks-120*sum(IRREP_DIMENSIONS.values()),
-            "invariant_metric_checks":120*sum(IRREP_DIMENSIONS.values()),
+            "character_values_recovered":character_checks,
+            "invariant_metric_checks":metric_checks,
             "sum_dimension_squares":120,
             "first_multiplicity_one_degrees":degrees}
 
