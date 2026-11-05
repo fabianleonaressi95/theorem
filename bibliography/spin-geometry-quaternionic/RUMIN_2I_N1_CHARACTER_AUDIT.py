@@ -260,6 +260,68 @@ def verify_equivariant_reynolds_identity(max_degree: int = 40):
     return True
 
 
+
+def torsion_difference_coefficients(max_degree: int = 300):
+    """d_n = a_(n-2)-a_n after cancellation in -2*zeta_0+zeta_1."""
+    if max_degree < 3:
+        raise ValueError("max_degree must be at least 3")
+    a = invariant_multiplicities(max_degree)
+    return [sp.Integer(a[n - 2] - a[n]) for n in range(3, max_degree + 1)]
+
+
+def torsion_periodic_residue_data():
+    """One representative n>=3 for each nonzero residue modulo 60."""
+    return [
+        (62, sp.Integer(1)), (12, sp.Integer(-1)),
+        (14, sp.Integer(1)), (20, sp.Integer(-1)),
+        (22, sp.Integer(1)), (24, sp.Integer(-1)),
+        (26, sp.Integer(1)), (30, sp.Integer(-1)),
+        (34, sp.Integer(1)), (36, sp.Integer(-1)),
+        (38, sp.Integer(1)), (40, sp.Integer(-1)),
+        (46, sp.Integer(1)), (48, sp.Integer(-1)),
+        (58, sp.Integer(1)), (60, sp.Integer(-2)),
+    ]
+
+
+def verify_torsion_periodicity(max_degree: int = 300):
+    """Finite exact check of d_(n+60)=d_n; proof is in audit §10.3."""
+    d = torsion_difference_coefficients(max_degree)
+    for n in range(3, max_degree - 60 + 1):
+        assert d[n - 3] == d[n + 60 - 3]
+    data = torsion_periodic_residue_data()
+    assert sum(v for _, v in data) == -1
+    assert sum(v * (sp.Rational(1, 2) - sp.Rational(n, 60))
+               for n, v in data) == 0
+    return True
+
+
+def hurwitz_regularized_kappa():
+    """Finite Hurwitz-zeta continuation of kappa(s), regular at s=0."""
+    s = sp.Symbol("s")
+    terms = [value * sp.zeta(2 * s, sp.Rational(n, 60))
+             for n, value in torsion_periodic_residue_data()]
+    return sp.simplify(2 * 4**s * 60**(-2*s) * sum(terms))
+
+
+def log_torsion_gamma_expression():
+    """Exact log T = 2 sum d_n log Gamma(n/60) + log(2*pi)."""
+    data = torsion_periodic_residue_data()
+    return sp.simplify(
+        2 * sum(value * sp.loggamma(sp.Rational(n, 60))
+                for n, value in data)
+        + sp.log(2 * sp.pi)
+    )
+
+
+def verify_torsion_gamma_identities():
+    """Check finite identities used to differentiate the Hurwitz formula."""
+    data = torsion_periodic_residue_data()
+    assert sum(value for _, value in data) == -1
+    assert sum(value * (sp.Rational(1, 2) - sp.Rational(n, 60))
+               for n, value in data) == 0
+    return True
+
+
 if __name__ == "__main__":
     max_degree = 80
     a = invariant_multiplicities(max_degree)
@@ -303,4 +365,8 @@ if __name__ == "__main__":
     chars = symmetric_power_character_table(12)
     assert any(chars[12][j] != 0 for j in range(1, 9))
     print("noncentral character periods (class index, order):", periodic)
-    print("PASS: exact class characters, periodicity, Reynolds averaging, and weight counts")
+    assert verify_torsion_periodicity(300)
+    assert verify_torsion_gamma_identities()
+    print("Hurwitz torsion residue data:", torsion_periodic_residue_data())
+    print("log T exact gamma expression:", log_torsion_gamma_expression())
+    print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and gamma identities")
