@@ -58,8 +58,25 @@ def n1_bidegree_counts(max_degree: int):
 
 
 def rumin_eigenvalue_n1(q: int, p: int):
-    """Kitaoka's n=1 eigenvalue for i=j=0, including boundary weights."""
+    """Theorem 0.1 specialized to n=1, i=j=0.
+
+    Boundary weights are independently checked below from Cases VI and VII.
+    """
     return sp.Rational((p * (q + 1) + q * (p + 1)) ** 2, 4)
+
+
+def boundary_eigenvalue_case_vi(p: int):
+    """Case VI: n=1, q=-1, p>=1; eigenvalue of D^dagger D."""
+    if p < 1:
+        raise ValueError("Case VI requires p >= 1")
+    return sp.Rational((p + 1) ** 2, 4)
+
+
+def boundary_eigenvalue_case_vii(q: int):
+    """Case VII: n=1, p=-1, q>=1; conjugate of Case VI."""
+    if q < 1:
+        raise ValueError("Case VII requires q >= 1")
+    return sp.Rational((q + 1) ** 2, 4)
 
 def first_invariant_level_spectra():
     """Eigenvalues on invariant copies at m=12 in the three n=1 bidegrees."""
@@ -72,6 +89,11 @@ def first_invariant_level_spectra():
     assert e10 == [289, 676, 1089, 1444, 1681, 1764, 1681,
                    1444, 1089, 676, 289, 36, 49]
     assert e01 == e10
+    # Independent boundary derivations: Case VI and its conjugate, Case VII.
+    assert boundary_eigenvalue_case_vi(13) == 49
+    assert boundary_eigenvalue_case_vi(13) == rumin_eigenvalue_n1(-1, 13)
+    assert boundary_eigenvalue_case_vii(13) == 49
+    assert boundary_eigenvalue_case_vii(13) == rumin_eigenvalue_n1(13, -1)
     return scalar, e10, e01
 
 if __name__ == "__main__":
@@ -89,6 +111,8 @@ if __name__ == "__main__":
     print("m=12 scalar eigenvalues:", scalar)
     print("m=12 E^(1,0) eigenvalues:", e10)
     print("m=12 E^(0,1) eigenvalues:", e01)
+    print("Case VI boundary p=13:", boundary_eigenvalue_case_vi(13))
+    print("Case VII boundary q=13:", boundary_eigenvalue_case_vii(13))
     rows = n1_bidegree_counts(max_degree)
     print("nonzero invariant degrees:", nonzero)
     print("n=1 bidegree invariant multiplicities at first levels:")
