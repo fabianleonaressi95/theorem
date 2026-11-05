@@ -62,3 +62,12 @@ def test_rest_projection_rejects_non_unit_timelike_velocity():
     from scripts.q6_prism_axial_current_correlator import project_axial_current_to_fluid_rest_space
     with pytest.raises(ValueError):
         project_axial_current_to_fluid_rest_space([[1.,0,0,0]],[2.,0,0,0])
+
+
+def test_audit_reports_projected_weyssenhoff_candidate_and_scaling():
+    from scripts.q6_prism_axial_current_correlator import audit
+    currents=np.zeros((2,2,4))
+    currents[:,:,1]=[1.,2.]
+    report=audit([1.,2.],currents,(2,),volumes=[1.,1.],fluid_velocity=[[1,0,0,0],[1,0,0,0]])
+    assert report['rows'][0]['rest_space_projected_axial_invariant_candidate']==pytest.approx(2.5)
+    assert report['scaling_fits']['q_rest_space_projected_axial_candidate']['q']==pytest.approx(0.0)
