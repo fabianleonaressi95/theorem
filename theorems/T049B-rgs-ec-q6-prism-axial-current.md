@@ -66,6 +66,10 @@ python scripts/q6_prism_axial_current_correlator.py --input axial_q6.npz --geome
 python scripts/q6_prism_axial_current_correlator.py --input axial_prism.npz --geometry prism --max-distance 3 --kappa KAPPA
 \`\`\`
 
+## Compatibilità con la fibra QLG archiviata
+
+L'operatore di fibra QLG archiviato ha dimensione 128, cioè due componenti complesse per ciascuno dei 64 vertici. Il bilineare EC–Dirac implementato qui richiede invece uno spinore di Dirac a quattro componenti per vertice, quindi 256 componenti complesse su Q6. Non viene introdotto un raddoppio arbitrario della fibra a due componenti: serve una mappa equivarante e fisicamente motivata dalla rappresentazione QLG alla rappresentazione di Dirac, che preservi la corrente e le trasformazioni Spin. Finché questa mappa non è derivata, gli spinori a quattro componenti accettati dal programma sono input indipendenti, non una reinterpretazione automatica degli autovettori di K_fibre.
+
 ## Stato epistemico
 
 - **Derivato nella convenzione EC–Dirac sorgente:** relazione di Cartan, invariante \(T^2\) e coefficiente del contatto minimale.
