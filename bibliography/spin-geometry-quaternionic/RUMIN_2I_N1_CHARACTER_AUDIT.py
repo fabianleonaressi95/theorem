@@ -341,6 +341,31 @@ def verify_gamma_volume_identity(precision: int = 80):
     return residual
 
 
+def verify_trivial_gamma_closed_form():
+    """Symbolically reduce the trivial-twist Gamma product to 2*pi**2/15.
+
+    The period-60 tail representatives are used as written (not reduced
+    modulo 60). Reflection pairs leave one Gamma(1/2) in the denominator.
+    The remaining exact trigonometric identity is
+      [sin(pi/5) sin(2pi/5) sin(pi/3) /
+       (sin(pi/30) sin(7pi/30) sin(11pi/30) sin(13pi/30))]^2 = 60.
+    """
+    s_num = (sp.sin(sp.pi/30) * sp.sin(7*sp.pi/30)
+             * sp.sin(11*sp.pi/30) * sp.sin(13*sp.pi/30))
+    s_den = sp.sin(sp.pi/5) * sp.sin(2*sp.pi/5) * sp.sin(sp.pi/3)
+    sine_identity = sp.simplify(sp.expand_trig((s_den/s_num)**2))
+    assert sine_identity == 60
+    gamma_ratio_squared = sp.simplify(sp.pi * sine_identity / 900)
+    assert gamma_ratio_squared == sp.pi / 15
+    torsion = sp.simplify(2 * sp.pi * gamma_ratio_squared)
+    assert torsion == sp.Rational(2, 15) * sp.pi**2
+    return {
+        "sine_ratio_squared": sine_identity,
+        "gamma_ratio_squared": gamma_ratio_squared,
+        "trivial_torsion": torsion,
+    }
+
+
 if __name__ == "__main__":
     max_degree = 80
     a = invariant_multiplicities(max_degree)
@@ -389,4 +414,5 @@ if __name__ == "__main__":
     print("Hurwitz torsion residue data:", torsion_periodic_residue_data())
     print("log T exact gamma expression:", log_torsion_gamma_expression())
     print("Gamma/volume residual (high precision):", verify_gamma_volume_identity(80))
+    print("Exact trivial-twist Gamma reduction:", verify_trivial_gamma_closed_form())
     print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and Gamma/volume numerical comparison")
