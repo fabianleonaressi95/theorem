@@ -200,8 +200,9 @@ Acceptance tests for the next iteration:
 
 1. Re-run the script at 80+ decimal digits and export every \(N_\rho\), \(P_\rho\), and residue vector \((d_{1,\rho},\ldots,d_{60,\rho})\).
 2. Verify the nine character projections against orthogonality of the full (2I) character table and \(\sum_\rho (\dim\rho)^2=120\).
-3. Prove the Gamma-product simplifications symbolically, or explicitly retain them as exact finite products without claiming the algebraic simplification.
-4. Match Kitaoka's \(\kappa\), Rumin–Seshadri's torsion, and Ray–Singer's determinant-line conventions term by term.
+3. Review and merge the exact Gamma-product simplifications in T023 (PR #20).
+4. Use T024 for the dimension-three operator/torsion convention match; reopen this item only for a higher-dimensional extension.
+5. Match Kitaoka's \(\kappa\), Rumin–Seshadri's torsion, and Ray–Singer's determinant-line conventions term by term.
 5. Keep the central Rumin differential/intertwiner construction as a separate open task; the scalar spectral calculation alone does not determine the full differential complex.
 
 ## References
