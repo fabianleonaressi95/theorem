@@ -35,6 +35,6 @@ def test_hurwitz_progression_formula():
 @pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
 def test_hurwitz_expansion_contains_only_expected_double_poles(label):
     spec = interior_hurwitz_expansion(label)
-    assert "k2_beta" in spec["pole_terms"]
+    assert "k2_beta_minus_alpha" in spec["pole_terms"]
     assert "k3_alpha" in spec["pole_terms"]
     assert spec["odd_variable_period"] == 120
