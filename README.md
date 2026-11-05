@@ -68,9 +68,12 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | [T022](theorems/T022-eventual-hurwitz-rumin-2I.md) | Correzione della coda di Hurwitz per i twist di 2I | Decomposizione eventuale e scala (60^{-2s}) verificate in aritmetica esatta; torsioni confrontate a 70 cifre |
 | [T023](theorems/T023-gamma-reflection-rumin-2I.md) | Identità esatte Gamma–seno per i nove twist di Rumin | Riduzione simbolica in (mathbb Q(sqrt5)), inclusa la coda eccezionale (N=62); PR #20 aperta |
 | [T024](theorems/T024-rumin-kitaoka-operator-matching-3d.md) | Corrispondenza operatoriale Kitaoka–Rumin–Seshadri in dimensione 3 | Riscalamento identico, Laplaciani uguali, dualità di Hodge e convenzioni torsionali riconciliate; PR #21 aperta |
-| [T031](theorems/T031-rumin-2i-equivariance.md) | Equivarianza del complesso di Rumin sotto l'azione binaria icosaedrica | Discesa geometrica e twist unitari; non duplica T021/T024/T030; modelli espliciti completi delle nove irriducibili ancora aperti |
+| [T031](theorems/T031-rumin-2i-equivariance.md) | Equivarianza del complesso di Rumin sotto l'azione binaria icosaedrica | Discesa geometrica e twist unitari; modelli espliciti delle nove irriducibili sviluppati in T034–T036; applicazione alle basi armoniche Rumin ancora aperta |
 | [T032](theorems/T032-2i-irrep-molien-projectors.md) | Molien covariants esatti e interfaccia dei proiettori isotypici di 2I | Coefficienti interi dalle nove serie T021; decomposizione dimensionale verificata via test; modelli matriciali e caratteri espliciti ancora aperti |
 | [T033](theorems/T033-equivariant-rumin-torsion-synthesis.md) | Decomposizione isotypica del complesso di Rumin e additività della torsione | Teorema astratto di gruppo finito; sintesi T021/T024/T031/T032 sotto ipotesi esplicite; nessun nuovo valore torsionale |
+| [T034](theorems/T034-exact-2i-character-table.md) | Tabella esatta dei caratteri irriducibili di 2I | Ricostruzione su Q(√5) dai covarianti Molien T021/T032; ortogonalità e medie Molien sottoposte a test esatti |
+| [T035](theorems/T035-exact-binary-icosahedral-model.md) | Modello quaternionico esatto di 2I | 120 vertici 600-cell, tavola di moltiplicazione, classi e rappresentazione fondamentale su Q(√5) |
+| [T036](theorems/T036-explicit-2i-irreducible-models.md) | Modelli matriciali esatti delle nove irriducibili di 2I | Estrazione da potenze simmetriche, proiettori centrali, metriche hermitiane invarianti; test non ancora certificati in CI |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
