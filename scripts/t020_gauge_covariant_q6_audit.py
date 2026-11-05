@@ -77,6 +77,7 @@ def build_fields(n, alpha):
 
 def apply_operator(psi, links, h, r, m0):
     out = m0*psi.copy()
+    wilson_out = np.zeros_like(psi)
     q = 0.0
     for i, (gamma, u) in enumerate(zip(GAMMA, links)):
         psi_f = np.roll(psi, -1, axis=i)
@@ -85,9 +86,14 @@ def apply_operator(psi, links, h, r, m0):
         psi_prev = np.roll(psi, 1, axis=i)
         back = color_apply(u_prev.conj().swapaxes(-1,-2), psi_prev)
         out += gamma_apply(gamma, fwd-back)/(2*h)
-        out += r*(2*psi-fwd-back)/(2*h)
+        wterm = r*(2*psi-fwd-back)/(2*h)
+        out += wterm
+        wilson_out += wterm
         q += float(np.linalg.norm((psi-fwd).ravel())**2)*r/(2*h)
-    return out, q
+    q_operator_complex = np.vdot(psi, wilson_out)
+    q_identity_residual = abs(q_operator_complex.real-q)/max(abs(q),1e-30)
+    q_imaginary_residual = abs(q_operator_complex.imag)/max(abs(q),1e-30)
+    return out, q, q_identity_residual, q_imaginary_residual
 
 def gauge_transform(links, mesh, eps=0.23):
     # Product of three site-dependent SU(3) rotations about noncommuting
@@ -118,7 +124,7 @@ def one_level(n, alpha, r, m0):
     phi = (phase[..., None, None]
            * spin.reshape((1,)*6 + (8, 1))
            * colour.reshape((1,)*6 + (1, 3)))
-    discrete, wilson_q = apply_operator(phi, links, h, r, m0)
+    discrete, wilson_q, wilson_identity_residual, wilson_imaginary_residual = apply_operator(phi, links, h, r, m0)
 
     # Continuum covariant derivative: nabla_i = partial_i + i H_i(x).
     continuum = m0*phi.copy()
@@ -131,10 +137,10 @@ def one_level(n, alpha, r, m0):
     # Exact lattice covariance for arbitrary sitewise g(x):
     # U_i^g(x)=g(x) U_i(x) g(x+e_i)^dagger.
     g, links_g = gauge_transform(links, mesh)
-    phi_g = np.einsum("...sa,...ab->...sb", phi, g, optimize=True)
-    lhs, _ = apply_operator(phi_g, links_g, h, r, m0)
-    rhs0, _ = apply_operator(phi, links, h, r, m0)
-    rhs = np.einsum("...sa,...ab->...sb", rhs0, g, optimize=True)
+    phi_g = color_apply(g, phi)
+    lhs, _, _, _ = apply_operator(phi_g, links_g, h, r, m0)
+    rhs0, _, _, _ = apply_operator(phi, links, h, r, m0)
+    rhs = color_apply(g, rhs0)
     covariance = relative(lhs, rhs)
 
     # Unitarity, determinant-one and genuinely noncommuting diagnostics.
@@ -158,6 +164,8 @@ def one_level(n, alpha, r, m0):
         "n": n, "h": h, "consistency_error": consistency,
         "wilson_quadratic_form": wilson_q,
         "wilson_nonnegative": bool(wilson_q >= -1e-12),
+        "wilson_identity_relative_residual": wilson_identity_residual,
+        "wilson_imaginary_form_relative_residual": wilson_imaginary_residual,
         "gauge_covariance_relative_residual": covariance,
         "link_unitarity_max_residual": unitary_res,
         "link_det_one_max_residual": det_res,
