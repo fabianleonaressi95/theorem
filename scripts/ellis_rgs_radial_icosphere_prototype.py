@@ -125,9 +125,15 @@ def _icosphere(level: int) -> tuple[np.ndarray, np.ndarray]:
 
 
 def _spherical_face_centres(vertices: np.ndarray, faces: np.ndarray) -> np.ndarray:
-    centres = vertices[faces].mean(axis=1)
-    centres /= np.linalg.norm(centres, axis=1)[:, None]
-    return centres
+    centres = []
+    for tri in faces:
+        a, b, c = vertices[tri]
+        normal = np.cross(b - a, c - a)
+        normal /= np.linalg.norm(normal)
+        if np.dot(normal, a + b + c) < 0:
+            normal = -normal
+        centres.append(normal)
+    return np.asarray(centres)
 
 
 def audit(radial_cells: int, subdivisions: int, r0: float = 0.8292) -> dict:
