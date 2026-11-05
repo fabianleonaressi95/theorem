@@ -43,6 +43,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 - **Estrazione delle formule:** [registro maestro](bibliography/FORMULA_EXTRACTION_REGISTER.md), con schede di trascrizione e verifica delle equazioni delle fonti.
 - **Bibliografia:** [catalogo generale](bibliography/README.md), con vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce, gravità, olografia, geometria discreta e fonti non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
+- **Modelli:** [modello cosmologico torsione–Lambda](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione e test riproducibili.
 - **Dimostrazioni:** [theorems/](theorems/).
 - **Verifiche esterne:** [matrice delle verifiche matematiche](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md), con criteri di accettazione e registro delle risposte.
 - **Compatibilità Q6–Dirac–barioni:** [matrice T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md), con definizioni, operatori, dipendenze e problemi aperti.
@@ -109,3 +110,8 @@ Il benchmark iniziale CA è versionato nel repository:
 - [Roadmap scientifica](docs/RGS_CELLULAR_DYNAMICS_ROADMAP.md)
 
 Stato: implementazione e smoke test iniziali. Non è ancora un risultato teorico né una validazione statistica dell'evoluzione genetica. Il passo successivo è implementare la ricerca evolutiva con semi appaiati, validazione indipendente e obiettivi multi-criterio.
+
+
+## Modello cosmologico torsione–Lambda
+
+La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.md](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione in `scripts/torsion_lambda_dust_closure.py` e test in `tests/test_torsion_lambda_dust_closure.py`. È un modello fenomenologico di consistenza; non viene presentato come derivazione della torsione algebrica Einstein–Cartan.
