@@ -83,6 +83,7 @@ La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](o
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
 | [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
+| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
 
 ## Collegamento con il filone Nielsen/Hopf
 
@@ -123,6 +124,8 @@ La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.
 
 T047 dimostra, nel modello minimale di Weyssenhoff con spin per particella conservato e media locale isotropa, che il termine quadratico algebrico di spin scala come a⁻⁶ e ha equazione di stato stiff. Questo esclude l'identificazione diretta con la componente fenomenologica dust-like a⁻³ della PR #77, sotto le ipotesi dichiarate. La derivazione e i test sono in `theorems/T047-ec-weyssenhoff-spin-scaling.md`, `scripts/ec_spin_fluid_scaling.py` e `tests/test_ec_spin_fluid_scaling.py`.
 ## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
+
+T049 costruisce il ponte tra corrente microscopica di spin, correlatore connesso e invariante quadratico; separa auto-correlazione e correlazione di coppia e verifica le conseguenze di diverse leggi di scala. Non assume una correlazione RGS–PSU non standard: questa resta da misurare/calcolare con una prescrizione del contatto esplicita. Vedi `theorems/T049-microscopic-spin-correlation-invariant.md`, `scripts/microscopic_spin_correlations.py` e `tests/test_microscopic_spin_correlations.py`.
 
 T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
 
