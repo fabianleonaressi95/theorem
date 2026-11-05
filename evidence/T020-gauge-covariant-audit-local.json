@@ -1,0 +1,37 @@
+{
+  "audit": "T020 controlled SU(3) link-field consistency and covariance",
+  "status": "LOCALLY_REPRODUCED_NUMERICALLY",
+  "source": "scripts/t020_gauge_covariant_q6_audit.py at branch fix/t020-audit-python-syntax",
+  "execution_note": "The fetched script logic was reproduced in the local Python runtime after correcting the two literal newline escapes. This is not a GitHub Actions run.",
+  "parameters": {
+    "alpha": 0.35,
+    "r": 1.0,
+    "m0": 0.2,
+    "n": [2, 3]
+  },
+  "results": [
+    {
+      "n": 2,
+      "h": 0.5,
+      "consistency_error": 1.6006326725651165,
+      "wilson_quadratic_form": 49151.99999999943,
+      "wilson_nonnegative": true,
+      "wilson_identity_relative_residual": 2.6645352591004065e-15,
+      "gauge_covariance_relative_residual": 1.2540435443089317e-16,
+      "clifford_relations_max_residual": 0.0,
+      "observed_order_vs_previous": null
+    },
+    {
+      "n": 3,
+      "h": 0.3333333333333333,
+      "consistency_error": 1.182019926589821,
+      "wilson_quadratic_form": 419961.41535404534,
+      "wilson_nonnegative": true,
+      "wilson_identity_relative_residual": 1.3846379959342568e-13,
+      "gauge_covariance_relative_residual": 2.0803952135261334e-16,
+      "clifford_relations_max_residual": 0.0,
+      "observed_order_vs_previous": 0.7477195649377629
+    }
+  ],
+  "interpretation": "Finite-dimensional numerical diagnostics only. The consistency error decreases from n=2 to n=3, but this two-level trend does not establish an asymptotic order or prove hypothesis (C). No strong-resolvent or interacting-continuum claim is made."
+}
