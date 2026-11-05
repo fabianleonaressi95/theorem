@@ -115,3 +115,12 @@ Stato: implementazione e smoke test iniziali. Non è ancora un risultato teorico
 ## Modello cosmologico torsione–Lambda
 
 La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.md](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione in `scripts/torsion_lambda_dust_closure.py` e test in `tests/test_torsion_lambda_dust_closure.py`. È un modello fenomenologico di consistenza; non viene presentato come derivazione della torsione algebrica Einstein–Cartan.
+
+
+## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
+
+T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
+
+- Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
+- Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
+- Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
