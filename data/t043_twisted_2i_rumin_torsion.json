@@ -1,0 +1,21 @@
+{
+  "task": "T043",
+  "group_order": 120,
+  "sector_count": 9,
+  "period": 60,
+  "dimension_check_through": 120,
+  "pytest_executed": false,
+  "github_actions_executed": false,
+  "torsions": {
+    "1": "1.3159472534785811492",
+    "2": "0.1909830056250525759",
+    "3": "0.5527864045000420607",
+    "4": "1.6666666666666666667",
+    "5": "1.5",
+    "6": "2",
+    "2'": "1.3090169943749474241",
+    "3'": "1.4472135954999579393",
+    "4'": "1"
+  },
+  "regular_representation_weighted_product": "16*pi^2 (high-precision check)"
+}
