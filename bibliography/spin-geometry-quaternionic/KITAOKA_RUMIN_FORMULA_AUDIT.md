@@ -332,7 +332,7 @@ Il peso massimo U(2) di ciascun termine è (q,-p). La condizione q≥-p è rispe
 Poiché 2I è un sottogruppo di SU(2), la restrizione è
 \[
 V(q,-p)|_{SU(2)}
-\simeq \det^{(q-p)/2}\otimes
+\simeq \det^{-p}\otimes
 \operatorname{Sym}^{q+p}(\mathbb C^2)|_{SU(2)}
 \simeq\operatorname{Sym}^{m}(\mathbb C^2),
 \qquad m=q+p.
