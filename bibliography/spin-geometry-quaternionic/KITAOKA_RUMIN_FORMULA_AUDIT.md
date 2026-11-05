@@ -186,3 +186,96 @@ Questa è la riduzione corretta da calcolare; non è ancora un calcolo completat
 - Kitaoka 2022, Theorem 1.1, Proposition 1.2, Corollary 1.3: https://doi.org/10.3842/SIGMA.2022.091.
 - Julg–Kasparov 1995, decomposizione in rappresentazioni citata da Kitaoka: recuperare la citazione bibliografica completa e confrontare il testo originale prima di attribuire loro ulteriori formule.
 
+
+
+## 8. Primo calcolo esplicito per il quoziente \(S^3/2I\): settore delle funzioni
+
+Questa sezione aggiunge un calcolo riproducibile, circoscritto al settore \(\mathcal E^0=C^\infty(S^3)\). Non è ancora il calcolo completo della torsione Rumin: per quello occorre anche la decomposizione dei settori di forme.
+
+Per \(S^3\subset\mathbb C^2\), un'irriducibile di \(U(2)\) con peso massimo \((q,-p)\), \(p,q\geq0\), si restringe a \(SU(2)\) come
+\[
+V(q,-p)|_{SU(2)}\simeq \operatorname{Sym}^{q+p}(\mathbb C^2),
+\]
+perché il fattore determinante è banale su \(SU(2)\). La molteplicità delle invarianti di \(2I\) dipende quindi soltanto da \(m=q+p\):
+\[
+a_m=\dim\left(\operatorname{Sym}^{m}(\mathbb C^2)\right)^{2I}
+=\frac1{120}\sum_{[g]}|[g]|\chi_m(g).
+\]
+La proiezione di Reynolds dà la stessa formula:
+\[
+P_{2I}=\frac1{120}\sum_{g\in2I}\rho_m(g),\qquad
+a_m=\operatorname{Tr}P_{2I}.
+\]
+
+La carattere di \(\operatorname{Sym}^{m}(\mathbb C^2)\) si ricava ricorsivamente dal carattere \(x=\chi_1\) della rappresentazione definente:
+\[
+\chi_0(g)=1,\quad \chi_1(g)=x(g),\quad
+\chi_m(g)=x(g)\chi_{m-1}(g)-\chi_{m-2}(g).
+\]
+Usando le nove classi di \(2I\), con cardinalità
+\[
+(1,1,20,30,12,12,20,12,12)
+\]
+e carattere definente
+\[
+(2,-2,-1,0,\phi-1,-\phi,1,\phi,1-\phi),
+\quad \phi=(1+\sqrt5)/2,
+\]
+si ottiene, per \(0\le m\le40\):
+\[
+a_0=1,\quad a_{12}=a_{20}=a_{24}=a_{30}=a_{32}=a_{36}=a_{40}=1,
+\]
+e \(a_m=0\) per tutti gli altri \(m\) in questo intervallo. In particolare il primo polinomio omogeneo non costante invariante compare al grado 12. Il risultato è coerente con la struttura classica dell'anello degli invarianti binari icosaedrali, ma qui è calcolato direttamente dalla media dei caratteri.
+
+**Conseguenza per \(\mathcal E^0\).** Il settore delle funzioni sul quoziente contiene soltanto le componenti \(V(q,-p)\) per cui \(a_{p+q}>0\). Il primo grado ammesso è \(p+q=12\): il quoziente non conserva tutte le componenti spettrali della sfera.
+
+Per \(n=1\), nella convenzione di Kitaoka, il valore associato al peso \((q,-p)\) nel settore scalare è
+\[
+\lambda_{q,p}=\frac{\bigl(p(q+1)+q(p+1)\bigr)^2}{4}
+=\frac{(2pq+p+q)^2}{4}.
+\]
+Quindi il primo livello invariante non costante del settore scalare è costituito dai pesi \(p+q=12\), con autovalori ottenuti ponendo \(q=12-p\):
+\[
+\lambda_{p,12-p}
+=\frac{\bigl(12+2p(12-p)\bigr)^2}{4},
+\quad p=0,\ldots,12,
+\]
+nei casi ammessi dalla decomposizione del paper. La formula va usata con la convenzione metrica e di normalizzazione di Kitaoka, non confrontata con un Laplaciano standard senza conversione.
+
+**Limite esplicito:** questo non è ancora lo spettro completo di \(\Delta_{\mathcal E}^k\) su \(S^3/2I\). Per la torsione servono: (i) le irriducibili che compaiono in \(\mathcal E^1\), (ii) le loro invarianti \(2I\), (iii) la gestione del nucleo armonico e delle rappresentazioni eventualmente twistate, (iv) la zeta-regolarizzazione della somma risultante.
+
+### Codice minimo riproducibile
+
+\`\`\`python
+phi = (1 + 5**0.5) / 2
+class_sizes = [1, 1, 20, 30, 12, 12, 20, 12, 12]
+chi_def = [2, -2, -1, 0, phi-1, -phi, 1, phi, 1-phi]
+chi_prev2 = [1.0] * 9
+chi_prev1 = chi_def[:]
+invariants = []
+
+for m in range(41):
+    if m == 0:
+        chi = chi_prev2
+    elif m == 1:
+        chi = chi_prev1
+    else:
+        chi = [chi_def[i]*chi_prev1[i] - chi_prev2[i] for i in range(9)]
+        chi_prev2, chi_prev1 = chi_prev1, chi
+
+    a_m = sum(class_sizes[i]*chi[i] for i in range(9)) / 120
+    invariants.append(round(a_m))
+
+print([(m, a) for m, a in enumerate(invariants) if a])
+\`\`\`
+
+### Verifiche di fonte e interpretazione
+
+- Kitaoka esplicita che le irriducibili \(U(n+1)\) sono indicizzate da pesi massimi e che la molteplicità è al più uno **in ciascun bidegree**; il differenziale Rumin centrale è di ordine due e il Laplaciano è di quarto ordine.
+- La tavola dei caratteri di \(2I\) e le cardinalità delle classi sono confrontate con Stekolshchik e con la tavola riportata da nLab.
+- L'azione di \(2I\subset SU(2)\) preserva la struttura CR standard di \(S^3\), quindi il passaggio alle sezioni invarianti è compatibile con il quoziente.
+
+Riferimenti consultati:
+- Kitaoka, HTML integrale: https://arxiv.org/html/1911.03092
+- Tavola dei caratteri: https://ncatlab.org/nlab/show/character%2Btable%2Bof%2B2I
+- Stekolshchik, *McKay Correspondence*: https://www-users.cse.umn.edu/~reiner/ReadingSeminars/McKaySeminar2016/Stekolshchik.pdf
