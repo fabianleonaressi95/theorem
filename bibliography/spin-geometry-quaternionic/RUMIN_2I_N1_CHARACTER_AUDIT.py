@@ -79,10 +79,16 @@ def boundary_eigenvalue_case_vii(q: int):
     return sp.Rational((q + 1) ** 2, 4)
 
 
-def scalar_spectral_zeta_terms(max_degree: int):
-    """Finite truncation of the quotient E^0 spectral zeta Dirichlet series.
+def zeta_zero_mode_contribution_e0():
+    """Kitaoka's convention is 0**s = 1: one constant mode in E^0."""
+    return sp.Integer(1)
 
-    Returns (m,p,eigenvalue,multiplicity); the constant zero mode is omitted.
+
+def scalar_spectral_zeta_terms(max_degree: int):
+    """Positive-spectrum terms of the quotient E^0 zeta.
+
+    Returns (m,p,eigenvalue,multiplicity); add zeta_zero_mode_contribution_e0()
+    separately to reproduce Kitaoka's explicit convention 0**s = 1.
     """
     a = invariant_multiplicities(max_degree)
     terms = []
@@ -146,6 +152,7 @@ if __name__ == "__main__":
     scalar, e10, e01 = first_invariant_level_spectra()
     z0 = scalar_spectral_zeta_terms(12)
     z1 = middle_spectral_zeta_terms(12)
+    assert zeta_zero_mode_contribution_e0() == 1
     assert len(z0) == 13
     assert len(z1) == 28
     assert sum(term[3] for term in z0) == 13
@@ -155,6 +162,8 @@ if __name__ == "__main__":
     print("m=12 E^(0,1) eigenvalues:", e01)
     print("Case VI boundary p=13:", boundary_eigenvalue_case_vi(13))
     print("Case VII boundary q=13:", boundary_eigenvalue_case_vii(13))
+    print("E^0 zero-mode contribution (Kitaoka convention 0**s=1):",
+          zeta_zero_mode_contribution_e0())
     print("E^0 positive spectral terms through m=12:", len(z0))
     print("E^1 spectral terms through m=12:", len(z1))
     rows = n1_bidegree_counts(max_degree)
