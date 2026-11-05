@@ -153,6 +153,7 @@ if __name__ == "__main__":
     z0 = scalar_spectral_zeta_terms(12)
     z1 = middle_spectral_zeta_terms(12)
     assert zeta_zero_mode_contribution_e0() == 1
+    assert zeta_zero_mode_contribution_e0() == 1
     assert len(z0) == 13
     assert len(z1) == 28
     assert sum(term[3] for term in z0) == 13
@@ -164,6 +165,7 @@ if __name__ == "__main__":
     print("Case VII boundary q=13:", boundary_eigenvalue_case_vii(13))
     print("E^0 zero-mode contribution (Kitaoka convention 0**s=1):",
           zeta_zero_mode_contribution_e0())
+    print("E^0 zero-mode contribution:", zeta_zero_mode_contribution_e0())
     print("E^0 positive spectral terms through m=12:", len(z0))
     print("E^1 spectral terms through m=12:", len(z1))
     rows = n1_bidegree_counts(max_degree)
