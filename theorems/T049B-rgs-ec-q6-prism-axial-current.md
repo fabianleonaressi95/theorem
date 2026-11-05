@@ -23,7 +23,7 @@ Per i campioni di corrente assiale sui vertici, il momento locale è
 M^{ab}=\langle J_5^a(x)J_5^b(x)\rangle_{x,\mathrm{ensemble}},quad
 C^{ab}=M^{ab}-\langle J_5^a\rangle\langle J_5^b\rangle.
 ]
-Il contatto lorentziano è (eta_{ab}M^{ab}), che può essere negativo o nullo per cancellazione. La media nulla della corrente non implica un contatto nullo.
+Il contatto lorentziano è (eta_{ab}M^{ab}), che può essere negativo o nullo per cancellazione. La media nulla della corrente non implica un contatto nullo. Se viene fornita la 4-velocità unitaria del fluido, il codice calcola anche la proiezione spaziale h^a_b J5^b=(delta^a_b+u^a u_b)J5^b e il suo quadrato positivo nel frame di riposo. Questo è un candidato per il ponte con s^2 di Weyssenhoff, non ancora l'identificazione normalizzata: il coefficiente che lega il bilineare assiale al tensore di spin canonico deve essere derivato dalla variazione di Noether.
 
 Il correlatore geometrico connesso per shell è
 [
@@ -34,7 +34,7 @@ In aggiunta il codice calcola l'invariante della corrente integrata nella cella 
 
 ## Input e output
 
-NPZ: `scale_factors (T,)`, e uno tra `spinors (T,N,4)` / `(T,R,N,4)` oppure `axial_currents (T,N,4)` / `(T,R,N,4)`, più facoltativamente `volumes (T,)`. Se si forniscono spinori, il codice calcola direttamente `J5^a=i bar(psi) gamma5 gamma^a psi` con le matrici e l'aggiunto di Dirac del modulo sorgente EC–Dirac. Gli spinori devono essere espressi nel frame ortonormale locale dichiarato. Ogni corrente al nodo è interpretata come contributo microscopico integrato alla corrente della cella; unità e normalizzazione vanno dichiarate dall'utente. `--kappa` aggiunge gli invarianti di torsione e il termine locale a quattro fermioni nelle convenzioni indicate.
+NPZ: `scale_factors (T,)`, e uno tra `spinors (T,N,4)` / `(T,R,N,4)` oppure `axial_currents (T,N,4)` / `(T,R,N,4)`, più facoltativamente `volumes (T,)` e `fluid_velocity (T,4)` (4-velocità unitaria timelike del fluido). Se si forniscono spinori, il codice calcola direttamente `J5^a=i bar(psi) gamma5 gamma^a psi` con le matrici e l'aggiunto di Dirac del modulo sorgente EC–Dirac. Gli spinori devono essere espressi nel frame ortonormale locale dichiarato. Ogni corrente al nodo è interpretata come contributo microscopico integrato alla corrente della cella; unità e normalizzazione vanno dichiarate dall'utente. `--kappa` aggiunge gli invarianti di torsione e il termine locale a quattro fermioni nelle convenzioni indicate.
 
 Comandi:
 ```bash
@@ -43,7 +43,7 @@ python scripts/q6_prism_axial_current_correlator.py --input axial_q6.npz --geome
 python scripts/q6_prism_axial_current_correlator.py --input axial_prism.npz --geometry prism --max-distance 3 --kappa KAPPA
 ```
 
-Il confronto tra componenti di nodi distinti è effettuato in una trivializzazione/frame comune fornita dall'utente. Non applica ancora trasporto parallelo SU(2)/Spin lungo cammini: per una correlazione pienamente gauge-covariante occorre includere le olonomie orientate lungo i cammini, tenendo conto della dipendenza dal cammino nei cicli con curvatura.\n\n## Stato epistemico
+Senza `fluid_velocity` il programma non dichiara un valore Weyssenhoff s^2; riporta soltanto il contatto assiale lorentziano.\n\nIl confronto tra componenti di nodi distinti è effettuato in una trivializzazione/frame comune fornita dall'utente. Non applica ancora trasporto parallelo SU(2)/Spin lungo cammini: per una correlazione pienamente gauge-covariante occorre includere le olonomie orientate lungo i cammini, tenendo conto della dipendenza dal cammino nei cicli con curvatura.\n\n## Stato epistemico
 
 - **Derivato nella convenzione EC–Dirac sorgente:** relazione di Cartan e coefficienti (T^2), (mathcal L_{4f}).
 - **Implementato e testato qui:** bilineare Dirac spinore→J5^a nella convenzione sorgente, momenti lorentziani, decomposizione media/fluttuazione, shell tensor correlators Q6/PRISM, contatto EC e decomposizione self/pair della cella.
