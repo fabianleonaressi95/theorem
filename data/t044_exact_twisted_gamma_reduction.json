@@ -1,0 +1,137 @@
+{
+  "task": "T044",
+  "passed": "exact identities encoded and regression tests added; repository tests not yet executed",
+  "method": [
+    "T043 exact Gamma-product formula",
+    "rational Gamma recurrence",
+    "complementary residue pairing",
+    "Euler reflection",
+    "exact SymPy trigonometric/cyclotomic simplification"
+  ],
+  "sectors": {
+    "1": {
+      "torsion": "2*pi^2/15",
+      "prefactor": "1/450",
+      "pi_exponent": 2,
+      "sine_exponents": {
+        "2": -2,
+        "12": 2,
+        "14": -2,
+        "20": 2,
+        "22": -2,
+        "24": 2,
+        "26": -2
+      }
+    },
+    "2": {
+      "torsion": "(3-sqrt(5))/4",
+      "prefactor": "4",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "1": 2,
+        "3": -2,
+        "11": 2,
+        "15": -2,
+        "19": 2,
+        "27": -2,
+        "29": 2
+      }
+    },
+    "3": {
+      "torsion": "1-sqrt(5)/5",
+      "prefactor": "8",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "2": 2,
+        "4": -2,
+        "10": 2,
+        "16": -2,
+        "18": 2,
+        "22": 2,
+        "24": -2
+      }
+    },
+    "4": {
+      "torsion": "5/3",
+      "prefactor": "16",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "6": 2,
+        "10": -2,
+        "12": 2,
+        "18": 2,
+        "20": -2,
+        "24": 2
+      }
+    },
+    "5": {
+      "torsion": "3/2",
+      "prefactor": "32",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "4": 2,
+        "6": -2,
+        "8": 2,
+        "16": 2,
+        "18": -2,
+        "20": 2,
+        "28": 2
+      }
+    },
+    "6": {
+      "torsion": "2",
+      "prefactor": "64",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "5": 2,
+        "15": 2,
+        "25": 2
+      }
+    },
+    "2'": {
+      "torsion": "(3+sqrt(5))/4",
+      "prefactor": "4",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "7": 2,
+        "9": -2,
+        "13": 2,
+        "15": -2,
+        "17": 2,
+        "21": -2,
+        "23": 2
+      }
+    },
+    "3'": {
+      "torsion": "1+sqrt(5)/5",
+      "prefactor": "8",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "6": 2,
+        "8": -2,
+        "10": 2,
+        "12": -2,
+        "14": 2,
+        "26": 2,
+        "28": -2
+      }
+    },
+    "4'": {
+      "torsion": "1",
+      "prefactor": "16",
+      "pi_exponent": 0,
+      "sine_exponents": {
+        "3": 2,
+        "5": -2,
+        "9": 2,
+        "21": 2,
+        "25": -2,
+        "27": 2
+      }
+    }
+  },
+  "regular_representation_exact_product": "16*pi^2",
+  "pytest_executed": false,
+  "github_actions_executed": false,
+  "individual_degree_zeta_derivatives": "open"
+}

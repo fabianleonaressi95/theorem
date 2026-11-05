@@ -1,0 +1,833 @@
+{
+  "task": "T040",
+  "passed": true,
+  "validation": {
+    "dimension_identity_degrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "checked_through_degree": 120,
+    "barnes_lattice_multiplicity_degrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "orientations": [
+      "q=-1",
+      "p=-1"
+    ]
+  },
+  "levels_per_orientation": 40,
+  "boundary_levels": [
+    {
+      "kind": "q=-1",
+      "boundary_index": 1,
+      "SU2_degree": 0,
+      "eigenvalue": "1",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 2,
+      "SU2_degree": 1,
+      "eigenvalue": "9/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 3,
+      "SU2_degree": 2,
+      "eigenvalue": "4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 4,
+      "SU2_degree": 3,
+      "eigenvalue": "25/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 5,
+      "SU2_degree": 4,
+      "eigenvalue": "9",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 6,
+      "SU2_degree": 5,
+      "eigenvalue": "49/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 7,
+      "SU2_degree": 6,
+      "eigenvalue": "16",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 8,
+      "SU2_degree": 7,
+      "eigenvalue": "81/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 9,
+      "SU2_degree": 8,
+      "eigenvalue": "25",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 10,
+      "SU2_degree": 9,
+      "eigenvalue": "121/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 11,
+      "SU2_degree": 10,
+      "eigenvalue": "36",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 12,
+      "SU2_degree": 11,
+      "eigenvalue": "169/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 13,
+      "SU2_degree": 12,
+      "eigenvalue": "49",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 14,
+      "SU2_degree": 13,
+      "eigenvalue": "225/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 15,
+      "SU2_degree": 14,
+      "eigenvalue": "64",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 16,
+      "SU2_degree": 15,
+      "eigenvalue": "289/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 17,
+      "SU2_degree": 16,
+      "eigenvalue": "81",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 18,
+      "SU2_degree": 17,
+      "eigenvalue": "361/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 19,
+      "SU2_degree": 18,
+      "eigenvalue": "100",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 20,
+      "SU2_degree": 19,
+      "eigenvalue": "441/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 21,
+      "SU2_degree": 20,
+      "eigenvalue": "121",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 22,
+      "SU2_degree": 21,
+      "eigenvalue": "529/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 23,
+      "SU2_degree": 22,
+      "eigenvalue": "144",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 24,
+      "SU2_degree": 23,
+      "eigenvalue": "625/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 25,
+      "SU2_degree": 24,
+      "eigenvalue": "169",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 26,
+      "SU2_degree": 25,
+      "eigenvalue": "729/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 27,
+      "SU2_degree": 26,
+      "eigenvalue": "196",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 28,
+      "SU2_degree": 27,
+      "eigenvalue": "841/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 29,
+      "SU2_degree": 28,
+      "eigenvalue": "225",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 30,
+      "SU2_degree": 29,
+      "eigenvalue": "961/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 31,
+      "SU2_degree": 30,
+      "eigenvalue": "256",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 32,
+      "SU2_degree": 31,
+      "eigenvalue": "1089/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 33,
+      "SU2_degree": 32,
+      "eigenvalue": "289",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 34,
+      "SU2_degree": 33,
+      "eigenvalue": "1225/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 35,
+      "SU2_degree": 34,
+      "eigenvalue": "324",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 36,
+      "SU2_degree": 35,
+      "eigenvalue": "1369/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 37,
+      "SU2_degree": 36,
+      "eigenvalue": "361",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 38,
+      "SU2_degree": 37,
+      "eigenvalue": "1521/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 39,
+      "SU2_degree": 38,
+      "eigenvalue": "400",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "q=-1",
+      "boundary_index": 40,
+      "SU2_degree": 39,
+      "eigenvalue": "1681/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 1,
+      "SU2_degree": 0,
+      "eigenvalue": "1",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 2,
+      "SU2_degree": 1,
+      "eigenvalue": "9/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 3,
+      "SU2_degree": 2,
+      "eigenvalue": "4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 4,
+      "SU2_degree": 3,
+      "eigenvalue": "25/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 5,
+      "SU2_degree": 4,
+      "eigenvalue": "9",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 6,
+      "SU2_degree": 5,
+      "eigenvalue": "49/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 7,
+      "SU2_degree": 6,
+      "eigenvalue": "16",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 8,
+      "SU2_degree": 7,
+      "eigenvalue": "81/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 9,
+      "SU2_degree": 8,
+      "eigenvalue": "25",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 10,
+      "SU2_degree": 9,
+      "eigenvalue": "121/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 11,
+      "SU2_degree": 10,
+      "eigenvalue": "36",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 12,
+      "SU2_degree": 11,
+      "eigenvalue": "169/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 13,
+      "SU2_degree": 12,
+      "eigenvalue": "49",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 14,
+      "SU2_degree": 13,
+      "eigenvalue": "225/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 15,
+      "SU2_degree": 14,
+      "eigenvalue": "64",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 16,
+      "SU2_degree": 15,
+      "eigenvalue": "289/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 17,
+      "SU2_degree": 16,
+      "eigenvalue": "81",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 18,
+      "SU2_degree": 17,
+      "eigenvalue": "361/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 19,
+      "SU2_degree": 18,
+      "eigenvalue": "100",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 20,
+      "SU2_degree": 19,
+      "eigenvalue": "441/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 21,
+      "SU2_degree": 20,
+      "eigenvalue": "121",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 22,
+      "SU2_degree": 21,
+      "eigenvalue": "529/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 23,
+      "SU2_degree": 22,
+      "eigenvalue": "144",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 24,
+      "SU2_degree": 23,
+      "eigenvalue": "625/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 25,
+      "SU2_degree": 24,
+      "eigenvalue": "169",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 26,
+      "SU2_degree": 25,
+      "eigenvalue": "729/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 27,
+      "SU2_degree": 26,
+      "eigenvalue": "196",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 28,
+      "SU2_degree": 27,
+      "eigenvalue": "841/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 29,
+      "SU2_degree": 28,
+      "eigenvalue": "225",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 30,
+      "SU2_degree": 29,
+      "eigenvalue": "961/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 31,
+      "SU2_degree": 30,
+      "eigenvalue": "256",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 32,
+      "SU2_degree": 31,
+      "eigenvalue": "1089/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 33,
+      "SU2_degree": 32,
+      "eigenvalue": "289",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 34,
+      "SU2_degree": 33,
+      "eigenvalue": "1225/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 35,
+      "SU2_degree": 34,
+      "eigenvalue": "324",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 36,
+      "SU2_degree": 35,
+      "eigenvalue": "1369/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 37,
+      "SU2_degree": 36,
+      "eigenvalue": "361",
+      "untwisted_2I_multiplicity": 1
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 38,
+      "SU2_degree": 37,
+      "eigenvalue": "1521/4",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 39,
+      "SU2_degree": 38,
+      "eigenvalue": "400",
+      "untwisted_2I_multiplicity": 0
+    },
+    {
+      "kind": "p=-1",
+      "boundary_index": 40,
+      "SU2_degree": 39,
+      "eigenvalue": "1681/4",
+      "untwisted_2I_multiplicity": 0
+    }
+  ],
+  "barnes_zeta": {
+    "formula": "4^s * (BarnesZeta2(2s,2|12,20) + BarnesZeta2(2s,32|12,20))",
+    "starts": [
+      2,
+      32
+    ],
+    "periods": [
+      12,
+      20
+    ],
+    "initial_convergence": "Re(s)>1"
+  },
+  "scope": "one-orientation exact boundary zeta; full graded Rumin torsion remains open"
+}

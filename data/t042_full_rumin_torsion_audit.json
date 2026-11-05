@@ -1,0 +1,128 @@
+{
+  "task": "T042",
+  "mathematical_status": "exact derivation recorded; independent symbolic and high-precision checks performed during preparation",
+  "repository_pytest_executed": false,
+  "group_order": 120,
+  "molien_invariant_series": "(1+t^30)/((1-t^12)(1-t^20))",
+  "spectral_eigenvalue": "Lambda_m(p)=(m+2*p*(m-p))^2/4",
+  "spectral_zeta": {
+    "zeta0": "1 + sum_{m>=1} a_m sum_{p=0}^m Lambda_m(p)^(-s)",
+    "zeta1": "2 * sum_{m>=0} a_m sum_{p=1}^{m+1} Lambda_m(p)^(-s)",
+    "kappa": "-2*zeta0(s)+zeta1(s)",
+    "initial_convergence": "Re(s)>1",
+    "zero_mode_convention": "constant E0 mode contributes 1"
+  },
+  "finite_cancellation_checks": {
+    "1.25": {
+      "direct": "-0.010999527728052288482",
+      "boundary_reduced": "-0.010999527728052288482",
+      "absolute_residual": "2.7833408e-61"
+    },
+    "2.0": {
+      "direct": "-0.00083012681076453916788",
+      "boundary_reduced": "-0.00083012681076453916788",
+      "absolute_residual": "8.8916496e-61"
+    }
+  },
+  "difference_generating_function": {
+    "D": "(t^2-1)*(1+t^30)/((1-t^12)*(1-t^20))+1-t^2",
+    "identity": "(1-t^60)D(t)=P(t)",
+    "P_coefficients": [
+      {
+        "degree": 12,
+        "coefficient": -1
+      },
+      {
+        "degree": 14,
+        "coefficient": 1
+      },
+      {
+        "degree": 20,
+        "coefficient": -1
+      },
+      {
+        "degree": 22,
+        "coefficient": 1
+      },
+      {
+        "degree": 24,
+        "coefficient": -1
+      },
+      {
+        "degree": 26,
+        "coefficient": 1
+      },
+      {
+        "degree": 30,
+        "coefficient": -1
+      },
+      {
+        "degree": 34,
+        "coefficient": 1
+      },
+      {
+        "degree": 36,
+        "coefficient": -1
+      },
+      {
+        "degree": 38,
+        "coefficient": 1
+      },
+      {
+        "degree": 40,
+        "coefficient": -1
+      },
+      {
+        "degree": 46,
+        "coefficient": 1
+      },
+      {
+        "degree": 48,
+        "coefficient": -1
+      },
+      {
+        "degree": 58,
+        "coefficient": 1
+      },
+      {
+        "degree": 60,
+        "coefficient": -2
+      },
+      {
+        "degree": 62,
+        "coefficient": 1
+      }
+    ],
+    "period": 60,
+    "period_verified_through_n": 600,
+    "sum_d": -1,
+    "hurwitz_zero_moment": "0",
+    "hurwitz_formula": "kappa(s)=2*4^s*60^(-2s)*sum d_n*zeta_H(2s,n/60)"
+  },
+  "torsion": {
+    "log_T": "0.274556751156535591708082254015580647196997848099611223500584",
+    "T": "1.31594725347858114917793213331682015137515992096543875018845",
+    "volume_2pi2_over_15": "1.31594725347858114917793213331682015137515992096543875018845",
+    "absolute_T_minus_volume": "4.21687917729e-81",
+    "exact_target": "2*pi^2/15",
+    "gamma_product": "2*pi*product Gamma(n/60)^(2*d_n)",
+    "sine_identity": "sin(pi/5)sin(pi/3)sin(2pi/5)/(sin(pi/30)sin(7pi/30)sin(11pi/30)sin(13pi/30))=sqrt(60)"
+  },
+  "scope": {
+    "exact": [
+      "interior cancellation",
+      "period-60 generating function",
+      "finite Hurwitz continuation of combined kappa",
+      "Gamma-product expression"
+    ],
+    "numerical": [
+      "finite cutoff checks at s=5/4 and s=2",
+      "80-digit Gamma product / volume comparison"
+    ],
+    "not_claimed": [
+      "separate continuations of zeta0 and zeta1",
+      "twisted flat coefficient systems",
+      "pytest/CI execution in GitHub"
+    ]
+  }
+}
