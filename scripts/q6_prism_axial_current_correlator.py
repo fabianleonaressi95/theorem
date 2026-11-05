@@ -62,6 +62,23 @@ def coarse_cell_moments(currents,volume):
       'coarse_pair_contribution':lorentz_scalar(pair_M),
       'coarse_decomposition_residual':lorentz_scalar(M)-lorentz_scalar(self_M)-lorentz_scalar(pair_M)}
 
+def spinors_to_axial_currents(spinors, reality_tolerance=1e-10):
+    """Compute J5^a=i*bar(psi)*gamma5*gamma^a*psi in the source convention."""
+    psi=np.asarray(spinors,dtype=complex)
+    if psi.shape[-1:]!=(4,) or not np.isfinite(psi).all():
+        raise ValueError('spinors must be finite complex arrays with trailing dimension 4')
+    I2=np.eye(2,dtype=complex); Z2=np.zeros((2,2),complex)
+    pauli=(np.array([[0,1],[1,0]],complex),np.array([[0,-1j],[1j,0]],complex),np.array([[1,0],[0,-1]],complex))
+    gamma0=1j*np.block([[I2,Z2],[Z2,-I2]])
+    gammas=(gamma0,)+tuple(1j*np.block([[Z2,s],[-s,Z2]]) for s in pauli)
+    gamma5=1j*gammas[0]@gammas[1]@gammas[2]@gammas[3]
+    bar=1j*np.einsum('...i,ij->...j',psi.conj(),gamma0)
+    values=np.stack([1j*np.einsum('...i,ij,...j->...',bar,gamma5@g,psi) for g in gammas],axis=-1)
+    if np.max(np.abs(values.imag),initial=0.0)>reality_tolerance:
+        raise ArithmeticError('Dirac axial current is not real within tolerance')
+    return values.real
+
+
 def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance=3):
     a=np.asarray(scale_factors,float); x=np.asarray(axial_currents,float)
     if x.ndim==3 and x.shape[-1]==4: x=x[:,None,:,:]
@@ -110,9 +127,12 @@ def main():
     p.add_argument('--max-distance',type=int,default=3);p.add_argument('--kappa',type=float,default=None);p.add_argument('--output',default='')
     args=p.parse_args();dims=Q6 if args.geometry=='q6' else PRISM
     with np.load(args.input,allow_pickle=False) as z:
-        miss={'scale_factors','axial_currents'}-set(z.files)
+        miss={'scale_factors'}-set(z.files)
         if miss:p.error('missing NPZ keys: '+', '.join(sorted(miss)))
-        report=audit(z['scale_factors'],z['axial_currents'],dims,z['volumes'] if 'volumes' in z.files else None,args.kappa,args.max_distance)
+        if 'axial_currents' in z.files: currents=z['axial_currents']
+        elif 'spinors' in z.files: currents=spinors_to_axial_currents(z['spinors'])
+        else:p.error('NPZ must contain axial_currents or spinors')
+        report=audit(z['scale_factors'],currents,dims,z['volumes'] if 'volumes' in z.files else None,args.kappa,args.max_distance)
     out=json.dumps(report,indent=2,sort_keys=True)
     if args.output:
         with open(args.output,'w',encoding='utf-8') as f:f.write(out+'\n')
