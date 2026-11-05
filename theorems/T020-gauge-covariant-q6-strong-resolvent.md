@@ -119,7 +119,7 @@ The audit records link unitarity and determinant-one residuals, the non-Abelian 
 | Wilson imaginary-form residual | \(4.76\times10^{-18}\) | \(1.14\times10^{-16}\) |
 | Clifford residual | 0 | 0 |
 
-The generator commutator norm is \(\sqrt2\), so the test is not confined to a common Cartan subgroup. The JSON report is stored at evidence/T020-gauge-covariant-audit-local.json.
+The generator commutator norm is \(\sqrt2\), and the actual link commutator at the origin has norms 0.03708029 and 0.01135974 at the two levels. The sitewise gauge matrices also pass unitarity and determinant-one checks at roundoff scale. The test is therefore not confined to a common Cartan subgroup. The JSON report is stored at evidence/T020-gauge-covariant-audit-local.json.
 
 **Evidence label:** locally reproduced finite-dimensional numerical diagnostics. The GitHub Actions workflow has been added, but no successful Actions run is yet recorded. The decrease from two refinement levels is not an asymptotic convergence proof and does not establish (C).
 
