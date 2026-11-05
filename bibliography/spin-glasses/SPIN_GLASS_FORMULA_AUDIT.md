@@ -95,13 +95,13 @@ Sia \(\xi:[0,1]\to[0,1]\) una funzione cumulativa di distribuzione di probabilit
 \qquad
 \Phi(1,x)=\log(2\cosh x).
 \]
-La valeur du functional de Parisi s'écrit, dans cette convention,
+Il funzionale di Parisi si scrive, in questa convenzione,
 \[
 \mathcal P_\beta(\xi)
 =\Phi(0,h)-\frac{\beta^2}{2}
 \int_0^1 t\,\xi(t)\,dt,
 \]
-et la pression limite est l'infimum de ce fonctionnel sur les mesures admissibles. **Les facteurs \(1/2\), la variable de champ et le signe dépendent de la convention du Hamiltonien et de la définition de pression.** La formule ci-dessus doit être comparée à la version originale de Talagrand avant d'être utilisée comme une identité normalisée dans un code. La source secondaire consultée affiche une convention avec \(\beta^2\) sans \(1/2\); le présent dossier ne prétend donc pas avoir clos l'audit des facteurs de normalisation.
+et la pression limite est l'infimum de ce fonctionnel sur les mesures admissibles. **Les facteurs \(1/2\), la variable de champ et le signe dépendent de la convention du Hamiltonien et de la définition de pression.** La formula sopra va confrontata con la versione originale di Talagrand prima di essere usata come identità normalizzata in un codice. La source secondaire consultée affiche une convention avec \(\beta^2\) sans \(1/2\); le présent dossier ne prétend donc pas avoir clos l'audit des facteurs de normalisation.
 
 Talagrand, *Annals of Mathematics* 163 (2006), 221–263, prouve la formule SK à toute température. Guerra (2003) obtient la borne inférieure rigoureuse et une règle de somme par interpolation; la borne n'est pas encore l'uguaglianza finale de Talagrand.
 
