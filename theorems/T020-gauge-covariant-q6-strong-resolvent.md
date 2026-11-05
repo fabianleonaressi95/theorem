@@ -15,7 +15,7 @@ The domain is \(H^1(\mathbb T^6_2;\mathbb C^{24})\). The \(\Gamma_i\) are Hermit
 
 For each oriented positive edge \((x_j,x_j+he_i)\), let \(U_{n,i}(j)\in SU(3)\) be the parallel transporter with the convention
 \[
-U_{n,i}(j)=U_i(x_j;h),\qquad \frac{d}{dt}U_i(x_j;t)=\mathcal A_i(x_j+te_i)U_i(x_j;t),\quad U_i(x_j;0)=I,\quad 0\le t\le h.
+U_{n,i}(j)=U_i(x_j;h),\qquad \frac{d}{dt}U_i(x_j;t)=U_i(x_j;t)\mathcal A_i(x_j+te_i),\quad U_i(x_j;0)=I,\quad 0\le t\le h.
 \]
 Define the unitary covariant shift
 \[
@@ -40,7 +40,7 @@ This estimate is exact and independent of the link field and lattice spacing.
 
 ## 3. Gauge covariance
 
-For any sitewise gauge transformation \(g_n(j)\in SU(3)\), let
+For a smooth continuum gauge transformation \(g:\mathbb T^6_2\to SU(3)\), use \(\mathcal A_i^g=g\mathcal A_i g^{-1}-(\partial_i g)g^{-1}\). The right-ordered link ODE in Section 2 then gives \(U_{n,i}^g(j)=g(x_j)U_{n,i}(j)g(x_j+he_i)^{-1}\). More generally, for any sitewise gauge transformation \(g_n(j)\in SU(3)\), let
 \[
 U^g_{n,i}(j)=g_n(j)U_{n,i}(j)g_n(j+e_i)^{-1},
 \qquad (G_n\psi)(j)=(I_8\otimes g_n(j))\psi(j).
