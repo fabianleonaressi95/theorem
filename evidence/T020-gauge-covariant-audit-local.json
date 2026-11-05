@@ -2,7 +2,7 @@
   "audit": "T020 genuinely non-Abelian SU(3) link-field audit",
   "status": "LOCALLY_REPRODUCED_NUMERICALLY",
   "source": "scripts/t020_gauge_covariant_q6_audit.py at branch fix/t020-audit-python-syntax",
-  "execution_note": "The updated script's numerical operations were reproduced in the local Python runtime. This is not a GitHub Actions run. An earlier intermediate Actions run failed the covariance assertion before the colour-action correction; the current corrected head has not yet produced a new Actions run. Previous Actions run #7 passed the prior link/Wilson audit; the added plaquette-curvature assertions await a new CI run.",
+  "execution_note": "The original full-matrix link/Wilson audit passed GitHub Actions run #7. The additional plaquette-curvature audit passed GitHub Actions run #9 on PR #73.",
   "parameters": {
     "alpha": 0.35,
     "r": 1,
@@ -103,6 +103,17 @@
       }
     ],
     "interpretation": "The sampled relative RMS residual displays approximately second-order scaling for this selected smooth non-Abelian connection. This is finite-sample numerical evidence, not a uniform theorem or proof of continuum convergence.",
-    "execution_note": "Independent local numerical reproduction of the pointwise plaquette/curvature formula. The updated repository script is subject to the new GitHub Actions run."
+    "execution_note": "Independent local numerical reproduction plus GitHub Actions run #9 success on PR #73 head 829ef36522b1717c8a7d2cc68abf3c2305f4090a. This remains finite-sample evidence and does not prove a uniform curvature estimate or continuum convergence.",
+    "github_actions": {
+      "run_number": 9,
+      "run_id": 42021850730,
+      "conclusion": "success",
+      "job": "finite-lattice-audit",
+      "steps": [
+        "Run refinement audit",
+        "Check audit invariants and refinement trend"
+      ],
+      "note": "Repository script and all six refinement assertions passed on PR #73 head 829ef36522b1717c8a7d2cc68abf3c2305f4090a."
+    }
   }
 }
