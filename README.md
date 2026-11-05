@@ -60,6 +60,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
 | T009 | Forma quadratica efficace Wilson | Identità rank(Q_eff)=rank(C)−rank(RC); ipotesi di rango Q6 e limite theta ancora da verificare |
 | [T010](theorems/T010-rumin-spectrum-poincare-sphere.md) | Riduzione spettrale di Rumin su S³/2I | Teorema di proiezione per quozienti finiti; benchmark scalare verificato; spettro Rumin completo ancora da calcolare |
+| T016 | Nielsen–Ninomiya e audit Q6 | Ipotesi/topologia ricostruite; identità finite Q6 verificate; nessuna evasione del no-go theorem |
 
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
