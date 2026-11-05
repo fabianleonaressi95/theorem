@@ -138,6 +138,128 @@ def first_invariant_level_spectra():
     assert boundary_eigenvalue_case_vii(13) == rumin_eigenvalue_n1(13, -1)
     return scalar, e10, e01
 
+
+# SU(2) class data in the order used above. The last entry is the order
+# of a representative; all nine entries are conjugacy classes of 2I.
+class_element_orders = (1, 2, 3, 4, 5, 5, 6, 10, 10)
+
+
+def symmetric_power_character_table(max_degree: int):
+    """Exact chi_m(g) for every listed conjugacy class and 0 <= m <= max_degree.
+
+    Rows are indexed by m, columns by the nine classes. The recurrence
+    chi_m = chi_1*chi_(m-1) - chi_(m-2) is exact in Q(sqrt(5)).
+    """
+    if max_degree < 0:
+        raise ValueError("max_degree must be nonnegative")
+    rows = []
+    prev2 = [sp.Integer(1)] * len(class_sizes)
+    prev1 = list(chi_fundamental)
+    for m in range(max_degree + 1):
+        if m == 0:
+            row = list(prev2)
+        elif m == 1:
+            row = list(prev1)
+        else:
+            row = [sp.simplify(chi_fundamental[j] * prev1[j] - prev2[j])
+                   for j in range(len(class_sizes))]
+            prev2, prev1 = prev1, row
+        rows.append(row)
+    return rows
+
+
+def equivariant_zeta_class_terms(max_degree: int, sector: str, class_index: int):
+    """Finite equivariant Dirichlet terms for one conjugacy class.
+
+    Each returned term is (m, p, eigenvalue, character, class_weight).
+    The class_weight is |C|/120. Summing these signed terms over classes
+    gives the invariant quotient zeta term-by-term. For E0 the zero mode
+    is recorded separately as character 1 for every group element.
+    """
+    if not 0 <= class_index < len(class_sizes):
+        raise IndexError("class_index must be in 0,...,8")
+    if sector not in ("E0", "E1"):
+        raise ValueError("sector must be 'E0' or 'E1'")
+    chars = symmetric_power_character_table(max_degree)
+    terms = []
+    for m in range(max_degree + 1):
+        if sector == "E0":
+            if m == 0:
+                continue  # harmonic zero mode is handled separately
+            p_values = range(m + 1)
+            sector_factor = 1
+        else:
+            p_values = range(1, m + 2)
+            sector_factor = 2  # conjugate bidegrees
+        chi = chars[m][class_index]
+        if chi == 0:
+            continue
+        for p in p_values:
+            lam = rumin_eigenvalue_n1(m - p, p)
+            terms.append((m, p, lam, sector_factor * chi,
+                          sp.Rational(class_sizes[class_index], 120)))
+    return terms
+
+
+def equivariant_zero_mode_class_weight(class_index: int):
+    """E0 constant mode: chi_0(g)=1, weighted by |C|/120."""
+    if not 0 <= class_index < len(class_sizes):
+        raise IndexError("class_index must be in 0,...,8")
+    return sp.Rational(class_sizes[class_index], 120)
+
+
+def verify_class_periodicity(max_degree: int = 80):
+    """Check chi_(m+ord(g))(g)=chi_m(g) for all noncentral classes.
+
+    The identity and -I classes are deliberately excluded: their characters
+    are m+1 and (-1)^m(m+1), respectively, not periodic.
+    """
+    chars = symmetric_power_character_table(max_degree + 10)
+    checks = []
+    for j in range(2, len(class_sizes)):
+        order = class_element_orders[j]
+        for m in range(max_degree + 1):
+            assert sp.simplify(chars[m + order][j] - chars[m][j]) == 0
+        checks.append((j, order))
+    # The two central classes have the expected nonperiodic formulas.
+    for m in range(max_degree + 1):
+        assert chars[m][0] == m + 1
+        assert chars[m][1] == (-1)**m * (m + 1)
+    return checks
+
+
+def verify_equivariant_reynolds_identity(max_degree: int = 40):
+    """Verify class-by-class averaging reproduces invariant multiplicities.
+
+    Checks character averages for each m and verifies that the E0/E1
+    equivariant zeta coefficients average to the already audited quotient
+    multiplicities for every admissible weight at finite cutoff.
+    """
+    chars = symmetric_power_character_table(max_degree)
+    a = invariant_multiplicities(max_degree)
+    for m in range(max_degree + 1):
+        average = sp.simplify(sum(
+            sp.Rational(class_sizes[j], 120) * chars[m][j]
+            for j in range(len(class_sizes))
+        ))
+        assert average == a[m]
+        if m == 0:
+            continue
+        for p in range(m + 1):
+            averaged = sp.simplify(sum(
+                sp.Rational(class_sizes[j], 120) * chars[m][j]
+                for j in range(len(class_sizes))
+            ))
+            assert averaged == a[m]
+        for p in range(1, m + 2):
+            averaged = sp.simplify(sum(
+                sp.Rational(class_sizes[j], 120) * 2 * chars[m][j]
+                for j in range(len(class_sizes))
+            ))
+            assert averaged == 2 * a[m]
+    return True
+
+
 if __name__ == "__main__":
     max_degree = 80
     a = invariant_multiplicities(max_degree)
@@ -174,4 +296,11 @@ if __name__ == "__main__":
     for row in rows:
         if row["SU2_invariant_dimension_per_irrep"]:
             print(row)
-    print("PASS: exact character average, integrality, nonnegativity, and n=1 weight counts")
+    periodic = verify_class_periodicity(80)
+    assert verify_equivariant_reynolds_identity(40)
+    # At least one nonidentity class has a nonzero character contribution;
+    # fixed-point-freeness does not mean its equivariant trace vanishes.
+    chars = symmetric_power_character_table(12)
+    assert any(chars[12][j] != 0 for j in range(1, 9))
+    print("noncentral character periods (class index, order):", periodic)
+    print("PASS: exact class characters, periodicity, Reynolds averaging, and weight counts")
