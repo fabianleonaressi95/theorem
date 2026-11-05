@@ -71,7 +71,7 @@ def one_level(n, alpha, r, m0):
     spin = np.zeros(8, complex); spin[0] = 1.0
     colour = np.array([1.0, 0.3j, 0.2], complex)
     colour /= np.linalg.norm(colour)
-    phi = phase[..., None, None]*spin[None, None, :]*colour[None, None, :]
+    phi = (phase[..., None, None]\n           * spin.reshape((1,)*6 + (8, 1))\n           * colour.reshape((1,)*6 + (1, 3)))
     discrete, wilson_q = apply_operator(phi, links, h, r, m0)
 
     # Continuum action on this section: partial_i phi = i*pi*phi.
