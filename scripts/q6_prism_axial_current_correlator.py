@@ -79,7 +79,27 @@ def spinors_to_axial_currents(spinors, reality_tolerance=1e-10):
     return values.real
 
 
-def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance=3):
+def project_axial_current_to_fluid_rest_space(currents, fluid_velocity, tolerance=1e-9):
+    """Project J5 orthogonally to a unit timelike fluid 4-velocity.
+
+    h^a_b = delta^a_b + u^a u_b for eta=(-,+,+,+). This is a candidate
+    spatial spin-vector invariant; the Noether spin-tensor normalization
+    must still be derived before identifying it with Weyssenhoff s^2.
+    """
+    j=np.asarray(currents,float); u=np.asarray(fluid_velocity,float)
+    if j.shape[-1:]!=(4,) or u.shape!=(4,) or not np.isfinite(j).all() or not np.isfinite(u).all():
+        raise ValueError('currents (...,4) and finite fluid_velocity (4,) required')
+    if abs(float(u@ETA@u)+1.0)>tolerance:
+        raise ValueError('fluid_velocity must be unit timelike: eta(u,u)=-1')
+    uj=np.einsum('a,...a->...',ETA@u,j)
+    projected=j+uj[...,None]*u
+    norm=np.einsum('...a,ab,...b->...',projected,ETA,projected)
+    if np.min(norm,initial=0.0)<-tolerance:
+        raise ArithmeticError('rest-space projection produced a negative norm')
+    return projected,np.maximum(norm,0.0)
+
+
+def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance=3,fluid_velocity=None):
     a=np.asarray(scale_factors,float); x=np.asarray(axial_currents,float)
     if x.ndim==3 and x.shape[-1]==4: x=x[:,None,:,:]
     if x.ndim!=4 or x.shape[-1]!=4: raise ValueError('axial_currents must be (T,N,4) or (T,R,N,4)')
@@ -89,6 +109,8 @@ def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance
     V=np.ones(T) if volumes is None else np.asarray(volumes,float)
     if V.shape!=(T,) or not np.isfinite(V).all() or np.any(V<=0): raise ValueError('volumes must be positive finite (T,)')
     if kappa is not None and (not math.isfinite(kappa) or kappa<=0): raise ValueError('kappa must be positive finite')
+    u=None if fluid_velocity is None else np.asarray(fluid_velocity,float)
+    if u is not None and (u.shape!=(T,4) or not np.isfinite(u).all()): raise ValueError('fluid_velocity must have finite shape (T,4)')
     rows=[]
     for t in range(T):
         lm=local_moments(x[t]); cm=coarse_cell_moments(x[t],V[t])
@@ -99,6 +121,13 @@ def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance
             avg_shell.append({'distance':row['distance'],'directed_pair_count':row['directed_pair_count'],
                               'connected_tensor':mats.tolist(),'lorentz_trace':lorentz_scalar(mats)})
         item={'a':float(a[t]),'volume':float(V[t]),'replicas':R,**lm,**cm,'shell_correlations':avg_shell}
+        if u is not None:
+            projected,projected_norm=project_axial_current_to_fluid_rest_space(x[t],u[t])
+            item['fluid_four_velocity']=u[t].tolist()
+            item['rest_space_projected_axial_invariant_candidate']=float(np.mean(projected_norm))
+            item['rest_space_projected_mean_current']=np.mean(projected.reshape(-1,4),axis=0).tolist()
+            item['rest_space_projected_current_orthogonality_residual']=float(np.max(np.abs(np.einsum('a,...a->...',ETA@u[t],projected))))
+            item['weyssenhoff_spin_tensor_normalization']='NOT_FIXED: derive canonical Noether spin-current map before identifying this with s^2'
         if kappa is not None:
             item['torsion_quadratic_invariant']=-1.5*kappa**2*lm['mean_of_lorentz_norm_squared']
             item['four_fermion_contact_density']=(3*kappa/16)*lm['mean_of_lorentz_norm_squared']
@@ -132,7 +161,7 @@ def main():
         if 'axial_currents' in z.files: currents=z['axial_currents']
         elif 'spinors' in z.files: currents=spinors_to_axial_currents(z['spinors'])
         else:p.error('NPZ must contain axial_currents or spinors')
-        report=audit(z['scale_factors'],currents,dims,z['volumes'] if 'volumes' in z.files else None,args.kappa,args.max_distance)
+        report=audit(z['scale_factors'],currents,dims,z['volumes'] if 'volumes' in z.files else None,args.kappa,args.max_distance,z['fluid_velocity'] if 'fluid_velocity' in z.files else None)
     out=json.dumps(report,indent=2,sort_keys=True)
     if args.output:
         with open(args.output,'w',encoding='utf-8') as f:f.write(out+'\n')
