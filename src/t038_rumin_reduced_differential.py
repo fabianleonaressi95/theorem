@@ -28,7 +28,8 @@ def rumin_polarization_block(p: int, q: int):
     S = sp.Rational(L, 2)
     D = sp.simplify(sp.Rational(L, 2) / sp.sqrt(S) * sp.Matrix([[-B, A]]))
     gram = sp.simplify(sp.Rational(L, 2) * sp.Matrix([[B**2, -A*B], [-A*B, A**2]]))
-    # The identities below are polynomial identities modulo A^2=a2, B^2=b2.
+    # Keep the square-root relations explicit; the Gram identity is checked
+    # as an exact symbolic matrix identity in the regression test.
     return D, gram, {"p": p, "q": q, "m": p + q, "A_squared": a2,
                      "B_squared": b2, "L": L, "S": S}
 
@@ -36,8 +37,6 @@ def rumin_polarization_block(p: int, q: int):
 def verify_polarization_identity(p: int, q: int):
     D, gram, meta = rumin_polarization_block(p, q)
     product = sp.simplify(D.conjugate().T * D - gram)
-    reduced = sp.Poly(sp.expand(product[0, 0]), A, B).rem(
-        sp.Poly(A**2-meta["A_squared"], A, B) if False else sp.Poly(1, A, B))
     # Keep the relation explicit rather than choosing arbitrary square-root signs.
     expected = sp.Rational(meta["L"], 2) * sp.Matrix(
         [[B**2, -A*B], [-A*B, A**2]])
