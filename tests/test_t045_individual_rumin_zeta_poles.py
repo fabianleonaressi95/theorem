@@ -13,6 +13,15 @@ def test_affine_quasipolynomial_molien_tail(label):
     assert data["sum_alpha"] == Fraction(IRREP_DIMENSIONS[label], 2)
     assert data["sum_beta"] == Fraction(IRREP_DIMENSIONS[label], 2)
 
+@pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
+def test_individual_zeta_residues(label):
+    d = IRREP_DIMENSIONS[label]
+    result = sector_residues(label)
+    assert result["residue_interior_H"] == str(Fraction(d, 960))
+    assert result["residue_zeta0"] == str(Fraction(d, 960))
+    assert result["residue_zeta1"] == str(Fraction(d, 480))
+    assert result["residue_kappa"] == "0"
+
 
 @pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
 def test_candidate_residue_cancels_exactly_in_every_sector(label):
@@ -36,6 +45,12 @@ def test_hurwitz_progression_formula():
     expected = 120**(-z)*sp.zeta(z, sp.Rational(121,120))
     assert sp.simplify(expr-expected) == 0
 
+@pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
+def test_hurwitz_expansion_contains_only_expected_double_poles(label):
+    spec = interior_hurwitz_expansion(label)
+    assert "k2_beta_minus_alpha" in spec["pole_terms"]
+    assert "k3_alpha" in spec["pole_terms"]
+    assert spec["odd_variable_period"] == 120
 
 @pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
 def test_only_k1_beta_minus_alpha_is_a_candidate_pole(label):

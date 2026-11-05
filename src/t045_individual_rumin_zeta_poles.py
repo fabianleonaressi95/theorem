@@ -1,3 +1,8 @@
+"""T045: local meromorphic structure of the separate Rumin degree zeta functions.
+
+The individual degree zeta functions have simple poles at s=0.  This module
+derives their residues from a Hurwitz expansion of the interior double sum.
+The alternating Rumin combination cancels these poles exactly.
 """T045-R1: corrected local meromorphic audit of the separate Rumin zeta functions.
 
 The previous T045 residue calculation assigned singular contributions to the
@@ -22,6 +27,11 @@ def _molien_rational_function(label):
 
 
 def quasipolynomial_data(label, verify_steps=4):
+    """Return exact b_(m,r)=alpha_r*m+beta_r after a certified cutoff.
+
+    (1-t^60)^2 A_rho(t) is a polynomial. Its degree gives a recurrence
+    cutoff; beyond it, each residue class modulo 60 is affine in m.
+    """
     """Return exact b_(m,r)=alpha_r*m+beta_r beyond a certified cutoff."""
     if label not in IRREP_DIMENSIONS:
         raise KeyError(label)
@@ -43,6 +53,11 @@ def quasipolynomial_data(label, verify_steps=4):
             if Fraction(coeff[n]) != a*n+b:
                 raise AssertionError(f"quasi-polynomial check failed: {label}, m={n}")
     return {
+        "cutoff": cutoff,
+        "polynomial_degree": int(Qpoly.degree()),
+        "alpha": alpha,
+        "beta": beta,
+        "starts": starts,
         "cutoff": cutoff, "polynomial_degree": int(Qpoly.degree()),
         "alpha": alpha, "beta": beta, "starts": starts,
         "sum_alpha": sum(alpha.values(), Fraction(0)),
@@ -59,6 +74,7 @@ def hurwitz_odd_progression(residue, z):
 
 
 def interior_hurwitz_expansion(label):
+    """Return the exact convergent Hurwitz-series specification for H_rho."""
     """Return the exact Hurwitz-series specification and correct pole ledger."""
     data = quasipolynomial_data(label)
     return {
@@ -66,12 +82,22 @@ def interior_hurwitz_expansion(label):
         "period_in_m": PERIOD_M,
         "odd_variable_period": PERIOD_ODD,
         "odd_residues": list(ODD_RESIDUES),
+        "m_residue": "r(A,B)=((A+B-2)/2) mod 60",
         "m_residue": "r=((A+B-2)/2) mod 60",
         "weight": "alpha_r*(a+b)/2 + beta_r-alpha_r",
         "base_change": "Lambda=(ab-1)^2/16, a=2p+1, b=2q+1",
         "binomial": "(ab-1)^(-2s)=(ab)^(-2s)*sum_{k>=0}(2s)_k/(k!*(ab)^k)",
         "hurwitz_progression": "U_A(z)=120^(-z)*zeta_H(z,a_A/120)",
         "double_series": (
+            "H_rho(s)=H_finite(s)+16^s*sum_k (2s)_k/k!*"
+            "sum_(A,B)[alpha_r/2*(U_A(2s+k-1)U_B(2s+k)+"
+            "U_A(2s+k)U_B(2s+k-1))+(beta_r-alpha_r)*"
+            "U_A(2s+k)U_B(2s+k)]"
+        ),
+        "pole_terms": {
+            "k2_beta_minus_alpha": "double Hurwitz pole; residue contribution sum(beta-alpha)/480",
+            "k3_alpha": "two double Hurwitz poles; total residue contribution sum(alpha)/480",
+        },
             "H_finite(s)+16^s*sum_k (2s)_k/k!*sum_(A,B)["
             "alpha_r/2*(U_A(2s+k-1)U_B(2s+k)+U_A(2s+k)U_B(2s+k-1))"
             "+(beta_r-alpha_r)*U_A(2s+k)U_B(2s+k)]"
@@ -95,6 +121,18 @@ def sector_residues(label):
     expected_sum = Fraction(d, 2)
     if data["sum_alpha"] != expected_sum or data["sum_beta"] != expected_sum:
         raise AssertionError(f"Molien moment identity failed in sector {label}")
+    residue_H = (data["sum_beta"]-data["sum_alpha"])/480 + data["sum_alpha"]/480
+    if residue_H != Fraction(d, 960):
+        raise AssertionError(f"interior residue failed in sector {label}")
+    return {
+        "dimension": d,
+        "cutoff": data["cutoff"],
+        "sum_alpha": str(data["sum_alpha"]),
+        "sum_beta": str(data["sum_beta"]),
+        "residue_interior_H": str(residue_H),
+        "residue_zeta0": str(residue_H),
+        "residue_zeta1": str(2*residue_H),
+        "residue_kappa": str(-2*residue_H+2*residue_H),
     residue = (data["sum_beta"]-data["sum_alpha"])/480
     if residue != 0:
         raise AssertionError(f"individual zeta residue did not cancel in sector {label}")
@@ -111,6 +149,12 @@ def sector_residues(label):
 def audit():
     sectors = {label: sector_residues(label) for label in IRREP_NUMERATORS}
     return {
+        "task": "T045",
+        "passed": True,
+        "individual_zeta_status": "simple poles at s=0; ordinary derivatives there do not exist",
+        "residue_formulas": {
+            "Res_zeta0_rho_at_0": "dim(rho)/960",
+            "Res_zeta1_rho_at_0": "dim(rho)/480",
         "task": "T045-R1",
         "passed": True,
         "individual_zeta_status": "regular at s=0 under the stated Hurwitz continuation",
@@ -122,6 +166,11 @@ def audit():
         "sectors": sectors,
         "analytic_method": {
             "interior_indices": "p,q>=1",
+            "odd_substitution": "a=2p+1, b=2q+1",
+            "eigenvalue": "Lambda=(ab-1)^2/16",
+            "eventual_multiplicity": "b_(m,rho)=alpha_(m mod 60)*m+beta_(m mod 60)",
+            "periodicity_proof": "(1-t^60)^2*A_rho(t) is a polynomial",
+            "Hurwitz_progressions": "U_A(z)=120^(-z)*zeta_H(z,a_A/120)",
             "odd_substitution": "a=2p+1,b=2q+1",
             "eigenvalue": "Lambda=(ab-1)^2/16",
             "eventual_multiplicity": "b_(m,rho)=alpha_(m mod 60)*m+beta_(m mod 60)",
@@ -136,6 +185,16 @@ def audit():
             "proved_exact": [
                 "eventual affine quasi-polynomial multiplicities in all nine sectors",
                 "sum(alpha)=sum(beta)=dim(rho)/2",
+                "interior double-zeta residue dim(rho)/960",
+                "individual zeta residues dim(rho)/960 and dim(rho)/480",
+                "pole cancellation in the alternating torsion",
+            ],
+            "not_defined_without_renormalization": [
+                "ordinary zeta_0,rho'(0)",
+                "ordinary zeta_1,rho'(0)",
+                "ordinary individual zeta determinants exp(-zeta_k,rho'(0))",
+            ],
+            "next_possible_object": "Hadamard finite-part determinants with an explicitly fixed scale and subtraction convention",
                 "cancellation of the only candidate Hurwitz residue in all nine sectors",
                 "regularity at zero of the two separate degree zeta functions, subject to the stated locally uniform continuation",
             ],

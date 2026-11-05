@@ -1,4 +1,97 @@
 {
+  "task": "T045",
+  "exact": true,
+  "conclusion": "Separate zeta_0 and zeta_1 have simple poles at s=0; their ordinary derivatives at zero do not exist. The alternating combination is regular.",
+  "residue_formulas": {
+    "zeta0": "dim(rho)/960",
+    "zeta1": "dim(rho)/480",
+    "alternating": "0"
+  },
+  "sectors": {
+    "1": {
+      "dimension": 1,
+      "cutoff": 119,
+      "sum_alpha": "1/2",
+      "sum_beta": "1/2",
+      "residue_zeta0": "1/960",
+      "residue_zeta1": "1/480"
+    },
+    "2": {
+      "dimension": 2,
+      "cutoff": 118,
+      "sum_alpha": "1",
+      "sum_beta": "1",
+      "residue_zeta0": "1/480",
+      "residue_zeta1": "1/240"
+    },
+    "3": {
+      "dimension": 3,
+      "cutoff": 117,
+      "sum_alpha": "3/2",
+      "sum_beta": "3/2",
+      "residue_zeta0": "1/320",
+      "residue_zeta1": "1/160"
+    },
+    "4": {
+      "dimension": 4,
+      "cutoff": 113,
+      "sum_alpha": "2",
+      "sum_beta": "2",
+      "residue_zeta0": "1/240",
+      "residue_zeta1": "1/120"
+    },
+    "5": {
+      "dimension": 5,
+      "cutoff": 115,
+      "sum_alpha": "5/2",
+      "sum_beta": "5/2",
+      "residue_zeta0": "1/192",
+      "residue_zeta1": "1/96"
+    },
+    "6": {
+      "dimension": 6,
+      "cutoff": 114,
+      "sum_alpha": "3",
+      "sum_beta": "3",
+      "residue_zeta0": "1/160",
+      "residue_zeta1": "1/80"
+    },
+    "2'": {
+      "dimension": 2,
+      "cutoff": 112,
+      "sum_alpha": "1",
+      "sum_beta": "1",
+      "residue_zeta0": "1/480",
+      "residue_zeta1": "1/240"
+    },
+    "3'": {
+      "dimension": 3,
+      "cutoff": 113,
+      "sum_alpha": "3/2",
+      "sum_beta": "3/2",
+      "residue_zeta0": "1/320",
+      "residue_zeta1": "1/160"
+    },
+    "4'": {
+      "dimension": 4,
+      "cutoff": 116,
+      "sum_alpha": "2",
+      "sum_beta": "2",
+      "residue_zeta0": "1/240",
+      "residue_zeta1": "1/120"
+    }
+  },
+  "proof_inputs": {
+    "molien_denominator": "(1-t^12)(1-t^20) divides the squared-period denominator (1-t^60)^2",
+    "multiplicity_tail": "b_(m,rho)=alpha_(m mod 60)*m+beta_(m mod 60)",
+    "exact_moments": "sum(alpha)=sum(beta)=dim(rho)/2",
+    "odd_substitution": "a=2p+1,b=2q+1; Lambda=(ab-1)^2/16",
+    "hurwitz_progressions": "U_A(z)=120^(-z)*zeta_H(z,a_A/120), Res at z=1 equals 1/120",
+    "interior_residue": "sum(beta-alpha)/480 + sum(alpha)/480 = dim(rho)/960"
+  },
+  "pytest_executed": false,
+  "github_actions_executed": false,
+  "finite_part_determinants": "not defined until a subtraction and scale convention is specified"
   "task": "T045-R1",
   "correction": "The previous k=2/k=3 pole classification was incorrect. The only candidate is the k=1 beta-alpha term.",
   "exact": true,
