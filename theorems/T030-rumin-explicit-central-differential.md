@@ -24,43 +24,43 @@
 Let M be a three-dimensional co-oriented contact manifold. Fix a contact form theta with
 
 $$
-\\theta\\wedge d\\theta\\ne0,
-\\qquad H=\\ker\\theta.
+\theta\wedge d\theta\ne0,
+\qquad H=\ker\theta.
 $$
 
 Let T be its Reeb vector field:
 
 $$
-\\theta(T)=1,\\qquad \\iota_Td\\theta=0.
+\theta(T)=1,\qquad \iota_Td\theta=0.
 $$
 
 In a Darboux chart choose
 
 $$
-\\theta=dt+\\frac12(x\\,dy-y\\,dx),
-\\qquad d\\theta=dx\\wedge dy,
+\theta=dt+\frac12(x\,dy-y\,dx),
+\qquad d\theta=dx\wedge dy,
 $$
 
 and the horizontal frame
 
 $$
-X=\\partial_x+\\frac y2\\partial_t,
-\\qquad
-Y=\\partial_y-\\frac x2\\partial_t,
-\\qquad T=\\partial_t.
+X=\partial_x+\frac y2\partial_t,
+\qquad
+Y=\partial_y-\frac x2\partial_t,
+\qquad T=\partial_t.
 $$
 
 Then
 
 $$
-[X,Y]=-T,\\quad [T,X]=[T,Y]=0,
-\\quad d\\theta(X,Y)=1.
+[X,Y]=-T,\quad [T,X]=[T,Y]=0,
+\quad d\theta(X,Y)=1.
 $$
 
 The coframe (theta, dx, dy) is dual to (T, X, Y), and the volume form is
 
 $$
-dV=\\theta\\wedge dx\\wedge dy.
+dV=\theta\wedge dx\wedge dy.
 $$
 
 Every displayed sign below is tied to this convention.
@@ -70,29 +70,29 @@ Every displayed sign below is tied to this convention.
 In contact dimension three, the middle Rumin bundles are
 
 $$
-E^1=\\Omega^1(M)/\\langle\\theta\\rangle,
-\\qquad
+E^1=\Omega^1(M)/\langle\theta\rangle,
+\qquad
 E^2=J^2,
 $$
 
 where
 
 $$
-J^2=\\{\\omega\\in\\Omega^2(M):\\theta\\wedge\\omega=0\\}.
+J^2=\{\omega\in\Omega^2(M):\theta\wedge\omega=0\}.
 $$
 
 Thus a section of E² has the local form
 
 $$
-\\gamma=p\\,\\theta\\wedge dx+q\\,\\theta\\wedge dy.
+\gamma=p\,\theta\wedge dx+q\,\theta\wedge dy.
 $$
 
 The Rumin complex in this dimension is
 
 $$
-\\Omega^0(M)\\xrightarrow{d_H^0}E^1
-\\xrightarrow{D_R}E^2
-\\xrightarrow{d_H^2}\\Omega^3(M).
+\Omega^0(M)\xrightarrow{d_H^0}E^1
+\xrightarrow{D_R}E^2
+\xrightarrow{d_H^2}\Omega^3(M).
 $$
 
 The first arrow is induced by exterior differentiation followed by projection to the horizontal quotient. The last arrow is exterior differentiation restricted to E². The middle arrow requires a normalized representative.
@@ -102,26 +102,26 @@ The first arrow is induced by exterior differentiation followed by projection to
 Represent a class in E¹ by its horizontal representative
 
 $$
-\\alpha=a\\,dx+b\\,dy.
+\alpha=a\,dx+b\,dy.
 $$
 
 Every representative of this class is alpha + f theta. There is a unique f for which
 
 $$
-\\beta=\\alpha+f\\theta,
-\\qquad \\theta\\wedge d\\beta=0.
+\beta=\alpha+f\theta,
+\qquad \theta\wedge d\beta=0.
 $$
 
 Indeed,
 
 $$
-d\\beta=d\\alpha+df\\wedge\\theta+f\\,d\\theta.
+d\beta=d\alpha+df\wedge\theta+f\,d\theta.
 $$
 
 Wedge with theta. The term theta wedge df wedge theta vanishes, hence
 
 $$
-\\theta\\wedge d\\alpha+f\\,\\theta\\wedge d\\theta=0.
+\theta\wedge d\alpha+f\,\theta\wedge d\theta=0.
 $$
 
 Since theta wedge dtheta is nowhere zero, f is uniquely determined.
@@ -129,43 +129,43 @@ Since theta wedge dtheta is nowhere zero, f is uniquely determined.
 In the chosen Darboux frame, direct expansion gives
 
 $$
-d\\alpha=(Xb-Ya)\\,dx\\wedge dy
- +(Ta)\\,\\theta\\wedge dx
- +(Tb)\\,\\theta\\wedge dy.
+d\alpha=(Xb-Ya)\,dx\wedge dy
+ +(Ta)\,\theta\wedge dx
+ +(Tb)\,\theta\wedge dy.
 $$
 
 Therefore
 
 $$
-\\boxed{f=Ya-Xb.}
+\boxed{f=Ya-Xb.}
 $$
 
 Define the middle differential by
 
 $$
-D_R[\\alpha]=d\\beta=d(\\alpha+f\\theta).
+D_R[\alpha]=d\beta=d(\alpha+f\theta).
 $$
 
 Using df wedge theta = -Xf theta wedge dx -Yf theta wedge dy, we obtain
 
 $$
-\\boxed{
-D_R[\\alpha]
-=(Ta-Xf)\\,\\theta\\wedge dx
- +(Tb-Yf)\\,\\theta\\wedge dy,
-\\qquad f=Ya-Xb.
+\boxed{
+D_R[\alpha]
+=(Ta-Xf)\,\theta\wedge dx
+ +(Tb-Yf)\,\theta\wedge dy,
+\qquad f=Ya-Xb.
 }
 $$
 
 In components:
 
 $$
-\\boxed{
+\boxed{
 D_R(a,b)=
-\\begin{pmatrix}
-Ta-X(Ya-Xb)\\\\
+\begin{pmatrix}
+Ta-X(Ya-Xb)\\
 Tb-Y(Ya-Xb)
-\\end{pmatrix}.
+\end{pmatrix}.
 }
 $$
 
@@ -184,8 +184,8 @@ $$
 For gamma = p theta wedge dx + q theta wedge dy, exterior differentiation gives
 
 $$
-\\boxed{
-d_H^2\\gamma=(Yp-Xq)\\,dV.
+\boxed{
+d_H^2\gamma=(Yp-Xq)\,dV.
 }
 $$
 
@@ -212,7 +212,7 @@ $$
 By construction D_R[alpha] = d beta. Consequently
 
 $$
-d_H^2(D_R[\\alpha])=d(d\\beta)=0.
+d_H^2(D_R[\alpha])=d(d\beta)=0.
 $$
 
 ### 6.3 Well-definedness on the quotient
@@ -228,7 +228,7 @@ The identity d² = 0 also gives the vanishing of the composition of consecutive 
 Equip the model with the left-invariant metric for which (theta, dx, dy) is orthonormal, and use dV = theta wedge dx wedge dy. The fields X, Y, T are divergence-free for Haar volume, so
 
 $$
-X^*=-X,\\qquad Y^*=-Y,\\qquad T^*=-T.
+X^*=-X,\qquad Y^*=-Y,\qquad T^*=-T.
 $$
 
 It follows that
@@ -253,22 +253,22 @@ or, as an operator matrix,
 
 $$
 D_R=
-\\begin{pmatrix}
-T-XY & X^2\\\\
+\begin{pmatrix}
+T-XY & X^2\\
 -Y^2 & T+YX
-\\end{pmatrix}.
+\end{pmatrix}.
 $$
 
 Taking formal adjoints reverses operator order. In particular, (XY)* = YX and (YX)* = XY. Therefore
 
 $$
-\\boxed{
+\boxed{
 D_R^*(u,v)=
-\\begin{pmatrix}
--T-YX & -Y^2\\\\
+\begin{pmatrix}
+-T-YX & -Y^2\\
 X^2 & -T+XY
-\\end{pmatrix}
-\\begin{pmatrix}u\\\\v\\end{pmatrix}.
+\end{pmatrix}
+\begin{pmatrix}u\\v\end{pmatrix}.
 }
 $$
 
@@ -291,8 +291,8 @@ No identity of the form D_R* = -*D_R* is assumed. Such a formula must be checked
 Let q: Omega¹ -> E¹ be the quotient map. Let s: E¹ -> Omega¹ assign to each class its unique normalized representative. Then
 
 $$
-q\\circ s=\\operatorname{id}_{E^1},
-\\qquad D_R=d\\circ s.
+q\circ s=\operatorname{id}_{E^1},
+\qquad D_R=d\circ s.
 $$
 
 This is the exact middle-arrow identity. The map s is a differential operator of order one in the chosen contact splitting, not a pointwise bundle isomorphism. It gives the corrected-representative realization of the intrinsic Rumin differential.
