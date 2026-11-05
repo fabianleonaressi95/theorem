@@ -46,8 +46,8 @@ python scripts/q6_prism_axial_current_correlator.py --input axial_prism.npz --ge
 Il confronto tra componenti di nodi distinti è effettuato in una trivializzazione/frame comune fornita dall'utente. Non applica ancora trasporto parallelo SU(2)/Spin lungo cammini: per una correlazione pienamente gauge-covariante occorre includere le olonomie orientate lungo i cammini, tenendo conto della dipendenza dal cammino nei cicli con curvatura.\n\n## Stato epistemico
 
 - **Derivato nella convenzione EC–Dirac sorgente:** relazione di Cartan e coefficienti (T^2), (mathcal L_{4f}).
-- **Implementato e testato qui:** momenti lorentziani, decomposizione media/fluttuazione, shell tensor correlators Q6/PRISM e decomposizione self/pair della cella.
-- **Non dimostrato:** che i vettori sui vertici siano i campioni fisici di (J_5^a) generati dagli spinori QLG; occorre costruire esplicitamente gli spinori e il bilineare per nodo, con trasporto SU(2)/Spin e normalizzazione.
-- **Dato mancante:** il repository sorgente contiene il motore di ensemble ma non un dataset validato di correnti (J_5^a(x)) su Q6/PRISM con unità e prescrizione del contatto. Quindi non si dichiara un esponente cosmologico RGS–PSU.
+- **Implementato e testato qui:** bilineare Dirac spinore→J5^a nella convenzione sorgente, momenti lorentziani, decomposizione media/fluttuazione, shell tensor correlators Q6/PRISM, contatto EC e decomposizione self/pair della cella.
+- **Non dimostrato:** che un eventuale campo di spinori fornito rappresenti lo stato quantistico fisico RGS–PSU/QLG. Il codice calcola il bilineare, ma non genera né seleziona lo stato fisico. Il confronto tra nodi resta in una trivializzazione comune, non ancora gauge-covariante.
+- **Dato mancante:** il repository sorgente contiene il motore di ensemble e gli operatori Dirac discreti, ma non un dataset validato di spinori o correnti (J_5^a(x)) su Q6/PRISM con unità, normalizzazione e prescrizione del contatto. Quindi non si dichiara un esponente cosmologico RGS–PSU.
 - **Aperto:** rinormalizzazione/ordinamento dell'operatore locale, convergenza in volume e scala di coarse-graining, derivazione dell'equazione di stato dalla variazione tetradica dell'azione efficace.
 
