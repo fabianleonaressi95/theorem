@@ -65,6 +65,9 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | [T017](theorems/T017-q6-dirac-refinement.md) | Raffinamento cubico Q6–Dirac | Raffinamento esplicito \((C_{2n})^{\square6}\); 64 corner zeros naïve; Wilson lift; limite di simbolo provato; convergenza spettrale completa aperta |
 | [T019](theorems/T019-q6-free-strong-resolvent.md) | Limite libero di risolvente forte Q6–Wilson | Convergenza forte generalizzata del risolvente sul toro piatto di lato 2; non è convergenza in norma né limite gauge-interagente |
 | [T021](theorems/T021-rumin-analytic-torsion-2I.md) | Torsione analitica di Rumin su S³/2I con twist irriducibili di 2I | Covarianti di Molien e riduzione Hurwitz-zeta esatte; valori Gamma verificati ad alta precisione contro Dowker–Chang; identità simboliche e matching completo delle convenzioni ancora aperti |
+| [T022](theorems/T022-eventual-hurwitz-rumin-2I.md) | Correzione della coda di Hurwitz per i twist di 2I | Decomposizione eventuale e scala (60^{-2s}) verificate in aritmetica esatta; torsioni confrontate a 70 cifre |
+| [T023](theorems/T023-gamma-reflection-rumin-2I.md) | Identità esatte Gamma–seno per i nove twist di Rumin | Riduzione simbolica in (mathbb Q(sqrt5)), inclusa la coda eccezionale (N=62); PR #20 aperta |
+| [T024](theorems/T024-rumin-kitaoka-operator-matching-3d.md) | Corrispondenza operatoriale Kitaoka–Rumin–Seshadri in dimensione 3 | Riscalamento identico, Laplaciani uguali, dualità di Hodge e convenzioni torsionali riconciliate; PR in preparazione |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
