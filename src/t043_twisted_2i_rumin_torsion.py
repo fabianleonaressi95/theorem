@@ -53,14 +53,14 @@ def zeta0_partial(label,s,M):
     b=multiplicities(label,M); total=mp.mpf(b[0])
     for m in range(1,M+1):
         for p in range(m+1):
-            lam=eigenvalue(m,p); total+=b[m]*mp.power(mp.mpf(lam.p)/lam.q,-s)
+            lam=eigenvalue(m,p); total+=b[m]*mp.power(mp.mpf(int(lam.p))/int(lam.q),-s)
     return total
 
 def zeta1_partial(label,s,M):
     b=multiplicities(label,M); total=mp.mpf(0)
     for m in range(M+1):
         for p in range(1,m+2):
-            lam=eigenvalue(m,p); total+=2*b[m]*mp.power(mp.mpf(lam.p)/lam.q,-s)
+            lam=eigenvalue(m,p); total+=2*b[m]*mp.power(mp.mpf(int(lam.p))/int(lam.q),-s)
     return total
 
 def kappa_direct_partial(label,s,M):
