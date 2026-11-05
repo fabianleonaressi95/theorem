@@ -44,7 +44,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 - **Bibliografia:** [catalogo generale](bibliography/README.md), con vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce, gravità, olografia, geometria discreta e fonti non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
 - **Dimostrazioni:** [theorems/](theorems/).
-- **Verifiche esterne:** [matrice delle verifiche matematiche](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md), con criteri di accettazione e registro delle risposte.
+- **Verifiche esterne:** [matrice delle verifiche matematiche](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md), con criteri di accettazione e registro delle risposte.\n- **Compatibilità Q6–Dirac–barioni:** [matrice T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md), con definizioni, operatori, dipendenze e problemi aperti.
 
 ## Registro dei teoremi
 
