@@ -40,6 +40,7 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 - **Inventario Library:** [fonti recuperate](library-inventory/README.md). La Library è stata scandita a livello di metadati: 388 elementi totali, 118 documenti PDF/testo/Markdown. L'inventario registra le fonti già identificate e segnala quelle ancora da classificare.
 - **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.
 - **Monografie e capitoli:** [catalogo](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.
+- **Estrazione delle formule:** [registro maestro](bibliography/FORMULA_EXTRACTION_REGISTER.md), con schede di trascrizione e verifica delle equazioni delle fonti.
 - **Bibliografia:** [catalogo generale](bibliography/README.md), con vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce, gravità, olografia, geometria discreta e fonti non standard.
 - **Progetti:** [mappa dei filoni](projects/README.md).
 - **Dimostrazioni:** [theorems/](theorems/).
