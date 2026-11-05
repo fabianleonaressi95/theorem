@@ -1,6 +1,6 @@
 # T031 — Equivariance of the 3D Rumin complex under the binary icosahedral action
 
-**Status:** the geometric descent and operator-equivariance statements below are proved from naturality, under the explicitly fixed left/right action and contact data. The repository's finite quaternion and selected-representation routines provide computational checks of the group conventions. A full nine-irrep matrix realization and a new spectral calculation are **not** claimed here.
+**Status:** the geometric descent and operator-equivariance statements below are proved from naturality, under the explicitly fixed left/right action and contact data. The quaternionic bridge and its finite audit are maintained in this repository, so acceptance does not depend on the slower CI cycle of the separate quaternion-bridge repository. A full nine-irrep matrix realization and a new spectral calculation are **not** claimed here.
 
 ## 1. Fixed model and conventions
 
@@ -75,17 +75,22 @@ This formula is the character projector; it does not by itself construct matrix 
 
 T031 supplies the geometric equivariance/descent layer connecting these ingredients. It does **not** redo T021/T024, nor does it claim a new evaluation of any zeta function or analytic torsion.
 
-## 6. Computational bridge and acceptance boundary
+## 6. In-repository quaternionic bridge and acceptance boundary
 
-The quaternion-bridge repository already contains:
-- the deterministic 120-element scalar-first quaternion table;
-- exhaustive finite closure/inverse/unit-norm checks;
-- selected trivial, fundamental and vector representations;
-- numerical intertwiner-space checks for those selected representations.
+The companion implementation is deliberately consolidated in `theroem`. It does not require importing code or CI results from `rgs-qlg-quaternion-bridge`.
 
-These are finite computational audits. The fundamental and vector representations distinguish the central element \(-1\): it acts by \(-I_2\) in the defining spin representation and by \(+I_3\) in the vector representation. This is a useful convention check for spinorial versus rotational data.
+The standalone audit `verification/test_t031_quaternion_bridge.py` constructs the 120 unit quaternions of the binary icosahedral group from the standard coordinate families:
+- 8 coordinate units \(\pm1,\pm i,\pm j,\pm k\);
+- 16 half-coordinate quaternions \((\pm1\pm i\pm j\pm k)/2\);
+- 96 even-permutation/sign variants of \((0,1,\varphi,\varphi^{-1})/2\).
 
-The three implemented representations are **not** the full nine-irrep catalogue used in T021. The finite checks also do not prove analytic hypoellipticity, zeta continuation, or torsion identities; those are covered by the separate analytic arguments in T021–T024.
+It checks cardinality, unit norm, closure under Hamilton multiplication, and the left/right action identity
+\[
+g(qh)=(gq)h
+\]
+for every generated group element and a fixed deterministic collection of unit quaternions and Hopf angles. The test uses only the Python standard library and reports a floating-point tolerance; it is a finite implementation audit, not a proof of associativity or of the contact-geometric theorem.
+
+The representation-level scope remains separate: the trivial, defining 2D spin, and 3D vector representations are selected examples, not the complete nine-irrep catalogue used in T021. In particular, the central element \(-1\) acts by \(-I_2\) in the defining spin representation and by \(+I_3\) in the vector representation. No numerical test in this section proves analytic hypoellipticity, zeta continuation, or torsion identities; those belong to T021–T024.
 
 ## 7. Explicit proof obligations left open
 
@@ -100,10 +105,10 @@ The three implemented representations are **not** the full nine-irrep catalogue 
 2. A. Kitaoka, *Analytic Torsions Associated with the Rumin Complex on Contact Spheres*, Int. J. Math. 31 (2020), 2050112, arXiv:1911.03092.
 3. Repository theorem T021, *Character-twisted Rumin analytic torsion on the Poincaré sphere*.
 4. Repository theorem T024, *Operator and torsion-convention matching for the Rumin complex on 3D CR-Seifert quotients*.
-5. Quaternion bridge: `docs/binary-icosahedral-2i.md`, `src/binary_icosahedral.py`, `src/representations_2i.py`.
+5. In-repository finite audit: `verification/test_t031_quaternion_bridge.py`.
 
 ## Classification
 
 - **PROVED:** free left deck action; commutation of left 2I and right Hopf actions; naturality/descent of the Rumin complex under the fixed contact action; preservation of equivariant coefficient subspaces for flat unitary twists; character-projector formula.
-- **NUMERICALLY VERIFIED IN THE BRIDGE REPOSITORY:** finite 2I closure and the selected representation/intertwiner audits, subject to their floating-point tolerances.
+- **NUMERICALLY VERIFIED IN THIS REPOSITORY (when the standalone test passes):** finite 2I cardinality, unit norms, closure and left/right action identities, subject to the stated floating-point tolerance.
 - **OPEN:** full nine-irrep explicit matrix models, exact projector/matrix-unit export, and any continuum limit linking Q6/PRISM to the Rumin complex.
