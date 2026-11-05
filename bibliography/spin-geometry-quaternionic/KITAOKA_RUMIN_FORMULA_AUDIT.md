@@ -502,3 +502,75 @@ separando il termine identità dai 119 termini non identità. La libertà dell'a
 2\log T_{\mathcal E}=\kappa'_{\mathcal E,2I}(0).
 \]
 La formula include il termine zero-mode nella \(\zeta_0\), secondo la convenzione \(0^s=1\); non va confusa con la zeta ridotta che omette il kernel.
+
+
+## 10.2 Traccia equivarante: riduzione alle nove classi di coniugio
+
+La decomposizione di Reynolds può essere scritta classe per classe. Nell'ordine fissato nella tabella dei caratteri dei §§8–9, i dati sono:
+
+| indice | cardinalità | \(\chi_1\) | ordine del rappresentante |
+|---:|---:|---:|---:|
+| 0 | 1 | \(2\) | 1 |
+| 1 | 1 | \(-2\) | 2 |
+| 2 | 20 | \(-1\) | 3 |
+| 3 | 30 | \(0\) | 4 |
+| 4 | 12 | \(\phi-1\) | 5 |
+| 5 | 12 | \(-\phi\) | 5 |
+| 6 | 20 | \(1\) | 6 |
+| 7 | 12 | \(\phi\) | 10 |
+| 8 | 12 | \(1-\phi\) | 10 |
+
+Per \(g\in SU(2)\), se gli autovalori sono \(e^{\pm i\theta_g}\), allora
+\[
+\chi_m(g)=\operatorname{Tr}(\operatorname{Sym}^m g)
+=\frac{\sin((m+1)\theta_g)}{\sin\theta_g}
+\]
+quando \(\sin\theta_g\ne0\), con i valori centrali ottenuti per limite:
+\[
+\chi_m(I)=m+1,\qquad \chi_m(-I)=(-1)^m(m+1).
+\]
+Equivalentemente, per tutte le classi, si usa la ricorrenza esatta
+\[
+\chi_0(g)=1,\quad \chi_1(g)=\chi_1(g),\quad
+\chi_m(g)=\chi_1(g)\chi_{m-1}(g)-\chi_{m-2}(g).
+\]
+
+Per ogni classe \(C_j\), il contributo equivarante formale alle zeta positive è
+\[
+Z_{0,j}(s)=\sum_{m\ge1}\chi_m(C_j)
+ \sum_{p=0}^{m}\Lambda_m(p)^{-s},
+\]
+\[
+Z_{1,j}(s)=2\sum_{m\ge0}\chi_m(C_j)
+ \sum_{p=1}^{m+1}\Lambda_m(p)^{-s}.
+\]
+Nella regione iniziale \(\Re s>1\), dove le serie invarianti convergono assolutamente, la proiezione di Reynolds dà
+\[
+\zeta_0(s)=1+\frac1{120}\sum_{j=0}^{8}|C_j|Z_{0,j}(s),
+\qquad
+\zeta_1(s)=\frac1{120}\sum_{j=0}^{8}|C_j|Z_{1,j}(s).
+\]
+Il termine 1 del modo costante è separato: equivariantemente ogni elemento agisce su tale spazio con carattere \(\chi_0(g)=1\), e la media delle nove classi restituisce \(1\).
+
+**Periodicità dei caratteri.** Per le sette classi non centrali, il rappresentante ha ordine \(r_j\in\{3,4,5,6,10\}\), quindi
+\[
+\chi_{m+r_j}(C_j)=\chi_m(C_j).
+\]
+Le due classi centrali non sono periodiche: i caratteri sono \(m+1\) e \((-1)^m(m+1)\). Questo distingue l'identità e l'antipodale dai contributi non centrali. La periodicità permette di raggruppare gli indici \(m\) in classi residue per ciascuna classe non centrale; non trasforma però automaticamente la somma interna su \(p\), che contiene il polinomio quadratico \(m+2p(m-p)\), in una zeta di Hurwitz elementare.
+
+**Punto cruciale sulla libertà dell'azione.** Se \(g\ne I\), la mappa \(x\mapsto gx\) su \(S^3\) non ha punti fissi. Ciò elimina i punti fissi dalla formula geometrica della traccia equivarante e modifica il comportamento del kernel di calore a piccolo tempo; non implica
+\(\operatorname{Tr}(\rho(g)e^{-t\Delta})=0\). In effetti i caratteri \(\chi_m(C_j)\) sono generalmente non nulli. Non si possono quindi scartare i 119 elementi non identità.
+
+**Riduzione computazionale verificabile.** Il codice associato costruisce esattamente \(\chi_m(C_j)\) in \(\mathbb Q(\sqrt5)\), verifica la periodicità per le sette classi non centrali, controlla le formule delle due classi centrali e ricostruisce \(a_m\) mediante
+\[
+a_m=\frac1{120}\sum_{j=0}^{8}|C_j|\chi_m(C_j).
+\]
+Per ogni peso \(p\), la media equivarante restituisce quindi la molteplicità \(a_m\) usata nelle zeta del quoziente. Questa è una verifica finita esatta della decomposizione di Reynolds, non una valutazione della continuazione a \(s=0\).
+
+**Limite analitico residuo.** La periodicità dei caratteri non basta da sola a calcolare \(Z'_{k,j}(0)\). Serve una continuazione congiunta della somma doppia in \(m,p\), oppure una formula di traccia/heat-kernel equivarante con la corretta sottrazione dei termini locali. In particolare:
+- il termine identità è il contributo della sfera, con la molteplicità completa \(m+1\);
+- il termine centrale \(-I\) porta il segno alternante \((-1)^m\) e il fattore \(m+1\);
+- le sette classi non centrali hanno caratteri periodici, ma la dipendenza spettrale da \(p\) resta da regolarizzare;
+- nessun valore numerico per \(\zeta'_0(0)\), \(\zeta'_1(0)\) o \(T_{\mathcal E}(S^3/2I)\) viene dichiarato in questa tranche.
+
+**Stato epistemico:** formula equivarante per classi derivata dalla proiezione di Reynolds; caratteri e periodicità verificabili esattamente; continuazione classe per classe e derivata regolarizzata ancora aperte.
