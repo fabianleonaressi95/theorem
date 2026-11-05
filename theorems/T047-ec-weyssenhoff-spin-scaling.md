@@ -159,3 +159,12 @@ In tali casi serve specificare l'equazione di trasporto dello spin e la legge di
 La legge di scala è implementata in `scripts/ec_spin_fluid_scaling.py`; i controlli algebrici sono in `tests/test_ec_spin_fluid_scaling.py`.
 
 Il teorema non assegna un valore osservativo a \(\rho_{\rm spin,0}\), non stima \(\beta\), e non afferma che il modello Weyssenhoff descriva tutta la materia cosmologica.
+
+
+## 9. Bibliografia di riferimento
+
+1. N. J. Popławski, “Cosmology with torsion: An alternative to cosmic inflation,” *Physics Letters B* **694** (2010), 181–185, DOI: [10.1016/j.physletb.2010.09.056](https://doi.org/10.1016/j.physletb.2010.09.056), arXiv:[1007.0587](https://arxiv.org/abs/1007.0587). In particolare, le equazioni (8)–(12) riportano il tensore efficace Weyssenhoff, la correzione \(-\kappa s^2/4\) in densità e pressione e la conservazione che implica \(\dot{s^2}+6Hs^2=0\).
+2. “Collapse and dispersal of a homogeneous spin fluid in Einstein–Cartan theory,” *European Physical Journal C* **75** (2015), DOI: [10.1140/epjc/s10052-015-3276-1](https://doi.org/10.1140/epjc/s10052-015-3276-1). Riporta esplicitamente \(\dot{S^2}=-6HS^2\) e la conseguente legge \(S^2\propto a^{-6}\).
+3. “Kinematics of Einstein-Cartan universes,” Cambridge repository manuscript. Discute il fluido di Weyssenhoff, la condizione di Frenkel e i limiti della sua isotropizzazione macroscopica.
+
+La bibliografia supporta il modello standard di fluido di spin usato qui; non sostituisce la derivazione microscopica specifica per il sistema RGS–PSU.
