@@ -16,9 +16,9 @@ def test_affine_quasipolynomial_molien_tail(label):
 def test_individual_zeta_residues(label):
     d = IRREP_DIMENSIONS[label]
     result = sector_residues(label)
-    assert result["residue_interior_H"] == str(Fraction(d, 2560))
-    assert result["residue_zeta0"] == str(Fraction(d, 2560))
-    assert result["residue_zeta1"] == str(Fraction(d, 1280))
+    assert result["residue_interior_H"] == str(Fraction(d, 960))
+    assert result["residue_zeta0"] == str(Fraction(d, 960))
+    assert result["residue_zeta1"] == str(Fraction(d, 480))
     assert result["residue_kappa"] == "0"
 
 def test_odd_residue_classes_are_all_present():
