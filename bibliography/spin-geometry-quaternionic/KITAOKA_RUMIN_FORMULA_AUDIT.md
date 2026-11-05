@@ -279,3 +279,33 @@ Riferimenti consultati:
 - Kitaoka, HTML integrale: https://arxiv.org/html/1911.03092
 - Tavola dei caratteri: https://ncatlab.org/nlab/show/character%2Btable%2Bof%2B2I
 - Stekolshchik, *McKay Correspondence*: https://www-users.cse.umn.edu/~reiner/ReadingSeminars/McKaySeminar2016/Stekolshchik.pdf
+
+
+### 8.1 Controllo indipendente con la serie di Hilbert di Molien
+
+La media dei caratteri può essere controllata indipendentemente con la formula di Molien:
+\[
+P_{2I}(t)=\frac1{120}\sum_{g\in2I}\frac1{\det(I-tg)}.
+\]
+Per la rappresentazione binaria icosaedrale standard su \(\mathbb C^2\), la serie si semplifica in
+\[
+\boxed{P_{2I}(t)=\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}
+=\frac{1-t^{60}}{(1-t^{12})(1-t^{20})(1-t^{30})}.}
+\]
+L'espansione in serie riproduce i coefficienti \(a_m\) calcolati sopra: il primo grado positivo è 12 e i generatori hanno gradi 12, 20 e 30, con una relazione di grado 60. Questa verifica indipendente conferma la sequenza delle molteplicità fino al grado 40. Fonte: calcolo di Molien e descrizione dell'anello degli invarianti binari icosaedrali in Mukai, *An Introduction to Invariants and Moduli*, §1.16, e Springer, *Extending Coinvariant Theorems*, Prop. 4.2.1.
+
+### 8.2 Autovalori invarianti al primo grado non costante
+
+Sostituendo \(q=12-p\) nella formula scalare di Kitaoka si ottiene la lista:
+\[
+\begin{array}{c|rrrrrrr}
+p&0&1&2&3&4&5&6\\
+\hline
+\lambda_{p,12-p}&36&289&676&1089&1444&1681&1764
+\end{array}
+\]
+e per \(p=7,\ldots,12\) la lista è simmetrica rispetto a \(p=6\). Gli autovalori distinti del primo livello sono quindi
+\[
+36,\ 289,\ 676,\ 1089,\ 1444,\ 1681,\ 1764.
+\]
+Le molteplicità spettrali nel quoziente non si ottengono contando solo i valori distinti: occorre sommare i contributi dei diversi pesi \((q,-p)\) che producono lo stesso autovalore e verificare i casi di bordo della decomposizione di Kitaoka. Questo è un audit del solo settore \(\mathcal E^0\), non della torsione completa.
