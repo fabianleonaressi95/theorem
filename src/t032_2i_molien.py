@@ -24,7 +24,7 @@ def molien_coefficients(label: str, max_degree: int) -> tuple[int, ...]:
     support = IRREP_NUMERATORS[label]
     return tuple(sum(1 for a in range(m // 12 + 1)
                      for b in range(m // 20 + 1)
-                     if m - 12*a - 20*b in support)
+                     if m - 12*a - 20*b in support for _ in range(support.count(m - 12*a - 20*b)))
                  for m in range(max_degree + 1))
 
 
