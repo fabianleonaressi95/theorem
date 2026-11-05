@@ -574,3 +574,131 @@ Per ogni peso \(p\), la media equivarante restituisce quindi la molteplicità \(
 - nessun valore numerico per \(\zeta'_0(0)\), \(\zeta'_1(0)\) o \(T_{\mathcal E}(S^3/2I)\) viene dichiarato in questa tranche.
 
 **Stato epistemico:** formula equivarante per classi derivata dalla proiezione di Reynolds; caratteri e periodicità verificabili esattamente; continuazione classe per classe e derivata regolarizzata ancora aperte.
+
+
+## 10.3 Cancellazione torsionale e riduzione finita a zeta di Hurwitz
+
+Questa sezione usa simultaneamente i due settori spettrali. È il primo passaggio che riduce la torsione, non le singole zeta, a una somma unidimensionale esplicita.
+
+### 10.3.1 Cancellazione dei pesi interni
+
+Scriviamo
+\[
+\kappa(s)=-2\zeta_0(s)+\zeta_1(s).
+\]
+Per ogni \(m\geq1\), gli indici \(p=1,\ldots,m\) sono identici nelle due somme e si cancellano esattamente. Rimangono soltanto:
+- il bordo scalare \(p=0\), con \(\Lambda_m(0)=m^2/4\);
+- il bordo centrale VI \(p=m+1,\ q=-1\), con \(\Lambda_m(m+1)=(m+2)^2/4\).
+
+Al grado \(m=0\), il modo costante di \(\zeta_0\) contribuisce \(-2\), mentre il bordo di \(\zeta_1\) ha autovalore 1 e molteplicità 2: i due termini si cancellano. Pertanto, nella regione comune di convergenza \(\Re s>1\),
+\[
+\boxed{\;
+\kappa(s)=2\sum_{m\geq1}a_m
+\left[
+\left(\frac{(m+2)^2}{4}\right)^{-s}
+-\left(\frac{m^2}{4}\right)^{-s}
+\right].\;}
+\]
+Questa identità usa il fattore 2 dei due bidegrees e la convenzione \(0^s=1\). La cancellazione avviene già nel complesso spettrale del quoziente.
+
+### 10.3.2 Differenza dei coefficienti di Molien
+
+Poniamo \(d_n=a_{n-2}-a_n\), per \(n\geq3\). Poiché \(a_1=a_2=0\), il cambio di indice dà
+\[
+\kappa(s)=2\,4^s\sum_{n\geq3}d_n n^{-2s}.
+\]
+La funzione generatrice della successione \(d_n\) è
+\[
+D(t):=\sum_{n\geq3}d_nt^n
+=(t^2-1)\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}
++1-t^2.
+\]
+La semplificazione esatta fornisce
+\[
+\boxed{\begin{aligned}
+(1-t^{60})D(t)=P(t)
+={}&t^{62}-2t^{60}+t^{58}-t^{48}+t^{46}\\
+&-t^{40}+t^{38}-t^{36}+t^{34}-t^{30}\\
+&+t^{26}-t^{24}+t^{22}-t^{20}+t^{14}-t^{12}.
+\end{aligned}}
+\]
+Il numeratore \(P(t)\) ha un solo coefficiente per ciascun residuo non nullo modulo 60, e supporto negli esponenti 12–62. Dalla relazione \(D=P/(1-t^{60})\) segue esattamente
+\[
+d_{n+60}=d_n\qquad(n\geq3).
+\]
+Questa periodicità è una conseguenza algebrica della funzione di Molien, non una congettura basata su un cutoff numerico.
+
+I soli rappresentanti \(n_r\geq3\) con \(d_{n_r}\ne0\), scelti in un periodo, sono:
+\[
+\begin{array}{c|rrrrrrrr}
+n_r&12&14&20&22&24&26&30&34\\
+d_{n_r}&-1&1&-1&1&-1&1&-1&1\\[2pt]
+n_r&36&38&40&46&48&58&60&62\\
+d_{n_r}&-1&1&-1&1&-1&1&-2&1
+\end{array}
+\]
+Tutti gli altri residui hanno coefficiente zero. In particolare,
+\[
+\sum_r d_{n_r}=-1,\qquad
+\sum_r d_{n_r}\left(\frac12-\frac{n_r}{60}\right)=0.
+\]
+
+### 10.3.3 Continuazione esplicita tramite Hurwitz
+
+La periodicità permette di raggruppare la serie per residui modulo 60:
+\[
+\sum_{n\geq3}d_n n^{-2s}
+=60^{-2s}\sum_r d_{n_r}
+\zeta_H\!\left(2s,\frac{n_r}{60}\right).
+\]
+Quindi
+\[
+\boxed{\;
+\kappa(s)=2\,4^s60^{-2s}
+\sum_r d_{n_r}\,
+\zeta_H\!\left(2s,\frac{n_r}{60}\right).\;}
+\]
+Il lato destro è una somma finita di funzioni zeta di Hurwitz. Fornisce una continuazione meromorfa esplicita della combinazione torsionale \(\kappa\), regolare in \(s=0\). Il fattore \(4^s60^{-2s}\) è mantenuto.
+
+Questa formula non pretende di dare separatamente una formula chiusa per \(\zeta'_0(0)\) e \(\zeta'_1(0)\). È sufficiente per la combinazione che definisce la torsione.
+
+### 10.3.4 Derivata in zero e formula Gamma
+
+Usando
+\[
+\zeta_H(0,a)=\frac12-a,\qquad
+\zeta_H'(0,a)=\log\Gamma(a)-\frac12\log(2\pi),
+\]
+e le due identità finite sui coefficienti \(d_{n_r}\), il termine derivato dal prefattore \(4^s60^{-2s}\) si annulla. Si ottiene
+\[
+\kappa'(0)=4\sum_r d_{n_r}
+\left[\log\Gamma\!\left(\frac{n_r}{60}\right)
+-\frac12\log(2\pi)\right].
+\]
+Poiché \(2\log T_{\mathcal E}=\kappa'(0)\),
+\[
+\boxed{\;
+\log T_{\mathcal E}
+=2\sum_r d_{n_r}\log\Gamma\!\left(\frac{n_r}{60}\right)
++\log(2\pi).\;}
+\]
+Equivalentemente,
+\[
+\boxed{\;
+T_{\mathcal E}
+=2\pi\prod_r
+\Gamma\!\left(\frac{n_r}{60}\right)^{2d_{n_r}}.\;}
+\]
+La valutazione numerica della formula finita è
+\[
+\log T_{\mathcal E}\simeq0.2745567511565355917,
+\qquad
+T_{\mathcal E}\simeq1.3159472534785811492.
+\]
+
+### 10.3.5 Stato epistemico e limiti
+
+- **Derivato esattamente:** cancellazione dei pesi interni nella combinazione \(-2\zeta_0+\zeta_1\), riduzione a \(d_n=a_{n-2}-a_n\), identità generatrice e periodicità 60.
+- **Continuazione esplicita:** la combinazione torsionale \(\kappa(s)\) è espressa da una somma finita di zeta di Hurwitz e quindi continuata meromorficamente.
+- **Derivata in zero:** formula finita in termini di funzioni Gamma, con valutazione numerica riportata.
+- **Non rivendicato:** formule separate per \(\zeta'_0(0)\) e \(\zeta'_1(0)\); una formula per coefficienti locali o rappresentazioni non banali; confronto normalizzato con la convenzione Ray–Singer di altri complessi. La quantità qui calcolata è la torsione analitica del complesso Rumin nella normalizzazione di Kitaoka fissata in questo audit.
