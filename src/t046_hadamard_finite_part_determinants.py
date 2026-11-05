@@ -36,6 +36,8 @@ def alternating_constraint(label, log_mu=0, dps=60):
     """Exact/precision-controlled relation between the two FP log-dets."""
     r=residues(label)
     k0=kappa_at_zero(label)
+    if k0 != 0:
+        raise AssertionError(f"kappa_{label}(0) is expected to vanish exactly, got {k0}")
     with mp.workdps(dps):
         lt=log_torsion(label,dps)
         # D_kappa = kappa'(0) = 2 log(T_rho), by T043 convention.
@@ -51,7 +53,7 @@ def alternating_constraint(label, log_mu=0, dps=60):
             "kappa_derivative_zero":mp.nstr(Dk,dps),
             "D1_mu_minus_2D0_mu":mp.nstr(lhs,dps),
             "log_mu":str(log_mu),
-            "identity":"D1_mu - 2*D0_mu = 2*log(T_rho) + 2*kappa_rho(0)*log(mu)",
+            "identity":"D1_mu - 2*D0_mu = 2*log(T_rho), since kappa_rho(0)=0",
         }
 
 def audit(log_mu=0,dps=60):
@@ -73,7 +75,7 @@ def audit(log_mu=0,dps=60):
         "proved_exact":[
           "finite-part prescription and its scale transformation",
           "individual residues and their cancellation",
-          "exact rational kappa_rho(0) from the period-60 Hurwitz formula",
+          "exact kappa_rho(0)=0 in all nine sectors from the period-60 Hurwitz formula",
           "constraint on the two finite-part determinants from the known alternating torsion"
         ],
         "not_computed":[
