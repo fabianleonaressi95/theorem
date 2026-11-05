@@ -1,0 +1,32 @@
+{
+  "task": "T046",
+  "scheme": "Hadamard finite part of d/ds[mu^(2s)*zeta_k,rho(s)] at s=0",
+  "laurent_expansion": "zeta_k,rho(s)=R_k,rho/s+C_k,rho+D_k,rho*s+O(s^2)",
+  "log_fp_determinant": "-[D_k,rho+2*C_k,rho*log(mu)+2*R_k,rho*log(mu)^2]",
+  "exact_residues": {
+    "zeta0": "dim(rho)/960",
+    "zeta1": "dim(rho)/480",
+    "alternating": "0"
+  },
+  "exact_kappa_value_at_zero": {
+    "all_nine_sectors": "0",
+    "method": "period-60 finite Hurwitz formula evaluated in exact rational arithmetic"
+  },
+  "alternating_constraint": {
+    "all_scales": "log(det_FP,1,rho(mu))-2*log(det_FP,0,rho(mu))=-2*log(T_rho)",
+    "determinant_ratio": "det_FP,1,rho(mu)/det_FP,0,rho(mu)^2=T_rho^(-2)",
+    "scale_dependence": "the alternating ratio is independent of mu"
+  },
+  "individual_coefficients": {
+    "C0": "not determined",
+    "C1": "not determined",
+    "D0": "not determined",
+    "D1": "not determined",
+    "reason": "the alternating combination fixes only C1-2*C0 and D1-2*D0"
+  },
+  "execution": {
+    "tests_added": true,
+    "pytest_executed": false,
+    "github_actions_executed": false
+  }
+}
