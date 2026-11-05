@@ -136,8 +136,8 @@ def audit():
             "proved_exact": [
                 "eventual affine quasi-polynomial multiplicities in all nine sectors",
                 "sum(alpha)=sum(beta)=dim(rho)/2",
-                "interior double-zeta residue dim(rho)/2560",
-                "individual zeta residues dim(rho)/2560 and dim(rho)/1280",
+                "interior double-zeta residue dim(rho)/960",
+                "individual zeta residues dim(rho)/960 and dim(rho)/480",
                 "pole cancellation in the alternating torsion",
             ],
             "not_defined_without_renormalization": [
