@@ -1,0 +1,29 @@
+{
+  "task": "T046",
+  "scheme": "Hadamard finite part of d/ds[mu^(2s)*zeta_k,rho(s)] at s=0",
+  "laurent_expansion": "zeta_k,rho(s)=R_k,rho/s+C_k,rho+D_k,rho*s+O(s^2)",
+  "log_fp_determinant": "-[D_k,rho+2*C_k,rho*log(mu)+2*R_k,rho*log(mu)^2]",
+  "exact_residues": {
+    "zeta0": "dim(rho)/960",
+    "zeta1": "dim(rho)/480",
+    "alternating": "0"
+  },
+  "exact_alternating_relation": {
+    "at_unit_scale": "log(det_FP,1,rho)-2*log(det_FP,0,rho)=-2*log(T_rho)",
+    "at_scale_mu": "log(det_FP,1,rho(mu))-2*log(det_FP,0,rho(mu))=-2*log(T_rho)-2*kappa_rho(0)*log(mu)",
+    "kappa_zero": "2*[sum_(n<c)d_n+sum_(r=1)^60 e_r*(1/2-n_r/60)]",
+    "status": "exact rational expression, evaluated from T043 period-60 coefficients"
+  },
+  "individual_coefficients": {
+    "C0": "not determined",
+    "C1": "not determined",
+    "D0": "not determined",
+    "D1": "not determined",
+    "reason": "the alternating combination fixes only C1-2*C0 and D1-2*D0"
+  },
+  "execution": {
+    "tests_added": true,
+    "pytest_executed": false,
+    "github_actions_executed": false
+  }
+}
