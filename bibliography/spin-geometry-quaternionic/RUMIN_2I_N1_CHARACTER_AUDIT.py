@@ -78,6 +78,42 @@ def boundary_eigenvalue_case_vii(q: int):
         raise ValueError("Case VII requires q >= 1")
     return sp.Rational((q + 1) ** 2, 4)
 
+
+def scalar_spectral_zeta_terms(max_degree: int):
+    """Finite truncation of the quotient E^0 spectral zeta Dirichlet series.
+
+    Returns (m,p,eigenvalue,multiplicity); the constant zero mode is omitted.
+    """
+    a = invariant_multiplicities(max_degree)
+    terms = []
+    for m, inv_dim in enumerate(a):
+        if inv_dim == 0 or m == 0:
+            continue
+        for p in range(m + 1):
+            lam = rumin_eigenvalue_n1(m - p, p)
+            terms.append((m, p, lam, inv_dim))
+    return terms
+
+
+def middle_spectral_zeta_terms(max_degree: int):
+    """Finite truncation of E^1; E^(1,0) and E^(0,1) are conjugate."""
+    a = invariant_multiplicities(max_degree)
+    terms = []
+    for m, inv_dim in enumerate(a):
+        if inv_dim == 0:
+            continue
+        for p in range(1, m + 2):
+            lam = rumin_eigenvalue_n1(m - p, p)
+            terms.append((m, p, lam, 2 * inv_dim))
+    return terms
+
+
+def spectral_zeta_dirichlet_term(eigenvalue, multiplicity, s):
+    """One term multiplicity * eigenvalue^(-s), for positive eigenvalues."""
+    if eigenvalue <= 0 or multiplicity < 0:
+        raise ValueError("Require positive eigenvalue and nonnegative multiplicity")
+    return sp.Integer(multiplicity) * sp.Pow(sp.sympify(eigenvalue), -s)
+
 def first_invariant_level_spectra():
     """Eigenvalues on invariant copies at m=12 in the three n=1 bidegrees."""
     m = 12
@@ -108,11 +144,19 @@ if __name__ == "__main__":
     assert dict(nonzero) == expected
     assert sum(class_sizes) == 120
     scalar, e10, e01 = first_invariant_level_spectra()
+    z0 = scalar_spectral_zeta_terms(12)
+    z1 = middle_spectral_zeta_terms(12)
+    assert len(z0) == 13
+    assert len(z1) == 28
+    assert sum(term[3] for term in z0) == 13
+    assert sum(term[3] for term in z1) == 28
     print("m=12 scalar eigenvalues:", scalar)
     print("m=12 E^(1,0) eigenvalues:", e10)
     print("m=12 E^(0,1) eigenvalues:", e01)
     print("Case VI boundary p=13:", boundary_eigenvalue_case_vi(13))
     print("Case VII boundary q=13:", boundary_eigenvalue_case_vii(13))
+    print("E^0 positive spectral terms through m=12:", len(z0))
+    print("E^1 spectral terms through m=12:", len(z1))
     rows = n1_bidegree_counts(max_degree)
     print("nonzero invariant degrees:", nonzero)
     print("n=1 bidegree invariant multiplicities at first levels:")
