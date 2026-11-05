@@ -260,3 +260,39 @@ c_{n,\rho}(\log4-2\log n)\\
 \end{aligned}
 \]
 For the trivial representation the residue class (r=2) has tail start (N=62), so its Hurwitz parameter is (31/30), not (1/30). The earlier compact formula with (zeta_H(2s,r/60)) and (Gamma(r/60)) omits the initial-segment correction and must not be used as written. The 50-digit values remain to be accepted only after this corrected decomposition is applied to all nine representations. This erratum supersedes the unqualified period-60 formula in §§4–5.
+
+
+## 9. Erratum II: correct scaling of the eventual Hurwitz tail
+
+A second correction is required in the displayed formula of §8. If a residue-class tail begins at (N_{r,\rho}), its terms are
+\[
+\sum_{k\ge0}(N_{r,\rho}+60k)^{-2s}
+=60^{-2s}\zeta_H\!\left(2s,\frac{N_{r,\rho}}{60}\right),
+\]
+not (N_{r,\rho}^{-2s}\zeta_H(2s,N_{r,\rho}/60)). The latter inserts an erroneous extra scale factor. Thus the corrected continuation is
+\[
+\kappa_\rho(s)=2,4^s\left[
+\sum_r\sum_{\substack{n<N_{r,\rho}\\n\equiv r\ (60)}}
+c_{n,\rho}n^{-2s}
++60^{-2s}\sum_r d_{r,\rho}
+\zeta_H\!\left(2s,\frac{N_{r,\rho}}{60}\right)
+\right].
+\]
+Its derivative, with \(\log T_\rho=\tfrac12\kappa_\rho'(0)\), is
+\[
+\begin{aligned}
+\log T_\rho={}&
+\sum_r\sum_{\substack{n<N_{r,\rho}\\n\equiv r\ (60)}}
+c_{n,\rho}(\log4-2\log n)\\
+&+\sum_r d_{r,\rho}\left[
+(\log4-2\log60)\left(\frac12-\frac{N_{r,\rho}}{60}\right)
++2\log\Gamma\!\left(\frac{N_{r,\rho}}{60}\right)
+-\log(2\pi)
+\right].
+\end{aligned}
+\]
+The finite initial segment is unchanged; only the scale in the eventual tail is corrected. In particular, the trivial representation has the tail start \(N=62\) in residue 2, with Hurwitz parameter \(31/30\), while the global scaling remains \(60^{-2s}\).
+
+The new standalone audit
+`bibliography/spin-geometry-quaternionic/RUMIN_2I_T022_EVENTUAL_HURWITZ_AUDIT.py`
+implements the nine Molien numerators, constructs each polynomial \(P_\rho=(1-t^{60})D_\rho\), checks every finite preperiod and eventual tail coefficient, and compares the resulting 70-digit torsions with the independent algebraic benchmark. This is a **high-precision numerical verification** of the corrected finite decomposition; it is not a symbolic proof of all nine Gamma-product identities, nor does it settle the operator-convention matching described in §6.
