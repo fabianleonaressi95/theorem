@@ -1,0 +1,40 @@
+{
+  "task": "T041",
+  "passed": true,
+  "barnes_zeta_values_at_zero": {
+    "2": "226/3",
+    "32": "316/3"
+  },
+  "one_orientation": {
+    "zeta_at_zero": "542/3",
+    "derivative": "(542/3)*log(4) + 2*log(Gamma2B(2|12,20)*Gamma2B(32|12,20))",
+    "gamma_convention": "Gamma2B(a|w1,w2)=exp(d_z BarnesZeta2(z,a|w1,w2) at z=0)",
+    "log_determinant": "-Z_boundary'(0)",
+    "numerical_evaluation": "not performed"
+  },
+  "weighted_contact_torsion": {
+    "contact_dimension": 3,
+    "n": 1,
+    "torsion_function": "kappa_E(s)=-2*zeta(Delta_E^0)(s)+zeta(Delta_E^1)(s)",
+    "case_VI": {
+      "bidegree": "(1,0)",
+      "rumin_degree": 1,
+      "weight": 1
+    },
+    "case_VII": {
+      "bidegree": "(0,1)",
+      "rumin_degree": 1,
+      "weight": 1
+    },
+    "partial_kappa": "2*Z_boundary(s)",
+    "partial_kappa_at_zero": "1084/3",
+    "partial_log_torsion": "Z_boundary'(0)",
+    "scope": "two exceptional degree-one boundary families only"
+  },
+  "remaining_open_terms": [
+    "complete spectrum of Delta_E^0 on S^3/2I",
+    "all generic and other exceptional contributions to Delta_E^1",
+    "harmonic/zero-mode conventions and full meromorphic cancellation",
+    "full kappa_E'(0) and contact analytic torsion of S^3/2I"
+  ]
+}
