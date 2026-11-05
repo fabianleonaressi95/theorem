@@ -2,7 +2,7 @@
   "audit": "T020 genuinely non-Abelian SU(3) link-field audit",
   "status": "LOCALLY_REPRODUCED_NUMERICALLY",
   "source": "scripts/t020_gauge_covariant_q6_audit.py at branch fix/t020-audit-python-syntax",
-  "execution_note": "The updated script's numerical operations were reproduced in the local Python runtime. This is not a GitHub Actions run. An earlier intermediate Actions run failed the covariance assertion before the colour-action correction; the current corrected head has not yet produced a new Actions run.",
+  "execution_note": "The updated script's numerical operations were reproduced in the local Python runtime. This is not a GitHub Actions run. An earlier intermediate Actions run failed the covariance assertion before the colour-action correction; the current corrected head has not yet produced a new Actions run. Previous Actions run #7 passed the prior link/Wilson audit; the added plaquette-curvature assertions await a new CI run.",
   "parameters": {
     "alpha": 0.35,
     "r": 1,
@@ -57,5 +57,52 @@
       "gauge_transform_det_one_max_residual": 1.3322732244487036e-15
     }
   ],
-  "interpretation": "The finite-dimensional gauge-covariance, SU(3) unitarity/determinant, Clifford, and Wilson-form identities pass at roundoff scale. Consistency error decreases for n=2 to n=3; the two-level trend does not establish an asymptotic order, prove hypothesis (C), or prove strong-resolvent/interacting continuum convergence. GitHub Actions status is pending."
+  "interpretation": "The finite-dimensional gauge-covariance, SU(3) unitarity/determinant, Clifford, and Wilson-form identities pass at roundoff scale. Consistency error decreases for n=2 to n=3; the two-level trend does not establish an asymptotic order, prove hypothesis (C), or prove strong-resolvent/interacting continuum convergence. GitHub Actions status is pending.",
+  "plaquette_curvature": {
+    "status": "LOCALLY_REPRODUCED_NUMERICALLY",
+    "convention": "F_ij=partial_i A_j-partial_j A_i+[A_i,A_j], anti-Hermitian connection",
+    "comparison": "(P_ij-I)/h^2 compared with midpoint F_ij parallel-transported to the plaquette base point",
+    "sample_count": 128,
+    "coordinate_planes_per_sample": 15,
+    "results": [
+      {
+        "n": 2,
+        "h": 0.5,
+        "relative_rms_residual": 0.152670666,
+        "observed_order_vs_previous": null
+      },
+      {
+        "n": 3,
+        "h": 0.3333333333333333,
+        "relative_rms_residual": 0.066368709,
+        "observed_order_vs_previous": 2.0546
+      },
+      {
+        "n": 4,
+        "h": 0.25,
+        "relative_rms_residual": 0.0380921129,
+        "observed_order_vs_previous": 1.93
+      },
+      {
+        "n": 6,
+        "h": 0.16666666666666666,
+        "relative_rms_residual": 0.0171029686,
+        "observed_order_vs_previous": 1.9749
+      },
+      {
+        "n": 8,
+        "h": 0.125,
+        "relative_rms_residual": 0.00967561845,
+        "observed_order_vs_previous": 1.9801
+      },
+      {
+        "n": 12,
+        "h": 0.08333333333333333,
+        "relative_rms_residual": 0.00430397943,
+        "observed_order_vs_previous": 1.9979
+      }
+    ],
+    "interpretation": "The sampled relative RMS residual displays approximately second-order scaling for this selected smooth non-Abelian connection. This is finite-sample numerical evidence, not a uniform theorem or proof of continuum convergence.",
+    "execution_note": "Independent local numerical reproduction of the pointwise plaquette/curvature formula. The updated repository script is subject to the new GitHub Actions run."
+  }
 }
