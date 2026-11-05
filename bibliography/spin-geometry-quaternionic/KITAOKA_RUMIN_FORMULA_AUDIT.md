@@ -472,33 +472,33 @@ Queste formule sono serie di Dirichlet positive e convergono assolutamente per \
 
 Questa sottosezione prevale sulle frasi della §10 che escludevano il modo nullo o lasciavano aperta l'esistenza della continuazione meromorfa.
 
-**Convenzione sul kernel.** Kitaoka specifica esplicitamente che nella zeta spettrale usa (0^s=1) (arXiv:1911.03092, introduzione, subito dopo la definizione di (kappa_{mathcal E})). Il settore (mathcal E^0) sul quoziente con coefficienti banali ha il modo costante, di molteplicità uno. Pertanto
-[
-zeta_0(s)=1+sum_{mgeq1}a_msum_{p=0}^{m}Lambda_m(p)^{-s}.
-]
-Nel settore centrale non vi sono modi armonici: (H^1(S^3/2I;mathbb C)=0), poiché (S^3/2I) è la sfera omologica di Poincaré. La formula della §10 per (zeta_1) non riceve quindi un termine zero-mode.
+**Convenzione sul kernel.** Kitaoka specifica esplicitamente che nella zeta spettrale usa \(0^s=1\) (arXiv:1911.03092, introduzione, subito dopo la definizione di \(\kappa_{\mathcal E}\)). Il settore \(\mathcal E^0\) sul quoziente con coefficienti banali ha il modo costante, di molteplicità uno. Pertanto
+\[
+\zeta_0(s)=1+\sum_{m\geq1}a_m\sum_{p=0}^{m}\Lambda_m(p)^{-s}.
+\]
+Nel settore centrale non vi sono modi armonici: \(H^1(S^3/2I;\mathbb C)=0\), poiché \(S^3/2I\) è la sfera omologica di Poincaré. La formula della §10 per \(\zeta_1\) non riceve quindi un termine zero-mode.
 
-**Convergenza iniziale.** La serie di Molien dà (a_m=O(m)). Ponendo (k=min(p,m-p)), per (0leq pleq m):
-[
-m+2p(m-p)geq m(1+k),qquad
-Lambda_m(p)geq rac{m^2(1+k)^2}{4}.
-]
-Per (sigma=Re s>1/2), la somma su (p) è limitata da (C_sigma m^{-2sigma}), perché (sum_{kgeq0}(1+k)^{-2sigma}) converge. Moltiplicando per (a_m=O(m)), la somma su (m) converge per (sigma>1). Per (zeta_1), i pesi (p=1,ldots,m) si stimano nello stesso modo e il peso aggiuntivo (p=m+1,q=-1) ha (Lambda=(m+2)^2/4); si ottiene la stessa regione. Entrambe le serie positive convergono dunque assolutamente per (Re s>1).
+**Convergenza iniziale.** La serie di Molien dà \(a_m=O(m)\). Ponendo \(k=\min(p,m-p)\), per \(0\leq p\leq m\):
+\[
+m+2p(m-p)\geq m(1+k),\qquad
+\Lambda_m(p)\geq \frac{m^2(1+k)^2}{4}.
+\]
+Per \(\sigma=\Re s>1/2\), la somma su \(p\) è limitata da \(C_\sigma m^{-2\sigma}\), perché \(\sum_{k\geq0}(1+k)^{-2\sigma}\) converge. Moltiplicando per \(a_m=O(m)\), la somma su \(m\) converge per \(\sigma>1\). Per \(\zeta_1\), i pesi \(p=1,\ldots,m\) si stimano nello stesso modo e il peso aggiuntivo \(p=m+1,q=-1\) ha \(\Lambda=(m+2)^2/4\); si ottiene la stessa regione. Entrambe le serie positive convergono dunque assolutamente per \(\Re s>1\).
 
-**Continuazione meromorfa: esistenza dimostrata.** L'azione di (2Isubset SU(2)) su (S^3subsetmathbb C^2) è libera: se (gz=z) per un vettore unitario, 1 è autovalore di (gin SU(2)), dunque (g=I). L'azione preserva la struttura CR standard, la forma di contatto, il campo di Reeb e il Laplaciano di Rumin. Gli operatori discendono al compatto contatto (S^3/2I). Il Laplaciano di Rumin soddisfa la condizione di Rockland; il risultato generale richiamato da Kitaoka (arXiv:1911.03092, introduzione, con riferimento a Ponge, §4) implica che la zeta spettrale sul quoziente ammette continuazione meromorfa su (mathbb C) ed è olomorfa in zero. L'esistenza della continuazione non è quindi più aperta.
+**Continuazione meromorfa: esistenza dimostrata.** L'azione di \(2I\subset SU(2)\) su \(S^3\subset\mathbb C^2\) è libera: se \(gz=z\) per un vettore unitario, 1 è autovalore di \(g\in SU(2)\), dunque \(g=I\). L'azione preserva la struttura CR standard, la forma di contatto, il campo di Reeb e il Laplaciano di Rumin. Gli operatori discendono al compatto contatto \(S^3/2I\). Il Laplaciano di Rumin soddisfa la condizione di Rockland; il risultato generale richiamato da Kitaoka (arXiv:1911.03092, introduzione, con riferimento a Ponge, §4) implica che la zeta spettrale sul quoziente ammette continuazione meromorfa su \(\mathbb C\) ed è olomorfa in zero. L'esistenza della continuazione non è quindi più aperta.
 
-**Ciò che resta da calcolare.** Rockland dà l'esistenza e la regolarità della continuazione, non una formula chiusa per (zeta'_0(0)) e (zeta'_1(0)). La formula Hurwitz-zeta del lavoro di Kitaoka sui lens spaces sfrutta la struttura ciclica e non si trasferisce automaticamente al gruppo binario icosaedrale non abeliano. Il prossimo obiettivo è calcolare (-2zeta'_0(0)+zeta'_1(0)), ad esempio tramite la traccia equivarante
-[
-operatorname{Tr}(P_{2I}e^{-tDelta})=
-rac1{120}sum_{gin2I}operatorname{Tr}(ho(g)e^{-tDelta}),
-qquad
-P_{2I}=rac1{120}sum_{gin2I}ho(g),
-]
+**Ciò che resta da calcolare.** Rockland dà l'esistenza e la regolarità della continuazione, non una formula chiusa per \(\zeta'_0(0)\) e \(\zeta'_1(0)\). La formula Hurwitz-zeta del lavoro di Kitaoka sui lens spaces sfrutta la struttura ciclica e non si trasferisce automaticamente al gruppo binario icosaedrale non abeliano. Il prossimo obiettivo è calcolare \(-2\zeta'_0(0)+\zeta'_1(0)\), ad esempio tramite la traccia equivarante
+\[
+\operatorname{Tr}(P_{2I}e^{-t\Delta})=
+\frac1{120}\sum_{g\in2I}\operatorname{Tr}(\rho(g)e^{-t\Delta}),
+\qquad
+P_{2I}=\frac1{120}\sum_{g\in2I}\rho(g),
+\]
 separando il termine identità dai 119 termini non identità. La libertà dell'azione esclude punti fissi per i termini equivarianti non identità; questo è utile per l'analisi del piccolo tempo, ma non fornisce ancora la derivata regolarizzata.
 
 **Formula torsionale.** In dimensione 3:
-[
-kappa_{mathcal E,2I}(s)=-2zeta_0(s)+zeta_1(s),qquad
-2log T_{mathcal E}=kappa'_{mathcal E,2I}(0).
-]
-La formula include il termine zero-mode nella (zeta_0), secondo la convenzione (0^s=1); non va confusa con la zeta ridotta che omette il kernel.
+\[
+\kappa_{\mathcal E,2I}(s)=-2\zeta_0(s)+\zeta_1(s),\qquad
+2\log T_{\mathcal E}=\kappa'_{\mathcal E,2I}(0).
+\]
+La formula include il termine zero-mode nella \(\zeta_0\), secondo la convenzione \(0^s=1\); non va confusa con la zeta ridotta che omette il kernel.
