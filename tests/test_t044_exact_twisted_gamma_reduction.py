@@ -23,3 +23,8 @@ def test_reflection_pairs_are_exact(label):
     data = gamma_reflection_data(label)
     exponents = data["sine_exponents"]
     assert all(isinstance(k, int) and 1 <= k < 30 for k in exponents)
+
+def test_regular_representation_product_is_exact():
+    from src.t032_2i_molien import IRREP_DIMENSIONS
+    product = sp.prod(EXPECTED[label]**IRREP_DIMENSIONS[label] for label in LABELS)
+    assert sp.simplify(product-16*sp.pi**2) == 0
