@@ -82,6 +82,8 @@ La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](o
 
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
+| [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
+
 ## Collegamento con il filone Nielsen/Hopf
 
 La bibliografia citata nel manoscritto di Jennifer Lorraine Nielsen è registrata separatamente in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 sviluppa un risultato matematico indipendente sul quoziente Hopf/Seifert (S^3/2I); non attribuisce il teorema a Nielsen e non considera il suo manoscritto una validazione delle affermazioni qui dimostrate.
@@ -117,6 +119,9 @@ Stato: implementazione e smoke test iniziali. Non è ancora un risultato teorico
 La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.md](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione in `scripts/torsion_lambda_dust_closure.py` e test in `tests/test_torsion_lambda_dust_closure.py`. È un modello fenomenologico di consistenza; non viene presentato come derivazione della torsione algebrica Einstein–Cartan.
 
 
+## Einstein–Cartan: audit della legge di scala dello spin
+
+T047 dimostra, nel modello minimale di Weyssenhoff con spin per particella conservato e media locale isotropa, che il termine quadratico algebrico di spin scala come a⁻⁶ e ha equazione di stato stiff. Questo esclude l'identificazione diretta con la componente fenomenologica dust-like a⁻³ della PR #77, sotto le ipotesi dichiarate. La derivazione e i test sono in `theorems/T047-ec-weyssenhoff-spin-scaling.md`, `scripts/ec_spin_fluid_scaling.py` e `tests/test_ec_spin_fluid_scaling.py`.
 ## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
 
 T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
