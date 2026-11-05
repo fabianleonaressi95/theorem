@@ -78,14 +78,14 @@ def interior_hurwitz_expansion(label):
         "binomial": "(ab-1)^(-2s)=(ab)^(-2s)*sum_{k>=0}(2s)_k/(k!*(ab)^k)",
         "hurwitz_progression": "U_A(z)=120^(-z)*zeta_H(z,a_A/120)",
         "double_series": (
-            "H_rho(s)=H_finite(s)+16^s*sum_k (2s)_k/(k!*2^k)*"
+            "H_rho(s)=H_finite(s)+16^s*sum_k (2s)_k/k!*"
             "sum_(A,B)[alpha_r/2*(U_A(2s+k-1)U_B(2s+k)+"
             "U_A(2s+k)U_B(2s+k-1))+(beta_r-alpha_r)*"
             "U_A(2s+k)U_B(2s+k)]"
         ),
         "pole_terms": {
-            "k2_beta": "double Hurwitz pole; residue contribution sum(beta)/1920",
-            "k3_alpha": "two double Hurwitz poles; total residue contribution sum(alpha)/3840",
+            "k2_beta_minus_alpha": "double Hurwitz pole; residue contribution sum(beta-alpha)/480",
+            "k3_alpha": "two double Hurwitz poles; total residue contribution sum(alpha)/480",
         },
     }
 
@@ -96,8 +96,8 @@ def sector_residues(label):
     expected_sum = Fraction(d, 2)
     if data["sum_alpha"] != expected_sum or data["sum_beta"] != expected_sum:
         raise AssertionError(f"Molien moment identity failed in sector {label}")
-    residue_H = data["sum_beta"]/1920 + data["sum_alpha"]/3840
-    if residue_H != Fraction(d, 2560):
+    residue_H = (data["sum_beta"]-data["sum_alpha"])/480 + data["sum_alpha"]/480
+    if residue_H != Fraction(d, 960):
         raise AssertionError(f"interior residue failed in sector {label}")
     return {
         "dimension": d,
@@ -118,8 +118,8 @@ def audit():
         "passed": True,
         "individual_zeta_status": "simple poles at s=0; ordinary derivatives there do not exist",
         "residue_formulas": {
-            "Res_zeta0_rho_at_0": "dim(rho)/2560",
-            "Res_zeta1_rho_at_0": "dim(rho)/1280",
+            "Res_zeta0_rho_at_0": "dim(rho)/960",
+            "Res_zeta1_rho_at_0": "dim(rho)/480",
             "Res_minus2zeta0_plus_zeta1": "0",
         },
         "sectors": sectors,
