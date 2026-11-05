@@ -28,7 +28,7 @@ def difference_polynomial(label):
 
 def differences(label,max_n):
     b=multiplicities(label,max_n)
-    return tuple((b[n-2] if n>=3 else 0)-b[n]-(b[0] if n==2 else 0)
+    return tuple((b[n-2] if n>=2 else 0)-b[n]-(b[0] if n==2 else 0)
                  for n in range(1,max_n+1))
 
 def tail_data(label):
