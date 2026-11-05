@@ -152,7 +152,7 @@ def main():
     report = audit()
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(report, indent=2)+"\\n", encoding="utf-8")
+    path.write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps({"task": report["task"], "passed": report["passed"],
                       "exact_values": {k:v["dimensionless_exact_value"]
                                        for k,v in report["sectors"].items()}}, indent=2))
