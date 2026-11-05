@@ -118,17 +118,17 @@ def gauge_covariance_audit(rng):
         for v in range(64):
             for i in range(6):
                 w=flip(v,i)
-                transported=np.einsum("sc,cd->sd",field[w],U[v,i])
+                transported=np.einsum("sc,dc->sd",field[w],U[v,i])
                 out[v]+=np.einsum("st,tc->sc",GAMMA[i],transported-field[v])
         return out
-    transformed_psi=np.einsum("vsc,vcd->vsd",psi,g)
+    transformed_psi=np.einsum("vsc,vdc->vsd",psi,g)
     transformed_links=np.empty_like(links)
     for v in range(64):
         for i in range(6):
             w=flip(v,i)
             transformed_links[v,i]=g[v] @ links[v,i] @ g[w].conj().T
     lhs=apply(transformed_psi,transformed_links)
-    rhs=np.einsum("vsc,vcd->vsd",apply(psi,links),g)
+    rhs=np.einsum("vsc,vdc->vsd",apply(psi,links),g)
     return maxabs(lhs-rhs), maxabs(np.linalg.det(g)-1)
 
 def epsilon_tensor():
