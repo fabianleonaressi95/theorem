@@ -389,3 +389,20 @@ Non ancora calcolato: la matrice/scalare esplicito di D su ogni copia irriducibi
 - Aperto: coefficienti espliciti di D sui singoli tipi, autovalori completi nei casi di bordo, zeta spettrali e torsione regolarizzata su S^3/2I.
 
 Riferimenti per questa specializzazione: A. Kitaoka, Analytic torsions associated with the Rumin complex on contact spheres, arXiv:1911.03092, §1 e Proposition 1.1; la stessa lista dei sette casi è riprodotta nella sezione introduttiva di A. Kitaoka, Ray–Singer Torsion and the Rumin Laplacian on Lens Spaces, SIGMA 18 (2022), 091, §1.2, dove i casi VI e VII sono esplicitati. Il secondo lavoro riguarda quozienti ciclici per la torsione, e non viene usato come se trattasse direttamente il gruppo non abeliano 2I.
+
+
+### 9.1 Primo livello spettrale nei tre bidegrees
+
+Per n=1 e i=j=0, la formula del Theorem 0.1 diventa
+\[
+\lambda_{q,p}=\frac{\bigl(p(q+1)+q(p+1)\bigr)^2}{4}.
+\]
+Applicandola anche ai due pesi di bordo ammessi nei casi VI e VII, al primo grado invariante m=q+p=12 si ottiene:
+
+- E^(0,0), p=0,...,12: 36, 289, 676, 1089, 1444, 1681, 1764, 1681, 1444, 1089, 676, 289, 36;
+- E^(1,0), p=1,...,13 (q=12-p, incluso q=-1): 289, 676, 1089, 1444, 1681, 1764, 1681, 1444, 1089, 676, 289, 36, 49;
+- E^(0,1), q=1,...,13 (p=12-q, incluso p=-1): la stessa lista di E^(1,0).
+
+Ogni peso ammesso al grado m=12 contribuisce una dimensione invariante, poiché a_12=1. Quindi le liste sono liste di autovalori con molteplicità per il sottospazio 2I-invariante, prima di eventuali ulteriori coincidenze fra bidegrees nel Laplaciano globale. Il valore 49 nei settori E^(1,0) ed E^(0,1) proviene precisamente dai pesi di bordo (-1,-13) e (13,1) nelle convenzioni (q,-p); non compare nel settore scalare. Il codice riproducibile controlla queste tre liste con aritmetica razionale esatta.
+
+Questa è una sostituzione importante rispetto al conteggio dei soli autovalori scalari: i settori di forme hanno gli stessi gradi invarianti, ma i rispettivi intervalli di pesi sono traslati e includono un autovalore di bordo aggiuntivo. Resta da verificare nel dettaglio l'azione degli operatori di primo ordine e l'intertwiner centrale, nonché come i diversi contributi si combinano nelle zeta spettrali del complesso.
