@@ -1,0 +1,31 @@
+{
+  "task": "T046-R1",
+  "premise": "Corrected T045 gives zero individual residues; separate zeta functions are regular at zero under the stated continuation.",
+  "scheme": "Optional scaled determinant for regular zeta: log det_mu=-(D+2*C*log(mu)); at mu=1 this is the ordinary zeta determinant.",
+  "exact_residues": {
+    "zeta0": "0",
+    "zeta1": "0",
+    "alternating": "0"
+  },
+  "exact_kappa_value_at_zero": {
+    "all_nine_sectors": "0",
+    "method": "period-60 finite Hurwitz formula evaluated in exact rational arithmetic"
+  },
+  "alternating_constraint": {
+    "all_scales": "D1_mu-2*D0_mu=2*log(T_rho)",
+    "constant": "C1-2*C0=0",
+    "scale_dependence": "the alternating derivative relation is independent of mu"
+  },
+  "individual_coefficients": {
+    "C0": "not determined",
+    "C1": "not determined",
+    "D0": "not determined",
+    "D1": "not determined",
+    "reason": "the alternating combination fixes only C1-2*C0 and D1-2*D0"
+  },
+  "execution": {
+    "tests_added": true,
+    "pytest_executed": false,
+    "github_actions_executed": false
+  }
+}
