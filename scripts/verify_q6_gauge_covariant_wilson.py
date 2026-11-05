@@ -187,11 +187,13 @@ def main():
     )
 
     # Gamma_* D Gamma_* = D^dagger, tested on a random spinor.
-    gdg = np.einsum("st,...tc->...sc", chirality, dpsi, optimize=True)
-    gdg = np.einsum("st,...tc->...sc", chirality, gdg, optimize=True)
-    report["gamma_star_hermiticity_relative_residual"] = relerr(gdg, ddag_phi if False else (
-        -kinetic_phi + w_phi + mass * psi
-    ))
+    gamma_psi = np.einsum("st,...tc->...sc", chirality, psi, optimize=True)
+    d_gamma_psi = apply_operator(u, gamma_psi, gammas, chirality, h, r, mass)
+    gdg = np.einsum("st,...tc->...sc", chirality, d_gamma_psi, optimize=True)
+    kpsi_for_adjoint = apply_operator(u, psi, gammas, chirality, h, 0.0, 0.0)
+    wpsi_for_adjoint = apply_operator(u, psi, gammas, chirality, h, r, 0.0) - kpsi_for_adjoint
+    ddag_psi = -kpsi_for_adjoint + wpsi_for_adjoint + mass * psi
+    report["gamma_star_hermiticity_relative_residual"] = relerr(gdg, ddag_psi)
 
     # Positivity of Wilson Laplacian, directly from sum ||(I-S_i)psi||^2.
     wpsi = apply_operator(u, psi, gammas, chirality, h, r, 0.0) - kinetic_phi
