@@ -219,3 +219,44 @@ Acceptance tests for the next iteration:
 - **High-precision numerical verification:** all nine torsion values and the contact-volume scaling.
 - **Independent published benchmark:** Dowker–Chang spherical-space-form table.
 - **Open:** symbolic Gamma identities and full operator/convention matching.
+
+
+## 8. Erratum: eventual period versus the initial Dirichlet segment
+
+The period-60 statement above must be interpreted as an **eventual** period, not necessarily a period beginning at the first representative (r\in\{1,\ldots,60\}). Let
+\[
+P_\rho(t)=(1-t^{60})D_\rho(t)=\sum_n p_{n,\rho}t^n,
+\qquad
+c_{n,\rho}=[t^n]D_\rho(t)=\sum_{j\ge0}p_{n-60j,\rho}.
+\]
+For each residue class with nonzero eventual tail, set
+\[
+N_{r,\rho}=\max\{n:p_{n,\rho}\ne0,\ n\equiv r\pmod{60}\},
+\qquad
+d_{r,\rho}=\sum_{n\equiv r\pmod{60}}p_{n,\rho}.
+\]
+Then (c_{n,\rho}=d_{r,\rho}) only for (n\ge N_{r,\rho}) in that residue class. Consequently the exact decomposition is
+\[
+\kappa_\rho(s)=2\,4^s\left[
+\sum_r\sum_{\substack{n<N_{r,\rho}\\n\equiv r\ (60)}}
+c_{n,\rho}n^{-2s}
++
+\sum_r d_{r,\rho}N_{r,\rho}^{-2s}
+\zeta_H\!\left(2s,\frac{N_{r,\rho}}{60}\right)
+\right],
+\]
+with residue classes having no tail kept wholly in the finite sum. Differentiating at zero gives
+\[
+\begin{aligned}
+\log T_\rho={}&
+\sum_r\sum_{\substack{n<N_{r,\rho}\\n\equiv r\ (60)}}
+c_{n,\rho}(\log4-2\log n)\\
+&+\sum_r d_{r,\rho}\left[
+(\log4-2\log N_{r,\rho})
+\left(\frac12-\frac{N_{r,\rho}}{60}\right)
++2\log\Gamma\!\left(\frac{N_{r,\rho}}{60}\right)
+-\log(2\pi)
+\right].
+\end{aligned}
+\]
+For the trivial representation the residue class (r=2) has tail start (N=62), so its Hurwitz parameter is (31/30), not (1/30). The earlier compact formula with (zeta_H(2s,r/60)) and (Gamma(r/60)) omits the initial-segment correction and must not be used as written. The 50-digit values remain to be accepted only after this corrected decomposition is applied to all nine representations. This erratum supersedes the unqualified period-60 formula in §§4–5.
