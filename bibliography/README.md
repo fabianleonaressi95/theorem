@@ -10,6 +10,9 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 - [Inventario dei file recuperati dalla Library](../library-inventory/README.md)
 - [Bibliografia interna citata nel manoscritto Nielsen sulla fibrazione di Hopf](source-bibliographies/nielsen-hopf-manuscript.md)
 
+## Estrazione e verifica delle formule
+- [Registro maestro delle formule](FORMULA_EXTRACTION_REGISTER.md): inventario, stati epistemici, protocollo e priorità.
+
 ## Fonti citate online
 - [Autori, articoli e pagine online citati nelle conversazioni](online-citations/README.md): registro separato dai documenti caricati nella Library, con fonti verificate e lacune esplicite.
 
