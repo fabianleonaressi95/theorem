@@ -426,3 +426,43 @@ Per il primo livello invariante m=12, i due bordi sono (q,p)=(-1,13) e (13,-1), 
 **Verifica software aggiunta:** il programma definisce funzioni separate boundary_eigenvalue_case_vi e boundary_eigenvalue_case_vii, e asserisce che per il bordo a grado 12 entrambe restituiscano 49 e coincidano con la formula generale. Questo controllo riguarda il bordo; non calcola ancora le matrici degli intertwiners di D sui settori interni.
 
 **Fonte primaria puntuale:** Kitaoka, arXiv:1911.03092, Proposition 1.1 (Casi VI–VII), §2.3 (Casi VI–VII), equazioni (1.3) e (2.4). La decomposizione dei sette casi e il richiamo al Theorem 0.1 sono riprodotti anche in Kitaoka, SIGMA 18 (2022), 091, Proposition 2.1 e Proposition 2.3.
+
+
+## 10. Zeta spettrali del quoziente: serie di Dirichlet esatte (prima formulazione)
+
+La combinazione dei caratteri di 2I con il Theorem 0.1 consente di scrivere le serie spettrali del quoziente, senza ancora effettuare la continuazione meromorfa. Sia
+
+\[
+a_m=\dim(\operatorname{Sym}^m\mathbb C^2)^{2I}
+=[t^m]\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}.
+\]
+
+Per \(n=1\), poniamo
+
+\[
+\Lambda_m(p)=\frac{(m+2p(m-p))^2}{4}.
+\]
+
+Nel settore delle funzioni \(\mathcal E^0\), i pesi sono \(p=0,\ldots,m\). Il modo costante \((m,p)=(0,0)\) è armonico e viene escluso dalla zeta. Quindi
+
+\[
+\boxed{\zeta_0(s)=\sum_{m\geq1}a_m\sum_{p=0}^{m}\Lambda_m(p)^{-s}.}
+\]
+
+Nel grado centrale, \(\mathcal E^1=\mathcal E^{1,0}\oplus\mathcal E^{0,1}\). I due settori sono coniugati e hanno la stessa lista spettrale; per ciascuno, i pesi sono \(p=1,\ldots,m+1\), con \(q=m-p\) e includono il bordo VI a \(q=-1\). Pertanto
+
+\[
+\boxed{\zeta_1(s)=2\sum_{m\geq0}a_m\sum_{p=1}^{m+1}\Lambda_m(p)^{-s}.}
+\]
+
+Il fattore 2 conta i due bidegrees coniugati, non una degenerazione interna aggiuntiva. Il termine \(m=0,p=1\) dà due autovalori unitari, uno per ciascun bidegree. Per il complesso riscalato di Kitaoka in dimensione 3, la funzione di torsione è dunque formalmente
+
+\[
+\boxed{\kappa_{\mathcal E,2I}(s)=-2\zeta_0(s)+\zeta_1(s).}
+\]
+
+Queste formule sono serie di Dirichlet positive e convergono assolutamente per \(\Re s>1\). Una stima sufficiente si ottiene separando i termini vicini agli estremi \(p=0,m\) dai termini interni: \(a_m=O(m)\), mentre per \(p\) fissato vicino a un estremo \(\Lambda_m(p)\asymp m^2(2p+1)^2\); la somma sugli estremi è dominata da \(\sum_m m^{1-2\Re s}\). Nella regione interna, \(\Lambda_m(p)\) cresce come \(m^4\) e il contributo converge già per \(\Re s>3/4\). La soglia complessiva è quindi \(\Re s>1\), e la stima degli estremi mostra anche che non si può abbassarla per questa serie senza sfruttare cancellazioni assenti nella zeta positiva.
+
+**Controllo finito implementato:** il codice costruisce le tuple (grado m, peso p, autovalore, molteplicità) fino al cutoff richiesto. Al cutoff m=12 si ottengono 13 termini positivi nel settore E0 e 28 nel settore E1 contando i due bidegrees, con molteplicità totale rispettivamente 13 e 28 perché a_12=a_0=1 e il modo costante E0 è escluso.
+
+**Limite epistemico:** non è stata ancora dimostrata la continuazione meromorfa di \(\zeta_0\) e \(\zeta_1\), né calcolati \(\zeta'_k(0)\). Quindi non è stata calcolata la torsione analitica del quoziente \(S^3/2I\). Il risultato qui è una rappresentazione esatta delle serie nella loro regione di convergenza, non una formula chiusa per la torsione.
