@@ -141,8 +141,13 @@ def audit(scale_factors,axial_currents,dims,volumes=None,kappa=None,max_distance
     return {'schema':'rgs-ec-q6-prism-axial-current/v1','signature':'(-,+,+,+)',
       'geometry':{'dims':list(dims),'vertices':N,'name':'Q6' if dims==Q6 else ('PRISM' if dims==PRISM else 'custom')},
       'current_convention':'real contravariant J5^a; Cartan source Sigma_abc=-1/2 epsilon_abcd J5^d',
-      'rows':rows,'scaling_fits':{'q_local_contact_positive_branch':fit('mean_of_lorentz_norm_squared'),
-        'q_coarse_invariant_positive_branch':fit('coarse_axial_invariant')},
+    fits={'q_local_contact_positive_branch':fit('mean_of_lorentz_norm_squared'),
+          'q_coarse_invariant_positive_branch':fit('coarse_axial_invariant')}
+    if u is not None: fits['q_rest_space_projected_axial_candidate']=fit('rest_space_projected_axial_invariant_candidate')
+    return {'schema':'rgs-ec-q6-prism-axial-current/v1','signature':'(-,+,+,+)',
+      'geometry':{'dims':list(dims),'vertices':N,'name':'Q6' if dims==Q6 else ('PRISM' if dims==PRISM else 'custom')},
+      'current_convention':'real contravariant J5^a; Cartan source Sigma_abc=-1/2 epsilon_abcd J5^d',
+      'rows':rows,'scaling_fits':fits,
       'checks':{'local_moment_decomposition':all(abs(r['moment_decomposition_residual'])<1e-10 for r in rows),
         'coarse_self_pair_decomposition':all(abs(r['coarse_decomposition_residual'])<1e-10 for r in rows)},
       'limitations':['Lorentz contractions are indefinite; the scalar can be negative or vanish by cancellation.',
