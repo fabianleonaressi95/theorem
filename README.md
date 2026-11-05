@@ -69,11 +69,12 @@ Le directory sono state create. Le directory models/evidence/open-problems conte
 | [T023](theorems/T023-gamma-reflection-rumin-2I.md) | Identità esatte Gamma–seno per i nove twist di Rumin | Riduzione simbolica in (mathbb Q(sqrt5)), inclusa la coda eccezionale (N=62); PR #20 aperta |
 | [T024](theorems/T024-rumin-kitaoka-operator-matching-3d.md) | Corrispondenza operatoriale Kitaoka–Rumin–Seshadri in dimensione 3 | Riscalamento identico, Laplaciani uguali, dualità di Hodge e convenzioni torsionali riconciliate; PR #21 aperta |
 | [T031](theorems/T031-rumin-2i-equivariance.md) | Equivarianza del complesso di Rumin sotto l'azione binaria icosaedrica | Discesa geometrica e twist unitari; modelli espliciti delle nove irriducibili sviluppati in T034–T036; applicazione alle basi armoniche Rumin ancora aperta |
-| [T032](theorems/T032-2i-irrep-molien-projectors.md) | Molien covariants esatti e interfaccia dei proiettori isotypici di 2I | Coefficienti interi dalle nove serie T021; decomposizione dimensionale verificata via test; modelli matriciali e caratteri espliciti ancora aperti |
+| [T032](theorems/T032-2i-irrep-molien-projectors.md) | Molien covariants esatti e interfaccia dei proiettori isotypici di 2I | Coefficienti interi dalle nove serie T021; decomposizione dimensionale; caratteri e modelli matriciali espliciti sviluppati in T034–T036 |
 | [T033](theorems/T033-equivariant-rumin-torsion-synthesis.md) | Decomposizione isotypica del complesso di Rumin e additività della torsione | Teorema astratto di gruppo finito; sintesi T021/T024/T031/T032 sotto ipotesi esplicite; nessun nuovo valore torsionale |
 | [T034](theorems/T034-exact-2i-character-table.md) | Tabella esatta dei caratteri irriducibili di 2I | Ricostruzione su Q(√5) dai covarianti Molien T021/T032; ortogonalità e medie Molien sottoposte a test esatti |
 | [T035](theorems/T035-exact-binary-icosahedral-model.md) | Modello quaternionico esatto di 2I | 120 vertici 600-cell, tavola di moltiplicazione, classi e rappresentazione fondamentale su Q(√5) |
 | [T036](theorems/T036-explicit-2i-irreducible-models.md) | Modelli matriciali esatti delle nove irriducibili di 2I | Estrazione da potenze simmetriche, proiettori centrali, metriche hermitiane invarianti; test non ancora certificati in CI |
+| [T037](theorems/T037-rumin-isotypic-projectors.md) | Proiettori isotypici esatti sui blocchi spettrali SU(2) di Rumin | Teorema all-degree rank(P)=dρ b(m,ρ); audit matriciale esatto previsto ai gradi 0–7 e 12; basi geometriche Rumin ancora aperte |
 
 La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
 
