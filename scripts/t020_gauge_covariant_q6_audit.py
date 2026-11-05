@@ -37,7 +37,6 @@ def gell_mann():
     a = z.copy(); a[0,2]=-1j; a[2,0]=1j; mats.append(a)          # lambda_5
     a = z.copy(); a[1,2]=a[2,1]=1; mats.append(a)                # lambda_6
     a = z.copy(); a[1,2]=-1j; a[2,1]=1j; mats.append(a)          # lambda_7
-    a = np.diag([1,-1,0]).astype(complex); mats.append(a)        # lambda_3
     a = np.diag([1,1,-2]).astype(complex)/np.sqrt(3); mats.append(a) # lambda_8
     return mats
 
