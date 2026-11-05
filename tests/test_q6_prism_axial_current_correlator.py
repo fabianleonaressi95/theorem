@@ -46,3 +46,19 @@ def test_spinor_bilinear_quadratic_under_amplitude_scaling():
     j=spinors_to_axial_currents(psi)
     j2=spinors_to_axial_currents(2*psi)
     assert j2==pytest.approx(4*j,abs=1e-12)
+
+
+def test_fluid_rest_projection_separates_spatial_spin_candidate_from_lorentz_contact():
+    from scripts.q6_prism_axial_current_correlator import project_axial_current_to_fluid_rest_space
+    j=np.array([[2.,1.,-2.,3.]])
+    u=np.array([1.,0.,0.,0.])
+    jp,s2=project_axial_current_to_fluid_rest_space(j,u)
+    assert np.allclose(jp,[[0.,1.,-2.,3.]])
+    assert s2==pytest.approx([14.])
+    assert (-4+14)==pytest.approx(10.)
+    assert s2[0]!=pytest.approx(10.)
+
+def test_rest_projection_rejects_non_unit_timelike_velocity():
+    from scripts.q6_prism_axial_current_correlator import project_axial_current_to_fluid_rest_space
+    with pytest.raises(ValueError):
+        project_axial_current_to_fluid_rest_space([[1.,0,0,0]],[2.,0,0,0])
