@@ -58,7 +58,7 @@ def su3_exp_generator(generator, angle):
 
 def build_fields(n, alpha):
     L, h = 2*n, 1.0/n
-    axes = [h*np.arange(L) for _ in range(6)]
+    axes = [h*(np.arange(L)+0.5) for _ in range(6)]
     mesh = np.meshgrid(*axes, indexing="ij")
     links, hfields = [], []
     for i, generator in enumerate(LINK_GENERATORS):
@@ -110,7 +110,7 @@ def relative(a, b):
 
 def one_level(n, alpha, r, m0):
     h, mesh, links, hfields = build_fields(n, alpha)
-    centres = [x+h/2 for x in mesh]
+    centres = mesh
     phase = np.exp(1j*np.pi*sum(centres))
     spin = np.zeros(8, complex); spin[0] = 1.0
     colour = np.array([1.0, 0.3j, 0.2], complex)
