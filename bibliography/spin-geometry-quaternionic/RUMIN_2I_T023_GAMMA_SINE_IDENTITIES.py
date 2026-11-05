@@ -102,9 +102,10 @@ def sine_reduction(label):
 
     # Reflection requires equal coefficients at complementary arguments.
     for N, d in tails:
-        if N == 62:
-            assert label == "1" and dmap.get(58) == d
-        elif 1 <= N < 60 and N != 30:
+        if label == "1" and N in (58, 62):
+            partner = 120-N if N == 58 else 120-N
+            assert dmap.get(partner) == d, (label, N, d, dmap.get(partner))
+        elif 1 <= N < 60 and N not in (30, 60):
             assert dmap.get(60-N) == d, (label, N, d, dmap.get(60-N))
 
     S = sp.Integer(1)
