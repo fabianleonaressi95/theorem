@@ -41,3 +41,7 @@ def test_t045_residue_interface_consistent(label):
     a=sector_residues(label); b=residues(label)
     assert a["residue_zeta0"]==str(b["zeta0"])
     assert a["residue_zeta1"]==str(b["zeta1"])
+
+@pytest.mark.parametrize("label", tuple(IRREP_NUMERATORS))
+def test_alternating_zeta_value_at_zero_vanishes(label):
+    assert kappa_at_zero(label) == 0
