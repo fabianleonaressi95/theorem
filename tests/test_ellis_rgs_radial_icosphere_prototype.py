@@ -16,12 +16,10 @@ def test_icosphere_product_graph_has_positive_weights_and_correct_counts():
     assert np.all(result["edges"][:, 2] > 0)
 
 
-def test_discrete_volume_converges_under_radial_refinement():
+def test_exact_cell_masses_reproduce_continuum_volume():
     errors = [audit(n, 1)["relative_volume_error"] for n in (8, 16, 32, 64)]
     assert all(math.isfinite(e) for e in errors)
-    assert errors[1] < errors[0]
-    assert errors[2] < errors[1]
-    assert errors[3] < errors[2]
+    assert max(errors) < 1e-12
 
 
 def test_spherical_dual_areas_sum_to_four_pi():
