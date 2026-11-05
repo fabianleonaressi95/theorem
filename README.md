@@ -1,4 +1,4 @@
-# THEROEM — Programma matematico RGS–PSU–PRISM–Q6
+# THEOREM — Programma matematico RGS–PSU–PRISM–Q6
 
 Repository centrale della ricerca: biblioteca organizzata, mappa dei progetti, inventario delle fonti, registro delle evidenze e dimostrazioni.
 
