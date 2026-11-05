@@ -8,7 +8,7 @@ The interior terms cancel exactly in kappa_rho=-2zeta_0,rho+zeta_1,rho. The zero
 
 Because the Molien denominator divides 1-t^60, P_rho=(1-t^60)D_rho is an integer polynomial. Each sector therefore has an exact finite Hurwitz-zeta continuation and a finite Gamma-product formula for T_rho, with 2log(T_rho)=kappa_rho'(0).
 
-The code, tests, complete sector polynomials, finite terms, and residue-class representatives are in the accompanying source and JSON report. The numerical sector values and the regular-representation check are tabulated in the next sections.
+The engine computes and emits the complete sector polynomials, finite terms, and residue-class representatives in its full JSON audit output. The committed JSON file is a compact numerical summary; rerun the command below to regenerate the detailed report. The numerical sector values and the regular-representation check are tabulated in the next sections.
 
 ## Sector values
 
