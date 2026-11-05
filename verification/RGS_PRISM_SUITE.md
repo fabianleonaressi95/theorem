@@ -80,3 +80,44 @@ Krist-All sections are conditional on user-supplied arrays. Floating-point
 residuals are numerical checks, not exact certificates. This suite does not
 establish Mosco-2 compactness, a second-order form limit, a
 Laplace-Beltrami-Yang-Mills limit, or a physical interpretation.
+
+
+## Auditing the recovered source archives
+
+Two original archives were recovered from the research Library and are now accepted
+directly by a second, archive-aware runner:
+
+- `Q6_K_J_reconstruction.zip`
+- `188D_FINAL_BUNDLE.zip`
+
+Run:
+
+```bash
+python scripts/verify_archived_rgs_q6.py \
+  --q6-zip Q6_K_J_reconstruction.zip \
+  --188d-zip 188D_FINAL_BUNDLE.zip \
+  --output archived-rgs-q6-report.json
+```
+
+The Q6 archive contains `states_Q6.npy`, `A_Q6.npy`, `K6_laplacian.npy`,
+`J_antipodal.npy`, and `R_bit_rotation.npy`. The 188D archive contains
+`K0.npy`, `Kinv.npy`, `P_G.npy`, `J.npy`, `J_A.npy`, and `J_B.npy`.
+The archive-aware script tests these actual stored arrays, including the
+188D complement inverse identity
+
+```
+K0 Kinv = Kinv K0 = I - P_G
+```
+
+The recovered Krist-All source package also runs
+`src/audit/verify_core_identities.py`, which checks the 69,120-state mixed-radix
+index bijection, the positive root of `psi^3 - psi^2 - 1 = 0`, and the
+simultaneous shift order 960. These source-level checks are included in the
+archive-aware PRISM section.
+
+**Important boundary:** the 188D archive does not contain `Q_tangent`,
+`X_Oh_reconstructed`, or `B_T2U_TAN`; it therefore cannot validate the
+full geometric 188D construction. The recovered Krist-All package does not
+contain the 11,725-class operator matrix K, so the polynomial identity
+`K^3 = K^2 + I` remains untested against that operator. No continuum or
+physical conclusion follows from these finite checks.
