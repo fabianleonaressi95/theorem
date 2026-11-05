@@ -13,3 +13,5 @@ Questa directory descrive i progetti e le loro dipendenze; non contiene duplicat
 8. **Fonti non standard** — ricostruzione critica di Legge del Ritmo, etere verticale e *Against the Tide*.
 
 Ogni progetto deve avere una scheda con: obiettivo, oggetti matematici, fonti, teoremi dipendenti, risultati numerici, problemi aperti e collegamenti al repository implementativo.
+
+9. **Q6 ipercubo / Stora–Zumino / Green–Kubo / Green–Schwarz** — sintesi corretta della legge ipercubica e della risposta lineare, polinomio d'anomalia (I_8), discesa BRST in 6D, settore misto gauge-gravitazionale e fattorizzazione tensoriale; il ponte discreto-continuo e l'indice chirale restano esplicitamente aperti. Vedi [nota di sintesi e correzione](Q6-HYPERCUBE-STORA-ZUMINO-GREEN-KUBO.md).
