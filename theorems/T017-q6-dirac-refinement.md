@@ -56,7 +56,7 @@ At \(n=1\), the only allowed momenta are \(p_j\in\{0,\pi\}\), so all 64 Fourier 
 
 ## 3. Fixed-momentum continuum limit
 
-Fix \(k\in\mathbb R^6\), and choose lattice momenta \(p_n=h_n k\) (or the nearest allowed momentum sequence, whose physical momentum error tends to zero). Then
+Fix a physical momentum \(k\in\pi\mathbb Z^6\), the momentum lattice of the fixed side-length-2 torus, and choose \(p_n=h_n k\). This is an allowed lattice momentum for every sufficiently large \(n\). Then
 \[
 \frac{\sin(h_n k_j)}{h_n}\longrightarrow k_j,
 \]
