@@ -154,6 +154,14 @@ def one_level(n, alpha, r, m0):
         LINK_GENERATORS[0]@LINK_GENERATORS[1]
         - LINK_GENERATORS[1]@LINK_GENERATORS[0]
     ))
+    link_commutator_norm = float(np.linalg.norm(
+        links[0][(0,)*6]@links[1][(0,)*6]
+        - links[1][(0,)*6]@links[0][(0,)*6]
+    ))
+    gauge_unitarity_res = float(np.max(np.linalg.norm(
+        (g.conj().swapaxes(-1,-2)@g-np.eye(3)).reshape((-1,9)), axis=1
+    )))
+    gauge_det_res = float(np.max(np.abs(np.linalg.det(g)-1)))
 
     gamma_res = max(
         float(np.linalg.norm(GAMMA[i]@GAMMA[j]+GAMMA[j]@GAMMA[i]
@@ -170,6 +178,9 @@ def one_level(n, alpha, r, m0):
         "link_unitarity_max_residual": unitary_res,
         "link_det_one_max_residual": det_res,
         "nonabelian_generator_commutator_norm": commutator_norm,
+        "nonabelian_link_commutator_norm_at_origin": link_commutator_norm,
+        "gauge_transform_unitarity_max_residual": gauge_unitarity_res,
+        "gauge_transform_det_one_max_residual": gauge_det_res,
         "clifford_relations_max_residual": gamma_res,
     }
 
