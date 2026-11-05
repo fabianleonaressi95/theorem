@@ -267,7 +267,7 @@
       "kind": "q=-1",
       "boundary_index": 2,
       "SU2_degree": 1,
-      "eigenvalue": "2.25",
+      "eigenvalue": "9/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -281,7 +281,7 @@
       "kind": "q=-1",
       "boundary_index": 4,
       "SU2_degree": 3,
-      "eigenvalue": "6.25",
+      "eigenvalue": "25/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -295,7 +295,7 @@
       "kind": "q=-1",
       "boundary_index": 6,
       "SU2_degree": 5,
-      "eigenvalue": "12.25",
+      "eigenvalue": "49/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -309,7 +309,7 @@
       "kind": "q=-1",
       "boundary_index": 8,
       "SU2_degree": 7,
-      "eigenvalue": "20.25",
+      "eigenvalue": "81/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -323,7 +323,7 @@
       "kind": "q=-1",
       "boundary_index": 10,
       "SU2_degree": 9,
-      "eigenvalue": "30.25",
+      "eigenvalue": "121/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -337,7 +337,7 @@
       "kind": "q=-1",
       "boundary_index": 12,
       "SU2_degree": 11,
-      "eigenvalue": "42.25",
+      "eigenvalue": "169/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -351,7 +351,7 @@
       "kind": "q=-1",
       "boundary_index": 14,
       "SU2_degree": 13,
-      "eigenvalue": "56.25",
+      "eigenvalue": "225/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -365,7 +365,7 @@
       "kind": "q=-1",
       "boundary_index": 16,
       "SU2_degree": 15,
-      "eigenvalue": "72.25",
+      "eigenvalue": "289/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -379,7 +379,7 @@
       "kind": "q=-1",
       "boundary_index": 18,
       "SU2_degree": 17,
-      "eigenvalue": "90.25",
+      "eigenvalue": "361/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -393,7 +393,7 @@
       "kind": "q=-1",
       "boundary_index": 20,
       "SU2_degree": 19,
-      "eigenvalue": "110.25",
+      "eigenvalue": "441/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -407,7 +407,7 @@
       "kind": "q=-1",
       "boundary_index": 22,
       "SU2_degree": 21,
-      "eigenvalue": "132.25",
+      "eigenvalue": "529/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -421,7 +421,7 @@
       "kind": "q=-1",
       "boundary_index": 24,
       "SU2_degree": 23,
-      "eigenvalue": "156.25",
+      "eigenvalue": "625/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -435,7 +435,7 @@
       "kind": "q=-1",
       "boundary_index": 26,
       "SU2_degree": 25,
-      "eigenvalue": "182.25",
+      "eigenvalue": "729/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -449,7 +449,7 @@
       "kind": "q=-1",
       "boundary_index": 28,
       "SU2_degree": 27,
-      "eigenvalue": "210.25",
+      "eigenvalue": "841/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -463,7 +463,7 @@
       "kind": "q=-1",
       "boundary_index": 30,
       "SU2_degree": 29,
-      "eigenvalue": "240.25",
+      "eigenvalue": "961/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -477,7 +477,7 @@
       "kind": "q=-1",
       "boundary_index": 32,
       "SU2_degree": 31,
-      "eigenvalue": "272.25",
+      "eigenvalue": "1089/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -491,7 +491,7 @@
       "kind": "q=-1",
       "boundary_index": 34,
       "SU2_degree": 33,
-      "eigenvalue": "306.25",
+      "eigenvalue": "1225/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -505,7 +505,7 @@
       "kind": "q=-1",
       "boundary_index": 36,
       "SU2_degree": 35,
-      "eigenvalue": "342.25",
+      "eigenvalue": "1369/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -519,7 +519,7 @@
       "kind": "q=-1",
       "boundary_index": 38,
       "SU2_degree": 37,
-      "eigenvalue": "380.25",
+      "eigenvalue": "1521/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -533,7 +533,7 @@
       "kind": "q=-1",
       "boundary_index": 40,
       "SU2_degree": 39,
-      "eigenvalue": "420.25",
+      "eigenvalue": "1681/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -547,7 +547,7 @@
       "kind": "p=-1",
       "boundary_index": 2,
       "SU2_degree": 1,
-      "eigenvalue": "2.25",
+      "eigenvalue": "9/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -561,7 +561,7 @@
       "kind": "p=-1",
       "boundary_index": 4,
       "SU2_degree": 3,
-      "eigenvalue": "6.25",
+      "eigenvalue": "25/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -575,7 +575,7 @@
       "kind": "p=-1",
       "boundary_index": 6,
       "SU2_degree": 5,
-      "eigenvalue": "12.25",
+      "eigenvalue": "49/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -589,7 +589,7 @@
       "kind": "p=-1",
       "boundary_index": 8,
       "SU2_degree": 7,
-      "eigenvalue": "20.25",
+      "eigenvalue": "81/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -603,7 +603,7 @@
       "kind": "p=-1",
       "boundary_index": 10,
       "SU2_degree": 9,
-      "eigenvalue": "30.25",
+      "eigenvalue": "121/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -617,7 +617,7 @@
       "kind": "p=-1",
       "boundary_index": 12,
       "SU2_degree": 11,
-      "eigenvalue": "42.25",
+      "eigenvalue": "169/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -631,7 +631,7 @@
       "kind": "p=-1",
       "boundary_index": 14,
       "SU2_degree": 13,
-      "eigenvalue": "56.25",
+      "eigenvalue": "225/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -645,7 +645,7 @@
       "kind": "p=-1",
       "boundary_index": 16,
       "SU2_degree": 15,
-      "eigenvalue": "72.25",
+      "eigenvalue": "289/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -659,7 +659,7 @@
       "kind": "p=-1",
       "boundary_index": 18,
       "SU2_degree": 17,
-      "eigenvalue": "90.25",
+      "eigenvalue": "361/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -673,7 +673,7 @@
       "kind": "p=-1",
       "boundary_index": 20,
       "SU2_degree": 19,
-      "eigenvalue": "110.25",
+      "eigenvalue": "441/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -687,7 +687,7 @@
       "kind": "p=-1",
       "boundary_index": 22,
       "SU2_degree": 21,
-      "eigenvalue": "132.25",
+      "eigenvalue": "529/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -701,7 +701,7 @@
       "kind": "p=-1",
       "boundary_index": 24,
       "SU2_degree": 23,
-      "eigenvalue": "156.25",
+      "eigenvalue": "625/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -715,7 +715,7 @@
       "kind": "p=-1",
       "boundary_index": 26,
       "SU2_degree": 25,
-      "eigenvalue": "182.25",
+      "eigenvalue": "729/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -729,7 +729,7 @@
       "kind": "p=-1",
       "boundary_index": 28,
       "SU2_degree": 27,
-      "eigenvalue": "210.25",
+      "eigenvalue": "841/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -743,7 +743,7 @@
       "kind": "p=-1",
       "boundary_index": 30,
       "SU2_degree": 29,
-      "eigenvalue": "240.25",
+      "eigenvalue": "961/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -757,7 +757,7 @@
       "kind": "p=-1",
       "boundary_index": 32,
       "SU2_degree": 31,
-      "eigenvalue": "272.25",
+      "eigenvalue": "1089/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -771,7 +771,7 @@
       "kind": "p=-1",
       "boundary_index": 34,
       "SU2_degree": 33,
-      "eigenvalue": "306.25",
+      "eigenvalue": "1225/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -785,7 +785,7 @@
       "kind": "p=-1",
       "boundary_index": 36,
       "SU2_degree": 35,
-      "eigenvalue": "342.25",
+      "eigenvalue": "1369/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -799,7 +799,7 @@
       "kind": "p=-1",
       "boundary_index": 38,
       "SU2_degree": 37,
-      "eigenvalue": "380.25",
+      "eigenvalue": "1521/4",
       "untwisted_2I_multiplicity": 0
     },
     {
@@ -813,7 +813,7 @@
       "kind": "p=-1",
       "boundary_index": 40,
       "SU2_degree": 39,
-      "eigenvalue": "420.25",
+      "eigenvalue": "1681/4",
       "untwisted_2I_multiplicity": 0
     }
   ],
