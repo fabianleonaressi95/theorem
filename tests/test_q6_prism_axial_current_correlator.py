@@ -28,3 +28,21 @@ def test_lorentz_scalar_is_not_euclidean_norm():
 
 def test_bad_shape_rejected():
     with pytest.raises(ValueError): local_moments(np.ones((3,3)))
+
+
+def test_dirac_spinor_bilinear_is_real_and_phase_invariant():
+    from scripts.q6_prism_axial_current_correlator import spinors_to_axial_currents
+    psi=np.array([.2+.1j,.5-.3j,-.4+.2j,.7+.6j])
+    j=spinors_to_axial_currents(psi)
+    jp=spinors_to_axial_currents(np.exp(.731j)*psi)
+    assert j.shape==(4,)
+    assert np.isrealobj(j)
+    assert jp==pytest.approx(j,abs=1e-12)
+
+
+def test_spinor_bilinear_quadratic_under_amplitude_scaling():
+    from scripts.q6_prism_axial_current_correlator import spinors_to_axial_currents
+    psi=np.array([.2+.1j,.5-.3j,-.4+.2j,.7+.6j])
+    j=spinors_to_axial_currents(psi)
+    j2=spinors_to_axial_currents(2*psi)
+    assert j2==pytest.approx(4*j,abs=1e-12)
