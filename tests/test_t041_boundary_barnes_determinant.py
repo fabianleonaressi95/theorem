@@ -10,7 +10,7 @@ from src.t041_boundary_barnes_determinant import (
 
 def test_barnes_double_zeta_zero_equal_periods_known_special_case():
     assert barnes_zeta2_at_zero(1, (1, 1)) == Fraction(-1, 12)
-    assert barnes_zeta2_at_zero(2, (1, 1)) == Fraction(11, 12)
+    assert barnes_zeta2_at_zero(2, (1, 1)) == Fraction(5, 12)
 
 
 def test_exact_barnes_values_for_periods_12_20():
