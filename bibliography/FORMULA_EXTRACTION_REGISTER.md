@@ -28,10 +28,10 @@
 |---|---|---|---|---|
 | F001 | Wyler (1969, 1971), Robertson (1971), Gilmore (1972), Adler (1972) | Espressione proposta per la costante di struttura fine e critica di scala | Formula trascritta; fondamento fisico non stabilito | [Wyler–Hua formula audit](wyler-hua/FORMULAS_AND_VERIFICATION.md) |
 | F002 | L. K. Hua (1958/1963), domini classici | Domini di Cartan, operatori di Hua, kernel di Poisson–Szegő/Bergman e integrali | Parziale; formule da confrontare con la monografia primaria | [Wyler–Hua formula audit](wyler-hua/FORMULAS_AND_VERIFICATION.md) |
-| F003 | A. Kitaoka (2020), Rumin complex on contact spheres | Autovalori Rumin, molteplicità, funzioni zeta e torsione analitica | Esistenza della decomposizione confermata; estrazione completa da fare | Da aprire |
+| F003 | A. Kitaoka (2019/2020, 2022) | Laplaciano Rumin, spettro per pesi massimi, zeta spettrale, torsione di contatto e Ray–Singer | Formule principali trascritte; trasferimento a S³/2I ancora da dimostrare | [Audit Kitaoka](spin-geometry-quaternionic/KITAOKA_RUMIN_FORMULA_AUDIT.md) |
 | F004 | Kogut (1979), Wilson/lattice gauge | Hamiltoniana, plaquette action, vincoli di Gauss | Da estrarre dalla fonte primaria | Da aprire |
-| F005 | Edwards–Anderson (1975), Sherrington–Kirkpatrick (1975) | Hamiltoniane spin-glass e distribuzioni dei couplings | Metadati presenti; formule da estrarre | Da aprire |
-| F006 | Parisi (1979–1980), Guerra (2003), Talagrand (2006), Panchenko (2013) | RSB, formula di Parisi, ultrametricità | Teoremi noti; ipotesi e formulazioni primarie da trascrivere | Da aprire |
+| F005 | Edwards–Anderson (1975), Sherrington–Kirkpatrick (1975) | Hamiltoniane EA/SK, distribuzioni quenched, overlap e replica trick | Formule base trascritte; limiti termodinamici distinti | [Audit spin glass](spin-glasses/SPIN_GLASS_FORMULA_AUDIT.md) |
+| F006 | Parisi (1979–1980), Guerra (2003), Talagrand (2006), Panchenko (2013) | Funzionale di Parisi, interpolazione Guerra, identità Ghirlanda–Guerra, ultrametricità | Enunciati/formule principali trascritti; fattori di normalizzazione e ipotesi da confrontare con i testi integrali | [Audit spin glass](spin-glasses/SPIN_GLASS_FORMULA_AUDIT.md) |
 | F007 | Atiyah–Singer (1969) e geometria spinoriale | Indice di operatori ellittici/Fredholm | Fonti presenti; formulazione precisa da estrarre | Da aprire |
 | F008 | Ryu–Takayanagi (2006), Faulkner–Lewkowycz–Maldacena (2013) | Entropia olografica e correzioni quantistiche | Da estrarre | Da aprire |
 | F009 | TEGR / Weitzenböck / Einstein–Cartan | Torsione, scalare torsionale, identità con Ricci scalare | Bibliografia primaria da completare | Da aprire |
