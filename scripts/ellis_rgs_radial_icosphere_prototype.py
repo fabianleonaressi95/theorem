@@ -59,7 +59,10 @@ class EllisGraph:
         nr = len(u)
         masses = np.empty((nr, nv))
         for i in range(nr):
-            masses[i] = dual_u[i] * (u[i] ** 2 + self.r0 ** 2) * cell_area
+            left, right = edges_u[i], edges_u[i + 1]
+            radial_mass = ((right ** 3 - left ** 3) / 3.0
+                           + self.r0 ** 2 * (right - left))
+            masses[i] = radial_mass * cell_area
 
         # Edges are (flattened vertex a, flattened vertex b, conductance).
         # Flattening: node(i,j) = i*nv+j.
