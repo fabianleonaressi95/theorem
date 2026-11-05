@@ -59,7 +59,7 @@ These formulas define a concrete finite-volume graph family. The angular circumc
 
 ## Identification maps
 
-For product cells K_ij, define I_h v to be piecewise constant with value v_ij. With the mass above, I_h:H_h to L^2(Omega_L,dmu_g) is isometric if the radial factor is interpreted as the exact cell integral rather than midpoint quadrature. The current script uses midpoint radial quadrature, so its reconstruction is only asymptotically mass-consistent; exact cell masses should replace midpoint masses before a formal Mosco statement.
+For product cells K_ij, define I_h v to be piecewise constant with value v_ij. The script uses the exact radial cell integral and spherical Voronoi cell area, so the piecewise-constant reconstruction I_h:H_h to L^2(Omega_L,dmu_g) is exactly isometric for this product partition.
 
 For f in L^2, define J_h f by cell averages with respect to dmu_g. Then I_h J_h f tends to f in L^2 as the product partition mesh tends to zero, provided the maximal cell diameter tends to zero and the partitions are shape-regular.
 
@@ -76,7 +76,7 @@ It does NOT establish:
 
 ## Next mathematical obligations
 
-1. Replace midpoint radial masses by exact cell masses m_ij=A_j integral over the radial cell of (u^2+r0^2) du.
+1. Retain exact radial cell masses m_ij=A_j integral over the radial cell of (u^2+r0^2) du, and add tests for exact total mass.
 2. Audit circumcentric dual geometry and conductance positivity at several angular levels.
 3. Prove consistency on smooth separated test functions f(u,omega)=p(u)Y_lm(omega).
 4. Prove M1 using a uniform discrete gradient bound and weak lower semicontinuity.
