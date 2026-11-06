@@ -217,9 +217,10 @@ def audit_parity_lattice_refinement(
     """Audit whether parity-selected samples agree on each parent voxel.
 
     A parent-cell sampling rule is single-valued only if all eight children
-    of one parent voxel sample the same parent source index. This is not a
-    geometric cell map or a cubical chain map.  Boolean complement is tracked
-    separately because it changes data, not coordinates.
+    of one parent voxel sample the same parent source index. This is a
+    source-index consistency test, not a geometric cell map or cubical
+    chain-map certificate. Boolean complement is tracked separately because
+    it changes data, not coordinates.
     """
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
