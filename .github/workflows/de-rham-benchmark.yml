@@ -25,7 +25,23 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -r requirements.txt
       - name: Compile Python sources
-        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py
+        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py audits tests
+      - name: Run Herasymov symbolic and parity-lattice audit
+        run: |
+          python audits/audit_herasymov_symbolic.py --self-test --output /tmp/herasymov-audit.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/herasymov-audit.json'))
+          assert data['self_test'] == 'PASS'
+          assert data['finite_shuffle_billiard_identity']['matches'] == 65536
+          assert data['parity_lattice_uniform_rules']['single_parent_source_coordinate_per_parent']
+          assert not data['parity_lattice_mixed_rules']['single_parent_source_coordinate_per_parent']
+          print('Herasymov finite identity and parity-lattice controls passed')
+          PY
+      - name: Run Herasymov regression tests
+        run: |
+          python -m pip install pytest
+          python -m pytest -q tests/test_herasymov_symbolic_audit.py
       - name: Check CLI entry point
         run: python run_benchmark.py --help
       - name: Verify cubical incidence chain identity
