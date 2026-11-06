@@ -37,9 +37,9 @@ def rotation_generators():
 
 
 def boost_generators():
-    # K_i = gamma^0 gamma^i / 2; convention-specific infinitesimal generators.
+    # K_i = i gamma^0 gamma^i / 2; Hermitian boost generators for the Lorentz algebra.
     g=gamma_matrices()
-    return tuple(0.5*g[0]@g[i+1] for i in range(3))
+    return tuple(0.5j*g[0]@g[i+1] for i in range(3))
 
 
 def chirality_embedding(sign):
@@ -63,8 +63,8 @@ def audit(tol=2e-12):
     for s,k in ks.items():
         rot_res[str(s)]=max(float(np.linalg.norm(j@k-k@(0.5*p))) for j,p in zip(rotations,PAULI))
         # The boost action induced on the two-component Weyl fibre is
-        # B_i^(s) = -s sigma_i/2 in this convention.
-        boost_res[str(s)]=max(float(np.linalg.norm(b@k-k@(-0.5*s*p))) for b,p in zip(boosts,PAULI))
+        # B_i^(s) = -i s sigma_i/2 in this convention.
+        boost_res[str(s)]=max(float(np.linalg.norm(b@k-k@(-0.5j*s*p))) for b,p in zip(boosts,PAULI))
     p=parity_operator()
     parity_exchange=max(float(np.linalg.norm(p@ks[s]-1j*ks[-s])) for s in (-1,1))
     # The phase i follows gamma^0 acting on (chi,s chi); it is immaterial.
