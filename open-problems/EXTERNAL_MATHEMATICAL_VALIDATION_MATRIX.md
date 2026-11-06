@@ -70,3 +70,13 @@ Nessuna risposta è inferita dal fatto che un'email sia stata preparata o inviat
 | Albin, Ourmières-Bonafos, Landi | Dirac e spettro | In attesa / non registrato |
 | Honda, Șuvaina, Stoppa, Viaclovsky, Moroianu, Cherkis, Clarke, Karigiannis, Lotay, Salamon | Geometria speciale, spin e gauge | In attesa / non registrato |
 | Lucantonio | Meccanica computazionale | In attesa / non registrato |
+
+
+## E1 — Q6–D5 Wilson fibre: source transfer and next proof gate
+
+The mathematical specifications are now present in THEOREM:
+- [Integer-fibre quotient](../docs/Q6_D5_INTEGER_FIBER_QUOTIENT.md)
+- [Saturated kernel and factorial tail bound](../docs/Q6_D5_SATURATED_KERNEL_AND_TAIL_BOUND.md)
+- [Five-torus Wilson marginal](../docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md)
+
+The exact quotient and convergence arguments are not the same as a certified numerical evaluation of the complete fibre sum. The implementation and tests still need to be ported into this repository with all dependencies resolved. The next acceptance gate is: (i) exact reconstruction of the cycle matrix and rational top-mode map; (ii) Smith-certified saturated kernel basis and unimodular splitting; (iii) independently checked tail enclosure; (iv) a reproducible finite enumeration plus rigorous remainder; (v) explicit comparison of the resulting effective quadratic form with the Poisson-summed theta representation. Do not claim a Hua/Bergman limit from this finite-coupling work.
