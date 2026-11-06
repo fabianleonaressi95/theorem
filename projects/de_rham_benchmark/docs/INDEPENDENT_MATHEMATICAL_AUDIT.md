@@ -184,7 +184,7 @@ A usable FEEC projection theorem needs at least:
 6. Uniformly shape-regular, conforming geometry maps and uniform equivalence of pulled-back norms.
 7. Boundary trace spaces and domains of (d) are fixed consistently across (h).
 
-The pullback identity (F_h^*d=dF_h^*) is not a construction of (pi_h). The audited repository does not currently define a commuting projection operator or prove any of the uniform bounds above.
+The pullback identity (F_h^*d=dF_h^*) is not a construction of (pi_h). The repository computes canonical face-integral cochains for regular analytic test forms and checks Stokes commutation numerically. It does not yet define a regularized commuting projection on the full HΛ graph space or prove the uniform bounds required in Theorem 3.1 of [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md).
 
 ---
 
@@ -344,3 +344,8 @@ Then:
 The consistent mass formula in PR #87 is mathematically well-founded for the stated lowest-order cubical tensor-product FEEC basis and pullback metric. The adjoint formula and generalized symmetric Hodge energy are also correct. The main concrete defect is the sign/orientation mismatch between the incidence matrices and the documented FEEC basis orientation. The main structural gap is that the repository constructs Gram matrices but not the uniformly bounded commuting projections or the reconstruction/compactness machinery needed for convergence theorems.
 
 Accordingly, the benchmark supports finite-dimensional algebraic and numerical conclusions. It does **not** yet support a theorem of curvilinear FEEC spectral convergence. The numbered hypotheses and lemmas above specify the route by which such a theorem could be established.
+
+
+## 8. Uniform projection stability — refined conclusion
+
+Uniform bounds on \(DF_{K,h}/h\), its inverse, and the ambient metric imply local FEEC mass equivalence with scaling \(h^{d-2k}\); this controls the inner products, not the interpolation operator. The degree-zero canonical interpolator uses point evaluation, which is not bounded on \(H^1(\Omega)\) in dimensions two and three. Thus the smooth-form face-integral interpolator and its exact Stokes commutation cannot be promoted to a uniformly bounded \(H\Lambda\) projection without regularization. The precise sufficient criterion and proof are in [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md).
