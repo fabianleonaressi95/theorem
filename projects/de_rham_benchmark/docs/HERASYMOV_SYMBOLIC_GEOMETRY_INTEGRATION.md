@@ -224,6 +224,40 @@ The scalar action must be kept separate from the coordinate action. The source d
 
 A second parity-sampling audit checks, for every parent voxel, whether all eight parity rules select the same source coordinate and the same scalar action. Uniform rules pass; the included mixed-rotation control fails. This establishes source-index bijectivity of each mode, not a geometric subdivision map, shared-cell trace compatibility, or a de Rham chain map.
 
+
+### 3.4 Uniform modes induce exact cubical chain automorphisms
+
+To distinguish an actual incidence statement from voxel-index bijectivity, the audit now constructs the oriented cubical complex of the fixed grid
+[
+K_N=[0,N]^3.
+]
+A canonical oriented (k)-cell is represented by a lower vertex (vinmathbb Z^3) and an increasing axis set (I=(i_1<cdots<i_k)). Its boundary is
+[
+partial[v;I]=sum_{r=1}^{k}(-1)^{r-1}
+left([v+e_{i_r};Isetminus i_r]-[v;Isetminus i_r]ight).
+]
+
+Each of the 32 distinct signed-permutation matrices (A) recovered from the rotation-enhanced source acts on grid vertices by
+[
+F_A(v)_i=
+egin{cases}
+v_j,&A_{ij}=+1,\
+N-v_j,&A_{ij}=-1,
+end{cases}
+]
+where row (i) has its unique nonzero entry in column (j). The image of an oriented cell is the image cell multiplied by the induced orientation sign: the product of the axis signs and the permutation sign needed to reorder the image axes.
+
+The audit compares the two integer chains cell by cell:
+[
+oxed{partial P_k(c)=P_{k-1}partial(c),qquad k=1,2,3.}
+]
+It enumerates all cells in degrees 0 through 3 for each distinct matrix. This is an exact finite combinatorial test, not a floating-point residual.
+
+**Scope:** this proves that every uniform signed-permutation symmetry induces an automorphism of the *same* cubical complex. It does not construct a coarse-to-fine inclusion/prolongation (P_h^k:C^k(K_h)	o C^k(K_{h'})), and it says nothing by itself about the mixed parity-selected generator. A genuine refinement proof still needs a specified subdivision of every cell, with compatible face restrictions and the chain identity across two different mesh levels.
+
+For cochains, the induced pullback is the dual map. Its commutation with the coboundary follows from the chain identity above; it should not be confused with an independently chosen interpolation operator.
+
+
 ## 4. Cellular automata and coupled fields
 
 Herasymov's \`evolving-cellular-automata\` searches a \(2^{512}\) rule space for 2D Moore-neighborhood automata, with toroidal boundary conditions. The later \`initial-state-evolution\` project fixes Conway's Life rule and co-evolves two fields A and B, with A's upper/lower boundary coupled to B and vice versa. These are useful examples of:
@@ -268,7 +302,8 @@ For the RGS–PSU–PRISM synthesis:
 | Fibonacci aspect ratios converge to \(\varphi\) | Standard exact limit |
 | Herasymov's finite binary patterns exhibit the article's reported visual structure | Reproducible computational claim; audit/fixtures needed |
 | The parity-sublattice data transform defines a conforming 3D cubical mesh | Not established; it is not a geometric cell map, and cubical incidence compatibility remains open |
-| The recursive transformations induce a chain map on cubical cochains | Open; requires incidence/face-trace audit |
+| Each uniform signed-permutation mode induces a chain automorphism of the fixed cubical grid | Exact finite combinatorial identity; all 32 distinct maps audited |
+| A coarse-to-fine refinement operator induced by the mixed parity generator commutes with cubical incidence | Open; requires a cell subdivision and compatible face restrictions |
 | The symbolic threshold field models physical holography, diffraction, or quantum interference | Not established; visual analogy only |
 | Herasymov's constructions derive the RGS \(W(G_2)\) lift or Möbius seam | Not established by inspected sources |
 | The combined construction satisfies FEEC Mosco convergence | Open; requires the full geometric, stability, compactness, and recovery-sequence programme |
@@ -280,4 +315,4 @@ Run:
 python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 \`\`\`
 
-The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful parity-lattice refinement condition. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.
+The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, Boolean and rotation-generator parity sampling, all 256 rotation modes, and exact cubical chain identities for the 32 distinct uniform signed-permutation maps on a fixed grid. It does not certify a coarse-to-fine refinement map, FEEC stability, or Mosco convergence.
