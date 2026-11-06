@@ -45,6 +45,16 @@ where \(\bar a\) is mean temporal activity, \(\bar\rho\) is mean density, and \(
 
 The separate two-field co-evolution mechanism described in XCont's initial-state project is **not** yet implemented: the current initial-state search has one evolving population under one fixed rule. Billiard coding and graph-convolution experiments are also pending.
 
+### Reproducible smoke runs
+
+The default CLI graph is deliberately small, \(C_3^{\square 5}\), so the first experiments are computationally manageable. These commands write a complete JSON record:
+
+    python -m pytest tests/test_prism_cellular_automata.py tests/test_prism_ca_evolution.py -q
+    python -m scripts.run_prism_ca_evolution --mode rules --population 8 --generations 3 --steps 6 --seed 2026 --output prism_rule_search.json
+    python -m scripts.run_prism_ca_evolution --mode initial --fixed-rule 0 --population 8 --generations 3 --steps 6 --seed 2026 --output prism_initial_search.json
+
+The last command uses the all-zero rule only as an interface smoke test; it is not a meaningful dynamical benchmark. For scientific experiments, select and record a nontrivial fixed rule, graph factors, objective weights, initial-state bank, seed and time horizon. Increasing to the full 69,120-vertex PRISM graph should be deferred until profiling and vectorized/local-neighbourhood optimization have been performed.
+
 ### 3.1 Fixed graph
 
 Use the existing finite product graph
