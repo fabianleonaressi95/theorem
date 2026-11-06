@@ -45,9 +45,8 @@ def cofactor_vector(R: np.ndarray) -> np.ndarray:
 
 
 def canonical_symmetric_key(G: np.ndarray, tol: float) -> tuple[int, ...]:
-    """Tolerance-quantized key; final class counts are tolerance-dependent."""
-    scale = max(1.0, float(np.linalg.norm(G, ord=np.inf)))
-    return tuple(np.rint((G / scale) / tol).astype(np.int64).ravel())
+    """Absolute-tolerance key; class counts depend on the declared tolerance."""
+    return tuple(np.rint(G / tol).astype(np.int64).ravel())
 
 
 def audit_one(triple: Any, rho: float, alpha: float, tol: float) -> dict[str, Any]:
@@ -157,7 +156,7 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
         "mobius_seams": seam,
         "triples": rows,
         "limitations": [
-            "Gram class count depends on the declared tolerance and scale quantization.",
+            "Gram class count depends on the declared absolute tolerance; matrices are not rescaled before comparison.",
             "The script does not generate or authenticate the historical 216 W(G2) triple selection.",
             "It does not test shared-face geometry, cell injectivity, positive cell Jacobians, or global mesh conformity.",
             "It does not prove FEEC stability, discrete compactness, Mosco convergence, or spectral convergence.",
