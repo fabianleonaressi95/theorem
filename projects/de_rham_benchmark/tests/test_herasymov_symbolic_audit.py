@@ -87,3 +87,9 @@ def test_rotation_generator_parity_rules_must_agree_on_parent_samples():
     mixed = [[[0, 16], [64, 80]], [[32, 48], [96, 112]]]
     assert MODULE.audit_rotation_parity_lattice(uniform, size=3)["single_parent_sample_rule"]
     assert not MODULE.audit_rotation_parity_lattice(mixed, size=3)["single_parent_sample_rule"]
+
+
+def test_rotation_mode_bit_three_changes_scalar_action_not_coordinates():
+    report = MODULE.audit_rotation_generator(size=3)
+    assert report["bit3_preserves_coordinates"]
+    assert report["bit3_toggles_increment_rule"]
