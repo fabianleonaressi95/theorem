@@ -15,10 +15,10 @@ conjecture in `REPORT.md`.
   `(-1)^{pos+1} (2s-1)` (`pos` = position of the removed direction inside the
   sorted `vary` tuple, `s` = lower/upper facet). `d_{k+1} d_k = 0` holds
   exactly; the residual `max |d_{k+1} d_k|` is reported per run.
-* This is a *cochain* complex: no finite-element conformity is assumed or
-  needed. In particular the discrete spaces are NOT the FEEC
-  polynomial differential form spaces; they are the cubical cochain spaces
-  with a diagonal Hodge inner product (see §3).
+* The original benchmark is a *cochain* complex with diagonal Hodge weights;
+  its cochain spaces are not themselves presented through local FEEC basis
+  functions. A separate lowest-order tensor-product cubical FEEC mass control
+  has now been implemented; see `docs/CONSISTENT_FEEC_MASS.md`.
 
 ## 2. Cell maps and pullback metric
 
@@ -47,17 +47,25 @@ For `k < d`, with `|sigma|_{g,K}` the k-volume of face `sigma` measured in
 the pullback metric of cell `K`:
 
 ```
-M_k[sigma,sigma] = sum_{K supset sigma}  vol_g(K) / (2^{d-k} |sigma|^2_{g,K})
-M_d[K,K]         = vol_g(K)
+M_k[sigma,sigma] = sum_{K supset sigma}  vol_g(K) / (2^{d-k} |sigma|^2_{g,K})   (k<d)
+M_d^legacy[K,K]  = vol_g(K)
+M_d^DEC[K,K]     = 1 / vol_g(K)   (integral top-degree cochains)
 ```
 
-* For a flat affine mesh with `G = I` this reduces **exactly** to the
-  standard DEC weights `|sigma*| / |sigma|` (verified: e.g. interior edge
-  weight 1 in 2D, `h` in 3D; interior face weight `1/h` in 3D).
-* Under anisotropic/non-uniform metrics the formula is a documented
-  approximation of the true dual-volume ratio: `vol(sigma*_K)` is
-  estimated as `vol_g(K) / (2^{d-k} |sigma|_{g,K})`. Off-diagonal (consistent)
-  mass matrices are NOT implemented.
+* For a flat affine mesh with `G = I`, the formula for `k<d` gives the
+  corresponding diagonal dual-volume weights. The historical top-degree
+  assignment `M_d^legacy=vol_g(K)` is **not** the primal DEC Hodge weight
+  for an integral top-degree cochain. The standard primal DEC weight is
+  `M_d^DEC=1/vol_g(K)`.
+* The legacy top-degree assignment was retained to reproduce the uploaded
+  results, but it must not be described as standard DEC. It directly enters
+  the degree-(d-1) coexact energy and generated the archived `h^(2d)`
+  collapse in the affine and fixed-amplitude curved tests.
+* Under anisotropic/non-uniform metrics the lower-degree formula is a
+  documented approximation of the true dual-volume ratio:
+  `vol(sigma*_K)` is estimated as
+  `vol_g(K) / (2^{d-k} |sigma|_{g,K})`. Off-diagonal consistent mass
+  matrices are now implemented separately in `ddr/feec_mass.py`.
 * `M_k` are diagonal hence trivially SPD when all face measures are
   positive; `cond(M_k)` is reported per run.
 
@@ -76,12 +84,18 @@ M_d[K,K]         = vol_g(K)
 ## 5. What is and is not claimed
 
 * **Verified numerically**: all residuals in `algebraic_residuals`
-  (`d^2=0`, symmetry of `B_k`, adjointness, self-adjointness, partition of
-  unity), Betti/kernel agreement, Jacobian determinants and singular
-  values, condition numbers, eigenvalues on each fixed mesh.
+  (`d^2=0`, symmetry of `B_k`, adjointness, self-adjointness), Betti
+  numbers, Jacobian diagnostics, condition numbers, and eigenvalues on each
+  fixed mesh. The legacy identity `sum(M_0)=sum(M_d^legacy)` is a volume
+  bookkeeping identity, not a Hodge-star consistency check.
 * **Indicators only**: refinement behaviour of `lambda_min^+`,
   `lambda_max`, `cond(M_k)`, `cond_effective`. Convergence of these
   discrete eigenvalues as `h -> 0` is *consistent with* stability of the
   discrete scheme but is NOT a proof of Mosco/variational convergence of
   the underlying forms — that is left to the analytical work.
 * **Conjectures** are labelled as such in `REPORT.md`.
+
+
+## 6. Revised mass convention and evidence
+
+The current research comparison keeps three mass families distinct: historical diagonal (for archived reproducibility), top-corrected primal DEC, and consistent tensor-product cubical FEEC. On flat affine meshes the top-corrected diagonal DEC mass is exactly the row-sum lumping of the consistent FEEC mass in every degree. CI checks this in 2D and 3D. Both flat and fixed-amplitude sinusoidal refinement studies show that the historical h^(2d) collapse disappears with the corrected top-degree weight and with consistent FEEC masses. See §1.7 of `REPORT.md`.

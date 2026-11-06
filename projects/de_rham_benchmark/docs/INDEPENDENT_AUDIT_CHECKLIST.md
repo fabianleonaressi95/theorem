@@ -46,18 +46,20 @@ If (\delta_k u=0) **and** (d_k u=0), then (u) is harmonic and its eigenvalue is 
 ## E. Inner-product comparison experiment
 
 Use identical mesh, map, metric, quadrature, boundary convention and incidence complex for:
-1. diagonal DEC-like Hodge weights (current benchmark);
-2. consistent Whitney/FEEC mass matrix;
-3. a documented golden/supergolden positive-weight variant only after positivity and uniform equivalence are proved/verified.
+1. historical diagonal weights (retain only for reproducibility; top-degree scaling is nonstandard for integral cochains);
+2. top-corrected primal DEC diagonal weights with M_d(K)=1/vol_g(K);
+3. consistent tensor-product cubical FEEC mass matrices;
+4. a documented golden/supergolden positive-weight variant only after positivity and uniform equivalence are proved/verified.
 
-For each: positivity, condition number, adjoint consistency, discrete compactness proxy, co-closed sector, eigenvalue trajectories, eigenvector concentration and subspace angles.
+For each: positivity, condition number, adjoint consistency, co-closed sector, eigenvalue trajectories, eigenvector reconstruction and subspace angles. The legacy-versus-corrected top-degree control is mandatory before any compactness interpretation.
 
 ## F. What can currently be stated
 
 - **Exact algebraic:** incidence (d_{k+1}d_k=0), by the cubical chain construction.
 - **Numerically reported:** matrix residuals, Jacobian samples, spectra and condition numbers on the finite meshes in the archived run.
-- **Not established:** uniform discrete compactness, no spectral pollution, Mosco convergence, norm-resolvent convergence, FEEC equivalence, or a continuum spectral theorem.
-- **Candidate explanation:** instability/compactness failure caused by the chosen diagonal inner products. This is a hypothesis until consistent-mass controls and independent reproductions are completed.
+- **Numerically established on tested affine and fixed-amplitude sinusoidal meshes:** the historical M_d(K)=vol_g(K) convention produces the h^(2d) collapse; replacing only the top-degree diagonal weight by 1/vol_g(K) removes it, and consistent cubical FEEC masses show the same non-collapse.
+- **Not established:** uniform discrete compactness on general curvilinear meshes, no spectral pollution for arbitrary maps, Mosco convergence, norm-resolvent convergence, or a continuum spectral theorem.
+- **Revised interpretation:** the previously proposed compactness-failure mechanism is withdrawn for the tested collapse. The primary identified cause is the historical top-degree mass normalization.
 
 This file is a gate list for the next research pass, not an endorsement of every value or interpretation in the uploaded report.
 
@@ -65,3 +67,8 @@ This file is a gate list for the next research pass, not an endorsement of every
 ## Degree-wise mode audit added
 
 Run `python degreewise_audit.py --dim 2 --N 8` and `python degreewise_audit.py --dim 3 --N 5`. The audit normalizes the co-closedness defect using the Hodge energy, computes the grad/curl energy fractions in the correct (M)-norms, and evaluates distance to `im d_{k-1}` in the (M_k)-norm. It includes top degree, where every positive mode must have grad fraction 1 and curl fraction 0.
+
+
+## Consistent-mass audit completed
+
+The three-way control (historical diagonal / top-corrected DEC / consistent cubical FEEC) is implemented in `compare_mass_matrices.py` and `mass_refinement_study.py`. Flat 2D/3D refinement and fixed-amplitude sinusoidal 2D/3D refinement passed CI. On flat affine meshes the top-corrected DEC diagonal matrices equal the row-sum lumping of the consistent FEEC matrices in every degree. See `docs/CONSISTENT_FEEC_MASS.md` and §1.7 of `REPORT.md` for numerical values and the revised scientific status.
