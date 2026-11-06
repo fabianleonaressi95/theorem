@@ -24,7 +24,7 @@ nel convenzionale ramo EC in cui il termine quadratico di spin entra con segno n
 ## 1. Ipotesi
 
 Consideriamo:
-1. una geometria FLRW con fattore di scala \(a(t)>0\);
+1. una geometria FLRW spazialmente piatta con fattore di scala \(a(t)>0\);
 2. un fluido di Weyssenhoff con quadrivelocità \(u^\mu\) e densità numerica comovente \(n\);
 3. condizione di Frenkel \(S_{\mu\nu}u^\nu=0\);
 4. spin intrinseco per particella conservato lungo il flusso;
