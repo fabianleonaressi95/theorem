@@ -37,7 +37,7 @@ jobs:
               mesh = CubicalMesh(n, dim)
               # mesh stores coboundary matrices in mesh.d
               for k in range(dim - 1):
-                  residual = mesh.d[k + 1] @ mesh.d[k]
+                  residual = mesh.dmat[k + 1] @ mesh.dmat[k]
                   assert residual.nnz == 0 or np.max(np.abs(residual.data)) == 0
           print("d_(k+1) d_k = 0: exact sparse identity")
           PY
