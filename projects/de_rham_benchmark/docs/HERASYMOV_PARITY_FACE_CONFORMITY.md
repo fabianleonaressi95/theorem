@@ -83,12 +83,12 @@ not part of geometric face conformity.
 ## Exhaustive finite audit
 
 The audit exhausts all 256 source modes, identifies their 32 distinct
-affine cube maps, each represented by exactly eight of the 256 source mode
-values, and checks every ordered pair of distinct maps against each of the
-three face normals on a grid with \(N=2\). Thus the necessary-and-sufficient
-mode criterion is that all eight selected mode values belong to one and the
-same coordinate-map equivalence class (eight scalar bit-3 variants may still
-differ). It also tests:
+affine cube maps. Their mode-class multiplicities are 24 classes of size 4
+and 8 classes of size 20. It checks every ordered pair of distinct maps
+against each of the three face normals on a grid with \(N=2\). Thus the
+necessary-and-sufficient mode criterion is that all eight selected mode
+values belong to one and the same coordinate-map equivalence class; scalar
+bit-3 variants are already included in these classes. It also tests:
 - a uniform coordinate-map control;
 - a bit-3-only control (same geometry, different scalar action);
 - a mixed-reflection negative control.
