@@ -271,3 +271,14 @@ Se \(Kf=\lambda f\) con \(f\neq0\), allora \(|\lambda|\leq1\). Dunque **\(\psi=1
 Non vieta un autovalore superunitario per un operatore diverso: ad esempio un trasferimento di rinormalizzazione tra scale, una mappa di raffinamento non autonoma, oppure un operatore di crescita su quantità non normalizzate. Ma tale operatore va definito esplicitamente; non può essere chiamato semplicemente Koopman del CA finito.
 
 Per il fit T2u corrente, il massimo modulo spettrale della matrice proiettata \(M_{10}\) è circa 0.268345; il minimo residuo polinomiale tra i suoi dieci autovalori è circa 0.999869 e la distanza minima da \(\psi\) è circa 1.198933. Questi numeri confermano che la regressione campionata non sta approssimando la ricorrenza supergolden.
+
+
+### 12.6 Distinzione tra tripletto, componente isotypic e base storica
+
+La lettura dei materiali RGS richiede di distinguere tre oggetti che in precedenza erano stati sovrapposti:
+
+1. **Tripletto selezionato:** il notebook archiviato indica `B_T2U_TAN` con forma (188\times3), e costruisce (P=B B^T). Questo è il proiettore sul solo tripletto selezionato (rango 3 se le colonne sono indipendenti), non sull'intera componente isotypic. La sezione è esplicita sulle dimensioni. 
+2. **Componente isotypic:** il risultato di caratteri/proiettori RGS precedentemente auditato ha rango 30, quindi contiene dieci copie del carrier T2u tridimensionale.
+3. **Helper storico 39D:** il codice che tratta `V_all` come (39\times39) e lo chiama T2u non è compatibile, senza un ulteriore cambio di rappresentazione o una correzione, con i due oggetti precedenti. Non va usato per definire il fattore di molteplicità T2u.
+
+Quindi non esiste un unico oggetto che possa essere chiamato indifferentemente “(P_{T2u})” nei tre contesti. Per l'intertwiner verso il settore completo occorre il proiettore di rango 30; il tripletto (188\times3) è utile solo per un singolo carrier. Il file binario `all_T2u_arrays.npz` è citato nel notebook come archivio di quel tripletto, ma non è presente tra gli asset autonomi recuperabili in questa sessione: non ho quindi inventato o ricostruito le matrici mancanti.
