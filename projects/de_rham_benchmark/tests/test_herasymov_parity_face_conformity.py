@@ -43,6 +43,8 @@ def test_pairwise_face_criterion_exhausts_all_source_coordinate_maps():
     assert report["pair_axis_checks"] == 32 * 32 * 3
     assert report["mode_equivalence_class_sizes"] == [4] * 24 + [20] * 8
     assert sorted(len(item["source_modes"]) for item in report["mode_equivalence_classes"]) == [4] * 24 + [20] * 8
+    assert report["randomizer_class_sizes_for_0_to_254"] == [3] + [4] * 23 + [20] * 8
+    assert abs(report["ideal_independent_randomizer_face_conformity_probability"] - 1.1455438527490909e-8) < 1e-20
     assert report["face_compatibility_iff_same_affine_map"]
 
 
