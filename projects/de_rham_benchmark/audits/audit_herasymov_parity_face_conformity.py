@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from fractions import Fraction
 from itertools import product
 from typing import Any
 
@@ -175,6 +176,18 @@ def audit_pairwise_criterion(size: int = 2) -> dict[str, Any]:
                         "face_trace_matches": matches,
                         "affines_identical": same,
                     })
+    # The inspected source initializes each of its eight rules with
+    # floor(Math.random() * 255), i.e. an independent uniform idealization
+    # on integer modes 0,...,254.  Mode 255 is therefore excluded here.
+    random_domain = 255
+    random_class_sizes = [
+        sum(mode < random_domain for mode in modes)
+        for modes in maps.values()
+    ]
+    compatible_probability = sum(
+        (Fraction(count, random_domain) ** 8)
+        for count in random_class_sizes
+    )
     return {
         "source_modes_exhausted": 256,
         "distinct_affine_cube_maps": len(distinct),
@@ -187,6 +200,13 @@ def audit_pairwise_criterion(size: int = 2) -> dict[str, Any]:
             for i, modes in enumerate(maps.values())
         ],
         "mode_equivalence_class_sizes": sorted(len(modes) for modes in maps.values()),
+        "source_randomizer_mode_domain": "0..254 (Math.floor(Math.random() * 255))",
+        "randomizer_class_sizes_for_0_to_254": sorted(random_class_sizes),
+        "ideal_independent_randomizer_face_conformity_probability": float(compatible_probability),
+        "ideal_randomizer_probability_exact": {
+            "numerator": compatible_probability.numerator,
+            "denominator": compatible_probability.denominator,
+        },
         "mismatches": mismatches,
     }
 
