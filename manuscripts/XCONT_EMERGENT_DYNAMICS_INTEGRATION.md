@@ -77,8 +77,8 @@ Fix an explicit ordering of the ten neighbours:
 \]
 For binary states \(x_v(t)\in\{0,1\}\), define
 \[
-x_v(t+1)=F_	hetaigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),\ldots,
-x_{v-e_5}(t),x_{v+e_5}(t)igr).
+x_v(t+1)=F_\thetaigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),\ldots,
+x_{v-e_5}(t),x_{v+e_5}(t)\bigr).
 \]
 A completely general deterministic Boolean rule has \\(2^{11}=2048\\) output bits, because the local input contains the central state and ten oriented neighbour states. This is not the 512-bit Moore rule used in the external 2D project: the neighbourhood and rule-space dimension differ.
 
@@ -86,7 +86,7 @@ The ordering is part of the model. Unless the rule is constrained to be invarian
 
 ### 3.3 Evolutionary search
 
-A candidate genome is the 2048-bit truth table (	heta), or a compressed/symmetry-restricted encoding declared explicitly. The search loop may use:
+A candidate genome is the 2048-bit truth table \(\theta\), or a compressed/symmetry-restricted encoding declared explicitly. The search loop may use:
 - a seeded initial population;
 - deterministic evaluation for each genome and initial field;
 - elitist selection;
@@ -100,22 +100,22 @@ The initial XCont-style genetic algorithm is an optimization heuristic. It does 
 
 For a trajectory \(x(0),\ldots,x(T)\), candidate diagnostics include:
 \[
-ho_t=rac1{|V|}\sum_v x_v(t),qquad
-a_t=rac1{|V|}\sum_v |x_v(t+1)-x_v(t)|,
+\rho_t=\frac1{|V|}\sum_v x_v(t),qquad
+a_t=\frac1{|V|}\sum_v |x_v(t+1)-x_v(t)|,
 \]
 \[
-\mathcal{E}_G(t)=x(t)^	op L_Gx(t)
+\mathcal{E}_G(t)=x(t)^\top L_Gx(t)
 =\sum_{\{v,w\}\in E}(x_v(t)-x_w(t))^2.
 \]
-Here (ho_t) is density, \(a_t\) is temporal activity, and (\mathcal{E}_G) is the graph Dirichlet energy. Other measurable targets may include period, recurrence, component counts, correlation functions, and the distribution of activity across the five coordinate directions.
+Here \(\rho_t\) is density, \(a_t\) is temporal activity, and \(\mathcal{E}_G\) is the graph Dirichlet energy. Other measurable targets may include period, recurrence, component counts, correlation functions, and the distribution of activity across the five coordinate directions.
 
 A fitness objective must state its target and normalization. For example, maximizing activity alone can select noisy or unstable rules; maximizing low Dirichlet energy alone can select constant configurations. Multi-objective or constrained fitness should report all component scores rather than hide them in one opaque scalar.
 
 ### 3.5 Separate rule evolution from initial-state evolution
 
 Two experiments must remain distinct:
-1. **Rule search:** vary (	heta), hold the initial-state distribution and graph fixed.
-2. **Initial-state search:** hold (	heta) fixed, evolve (x(0)).
+1. **Rule search:** vary \(\theta\), hold the initial-state distribution and graph fixed.
+2. **Initial-state search:** hold \(\theta\) fixed, evolve \(x(0)\).
 
 A third, paired experiment may use two fields \(A,B\) whose fitnesses depend on each other's measured response, inspired by the co-evolutionary project. The coupling map and boundary identification must be stated explicitly. The external project's two-field toroidal construction is not automatically identical to the PRISM graph or to the PSU biverse.
 
@@ -132,7 +132,7 @@ with a declared partition, for example
 \[
 s_n(x)=\mathbf{1}_{[0,1-\alpha)}(T_\alpha^n x).
 \]
-This produces a binary symbolic sequence. Rational approximants (p_k/q_k	oalpha) give periodic comparison sequences. The programme should compare:
+This produces a binary symbolic sequence. Rational approximants \(p_k/q_k\to\alpha) give periodic comparison sequences. The programme should compare:
 - symbolic word frequencies and complexity;
 - return times and periodic approximants;
 - finite-cycle discretizations \(C_n\);
@@ -151,7 +151,7 @@ u^{t+1}=\sigma(K_\vartheta u^t),
 \]
 where \(K_\vartheta\) is an explicitly defined graph filter, such as a polynomial in adjacency or Laplacian:
 \[
-K_\vartheta=sum_{j=0}^{m}c_j L_G^j.
+K_\vartheta=\sum_{j=0}^{m}c_j L_G^j.
 \]
 A Boolean CA update is instead a local nonlinear map on a finite neighbourhood. These systems can be compared through:
 - support/radius of dependence;
