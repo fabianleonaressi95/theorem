@@ -26,6 +26,7 @@ jobs:
       - run: python -m pip install -r requirements.txt
       - name: Compile Python sources
         run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py audits tests
+        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py ddr/kforms.py ddr/test_forms.py ddr/feec_study.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py test_feec_study.py run_feec_study.py audits tests
       - name: Run Herasymov symbolic and parity-lattice audit
         run: |
           python audits/audit_herasymov_symbolic.py --self-test --output /tmp/herasymov-audit.json
@@ -45,11 +46,27 @@ jobs:
           assert data['rotation_parity_uniform_rules']['single_parent_sample_rule']
           assert not data['rotation_parity_mixed_rules']['single_parent_sample_rule']
           print('Herasymov finite, Boolean parity, and rotation-mode controls passed')
+          assert rotation['bit3_preserves_coordinates']
+          assert rotation['bit3_toggles_increment_rule']
+          assert data['rotation_parity_uniform_rules']['single_parent_sample_rule']
+          assert not data['rotation_parity_mixed_rules']['single_parent_sample_rule']
+          chain = data['uniform_cubical_chain_maps']
+          assert chain['distinct_signed_permutation_maps'] == 32
+          assert chain['chain_map_identity_holds']
+          assert sum(chain['orientation_determinants'].values()) == 32
+          assert all(v > 0 for v in chain['orientation_determinants'].values())
+          print('Herasymov symbolic, rotation, and cubical chain-map controls passed')
           PY
       - name: Run Herasymov regression tests
         run: |
           python -m pip install pytest
           python -m pytest -q tests/test_herasymov_symbolic_audit.py
+          python -m pytest -q tests/test_cubical_subdivision_chain_map.py
+          python -m pytest -q tests/test_herasymov_parity_face_conformity.py
+      - name: Audit exact Herasymov parity shared-face conformity
+        run: python audits/audit_herasymov_parity_face_conformity.py --self-test
+      - name: Audit exact cubical subdivision and symmetry naturality
+        run: python audits/audit_cubical_subdivision_chain_map.py --size 2
       - name: Check CLI entry point
         run: python run_benchmark.py --help
       - name: Verify cubical incidence chain identity
@@ -105,6 +122,24 @@ jobs:
                   "rows": data["rows"],
                   "empirical_loglog_exponents": data["empirical_loglog_exponents"],
               }, indent=2))
+          PY
+
+      - name: FEEC projection and adjoint smoke tests
+        run: |
+          python test_feec_study.py
+          python run_feec_study.py configs/feec_smoke.json --out /tmp/feec_smoke
+          python - <<'PY'
+          import json
+          data = json.load(open("/tmp/feec_smoke/feec_results.json"))
+          for case in data["cases"]:
+              for level in case["levels"]:
+                  assert level["geometry_checks"]["face_conformity_ok"]
+                  assert level["geometry_checks"]["min_det_jac"] > 0
+                  for k, forms in level["forms"].items():
+                      for f in forms:
+                          if "commutator" in f:
+                              assert f["commutator"]["rel_inf_residual"] < 1e-8
+          print("FEEC study smoke run ok")
           PY
 
       - name: Run fixed-amplitude curved-map mass controls

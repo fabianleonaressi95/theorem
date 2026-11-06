@@ -11,7 +11,7 @@ import argparse
 import json
 import math
 import sys
-from itertools import product
+from itertools import combinations, product
 from typing import Any
 
 
@@ -221,6 +221,7 @@ def audit_parity_lattice_refinement(
     geometric cell map or a cubical chain map.  Boolean complement is tracked
     separately because it changes data, not coordinates.
     """
+    """Check whether the eight parity children agree on their parent source voxel."""
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
     if len(drawar) != 2 or any(
@@ -373,6 +374,16 @@ def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
     for modes in coordinate_maps.values():
         key = str(len(modes))
         multiplicities[key] = multiplicities.get(key, 0) + 1
+    bit3_coordinate_invariant = all(
+        rotation_generator_source_index(mode, *p, size)[0]
+        == rotation_generator_source_index(mode ^ 8, *p, size)[0]
+        for mode in range(256) for p in points
+    )
+    bit3_toggles_scalar_increment = all(
+        rotation_generator_source_index(mode, 0, 0, 0, size)[1]
+        != rotation_generator_source_index(mode ^ 8, 0, 0, 0, size)[1]
+        for mode in range(256)
+    )
     return {
         "source": "fractal_3d_with_rotaions.js",
         "modes_exhausted": 256,
@@ -383,6 +394,8 @@ def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
         "scalar_action_counts": increment_counts,
         "scalar_rule": "increment by one iff (mode & 8) == 0; otherwise unchanged",
         "no_boolean_complement": True,
+        "bit3_preserves_coordinates": bit3_coordinate_invariant,
+        "bit3_toggles_increment_rule": bit3_toggles_scalar_increment,
         "mode_reports": mode_reports,
     }
 
@@ -416,6 +429,151 @@ def audit_rotation_parity_lattice(
         "same_parent_source_coordinate_for_all_eight_children": coordinate_consistent,
         "same_coordinate_and_scalar_action_for_all_eight_children": scalar_rule_consistent,
         "single_parent_sample_rule": coordinate_consistent and scalar_rule_consistent,
+    }
+
+
+# Exact cubical chain complex and induced maps for uniform signed permutations.
+def _cube_cells(size: int, degree: int):
+    """Canonical positively oriented k-cells of the cubical grid [0,size]^3."""
+    if size < 1 or degree not in (0, 1, 2, 3):
+        raise ValueError("size must be positive and degree in {0,1,2,3}")
+    for axes in combinations(range(3), degree):
+        ranges = [
+            range(size) if axis in axes else range(size + 1)
+            for axis in range(3)
+        ]
+        for lower in product(*ranges):
+            yield (tuple(lower), tuple(axes))
+
+
+def _cube_boundary(cell):
+    """Boundary of an oriented cubical cell, as an integer coefficient map."""
+    lower, axes = cell
+    out = {}
+    for r, axis in enumerate(axes):
+        face_axes = tuple(a for a in axes if a != axis)
+        low_face = (lower, face_axes)
+        high_lower = list(lower)
+        high_lower[axis] += 1
+        high_face = (tuple(high_lower), face_axes)
+        out[low_face] = out.get(low_face, 0) - ((-1) ** r)
+        out[high_face] = out.get(high_face, 0) + ((-1) ** r)
+    return {cell: coeff for cell, coeff in out.items() if coeff}
+
+
+def _permutation_sign(values):
+    inversions = sum(
+        values[i] > values[j]
+        for i in range(len(values)) for j in range(i + 1, len(values))
+    )
+    return -1 if inversions % 2 else 1
+
+
+def _map_cube_cell(cell, matrix, size: int):
+    """Push an oriented cell through x -> signed-permutation(x) on [0,N]^3."""
+    lower, axes = cell
+    vertices = []
+    for bits in product((0, 1), repeat=len(axes)):
+        point = list(lower)
+        for axis, bit in zip(axes, bits):
+            point[axis] += bit
+        image = []
+        for row in matrix:
+            source_axis = next(j for j, value in enumerate(row) if value)
+            sign = row[source_axis]
+            image.append(point[source_axis] if sign == 1 else size - point[source_axis])
+        vertices.append(tuple(image))
+    target_lower = tuple(min(v[i] for v in vertices) for i in range(3))
+    target_axes = tuple(
+        i for i in range(3)
+        if max(v[i] for v in vertices) != min(v[i] for v in vertices)
+    )
+    source_to_target_axis = {
+        j: next(i for i, row in enumerate(matrix) if row[j])
+        for j in axes
+    }
+    ordered_target_axes = [source_to_target_axis[j] for j in axes]
+    target_positions = [target_axes.index(i) for i in ordered_target_axes]
+    orientation = _permutation_sign(target_positions)
+    for source_axis, target_axis in source_to_target_axis.items():
+        orientation *= matrix[target_axis][source_axis]
+    return (target_lower, target_axes), orientation
+
+
+def _add_chain_term(chain, cell, coefficient):
+    if coefficient:
+        chain[cell] = chain.get(cell, 0) + coefficient
+        if chain[cell] == 0:
+            del chain[cell]
+
+
+def _mapped_boundary(cell, matrix, size: int):
+    """Apply P_{k-1} to boundary(cell)."""
+    out = {}
+    for face, coefficient in _cube_boundary(cell).items():
+        image, orientation = _map_cube_cell(face, matrix, size)
+        _add_chain_term(out, image, coefficient * orientation)
+    return out
+
+
+def _boundary_of_mapped_cell(cell, matrix, size: int):
+    """Apply boundary after P_k to cell."""
+    image, orientation = _map_cube_cell(cell, matrix, size)
+    return {
+        face: coefficient * orientation
+        for face, coefficient in _cube_boundary(image).items()
+    }
+
+
+def audit_uniform_cubical_chain_maps(size: int = 2) -> dict[str, Any]:
+    """Exhaust the distinct rotation-generator signed permutations.
+
+    This proves an automorphism of the fixed cubical grid, not a refinement
+    operator between different mesh levels.
+    """
+    if size < 1:
+        raise ValueError("size must be positive")
+    matrices = {}
+    for mode in range(256):
+        matrix, determinant = rotation_generator_affine_data(mode, max(size, 3))
+        matrices[matrix] = determinant
+    checked = {str(k): 0 for k in range(4)}
+    failures = []
+    for matrix, determinant in matrices.items():
+        for degree in range(4):
+            for cell in _cube_cells(size, degree):
+                checked[str(degree)] += 1
+                lhs = _boundary_of_mapped_cell(cell, matrix, size)
+                rhs = _mapped_boundary(cell, matrix, size)
+                if lhs != rhs:
+                    failures.append({
+                        "matrix": [list(row) for row in matrix],
+                        "degree": degree,
+                        "cell": repr(cell),
+                        "boundary_after_map": repr(lhs),
+                        "map_after_boundary": repr(rhs),
+                    })
+                    if len(failures) >= 5:
+                        break
+            if failures:
+                break
+        if failures:
+            break
+    return {
+        "grid": f"[0,{size}]^3",
+        "distinct_signed_permutation_maps": len(matrices),
+        "orientation_determinants": {
+            "+1": sum(det == 1 for det in matrices.values()),
+            "-1": sum(det == -1 for det in matrices.values()),
+        },
+        "cells_checked_by_degree_across_all_maps": checked,
+        "chain_map_identity_holds": not failures,
+        "failures": failures,
+        "interpretation": (
+            "Each uniform signed-permutation mode induces an exact cubical "
+            "chain automorphism on the fixed grid. This is not a coarse-to-fine "
+            "refinement/prolongation map."
+        ),
     }
 
 def self_test() -> dict[str, Any]:
@@ -484,6 +642,8 @@ def self_test() -> dict[str, Any]:
     assert rotation["distinct_coordinate_maps"] == 32
     assert rotation["orientation_counts_over_modes"] == {"+1": 128, "-1": 128}
     assert rotation["scalar_action_counts"] == {"increment": 128, "unchanged": 128}
+    assert rotation["bit3_preserves_coordinates"]
+    assert rotation["bit3_toggles_increment_rule"]
     uniform_rotation = audit_rotation_parity_lattice(
         [[[0, 0], [0, 0]], [[0, 0], [0, 0]]], size=3
     )
@@ -492,6 +652,10 @@ def self_test() -> dict[str, Any]:
     )
     assert uniform_rotation["single_parent_sample_rule"]
     assert not mixed_rotation["single_parent_sample_rule"]
+
+    cubical_chain = audit_uniform_cubical_chain_maps(size=2)
+    assert cubical_chain["distinct_signed_permutation_maps"] == 32
+    assert cubical_chain["chain_map_identity_holds"]
 
     return {
         "self_test": "PASS",
@@ -512,6 +676,12 @@ def self_test() -> dict[str, Any]:
             "The Boolean generator is a parity-sublattice data transform, not "
             "an octant mesh refinement. No cubical incidence chain-map, FEEC "
             "stability, or Mosco convergence claim is established."
+        "uniform_cubical_chain_maps": cubical_chain,
+        "scientific_limit": (
+            "Uniform signed-permutation modes induce exact chain automorphisms "
+            "of the fixed cubical grid. The mixed parity generator still has no "
+            "proved coarse-to-fine cubical refinement map; FEEC stability and "
+            "Mosco convergence remain open."
         ),
     }
 
