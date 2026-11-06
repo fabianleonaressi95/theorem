@@ -170,3 +170,28 @@ Non è corretto confondere una tripla di coordinate che trasforma come un'irrep 
 - [Repository fractogenesis](https://github.com/xcontcom/fractogenesis)
 
 L'audit è riferito al contenuto dei sorgenti consultati; per una riproducibilità piena andrebbe registrato anche lo SHA del commit upstream esatto e ripetuta la verifica quando il sorgente cambia.
+
+
+## 11. Primo test Koopman: chiusura di una tripla di osservabili
+
+È stato aggiunto `audit_koopman.py`, che esegue un test diagnostico su un toro periodico (3^3). Fissa una tabella totalistica casuale di 54 bit, genera configurazioni binarie, ne considera l'orbita sotto le 24 rotazioni cubiche proprie e misura tre primi momenti di Fourier:
+
+[
+f_i(a)=\frac{1}{L^3}\sum_{x\in(\mathbb Z/L\mathbb Z)^3}
+a(x)\sin\!\left(\frac{2\pi x_i}{L}\right),\qquad i=1,2,3.
+]
+
+Si adatta una matrice (A\in\mathbb R^{3\times3}) mediante minimi quadrati a
+[
+f(F_r(a))\simeq A f(a).
+]
+Il residuo relativo è
+[
+\varepsilon_{\rm cl}=\frac{\|Y-XA^T\|_F}{\|Y\|_F}.
+]
+
+**Interpretazione corretta:** se il residuo è grande, la tripla scelta non è un sottospazio chiuso (o approssimativamente chiuso a quella precisione) per l'azione di Koopman. La matrice (A) è soltanto una regressione proiettata; i suoi autovalori non sono automaticamente autovalori esatti dell'operatore di Koopman.
+
+L'augmentazione per orbite cubiche controlla l'equivarianza e riduce il bias statistico. Per una distribuzione di campionamento esattamente invariante sotto il gruppo, la regressione ortogonale su una tripla che trasforma come l'irrep vettoriale cubica deve essere scalare per il lemma di Schur. Un risultato quasi scalare è quindi atteso e **non** costituisce una scoperta di una dinamica supergolden.
+
+Il test confronta anche gli autovalori della matrice proiettata con (p(\lambda)=\lambda^3-\lambda^2-1), ma tale confronto è solo diagnostico. Per dimostrare una ricorrenza supergolden occorre prima individuare un sottospazio di molteplicità invariante, distinto dal tripletto spaziale, e verificare una restrizione esatta o un limite controllato dell'operatore.
