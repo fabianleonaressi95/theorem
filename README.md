@@ -1,137 +1,169 @@
-# THEOREM — Programma matematico RGS–PSU–PRISM–Q6
+# THEOREM — RGS–PSU–PRISM–Q6 Mathematical Research Programme
 
-Repository centrale della ricerca: biblioteca organizzata, mappa dei progetti, inventario delle fonti, registro delle evidenze e dimostrazioni.
+**THEOREM** is the central research repository for a structured programme in discrete geometry, spectral analysis, gauge theory, spin geometry, quantum-light models, and mathematical physics.
 
-## Struttura effettiva
+It brings together source literature, manuscript records, reproducible computational audits, theorem statements, model implementations, and explicitly tracked open problems. The repository is intended to make each mathematical claim traceable to its assumptions, derivation, implementation, and verification status.
+
+> **Scientific-status policy.** A symbolic proof, a numerical verification, a model-dependent conclusion, and a research hypothesis are different kinds of evidence. This repository labels them separately and does not treat computational agreement as a substitute for proof or physical validation.
+
+## Research scope
+
+The main research strands include:
+
+- **RGS–PSU–PRISM:** discrete geometric structures, variable-space limits, Dirichlet forms, Hodge operators, and candidate continuum descriptions.
+- **Q6 and QLG:** the 64-state six-bit configuration space, its graph and cell structures, discrete Dirac constructions, and the question of how quaternionic or two-component fibres can be related to Lorentzian spinors.
+- **Binary icosahedral geometry:** the group (2I), its irreducible representations, the Poincaré quotient (S^3/2I), and Rumin-type spectral and analytic-torsion calculations.
+- **Gauge theory and QFT:** Wilson operators, gauge-covariant discrete operators, QCD-related constructions, and continuum-resolvent questions.
+- **Einstein–Cartan and teleparallel gravity:** algebraic torsion, spin currents, Weyssenhoff-fluid assumptions, and the distinction between phenomenological closures and field-equation-derived results.
+- **Quantum-light and emergent-spacetime foundations:** a critical mathematical review of candidate geometric models, with conjectural physical interpretations kept separate from established results.
+
+These strands are connected only where an explicit mathematical map, shared operator, or derivation is available. Similar terminology or numerical coincidences alone do not establish equivalence.
+
+## Repository map
+
+The tree below summarizes the principal areas. The live repository may contain additional scripts, data, tests, and theorem records.
 
 ```text
-theroem/
-├── README.md
-├── library-inventory/
-│   └── README.md
-├── manuscripts/
-│   └── README.md
-├── monographs/
-│   ├── books-and-edited-volumes/
-│   ├── chapters/
-│   ├── theses/
-│   └── long-form-reviews/
-├── bibliography/
-│   ├── spin-glasses/
-│   ├── wyler-hua/
-│   ├── gauge-wilson-qft/
-│   ├── spin-geometry-quaternionic/
-│   ├── quantum-light-foundations/
-│   ├── gravity-teleparallel/
-│   ├── holography-emergent-spacetime/
-│   ├── discrete-geometry-combinatorics/
-│   ├── information-theory/
-│   └── critical-and-nonstandard/
-├── projects/
-├── models/
-├── evidence/
-├── open-problems/
-└── theorems/
+theorem/
+├── .github/workflows/       # Continuous-integration workflows
+├── audits/                  # Reproducible mathematical/computational audits
+├── bibliography/             # Source literature and formula audits
+├── data/                    # Machine-readable data and audit outputs
+├── docs/                    # User and research documentation
+├── models/                  # Explicit mathematical and phenomenological models
+├── open-problems/           # Validation matrices and unresolved questions
+├── projects/                # Research-strand index
+├── scripts/                 # Executable research and verification scripts
+├── tests/                   # Automated tests
+└── theorems/                # Numbered theorem statements and proof records
 ```
 
-Le directory sono state create. Le directory models/evidence/open-problems contengono registri iniziali; si aggiungeranno sottosezioni solo quando popolate.
+### Main indexes
 
-## Indice
-- **Inventario Library:** [fonti recuperate](library-inventory/README.md). La Library è stata scandita a livello di metadati: 388 elementi totali, 118 documenti PDF/testo/Markdown. L'inventario registra le fonti già identificate e segnala quelle ancora da classificare.
-- **Manoscritti:** [registro](manuscripts/README.md), separato dalla letteratura pubblicata.
-- **Monografie e capitoli:** [catalogo](monographs/README.md), con indice dei 99 contributi di *Gravitational Energy Control*, capitoli di *Against the Tide* e tesi di Maurice Weiler.
-- **Estrazione delle formule:** [registro maestro](bibliography/FORMULA_EXTRACTION_REGISTER.md), con schede di trascrizione e verifica delle equazioni delle fonti.
-- **Bibliografia:** [catalogo generale](bibliography/README.md), con vetri di spin, Wyler/Hua, gauge/Wilson/QCD, geometria spinoriale e quaternionica, luce, gravità, olografia, geometria discreta e fonti non standard.
-- **Progetti:** [mappa dei filoni](projects/README.md).
-- **Modelli:** [modello cosmologico torsione–Lambda](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione e test riproducibili.
-- **Dimostrazioni:** [theorems/](theorems/).
-- **Verifiche esterne:** [matrice delle verifiche matematiche](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md), con criteri di accettazione e registro delle risposte.
-- **Compatibilità Q6–Dirac–barioni:** [matrice T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md), con definizioni, operatori, dipendenze e problemi aperti.
+- [Bibliography and source catalogue](bibliography/README.md)
+- [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
+- [Source manuscripts and bibliography notes](bibliography/source-bibliographies/)
+- [Project map](projects/README.md)
+- [Theorem records](theorems/)
+- [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
+- [Q6 T012–T017 compatibility matrix](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md)
 
-## Registro dei teoremi
+The bibliography distinguishes published literature, manuscripts, non-standard sources, and material requiring further bibliographic verification. Missing metadata are left unresolved rather than guessed.
 
-| ID | Oggetto | Stato / perimetro |
+## Theorem and result register
+
+The table is a navigation index, not a claim that every item is a theorem in the same sense. The individual record controls the precise assumptions and status.
+
+| ID | Subject | Current scope and status |
 |---|---|---|
-| T001 | Teorema di Liouville | Teorema classico dimostrato; applicazione PSU condizionale |
-| T002 | Densità di Bergman su D5 | Calcolo geometrico; definizione del dominio da sottoporre ad audit |
-| T003 | No-go marginale atomica | Dimostrato per push-forward atomico esatto; non esclude limiti deboli |
-| T004 | Riemann sums verso Bergman | Dimostrato sotto ipotesi di compattezza e bordo nullo; non è una derivazione Wilson |
-| T005 | Supporto marginale Wilson Q6 | Formula e positività; non genera cutoff duro a beta finito |
-| T006 | Quoziente gauge 5-toro | Identificazione tramite reticoli dei caratteri |
-| T007 | Serie gauge-averaged | Espansione di Fourier assolutamente convergente |
-| T008 | Criterio Wilson–Bergman | Criterio sufficiente quantitativo; applicazione Q6 ancora aperta |
-| T009 | Forma quadratica efficace Wilson | Identità rank(Q_eff)=rank(C)−rank(RC); ipotesi di rango Q6 e limite theta ancora da verificare |
-| [T010](theorems/T010-rumin-spectrum-poincare-sphere.md) | Riduzione spettrale di Rumin su S³/2I | Teorema di proiezione per quozienti finiti; benchmark scalare verificato; spettro Rumin completo ancora da calcolare |
-| T016 | Nielsen–Ninomiya e audit Q6 | Ipotesi/topologia ricostruite; identità finite Q6 verificate; nessuna evasione del no-go theorem |
-| [T017](theorems/T017-q6-dirac-refinement.md) | Raffinamento cubico Q6–Dirac | Raffinamento esplicito \\(C_{2n})^{\\square6}\\); 64 corner zeros naïve; Wilson lift; limite di simbolo provato; convergenza spettrale completa aperta |
-| [T019](theorems/T019-q6-free-strong-resolvent.md) | Limite libero di risolvente forte Q6–Wilson | Convergenza forte generalizzata del risolvente sul toro piatto di lato 2; non è convergenza in norma né limite gauge-interagente |
-| [T020](theorems/T020-gauge-covariant-q6-strong-resolvent.md) | Limite gauge-covariante del risolvente forte Q6–Wilson | Consistenza cell-average (C) dimostrata con errore O(h); limite del risolvente forte generalizzato provato per connessioni SU(3) lisce fissate; CI audit non abeliano superata (run #9) |
-| [T021](theorems/T021-rumin-analytic-torsion-2I.md) | Torsione analitica di Rumin su S³/2I con twist irriducibili di 2I | Molien e continuazione di Hurwitz corretti; identità Gamma esatte in T023 (PR #20 in review); convenzioni operatoriali in dimensione 3 chiuse da T024 |
-| [T022](theorems/T022-eventual-hurwitz-rumin-2I.md) | Correzione della coda di Hurwitz per i twist di 2I | Decomposizione eventuale e scala (60^{-2s}) verificate in aritmetica esatta; torsioni confrontate a 70 cifre |
-| [T023](theorems/T023-gamma-reflection-rumin-2I.md) | Identità esatte Gamma–seno per i nove twist di Rumin | Riduzione simbolica in (mathbb Q(sqrt5)), inclusa la coda eccezionale (N=62); PR #20 aperta |
-| [T024](theorems/T024-rumin-kitaoka-operator-matching-3d.md) | Corrispondenza operatoriale Kitaoka–Rumin–Seshadri in dimensione 3 | Riscalamento identico, Laplaciani uguali, dualità di Hodge e convenzioni torsionali riconciliate; PR #21 aperta |
-| [T031](theorems/T031-rumin-2i-equivariance.md) | Equivarianza del complesso di Rumin sotto l'azione binaria icosaedrica | Discesa geometrica e twist unitari; modelli espliciti delle nove irriducibili sviluppati in T034–T036; applicazione alle basi armoniche Rumin ancora aperta |
-| [T032](theorems/T032-2i-irrep-molien-projectors.md) | Molien covariants esatti e interfaccia dei proiettori isotypici di 2I | Coefficienti interi dalle nove serie T021; decomposizione dimensionale verificata via test; modelli matriciali e caratteri espliciti ancora aperti |
-| [T033](theorems/T033-equivariant-rumin-torsion-synthesis.md) | Decomposizione isotypica del complesso di Rumin e additività della torsione | Teorema astratto di gruppo finito; sintesi T021/T024/T031/T032 sotto ipotesi esplicite; nessun nuovo valore torsionale |
-| [T034](theorems/T034-exact-2i-character-table.md) | Tabella esatta dei caratteri irriducibili di 2I | Ricostruzione su Q(√5) dai covarianti Molien T021/T032; ortogonalità e medie Molien sottoposte a test esatti |
-| [T035](theorems/T035-exact-binary-icosahedral-model.md) | Modello quaternionico esatto di 2I | 120 vertici 600-cell, tavola di moltiplicazione, classi e rappresentazione fondamentale su Q(√5) |
-| [T036](theorems/T036-explicit-2i-irreducible-models.md) | Modelli matriciali esatti delle nove irriducibili di 2I | Estrazione da potenze simmetriche, proiettori centrali, metriche hermitiane invarianti; test non ancora certificati in CI |
-| [T034](theorems/T034-explicit-2i-representations.md) | Nove rappresentazioni irriducibili esplicite di 2I, tabella dei caratteri esatta, proiettori e matrix units | Costruzione esatta su Q(√5, i); 19 test esatti eseguiti; Molien da caratteri valido per ogni grado; modelli unitari ortonormali per 3,3′,4′,5,6 e matrici di Rumin ancora aperti (nota: il numero T034 è già usato da `T034-exact-2i-character-table`; sovrapposizione parziale con T036, vedi nota nel teorema; da rinumerare a cura del maintainer) |
+| T001 | Liouville theorem | Classical theorem; the PSU application is conditional on its stated hypotheses. |
+| T002 | Bergman density on (D_5) | Geometric calculation; the domain definition remains subject to audit. |
+| T003 | Atomic marginal no-go result | Proved for an exact atomic push-forward; does not exclude weak limits. |
+| T004 | Riemann sums and Bergman limits | Proved under compactness and null-boundary assumptions; not a Wilson derivation. |
+| T005 | Wilson Q6 marginal support | Formula and positivity result; no hard cutoff at finite beta follows. |
+| T006 | Gauge quotient on a 5-torus | Character-lattice identification. |
+| T007 | Gauge-averaged series | Absolutely convergent Fourier expansion under the stated assumptions. |
+| T008 | Wilson–Bergman criterion | Quantitative sufficient criterion; the Q6 application remains open. |
+| T009 | Effective Wilson quadratic form | Rank identity established; Q6 rank and theta-limit hypotheses require verification. |
+| [T010](theorems/T010-rumin-spectrum-poincare-sphere.md) | Rumin spectral reduction on (S^3/2I) | Finite-quotient projection theorem and scalar benchmark; the full Rumin spectrum remains to be computed. |
+| T016 | Nielsen–Ninomiya and Q6 audit | Relevant hypotheses and topology reconstructed; finite Q6 identities checked; no evasion of the no-go theorem is claimed. |
+| [T017](theorems/T017-q6-dirac-refinement.md) | Cubic Q6–Dirac refinement | Explicit ((C_{2n})^{square 6}) refinement, 64 naive corner zeros, Wilson lift, and symbol-limit result; full spectral convergence remains open. |
+| [T019](theorems/T019-q6-free-strong-resolvent.md) | Free Q6–Wilson strong-resolvent limit | Generalized strong-resolvent convergence on a flat torus of side 2; not norm convergence or an interacting gauge limit. |
+| [T020](theorems/T020-gauge-covariant-q6-strong-resolvent.md) | Gauge-covariant Q6–Wilson resolvent limit | Cell-average consistency with (O(h)) error and generalized strong-resolvent limit for fixed smooth SU(3) connections, under the stated assumptions. |
+| [T021](theorems/T021-rumin-analytic-torsion-2I.md) | Rumin analytic torsion on (S^3/2I) | Molien and Hurwitz-continuation framework; see T022–T024 for subsequent corrections and operator conventions. |
+| [T022](theorems/T022-eventual-hurwitz-rumin-2i.md) | Eventual Hurwitz-tail correction | Exact-arithmetic decomposition and scale check; torsions compared at high precision. |
+| [T023](theorems/T023-gamma-reflection-rumin-2i.md) | Exact Gamma–sine identities for (2I) twists | Symbolic reduction over (mathbb Q(sqrt5)), including the exceptional tail; review status is recorded in the PR history. |
+| [T024](theorems/T024-rumin-kitaoka-operator-matching-3d.md) | Kitaoka–Rumin–Seshadri operator matching in dimension 3 | Scaling, Laplacians, Hodge duality, and torsion conventions reconciled under the stated definitions. |
+| [T031](theorems/T031-rumin-2i-equivariance.md) | Rumin-complex equivariance under binary icosahedral action | Geometric descent and unitary twists; explicit irreducible models are developed in T034–T036. |
+| [T032](theorems/T032-2i-irrep-molien-projectors.md) | Exact Molien covariants and isotypic projectors for (2I) | Integer coefficients and dimension decompositions checked; explicit matrix models are treated separately. |
+| [T033](theorems/T033-equivariant-rumin-torsion-synthesis.md) | Isotypic Rumin-complex decomposition | Finite-group synthesis under explicit hypotheses; introduces no independent torsion value. |
+| [T034](theorems/T034-exact-2i-character-table.md) | Exact character table of (2I) | Reconstruction over (mathbb Q(sqrt5)); orthogonality and Molien averages are checked exactly. |
+| [T035](theorems/T035-exact-binary-icosahedral-model.md) | Exact quaternionic model of (2I) | 120 vertices of the 600-cell, multiplication table, conjugacy classes, and fundamental representation. |
+| [T036](theorems/T036-explicit-2i-irreducible-models.md) | Explicit matrix models of the nine irreducible representations of (2I) | Symmetric-power construction, central projectors, and invariant Hermitian metrics; CI certification and downstream Rumin matrices remain tracked separately. |
+| [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Einstein–Cartan Weyssenhoff spin scaling | Under the stated minimal assumptions, (n\propto a^{-3}), (s^2\propto a^{-6}), and the effective spin correction is negative and stiff. This is not a dust-like (a^{-3}) component. |
+| [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md) | Mosco convergence on varying RGS–PRISM spaces | Sets comparison maps and compactness requirements; periodic-cycle calibration is not a proof for the actual RGS–PRISM refinement sequence. |
+| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Microscopic spin current and quadratic invariant | Self/pair decomposition framework; physical RGS–PSU correlator and normalization remain outstanding. |
+| [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Q6/PRISM microscopic spin correlator | Shell correlators and self/pair decomposition; current numerical inputs do not constitute physical spin data. |
+| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Lorentzian EC–Dirac axial current on Q6/PRISM | Dirac axial-current moments, shell-resolved tensor correlators, EC contact term, and provenance limitations. |
+| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | QLG-to-Dirac intertwiner classification | A two-complex-dimensional family of Spin(3)-equivariant isometric embeddings; no canonical embedding is selected. |
+| [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md) | Lorentz-covariant QLG–Dirac embedding | The two Weyl embeddings are the (gamma^5) eigenspaces; parity exchanges them. Lorentz covariance does not select one chirality sign. |
 
-La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md).
+**Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
-Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
+The file `001-fixed-lattice-temporal-wilson-limit.md` is a pre-existing result and is not part of the T001–T007 numbering sequence.
 
-| [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
-| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
-| [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Correlatore microscopico su Q6 e PRISM | Shell correlators, decomposizione self/pair e fit condizionali; dati fisici RGS–PSU ancora da fornire |
-| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |\n| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | Classificazione degli intertwiner QLG a due componenti → Dirac a quattro componenti | Famiglia equivarante complessa di dimensione 2 sotto Spin(3); nessun embedding canonico né estensione ai boost |\n| [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md) | Estensione lorentziana e selezione chirale QLG–Dirac | Gli embedding invarianti sono i due autospazi di gamma5; boost fissano la chiralità ma non il segno; parità li scambia |
+## Selected research records
 
-## Collegamento con il filone Nielsen/Hopf
+### RGS cellular dynamics benchmark
 
-La bibliografia citata nel manoscritto di Jennifer Lorraine Nielsen è registrata separatamente in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 sviluppa un risultato matematico indipendente sul quoziente Hopf/Seifert (S^3/2I); non attribuisce il teorema a Nielsen e non considera il suo manoscritto una validazione delle affermazioni qui dimostrate.
+- [Python benchmark](scripts/rgs_cellular_dynamics_benchmark.py)
+- [Automated tests](tests/test_rgs_cellular_dynamics_benchmark.py)
+- [User guide](docs/RGS_CELLULAR_DYNAMICS_README.md)
+- [Research roadmap](docs/RGS_CELLULAR_DYNAMICS_ROADMAP.md)
 
-## Regole scientifiche
+**Status:** initial implementation and smoke-test stage. This is not yet a theoretical result or a statistical validation of genetic evolution. The next methodological requirements include paired random seeds, independent validation, and multi-objective evaluation.
 
-1. Un teorema per volta, con enunciato, ipotesi, lemmi, prova e conseguenze.
-2. Niente workflow giganteschi e niente script come sostituti di dimostrazioni.
-3. Distinguere dimostrato, condizionale, verificato numericamente, candidato, ipotesi e aperto.
-4. Non ripetere audit già conclusi senza una ragione matematica.
-5. Le fonti si catalogano tutte; si usano in una prova solo quando sostengono un passaggio preciso.
-6. Non inventare titoli, DOI, autori o metadati: le lacune restano visibili.
-7. Le teorie non standard sono conservate e analizzate criticamente, non assunte vere né scartate senza esame.
+### Phenomenological torsion–Lambda FLRW closure
 
-## Stato del riordino
+The [torsion–Lambda dust closure](models/TORSION_LAMBDA_DUST_CLOSURE.md) is implemented in `scripts/torsion_lambda_dust_closure.py` and tested in `tests/test_torsion_lambda_dust_closure.py`.
 
-La struttura bibliografica è stata avviata e collegata ai materiali recuperati dalla Library. Il catalogo non è ancora esaustivo: restano file con nomi generici, capitoli citati in conversazione ma non reperiti come file autonomi e riferimenti bibliografici da disambiguare.
+**Status:** a phenomenological consistency model. It is not presented as a derivation from algebraic Einstein–Cartan torsion field equations.
 
+### Einstein–Cartan spin-scaling audit
 
-## Benchmark dinamica cellulare RGS
+Under the minimal Weyssenhoff assumptions recorded in T047—conserved spin per particle and local isotropic averaging—the number density scales as (a^{-3}), the spin-squared term as (a^{-6}), and the effective correction has stiff equation of state. Consequently, this term cannot be identified directly with the dust-like (a^{-3}) component of the phenomenological closure in PR #77 under those same assumptions.
 
-Il benchmark iniziale CA è versionato nel repository:
-- [Motore Python v0.1](scripts/rgs_cellular_dynamics_benchmark.py)
-- [Test automatici](tests/test_rgs_cellular_dynamics_benchmark.py)
-- [Guida d'uso](docs/RGS_CELLULAR_DYNAMICS_README.md)
-- [Roadmap scientifica](docs/RGS_CELLULAR_DYNAMICS_ROADMAP.md)
+See [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md), `scripts/ec_spin_fluid_scaling.py`, and `tests/test_ec_spin_fluid_scaling.py`.
 
-Stato: implementazione e smoke test iniziali. Non è ancora un risultato teorico né una validazione statistica dell'evoluzione genetica. Il passo successivo è implementare la ricerca evolutiva con semi appaiati, validazione indipendente e obiettivi multi-criterio.
+### RGS–PRISM forms and changing spaces
 
+T048 formulates the requirements for Mosco convergence on varying Hilbert spaces. It distinguishes comparison maps, strong-resolvent convergence, and spectral convergence, and identifies uniform compactness/tightness as a necessary additional issue before eigenvalue convergence with multiplicities can be concluded.
 
-## Modello cosmologico torsione–Lambda
+The periodic-cycle example is a calibration model only. The actual RGS–PRISM refinement sequence and its compactness proof remain open.
 
-La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.md](models/TORSION_LAMBDA_DUST_CLOSURE.md), con implementazione in `scripts/torsion_lambda_dust_closure.py` e test in `tests/test_torsion_lambda_dust_closure.py`. È un modello fenomenologico di consistenza; non viene presentato come derivazione della torsione algebrica Einstein–Cartan.
+See [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md), `scripts/rgs_prism_mosco_calibration.py`, and `tests/test_t048_rgs_prism_mosco_calibration.py`.
 
+### QLG–Dirac embedding and Lorentz chirality
 
-## Einstein–Cartan: audit della legge di scala dello spin
+T049C classifies the Spin(3)-equivariant embeddings of a two-component QLG fibre into the spatial restriction of the four-component Dirac representation. The family is not canonical.
 
-T047 dimostra, nel modello minimale di Weyssenhoff con spin per particella conservato e media locale isotropa, che il termine quadratico algebrico di spin scala come a⁻⁶ e ha equazione di stato stiff. Questo esclude l'identificazione diretta con la componente fenomenologica dust-like a⁻³ della PR #77, sotto le ipotesi dichiarate. La derivazione e i test sono in `theorems/T047-ec-weyssenhoff-spin-scaling.md`, `scripts/ec_spin_fluid_scaling.py` e `tests/test_ec_spin_fluid_scaling.py`.
-## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
+T049D then imposes Lorentz covariance using the Clifford convention documented in the source implementation, with signature ((-+++)). The two invariant embeddings are the two Weyl sectors, represented by
+[
+K_s=\frac{1}{\sqrt{2}}\begin{pmatrix}I_2\\sI_2\end{pmatrix},
+\qquad s=\pm1.
+]
+Parity exchanges the two sectors. Thus Lorentz covariance identifies the two chiral representation choices but does not dynamically select the sign. A parity-invariant theory must retain both sectors unless an additional parity-breaking mechanism or boundary condition is supplied.
 
-T049 costruisce il ponte tra corrente microscopica di spin, correlatore connesso e invariante quadratico. T049A implementa il correlatore spaziale vettoriale per shell su Q6 e PRISM. T049B calcola J5^a direttamente dagli spinori Dirac nella convenzione EC sorgente, distingue il contatto lorentziano dalla proiezione spaziale nel frame di riposo del fluido, valuta M^ab e i correlatori tensoriali per shell, e separa self/pair. La proiezione fornisce un candidato per s² di Weyssenhoff, ma la normalizzazione Noether J5↔S_munu resta da derivare. Inoltre la fibra QLG archiviata è 2-componenti per nodo, mentre il bilineare EC–Dirac richiede 4 componenti: manca ancora un embedding equivarante motivato, non viene assunto un raddoppio arbitrario. Nessun esponente cosmologico fisico è attribuito a RGS–PSU.
+The QLG SU(2) fibre by itself does not determine a unique Spin(1,3) extension. No physical chirality-selection mechanism or new cosmological spin law is claimed.
 
-T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
+See [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md), [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md), and the corresponding scripts and tests under `scripts/` and `tests/`.
 
-- Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
-- Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
-- Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
-\n\n### T049C — Intertwiner QLG–Dirac\n\nT049C dimostra che la fibra QLG fondamentale di SU(2), immersa nella restrizione spaziale della rappresentazione Dirac U⊕U, ammette una famiglia complessa bidimensionale di intertwiner K=(αI₂, βI₂)ᵀ. La condizione d'isometria è |α|²+|β|²=1. Quindi l'equivarianza 2I/Spin(3) non seleziona un embedding fisico; i boost di Spin(1,3) non sono definiti sulla fibra QLG a due componenti. L'audit numerico e i test sono in scripts/q6_qlg_dirac_intertwiner.py e tests/test_q6_qlg_dirac_intertwiner.py.\n\n\n### T049D — Estensione lorentziana e chiralità\n\nT049D usa le matrici Clifford già definite in `rgs-qlg-quaternion-bridge` (firma \\((-+++ )\\)). Nella base sorgente \\(\\gamma^5=\\begin{psmallmatrix}0&I\\\\I&0\\end{psmallmatrix}\\); i due embedding Weyl sono \\(K_s=2^{-1/2}(I_2,sI_2)^T\\). Essi sono invarianti sotto rotazioni e boost, con generatori indotti \\(B_i^{(s)}=-s\\sigma_i/2\\). I blocchi coordinati superiore/inferiore di T049C non sono boost-invarianti. La parità scambia \\(K_+\\) e \\(K_-\\): una fibra singola richiede una scelta chirale/orientata, mentre una teoria parità-invariante deve contenere entrambe. La simmetria Lorentziana non seleziona il segno. Motore e test: `scripts/q6_qlg_dirac_lorentz_chirality.py`, `tests/test_q6_qlg_dirac_lorentz_chirality.py`.\n
+## Connection to the Nielsen/Hopf research thread
+
+The bibliography cited in Jennifer Lorraine Nielsen's manuscript is catalogued separately in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 develops an independent mathematical result concerning the Hopf/Seifert quotient (S^3/2I). It does not attribute that theorem to Nielsen, and the manuscript is not treated as validation of the results proved here.
+
+## Research and verification principles
+
+1. **One claim at a time.** A theorem record should state definitions, hypotheses, lemmas, proof, and consequences.
+2. **Proofs are not replaced by scripts.** Code supports reproducibility and checks; it does not substitute for a mathematical argument.
+3. **Evidence is labelled.** Use precise categories such as proved, conditional, numerically verified, candidate, conjectural, and open.
+4. **No unsupported physical interpretation.** A discrete identity or numerical fit does not by itself establish a physical law.
+5. **Sources are traceable.** A source is used in a proof only when it supports a specific mathematical step.
+6. **No invented bibliographic metadata.** Missing authors, titles, dates, and identifiers remain explicitly unresolved.
+7. **Critical treatment of non-standard sources.** Such material is preserved for analysis, but neither assumed true nor dismissed without examination.
+8. **Reproducibility matters.** Scripts, tests, data provenance, conventions, and residuals should be recorded alongside computational claims.
+
+## Repository status and next priorities
+
+The repository contains a growing bibliography, theorem records, numerical audits, and model implementations. It is still an evolving research workspace rather than a completed monograph or a blanket validation of the RGS–PSU programme.
+
+Current priorities include:
+
+- completing the bibliographic inventory and resolving duplicate or ambiguous theorem numbering;
+- keeping theorem statements, scripts, tests, and README indexes synchronized;
+- establishing the actual RGS–PRISM refinement sequence and proving the required compactness for a Mosco/continuum limit;
+- supplying physically normalized four-component spinor data and deriving the Noether normalization needed for a physical spin invariant;
+- deriving, rather than postulating, any QLG mechanism that could select a Lorentzian chirality;
+- separating model-level consistency from empirical or phenomenological validation.
+
+Contributions and critical mathematical feedback are welcome, especially when they identify a precise statement, missing hypothesis, counterexample, or reproducible verification.
