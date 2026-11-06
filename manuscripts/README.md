@@ -15,6 +15,7 @@ These notes are deliberately narrower than the source documents. They preserve u
 
 - [Technical audit of T047–T049D](T047_T049D_TECHNICAL_AUDIT.md) — EC spin scaling, varying-space calibration, microscopic correlators, and the corrected Lorentz boost convention.
 - [Mosco convergence for curved cubical refinements](MOSCO_CURVED_CUBICAL_REFINEMENT_OPEN_PROBLEM.md) — standalone open-problem dossier, five-factor PRISM refinement baseline, non-affine cell-map hypotheses, Mosco proof obligations, compactness and review questions.
+  - Five-dimensional flat calibration: [generator](../scripts/rgs_prism_product_refinement.py) and [M0–M4 tests](../tests/test_t048_rgs_prism_product_refinement.py); this does not prove the curved Mosco limit.
 
 ## Theorem extraction from audited sources
 
