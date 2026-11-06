@@ -201,6 +201,7 @@ Consequently, an octant-face matching table is not the right conformity test for
 
 The new tests cover the parity indexing, uniform-rule case, and mixed-reflection obstruction. The next mathematical step is to define an actual cubical cell map (including vertices, edges, faces, and 3-cells) and verify its boundary/incidence commutation. A voxel-index sampling rule alone does not supply that map.
 
+
 ### 3.3 Rotation-enhanced generator: exact mode audit
 
 The distinct source `fractal_3d_with_rotaions.js` (spelling as in the repository) uses an 8-bit mode. Its coordinate action is a composition of:
@@ -319,4 +320,5 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 \`\`\`
 
 The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful parity-lattice refinement condition. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.
+The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful Boolean parity-lattice sampling condition, and all 256 modes of the rotation-enhanced generator. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.
 The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, Boolean and rotation-generator parity sampling, all 256 rotation modes, and exact cubical chain identities for the 32 distinct uniform signed-permutation maps on a fixed grid. It does not certify a coarse-to-fine refinement map, FEEC stability, or Mosco convergence.

@@ -223,6 +223,7 @@ def audit_parity_lattice_refinement(
     geometric cell map or a cubical chain map.  Boolean complement is tracked
     separately because it changes data, not coordinates.
     """
+    """Check whether the eight parity children agree on their parent source voxel."""
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
     if len(drawar) != 2 or any(
@@ -677,6 +678,10 @@ def self_test() -> dict[str, Any]:
         "rotation_generator": rotation,
         "rotation_parity_uniform_rules": uniform_rotation,
         "rotation_parity_mixed_rules": mixed_rotation,
+        "scientific_limit": (
+            "The Boolean generator is a parity-sublattice data transform, not "
+            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
+            "stability, or Mosco convergence claim is established."
         "uniform_cubical_chain_maps": cubical_chain,
         "scientific_limit": (
             "Uniform signed-permutation modes induce exact chain automorphisms "
