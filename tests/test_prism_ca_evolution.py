@@ -107,6 +107,10 @@ def test_invalid_configurations_and_empty_initial_bank_are_rejected():
     with pytest.raises(ValueError):
         FitnessConfig(target_density=1.1).validate()
     with pytest.raises(ValueError):
+        FitnessConfig(activity_weight=float("nan")).validate()
+    with pytest.raises(ValueError):
+        EvolutionConfig(population_size=4, mutation_rate=float("nan")).validate()
+    with pytest.raises(ValueError):
         evolve_rules(graph, [], steps=1)
     with pytest.raises(ValueError):
         evolve_initial_states(graph, -1, steps=1)
