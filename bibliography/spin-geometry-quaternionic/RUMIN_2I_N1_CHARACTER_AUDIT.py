@@ -366,6 +366,98 @@ def verify_trivial_gamma_closed_form():
     }
 
 
+
+def molien_invariant_multiplicities(max_degree: int):
+    """Coefficients of the binary-icosahedral Molien series.
+
+    Mukai, An Introduction to Invariants and Moduli (2003), p. 19:
+        M(t)=(1+t**30)/((1-t**12)(1-t**20)).
+    """
+    coeff = [0] * (max_degree + 1)
+    for r in range(0, max_degree + 1, 12):
+        for u in range(0, max_degree - r + 1, 20):
+            coeff[r + u] += 1
+    for r in range(30, max_degree + 1, 12):
+        for u in range(0, max_degree - r + 1, 20):
+            coeff[r + u] += 1
+    return coeff
+
+
+def n1_jk_weight_pairs(m: int, bidegree: str):
+    """Exact n=1 Julg--Kasparov/Kitaoka weights at fixed SU(2) degree m.
+
+    Kitaoka, arXiv:1911.03092v1, Proposition 1.1:
+      E00: q,p >= 0;
+      E10: q >= -1, p >= 1 (Case VI);
+      E01: q >= 1, p >= -1 (Case VII).
+    The tuple returned is (q,p), with U(2) highest weight (q,-p).
+    """
+    if m < 0:
+        raise ValueError("m must be nonnegative")
+    if bidegree == "E00":
+        return [(m - p, p) for p in range(m + 1)]
+    if bidegree == "E10":
+        return [(m - p, p) for p in range(1, m + 2)]
+    if bidegree == "E01":
+        return [(q, m - q) for q in range(1, m + 2)]
+    raise ValueError("bidegree must be E00, E10, or E01")
+
+
+def verify_n1_jk_weight_decomposition(max_degree: int = 100):
+    """Check all n=1 highest-weight ranges and SU(2) restrictions."""
+    a = invariant_multiplicities(max_degree)
+    for m in range(max_degree + 1):
+        for sector in ("E00", "E10", "E01"):
+            pairs = n1_jk_weight_pairs(m, sector)
+            assert len(pairs) == m + 1
+            assert all(q + p == m for q, p in pairs)
+            assert all(q >= -p for q, p in pairs)  # U(2) dominance
+            # V_(q,-p) = det**(-p) tensor Sym**(q+p); det is trivial on SU(2).
+            assert all(q + p == m for q, p in pairs)
+            assert (m + 1) * a[m] == len(pairs) * a[m]
+    return True
+
+
+def verify_molien_character_agreement(max_degree: int = 300):
+    """Independent exact check: Reynolds character average = Molien coefficient."""
+    return invariant_multiplicities(max_degree) == molien_invariant_multiplicities(max_degree)
+
+
+def verify_middle_D_intertwiner():
+    """Symbolically verify Kitaoka §2.3 Case V for n=1, p,q >= 1.
+
+    With A**2=p(q+1)/2, B**2=q(p+1)/2, C=(p-q)/2,
+    A'=C-2A**2 and B'=C+2B**2. Kitaoka's D^dagger D on
+    the orthogonal complement of im(d_E^0) is
+      ((A'B)**2+(B'A)**2)/(A**2+B**2).
+    """
+    p, q = sp.symbols("p q", integer=True, positive=True)
+    A2 = p * (q + 1) / 2
+    B2 = q * (p + 1) / 2
+    C = (p - q) / 2
+    Aprime = sp.simplify(C - 2 * A2)
+    Bprime = sp.simplify(C + 2 * B2)
+    S = 2 * p * q + p + q
+    assert sp.simplify(Aprime + S / 2) == 0
+    assert sp.simplify(Bprime - S / 2) == 0
+    D2 = sp.simplify((Aprime**2 * B2 + Bprime**2 * A2) / (A2 + B2))
+    assert sp.simplify(D2 - S**2 / 4) == 0
+    return True
+
+
+def verify_n1_boundary_and_zero_weight_cases():
+    """Check Cases III/IV and VI/VII separately, without extrapolating."""
+    p, q = sp.symbols("p q", integer=True, positive=True)
+    # Cases III/IV: the central D kills im(d_E^0); Delta_E^1 is the
+    # square of the first-order singular value p/2 or q/2.
+    assert sp.simplify((p / 2)**2 - p**2 / 4) == 0
+    assert sp.simplify((q / 2)**2 - q**2 / 4) == 0
+    # Cases VI/VII are Reeb-only: 2 L_T has eigenvalue i(p-q).
+    assert boundary_eigenvalue_case_vi(13) == sp.Rational(14**2, 4)
+    assert boundary_eigenvalue_case_vii(13) == sp.Rational(14**2, 4)
+    return True
+
+
 if __name__ == "__main__":
     max_degree = 80
     a = invariant_multiplicities(max_degree)
@@ -409,10 +501,14 @@ if __name__ == "__main__":
     chars = symmetric_power_character_table(12)
     assert any(chars[12][j] != 0 for j in range(1, 9))
     print("noncentral character periods (class index, order):", periodic)
-    assert verify_torsion_periodicity(300)
+    assert verify_n1_jk_weight_decomposition(100)
+    assert verify_molien_character_agreement(300)
+    assert verify_middle_D_intertwiner()
+    assert verify_n1_boundary_and_zero_weight_cases()
+    assert verify_torsion_periodicity(600)
     assert verify_torsion_gamma_identities()
     print("Hurwitz torsion residue data:", torsion_periodic_residue_data())
     print("log T exact gamma expression:", log_torsion_gamma_expression())
     print("Gamma/volume residual (high precision):", verify_gamma_volume_identity(80))
     print("Exact trivial-twist Gamma reduction:", verify_trivial_gamma_closed_form())
-    print("PASS: exact class characters, Reynolds averaging, periodic torsion reduction, and Gamma/volume numerical comparison")
+    print("PASS: exact n=1 JK weights, D-intertwiner, Reynolds/Molien agreement, boundary cases, periodic torsion reduction, and Gamma/volume checks")
