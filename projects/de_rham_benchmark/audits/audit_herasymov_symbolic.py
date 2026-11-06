@@ -11,6 +11,7 @@ import argparse
 import json
 import math
 import sys
+from itertools import product
 from itertools import combinations, product
 from typing import Any
 
@@ -214,13 +215,16 @@ def parity_lattice_source_index(
 def audit_parity_lattice_refinement(
     drawar: list[list[list[int]]] | None = None, size: int = 4
 ) -> dict[str, Any]:
-    """Audit whether parity-selected samples agree on each parent voxel.
+    """Audit whether all eight parity-selected children agree on one parent source voxel.
 
     A parent-cell sampling rule is single-valued only if all eight children
     of one parent voxel sample the same parent source index. This is a
     source-index consistency test, not a geometric cell map or cubical
     chain-map certificate. Boolean complement is tracked separately because
     it changes data, not coordinates.
+    This checks source-index consistency only; it does not establish a
+    geometric cell map or a cubical chain map. Boolean complement is tracked
+    separately because it changes data, not coordinates.
     """
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]

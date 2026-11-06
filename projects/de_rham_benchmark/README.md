@@ -154,6 +154,8 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
+The Boolean 3D source uses eight interleaved parity sublattices, not contiguous octants. The audit tests whether those rules give a single parent source sample per parent voxel; it does not certify a cubical incidence chain map or a conforming FEEC mesh.
+The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes, checks their coordinate bijections and orientation, and separates scalar increment semantics from geometry. These are voxel-index audits, not cubical incidence chain maps or FEEC conformity proofs.
 The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes and separates coordinate action from scalar increments. In addition, all 32 distinct uniform signed-permutation maps are checked as exact chain automorphisms of a fixed cubical grid. This does not establish a coarse-to-fine refinement map for mixed parity rules or FEEC convergence.
 
 
@@ -196,3 +198,15 @@ pytest -q projects/de_rham_benchmark/tests/test_herasymov_parity_face_conformity
 This characterizes the explicit cellwise-affine geometric interpretation;
 it does not assert that the original voxel-value recursion alone defines
 that geometry, nor does it prove FEEC stability or Mosco convergence.
+
+
+## Theorematic foundations
+
+The formal statements, proof sketches, hypotheses, open obligations, and theorem-status ledger are collected in [THEOREMATIC_FOUNDATIONS.md](docs/THEOREMATIC_FOUNDATIONS.md). This document distinguishes universal proofs from finite CI audits and conditional FEEC/Mosco convergence statements.
+
+
+## Theorematic and analytical status
+
+- [Theorematic foundations](docs/THEOREMATIC_FOUNDATIONS.md): exact cubical algebra, Stokes commutation, Herasymov conformity criterion, and conditional Mosco framework.
+- [Uniform FEEC projection stability theorem](docs/PROJECTION_STABILITY_THEOREM.md): local mass equivalence, sufficient bounded-projection criterion, and the canonical-interpolation obstruction.
+- [Independent mathematical audit](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md): verified source-level findings and remaining analytical gaps.

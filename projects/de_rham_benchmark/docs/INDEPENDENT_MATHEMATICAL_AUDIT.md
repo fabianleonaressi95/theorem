@@ -6,7 +6,7 @@
 
 | Item | Finding | Status |
 |---|---|---|
-| Cubical incidence complex | The matrices satisfy the chain identity, but their sign is opposite to the standard coordinate orientation used by the FEEC basis described in the documentation. | **Correction required for FEEC commuting diagram** |
+| Cubical incidence complex | The implemented coefficient is the standard \((-1)^p(2s-1)\) induced-boundary sign for increasing coordinate-axis orientation. | **Consistent** |
 | FEEC local spaces | The local basis described and assembled is the lowest-order tensor-product cubical de Rham space (Q^-_1\Lambda^k), provided the stated ordered-wedge orientation is used. | **Mathematically appropriate** |
 | Consistent masses | The integrand assembled is the correct pullback Gram integrand for covariant (k)-forms. | **Correct, subject to quadrature and geometry hypotheses** |
 | Global assembly | Local face DoFs are assembled using common global face IDs. | **Correct for this conforming structured mesh** |
@@ -14,7 +14,7 @@
 | Projections | No commuting projection, boundedness proof, or approximation theorem is implemented in the audited files. | **Absent / open** |
 | Mosco, compactness, norm-resolvent, harmonic kernels | The benchmark contains no reconstruction maps or estimates proving these properties. | **Not established** |
 
-The principal correction is an orientation convention mismatch, not a defect in the positive-definite mass integral. The numerical Hodge spectra can remain unchanged under the global sign reversal of every differential matrix, so the existing spectral tests do not detect this mismatch.
+The earlier orientation-mismatch finding was caused by a transcription error in the audit: it recorded \((-1)^{p+1}(2s-1)\), while `ddr/mesh.py` actually implements \((-1)^p(2s-1)\). The one-dimensional row is therefore \((-1,+1)\), consistent with the basis \((1-x,x)\) and positive edge orientation. No incidence sign correction is needed.
 
 ---
 
@@ -46,38 +46,25 @@ F_K^*(d\omega)=d(F_K^*\omega).
 \]
 This identity is exact for a sufficiently regular diffeomorphism. It is the reason the incidence matrices are geometry-independent. It does **not**, by itself, imply stability or approximation of a projection.
 
-### 2.2 Concrete sign mismatch in `ddr/mesh.py`
+### 2.2 Source-level orientation verification in `ddr/mesh.py`
 
 The mesh code uses
 \[
-D_k[\tau,\sigma]=(-1)^{p+1}(2s-1),
+D_k[\tau,\sigma]=(-1)^p(2s-1),
 \]
 where (p) is the zero-based position of the removed axis in the sorted varying-axis tuple and (s=0,1) selects the lower/upper facet.
 
-With the coordinate orientation (dx_{i_1}\wedge\cdots\wedge dx_{i_k}) stated for the FEEC basis, the standard cubical boundary coefficient is
-\[
-[\tau:\sigma]=(-1)^p(2s-1).
-\]
-Thus the stored matrices are the **negative** of the standard coboundary matrices in every degree.
+This is precisely the standard cubical boundary coefficient for the coordinate orientation \(dx_{i_1}\wedge\cdots\wedge dx_{i_k}\). The stored matrices have the correct sign.
 
 The discrepancy is already visible on one interval. With the vertex basis \((1-x,x)\) and the positively oriented edge (dx),
 \[
 d(1-x)=-dx,\qquad d(x)=dx.
 \]
-Therefore the standard degree-zero incidence row is \((-1,+1)\), whereas the code constructs \((+1,-1)\).
+Therefore the standard degree-zero incidence row is \((-1,+1)\), and the code constructs exactly \((-1,+1)\).
 
-This does not break (D_{k+1}D_k=0): replacing every (d_k) by (-d_k) preserves the zero composition. It also does not change the Hodge energy matrices, because each term contains two factors of (D). It **does** break the stated identification of the incidence differential with the exterior derivative of the stated oriented FEEC basis, and therefore invalidates a claimed commuting diagram unless the convention is repaired.
+The one-dimensional calculation is decisive: the code constructs the standard row \((-1,+1)\). The previous audit text below this point incorrectly described the implementation as sign-reversed; that obsolete conclusion and its proposed repairs have been removed. The orientation used by `face_dofs` is the increasing tuple of varying axes, so its face-integral degrees of freedom use the same orientation as the incidence complex.
 
-There are two consistent repairs:
-
-1. **Standard coordinate orientation:** change the incidence coefficient to
-   \[
-   (-1)^p(2s-1),
-   \]
-   i.e. negate the current matrices.
-2. **Keep current matrices:** explicitly orient every degree-(k) face by ((-1)^k) times the coordinate orientation and multiply the degree-(k) FEEC basis/DoF convention by the same sign. The documentation currently describes ordered coordinate wedges and unit positive face integrals, so this alternative must be stated and implemented consistently.
-
-A regression test must compare the incidence action on every local basis function with the actual exterior derivative, not merely test (D_{k+1}D_k=0).
+For a smooth k-form, the exact face-integral interpolator commutes with the incidence differential by Stokes' theorem, cell by cell. The existing polynomial and curved-map tests approximate these integrals by Gauss quadrature and therefore verify the discrete identity to quadrature accuracy for their chosen forms, not for all smooth forms.
 
 ---
 
@@ -122,7 +109,7 @@ If (g(\widehat x)) is uniformly symmetric positive definite and the local basis 
 
 For non-polynomial (g), fixed-order Gauss quadrature is not exact. A convergence theorem needs uniform regularity of the metric coefficients and a quadrature error estimate uniform in (h), or exact integration. CI positivity checks on a finite set of meshes do not prove a uniform lower bound for all refinements.
 
-**Assessment:** the FEEC mass formula and the local basis are mathematically sound under the stated pullback convention. The implementation still needs (i) the orientation correction above, (ii) explicit quadrature-error control for convergence claims, and (iii) uniform geometric ellipticity bounds.
+**Assessment:** the FEEC mass formula and the local basis are mathematically sound under the stated pullback convention. The incidence orientation is already consistent. Remaining requirements for convergence claims are (i) explicit quadrature-error control and (ii) uniform geometric ellipticity bounds over the full refinement family.
 
 ### 3.4 Scope of the DEC comparison
 
@@ -197,7 +184,7 @@ A usable FEEC projection theorem needs at least:
 6. Uniformly shape-regular, conforming geometry maps and uniform equivalence of pulled-back norms.
 7. Boundary trace spaces and domains of (d) are fixed consistently across (h).
 
-The pullback identity (F_h^*d=dF_h^*) is not a construction of (pi_h). The audited repository does not currently define a commuting projection operator or prove any of the uniform bounds above.
+The pullback identity (F_h^*d=dF_h^*) is not a construction of (pi_h). The repository computes canonical face-integral cochains for regular analytic test forms and checks Stokes commutation numerically. It does not yet define a regularized commuting projection on the full HΛ graph space or prove the uniform bounds required in Theorem 3.1 of [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md).
 
 ---
 
@@ -357,3 +344,8 @@ Then:
 The consistent mass formula in PR #87 is mathematically well-founded for the stated lowest-order cubical tensor-product FEEC basis and pullback metric. The adjoint formula and generalized symmetric Hodge energy are also correct. The main concrete defect is the sign/orientation mismatch between the incidence matrices and the documented FEEC basis orientation. The main structural gap is that the repository constructs Gram matrices but not the uniformly bounded commuting projections or the reconstruction/compactness machinery needed for convergence theorems.
 
 Accordingly, the benchmark supports finite-dimensional algebraic and numerical conclusions. It does **not** yet support a theorem of curvilinear FEEC spectral convergence. The numbered hypotheses and lemmas above specify the route by which such a theorem could be established.
+
+
+## 8. Uniform projection stability — refined conclusion
+
+Uniform bounds on \(DF_{K,h}/h\), its inverse, and the ambient metric imply local FEEC mass equivalence with scaling \(h^{d-2k}\); this controls the inner products, not the interpolation operator. The degree-zero canonical interpolator uses point evaluation, which is not bounded on \(H^1(\Omega)\) in dimensions two and three. Thus the smooth-form face-integral interpolator and its exact Stokes commutation cannot be promoted to a uniformly bounded \(H\Lambda\) projection without regularization. The precise sufficient criterion and proof are in [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md).
