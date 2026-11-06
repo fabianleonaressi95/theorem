@@ -112,10 +112,12 @@ Gram/Weyl classes. Supply only the geometric parameters:
 }
 ```
 
-Save this as `g2_parameters.json`, then run:
+The repository includes an illustrative parameter file at
+`audits/g2_mobius_parameters.example.json` (`alpha_star=1) is a unit normalization
+for exercising the candidate formula, not a physically calibrated value). Run:
 
 ```bash
-python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py g2_parameters.json --output audit_report.json
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py projects/de_rham_benchmark/audits/g2_mobius_parameters.example.json --output audit_report.json
 ```
 
 The sine formula for `alpha(rho)` is explicitly marked as a candidate interpolation;
