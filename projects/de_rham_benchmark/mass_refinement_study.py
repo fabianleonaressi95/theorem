@@ -10,7 +10,10 @@ def study(dim, levels, amplitude=0.0, nq=5, nqf=4):
     rows = []
     for N in levels:
         result = run(dim, N, amplitude=amplitude, nq=nq, nqf=nqf)
-        row = {"N": N, "h": result["h"], "degrees": {}}
+        row = {"N": N, "h": result["h"],
+               "min_det_jac": result["geometry"]["min_det_jac"],
+               "max_det_jac": result["geometry"]["max_det_jac"],
+               "degrees": {}}
         for k in (dim - 1, dim):
             row["degrees"][str(k)] = {
                 "legacy_DEC": result["DEC_legacy_diagonal"][k]["lambda_min_positive"],
