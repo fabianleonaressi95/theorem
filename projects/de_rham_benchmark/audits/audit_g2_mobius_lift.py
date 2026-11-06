@@ -270,7 +270,7 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
         ),
         "all_gram_lift_identities": all(r["gram_lift_identity_error"] <= 100 * tol for r in rows),
         "rank_three_on_every_nondegenerate_triple": all(r["rank_three"] for r in nondegenerate),
-        "degenerate_triples_remain_rank_two": all(r["rank_V"] == 2 for r in degenerate),
+        "collinear_triples_remain_rank_one": all(r["rank_V"] == 1 for r in degenerate),
         "positive_definite_on_every_nondegenerate_triple": all(r["positive_definite"] for r in nondegenerate),
         "expected_triple_count": None if expected_n is None else len(rows) == int(expected_n),
         "expected_gram_class_count": None if expected_c is None else nclasses == int(expected_c),
