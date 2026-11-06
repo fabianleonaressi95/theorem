@@ -230,11 +230,11 @@ has rank at most two whenever \(R_T\) maps into a two-dimensional plane. Therefo
 
 A candidate rank-completing lift recorded in the project notes is
 \[
-V_T=E_pS_\rho R_T+\alpha\,n_p c_T^T,
+V_T=E_0L_{G_2}S_\rho R_T+\alpha\,n_p c_T^T,
 \qquad
 c_T=\bigl(\det(r_y,r_z),\det(r_z,r_x),\det(r_x,r_y)\bigr)^T.
 \]
-Here \(r_x,r_y,r_z\) are the three planar projected vectors associated with the triple, \(n_p\) is the chosen unit normal, and \(E_p\) embeds the planar frame in the ambient frame. The determinant minors form the cofactor/area-normal data. If the planar part has rank two, \(n_p\) is independent of its image, and \(\alpha\ne0\) with \(c_T\ne0\), the lift can have rank three. This is a conditional linear-algebra statement; the precise dimensions, frame conventions, and geometric meaning of each factor must be fixed in the implementation/proof before it is used as a theorem.
+Here \(r_x,r_y,r_z\) are the three planar projected vectors associated with the triple, \(n_p\) is the chosen unit normal, \(E_0\) is an orthonormal ambient two-frame, and \(L_{G_2}^TL_{G_2}=Q_{G_2}\). The determinant minors form the cofactor/area-normal data. If the planar part has rank two, \(n_p\) is independent of its image, and \(\alpha\ne0\) with \(c_T\ne0\), the lift can have rank three. This is a conditional linear-algebra statement; the precise dimensions, frame conventions, and geometric meaning of each factor must be fixed in the implementation/proof before it is used as a theorem.
 
 The project notes identify 216 \(W(G_2)\) triplettes as a possible finite family on which to test this rank-completion mechanism. That count and group action must be tied to an explicit enumerated set and verified; it is not a substitute for the rank and orientation proof.
 
