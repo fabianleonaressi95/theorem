@@ -15,7 +15,7 @@ The external repositories are independent works. Their authorship and provenance
 
 | XCont project | Publicly described method | RGS–PRISM interface | Initial status |
 |---|---|---|---|
-| [Evolving Cellular Automata](https://github.com/xcontcom/evolving-cellular-automata) | Genetic search over binary Moore-neighbourhood CA rules (512-bit rule tables), toroidal grids, fitness evaluation, selection, crossover and mutation | Evolve local update rules on a finite PRISM product graph; replace the 8-neighbour Moore stencil by the ten oriented nearest-neighbour slots of the degree-10 graph | Candidate implementation |
+| [Evolving Cellular Automata](https://github.com/xcontcom/evolving-cellular-automata) | Genetic search over binary Moore-neighbourhood CA rules (512-bit rule tables), toroidal grids, fitness evaluation, selection, crossover and mutation | Evolve local update rules on a finite PRISM product graph; replace the 8-neighbour Moore stencil by the ten oriented nearest-neighbour slots of the degree-10 graph | X1–X2 deterministic engine implemented; genetic search pending |
 | [Initial-State Evolution](https://github.com/xcontcom/initial-state-evolution) | Rule fixed to Conway's Life; genetic search over initial fields; two fields interact across a toroidal combined grid and are scored by their effect on one another | Evolve initial configurations on PRISM/Q6 while keeping the transition operator fixed; compare single-population and paired/co-evolutionary objectives | Candidate implementation |
 | [Billiard Fractals](https://github.com/xcontcom/billiard-fractals) | Symbolic coding of billiard trajectories, irrational steps/modular thresholds and nonlinear discretizations | Compare irrational-rotation codings and rational periodic approximants with cycle factors, Q6 bit strings and symbolic paths on PRISM | Mathematical comparison; no equivalence asserted |
 | [Fractogenesis: CA vs Conv](https://github.com/xcontcom/fractogenesis) | Iterated local CA rules and convolution kernels, in 2D and 3D, including genetic optimization of kernels | Compare Boolean local maps with graph filters/polynomials in the PRISM adjacency or Laplacian; study scaling and spectral response | Candidate operator study |
@@ -25,6 +25,10 @@ The external repositories are independent works. Their authorship and provenance
 The descriptions above summarize the public project pages and repository documentation. They are not independent validation of every claim made in those repositories.
 
 ## 3. First integration: cellular automata on the PRISM graph
+
+The first implementation is now present in [models/prism_cellular_automata.py](../models/prism_cellular_automata.py), with regression tests in [tests/test_prism_cellular_automata.py](../tests/test_prism_cellular_automata.py). It implements the five-cycle product graph, the fixed ten-neighbour ordering, the 2048-bit local truth table, synchronous updates, elementary zero/one/identity/negation controls, trajectory generation, density/activity and graph Dirichlet observables. The implementation is independent and does not copy XCont source code.
+
+The genetic algorithm, co-evolutionary populations, billiard coding and graph-convolution experiments are not implemented yet.
 
 ### 3.1 Fixed graph
 
@@ -171,8 +175,8 @@ Do not report only the best run. Report distributions over seeds and preserve ne
 
 | ID | Work package | Deliverable | Acceptance criterion |
 |---|---|---|---|
-| X1 | PRISM CA definition | Formal update convention and 2048-bit rule encoder | Independent truth-table and neighbour-order tests |
-| X2 | Small-graph CA engine | Deterministic simulator with seeded state | Exact tests for elementary rules and periodic boundaries |
+| X1 | PRISM CA definition | Formal update convention and 2048-bit rule encoder | Implemented; test suite added, execution pending |
+| X2 | Small-graph CA engine | Deterministic simulator with trajectory and observables | Implemented; test suite added, execution pending |
 | X3 | Evolutionary rule search | GA with full experiment logging | Reproducible runs and baseline comparisons |
 | X4 | Initial-state evolution | Fixed-rule genotype search | Distinct evaluation from X3 |
 | X5 | Co-evolution | Explicit two-field coupling | Boundary and fitness audit |
@@ -210,4 +214,4 @@ The external repositories identify their respective licences; the cited CA and f
 
 ## 11. Immediate next step
 
-Implement X1–X2 first: a small, deterministic PRISM-neighbourhood CA engine with a tested 2048-bit rule encoding and graph-automorphism diagnostics. Only after this baseline is correct should the genetic algorithm be introduced. This order isolates mathematical errors in the graph dynamics from stochastic optimization effects.
+X1–X2 have now been implemented as an independent deterministic engine. The next step is to execute the tests in CI, then add graph-automorphism diagnostics and only afterwards introduce the genetic algorithm. This order isolates mathematical errors in graph dynamics from stochastic optimization effects.
