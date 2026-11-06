@@ -25,3 +25,8 @@ def test_2d_consistent_mass():
 
 def test_3d_consistent_mass():
     check(3, 2)
+
+if __name__ == '__main__':
+    test_2d_consistent_mass()
+    test_3d_consistent_mass()
+    print('consistent FEEC mass checks passed')
