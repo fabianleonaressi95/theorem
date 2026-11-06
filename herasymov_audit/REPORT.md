@@ -208,3 +208,53 @@ Esecuzione locale dello script con seed `20261106`, (L=3), 1.000 configurazioni 
 - residuo ( |\lambda^3-\lambda^2-1|\): circa **1.01516**.
 
 Il dato più importante è il residuo di chiusura, circa 96.4%: la tripla dei primi momenti sinusoidali scelta qui non è una riduzione lineare utile della dinamica. La regressione risulta scalare, come atteso dalla simmetria cubica, ma questo non rivela un blocco di molteplicità né una ricorrenza supergolden. È un risultato negativo circoscritto a questa scelta di osservabili e a questa regola casuale fissata dal seed, non un'impossibilità generale.
+
+
+## 12. Correzione del tipo di rappresentazione e test T2u dedicato
+
+### 12.1 Correzione necessaria: i primi momenti sono T1u, non T2u
+
+La tripla dei primi momenti sinusoidali usata in `audit_koopman.py` trasforma come il vettore cartesiano ((x,y,z)): è il tipo (T_{1u}) di (O_h), non (T_{2u}). Quel test resta valido come test T1u, ma non poteva essere interpretato come ponte diretto al settore RGS T2u.
+
+Per costruire una tripla T2u si usano invece gli armonici cubici
+[
+h(x,y,z)=\big(x(y^2-z^2),\ y(z^2-x^2),\ z(x^2-y^2)\big).
+]
+Sotto le 48 matrici di permutazione con segni (O_h), essi realizzano una rappresentazione tridimensionale T2u. La matrice (D(g)) è ricostruita dalle identità (h(gx)=D(g)h(x)), e si controllano sia la legge di rappresentazione sia la covarianza numerica delle feature.
+
+### 12.2 Costruzione delle dieci copie candidate
+
+Sul toro (L=5), con coordinate centrate ({-2,-1,0,1,2}^3), si definisce il conteggio dei 26 vicini (s_a(x)). Per dieci intervalli (I_j) che partizionano ([0,27)), si costruiscono
+[
+G_j(a)=\sum_x a(x)\,\mathbf 1_{I_j}(s_a(x))\,h(x),
+\qquad j=0,\ldots,9.
+]
+Ogni (G_j) è una tripla covariante T2u. Le dieci triplette formano un vettore di 30 componenti, candidato al modello (\mathbb R^3\otimes\mathbb R^{10}). La regressione equivarante cerca la matrice di molteplicità (M_{10}) tale che
+[
+G(F(a))\simeq (M_{10}\otimes I_3)G(a),
+]
+con convenzione di ordinamento canale/carrier dichiarata nel codice.
+
+### 12.3 Risultati numerici riproducibili
+
+Script: [`audit_t2u_multiplicity.py`](audit_t2u_multiplicity.py). Seed fissi `20261106, 20261107, 20261108`; 500 configurazioni base a densità casuale uniforme in ([0.1,0.9]); 48 trasformazioni di gruppo, quindi 24.000 campioni.
+
+- residuo massimo dell'identità armonica (h(gx)=D(g)h(x)): (2.52\times10^{-14});
+- residuo massimo della legge (D(g_1g_2)=D(g_1)D(g_2)): (6.66\times10^{-16});
+- mismatch dell'aggiornamento CA sotto (O_h): **0**;
+- residuo massimo di covarianza delle feature T2u: (3.27\times10^{-14});
+- rango della matrice di disegno sulle dieci copie: **10**;
+- numero di condizionamento: **5.983**;
+- residuo relativo di chiusura: **0.9812368906**.
+
+Il disegno è quindi numericamente identificabile, ma la chiusura è pessima: circa il 98.1% della norma dell'output resta fuori dalla migliore regressione equivarante scelta. Gli autovalori di (M_{10}) non soddisfano (p(\lambda)=\lambda^3-\lambda^2-1=0); nessun autovalore vicino a (\psi) emerge. Questo è un risultato negativo per queste dieci feature e per la regola fissata, non una dimostrazione di impossibilità per tutte le osservabili T2u.
+
+### 12.4 Audit della discrepanza 30/39 e limite del ponte RGS
+
+Il settore isotypic T2u già identificato nell'audit RGS ha rango 30, cioè dieci copie della rappresentazione tridimensionale. Il rango 39 riportato in una sezione storica del notebook compare invece in un helper che assume una base interna (39\times39) etichettata T2u; la sola forma della matrice non prova l'identificazione irrep. La documentazione storica presenta dunque un'incongruenza di etichettatura da risolvere confrontando i caratteri e i proiettori effettivi. Il codice di recupero del primo tripletto non va usato come autorità per il rango isotypic.
+
+**Limite esplicito:** questo esperimento costruisce dieci copie T2u sullo spazio delle configurazioni del CA, ma non calcola ancora un intertwiner numerico (J:\mathbb R^{30}\to\mathbb R^{188}). Per farlo servono, nello stesso run riproducibile, le matrici dell'azione (U_{\rm tan}(g)), il proiettore RGS (P_{T2u}) (o una base ortonormale verificata del suo range), e la definizione delle osservabili/feature che si intende mappare. La condizione da imporre è
+[
+U_{\rm tan}(g)J=J\,(I_{10}\otimes D_{T2u}(g))
+]
+(con la convenzione di ordinamento coerente), insieme a (P_{T2u}J=J). Solo dopo questi residui si può comprimere un operatore RGS sul fattore di molteplicità e testare una dinamica supergolden. Non si deve identificare (M_{10}) del CA con il blocco RGS senza questo intertwiner.
