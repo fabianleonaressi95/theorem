@@ -8,6 +8,7 @@ from models.prism_ca_evolution import (
     evolve_initial_states,
     evolve_rules,
     random_initial_states,
+    rule_symmetry_report,
 )
 from models.prism_cellular_automata import PrismProductGraph, elementary_rules
 
@@ -125,3 +126,25 @@ def test_json_friendly_result_serialization():
     result = evolve_initial_states(graph, elementary_rules()["zero"], 1, config)
     encoded = json.dumps(result.to_dict())
     assert '"mode": "initial_state_search"' in encoded
+
+
+
+def test_product_graph_automorphism_equivariance_audit():
+    graph = PrismProductGraph()
+    identity = elementary_rules()["identity"]
+    report = rule_symmetry_report(graph, identity)
+    assert report["automorphism_subgroup_order"] == 192
+    assert report["axis_permutation_count"] == 6
+    assert report["reflection_count"] == 32
+    assert report["invariant_transformations"] == 192
+    assert report["equivariance_fraction"] == 1.0
+
+
+def test_rule_symmetry_audit_detects_oriented_neighbour_dependence():
+    graph = PrismProductGraph()
+    # A truth table that reads only the first oriented neighbour slot.
+    rule = sum(1 << i for i in range(1 << 11) if ((i >> 9) & 1))
+    report = rule_symmetry_report(graph, rule)
+    assert report["automorphism_subgroup_order"] == 192
+    assert report["invariant_transformations"] < 192
+    assert 0.0 <= report["equivariance_fraction"] < 1.0
