@@ -10,7 +10,7 @@ mesh refinement, in dimensions 2 and 3.
 ddr/
   mesh.py        cubical mesh + oriented incidence complex (d_k matrices)
   geometry.py    cell maps Phi, pullback metric g_K = DF^T G DF, quadrature,
-                 diagonal Hodge weights M_k
+                 historical diagonal Hodge weights M_k
   hodge.py       codifferentials, Hodge Laplacian, spectral analysis,
                  algebraic residuals, Betti numbers
   experiment.py  experiment driver (refinement sequences + sweeps)
