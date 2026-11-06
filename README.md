@@ -26,6 +26,7 @@ The tree below summarizes the principal areas. The live repository may contain a
 ```text
 theorem/
 ├── .github/workflows/       # Continuous-integration workflows
+├── archive/                 # Quarantined source files retained for provenance
 ├── audits/                  # Reproducible mathematical/computational audits
 ├── bibliography/             # Source literature and formula audits
 ├── data/                    # Machine-readable data and audit outputs
@@ -42,7 +43,10 @@ theorem/
 
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
-- [Manuscripts and research-paper editorial register](manuscripts/README.md)
+- [Cleaned research notes and manuscript editorial register](manuscripts/README.md)
+- [Inhomogeneous spin-chain model note](manuscripts/INHOMOGENEOUS_SPIN_CHAIN.md)
+- [Scalar–torsion variational identity](manuscripts/SCALAR_TORSION_VARIATIONAL_IDENTITY.md)
+- [Quarantined source files](archive/README.md)
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
 - [Theorem records](theorems/)
