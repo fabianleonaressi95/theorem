@@ -268,12 +268,18 @@ These references provide frameworks or nearby methods; none is cited as proving 
 
 ## 12. Reproducibility and contribution protocol
 
-The current one-dimensional periodic-cycle calibration remains available:
+The one-dimensional periodic-cycle calibration remains available:
 \`\`\`bash
 python -m pytest tests/test_t048_rgs_prism_mosco_calibration.py -q
 python -m scripts.rgs_prism_mosco_calibration --n 32 64 128 256 --mode 1
 \`\`\`
-It checks a one-dimensional Fourier calibration only. The proposed five-dimensional refinement needs its own generator, tests, and archived outputs before any numerical claim is made.
+
+The flat five-dimensional product refinement now has a lazy generator and a separate M0–M4 regression suite:
+\`\`\`bash
+python -m pytest tests/test_t048_rgs_prism_product_refinement.py -q
+python -m scripts.rgs_prism_product_refinement --levels 1 2 4 8 16
+\`\`\`
+The generator defines periodic indexing, positive-direction edge iteration, cell masses and direction-dependent conductances without materializing the full graph. Its Fourier-mode energy audit checks fixed smooth modes on the flat unit five-torus. This is a finite-grid consistency calibration only: it does not prove the weak-liminf condition for arbitrary sequences, a recovery theorem, uniform discrete compactness, or convergence for curved/non-affine cells.
 
 External reviewers are invited to comment on one numbered question in §9. If a correction is adopted, the corresponding hypothesis, proof step, script/test (where applicable), and evidence status will be updated together.
 
