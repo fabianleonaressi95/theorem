@@ -180,7 +180,7 @@ def self_test() -> dict[str, Any]:
     # Port of the finite symbolic row routine; preserve exact outputs.
     rows = {
         f"{m},{n}": herasymov_sequence(m, n)
-        for m, n in ((8, 13), (13 if False else 14, 21), (16, 21), (34, 55))
+        for m, n in ((8, 13), (14, 21), (16, 21), (34, 55))
     }
     assert all(len(v) == int(k.split(",")[0]) // 2 for k, v in rows.items())
     assert all(set(v) <= {0, 1} for v in rows.values())
