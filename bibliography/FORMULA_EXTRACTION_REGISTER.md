@@ -37,7 +37,11 @@
 | F009 | TEGR / Weitzenböck / Einstein–Cartan | Torsione, scalare torsionale, identità con Ricci scalare | Bibliografia primaria da completare | Da aprire |
 | F010 | Di Pietro–Ripà (2024/2026) | Cicli Hamiltoniani in grafi distanza degli ipercubi | Enunciato registrato; prova e definizioni da estrarre | Da aprire |
 
-\n\n**Codice di verifica F006:** [PARISI_NORMALIZATION_AUDIT.py](spin-glasses/PARISI_NORMALIZATION_AUDIT.py) — covarianza su coppie \(i<j\), conversione pressione/free energy e identità della penalità discreta.\n## Regola di priorità
+
+
+**Codice di verifica F006:** [PARISI_NORMALIZATION_AUDIT.py](spin-glasses/PARISI_NORMALIZATION_AUDIT.py) — covarianza su coppie \(i<j\), conversione pressione/free energy e identità della penalità discreta.
+
+## Regola di priorità
 Si procede per dipendenza matematica, non per notorietà dell'autore. Prima le definizioni e i teoremi che alimentano direttamente T001–T010; poi le fonti di confronto; infine le proposte non standard, sempre con ricostruzione critica e test falsificabili.
 
 ## Prima tranche
