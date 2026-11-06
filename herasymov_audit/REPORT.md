@@ -330,3 +330,20 @@ Non è quindi corretto pubblicare un valore numerico di (J), del suo rango o dei
 Anche se (J) risultasse di rango 30, il test CA attuale ha residuo di chiusura (0.9812368906). Pertanto non esiste ancora un operatore di trasferimento ben definito su quel sottospazio di osservabili da trasportare nel tangente RGS. La priorità matematica è prima ottenere una famiglia di osservabili con chiusura controllata; solo dopo si può definire un operatore sul fattore di molteplicità e testare il polinomio (x^3-x^2-1).
 
 **Stato:** armonici (T_{2u}) e covarianza CA verificati; test di chiusura negativo per le dieci feature scelte; formulazione e solver dell'intertwiner esatti definiti; matrice numerica (J) non calcolata per mancanza dei dati RGS primari.
+
+
+### 13.5 Test unitario sintetico del solver
+
+È stato eseguito un test algebrico separato costruendo artificialmente
+[
+U(g)=\big(I_{10}\otimes D_{T2u}(g)\big)\oplus I_{158}.
+]
+In questo caso il sottospazio T2u di destinazione ha per costruzione dimensione 30. La proiezione di Reynolds ha restituito:
+
+- residuo della legge di rappresentazione (D): (6.66\times10^{-16});
+- residuo della legge di rappresentazione (U): (2.11\times10^{-15});
+- residuo massimo di intertwining: (7.44\times10^{-15});
+- rango dell'intertwiner proiettato: **30**;
+- minima singolare: (4.43\times10^{-2}).
+
+Questo è esclusivamente un **unit test sintetico** che verifica l'implementazione matematica del proiettore di Reynolds. Non è un risultato sul tangente RGS reale e non sostituisce l'input (U_{\rm tan}(g)). Script: [`selftest_t2u_intertwiner.py`](selftest_t2u_intertwiner.py).
