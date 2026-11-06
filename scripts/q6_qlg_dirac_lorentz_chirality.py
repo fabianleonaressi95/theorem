@@ -91,7 +91,7 @@ def audit(tol=2e-12):
       "induced_weyl_boost_generators":"K_i^(s) = -i s sigma_i/2",
       "parity_action":"exchanges s=+1 and s=-1 Weyl sectors",
       "passed":max(gamma5_square,gamma5_herm,projector_res,
-                   max(rot_res.values()),max(boost_res.values()),parity_exchange)<=tol
+                   max(rot_res.values()),max(boost_res.values()),parity_exchange)<=tol and coord_boost>tol
     }
 
 
