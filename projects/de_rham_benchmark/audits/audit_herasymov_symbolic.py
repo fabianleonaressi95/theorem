@@ -216,8 +216,9 @@ def audit_parity_lattice_refinement(
 ) -> dict[str, Any]:
     """Audit whether parity-selected samples define one parent-to-child map.
 
-    A geometric refinement map must send all eight children of one parent
-    voxel to the same parent point/cell.  Boolean complement is tracked
+    A parent-cell sampling rule is single-valued only if all eight children
+    of one parent voxel sample the same parent source index. This is not a
+    geometric cell map or a cubical chain map.  Boolean complement is tracked
     separately because it changes data, not coordinates.
     """
     if drawar is None:
@@ -272,7 +273,7 @@ def audit_parity_lattice_refinement(
         "parents_with_inconsistent_child_coordinates": inconsistent_parent_count,
         "source_index_edge_l1_jump_histogram": jump_histogram,
         "max_source_index_edge_l1_jump": max_l1_jump,
-        "geometric_refinement_map_for_arbitrary_data": child_coordinate_consistent,
+        "single_parent_source_coordinate_per_parent": child_coordinate_consistent,
     }
 
 def self_test() -> dict[str, Any]:
@@ -329,11 +330,11 @@ def self_test() -> dict[str, Any]:
     # Source-faithful 3D audit: drawar selects parity classes, not octants.
     parity_uniform = audit_parity_lattice_refinement(size=4)
     assert parity_uniform["all_eight_children_share_one_source_coordinate"]
-    assert parity_uniform["geometric_refinement_map_for_arbitrary_data"]
+    assert parity_uniform["single_parent_source_coordinate_per_parent"]
     parity_mixed = audit_parity_lattice_refinement(
         [[[0, 5], [3, 6]], [[1, 4], [2, 7]]], size=4
     )
-    assert not parity_mixed["geometric_refinement_map_for_arbitrary_data"]
+    assert not parity_mixed["single_parent_source_coordinate_per_parent"]
 
     return {
         "self_test": "PASS",
