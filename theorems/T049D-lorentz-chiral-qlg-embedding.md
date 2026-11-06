@@ -34,7 +34,7 @@ I generatori di rotazione sulla rappresentazione a quattro componenti sono
 I generatori di boost nella base scelta sono
 \[
 \mathcal K_i=\frac{i}{2}\gamma^0\gamma^i
-=-\frac12\begin{pmatrix}0&\sigma_i\\\sigma_i&0\end{pmatrix}.
+=-\frac{i}{2}\begin{pmatrix}0&\sigma_i\\\sigma_i&0\end{pmatrix}.
 \]
 Perciò
 \[
