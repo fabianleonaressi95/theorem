@@ -379,7 +379,7 @@ P_{E^2}D=DP_{E^1}.
 \]
 Ne segue che D manda sezioni invarianti in sezioni invarianti: il quoziente per 2I eredita il differenziale centrale e il complesso ristretto è ben definito. Questa è la verifica strutturale di compatibilità richiesta.
 
-Non ancora calcolato: la matrice/scalare esplicito di D su ogni copia irriducibile e il suo eventuale nucleo immagine per immagine. L'equivarianza garantisce la stabilità del sottospazio invariante, ma non determina da sola il valore dell'intertwiner né lo spettro di D†D. Non si deve quindi dedurre da questo passaggio la zeta spettrale o la torsione del quoziente.
+Aggiornamento §11: il modulo dello scalare dell'intertwiner centrale D è ora derivato esattamente per il settore interno q,p≥1; i casi di bordo VI–VII sono trattati direttamente da Kitaoka. Rimane non calcolata la fase/matrice di D in una base concreta, ma essa non è necessaria per D†D e per la zeta non twistata.
 
 ### Stato epistemico aggiornato
 
@@ -423,7 +423,7 @@ Il Caso VII è il coniugato e dà lambda_VII(q)=(q+1)^2/4.
 
 Per il primo livello invariante m=12, i due bordi sono (q,p)=(-1,13) e (13,-1), entrambi con autovalore 49. Questo coincide con la sostituzione nella formula generale del Theorem 0.1, ma ora il valore è anche giustificato direttamente dal calcolo speciale dei Casi VI–VII. I valori numerici già riportati nelle liste E10/E01 restano invariati.
 
-**Verifica software aggiunta:** il programma definisce funzioni separate boundary_eigenvalue_case_vi e boundary_eigenvalue_case_vii, e asserisce che per il bordo a grado 12 entrambe restituiscano 49 e coincidano con la formula generale. Questo controllo riguarda il bordo; non calcola ancora le matrici degli intertwiners di D sui settori interni.
+**Verifica software aggiunta:** il programma definisce funzioni separate boundary_eigenvalue_case_vi e boundary_eigenvalue_case_vii, e asserisce che per il bordo a grado 12 entrambe restituiscano 49 e coincidano con la formula generale. Questo controllo riguarda il bordo; il modulo dell'intertwiner interno è derivato separatamente in §11. La fase in una base concreta non è stata fissata.
 
 **Fonte primaria puntuale:** Kitaoka, arXiv:1911.03092, Proposition 1.1 (Casi VI–VII), §2.3 (Casi VI–VII), equazioni (1.3) e (2.4). La decomposizione dei sette casi e il richiamo al Theorem 0.1 sono riprodotti anche in Kitaoka, SIGMA 18 (2022), 091, Proposition 2.1 e Proposition 2.3.
 
@@ -819,3 +819,88 @@ Il valore numerico precedente \(1.3159472534785811492\) coincide con \(2\pi^2/15
 - **Non dichiarato:** lo script Python dell'audit non è stato eseguito integralmente dopo gli ultimi aggiornamenti; il confronto analitico qui esposto non va presentato come un nuovo test end-to-end passato. Il controllo numerico ad alta precisione dell'identità Gamma/volume è stato aggiunto al programma; resta da eseguirlo quando l'ambiente di calcolo sarà nuovamente disponibile.
 
 **Conclusione:** il confronto con Reidemeister–Ray–Singer non falsifica il risultato precedente; al contrario, con la corretta convenzione non aciclica e la metrica di Kitaoka, il valore calcolato coincide con il volume del quoziente. La torsione Rumin normalizzata in §10.3 è quindi identificata con la torsione di Ray–Singer nel caso banale, attraverso il teorema CR-Seifert di Rumin–Seshadri.
+
+
+## 11. Verifica esplicita dell'intertwiner centrale \(D\) per \(n=1\)
+
+Questa sezione chiude il passaggio lasciato aperto in §9: non si usa soltanto l'equivarianza astratta, ma si calcola anche \(D^\dagger D\) sulle copie irriducibili interne, controllando i bordi separatamente. La fonte è Kitaoka, arXiv:1911.03092v1, §2.3, Caso V (pp. 9–10 del PDF), Casi VI–VII (p. 10), formule (1.3) e (2.4). Il Caso V della sezione spettrale usa \(i+j=n-1=0\) per \(n=1\); non va confuso con la Case V della Proposition 1.1.
+
+### 11.1 Settore interno \(p,q\geq1\)
+
+Per il peso U(2) \((q,-p)\), il sottospazio centrale è
+\[
+W_{p,q}=\Psi^{(1,0)}_{(q,0,0,p)}\oplus
+\Psi^{(0,1)}_{(q,0,0,p)}.
+\]
+Siano \(\psi_{10},\psi_{01}\) i vettori di peso massimo normalizzati di Kitaoka e
+\[
+A^2=\frac{p(q+1)}2,\qquad B^2=\frac{q(p+1)}2,\qquad
+C=\frac{p-q}{2}.
+\]
+La componente esatta dell'immagine del differenziale di primo ordine è
+\[
+d_E\psi_{00}=A\psi_{10}+B\psi_{01},
+\]
+e il suo complemento ortogonale in \(W_{p,q}\) è generato da
+\[
+v_\perp=B\psi_{10}-A\psi_{01}.
+\]
+Per la formula di Kitaoka in §2.3, Caso V, si pone
+\[
+A'=C-2A^2,\qquad B'=C+2B^2,\qquad S=2pq+p+q.
+\]
+Sostituendo \(A^2,B^2\) si ottiene **esattamente**
+\[
+A'=-\frac S2,\qquad B'=\frac S2.
+\]
+La formula primaria per l'intertwiner dà
+\[
+D v_\perp=\sqrt{-1}\,\theta\wedge
+\bigl(A'B\psi_{10}-B'A\psi_{01}\bigr)
+=-\sqrt{-1}\,\frac S2\,\theta\wedge
+\bigl(B\psi_{10}+A\psi_{01}\bigr).
+\]
+Il vettore d'arrivo ha la stessa norma del vettore di partenza, quindi
+\[
+\boxed{\left.D^\dagger D\right|_{W_{p,q}\ominus\operatorname{im}d_E^0}
+=\frac{S^2}{4}
+=\frac{(2pq+p+q)^2}{4}.}
+\]
+Questa è la verifica esplicita del modulo dell'intertwiner sul complemento. Sul sottospazio \(\operatorname{im}d_E^0\), invece, \(D d_E^0=0\) perché \((\mathcal E^\bullet,d_E^\bullet)\) è un complesso. I due sottospazi hanno la stessa eigenvalue del Laplaciano Rumin: sull'immagine di \(d_E^0\) essa proviene da \((d_E^0d_E^{0\dagger})^2\), sul complemento da \(D^\dagger D\). La coincidenza è precisamente quella del Theorem 0.1, non un'ipotesi di uguaglianza dei settori.
+
+### 11.2 Settori con un peso nullo e bordi eccezionali
+
+- **\(q=0,p\geq1\), Case III:** la rappresentazione in \(\mathcal E^{1,0}\) proviene da \(d_E^0\); \(D=0\) su tale copia e \(\Delta_E^1\) ha eigenvalue \(p^2/4\).
+- **\(p=0,q\geq1\), Case IV:** il caso coniugato in \(\mathcal E^{0,1}\); \(D=0\) sulla copia proveniente da \(d_E^0\), eigenvalue \(q^2/4\).
+- **\(q=-1,p\geq1\), Proposition 1.1 Case VI:** non esiste la copia sorgente in \(\mathcal E^0\), gli aggiunti orizzontali si annullano e \(D=\theta\wedge\mathcal L_T\). Da \(2\mathcal L_T\psi=\sqrt{-1}(p-q)\psi\) segue \(D^\dagger D=(p+1)^2/4\).
+- **\(p=-1,q\geq1\), Case VII:** il coniugato, con \(D^\dagger D=(q+1)^2/4\).
+
+I valori di bordo non sono estrapolati dal caso \(p,q\geq1\): sono ottenuti dai Casi VI–VII. Per \(m=12\), i due pesi \((q,p)=(-1,13)\) e \((13,-1)\) hanno eigenvalue \(49\).
+
+### 11.3 Compatibilità con Reynolds e discendenza al quoziente
+
+Per \(g\in2I\subset SU(2)\), l'azione è un automorfismo CR della sfera standard e preserva \(\theta,T,J,g_{\theta,J}\), \(d_b\), \(L\), la proiezione primitiva e quindi \(D\). Pertanto
+\[
+D\rho_1(g)=\rho_2(g)D,\qquad
+P_{2I}^{E^2}D=DP_{2I}^{E^1},
+\quad P_{2I}^{E^k}=\frac1{120}\sum_{g\in2I}\rho_k(g).
+\]
+Quindi \(D\) manda esattamente le sezioni invarianti nelle sezioni invarianti. Nel settore \(p,q\geq1\), la Reynolds projection restringe sia \(\operatorname{im}d_E^0\) sia il suo complemento; ciascuno ha dimensione \(a_m\), \(m=p+q\), e \(D^\dagger D=S^2/4\) sul secondo. Nei settori \(q=0\) o \(p=0\) rimane una sola copia centrale, mentre i due bordi VI–VII hanno una copia invariata \(a_m\) ciascuno. Non si moltiplica la degenerazione per una dimensione U(2) ulteriore: \(a_m\) è la dimensione del sottospazio \(2I\)-invariante dentro ciascuna irriducibile.
+
+### 11.4 Verifiche simboliche riproducibili e stato
+
+Il test aggiunto al programma verifica in aritmetica esatta:
+\[
+\frac{(A'B)^2+(B'A)^2}{A^2+B^2}
+=\frac{(2pq+p+q)^2}{4},
+\qquad A'=-S/2,\quad B'=S/2.
+\]
+Inoltre controlla la decomposizione Julg–Kasparov per ogni \(m\): in ciascun bidegree ci sono \(m+1\) pesi U(2) distinti, tutti con restrizione SU(2) \(\operatorname{Sym}^m\), e ognuno ha molteplicità invarianti \(a_m\). Il confronto tra media esatta dei caratteri e serie di Molien viene esteso fino a \(m=300\); la periodicità dei coefficienti torsionali \(d_n=a_{n-2}-a_n\) è controllata fino a \(n=600\). La riduzione Gamma esatta e il confronto ad alta precisione con \(2\pi^2/15\) sono verificati separatamente.
+
+**Stato epistemico dopo questa tranche:**
+- **Derivato dalla fonte primaria:** i tre insiemi di pesi U(2) per \(n=1\), i casi speciali VI–VII, e l'intertwiner centrale sul settore interno.
+- **Verificato simbolicamente:** \(D^\dagger D=S^2/4\) sul complemento interno; bordi VI–VII; caratteri/Reynolds contro Molien; periodicità torsionale; identità Gamma.
+- **Spettro non twistato:** le formule di zeta §§10.1–10.3 descrivono la molteplicità di ogni peso e i valori degli autovalori in \(\mathcal E^0,\mathcal E^1\); per dualità Hodge si ottengono gli altri gradi del complesso. La combinazione torsionale è continuata in modo finito tramite Hurwitz e la derivata in zero è stata valutata esattamente.
+- **Non rivendicato:** matrice di \(D\) in una base globale concreta, derivata separata delle due zeta, o torsione per rappresentazioni piatte non banali.
+
+**Fonti puntuali:** Kitaoka, arXiv:1911.03092v1, Proposition 1.1 (PDF pp. 5–6; Case I/VI/VII), §2.3 Case V–VII (PDF pp. 9–10); Julg–Kasparov, *J. Reine Angew. Math.* 463 (1995), 99–152, §4(b), come citato nella Proposition 1.1. Per la serie di Molien del gruppo binario icosaedrale: S. Mukai, *An Introduction to Invariants and Moduli*, Cambridge Studies in Advanced Mathematics 81, Cambridge University Press (2003), p. 19; si usa \(M(t)=(1+t^{30})/((1-t^{12})(1-t^{20}))\).
