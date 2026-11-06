@@ -6,6 +6,7 @@ from models.prism_ca_evolution import (
     EvolutionConfig,
     FitnessConfig,
     evolve_initial_states,
+    evolve_coupled_initial_states,
     evolve_rules,
     random_initial_states,
     rule_symmetry_report,
@@ -148,3 +149,54 @@ def test_rule_symmetry_audit_detects_oriented_neighbour_dependence():
     assert report["automorphism_subgroup_order"] == 192
     assert report["invariant_transformations"] < 192
     assert 0.0 <= report["equivariance_fraction"] < 1.0
+
+
+
+def test_two_population_xor_coevolution_is_reproducible_and_auditable():
+    graph = PrismProductGraph((3, 3, 3, 3, 3))
+    config_a = EvolutionConfig(
+        population_size=3, generations=1, elite_count=1,
+        tournament_size=2, mutation_rate=0.01, seed=101,
+        seed_elementary_rules=False,
+    )
+    config_b = EvolutionConfig(
+        population_size=3, generations=1, elite_count=1,
+        tournament_size=2, mutation_rate=0.01, seed=202,
+        seed_elementary_rules=False,
+    )
+    initial_a = [bytes(graph.vertex_count), bytes([1]) * graph.vertex_count,
+                 bytes([i % 2 for i in range(graph.vertex_count)])]
+    initial_b = [bytes([1 - (i % 2) for i in range(graph.vertex_count)]),
+                 bytes([1]) * graph.vertex_count, bytes(graph.vertex_count)]
+    kwargs = dict(
+        graph=graph,
+        fixed_rule=elementary_rules()["identity"],
+        steps=2,
+        config_a=config_a,
+        config_b=config_b,
+        interaction_weight=0.4,
+        initial_population_a=initial_a,
+        initial_population_b=initial_b,
+    )
+    first = evolve_coupled_initial_states(**kwargs)
+    second = evolve_coupled_initial_states(**kwargs)
+    assert first == second
+    assert first["mode"] == "two_population_xor_coevolution"
+    assert len(first["best_genome_a"]) == graph.vertex_count
+    assert len(first["best_genome_b"]) == graph.vertex_count
+    assert len(first["history"]) == 2
+    assert first["evaluations"] == 3 * 3 * 2
+    assert first["interaction"]["map"].startswith("A[t+1] = F(A[t]) XOR B[t]")
+    assert 0.0 <= first["history"][-1]["mean_pair_interaction_fraction"] <= 1.0
+
+
+def test_two_population_coevolution_rejects_incompatible_populations():
+    graph = PrismProductGraph((3, 3, 3, 3, 3))
+    a = EvolutionConfig(population_size=2, generations=0, elite_count=1,
+                        tournament_size=1, seed_elementary_rules=False)
+    b = EvolutionConfig(population_size=3, generations=0, elite_count=1,
+                        tournament_size=1, seed_elementary_rules=False)
+    with pytest.raises(ValueError):
+        evolve_coupled_initial_states(graph, 0, 1, a, b)
+    with pytest.raises(ValueError):
+        evolve_coupled_initial_states(graph, 0, 1, a, a, interaction_weight=-0.1)
