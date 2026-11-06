@@ -6,11 +6,14 @@ A k-face is described by
   * ``fixed`` : tuple of (axis, grid_line) for the remaining axes,
   * ``lo``    : tuple of lower cell indices along the ``vary`` axes.
 
-The boundary/coboundary incidence uses the standard cubical boundary
-sign  (-1)^(pos+1) * (2s-1)  where ``pos`` is the position of the removed
+The boundary/coboundary incidence uses the oriented cubical boundary
+sign  (-1)^pos * (2s-1)  where ``pos`` is the position of the removed
 direction inside ``vary`` and ``s in {0,1}`` selects the lower/upper facet.
-This is the cellular boundary of the cubical complex, so d_{k+1} d_k = 0
-holds exactly; the residual is verified numerically in hodge.py.
+This orientation agrees with the vary-order orientation of the FEEC
+degrees of freedom in ``feec_study.face_dofs`` (needed for
+``d_h pi_h = pi_h d``).  It is the cellular boundary of the cubical
+complex, so d_{k+1} d_k = 0 holds exactly; the residual is verified
+numerically in hodge.py.
 """
 from __future__ import annotations
 
@@ -75,7 +78,10 @@ class CubicalMesh:
                 nonvary = tuple(a for a in range(d) if a not in vary)
                 line_ranges = [range(self.Ns[a] + 1) for a in nonvary]
                 lo_ranges = [range(self.Ns[a]) for a in vary]
-                for fl in product(*line_ranges):
+                # iterate so that the lowest-index non-vary axis is the
+                # fastest-varying index, matching _vertex_index / vstride
+                for fl_rev in product(*line_ranges[::-1]):
+                    fl = fl_rev[::-1]
                     fixed = tuple(sorted(zip(nonvary, fl)))
                     for lo in product(*lo_ranges):
                         verts = []
@@ -117,7 +123,10 @@ class CubicalMesh:
                     for s in (0, 1):
                         key = self._facet_key(tau, pos, s)
                         sid = self.key2id[key]
-                        coeff = ((-1) ** (pos + 1)) * (1 if s == 1 else -1)
+                        # oriented cubical boundary w.r.t. the vary-order
+                        # face orientation used by the FEEC degrees of
+                        # freedom:  (-1)^pos * (2s - 1)
+                        coeff = ((-1) ** pos) * (1 if s == 1 else -1)
                         rows.append(tau.id)
                         cols.append(sid)
                         vals.append(coeff)

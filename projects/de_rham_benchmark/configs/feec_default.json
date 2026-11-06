@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "name": "affine_2d",
+      "dim": 2,
+      "levels": [4, 8, 16],
+      "map": {"type": "identity"},
+      "metric": {"type": "identity"},
+      "nq": 4, "nqf": 6, "nq_l2": 5,
+      "spectral_max_n": 600
+    },
+    {
+      "name": "sinusoid_2d",
+      "dim": 2,
+      "levels": [4, 8, 16],
+      "map": {"type": "sinusoid", "amplitude": 0.2, "freq": 1},
+      "metric": {"type": "identity"},
+      "nq": 4, "nqf": 6, "nq_l2": 5,
+      "spectral_max_n": 600
+    },
+    {
+      "name": "axis_bump_2d",
+      "dim": 2,
+      "levels": [4, 8, 16],
+      "map": {"type": "axis_bump", "amplitude": 0.15},
+      "metric": {"type": "identity"},
+      "nq": 4, "nqf": 6, "nq_l2": 5,
+      "spectral_max_n": 600
+    },
+    {
+      "name": "aniso_metric_2d",
+      "dim": 2,
+      "levels": [4, 8, 16],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1},
+      "metric": {"type": "aniso", "alpha": [1.0, 2.5]},
+      "nq": 4, "nqf": 6, "nq_l2": 5,
+      "spectral_max_n": 600
+    },
+    {
+      "name": "affine_3d",
+      "dim": 3,
+      "levels": [3, 4, 6],
+      "map": {"type": "identity"},
+      "metric": {"type": "identity"},
+      "nq": 3, "nqf": 5, "nq_l2": 4,
+      "spectral_max_n": 400
+    },
+    {
+      "name": "sinusoid_3d",
+      "dim": 3,
+      "levels": [3, 4, 6],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1},
+      "metric": {"type": "identity"},
+      "nq": 3, "nqf": 5, "nq_l2": 4,
+      "spectral_max_n": 400
+    }
+  ]
+}
