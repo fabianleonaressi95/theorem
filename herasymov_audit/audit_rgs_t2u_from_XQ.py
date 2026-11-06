@@ -52,7 +52,7 @@ def representation_t2u(g, sample):
 
 def build_actions(X, Q, tol=1e-9):
     n = X.shape[0]
-    actions, ds, groups = [], [], []
+    actions, ds, groups, leakages = [], [], [], []
     # Deterministic generic sample for exact polynomial representation fitting.
     sample = np.array([[.31,.73,1.17], [-.82,.29,.51], [1.13,-.47,.67],
                        [.41,-1.21,.88], [-.63,-.91,1.39], [1.7,.23,-.38]])
@@ -72,8 +72,8 @@ def build_actions(X, Q, tol=1e-9):
         if closure_leak > 1e-8:
             raise ValueError(f"tangent space not invariant: leakage={closure_leak:.3e}")
         D, derr = representation_t2u(g, sample)
-        actions.append(Ut); ds.append(D); groups.append(g)
-    return np.asarray(actions), np.asarray(ds), np.asarray(groups)
+        actions.append(Ut); ds.append(D); groups.append(g); leakages.append(float(closure_leak))
+    return np.asarray(actions), np.asarray(ds), np.asarray(groups), np.asarray(leakages)
 
 
 def main():
@@ -91,7 +91,7 @@ def main():
     if qorth > 1e-7:
         raise ValueError(f"Q is not orthonormal: residual={qorth:.3e}")
 
-    U, D, G = build_actions(X, Q, args.tol)
+    U, D, G, leakages = build_actions(X, Q, args.tol)
     # Character projector for the complete T2u isotypic component.
     chi = np.trace(D, axis1=1, axis2=2)
     P = (3.0/48.0) * np.einsum("g,gij->ij", chi, U)
