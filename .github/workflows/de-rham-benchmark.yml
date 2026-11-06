@@ -1,0 +1,43 @@
+name: de Rham benchmark smoke checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "projects/de_rham_benchmark/**"
+      - ".github/workflows/de-rham-benchmark.yml"
+  pull_request:
+    paths:
+      - "projects/de_rham_benchmark/**"
+      - ".github/workflows/de-rham-benchmark.yml"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/de_rham_benchmark
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -r requirements.txt
+      - name: Compile Python sources
+        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py
+      - name: Check CLI entry point
+        run: python run_benchmark.py --help
+      - name: Verify cubical incidence chain identity
+        run: |
+          python - <<'PY'
+          import numpy as np
+          from ddr.mesh import CubicalMesh
+          for dim, n in ((2, 2), (3, 2)):
+              mesh = CubicalMesh(n, dim)
+              # mesh stores coboundary matrices in mesh.d
+              for k in range(dim - 1):
+                  residual = mesh.dmat[k + 1] @ mesh.dmat[k]
+                  assert residual.nnz == 0 or np.max(np.abs(residual.data)) == 0
+          print("d_(k+1) d_k = 0: exact sparse identity")
+          PY
