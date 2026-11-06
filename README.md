@@ -83,10 +83,11 @@ La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](o
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
 | [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
-| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
-| [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Correlatore microscopico su Q6 e PRISM | Shell correlators, decomposizione self/pair e fit condizionali; dati fisici RGS–PSU ancora da fornire |
-| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |\n| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | Classificazione degli intertwiner QLG a due componenti → Dirac a quattro componenti | Famiglia equivarante complessa di dimensione 2 sotto Spin(3); nessun embedding canonico né estensione ai boost |\n| [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md) | Estensione lorentziana e selezione chirale QLG–Dirac | Gli embedding invarianti sono i due autospazi di gamma5; boost fissano la chiralità ma non il segno; parità li scambia |
-
+| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Microscopic spin current and quadratic invariant | Self/pair decomposition; conditional cosmological scaling; RGS–PSU correlator still to be computed |
+| [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Microscopic correlator on Q6 and PRISM | Shell correlators, self/pair decomposition and conditional scaling fits; physical RGS–PSU data still required |
+| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Lorentzian EC–Dirac axial current on Q6/PRISM | Moments M^ab, shell-resolved tensor correlators, EC contact term and provenance limitations |
+| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | Classification of QLG two-component to Dirac four-component intertwiners | Two-complex-dimensional family under Spin(3); no canonical embedding |
+| [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md) | Lorentz-covariant QLG–Dirac embedding and chirality | The invariant embeddings are the two gamma5 eigenspaces; boosts distinguish the Weyl representations, while parity exchanges them |
 ## Collegamento con il filone Nielsen/Hopf
 
 La bibliografia citata nel manoscritto di Jennifer Lorraine Nielsen è registrata separatamente in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 sviluppa un risultato matematico indipendente sul quoziente Hopf/Seifert (S^3/2I); non attribuisce il teorema a Nielsen e non considera il suo manoscritto una validazione delle affermazioni qui dimostrate.
@@ -134,4 +135,13 @@ T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, 
 - Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
 - Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
 - Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
-\n\n### T049C — Intertwiner QLG–Dirac\n\nT049C dimostra che la fibra QLG fondamentale di SU(2), immersa nella restrizione spaziale della rappresentazione Dirac U⊕U, ammette una famiglia complessa bidimensionale di intertwiner K=(αI₂, βI₂)ᵀ. La condizione d'isometria è |α|²+|β|²=1. Quindi l'equivarianza 2I/Spin(3) non seleziona un embedding fisico; i boost di Spin(1,3) non sono definiti sulla fibra QLG a due componenti. L'audit numerico e i test sono in scripts/q6_qlg_dirac_intertwiner.py e tests/test_q6_qlg_dirac_intertwiner.py.\n\n\n### T049D — Estensione lorentziana e chiralità\n\nT049D usa le matrici Clifford già definite in `rgs-qlg-quaternion-bridge` (firma \\((-+++ )\\)). Nella base sorgente \\(\\gamma^5=\\begin{psmallmatrix}0&I\\\\I&0\\end{psmallmatrix}\\); i due embedding Weyl sono \\(K_s=2^{-1/2}(I_2,sI_2)^T\\). Essi sono invarianti sotto rotazioni e boost, con generatori indotti \\(B_i^{(s)}=-s\\sigma_i/2\\). I blocchi coordinati superiore/inferiore di T049C non sono boost-invarianti. La parità scambia \\(K_+\\) e \\(K_-\\): una fibra singola richiede una scelta chirale/orientata, mentre una teoria parità-invariante deve contenere entrambe. La simmetria Lorentziana non seleziona il segno. Motore e test: `scripts/q6_qlg_dirac_lorentz_chirality.py`, `tests/test_q6_qlg_dirac_lorentz_chirality.py`.\n
+\n\n### T049C — QLG–Dirac intertwiners
+
+T049C proves that the fundamental two-component QLG fibre of SU(2), embedded into the spatial restriction of the Dirac representation U⊕U, admits a two-complex-dimensional family of intertwiners,
+K=(alpha I2, beta I2)^T. Isometry requires |alpha|^2+|beta|^2=1. Therefore 2I/Spin(3) equivariance alone does not select a physical embedding. The numerical audit and tests are provided in `scripts/q6_qlg_dirac_intertwiner.py` and `tests/test_q6_qlg_dirac_intertwiner.py`.
+
+### T049D — Lorentzian extension and chirality
+
+T049D uses the Clifford matrices defined in the source repository `rgs-qlg-quaternion-bridge`, with signature (-,+,+,+). In that basis, gamma5 has off-diagonal identity blocks and the two Weyl embeddings are
+K_s = 2^(-1/2) (I2, s I2)^T.
+They are invariant under rotations and boosts, with induced boost generators B_i^(s) = -s sigma_i/2. The upper/lower coordinate blocks from T049C are not boost-invariant. Parity exchanges K_+ and K_-: a single Weyl fibre requires a chirality/orientation choice, whereas a parity-invariant theory must contain both. Lorentz covariance does not select the sign. The implementation and tests are in `scripts/q6_qlg_dirac_lorentz_chirality.py` and `tests/test_q6_qlg_dirac_lorentz_chirality.py`.
