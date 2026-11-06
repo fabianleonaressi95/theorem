@@ -58,6 +58,9 @@ jobs:
           python -m pip install pytest
           python -m pytest -q tests/test_herasymov_symbolic_audit.py
           python -m pytest -q tests/test_cubical_subdivision_chain_map.py
+          python -m pytest -q tests/test_herasymov_parity_face_conformity.py
+      - name: Audit exact Herasymov parity shared-face conformity
+        run: python audits/audit_herasymov_parity_face_conformity.py --self-test
       - name: Audit exact cubical subdivision and symmetry naturality
         run: python audits/audit_cubical_subdivision_chain_map.py --size 2
       - name: Check CLI entry point
