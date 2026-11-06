@@ -55,15 +55,15 @@ def test_boolean_generator_uses_parity_sublattices_not_octants():
                 assert complement is False
 
 
-def test_uniform_rules_give_a_well_defined_parent_to_child_coordinate_map():
+def test_uniform_rules_give_single_valued_parent_cell_sampling():
     report = MODULE.audit_parity_lattice_refinement(size=3)
     assert report["interpretation"] == "eight parity sublattices, not eight contiguous octants"
-    assert report["geometric_refinement_map_for_arbitrary_data"]
+    assert report["single_parent_source_coordinate_per_parent"]
     assert report["max_source_index_edge_l1_jump"] <= 1
 
 
-def test_mixed_reflection_rules_do_not_define_one_geometric_refinement_map():
+def test_mixed_reflection_rules_interleave_parent_samples():
     rules = [[[0, 5], [3, 6]], [[1, 4], [2, 7]]]
     report = MODULE.audit_parity_lattice_refinement(rules, size=3)
     assert not report["all_eight_children_share_one_source_coordinate"]
-    assert not report["geometric_refinement_map_for_arbitrary_data"]
+    assert not report["single_parent_source_coordinate_per_parent"]
