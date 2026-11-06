@@ -25,7 +25,7 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -r requirements.txt
       - name: Compile Python sources
-        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py test_consistent_mass.py
+        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py
       - name: Check CLI entry point
         run: python run_benchmark.py --help
       - name: Verify cubical incidence chain identity
@@ -67,3 +67,18 @@ jobs:
 
       - name: Compare diagonal DEC and consistent cubical FEEC masses
         run: python test_consistent_mass.py
+
+      - name: Run DEC versus consistent FEEC refinement controls
+        run: |
+          python mass_refinement_study.py --dim 2 --levels 4,8,16 --out /tmp/mass2d.json
+          python mass_refinement_study.py --dim 3 --levels 2,3,4,5 --out /tmp/mass3d.json
+          python - <<'PY'
+          import json
+          for path in ("/tmp/mass2d.json", "/tmp/mass3d.json"):
+              data = json.load(open(path))
+              print(json.dumps({
+                  "dimension": data["dimension"],
+                  "rows": data["rows"],
+                  "empirical_loglog_exponents": data["empirical_loglog_exponents"],
+              }, indent=2))
+          PY
