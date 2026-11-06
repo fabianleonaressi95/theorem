@@ -135,7 +135,9 @@ T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, 
 - Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
 - Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
 - Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
-\n\n### T049C — QLG–Dirac intertwiners
+
+
+### T049C — QLG–Dirac intertwiners
 
 T049C proves that the fundamental two-component QLG fibre of SU(2), embedded into the spatial restriction of the Dirac representation U⊕U, admits a two-complex-dimensional family of intertwiners,
 K=(alpha I2, beta I2)^T. Isometry requires |alpha|^2+|beta|^2=1. Therefore 2I/Spin(3) equivariance alone does not select a physical embedding. The numerical audit and tests are provided in `scripts/q6_qlg_dirac_intertwiner.py` and `tests/test_q6_qlg_dirac_intertwiner.py`.
