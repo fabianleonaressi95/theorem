@@ -307,3 +307,39 @@ documented in `docs/CONSISTENT_FEEC_MASS.md`.
   curved maps with verified global diffeomorphism, quadrature convergence,
   and uniform metric bounds. Only a residual collapse there would motivate
   a separate compactness investigation.
+
+
+### 1.7.4 Fixed-amplitude curved-map control
+
+The same three-way comparison was repeated with the non-affine map
+`Phi(x)=x+0.05 prod_i sin(pi x_i) e_1`, at the same refinement levels.
+The sampled Jacobian determinants remain in the interval
+approximately `[0.8429,1.1571]`. Moreover, for this explicit map
+`det(D Phi)=1+0.05 pi cos(pi x_1) prod_{i>1}sin(pi x_i)`, so
+`det(D Phi) >= 1-0.05 pi > 0`; and
+`Lip(Phi-Id) <= 0.05 pi sqrt(d) < 1` for d=2,3, which gives global
+injectivity on the reference cube.
+
+| dimension / degree | N | legacy diagonal | corrected DEC | consistent FEEC |
+|---|---:|---:|---:|---:|
+| 2D, k=1 | 4 | 0.0733103 | 9.329844 | 10.385387 |
+| 2D, k=1 | 8 | 0.00476862 | 9.693689 | 9.997005 |
+| 2D, k=1 | 16 | 0.000301034 | 9.785720 | 9.901349 |
+| 3D, k=2 | 2 | 0.375000 | 15.883406 | 23.969360 |
+| 3D, k=2 | 3 | 0.0369637 | 17.908804 | 21.588184 |
+| 3D, k=2 | 4 | 0.00685328 | 18.639380 | 20.769485 |
+
+Empirical slopes:
+
+| sector | legacy diagonal | corrected DEC | consistent FEEC |
+|---|---:|---:|---:|
+| 2D, k=1 | +3.9640 | −0.0344 | +0.0344 |
+| 3D, k=2 | +5.7700 | −0.2351 | +0.2101 |
+
+The same separation persists on this fixed-amplitude curved family: the
+legacy diagonal values collapse, while both top-corrected DEC and consistent
+FEEC values remain bounded away from zero and trend toward finite limits.
+This is stronger evidence that the archived collapse is tied to the
+top-degree normalization rather than to curvature itself. It is still a
+finite set of numerical refinements; it does not establish a general theorem
+for arbitrary curvilinear cubical maps or metric-dependent refinements.
