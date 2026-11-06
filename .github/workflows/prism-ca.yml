@@ -8,6 +8,7 @@ on:
       - "tests/test_prism_cellular_automata.py"
       - "tests/test_prism_ca_evolution.py"
       - "scripts/run_prism_ca_evolution.py"
+      - "scripts/run_prism_ca_benchmark.py"
       - ".github/workflows/prism-ca.yml"
   pull_request:
     paths:
