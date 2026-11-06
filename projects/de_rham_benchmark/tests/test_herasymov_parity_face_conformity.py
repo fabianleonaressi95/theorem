@@ -1,8 +1,10 @@
 """Exact shared-face compatibility tests for Herasymov parity-selected maps."""
 import importlib.util
+import sys
 from pathlib import Path
 
 AUDITS = Path(__file__).parents[1] / "audits"
+sys.path.insert(0, str(AUDITS))
 SCRIPT = AUDITS / "audit_herasymov_parity_face_conformity.py"
 SPEC = importlib.util.spec_from_file_location("audit_herasymov_parity_face_conformity", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
