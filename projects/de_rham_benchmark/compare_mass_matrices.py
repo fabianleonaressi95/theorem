@@ -50,11 +50,20 @@ def run(dim, N, amplitude=0.0, freq=1, nq=5, nqf=4):
     geometry = PullbackGeometry(mesh, map_spec, {"type": "identity"}, nq=nq, nqf=nqf)
     beta, ranks = betti_numbers(mesh)
 
-    # Existing diagonal DEC / dual-volume inner products.
-    Hdec = hodge_matrices(mesh, geometry.M)
+    # Historical diagonal weights, retained unchanged for reproducibility.
+    Hlegacy = hodge_matrices(mesh, geometry.M)
+    legacy = {}
+    for k in range(dim + 1):
+        legacy[k] = spectral_summary(Hlegacy["B"][k], sp.diags(geometry.M[k]), beta[k])
+
+    # For integral k-cochains, the top-degree DEC Hodge weight is 1/vol(K),
+    # not vol(K). Keep lower-degree dual-volume weights unchanged.
+    Mdec = [np.asarray(m, dtype=float).copy() for m in geometry.M]
+    Mdec[dim] = 1.0 / np.asarray(geometry.vol_g, dtype=float)
+    Hdec = hodge_matrices(mesh, Mdec)
     dec = {}
     for k in range(dim + 1):
-        dec[k] = spectral_summary(Hdec["B"][k], sp.diags(geometry.M[k]), beta[k])
+        dec[k] = spectral_summary(Hdec["B"][k], sp.diags(Mdec[k]), beta[k])
 
     # Consistent tensor-product cubical FEEC Gram matrices.
     Mfeec, mass_diagnostics = assemble_consistent_masses(mesh, geometry)
@@ -65,12 +74,15 @@ def run(dim, N, amplitude=0.0, freq=1, nq=5, nqf=4):
 
     comparison = {}
     for k in range(dim + 1):
+        ll = legacy[k]["lambda_min_positive"]
         ld = dec[k]["lambda_min_positive"]
         lf = feec[k]["lambda_min_positive"]
         comparison[k] = {
-            "DEC_lambda_min_positive": ld,
-            "FEEC_lambda_min_positive": lf,
-            "FEEC_over_DEC": lf / ld,
+            "legacy_DEC_lambda_min_positive": ll,
+            "corrected_top_DEC_lambda_min_positive": ld,
+            "consistent_FEEC_lambda_min_positive": lf,
+            "corrected_DEC_over_legacy": ld / ll,
+            "FEEC_over_corrected_DEC": lf / ld,
         }
 
     return {
@@ -80,7 +92,14 @@ def run(dim, N, amplitude=0.0, freq=1, nq=5, nqf=4):
         "betti": beta, "incidence_ranks": ranks,
         "geometry": geometry.geo,
         "consistent_mass_diagnostics": mass_diagnostics,
-        "DEC_diagonal": dec, "FEEC_consistent": feec,
+        "DEC_legacy_diagonal": legacy,
+        "DEC_integral_cochain_top_corrected": dec,
+        "FEEC_consistent": feec,
+        "top_mass_convention": {
+            "legacy_code": "M_d(K)=vol_g(K)",
+            "integral_cochain_DEC": "M_d(K)=1/vol_g(K)",
+            "legacy_values_preserved": True,
+        },
         "comparison": comparison,
         "method": (
             "Same cubical mesh, oriented face DoFs, incidence matrices, "
