@@ -51,3 +51,15 @@ between verified numerical observations and conjectures.
 ## Audit status
 
 Read the [independent audit checklist](docs/INDEPENDENT_AUDIT_CHECKLIST.md) before interpreting the spectra. In particular, the co-closed/top-degree diagnostic reported in the uploaded results requires an index- and norm-level consistency check.
+
+
+## Degree-wise diagnostic
+
+To distinguish co-closed and top-degree modes, run the normalized energy audit in the actual Hodge inner products:
+
+```bash
+python degreewise_audit.py --dim 2 --N 8
+python degreewise_audit.py --dim 3 --N 5
+```
+
+This reports the grad/curl energy fractions, normalized co-closedness defect, weighted distance to exact cochains, and generalized eigenpair residual for every degree. In top degree, positive modes are necessarily grad-only because the outgoing differential vanishes. See [the corrected report](docs/REPORT.md#16-independent-degree-wise-audit-and-correction).
