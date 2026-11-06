@@ -456,8 +456,8 @@ used as the bibliographic attribution.
 The correct order is now:
 1. audit Serhii Herasymov's source algorithms: billiard coding, exact finite shuffle–billiard comparison, curved graph metric, and 3D voxel recursion;
 2. formulate the graph embedding as a curvilinear surface mesh and verify its Jacobian/metric bounds;
-3. convert the recursive 3D voxel operator into candidate cubical subdivision maps and test shared-face traces and orientation;
-4. verify whether the induced cochain maps commute with the cubical exterior derivative;
+3. audit the source-faithful 3D parity-sublattice operator; do not call its eight rules octants, and determine whether the parity rules give a single-valued parent-cell sampling rule;
+4. if a geometric cubical map is separately defined, verify face compatibility, orientations, and cochain commutation with the cubical exterior derivative;
 5. separately enumerate the 216 \(W(G_2)\) triples and verify the 20 Gram classes;
 6. prove \(R_Tc_T=0\), the metric-consistent rank-completion determinant identity, and uniform bounds for \(\alpha(\rho)\);
 7. keep the RGS Möbius seam distinct from Herasymov's toroidal CA boundaries; prove the chosen thickened 3D cells are conforming, orientable, and uniformly nondegenerate;

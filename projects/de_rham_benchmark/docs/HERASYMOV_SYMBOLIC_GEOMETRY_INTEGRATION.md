@@ -130,14 +130,16 @@ This explains the modular arithmetic used in the article's return-period routine
 
 The 2D version applies the in-shuffle in both array directions and reveals toroidal wraparound in the finite index layout. This is a discrete permutation of pixels, not a continuous deformation of a torus.
 
-The Boolean 3D source \`fractal_3d_2.js\` starts with a \(2\times2\times2\) seed. At each step it doubles each dimension and fills each of the eight child octants using a selected mode. Modes 0–7 are the eight coordinate sign-flips
+The Boolean 3D source `fractal_3d_2.js` starts with a \(2\\times2\\times2\) seed. At each iteration it doubles each array dimension and writes
 \[
-(x,y,z)\mapsto(\epsilon_x x,\epsilon_y y,\epsilon_z z)
+\mathrm{next}[2x+dx][2y+dy][2z+dz]
+= T_{m_{dz,dy,dx}}(\mathrm{current})[x,y,z],
 \]
-in index coordinates (with the appropriate \(N-1-\cdot\) offset); modes 8–15 apply the corresponding reflection and Boolean complement. Each reflected index map is bijective on the parent voxel set. This is a recursive symbolic voxel generator.
+where (m_{dz,dy,dx}) is selected by `drawar[dz][dy][dx]`. **The eight rules are selected by output-index parity classes, not assigned to eight contiguous child octants.** Each rule is applied to the global parent index ((x,y,z)); modes 0–7 are coordinate sign-flips (with (N-1-\cdot) offsets), and modes 8–15 apply the same coordinate map plus Boolean complement. Each individual coordinate map is a bijection of the parent voxel set.
 
-It is not yet a conforming geometric subdivision: independently selected octant modes need not match on shared faces. Nor is the Boolean complement a geometric map. Before treating this as a mesh refinement operator, one must audit shared-face traces, orientation, and incidence preservation. The separate rotation-enhanced source \`fractal_3d_with_rotaions.js\` uses additional mode bits for axis rotations and has different scalar-value semantics; it must be audited separately rather than assumed identical to the Boolean implementation.
+This distinction changes the FEEC question. The code is a parity-sublattice data transform: the eight children of one parent voxel can be mapped to eight different source voxels if the parity rules use different reflections. Therefore the eight outputs need not sample one and the same parent voxel. The new audit `audit_parity_lattice_refinement` checks this directly. For arbitrary source data, a single parent source sample is well-defined only when all eight parity rules induce the same coordinate map; for a single scalar field with the same Boolean value rule, the complement choice must also agree. This is a necessary structural condition, not yet a cubical chain-map proof.
 
+The separate rotation-enhanced source `fractal_3d_with_rotaions.js` uses additional mode bits for axis rotations and has different scalar-value semantics: it does not Boolean-complement values; it optionally increments the sampled value when bit 3 is unset. It must be audited separately rather than assumed identical to the Boolean implementation.
 
 ### 3.1 Exact finite bridge: perfect shuffle equals a billiard floor pattern
 
@@ -189,6 +191,15 @@ The public \`xcontcom\` profile lists 18 repositories. The following is a releva
 
 The strongest additions beyond the two core repositories are \`fractogenesis\` (explicit 3D CA/convolution), \`t-fractal\` (2D/3D recursive seed accumulation), \`binary-sequence-visualizer\` (floor/parity field construction), and \`neuroparticles2\` (repeated local-window reduction). These should be audited in that order after the current core bridge.
 
+
+### 3.2 Correction from source-level indexing audit: parity classes, not octants
+
+The first visual reading of the UI labels can suggest eight spatial octants. The actual loop nest disproves that interpretation: `dx,dy,dz` are the low bits of each output index, and `drawar[dz][dy][dx]` selects one of eight interleaved parity sublattices. The source coordinate passed to `switchdraw` is the parent-grid coordinate `(x,y,z)`, not a local coordinate within a contiguous octant.
+
+Consequently, an octant-face matching table is not the right conformity test for this implementation. The correct first test is whether the eight parity-selected rules give all children of each parent voxel the same source index. This is only a data-sampling consistency test, not a geometric cell map. The audit evaluates all eight outputs over every parent voxel and records the source-index jumps across neighboring fine-grid voxels. Uniform mode 0 gives one consistent parent source sample per parent voxel and neighboring source-index jumps at most one. A mixed-reflection example fails the single-map condition. This is a direct obstruction to interpreting a generic mixed-rule output as a single-valued parent-cell sampling rule; it does not rule out its intended use as a symbolic/fractal data generator.
+
+The new tests cover the parity indexing, uniform-rule case, and mixed-reflection obstruction. The next mathematical step is to define an actual cubical cell map (including vertices, edges, faces, and 3-cells) and verify its boundary/incidence commutation. A voxel-index sampling rule alone does not supply that map.
+
 ## 4. Cellular automata and coupled fields
 
 Herasymov's \`evolving-cellular-automata\` searches a \(2^{512}\) rule space for 2D Moore-neighborhood automata, with toroidal boundary conditions. The later \`initial-state-evolution\` project fixes Conway's Life rule and co-evolves two fields A and B, with A's upper/lower boundary coupled to B and vice versa. These are useful examples of:
@@ -232,7 +243,7 @@ For the RGS–PSU–PRISM synthesis:
 | Graph metric \(g=I+\nabla z\otimes\nabla z\), \(\det g=1+|\nabla z|^2\) | Exact differential geometry where \(z\) is differentiable |
 | Fibonacci aspect ratios converge to \(\varphi\) | Standard exact limit |
 | Herasymov's finite binary patterns exhibit the article's reported visual structure | Reproducible computational claim; audit/fixtures needed |
-| Recursive 3D octant copies form a conforming 3D mesh | Open; not implied by voxel bijections |
+| The parity-sublattice data transform defines a conforming 3D cubical mesh | Not established; it is not a geometric cell map, and cubical incidence compatibility remains open |
 | The recursive transformations induce a chain map on cubical cochains | Open; requires incidence/face-trace audit |
 | The symbolic threshold field models physical holography, diffraction, or quantum interference | Not established; visual analogy only |
 | Herasymov's constructions derive the RGS \(W(G_2)\) lift or Möbius seam | Not established by inspected sources |
@@ -245,4 +256,4 @@ Run:
 python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 \`\`\`
 
-The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, and the eight 3D coordinate-reflection bijections. It does not certify inter-octant face conformity or FEEC convergence.
+The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful parity-lattice refinement condition. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.

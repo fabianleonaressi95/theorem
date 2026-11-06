@@ -146,5 +146,4 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
-The audit does not claim that independently transformed 3D octants match on
-shared faces or define a conforming FEEC mesh.
+The Boolean 3D source uses eight interleaved parity sublattices, not contiguous octants. The audit tests whether those rules give a single parent source sample per parent voxel; it does not certify a cubical incidence chain map or a conforming FEEC mesh.
