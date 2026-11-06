@@ -221,7 +221,6 @@ def audit_parity_lattice_refinement(
     geometric cell map or a cubical chain map. Boolean complement is tracked
     separately because it changes data, not coordinates.
     """
-    """Check whether the eight parity children agree on their parent source voxel."""
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
     if len(drawar) != 2 or any(
