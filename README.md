@@ -137,7 +137,7 @@ See [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md), `scripts/rgs_prism
 
 T049C classifies the Spin(3)-equivariant embeddings of a two-component QLG fibre into the spatial restriction of the four-component Dirac representation. The family is not canonical.
 
-T049D then imposes Lorentz covariance using the Clifford convention documented in the source implementation, with signature ((-+++)). The two invariant embeddings are the two Weyl sectors, represented by
+T049D then imposes Lorentz covariance using the Clifford convention documented in the source implementation, with signature ((-+++)). In the Hermitian-generator commutator convention used by the record, the boost generators are \(\mathcal K_i=\tfrac{i}{2}\gamma^0\gamma^i\), inducing \(K_i^{(s)}=-is\sigma_i/2\) on the two Weyl fibres. The two invariant embeddings are the two Weyl sectors, represented by
 [
 K_s=\frac{1}{\sqrt{2}}\begin{pmatrix}I_2\\sI_2\end{pmatrix},
 \qquad s=\pm1.
