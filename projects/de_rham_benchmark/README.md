@@ -77,3 +77,8 @@ python mass_refinement_study.py --dim 2 --levels 4,8,16
 python mass_refinement_study.py --dim 3 --levels 2,3,4,5
 python test_consistent_mass.py
 ```
+
+
+## Independent mathematical audit
+
+A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
