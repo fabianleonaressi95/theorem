@@ -47,12 +47,18 @@ def test_audit_explicitly_labels_scope():
     assert len(result["rows"]) == 3
 
 
-@pytest.mark.parametrize("n", [0, 1, 2, -5])
+@pytest.mark.parametrize("n", [0, 1, 2, -5, 3.5, True])
 def test_invalid_cycle_size_rejected(n):
     with pytest.raises(ValueError):
         PeriodicCycle(n)
 
 
-def test_invalid_mode_rejected():
+@pytest.mark.parametrize("mode", [-1, 16, 1.5, True])
+def test_invalid_mode_rejected(mode):
     with pytest.raises(ValueError):
-        PeriodicCycle(16).sample_mode(16)
+        PeriodicCycle(16).sample_mode(mode)
+
+
+def test_continuum_mode_requires_integer():
+    with pytest.raises(ValueError):
+        continuum_mode_energy(1.5)
