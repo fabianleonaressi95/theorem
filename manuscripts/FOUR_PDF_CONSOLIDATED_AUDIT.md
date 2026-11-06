@@ -116,7 +116,7 @@ are orthogonal complementary projectors of ranks 6 and 9. This implication is a 
 
 - Keep the already cleaned [scalar–torsion variational identity](SCALAR_TORSION_VARIATIONAL_IDENTITY.md) as a narrow conditional derivation; do not import the incomplete BVP or Hessian claims from \`siiiiii.pdf\`.
 - Keep the already cleaned [inhomogeneous spin-chain note](INHOMOGENEOUS_SPIN_CHAIN.md) separate from the Dirac feedback/breather narrative.
-- For \`yess.pdf\`, the only worthwhile next mathematical extraction is a self-contained lemma with the exact \(C_6\) matrix, exact spectrum of \(\Lambda^2 C_6\), and explicit \(2I^*\) representation matrices. Until those matrices are constructed, omit the equivariance claim.
+- The conditional exterior-square projector implication has now been extracted as [T053](../theorems/T053-exterior-square-projector-lemma.md). The source-specific hypotheses (exact matrix, symmetry and quadratic identity) still require independent verification; no equivariance or irreducibility claim is imported.
 - For \`dirac.pdf\`, any continuation must begin with an explicit finite-dimensional action/Hamiltonian and a coupled integrator tested against norm, energy, timestep refinement and spatial refinement. Do not use the existing output tables as physical evidence.
 - Do not use \`soluzione.pdf\` as a source for QNM, bounce, ghost-free, UV, SUSY, vacuum-energy or wormhole-stability claims.
 - Preserve all four original Library PDFs as source material. Their rejection as evidence does not require deleting the originals.
