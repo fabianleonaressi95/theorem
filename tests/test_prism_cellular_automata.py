@@ -97,6 +97,8 @@ def test_invalid_state_and_wrong_length_rejected():
     bad[0] = 2
     with pytest.raises(ValueError):
         step(graph, bad, elementary_rules()["zero"])
+    with pytest.raises(ValueError):
+        step(graph, [0.0] * graph.vertex_count, elementary_rules()["zero"])
 
 
 def test_graph_vertex_encoding_roundtrip():
