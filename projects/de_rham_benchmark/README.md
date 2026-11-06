@@ -173,3 +173,26 @@ pytest -q projects/de_rham_benchmark/tests/test_cubical_subdivision_chain_map.py
 
 This is a mathematically exact subdivision operator, not yet an identification
 of Herasymov's mixed parity recursion with a conforming geometric subdivision.
+
+
+### Herasymov parity rules: exact shared-face criterion
+
+The rotation-enhanced generator's eight parity-selected affine cube maps
+are now audited for pointwise conformity on every internal shared face.
+For refinement levels N>=2, the necessary and sufficient condition is
+that all eight continuous affine cube isometries are identical. The audit
+compares face traces exactly over doubled integer coordinates and keeps
+the scalar increment bit separate from geometry.
+
+See [the theorem and proof](docs/HERASYMOV_PARITY_FACE_CONFORMITY.md).
+
+Run:
+
+~~~bash
+python projects/de_rham_benchmark/audits/audit_herasymov_parity_face_conformity.py --self-test
+pytest -q projects/de_rham_benchmark/tests/test_herasymov_parity_face_conformity.py
+~~~
+
+This characterizes the explicit cellwise-affine geometric interpretation;
+it does not assert that the original voxel-value recursion alone defines
+that geometry, nor does it prove FEEC stability or Mosco convergence.
