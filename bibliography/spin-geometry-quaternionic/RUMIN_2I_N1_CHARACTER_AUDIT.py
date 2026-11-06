@@ -413,7 +413,6 @@ def verify_n1_jk_weight_decomposition(max_degree: int = 100):
             assert all(q + p == m for q, p in pairs)
             assert all(q >= -p for q, p in pairs)  # U(2) dominance
             # V_(q,-p) = det**(-p) tensor Sym**(q+p); det is trivial on SU(2).
-            assert all(q + p == m for q, p in pairs)
             assert (m + 1) * a[m] == len(pairs) * a[m]
     return True
 
@@ -449,7 +448,7 @@ def verify_n1_boundary_and_zero_weight_cases():
     """Check Cases III/IV and VI/VII separately, without extrapolating."""
     p, q = sp.symbols("p q", integer=True, positive=True)
     # Cases III/IV: the central D kills im(d_E^0); Delta_E^1 is the
-    # square of the first-order singular value p/2 or q/2.
+    # square of the eigenvalue d_E^0 d_E^{0†}=p/2 or q/2.
     assert sp.simplify((p / 2)**2 - p**2 / 4) == 0
     assert sp.simplify((q / 2)**2 - q**2 / 4) == 0
     # Cases VI/VII are Reeb-only: 2 L_T has eigenvalue i(p-q).
@@ -473,7 +472,6 @@ if __name__ == "__main__":
     z0 = scalar_spectral_zeta_terms(12)
     z1 = middle_spectral_zeta_terms(12)
     assert zeta_zero_mode_contribution_e0() == 1
-    assert zeta_zero_mode_contribution_e0() == 1
     assert len(z0) == 13
     assert len(z1) == 28
     assert sum(term[3] for term in z0) == 13
@@ -485,7 +483,6 @@ if __name__ == "__main__":
     print("Case VII boundary q=13:", boundary_eigenvalue_case_vii(13))
     print("E^0 zero-mode contribution (Kitaoka convention 0**s=1):",
           zeta_zero_mode_contribution_e0())
-    print("E^0 zero-mode contribution:", zeta_zero_mode_contribution_e0())
     print("E^0 positive spectral terms through m=12:", len(z0))
     print("E^1 spectral terms through m=12:", len(z1))
     rows = n1_bidegree_counts(max_degree)
