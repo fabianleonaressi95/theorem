@@ -50,7 +50,7 @@ between verified numerical observations and conjectures.
 
 ## Audit status
 
-Read the [independent audit checklist](docs/INDEPENDENT_AUDIT_CHECKLIST.md) before interpreting the spectra. In particular, the co-closed/top-degree diagnostic reported in the uploaded results requires an index- and norm-level consistency check.
+Read the [independent audit checklist](docs/INDEPENDENT_AUDIT_CHECKLIST.md) before interpreting the spectra. The original archived collapse used the historical top-degree weight M_d=vol_g(K); for integral top-degree cochains the corrected primal DEC weight is 1/vol_g(K). The three-way control and revised interpretation are in REPORT.md §1.7.
 
 
 ## Degree-wise diagnostic
@@ -67,11 +67,13 @@ This reports the grad/curl energy fractions, normalized co-closedness defect, we
 
 ## Consistent FEEC mass control
 
-The next spectral control compares the existing diagonal DEC dual-volume weights with full consistent tensor-product cubical FEEC Gram matrices on the same mesh and incidence complex. See [the method and assumptions](docs/CONSISTENT_FEEC_MASS.md).
+The next spectral control compares three variants on the same mesh and incidence complex: historical diagonal weights, top-corrected primal DEC weights, and full consistent tensor-product cubical FEEC Gram matrices. The affine and fixed-amplitude curved tests show that the archived h^(2d) collapse disappears with corrected top-degree normalization. See [the method and assumptions](docs/CONSISTENT_FEEC_MASS.md).
 
 ```bash
 python compare_mass_matrices.py --dim 2 --N 8
 python compare_mass_matrices.py --dim 3 --N 4
 python compare_mass_matrices.py --dim 2 --N 8 --amplitude 0.05
+python mass_refinement_study.py --dim 2 --levels 4,8,16
+python mass_refinement_study.py --dim 3 --levels 2,3,4,5
 python test_consistent_mass.py
 ```
