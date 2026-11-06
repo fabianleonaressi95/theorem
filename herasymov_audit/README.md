@@ -46,3 +46,11 @@ Esecuzione:
 ```bash
 python audit_t2u_multiplicity.py --samples 500
 ```
+
+
+## Intertwiner verso RGS 188D
+
+- [`audit_rgs_t2u_intertwiner.py`](audit_rgs_t2u_intertwiner.py): solver Reynolds per (J\in\mathbb R^{188\times30}), richiede le 48 azioni tangenti RGS verificate.
+- [`selftest_t2u_intertwiner.py`](selftest_t2u_intertwiner.py): unit test sintetico del solver; non usa dati RGS.
+
+Il contratto NPZ del solver e la distinzione tra tripletto (188\times3) e componente isotypic di rango 30 sono documentati nel report. Il calcolo sul tangente RGS reale resta in attesa delle matrici (U_{tan}(g)) nella stessa base (Q_{tangent}).
