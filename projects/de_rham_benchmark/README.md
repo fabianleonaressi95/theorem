@@ -155,3 +155,21 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
 The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes and separates coordinate action from scalar increments. In addition, all 32 distinct uniform signed-permutation maps are checked as exact chain automorphisms of a fixed cubical grid. This does not establish a coarse-to-fine refinement map for mixed parity rules or FEEC convergence.
+
+
+### Exact cubical subdivision chain map
+
+The standard coarse-to-fine cubical subdivision operator is audited over
+integer chains, including boundary commutation and naturality under all 48
+signed-permutation symmetries of the cube. See
+[the construction and limitations](docs/CUBICAL_SUBDIVISION_CHAIN_MAP.md).
+
+Run:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_cubical_subdivision_chain_map.py --size 2
+pytest -q projects/de_rham_benchmark/tests/test_cubical_subdivision_chain_map.py
+```
+
+This is a mathematically exact subdivision operator, not yet an identification
+of Herasymov's mixed parity recursion with a conforming geometric subdivision.
