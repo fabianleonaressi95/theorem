@@ -138,6 +138,7 @@ The Boolean 3D source `fractal_3d_2.js` starts with a \(2\\times2\\times2\) seed
 where (m_{dz,dy,dx}) is selected by `drawar[dz][dy][dx]`. **The eight rules are selected by output-index parity classes, not assigned to eight contiguous child octants.** Each rule is applied to the global parent index ((x,y,z)); modes 0–7 are coordinate sign-flips (with (N-1-\cdot) offsets), and modes 8–15 apply the same coordinate map plus Boolean complement. Each individual coordinate map is a bijection of the parent voxel set.
 
 This distinction changes the FEEC question. The code is a parity-sublattice data transform: the eight children of one parent voxel can be mapped to eight different source voxels if the parity rules use different reflections. Therefore the eight outputs need not be samples of one well-defined geometric parent-to-child map. The new audit `audit_parity_lattice_refinement` checks this directly. For arbitrary source data, a single parent source sample is well-defined only when all eight parity rules induce the same coordinate map; for a single scalar field with the same Boolean value rule, the complement choice must also agree. This is a necessary structural condition, not yet a cubical chain-map proof.
+This distinction changes the FEEC question. The code is a parity-sublattice data transform: the eight children of one parent voxel can be mapped to eight different source voxels if the parity rules use different reflections. Therefore the eight outputs need not sample one and the same parent voxel. The new audit `audit_parity_lattice_refinement` checks this directly. For arbitrary source data, a single parent source sample is well-defined only when all eight parity rules induce the same coordinate map; for a single scalar field with the same Boolean value rule, the complement choice must also agree. This is a necessary structural condition, not yet a cubical chain-map proof.
 
 The separate rotation-enhanced source `fractal_3d_with_rotaions.js` uses additional mode bits for axis rotations and has different scalar-value semantics: it does not Boolean-complement values; it optionally increments the sampled value when bit 3 is unset. It must be audited separately rather than assumed identical to the Boolean implementation.
 
@@ -200,6 +201,65 @@ Consequently, an octant-face matching table is not the right conformity test for
 
 The new tests cover the parity indexing, uniform-rule case, and mixed-reflection obstruction. The next mathematical step is to define an actual cubical cell map (including vertices, edges, faces, and 3-cells) and verify its boundary/incidence commutation. A voxel-index sampling rule alone does not supply that map.
 
+### 3.3 Rotation-enhanced generator: exact mode audit
+
+The distinct source `fractal_3d_with_rotaions.js` (spelling as in the repository) uses an 8-bit mode. Its coordinate action is a composition of:
+
+1. a rotation selected by `rotAxis=(mode>>4)&3` and `rotAngle=(mode>>6)&3`;
+2. one of eight coordinate reflections selected by `mode&7`.
+
+The source's quarter-turn formulas are ported literally:
+[
+R_x(x,y,z)=(x,N-1-z,y),quad
+R_y(x,y,z)=(z,y,N-1-x),quad
+R_z(x,y,z)=(N-1-y,x,z).
+]
+The selected rotation is repeated zero, one, two, or three times, then the lower-three-bit reflection is applied. Axis code zero means no rotation for every angle code. Exhaustion of all 256 byte modes gives:
+
+- every mode is a bijection of the finite (N^3) voxel index set (checked for (N=3), with the exact affine signed-permutation structure recovered);
+- there are 32 distinct coordinate maps, not 48;
+- 128 mode values induce orientation-preserving maps and 128 orientation-reversing maps;
+- the eight parity rules still select interleaved output sublattices, not contiguous octants.
+
+The scalar action must be kept separate from the coordinate action. The source does **not** complement Boolean values. It executes `if (!(mode & 8)) a++`: exactly 128 byte modes increment the sampled scalar by one and 128 leave it unchanged. The duplicated switch cases 0–7 and 8–15 have the same coordinate lookup; bit 3 controls the increment. Since JavaScript's `++` coerces booleans to numbers, the initial Boolean seed becomes numeric under incrementing modes. With seven iterations and a seed in ({0,1}), values remain bounded by the trivial estimate ([0,8]); this is not a conservation law.
+
+A second parity-sampling audit checks, for every parent voxel, whether all eight parity rules select the same source coordinate and the same scalar action. Uniform rules pass; the included mixed-rotation control fails. This establishes source-index bijectivity of each mode, not a geometric subdivision map, shared-cell trace compatibility, or a de Rham chain map.
+
+
+### 3.4 Uniform modes induce exact cubical chain automorphisms
+
+To distinguish an actual incidence statement from voxel-index bijectivity, the audit constructs the oriented cubical complex of the fixed grid
+[
+K_N=[0,N]^3.
+]
+A canonical oriented (k)-cell is represented by a lower vertex (vinmathbb Z^3) and an increasing axis set (I=(i_1<cdots<i_k)). Its boundary is
+[
+partial[v;I]=sum_{r=1}^{k}(-1)^{r-1}
+left([v+e_{i_r};Isetminus i_r]-[v;Isetminus i_r]
+ight).
+]
+
+Each of the 32 distinct signed-permutation matrices (A) recovered from the rotation-enhanced source acts on grid vertices by
+[
+F_A(v)_i=
+egin{cases}
+v_j,&A_{ij}=+1,\
+N-v_j,&A_{ij}=-1,
+end{cases}
+]
+where row (i) has its unique nonzero entry in column (j). The image of an oriented cell is the image cell multiplied by the induced orientation sign: the product of the axis signs and the permutation sign needed to reorder the image axes.
+
+The audit compares the two integer chains cell by cell:
+[
+oxed{partial P_k(c)=P_{k-1}partial(c),qquad k=1,2,3.}
+]
+It enumerates all cells in degrees 0 through 3 for each distinct matrix. This is an exact finite combinatorial test, not a floating-point residual.
+
+**Scope:** this proves that every uniform signed-permutation symmetry induces an automorphism of the *same* cubical complex. It does not construct a coarse-to-fine inclusion/prolongation (P_h^k:C^k(K_h)	o C^k(K_{h'})), and it says nothing by itself about the mixed parity-selected generator. A genuine refinement proof still needs a specified subdivision of every cell, with compatible face restrictions and the chain identity across two different mesh levels.
+
+For cochains, the induced pullback is the dual map. Its commutation with the coboundary follows from the chain identity above; it should not be confused with an independently chosen interpolation operator.
+
+
 ## 4. Cellular automata and coupled fields
 
 Herasymov's \`evolving-cellular-automata\` searches a \(2^{512}\) rule space for 2D Moore-neighborhood automata, with toroidal boundary conditions. The later \`initial-state-evolution\` project fixes Conway's Life rule and co-evolves two fields A and B, with A's upper/lower boundary coupled to B and vice versa. These are useful examples of:
@@ -245,6 +305,8 @@ For the RGS–PSU–PRISM synthesis:
 | Herasymov's finite binary patterns exhibit the article's reported visual structure | Reproducible computational claim; audit/fixtures needed |
 | The parity-sublattice data transform defines a conforming 3D cubical mesh | Not established; it is not a geometric cell map, and cubical incidence compatibility remains open |
 | The recursive transformations induce a chain map on cubical cochains | Open; requires incidence/face-trace audit |
+| Each uniform signed-permutation mode induces a chain automorphism of the fixed cubical grid | Exact finite combinatorial identity; all 32 distinct maps audited |
+| A coarse-to-fine refinement operator induced by the mixed parity generator commutes with cubical incidence | Open; requires a cell subdivision and compatible face restrictions |
 | The symbolic threshold field models physical holography, diffraction, or quantum interference | Not established; visual analogy only |
 | Herasymov's constructions derive the RGS \(W(G_2)\) lift or Möbius seam | Not established by inspected sources |
 | The combined construction satisfies FEEC Mosco convergence | Open; requires the full geometric, stability, compactness, and recovery-sequence programme |
@@ -257,3 +319,4 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 \`\`\`
 
 The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful parity-lattice refinement condition. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.
+The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, Boolean and rotation-generator parity sampling, all 256 rotation modes, and exact cubical chain identities for the 32 distinct uniform signed-permutation maps on a fixed grid. It does not certify a coarse-to-fine refinement map, FEEC stability, or Mosco convergence.

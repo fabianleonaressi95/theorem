@@ -78,6 +78,14 @@ python mass_refinement_study.py --dim 3 --levels 2,3,4,5
 python test_consistent_mass.py
 ```
 
+## FEEC projections and discrete adjoints
+
+The projection/adjoint benchmark measures de Rham face-integral projections `pi_h`, the commutator `d_h pi_h = pi_h d`, `L^2`/`H-Lambda` approximation errors, the discrete codifferential `delta_h = M^{-1} D^T M` against the continuous codifferential on analytic test forms, mass stability, and spectral indicators — on affine, sinusoidal and `axis_bump` curvilinear maps in 2D and 3D. The unconstrained complex develops an `O(1/h)` boundary layer in `delta_h pi_h u` near `dOmega`; interior and compactly-supported residuals are reported separately. See [the method, assumptions and limitations](docs/FEEC_PROJECTIONS.md).
+
+```bash
+python run_feec_study.py configs/feec_default.json --out results/feec
+python test_feec_study.py
+```
 
 ## Golden / supergolden synthesis
 
@@ -147,3 +155,45 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
 The Boolean 3D source uses eight interleaved parity sublattices, not contiguous octants. The audit tests whether those rules give a single parent source sample per parent voxel; it does not certify a cubical incidence chain map or a conforming FEEC mesh.
+The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes and separates coordinate action from scalar increments. In addition, all 32 distinct uniform signed-permutation maps are checked as exact chain automorphisms of a fixed cubical grid. This does not establish a coarse-to-fine refinement map for mixed parity rules or FEEC convergence.
+
+
+### Exact cubical subdivision chain map
+
+The standard coarse-to-fine cubical subdivision operator is audited over
+integer chains, including boundary commutation and naturality under all 48
+signed-permutation symmetries of the cube. See
+[the construction and limitations](docs/CUBICAL_SUBDIVISION_CHAIN_MAP.md).
+
+Run:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_cubical_subdivision_chain_map.py --size 2
+pytest -q projects/de_rham_benchmark/tests/test_cubical_subdivision_chain_map.py
+```
+
+This is a mathematically exact subdivision operator, not yet an identification
+of Herasymov's mixed parity recursion with a conforming geometric subdivision.
+
+
+### Herasymov parity rules: exact shared-face criterion
+
+The rotation-enhanced generator's eight parity-selected affine cube maps
+are now audited for pointwise conformity on every internal shared face.
+For refinement levels N>=2, the necessary and sufficient condition is
+that all eight continuous affine cube isometries are identical. The audit
+compares face traces exactly over doubled integer coordinates and keeps
+the scalar increment bit separate from geometry.
+
+See [the theorem and proof](docs/HERASYMOV_PARITY_FACE_CONFORMITY.md).
+
+Run:
+
+~~~bash
+python projects/de_rham_benchmark/audits/audit_herasymov_parity_face_conformity.py --self-test
+pytest -q projects/de_rham_benchmark/tests/test_herasymov_parity_face_conformity.py
+~~~
+
+This characterizes the explicit cellwise-affine geometric interpretation;
+it does not assert that the original voxel-value recursion alone defines
+that geometry, nor does it prove FEEC stability or Mosco convergence.

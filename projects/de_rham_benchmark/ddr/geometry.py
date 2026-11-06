@@ -69,6 +69,13 @@ class DomainMap:
                                   [1.0] + [0.0] * (dim - 1)), float)
             n = np.linalg.norm(c)
             self.c = c / n if n > 0 else c
+        elif self.type == "axis_bump":
+            # Phi_i(x) = x_i + a_i sin(pi x_i) sin(pi x_{i+1 mod d})
+            # boundary-preserving, genuinely multi-directional curvature
+            a = spec.get("amplitudes", spec.get("amplitude", 0.1))
+            if np.isscalar(a):
+                a = [float(a)] * dim
+            self.amp = np.asarray(a, float)
         elif self.type == "identity":
             pass
         else:
@@ -101,6 +108,15 @@ class DomainMap:
         if self.type == "sinusoid":
             P, _ = self._P_and_grad(X)
             return X + self.a * P[..., None] * self.c[None, :]
+        if self.type == "axis_bump":
+            d = self.dim
+            S = np.sin(np.pi * X)              # (..., d)
+            C = np.cos(np.pi * X)
+            nxt = np.roll(S, -1, axis=-1)      # sin(pi x_{i+1})
+            phi = X.copy()
+            for i in range(d):
+                phi[..., i] += self.amp[i] * S[..., i] * nxt[..., i]
+            return phi
         raise ValueError(self.type)
 
     def jac(self, X):
@@ -115,6 +131,20 @@ class DomainMap:
             _, dP = self._P_and_grad(X)
             J = np.broadcast_to(np.eye(self.dim), shp + (self.dim, self.dim)).copy()
             J += self.a * np.einsum("i,...j->...ij", self.c, dP)
+            return J
+        if self.type == "axis_bump":
+            d = self.dim
+            S = np.sin(np.pi * X)
+            C = np.cos(np.pi * X)
+            nxtS = np.roll(S, -1, axis=-1)     # sin(pi x_{i+1})
+            nxtC = np.roll(C, -1, axis=-1)     # cos(pi x_{i+1})
+            J = np.broadcast_to(np.eye(self.dim), shp + (self.dim, self.dim)).copy()
+            for i in range(d):
+                j = (i + 1) % d
+                # d Phi_i / d x_i
+                J[..., i, i] += self.amp[i] * (np.pi * C[..., i] * nxtS[..., i])
+                # d Phi_i / d x_j  (only j = i+1)
+                J[..., i, j] += self.amp[i] * (np.pi * S[..., i] * nxtC[..., i])
             return J
         raise ValueError(self.type)
 
