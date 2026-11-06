@@ -177,3 +177,109 @@ These are logical obstructions. The repository should record explicit finite-dim
 | Golden/supergolden improvement of FEEC constants | Candidate; requires explicit template estimates |
 
 This note supplements, and does not replace, INDEPENDENT_MATHEMATICAL_AUDIT.md and CONSISTENT_FEEC_MASS.md. Golden and supergolden constants are exact algebraic tools for a possible refinement family, not unexplained weights in the metric, mass matrices, or differential.
+
+
+## 11. The missing geometric bridge: repeated 2D -> 3D promotion
+
+This section is structural. The three-dimensional FEEC complex must not be introduced as a direct algebraic extension of a 2D graph. The geometric passage from planar data to spatial geometry has to be made explicit first, and the same passage must be checked at every refinement level.
+
+The research thread associated in the project notes with **Sergy Gerasmioff** belongs here. The exact bibliographic identity/spelling and the precise source construction still need to be pinned to a primary reference; no formula should be attributed to that name until the source is supplied and checked. The mathematical bridge below records the project construction that must be audited, not a claim about the person's published theorem.
+
+### 11.1 Stage I: planar seed and golden/supergolden deformation
+
+Start with an oriented planar cell or rectangle
+\[
+X_2=(u,v),\qquad \rho=L/W.
+\]
+The golden/supergolden transition is encoded in the aspect parameter, with candidate endpoints \(\rho=\varphi\) and \(\rho=\psi\), where
+\[
+\varphi^2=\varphi+1,\qquad \psi^3=\psi^2+1.
+\]
+Use an explicit planar deformation \(S_\rho:\widehat\Omega_2\to\Omega_2(\rho)\), and define the induced metric
+\[
+g^{(2)}_\rho=(DS_\rho)^TDS_\rho.
+\]
+The determinant and singular values of \(DS_\rho\) must be bounded uniformly over the allowed interval of \(\rho\). The symbols \(\varphi,\psi\) select geometries; they do not themselves establish metric ellipticity.
+
+### 11.2 Stage II: extrinsic lift into three dimensions
+
+A planar deformation is not yet a 3D geometry. Define an immersion
+\[
+X_3(u,v)=\bigl(X_2(u,v),\,f_\rho(u,v)\bigr)\in\mathbb R^3
+\]
+or, more generally, a cellwise lift with an explicitly specified normal component. Its first fundamental form is
+\[
+g^{(3)}_{ab}=\partial_aX_3\cdot\partial_bX_3
+=g^{(2)}_{ab}+\partial_af_\rho\,\partial_bf_\rho.
+\]
+This identity is exact. It shows precisely how a 2D metric is promoted by an extrinsic height field. The induced metric remains positive definite if the planar map is an immersion; quantitative conditioning requires uniform bounds on \(DS_\rho\) and \(\nabla f_\rho\).
+
+For a genuine three-dimensional volume mesh, one further needs a third independent coordinate or a thickening map
+\[
+\mathcal F_\rho(u,v,w)=X_3(u,v)+w\,n_\rho(u,v),
+\]
+with a well-defined unit normal \(n_\rho\), nonvanishing Jacobian, and compatible face maps. This is the step that produces a 3D cell map for the cubical FEEC construction. A surface immersion alone only produces a 2D manifold embedded in 3D; it does not produce a 3D volume complex.
+
+### 11.3 Stage III: rank completion and the 2D-to-3D obstruction
+
+For each local triple \(T\), let \(R_T\) encode the planar data and let \(Q\) be the relevant planar quadratic form. Then
+\[
+\Gamma_T=R_T^T Q R_T
+\]
+has rank at most two whenever \(R_T\) maps into a two-dimensional plane. Therefore a third spatial direction cannot be obtained by relabelling coordinates: it requires a geometrically defined normal contribution.
+
+A candidate rank-completing lift recorded in the project notes is
+\[
+V_T=E_pS_\rho R_T+\alpha\,n_p c_T^T,
+\qquad
+c_T=\bigl(\det(r_y,r_z),\det(r_z,r_x),\det(r_x,r_y)\bigr)^T.
+\]
+Here \(r_x,r_y,r_z\) are the three planar projected vectors associated with the triple, \(n_p\) is the chosen unit normal, and \(E_p\) embeds the planar frame in the ambient frame. The determinant minors form the cofactor/area-normal data. If the planar part has rank two, \(n_p\) is independent of its image, and \(\alpha\ne0\) with \(c_T\ne0\), the lift can have rank three. This is a conditional linear-algebra statement; the precise dimensions, frame conventions, and geometric meaning of each factor must be fixed in the implementation/proof before it is used as a theorem.
+
+The project notes identify 216 \(W(G_2)\) triplettes as a possible finite family on which to test this rank-completion mechanism. That count and group action must be tied to an explicit enumerated set and verified; it is not a substitute for the rank and orientation proof.
+
+### 11.4 Stage IV: 3D de Rham complex and FEEC
+
+Only after the 3D cell map \(\mathcal F_\rho\) is proved to be orientation-preserving, uniformly nondegenerate, and face-compatible should the 3D reference de Rham spaces be transported by the covariant Piola pullback. The resulting local Gram matrices use the 3D pullback metric and its exterior powers exactly as in Sections 2 and 4.
+
+The crucial commuting diagram is
+\[
+\begin{array}{ccc}
+\widehat V^k & \xrightarrow{d} & \widehat V^{k+1}\\
+\downarrow \mathcal F_\rho^{-\,*} && \downarrow \mathcal F_\rho^{-\,*}\\
+V_h^k & \xrightarrow{d} & V_h^{k+1}.
+\end{array}
+\]
+It follows from naturality of pullback once the map and orientation conventions are correct. It does not follow from a spectral match between a 2D graph and a 3D polyhedron.
+
+### 11.5 Stage V: repeated promotion across refinement levels
+
+The phrase “2D to 3D repeated” must be interpreted as a level-compatible construction. For every refinement level \(n\), require a commuting family of planar maps \(S_{\rho,n}\), lifts \(\mathcal F_{\rho,n}\), and refinement maps \(R_n\), with:
+- uniform lower/upper singular-value bounds for \(DS_{\rho,n}\) and \(D\mathcal F_{\rho,n}\) after scaling;
+- nonzero Jacobian with fixed orientation;
+- matching traces and normals on shared faces;
+- compatibility of refinement with the lift, at least up to a controlled geometric defect tending to zero;
+- uniform bounds on derivatives required by the FEEC approximation operators.
+
+The desired diagram is not merely \(d\)-commuting. The geometric refinement and lift should also commute:
+\[
+\mathcal F_{\rho,n+1}\circ \widehat R_n
+\approx R_n^{(3)}\circ\mathcal F_{\rho,n},
+\]
+with an explicitly estimated defect. If the defect is zero, the construction is exactly compatible; if not, prove it is small in the norm relevant to the metric and mass perturbations.
+
+This is where the \(\psi\)-scale recurrence can be used for the sequence of levels, while \(\varphi\) may determine the internal planar split. Their roles are distinct: \(\varphi\) controls a candidate within-cell proportion; \(\psi\) controls a candidate inter-level scale recurrence.
+
+### 11.6 Consequence for the main theorem
+
+Add the following prerequisite to H1 (geometry): **H0 — repeated 2D-to-3D geometric promotion.** There must exist a level-compatible planar family, an explicit immersion/thickening into 3D, and uniform nondegeneracy, orientation, and face-compatibility estimates. Only then can H1–H8 be applied to the resulting 3D cubical mesh family.
+
+The proof order is therefore revised:
+1. identify and reconstruct the Gerasmioff source construction and its exact 2D-to-3D map;
+2. prove planar metric bounds for the \(\varphi/\psi\) deformation;
+3. prove immersion/thickening and rank-three completion;
+4. prove level-to-level compatibility and uniform shape regularity;
+5. verify the local incidence/orientation identity;
+6. establish FEEC masses, projections, compactness, and Mosco convergence.
+
+Without Steps 1–4, the 3D curvilinear FEEC theorem has no justified geometric input from the proposed 2D construction.
