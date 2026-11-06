@@ -373,6 +373,16 @@ def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
     for modes in coordinate_maps.values():
         key = str(len(modes))
         multiplicities[key] = multiplicities.get(key, 0) + 1
+    bit3_coordinate_invariant = all(
+        rotation_generator_source_index(mode, *p, size)[0]
+        == rotation_generator_source_index(mode ^ 8, *p, size)[0]
+        for mode in range(256) for p in points
+    )
+    bit3_toggles_scalar_increment = all(
+        rotation_generator_source_index(mode, 0, 0, 0, size)[1]
+        != rotation_generator_source_index(mode ^ 8, 0, 0, 0, size)[1]
+        for mode in range(256)
+    )
     return {
         "source": "fractal_3d_with_rotaions.js",
         "modes_exhausted": 256,
@@ -383,6 +393,8 @@ def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
         "scalar_action_counts": increment_counts,
         "scalar_rule": "increment by one iff (mode & 8) == 0; otherwise unchanged",
         "no_boolean_complement": True,
+        "bit3_preserves_coordinates": bit3_coordinate_invariant,
+        "bit3_toggles_increment_rule": bit3_toggles_scalar_increment,
         "mode_reports": mode_reports,
     }
 
@@ -484,6 +496,8 @@ def self_test() -> dict[str, Any]:
     assert rotation["distinct_coordinate_maps"] == 32
     assert rotation["orientation_counts_over_modes"] == {"+1": 128, "-1": 128}
     assert rotation["scalar_action_counts"] == {"increment": 128, "unchanged": 128}
+    assert rotation["bit3_preserves_coordinates"]
+    assert rotation["bit3_toggles_increment_rule"]
     uniform_rotation = audit_rotation_parity_lattice(
         [[[0, 0], [0, 0]], [[0, 0], [0, 0]]], size=3
     )
