@@ -63,7 +63,7 @@ def audit(tol=2e-12):
     for s,k in ks.items():
         rot_res[str(s)]=max(float(np.linalg.norm(j@k-k@(0.5*p))) for j,p in zip(rotations,PAULI))
         # The boost action induced on the two-component Weyl fibre is
-        # B_i^(s) = -i s sigma_i/2 in this convention.
+        # K_i^(s) = -i s sigma_i/2 in this convention.
         boost_res[str(s)]=max(float(np.linalg.norm(b@k-k@(-0.5j*s*p))) for b,p in zip(boosts,PAULI))
     p=parity_operator()
     parity_exchange=max(float(np.linalg.norm(p@ks[s]-1j*ks[-s])) for s in (-1,1))
