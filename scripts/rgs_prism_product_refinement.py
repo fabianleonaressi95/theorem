@@ -202,6 +202,7 @@ def audit_refinements(
             "lengths": list(graph.lengths),
             "vertices": graph.vertex_count,
             "degree": graph.degree,
+            "undirected_edges": graph.vertex_count * graph.degree // 2,
             "mesh_max": max(graph.spacings),
             "cell_volume": graph.cell_volume,
             "total_mass": graph.vertex_count * graph.cell_volume,
