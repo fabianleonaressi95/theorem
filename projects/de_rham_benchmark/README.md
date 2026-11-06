@@ -63,3 +63,15 @@ python degreewise_audit.py --dim 3 --N 5
 ```
 
 This reports the grad/curl energy fractions, normalized co-closedness defect, weighted distance to exact cochains, and generalized eigenpair residual for every degree. In top degree, positive modes are necessarily grad-only because the outgoing differential vanishes. See [the corrected report](docs/REPORT.md#16-independent-degree-wise-audit-and-correction).
+
+
+## Consistent FEEC mass control
+
+The next spectral control compares the existing diagonal DEC dual-volume weights with full consistent tensor-product cubical FEEC Gram matrices on the same mesh and incidence complex. See [the method and assumptions](docs/CONSISTENT_FEEC_MASS.md).
+
+```bash
+python compare_mass_matrices.py --dim 2 --N 8
+python compare_mass_matrices.py --dim 3 --N 4
+python compare_mass_matrices.py --dim 2 --N 8 --amplitude 0.05
+python test_consistent_mass.py
+```
