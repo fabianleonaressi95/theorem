@@ -35,3 +35,14 @@ Esecuzione:
 ```bash
 python audit_koopman.py
 ```
+
+
+## Test T2u e molteplicità
+
+[\`audit_t2u_multiplicity.py\`](audit_t2u_multiplicity.py) costruisce dieci triplette covarianti T2u dagli armonici cubici e testa la chiusura del loro spazio di 30 osservabili. Il test è una regressione proiettata finito-campione, non un intertwiner numerico già costruito verso il tangente RGS 188D.
+
+Esecuzione:
+
+```bash
+python audit_t2u_multiplicity.py --samples 500
+```
