@@ -14,6 +14,7 @@ These are the parts that can be stated precisely without importing unsupported p
 These notes are deliberately narrower than the source documents. They preserve useful equations and remove conclusions that do not follow from them.
 
 - [Technical audit of T047–T049D](T047_T049D_TECHNICAL_AUDIT.md) — EC spin scaling, varying-space calibration, microscopic correlators, and the corrected Lorentz boost convention.
+- [Mosco convergence for curved cubical refinements](MOSCO_CURVED_CUBICAL_REFINEMENT_OPEN_PROBLEM.md) — standalone open-problem dossier, five-factor PRISM refinement baseline, non-affine cell-map hypotheses, Mosco proof obligations, compactness and review questions.
 
 ## Theorem extraction from audited sources
 
