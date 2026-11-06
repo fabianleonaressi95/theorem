@@ -13,6 +13,18 @@ These are the parts that can be stated precisely without importing unsupported p
 
 These notes are deliberately narrower than the source documents. They preserve useful equations and remove conclusions that do not follow from them.
 
+## Theorem extraction from audited sources
+
+The defensible identities have been promoted to standalone theorem records in the repository's [theorem register](../README.md#theorem-and-result-register):
+
+- [T050 — Geometric spin-chain summability and operator bound](../theorems/T050-geometric-spin-chain-bounds.md)
+- [T051 — Crank–Nicolson unitarity for a fixed Hermitian Hamiltonian](../theorems/T051-crank-nicolson-unitarity.md)
+- [T052 — Scalar Euler–Lagrange equation for the displayed scalar–torsion action](../theorems/T052-scalar-torsion-variation.md)
+- [T053 — Conditional exterior-square projector lemma](../theorems/T053-exterior-square-projector-lemma.md)
+- [T054 — Static radial Klein–Gordon reduction](../theorems/T054-static-radial-klein-gordon.md)
+
+Each record states its hypotheses, proof and non-conclusions. In particular, T053 is conditional on matrix identities not certified by the source PDF.
+
 ## Critical audits and source provenance
 
 | Source | Editorial status | Use |
