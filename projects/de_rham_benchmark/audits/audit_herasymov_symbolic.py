@@ -276,6 +276,148 @@ def audit_parity_lattice_refinement(
         "single_parent_source_coordinate_per_parent": child_coordinate_consistent,
     }
 
+
+# Source-faithful coordinate semantics of perfect-shuffle/fractal_3d_with_rotaions.js.
+def rotated_voxel_coordinate(
+    x: int, y: int, z: int, size: int, axis: int, angle: int
+) -> tuple[int, int, int]:
+    """Port the source's repeated quarter-turn formulas, in their exact order."""
+    if size < 1 or axis not in (0, 1, 2, 3) or angle not in (0, 1, 2, 3):
+        raise ValueError("invalid cube size, rotation axis, or quarter-turn count")
+    for _ in range(angle):
+        if axis == 1:
+            x, y, z = x, size - 1 - z, y
+        elif axis == 2:
+            x, y, z = z, y, size - 1 - x
+        elif axis == 3:
+            x, y, z = size - 1 - y, x, z
+        # axis == 0 deliberately means no rotation for every angle.
+    return x, y, z
+
+
+def rotation_generator_source_index(
+    mode: int, x: int, y: int, z: int, size: int
+) -> tuple[tuple[int, int, int], bool]:
+    """Return source voxel and whether switchdraw increments its scalar value."""
+    if not 0 <= mode <= 255 or size < 1:
+        raise ValueError("mode must be in [0,255] and size positive")
+    if not all(0 <= v < size for v in (x, y, z)):
+        raise ValueError("voxel coordinate outside source cube")
+    axis = (mode >> 4) & 3
+    angle = (mode >> 6) & 3
+    xr, yr, zr = rotated_voxel_coordinate(x, y, z, size, axis, angle)
+    fx, fy, fz = _REFLECTIONS[mode & 7]
+    coord = (
+        size - 1 - xr if fx else xr,
+        size - 1 - yr if fy else yr,
+        size - 1 - zr if fz else zr,
+    )
+    # The source executes: if (!(mode & 8)) a++;
+    increment = (mode & 8) == 0
+    return coord, increment
+
+
+def _det3(matrix: tuple[tuple[int, int, int], ...]) -> int:
+    return (
+        matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1])
+        - matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0])
+        + matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0])
+    )
+
+
+def rotation_generator_affine_data(
+    mode: int, size: int = 5
+) -> tuple[tuple[tuple[int, int, int], ...], int]:
+    """Recover signed-permutation linear part and orientation from exact samples."""
+    if size < 2:
+        raise ValueError("size must be at least 2")
+    origin = rotation_generator_source_index(mode, 0, 0, 0, size)[0]
+    columns = []
+    for e in ((1, 0, 0), (0, 1, 0), (0, 0, 1)):
+        image = rotation_generator_source_index(mode, *e, size)[0]
+        columns.append(tuple(image[i] - origin[i] for i in range(3)))
+    matrix = tuple(
+        tuple(columns[j][i] for j in range(3)) for i in range(3)
+    )
+    return matrix, _det3(matrix)
+
+
+def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
+    """Exhaust all 256 source modes and distinguish coordinate from value action."""
+    if size < 2:
+        raise ValueError("size must be at least 2")
+    points = list(product(range(size), repeat=3))
+    mode_reports = []
+    coordinate_maps: dict[tuple[tuple[int, int, int], ...], list[int]] = {}
+    orientation_counts = {"+1": 0, "-1": 0}
+    increment_counts = {"increment": 0, "unchanged": 0}
+    for mode in range(256):
+        images = [rotation_generator_source_index(mode, *p, size)[0] for p in points]
+        increment = rotation_generator_source_index(mode, 0, 0, 0, size)[1]
+        matrix, determinant = rotation_generator_affine_data(mode, max(size, 3))
+        bijective = len(set(images)) == size ** 3
+        coordinate_maps.setdefault(tuple(images), []).append(mode)
+        orientation_counts["+1" if determinant > 0 else "-1"] += 1
+        increment_counts["increment" if increment else "unchanged"] += 1
+        mode_reports.append({
+            "mode": mode,
+            "axis": (mode >> 4) & 3,
+            "quarter_turns": (mode >> 6) & 3,
+            "reflection_code": mode & 7,
+            "signed_permutation_matrix": [list(row) for row in matrix],
+            "orientation_determinant": determinant,
+            "coordinate_bijection": bijective,
+            "scalar_increment": increment,
+        })
+    multiplicities = {}
+    for modes in coordinate_maps.values():
+        key = str(len(modes))
+        multiplicities[key] = multiplicities.get(key, 0) + 1
+    return {
+        "source": "fractal_3d_with_rotaions.js",
+        "modes_exhausted": 256,
+        "all_coordinate_maps_bijective": all(m["coordinate_bijection"] for m in mode_reports),
+        "distinct_coordinate_maps": len(coordinate_maps),
+        "map_multiplicity_histogram": multiplicities,
+        "orientation_counts_over_modes": orientation_counts,
+        "scalar_action_counts": increment_counts,
+        "scalar_rule": "increment by one iff (mode & 8) == 0; otherwise unchanged",
+        "no_boolean_complement": True,
+        "mode_reports": mode_reports,
+    }
+
+
+def audit_rotation_parity_lattice(
+    drawar: list[list[list[int]]], size: int = 4
+) -> dict[str, Any]:
+    """Check parity-selected rotation rules as data samplers, not cell maps."""
+    if len(drawar) != 2 or any(
+        len(plane) != 2 or any(len(row) != 2 for row in plane)
+        for plane in drawar
+    ):
+        raise ValueError("drawar must have shape [2][2][2]")
+    modes = [int(drawar[z][y][x]) for z in range(2) for y in range(2) for x in range(2)]
+    if any(mode < 0 or mode > 255 for mode in modes):
+        raise ValueError("rotation generator modes must lie in [0,255]")
+    coordinate_consistent = True
+    scalar_rule_consistent = True
+    for parent in product(range(size), repeat=3):
+        samples = [
+            rotation_generator_source_index(int(drawar[dz][dy][dx]), *parent, size)
+            for dz, dy, dx in product(range(2), repeat=3)
+        ]
+        if len({coord for coord, _ in samples}) != 1:
+            coordinate_consistent = False
+        if len(set(samples)) != 1:
+            scalar_rule_consistent = False
+    return {
+        "interpretation": "eight parity sublattices, not contiguous octants",
+        "modes_dz_dy_dx": modes,
+        "same_parent_source_coordinate_for_all_eight_children": coordinate_consistent,
+        "same_coordinate_and_scalar_action_for_all_eight_children": scalar_rule_consistent,
+        "single_parent_sample_rule": coordinate_consistent and scalar_rule_consistent,
+    }
+
 def self_test() -> dict[str, Any]:
     # Finite in-shuffle permutation and its multiplicative-order period.
     shuffle_checks = []
@@ -336,6 +478,21 @@ def self_test() -> dict[str, Any]:
     )
     assert not parity_mixed["single_parent_source_coordinate_per_parent"]
 
+    rotation = audit_rotation_generator(size=3)
+    assert rotation["modes_exhausted"] == 256
+    assert rotation["all_coordinate_maps_bijective"]
+    assert rotation["distinct_coordinate_maps"] == 32
+    assert rotation["orientation_counts_over_modes"] == {"+1": 128, "-1": 128}
+    assert rotation["scalar_action_counts"] == {"increment": 128, "unchanged": 128}
+    uniform_rotation = audit_rotation_parity_lattice(
+        [[[0, 0], [0, 0]], [[0, 0], [0, 0]]], size=3
+    )
+    mixed_rotation = audit_rotation_parity_lattice(
+        [[[0, 16], [64, 80]], [[32, 48], [96, 112]]], size=3
+    )
+    assert uniform_rotation["single_parent_sample_rule"]
+    assert not mixed_rotation["single_parent_sample_rule"]
+
     return {
         "self_test": "PASS",
         "shuffle_lengths_checked": [2 * n for n in range(1, 65)],
@@ -348,6 +505,9 @@ def self_test() -> dict[str, Any]:
         "voxel_reflections": vox,
         "parity_lattice_uniform_rules": parity_uniform,
         "parity_lattice_mixed_rules": parity_mixed,
+        "rotation_generator": rotation,
+        "rotation_parity_uniform_rules": uniform_rotation,
+        "rotation_parity_mixed_rules": mixed_rotation,
         "scientific_limit": (
             "The Boolean generator is a parity-sublattice data transform, not "
             "an octant mesh refinement. No cubical incidence chain-map, FEEC "
