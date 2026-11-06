@@ -160,10 +160,7 @@ A basic calibration is the irrational circle rotation
 T_\alpha(x)=x+\alpha\pmod 1,\qquad \alpha
 \notin\mathbb{Q},
 \]
-with a declared partition, for example
-\[
-s_n(x)=\mathbf{1}_{[0,1-\alpha)}(T_\alpha^n x).
-\]
+with the half-open partition I0=[0,1-alpha), I1=[1-alpha,1) and coding s_n(x)=1 iff {x+n alpha} >= 1-alpha. For x=0 this equals floor((n+1)alpha)-floor(n alpha). The complementary interval convention must not be mixed silently.
 This produces a binary symbolic sequence. Rational approximants \(p_k/q_k\to\alpha\) give periodic comparison sequences. The programme should compare:
 - symbolic word frequencies and complexity;
 - return times and periodic approximants;
@@ -238,7 +235,7 @@ Do not report only the best run. Report distributions over seeds and preserve ne
 | X4 | Initial-state evolution | Seeded GA with one fixed rule and binary-field genomes | Implemented; test execution pending |
 | X5 | Co-evolution | Explicit two-field XOR coupling, two independent populations, cross-population evaluation | Implemented; regression tests added, execution pending |
 
-| X6 | Billiard coding | Irrational rotation and rational approximants | Exact symbolic tests and frequency convergence |
+| X6 | Billiard coding | Irrational rotation, rational approximants, Q6 block labels | Implemented; exact rational tests added, execution pending; convergence theorem remains open |
 | X7 | Graph convolution comparison | Polynomial graph filters and CA comparison | Spectral and locality audits |
 | X8 | Refinement study | Compare dynamics over (G_r) | Scaling hypotheses stated and tested; no automatic continuum claim |
 
@@ -270,6 +267,6 @@ The external repositories identify their respective licences; the cited CA and f
 | CA/convolution refinement converges to a continuum field equation | Open |
 | These systems derive RGS, PSU, Yang–Mills, gravity or quantum matter | Not established |
 
-## 11. Immediate next step
+## 11. X6 implementation and immediate next step
 
-X1–X5, the exact local-rule automorphism audit, and the repeated-seed benchmark runner are implemented. Regression tests cover the graph engine, the two separate genetic searches, and the base-graph symmetry count. A dedicated [GitHub Actions workflow](../.github/workflows/prism-ca.yml) is configured for relevant pushes and pull requests. The next verification step is to inspect a completed CI run and execute the repeated-seed benchmark, then compare alternative coupling maps and implement X6: symbolic billiard coding. This order isolates errors in the graph dynamics and objective from stochastic search effects.
+The X6 prototype is in [models/prism_billiard_coding.py](../models/prism_billiard_coding.py), with a JSON runner at [scripts/run_prism_billiard_coding.py](../scripts/run_prism_billiard_coding.py), regression tests at [tests/test_prism_billiard_coding.py](../tests/test_prism_billiard_coding.py), and a focused note at [X6_SYMBOLIC_BILLIARD_CODING.md](X6_SYMBOLIC_BILLIARD_CODING.md). It computes exact rational convergents and rational codings, then compares finite prefixes against a finite-decimal target (default sqrt(2)-1). Six-symbol blocks are packed as Q6 labels; this is a coding map, not a graph conjugacy. Tests are added but execution is pending. Next: execute the regression suite, audit discrepancy versus precision and phase, then formulate an explicit dynamical map before claiming any relation to PRISM paths or billiard flows.
