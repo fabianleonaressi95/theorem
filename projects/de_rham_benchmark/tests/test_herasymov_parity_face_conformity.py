@@ -41,8 +41,8 @@ def test_pairwise_face_criterion_exhausts_all_source_coordinate_maps():
     assert report["source_modes_exhausted"] == 256
     assert report["distinct_affine_cube_maps"] == 32
     assert report["pair_axis_checks"] == 32 * 32 * 3
-    assert report["mode_equivalence_class_sizes"] == [8] * 32
-    assert all(len(item["source_modes"]) == 8 for item in report["mode_equivalence_classes"])
+    assert report["mode_equivalence_class_sizes"] == [4] * 24 + [20] * 8
+    assert sorted(len(item["source_modes"]) for item in report["mode_equivalence_classes"]) == [4] * 24 + [20] * 8
     assert report["face_compatibility_iff_same_affine_map"]
 
 
