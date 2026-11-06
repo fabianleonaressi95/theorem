@@ -1,51 +1,52 @@
-# Manuscripts and research papers
+# Manuscripts and research notes
 
-This directory is an editorial index of research texts associated with the THEOREM programme. It is **not** a list of peer-reviewed publications. Inclusion means that a document is being inventoried or critically assessed; it does not imply that its claims are correct, original, physically meaningful, or independently verified.
+This directory contains cleaned mathematical notes, critical audits, and records of external manuscripts. It is **not** a list of peer-reviewed publications. A document is not promoted to a scientific result merely because it uses physical terminology, displays equations, or reports numerical output.
+
+## Active, cleaned research notes
+
+These are the parts that can be stated precisely without importing unsupported physical conclusions:
+
+| Document | Scope | Status |
+|---|---|---|
+| [A geometrically decaying inhomogeneous spin chain](INHOMOGENEOUS_SPIN_CHAIN.md) | Exact coupling profile, finite-chain Hamiltonian, summability and elementary operator bound | Mathematical model definition; numerical claims not certified |
+| [Scalar–torsion variational identity](SCALAR_TORSION_VARIATIONAL_IDENTITY.md) | Scalar variation of one explicitly displayed scalar–torsion action | Conditional derivation; not a complete tetrad/spin-connection solution |
+
+These notes are deliberately narrower than the source documents. They preserve useful equations and remove conclusions that do not follow from them.
+
+## Critical audits and source provenance
+
+| Source | Editorial status | Use |
+|---|---|---|
+| [FORMULAZIONE — critical audit](FORMULAZIONE_CRITICAL_AUDIT.md) | Historical exploratory compilation; not a validated paper or solution report | Identifies variational, teleparallel, gauge, LQG and phenomenological claims that cannot be retained as results |
+| [Naressi Law — critical audit](naressi-law/README.md) | Internal working manuscript; not peer-reviewed; physical extensions unsupported | Use together with the cleaned spin-chain note; do not cite its former UV/RG/Yang–Mills conclusions |
+| [NVM external manuscript — editorial assessment](NVM_EXTERNAL_MANUSCRIPT_ASSESSMENT.md) | External candidate-model manuscript by Michael Blasco (October 2026); publication status unverified | Comparative reading only; not evidence for RGS–PSU |
+
+## Source files and archival policy
+
+Original PDFs and imported documents are not automatically scientific papers. They belong in the source inventory or archive, not in the active research-note list. The repository's [source-file inventory](../library-inventory/README.md) records Library provenance; [quarantined files](../archive/README.md) records files whose identity or relevance is unresolved.
+
+No source is deleted merely because its claims are rejected. A source may be removed from the active bibliography, quarantined, or deleted only when its identity, duplication or irrelevance has been established. The original Library upload is not modified by changes in this repository.
 
 ## Publication-status categories
 
 - **Published / peer-reviewed:** publication venue and bibliographic record independently identifiable.
 - **Preprint:** publicly deposited manuscript without a verified peer-review outcome.
 - **Internal research note:** working document produced within the programme; not an independent source.
-- **Technical report / computational audit:** a reproducibility or implementation document, not automatically a mathematical proof.
+- **Technical report / computational audit:** reproducibility or implementation document, not automatically a mathematical proof.
 - **Unverified external manuscript:** bibliographic status, provenance, or claims still require checking.
-- **Non-standard / speculative source:** retained only for critical analysis; not used as scientific evidence for the programme's theorems.
+- **Non-standard / speculative source:** retained for critical analysis; not used as scientific evidence for the programme's theorems.
 
-No document should be described as a paper accepted for publication unless an identifiable editorial decision or publisher record supports that description.
-
-## Internal RGS research documents
-
-The following items are internal programme material. They must not be cited as independent confirmation of RGS–PSU claims.
-
-| Document | Editorial status | Permitted use |
-|---|---|---|
-| `Morfodinamica_Quantistica_Nota_Introduttiva.pdf` | Internal introductory note | Terminology and programme history only |
-| `Architettura_scientifica_RGS_PRISM_programma_integrato.docx` | Internal architecture document | Project organization; not evidence for mathematical or physical claims |
-| [FORMULAZIONE.pdf — critical audit](FORMULAZIONE_CRITICAL_AUDIT.md) | Historical exploratory compilation; **not a validated paper or solution report** | Source provenance only; use the audit to identify variational, teleparallel, gauge, LQG and phenomenological claims that cannot be retained as results |
-| [Computational Analysis of the Naressi Law — critical audit](naressi-law/README.md) | Internal research manuscript, not peer-reviewed; current claims substantially overreach the stated model | Retain only the exact coupling ansatz and results that pass independent reproduction |
-| [NVM_Manuscript_October_2026.pdf — editorial assessment](NVM_EXTERNAL_MANUSCRIPT_ASSESSMENT.md) | **External manuscript by Michael Blasco**, October 2026; not an internal RGS document. Candidate field model; no confirmatory localized solution or downstream physical correspondence is reported. Publication status is unverified. | Comparative reading only; not evidence for RGS–PSU |
-
-A model proposal is not a result merely because it is written in Lagrangian, geometric, spectral, or quantum terminology. Each claim must be reduced to explicit definitions, assumptions, derivations, and reproducible consequences.
-
-## External manuscripts and non-standard material
-
-These documents are catalogued as objects of critical review, not as supporting literature:
-
-- [Nielsen Hopf-fibration manuscript — source and provenance notes](../bibliography/source-bibliographies/nielsen-hopf-manuscript.md). The manuscript's references are provenance information only. Its unified-field, particle-spectrum, and physical claims are not validated by the existence of the cited references.
-- [Critical and non-standard sources](../bibliography/critical-and-nonstandard/README.md). This catalogue includes non-standard proposals and speculative material. None is treated as an established physical theory or as independent evidence for THEOREM results.
-- [Monographs and edited volumes](../monographs/books-and-edited-volumes/README.md). This is a bibliographic catalogue; inclusion does not endorse the scientific content of a volume.
-
-## Editorial acceptance checklist for any future paper
+## Editorial acceptance checklist
 
 Before a manuscript is promoted as a scientific result, it must provide:
 
-1. A precise problem statement and definitions, with conventions and units.
+1. A precise problem statement, definitions, conventions and units.
 2. Explicit hypotheses and a derivation for every theorem or claimed physical relation.
 3. Correct use of established mathematical and physical terminology.
-4. Independent references for standard results, with page-level or theorem-level traceability where possible.
-5. Reproducible computations, source code, raw data, numerical tolerances and convergence checks where computations are used.
-6. Counterexamples, limiting cases, dimensional analysis and comparison with appropriate null models.
-7. A clear separation between theorem, conditional result, numerical observation, phenomenological ansatz, conjecture and speculation.
+4. Traceable primary references for standard results.
+5. Reproducible computations, source code, raw data, tolerances and convergence checks.
+6. Limiting cases, dimensional analysis, counterexamples and appropriate null models.
+7. A clear separation between theorem, conditional result, numerical observation, candidate model, conjecture and speculation.
 8. A statement of what the work does **not** establish.
 
 Claims about quantum gravity, Yang–Mills mass gaps, particle spectra, cosmology, energy extraction, or new fundamental interactions require their own complete mathematical and/or empirical justification. They must not be inferred from numerical coincidences, geometric analogies, fitted constants, or terminology alone.
@@ -54,4 +55,4 @@ Claims about quantum gravity, Yang–Mills mass gaps, particle spectra, cosmolog
 
 An internal manuscript may document the origin of an idea, but it cannot serve as independent evidence for that same idea. A non-standard source may be quoted to reconstruct its proposal, but its statements must be checked against primary literature, established theory, and explicit mathematical or experimental tests.
 
-The repository's theorem records and verification matrix—not this manuscript catalogue—control the status of mathematical claims.
+The theorem records and verification matrix—not this catalogue—control the status of mathematical claims.
