@@ -673,9 +673,10 @@ def self_test() -> dict[str, Any]:
         "rotation_parity_mixed_rules": mixed_rotation,
         "uniform_cubical_chain_maps": cubical_chain,
         "scientific_limit": (
-            "The Boolean generator is a parity-sublattice data transform, not "
-            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
-            "stability, or Mosco convergence claim is established."
+            "Uniform signed-permutation modes induce exact chain automorphisms "
+            "of the fixed cubical grid. The mixed parity generator still has no "
+            "proved coarse-to-fine cubical refinement map; FEEC stability and "
+            "Mosco convergence remain open."
         ),
     }
 
