@@ -106,5 +106,5 @@ if __name__ == "__main__":
     payload = json.dumps(result, indent=2)
     if a.out:
         with open(a.out, "w", encoding="utf-8") as f:
-            f.write(payload + "\\n")
+            f.write(payload + "\n")
     print(payload)
