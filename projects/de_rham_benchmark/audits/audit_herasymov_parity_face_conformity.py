@@ -182,6 +182,11 @@ def audit_pairwise_criterion(size: int = 2) -> dict[str, Any]:
         "face_normals": 3,
         "pair_axis_checks": checked,
         "face_compatibility_iff_same_affine_map": not mismatches,
+        "mode_equivalence_classes": [
+            {"affine_map_index": i, "source_modes": sorted(modes)}
+            for i, modes in enumerate(maps.values())
+        ],
+        "mode_equivalence_class_sizes": sorted(len(modes) for modes in maps.values()),
         "mismatches": mismatches,
     }
 
