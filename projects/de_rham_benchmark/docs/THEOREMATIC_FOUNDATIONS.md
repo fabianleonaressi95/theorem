@@ -169,17 +169,17 @@ The following is a theorem template, not a claim that the benchmark has verified
 
 ### Theorem 5.1 — Abstract Mosco convergence of discrete Hodge energies (conditional)
 
-Let H be a Hilbert space and V_n discrete Hilbert spaces with uniformly stable reconstruction maps R_n:V_n→H. Let q_n:V_n→[0,∞] be discrete Hodge energy forms transported to H through R_n. Suppose:
+Let H be a Hilbert space. After reconstruction into H, regard each discrete energy as an extended-valued form q_n:H→[0,∞] (with q_n(u)=+∞ outside the reconstructed discrete domain), and let q:H→[0,∞] be a densely defined, closed, nonnegative form. Suppose:
 
-1. **Equicoercivity:** if sup_n(||R_n u_n||_H²+q_n(u_n)) is finite, then R_n u_n has a strongly convergent subsequence in H.
-2. **Liminf inequality:** whenever R_n u_n→u strongly in H, q(u)≤liminf_n q_n(u_n).
-3. **Recovery sequence:** for every u in the domain of q, there exist u_n with R_n u_n→u strongly and limsup_n q_n(u_n)≤q(u).
-4. **Closedness and density:** q is densely defined, closed, and nonnegative.
+1. **Weak liminf inequality:** whenever u_n converges weakly to u in H, q(u)≤liminf_n q_n(u_n).
+2. **Strong recovery sequence:** for every u in the domain of q, there exist u_n converging strongly to u in H with limsup_n q_n(u_n)≤q(u).
+3. **Closedness:** every q_n is also a densely defined, closed, nonnegative form on H.
 
 Then q_n Mosco-converges to q, and the associated nonnegative self-adjoint operators converge in the strong-resolvent sense.
 
-**Proof.** Conditions 2 and 3 are the lower-bound and recovery requirements of Mosco convergence after transport to the common Hilbert space. Condition 1 supplies the compactness needed for the intended spectral compactness consequences. The closed-form representation theorem associates nonnegative self-adjoint operators to the forms, and the Mosco convergence theorem for closed nonnegative forms gives strong-resolvent convergence. \(\square\)
+If, in addition, the family is **equicoercive** (bounded energy and bounded H norm imply relative compactness in H), one obtains the compactness input needed for stronger spectral consequences, subject to the relevant spectral-isolation hypotheses.
 
+**Proof.** Conditions 1 and 2 are exactly the weak lower-bound and strong recovery conditions defining Mosco convergence of closed forms. The closed-form representation theorem associates nonnegative self-adjoint operators to q_n and q, and Mosco convergence of closed nonnegative forms implies strong-resolvent convergence. Equicoercivity is an additional compactness property; it is not part of the definition of Mosco convergence itself. \(\square\)
 Strong-resolvent convergence alone does not imply norm-resolvent convergence, convergence of individual eigenvalues without compactness, or convergence of harmonic representatives. Those require additional uniform compactness, spectral isolation, and control of kernels.
 
 ### Required estimates still absent
