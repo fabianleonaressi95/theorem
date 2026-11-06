@@ -236,20 +236,32 @@ def mobius_seam_audit(level: int) -> dict[str, Any]:
 
 
 def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, Any]:
-    triples = data.get("triples")
-    if not isinstance(triples, list) or not triples:
-        raise ValueError("input must contain a non-empty 'triples' array")
     rho = float(data["rho"])
-    alpha = float(data["alpha"])
+    if "alpha" in data:
+        alpha = float(data["alpha"])
+        alpha_source = "explicit"
+    elif "alpha_star" in data:
+        alpha = alpha_supergolden_candidate(rho, float(data["alpha_star"]))
+        alpha_source = "candidate_alpha_supergolden_interpolation"
+    else:
+        raise ValueError("provide either 'alpha' or candidate parameter 'alpha_star'")
+
+    generated = None
+    triples = data.get("triples")
+    if triples is None:
+        generated = enumerate_wg2_triples()
+        triples = [item["vectors"] for item in generated["triples"]]
+    if not isinstance(triples, list) or not triples:
+        raise ValueError("the 'triples' array must be non-empty")
     rows = [audit_one(t, rho, alpha, tol) for t in triples]
-    # The 20-class statement refers to Gamma_p, not the lifted metric G.
     grams = [np.asarray(r["gram_planar"], dtype=float) for r in rows]
     keys = [canonical_symmetric_key(G, tol) for G in grams]
-    class_counts = Counter(keys)
-    nclasses = len(class_counts)
-    expected_n = data.get("expected_triples")
-    expected_c = data.get("expected_gram_classes")
+    nclasses = len(Counter(keys))
+    expected_n = data.get("expected_triples", 216 if generated else None)
+    expected_c = data.get("expected_gram_classes", 20 if generated else None)
     seam = [mobius_seam_audit(int(n)) for n in data.get("mobius_levels", [1, 2, 3])]
+    nondegenerate = [r for r in rows if r["rank_R"] == 2]
+    degenerate = [r for r in rows if r["rank_R"] < 2]
     checks = {
         "all_Rc_zero": all(r["Rc_norm"] <= 100 * tol for r in rows),
         "all_determinant_identities": all(
@@ -257,18 +269,22 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
             and r["det_V_identity_abs_error"] <= 1000 * tol for r in rows
         ),
         "all_gram_lift_identities": all(r["gram_lift_identity_error"] <= 100 * tol for r in rows),
-        "all_rank_three": all(r["rank_three"] for r in rows),
-        "all_gram_positive_definite": all(r["positive_definite"] for r in rows),
+        "rank_three_on_every_nondegenerate_triple": all(r["rank_three"] for r in nondegenerate),
+        "degenerate_triples_remain_rank_two": all(r["rank_V"] == 2 for r in degenerate),
+        "positive_definite_on_every_nondegenerate_triple": all(r["positive_definite"] for r in nondegenerate),
         "expected_triple_count": None if expected_n is None else len(rows) == int(expected_n),
         "expected_gram_class_count": None if expected_c is None else nclasses == int(expected_c),
         "all_mobius_involutions": all(s["involution_ok"] for s in seam),
     }
     return {
         "schema": "rgs-g2-mobius-lift-audit-v1",
-        "parameters": {"rho": rho, "alpha": alpha, "tolerance": tol},
+        "parameters": {"rho": rho, "alpha": alpha, "alpha_source": alpha_source, "tolerance": tol},
+        "wg2_enumeration": generated,
         "summary": {
             "triple_count": len(rows),
             "planar_gram_class_count": nclasses,
+            "nondegenerate_triples": len(nondegenerate),
+            "degenerate_triples": len(degenerate),
             "rank_three_count": sum(r["rank_three"] for r in rows),
             "positive_definite_lift_count": sum(r["positive_definite"] for r in rows),
             "minimum_lift_eigenvalue": min(min(r["gram_eigenvalues"]) for r in rows),
@@ -280,29 +296,44 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
         "mobius_seams": seam,
         "triples": rows,
         "limitations": [
+            "The built-in W(G2) construction uses the orbit of the short simple root (1,0) under the generated order-12 Weyl group.",
+            "The alpha(rho) sine interpolation is a candidate parametrization, not a theorem derived from W(G2).",
             "Gram class count depends on the declared absolute tolerance; matrices are not rescaled before comparison.",
-            "The script does not generate or authenticate the historical 216 W(G2) triple selection.",
-            "It does not test shared-face geometry, cell injectivity, positive cell Jacobians, or global mesh conformity.",
-            "It does not prove FEEC stability, discrete compactness, Mosco convergence, or spectral convergence.",
+            "The index seam test does not test shared-face geometry, cell injectivity, positive cell Jacobians, or global mesh conformity.",
+            "No FEEC stability, discrete compactness, Mosco convergence, or spectral convergence is claimed.",
         ],
     }
 
-
 def self_test() -> dict[str, Any]:
-    # Three independent planar vectors with all 2x2 minors nonzero.
-    triple = [[1., 0.], [0., 1.], [1., 1.]]
-    row = audit_one(triple, (1. + math.sqrt(5.)) / 2., 0.7, DEFAULT_TOL)
-    assert row["Rc_norm"] < 1e-12
-    assert row["rank_R"] == 2
-    assert row["rank_V"] == 3
-    assert row["det_identity_abs_error"] < 1e-10
-    assert row["positive_definite"]
-    for level in range(1, 7):
-        assert mobius_seam_audit(level)["involution_ok"]
-    return {"self_test": "PASS", "synthetic_rank": row["rank_V"],
-            "determinant_identity_abs_error": row["det_identity_abs_error"],
-            "mobius_levels_checked": list(range(1, 7))}
-
+    generated = enumerate_wg2_triples()
+    assert generated["group_order"] == 12
+    assert generated["triple_count"] == 216
+    assert generated["orbit_count"] == 20
+    assert generated["orbit_size_histogram"] == {"6": 4, "12": 16}
+    assert generated["gram_class_count"] == 20
+    assert generated["gram_classes_equal_weyl_orbits"]
+    assert generated["degenerate_triples"] == 24
+    assert generated["nondegenerate_triples"] == 192
+    payload = audit_payload({
+        "rho": PSI_SUPERGOLDEN,
+        "alpha_star": 0.7,
+        "mobius_levels": list(range(1, 7)),
+    })
+    assert all(payload["checks"].values())
+    assert payload["summary"]["rank_three_count"] == 192
+    assert payload["summary"]["positive_definite_lift_count"] == 192
+    return {
+        "self_test": "PASS",
+        "wg2_group_order": generated["group_order"],
+        "short_root_count": len(generated["short_root_orbit"]),
+        "triple_count": generated["triple_count"],
+        "gram_class_count": generated["gram_class_count"],
+        "orbit_size_histogram": generated["orbit_size_histogram"],
+        "degenerate_triples": generated["degenerate_triples"],
+        "rank_three_nondegenerate_triples": payload["summary"]["rank_three_count"],
+        "mobius_levels_checked": list(range(1, 7)),
+        "alpha_candidate_at_psi": payload["parameters"]["alpha"],
+    }
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
