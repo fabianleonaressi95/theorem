@@ -60,13 +60,17 @@ def audit_one(triple: Any, rho: float, alpha: float, tol: float) -> dict[str, An
     annihilation = float(np.linalg.norm(R @ c))
     E = np.array([[1., 0.], [0., 1.], [0., 0.]])
     n = np.array([0., 0., 1.])
-    V = E @ S @ R + alpha * np.outer(n, c)
+    # L^T L = Q_G2: the same G2 metric is used in the planar Gram
+    # and in the tangent part of the spatial lift.
+    L = np.linalg.cholesky(Q_G2).T
+    V = E @ L @ S @ R + alpha * np.outer(n, c)
     G = V.T @ V
     G_planar = R.T @ S.T @ Q_G2 @ S @ R
-    G_lift = R.T @ S.T @ S @ R + alpha * alpha * np.outer(c, c)
+    G_lift = G_planar + alpha * alpha * np.outer(c, c)
     det_v = float(np.linalg.det(V))
     det_g = float(np.linalg.det(G))
-    det_expected = float(alpha * alpha * np.dot(c, c) ** 2)
+    det_expected = float(np.linalg.det(Q_G2) * alpha * alpha * np.dot(c, c) ** 2)
+    det_v_expected = float(math.sqrt(np.linalg.det(Q_G2)) * alpha * np.dot(c, c))
     eig = np.linalg.eigvalsh(G)
     singular = np.linalg.svd(V, compute_uv=False)
     rank = int(np.linalg.matrix_rank(V, tol=tol))
@@ -77,6 +81,8 @@ def audit_one(triple: Any, rho: float, alpha: float, tol: float) -> dict[str, An
         "rank_R": int(np.linalg.matrix_rank(R, tol=tol)),
         "rank_V": rank,
         "det_V": det_v,
+        "det_V_expected": det_v_expected,
+        "det_V_identity_abs_error": abs(det_v - det_v_expected),
         "det_G": det_g,
         "det_G_expected": det_expected,
         "det_identity_abs_error": abs(det_g - det_expected),
@@ -133,7 +139,10 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
     seam = [mobius_seam_audit(int(n)) for n in data.get("mobius_levels", [1, 2, 3])]
     checks = {
         "all_Rc_zero": all(r["Rc_norm"] <= 100 * tol for r in rows),
-        "all_determinant_identities": all(r["det_identity_abs_error"] <= 1000 * tol for r in rows),
+        "all_determinant_identities": all(
+            r["det_identity_abs_error"] <= 1000 * tol
+            and r["det_V_identity_abs_error"] <= 1000 * tol for r in rows
+        ),
         "all_gram_lift_identities": all(r["gram_lift_identity_error"] <= 100 * tol for r in rows),
         "all_rank_three": all(r["rank_three"] for r in rows),
         "all_gram_positive_definite": all(r["positive_definite"] for r in rows),
@@ -150,7 +159,9 @@ def audit_payload(data: dict[str, Any], tol: float = DEFAULT_TOL) -> dict[str, A
             "rank_three_count": sum(r["rank_three"] for r in rows),
             "positive_definite_lift_count": sum(r["positive_definite"] for r in rows),
             "minimum_lift_eigenvalue": min(min(r["gram_eigenvalues"]) for r in rows),
-            "maximum_determinant_identity_error": max(r["det_identity_abs_error"] for r in rows),
+            "maximum_determinant_identity_error": max(
+                max(r["det_identity_abs_error"], r["det_V_identity_abs_error"]) for r in rows
+            ),
         },
         "checks": checks,
         "mobius_seams": seam,
