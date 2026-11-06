@@ -25,7 +25,7 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -r requirements.txt
       - name: Compile Python sources
-        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py
+        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py
       - name: Check CLI entry point
         run: python run_benchmark.py --help
       - name: Verify cubical incidence chain identity
@@ -48,13 +48,19 @@ jobs:
           python degreewise_audit.py --dim 3 --N 3 > /tmp/audit3d.json
           python - <<'PY'
           import json
-          for path in ("/tmp/audit2d.json", "/tmp/audit3d.json"):
+          for path, k in (("/tmp/audit2d.json", 1), ("/tmp/audit3d.json", 2)):
               data = json.load(open(path))
-              top = data["degrees"][-1]
-              for pair in top["eigenpairs"]:
+              # These are the co-closed, curl-dominated sectors.
+              for pair in data["degrees"][k]["eigenpairs"]:
+                  if pair["lambda"] > 1e-9:
+                      assert pair["normalized_co_closedness_defect"] < 1e-7
+                      assert pair["curl_energy_fraction"] > 1.0 - 1e-8
+              # The top degree has no outgoing differential: positive
+              # modes are grad-only and cannot be co-closed.
+              for pair in data["degrees"][-1]["eigenpairs"]:
                   if pair["lambda"] > 1e-9:
                       assert abs(pair["grad_energy_fraction"] - 1.0) < 1e-8
                       assert pair["curl_energy_fraction"] < 1e-8
                       assert abs(pair["normalized_co_closedness_defect"] - 1.0) < 1e-8
-          print("top-degree positive modes: grad-only, not co-closed")
+          print("co-closed sectors and top-degree sectors distinguished")
           PY
