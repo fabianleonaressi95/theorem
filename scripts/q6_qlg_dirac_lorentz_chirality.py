@@ -37,7 +37,7 @@ def rotation_generators():
 
 
 def boost_generators():
-    # K_i = i gamma^0 gamma^i / 2; Hermitian boost generators for the Lorentz algebra.
+    # K_i = i gamma^0 gamma^i / 2; spinor-representation boost generators for the Lorentz algebra (non-Hermitian in this basis).
     g=gamma_matrices()
     return tuple(0.5j*g[0]@g[i+1] for i in range(3))
 
@@ -88,7 +88,7 @@ def audit(tol=2e-12):
       "boost_intertwiner_residuals":boost_res,
       "parity_exchange_residual":parity_exchange,
       "upper_lower_coordinate_boost_leakage":coord_boost,
-      "induced_weyl_boost_generators":"B_i^(s) = -s sigma_i/2",
+      "induced_weyl_boost_generators":"K_i^(s) = -i s sigma_i/2",
       "parity_action":"exchanges s=+1 and s=-1 Weyl sectors",
       "passed":max(gamma5_square,gamma5_herm,projector_res,
                    max(rot_res.values()),max(boost_res.values()),parity_exchange)<=tol
