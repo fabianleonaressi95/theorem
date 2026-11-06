@@ -93,6 +93,24 @@ bit-3 variants are already included in these classes. It also tests:
 - a bit-3-only control (same geometry, different scalar action);
 - a mixed-reflection negative control.
 
+## Consequence for the source's randomizer
+
+The inspected [rotation-enhanced source](https://github.com/xcontcom/perfect-shuffle/blob/main/fractal_3d_with_rotaions.js)
+initializes each of the eight rule entries with
+Math.floor(Math.random() * 255), so each entry is selected from
+\(0,\ldots,254\). Under the idealization that these eight draws are
+independent and uniform, the probability that all eight selected modes lie
+in one coordinate-map equivalence class is exactly
+\[
+\sum_C\left(\frac{|C\cap\{0,\ldots,254\}|}{255}\right)^8
+=\frac{204801513889}{17878103347812890625}
+\approx1.14554\times10^{-8}.
+\]
+That is approximately one compatible assignment in 87.3 million random
+assignments. This is a probability statement about the source's random
+initialization under the stated idealized model, not a claim about every
+hand-selected configuration or about the generated scalar pattern.
+
 This is an exact characterization of the **cellwise affine geometric
 interpretation** defined above. It does not prove that the original
 voxel-value recursion, by itself, specifies these cell maps or that it
