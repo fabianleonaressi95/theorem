@@ -60,3 +60,8 @@ For each: positivity, condition number, adjoint consistency, discrete compactnes
 - **Candidate explanation:** instability/compactness failure caused by the chosen diagonal inner products. This is a hypothesis until consistent-mass controls and independent reproductions are completed.
 
 This file is a gate list for the next research pass, not an endorsement of every value or interpretation in the uploaded report.
+
+
+## Degree-wise mode audit added
+
+Run `python degreewise_audit.py --dim 2 --N 8` and `python degreewise_audit.py --dim 3 --N 5`. The audit normalizes the co-closedness defect using the Hodge energy, computes the grad/curl energy fractions in the correct (M)-norms, and evaluates distance to `im d_{k-1}` in the (M_k)-norm. It includes top degree, where every positive mode must have grad fraction 1 and curl fraction 0.
