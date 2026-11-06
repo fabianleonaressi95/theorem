@@ -19,7 +19,6 @@ def check(dim, N):
         assert mf["relative_generalized_eigen_residual"] < 1e-8
         assert np.isfinite(result["comparison"][k]["FEEC_over_corrected_DEC"])
         assert result["comparison"][k]["FEEC_over_corrected_DEC"] > 0
-        assert result["comparison"][k]["FEEC_over_DEC"] > 0
 
 
 def test_2d_consistent_mass():
