@@ -131,6 +131,7 @@ def test_audit_labels_scope_and_reports_milestones():
     result = audit_refinements([1, 2, 4], modes=[(1, 0, 0, 0, 0)])
     assert result["status"] == "flat_reference_refinement_not_curved_RGS_Mosco_theorem"
     assert [row["vertices"] for row in result["rows"]] == [69120, 69120 * 32, 69120 * 1024]
+    assert [row["undirected_edges"] for row in result["rows"]] == [5 * row["vertices"] for row in result["rows"]]
     assert all(result["milestone_checks"].values())
     assert all(all(row["checks"].values()) for row in result["rows"])
 
