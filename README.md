@@ -83,6 +83,9 @@ La compatibilità tra T012–T017 è registrata nella [matrice Q6 T012–T017](o
 Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistente, non rinumerato nella sequenza T001–T007.
 
 | [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
+| [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
+| [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Correlatore microscopico su Q6 e PRISM | Shell correlators, decomposizione self/pair e fit condizionali; dati fisici RGS–PSU ancora da fornire |
+| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |\n| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | Classificazione degli intertwiner QLG a due componenti → Dirac a quattro componenti | Famiglia equivarante complessa di dimensione 2 sotto Spin(3); nessun embedding canonico né estensione ai boost |
 
 ## Collegamento con il filone Nielsen/Hopf
 
@@ -124,8 +127,11 @@ La chiusura FLRW dust-like è registrata in [models/TORSION_LAMBDA_DUST_CLOSURE.
 T047 dimostra, nel modello minimale di Weyssenhoff con spin per particella conservato e media locale isotropa, che il termine quadratico algebrico di spin scala come a⁻⁶ e ha equazione di stato stiff. Questo esclude l'identificazione diretta con la componente fenomenologica dust-like a⁻³ della PR #77, sotto le ipotesi dichiarate. La derivazione e i test sono in `theorems/T047-ec-weyssenhoff-spin-scaling.md`, `scripts/ec_spin_fluid_scaling.py` e `tests/test_ec_spin_fluid_scaling.py`.
 ## RGS–PRISM: forme di Dirichlet e convergenza su spazi variabili
 
+T049 costruisce il ponte tra corrente microscopica di spin, correlatore connesso e invariante quadratico. T049A implementa il correlatore spaziale vettoriale per shell su Q6 e PRISM. T049B calcola J5^a direttamente dagli spinori Dirac nella convenzione EC sorgente, distingue il contatto lorentziano dalla proiezione spaziale nel frame di riposo del fluido, valuta M^ab e i correlatori tensoriali per shell, e separa self/pair. La proiezione fornisce un candidato per s² di Weyssenhoff, ma la normalizzazione Noether J5↔S_munu resta da derivare. Inoltre la fibra QLG archiviata è 2-componenti per nodo, mentre il bilineare EC–Dirac richiede 4 componenti: manca ancora un embedding equivarante motivato, non viene assunto un raddoppio arbitrario. Nessun esponente cosmologico fisico è attribuito a RGS–PSU.
+
 T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, identifica le mappe di confronto, separa risolventi forti e convergenza spettrale, e richiede compattezza uniforme/tightness prima di concludere la convergenza degli autovalori con molteplicità. Include un modello di calibrazione su cicli periodici, che non costituisce una prova per la sequenza RGS–PRISM.
 
 - Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
 - Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
 - Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
+\n\n### T049C — Intertwiner QLG–Dirac\n\nT049C dimostra che la fibra QLG fondamentale di SU(2), immersa nella restrizione spaziale della rappresentazione Dirac U⊕U, ammette una famiglia complessa bidimensionale di intertwiner K=(αI₂, βI₂)ᵀ. La condizione d'isometria è |α|²+|β|²=1. Quindi l'equivarianza 2I/Spin(3) non seleziona un embedding fisico; i boost di Spin(1,3) non sono definiti sulla fibra QLG a due componenti. L'audit numerico e i test sono in scripts/q6_qlg_dirac_intertwiner.py e tests/test_q6_qlg_dirac_intertwiner.py.\n
