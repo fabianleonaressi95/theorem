@@ -194,6 +194,88 @@ def audit_voxel_reflections(size: int = 4) -> dict[str, Any]:
     }
 
 
+
+def parity_lattice_source_index(
+    drawar: list[list[list[int]]], out_x: int, out_y: int, out_z: int, size: int
+) -> tuple[tuple[int, int, int], bool]:
+    """Exact index map used by permutation3D: parity selects a mode.
+
+    The eight rules are NOT assigned to eight contiguous octants.  They are
+    assigned to the eight parity classes (dx,dy,dz) of the doubled lattice.
+    """
+    if size < 1 or not all(0 <= v < 2 * size for v in (out_x, out_y, out_z)):
+        raise ValueError("output voxel coordinate outside doubled cube")
+    px, py, pz = out_x // 2, out_y // 2, out_z // 2
+    dx, dy, dz = out_x % 2, out_y % 2, out_z % 2
+    mode = int(drawar[dz][dy][dx])
+    return voxel_source_index(mode, px, py, pz, size)
+
+
+def audit_parity_lattice_refinement(
+    drawar: list[list[list[int]]] | None = None, size: int = 4
+) -> dict[str, Any]:
+    """Audit whether parity-selected samples define one parent-to-child map.
+
+    A parent-cell sampling rule is single-valued only if all eight children
+    of one parent voxel sample the same parent source index. This is not a
+    geometric cell map or a cubical chain map.  Boolean complement is tracked
+    separately because it changes data, not coordinates.
+    """
+    if drawar is None:
+        drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
+    if len(drawar) != 2 or any(
+        len(plane) != 2 or any(len(row) != 2 for row in plane)
+        for plane in drawar
+    ):
+        raise ValueError("drawar must have shape [2][2][2]")
+    modes = [int(drawar[z][y][x]) for z in range(2) for y in range(2) for x in range(2)]
+    if any(mode < 0 or mode > 15 for mode in modes):
+        raise ValueError("Boolean generator modes must lie in [0,15]")
+
+    child_coordinate_consistent = True
+    child_value_consistent = True
+    inconsistent_parent_count = 0
+    for px, py, pz in product(range(size), repeat=3):
+        images = []
+        complements = []
+        for dz, dy, dx in product(range(2), repeat=3):
+            mode = int(drawar[dz][dy][dx])
+            coord, complement = voxel_source_index(mode, px, py, pz, size)
+            images.append(coord)
+            complements.append(complement)
+        if len(set(images)) != 1:
+            child_coordinate_consistent = False
+            inconsistent_parent_count += 1
+        if len(set(zip(images, complements))) != 1:
+            child_value_consistent = False
+
+    # Neighbor jumps in the source-index map across all fine-grid edges.
+    jump_histogram: dict[str, int] = {}
+    max_l1_jump = 0
+    for x, y, z in product(range(2 * size), repeat=3):
+        source, _ = parity_lattice_source_index(drawar, x, y, z, size)
+        for axis in range(3):
+            q = [x, y, z]
+            if q[axis] + 1 >= 2 * size:
+                continue
+            q[axis] += 1
+            target, _ = parity_lattice_source_index(drawar, *q, size)
+            jump = sum(abs(a - b) for a, b in zip(source, target))
+            key = str(jump)
+            jump_histogram[key] = jump_histogram.get(key, 0) + 1
+            max_l1_jump = max(max_l1_jump, jump)
+
+    return {
+        "interpretation": "eight parity sublattices, not eight contiguous octants",
+        "drawar_modes_dz_dy_dx": modes,
+        "all_eight_children_share_one_source_coordinate": child_coordinate_consistent,
+        "all_eight_children_share_one_source_value_rule": child_value_consistent,
+        "parents_with_inconsistent_child_coordinates": inconsistent_parent_count,
+        "source_index_edge_l1_jump_histogram": jump_histogram,
+        "max_source_index_edge_l1_jump": max_l1_jump,
+        "single_parent_source_coordinate_per_parent": child_coordinate_consistent,
+    }
+
 def self_test() -> dict[str, Any]:
     # Finite in-shuffle permutation and its multiplicative-order period.
     shuffle_checks = []
@@ -245,6 +327,15 @@ def self_test() -> dict[str, Any]:
     assert vox["all_coordinate_maps_bijective"]
     assert len(vox["modes"]) == 16
 
+    # Source-faithful 3D audit: drawar selects parity classes, not octants.
+    parity_uniform = audit_parity_lattice_refinement(size=4)
+    assert parity_uniform["all_eight_children_share_one_source_coordinate"]
+    assert parity_uniform["single_parent_source_coordinate_per_parent"]
+    parity_mixed = audit_parity_lattice_refinement(
+        [[[0, 5], [3, 6]], [[1, 4], [2, 7]]], size=4
+    )
+    assert not parity_mixed["single_parent_source_coordinate_per_parent"]
+
     return {
         "self_test": "PASS",
         "shuffle_lengths_checked": [2 * n for n in range(1, 65)],
@@ -255,9 +346,12 @@ def self_test() -> dict[str, Any]:
         "symbolic_rows": rows,
         "surface_metric": metric,
         "voxel_reflections": vox,
+        "parity_lattice_uniform_rules": parity_uniform,
+        "parity_lattice_mixed_rules": parity_mixed,
         "scientific_limit": (
-            "No shared-octant face-trace, geometric mesh conformity, chain-map, "
-            "FEEC stability, or Mosco convergence claim is tested."
+            "The Boolean generator is a parity-sublattice data transform, not "
+            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
+            "stability, or Mosco convergence claim is established."
         ),
     }
 
