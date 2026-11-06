@@ -8,14 +8,17 @@ def check(dim, N):
     assert all(b == 0 for b in result["betti"][1:])
     assert len(result["consistent_mass_diagnostics"]) == dim + 1
     for k in range(dim + 1):
-        md = result["DEC_diagonal"][k]
+        md = result["DEC_integral_cochain_top_corrected"][k]
+        legacy = result["DEC_legacy_diagonal"][k]
         mf = result["FEEC_consistent"][k]
         assert md["mass_min_eigenvalue"] > 0
+        assert legacy["mass_min_eigenvalue"] > 0
         assert mf["mass_min_eigenvalue"] > 0
         assert mf["mass_asymmetry_inf"] < 1e-11
         assert mf["energy_matrix_asymmetry_inf"] < 1e-9
         assert mf["relative_generalized_eigen_residual"] < 1e-8
-        assert np.isfinite(result["comparison"][k]["FEEC_over_DEC"])
+        assert np.isfinite(result["comparison"][k]["FEEC_over_corrected_DEC"])
+        assert result["comparison"][k]["FEEC_over_corrected_DEC"] > 0
         assert result["comparison"][k]["FEEC_over_DEC"] > 0
 
 
