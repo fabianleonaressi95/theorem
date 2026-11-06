@@ -1,0 +1,105 @@
+[run] 2d_affine: dim=2
+      N=4 h=0.25 min_detJ=1 (0.1s)
+      N=8 h=0.125 min_detJ=1 (0.3s)
+      N=16 h=0.0625 min_detJ=1 (1.9s)
+      N=32 h=0.03125 min_detJ=1 (44.7s)
+[run] 2d_sin_a005: dim=2
+      N=4 h=0.25 min_detJ=0.8654 (0.2s)
+      N=8 h=0.125 min_detJ=0.8653 (0.6s)
+      N=16 h=0.0625 min_detJ=0.8653 (3.9s)
+      N=32 h=0.03125 min_detJ=0.8653 (43.0s)
+[run] 2d_sin_a015: dim=2
+      N=4 h=0.25 min_detJ=0.5961 (0.1s)
+      N=8 h=0.125 min_detJ=0.596 (0.4s)
+      N=16 h=0.0625 min_detJ=0.5959 (1.8s)
+      N=32 h=0.03125 min_detJ=0.5959 (44.7s)
+[run] 2d_sin_a025: dim=2
+      N=4 h=0.25 min_detJ=0.3269 (0.2s)
+      N=8 h=0.125 min_detJ=0.3266 (1.5s)
+      N=16 h=0.0625 min_detJ=0.3265 (2.4s)
+      N=32 h=0.03125 min_detJ=0.3265 (51.5s)
+[run] 2d_sin_a015_h05: dim=2
+      N=4 h=0.25 min_detJ=0.7981 (0.1s)
+      N=8 h=0.125 min_detJ=0.8572 (0.6s)
+      N=16 h=0.0625 min_detJ=0.899 (2.6s)
+      N=32 h=0.03125 min_detJ=0.9286 (62.9s)
+[run] 2d_sin_a015_h1: dim=2
+      N=4 h=0.25 min_detJ=0.899 (0.7s)
+      N=8 h=0.125 min_detJ=0.9495 (1.2s)
+      N=16 h=0.0625 min_detJ=0.9747 (4.7s)
+      N=32 h=0.03125 min_detJ=0.9874 (37.3s)
+[run] 2d_sin_m4_a01: dim=2
+      N=4 h=0.25 min_detJ=0.02937 (0.1s)
+      N=8 h=0.125 min_detJ=0.01979 (0.3s)
+      N=16 h=0.0625 min_detJ=0.019 (1.7s)
+      N=32 h=0.03125 min_detJ=0.0188 (30.9s)
+[run] 2d_sin_m8_a005: dim=2
+      N=4 h=0.25 min_detJ=0.02589 (0.2s)
+      N=8 h=0.125 min_detJ=0.02937 (0.5s)
+      N=16 h=0.0625 min_detJ=0.01979 (2.2s)
+      N=32 h=0.03125 min_detJ=0.019 (49.1s)
+[run] 2d_sin_a015_aniso: dim=2
+      N=4 h=0.25 min_detJ=0.5961 (0.2s)
+      N=8 h=0.125 min_detJ=0.596 (1.2s)
+      N=16 h=0.0625 min_detJ=0.5959 (3.5s)
+      N=32 h=0.03125 min_detJ=0.5959 (45.9s)
+[run] 2d_sin_a015_oscmetric: dim=2
+      N=4 h=0.25 min_detJ=0.5961 (0.2s)
+      N=8 h=0.125 min_detJ=0.596 (0.9s)
+      N=16 h=0.0625 min_detJ=0.5959 (4.0s)
+      N=32 h=0.03125 min_detJ=0.5959 (37.2s)
+[run] 2d_sin_a015_nonunifmetric: dim=2
+      N=4 h=0.25 min_detJ=0.5961 (0.1s)
+      N=8 h=0.125 min_detJ=0.596 (0.4s)
+      N=16 h=0.0625 min_detJ=0.5959 (3.6s)
+      N=32 h=0.03125 min_detJ=0.5959 (55.4s)
+[run] 2d_sweep_amplitude: dim=2
+      N=12 h=0.08333 min_detJ=1 (1.9s)
+      N=12 h=0.08333 min_detJ=0.8653 (1.1s)
+      N=12 h=0.08333 min_detJ=0.7306 (2.4s)
+      N=12 h=0.08333 min_detJ=0.5959 (1.5s)
+      N=12 h=0.08333 min_detJ=0.4613 (2.6s)
+      N=12 h=0.08333 min_detJ=0.3266 (1.9s)
+      N=12 h=0.08333 min_detJ=0.1919 (1.3s)
+      N=12 h=0.08333 min_detJ=0.05719 (1.5s)
+      N=12 h=0.08333 min_detJ=-0.07749 (2.1s)
+      N=12 h=0.08333 min_detJ=-0.2122 (1.6s)
+      N=12 h=0.08333 min_detJ=-0.3469 (2.1s)
+[run] 2d_sweep_freq: dim=2
+      N=12 h=0.08333 min_detJ=0.6768 (1.5s)
+      N=12 h=0.08333 min_detJ=0.3536 (1.8s)
+      N=12 h=0.08333 min_detJ=-0.2915 (1.4s)
+      N=12 h=0.08333 min_detJ=-1.584 (1.8s)
+      N=12 h=0.08333 min_detJ=-3.998 (3.1s)
+[run] 3d_affine: dim=3
+      N=2 h=0.5 min_detJ=1 (0.3s)
+      N=3 h=0.3333 min_detJ=1 (0.7s)
+      N=4 h=0.25 min_detJ=1 (3.3s)
+      N=5 h=0.2 min_detJ=1 (3.9s)
+[run] 3d_sin_a010: dim=3
+      N=2 h=0.5 min_detJ=0.7622 (0.2s)
+      N=3 h=0.3333 min_detJ=0.7621 (0.9s)
+      N=4 h=0.25 min_detJ=0.7619 (2.1s)
+      N=5 h=0.2 min_detJ=0.7619 (6.4s)
+[run] 3d_sin_a020: dim=3
+      N=2 h=0.5 min_detJ=0.5245 (0.4s)
+      N=3 h=0.3333 min_detJ=0.5242 (1.6s)
+      N=4 h=0.25 min_detJ=0.5239 (2.6s)
+      N=5 h=0.2 min_detJ=0.5239 (4.3s)
+[run] 3d_sin_a010_aniso: dim=3
+      N=2 h=0.5 min_detJ=0.7622 (0.2s)
+      N=3 h=0.3333 min_detJ=0.7621 (0.8s)
+      N=4 h=0.25 min_detJ=0.7619 (2.6s)
+      N=5 h=0.2 min_detJ=0.7619 (7.6s)
+[run] 3d_sweep_amplitude: dim=3
+      N=4 h=0.25 min_detJ=1 (4.3s)
+      N=4 h=0.25 min_detJ=0.881 (4.0s)
+      N=4 h=0.25 min_detJ=0.7619 (5.1s)
+      N=4 h=0.25 min_detJ=0.6429 (2.9s)
+      N=4 h=0.25 min_detJ=0.5239 (2.9s)
+      N=4 h=0.25 min_detJ=0.4048 (2.9s)
+      N=4 h=0.25 min_detJ=0.2858 (6.3s)
+      N=4 h=0.25 min_detJ=0.1668 (5.2s)
+      N=4 h=0.25 min_detJ=0.04773 (2.8s)
+[done] wrote results/run1/results.json
+[done] plots in results/run1/plots

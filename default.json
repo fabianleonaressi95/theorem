@@ -1,0 +1,142 @@
+{
+  "description": "Discrete de Rham benchmark on curvilinear cubical meshes. See ASSUMPTIONS.md.",
+  "eigen": {"k_eig": 12, "k_max": 4, "tol_rel": 1e-7, "dense_limit": 2500},
+  "quadrature": {"nq": 5, "nqf": 4},
+  "experiments": [
+    {
+      "name": "2d_affine",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "identity"},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a005",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.05, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a015",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a025",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.25, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a015_h05",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude_h": [0.15, 0.5], "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a015_h1",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude_h": [0.15, 1.0], "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_m4_a01",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.10, "freq": 4, "direction": [1.0, 0.8]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_m8_a005",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.05, "freq": 8, "direction": [1.0, 0.8]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "2d_sin_a015_aniso",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "aniso", "alpha": [2.0, 0.7]}
+    },
+    {
+      "name": "2d_sin_a015_oscmetric",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "oscillatory", "beta": 0.45, "freq": 3.0}
+    },
+    {
+      "name": "2d_sin_a015_nonunifmetric",
+      "dim": 2,
+      "Ns": [4, 8, 16, 32],
+      "map": {"type": "sinusoid", "amplitude": 0.15, "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "nonuniform", "beta": 0.5,
+                 "freq": [[2.0, 1.0], [1.0, 3.0]], "phase": [0.0, 1.3]}
+    },
+    {
+      "name": "2d_sweep_amplitude",
+      "dim": 2,
+      "N": 12,
+      "map": {"type": "sinusoid", "freq": 1, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"},
+      "sweep": {"param": "map.amplitude",
+                "values": [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]}
+    },
+    {
+      "name": "2d_sweep_freq",
+      "dim": 2,
+      "N": 12,
+      "map": {"type": "sinusoid", "amplitude": 0.12, "direction": [1.0, -0.6]},
+      "metric": {"type": "identity"},
+      "sweep": {"param": "map.freq", "values": [1, 2, 4, 8, 16]}
+    },
+    {
+      "name": "3d_affine",
+      "dim": 3,
+      "Ns": [2, 3, 4, 5],
+      "map": {"type": "identity"},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "3d_sin_a010",
+      "dim": 3,
+      "Ns": [2, 3, 4, 5],
+      "map": {"type": "sinusoid", "amplitude": 0.10, "freq": 1,
+              "direction": [1.0, -0.5, 0.7]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "3d_sin_a020",
+      "dim": 3,
+      "Ns": [2, 3, 4, 5],
+      "map": {"type": "sinusoid", "amplitude": 0.20, "freq": 1,
+              "direction": [1.0, -0.5, 0.7]},
+      "metric": {"type": "identity"}
+    },
+    {
+      "name": "3d_sin_a010_aniso",
+      "dim": 3,
+      "Ns": [2, 3, 4, 5],
+      "map": {"type": "sinusoid", "amplitude": 0.10, "freq": 1,
+              "direction": [1.0, -0.5, 0.7]},
+      "metric": {"type": "aniso", "alpha": [1.8, 0.8, 1.2]}
+    },
+    {
+      "name": "3d_sweep_amplitude",
+      "dim": 3,
+      "N": 4,
+      "map": {"type": "sinusoid", "freq": 1, "direction": [1.0, -0.5, 0.7]},
+      "metric": {"type": "identity"},
+      "sweep": {"param": "map.amplitude",
+                "values": [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]}
+    }
+  ]
+}
