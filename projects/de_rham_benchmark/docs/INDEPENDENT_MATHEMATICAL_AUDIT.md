@@ -6,7 +6,7 @@
 
 | Item | Finding | Status |
 |---|---|---|
-| Cubical incidence complex | The matrices satisfy the chain identity, but their sign is opposite to the standard coordinate orientation used by the FEEC basis described in the documentation. | **Correction required for FEEC commuting diagram** |
+| Cubical incidence complex | The implemented coefficient is the standard \((-1)^p(2s-1)\) induced-boundary sign for increasing coordinate-axis orientation. | **Consistent** |
 | FEEC local spaces | The local basis described and assembled is the lowest-order tensor-product cubical de Rham space (Q^-_1\Lambda^k), provided the stated ordered-wedge orientation is used. | **Mathematically appropriate** |
 | Consistent masses | The integrand assembled is the correct pullback Gram integrand for covariant (k)-forms. | **Correct, subject to quadrature and geometry hypotheses** |
 | Global assembly | Local face DoFs are assembled using common global face IDs. | **Correct for this conforming structured mesh** |
@@ -14,7 +14,7 @@
 | Projections | No commuting projection, boundedness proof, or approximation theorem is implemented in the audited files. | **Absent / open** |
 | Mosco, compactness, norm-resolvent, harmonic kernels | The benchmark contains no reconstruction maps or estimates proving these properties. | **Not established** |
 
-The principal correction is an orientation convention mismatch, not a defect in the positive-definite mass integral. The numerical Hodge spectra can remain unchanged under the global sign reversal of every differential matrix, so the existing spectral tests do not detect this mismatch.
+The earlier orientation-mismatch finding was caused by a transcription error in the audit: it recorded \((-1)^{p+1}(2s-1)\), while `ddr/mesh.py` actually implements \((-1)^p(2s-1)\). The one-dimensional row is therefore \((-1,+1)\), consistent with the basis \((1-x,x)\) and positive edge orientation. No incidence sign correction is needed.
 
 ---
 
@@ -46,25 +46,21 @@ F_K^*(d\omega)=d(F_K^*\omega).
 \]
 This identity is exact for a sufficiently regular diffeomorphism. It is the reason the incidence matrices are geometry-independent. It does **not**, by itself, imply stability or approximation of a projection.
 
-### 2.2 Concrete sign mismatch in `ddr/mesh.py`
+### 2.2 Source-level orientation verification in `ddr/mesh.py`
 
 The mesh code uses
 \[
-D_k[\tau,\sigma]=(-1)^{p+1}(2s-1),
+D_k[\tau,\sigma]=(-1)^p(2s-1),
 \]
 where (p) is the zero-based position of the removed axis in the sorted varying-axis tuple and (s=0,1) selects the lower/upper facet.
 
-With the coordinate orientation (dx_{i_1}\wedge\cdots\wedge dx_{i_k}) stated for the FEEC basis, the standard cubical boundary coefficient is
-\[
-[\tau:\sigma]=(-1)^p(2s-1).
-\]
-Thus the stored matrices are the **negative** of the standard coboundary matrices in every degree.
+This is precisely the standard cubical boundary coefficient for the coordinate orientation \(dx_{i_1}\wedge\cdots\wedge dx_{i_k}\). The stored matrices have the correct sign.
 
 The discrepancy is already visible on one interval. With the vertex basis \((1-x,x)\) and the positively oriented edge (dx),
 \[
 d(1-x)=-dx,\qquad d(x)=dx.
 \]
-Therefore the standard degree-zero incidence row is \((-1,+1)\), whereas the code constructs \((+1,-1)\).
+Therefore the standard degree-zero incidence row is \((-1,+1)\), and the code constructs exactly \((-1,+1)\).
 
 This does not break (D_{k+1}D_k=0): replacing every (d_k) by (-d_k) preserves the zero composition. It also does not change the Hodge energy matrices, because each term contains two factors of (D). It **does** break the stated identification of the incidence differential with the exterior derivative of the stated oriented FEEC basis, and therefore invalidates a claimed commuting diagram unless the convention is repaired.
 
