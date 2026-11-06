@@ -72,6 +72,8 @@ def approximation_report(irrational_alpha: Decimal, coefficients, length: int, p
         target_word = rotation_code(target, length)
         rows = []
         for approx in continued_fraction_convergents(coefficients):
+            if not 0 < approx < 1:
+                continue
             word = rotation_code(approx, length)
             q6 = q6_six_bit_blocks(word)
             rows.append({
