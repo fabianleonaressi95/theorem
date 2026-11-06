@@ -41,7 +41,7 @@ Perciò
 \mathcal J_iK_s=K_s\frac{\sigma_i}{2},\qquad
 \mathcal K_iK_s=K_s\left(-is\frac{\sigma_i}{2}\right).
 \]
-Le immagini di \(K_+\) e \(K_-\) sono dunque invarianti per tutti i generatori di Lorentz e, per esponenziazione, per la componente connessa del gruppo di Lorentz. Sono precisamente i due autospazi di \(\gamma^5\).
+Con queste definizioni i generatori soddisfano \([J_i,J_j]=i\epsilon_{ijk}J_k\), \([J_i,K_j]=i\epsilon_{ijk}K_k\), \([K_i,K_j]=-i\epsilon_{ijk}J_k\). Le immagini di \(K_+\) e \(K_-\) sono dunque invarianti per tutti i generatori di Lorentz e, per esponenziazione, per la componente connessa del gruppo di Lorentz. Sono precisamente i due autospazi di \(\gamma^5\).
 
 La decomposizione è irriducibile: le due rappresentazioni di Weyl hanno etichette non equivalenti \((1/2,0)\) e \((0,1/2)\). Pertanto un intertwiner non nullo da una fibra QLG irriducibile di dimensione complessa 2, una volta specificata quale rappresentazione di boost essa porta, può avere immagine in un solo settore chirale. Non è una selezione di \(s\): entrambe le estensioni Weyl sono matematicamente possibili.
 
@@ -65,7 +65,7 @@ Gli embedding \( (I_2,0)^T\) e \((0,I_2)^T\) classificati in T049C sono equivari
 
 Il gruppo di Lorentz restringe l'embedding a \(K_+\) oppure \(K_-\), ma non sceglie tra i due. La parità scambia i segni e dunque non può selezionarne uno mantenendo una singola fibra. Una dinamica che selezioni una chiralità deve introdurre un termine che distingua i due settori, per esempio un accoppiamento pseudoscalare/orientato o una condizione al bordo; la sua forma e la sua origine devono essere derivate dal modello QLG, non postulate.
 
-Per una fibra QLG che inizialmente porta soltanto \(SU(2)\), l'estensione di Weyl equivale ad assegnare i boost \(B_i^{(s)}=-s\sigma_i/2\). Questa assegnazione è una possibile estensione coerente, non una conseguenza della sola rappresentazione \(2I\). Il test numerico verifica le identità matriciali; la classificazione delle due rappresentazioni Weyl segue dall'algebra di Lorentz e dalla decomposizione chirale.
+Per una fibra QLG che inizialmente porta soltanto \(SU(2)\), l'estensione di Weyl equivale ad assegnare i generatori di boost \(K_i^{(s)}=-is\sigma_i/2\). Questa assegnazione è una possibile estensione coerente, non una conseguenza della sola rappresentazione \(2I\). Il test numerico verifica le identità matriciali; la classificazione delle due rappresentazioni Weyl segue dall'algebra di Lorentz e dalla decomposizione chirale.
 
 ## Conseguenze per T049B e per \(s^2\)
 
