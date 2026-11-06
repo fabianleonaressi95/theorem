@@ -100,5 +100,5 @@ def consistent_hodge_matrices(mesh, masses):
         if k < d:
             Dp = mesh.dmat[k].toarray()
             energy += Dp.T @ masses[k + 1].toarray() @ Dp
-        result.append(0.5 * (energy + energy.T))
+        result.append(energy)
     return result
