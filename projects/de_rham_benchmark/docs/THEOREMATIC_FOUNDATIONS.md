@@ -121,6 +121,22 @@ d(F^*\omega)=F^*(d\omega).
 
 This explains why the differential is represented by incidence matrices independently of the metric. It does not by itself prove stability or approximation of a projection.
 
+### Corollary 4.1 — Exact commutation of face-integral interpolation
+
+Let \(\pi_h^k\omega\) assign to every oriented k-face \(\sigma\) the integral \(\int_\sigma\omega\), with point evaluation in degree zero. For every smooth k-form \(\omega\), every oriented (k+1)-cell \(\tau\), and the incidence differential built with the standard induced-boundary signs,
+\[
+(D^k\pi_h^k\omega)(\tau)
+=\sum_{\sigma\subset\partial\tau}[\tau:\sigma]\int_\sigma\omega
+=\int_{\partial\tau}\omega
+=\int_\tau d\omega
+=(\pi_h^{k+1}d\omega)(\tau).
+\]
+Hence \(D^k\pi_h^k=\pi_h^{k+1}d\) exactly whenever the face integrals are exact and the cell complex has compatible oriented traces.
+
+**Proof.** The first equality is the definition of the cellular incidence action; the second is the oriented cubical boundary formula; the third is Stokes' theorem; the final equality is the definition of the next-degree face-integral interpolator. For k=0 this is the fundamental theorem of calculus on each edge. \(\square\)
+
+The repository evaluates these integrals by finite-order Gauss quadrature. Thus the theorem applies to the exact mathematical interpolator; the numerical commutator tests verify its quadrature approximation on the tested forms and meshes.
+
 ### Proposition 4.2 — Positive definiteness of the exact local FEEC mass
 
 Assume F_K is a diffeomorphism and G is uniformly positive definite on the physical cell. Let {φ_a} be a linearly independent local basis of V^k(K). Then the exact Gram matrix
