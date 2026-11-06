@@ -23,7 +23,7 @@ Per ogni \(s=\pm1\), definiamo
 K_s:\mathbb C^2\longrightarrow\mathbb C^4,\qquad
 K_s\chi=\frac1{\sqrt2}\begin{pmatrix}\chi\\s\chi\end{pmatrix}.
 \]
-Allora \(K_s^\dagger K_s=I_2\), \(K_sK_s^\dagger=P_s\), e l'immagine di \(K_s\) è invariata sotto la rappresentazione spinoriale di \(\mathrm{Spin}^+(1,3)\). L'azione indotta sulle fibre a due componenti è la rappresentazione di Weyl: i generatori di rotazione sono \(J_i=\sigma_i/2\), mentre, nella convenzione adottata per i boost, \(B_i^{(s)}=-s\sigma_i/2\).
+Allora \(K_s^\dagger K_s=I_2\), \(K_sK_s^\dagger=P_s\), e l'immagine di \(K_s\) è invariata sotto la rappresentazione spinoriale di \(\mathrm{Spin}^+(1,3)\). L'azione indotta sulle fibre a due componenti è la rappresentazione di Weyl: i generatori di rotazione sono \(J_i=\sigma_i/2\), mentre, nella convenzione adottata per i boost, \(K_i^{(s)}=-is\sigma_i/2\).
 
 ### Verifica
 
@@ -33,13 +33,13 @@ I generatori di rotazione sulla rappresentazione a quattro componenti sono
 \]
 I generatori di boost nella base scelta sono
 \[
-\mathcal B_i=\frac12\gamma^0\gamma^i
+\mathcal K_i=\frac{i}{2}\gamma^0\gamma^i
 =-\frac12\begin{pmatrix}0&\sigma_i\\\sigma_i&0\end{pmatrix}.
 \]
 Perciò
 \[
 \mathcal J_iK_s=K_s\frac{\sigma_i}{2},\qquad
-\mathcal B_iK_s=K_s\left(-s\frac{\sigma_i}{2}\right).
+\mathcal K_iK_s=K_s\left(-is\frac{\sigma_i}{2}\right).
 \]
 Le immagini di \(K_+\) e \(K_-\) sono dunque invarianti per tutti i generatori di Lorentz e, per esponenziazione, per la componente connessa del gruppo di Lorentz. Sono precisamente i due autospazi di \(\gamma^5\).
 
