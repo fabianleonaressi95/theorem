@@ -109,7 +109,7 @@ If (g(\widehat x)) is uniformly symmetric positive definite and the local basis 
 
 For non-polynomial (g), fixed-order Gauss quadrature is not exact. A convergence theorem needs uniform regularity of the metric coefficients and a quadrature error estimate uniform in (h), or exact integration. CI positivity checks on a finite set of meshes do not prove a uniform lower bound for all refinements.
 
-**Assessment:** the FEEC mass formula and the local basis are mathematically sound under the stated pullback convention. The implementation still needs (i) the orientation correction above, (ii) explicit quadrature-error control for convergence claims, and (iii) uniform geometric ellipticity bounds.
+**Assessment:** the FEEC mass formula and the local basis are mathematically sound under the stated pullback convention. The incidence orientation is already consistent. Remaining requirements for convergence claims are (i) explicit quadrature-error control and (ii) uniform geometric ellipticity bounds over the full refinement family.
 
 ### 3.4 Scope of the DEC comparison
 
