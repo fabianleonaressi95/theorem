@@ -154,6 +154,7 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
+The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes, checks their coordinate bijections and orientation, and separates scalar increment semantics from geometry. These are voxel-index audits, not cubical incidence chain maps or FEEC conformity proofs.
 The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes and separates coordinate action from scalar increments. In addition, all 32 distinct uniform signed-permutation maps are checked as exact chain automorphisms of a fixed cubical grid. This does not establish a coarse-to-fine refinement map for mixed parity rules or FEEC convergence.
 
 

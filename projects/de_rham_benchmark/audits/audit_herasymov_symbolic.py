@@ -214,6 +214,13 @@ def parity_lattice_source_index(
 def audit_parity_lattice_refinement(
     drawar: list[list[list[int]]] | None = None, size: int = 4
 ) -> dict[str, Any]:
+    """Audit whether parity-selected samples agree on each parent voxel.
+
+    A parent-cell sampling rule is single-valued only if all eight children
+    of one parent voxel sample the same parent source index. This is not a
+    geometric cell map or a cubical chain map.  Boolean complement is tracked
+    separately because it changes data, not coordinates.
+    """
     """Check whether the eight parity children agree on their parent source voxel."""
     if drawar is None:
         drawar = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
@@ -665,6 +672,10 @@ def self_test() -> dict[str, Any]:
         "rotation_generator": rotation,
         "rotation_parity_uniform_rules": uniform_rotation,
         "rotation_parity_mixed_rules": mixed_rotation,
+        "scientific_limit": (
+            "The Boolean generator is a parity-sublattice data transform, not "
+            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
+            "stability, or Mosco convergence claim is established."
         "uniform_cubical_chain_maps": cubical_chain,
         "scientific_limit": (
             "Uniform signed-permutation modes induce exact chain automorphisms "

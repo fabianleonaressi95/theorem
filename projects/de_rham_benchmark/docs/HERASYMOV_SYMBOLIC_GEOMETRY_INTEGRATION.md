@@ -200,6 +200,7 @@ Consequently, an octant-face matching table is not the right conformity test for
 
 The new tests cover the parity indexing, uniform-rule case, and mixed-reflection obstruction. The next mathematical step is to define an actual cubical cell map (including vertices, edges, faces, and 3-cells) and verify its boundary/incidence commutation. A voxel-index sampling rule alone does not supply that map.
 
+
 ### 3.3 Rotation-enhanced generator: exact mode audit
 
 The distinct source `fractal_3d_with_rotaions.js` (spelling as in the repository) uses an 8-bit mode. Its coordinate action is a composition of:
@@ -234,7 +235,8 @@ K_N=[0,N]^3.
 A canonical oriented (k)-cell is represented by a lower vertex (vinmathbb Z^3) and an increasing axis set (I=(i_1<cdots<i_k)). Its boundary is
 [
 partial[v;I]=sum_{r=1}^{k}(-1)^{r-1}
-left([v+e_{i_r};Isetminus i_r]-[v;Isetminus i_r]ight).
+left([v+e_{i_r};Isetminus i_r]-[v;Isetminus i_r]
+ight).
 ]
 
 Each of the 32 distinct signed-permutation matrices (A) recovered from the rotation-enhanced source acts on grid vertices by
@@ -302,6 +304,7 @@ For the RGS–PSU–PRISM synthesis:
 | Fibonacci aspect ratios converge to \(\varphi\) | Standard exact limit |
 | Herasymov's finite binary patterns exhibit the article's reported visual structure | Reproducible computational claim; audit/fixtures needed |
 | The parity-sublattice data transform defines a conforming 3D cubical mesh | Not established; it is not a geometric cell map, and cubical incidence compatibility remains open |
+| The recursive transformations induce a chain map on cubical cochains | Open; requires incidence/face-trace audit |
 | Each uniform signed-permutation mode induces a chain automorphism of the fixed cubical grid | Exact finite combinatorial identity; all 32 distinct maps audited |
 | A coarse-to-fine refinement operator induced by the mixed parity generator commutes with cubical incidence | Open; requires a cell subdivision and compatible face restrictions |
 | The symbolic threshold field models physical holography, diffraction, or quantum interference | Not established; visual analogy only |
@@ -315,4 +318,5 @@ Run:
 python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 \`\`\`
 
+The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, the eight 3D coordinate-reflection bijections, and the source-faithful Boolean parity-lattice sampling condition, and all 256 modes of the rotation-enhanced generator. It does not certify a cubical incidence chain map, FEEC stability, or Mosco convergence.
 The script checks the finite in-shuffle permutation/order, Fibonacci ratio convergence, the exact source-code billiard sequence routine, the surface metric determinant identity, Boolean and rotation-generator parity sampling, all 256 rotation modes, and exact cubical chain identities for the 32 distinct uniform signed-permutation maps on a fixed grid. It does not certify a coarse-to-fine refinement map, FEEC stability, or Mosco convergence.
