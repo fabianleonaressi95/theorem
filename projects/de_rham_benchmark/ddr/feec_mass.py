@@ -42,7 +42,7 @@ def assemble_consistent_masses(mesh, geometry):
             rho = np.sqrt(detg)
             invg = np.linalg.inv(g)
             W = _minor_matrix(invg, components)
-            local_faces = mesh.cell_to_faces[cid][k]
+            local_faces = ([cid] if k == d else mesh.cell_to_faces[cid][k])
             ndof = len(local_faces)
             phi = np.ones((ndof, len(pts)), dtype=float)
             cids = np.empty(ndof, dtype=int)
