@@ -247,3 +247,8 @@ Consequently the earlier claim that the stored incidence matrices were the negat
 The current GitHub Actions workflow exercises compilation, Herasymov symbolic/parity audits, parity shared-face conformity, cubical subdivision/naturality, chain identities, Hodge-degree checks, DEC/FEEC mass comparisons, refinement controls, projection/adjoint smoke tests, and fixed-amplitude curved-map controls.
 
 These checks establish that the listed finite computations ran successfully for their configured inputs. They do not enlarge the quantifiers of Theorems 2.1–5.1 and do not close the open analytic obligations in Section 6.
+
+
+## 9. Uniform projection stability
+
+The local metric/mass equivalence under uniform bi-Lipschitz cell scaling, the sufficient criterion for uniformly bounded commuting projections on \(H\Lambda^k\), and the obstruction for raw face interpolation are proved and separated in [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md). The theorem is conditional: the benchmark does not yet construct the required smoothed commuting projection or prove its uniform graph bound.
