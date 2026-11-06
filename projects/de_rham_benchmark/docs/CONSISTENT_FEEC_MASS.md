@@ -20,6 +20,26 @@ These basis forms have unit integral on their associated oriented k-face.
 They are the tensor-product cubical analogues of lowest-order Whitney forms
 (Nedelec/RT family in the cubical setting), not simplicial Whitney forms.
 
+## Top-degree normalization audit
+
+The archived geometry code assigns `M_d(K)=vol_g(K)`. For a top-degree
+cochain whose degree of freedom is the integral of a d-form over K, the
+standard primal DEC Hodge weight is `1/vol_g(K)`: the dual cell is a point
+with unit 0-volume, and the primal d-volume appears in the denominator.
+The consistent FEEC top-form basis gives the same scaling on affine cells
+(and integrates `1/sqrt(det g)` on a curved reference cell).
+
+This matters one degree lower as well: `M_d` enters the coexact energy
+`D_{d-1}^T M_d D_{d-1}` in the `k=d-1` Hodge Laplacian. Therefore the
+historical `M_d=vol_g(K)` convention is retained as a reproducibility
+control, but it must not be labelled the standard DEC inner product for
+integral top-cochains. The comparison script also constructs a corrected
+diagonal DEC family with `M_d=1/vol_g(K)`, leaving lower-degree weights
+unchanged. The reported legacy partition-of-unity identity between
+`sum(M_0)` and `sum(M_d)` is not a Hodge-star consistency condition.
+
+## Consistent mass
+
 The local consistent mass is
 
 `M_K^k[a,b] = int_K <phi_a,phi_b>_{Lambda^k(g^{-1})} sqrt(det g) dxi`,
@@ -61,6 +81,12 @@ both the existing diagonal DEC weights and the consistent cubical FEEC masses.
 
 ## Interpretation rules
 
+- First compare the historical and top-corrected DEC variants. A large
+  difference in degree d-1 directly measures sensitivity to the legacy
+  top-degree normalization.
+- Then compare top-corrected DEC with consistent FEEC. This isolates the
+  remaining effect of diagonalization/lumping and the local tensor-product
+  Gram structure.
 - A different eigenvalue under the consistent mass is expected: this is a
   different discrete inner product, not a change to the incidence complex.
 - If the (h^{2d}) collapse persists with consistent masses and stable
