@@ -11,7 +11,7 @@ def test_rational_rotation_code_is_exact_and_periodic():
 
 def test_decimal_sqrt2_minus_one_initial_symbols():
     alpha=Decimal("0.414213562373095048801688724210")
-    assert rotation_code(alpha,8) == (0,0,1,0,1,0,1,0)
+    assert rotation_code(alpha,8) == (0,0,1,0,1,0,0,1)
 
 def test_convergents_exact():
     assert continued_fraction_convergents([0,2,2,2,2]) == (
