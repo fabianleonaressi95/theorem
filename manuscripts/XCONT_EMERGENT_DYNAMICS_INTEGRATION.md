@@ -149,7 +149,7 @@ Two experiments must remain distinct:
 1. **Rule search:** vary \(\theta\), hold the initial-state distribution and graph fixed.
 2. **Initial-state search:** hold \(\theta\) fixed, evolve \(x(0)\).
 
-A third, paired experiment may use two fields \(A,B\) whose fitnesses depend on each other's measured response, inspired by the co-evolutionary project. The coupling map and boundary identification must be stated explicitly. The external project's two-field toroidal construction is not automatically identical to the PRISM graph or to the PSU biverse.
+A third, paired experiment is now implemented in the minimal symmetric XOR-coupled form specified in X5. Alternative coupling maps, boundary identifications and a direct comparison with the external two-field toroidal construction remain open. This implementation is not automatically identical to the PSU biverse.
 
 ## 4. Second integration: symbolic billiards and irrational discretization
 
