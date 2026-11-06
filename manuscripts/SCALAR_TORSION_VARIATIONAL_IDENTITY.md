@@ -6,7 +6,20 @@
 
 The calculation below varies the scalar field while holding the geometric variables fixed. It is not the complete tetrad/spin-connection field system.
 
-## 1. Action and conventions
+## 1. A valid static, spherically symmetric metric ansatz
+
+One geometrical starting point in the source can be retained without attaching a physical interpretation:
+\[
+ds^2=-N(u)^2dt^2+du^2+R(u)^2
+\left(d\theta^2+\sin^2\theta\,d\phi^2\right).
+\]
+Here \(u\) is proper radial distance, \(N(u)>0\) is the lapse, and \(R(u)>0\) is the areal radius. A local minimum of the areal radius at \(u=0\) requires
+\[
+R'(0)=0,\qquad R''(0)>0.
+\]
+These are geometric conditions for a candidate throat in this coordinate ansatz. They do not prove that the metric solves any field equations, that the spacetime is geodesically complete, or that the throat is traversable or stable.
+
+## 2. Action and conventions
 
 Consider
 \[
@@ -21,7 +34,7 @@ Here \(e=\sqrt{|\det g|}\) is the tetrad determinant, \(T\) is a specified torsi
 
 A complete teleparallel model must separately specify the tetrad and inertial spin connection, and define \(T\) and \(T^\mu\) from that same pair. The metric alone does not determine these teleparallel quantities.
 
-## 2. Scalar Euler–Lagrange equation
+## 3. Scalar Euler–Lagrange equation
 
 Vary \(\phi\) by a compactly supported variation \(\delta\phi\). The separate contributions are
 \[
@@ -57,7 +70,7 @@ Thus the last term is \(F'(\phi)\nabla_\mu T^\mu\), not \(\nabla_\mu(F'(\phi)T^\
 
 For the example \(F(\phi)=1+\xi\phi^2\), the equation contains \(2\xi\phi\nabla_\mu T^\mu\).
 
-## 3. What is still required for a complete theory
+## 4. What is still required for a complete theory
 
 The scalar equation alone is insufficient. A complete model must provide:
 
@@ -72,7 +85,7 @@ The scalar equation alone is insufficient. A complete model must provide:
 
 The teleparallel identity relating the Levi-Civita Ricci scalar and the torsion scalar is convention-dependent in sign and divergence term. It must be checked against the conventions fixed above rather than copied between formulations.
 
-## 4. Excluded interpretations
+## 5. Excluded interpretations
 
 This calculation does not prove:
 - existence or stability of a traversable wormhole;
