@@ -203,3 +203,10 @@ that geometry, nor does it prove FEEC stability or Mosco convergence.
 ## Theorematic foundations
 
 The formal statements, proof sketches, hypotheses, open obligations, and theorem-status ledger are collected in [THEOREMATIC_FOUNDATIONS.md](docs/THEOREMATIC_FOUNDATIONS.md). This document distinguishes universal proofs from finite CI audits and conditional FEEC/Mosco convergence statements.
+
+
+## Theorematic and analytical status
+
+- [Theorematic foundations](docs/THEOREMATIC_FOUNDATIONS.md): exact cubical algebra, Stokes commutation, Herasymov conformity criterion, and conditional Mosco framework.
+- [Uniform FEEC projection stability theorem](docs/PROJECTION_STABILITY_THEOREM.md): local mass equivalence, sufficient bounded-projection criterion, and the canonical-interpolation obstruction.
+- [Independent mathematical audit](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md): verified source-level findings and remaining analytical gaps.

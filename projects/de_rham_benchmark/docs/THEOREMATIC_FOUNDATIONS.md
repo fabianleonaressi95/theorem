@@ -121,6 +121,22 @@ d(F^*\omega)=F^*(d\omega).
 
 This explains why the differential is represented by incidence matrices independently of the metric. It does not by itself prove stability or approximation of a projection.
 
+### Corollary 4.1 — Exact commutation of face-integral interpolation
+
+Let \(\pi_h^k\omega\) assign to every oriented k-face \(\sigma\) the integral \(\int_\sigma\omega\), with point evaluation in degree zero. For every smooth k-form \(\omega\), every oriented (k+1)-cell \(\tau\), and the incidence differential built with the standard induced-boundary signs,
+\[
+(D^k\pi_h^k\omega)(\tau)
+=\sum_{\sigma\subset\partial\tau}[\tau:\sigma]\int_\sigma\omega
+=\int_{\partial\tau}\omega
+=\int_\tau d\omega
+=(\pi_h^{k+1}d\omega)(\tau).
+\]
+Hence \(D^k\pi_h^k=\pi_h^{k+1}d\) exactly whenever the face integrals are exact and the cell complex has compatible oriented traces.
+
+**Proof.** The first equality is the definition of the cellular incidence action; the second is the oriented cubical boundary formula; the third is Stokes' theorem; the final equality is the definition of the next-degree face-integral interpolator. For k=0 this is the fundamental theorem of calculus on each edge. \(\square\)
+
+The repository evaluates these integrals by finite-order Gauss quadrature. Thus the theorem applies to the exact mathematical interpolator; the numerical commutator tests verify its quadrature approximation on the tested forms and meshes.
+
 ### Proposition 4.2 — Positive definiteness of the exact local FEEC mass
 
 Assume F_K is a diffeomorphism and G is uniformly positive definite on the physical cell. Let {φ_a} be a linearly independent local basis of V^k(K). Then the exact Gram matrix
@@ -214,6 +230,17 @@ Finite refinement tables, positive Jacobian samples, and small commutator residu
 | Norm-resolvent and spectral convergence | **Open** | Requires stronger compactness and operator estimates |
 | Mixed parity recursion is a cubical subdivision | **Not established** | Must construct cell images and prove compatibility with subdivision |
 
+## 7. Orientation audit: convention is consistent
+
+The source-level recheck resolves the previously reported sign discrepancy. In `ddr/mesh.py`, the implemented coefficient is
+\[
+(-1)^p(2s-1),
+\]
+where `p` is the zero-based position of the removed axis in the increasing tuple `vary`, and `s=0,1` selects the lower/upper facet. This is exactly the standard cubical boundary coefficient for the orientation \(dx_{i_1}\wedge\cdots\wedge dx_{i_k}\).
+
+In one dimension, the degree-zero nodal basis \((1-x,x)\) has derivatives \((-dx,+dx)\), so the oriented edge incidence row is \((-1,+1)\), which is exactly what the implementation constructs. In higher dimensions, the increasing `vary` tuple used by `face_dofs` fixes the same ordered tangent orientation; the alternating facet sign in `mesh.py` is the boundary orientation induced by that ordered basis.
+
+Consequently the earlier claim that the stored incidence matrices were the negative of the FEEC differential was a stale/source-reading error: the audit document had an extra minus sign in its transcription of the code formula. No sign flip or degree-dependent reorientation is warranted. The exact face-integral interpolator commutes with the incidence differential by Stokes' theorem, provided the geometric cell maps have matching traces and the integrals are evaluated exactly. The implemented Gauss quadrature gives a numerical approximation to those integrals, so the regression commutator remains a quadrature-level check rather than a proof of exact integration for arbitrary non-polynomial data.
 ## 7. Mandatory orientation audit before FEEC theorem claims
 
 The independent source audit records a sign mismatch between the incidence convention in ddr/mesh.py and the ordered-coordinate FEEC basis convention. In one dimension, for basis (1-x,x) and positive edge orientation dx, the standard differential has row (-1,+1); the current stored convention was reported as (+1,-1). The identity D^{k+1}D^k=0 and quadratic Hodge energies do not detect a global sign reversal.
@@ -230,3 +257,8 @@ The choice must be made in code, tests, and documentation together. Until then, 
 The current GitHub Actions workflow exercises compilation, Herasymov symbolic/parity audits, parity shared-face conformity, cubical subdivision/naturality, chain identities, Hodge-degree checks, DEC/FEEC mass comparisons, refinement controls, projection/adjoint smoke tests, and fixed-amplitude curved-map controls.
 
 These checks establish that the listed finite computations ran successfully for their configured inputs. They do not enlarge the quantifiers of Theorems 2.1–5.1 and do not close the open analytic obligations in Section 6.
+
+
+## 9. Uniform projection stability
+
+The local metric/mass equivalence under uniform bi-Lipschitz cell scaling, the sufficient criterion for uniformly bounded commuting projections on \(H\Lambda^k\), and the obstruction for raw face interpolation are proved and separated in [PROJECTION_STABILITY_THEOREM.md](PROJECTION_STABILITY_THEOREM.md). The theorem is conditional: the benchmark does not yet construct the required smoothed commuting projection or prove its uniform graph bound.
