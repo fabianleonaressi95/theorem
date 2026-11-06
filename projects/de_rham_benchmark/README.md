@@ -198,3 +198,8 @@ pytest -q projects/de_rham_benchmark/tests/test_herasymov_parity_face_conformity
 This characterizes the explicit cellwise-affine geometric interpretation;
 it does not assert that the original voxel-value recursion alone defines
 that geometry, nor does it prove FEEC stability or Mosco convergence.
+
+
+## Theorematic foundations
+
+The formal statements, proof sketches, hypotheses, open obligations, and theorem-status ledger are collected in [THEOREMATIC_FOUNDATIONS.md](docs/THEOREMATIC_FOUNDATIONS.md). This document distinguishes universal proofs from finite CI audits and conditional FEEC/Mosco convergence statements.
