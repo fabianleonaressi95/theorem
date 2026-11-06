@@ -243,7 +243,7 @@ For the RGS–PSU–PRISM synthesis:
 | Graph metric \(g=I+\nabla z\otimes\nabla z\), \(\det g=1+|\nabla z|^2\) | Exact differential geometry where \(z\) is differentiable |
 | Fibonacci aspect ratios converge to \(\varphi\) | Standard exact limit |
 | Herasymov's finite binary patterns exhibit the article's reported visual structure | Reproducible computational claim; audit/fixtures needed |
-| Recursive 3D octant copies form a conforming 3D mesh | Open; not implied by voxel bijections |
+| The parity-sublattice data transform defines a conforming 3D cubical mesh | Not established; it is not a geometric cell map, and cubical incidence compatibility remains open |
 | The recursive transformations induce a chain map on cubical cochains | Open; requires incidence/face-trace audit |
 | The symbolic threshold field models physical holography, diffraction, or quantum interference | Not established; visual analogy only |
 | Herasymov's constructions derive the RGS \(W(G_2)\) lift or Möbius seam | Not established by inspected sources |
