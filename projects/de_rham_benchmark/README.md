@@ -127,3 +127,24 @@ The report checks (R_Tc_T=0), rank completion, the determinant identity,
 positive definiteness, planar Gram classes, and the two-sided Möbius boundary
 involution. It explicitly does **not** certify face-trace matching, a conforming
 3D volume mesh, or FEEC/Mosco convergence.
+
+
+### Serhii Herasymov: symbolic billiards, curved surfaces, and recursive 3D fields
+
+The source-based integration is documented in
+[`docs/HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md`](docs/HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md).
+It keeps separate (i) the billiard-to-symbolic-sequence construction,
+(ii) the graph embedding and induced surface metric,
+(iii) the recursive 3D voxel/perfect-shuffle construction, and
+(iv) the RGS (W(G_2)) geometric lift and Möbius seam.
+
+Run the source-faithful finite/algebraic audit:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
+```
+
+Regression tests are in
+`projects/de_rham_benchmark/tests/test_herasymov_symbolic_audit.py`.
+The audit does not claim that independently transformed 3D octants match on
+shared faces or define a conforming FEEC mesh.
