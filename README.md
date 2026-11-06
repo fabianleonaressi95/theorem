@@ -138,6 +138,14 @@ The QLG SU(2) fibre by itself does not determine a unique Spin(1,3) extension. N
 
 See [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md), [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md), and the corresponding scripts and tests under `scripts/` and `tests/`.
 
+
+
+### Q6–D5 Wilson fibre marginal: exact construction and open quantitative control
+
+The Q6–D5 Wilson fibre specifications have been transferred into this central repository: [integer-fibre quotient](docs/Q6_D5_INTEGER_FIBER_QUOTIENT.md), [saturated kernel and factorial tail bound](docs/Q6_D5_SATURATED_KERNEL_AND_TAIL_BOUND.md), and [five-torus Wilson marginal](docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md). The associated theorem records are [T005](theorems/T005-q6-wilson-fiber-marginal-support.md)–[T009](theorems/T009-effective-wilson-fiber-quadratic-form.md).
+
+**Current boundary:** the rank-five rational quotient, rank-124 integer kernel, positive fibre-summed weight and exact Fourier/Haar identities are mathematical constructions under their stated hypotheses. The complete 124-dimensional fibre sum has **not** been numerically evaluated with a certified enclosure, and no Wilson-to-Bergman/Hua measure identification is established. The source implementation is being consolidated into THEOREM; the transferred specifications are not a runtime dependency on the bridge repository.
+
 ## Connection to the Nielsen/Hopf research thread
 
 The bibliography cited in Jennifer Lorraine Nielsen's manuscript is catalogued separately in [nielsen-hopf-manuscript.md](bibliography/source-bibliographies/nielsen-hopf-manuscript.md). T010 develops an independent mathematical result concerning the Hopf/Seifert quotient (S^3/2I). It does not attribute that theorem to Nielsen, and the manuscript is not treated as validation of the results proved here.
