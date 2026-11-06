@@ -167,3 +167,14 @@ Current priorities include:
 - separating model-level consistency from empirical or phenomenological validation.
 
 Contributions and critical mathematical feedback are welcome, especially when they identify a precise statement, missing hypothesis, counterexample, or reproducible verification.
+
+
+## Related implementation repository: RGS–QLG Quaternion Bridge
+
+The [RGS–QLG Quaternion Bridge](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge) is a complementary implementation- and experiment-oriented repository for quaternionic geometry, SU(2)/SO(3), Q6 structures, spinorial operators and related computational audits. It is connected to this central research index, but it is **not a required dependency** for the mathematical statements or verification workflows maintained here.
+
+Use this repository (**THEOREM**) as the authoritative programme-wide index for theorem statements, assumptions, proof status, open problems and cross-project research priorities. Use the bridge repository for its own implementation details and experiments; when citing a computational result, identify the exact source path and commit. A result in either repository does not automatically validate claims in the other.
+
+- [RGS–QLG Quaternion Bridge — repository](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge)
+- [RGS–QLG Quaternion Bridge — README](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/README.md)
+- [Bridge's statement of its relationship to THEOREM](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/README.md#relationship-to-the-central-theorem-research-repository)
