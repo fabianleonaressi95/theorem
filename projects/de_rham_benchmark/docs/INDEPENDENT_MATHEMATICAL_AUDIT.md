@@ -62,18 +62,9 @@ d(1-x)=-dx,\qquad d(x)=dx.
 \]
 Therefore the standard degree-zero incidence row is \((-1,+1)\), and the code constructs exactly \((-1,+1)\).
 
-This does not break (D_{k+1}D_k=0): replacing every (d_k) by (-d_k) preserves the zero composition. It also does not change the Hodge energy matrices, because each term contains two factors of (D). It **does** break the stated identification of the incidence differential with the exterior derivative of the stated oriented FEEC basis, and therefore invalidates a claimed commuting diagram unless the convention is repaired.
+The one-dimensional calculation is decisive: the code constructs the standard row \((-1,+1)\). The previous audit text below this point incorrectly described the implementation as sign-reversed; that obsolete conclusion and its proposed repairs have been removed. The orientation used by `face_dofs` is the increasing tuple of varying axes, so its face-integral degrees of freedom use the same orientation as the incidence complex.
 
-There are two consistent repairs:
-
-1. **Standard coordinate orientation:** change the incidence coefficient to
-   \[
-   (-1)^p(2s-1),
-   \]
-   i.e. negate the current matrices.
-2. **Keep current matrices:** explicitly orient every degree-(k) face by ((-1)^k) times the coordinate orientation and multiply the degree-(k) FEEC basis/DoF convention by the same sign. The documentation currently describes ordered coordinate wedges and unit positive face integrals, so this alternative must be stated and implemented consistently.
-
-A regression test must compare the incidence action on every local basis function with the actual exterior derivative, not merely test (D_{k+1}D_k=0).
+For a smooth k-form, the exact face-integral interpolator commutes with the incidence differential by Stokes' theorem, cell by cell. The existing polynomial and curved-map tests approximate these integrals by Gauss quadrature and therefore verify the discrete identity to quadrature accuracy for their chosen forms, not for all smooth forms.
 
 ---
 
