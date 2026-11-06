@@ -80,12 +80,15 @@ differently by level `k`:
     N = 2, 3, 4, 5 — consistent with ~h⁶.
   - k=2 in 2D and k=3 in 3D reproduce the same values (discrete Hodge
     duality of the weights).
-* The collapsing eigenvectors (see `results/pollution.json`) are
-  **exactly co-closed** (`||delta_k x|| ~ 1e-13`), have **zero grad part**
-  of the Rayleigh quotient (`~1e-28`) and all energy in the curl part,
-  are at distance ~0.97–1.0 from `im d_{k-1}` (not exact forms), and are
-  delocalized (`|x|_inf/|x|_2 ~ 1/N`). I.e. they are smooth "almost
-  harmonic" cochains: co-closed but with curl energy → 0.
+* For the degrees actually covered by `results/pollution.json` (2D k=1
+  and 3D k=2), the reported small modes have a negligible grad-energy
+  fraction and essentially all energy in the curl term. This does **not**
+  establish the same characterization in the top degree. The old wording
+  that generalized exact co-closedness and curl-dominance to every
+  `k >= d-1` was too broad and is corrected in §1.6 below.
+* The coefficient ratio `|x|_inf/|x|_2` is only a coordinate-vector
+  indicator. Without a stable reconstruction into a common function space,
+  it does not prove physical delocalization, smoothness, or compactness.
 * At N=32 (2D) the 12 smallest k=1 eigenvalues all lie below
   `tol_rel * lambda_max` and `kernel_num` is reported as 12 — this is a
   **tolerance artefact**: `lambda_max ~ h^{-2}` inflates the absolute
@@ -151,3 +154,75 @@ python3 diagnose_pollution.py results
 ```
 
 All random inputs are seeded (`default_rng(0)`); no other stochasticity.
+
+
+## 1.6 Independent degree-wise audit and correction
+
+An independent reconstruction of the affine cubical incidence matrices and
+flat DEC weights, followed by dense generalized symmetric diagonalization
+of (B_k x=\lambda M_k x), reproduces the archived small eigenvalues:
+
+| case | degree | smallest positive eigenvalue |
+|---|---:|---:|
+| 2D, N=4 | 1 | 0.07322330470336 |
+| 2D, N=8 | 1 | 0.00475752921807 |
+| 2D, N=16 | 1 | 0.00030022999373 |
+| 2D, N=32 | 1 | 0.00001880966128 |
+| 3D, N=2 | 2 | 0.37500000000000 |
+| 3D, N=3 | 2 | 0.03703703703704 |
+| 3D, N=4 | 2 | 0.00686468481593 |
+| 3D, N=5 | 2 | 0.00183343685372 |
+
+A log-log fit gives empirical exponents 3.9766 in 2D and 5.8052 in 3D,
+consistent with the conjectured (h^{2d}) scaling over these finite ranges.
+This remains a numerical scaling observation, not an asymptotic proof.
+
+The degree-wise energy split exposes the reporting error. For an eigenvector
+(x\in C^k), use the invariant energy components
+[
+E_{\mathrm{grad}}=\|\delta_k x\|_{M_{k-1}}^2,\qquad
+E_{\mathrm{curl}}=\|d_kx\|_{M_{k+1}}^2.
+]
+The normalized co-closedness defect is
+[
+\eta_{\mathrm{cc}}(x)=
+\sqrt{E_{\mathrm{grad}}/(E_{\mathrm{grad}}+E_{\mathrm{curl}})}.
+]
+For the first four small positive modes, independent calculations give
+`eta_cc < 3e-13` for 2D k=1 at N=8 and 3D k=2 at N=5; their curl
+energy fraction is 1 to numerical precision.
+
+In contrast, for top degree (k=d), (d_d=0) identically, so
+(E_{\mathrm{curl}}=0). Every positive top-degree eigenmode has
+(E_{\mathrm{grad}}=E_{\mathrm{total}}), hence
+`eta_cc = 1`: it is not co-closed. The archived spectra also show
+the same small eigenvalues in 2D k=2 and 3D k=3, but those are top-degree
+modes and have the opposite Hodge-energy characterization. Thus the
+claim "all collapsing modes for k >= d-1 are co-closed and curl-dominated"
+is false as written. The spectral collapse itself is independently
+reproduced; the blanket mode interpretation is not.
+
+The new `degreewise_audit.py` computes this split in the actual (M_k)
+norm, checks the generalized eigenpair residual, and measures distance to
+`im d_{k-1}` in the weighted norm. Run, for example:
+
+```bash
+python degreewise_audit.py --dim 2 --N 8
+python degreewise_audit.py --dim 3 --N 5
+```
+
+### Other audit qualifications
+
+- `kernel_num` uses `tol_rel * lambda_max`. At 2D N=32, k=1,
+  `lambda_max=8192`, so the threshold is (8.192\times10^{-4}), much
+  larger than the smallest positive eigenvalue (1.881\times10^{-5}).
+  The reported count 12 is therefore a relative-threshold near-zero count,
+  not the algebraic nullity (which is `beta_1=0`). Do not use
+  `kernel_num` as a Betti estimator at this refinement.
+- Positive Jacobian values in the report are quadrature-sample diagnostics.
+  They do not by themselves prove `det D Phi > 0` everywhere or global
+  injectivity of the map.
+- The archived experiment supports a failure mechanism for this particular
+  diagonal inner product. It does not yet prove loss of discrete compactness
+  in the reconstructed continuum spaces: no uniform reconstruction,
+  compactness estimate, or consistent-mass control is included.
