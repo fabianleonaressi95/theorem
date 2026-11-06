@@ -72,6 +72,8 @@ From this directory:
 python compare_mass_matrices.py --dim 2 --N 8
 python compare_mass_matrices.py --dim 3 --N 4
 python compare_mass_matrices.py --dim 2 --N 8 --amplitude 0.05 --freq 1
+python mass_refinement_study.py --dim 2 --levels 4,8,16
+python mass_refinement_study.py --dim 3 --levels 2,3,4,5
 python test_consistent_mass.py
 ```
 
