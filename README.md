@@ -92,6 +92,11 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Lorentzian EC–Dirac axial current on Q6/PRISM | Dirac axial-current moments, shell-resolved tensor correlators, EC contact term, and provenance limitations. |
 | [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | QLG-to-Dirac intertwiner classification | A two-complex-dimensional family of Spin(3)-equivariant isometric embeddings; no canonical embedding is selected. |
 | [T049D](theorems/T049D-lorentz-chiral-qlg-embedding.md) | Lorentz-covariant QLG–Dirac embedding | The two Weyl embeddings are the (gamma^5) eigenspaces; parity exchanges them. Lorentz covariance does not select one chirality sign. |
+| [T050](theorems/T050-geometric-spin-chain-bounds.md) | Geometric spin-chain summability and operator bound | Exact geometric-series identity and uniform-in-chain-length bound for the exchange part of the stated finite Hamiltonian. |
+| [T051](theorems/T051-crank-nicolson-unitarity.md) | Crank–Nicolson unitarity | Norm preservation for a fixed finite-dimensional Hermitian Hamiltonian; no coupled-energy or breather claim. |
+| [T052](theorems/T052-scalar-torsion-variation.md) | Scalar variation of a scalar–torsion action | Conditional Euler–Lagrange identity for the explicitly displayed action with geometry held fixed. |
+| [T053](theorems/T053-exterior-square-projector-lemma.md) | Exterior-square projector lemma | Conditional linear-algebra theorem assuming symmetry and the exact quadratic matrix identity; no group irreducibility claim. |
+| [T054](theorems/T054-static-radial-klein-gordon.md) | Static radial Klein–Gordon reduction | Exact reduction for a minimally coupled static radial scalar on the stated spherical metric ansatz. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
