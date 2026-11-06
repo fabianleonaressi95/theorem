@@ -9,6 +9,7 @@ mathematical measure of physical emergence or complexity.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from itertools import permutations, product as cartesian_product
 import random
 from math import isfinite
 from statistics import median
@@ -17,6 +18,7 @@ from typing import Sequence
 from models.prism_cellular_automata import (
     RULE_BITS,
     RULE_MASK,
+    DIMENSION,
     PrismProductGraph,
     elementary_rules,
     observables,
@@ -217,6 +219,54 @@ def _initial_rule_population(config: EvolutionConfig, rng: random.Random, suppli
         population.append(rng.getrandbits(RULE_BITS))
     return population
 
+
+
+def rule_symmetry_report(graph: PrismProductGraph, rule: int) -> dict:
+    """Audit local-rule invariance under the product-graph automorphisms.
+
+    The tested subgroup consists of independent reflections of each cycle and
+    permutations of axes having equal cycle lengths. A local truth table is
+    equivariant under such a graph automorphism exactly when its output is
+    unchanged after the corresponding reordering of the ten oriented inputs.
+    """
+    rule = validate_rule(rule)
+    axis_permutations = [
+        perm for perm in permutations(range(DIMENSION))
+        if all(graph.factors[j] == graph.factors[perm[j]] for j in range(DIMENSION))
+    ]
+    reflections = tuple(cartesian_product((False, True), repeat=DIMENSION))
+    invariant = 0
+    total = len(axis_permutations) * len(reflections)
+    for perm in axis_permutations:
+        for flips in reflections:
+            preserves = True
+            for local_index in range(1 << 11):
+                bits = [(local_index >> shift) & 1 for shift in range(10, -1, -1)]
+                centre, neighbours = bits[0], bits[1:]
+                transformed = []
+                for new_axis in range(DIMENSION):
+                    old_axis = perm[new_axis]
+                    flip = int(flips[new_axis])
+                    transformed.extend((
+                        neighbours[2 * old_axis + flip],
+                        neighbours[2 * old_axis + (1 - flip)],
+                    ))
+                transformed_index = centre
+                for bit in transformed:
+                    transformed_index = (transformed_index << 1) | bit
+                if ((rule >> local_index) & 1) != ((rule >> transformed_index) & 1):
+                    preserves = False
+                    break
+            if preserves:
+                invariant += 1
+    return {
+        "automorphism_subgroup_order": total,
+        "invariant_transformations": invariant,
+        "equivariance_fraction": invariant / total,
+        "axis_permutation_count": len(axis_permutations),
+        "reflection_count": len(reflections),
+        "scope": "local rule under axis permutations preserving cycle lengths and independent cycle reflections",
+    }
 
 def evolve_rules(
     graph: PrismProductGraph,
