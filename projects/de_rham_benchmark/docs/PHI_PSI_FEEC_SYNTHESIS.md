@@ -283,3 +283,106 @@ The proof order is therefore revised:
 6. establish FEEC masses, projections, compactness, and Mosco convergence.
 
 Without Steps 1–4, the 3D curvilinear FEEC theorem has no justified geometric input from the proposed 2D construction.
+
+
+### 11.3.1 The actual \(W(G_2)\) planar-to-spatial construction
+
+The project construction is more specific than a generic graph lift. For each planar triple \(T_p\), use
+\[
+R_{T_p}=(r_x\ r_y\ r_z)\in\mathbb R^{2\times3},\qquad
+c_{T_p}=
+\begin{pmatrix}
+\det(r_y,r_z)\\
+\det(r_z,r_x)\\
+\det(r_x,r_y)
+\end{pmatrix}.
+\]
+The cofactor identity is
+\[
+R_{T_p}c_{T_p}=0.
+\]
+With the \(G_2\) quadratic form
+\[
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},
+\qquad
+S_\rho=\begin{pmatrix}\sqrt\rho&0\\0&1/\sqrt\rho\end{pmatrix},
+\]
+the planar Gram datum is
+\[
+\Gamma_p(\rho)=R_{T_p}^{T}S_\rho^{T}Q_{G_2}S_\rho R_{T_p}.
+\]
+The candidate family uses the 216 \(W(G_2)\) triples and reports 20 Gram classes. Those counts/classes are finite-computation claims: they must be regenerated from the explicit root/triple enumeration and checked under the declared group action before being treated as verified facts.
+
+Choose an orthonormal planar frame \(E_p\in\mathbb R^{3\times2}\), \(E_p^TE_p=I_2\), and a unit normal \(n_p\) with \(E_p^Tn_p=0\). The rank-completing spatial frame is
+\[
+V_{T_p}(\rho)=E_pS_\rho R_{T_p}
++\alpha(\rho)n_pc_{T_p}^{T}\in\mathbb R^{3\times3}.
+\]
+Its Gram matrix is
+\[
+G_{T_p}^{(3)}(\rho)=V_{T_p}^{T}V_{T_p}
+=R_{T_p}^{T}S_\rho^{T}S_\rho R_{T_p}
++\alpha(\rho)^2c_{T_p}c_{T_p}^{T}.
+\]
+The mixed terms vanish because \(E_p^Tn_p=0\). In the orthonormal frame \((E_p,n_p)\), the determinant lemma gives
+\[
+\det V_{T_p}(\rho)=\alpha(\rho)\|c_{T_p}\|^2,
+\qquad
+\boxed{\det G_{T_p}^{(3)}(\rho)=\alpha(\rho)^2\|c_{T_p}\|^4.}
+\]
+Thus the planar \(2\times3\) data, whose rank is at most two, acquire rank three precisely when \(\alpha(\rho)\ne0\) and \(c_{T_p}\ne0\). Since \(\det S_\rho=1\), the golden/supergolden anisotropic rescaling does not itself change this volume factor. This is an exact algebraic identity under the stated frame assumptions; it is not yet a proof that the resulting cells form a conforming 3D mesh. The function \(\alpha(\rho)\), its normalization, and uniform lower/upper bounds must be specified from the source construction, not fitted after the fact.
+
+### 11.5.1 Möbius seam: boundary identification and the normal coordinate
+
+The second repeated operation is the boundary-to-seam identification. At level \(n\), set \(m=2^n\) and identify the right and left boundary indices by
+\[
+(i,j)_{\rm right}\sim(0,m-1-j)_{\rm left},
+\qquad
+\pi_n\!\left(h_n(m-1,j)\right)=h_n(0,m-1-j).
+\]
+This is a transverse reversal, not ordinary periodic identification. In local coordinates \((s,t)\) on a strip, the continuum model is
+\[
+(s_{\rm right},t)\sim(s_{\rm left},-t).
+\]
+For a spatial thickening with normal coordinate \(w\), the compatible Möbius transition is
+\[
+(s_{\rm right},t,w)\sim(s_{\rm left},-t,-w).
+\]
+The normal reversal is essential: it is the transition law for the twisted normal coordinate and prevents one from silently treating the Möbius seam as an untwisted product cylinder.
+
+With local frame coordinates ordered as (longitudinal, transverse, normal), one convenient transition matrix is
+\[
+R_M=\operatorname{diag}(1,-1,-1),\qquad R_M^2=I,\quad\det R_M=+1.
+\]
+The discrete frame and link data must obey
+\[
+V_{\pi_n(p)}=V_pR_M,\qquad
+U_{\pi_n(p)\pi_n(q)}=R_MU_{pq}R_M^{-1}.
+\]
+If the implementation stores only the 2D tangent frame, its transition is instead \(\operatorname{diag}(1,-1)\), with determinant \(-1\); do not mix these two representations. Verify the seam identities on every identified boundary cell, edge, and face, including the induced orientation of the 3D volume cells.
+
+The resulting construction has three logically separate maps:
+1. \(T_p\mapsto\Gamma_p(\rho)\): planar \(G_2\) metric/Gram data;
+2. \(r_i\mapsto v_i\), assembled as \(R_{T_p}\mapsto V_{T_p}(\rho)\): rank-two planar data lifted to rank three;
+3. boundary \(\mapsto\) Möbius seam: the index involution and twisted normal/frame transition.
+
+The 3D FEEC domain must be the actual orientable thickened cell complex with these transition rules, not the nonorientable mid-surface regarded as a 3D volume. Prove that the thickened cells have positive Jacobian in compatible local charts and that seam-related face traces agree. A Möbius mid-surface alone is not a 3D volume mesh.
+
+### 11.7. Named source and attribution status
+
+The project associates this repeated 2D-to-3D construction with **Sergy Gerasmioff**. The source identity and spelling are not independently established by the public-source search performed for this revision, and the repository search for Gerasmioff returned no matching file. Therefore:
+- retain the name as the user's source attribution and research lead;
+- do not claim that the equations above are a published Gerasmioff theorem until a primary source is located;
+- compare the original source line-by-line against the three maps and seam law above when it is available;
+- preserve any differences rather than silently replacing the historical construction with this algebraic reconstruction.
+
+### 11.8. Revised proof order
+
+The correct order is now:
+1. recover and authenticate the Gerasmioff source and its repeated 2D-to-3D construction;
+2. enumerate the 216 \(W(G_2)\) triples and verify the 20 Gram classes;
+3. prove \(R_Tc_T=0\), the rank-completion determinant identity, and uniform bounds for \(\alpha(\rho)\);
+4. implement and verify the Möbius boundary involution, twisted normal transition, and link conjugation;
+5. prove that the thickened 3D cells are conforming, orientable, and uniformly nondegenerate;
+6. verify local incidence/exterior-derivative orientation;
+7. only then establish 3D FEEC mass stability, commuting projections, compactness, and Mosco convergence.
