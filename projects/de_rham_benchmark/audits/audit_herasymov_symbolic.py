@@ -55,6 +55,50 @@ def shuffle_period(n: int) -> int:
     return multiplicative_order_two(2 * n + 1)
 
 
+def recursive_shift_shuffle(values: list[int], shift: int) -> list[int]:
+    """Port of shuffle_and_billiard_isomorphism.js."""
+    length = len(values)
+    out = [0] * (2 * length)
+    for i in range(length):
+        out[2 * i] = values[(i + shift) % length]
+        out[2 * i + 1] = values[i]
+    return out
+
+
+def audit_finite_shuffle_billiard_identity(
+    size: int = 256, power: int = 7
+) -> dict[str, Any]:
+    """Reproduce the repository's exact 256x256 finite comparison."""
+    if size < 1 or power < 0:
+        raise ValueError("size must be positive and power nonnegative")
+    scale = 2 ** power
+    iterations = 2 * power + 1
+    matches = 0
+    mismatches = []
+    for y in range(size):
+        row = [0, 1]
+        shift = y * scale
+        for _ in range(iterations):
+            row = recursive_shift_shuffle(row, shift)
+        for x in range(size):
+            billiard_bit = (((size - 1 - x) * y) // scale) % 2
+            if row[x] == billiard_bit:
+                matches += 1
+            elif len(mismatches) < 8:
+                mismatches.append([x, y, row[x], billiard_bit])
+    return {
+        "size": size,
+        "power": power,
+        "scale": scale,
+        "shuffle_iterations": iterations,
+        "matches": matches,
+        "total": size * size,
+        "mismatches": mismatches,
+        "exact_finite_identity": matches == size * size,
+        "scope": "one finite parameter choice; not a general identity proof",
+    }
+
+
 def fibonacci_pair(k: int) -> tuple[int, int]:
     if k < 1:
         raise ValueError("k must be >=1")
@@ -171,6 +215,11 @@ def self_test() -> dict[str, Any]:
         assert current == list(range(2 * n))
         shuffle_checks.append({"n": n, "length": 2 * n, "period": period})
 
+    # Exact finite equality documented in shuffle_and_billiard_isomorphism.js.
+    shuffle_billiard = audit_finite_shuffle_billiard_identity()
+    assert shuffle_billiard["exact_finite_identity"]
+    assert shuffle_billiard["matches"] == 65536
+
     # Fibonacci aspect ratios converge to phi.
     phi = (1.0 + math.sqrt(5.0)) / 2.0
     fib = [fibonacci_pair(k) for k in range(1, 18)]
@@ -199,6 +248,7 @@ def self_test() -> dict[str, Any]:
     return {
         "self_test": "PASS",
         "shuffle_lengths_checked": [2 * n for n in range(1, 65)],
+        "finite_shuffle_billiard_identity": shuffle_billiard,
         "fibonacci_last_pair": list(fib[-1]),
         "fibonacci_last_ratio": ratios[-1],
         "phi": phi,
