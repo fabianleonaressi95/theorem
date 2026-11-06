@@ -24,3 +24,14 @@ Lo script usa un seed fisso e stampa un riepilogo JSON. I test sono su tori peri
 ## Nota di rigore
 
 Il codice sorgente esaminato non implementa direttamente quaternioni, SU(2), qutrit o la ricorrenza supergolden. Questi collegamenti sono trattati come problemi di costruzione matematica successiva, non come proprietà già dimostrate del repository upstream.
+
+
+## Audit Koopman
+
+È disponibile [audit_koopman.py](audit_koopman.py), un esperimento diagnostico di chiusura lineare su tre primi momenti di Fourier. Non assume l'esistenza di una matrice supergolden: misura il residuo della migliore regressione lineare e chiarisce che non equivale a una restrizione esatta dell'operatore di Koopman.
+
+Esecuzione:
+
+```bash
+python audit_koopman.py
+```
