@@ -54,3 +54,16 @@ python audit_t2u_multiplicity.py --samples 500
 - [`selftest_t2u_intertwiner.py`](selftest_t2u_intertwiner.py): unit test sintetico del solver; non usa dati RGS.
 
 Il contratto NPZ del solver e la distinzione tra tripletto (188\times3) e componente isotypic di rango 30 sono documentati nel report. Il calcolo sul tangente RGS reale resta in attesa delle matrici (U_{tan}(g)) nella stessa base (Q_{tangent}).
+
+
+## Ricostruzione diretta della rappresentazione tangente RGS
+
+È stato aggiunto [`audit_rgs_t2u_from_XQ.py`](audit_rgs_t2u_from_XQ.py): ricostruisce le 48 azioni tangenti direttamente dalle coordinate originali `X` e dalla base `Q`, costruisce `D_T2u`, il proiettore isotypic e un intertwiner Reynolds deterministico. La procedura è descritta in [`RGS_T2U_RECONSTRUCTION.md`](RGS_T2U_RECONSTRUCTION.md).
+
+Esecuzione:
+
+```bash
+python audit_rgs_t2u_from_XQ.py path/to/original_matrices.npz --output results/rgs_t2u_reconstruction
+```
+
+Il codice e il protocollo sono nel branch; non si dichiara ancora un risultato numerico RGS perché il run sui dati originali e la verifica dei residui devono ancora essere eseguiti.
