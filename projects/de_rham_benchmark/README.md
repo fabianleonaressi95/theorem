@@ -86,3 +86,28 @@ The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geo
 ## Independent mathematical audit
 
 A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
+
+
+### Independent audit: W(G2) lift and Möbius seam
+
+The algebraic audit is available at
+[`audits/audit_g2_mobius_lift.py`](audits/audit_g2_mobius_lift.py), with regression
+tests in [`tests/test_g2_mobius_lift_audit.py`](tests/test_g2_mobius_lift_audit.py).
+
+Run the synthetic self-test:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py --self-test
+```
+
+Run the full audit after supplying the historically selected triplettes in JSON
+(the script intentionally does not invent the 216-element selection):
+
+```bash
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py triples.json --output audit_report.json
+```
+
+The report checks (R_Tc_T=0), rank completion, the determinant identity,
+positive definiteness, planar Gram classes, and the two-sided Möbius boundary
+involution. It explicitly does **not** certify face-trace matching, a conforming
+3D volume mesh, or FEEC/Mosco convergence.
