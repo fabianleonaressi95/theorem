@@ -53,7 +53,7 @@ The default CLI graph is deliberately small, \(C_3^{\square 5}\), so the first e
     python -m scripts.run_prism_ca_evolution --mode rules --population 8 --generations 3 --steps 6 --seed 2026 --output prism_rule_search.json
     python -m scripts.run_prism_ca_evolution --mode initial --fixed-rule 0 --population 8 --generations 3 --steps 6 --seed 2026 --output prism_initial_search.json
 
-The last command uses the all-zero rule only as an interface smoke test; it is not a meaningful dynamical benchmark. For scientific experiments, select and record a nontrivial fixed rule, graph factors, objective weights, initial-state bank, seed and time horizon. Increasing to the full 69,120-vertex PRISM graph should be deferred until profiling and vectorized/local-neighbourhood optimization have been performed.
+The JSON record includes the graph factors, search and fitness settings, time horizon, seed, evaluation history, and (for rule search) the initial-condition bank seed and SHA-256 hashes. The last command uses the all-zero rule only as an interface smoke test; it is not a meaningful dynamical benchmark. For scientific experiments, select and record a nontrivial fixed rule, graph factors, objective weights, initial-state bank, seed and time horizon. Increasing to the full 69,120-vertex PRISM graph should be deferred until profiling and vectorized/local-neighbourhood optimization have been performed.
 
 ### 3.1 Fixed graph
 
