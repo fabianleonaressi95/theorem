@@ -64,7 +64,7 @@ G_{m PRISM}=C_{64}\square C_6\square C_6\square C_6\square C_5,
 \]
 At refinement level \\(r\\), use
 \[
-G_r=C_{64r}square C_{6r}^{\square 3}\square C_{5r},
+G_r=C_{64r}\square C_{6r}^{\square 3}\square C_{5r},
 \qquad |V_r|=69120r^5.
 \]
 The first computational prototype should use small test graphs or a reduced quotient before attempting a full population search on 69,120 vertices.
@@ -100,14 +100,14 @@ The initial XCont-style genetic algorithm is an optimization heuristic. It does 
 
 For a trajectory \(x(0),\ldots,x(T)\), candidate diagnostics include:
 \[
-ho_t=rac1{|V|}sum_v x_v(t),qquad
-a_t=rac1{|V|}sum_v |x_v(t+1)-x_v(t)|,
+ho_t=rac1{|V|}\sum_v x_v(t),qquad
+a_t=rac1{|V|}\sum_v |x_v(t+1)-x_v(t)|,
 \]
 \[
-mathcal E_G(t)=x(t)^	op L_Gx(t)
+\mathcal{E}_G(t)=x(t)^	op L_Gx(t)
 =\sum_{\{v,w\}\in E}(x_v(t)-x_w(t))^2.
 \]
-Here (ho_t) is density, (a_t) is temporal activity, and (mathcal E_G) is the graph Dirichlet energy. Other measurable targets may include period, recurrence, component counts, correlation functions, and the distribution of activity across the five coordinate directions.
+Here (ho_t) is density, \(a_t\) is temporal activity, and (\mathcal{E}_G) is the graph Dirichlet energy. Other measurable targets may include period, recurrence, component counts, correlation functions, and the distribution of activity across the five coordinate directions.
 
 A fitness objective must state its target and normalization. For example, maximizing activity alone can select noisy or unstable rules; maximizing low Dirichlet energy alone can select constant configurations. Multi-objective or constrained fitness should report all component scores rather than hide them in one opaque scalar.
 
@@ -147,9 +147,9 @@ For genuine billiards, the phase space, collision map, boundary conditions, inva
 
 A convolutional update on a graph can be written as
 \[
-u^{t+1}=sigma(K_\vartheta u^t),
+u^{t+1}=\sigma(K_\vartheta u^t),
 \]
-where (K_\vartheta) is an explicitly defined graph filter, such as a polynomial in adjacency or Laplacian:
+where \(K_\vartheta\) is an explicitly defined graph filter, such as a polynomial in adjacency or Laplacian:
 \[
 K_\vartheta=sum_{j=0}^{m}c_j L_G^j.
 \]
@@ -157,7 +157,7 @@ A Boolean CA update is instead a local nonlinear map on a finite neighbourhood. 
 - support/radius of dependence;
 - symmetries and equivariance under graph automorphisms;
 - linearization around fixed points where defined;
-- spectral response of (K_\vartheta);
+- spectral response of \(K_\vartheta\);
 - stability, periodic orbits and attractors;
 - continuum scaling under a specified refinement.
 
@@ -167,7 +167,7 @@ A convolution kernel is not automatically a cellular automaton, and a graph filt
 
 The cellular-automaton layer is a finite-state dynamical system on a graph. The Mosco dossier concerns convergence of quadratic Dirichlet forms on varying spaces. These are related but distinct mathematical objects.
 
-A legitimate bridge could be developed by studying the graph Laplacian energy (mathcal E_G), its refinement scaling, and suitable observables of CA trajectories. To infer a continuum evolution, one would need a specified rescaling, tightness/compactness of trajectories or measures, identification of a limiting generator, and a convergence theorem. The Fourier-mode consistency of the flat PRISM refinement is only a calibration; it does not supply these dynamical convergence results.
+A legitimate bridge could be developed by studying the graph Laplacian energy (\mathcal{E}_G), its refinement scaling, and suitable observables of CA trajectories. To infer a continuum evolution, one would need a specified rescaling, tightness/compactness of trajectories or measures, identification of a limiting generator, and a convergence theorem. The Fourier-mode consistency of the flat PRISM refinement is only a calibration; it does not supply these dynamical convergence results.
 
 Likewise, graph Dirichlet energy is a scalar diagnostic. It is not the RGS Hodge energy, a Yang–Mills action, or a torsion invariant unless a separate construction proves that identification.
 
