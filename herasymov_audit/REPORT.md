@@ -282,3 +282,51 @@ La lettura dei materiali RGS richiede di distinguere tre oggetti che in preceden
 3. **Helper storico 39D:** il codice che tratta `V_all` come (39\times39) e lo chiama T2u non è compatibile, senza un ulteriore cambio di rappresentazione o una correzione, con i due oggetti precedenti. Non va usato per definire il fattore di molteplicità T2u.
 
 Quindi non esiste un unico oggetto che possa essere chiamato indifferentemente “(P_{T2u})” nei tre contesti. Per l'intertwiner verso il settore completo occorre il proiettore di rango 30; il tripletto (188\times3) è utile solo per un singolo carrier. Il file binario `all_T2u_arrays.npz` è citato nel notebook come archivio di quel tripletto, ma non è presente tra gli asset autonomi recuperabili in questa sessione: non ho quindi inventato o ricostruito le matrici mancanti.
+
+
+## 13. Ricostruzione del ponte verso il tangente RGS: audit forense e solver dell'intertwiner
+
+### 13.1 Rettifica della lettura delle dimensioni
+
+La rilettura del sorgente archiviato chiarisce la discrepanza senza dover identificare oggetti diversi:
+
+- `B_T2U_TAN` ha forma (188\times3): è un singolo carrier tridimensionale selezionato, e (B B^T) proietta soltanto su quel tripletto (rango 3 se ortonormale).
+- Il proiettore isotypic (P_{T2u}) di rango 30, riportato nell'audit della decomposizione caratteriale RGS, raccoglie dieci copie di (T_{2u}). È un oggetto più ampio del tripletto `B_T2U_TAN`.
+- Il rango 39 appartiene al settore (T_{1u}), non va attribuito a (T_{2u}).
+
+La sezione di codice archiviata legge `B_T2U_TAN` come matrice (188\times3) e forma (P=B B^T); quindi il suo commento “proiettore T2u” si riferisce al tripletto selezionato, non al proiettore isotypic completo. La distinzione è ora esplicita. Il rango 30 richiede il proiettore caratteriale completo; non si ricava dal solo `B_T2U_TAN`.
+
+### 13.2 Costruzione algebrica dell'intertwiner
+
+Per il dominio CA si usa la rappresentazione
+[
+\sigma(g)=I_{10}\otimes D_{T2u}(g)\in\mathbb R^{30\times30}.
+]
+Per il codominio tangente RGS si richiede l'azione effettiva verificata
+[
+\rho(g)=U_{\rm tan}(g)\in O(188).
+]
+L'intertwiner è una matrice (J\in\mathbb R^{188\times30}) che soddisfa
+[
+\rho(g)J=J\sigma(g)\quad\forall g\in O_h.
+]
+Il proiettore di Reynolds sullo spazio degli intertwiner è
+[
+\mathcal R(J_0)=\frac1{48}\sum_{g\in O_h}
+\rho(g)J_0\sigma(g)^T.
+]
+Se entrambe le azioni sono rappresentazioni ortogonali dello stesso gruppo, (\mathcal R(J_0)) è un intertwiner esatto a precisione macchina. Il suo rango numerico, ripetuto su semi casuali indipendenti, fornisce un test dell'ampiezza della componente comune; non sceglie da solo il coupling fisico.
+
+È stato aggiunto [`audit_rgs_t2u_intertwiner.py`](audit_rgs_t2u_intertwiner.py). Richiede un NPZ con `U_tan` di forma (48\times188\times188), `D_t2u) di forma (48\times3\times3), e l'ordine corrispondente degli elementi di gruppo in `group`. Verifica ortogonalità, chiusura del gruppo, legge di rappresentazione e residui di intertwining. Se presente, controlla anche (P_{T2u}J=J).
+
+### 13.3 Perché non dichiaro ancora un intertwiner numerico RGS
+
+Nell'archivio recuperato sono presenti descrizioni e codice che ricostruiscono (Q_{\rm tangent}), ma non è stato recuperato in questa sessione un array completo e verificabile (U_{\rm tan}(g)) per tutti i 48 elementi, né un bundle NPZ che associ senza ambiguità tale azione alla base (Q_{\rm tangent}) e al proiettore isotypic di rango 30. Il file `all_T2u_arrays.npz` citato nel notebook non risulta tra gli asset binari recuperabili.
+
+Non è quindi corretto pubblicare un valore numerico di (J), del suo rango o dei suoi angoli principali. Il solver è pronto, ma il calcolo RGS resta **bloccato dall'assenza dell'input primario**. Un tripletto `B_T2U_TAN` da solo non basta a ricostruire le 48 matrici di azione e non va promosso a rappresentazione completa.
+
+### 13.4 Conseguenza per la ricorrenza supergolden
+
+Anche se (J) risultasse di rango 30, il test CA attuale ha residuo di chiusura (0.9812368906). Pertanto non esiste ancora un operatore di trasferimento ben definito su quel sottospazio di osservabili da trasportare nel tangente RGS. La priorità matematica è prima ottenere una famiglia di osservabili con chiusura controllata; solo dopo si può definire un operatore sul fattore di molteplicità e testare il polinomio (x^3-x^2-1).
+
+**Stato:** armonici (T_{2u}) e covarianza CA verificati; test di chiusura negativo per le dieci feature scelte; formulazione e solver dell'intertwiner esatti definiti; matrice numerica (J) non calcolata per mancanza dei dati RGS primari.
