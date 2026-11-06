@@ -7,17 +7,17 @@ Audit numerico riproducibile su configurazioni microscopiche fornite. Non è una
 Q6 è il cubo (Q_6=C_2^{\square 6}), con 64 vertici e 192 archi; gli shell counts per vertice sono (1,6,15,20,15,6,1). PRISM è (C_{64}\square C_6\square C_6\square C_6\square C_5), con 69120 vertici e grado 10. Si usa la distanza prodotto, somma delle distanze cicliche minime.
 
 ## Invariante
-Per spin assiale vettoriale (mathbf s_x) e volume fisico di coarse-graining (V):
-[
-ar{mathbf J}=V^{-1}sum_xmathbf s_x,quad
-S_{ij}=\epsilon_{ijk}\bar J_k,quad
-s^2=\tfrac12 S_{ij}S_{ij}=|\bar{mathbf J}|^2.
-]
+Per spin assiale vettoriale \(\mathbf s_x\) e volume fisico di coarse-graining \(V\):
+\[
+\bar{\mathbf J}=V^{-1}\sum_x\mathbf s_x,\quad
+S_{ij}=\epsilon_{ijk}\bar J_k,\quad
+s^2=\tfrac12 S_{ij}S_{ij}=|\bar{\mathbf J}|^2.
+\]
 La decomposizione è
-[
-s^2_{self}=V^{-2}sum_x|\mathbf s_x|^2,qquad
-s^2_{pair}=2V^{-2}sum_{x<y}\mathbf s_x\cdot\mathbf s_y.
-]
+\[
+s^2_{\rm self}=V^{-2}\sum_x|\mathbf s_x|^2,\qquad
+s^2_{\rm pair}=2V^{-2}\sum_{x<y}\mathbf s_x\cdot\mathbf s_y.
+\]
 Il termine pair può essere negativo. Si riporta il correlatore grezzo e connesso per shell, con conteggio delle coppie dirette.
 
 ## Dati e riproducibilità
