@@ -202,6 +202,24 @@ is the standard finite-difference approximation to \(\int_{S^1}|f'(x)|^2dx\). Fo
 \]
 The tests check this limit, mass normalization, and energy convergence for sampled smooth Fourier modes. They are regression/calibration checks; they are not a proof of Mosco convergence for arbitrary sequences and are not evidence that the RGS–PRISM weights already satisfy the required estimates.
 
+
+### Five-dimensional PRISM product-grid calibration
+
+The companion module scripts/rgs_prism_product_refinement.py defines the lazy product refinement
+\[
+G_r=C_{64r}\square C_{6r}\square C_{6r}\square C_{6r}\square C_{5r}.
+\]
+It supplies row-major vertex indexing and its inverse, periodic nearest-neighbour lookup, a lazy positive-direction edge iterator, cell mass \(m_r=|V_r|^{-1}\), direction-dependent conductances \(b_{r,j}=m_r h_j^{-2}\), and an intrinsic edge-length calibration. It does not allocate the full adjacency matrix. The exact counts are \(|V_r|=69120r^5\), degree \(10\), and \(5|V_r|\) unoriented edges.
+
+The test suite checks the M0 combinatorial formulas and indexing/edge conventions, M1 flat mesh positivity, M2 positive normalized masses and conductances, M3 index/reconstruction consistency on sampled Fourier modes, and M4 fixed-mode energy consistency. The cosine-mode energy is computed from the exact discrete Fourier symbol; for non-aliased modes its sampled squared norm is \(1/2\), and its continuum energy on the unit flat five-torus is \(2\pi^2|k|^2\). These are exact finite-grid calculations. They do not establish the weak-liminf condition for arbitrary sequences, a general recovery theorem, a uniform discrete Rellich estimate, or any curved-cell result.
+
+Run the five-dimensional calibration with:
+
+    python -m pytest tests/test_t048_rgs_prism_product_refinement.py -q
+    python -m scripts.rgs_prism_product_refinement --levels 1 2 4 8 16
+
+The existing one-dimensional calibration remains separate and should also be run.
+
 ## 9. References and how they are used
 
 1. M. Keller, D. Lenz, R. K. Wojciechowski, *Graphs and Discrete Dirichlet Spaces*, Springer, 2021. Foundational weighted graph forms, Laplacians, intrinsic metrics, and operator realizations.
