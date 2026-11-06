@@ -47,7 +47,11 @@ jobs:
           assert rotation['bit3_toggles_increment_rule']
           assert data['rotation_parity_uniform_rules']['single_parent_sample_rule']
           assert not data['rotation_parity_mixed_rules']['single_parent_sample_rule']
-          print('Herasymov finite, Boolean parity, and rotation-mode controls passed')
+          chain = data['uniform_cubical_chain_maps']
+          assert chain['distinct_signed_permutation_maps'] == 32
+          assert chain['chain_map_identity_holds']
+          assert chain['orientation_determinants'] == {'+1': 16, '-1': 16}
+          print('Herasymov symbolic, rotation, and cubical chain-map controls passed')
           PY
       - name: Run Herasymov regression tests
         run: |
