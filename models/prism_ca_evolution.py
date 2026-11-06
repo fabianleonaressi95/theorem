@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import random
+from math import isfinite
 from statistics import median
 from typing import Sequence
 
@@ -43,10 +44,12 @@ class EvolutionConfig:
             raise ValueError("elite_count must be in [1, population_size)")
         if isinstance(self.tournament_size, bool) or not isinstance(self.tournament_size, int) or not 1 <= self.tournament_size <= self.population_size:
             raise ValueError("tournament_size must be in [1, population_size]")
-        if isinstance(self.mutation_rate, bool) or not isinstance(self.mutation_rate, (int, float)) or not 0.0 <= self.mutation_rate <= 1.0:
-            raise ValueError("mutation_rate must lie in [0, 1]")
+        if isinstance(self.mutation_rate, bool) or not isinstance(self.mutation_rate, (int, float)) or not isfinite(float(self.mutation_rate)) or not 0.0 <= self.mutation_rate <= 1.0:
+            raise ValueError("mutation_rate must be finite and lie in [0, 1]")
         if isinstance(self.seed, bool) or not isinstance(self.seed, int):
             raise ValueError("seed must be an integer")
+        if not isinstance(self.seed_elementary_rules, bool):
+            raise ValueError("seed_elementary_rules must be boolean")
 
 
 @dataclass(frozen=True)
@@ -63,6 +66,8 @@ class FitnessConfig:
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, (int, float)):
                 raise ValueError(f"{name} must be numeric")
+            if not isfinite(float(value)):
+                raise ValueError(f"{name} must be finite")
             if not 0.0 <= float(value) <= 1.0 and name == "target_density":
                 raise ValueError("target_density must lie in [0, 1]")
             if float(value) < 0.0:
@@ -274,10 +279,10 @@ def _initial_population(
         if len(population) != config.population_size:
             raise ValueError("initial state population must equal population_size")
         return population
-    return tuple(
+    return [
         bytes(rng.getrandbits(1) for _ in range(graph.vertex_count))
         for _ in range(config.population_size)
-    )
+    ]
 
 
 def _cross_state(parent_a: bytes, parent_b: bytes, rng: random.Random) -> bytes:
