@@ -25,7 +25,6 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -r requirements.txt
       - name: Compile Python sources
-        run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py audits tests
         run: python -m compileall -q ddr run_benchmark.py diagnose_pollution.py degreewise_audit.py ddr/feec_mass.py ddr/kforms.py ddr/test_forms.py ddr/feec_study.py compare_mass_matrices.py mass_refinement_study.py test_consistent_mass.py test_feec_study.py run_feec_study.py audits tests
       - name: Run Herasymov symbolic and parity-lattice audit
         run: |
