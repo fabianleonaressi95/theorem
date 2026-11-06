@@ -23,6 +23,10 @@ RULE_BITS = 1 << LOCAL_INPUTS
 RULE_MASK = (1 << RULE_BITS) - 1
 
 
+def _is_bit(value: object) -> bool:
+    return not isinstance(value, bool) and isinstance(value, int) and value in (0, 1)
+
+
 def _check_factors(factors: Sequence[int]) -> tuple[int, ...]:
     values = tuple(factors)
     if len(values) != DIMENSION:
@@ -100,13 +104,13 @@ def validate_rule(rule: int) -> int:
 
 def local_input_index(centre: int, neighbour_values: Sequence[int]) -> int:
     """Pack centre then ten ordered neighbour bits, most-significant first."""
-    if centre not in (0, 1) or isinstance(centre, bool):
+    if not _is_bit(centre):
         raise ValueError("centre state must be binary")
     if len(neighbour_values) != 2 * DIMENSION:
         raise ValueError("exactly ten neighbour states are required")
     index = int(centre)
     for value in neighbour_values:
-        if isinstance(value, bool) or value not in (0, 1):
+        if not _is_bit(value):
             raise ValueError("neighbour states must be integer bits")
         index = (index << 1) | value
     return index
@@ -117,7 +121,7 @@ def step(graph: PrismProductGraph, state: Sequence[int], rule: int) -> bytearray
     rule = validate_rule(rule)
     if len(state) != graph.vertex_count:
         raise ValueError("state length must equal graph vertex count")
-    if any(isinstance(v, bool) or v not in (0, 1) for v in state):
+    if any(not _is_bit(v) for v in state):
         raise ValueError("state must contain only integer bits 0 and 1")
 
     output = bytearray(graph.vertex_count)
@@ -133,7 +137,7 @@ def trajectory(graph: PrismProductGraph, initial: Sequence[int], rule: int, step
     if isinstance(steps, bool) or not isinstance(steps, int) or steps < 0:
         raise ValueError("steps must be a nonnegative integer")
     current = bytearray(initial)
-    if len(current) != graph.vertex_count or any(v not in (0, 1) for v in current):
+    if len(current) != graph.vertex_count or any(not _is_bit(v) for v in current):
         raise ValueError("initial state must be a binary vector of graph vertex count")
     result = [current]
     for _ in range(steps):
@@ -144,13 +148,13 @@ def trajectory(graph: PrismProductGraph, initial: Sequence[int], rule: int, step
 
 def observables(graph: PrismProductGraph, state: Sequence[int], next_state: Sequence[int] | None = None) -> dict:
     """Return density, optional temporal activity, and graph Dirichlet energy."""
-    if len(state) != graph.vertex_count or any(v not in (0, 1) for v in state):
+    if len(state) != graph.vertex_count or any(not _is_bit(v) for v in state):
         raise ValueError("state must be a binary vector of graph vertex count")
     density = sum(state) / graph.vertex_count
     energy = sum(state[u] != state[v] for u, v in graph.positive_edges())
     result = {"density": density, "graph_dirichlet_energy": int(energy)}
     if next_state is not None:
-        if len(next_state) != graph.vertex_count or any(v not in (0, 1) for v in next_state):
+        if len(next_state) != graph.vertex_count or any(not _is_bit(v) for v in next_state):
             raise ValueError("next_state must be a binary vector of graph vertex count")
         result["temporal_activity"] = sum(a != b for a, b in zip(state, next_state)) / graph.vertex_count
     return result
