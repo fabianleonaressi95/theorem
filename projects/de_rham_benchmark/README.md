@@ -77,3 +77,12 @@ python mass_refinement_study.py --dim 2 --levels 4,8,16
 python mass_refinement_study.py --dim 3 --levels 2,3,4,5
 python test_consistent_mass.py
 ```
+
+## FEEC projections and discrete adjoints
+
+The projection/adjoint benchmark measures de Rham face-integral projections `pi_h`, the commutator `d_h pi_h = pi_h d`, `L^2`/`H-Lambda` approximation errors, the discrete codifferential `delta_h = M^{-1} D^T M` against the continuous codifferential on analytic test forms, mass stability, and spectral indicators — on affine, sinusoidal and `axis_bump` curvilinear maps in 2D and 3D. The unconstrained complex develops an `O(1/h)` boundary layer in `delta_h pi_h u` near `dOmega`; interior and compactly-supported residuals are reported separately. See [the method, assumptions and limitations](docs/FEEC_PROJECTIONS.md).
+
+```bash
+python run_feec_study.py configs/feec_default.json --out results/feec
+python test_feec_study.py
+```
