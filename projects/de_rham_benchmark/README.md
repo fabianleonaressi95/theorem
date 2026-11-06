@@ -86,3 +86,44 @@ The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geo
 ## Independent mathematical audit
 
 A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
+
+
+### Independent audit: W(G2) lift and Möbius seam
+
+The algebraic audit is available at
+[`audits/audit_g2_mobius_lift.py`](audits/audit_g2_mobius_lift.py), with regression
+tests in [`tests/test_g2_mobius_lift_audit.py`](tests/test_g2_mobius_lift_audit.py).
+
+Run the synthetic self-test:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py --self-test
+```
+
+Run the full built-in audit. The program generates the order-12 Weyl group,
+its six-element short-root orbit, all 216 ordered triplettes, and the 20 exact
+Gram/Weyl classes. Supply only the geometric parameters:
+
+```json
+{
+  "rho": 1.465571231876768,
+  "alpha_star": 0.7,
+  "mobius_levels": [1, 2, 3, 4, 5, 6]
+}
+```
+
+The repository includes an illustrative parameter file at
+`audits/g2_mobius_parameters.example.json` (`alpha_star=1) is a unit normalization
+for exercising the candidate formula, not a physically calibrated value). Run:
+
+```bash
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py projects/de_rham_benchmark/audits/g2_mobius_parameters.example.json --output audit_report.json
+```
+
+The sine formula for `alpha(rho)` is explicitly marked as a candidate interpolation;
+the audit does not claim it is derived from the Weyl group.
+
+The report checks (R_Tc_T=0), rank completion, the determinant identity,
+positive definiteness, planar Gram classes, and the two-sided Möbius boundary
+involution. It explicitly does **not** certify face-trace matching, a conforming
+3D volume mesh, or FEEC/Mosco convergence.

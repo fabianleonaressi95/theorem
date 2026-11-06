@@ -230,6 +230,11 @@ has rank at most two whenever \(R_T\) maps into a two-dimensional plane. Therefo
 
 A candidate rank-completing lift recorded in the project notes is
 \[
+V_T=E_0L_{G_2}S_\rho R_T+\alpha\,n_p c_T^T,
+\qquad
+c_T=\bigl(\det(r_y,r_z),\det(r_z,r_x),\det(r_x,r_y)\bigr)^T.
+\]
+Here \(r_x,r_y,r_z\) are the three planar projected vectors associated with the triple, \(n_p\) is the chosen unit normal, \(E_0\) is an orthonormal ambient two-frame, and \(L_{G_2}^TL_{G_2}=Q_{G_2}\). The determinant minors form the cofactor/area-normal data. If the planar part has rank two, \(n_p\) is independent of its image, and \(\alpha\ne0\) with \(c_T\ne0\), the lift can have rank three. This is a conditional linear-algebra statement; the precise dimensions, frame conventions, and geometric meaning of each factor must be fixed in the implementation/proof before it is used as a theorem.
 V_T=E_pS_\rho R_T+\alpha\,n_p c_T^T,
 \qquad
 c_T=\bigl(\det(r_y,r_z),\det(r_z,r_x),\det(r_x,r_y)\bigr)^T.
@@ -283,3 +288,161 @@ The proof order is therefore revised:
 6. establish FEEC masses, projections, compactness, and Mosco convergence.
 
 Without Steps 1–4, the 3D curvilinear FEEC theorem has no justified geometric input from the proposed 2D construction.
+
+
+### 11.3.1 The actual \(W(G_2)\) planar-to-spatial construction
+
+The project construction is more specific than a generic graph lift. For each planar triple \(T_p\), use
+\[
+R_{T_p}=(r_x\ r_y\ r_z)\in\mathbb R^{2\times3},\qquad
+c_{T_p}=
+\begin{pmatrix}
+\det(r_y,r_z)\\
+\det(r_z,r_x)\\
+\det(r_x,r_y)
+\end{pmatrix}.
+\]
+The cofactor identity is
+\[
+R_{T_p}c_{T_p}=0.
+\]
+With the \(G_2\) quadratic form
+\[
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},
+\qquad
+S_\rho=\begin{pmatrix}\sqrt\rho&0\\0&1/\sqrt\rho\end{pmatrix},
+\]
+the planar Gram datum is
+\[
+\Gamma_p(\rho)=R_{T_p}^{T}S_\rho^{T}Q_{G_2}S_\rho R_{T_p}.
+\]
+The candidate family uses the 216 \(W(G_2)\) triples and reports 20 Gram classes. Those counts/classes are finite-computation claims: they must be regenerated from the explicit root/triple enumeration and checked under the declared group action before being treated as verified facts.
+
+Choose an oriented orthonormal ambient frame \((E_0,n_p)\), with \(E_0\in\mathbb R^{3\times2}\), \(E_0^TE_0=I_2\), \(E_0^Tn_p=0\), and \(\det[E_0\ n_p]=+1\). Let \(L_{G_2}\) be the Cholesky factor in the convention
+\[
+L_{G_2}^{T}L_{G_2}=Q_{G_2},\qquad
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad \det Q_{G_2}=3.
+\]
+The metric-consistent rank-completing spatial frame is
+\[
+V_{T_p}(\rho)=E_0L_{G_2}S_\rho R_{T_p}
++\alpha(\rho)n_pc_{T_p}^{T}\in\mathbb R^{3\times3}.
+\]
+Its Gram matrix is
+\[
+G_{T_p}^{(3)}(\rho)=V_{T_p}^{T}V_{T_p}
+=R_{T_p}^{T}S_\rho^{T}Q_{G_2}S_\rho R_{T_p}
++\alpha(\rho)^2c_{T_p}c_{T_p}^{T}
+=\Gamma_p(\rho)+\alpha(\rho)^2c_{T_p}c_{T_p}^{T}.
+\]
+The mixed terms vanish because \(E_0^Tn_p=0\). In the orthonormal ambient frame \((E_0,n_p)\), the determinant identity is
+\[
+\det V_{T_p}(\rho)=\alpha(\rho)\sqrt{\det Q_{G_2}}\,\|c_{T_p}\|^2,
+\qquad
+\boxed{\det G_{T_p}^{(3)}(\rho)=3\alpha(\rho)^2\|c_{T_p}\|^4.}
+\]
+Thus the planar \(2\times3\) data, whose rank is at most two, acquire rank three precisely when \(\alpha(\rho)\ne0\) and \(c_{T_p}\ne0\). Since \(\det S_\rho=1\), the golden/supergolden anisotropic rescaling does not itself change this volume factor. The factor \(\det Q_{G_2}=3\) is essential: omitting \(L_{G_2}\) would make the spatial lift use a different tangent metric from the planar Gram datum. This is an exact algebraic identity under the stated frame assumptions; it is not yet a proof that the resulting cells form a conforming 3D mesh. The function \(\alpha(\rho)\), its normalization, and uniform lower/upper bounds must be specified from the source construction, not fitted after the fact.
+
+
+### 11.3.2 Explicit \(W(G_2)\) enumeration: 216 ordered triplettes and 20 classes
+
+The 216 objects are now generated, rather than left as an unspecified input. In the simple-root basis with Gram matrix \(Q_{G_2}\), use the two simple reflections
+\[
+s_1=\begin{pmatrix}-1&3\\0&1\end{pmatrix},
+\qquad
+s_2=\begin{pmatrix}1&0\\1&-1\end{pmatrix}.
+\]
+They satisfy
+\[
+s_i^2=I,\qquad s_i^TQ_{G_2}s_i=Q_{G_2},\qquad
+(s_1s_2)^6=I,
+\]
+and generate a group of order 12. The orbit of the short simple root \(e_1=(1,0)^T\) is
+\[
+\mathcal R_s=
+\{(-2,-1),(-1,-1),(-1,0),(1,0),(1,1),(2,1)\}.
+\]
+The triplettes are all ordered triples
+\[
+\mathcal T=\mathcal R_s^3,\qquad |\mathcal T|=6^3=216.
+\]
+The diagonal Weyl action applies the same \(W\in W(G_2)\) to all three vectors. Exact integer enumeration gives 20 orbits, with size distribution
+\[
+\boxed{16\text{ orbits of size }12,\quad4\text{ orbits of size }6.}
+\]
+For each triple \(T=(r_x,r_y,r_z)\), set \(R_T=(r_x\ r_y\ r_z)\) and
+\[
+\Gamma_T=R_T^TQ_{G_2}R_T.
+\]
+The exact Gram matrices are constant on Weyl orbits and distinguish all 20 orbits. Thus the 20 Gram classes are not a floating-point clustering artifact; the audit checks them by integer arithmetic before applying the real metric deformation \(S_\rho\).
+
+There are exactly 24 collinear ordered triplettes (four Weyl orbits of size six), for which \(\operatorname{rank}R_T=1\) and \(c_T=0\). The remaining 192 have \(\operatorname{rank}R_T=2\) and \(c_T\ne0\). For \(\alpha(\rho)\ne0\), precisely these 192 acquire rank three under the normal lift; the 24 collinear cases remain rank one. This degeneracy is part of the finite geometry and must not be silently discarded.
+
+### 11.3.3 Candidate golden–supergolden normal amplitude
+
+A previously explored interpolation is
+\[
+\alpha(\rho)=\alpha_*
+\sin\!\left[
+\frac{\pi}{2}\frac{\rho-\varphi}{\psi-\varphi}
+\right],
+\qquad
+\varphi=\frac{1+\sqrt5}{2},\quad
+\psi^3-\psi^2-1=0,\quad\psi>1.
+\]
+It gives \(\alpha(\varphi)=0\) and \(\alpha(\psi)=\alpha_*\). This is a **candidate parametrization**, not a consequence of the Weyl group or a proved geometric law. In particular, the 3D rank completion occurs at \(\rho\ne\varphi\) when \(\alpha_*\ne0\), for all and only the 192 noncollinear triplettes. The scale \(\alpha_*\) must be fixed by the geometric normalization or an independent variational principle; it must not be fitted to force a desired determinant.
+
+### 11.5.1 Möbius seam: boundary identification and the normal coordinate
+
+The second repeated operation is the boundary-to-seam identification. At level \(n\), set \(m=2^n\) and identify the right and left boundary indices by
+\[
+(i,j)_{\rm right}\sim(0,m-1-j)_{\rm left},
+\qquad
+\pi_n\!\left(h_n(m-1,j)\right)=h_n(0,m-1-j).
+\]
+This is a transverse reversal, not ordinary periodic identification. In local coordinates \((s,t)\) on a strip, the continuum model is
+\[
+(s_{\rm right},t)\sim(s_{\rm left},-t).
+\]
+For a spatial thickening with normal coordinate \(w\), the compatible Möbius transition is
+\[
+(s_{\rm right},t,w)\sim(s_{\rm left},-t,-w).
+\]
+The normal reversal is essential: it is the transition law for the twisted normal coordinate and prevents one from silently treating the Möbius seam as an untwisted product cylinder.
+
+With local frame coordinates ordered as (longitudinal, transverse, normal), one convenient transition matrix is
+\[
+R_M=\operatorname{diag}(1,-1,-1),\qquad R_M^2=I,\quad\det R_M=+1.
+\]
+The discrete frame and link data must obey
+\[
+V_{\pi_n(p)}=V_pR_M,\qquad
+U_{\pi_n(p)\pi_n(q)}=R_MU_{pq}R_M^{-1}.
+\]
+If the implementation stores only the 2D tangent frame, its transition is instead \(\operatorname{diag}(1,-1)\), with determinant \(-1\); do not mix these two representations. Verify the seam identities on every identified boundary cell, edge, and face, including the induced orientation of the 3D volume cells.
+
+The resulting construction has three logically separate maps:
+1. \(T_p\mapsto\Gamma_p(\rho)\): planar \(G_2\) metric/Gram data;
+2. \(r_i\mapsto v_i\), assembled as \(R_{T_p}\mapsto V_{T_p}(\rho)\): rank-two planar data lifted to rank three;
+3. boundary \(\mapsto\) Möbius seam: the index involution and twisted normal/frame transition.
+
+The 3D FEEC domain must be the actual orientable thickened cell complex with these transition rules, not the nonorientable mid-surface regarded as a 3D volume. Prove that the thickened cells have positive Jacobian in compatible local charts and that seam-related face traces agree. A Möbius mid-surface alone is not a 3D volume mesh.
+
+### 11.7. Named source and attribution status
+
+The project associates this repeated 2D-to-3D construction with **Sergy Gerasmioff**. The source identity and spelling are not independently established by the public-source search performed for this revision, and the repository search for Gerasmioff returned no matching file. Therefore:
+- retain the name as the user's source attribution and research lead;
+- do not claim that the equations above are a published Gerasmioff theorem until a primary source is located;
+- compare the original source line-by-line against the three maps and seam law above when it is available;
+- preserve any differences rather than silently replacing the historical construction with this algebraic reconstruction.
+
+### 11.8. Revised proof order
+
+The correct order is now:
+1. recover and authenticate the Gerasmioff source and its repeated 2D-to-3D construction;
+2. enumerate the 216 \(W(G_2)\) triples and verify the 20 Gram classes;
+3. prove \(R_Tc_T=0\), the rank-completion determinant identity, and uniform bounds for \(\alpha(\rho)\);
+4. implement and verify the Möbius boundary involution, twisted normal transition, and link conjugation;
+5. prove that the thickened 3D cells are conforming, orientable, and uniformly nondegenerate;
+6. verify local incidence/exterior-derivative orientation;
+7. only then establish 3D FEEC mass stability, commuting projections, compactness, and Mosco convergence.
