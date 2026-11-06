@@ -20,6 +20,7 @@ These notes are deliberately narrower than the source documents. They preserve u
 | [FORMULAZIONE — critical audit](FORMULAZIONE_CRITICAL_AUDIT.md) | Historical exploratory compilation; not a validated paper or solution report | Identifies variational, teleparallel, gauge, LQG and phenomenological claims that cannot be retained as results |
 | [Naressi Law — critical audit](naressi-law/README.md) | Internal working manuscript; not peer-reviewed; physical extensions unsupported | Use together with the cleaned spin-chain note; do not cite its former UV/RG/Yang–Mills conclusions |
 | [NVM external manuscript — editorial assessment](NVM_EXTERNAL_MANUSCRIPT_ASSESSMENT.md) | External candidate-model manuscript by Michael Blasco (October 2026); publication status unverified | Comparative reading only; not evidence for RGS–PSU |
+| [Consolidated audit of four exploratory PDFs](FOUR_PDF_CONSOLIDATED_AUDIT.md) | Critical review of `dirac.pdf`, `siiiiii.pdf`, `soluzione.pdf` and `yess.pdf` | Records defensible residue, failed claims and next mathematical requirements; not a paper |
 
 ## Source files and archival policy
 
