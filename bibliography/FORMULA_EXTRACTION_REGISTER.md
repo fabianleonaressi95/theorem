@@ -1,6 +1,6 @@
 # Registro maestro — estrazione e verifica delle formule
 
-**Scopo:** estrarre in modo sistematico formule e risultati dalla bibliografia THEROEM e dalle fonti primarie reperite online, quindi verificarli indipendentemente prima di usarli nei teoremi RGS–PSU–PRISM–Q6.
+**Scopo:** estrarre in modo sistematico formule e risultati dalla bibliografia THEOREM e dalle fonti primarie reperite online, quindi verificarli indipendentemente prima di usarli nei teoremi RGS–PSU–PRISM–Q6.
 
 ## Stati epistemici
 - **TRASCRITTA:** formula riportata dalla fonte con riferimento localizzabile.
@@ -20,7 +20,7 @@
 5. Cercare una seconda fonte indipendente o il testo originale.
 6. Verificare dimensioni, segni, fattori, casi limite, simmetrie e condizioni di validità.
 7. Eseguire controllo simbolico/numerico riproducibile quando pertinente.
-8. Solo dopo, valutare un collegamento a un teorema THEROEM. La somiglianza formale non costituisce un ponte.
+8. Solo dopo, valutare un collegamento a un teorema THEOREM. La somiglianza formale non costituisce un ponte.
 
 ## Registro di avanzamento
 
