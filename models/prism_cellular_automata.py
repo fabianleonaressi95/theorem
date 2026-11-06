@@ -160,7 +160,6 @@ def elementary_rules() -> dict[str, int]:
     """Canonical controls under the declared local-input bit ordering."""
     zero = 0
     one = RULE_MASK
-    identity = sum(1 << i for i in range(RULE_BITS) if (i >> LOCAL_INPUTS) & 1)
     # The central bit is the most significant of 11 local bits.
     identity = sum(1 << i for i in range(RULE_BITS) if ((i >> (LOCAL_INPUTS - 1)) & 1))
     negation = RULE_MASK ^ identity
