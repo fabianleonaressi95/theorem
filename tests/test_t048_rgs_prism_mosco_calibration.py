@@ -57,6 +57,8 @@ def test_invalid_cycle_size_rejected(n):
 def test_invalid_mode_rejected(mode):
     with pytest.raises(ValueError):
         PeriodicCycle(16).sample_mode(mode)
+    with pytest.raises(ValueError):
+        PeriodicCycle(16).eigenvalue(mode)
 
 
 def test_continuum_mode_requires_integer():
