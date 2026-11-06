@@ -118,6 +118,8 @@ def test_invalid_indices_and_neighbour_arguments_rejected():
         graph.neighbor((0, 0, 0, 0, 0), 5, 1)
     with pytest.raises(ValueError):
         graph.neighbor((0, 0, 0, 0, 0), 0, 0)
+    with pytest.raises(ValueError):
+        graph.neighbor((0, 0, 0, 0, 0), 0, True)
 
 
 def test_aliasing_constant_sign_cosine_is_rejected_for_energy():
@@ -131,3 +133,8 @@ def test_audit_labels_scope_and_reports_milestones():
     assert [row["vertices"] for row in result["rows"]] == [69120, 69120 * 32, 69120 * 1024]
     assert all(result["milestone_checks"].values())
     assert all(all(row["checks"].values()) for row in result["rows"])
+
+
+def test_empty_refinement_list_rejected():
+    with pytest.raises(ValueError):
+        audit_refinements([])
