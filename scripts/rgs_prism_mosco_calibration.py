@@ -45,8 +45,8 @@ class PeriodicCycle:
         return float(self.conductance * np.dot(differences, differences))
 
     def eigenvalue(self, k: int) -> float:
-        if k < 0 or k >= self.n:
-            raise ValueError("mode must satisfy 0 <= k < n")
+        if isinstance(k, bool) or not isinstance(k, (int, np.integer)) or k < 0 or k >= self.n:
+            raise ValueError("mode must be an integer satisfying 0 <= k < n")
         return float(4.0 * self.n**2 * math.sin(math.pi * k / self.n) ** 2)
 
     @staticmethod
