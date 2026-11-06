@@ -19,11 +19,11 @@ The following items are internal programme material. They must not be cited as i
 
 | Document | Editorial status | Permitted use |
 |---|---|---|
-| `NVM_Manuscript_October_2026.pdf` | Internal candidate-model manuscript; not peer-reviewed | Critical analysis of definitions, equations, assumptions and proposed tests |
 | `Morfodinamica_Quantistica_Nota_Introduttiva.pdf` | Internal introductory note | Terminology and programme history only |
 | `Architettura_scientifica_RGS_PRISM_programma_integrato.docx` | Internal architecture document | Project organization; not evidence for mathematical or physical claims |
-| `FORMULAZIONE.pdf` | Internal teleparallel/scalar-tensor formulation | Source for a derivation only after independent equation-level audit |
-| [Computational Analysis of the Naressi Law](naressi-law/README.md) | Critical audit of an internal research manuscript | Algebraic identity is separated from numerical claims and physical conjectures |
+| [FORMULAZIONE.pdf — critical audit](FORMULAZIONE_CRITICAL_AUDIT.md) | Historical exploratory compilation; **not a validated paper or solution report** | Source provenance only; use the audit to identify variational, teleparallel, gauge, LQG and phenomenological claims that cannot be retained as results |
+| [Computational Analysis of the Naressi Law — critical audit](naressi-law/README.md) | Internal research manuscript, not peer-reviewed; current claims substantially overreach the stated model | Retain only the exact coupling ansatz and results that pass independent reproduction |
+| `NVM_Manuscript_October_2026.pdf` | **External manuscript by Michael Blasco**, October 2026; not an internal RGS document. Its own status table describes a specified candidate realization and explicitly marks localized solutions and downstream physical correspondences as not established. Peer-review/publication status is not verified here. | Comparative reading of a candidate nonlinear field model; not evidence for RGS–PSU and not an established physical theory |
 
 A model proposal is not a result merely because it is written in Lagrangian, geometric, spectral, or quantum terminology. Each claim must be reduced to explicit definitions, assumptions, derivations, and reproducible consequences.
 
