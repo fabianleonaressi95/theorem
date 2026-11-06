@@ -68,7 +68,6 @@ def test_mixed_reflection_rules_interleave_parent_samples():
     assert not report["all_eight_children_share_one_source_coordinate"]
     assert not report["single_parent_source_coordinate_per_parent"]
 
-
 def test_rotation_generator_all_256_modes_are_cube_bijections():
     report = MODULE.audit_rotation_generator(size=3)
     assert report["modes_exhausted"] == 256
