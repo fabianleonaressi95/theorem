@@ -313,24 +313,30 @@ the planar Gram datum is
 \]
 The candidate family uses the 216 \(W(G_2)\) triples and reports 20 Gram classes. Those counts/classes are finite-computation claims: they must be regenerated from the explicit root/triple enumeration and checked under the declared group action before being treated as verified facts.
 
-Choose an orthonormal planar frame \(E_p\in\mathbb R^{3\times2}\), \(E_p^TE_p=I_2\), and a unit normal \(n_p\) with \(E_p^Tn_p=0\). The rank-completing spatial frame is
+Choose an orthonormal ambient frame \(E_0\in\mathbb R^{3\times2}\), \(E_0^TE_0=I_2\), and a unit normal \(n_p\) with \(E_0^Tn_p=0\). Let \(L_{G_2}\) be the Cholesky factor in the convention
 \[
-V_{T_p}(\rho)=E_pS_\rho R_{T_p}
+L_{G_2}^{T}L_{G_2}=Q_{G_2},\qquad
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad \det Q_{G_2}=3.
+\]
+The metric-consistent rank-completing spatial frame is
+\[
+V_{T_p}(\rho)=E_0L_{G_2}S_\rho R_{T_p}
 +\alpha(\rho)n_pc_{T_p}^{T}\in\mathbb R^{3\times3}.
 \]
 Its Gram matrix is
 \[
 G_{T_p}^{(3)}(\rho)=V_{T_p}^{T}V_{T_p}
-=R_{T_p}^{T}S_\rho^{T}S_\rho R_{T_p}
-+\alpha(\rho)^2c_{T_p}c_{T_p}^{T}.
+=R_{T_p}^{T}S_\rho^{T}Q_{G_2}S_\rho R_{T_p}
++\alpha(\rho)^2c_{T_p}c_{T_p}^{T}
+=\Gamma_p(\rho)+\alpha(\rho)^2c_{T_p}c_{T_p}^{T}.
 \]
-The mixed terms vanish because \(E_p^Tn_p=0\). In the orthonormal frame \((E_p,n_p)\), the determinant lemma gives
+The mixed terms vanish because \(E_0^Tn_p=0\). In the orthonormal ambient frame \((E_0,n_p)\), the determinant identity is
 \[
-\det V_{T_p}(\rho)=\alpha(\rho)\|c_{T_p}\|^2,
+\det V_{T_p}(\rho)=\alpha(\rho)\sqrt{\det Q_{G_2}}\,\|c_{T_p}\|^2,
 \qquad
-\boxed{\det G_{T_p}^{(3)}(\rho)=\alpha(\rho)^2\|c_{T_p}\|^4.}
+\boxed{\det G_{T_p}^{(3)}(\rho)=3\alpha(\rho)^2\|c_{T_p}\|^4.}
 \]
-Thus the planar \(2\times3\) data, whose rank is at most two, acquire rank three precisely when \(\alpha(\rho)\ne0\) and \(c_{T_p}\ne0\). Since \(\det S_\rho=1\), the golden/supergolden anisotropic rescaling does not itself change this volume factor. This is an exact algebraic identity under the stated frame assumptions; it is not yet a proof that the resulting cells form a conforming 3D mesh. The function \(\alpha(\rho)\), its normalization, and uniform lower/upper bounds must be specified from the source construction, not fitted after the fact.
+Thus the planar \(2\times3\) data, whose rank is at most two, acquire rank three precisely when \(\alpha(\rho)\ne0\) and \(c_{T_p}\ne0\). Since \(\det S_\rho=1\), the golden/supergolden anisotropic rescaling does not itself change this volume factor. The factor \(\det Q_{G_2}=3\) is essential: omitting \(L_{G_2}\) would make the spatial lift use a different tangent metric from the planar Gram datum. This is an exact algebraic identity under the stated frame assumptions; it is not yet a proof that the resulting cells form a conforming 3D mesh. The function \(\alpha(\rho)\), its normalization, and uniform lower/upper bounds must be specified from the source construction, not fitted after the fact.
 
 ### 11.5.1 Möbius seam: boundary identification and the normal coordinate
 
