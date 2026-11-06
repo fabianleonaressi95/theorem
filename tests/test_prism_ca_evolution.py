@@ -7,6 +7,7 @@ from models.prism_ca_evolution import (
     FitnessConfig,
     evolve_initial_states,
     evolve_coupled_initial_states,
+    _coupled_pair_metrics,
     evolve_rules,
     random_initial_states,
     rule_symmetry_report,
@@ -200,3 +201,18 @@ def test_two_population_coevolution_rejects_incompatible_populations():
         evolve_coupled_initial_states(graph, 0, 1, a, b)
     with pytest.raises(ValueError):
         evolve_coupled_initial_states(graph, 0, 1, a, a, interaction_weight=-0.1)
+
+
+
+def test_xor_coupling_map_exchanges_complementary_fields_under_zero_rule():
+    graph = PrismProductGraph((3, 3, 3, 3, 3))
+    a = bytes(graph.vertex_count)
+    b = bytes([1]) * graph.vertex_count
+    metrics_a, metrics_b, interaction = _coupled_pair_metrics(
+        graph, a, b, fixed_rule=elementary_rules()["zero"], steps=1,
+        fitness=FitnessConfig(),
+    )
+    # With F=0, A'=B and B'=A: the two fields remain complementary.
+    assert interaction == 1.0
+    assert metrics_a["mean_density"] == 1.0
+    assert metrics_b["mean_density"] == 0.0
