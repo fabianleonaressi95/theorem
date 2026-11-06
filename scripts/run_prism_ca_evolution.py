@@ -7,6 +7,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -59,14 +60,24 @@ def main():
         density_weight=args.density_weight,
         boundary_weight=args.boundary_weight,
     )
+    experiment = {"mode": args.mode, "steps": args.steps}
     if args.mode == "rules":
-        bank = random_initial_states(graph, args.initial_samples, args.seed + 1)
+        bank_seed = args.seed + 1
+        bank = random_initial_states(graph, args.initial_samples, bank_seed)
         result = evolve_rules(graph, bank, args.steps, config, fitness)
+        experiment["initial_state_bank"] = {
+            "count": len(bank),
+            "seed": bank_seed,
+            "sha256": [hashlib.sha256(state).hexdigest() for state in bank],
+        }
     else:
         if args.fixed_rule is None:
             raise SystemExit("--fixed-rule is required when --mode initial")
         result = evolve_initial_states(graph, args.fixed_rule, args.steps, config, fitness)
+        experiment["fixed_rule_integer"] = args.fixed_rule
+        experiment["initial_population_seed"] = args.seed
     payload = result.to_dict()
+    payload["experiment"] = experiment
     payload["graph"] = {
         "factors": list(graph.factors),
         "vertices": graph.vertex_count,
