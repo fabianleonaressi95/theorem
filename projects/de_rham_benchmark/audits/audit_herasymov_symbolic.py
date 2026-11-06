@@ -214,7 +214,7 @@ def parity_lattice_source_index(
 def audit_parity_lattice_refinement(
     drawar: list[list[list[int]]] | None = None, size: int = 4
 ) -> dict[str, Any]:
-    """Audit whether parity-selected samples define one parent-to-child map.
+    """Audit whether parity-selected samples agree on each parent voxel.
 
     A parent-cell sampling rule is single-valued only if all eight children
     of one parent voxel sample the same parent source index. This is not a
