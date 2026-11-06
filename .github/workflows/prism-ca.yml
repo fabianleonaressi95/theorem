@@ -10,6 +10,9 @@ on:
       - "scripts/run_prism_ca_evolution.py"
       - "scripts/run_prism_ca_benchmark.py"
       - "scripts/run_prism_ca_coevolution.py"
+      - "models/prism_billiard_coding.py"
+      - "tests/test_prism_billiard_coding.py"
+      - "scripts/run_prism_billiard_coding.py"
       - ".github/workflows/prism-ca.yml"
   pull_request:
     paths:
@@ -40,4 +43,5 @@ jobs:
           python -m pytest
           tests/test_prism_cellular_automata.py
           tests/test_prism_ca_evolution.py
+          tests/test_prism_billiard_coding.py
           -q
