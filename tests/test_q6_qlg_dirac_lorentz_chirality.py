@@ -37,3 +37,14 @@ def test_audit_passes():
     result=audit()
     assert result["passed"]
     assert result["parity_action"].startswith("exchanges")
+
+
+def test_lorentz_generator_commutators():
+    import numpy as np
+    from scripts.q6_qlg_dirac_lorentz_chirality import rotation_generators
+    js = rotation_generators()
+    ks = boost_generators()
+    for i, j, k in ((0, 1, 2), (1, 2, 0), (2, 0, 1)):
+        assert np.linalg.norm(js[i] @ js[j] - js[j] @ js[i] - 1j * js[k]) < 1e-12
+        assert np.linalg.norm(js[i] @ ks[j] - ks[j] @ js[i] - 1j * ks[k]) < 1e-12
+        assert np.linalg.norm(ks[i] @ ks[j] - ks[j] @ ks[i] + 1j * js[k]) < 1e-12
