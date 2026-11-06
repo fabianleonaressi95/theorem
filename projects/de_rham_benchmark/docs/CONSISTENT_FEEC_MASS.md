@@ -35,8 +35,11 @@ historical `M_d=vol_g(K)` convention is retained as a reproducibility
 control, but it must not be labelled the standard DEC inner product for
 integral top-cochains. The comparison script also constructs a corrected
 diagonal DEC family with `M_d=1/vol_g(K)`, leaving lower-degree weights
-unchanged. The reported legacy partition-of-unity identity between
-`sum(M_0)` and `sum(M_d)` is not a Hodge-star consistency condition.
+unchanged. On flat affine cubical meshes, this corrected diagonal family is
+exactly the row-sum lumping of the assembled tensor-product FEEC mass matrix
+in every degree; CI checks this identity in 2D and 3D. The reported legacy
+partition-of-unity identity between `sum(M_0)` and `sum(M_d)` is not a
+Hodge-star consistency condition.
 
 ## Consistent mass
 
