@@ -313,7 +313,7 @@ the planar Gram datum is
 \]
 The candidate family uses the 216 \(W(G_2)\) triples and reports 20 Gram classes. Those counts/classes are finite-computation claims: they must be regenerated from the explicit root/triple enumeration and checked under the declared group action before being treated as verified facts.
 
-Choose an orthonormal ambient frame \(E_0\in\mathbb R^{3\times2}\), \(E_0^TE_0=I_2\), and a unit normal \(n_p\) with \(E_0^Tn_p=0\). Let \(L_{G_2}\) be the Cholesky factor in the convention
+Choose an oriented orthonormal ambient frame \((E_0,n_p)\), with \(E_0\in\mathbb R^{3\times2}\), \(E_0^TE_0=I_2\), \(E_0^Tn_p=0\), and \(\det[E_0\ n_p]=+1\). Let \(L_{G_2}\) be the Cholesky factor in the convention
 \[
 L_{G_2}^{T}L_{G_2}=Q_{G_2},\qquad
 Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad \det Q_{G_2}=3.
