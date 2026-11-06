@@ -428,21 +428,37 @@ The resulting construction has three logically separate maps:
 
 The 3D FEEC domain must be the actual orientable thickened cell complex with these transition rules, not the nonorientable mid-surface regarded as a 3D volume. Prove that the thickened cells have positive Jacobian in compatible local charts and that seam-related face traces agree. A Möbius mid-surface alone is not a 3D volume mesh.
 
-### 11.7. Named source and attribution status
+### 11.7. Corrected source identity and attribution boundary
 
-The project associates this repeated 2D-to-3D construction with **Sergy Gerasmioff**. The source identity and spelling are not independently established by the public-source search performed for this revision, and the repository search for Gerasmioff returned no matching file. Therefore:
-- retain the name as the user's source attribution and research lead;
-- do not claim that the equations above are a published Gerasmioff theorem until a primary source is located;
-- compare the original source line-by-line against the three maps and seam law above when it is available;
-- preserve any differences rather than silently replacing the historical construction with this algebraic reconstruction.
+The source meant by the project note is **Serhii Herasymov** (Medium handle
+\`@sergeygerasimofff\`, GitHub \`xcontcom\`). His public primary materials now
+inspected include the \`billiard-fractals\` and \`perfect-shuffle\` repositories
+and their companion articles. The documented repeated dimensional transitions
+are:
+- reflected 2D rectangular billiards \(\to\) 1D binary symbolic sequences;
+- symbolic floor/parity rules \(\to\) curved graph surfaces in \(\mathbb R^3\);
+- recursive 2D/3D perfect-shuffle operations \(\to\) 3D voxel fields and 2D slices.
+
+These are not the same formula as the \(W(G_2)\) cofactor/normal lift
+\(R_T\mapsto V_T\). The inspected Herasymov sources do **not** establish that
+he authored the \(W(G_2)\) triple construction, the \(Q_{G_2}\) Gram classes,
+or the RGS Möbius seam. Those formulas remain separate project constructions
+unless a further primary source explicitly connects them.
+
+The exact source-based integration, including the graph metric and the
+finite shuffle–billiard identity, is documented in
+[\`HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md\`](HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md).
+The prior tentative spelling “Sergy Gerasmioff” is corrected; it must not be
+used as the bibliographic attribution.
 
 ### 11.8. Revised proof order
 
 The correct order is now:
-1. recover and authenticate the Gerasmioff source and its repeated 2D-to-3D construction;
-2. enumerate the 216 \(W(G_2)\) triples and verify the 20 Gram classes;
-3. prove \(R_Tc_T=0\), the rank-completion determinant identity, and uniform bounds for \(\alpha(\rho)\);
-4. implement and verify the Möbius boundary involution, twisted normal transition, and link conjugation;
-5. prove that the thickened 3D cells are conforming, orientable, and uniformly nondegenerate;
-6. verify local incidence/exterior-derivative orientation;
-7. only then establish 3D FEEC mass stability, commuting projections, compactness, and Mosco convergence.
+1. audit Serhii Herasymov's source algorithms: billiard coding, exact finite shuffle–billiard comparison, curved graph metric, and 3D voxel recursion;
+2. formulate the graph embedding as a curvilinear surface mesh and verify its Jacobian/metric bounds;
+3. convert the recursive 3D voxel operator into candidate cubical subdivision maps and test shared-face traces and orientation;
+4. verify whether the induced cochain maps commute with the cubical exterior derivative;
+5. separately enumerate the 216 \(W(G_2)\) triples and verify the 20 Gram classes;
+6. prove \(R_Tc_T=0\), the metric-consistent rank-completion determinant identity, and uniform bounds for \(\alpha(\rho)\);
+7. keep the RGS Möbius seam distinct from Herasymov's toroidal CA boundaries; prove the chosen thickened 3D cells are conforming, orientable, and uniformly nondegenerate;
+8. only then establish 3D FEEC mass stability, commuting projections, compactness, and Mosco convergence.
