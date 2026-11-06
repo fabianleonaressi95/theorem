@@ -195,3 +195,16 @@ Il residuo relativo è
 L'augmentazione per orbite cubiche controlla l'equivarianza e riduce il bias statistico. Per una distribuzione di campionamento esattamente invariante sotto il gruppo, la regressione ortogonale su una tripla che trasforma come l'irrep vettoriale cubica deve essere scalare per il lemma di Schur. Un risultato quasi scalare è quindi atteso e **non** costituisce una scoperta di una dinamica supergolden.
 
 Il test confronta anche gli autovalori della matrice proiettata con (p(\lambda)=\lambda^3-\lambda^2-1), ma tale confronto è solo diagnostico. Per dimostrare una ricorrenza supergolden occorre prima individuare un sottospazio di molteplicità invariante, distinto dal tripletto spaziale, e verificare una restrizione esatta o un limite controllato dell'operatore.
+
+### 11.1 Risultato numerico riproducibile
+
+Esecuzione locale dello script con seed `20261106`, (L=3), 1.000 configurazioni base e augmentazione per 24 rotazioni (24.000 campioni):
+
+- mismatch di equivarianza dell'aggiornamento: **0**;
+- residuo relativo di chiusura lineare: **0.9641625028**;
+- matrice proiettata: (A\simeq0.1321873593\,I_3);
+- distanza di Frobenius da (\frac{\operatorname{tr}A}{3}I_3): (8.78\times10^{-17});
+- autovalore triplo della regressione: (0.1321873593);
+- residuo ( |\lambda^3-\lambda^2-1|\): circa **1.01516**.
+
+Il dato più importante è il residuo di chiusura, circa 96.4%: la tripla dei primi momenti sinusoidali scelta qui non è una riduzione lineare utile della dinamica. La regressione risulta scalare, come atteso dalla simmetria cubica, ma questo non rivela un blocco di molteplicità né una ricorrenza supergolden. È un risultato negativo circoscritto a questa scelta di osservabili e a questa regola casuale fissata dal seed, non un'impossibilità generale.
