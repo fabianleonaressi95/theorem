@@ -85,7 +85,7 @@ Il file `001-fixed-lattice-temporal-wilson-limit.md` è un risultato preesistent
 | [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md) | Scaling cosmologico della torsione algebrica in un fluido di Weyssenhoff | Sotto ipotesi esplicite: n∝a⁻³, s²∝a⁻⁶, correzione EC efficace stiff negativa; incompatibilità con identificazione dust-like a⁻³ |
 | [T049](theorems/T049-microscopic-spin-correlation-invariant.md) | Corrente microscopica di spin e invariante quadratico | Decomposizione self/pair; legge cosmologica condizionale; correlatore RGS–PSU ancora da calcolare |
 | [T049A](theorems/T049A-q6-prism-spin-correlator.md) | Correlatore microscopico su Q6 e PRISM | Shell correlators, decomposizione self/pair e fit condizionali; dati fisici RGS–PSU ancora da fornire |
-| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |
+| [T049B](theorems/T049B-rgs-ec-q6-prism-axial-current.md) | Corrente assiale lorentziana EC–Dirac su Q6/PRISM | Momenti M^ab, correlatori per shell, contatto EC e limiti di provenienza |\n| [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md) | Classificazione degli intertwiner QLG a due componenti → Dirac a quattro componenti | Famiglia equivarante complessa di dimensione 2 sotto Spin(3); nessun embedding canonico né estensione ai boost |
 
 ## Collegamento con il filone Nielsen/Hopf
 
@@ -134,3 +134,4 @@ T048 formalizza gli obblighi per una convergenza di Mosco su Hilbert variabili, 
 - Teoria e registro delle questioni aperte: [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md).
 - Calibrazione numerica: [scripts/rgs_prism_mosco_calibration.py](scripts/rgs_prism_mosco_calibration.py).
 - Test: [tests/test_t048_rgs_prism_mosco_calibration.py](tests/test_t048_rgs_prism_mosco_calibration.py).
+\n\n### T049C — Intertwiner QLG–Dirac\n\nT049C dimostra che la fibra QLG fondamentale di SU(2), immersa nella restrizione spaziale della rappresentazione Dirac U⊕U, ammette una famiglia complessa bidimensionale di intertwiner K=(αI₂, βI₂)ᵀ. La condizione d'isometria è |α|²+|β|²=1. Quindi l'equivarianza 2I/Spin(3) non seleziona un embedding fisico; i boost di Spin(1,3) non sono definiti sulla fibra QLG a due componenti. L'audit numerico e i test sono in scripts/q6_qlg_dirac_intertwiner.py e tests/test_q6_qlg_dirac_intertwiner.py.\n
