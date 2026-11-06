@@ -29,7 +29,17 @@ def test_2d_consistent_mass():
 def test_3d_consistent_mass():
     check(3, 2)
 
+
+def test_curved_2d_consistent_mass():
+    result = run(2, 2, amplitude=0.03, freq=1, nq=5, nqf=4)
+    assert result["geometry"]["min_det_jac"] > 0
+    for k in range(3):
+        assert result["FEEC_consistent"][k]["mass_min_eigenvalue"] > 0
+        assert result["FEEC_consistent"][k]["relative_generalized_eigen_residual"] < 1e-8
+
+
 if __name__ == '__main__':
     test_2d_consistent_mass()
     test_3d_consistent_mass()
+    test_curved_2d_consistent_mass()
     print('consistent FEEC mass checks passed')
