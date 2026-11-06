@@ -43,6 +43,8 @@ jobs:
           assert rotation['distinct_coordinate_maps'] == 32
           assert rotation['orientation_counts_over_modes'] == {'+1': 128, '-1': 128}
           assert rotation['scalar_action_counts'] == {'increment': 128, 'unchanged': 128}
+          assert rotation['bit3_preserves_coordinates']
+          assert rotation['bit3_toggles_increment_rule']
           assert data['rotation_parity_uniform_rules']['single_parent_sample_rule']
           assert not data['rotation_parity_mixed_rules']['single_parent_sample_rule']
           print('Herasymov finite, Boolean parity, and rotation-mode controls passed')
