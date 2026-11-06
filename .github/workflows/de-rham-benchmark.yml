@@ -82,3 +82,19 @@ jobs:
                   "empirical_loglog_exponents": data["empirical_loglog_exponents"],
               }, indent=2))
           PY
+
+      - name: Run fixed-amplitude curved-map mass controls
+        run: |
+          python mass_refinement_study.py --dim 2 --levels 4,8,16 --amplitude 0.05 --out /tmp/curved2d.json
+          python mass_refinement_study.py --dim 3 --levels 2,3,4 --amplitude 0.05 --out /tmp/curved3d.json
+          python - <<'PY'
+          import json
+          for path in ("/tmp/curved2d.json", "/tmp/curved3d.json"):
+              data = json.load(open(path))
+              assert all(row["min_det_jac"] > 0 for row in data["rows"])
+              print(json.dumps({
+                  "dimension": data["dimension"],
+                  "rows": data["rows"],
+                  "empirical_loglog_exponents": data["empirical_loglog_exponents"],
+              }, indent=2))
+          PY
