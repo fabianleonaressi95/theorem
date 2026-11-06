@@ -16,7 +16,7 @@ The external repositories are independent works. Their authorship and provenance
 | XCont project | Publicly described method | RGS–PRISM interface | Initial status |
 |---|---|---|---|
 | [Evolving Cellular Automata](https://github.com/xcontcom/evolving-cellular-automata) | Genetic search over binary Moore-neighbourhood CA rules (512-bit rule tables), toroidal grids, fitness evaluation, selection, crossover and mutation | Evolve local update rules on a finite PRISM product graph; replace the 8-neighbour Moore stencil by the ten oriented nearest-neighbour slots of the degree-10 graph | X1–X3 implemented: deterministic engine and rule-search GA |
-| [Initial-State Evolution](https://github.com/xcontcom/initial-state-evolution) | Rule fixed to Conway's Life; genetic search over initial fields; two fields interact across a toroidal combined grid and are scored by their effect on one another | Evolve initial configurations on PRISM/Q6 while keeping the transition operator fixed; compare single-population and paired/co-evolutionary objectives | X4 single-population fixed-rule search implemented; paired co-evolution pending |
+| [Initial-State Evolution](https://github.com/xcontcom/initial-state-evolution) | Rule fixed to Conway's Life; genetic search over initial fields; two fields interact across a toroidal combined grid and are scored by their effect on one another | Evolve initial configurations on PRISM/Q6 while keeping the transition operator fixed; compare single-population and paired/co-evolutionary objectives | X4 single-population fixed-rule search implemented; X5 two-population XOR co-evolution implemented |
 | [Billiard Fractals](https://github.com/xcontcom/billiard-fractals) | Symbolic coding of billiard trajectories, irrational steps/modular thresholds and nonlinear discretizations | Compare irrational-rotation codings and rational periodic approximants with cycle factors, Q6 bit strings and symbolic paths on PRISM | Mathematical comparison; no equivalence asserted |
 | [Fractogenesis: CA vs Conv](https://github.com/xcontcom/fractogenesis) | Iterated local CA rules and convolution kernels, in 2D and 3D, including genetic optimization of kernels | Compare Boolean local maps with graph filters/polynomials in the PRISM adjacency or Laplacian; study scaling and spectral response | Candidate operator study |
 | [Perfect Shuffle Fractals](https://github.com/xcontcom/perfect-shuffle) | Recursive deterministic permutations of spatial arrays | Test recursive permutations as explicit bijections of finite Q6/PRISM state arrays; audit cycle structure and invariant subspaces | Exploratory |
@@ -53,7 +53,25 @@ A rule is counted as invariant under a transformation only if its output agrees 
 
 This is a finite exact combinatorial audit of the specified subgroup, not a proof that a rule is physically isotropic, nor a complete classification of all possible continuum symmetries. In particular, the three equal \(C_6\) factors may be permuted, while the \(C_{64}\) and \(C_5\) factors cannot be exchanged with them.
 
-The separate two-field co-evolution mechanism described in XCont's initial-state project is **not** yet implemented: the current initial-state search has one evolving population under one fixed rule. Billiard coding and graph-convolution experiments are also pending.
+### X5: paired two-field co-evolution
+
+The first paired co-evolution implementation is in \`evolve_coupled_initial_states\`, with a dedicated [CLI](../scripts/run_prism_ca_coevolution.py) and regression tests. It evolves two independent populations of binary initial fields, each with its own random seed, while holding one local CA rule fixed.
+
+The coupling is explicit and synchronous:
+\[
+A_{t+1}=F(A_t)\oplus B_t,\qquad
+B_{t+1}=F(B_t)\oplus A_t.
+\]
+Here \(F\) is the same fixed PRISM local rule for both fields, and \(\oplus\) is pointwise XOR on the vertices. Each candidate in population A is evaluated against every candidate in population B, and conversely; its score is the mean of its own trajectory fitness plus a declared weight times the mean fraction of vertices where the two coupled fields disagree. Each population then undergoes its own tournament selection, elitism, uniform crossover and bit-flip mutation.
+
+This is a deliberately minimal symmetric coupling, not a literal port of XCont's original two-field toroidal layout. The coupling map, partner averaging and fitness are fully declared so alternative maps can be compared without conflating them. The interaction reward is an experimental choice, not a physical interaction law. The full paired evaluation costs \(O(P^2)\) pair simulations per generation for population size \(P\), so start on reduced graphs.
+
+Example:
+\`\`\`bash
+python -m scripts.run_prism_ca_coevolution --fixed-rule 0x... --population 6 --generations 3 --steps 6 --seed-a 2026 --seed-b 2027 --output prism_xor_coevolution.json
+\`\`\`
+
+Billiard coding and graph-convolution experiments remain pending.
 
 ### Reproducible smoke runs
 
@@ -218,7 +236,7 @@ Do not report only the best run. Report distributions over seeds and preserve ne
 | X2 | Small-graph CA engine | Deterministic simulator with trajectory and observables | Implemented; test execution pending |
 | X3 | Evolutionary rule search | Seeded GA, fixed initial-state bank, JSON-ready history | Implemented; test execution pending |
 | X4 | Initial-state evolution | Seeded GA with one fixed rule and binary-field genomes | Implemented; test execution pending |
-| X5 | Co-evolution | Explicit two-field coupling and two populations | Not implemented |
+| X5 | Co-evolution | Explicit two-field XOR coupling, two independent populations, cross-population evaluation | Implemented; regression tests added, execution pending |
 
 | X6 | Billiard coding | Irrational rotation and rational approximants | Exact symbolic tests and frequency convergence |
 | X7 | Graph convolution comparison | Polynomial graph filters and CA comparison | Spectral and locality audits |
@@ -254,4 +272,4 @@ The external repositories identify their respective licences; the cited CA and f
 
 ## 11. Immediate next step
 
-X1–X4, the exact local-rule automorphism audit, and the repeated-seed benchmark runner are implemented. Regression tests cover the graph engine, the two separate genetic searches, and the base-graph symmetry count. A dedicated [GitHub Actions workflow](../.github/workflows/prism-ca.yml) is configured for relevant pushes and pull requests. The next verification step is to inspect a completed CI run and execute the repeated-seed benchmark, then implement X5: genuinely coupled two-field co-evolution. This order isolates errors in the graph dynamics and objective from stochastic search effects.
+X1–X5, the exact local-rule automorphism audit, and the repeated-seed benchmark runner are implemented. Regression tests cover the graph engine, the two separate genetic searches, and the base-graph symmetry count. A dedicated [GitHub Actions workflow](../.github/workflows/prism-ca.yml) is configured for relevant pushes and pull requests. The next verification step is to inspect a completed CI run and execute the repeated-seed benchmark, then compare alternative coupling maps and implement X6: symbolic billiard coding. This order isolates errors in the graph dynamics and objective from stochastic search effects.
