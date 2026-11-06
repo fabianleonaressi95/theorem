@@ -84,8 +84,7 @@ def main():
             "rotations_tested": len(rotations),
             "update_mismatches_max": max_update_residual,
             "padding_mismatches_max": max_padding_residual,
-            "q_min": int((27 * a.astype(np.int16)).min()),
-            "q_max_bound": 53,
+            "lookup_table_length": int(rule.size),
         })
         assert max_update_residual == 0
         assert max_padding_residual == 0
