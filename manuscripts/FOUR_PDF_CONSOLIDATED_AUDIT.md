@@ -121,6 +121,6 @@ are orthogonal complementary projectors of ranks 6 and 9. This implication is a 
 - Do not use \`soluzione.pdf\` as a source for QNM, bounce, ghost-free, UV, SUSY, vacuum-energy or wormhole-stability claims.
 - Preserve all four original Library PDFs as source material. Their rejection as evidence does not require deleting the originals.
 
-## Final status
+## Theorem extraction register\n\nThe defensible statements have been separated into theorem records: [T050](../theorems/T050-geometric-spin-chain-bounds.md) (geometric spin-chain summability and norm bound), [T051](../theorems/T051-crank-nicolson-unitarity.md) (fixed-Hamiltonian norm preservation), [T052](../theorems/T052-scalar-torsion-variation.md) (conditional scalar variation), [T053](../theorems/T053-exterior-square-projector-lemma.md) (conditional exterior-square projectors), and [T054](../theorems/T054-static-radial-klein-gordon.md) (static radial Klein–Gordon reduction). The theorem records contain their own hypotheses, proofs and non-conclusions.\n\n## Final status
 
 No theorem about new particles, a physical breather, a traversable/stable wormhole, a cosmological bounce, ghost freedom, UV completion, Yang–Mills dynamics or a continuum limit is established by these four PDFs. The defensible residue is limited to standard ansätze, elementary scalar-potential derivatives, conditional finite-dimensional linear algebra, and diagnostic evidence that several earlier numerical interpretations were overstated.
