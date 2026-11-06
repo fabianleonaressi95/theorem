@@ -24,7 +24,7 @@ def test_chiral_embeddings_intertwine_rotations_and_boosts():
         for b,p in zip(boost_generators(),(
             np.array([[0,1],[1,0]]),np.array([[0,-1j],[1j,0]]),
             np.array([[1,0],[0,-1]]))):
-            assert np.linalg.norm(b@k-k@(-s*p/2)) < 1e-12
+            assert np.linalg.norm(b@k-k@(-1j*s*p/2)) < 1e-12
 
 
 def test_parity_exchanges_chiral_sectors():
