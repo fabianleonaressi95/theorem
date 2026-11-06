@@ -41,3 +41,20 @@ jobs:
                   assert residual.nnz == 0 or np.max(np.abs(residual.data)) == 0
           print("d_(k+1) d_k = 0: exact sparse identity")
           PY
+
+      - name: Audit all Hodge degrees on small affine meshes
+        run: |
+          python degreewise_audit.py --dim 2 --N 4 > /tmp/audit2d.json
+          python degreewise_audit.py --dim 3 --N 3 > /tmp/audit3d.json
+          python - <<'PY'
+          import json
+          for path in ("/tmp/audit2d.json", "/tmp/audit3d.json"):
+              data = json.load(open(path))
+              top = data["degrees"][-1]
+              for pair in top["eigenpairs"]:
+                  if pair["lambda"] > 1e-9:
+                      assert abs(pair["grad_energy_fraction"] - 1.0) < 1e-8
+                      assert pair["curl_energy_fraction"] < 1e-8
+                      assert abs(pair["normalized_co_closedness_defect"] - 1.0) < 1e-8
+          print("top-degree positive modes: grad-only, not co-closed")
+          PY
