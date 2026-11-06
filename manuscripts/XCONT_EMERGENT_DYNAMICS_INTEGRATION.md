@@ -62,7 +62,7 @@ Use the existing finite product graph
 G_{m PRISM}=C_{64}\square C_6\square C_6\square C_6\square C_5,
 \qquad |V|=69120,\qquad \deg(G)=10.
 \]
-At refinement level \\(r\\), use
+At refinement level \(r\), use
 \[
 G_r=C_{64r}\square C_{6r}^{\square 3}\square C_{5r},
 \qquad |V_r|=69120r^5.
@@ -77,10 +77,10 @@ Fix an explicit ordering of the ten neighbours:
 \]
 For binary states \(x_v(t)\in\{0,1\}\), define
 \[
-x_v(t+1)=F_\thetaigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),\ldots,
+x_v(t+1)=F_\theta\bigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),\ldots,
 x_{v-e_5}(t),x_{v+e_5}(t)\bigr).
 \]
-A completely general deterministic Boolean rule has \\(2^{11}=2048\\) output bits, because the local input contains the central state and ten oriented neighbour states. This is not the 512-bit Moore rule used in the external 2D project: the neighbourhood and rule-space dimension differ.
+A completely general deterministic Boolean rule has \(2^{11}=2048\) output bits, because the local input contains the central state and ten oriented neighbour states. This is not the 512-bit Moore rule used in the external 2D project: the neighbourhood and rule-space dimension differ.
 
 The ordering is part of the model. Unless the rule is constrained to be invariant under coordinate reflections/permutations, it can distinguish directions and break graph automorphisms. A symmetry-restricted rule family should therefore be a separate experiment, not silently assumed.
 
@@ -132,7 +132,7 @@ with a declared partition, for example
 \[
 s_n(x)=\mathbf{1}_{[0,1-\alpha)}(T_\alpha^n x).
 \]
-This produces a binary symbolic sequence. Rational approximants \(p_k/q_k\to\alpha) give periodic comparison sequences. The programme should compare:
+This produces a binary symbolic sequence. Rational approximants \(p_k/q_k\to\alpha\) give periodic comparison sequences. The programme should compare:
 - symbolic word frequencies and complexity;
 - return times and periodic approximants;
 - finite-cycle discretizations \(C_n\);
