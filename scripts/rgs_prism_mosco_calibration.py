@@ -18,7 +18,7 @@ class PeriodicCycle:
     n: int
 
     def __post_init__(self) -> None:
-        if isinstance(self.n, bool) or self.n < 3:
+        if isinstance(self.n, bool) or not isinstance(self.n, (int, np.integer)) or self.n < 3:
             raise ValueError("n must be an integer >= 3")
 
     @property
@@ -30,8 +30,8 @@ class PeriodicCycle:
         return float(self.n)
 
     def sample_mode(self, k: int, phase: float = 0.0) -> np.ndarray:
-        if k < 0 or k >= self.n:
-            raise ValueError("mode must satisfy 0 <= k < n")
+        if isinstance(k, bool) or not isinstance(k, (int, np.integer)) or k < 0 or k >= self.n:
+            raise ValueError("mode must be an integer satisfying 0 <= k < n")
         x = np.arange(self.n, dtype=float) / self.n
         return np.cos(2.0 * math.pi * k * x + phase)
 
@@ -59,8 +59,8 @@ class PeriodicCycle:
 
 def continuum_mode_energy(k: int, amplitude: float = 1.0) -> float:
     """Integral over [0,1] of |d/dx (A cos(2 pi k x))|^2 dx."""
-    if k < 0 or not math.isfinite(amplitude):
-        raise ValueError("k must be non-negative and amplitude finite")
+    if isinstance(k, bool) or not isinstance(k, (int, np.integer)) or k < 0 or not math.isfinite(amplitude):
+        raise ValueError("k must be a non-negative integer and amplitude finite")
     return 2.0 * math.pi**2 * k**2 * amplitude**2
 
 
