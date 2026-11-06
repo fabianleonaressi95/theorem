@@ -1,5 +1,8 @@
 import numpy as np
 from compare_mass_matrices import run
+from ddr.mesh import CubicalMesh
+from ddr.geometry import PullbackGeometry
+from ddr.feec_mass import assemble_consistent_masses
 
 
 def check(dim, N):
@@ -29,6 +32,20 @@ def test_3d_consistent_mass():
     check(3, 2)
 
 
+def test_flat_DEC_is_row_sum_lumping_of_FEEC():
+    for dim, N in ((2, 3), (3, 2)):
+        mesh = CubicalMesh(N, dim)
+        geo = PullbackGeometry(mesh, {"type": "identity"},
+                               {"type": "identity"}, nq=4, nqf=3)
+        Mfeec, _ = assemble_consistent_masses(mesh, geo)
+        Mdec = [np.asarray(m, float).copy() for m in geo.M]
+        Mdec[dim] = 1.0 / geo.vol_g
+        for k in range(dim + 1):
+            row_sum = np.asarray(Mfeec[k].sum(axis=1)).ravel()
+            scale = max(1.0, float(np.max(np.abs(Mdec[k]))))
+            assert np.max(np.abs(row_sum - Mdec[k])) / scale < 1e-10
+
+
 def test_curved_2d_consistent_mass():
     result = run(2, 2, amplitude=0.03, freq=1, nq=5, nqf=4)
     assert result["geometry"]["min_det_jac"] > 0
@@ -40,5 +57,6 @@ def test_curved_2d_consistent_mass():
 if __name__ == '__main__':
     test_2d_consistent_mass()
     test_3d_consistent_mass()
+    test_flat_DEC_is_row_sum_lumping_of_FEEC()
     test_curved_2d_consistent_mass()
     print('consistent FEEC mass checks passed')
