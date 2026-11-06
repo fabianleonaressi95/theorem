@@ -11,6 +11,7 @@ import argparse
 import json
 import math
 import sys
+from itertools import product
 from itertools import combinations, product
 from typing import Any
 
@@ -214,6 +215,7 @@ def parity_lattice_source_index(
 def audit_parity_lattice_refinement(
     drawar: list[list[list[int]]] | None = None, size: int = 4
 ) -> dict[str, Any]:
+    """Audit whether parity-selected samples define one parent-to-child map.
     """Audit whether parity-selected samples agree on each parent voxel.
 
     A parent-cell sampling rule is single-valued only if all eight children
@@ -669,6 +671,10 @@ def self_test() -> dict[str, Any]:
         "voxel_reflections": vox,
         "parity_lattice_uniform_rules": parity_uniform,
         "parity_lattice_mixed_rules": parity_mixed,
+        "scientific_limit": (
+            "The Boolean generator is a parity-sublattice data transform, not "
+            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
+            "stability, or Mosco convergence claim is established."
         "rotation_generator": rotation,
         "rotation_parity_uniform_rules": uniform_rotation,
         "rotation_parity_mixed_rules": mixed_rotation,
