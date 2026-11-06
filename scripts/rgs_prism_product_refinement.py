@@ -190,6 +190,8 @@ def audit_refinements(
     modes: Sequence[Sequence[int]] = ((1, 0, 0, 0, 0), (0, 1, 0, 0, 0),
                                       (1, 1, 0, 0, 0), (1, 1, 1, 1, 1)),
 ) -> dict:
+    if not levels:
+        raise ValueError("levels must not be empty")
     rows = []
     for level in levels:
         graph = PrismProductRefinement(level)
@@ -221,7 +223,7 @@ def audit_refinements(
                                   tuple(n // 2 for n in graph.lengths))
                 ),
                 "M4_fixed_mode_energy": all(
-                    math.isfinite(item["discrete_energy"]) and item["relative_energy_error"] < 1.0
+                    math.isfinite(item["discrete_energy"]) and item["relative_energy_error"] < 0.1
                     for item in energy_records
                 ),
             },
