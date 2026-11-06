@@ -26,6 +26,7 @@ import json
 import math
 import sys
 from collections import Counter
+from itertools import product
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +34,118 @@ import numpy as np
 
 Q_G2 = np.array([[2.0, -3.0], [-3.0, 6.0]], dtype=float)
 DEFAULT_TOL = 1.0e-10
+PHI = (1.0 + math.sqrt(5.0)) / 2.0
+# Supergolden constant: the real root > 1 of x^3 - x^2 - 1 = 0.
+PSI_SUPERGOLDEN = 1.465571231876768
+
+
+def wg2_group() -> list[np.ndarray]:
+    """Generate W(G2) in the simple-root basis with Gram matrix Q_G2."""
+    s1 = np.array([[-1, 3], [0, 1]], dtype=int)
+    s2 = np.array([[1, 0], [1, -1]], dtype=int)
+    pending = [np.eye(2, dtype=int)]
+    found: dict[tuple[int, ...], np.ndarray] = {}
+    while pending:
+        M = pending.pop()
+        key = tuple(M.ravel())
+        if key in found:
+            continue
+        found[key] = M
+        pending.extend((s1 @ M, s2 @ M))
+    group = [found[k] for k in sorted(found)]
+    if len(group) != 12:
+        raise AssertionError(f"W(G2) must have order 12, got {len(group)}")
+    for M in group:
+        if not np.array_equal(M.T @ Q_G2.astype(int) @ M, Q_G2.astype(int)):
+            raise AssertionError("a generated Weyl matrix does not preserve Q_G2")
+    if not all(round(np.linalg.det(M)) in (-1, 1) for M in group):
+        raise AssertionError("W(G2) matrix determinant is not ±1")
+    return group
+
+
+def enumerate_wg2_triples() -> dict[str, Any]:
+    """Enumerate 6^3 ordered triples from one six-element short-root orbit."""
+    group = wg2_group()
+    seed = np.array([1, 0], dtype=int)
+    roots = sorted({tuple((M @ seed).tolist()) for M in group})
+    if len(roots) != 6:
+        raise AssertionError(f"short-root orbit must contain 6 roots, got {len(roots)}")
+    root_index = {root: i for i, root in enumerate(roots)}
+    triples = list(product(range(6), repeat=3))
+    unseen = set(triples)
+    orbits: list[list[tuple[int, int, int]]] = []
+    while unseen:
+        t = min(unseen)
+        orbit = {
+            tuple(root_index[tuple((M @ np.asarray(roots[i], dtype=int)).tolist())] for i in t)
+            for M in group
+        }
+        if not orbit.issubset(unseen):
+            raise AssertionError("W(G2) action produced overlapping non-identical orbits")
+        unseen.difference_update(orbit)
+        orbits.append(sorted(orbit))
+    orbits.sort(key=lambda orb: orb[0])
+
+    def gram_key(t: tuple[int, int, int]) -> tuple[int, ...]:
+        R = np.asarray([roots[i] for i in t], dtype=int).T
+        G = R.T @ Q_G2.astype(int) @ R
+        return tuple(int(x) for x in G.ravel())
+
+    orbit_gram_keys = []
+    for orbit in orbits:
+        keys = {gram_key(t) for t in orbit}
+        if len(keys) != 1:
+            raise AssertionError("Gram matrix is not invariant on a W(G2) orbit")
+        orbit_gram_keys.append(next(iter(keys)))
+    gram_to_orbit = {}
+    for i, key in enumerate(orbit_gram_keys):
+        gram_to_orbit.setdefault(key, []).append(i)
+    if len(gram_to_orbit) != len(orbits):
+        raise AssertionError("distinct W(G2) orbits share a Gram matrix")
+    sizes = Counter(len(orb) for orb in orbits)
+    return {
+        "group_order": len(group),
+        "simple_reflection_s1": [[-1, 3], [0, 1]],
+        "simple_reflection_s2": [[1, 0], [1, -1]],
+        "Q_G2": Q_G2.astype(int).tolist(),
+        "det_Q_G2": int(round(np.linalg.det(Q_G2))),
+        "short_root_orbit": [list(r) for r in roots],
+        "triple_count": len(triples),
+        "orbit_count": len(orbits),
+        "orbit_size_histogram": {str(k): int(v) for k, v in sorted(sizes.items())},
+        "gram_class_count": len(gram_to_orbit),
+        "gram_classes_equal_weyl_orbits": True,
+        "degenerate_triples": sum(
+            np.linalg.matrix_rank(np.asarray([roots[i] for i in t]).T) < 2
+            for t in triples
+        ),
+        "nondegenerate_triples": sum(
+            np.linalg.matrix_rank(np.asarray([roots[i] for i in t]).T) == 2
+            for t in triples
+        ),
+        "triples": [
+            {
+                "indices": list(t),
+                "vectors": [list(roots[i]) for i in t],
+                "orbit_id": next(j for j, orb in enumerate(orbits) if t in set(orb)),
+                "gram": (
+                    np.asarray([roots[i] for i in t], dtype=int).T
+                    @ Q_G2.astype(int)
+                    @ np.asarray([roots[i] for i in t], dtype=int)
+                ).tolist(),
+            }
+            for t in triples
+        ],
+    }
+
+
+def alpha_supergolden_candidate(rho: float, alpha_star: float) -> float:
+    """Candidate interpolation only; not a derived geometric law."""
+    if not math.isfinite(rho) or not math.isfinite(alpha_star):
+        raise ValueError("rho and alpha_star must be finite")
+    return alpha_star * math.sin(
+        0.5 * math.pi * (rho - PHI) / (PSI_SUPERGOLDEN - PHI)
+    )
 
 
 def cofactor_vector(R: np.ndarray) -> np.ndarray:
