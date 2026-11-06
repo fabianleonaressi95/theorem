@@ -44,6 +44,7 @@ theorem/
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
 - [Cleaned research notes and manuscript editorial register](manuscripts/README.md)
+- [XCont emergent-dynamics integration](manuscripts/XCONT_EMERGENT_DYNAMICS_INTEGRATION.md) — external cellular-automata, symbolic-billiard and graph-convolution methods mapped to PRISM/Q6 as testable research interfaces.
 - [Inhomogeneous spin-chain model note](manuscripts/INHOMOGENEOUS_SPIN_CHAIN.md)
 - [Scalar–torsion variational identity](manuscripts/SCALAR_TORSION_VARIATIONAL_IDENTITY.md)
 - [Quarantined source files](archive/README.md)
