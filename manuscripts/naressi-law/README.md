@@ -1,92 +1,113 @@
-# Computational Analysis of the Naressi Law — scheda critica
+# Critical scientific audit — *Computational Analysis of the Naressi Law*
 
-## Identificazione
+## Editorial verdict
 
-- **Autore:** Fabian Leo Naressi
-- **Titolo:** *Computational Analysis of the Naressi Law: Holistic Renormalization, Quasicrystalline Networks, and High-Voltage Pulse Optimization*
-- **File Library:** `DOC-20260719-WA0012.`
-- **Estensione:** 8 pagine
-- **Data Library:** 28 settembre 2026
-- **Natura:** manoscritto di ricerca; non indicato nel PDF come pubblicazione peer-reviewed.
-- **Codice/dati dichiarati dall'autore:** Code Ocean DOI [10.24433/C0.2064149.v1](https://doi.org/10.24433/C0.2064149.v1); repository [fabianleonare/naressi_law_morphodinamic](https://github.com/fabianleonare/naressi_law_morphodinamic). Accessibilità e corrispondenza dei contenuti devono essere verificate separatamente.
+**Current status: not suitable for submission as a physics paper in its present form.** The document contains one elementary, exactly checkable coupling ansatz and a number of claims that are unsupported, internally inconsistent, or not derived from the stated model. The correct response is not to present the speculative sections as established physics. Preserve the ansatz as a candidate inhomogeneous spin-chain model; remove the claims of ultraviolet regularization, holistic renormalization, Yang–Mills mass-gap generation, universal quasicrystalline localization, and Marx-generator optimization unless independent derivations and evidence are supplied.
 
-## Contenuto effettivo
+This audit concerns the 8-page Library copy dated 28 September 2026. It is not a peer-review decision and does not assert that every possible model based on the ansatz is false.
 
-Il manoscritto propone la successione di accoppiamenti
-[
-J_n=\alpha\,\varphi^{-n}\exp(-n/\varphi^2),
-\qquad \varphi=\frac{1+\sqrt5}{2}.
-]
-Ne segue esattamente
-[
-\frac{J_{n+1}}{J_n}=q
-=\varphi^{-1}\exp(-\varphi^{-2})
-\simeq 0.4218194769.
-]
-Quindi, sul reticolo unidimensionale indicizzato da (n), la legge è una progressione geometrica esponenzialmente decrescente. Questa identità è una conseguenza algebrica della definizione, non una nuova legge fisica dimostrata.
+## 1. What is mathematically correct
 
-Il modello numerico dichiarato è una catena aperta di spin (1/2), con Hamiltoniana riportata come
-[
+The manuscript defines
+\[
+J_n=\alpha\,\varphi^{-n}\exp(-n/\varphi^2),\qquad
+\varphi=\frac{1+\sqrt5}{2}.
+\]
+For fixed \(\alpha\), this gives
+\[
+J_n=\alpha q^n,\qquad
+q=\varphi^{-1}e^{-1/\varphi^2}
+=0.4218194769076527\ldots .
+\]
+Therefore \(J_{n+1}/J_n=q\) exactly. This is an elementary consequence of the definition. It is a geometrically decaying, position-dependent bond profile. It is not, by itself, a renormalization-group law or a new physical law.
+
+For \(\alpha=\varphi\), the central bond of the stated \(N=64\) open chain is indexed by \(n=31\), and
+\[
+J_{31}=\varphi q^{31}\simeq 3.87\times10^{-12}.
+\]
+Thus the interaction crossing the central bipartition is extremely small. The reported central-cut entropy \(S_{64}=0.623\) requires a reproducible calculation and a clear explanation of why it remains this large despite the exponentially weak bond across that cut. This is a concrete internal consistency test, not a proof that the table is necessarily false.
+
+Also,
+\[
+\sum_{n=0}^{\infty}|J_n|=\frac{|\alpha|}{1-q}<\infty.
+\]
+The total bond strength is summable and concentrated near the low-index end of the chain. With a fixed uniform field and the stated one-sided profile, the thermodynamic sequence is not a translation-invariant bulk system. The energy density and entropy must be interpreted accordingly; ordinary homogeneous-chain finite-size-scaling language is not justified without further construction.
+
+## 2. The stated spin Hamiltonian is not the transverse-field Ising model
+
+The manuscript uses
+\[
 H=-\sum_{n=0}^{N-2}J_n
 (\sigma_n^x\sigma_{n+1}^x+\sigma_n^z\sigma_{n+1}^z)
 -g\sum_{n=0}^{N-1}\sigma_n^x.
-]
-La forma contiene due canali di accoppiamento ((XX) e (ZZ)) e un campo lungo (x). Non è il TFIM canonico (ZZ+hX) nella forma usuale; va chiamato modello di spin anisotropo con campo, oppure precisata la trasformazione che lo riconduce a un modello noto.
+\]
+This contains two exchange channels, \(XX\) and \(ZZ\), and a field along \(X\). It is not the canonical transverse-field Ising Hamiltonian \(-J\sum ZZ-h\sum X\). It must not be called a modified TFIM without defining the precise transformation and explaining which properties survive that transformation.
 
-Il testo discute inoltre:
-- entropia di von Neumann e scaling a taglie finite;
-- localizzazione su reti quasicristalline;
-- sincronizzazione di generatori Marx;
-- una proposta di rinormalizzazione geometrica e di generazione di una scala di massa per Yang–Mills;
-- un principio d'azione aureo e una dinamica di flusso morfodinamico.
+Before any numerical claim is retained, specify:
+- the value and sign of \(g\), the range and units of \(\alpha\), and whether Pauli matrices or spin operators \(S^a=\sigma^a/2\) are used;
+- the exact Hamiltonian for every system size and the bond-index convention;
+- the observable and bipartition used for each entropy value;
+- the eigensolver, tolerances, residuals, degeneracy handling and raw output;
+- for MPS/DMRG, bond dimension, truncation error, sweeps, convergence criteria and boundary conditions.
 
-## Audit logico e matematico preliminare
+The paper says MPS/DMRG is used for \(N\ge100\), but its table stops at \(N=64\). No MPS result is actually documented in the reported table.
 
-| Affermazione del manoscritto | Valutazione | Motivo |
+## 3. The numerical table is not reproducible and needs a decisive cross-check
+
+The table reports only four values at \(\alpha=1.618\):
+\[
+(N,E_0/N,S_N)=(8,-1.243,0.452),\ (16,-1.412,0.581),\
+(32,-1.489,0.612),\ (64,-1.502,0.623).
+\]
+It does not state \(g\), the precision, the raw data, or the error bars. Four sizes do not establish a thermodynamic limit or a stable critical point. The paper also refers to a peak/inflection near \(\alpha\simeq\varphi\) but does not provide a machine-readable sweep or uncertainty analysis.
+
+The one-sided exponential profile makes the central-cut result especially important: for \(N=64\), the cut bond is approximately \(3.87\times10^{-12}\) at the stated \(\alpha\). Recompute the entropy from the exact stated Hamiltonian and verify the bond indexing. If the reported entropy instead comes from a different profile (for example, a profile centered on the cut or symmetrized about the chain midpoint), the model and the table must be corrected to match.
+
+The energy-density limit also needs a careful interpretation. Since the bond couplings are absolutely summable, their total contribution is not extensive for fixed \(\alpha\), whereas the uniform field term is extensive. In the Pauli convention, the field-only ground-state energy density is \(-|g|\). The reported limiting value cannot be interpreted without the missing value of \(g\) and an explicit comparison with this field-dominated limit.
+
+## 4. Claims that must be removed from a scientific-paper version
+
+| Manuscript claim | Audit | Required editorial action |
 |---|---|---|
-| Rapporto costante (J_{n+1}/J_n=q) | **Dimostrato algebricamente** | Segue direttamente dalla definizione di (J_n) |
-| Picco/inflection dell'entropia vicino a (\alpha=\varphi) | **Da riprodurre** | Nel PDF non sono forniti dati grezzi, script o incertezze sufficienti per verificare le curve |
-| Convergenza termodinamica | **Non dimostrata** | Tabella limitata a (N=8,16,32,64); non è una prova del limite (N\to\infty) |
-| Localizzazione critica quasicristallina | **Ipotesi/applicazione proposta** | Manca una definizione completa dell'operatore, degli spettri e degli esponenti di localizzazione |
-| Ottimizzazione di generatori Marx | **Proposta ingegneristica** | Manca un circuito definito, un modello dei componenti e un confronto sperimentale |
-| Regolarizzazione UV automatica | **Non dimostrata** | Un decadimento in indice di sito non è un cutoff in impulso senza una mappa esplicita (n\leftrightarrow p) e un'analisi delle integrali |
-| Mass gap Yang–Mills | **Congettura/programma** | Non sono definiti in modo completo teoria di gauge, limite continuo, positività, spazio di Hilbert e stima spettrale uniforme |
-| Energia di gusci successivi in rapporto (\varphi) | **Vincolo postulato** | Il manoscritto enuncia il rapporto, ma non lo deriva dall'Hamiltoniana |
-| Normalizzazione Fibonacci delle probabilità | **Vincolo postulato** | Non è derivata dalla dinamica né collegata a una misura di probabilità specificata |
+| The profile is a natural UV cutoff | A site-index decay is not a momentum-space regulator. No map from \(n\) to momentum or wavelength is defined. | Remove. Retain only “spatially inhomogeneous bond profile”. |
+| “Holistic renormalization” challenges RG scale separation | The introduction mischaracterizes renormalization-group methods and the decoupling theorem. No RG transformation, beta function, matching condition or cutoff-removal limit is derived. | Remove the paradigm-shift language. |
+| The profile prevents UV divergences and singular collapse | No divergent field-theory integral is defined or regularized. Summability of lattice bonds does not prove UV finiteness of a continuum QFT. | Remove. |
+| Entropy peak near \(\alpha=\varphi\) is intrinsic | No raw sweep, uncertainty, controls or finite-size extrapolation is supplied. | Report only after reproducible numerical audit. |
+| Automatic eigenvalue localization on quasicrystals | No graph family, operator, boundary conditions, spectral measure, inverse participation ratio, Lyapunov exponent or transport calculation is specified. | Remove as a result; retain as a testable future question only. |
+| Marx-generator optimization and reduced overstress | No circuit diagram, component model, parasitics, switching law, pulse data or experiment is supplied. | Remove from the physics paper; develop separately as an engineering study. |
+| Yang–Mills mass-gap mechanism | No non-Abelian gauge field, gauge-invariant action, continuum limit, Hilbert space, positivity argument or spectral lower-bound proof is constructed. | Remove from the results and conclusions. At most mention as an unrelated long-term motivation, without claiming a mechanism. |
+| Golden Action Principle and nonlinear morphodynamic flow | The field \(\mathcal M\), its configuration space, metric/gradient, functional derivative, \(\Gamma\), dimensions and variational principle are not defined consistently. | Remove until a well-posed functional and evolution equation are supplied. |
+| Golden coupling tensor \(J_{\mu\nu}\) | The vectors, index \(k\), covariance, symmetry and relation to the lattice couplings are undefined. | Remove. |
+| Eigenvalue ratios tend to \(\varphi\) | This is imposed as a boundary/stability condition, not derived from the Hamiltonian. | Remove or label explicitly as an independent conjecture to be tested. |
+| Fibonacci normalization of transition probabilities | No transition kernel or probability law is derived. The constraint is an imposed postulate. | Remove. |
 
-### Punto cruciale: indice di sito non equivale a scala UV
+## 5. Dimensional and notation problems
 
-La successione (J_n=\alpha q^n) attenua i legami man mano che cresce l'indice del sito. Per interpretarla come rinormalizzazione o cutoff ultravioletto occorre prima specificare:
-1. quale coordinata o scala fisica rappresenta (n);
-2. come il modello discreto si mappa su impulsi o lunghezze d'onda;
-3. quale osservabile viene mantenuta fissa durante il cambiamento del cutoff;
-4. come si comportano gli accoppiamenti rinormalizzati e le funzioni di correlazione nel limite.
+The manuscript uses \(\varphi\) both for the golden ratio and for a field in the proposed Lagrangian. These must be given distinct symbols. The expression
+\[
+\mathcal L_\varphi=\tfrac12\operatorname{Tr}(\partial_\mu\varphi\,\partial^\mu\varphi)-\mathcal H_\varphi
+\]
+does not define what object is being traced, what its field space is, or how the Hamiltonian operator becomes a local Lagrangian density with matching dimensions. The displayed “morphodynamic flow equation” likewise has undefined gradient and norm operations. These are not cosmetic omissions: without them there is no well-defined variational problem to analyze.
 
-Senza questi passaggi, la successione è una modulazione spaziale deterministica dei couplings, non una dimostrazione di rinormalizzazione.
+## 6. Minimum viable scientific replacement
 
-## Correzioni necessarie prima di usare il testo come articolo scientifico
+A defensible short paper could be titled **“A geometrically decaying inhomogeneous spin-chain coupling profile”** and contain only:
 
-1. Pubblicare il codice e i dati grezzi effettivamente usati per le figure e la tabella; documentare versione, seed, tolleranze e algoritmo.
-2. Definire senza ambiguità il modello di spin, le convenzioni di Pauli, i parametri e le condizioni al bordo.
-3. Verificare indipendentemente i valori di energia ed entropia; aggiungere convergenza rispetto alla bond dimension MPS/DMRG e ai residui.
-4. Confrontare la legge (J_n) con controlli nulli: couplings uniformi, decadimento esponenziale generico, sola potenza (\varphi^{-n}), e profili casuali con uguale scala.
-5. Per le reti quasicristalline, definire famiglia di approssimanti, operatore, condizioni al bordo, spettro e misure quantitative di localizzazione.
-6. Separare la proposta Yang–Mills dal modello di spin: specificare gruppo, variabili di link, azione, misura, gauge fixing se necessario e limite continuo.
-7. Rimuovere o etichettare come postulati i vincoli aurei non derivati.
+1. the exact definition of \(J_n\) and its elementary ratio/summability properties;
+2. the fully specified finite-chain Hamiltonian, with no TFIM label unless justified;
+3. exact-diagonalization results that can be regenerated from archived code and raw data;
+4. a central-cut entanglement audit, including the tiny cut bond at \(N=64\);
+5. comparisons against uniform, generic exponential, pure \(\varphi^{-n}\), mirrored and randomized control profiles;
+6. finite-size statements restricted to the sizes actually computed, with numerical uncertainty and convergence diagnostics.
 
-## Connessioni corrette con RGS–PSU–PRISM
+Quasicrystal transport and Marx-generator design should be separate papers with their own models and evidence. Yang–Mills, UV regularization, quantum gravity, mass generation, and universal golden-ratio claims must not appear as established conclusions.
 
-- **Q6 / vetri di spin:** il profilo (J_n) è un accoppiamento deterministico e non casuale. Non coincide con Edwards–Anderson, che richiede couplings quenched disordinati, né dimostra frustrazione o RSB.
-- **PRISM / geometria discreta:** la legge può essere testata come peso deterministico su archi o strati, ma la scelta della coordinata (n) deve essere geometrica e non adattata ai risultati.
-- **Krist-All / scala aurea:** un rapporto costante può essere confrontato con gli spettri e le classi già definite, ma non dimostra una relazione universale tra autovalori.
-- **Yang–Mills:** il manoscritto propone una motivazione geometrica; il problema del mass gap richiede una costruzione indipendente della teoria quantistica e una dimostrazione spettrale.
+## 7. Epistemic status
 
-## Stato epistemico
+- **Proved from the ansatz:** the exact geometric ratio \(q\) and absolute summability of the couplings.
+- **Specified but not independently reproduced here:** the finite-chain spin Hamiltonian.
+- **Unverified numerical claims:** all tabulated energies, entropies and plots.
+- **Open candidate question:** whether the inhomogeneous chain exhibits any robust, nontrivial finite-size phenomenon after controls and the central-cut consistency test.
+- **Unsupported in this manuscript:** UV regularization, RG replacement, quasicrystal localization, Marx optimization, Yang–Mills mass gap and quantum morphodynamics.
 
-- **Dimostrato:** rapporto geometrico esatto dei couplings, dato il loro ansatz.
-- **Da riprodurre:** risultati numerici di energia ed entropia.
-- **Candidato:** profilo di accoppiamento su catene e reti aperiodiche.
-- **Ipotesi:** interpretazione come rinormalizzazione o meccanismo di cutoff.
-- **Aperto:** collegamento al mass gap Yang–Mills, localizzazione universale e applicazione sperimentale ai generatori Marx.
-
-Questa scheda non respinge il manoscritto: lo colloca correttamente e identifica il test minimo che può trasformare l'ansatz in un risultato verificabile.
+The source PDF is retained as provenance. This audit does not silently rewrite or erase the original file.
