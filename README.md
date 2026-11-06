@@ -42,7 +42,8 @@ theorem/
 
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
-- [Source manuscripts and bibliography notes](bibliography/source-bibliographies/)
+- [Manuscripts and research-paper editorial register](manuscripts/README.md)
+- [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
 - [Theorem records](theorems/)
 - [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
