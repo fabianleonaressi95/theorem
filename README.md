@@ -129,9 +129,9 @@ See [T047](theorems/T047-ec-weyssenhoff-spin-scaling.md), `scripts/ec_spin_fluid
 
 T048 formulates the requirements for Mosco convergence on varying Hilbert spaces. It distinguishes comparison maps, strong-resolvent convergence, and spectral convergence, and identifies uniform compactness/tightness as a necessary additional issue before eigenvalue convergence with multiplicities can be concluded.
 
-The periodic-cycle example is a calibration model only. The actual RGS–PRISM refinement sequence and its compactness proof remain open.
+The periodic-cycle example is a calibration model only. A standalone [open-problem dossier for curved cubical refinements](manuscripts/MOSCO_CURVED_CUBICAL_REFINEMENT_OPEN_PROBLEM.md) now specifies a five-factor product-grid baseline, non-affine cell-map hypotheses, identification maps, candidate M1/M2 proof routes, uniform compactness obligations, and questions for external review. The actual curved RGS–PRISM refinement sequence and its compactness proof remain open.
 
-See [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md), `scripts/rgs_prism_mosco_calibration.py`, and `tests/test_t048_rgs_prism_mosco_calibration.py`.
+See [T048](theorems/T048-rgs-prism-mosco-changing-spaces.md), [the curved-cubical dossier](manuscripts/MOSCO_CURVED_CUBICAL_REFINEMENT_OPEN_PROBLEM.md), `scripts/rgs_prism_mosco_calibration.py`, and `tests/test_t048_rgs_prism_mosco_calibration.py`.
 
 ### QLG–Dirac embedding and Lorentz chirality
 
