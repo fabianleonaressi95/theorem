@@ -214,16 +214,17 @@ Finite refinement tables, positive Jacobian samples, and small commutator residu
 | Norm-resolvent and spectral convergence | **Open** | Requires stronger compactness and operator estimates |
 | Mixed parity recursion is a cubical subdivision | **Not established** | Must construct cell images and prove compatibility with subdivision |
 
-## 7. Mandatory orientation audit before FEEC theorem claims
+## 7. Orientation audit: convention is consistent
 
-The independent source audit records a sign mismatch between the incidence convention in ddr/mesh.py and the ordered-coordinate FEEC basis convention. In one dimension, for basis (1-x,x) and positive edge orientation dx, the standard differential has row (-1,+1); the current stored convention was reported as (+1,-1). The identity D^{k+1}D^k=0 and quadratic Hodge energies do not detect a global sign reversal.
+The source-level recheck resolves the previously reported sign discrepancy. In `ddr/mesh.py`, the implemented coefficient is
+\[
+(-1)^p(2s-1),
+\]
+where `p` is the zero-based position of the removed axis in the increasing tuple `vary`, and `s=0,1` selects the lower/upper facet. This is exactly the standard cubical boundary coefficient for the orientation \(dx_{i_1}\wedge\cdots\wedge dx_{i_k}\).
 
-Before asserting the commuting FEEC diagram d_h π_h=π_h d, the repository must adopt one convention consistently:
+In one dimension, the degree-zero nodal basis \((1-x,x)\) has derivatives \((-dx,+dx)\), so the oriented edge incidence row is \((-1,+1)\), which is exactly what the implementation constructs. In higher dimensions, the increasing `vary` tuple used by `face_dofs` fixes the same ordered tangent orientation; the alternating facet sign in `mesh.py` is the boundary orientation induced by that ordered basis.
 
-1. use the standard coordinate orientation and incidence coefficient (-1)^p(2s-1); or
-2. retain the current incidence matrices and explicitly modify all degree-k face orientations/basis degrees of freedom by the corresponding degree-dependent sign.
-
-The choice must be made in code, tests, and documentation together. Until then, the chain identity and the FEEC commuting statement must be reported separately.
+Consequently the earlier claim that the stored incidence matrices were the negative of the FEEC differential was a stale/source-reading error: the audit document had an extra minus sign in its transcription of the code formula. No sign flip or degree-dependent reorientation is warranted. The exact face-integral interpolator commutes with the incidence differential by Stokes' theorem, provided the geometric cell maps have matching traces and the integrals are evaluated exactly. The implemented Gauss quadrature gives a numerical approximation to those integrals, so the regression commutator remains a quadrature-level check rather than a proof of exact integration for arbitrary non-polynomial data.
 
 ## 8. Reproducible checks and their logical scope
 
