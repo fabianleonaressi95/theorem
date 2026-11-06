@@ -668,17 +668,9 @@ def self_test() -> dict[str, Any]:
         "voxel_reflections": vox,
         "parity_lattice_uniform_rules": parity_uniform,
         "parity_lattice_mixed_rules": parity_mixed,
-        "scientific_limit": (
-            "The Boolean generator is a parity-sublattice data transform, not "
-            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
-            "stability, or Mosco convergence claim is established."
         "rotation_generator": rotation,
         "rotation_parity_uniform_rules": uniform_rotation,
         "rotation_parity_mixed_rules": mixed_rotation,
-        "scientific_limit": (
-            "The Boolean generator is a parity-sublattice data transform, not "
-            "an octant mesh refinement. No cubical incidence chain-map, FEEC "
-            "stability, or Mosco convergence claim is established."
         "uniform_cubical_chain_maps": cubical_chain,
         "scientific_limit": (
             "Uniform signed-permutation modes induce exact chain automorphisms "
