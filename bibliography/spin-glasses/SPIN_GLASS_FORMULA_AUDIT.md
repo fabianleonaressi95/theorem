@@ -82,28 +82,117 @@ Nella forma standard, per funzioni limitate \(f\) dell'array degli overlap delle
 \]
 Queste identità sono proprietà del limite Gibbs sotto ipotesi e perturbazioni appropriate; non sono automaticamente vere per una simulazione finita o per un campione finito di repliche.
 
-## 6. Formula di Parisi e risultato di Talagrand
+## 6. Formula di Parisi e normalizzazione verificata sulle fonti primarie
 
-Per il modello SK, Talagrand dimostra che il limite termodinamico dell'energia libera/pressione è dato dalla formula variazionale di Parisi, confermando la previsione di Parisi. La formulazione seguente usa una convenzione di pressione e PDE; altre fonti spostano segni e termini costanti secondo la definizione di \(F_N\).
+Questa sezione fissa una convenzione precisa e non mescola il parametro d'inversa temperatura nel Hamiltoniano con quello nella misura di Gibbs. Le formule sono confrontate con Talagrand (2006), §1, equazioni (1.1)–(1.14), e Guerra (2003), §§2–4, equazioni (10)–(15), Theorems 3–5.
 
-Sia \(\xi:[0,1]\to[0,1]\) una funzione cumulativa di distribuzione di probabilità su \([0,1]\). Sia \(\Phi(t,x)\) soluzione del problema di Cauchy all'indietro
+### 6.1 Convenzione SK di Talagrand
+
+Talagrand definisce (Annals of Mathematics 163 (2006), p. 221, eq. (1.1))
 \[
-\partial_t\Phi(t,x)
-=-\frac{\beta^2}{2}
-\left(\partial_{xx}\Phi(t,x)
-+\xi(t)(\partial_x\Phi(t,x))^2\right),
+H_N(\sigma)=-\frac{\beta}{\sqrt N}\sum_{i<j}g_{ij}\sigma_i\sigma_j,
 \qquad
-\Phi(1,x)=\log(2\cosh x).
+Z_N=\sum_{\sigma\in\{-1,1\}^N}
+\exp\!\left(H_N(\sigma)+h\sum_i\sigma_i\right),
 \]
-Il funzionale di Parisi si scrive, in questa convenzione,
-\[
-\mathcal P_\beta(\xi)
-=\Phi(0,h)-\frac{\beta^2}{2}
-\int_0^1 t\,\xi(t)\,dt,
-\]
-et la pression limite est l'infimum de ce fonctionnel sur les mesures admissibles. **Les facteurs \(1/2\), la variable de champ et le signe dépendent de la convention du Hamiltonien et de la définition de pression.** La formula sopra va confrontata con la versione originale di Talagrand prima di essere usata come identità normalizzata in un codice. La source secondaire consultée affiche une convention avec \(\beta^2\) sans \(1/2\); le présent dossier ne prétend donc pas avoir clos l'audit des facteurs de normalisation.
+con \(g_{ij}\) i.i.d. standard gaussiani. Qui \(\beta\) è già dentro \(H_N\), mentre \(h\) è il campo adimensionale nella misura.
 
-Talagrand, *Annals of Mathematics* 163 (2006), 221–263, prouve la formule SK à toute température. Guerra (2003) obtient la borne inférieure rigoureuse et une règle de somme par interpolation; la borne n'est pas encore l'uguaglianza finale de Talagrand.
+Per \(R_{12}=N^{-1}\sum_i\sigma_i^1\sigma_i^2\), ponendo \(r_i=\sigma_i^1\sigma_i^2\in\{\pm1\}\),
+\[
+\begin{aligned}
+\mathbb E H_N(\sigma^1)H_N(\sigma^2)
+&=\frac{\beta^2}{N}\sum_{i<j}r_ir_j\\
+&=\frac{\beta^2}{2N}\left[\left(\sum_i r_i\right)^2-N\right]\\
+&=\frac{\beta^2N}{2}R_{12}^2-\frac{\beta^2}{2}.
+\end{aligned}
+\]
+Quindi
+\[
+N^{-1}\operatorname{Cov}(H_N(\sigma^1),H_N(\sigma^2))
+=\underbrace{\frac{\beta^2}{2}R_{12}^2}_{\xi_{\rm cov}(R_{12})}
+-\frac{\beta^2}{2N}.
+\]
+Il limite di covarianza è \(\xi_{\rm cov}(q)=\beta^2q^2/2\), esattamente come Talagrand eq. (1.3)–(1.4), p. 222. Il termine finito \(-\beta^2/(2N)\) è una correzione \(O(N^{-1})\), non una seconda convenzione per il coefficiente principale.
+
+**Origine del fattore \(1/2\):** è l'identità della somma su coppie non ordinate
+\[
+\sum_{i<j}r_ir_j=\frac12\left[\left(\sum_i r_i\right)^2-N\right].
+\]
+Non va eliminato lasciando invariati \(N^{-1}\), la varianza dei couplings e la definizione di \(\beta\).
+
+### 6.2 PDE di Parisi nella convenzione di Talagrand
+
+Sia \(x(q)\) la funzione non decrescente (right-continuous) di ordine Parisi, con valori in \([0,1]\); non la denotiamo \(\xi(q)\), per evitare di confonderla con la funzione di covarianza \(\xi_{\rm cov}\). La PDE all'indietro è
+\[
+\partial_q\Phi(q,y)
+=-\frac{\beta^2}{2}
+\left(\partial_{yy}\Phi(q,y)
++x(q)(\partial_y\Phi(q,y))^2\right),
+\qquad
+\Phi(1,y)=\log(2\cosh y).
+\]
+La funzionale è
+\[
+\boxed{\mathcal P_\beta(x)
+=\Phi(0,h)-\frac{\beta^2}{2}\int_0^1q\,x(q)\,dq,}
+\]
+e la pressione limite è \(\inf_x\mathcal P_\beta(x)\). Questa è la normalizzazione di Talagrand eq. (1.11)–(1.14), pp. 222–223, espressa nella forma PDE continua.
+
+Il fattore è anche visibile nella versione a passi finiti. Talagrand pone
+\[
+\theta(q)=q\,\xi_{\rm cov}'(q)-\xi_{\rm cov}(q)=\frac{\beta^2q^2}{2}
+\]
+e scrive
+\[
+\mathcal P_k(\mathbf m,\mathbf q)
+=\log2+X_0-\frac12\sum_{\ell=1}^k
+m_\ell\bigl[\theta(q_{\ell+1})-\theta(q_\ell)\bigr].
+\]
+Il termine di penalità è quindi
+\[
+-\frac{\beta^2}{4}\sum_{\ell=1}^k
+m_\ell(q_{\ell+1}^2-q_\ell^2)
+=-\frac{\beta^2}{2}\int_0^1q\,x(q)\,dq.
+\]
+La PDE e la penalità contengono il \(1/2\) richiesto dalla covarianza SK di questa convenzione.
+
+### 6.3 Confronto con Guerra (2003): campo e temperatura
+
+Guerra (arXiv:cond-mat/0205123, §§2–3, eq. (10)–(15), pp. 3–5) usa invece
+\[
+H_N(\sigma,h,J)=-\frac1{\sqrt N}\sum_{i<j}J_{ij}\sigma_i\sigma_j
+-h\sum_i\sigma_i,\qquad
+Z_N=\sum_\sigma e^{-\beta H_N(\sigma,h,J)}.
+\]
+In questa convenzione \(\beta\) è fuori dal Hamiltoniano. La sua PDE è
+\[
+\partial_q f(q,y)+\frac12
+\left(f_{yy}(q,y)+x(q)f_y(q,y)^2\right)=0,
+\qquad f(1,y)=\log\cosh(\beta y),
+\]
+e la funzionale trial
+\[
+\bar\alpha(\beta,h;x)=\log2+f(0,h;x,\beta)
+-\frac{\beta^2}{2}\int_0^1q\,x(q)\,dq.
+\]
+La conversione alla PDE di Talagrand si ottiene ponendo
+\[
+\Phi(q,z)=\log2+f(q,z/\beta);
+\]
+il campo è da convertire coerentemente: il valore iniziale è \(\Phi(0,\beta h)\) se \(h\) è il campo fisico della convenzione di Guerra.
+
+Guerra, Theorem 3 (pp. 6–7), dimostra
+\[
+\alpha_N(\beta,h):=N^{-1}\mathbb E\log Z_N
+\leq \inf_x\bar\alpha(\beta,h;x)
+\]
+uniformemente in \(N\), con una sum rule non negativa (Theorems 4–5). È un **upper bound sulla pressione**. Per l'energia libera fisica \(f_N=-\alpha_N/\beta\), la stessa disuguaglianza diventa un **lower bound**. Talagrand (2006), Theorem 1.1, dimostra l'uguaglianza nel limite termodinamico; non si devono attribuire a Guerra, da solo, l'intera uguaglianza finale.
+
+### 6.4 Diagnosi della discrepanza “\(\beta^2\) senza \(1/2\)”
+
+Una formula che mostra \(\beta^2\) al posto di \(\beta^2/2\) nel coefficiente della PDE o nel termine di penalità può essere corretta soltanto se la funzione di covarianza è normalizzata come \(\xi_{\rm cov}(q)=\beta^2q^2\), oppure se il parametro \(\beta\) è riscalato di \(\sqrt2\), o se sono cambiate le convenzioni sui couplings/Hamiltoniano. Non è la stessa normalizzazione dell'equazione (1.1) di Talagrand.
+
+**Conclusione dell'audit del fattore:** per \(H_N=-\beta N^{-1/2}\sum_{i<j}g_{ij}\sigma_i\sigma_j\), con \(g_{ij}\sim N(0,1)\), overlap \(R=N^{-1}\sum_i\sigma_i^1\sigma_i^2\), e pressione \(N^{-1}\mathbb E\log Z_N\), i fattori \(\beta^2/2\) nella PDE e nella penalità sono verificati dalla fonte primaria. Il fattore \(1/2\) non è una scelta estetica; segue dalla covarianza.
 
 ## 7. Ultrametricità di Panchenko
 
@@ -145,3 +234,9 @@ Per formulare un'affermazione di fase occorre una famiglia \(G_m\) con \(|V(G_m)
 - M. Talagrand, “The Parisi formula”, *Annals of Mathematics* 163 (2006), 221–263, DOI: 10.4007/annals.2006.163.221.
 - D. Panchenko, “The Parisi ultrametricity conjecture”, *Annals of Mathematics* 177 (2013), 383–393, DOI: 10.4007/annals.2013.177.1.8.
 - D. Panchenko, “The Ghirlanda–Guerra identities and the ultrametricity conjecture”, *Annals of Mathematics* 175 (2012), 1–27, DOI: 10.4007/annals.2012.175.1.1 (da usare per l'ipotesi esatta e la struttura delle identità).
+
+
+### Riferimenti primari puntuali per la normalizzazione (audit 2026-11-06)
+- M. Talagrand, “The Parisi formula”, *Annals of Mathematics* 163 (2006), 221–263, DOI [10.4007/annals.2006.163.221](https://doi.org/10.4007/annals.2006.163.221), [PDF ufficiale](https://annals.math.princeton.edu/wp-content/uploads/annals-v163-n1-p04.pdf): eq. (1.1) Hamiltoniano SK; eqs. (1.3)–(1.4) covarianza/overlap; eqs. (1.9)–(1.14) ricorsione e funzionale; eq. (2.10) interpolazione Guerra.
+- F. Guerra, “Broken Replica Symmetry Bounds in the Mean Field Spin Glass Model”, *Communications in Mathematical Physics* 233 (2003), 1–12, DOI [10.1007/s00220-002-0773-5](https://doi.org/10.1007/s00220-002-0773-5), [arXiv:cond-mat/0205123](https://arxiv.org/pdf/cond-mat/0205123): §2 eqs. (1)–(5) Hamiltoniano/overlap; §3 eqs. (10)–(15) PDE e trial functional; §4 Theorems 3–5, bound e sum rule.
+- Verifica indipendente aggiunta: PARISI_NORMALIZATION_AUDIT.py, identità della covarianza su coppie \(i<j\), equivalenza fra penalità discreta e integrale, e test della costante \(1/2\).
