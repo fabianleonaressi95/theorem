@@ -17,6 +17,7 @@ from models.prism_ca_evolution import (
     evolve_initial_states,
     evolve_rules,
     random_initial_states,
+    rule_symmetry_report,
 )
 from models.prism_cellular_automata import PrismProductGraph
 
@@ -76,6 +77,8 @@ def main():
         result = evolve_initial_states(graph, args.fixed_rule, args.steps, config, fitness)
         experiment["fixed_rule_integer"] = args.fixed_rule
         experiment["initial_population_seed"] = args.seed
+    audited_rule = result.best_genome if args.mode == "rules" else args.fixed_rule
+    experiment["local_rule_symmetry"] = rule_symmetry_report(graph, audited_rule)
     payload = result.to_dict()
     payload["experiment"] = experiment
     payload["graph"] = {
