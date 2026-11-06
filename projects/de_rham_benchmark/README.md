@@ -46,3 +46,8 @@ Requires `numpy`, `scipy`, `matplotlib` (Python 3.10+).
 
 See `ASSUMPTIONS.md` for conventions and `REPORT.md` for the separation
 between verified numerical observations and conjectures.
+
+
+## Audit status
+
+Read the [independent audit checklist](docs/INDEPENDENT_AUDIT_CHECKLIST.md) before interpreting the spectra. In particular, the co-closed/top-degree diagnostic reported in the uploaded results requires an index- and norm-level consistency check.
