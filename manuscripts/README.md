@@ -16,7 +16,9 @@ These notes are deliberately narrower than the source documents. They preserve u
 - [Technical audit of T047–T049D](T047_T049D_TECHNICAL_AUDIT.md) — EC spin scaling, varying-space calibration, microscopic correlators, and the corrected Lorentz boost convention.
 - [Mosco convergence for curved cubical refinements](MOSCO_CURVED_CUBICAL_REFINEMENT_OPEN_PROBLEM.md) — standalone open-problem dossier, five-factor PRISM refinement baseline, non-affine cell-map hypotheses, Mosco proof obligations, compactness and review questions.
 - [XCont emergent-dynamics integration](XCONT_EMERGENT_DYNAMICS_INTEGRATION.md) — research mapping of evolutionary cellular automata, initial-state co-evolution, symbolic billiards and graph convolution to PRISM/Q6, with attribution, exact model definitions and implementation work packages.
+- [X6 symbolic billiard coding](X6_SYMBOLIC_BILLIARD_CODING.md) — circle-rotation coding, exact rational convergents, finite-word observables and Q6 six-bit block labels.
   - Implemented: [PRISM CA engine](../models/prism_cellular_automata.py), [rule/initial-state genetic search](../models/prism_ca_evolution.py), [CLI](../scripts/run_prism_ca_evolution.py), [CA tests](../tests/test_prism_cellular_automata.py), [multi-seed benchmark](../scripts/run_prism_ca_benchmark.py), [two-population co-evolution CLI](../scripts/run_prism_ca_coevolution.py), and [evolution tests](../tests/test_prism_ca_evolution.py). The [dedicated GitHub Actions workflow](../.github/workflows/prism-ca.yml) runs this regression subset.
+  - X6 symbolic coding: [model](../models/prism_billiard_coding.py), [runner](../scripts/run_prism_billiard_coding.py), [tests](../tests/test_prism_billiard_coding.py).
   - Five-dimensional flat calibration: [generator](../scripts/rgs_prism_product_refinement.py) and [M0–M4 tests](../tests/test_t048_rgs_prism_product_refinement.py); this does not prove the curved Mosco limit.
 
 ## Theorem extraction from audited sources
