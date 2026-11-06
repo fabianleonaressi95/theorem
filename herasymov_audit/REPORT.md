@@ -258,3 +258,16 @@ Il settore isotypic T2u già identificato nell'audit RGS ha rango 30, cioè diec
 U_{\rm tan}(g)J=J\,(I_{10}\otimes D_{T2u}(g))
 ]
 (con la convenzione di ordinamento coerente), insieme a (P_{T2u}J=J). Solo dopo questi residui si può comprimere un operatore RGS sul fattore di molteplicità e testare una dinamica supergolden. Non si deve identificare (M_{10}) del CA con il blocco RGS senza questo intertwiner.
+
+
+### 12.5 Ostruzione esatta: Koopman su un toro finito non può avere autovalore supergolden
+
+Per un toro finito fissato, lo spazio delle configurazioni binarie \(\Omega=\{0,1\}^{L^3}\) è finito. Per una regola deterministica fissata \(F:\Omega\to\Omega\), l'operatore di Koopman sulle osservabili è \(Kf=f\circ F\). Nella norma sup:
+\[
+\|Kf\|_\infty=\max_{a\in\Omega}|f(F(a))|\leq\max_{b\in\Omega}|f(b)|=\|f\|_\infty.
+\]
+Se \(Kf=\lambda f\) con \(f\neq0\), allora \(|\lambda|\leq1\). Dunque **\(\psi=1.465571\ldots\) non può essere un autovalore dell'operatore di Koopman esatto di un CA deterministico su un toro finito fissato**. Questa conclusione è un teorema, non una stima numerica.
+
+Non vieta un autovalore superunitario per un operatore diverso: ad esempio un trasferimento di rinormalizzazione tra scale, una mappa di raffinamento non autonoma, oppure un operatore di crescita su quantità non normalizzate. Ma tale operatore va definito esplicitamente; non può essere chiamato semplicemente Koopman del CA finito.
+
+Per il fit T2u corrente, il massimo modulo spettrale della matrice proiettata \(M_{10}\) è circa 0.268345; il minimo residuo polinomiale tra i suoi dieci autovalori è circa 0.999869 e la distanza minima da \(\psi\) è circa 1.198933. Questi numeri confermano che la regressione campionata non sta approssimando la ricorrenza supergolden.
