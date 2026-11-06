@@ -67,3 +67,44 @@ def test_mixed_reflection_rules_interleave_parent_samples():
     report = MODULE.audit_parity_lattice_refinement(rules, size=3)
     assert not report["all_eight_children_share_one_source_coordinate"]
     assert not report["single_parent_source_coordinate_per_parent"]
+
+def test_rotation_generator_all_256_modes_are_cube_bijections():
+    report = MODULE.audit_rotation_generator(size=3)
+    assert report["modes_exhausted"] == 256
+    assert report["all_coordinate_maps_bijective"]
+    assert report["distinct_coordinate_maps"] == 32
+    assert report["orientation_counts_over_modes"] == {"+1": 128, "-1": 128}
+
+
+def test_rotation_generator_scalar_increment_is_not_boolean_complement():
+    report = MODULE.audit_rotation_generator(size=3)
+    assert report["scalar_action_counts"] == {"increment": 128, "unchanged": 128}
+    assert report["no_boolean_complement"] is True
+
+
+def test_rotation_generator_parity_rules_must_agree_on_parent_samples():
+    uniform = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
+    mixed = [[[0, 16], [64, 80]], [[32, 48], [96, 112]]]
+    assert MODULE.audit_rotation_parity_lattice(uniform, size=3)["single_parent_sample_rule"]
+    assert not MODULE.audit_rotation_parity_lattice(mixed, size=3)["single_parent_sample_rule"]
+
+
+def test_rotation_mode_bit_three_changes_scalar_action_not_coordinates():
+    report = MODULE.audit_rotation_generator(size=3)
+    assert report["bit3_preserves_coordinates"]
+    assert report["bit3_toggles_increment_rule"]
+
+
+def test_uniform_signed_permutations_induce_cubical_chain_automorphisms():
+    report = MODULE.audit_uniform_cubical_chain_maps(size=2)
+    assert report["distinct_signed_permutation_maps"] == 32
+    assert report["chain_map_identity_holds"]
+    assert report["orientation_determinants"] == {"+1": 16, "-1": 16}
+    assert all(int(report["cells_checked_by_degree_across_all_maps"][str(k)]) > 0
+               for k in range(4))
+
+
+def test_uniform_cubical_chain_audit_scales_to_larger_fixed_grid():
+    report = MODULE.audit_uniform_cubical_chain_maps(size=3)
+    assert report["chain_map_identity_holds"]
+    assert report["distinct_signed_permutation_maps"] == 32

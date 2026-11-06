@@ -37,7 +37,21 @@ jobs:
           assert data['finite_shuffle_billiard_identity']['matches'] == 65536
           assert data['parity_lattice_uniform_rules']['single_parent_source_coordinate_per_parent']
           assert not data['parity_lattice_mixed_rules']['single_parent_source_coordinate_per_parent']
-          print('Herasymov finite identity and parity-lattice controls passed')
+          rotation = data['rotation_generator']
+          assert rotation['modes_exhausted'] == 256
+          assert rotation['all_coordinate_maps_bijective']
+          assert rotation['distinct_coordinate_maps'] == 32
+          assert rotation['orientation_counts_over_modes'] == {'+1': 128, '-1': 128}
+          assert rotation['scalar_action_counts'] == {'increment': 128, 'unchanged': 128}
+          assert rotation['bit3_preserves_coordinates']
+          assert rotation['bit3_toggles_increment_rule']
+          assert data['rotation_parity_uniform_rules']['single_parent_sample_rule']
+          assert not data['rotation_parity_mixed_rules']['single_parent_sample_rule']
+          chain = data['uniform_cubical_chain_maps']
+          assert chain['distinct_signed_permutation_maps'] == 32
+          assert chain['chain_map_identity_holds']
+          assert chain['orientation_determinants'] == {'+1': 16, '-1': 16}
+          print('Herasymov symbolic, rotation, and cubical chain-map controls passed')
           PY
       - name: Run Herasymov regression tests
         run: |

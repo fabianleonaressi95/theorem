@@ -200,6 +200,30 @@ Consequently, an octant-face matching table is not the right conformity test for
 
 The new tests cover the parity indexing, uniform-rule case, and mixed-reflection obstruction. The next mathematical step is to define an actual cubical cell map (including vertices, edges, faces, and 3-cells) and verify its boundary/incidence commutation. A voxel-index sampling rule alone does not supply that map.
 
+### 3.3 Rotation-enhanced generator: exact mode audit
+
+The distinct source `fractal_3d_with_rotaions.js` (spelling as in the repository) uses an 8-bit mode. Its coordinate action is a composition of:
+
+1. a rotation selected by `rotAxis=(mode>>4)&3` and `rotAngle=(mode>>6)&3`;
+2. one of eight coordinate reflections selected by `mode&7`.
+
+The source's quarter-turn formulas are ported literally:
+[
+R_x(x,y,z)=(x,N-1-z,y),quad
+R_y(x,y,z)=(z,y,N-1-x),quad
+R_z(x,y,z)=(N-1-y,x,z).
+]
+The selected rotation is repeated zero, one, two, or three times, then the lower-three-bit reflection is applied. Axis code zero means no rotation for every angle code. Exhaustion of all 256 byte modes gives:
+
+- every mode is a bijection of the finite (N^3) voxel index set (checked for (N=3), with the exact affine signed-permutation structure recovered);
+- there are 32 distinct coordinate maps, not 48;
+- 128 mode values induce orientation-preserving maps and 128 orientation-reversing maps;
+- the eight parity rules still select interleaved output sublattices, not contiguous octants.
+
+The scalar action must be kept separate from the coordinate action. The source does **not** complement Boolean values. It executes `if (!(mode & 8)) a++`: exactly 128 byte modes increment the sampled scalar by one and 128 leave it unchanged. The duplicated switch cases 0–7 and 8–15 have the same coordinate lookup; bit 3 controls the increment. Since JavaScript's `++` coerces booleans to numbers, the initial Boolean seed becomes numeric under incrementing modes. With seven iterations and a seed in ({0,1}), values remain bounded by the trivial estimate ([0,8]); this is not a conservation law.
+
+A second parity-sampling audit checks, for every parent voxel, whether all eight parity rules select the same source coordinate and the same scalar action. Uniform rules pass; the included mixed-rotation control fails. This establishes source-index bijectivity of each mode, not a geometric subdivision map, shared-cell trace compatibility, or a de Rham chain map.
+
 ## 4. Cellular automata and coupled fields
 
 Herasymov's \`evolving-cellular-automata\` searches a \(2^{512}\) rule space for 2D Moore-neighborhood automata, with toroidal boundary conditions. The later \`initial-state-evolution\` project fixes Conway's Life rule and co-evolves two fields A and B, with A's upper/lower boundary coupled to B and vice versa. These are useful examples of:

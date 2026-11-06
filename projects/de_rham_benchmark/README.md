@@ -154,4 +154,4 @@ python projects/de_rham_benchmark/audits/audit_herasymov_symbolic.py --self-test
 
 Regression tests are in
 \`tests/test_herasymov_symbolic_audit.py\`.
-The Boolean 3D source uses eight interleaved parity sublattices, not contiguous octants. The audit tests whether those rules give a single parent source sample per parent voxel; it does not certify a cubical incidence chain map or a conforming FEEC mesh.
+The Boolean and rotation-enhanced 3D sources both select rules on eight interleaved parity sublattices, not contiguous octants. The audit exhausts all 256 rotation-generator modes, checks coordinate bijectivity and orientation, and separates scalar increment semantics from geometry. These are voxel-index audits, not cubical incidence chain maps or FEEC conformity proofs.

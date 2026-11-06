@@ -11,7 +11,7 @@ import argparse
 import json
 import math
 import sys
-from itertools import product
+from itertools import combinations, product
 from typing import Any
 
 
@@ -276,6 +276,305 @@ def audit_parity_lattice_refinement(
         "single_parent_source_coordinate_per_parent": child_coordinate_consistent,
     }
 
+
+# Source-faithful coordinate semantics of perfect-shuffle/fractal_3d_with_rotaions.js.
+def rotated_voxel_coordinate(
+    x: int, y: int, z: int, size: int, axis: int, angle: int
+) -> tuple[int, int, int]:
+    """Port the source's repeated quarter-turn formulas, in their exact order."""
+    if size < 1 or axis not in (0, 1, 2, 3) or angle not in (0, 1, 2, 3):
+        raise ValueError("invalid cube size, rotation axis, or quarter-turn count")
+    for _ in range(angle):
+        if axis == 1:
+            x, y, z = x, size - 1 - z, y
+        elif axis == 2:
+            x, y, z = z, y, size - 1 - x
+        elif axis == 3:
+            x, y, z = size - 1 - y, x, z
+        # axis == 0 deliberately means no rotation for every angle.
+    return x, y, z
+
+
+def rotation_generator_source_index(
+    mode: int, x: int, y: int, z: int, size: int
+) -> tuple[tuple[int, int, int], bool]:
+    """Return source voxel and whether switchdraw increments its scalar value."""
+    if not 0 <= mode <= 255 or size < 1:
+        raise ValueError("mode must be in [0,255] and size positive")
+    if not all(0 <= v < size for v in (x, y, z)):
+        raise ValueError("voxel coordinate outside source cube")
+    axis = (mode >> 4) & 3
+    angle = (mode >> 6) & 3
+    xr, yr, zr = rotated_voxel_coordinate(x, y, z, size, axis, angle)
+    fx, fy, fz = _REFLECTIONS[mode & 7]
+    coord = (
+        size - 1 - xr if fx else xr,
+        size - 1 - yr if fy else yr,
+        size - 1 - zr if fz else zr,
+    )
+    # The source executes: if (!(mode & 8)) a++;
+    increment = (mode & 8) == 0
+    return coord, increment
+
+
+def _det3(matrix: tuple[tuple[int, int, int], ...]) -> int:
+    return (
+        matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1])
+        - matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0])
+        + matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0])
+    )
+
+
+def rotation_generator_affine_data(
+    mode: int, size: int = 5
+) -> tuple[tuple[tuple[int, int, int], ...], int]:
+    """Recover signed-permutation linear part and orientation from exact samples."""
+    if size < 2:
+        raise ValueError("size must be at least 2")
+    origin = rotation_generator_source_index(mode, 0, 0, 0, size)[0]
+    columns = []
+    for e in ((1, 0, 0), (0, 1, 0), (0, 0, 1)):
+        image = rotation_generator_source_index(mode, *e, size)[0]
+        columns.append(tuple(image[i] - origin[i] for i in range(3)))
+    matrix = tuple(
+        tuple(columns[j][i] for j in range(3)) for i in range(3)
+    )
+    return matrix, _det3(matrix)
+
+
+def audit_rotation_generator(size: int = 4) -> dict[str, Any]:
+    """Exhaust all 256 source modes and distinguish coordinate from value action."""
+    if size < 2:
+        raise ValueError("size must be at least 2")
+    points = list(product(range(size), repeat=3))
+    mode_reports = []
+    coordinate_maps: dict[tuple[tuple[int, int, int], ...], list[int]] = {}
+    orientation_counts = {"+1": 0, "-1": 0}
+    increment_counts = {"increment": 0, "unchanged": 0}
+    for mode in range(256):
+        images = [rotation_generator_source_index(mode, *p, size)[0] for p in points]
+        increment = rotation_generator_source_index(mode, 0, 0, 0, size)[1]
+        matrix, determinant = rotation_generator_affine_data(mode, max(size, 3))
+        bijective = len(set(images)) == size ** 3
+        coordinate_maps.setdefault(tuple(images), []).append(mode)
+        orientation_counts["+1" if determinant > 0 else "-1"] += 1
+        increment_counts["increment" if increment else "unchanged"] += 1
+        mode_reports.append({
+            "mode": mode,
+            "axis": (mode >> 4) & 3,
+            "quarter_turns": (mode >> 6) & 3,
+            "reflection_code": mode & 7,
+            "signed_permutation_matrix": [list(row) for row in matrix],
+            "orientation_determinant": determinant,
+            "coordinate_bijection": bijective,
+            "scalar_increment": increment,
+        })
+    multiplicities = {}
+    for modes in coordinate_maps.values():
+        key = str(len(modes))
+        multiplicities[key] = multiplicities.get(key, 0) + 1
+    bit3_coordinate_invariant = all(
+        rotation_generator_source_index(mode, *p, size)[0]
+        == rotation_generator_source_index(mode ^ 8, *p, size)[0]
+        for mode in range(256) for p in points
+    )
+    bit3_toggles_scalar_increment = all(
+        rotation_generator_source_index(mode, 0, 0, 0, size)[1]
+        != rotation_generator_source_index(mode ^ 8, 0, 0, 0, size)[1]
+        for mode in range(256)
+    )
+    return {
+        "source": "fractal_3d_with_rotaions.js",
+        "modes_exhausted": 256,
+        "all_coordinate_maps_bijective": all(m["coordinate_bijection"] for m in mode_reports),
+        "distinct_coordinate_maps": len(coordinate_maps),
+        "map_multiplicity_histogram": multiplicities,
+        "orientation_counts_over_modes": orientation_counts,
+        "scalar_action_counts": increment_counts,
+        "scalar_rule": "increment by one iff (mode & 8) == 0; otherwise unchanged",
+        "no_boolean_complement": True,
+        "bit3_preserves_coordinates": bit3_coordinate_invariant,
+        "bit3_toggles_increment_rule": bit3_toggles_scalar_increment,
+        "mode_reports": mode_reports,
+    }
+
+
+def audit_rotation_parity_lattice(
+    drawar: list[list[list[int]]], size: int = 4
+) -> dict[str, Any]:
+    """Check parity-selected rotation rules as data samplers, not cell maps."""
+    if len(drawar) != 2 or any(
+        len(plane) != 2 or any(len(row) != 2 for row in plane)
+        for plane in drawar
+    ):
+        raise ValueError("drawar must have shape [2][2][2]")
+    modes = [int(drawar[z][y][x]) for z in range(2) for y in range(2) for x in range(2)]
+    if any(mode < 0 or mode > 255 for mode in modes):
+        raise ValueError("rotation generator modes must lie in [0,255]")
+    coordinate_consistent = True
+    scalar_rule_consistent = True
+    for parent in product(range(size), repeat=3):
+        samples = [
+            rotation_generator_source_index(int(drawar[dz][dy][dx]), *parent, size)
+            for dz, dy, dx in product(range(2), repeat=3)
+        ]
+        if len({coord for coord, _ in samples}) != 1:
+            coordinate_consistent = False
+        if len(set(samples)) != 1:
+            scalar_rule_consistent = False
+    return {
+        "interpretation": "eight parity sublattices, not contiguous octants",
+        "modes_dz_dy_dx": modes,
+        "same_parent_source_coordinate_for_all_eight_children": coordinate_consistent,
+        "same_coordinate_and_scalar_action_for_all_eight_children": scalar_rule_consistent,
+        "single_parent_sample_rule": coordinate_consistent and scalar_rule_consistent,
+    }
+
+
+# Exact cubical chain complex and induced maps for uniform signed permutations.
+def _cube_cells(size: int, degree: int):
+    """Canonical positively oriented k-cells of the cubical grid [0,size]^3."""
+    if size < 1 or degree not in (0, 1, 2, 3):
+        raise ValueError("size must be positive and degree in {0,1,2,3}")
+    for axes in combinations(range(3), degree):
+        ranges = [
+            range(size) if axis in axes else range(size + 1)
+            for axis in range(3)
+        ]
+        for lower in product(*ranges):
+            yield (tuple(lower), tuple(axes))
+
+
+def _cube_boundary(cell):
+    """Boundary of an oriented cubical cell, as an integer coefficient map."""
+    lower, axes = cell
+    out = {}
+    for r, axis in enumerate(axes):
+        face_axes = tuple(a for a in axes if a != axis)
+        low_face = (lower, face_axes)
+        high_lower = list(lower)
+        high_lower[axis] += 1
+        high_face = (tuple(high_lower), face_axes)
+        out[low_face] = out.get(low_face, 0) - ((-1) ** r)
+        out[high_face] = out.get(high_face, 0) + ((-1) ** r)
+    return {cell: coeff for cell, coeff in out.items() if coeff}
+
+
+def _permutation_sign(values):
+    inversions = sum(
+        values[i] > values[j]
+        for i in range(len(values)) for j in range(i + 1, len(values))
+    )
+    return -1 if inversions % 2 else 1
+
+
+def _map_cube_cell(cell, matrix, size: int):
+    """Push an oriented cell through x -> signed-permutation(x) on [0,N]^3."""
+    lower, axes = cell
+    vertices = []
+    for bits in product((0, 1), repeat=len(axes)):
+        point = list(lower)
+        for axis, bit in zip(axes, bits):
+            point[axis] += bit
+        image = []
+        for row in matrix:
+            source_axis = next(j for j, value in enumerate(row) if value)
+            sign = row[source_axis]
+            image.append(point[source_axis] if sign == 1 else size - point[source_axis])
+        vertices.append(tuple(image))
+    target_lower = tuple(min(v[i] for v in vertices) for i in range(3))
+    target_axes = tuple(
+        i for i in range(3)
+        if max(v[i] for v in vertices) != min(v[i] for v in vertices)
+    )
+    source_to_target_axis = {
+        j: next(i for i, row in enumerate(matrix) if row[j])
+        for j in axes
+    }
+    ordered_target_axes = [source_to_target_axis[j] for j in axes]
+    target_positions = [target_axes.index(i) for i in ordered_target_axes]
+    orientation = _permutation_sign(target_positions)
+    for source_axis, target_axis in source_to_target_axis.items():
+        orientation *= matrix[target_axis][source_axis]
+    return (target_lower, target_axes), orientation
+
+
+def _add_chain_term(chain, cell, coefficient):
+    if coefficient:
+        chain[cell] = chain.get(cell, 0) + coefficient
+        if chain[cell] == 0:
+            del chain[cell]
+
+
+def _mapped_boundary(cell, matrix, size: int):
+    """Apply P_{k-1} to boundary(cell)."""
+    out = {}
+    for face, coefficient in _cube_boundary(cell).items():
+        image, orientation = _map_cube_cell(face, matrix, size)
+        _add_chain_term(out, image, coefficient * orientation)
+    return out
+
+
+def _boundary_of_mapped_cell(cell, matrix, size: int):
+    """Apply boundary after P_k to cell."""
+    image, orientation = _map_cube_cell(cell, matrix, size)
+    return {
+        face: coefficient * orientation
+        for face, coefficient in _cube_boundary(image).items()
+    }
+
+
+def audit_uniform_cubical_chain_maps(size: int = 2) -> dict[str, Any]:
+    """Exhaust the distinct rotation-generator signed permutations.
+
+    This proves an automorphism of the fixed cubical grid, not a refinement
+    operator between different mesh levels.
+    """
+    if size < 1:
+        raise ValueError("size must be positive")
+    matrices = {}
+    for mode in range(256):
+        matrix, determinant = rotation_generator_affine_data(mode, max(size, 3))
+        matrices[matrix] = determinant
+    checked = {str(k): 0 for k in range(4)}
+    failures = []
+    for matrix, determinant in matrices.items():
+        for degree in range(4):
+            for cell in _cube_cells(size, degree):
+                checked[str(degree)] += 1
+                lhs = _boundary_of_mapped_cell(cell, matrix, size)
+                rhs = _mapped_boundary(cell, matrix, size)
+                if lhs != rhs:
+                    failures.append({
+                        "matrix": [list(row) for row in matrix],
+                        "degree": degree,
+                        "cell": repr(cell),
+                        "boundary_after_map": repr(lhs),
+                        "map_after_boundary": repr(rhs),
+                    })
+                    if len(failures) >= 5:
+                        break
+            if failures:
+                break
+        if failures:
+            break
+    return {
+        "grid": f"[0,{size}]^3",
+        "distinct_signed_permutation_maps": len(matrices),
+        "orientation_determinants": {
+            "+1": sum(det == 1 for det in matrices.values()),
+            "-1": sum(det == -1 for det in matrices.values()),
+        },
+        "cells_checked_by_degree_across_all_maps": checked,
+        "chain_map_identity_holds": not failures,
+        "failures": failures,
+        "interpretation": (
+            "Each uniform signed-permutation mode induces an exact cubical "
+            "chain automorphism on the fixed grid. This is not a coarse-to-fine "
+            "refinement/prolongation map."
+        ),
+    }
+
 def self_test() -> dict[str, Any]:
     # Finite in-shuffle permutation and its multiplicative-order period.
     shuffle_checks = []
@@ -336,6 +635,27 @@ def self_test() -> dict[str, Any]:
     )
     assert not parity_mixed["single_parent_source_coordinate_per_parent"]
 
+    rotation = audit_rotation_generator(size=3)
+    assert rotation["modes_exhausted"] == 256
+    assert rotation["all_coordinate_maps_bijective"]
+    assert rotation["distinct_coordinate_maps"] == 32
+    assert rotation["orientation_counts_over_modes"] == {"+1": 128, "-1": 128}
+    assert rotation["scalar_action_counts"] == {"increment": 128, "unchanged": 128}
+    assert rotation["bit3_preserves_coordinates"]
+    assert rotation["bit3_toggles_increment_rule"]
+    uniform_rotation = audit_rotation_parity_lattice(
+        [[[0, 0], [0, 0]], [[0, 0], [0, 0]]], size=3
+    )
+    mixed_rotation = audit_rotation_parity_lattice(
+        [[[0, 16], [64, 80]], [[32, 48], [96, 112]]], size=3
+    )
+    assert uniform_rotation["single_parent_sample_rule"]
+    assert not mixed_rotation["single_parent_sample_rule"]
+
+    cubical_chain = audit_uniform_cubical_chain_maps(size=2)
+    assert cubical_chain["distinct_signed_permutation_maps"] == 32
+    assert cubical_chain["chain_map_identity_holds"]
+
     return {
         "self_test": "PASS",
         "shuffle_lengths_checked": [2 * n for n in range(1, 65)],
@@ -348,6 +668,10 @@ def self_test() -> dict[str, Any]:
         "voxel_reflections": vox,
         "parity_lattice_uniform_rules": parity_uniform,
         "parity_lattice_mixed_rules": parity_mixed,
+        "rotation_generator": rotation,
+        "rotation_parity_uniform_rules": uniform_rotation,
+        "rotation_parity_mixed_rules": mixed_rotation,
+        "uniform_cubical_chain_maps": cubical_chain,
         "scientific_limit": (
             "The Boolean generator is a parity-sublattice data transform, not "
             "an octant mesh refinement. No cubical incidence chain-map, FEEC "
