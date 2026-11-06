@@ -119,7 +119,7 @@ class PrismProductRefinement:
             raise ValueError("vertex must have five coordinates")
         if isinstance(axis, bool) or not isinstance(axis, (int, np.integer)) or not 0 <= int(axis) < DIMENSION:
             raise ValueError("axis must be an integer from 0 to 4")
-        if step not in (-1, 1):
+        if isinstance(step, bool) or step not in (-1, 1):
             raise ValueError("step must be -1 or 1")
         point = list(vertex)
         for j, (coordinate, length) in enumerate(zip(point, self.lengths)):
