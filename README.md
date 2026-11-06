@@ -45,6 +45,7 @@ theorem/
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
 - [Cleaned research notes and manuscript editorial register](manuscripts/README.md)
 - [XCont emergent-dynamics integration](manuscripts/XCONT_EMERGENT_DYNAMICS_INTEGRATION.md) — external cellular-automata, symbolic-billiard and graph-convolution methods mapped to PRISM/Q6 as testable research interfaces.
+  - X6 symbolic rotation coding: [model](models/prism_billiard_coding.py), [JSON runner](scripts/run_prism_billiard_coding.py), [tests](tests/test_prism_billiard_coding.py), [research note](manuscripts/X6_SYMBOLIC_BILLIARD_CODING.md).
   - Implemented: [PRISM CA engine](models/prism_cellular_automata.py), [rule/initial-state genetic search](models/prism_ca_evolution.py), [single-run CLI](scripts/run_prism_ca_evolution.py), [multi-seed benchmark](scripts/run_prism_ca_benchmark.py), [two-population co-evolution CLI](scripts/run_prism_ca_coevolution.py), [regression tests](tests/test_prism_cellular_automata.py) / [GA and co-evolution tests](tests/test_prism_ca_evolution.py), and [dedicated CI workflow](.github/workflows/prism-ca.yml).
 - [Inhomogeneous spin-chain model note](manuscripts/INHOMOGENEOUS_SPIN_CHAIN.md)
 - [Scalar–torsion variational identity](manuscripts/SCALAR_TORSION_VARIATIONAL_IDENTITY.md)
