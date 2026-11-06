@@ -428,13 +428,29 @@ The resulting construction has three logically separate maps:
 
 The 3D FEEC domain must be the actual orientable thickened cell complex with these transition rules, not the nonorientable mid-surface regarded as a 3D volume. Prove that the thickened cells have positive Jacobian in compatible local charts and that seam-related face traces agree. A Möbius mid-surface alone is not a 3D volume mesh.
 
-### 11.7. Named source and attribution status
+### 11.7. Corrected source identity and attribution boundary
 
-The project associates this repeated 2D-to-3D construction with **Sergy Gerasmioff**. The source identity and spelling are not independently established by the public-source search performed for this revision, and the repository search for Gerasmioff returned no matching file. Therefore:
-- retain the name as the user's source attribution and research lead;
-- do not claim that the equations above are a published Gerasmioff theorem until a primary source is located;
-- compare the original source line-by-line against the three maps and seam law above when it is available;
-- preserve any differences rather than silently replacing the historical construction with this algebraic reconstruction.
+The source meant by the project note is **Serhii Herasymov** (Medium handle
+\`@sergeygerasimofff\`, GitHub \`xcontcom\`). His public primary materials now
+inspected include the \`billiard-fractals\` and \`perfect-shuffle\` repositories
+and their companion articles. The documented repeated dimensional transitions
+are:
+- reflected 2D rectangular billiards \(\to\) 1D binary symbolic sequences;
+- symbolic floor/parity rules \(\to\) curved graph surfaces in \(\mathbb R^3\);
+- recursive 2D/3D perfect-shuffle operations \(\to\) 3D voxel fields and 2D slices.
+
+These are not the same formula as the \(W(G_2)\) cofactor/normal lift
+\(R_T\mapsto V_T\). The inspected Herasymov sources do **not** establish that
+he authored the \(W(G_2)\) triple construction, the \(Q_{G_2}\) Gram classes,
+or the RGS Möbius seam. Those formulas remain separate project constructions
+unless a further primary source explicitly connects them.
+
+The exact source-based integration, including the graph metric and the
+finite shuffle–billiard identity, is documented in
+[\`HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md\`](HERASYMOV_SYMBOLIC_GEOMETRY_INTEGRATION.md).
+The prior tentative spelling “Sergy Gerasmioff” is corrected; it must not be
+used as the bibliographic attribution.
+
 
 ### 11.8. Revised proof order
 
