@@ -68,7 +68,7 @@ This is a deliberately minimal symmetric coupling, not a literal port of XCont's
 
 Example:
 \`\`\`bash
-python -m scripts.run_prism_ca_coevolution --fixed-rule 0x... --population 6 --generations 3 --steps 6 --seed-a 2026 --seed-b 2027 --output prism_xor_coevolution.json
+python -m scripts.run_prism_ca_coevolution --fixed-rule 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 --population 6 --generations 3 --steps 6 --seed-a 2026 --seed-b 2027 --output prism_xor_coevolution.json
 \`\`\`
 
 Billiard coding and graph-convolution experiments remain pending.
