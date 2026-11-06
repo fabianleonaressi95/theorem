@@ -37,6 +37,7 @@ def test_audit_passes():
     result=audit()
     assert result["passed"]
     assert result["parity_action"].startswith("exchanges")
+    assert result["upper_lower_coordinate_boost_leakage"] > 1e-12
 
 
 def test_lorentz_generator_commutators():
