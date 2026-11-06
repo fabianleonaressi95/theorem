@@ -79,6 +79,10 @@ python test_consistent_mass.py
 ```
 
 
+## Golden / supergolden synthesis
+
+The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geometry, Mosco convergence, and the exact algebraic scale identities for the golden ratio and supergolden constant is in [PHI_PSI_FEEC_SYNTHESIS.md](docs/PHI_PSI_FEEC_SYNTHESIS.md). It distinguishes proved identities from candidate refinement laws and open convergence results.
+
 ## Independent mathematical audit
 
 A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
