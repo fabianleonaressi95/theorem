@@ -55,7 +55,7 @@ This is a finite exact combinatorial audit of the specified subgroup, not a proo
 
 ### X5: paired two-field co-evolution
 
-The first paired co-evolution implementation is in \`evolve_coupled_initial_states\`, with a dedicated [CLI](../scripts/run_prism_ca_coevolution.py) and regression tests. It evolves two independent populations of binary initial fields, each with its own random seed, while holding one local CA rule fixed.
+The first paired co-evolution implementation is in `evolve_coupled_initial_states`, with a dedicated [CLI](../scripts/run_prism_ca_coevolution.py) and regression tests. It evolves two independent populations of binary initial fields, each with its own random seed, while holding one local CA rule fixed.
 
 The coupling is explicit and synchronous:
 \[
@@ -67,9 +67,9 @@ Here \(F\) is the same fixed PRISM local rule for both fields, and \(\oplus\) is
 This is a deliberately minimal symmetric coupling, not a literal port of XCont's original two-field toroidal layout. The coupling map, partner averaging and fitness are fully declared so alternative maps can be compared without conflating them. The interaction reward is an experimental choice, not a physical interaction law. The full paired evaluation costs \(O(P^2)\) pair simulations per generation for population size \(P\), so start on reduced graphs.
 
 Example:
-\`\`\`bash
+```bash
 python -m scripts.run_prism_ca_coevolution --fixed-rule 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 --population 6 --generations 3 --steps 6 --seed-a 2026 --seed-b 2027 --output prism_xor_coevolution.json
-\`\`\`
+```
 
 Billiard coding and graph-convolution experiments remain pending.
 
