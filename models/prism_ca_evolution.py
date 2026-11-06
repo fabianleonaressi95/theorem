@@ -395,3 +395,169 @@ def evolve_initial_states(
             next_population.append(_mutate_state(child, config.mutation_rate, rng))
         population = next_population
     raise RuntimeError("unreachable")
+
+
+def _coupled_pair_metrics(
+    graph: PrismProductGraph,
+    initial_a: Sequence[int],
+    initial_b: Sequence[int],
+    fixed_rule: int,
+    steps: int,
+    fitness: FitnessConfig,
+) -> tuple[dict, dict, float]:
+    """Symmetric XOR-coupled fields; both updates use the other field at t.
+
+    A[t+1] = F(A[t]) XOR B[t], B[t+1] = F(B[t]) XOR A[t].
+    The interaction observable is the fraction of vertices where A[t] != B[t].
+    """
+    a, b = bytearray(initial_a), bytearray(initial_b)
+    densities_a, activities_a, boundaries_a = [], [], []
+    densities_b, activities_b, boundaries_b = [], [], []
+    interactions = []
+    edge_count = graph.vertex_count * graph.degree // 2
+    for _ in range(steps):
+        base_a = step(graph, a, fixed_rule)
+        base_b = step(graph, b, fixed_rule)
+        next_a = bytearray(x ^ y for x, y in zip(base_a, b))
+        next_b = bytearray(x ^ y for x, y in zip(base_b, a))
+        obs_a = observables(graph, a, next_a)
+        obs_b = observables(graph, b, next_b)
+        densities_a.append(sum(next_a) / graph.vertex_count)
+        activities_a.append(obs_a["temporal_activity"])
+        boundaries_a.append(obs_a["graph_dirichlet_energy"] / edge_count)
+        densities_b.append(sum(next_b) / graph.vertex_count)
+        activities_b.append(obs_b["temporal_activity"])
+        boundaries_b.append(obs_b["graph_dirichlet_energy"] / edge_count)
+        interactions.append(sum(x != y for x, y in zip(next_a, next_b)) / graph.vertex_count)
+        a, b = next_a, next_b
+
+    def score(densities, activities, boundaries):
+        if not densities:
+            densities = [sum(a) / graph.vertex_count]
+            activities, boundaries = [0.0], [0.0]
+        rho = sum(densities) / len(densities)
+        activity = sum(activities) / len(activities)
+        boundary = sum(boundaries) / len(boundaries)
+        value = (
+            fitness.activity_weight * activity
+            - fitness.density_weight * abs(rho - fitness.target_density)
+            - fitness.boundary_weight * boundary
+        )
+        return {
+            "score": value,
+            "mean_density": rho,
+            "mean_activity": activity,
+            "mean_boundary_fraction": boundary,
+        }
+
+    interaction = sum(interactions) / len(interactions) if interactions else (
+        sum(x != y for x, y in zip(a, b)) / graph.vertex_count
+    )
+    return score(densities_a, activities_a, boundaries_a), score(densities_b, activities_b, boundaries_b), interaction
+
+
+def evolve_coupled_initial_states(
+    graph: PrismProductGraph,
+    fixed_rule: int,
+    steps: int,
+    config_a: EvolutionConfig = EvolutionConfig(seed=2026, seed_elementary_rules=False),
+    config_b: EvolutionConfig = EvolutionConfig(seed=2027, seed_elementary_rules=False),
+    fitness: FitnessConfig = FitnessConfig(),
+    interaction_weight: float = 0.25,
+    initial_population_a: Sequence[Sequence[int]] | None = None,
+    initial_population_b: Sequence[Sequence[int]] | None = None,
+) -> dict:
+    """Co-evolve two independent populations under symmetric pointwise XOR coupling.
+
+    Every candidate is evaluated against every member of the opposing
+    population (mean opponent score), avoiding a single arbitrary pairing.
+    The fixed local CA rule is shared; each population has its own GA seed.
+    """
+    fixed_rule = validate_rule(fixed_rule)
+    config_a.validate()
+    config_b.validate()
+    fitness.validate()
+    if config_a.population_size != config_b.population_size:
+        raise ValueError("the two populations must have equal sizes for symmetric evaluation")
+    if config_a.generations != config_b.generations:
+        raise ValueError("the two populations must use the same generation count")
+    if isinstance(steps, bool) or not isinstance(steps, int) or steps < 0:
+        raise ValueError("steps must be a nonnegative integer")
+    if isinstance(interaction_weight, bool) or not isinstance(interaction_weight, (int, float)) or not isfinite(float(interaction_weight)) or interaction_weight < 0:
+        raise ValueError("interaction_weight must be finite and nonnegative")
+
+    rng_a, rng_b = random.Random(config_a.seed), random.Random(config_b.seed)
+    pop_a = _initial_population(graph, config_a, rng_a, initial_population_a)
+    pop_b = _initial_population(graph, config_b, rng_b, initial_population_b)
+    history = []
+    evaluations = 0
+
+    for generation in range(config_a.generations + 1):
+        matrix_a = [[None] * len(pop_b) for _ in pop_a]
+        matrix_b = [[None] * len(pop_b) for _ in pop_a]
+        interaction_matrix = [[0.0] * len(pop_b) for _ in pop_a]
+        for i, genome_a in enumerate(pop_a):
+            for j, genome_b in enumerate(pop_b):
+                ma, mb, interaction = _coupled_pair_metrics(
+                    graph, genome_a, genome_b, fixed_rule, steps, fitness
+                )
+                matrix_a[i][j], matrix_b[i][j] = ma, mb
+                interaction_matrix[i][j] = interaction
+                evaluations += 1
+
+        scores_a = [
+            sum(matrix_a[i][j]["score"] + interaction_weight * interaction_matrix[i][j]
+                for j in range(len(pop_b))) / len(pop_b)
+            for i in range(len(pop_a))
+        ]
+        scores_b = [
+            sum(matrix_b[i][j]["score"] + interaction_weight * interaction_matrix[i][j]
+                for i in range(len(pop_a))) / len(pop_a)
+            for j in range(len(pop_a))
+        ]
+        ranked_a = sorted(range(len(pop_a)), key=lambda i: (-scores_a[i], pop_a[i]))
+        ranked_b = sorted(range(len(pop_b)), key=lambda j: (-scores_b[j], pop_b[j]))
+        best_a, best_b = ranked_a[0], ranked_b[0]
+        history.append({
+            "generation": generation,
+            "population_a_best": scores_a[best_a],
+            "population_a_mean": sum(scores_a) / len(scores_a),
+            "population_b_best": scores_b[best_b],
+            "population_b_mean": sum(scores_b) / len(scores_b),
+            "best_pair_interaction_fraction": interaction_matrix[best_a][best_b],
+            "mean_pair_interaction_fraction": sum(map(sum, interaction_matrix)) / (len(pop_a) * len(pop_b)),
+            "population_a_best_metrics": matrix_a[best_a][best_b],
+            "population_b_best_metrics": matrix_b[best_a][best_b],
+        })
+        if generation == config_a.generations:
+            return {
+                "mode": "two_population_xor_coevolution",
+                "fixed_rule": fixed_rule,
+                "best_genome_a": list(pop_a[best_a]),
+                "best_genome_b": list(pop_b[best_b]),
+                "best_score_a": scores_a[best_a],
+                "best_score_b": scores_b[best_b],
+                "history": history,
+                "config_a": asdict(config_a),
+                "config_b": asdict(config_b),
+                "fitness_config": asdict(fitness),
+                "interaction": {
+                    "map": "A[t+1] = F(A[t]) XOR B[t]; B[t+1] = F(B[t]) XOR A[t]",
+                    "weight": float(interaction_weight),
+                    "evaluation": "each candidate averaged against every opponent in the other population",
+                },
+                "evaluations": evaluations,
+            }
+
+        def next_generation(population, scores, ranked, config, rng):
+            children = [population[i] for i in ranked[:config.elite_count]]
+            while len(children) < config.population_size:
+                pa = _tournament(population, scores, config.tournament_size, rng)
+                pb = _tournament(population, scores, config.tournament_size, rng)
+                child = _cross_state(pa, pb, rng)
+                children.append(_mutate_state(child, config.mutation_rate, rng))
+            return children
+
+        pop_a = next_generation(pop_a, scores_a, ranked_a, config_a, rng_a)
+        pop_b = next_generation(pop_b, scores_b, ranked_b, config_b, rng_b)
+    raise RuntimeError("unreachable")
