@@ -93,3 +93,18 @@ def test_rotation_mode_bit_three_changes_scalar_action_not_coordinates():
     report = MODULE.audit_rotation_generator(size=3)
     assert report["bit3_preserves_coordinates"]
     assert report["bit3_toggles_increment_rule"]
+
+
+def test_uniform_signed_permutations_induce_cubical_chain_automorphisms():
+    report = MODULE.audit_uniform_cubical_chain_maps(size=2)
+    assert report["distinct_signed_permutation_maps"] == 32
+    assert report["chain_map_identity_holds"]
+    assert report["orientation_determinants"] == {"+1": 16, "-1": 16}
+    assert all(int(report["cells_checked_by_degree_across_all_maps"][str(k)]) > 0
+               for k in range(4))
+
+
+def test_uniform_cubical_chain_audit_scales_to_larger_fixed_grid():
+    report = MODULE.audit_uniform_cubical_chain_maps(size=3)
+    assert report["chain_map_identity_holds"]
+    assert report["distinct_signed_permutation_maps"] == 32
