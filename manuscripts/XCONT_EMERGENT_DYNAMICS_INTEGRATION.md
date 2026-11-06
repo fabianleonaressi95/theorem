@@ -58,28 +58,28 @@ The last command uses the all-zero rule only as an interface smoke test; it is n
 ### 3.1 Fixed graph
 
 Use the existing finite product graph
-[
-G_{m PRISM}=C_{64}square C_6square C_6square C_6square C_5,
-qquad |V|=69120,qquad deg(G)=10.
-]
+\[
+G_{m PRISM}=C_{64}\square C_6\square C_6\square C_6\square C_5,
+\qquad |V|=69120,\qquad \deg(G)=10.
+\]
 At refinement level (r), use
-[
-G_r=C_{64r}square C_{6r}^{square 3}square C_{5r},
-qquad |V_r|=69120r^5.
-]
+\[
+G_r=C_{64r}square C_{6r}^{\square 3}\square C_{5r},
+\qquad |V_r|=69120r^5.
+\]
 The first computational prototype should use small test graphs or a reduced quotient before attempting a full population search on 69,120 vertices.
 
 ### 3.2 Local rule convention
 
 Fix an explicit ordering of the ten neighbours:
-[
-(v- e_1,v+e_1,ldots,v-e_5,v+e_5).
-]
-For binary states (x_v(t)in{0,1}), define
-[
-x_v(t+1)=F_	hetaigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),ldots,
+\[
+(v-e_1,v+e_1,\ldots,v-e_5,v+e_5).
+\]
+For binary states \(x_v(t)\in\{0,1\}\), define
+\[
+x_v(t+1)=F_	hetaigl(x_v(t),x_{v-e_1}(t),x_{v+e_1}(t),\ldots,
 x_{v-e_5}(t),x_{v+e_5}(t)igr).
-]
+\]
 A completely general deterministic Boolean rule has (2^{11}=2048) output bits, because the local input contains the central state and ten oriented neighbour states. This is not the 512-bit Moore rule used in the external 2D project: the neighbourhood and rule-space dimension differ.
 
 The ordering is part of the model. Unless the rule is constrained to be invariant under coordinate reflections/permutations, it can distinguish directions and break graph automorphisms. A symmetry-restricted rule family should therefore be a separate experiment, not silently assumed.
@@ -98,15 +98,15 @@ The initial XCont-style genetic algorithm is an optimization heuristic. It does 
 
 ### 3.4 Fitness must be an explicit functional
 
-For a trajectory (x(0),ldots,x(T)), candidate diagnostics include:
-[
+For a trajectory \(x(0),\ldots,x(T)\), candidate diagnostics include:
+\[
 ho_t=rac1{|V|}sum_v x_v(t),qquad
 a_t=rac1{|V|}sum_v |x_v(t+1)-x_v(t)|,
-]
-[
+\]
+\[
 mathcal E_G(t)=x(t)^	op L_Gx(t)
-=sum_{{v,w}in E}(x_v(t)-x_w(t))^2.
-]
+=\sum_{\{v,w\}\in E}(x_v(t)-x_w(t))^2.
+\]
 Here (ho_t) is density, (a_t) is temporal activity, and (mathcal E_G) is the graph Dirichlet energy. Other measurable targets may include period, recurrence, component counts, correlation functions, and the distribution of activity across the five coordinate directions.
 
 A fitness objective must state its target and normalization. For example, maximizing activity alone can select noisy or unstable rules; maximizing low Dirichlet energy alone can select constant configurations. Multi-objective or constrained fitness should report all component scores rather than hide them in one opaque scalar.
@@ -117,25 +117,25 @@ Two experiments must remain distinct:
 1. **Rule search:** vary (	heta), hold the initial-state distribution and graph fixed.
 2. **Initial-state search:** hold (	heta) fixed, evolve (x(0)).
 
-A third, paired experiment may use two fields (A,B) whose fitnesses depend on each other's measured response, inspired by the co-evolutionary project. The coupling map and boundary identification must be stated explicitly. The external project's two-field toroidal construction is not automatically identical to the PRISM graph or to the PSU biverse.
+A third, paired experiment may use two fields \(A,B\) whose fitnesses depend on each other's measured response, inspired by the co-evolutionary project. The coupling map and boundary identification must be stated explicitly. The external project's two-field toroidal construction is not automatically identical to the PRISM graph or to the PSU biverse.
 
 ## 4. Second integration: symbolic billiards and irrational discretization
 
 The relevant mathematical object is a coding of a dynamical system, not the appearance of a fractal image.
 
 A basic calibration is the irrational circle rotation
-[
-T_alpha(x)=x+alphapmod 1,qquad alpha
-otinmathbb Q,
-]
+\[
+T_\alpha(x)=x+\alpha\pmod 1,\qquad \alpha
+\notin\mathbb{Q},
+\]
 with a declared partition, for example
-[
-s_n(x)=mathbf 1_{[0,1-alpha)}(T_alpha^n x).
-]
+\[
+s_n(x)=\mathbf{1}_{[0,1-\alpha)}(T_\alpha^n x).
+\]
 This produces a binary symbolic sequence. Rational approximants (p_k/q_k	oalpha) give periodic comparison sequences. The programme should compare:
 - symbolic word frequencies and complexity;
 - return times and periodic approximants;
-- finite-cycle discretizations (C_n);
+- finite-cycle discretizations \(C_n\);
 - projections or coordinate codings on Q6 and PRISM;
 - dependence on the partition boundary and initial phase.
 
@@ -146,18 +146,18 @@ For genuine billiards, the phase space, collision map, boundary conditions, inva
 ## 5. Third integration: CA versus convolution as graph operators
 
 A convolutional update on a graph can be written as
-[
-u^{t+1}=sigma(K_artheta u^t),
-]
-where (K_artheta) is an explicitly defined graph filter, such as a polynomial in adjacency or Laplacian:
-[
-K_artheta=sum_{j=0}^{m}c_j L_G^j.
-]
+\[
+u^{t+1}=sigma(K_\vartheta u^t),
+\]
+where (K_\vartheta) is an explicitly defined graph filter, such as a polynomial in adjacency or Laplacian:
+\[
+K_\vartheta=sum_{j=0}^{m}c_j L_G^j.
+\]
 A Boolean CA update is instead a local nonlinear map on a finite neighbourhood. These systems can be compared through:
 - support/radius of dependence;
 - symmetries and equivariance under graph automorphisms;
 - linearization around fixed points where defined;
-- spectral response of (K_artheta);
+- spectral response of (K_\vartheta);
 - stability, periodic orbits and attractors;
 - continuum scaling under a specified refinement.
 
