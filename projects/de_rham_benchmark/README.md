@@ -100,12 +100,26 @@ Run the synthetic self-test:
 python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py --self-test
 ```
 
-Run the full audit after supplying the historically selected triplettes in JSON
-(the script intentionally does not invent the 216-element selection):
+Run the full built-in audit. The program generates the order-12 Weyl group,
+its six-element short-root orbit, all 216 ordered triplettes, and the 20 exact
+Gram/Weyl classes. Supply only the geometric parameters:
+
+```json
+{
+  "rho": 1.465571231876768,
+  "alpha_star": 0.7,
+  "mobius_levels": [1, 2, 3, 4, 5, 6]
+}
+```
+
+Save this as `g2_parameters.json`, then run:
 
 ```bash
-python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py triples.json --output audit_report.json
+python projects/de_rham_benchmark/audits/audit_g2_mobius_lift.py g2_parameters.json --output audit_report.json
 ```
+
+The sine formula for `alpha(rho)` is explicitly marked as a candidate interpolation;
+the audit does not claim it is derived from the Weyl group.
 
 The report checks (R_Tc_T=0), rank completion, the determinant identity,
 positive definiteness, planar Gram classes, and the two-sided Möbius boundary
