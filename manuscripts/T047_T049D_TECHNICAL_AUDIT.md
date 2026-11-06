@@ -45,7 +45,7 @@
 
 ### T049D — Lorentzian chirality
 
-- Found a demonstrable convention error in the boost generator: the original script/theorem omitted the factor \(i\) in the Hermitian-commutator convention. This gave the wrong sign in the boost-boost commutator.
+- Found a demonstrable convention error in the boost generator: the original script/theorem omitted the factor \(i\) in the stated commutator convention \([J_i,J_j]=i\epsilon_{ijk}J_k\). This gave the wrong sign in the boost-boost commutator.
 - Corrected the four-component generator to \(\mathcal K_i=\tfrac{i}{2}\gamma^0\gamma^i\), the induced Weyl generator to \(K_i^{(s)}=-\tfrac{i s}{2}\sigma_i\), and the explicit block matrix accordingly.
 - Added regression tests for
   \[
