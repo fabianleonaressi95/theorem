@@ -136,9 +136,9 @@ def step(graph: PrismProductGraph, state: Sequence[int], rule: int) -> bytearray
 def trajectory(graph: PrismProductGraph, initial: Sequence[int], rule: int, steps: int) -> list[bytearray]:
     if isinstance(steps, bool) or not isinstance(steps, int) or steps < 0:
         raise ValueError("steps must be a nonnegative integer")
-    current = bytearray(initial)
-    if len(current) != graph.vertex_count or any(not _is_bit(v) for v in current):
+    if len(initial) != graph.vertex_count or any(not _is_bit(v) for v in initial):
         raise ValueError("initial state must be a binary vector of graph vertex count")
+    current = bytearray(initial)
     result = [current]
     for _ in range(steps):
         current = step(graph, current, rule)
