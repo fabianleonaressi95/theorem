@@ -241,6 +241,16 @@ where `p` is the zero-based position of the removed axis in the increasing tuple
 In one dimension, the degree-zero nodal basis \((1-x,x)\) has derivatives \((-dx,+dx)\), so the oriented edge incidence row is \((-1,+1)\), which is exactly what the implementation constructs. In higher dimensions, the increasing `vary` tuple used by `face_dofs` fixes the same ordered tangent orientation; the alternating facet sign in `mesh.py` is the boundary orientation induced by that ordered basis.
 
 Consequently the earlier claim that the stored incidence matrices were the negative of the FEEC differential was a stale/source-reading error: the audit document had an extra minus sign in its transcription of the code formula. No sign flip or degree-dependent reorientation is warranted. The exact face-integral interpolator commutes with the incidence differential by Stokes' theorem, provided the geometric cell maps have matching traces and the integrals are evaluated exactly. The implemented Gauss quadrature gives a numerical approximation to those integrals, so the regression commutator remains a quadrature-level check rather than a proof of exact integration for arbitrary non-polynomial data.
+## 7. Mandatory orientation audit before FEEC theorem claims
+
+The independent source audit records a sign mismatch between the incidence convention in ddr/mesh.py and the ordered-coordinate FEEC basis convention. In one dimension, for basis (1-x,x) and positive edge orientation dx, the standard differential has row (-1,+1); the current stored convention was reported as (+1,-1). The identity D^{k+1}D^k=0 and quadratic Hodge energies do not detect a global sign reversal.
+
+Before asserting the commuting FEEC diagram d_h π_h=π_h d, the repository must adopt one convention consistently:
+
+1. use the standard coordinate orientation and incidence coefficient (-1)^p(2s-1); or
+2. retain the current incidence matrices and explicitly modify all degree-k face orientations/basis degrees of freedom by the corresponding degree-dependent sign.
+
+The choice must be made in code, tests, and documentation together. Until then, the chain identity and the FEEC commuting statement must be reported separately.
 
 ## 8. Reproducible checks and their logical scope
 
