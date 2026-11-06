@@ -38,6 +38,15 @@ def test_vertex_coordinates_match_key_order():
                 assert abs(vc[vid, a] - c / mesh.Ns[a]) < 1e-12
 
 
+def test_incidence_orientation_matches_coordinate_boundary():
+    # In 1D, d(1-x)=-dx and d(x)=+dx. The unique positively
+    # oriented edge therefore has incidence row (-1,+1).
+    mesh = CubicalMesh(N=1, dim=1)
+    row = mesh.dmat[0].toarray()
+    assert row.shape == (1, 2)
+    np.testing.assert_array_equal(row[0], np.array([-1, 1]))
+
+
 def test_commutator_exact_polynomial():
     mesh, geo, M = _setup()
     f0 = _poly_form(2)
