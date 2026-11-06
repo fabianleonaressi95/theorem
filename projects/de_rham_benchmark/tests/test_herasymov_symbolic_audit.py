@@ -40,3 +40,30 @@ def test_all_boolean_3d_reflections_are_bijections():
     report = MODULE.audit_voxel_reflections(3)
     assert report["all_coordinate_maps_bijective"]
     assert len(report["modes"]) == 16
+
+
+def test_boolean_generator_uses_parity_sublattices_not_octants():
+    # The source chooses drawar[dz][dy][dx] from output-index parity.
+    rules = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
+    for dz in range(2):
+        for dy in range(2):
+            for dx in range(2):
+                coord, complement = MODULE.parity_lattice_source_index(
+                    rules, dx, dy, dz, 3
+                )
+                assert coord == (0, 0, 0)
+                assert complement is False
+
+
+def test_uniform_rules_give_a_well_defined_parent_to_child_coordinate_map():
+    report = MODULE.audit_parity_lattice_refinement(size=3)
+    assert report["interpretation"] == "eight parity sublattices, not eight contiguous octants"
+    assert report["geometric_refinement_map_for_arbitrary_data"]
+    assert report["max_source_index_edge_l1_jump"] <= 1
+
+
+def test_mixed_reflection_rules_do_not_define_one_geometric_refinement_map():
+    rules = [[[0, 5], [3, 6]], [[1, 4], [2, 7]]]
+    report = MODULE.audit_parity_lattice_refinement(rules, size=3)
+    assert not report["all_eight_children_share_one_source_coordinate"]
+    assert not report["geometric_refinement_map_for_arbitrary_data"]
