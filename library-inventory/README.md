@@ -15,7 +15,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `2609.14436v1.pdf` | Francesco Giacosa, *From breakfast, lunch, and dinner to the Bell-inequality tetrahedron* | Preprint su Bell |
 | `2607.02548v1.pdf` | CUORE Collaboration, *CUORE Data Release for ML Applications: Pulse Shape Analysis Dataset* | Data paper |
 | `6C327780-9757-11F1-B073-A321D90D784C.pdf` | Jennifer L. Nielsen, *The Topological Unified Field Theory on the Complex Hopf Fibration* (2025) | Manoscritto/sottomissione non validata |
-| `NVM_Manuscript_October_2026.pdf` | Manoscritto NVM, ottobre 2026 | Manoscritto interno/candidato |
+| `NVM_Manuscript_October_2026.pdf` | Manoscritto esterno di Michael Blasco, ottobre 2026 | Modello candidato esterno; nessuna soluzione localizzata confermata o corrispondenza fisica stabilita nel testo esaminato; peer review non verificata |
 | `NVM Model Research Proposal Collaboration Brief.pdf` | Proposta di collaborazione NVM | Documento di progetto |
 | `preprints202503.1040.v1.pdf` | Rajaganapathy Lingeswaran, *The Vibrational Fabric of the Universe* (2025) | Preprint non peer-reviewed |
 | `quantum-geometry-conserves-baryon-symmetrythe-matterantimatter-universe.pdf` | Gary Barham, Christine van Blokland (2024) | Articolo non standard |
@@ -24,7 +24,7 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `Transcendental_Collapse_to_the_Golden_Ma.pdf` | *Transcendental Collapse to the Golden Master Equation* | Documento composito/sintesi |
 | `IL-CAMBIO-DERA-David-Wilcock.pdf` | David Wilcock, *Il Cambio d'Era* | Libro/divulgazione speculativa |
 | `main.pdf` | Harrabi–Naressi, *Human Design as a Geometric Coding Layer...* (2026) | Manoscritto del programma correlato, non legge fisica |
-| `DOC-20260719-WA0012.` | Fabian Leo Naressi, *Computational Analysis of the Naressi Law: Holistic Renormalization, Quasicrystalline Networks, and High-Voltage Pulse Optimization* (8 pp.; Library upload 28 Sep 2026) | Manoscritto di ricerca; modello TFIM inhomogeneo e applicazioni proposte. Non è una dimostrazione del mass gap Yang–Mills né prova di rimozione delle divergenze UV |
+| `DOC-20260719-WA0012.` | Fabian Leo Naressi, *Computational Analysis of the Naressi Law: Holistic Renormalization, Quasicrystalline Networks, and High-Voltage Pulse Optimization* (8 pp.; Library upload 28 Sep 2026) | Nota interna non peer-reviewed; conservare soltanto l'ansatz di accoppiamento come modello di catena inhomogenea. Le conclusioni UV/RG, Yang–Mills, localizzazione e ottimizzazione non sono dimostrate |
 
 ## Manoscritti, note e documenti tecnici interni
 | File Library | Contenuto verificato | Natura e stato |
@@ -40,13 +40,16 @@ Questo registro conserva i nomi originali dei file e il loro stato di classifica
 | `soluzione.pdf` | Raccolta di output e derivazioni su wormhole RGS–EMS, Q6/Seeley–DeWitt, biverso e Mosco, con tabelle spettrali e stime QNM | Dossier composito di lavoro; non trattare come singolo articolo né come dimostrazione unitaria |\n| `yess.pdf` | Manoscritto tecnico su fibrato 6D, decomposizione 6+9 delle 2-forme tramite tensore fondamentale, operatore anisotropo di gauge, accoppiamento Yang/Yin, neutrini e mixing PMNS/CKM | Manoscritto teorico interno RGS–PSU; algebra e covarianza da verificare indipendentemente, derivazioni fenomenologiche non validate |
 | `f66e.9908.file.pdf` | Relazioni tra simmetria EPR, tensori g/A e gruppi puntuali; spettri EPR di sistemi disordinati | Materiale didattico/tecnico su EPR e paramagnetismo; fonte bibliografica originaria da identificare |
 | `formule.pdf` | Dump di matrici 188×188, manifest e risultati JSON dell'audit 188D | Archivio tecnico di calcolo, non pubblicazione |
-| `FORMULAZIONE.pdf` | Formulazione teleparallela/scalare-tensore | Documento interno da collegare al manoscritto pertinente |
+| `FORMULAZIONE.pdf` | Compilazione esplorativa teleparallela/scalare-tensore | Non è un paper né una soluzione verificata; usare la sola identità variazionale recuperata in [SCALAR_TORSION_VARIATIONAL_IDENTITY.md](../manuscripts/SCALAR_TORSION_VARIATIONAL_IDENTITY.md), mantenendo il PDF come fonte storica |
 | `Morfodinamica_Quantistica_Nota_Introduttiva.pdf` | Nota introduttiva RGS | Documento interno |
 | `Architettura_scientifica_RGS_PRISM_programma_integrato.docx` | Architettura del programma RGS–PRISM | Documento di progetto |
 | `RGS_PSU_derivazione_audit_corretta.md`, `RGS_PSU_EMS_throat_derivation.md`, `INSERTO_MONOGRAFIA_NS_GAUGE.md` | Derivazioni e inserti interni | Materiali di lavoro, non fonti indipendenti |
 
-## Da identificare
-Restano da esaminare gli eventuali duplicati o varianti di `Documento senza titolo`. Per `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf` e `soluzione.pdf` il contenuto è stato esaminato e la classificazione è riportata sopra; non è stato ricostruito un titolo editoriale perché sono dossier/estratti interni.
+## Stato editoriale e file esclusi dalla sezione Papers
+- `FORMULAZIONE.pdf` e `DOC-20260719-WA0012.` non sono pubblicazioni scientifiche validate. Le sole parti recuperabili sono state riscritte in note Markdown autonome nella directory `manuscripts/`.
+- `NVM_Manuscript_October_2026.pdf` è un manoscritto esterno, non un documento interno RGS e non un risultato del programma.
+- I dossier `array.pdf`, `risultati.pdf`, `siii.pdf`, `siiiiii.pdf`, `soluzione.pdf`, `nuovo.pdf` e `formule.pdf` restano materiali tecnici/provenance; non vanno presentati come articoli.
+- Restano da esaminare gli eventuali duplicati o varianti di `Documento senza titolo`.
 
 ## Criterio di catalogazione
 Le pubblicazioni esterne, i capitoli in volumi collettanei, le review, le survey, le tesi, i manoscritti, le bibliografie interne, i documenti di progetto e gli output computazionali sono classi distinte. Una formula presente in una nota interna non diventa un teorema dimostrato per il solo fatto di essere scritta in forma matematica.
