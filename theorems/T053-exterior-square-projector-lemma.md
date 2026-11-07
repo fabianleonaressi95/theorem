@@ -52,12 +52,21 @@ P_++P_-=I.
 \]
 Symmetry of \(A\) gives symmetry of both projectors. By the spectral theorem, the eigenvalues of \(A\) are \(\pm1\), and \(P_\pm\) project onto the corresponding eigenspaces. Their ranks are therefore the respective multiplicities. \(\square\)
 
-## 4. Crucial conditional status
+## 4. Source-specific matrix audit and status
 
-This theorem does **not** verify that a particular proposed \(C_6\) produces a symmetric \(C_{15}\) with \(C_{15}^2=25I\). Those are hypotheses to be checked from the exact matrix entries, preferably with exact arithmetic or certified bounds.
+The source PDF `yess.pdf` supplies Python code constructing a particular icosahedral adjacency matrix, (C_6), and its exterior-square matrix (C_{15}); it also prints a **rounded floating-point eigenspectrum** ({-5^{(9)},+5^{(6)}}). It does not display exact-arithmetic certificates or explicit symmetry/square residual checks. The printed spectrum alone is not an exact proof.
 
-It also does not prove that either image is irreducible under a group action. If a representation \(\rho\) is supplied and \(P_\pm\) commute with every \(\rho(g)\), their images are invariant subspaces; irreducibility requires an additional argument (for example, character inner products or a commutant calculation).
+An independent exact reconstruction is available in [`audits/audit_t053_exterior_square.py`](../audits/audit_t053_exterior_square.py). Using standard icosahedral coordinates with exact (sqrt5), exact nearest-neighbor adjacency, and rational/algebraic arithmetic, it verifies for that particular source-derived matrix:
+- (C_6=C_6^mathsf T);
+- the minor formula for (Lambda^2 C_6) agrees with the direct wedge action;
+- (C_{15}=C_{15}^mathsf T) and (C_{15}^2=25I_{15}) exactly;
+- (operatorname{charpoly}(C_{15})=(lambda-5)^6(lambda+5)^9);
+- the projector identities and exact ranks (6) and (9).
 
-No curvature, bundle connection, Yang–Mills field equation, or relation to the \(Q_6\) cell complex follows from this matrix lemma.
+This exact audit is a **repository-side reconstruction**, not a claim that the PDF itself supplied those exact checks. The abstract theorem above remains conditional for arbitrary (C_6); the particular source-derived matrix is one verified instance.
+
+## 5. Remaining limitations
+
+Neither the theorem nor the matrix audit verifies the PDF's proposed (2I^*)-equivariance: explicit representation matrices and the intertwinement relation must be supplied and checked. In particular, invariant-subspace status does not imply irreducibility; the 6-dimensional sector still requires a character or commutant argument. No curvature, bundle connection, Yang–Mills field equation, or relation to the (Q_6) cell complex follows from this matrix lemma.
 
 **Source:** [consolidated audit of the exploratory exterior-square PDF](../manuscripts/FOUR_PDF_CONSOLIDATED_AUDIT.md).
