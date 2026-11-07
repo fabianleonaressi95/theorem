@@ -98,7 +98,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T050](theorems/T050-geometric-spin-chain-bounds.md) | Geometric spin-chain summability and operator bound | Exact geometric-series identity and uniform-in-chain-length bound for the exchange part of the stated finite Hamiltonian. |
 | [T051](theorems/T051-crank-nicolson-unitarity.md) | Crank–Nicolson unitarity | Norm preservation for a fixed finite-dimensional Hermitian Hamiltonian; no coupled-energy or breather claim. |
 | [T052](theorems/T052-scalar-torsion-variation.md) | Scalar variation of a scalar–torsion action | Conditional Euler–Lagrange identity for the explicitly displayed action with geometry held fixed. |
-| [T053](theorems/T053-exterior-square-projector-lemma.md) | Exterior-square projector lemma | Conditional linear-algebra theorem assuming symmetry and the exact quadratic matrix identity; no group irreducibility claim. |
+| [T053](theorems/T053-exterior-square-projector-lemma.md) | Exterior-square projector lemma | Conditional abstract theorem; exact source-derived (C_6/C_{15}) matrix check in [audit](audits/audit_t053_exterior_square.py); group equivariance/irreducibility remain unverified. |
 | [T054](theorems/T054-static-radial-klein-gordon.md) | Static radial Klein–Gordon reduction | Exact reduction for a minimally coupled static radial scalar on the stated spherical metric ansatz. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
