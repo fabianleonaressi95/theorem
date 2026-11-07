@@ -13,7 +13,7 @@ S_\phi=\int_M d^4x\,e\left[
 -\frac12g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi
 -V(\phi)\right].
 \]
-Throughout, \\(\\nabla\\) is the Levi-Civita derivative of \\(g\\), not the teleparallel connection; thus \\(\\nabla_\\mu T^\\mu=e^{-1}\\partial_\\mu(eT^\\mu)\\). The scalar d'Alembertian convention is \\(\\Box=g^{\\mu\\nu}\\nabla_\\mu\\nabla_\\nu=\\nabla_\\mu\\nabla^\\mu\\). Assume variations \(\delta\phi\) are compactly supported. The geometric variables and torsion fields are held fixed.
+Throughout, \(\nabla\) is the Levi-Civita derivative of \(g\), not the teleparallel connection; thus \(\nabla_\mu T^\mu=e^{-1}\partial_\mu(eT^\mu)\). The scalar d'Alembertian convention is \(\Box=g^{\mu\nu}\nabla_\mu\nabla_\nu=\nabla_\mu\nabla^\mu\). Assume variations \(\delta\phi\) are compactly supported. The geometric variables and torsion fields are held fixed.
 
 ## 2. Theorem
 
