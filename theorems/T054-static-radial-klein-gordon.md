@@ -5,12 +5,12 @@
 
 ## 1. Setting
 
-Consider the four-dimensional static, spherically symmetric metric
+Consider the four-dimensional static, spherically symmetric metric on a radial interval \(I\)
 \[
 ds^2=-N(u)^2dt^2+du^2+R(u)^2
-(d\theta^2+\sin^2\theta\,d\phi^2),
+(d\theta^2+\sin^2\theta\,d\varphi^2),
 \]
-where \(N(u)>0\) and \(R(u)>0\). Let a real scalar field be minimally coupled with action
+where \(N,R\in C^1(I)\) and \(N(u)>0\), \(R(u)>0\) on \(I\). Here \(\theta\in(0,\pi)\) and \(\varphi\) is the usual azimuthal coordinate, distinct from the scalar field \(\phi\). Let \(\phi\in C^2(I)\) be a real scalar field and assume \(V\in C^1(\mathbb R)\). It is minimally coupled with action
 \[
 S_\phi=-\int d^4x\,\sqrt{|g|}
 \left[\frac12g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi+V(\phi)\right].
@@ -27,9 +27,10 @@ The Euler–Lagrange equation \(\Box_g\phi-V'(\phi)=0\) reduces to
 
 ## 3. Proof
 
-For the metric above,
+For the metric above, \(\det g=-N^2R^4\sin^2\theta\), so
 \[
-\sqrt{|g|}=NR^2\sin\theta,\qquad g^{uu}=1.
+\sqrt{|g|}=NR^2|\sin\theta|=NR^2\sin\theta
+\quad(0<\theta<\pi),\qquad g^{uu}=1.
 \]
 For a scalar,
 \[
