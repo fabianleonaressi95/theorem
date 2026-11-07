@@ -29,9 +29,10 @@ The defensible identities have been promoted to standalone theorem records in th
 - [T051 — Crank–Nicolson unitarity for a fixed Hermitian Hamiltonian](../theorems/T051-crank-nicolson-unitarity.md)
 - [T052 — Scalar Euler–Lagrange equation for the displayed scalar–torsion action](../theorems/T052-scalar-torsion-variation.md)
 - [T053 — Conditional exterior-square projector lemma](../theorems/T053-exterior-square-projector-lemma.md)
+- [Exact T053 source-matrix audit](../audits/audit_t053_exterior_square.py) — exact check for the one icosahedral (C_6/C_{15}) construction, not a group-equivariance or irreducibility proof.
 - [T054 — Static radial Klein–Gordon reduction](../theorems/T054-static-radial-klein-gordon.md)
 
-Each record states its hypotheses, proof and non-conclusions. In particular, T053 is conditional on matrix identities not certified by the source PDF.
+Each record states its hypotheses, proof and non-conclusions. T053 remains a conditional abstract lemma. The source PDF provides construction code and a rounded eigenspectrum; the exact symmetry and square-identity checks for its specific icosahedral matrix are reproduced separately in the repository audit script, not attributed to the PDF. Group equivariance and irreducibility remain unverified.
 
 ## Critical audits and source provenance
 
