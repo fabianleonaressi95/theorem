@@ -8,10 +8,12 @@ on:
       - 'scripts/compare_rgs_defect_solvers.py'
       - 'scripts/rgs_airy_reference.py'
       - 'scripts/q6_prism_kinematic_map.py'
+      - 'scripts/rgs_periodic_q6_fem_airy.py'
       - 'tests/test_rgs_airy_reference.py'
       - 'tests/test_rgs_defect_benchmark.py'
       - 'tests/test_rgs_cochain_defect_benchmark.py'
       - 'tests/test_q6_prism_kinematic_map.py'
+      - 'tests/test_rgs_periodic_q6_fem_airy.py'
       - '.github/workflows/rgs-defect-benchmark.yml'
   workflow_dispatch:
 
@@ -41,6 +43,11 @@ jobs:
           mkdir -p artifacts/q6_prism_kinematic
           python -m unittest discover -s tests -p 'test_q6_prism_kinematic_map.py' -v
           python scripts/q6_prism_kinematic_map.py > artifacts/q6_prism_kinematic/report.json
+      - name: Run periodic Q6 / FEM / Airy comparison
+        run: |
+          mkdir -p artifacts/periodic_q6_fem_airy
+          python -m unittest discover -s tests -p 'test_rgs_periodic_q6_fem_airy.py' -v
+          python scripts/rgs_periodic_q6_fem_airy.py --out artifacts/periodic_q6_fem_airy
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
         with:
@@ -50,5 +57,6 @@ jobs:
             artifacts/rgs_defect_comparison/
             artifacts/rgs_airy_comparison/
             artifacts/q6_prism_kinematic/
+            artifacts/periodic_q6_fem_airy/
 
 # Full regression rerun after periodic Q1 Gauss-energy and Airy source-alignment fixes.
