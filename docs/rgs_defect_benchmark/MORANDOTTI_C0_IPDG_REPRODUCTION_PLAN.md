@@ -367,3 +367,23 @@ The next refinement completed successfully: [run 42669942733](https://github.com
 All six decrease. The maximum residual falls from 0.08035 to 0.04120 (48.7%); the mean falls from 0.03979 to 0.02149 (46.0%). The value-trace residuals remain at approximately 10^-16. The two interaction matrices remain symmetric to assembly precision and positive definite: min eig(M_H)=6.41319, min eig(M_Delta)=6.41975; cond(M_H)=52.965. The full discrete flux identity residual is 3.98e-10 and total-flux symmetry residual is 1.37e-7.
 
 **Updated assessment:** the two-core finite-mesh boundary residuals now decrease for all six core/mode conditions across the two finest refinements (h=0.055 to 0.04). This is stronger numerical evidence than the previous single fine-level observation, but it is not a theorem, a measured asymptotic order, or a proof of convergence for arbitrary geometry/core count. The next useful gate is an additional h refinement with unchanged formulation, plus a manufactured off-centre reference or independent cross-check before generalizing the reconstruction.
+
+
+### 16.4 Further refinement h=0.03: all six normal residuals continue to decrease
+
+The dedicated two-core workflow completed successfully: [run 42670274940](https://github.com/fabianleonaressi95/theorem/actions/runs/42670274940), artifact [13698426566](https://github.com/fabianleonaressi95/theorem/actions/runs/42670274940/artifacts/13698426566). The new mesh contains 8,212 triangles and 37,346 P3 degrees of freedom. The six active-core normal residuals are:
+
+| core/mode | h=0.04 | h=0.03 |
+|---|---:|---:|
+| core 0, mode 0 | 0.039586 | 0.019257 |
+| core 0, mode 1 | 0.014225 | 0.006536 |
+| core 0, mode 2 | 0.011058 | 0.005854 |
+| core 1, mode 0 | 0.041203 | 0.018958 |
+| core 1, mode 1 | 0.012739 | 0.006589 |
+| core 1, mode 2 | 0.010102 | 0.005335 |
+
+All six residuals decrease again. The maximum falls from 0.041203 to 0.019257 (53.3%); the mean falls from 0.021485 to 0.010421 (51.5%). The core value residuals remain at approximately 10^-16.
+
+At h=0.03, both 6×6 interaction matrices are symmetric to assembly precision and positive definite: min eig(M_H)=6.441974, min eig(M_Delta)=6.446125; cond(M_H)=53.3163 and cond(M_Delta)=53.3502. The full discrete flux identity residual is 6.10e-11; total-flux symmetry residual is 1.41e-8.
+
+**Updated assessment:** the six normal residuals now decrease consistently over the two latest refinements, h=0.055 → 0.04 → 0.03, with no change to the formulation. This supports a stable fine-mesh numerical trend for this fixed two-core geometry. It still does not establish an asymptotic convergence theorem or validate arbitrary-N reconstruction: there is no analytic off-centre field error, no singular-core limit, no dynamics and no material calibration. The next decisive independent check is a manufactured/reference solution or a second implementation on the same two-core geometry.
