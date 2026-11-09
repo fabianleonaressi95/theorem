@@ -24,7 +24,7 @@ import numpy as np
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
 
-def square_complex(n: int):
+def square_complex(n: int, diagonal: str='sw_ne'):
     """Return vertices, unique oriented edges, faces and integer incidences."""
     h=1.0/(n-1)
     xy=np.array([(i*h,j*h) for j in range(n) for i in range(n)],float)
@@ -34,16 +34,20 @@ def square_complex(n: int):
         for i in range(n-1): edges.append((v(i,j),v(i+1,j)))
     for j in range(n-1):
         for i in range(n): edges.append((v(i,j),v(i,j+1)))
-    # Add the SW-NE diagonal edges used by the fixed triangulation.
+    if diagonal not in ("sw_ne","se_nw"): raise ValueError("diagonal must be sw_ne or se_nw")
+    # Add the selected diagonal edges used by the triangulation.
     for j in range(n-1):
-        for i in range(n-1): edges.append((v(i,j),v(i+1,j+1)))
+        for i in range(n-1):
+            if diagonal=="sw_ne": edges.append((v(i,j),v(i+1,j+1)))
+            else: edges.append((v(i+1,j),v(i,j+1)))
     edge_id={e:k for k,e in enumerate(edges)}
     faces=[]
     for j in range(n-1):
         for i in range(n-1):
             a,b,c,d=v(i,j),v(i+1,j),v(i+1,j+1),v(i,j+1)
             # Consistent CCW triangles, fixed SW-NE diagonal.
-            faces.extend([(a,b,c),(a,c,d)])
+            if diagonal=="sw_ne": faces.extend([(a,b,c),(a,c,d)])
+            else: faces.extend([(a,b,d),(b,c,d)])
     d0r=[]; d0c=[]; d0v=[]
     for k,(a,b) in enumerate(edges):
         d0r.extend((k,k)); d0c.extend((a,b)); d0v.extend((-1,1))
@@ -86,8 +90,8 @@ def tri_strain_matrix(x):
         B[2,2*a+1]=gx[a]
     return B
 
-def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12):
-    xy,edges,faces,D0,D1=square_complex(n)
+def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne'):
+    xy,edges,faces,D0,D1=square_complex(n,diagonal)
     C=material(lam,mu)
     epscell=eigenstrain_cell_centres(n,kind,amplitude,width)
     ndof=2*len(xy); rows=[]; cols=[]; vals=[]
@@ -141,7 +145,7 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12):
             "relative_free_residual":relres,"affine_relative_error":affine_error,
             "dof_total":ndof,"dof_free":int(len(free)),
             "vertices":int(len(xy)),"edges":int(len(edges)),"triangles":int(len(faces)),
-            "domain_area":area_total}
+            "domain_area":area_total,"diagonal":diagonal}
 
 def run(out:Path,levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
