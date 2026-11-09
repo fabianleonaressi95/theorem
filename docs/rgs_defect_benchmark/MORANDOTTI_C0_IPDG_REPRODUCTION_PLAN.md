@@ -314,3 +314,19 @@ The acceptance checks are:
 Dedicated workflow: `.github/workflows/morandotti-two-core-c0-ipdg.yml`, using the same pinned DOLFINx 0.11.0 container. Initial execution is [run 42667732997](https://github.com/fabianleonaressi95/theorem/actions/runs/42667732997) and is queued; no two-core numerical result is claimed yet.
 
 **Scope:** this is the first non-concentric two-core interaction-matrix test (two cores centred at (-0.28,0) and (0.28,0), radius 0.12, outer radius 1). It is still a controlled finite-core test, not the arbitrary-N reconstruction algorithm, singular-core limit, dynamics, or material validation. There is no analytic off-centre exact field, so this gate tests algebraic, boundary, spectral and flux identities rather than claiming an H² convergence rate against a closed-form solution.
+
+### 16.1 First two-core run: matrix gate passes, boundary convergence remains open
+
+The first two-core workflow completed successfully: [run 42667732997](https://github.com/fabianleonaressi95/theorem/actions/runs/42667732997), artifact [13697132600](https://github.com/fabianleonaressi95/theorem/actions/runs/42667732997/artifacts/13697132600). All six cell systems solved on all three meshes, and the two core tags were distinct.
+
+| target h | triangles | min eig. \(M_H\) | min eig. \(M_\Delta\) | cond. \(M_H\) | flux identity residual |
+|---:|---:|---:|---:|---:|---:|
+| 0.24 | 301 | 6.1954 | 6.1901 | 50.31 | 2.62e-7 |
+| 0.16 | 438 | 6.1303 | 6.1118 | 49.74 | 3.49e-7 |
+| 0.11 | 674 | 6.1529 | 6.1215 | 49.94 | 5.34e-7 |
+
+At all levels, both 6×6 interaction matrices are symmetric to assembly precision and positive definite. The full Hessian–Laplacian flux identity closes at O(10^-7). The relative matrix difference is 0.569%, 0.830%, 0.757%; it is not monotone and is not used as a convergence claim. The total-flux symmetry residual is O(10^-5)–O(10^-4).
+
+**Open issue found by the first run:** the active-core normal-derivative residuals do not decrease monotonically. For the six core/mode pairs, the reported values span 0.079–0.346 and several increase under the first two refinements. Value-trace residuals remain at machine precision. This prevents accepting the boundary-condition convergence gate.
+
+The workflow has therefore been extended to h=0.08 and h=0.055. The finer run must determine whether the normal residuals enter a decreasing regime; if not, inspect the core normal convention, boundary Nitsche load/sign, and curved-facet scaling before changing the formulation. No convergence of the two-core boundary conditions is claimed at this stage.
