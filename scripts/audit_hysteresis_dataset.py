@@ -49,19 +49,26 @@ def finite_runs(df, cm):
     return [z for z in np.split(ids, cuts) if len(z) >= 12]
 
 def segment_cycles(h):
-    """Return full max-to-max cycles using field turning points."""
+    """Return full max-to-max cycles, including a measured cycle whose
+    positive-field maximum lies at the first or last recorded sample."""
     h = np.asarray(h, float)
     if len(h) < 12: return []
-    # Collapse plateaus/noise by finding prominent extrema relative to span.
     span = np.ptp(h)
     if not np.isfinite(span) or span <= 0: return []
-    distance = max(3, len(h)//100)
-    prom = max(span*0.015, np.finfo(float).eps)
+    distance = max(3, len(h)//300)
+    prom = max(span*0.005, np.finfo(float).eps)
     peaks, _ = find_peaks(h, distance=distance, prominence=prom)
-    troughs, _ = find_peaks(-h, distance=distance, prominence=prom)
-    turns = np.sort(np.r_[peaks, troughs])
-    # Consecutive maxima delimit one complete period; include all samples.
-    maxima = np.sort(peaks)
+    maxima = list(map(int, peaks))
+    # scipy.find_peaks intentionally excludes endpoints. Magnetometer exports
+    # often start/end at the positive-field turning point, so retain those
+    # boundaries only when they are genuine one-sided maxima near the global
+    # maximum (within 2% of the full field span).
+    edge_tol = 0.02*span
+    if h[0] >= h[1] and h[0] >= np.max(h)-edge_tol:
+        maxima.append(0)
+    if h[-1] >= h[-2] and h[-1] >= np.max(h)-edge_tol:
+        maxima.append(len(h)-1)
+    maxima = np.array(sorted(set(maxima)), dtype=int)
     cycles = []
     for a,b in zip(maxima[:-1], maxima[1:]):
         if b-a >= 12:
