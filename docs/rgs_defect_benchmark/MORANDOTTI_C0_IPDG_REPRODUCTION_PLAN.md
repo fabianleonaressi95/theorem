@@ -234,3 +234,10 @@ For each mesh size it is designed to report:
 A dedicated workflow, `.github/workflows/morandotti-c0-ipdg.yml`, uses the official DOLFINx v0.11.0 container image and installs the Gmsh Python bindings. The workflow is intentionally separate from the lightweight regression because DOLFINx/PETSc is a large native dependency stack. The official DOLFINx project documents the stable Docker image as its recommended route when PETSc is required. See https://github.com/FEniCS/dolfinx#installation.
 
 **Execution status:** driver and dedicated workflow have been committed; the first container execution is pending. No numerical P3 result is claimed until that workflow finishes. If the container exposes API or mesh-generation incompatibilities, they must be fixed against the pinned DOLFINx 0.11.0 environment before the driver is accepted.
+
+
+## 14. DOLFINx 0.11 runtime compatibility audit
+
+The first executions reached the variational-form JIT and exposed a further issue: FFCx 2026.1.0 does not lower UFL `CellDiameter` for the curved P3 geometry element (warning: only P1/Q1 cell diameter is supported; fatal `Not handled: ufl.geometry.CellDiameter`). The driver now stores the actual mesh cell-size values returned by `mesh.h(tdim, cells)` in a DG0 coefficient and uses that coefficient in the interior and boundary penalty terms. This preserves cellwise (h_T) scaling rather than substituting one global target mesh size.
+
+The other runtime fixes already applied are the DOLFINx 0.11 Gmsh import (`dolfinx.io.gmsh`) and the explicit function-space argument for the active-core Dirichlet condition. These were discovered from actual container traces, not guessed. The DG0 implementation is committed; its DOLFINx workflow is pending. No P3 numerical output is accepted until the form compiles, all three cell solves complete, and the report artifact is uploaded.
