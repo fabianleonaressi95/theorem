@@ -93,3 +93,16 @@ For a measured scan, add --scan path/to/scan.csv and set radius to the same phys
 | Geometrically nonlinear inflation and contact | Not implemented |
 
 The Morandotti-facing claim is narrow: the code provides a common geometric/mechanical language in which cube-induced radial anisotropy, cubic H4 distortion, pentagon/hexagon panel orbits, textile orthotropy and seam stiffness can be varied independently and compared with 3D scan data. It does not yet establish which mechanism explains a measured ball shape.
+
+
+## 4 bis. Trasformazione geometrica e metrica discreta
+
+La trasformazione radiale cubo–sfera è inserita nella mappa di riferimento
+\[
+X_0(\mathbf n)=R[1+\alpha_C(\chi_{CS}-\langle\chi_{CS}\rangle)+\alpha_4H_4]\mathbf n.
+\]
+Per una superficie radiale continua \(X=(R+u(\theta,\phi))\mathbf n\), la metrica indotta è
+\[
+g'_{ab}=(R+u)^2\gamma_{ab}+\partial_a u\,\partial_bu.
+\]
+Nel guscio triangolato, ogni elemento calcola la mappa tangente discreta \(F\), il tensore \(C=F^TF\) e la deformazione di Green–Lagrange \(E_{GL}=(C-I)/2\). Il JSON riporta RMS della deformazione metrica e intervallo degli allungamenti principali. È quindi presente un collegamento numerico esplicito fra trasformazione radiale, metrica superficiale e risposta elastica; non viene ancora ricostruito un campo continuo di curvatura gaussiana.
