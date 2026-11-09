@@ -39,8 +39,9 @@ class AiryReferenceTests(unittest.TestCase):
     def test_airy_source_cut_matches_cell_centred_convention(self):
         n=33
         e=plastic_strain_nodes(n,"volterra_edge",burgers=.02)
-        # The cut starts at x=1/2, matching the Q1/cochain cell-centred profile.
-        self.assertGreater(float(np.max(np.abs(e[:,n//2,2]))),0.0)
+        # The cut is halfway between x=1/2 and the first active cell centre.
+        self.assertEqual(float(np.max(np.abs(e[:,n//2,2]))),0.0)
+        self.assertGreater(float(np.max(np.abs(e[:,n//2+1,2]))),0.0)
 
     def test_energy_comparison_is_finite_and_positive(self):
         r=compare_case(17,"volterra_edge")
