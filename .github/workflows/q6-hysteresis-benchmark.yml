@@ -1,0 +1,35 @@
+name: Q6 topological hysteresis benchmark
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "models/q6_topological_synchronization.py"
+      - "models/hysteresis_metrics.py"
+      - "scripts/run_q6_hysteresis_benchmark.py"
+      - "tests/test_q6_topological_synchronization.py"
+      - "tests/test_hysteresis_metrics.py"
+      - "projects/q6_hysteresis_benchmark/**"
+      - ".github/workflows/q6-hysteresis-benchmark.yml"
+  pull_request:
+    paths:
+      - "models/q6_topological_synchronization.py"
+      - "models/hysteresis_metrics.py"
+      - "scripts/run_q6_hysteresis_benchmark.py"
+      - "tests/test_q6_topological_synchronization.py"
+      - "tests/test_hysteresis_metrics.py"
+      - "projects/q6_hysteresis_benchmark/**"
+      - ".github/workflows/q6-hysteresis-benchmark.yml"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy pytest
+      - run: python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py
+      - run: python scripts/run_q6_hysteresis_benchmark.py --steps-per-sigma 5 --sigma-count 3 --output /tmp/q6-hysteresis.json
