@@ -177,3 +177,21 @@ Risultato essenziale a (n=32):
 - al livello (n=4), pullback Q6 e conservazione dell'energia Q1/P1 verificati entro precisione macchina.
 
 La conclusione è deliberatamente non competitiva: in questo test Q1 è più vicino ad Airy di P1 a ogni livello; entrambi convergono. Il P1 periodico è un comparatore matematico trasparente, non un vantaggio già dimostrato di RGS. I livelli (n>4) sono raffinamenti FEM e non grafi Q6 più grandi. Il limite singolare, il C0-IPDG del preprint e la mappa verso il PRISM completo restano aperti.
+
+
+## 10. Primo confronto diretto con C0-IPDG P3 (single-core Airy cell problems)
+
+È stato eseguito in DOLFINx 0.11.0 un port iniziale della forma C0-IPDG P3 per la corona (B_1\setminus\overline{B_{0.2}}), con tre problemi di cella (kappa_0,kappa_1,kappa_2), penalità (alpha=10), MPI seriale. Il run [42661368865](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865) è passato; artifact [13695060857](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865/artifacts/13695060857).
+
+A (h=0.06), 2.030 celle:
+- errori seminorma (H^2): 3,46%, 4,47%, 4,60% per (kappa_0,kappa_1,kappa_2);
+- residui di derivata normale al core: 0,0281, 0,0158, 0,0163;
+- differenza relativa fra matrici Hessiana e Laplaciana: 0,0881%;
+- matrici simmetriche e positive definite, condizionamento circa 5,23.
+
+La differenza matriciale era non monotona sui tre livelli grossolani (0,114%, 0,131%, 0,158%) ma scende a 0,0881% sul quarto. È un primo segnale di convergenza, non una stima d'ordine.
+
+Il driver ora aggiunge anche la matrice del flusso al bordo (B_{ij}=\int_{\partial\Omega_\varepsilon}(\operatorname{cof}D^2\kappa_i\,n)\cdot\nabla\kappa_j\,ds) per verificare direttamente l'identità
+(M_\Delta-M_H=B). La sua validazione è nel run P3 successivo; non confondere il successo del primo run con il completamento di questo controllo.
+
+Il confronto P3 è su dominio annular traction-free e non è numericamente sovrapponibile al benchmark periodico Q6/Q1/P1/Airy: i due blocchi hanno domini e condizioni al contorno differenti. Il P3 eseguito è un singolo core, non la ricostruzione multi-core completa del paper. Il limite singolare e la mappa al PRISM completo restano aperti.
