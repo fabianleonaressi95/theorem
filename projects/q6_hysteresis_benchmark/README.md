@@ -70,7 +70,7 @@ From repository root:
 - Exact finite incidence identity and Anti-Twin chain identities: implemented
   and tested.
 - NL/NLT vector fields: implemented on the cubical Q6 complex.
-- Q6 dynamical hysteresis: open pending convergence and finite-size controls.
+- Q6 dynamical hysteresis: multi-seed/multi-dwell finite-size protocol study implemented; robust transition remains open pending production sweeps and initialization controls.
 - Industrial constitutive prediction: open pending experimental datasets and
   parameter identification.
 - PSU, QCD or gravitational interpretation: not established here.
