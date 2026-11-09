@@ -289,3 +289,14 @@ The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered 
 - [Panel displacement SVG](reports/football_anisotropy_displacement.svg)
 
 **Status:** the truncated-icosahedron incidence counts and the linear panel-network equilibrium are implemented and tested. The panel model is phenomenological; it is not yet a nonlinear shell/finite-element model and has no experimental material calibration. See the note for the exact scope and next validation requirements.
+
+
+### Orthotropic discrete shell and cube–sphere coupling
+
+- [Discrete shell implementation](models/football_shell.py)
+- [Shell audit and scan runner](scripts/run_football_shell_audit.py)
+- [Technical note: cube/sphere, orthotropy, seams and scan validation](docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md)
+- [Shell tests](tests/test_football_shell.py)
+- [Experimental scan input instructions](data/scans/README.md)
+
+The current implementation is a linearised triangular membrane + signed-dihedral bending shell. It includes panel-wise orthotropy, seam reinforcement, the existing cube/sphere radial field and the cubic H4 mode. Experimental scan comparison is implemented, but no real scan or material coupon data has yet been supplied; CI uses a synthetic ICP registration test only.
