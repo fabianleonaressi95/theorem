@@ -69,15 +69,17 @@ Questa distinzione evita di identificare senza prova la struttura delle 240 plaq
 
 ## 4. Cinematica ed energia sul quoziente
 
-Per ogni faccia della cella periodica si ricostruisce un gradiente (Finmathbb R^{2	imes2}) mediando le differenze sui due lati opposti. Si pone
+Su ogni quadrilatero periodico si interpola lo spostamento con funzioni bilineari Q1. L'energia elastica viene integrata in tutti e quattro i punti di Gauss della quadratura 2×2, invece di essere valutata soltanto sul gradiente medio al centro della cella. La distinzione è essenziale sul toro pari 4×4: la media delle differenze sui lati opposti annulla i modi checkerboard/Nyquist e introdurrebbe deformazioni spurie a energia zero. Il gradiente al centro resta disponibile come diagnostica, ma non viene usato per calcolare l'energia.
+
+Si pone
 
 [
-arepsilon=	frac12(F+F^T),qquad
-W(arepsilon)=	frac{lambda}{2}(operatorname{tr}arepsilon)^2+
-mu,arepsilon:arepsilon,
+\varepsilon=\tfrac12(F+F^T),\qquad
+W(\varepsilon)=\tfrac{\lambda}{2}(\operatorname{tr}\varepsilon)^2+
+\mu\,\varepsilon:\varepsilon,
 ]
 
-e si somma (W) sulle 16 celle unitarie. È una discretizzazione periodica di riferimento, con (lambdage0), (mu>0); non è ancora l'energia FEM a trazione libera della PR #119.
+e si sommano i quattro contributi di Gauss (con Jacobiano 1/4 della cella unitaria) sulle 16 celle. È una discretizzazione periodica Q1 di riferimento, con \(\lambda\ge0\), \(\mu>0\); non è ancora l'energia FEM a trazione libera della PR #119.
 
 ## 5. Cosa è dimostrato e cosa resta da fare
 
