@@ -50,7 +50,19 @@ T(\mathbb Z^2)=\{(u,v)\in\mathbb Z^2:u\equiv v\pmod2\},
 \]
 an index-two sublattice, and \(T^2(\mathbb Z^2)=2\mathbb Z^2\), of index four.
 
-## 3. Proof
+## 3. Corollary — the three-center orbit is second order
+
+The three constrained center vectors satisfy
+\[
+\boxed{p_{12}-2p_9+2p_6=0.}
+\]
+Equivalently, when they are regarded as three consecutive points of the stage orbit \(p,Tp,T^2p\), the vector recurrence is
+\[
+p_{n+2}=2p_{n+1}-2p_n,
+\]
+with characteristic polynomial \(\lambda^2-2\lambda+2\). Thus the center-6 / center-9 / center-12 orbit by itself is second order and does not produce the cubic supergolden polynomial.
+
+## 4. Proof
 
 The rotation matrix is
 \[
@@ -71,7 +83,7 @@ T(x,y)=(x+y,-x+y).
 \]
 The two coordinates have equal parity. Conversely, if \(u\equiv v\pmod2\), then \(x=(u-v)/2\) and \(y=(u+v)/2\) are integers and map to \((u,v)\). This proves the image-lattice identity; the index equals \(|\det T|=2\). Applying the map twice gives \(T^2\mathbb Z^2=2\mathbb Z^2\). \(\square\)
 
-## 4. Non-conclusions
+## 5. Non-conclusions
 
 The theorem determines the similarity and the constrained positions of centers 1, 6, 7, 9 and 12. It does not determine the exact positions and all line incidences of the remaining centers 2, 3, 4, 5, 8, 10 and 11. Those require the complete source-controlled center/line diagram and a declared incidence convention.
 
