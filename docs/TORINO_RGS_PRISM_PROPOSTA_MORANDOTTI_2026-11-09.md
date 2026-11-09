@@ -198,6 +198,15 @@ Il confronto Q1–cochain P1–Airy è stato esteso e superato in CI: [run 42656
 
 Per il dipolo di disclinazione, la differenza energetica Q1/cochain scende dal 60,64% a n=17 al 12,12% a n=129; gli errori di stress rispetto ad Airy a n=129 sono 5,67% (Q1) e 5,97% (cochain). Il divario energetico cochain–Airy resta però 18,52%, quindi il confronto non è ancora chiuso sul piano energetico.
 
-L'audit del dipolo–dislocazione su n=129, con separazioni grid-aligned da 16h a 2h, riduce l'errore relativo della sorgente di incompatibilità dall'85,28% a circa 5×10⁻¹⁴ e quello dello stress Airy dal 32,39% a circa 4×10⁻¹¹. L'ultimo valore è un'identità discreta dovuta allo stencil centrato, non una dimostrazione del limite continuo o del teorema energetico.
+**Correzione dell'audit grid-aligned:** la precedente sequenza includeva separazioni commensurate con lo stencil centrato; il valore quasi nullo a d=2h era una coincidenza discreta e non evidenza di limite continuo. Quella sequenza è superata e non va usata come risultato scientifico. Nel run #69 è stata sostituita da separazioni non bloccate sulla griglia, d=(0.1, 0.075, 0.05, 0.0375, 0.025), con d/h=(12.8, 9.6, 6.4, 4.8, 3.2). L'errore relativo della sorgente scende dal 70,12% al 4,74% e quello dello stress Airy dal 23,76% all'1,26%. È una tendenza numerica a griglia fissa con sorgenti regolarizzate, non una prova del limite continuo o del teorema energetico.
 
 Il report completo, con tabelle, definizioni degli errori e limiti, è disponibile in [THREE_WAY_COMPARISON_2026-11-09.md](rgs_defect_benchmark/THREE_WAY_COMPARISON_2026-11-09.md). Restano aperti il limite del core, la convergenza Mosco/Γ, la riproduzione CIP-DG e la mappa Q6/PRISM verso la mesh fisica.
+
+
+### Regressione aggiornata e confronto diretto CIP-DG
+
+La regressione [run #69](https://github.com/fabianleonaressi95/theorem/actions/runs/42657016309) è conclusa con successo: 9 test Airy e 7 test del quoziente Q6, oltre ai test del benchmark difetti e ai confronti Q1/P1. Artifact: [rgs-cochain-defect-report](https://github.com/fabianleonaressi95/theorem/actions/runs/42657016309/artifacts/13693051779).
+
+A n=129 per il wedge dipole, la differenza energetica Q1/cochain è ancora 12,12%; la differenza Q1/Airy è 7,28% e cochain/Airy 18,52%. Non si dichiara quindi validazione energetica.
+
+È stato preparato il piano per riprodurre direttamente il metodo pubblicato nel 2026: [MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md](rgs_defect_benchmark/MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md). Il metodo usa 3N problemi locali Airy in P3 C0-IPDG su domini perforati, una matrice finita di ricostruzione e parametri di core espliciti. Il nostro Airy a differenze finite resta un riferimento indipendente, non l'implementazione CIP-DG del gruppo.
