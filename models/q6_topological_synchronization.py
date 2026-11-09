@@ -93,6 +93,7 @@ def audit_q6_complex(K: Q6Complex) -> dict:
         "rank_B1_numeric": rank1, "rank_B2_numeric": rank2,
         "graph_cycle_rank": 192-rank1,
         "filled_betti_1": 192-rank1-rank2,
+        "b2_of_truncated_2_skeleton": 240-rank2,
         "anti_twin_squared_identity": bool(
             np.array_equal(J0@J0, np.eye(64, dtype=np.int64)) and
             np.array_equal(J1@J1, np.eye(192, dtype=np.int64)) and
