@@ -275,3 +275,22 @@ This is the first actual execution of the single-core P3 C0-IPDG port, not yet t
 The finer run is [CI 42661368865](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865), success, with artifact [13695060857](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865/artifacts/13695060857). It contains 2,030 cells. The relative Hessian/Laplacian matrix discrepancy drops to (8.8091\times10^{-4}) (0.0881%), while the relative H2 errors fall to 3.46%, 4.47% and 4.60% for (kappa_0,kappa_1,kappa_2). Core normal-derivative residuals are 0.0281, 0.0158 and 0.0163.
 
 The trend is now consistent with convergence after the pre-asymptotic coarse levels, but it is not sufficient to assert an asymptotic order. The next check is a finer (h) level plus the boundary identity residual computed from the discrete fields.
+
+
+### 15.2 Discrete Hessian–Laplacian identity including interior facets
+
+The P3 driver now assembles the full flux decomposition
+[
+M_\Delta-M_H=B_{\partial\Omega_\varepsilon}+B_{\mathcal F_h^i},
+]
+where the first term is the physical-boundary flux and the second is the sum of the two-sided fluxes across all interior facets. The interior contribution is essential because the C0-IPDG fields are continuous but their gradients/Hessians are not globally smooth; using only the outer/core boundary flux leaves the interior jumps unaccounted for.
+
+The refined CI [42662098640](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640) passed and uploaded artifact [13693953816](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640/artifacts/13693953816). Relative Frobenius residuals for the full identity are:
+- (h=0.22): (4.69\times10^{-7});
+- (h=0.14): (6.00\times10^{-8});
+- (h=0.09): (2.91\times10^{-9});
+- (h=0.06): (2.55\times10^{-10}).
+
+The total-flux matrix symmetry residual decreases from (2.26\times10^{-5}) to (2.04\times10^{-8}). The physical-boundary flux matrix alone is not symmetric; the interior-facet contribution is required for the full discrete identity.
+
+**Conclusion:** the observed (M_H) versus (M_\Delta) discrepancy is accounted for by the discrete boundary-plus-interior flux identity to high accuracy, with residual decreasing by roughly three orders of magnitude across the four levels. This validates the matrix assembly identity for the computed P3 cell fields. It does not yet establish the full multi-core reconstruction or the singular-core limit.
