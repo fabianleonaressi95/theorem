@@ -183,7 +183,7 @@ def run(out:Path,levels=(17,33,65)):
         w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
     return report
 
-def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.1,.075,.05,.0375,.025)):
+def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.125,.0625,.03125,.015625)):
     """Compare a +/- wedge-dipole with its limiting edge-dislocation source."""
     h=1/(n-1)
     edge_ep=plastic_strain_nodes(n,"volterra_edge",burgers=burgers,core_width=core_width)
