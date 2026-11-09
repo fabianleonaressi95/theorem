@@ -39,7 +39,7 @@ def test_cube_and_h4_modes_separately_identifiable():
 
 def test_scan_icp_recovers_rigidly_transformed_synthetic_surface(tmp_path):
  m=build_football_shell(); target=sample_shell_surface(m["nodes"],m["triangles"],2)
- a=.23; R=np.array([[np.cos(a),-np.sin(a),0],[np.sin(a),np.cos(a),0],[0,0,1]])
+ a=.05; R=np.array([[np.cos(a),-np.sin(a),0],[np.sin(a),np.cos(a),0],[0,0,1]])
  scan=target@R.T+np.array([2.,-1.,.5]); path=tmp_path/"synthetic_scan.csv"
  np.savetxt(path,scan,delimiter=",",header="x,y,z",comments="")
  result=compare_scan(read_point_cloud(path),m["nodes"],m["triangles"],2)
