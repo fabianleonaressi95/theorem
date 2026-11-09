@@ -3,7 +3,7 @@ import pytest
 
 from models.football_seam_law import (
     seam_bending_law, seam_cohesive_law, quaternion_relative_rotation,
-    seam_internal_force, seam_tangent_matrix,
+    seam_internal_force, seam_tangent_matrix, seam_equilibrium_residual,\n    seam_gradient_energy,
 )
 
 
@@ -44,3 +44,23 @@ def test_internal_force_and_material_tangent():
     assert np.allclose(f, 3*g)
     assert np.allclose(K, 3*np.outer(g, g))
     assert np.linalg.eigvalsh(K)[0] >= -1e-10
+
+
+
+def test_interface_force_and_couple_balance():
+    out = seam_equilibrium_residual(
+        force_jump=[2.0, -1.0], moment_jump=[0.5],
+        seam_traction=[-2.0, 1.0], seam_couple=[-0.5],
+    )
+    assert np.allclose(out["force_balance_residual"], 0.0)
+    assert np.allclose(out["moment_balance_residual"], 0.0)
+
+
+def test_longitudinal_gradient_energy_and_flux():
+    out = seam_gradient_energy(
+        theta=[0.0, 0.2, 0.4], theta0=[0.0, 0.0, 0.0],
+        gradient_stiffness=3.0, length=2.0,
+    )
+    assert out["energy"] == pytest.approx(0.5 * 3.0 * 0.2**2 / 1.0**2 * 2.0)
+    assert np.allclose(out["moment_flux"], [0.6, 0.6])
+    assert np.allclose(out["interior_variation"], [0.0])
