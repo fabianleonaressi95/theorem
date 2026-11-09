@@ -14,6 +14,13 @@ on:
       - "tests/test_prism_billiard_coding.py"
       - "scripts/run_prism_billiard_coding.py"
       - ".github/workflows/prism-ca.yml"
+      - "models/football_anisotropy.py"
+      - "scripts/run_football_anisotropy_audit.py"
+      - "tests/test_football_anisotropy.py"
+      - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
+      - "reports/football_anisotropy_audit.json"
+      - "reports/football_anisotropy_displacement.svg"
+      - ".github/workflows/football-anisotropy.yml"
   pull_request:
     paths:
       - "models/prism_cellular_automata.py"
@@ -37,11 +44,17 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test runner
-        run: python -m pip install --upgrade pytest
+        run: python -m pip install --upgrade pytest numpy
       - name: Run PRISM CA and evolutionary-search tests
         run: >-
           python -m pytest
           tests/test_prism_cellular_automata.py
           tests/test_prism_ca_evolution.py
           tests/test_prism_billiard_coding.py
+          tests/test_football_anisotropy.py
           -q
+      - name: Reproduce football anisotropy audit
+        run: >-
+          python scripts/run_football_anisotropy_audit.py
+          --json reports/football_anisotropy_audit.json
+          --svg reports/football_anisotropy_displacement.svg
