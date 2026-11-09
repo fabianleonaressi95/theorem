@@ -200,7 +200,9 @@ e la parte asintotica viene maggiorata geometricamente quando il rapporto dei te
 
 **Dimostrato/implementato:** rango, kernel saturo, identità di Fourier, positività e convergenza della somma, maggiorante della coda.  
 **Aperto:** valutazione numerica certificata della somma completa, settore spaziale canonico, misura completa su D5, identificazione Hua/Bergman e riduzione fisica 3+1D.  
-**Riferimenti:** `docs/Q6_D5_INTEGER_FIBER_QUOTIENT.md`, `docs/Q6_D5_SATURATED_KERNEL_AND_TAIL_BOUND.md`, `docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md`, `src/rgs_q6_d5_*`, issue #84.
+**Aggiornamento di certificazione 9 novembre 2026:** il workflow 42644467074 ha superato 21 test focalizzati; il report `reports/q6_d5_exact_integer_fiber_audit_2026-11-09.json` certifica identità di Smith esatta, kernel saturo di rango 124, quoziente di rango 5, splitting unimodulare con determinante 1, inversa esatta e annullamento esatto. La parte quantitativa resta aperta: per beta=2 e cutoff l1=500 il bound globale ha log-bound 555.23765 (bound circa 1.37×10^241), quindi è finito ma inutilmente largo; non è stata prodotta una finestra certificata utile per la somma completa. Nessuna valutazione esaustiva della fibra 124D è dichiarata.
+
+**Riferimenti:** `docs/Q6_D5_INTEGER_FIBER_QUOTIENT.md`, `docs/Q6_D5_SATURATED_KERNEL_AND_TAIL_BOUND.md`, `docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md`, `reports/q6_d5_exact_integer_fiber_audit_2026-11-09.json`, `src/rgs_q6_d5_*`, issue #84.
 
 ## Capitolo 8 — Wilson, marginale, Bergman e Hua: no-go e criterio
 
