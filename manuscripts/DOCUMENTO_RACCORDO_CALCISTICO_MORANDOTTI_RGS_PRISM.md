@@ -272,7 +272,7 @@ Con t tangente unitaria orientata e n⁺, n⁻ normali alle patch, il diedro fir
 \[
 \theta=\operatorname{atan2}\left(t\cdot(n^-\times n^+),n^-\cdot n^+\right).
 \]
-La configurazione di riferimento ha diedro θ₀; poniamo η=θ−θ₀. Se i frame locali sono codificati da quaternioni unitari q₋,q₊, la rotazione relativa è q_rel=q₋⁻¹q₊; il vettore rotazione è ω=Log_SO(3)(q_rel) e il salto firmato è η=t·ω−η₀. Si usa il ramo principale, con continuità del ramo durante l'evoluzione.
+La configurazione di riferimento ha diedro θ₀; poniamo η=θ−θ₀. Se i frame locali sono codificati da quaternioni unitari q₋,q₊, la rotazione relativa è q_rel=q₊q₋⁻¹ (rotazione relativa espressa nel frame ambientale); il vettore rotazione è ω=Log_SO(3)(q_rel) e il salto firmato è η=t·ω−η₀. Si usa il ramo principale, con continuità del ramo durante l'evoluzione.
 
 ### Riduzione dell'energia di shell
 
