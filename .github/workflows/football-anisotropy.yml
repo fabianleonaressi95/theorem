@@ -1,0 +1,36 @@
+name: Football pentagon-hexagon anisotropy audit
+
+on:
+  push:
+    paths:
+      - "models/football_anisotropy.py"
+      - "scripts/run_football_anisotropy_audit.py"
+      - "tests/test_football_anisotropy.py"
+      - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
+      - ".github/workflows/football-anisotropy.yml"
+  pull_request:
+    paths:
+      - "models/football_anisotropy.py"
+      - "scripts/run_football_anisotropy_audit.py"
+      - "tests/test_football_anisotropy.py"
+      - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
+      - ".github/workflows/football-anisotropy.yml"
+  workflow_dispatch:
+
+jobs:
+  football-anisotropy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical and test dependencies
+        run: python -m pip install numpy pytest
+      - name: Run panel geometry and mechanics tests
+        run: python -m pytest -q tests/test_football_anisotropy.py
+      - name: Reproduce JSON and SVG audit outputs
+        run: >-
+          python scripts/run_football_anisotropy_audit.py
+          --json reports/football_anisotropy_audit.json
+          --svg reports/football_anisotropy_displacement.svg
