@@ -65,7 +65,7 @@ def elasticity_tensor(lam: float, mu: float):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, core_width=0.025, frank=0.01):
+def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, core_width=0.025, frank=0.01, dipole_separation=0.1):
     """Cell-centred engineering eigenstrain [exx*, eyy*, gamma_xy*].
     single/dipole are smooth shear eigenstrain inclusions, not atomistic cores.
     """
@@ -89,6 +89,10 @@ def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, co
     elif kind=="wedge_disclination":
         delta=np.exp(-0.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
         eps[:,:,1]=frank*(X-.5)*delta*(X>=.5)
+    elif kind=="wedge_dipole":
+        dp=np.exp(-0.5*((Y-(.5+dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        dm=np.exp(-0.5*((Y-(.5-dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        eps[:,:,1]=(burgers/dipole_separation)*(X-.5)*(X>=.5)*(dp-dm)
     else:
         raise ValueError(kind)
     return eps
@@ -109,10 +113,10 @@ def measure_wedge_frank(n=129,frank=0.01,core_width=0.025,x_left=.65,x_right=.85
     return (jump_r-jump_l)/(centres[ir]-centres[il])
 
 def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
-               width=0.12, return_fields=False):
+               width=0.12, return_fields=False, burgers=0.02, core_width=0.025, frank=0.01, dipole_separation=0.1):
     h=1.0/(n-1); nn=n*n; ndof=2*nn
     B=q1_B(h); C=elasticity_tensor(lam,mu)
-    epsp=source_field(n,kind,amplitude,width)
+    epsp=source_field(n,kind,amplitude,width,burgers,core_width,frank,dipole_separation)
     rows=[]; cols=[]; vals=[]
     rhs=np.zeros(ndof,float)
     area=h*h
@@ -201,7 +205,7 @@ def run(out: Path, levels=(9,17,33,65)):
     b0=int(np.max(np.abs(D1@D0)))
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination"):
+        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination","wedge_dipole"):
             rows.append(solve_case(n,case))
     # B4 refinement trend for the regularized single-source problem.
     singles=[r for r in rows if r["case"]=="single"]
