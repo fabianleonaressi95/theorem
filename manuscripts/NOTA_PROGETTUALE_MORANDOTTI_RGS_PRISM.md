@@ -174,3 +174,8 @@ La lettura congiunta è quindi:
 3. Benchmark de Rham / FEEC: [README e risultati](../projects/de_rham_benchmark/README.md).
 
 **FLN**
+
+
+## Caso applicativo collegato: il pallone da calcio
+
+Per il raccordo fra incompatibilità dei difetti, shell poligonale, ortotropia dei pannelli, cuciture e frame quaternionici si veda il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md). Il pallone è proposto come banco di prova meccanico distinto dal benchmark piano di Airy; non si identificano automaticamente cuciture e difetti cristallini.
