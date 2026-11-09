@@ -91,3 +91,60 @@ def compare_rgs_shell_triplets(rgs_triplet_192, shell_triplet_276,
     if rgs_generators is not None:
         result["quaternionic_intertwiner"]=quaternionic_intertwiner_audit(rgs_generators,shell_generators)
     return result
+
+
+def build_geometry_transfer(source_points, target_nodes, neighbors=12, rank_tolerance=1e-10):
+    """Build a reproducible 192->276 geometric transfer from source/target positions.
+
+    For each target direction, compute minimum-norm local affine weights on
+    the nearest source directions, constrained to reproduce constants and
+    the three direction coordinates exactly (up to numerical residual).
+    The scalar weights are applied identically to x,y,z components.
+    This is a geometric interpolation operator, not a claim that the two
+    discretisations describe identical physical sites.
+    """
+    from scipy.spatial import cKDTree
+    X=np.asarray(source_points,float); Y=np.asarray(target_nodes,float)
+    if X.shape!=(64,3) or Y.shape!=(92,3):
+        raise ValueError("expected source_points (64,3) and target_nodes (92,3)")
+    if neighbors<4 or neighbors>64: raise ValueError("neighbors must lie in [4,64]")
+    Xn=X/np.linalg.norm(X,axis=1)[:,None]
+    Yn=Y/np.linalg.norm(Y,axis=1)[:,None]
+    tree=cKDTree(Xn); k=min(int(neighbors),len(Xn))
+    weights=np.zeros((len(Yn),len(Xn)))
+    condition_numbers=[]
+    for j,y in enumerate(Yn):
+        _,ids=tree.query(y,k=k); ids=np.atleast_1d(ids).astype(int)
+        # Affine constraints: sum_i w_i=1 and sum_i w_i*n_i = target direction.
+        C=np.vstack((np.ones(k),Xn[ids].T))
+        d=np.r_[1.,y]
+        gram=C@C.T
+        condition_numbers.append(float(np.linalg.cond(gram)))
+        w=C.T@np.linalg.pinv(gram,rcond=rank_tolerance)@d
+        weights[j,ids]=w
+    W=np.kron(weights,np.eye(3))
+    affine=np.column_stack((np.ones(64),Xn))
+    affine_residual=float(np.linalg.norm(weights@affine-np.column_stack((np.ones(92),Yn)),ord="fro"))
+    return W,{"source_direction_min_separation":float(np.min(np.linalg.norm(Xn[:,None]-Xn[None,:]+np.eye(64)[:,:,None]*0,axis=2)+np.eye(64)*10)),
+        "neighbors":k,"weights_min":float(weights.min()),"weights_max":float(weights.max()),
+        "max_local_constraint_condition":float(max(condition_numbers)),
+        "affine_direction_reproduction_frobenius":affine_residual,
+        "weights_row_sum_residual":float(np.linalg.norm(weights.sum(axis=1)-1)),
+        "transfer_shape":list(W.shape),
+        "method":"local minimum-norm affine directional interpolation; same scalar weights for each Cartesian component"}
+
+
+def project_shell_tangent(mesh, ambient_modes):
+    """Project 3N ambient vector modes into the node-wise shell tangent plane."""
+    X=np.asarray(mesh["nodes"],float); tris=np.asarray(mesh["triangles"],int)
+    V=np.asarray(ambient_modes,float)
+    if V.ndim!=2 or V.shape[0]!=3*len(X):
+        raise ValueError("ambient_modes must have 3N rows for this shell")
+    normals=np.zeros_like(X)
+    for tri in tris:
+        p=X[tri]; av=np.cross(p[1]-p[0],p[2]-p[0])
+        for node in tri: normals[node]+=av
+    normals/=np.linalg.norm(normals,axis=1)[:,None]
+    out=V.reshape(len(X),3,-1).copy()
+    out-=normals[:,:,None]*np.einsum("ni,nik->nk",normals,out)[:,None,:]
+    return out.reshape(3*len(X),-1)
