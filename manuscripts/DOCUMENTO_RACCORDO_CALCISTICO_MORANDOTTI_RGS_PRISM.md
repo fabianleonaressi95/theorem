@@ -256,6 +256,83 @@ Il risultato atteso non è una “Israel equation” per il pallone, ma una **le
 Questa estensione rende più preciso il collegamento fra il problema calcistico, le interfacce dei materiali e il programma geometrico RGS–PRISM, mantenendo separati il formalismo di relatività generale e la meccanica dei gusci.
 
 
+
+
+---
+
+## 5-ter. Derivazione variazionale della legge elastica di giunzione
+
+### Cinematica
+
+Siano X⁺(s), X⁻(s) le curve di bordo delle due patch, parametrizzate dalla stessa ascissa curvilinea. Una giunzione chiusa senza scorrimento soddisfa
+\[
+X^+(s)=X^-(s),\qquad [h_{ab}]=0.
+\]
+Con t tangente unitaria orientata e n⁺, n⁻ normali alle patch, il diedro firmato è
+\[
+\theta=\operatorname{atan2}\left(t\cdot(n^-\times n^+),n^-\cdot n^+\right).
+\]
+La configurazione di riferimento ha diedro θ₀; poniamo η=θ−θ₀. Se i frame locali sono codificati da quaternioni unitari q₋,q₊, la rotazione relativa è q_rel=q₋⁻¹q₊; il vettore rotazione è ω=Log_SO(3)(q_rel) e il salto firmato è η=t·ω−η₀. Si usa il ramo principale, con continuità del ramo durante l'evoluzione.
+
+### Riduzione dell'energia di shell
+
+In una fascia di raccordo di larghezza w, il salto angolare η corrisponde, al primo ordine, a una curvatura concentrata b≈η/w. Per una shell isotropa l'energia flessionale per unità di area è ½D_b b², con D_b=Et³/[12(1−ν²)]. Integrando sulla fascia:
+\[
+\mathcal E_\Gamma=\frac12\int_\Gamma D_b(\eta/w)^2w\,ds
+=\frac12\int_\Gamma\frac{D_b}{w}\eta^2\,ds.
+\]
+Dunque la densità lineare è ψ_Γ=½k_θ η², con k_θ=D_b/w, e la variazione dà il momento per unità di lunghezza:
+\[
+\boxed{m_\Gamma=\frac{\partial\psi_\Gamma}{\partial\eta}
+=\frac{D_b}{w}(\theta-\theta_0).}
+\]
+La tangente costitutiva è D_b/w. Il segno dipende dalla convenzione coerente per normale e diedro; l'energia è invariata se si invertono entrambe.
+
+Per una shell ortotropa si usa la matrice flessionale D_b e la direzione di curvatura c: D_eff=cᵀD_b c. Quindi ψ_Γ=½(D_eff/w)η². Se le due fasce hanno rigidezze D₊,D₋ e larghezze w₊,w₋, minimizzando ½w₊D₊b₊²+½w₋D₋b₋² sotto il vincolo w₊b₊+w₋b₋=η si ottiene
+\[
+k_\theta=\left(\frac{w_+}{D_+}+\frac{w_-}{D_-}\right)^{-1},
+\qquad \psi_\Gamma=\frac12k_\theta\eta^2.
+\]
+Questa è la rigidezza equivalente in serie; non va confusa con una media aritmetica dei moduli.
+
+### Legge discreta, momento e forze nodali
+
+Per una cucitura discreta di lunghezza ℓ_e, larghezza duale w_e e moltiplicatore α_e:
+\[
+E_e=\frac12\alpha_eD_{eff}\frac{\ell_e}{w_e}
+(\theta_e-\theta_{0,e})^2.
+\]
+Derivando:
+\[
+M_e=\frac{\partial E_e}{\partial\theta_e}
+=\alpha_eD_{eff}\frac{\ell_e}{w_e}(\theta_e-\theta_{0,e}),
+\quad
+k_e=\frac{\partial^2E_e}{\partial\theta_e^2}
+=\alpha_eD_{eff}\frac{\ell_e}{w_e}.
+\]
+Con g_e=∇_u θ_e, il residuo interno è r_e=M_e g_e e la parte materiale della tangente è K_e^mat=k_e g_e g_eᵀ. In una formulazione geometricamente non lineare completa si aggiunge K_e^geo=M_e∇²_u θ_e. Il solver attuale usa la linearizzazione del diedro e non assembla quest'ultimo termine.
+
+### Apertura e scorrimento: legge coesiva opzionale
+
+Se la cucitura può aprirsi o scorrere, si introduce il salto traslazionale δ=[u]. Una legge lineare passiva è
+\[
+\psi_c=\frac12\delta^T K_\Gamma\delta,
+\qquad t_\Gamma=K_\Gamma\delta,
+\quad K_\Gamma=K_\Gamma^T\succeq0.
+\]
+Per un edge, E_e^coh=½ℓ_e δ_eᵀK_Γδ_e. La continuità perfetta e la legge coesiva sono modelli alternativi: non si deve imporre contemporaneamente [u]=0 e interpretare una trazione coesiva non nulla come grado di libertà indipendente.
+
+### Rapporto con Darmois–Israel
+
+La legge elastica usa il salto di rotazione/curvatura per ottenere un momento di linea dal funzionale della shell. Israel usa il salto della seconda forma fondamentale per determinare un tensore energia-impulso superficiale nelle equazioni di Einstein. Il parallelismo è geometrico-variazionale, non un'identità fra coefficienti o grandezze fisiche. Il limite k_θ→∞ impone θ→θ₀ (giunzione rotazionalmente rigida); k_θ→0 dà una cerniera flessionale libera. La compatibilità traslazionale è una condizione distinta.
+
+### Implementazione e stato
+
+La legge è implementata in models/football_seam_law.py; i test dedicati sono in tests/test_football_seam_law.py. Il modulo restituisce energia, momento di edge, tangente materiale, risultanti coesive e rotazione relativa quaternionica.
+
+**Stato:** derivazione variazionale e implementazione isolata con test unitari aggiunti. La legge non è ancora integrata nel solver globale né validata con prove sperimentali di cucitura. D_eff, w_e, α_e e K_Γ richiedono identificazione da dati indipendenti.
+
+
 ## 6. Programma sperimentale: cosa misurare
 
 Il caso calcistico rende possibile un protocollo industriale concreto. Per rendere identificabili i parametri servono misure indipendenti:
