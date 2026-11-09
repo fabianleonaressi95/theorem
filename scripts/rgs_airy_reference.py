@@ -21,7 +21,7 @@ def material_constants(lam=1.0,mu=1.0):
     young=mu*(3.0*lam+2.0*mu)/(lam+mu)
     return young,nu,(1.0-nu*nu)/young
 
-def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01):
+def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01,dipole_separation=.1):
     h=1.0/(n-1)
     x=np.linspace(0,1,n); X,Y=np.meshgrid(x,x)
     e=np.zeros((n,n,3),float)
@@ -30,6 +30,10 @@ def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01):
         e[:,:,2]=burgers*delta*(X>=.5)
     elif kind=="wedge_disclination":
         e[:,:,1]=frank*(X-.5)*delta*(X>=.5)
+    elif kind=="wedge_dipole":
+        dp=np.exp(-.5*((Y-(.5+dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        dm=np.exp(-.5*((Y-(.5-dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        e[:,:,1]=(burgers/dipole_separation)*(X-.5)*(X>=.5)*(dp-dm)
     else:
         raise ValueError("Airy incompatibility reference supports Volterra edge and wedge disclination")
     return e
@@ -77,9 +81,9 @@ def clamped_constraints(n,h):
         add(((idx(n-1,j),3/(2*h)),(idx(n-2,j),-4/(2*h)),(idx(n-3,j),1/(2*h))))
     return coo_matrix((vals,(rows,cols)),shape=(r,n*n)).tocsr()
 
-def solve_airy(n,kind,lam=1.0,mu=1.0,burgers=.02,core_width=.025,frank=.01,return_fields=False):
+def solve_airy(n,kind,lam=1.0,mu=1.0,burgers=.02,core_width=.025,frank=.01,dipole_separation=.1,return_fields=False):
     h=1/(n-1); young,nu,c=material_constants(lam,mu)
-    ep=plastic_strain_nodes(n,kind,burgers,core_width,frank)
+    ep=plastic_strain_nodes(n,kind,burgers,core_width,frank,dipole_separation)
     incp=incompatibility(ep,h)
     L=laplacian_interior_matrix(n,h)
     K=(c*h*h)*(L.T@L)
@@ -126,12 +130,12 @@ def solve_airy(n,kind,lam=1.0,mu=1.0,burgers=.02,core_width=.025,frank=.01,retur
         result["airy_nodes"]=v
     return result
 
-def compare_case(n,kind,lam=1.0,mu=1.0,diagonal="sw_ne"):
+def compare_case(n,kind,lam=1.0,mu=1.0,diagonal="sw_ne",dipole_separation=.1):
     from scripts.rgs_defect_benchmark import solve_case
     from scripts.rgs_cochain_defect_benchmark import solve_cochain
-    q=solve_case(n,kind,lam,mu,return_fields=True)
-    p=solve_cochain(n,kind,lam,mu,diagonal=diagonal,return_fields=True)
-    a=solve_airy(n,kind,lam,mu,return_fields=True)
+    q=solve_case(n,kind,lam,mu,return_fields=True,dipole_separation=dipole_separation)
+    p=solve_cochain(n,kind,lam,mu,diagonal=diagonal,return_fields=True,dipole_separation=dipole_separation)
+    a=solve_airy(n,kind,lam,mu,dipole_separation=dipole_separation,return_fields=True)
     # Compare away from the outer boundary, where finite-difference closure is least accurate.
     sl=(slice(3,-3),slice(3,-3))
     out={"n":n,"case":kind,"diagonal":diagonal,
@@ -151,7 +155,7 @@ def compare_case(n,kind,lam=1.0,mu=1.0,diagonal="sw_ne"):
 def run(out:Path,levels=(17,33,65)):
     out.mkdir(parents=True,exist_ok=True); rows=[]
     for n in levels:
-        for kind in ("volterra_edge","wedge_disclination"):
+        for kind in ("volterra_edge","wedge_disclination","wedge_dipole"):
             for diagonal in ("sw_ne","se_nw"):
                 rows.append(compare_case(n,kind,diagonal=diagonal))
     report={"title":"Airy-stress reference versus displacement/cochain elasticity",
