@@ -294,3 +294,23 @@ The refined CI [42662098640](https://github.com/fabianleonaressi95/theorem/actio
 The total-flux matrix symmetry residual decreases from (2.26\times10^{-5}) to (2.04\times10^{-8}). The physical-boundary flux matrix alone is not symmetric; the interior-facet contribution is required for the full discrete identity.
 
 **Conclusion:** the observed (M_H) versus (M_\Delta) discrepancy is accounted for by the discrete boundary-plus-interior flux identity to high accuracy, with residual decreasing by roughly three orders of magnitude across the four levels. This validates the matrix assembly identity for the computed P3 cell fields. It does not yet establish the full multi-core reconstruction or the singular-core limit.
+
+## 16. Second reproduction gate: two-core interaction matrix
+
+The single-core gate is now followed by a controlled two-core problem. The new driver `scripts/rgs_morandotti_two_core_c0_ipdg.py` builds an outer disk with two equal, separated circular cores and solves the six P3 cell problems
+\[
+\kappa_{i,0},\;\kappa_{i,1},\;\kappa_{i,2},\qquad i=1,2.
+\]
+For each field, affine value data are imposed on its active core and zero values on the other core and outer boundary; the active-core normal derivative data are (0,n_1,n_2). The code assembles the full 6×6 Hessian and Laplacian interaction matrices from the same six discrete fields, together with physical-boundary and interior-facet flux matrices.
+
+The acceptance checks are:
+1. all six linear systems solve at each of three mesh sizes;
+2. the two core boundary tags are geometrically distinct and correctly classified;
+3. value and active normal-derivative residuals are finite and reported separately by core/mode;
+4. both interaction matrices are symmetric to assembly tolerance and have positive minimum eigenvalue;
+5. the full flux identity \(M_\Delta-M_H=B_{\partial\Omega}+B_{\mathcal F_h^i}\) closes to a refinement-stable residual;
+6. conditioning and all matrix entries are retained in the JSON artifact.
+
+Dedicated workflow: `.github/workflows/morandotti-two-core-c0-ipdg.yml`, using the same pinned DOLFINx 0.11.0 container. Initial execution is [run 42667732997](https://github.com/fabianleonaressi95/theorem/actions/runs/42667732997) and is queued; no two-core numerical result is claimed yet.
+
+**Scope:** this is the first non-concentric two-core interaction-matrix test (two cores centred at (-0.28,0) and (0.28,0), radius 0.12, outer radius 1). It is still a controlled finite-core test, not the arbitrary-N reconstruction algorithm, singular-core limit, dynamics, or material validation. There is no analytic off-centre exact field, so this gate tests algebraic, boundary, spectral and flux identities rather than claiming an H² convergence rate against a closed-form solution.
