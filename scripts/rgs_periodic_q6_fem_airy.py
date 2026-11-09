@@ -414,20 +414,7 @@ def run(out: Path):
     return report
 
 
-def self_test():
-    report=compare(levels=(4,8,16))
-    for kind in ("shear_inclusion","shear_dipole"):
-        rows=[r for r in report["results"] if r["case"]==kind]
-        assert rows[0]["q6_q1_energy_relative_difference"]<1e-12,rows[0]
-        assert rows[0]["q6_chain_pullback_max_abs"]<1e-12,rows[0]
-        assert rows[-1]["relative_energy_difference"]<rows[0]["relative_energy_difference"],rows
-        assert rows[-1]["stress_relative_l2"]<rows[0]["stress_relative_l2"],rows
-        assert max(r["q1_residual"] for r in rows)<1e-8,rows
-        assert max(r["airy_residual"] for r in rows)<1e-10,rows
-    return {"periodic_q6_energy_pullback":"PASS",
-            "periodic_q1_to_spectral_airy_refinement":"PASS"}
-
-
+# The single self_test above is the canonical periodic Q6/Q1/P1/Airy audit.
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--out",default="artifacts/periodic_q6_fem_airy")
