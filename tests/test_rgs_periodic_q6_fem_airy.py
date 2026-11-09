@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 from scripts.rgs_periodic_q6_fem_airy import (
     compare, periodic_q1_solve, periodic_p1_solve, periodic_airy_spectral,
-    q6_lift_energy, q6_lift_p1_audit
+    q6_lift_energy, q6_lift_p1_audit, periodic_triangle_complex
 )
 
 class PeriodicQ6FEMAiryTests(unittest.TestCase):
@@ -52,5 +52,12 @@ class PeriodicQ6FEMAiryTests(unittest.TestCase):
                 self.assertLess(abs(e-p["p1_energy"])/max(abs(e),abs(p["p1_energy"]),1e-30),1e-12)
                 self.assertLess(pb,1e-12)
                 self.assertEqual(lifted.shape,(64,2))
+
+    def test_periodic_p1_incidence_is_an_exact_chain_complex(self):
+        for diagonal in ("sw_ne","se_nw"):
+            edges,faces,d0,d1=periodic_triangle_complex(4,diagonal)
+            self.assertEqual(len(edges),48)
+            self.assertEqual(len(faces),32)
+            self.assertEqual((d1@d0).nnz,0)
 
 if __name__=="__main__": unittest.main()
