@@ -61,6 +61,7 @@ class Q6PrismKinematicMapTests(unittest.TestCase):
         # full Q1 Gauss integration must retain its nonzero elastic energy.
         u = np.array([[(-1.0)**x, 0.0] for y in range(4) for x in range(4)])
         self.assertEqual(cell_gradients(u).shape, (16,2,2))
+        self.assertTrue(np.allclose(cell_gradients(u), 0.0))
         samples = cell_gradient_samples(u)
         self.assertEqual(samples.shape, (16,4,2,2))
         self.assertGreater(elastic_energy(u), 0.0)
