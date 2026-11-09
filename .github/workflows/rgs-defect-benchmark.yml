@@ -50,3 +50,5 @@ jobs:
             artifacts/rgs_defect_comparison/
             artifacts/rgs_airy_comparison/
             artifacts/q6_prism_kinematic/
+
+# Full regression rerun after periodic Q1 Gauss-energy and Airy source-alignment fixes.
