@@ -6,7 +6,7 @@ from scripts.rgs_cochain_defect_benchmark import square_complex, solve_cochain
 class CochainDefectTests(unittest.TestCase):
     def test_boundary_of_boundary(self):
         xy,edges,faces,d0,d1=square_complex(8)
-        self.assertTrue(np.array_equal(d1@d0,np.zeros((len(faces),len(xy)),dtype=np.int64)))
+        self.assertEqual((d1@d0).nnz,0)
 
     def test_affine_patch(self):
         r=solve_cochain(9,"affine")
