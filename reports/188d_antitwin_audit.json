@@ -1,0 +1,16 @@
+{
+  "title": "188D K0/P_G and Anti-Twin recovered-matrix audit",
+  "ranks": {"P_G_rank":64,"K0_near_zero_abs_lt_1e-8":64,"K0_positive_gt_1e-8":124},
+  "spectrum_K0": {"min":9.941547793575682e-13,"max":12.799999999999978,"first_dynamic_eigenvalue":0.5000000000000211},
+  "residuals": {
+    "K0_symmetry_fro":0.0,"P_G_symmetry_fro":0.0,"P_G_idempotency_fro":5.076457496803951e-15,
+    "K0P_G_fro":7.999847691607187e-12,"P_GK0_fro":7.999851046236659e-12,"K0_P_G_commutator_fro":5.377468086895907e-14,
+    "Q_tangent_orthogonality_fro":1.3145467710370518e-14,"Pi_AT_symmetry_fro":0.0,"Pi_AT_involution_fro":0.0,"Pi_AT_trace":0.0,
+    "A_polar_reconstruction_fro":0.0,"U_geom_orthogonality_fro":2.0601532243440204e-14,"P_GU_minus_U_fro":1.0944273984319664e-13,
+    "K0U_fro":8.043944670712693e-12,"R_geo_symmetry_fro":4.4475860233337925e-15,"R_geo_involution_fro":3.8257689669806086e-14,
+    "R_geo_P_G_commutator_fro":9.22786262140153,"R_geo_K0_commutator_fro":83.83160011571022,
+    "R_kernel_extension_involution_fro":2.33034208758823e-13,"R_kernel_extension_K0_commutator_fro":1.190673936745882e-12
+  },
+  "geometry_kernel_alignment":{"principal_angle_cosines_min":0.002650180290793834,"principal_angle_cosines_max":0.9310812434297996,"Frobenius_PG_A_minus_A":6.537062941350011},
+  "verdict":{"intrinsic_kernel_projector":"VERIFIED_TO_NUMERICAL_PRECISION","abstract_kernel_involution_extension":"VERIFIED_TO_NUMERICAL_PRECISION","canonical_geometric_identification":"NOT_VERIFIED"}
+}
