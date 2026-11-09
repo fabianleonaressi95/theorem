@@ -139,3 +139,20 @@ Thus the two continuum bilinear forms coincide on the cell-function space under 
 ## 8. Reproduction status
 
 **Source-level audit completed; numerical reproduction not yet run.** The exact operator, facet terms, boundary data, matrix postprocessing and reconstruction are now mapped to public source. The next executable task is a matched-mesh implementation of the published C0-IPDG cell problems, followed by the four matrix/energy checks in §7.1 and the radial benchmarks in §4. The published solver depends on DOLFINx/FEniCSx, Gmsh, PETSc/MUMPS and ADIOS4Dolfinx; no claim is made that these dependencies or the original run have been executed in the present environment.
+
+
+## 9. P2 discrete matrix-identity patch test
+
+A separate executable patch test has now been added:
+- `scripts/rgs_airy_cell_matrix_p2.py`
+- `tests/test_rgs_airy_cell_matrix_p2.py`
+
+It samples the three exact annular cell fields at the vertices and edge midpoints of a structured triangular annulus, reconstructs their local quadratic (P_2) interpolants, and assembles both elementwise matrices:
+[
+(M_H)_{ij}=\sum_T |T|\,D^2\kappa_i^h:D^2\kappa_j^h,
+\qquad
+(M_\Delta)_{ij}=\sum_T |T|\,\Delta\kappa_i^h\,\Delta\kappa_j^h.
+]
+The CI report records the full matrices, relative Frobenius discrepancy, symmetry residuals, smallest eigenvalues, and observed refinement rates on four mesh levels.
+
+**Interpretation limit:** this is a (P_2) interpolation patch test on a polygonal annulus, not a variationally constrained (P_2) solve and not the paper's (P_3) C0-IPDG implementation. It tests whether the matrix identity is recovered under polynomial interpolation/refinement; it does not establish equivalence of the published discrete bilinear forms. The actual C0-IPDG reproduction remains a separate task.
