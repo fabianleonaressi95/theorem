@@ -43,14 +43,20 @@ for example magnetization, strain or actuator displacement. They are not
 interchangeable.
 
 The repository supplies model-independent loop metrics (closed-loop area,
-RMSE and loading/unloading branch separation). It does not yet identify a
-constitutive law. Industrial comparisons must include established baselines:
-Preisach, Prandtl-Ishlinskii, Bouc-Wen and, for ferromagnets, Jiles-Atherton.
+RMSE and loading/unloading branch separation), plus executable reference
+implementations of discrete Preisach relays, Prandtl-Ishlinskii play operators
+and Bouc-Wen dynamics. Linear operator weights can be fitted by least squares
+for fixed threshold dictionaries. This is a software benchmark on synthetic
+signals, not an industrial validation. Jiles-Atherton is a material-specific
+ferromagnetic comparator and remains to be added with a clearly specified
+convention and measured B-H data.
 
 Every model must use identical training/validation splits and excitation
 protocols. Report prediction error, loop-area/energy error, reversal-point
 error, unseen-cycle generalization, computational cost and compensation
-residual. No industrial performance is claimed without experimental data.
+residual. The present tests only check implementation and synthetic fit
+plumbing; they do not establish that any model outperforms another. No
+industrial performance is claimed without experimental data.
 
 ## Reproduction
 
