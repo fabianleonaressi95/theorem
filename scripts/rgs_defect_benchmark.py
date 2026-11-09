@@ -133,7 +133,8 @@ def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
             e=B@u[dofs]-epsp[j,i]
             energy += 0.5*area*float(e@C@e)
     residual=K@u-rhs
-    relres=float(np.linalg.norm(residual[free])/(np.linalg.norm(rhs[free])+1e-30))
+    reaction_scale=float(np.linalg.norm(K[free][:,fixed]@u[fixed]))
+    relres=float(np.linalg.norm(residual[free])/max(np.linalg.norm(rhs[free]),reaction_scale,1e-30))
     if kind=="affine":
         a,b,c,d=0.01,-0.004,0.003,0.008
         exact=np.array([v for x,y in coords for v in (a*x+b*y,c*x+d*y)])
