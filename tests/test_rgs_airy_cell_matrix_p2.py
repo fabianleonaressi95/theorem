@@ -1,6 +1,13 @@
 """Convergence tests for the P2 annular Hessian/Laplacian matrix audit."""
 import unittest
-from scripts.rgs_airy_cell_matrix_p2 import audit_p2_annulus, run
+import json
+import sys
+import tempfile
+import io
+from pathlib import Path
+from contextlib import redirect_stdout
+from unittest.mock import patch
+from scripts.rgs_airy_cell_matrix_p2 import audit_p2_annulus, run, main
 
 
 class AiryCellP2MatrixTests(unittest.TestCase):
@@ -16,6 +23,15 @@ class AiryCellP2MatrixTests(unittest.TestCase):
         self.assertLess(result["symmetry_residual_laplacian"],1e-10)
         self.assertGreater(result["min_eigenvalue_hessian"],0.0)
         self.assertGreater(result["min_eigenvalue_laplacian"],0.0)
+
+    def test_written_report_is_valid_json(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target=Path(directory)/"p2_report.json"
+            with patch.object(sys,"argv",["airy-p2-audit","--out",str(target)]):
+                with redirect_stdout(io.StringIO()):
+                    main()
+            payload=json.loads(target.read_text())
+            self.assertIn("relative_matrix_difference",payload)
 
 
 if __name__=="__main__":
