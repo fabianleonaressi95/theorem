@@ -33,6 +33,8 @@ def main():
             "sigma_max": args.sigma_max,
             "sigma_count": args.sigma_count,
             "seed": args.seed,
+            "frequency_distribution": {"omega0": 2.0, "omega1": 2.0, "tau0": 1.0, "tau1": 1.0,
+                "convention": "node N(Omega0,1/tau0) in co-rotating frame; link N(Omega1,1/tau1), mean retained"},
         },
     }
     sigmas = np.linspace(0.0, args.sigma_max, args.sigma_count)
