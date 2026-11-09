@@ -1,7 +1,7 @@
 """Tests for the Airy-stress incompatibility reference."""
 import unittest
 import numpy as np
-from scripts.rgs_airy_reference import solve_airy, incompatibility, plastic_strain_nodes
+from scripts.rgs_airy_reference import solve_airy, incompatibility, plastic_strain_nodes, compare_case
 
 class AiryReferenceTests(unittest.TestCase):
     def test_wedge_incompatibility_charge(self):
@@ -15,6 +15,14 @@ class AiryReferenceTests(unittest.TestCase):
         e=plastic_strain_nodes(n,"volterra_edge",burgers=.02)
         inc=incompatibility(e,h)
         self.assertAlmostEqual(float(np.sum(Y*inc)*h*h),.02,delta=.004)
+
+    def test_stress_and_strain_errors_decrease_with_refinement(self):
+        for kind in ("volterra_edge","wedge_disclination"):
+            coarse=compare_case(17,kind)
+            fine=compare_case(33,kind)
+            for key in ("q1_airy_stress_rel_l2","q1_airy_strain_rel_l2",
+                        "cochain_airy_stress_rel_l2","cochain_airy_strain_rel_l2"):
+                self.assertLess(fine[key],coarse[key],(kind,key,coarse[key],fine[key]))
 
     def test_clamped_airy_solutions(self):
         for kind in ("volterra_edge","wedge_disclination"):
