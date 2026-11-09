@@ -116,3 +116,16 @@ condition study remains a useful next control.
 - Industrial constitutive prediction: open pending experimental datasets and
   parameter identification.
 - PSU, QCD or gravitational interpretation: not established here.
+
+
+## Industrial constitutive models and experimental data
+
+The synchronization experiment above is a finite graph-dynamics study; it is not a material test. The repository now also includes independent constitutive baselines:
+
+- Preisach relay model and Prandtl–Ishlinskii play-operator model;
+- Bouc–Wen rate-dependent phenomenological model;
+- scalar quasi-static Jiles–Atherton magnetic model.
+
+See [public experimental dataset registry and validation protocol](../../docs/INDUSTRIAL_HYSTERESIS_DATASETS.md). A non-destructive [CSV schema/quality auditor](../../scripts/audit_hysteresis_csv.py) records headers, missing values, numeric ranges and SHA-256 without guessing units or channel semantics.
+
+No experimental model fit has yet been performed in this repository. The first priority is to audit the Zenodo hydrogel-based pneumatic bending-actuator dataset (0.05 Hz triangular excitation; source article reports asymmetric loops) and then compare models on complete held-out cycles. The current PI implementation is a classical play-operator baseline, not the Generalized Prandtl–Ishlinskii model; an asymmetric/GPI extension is required before claiming parity with the strongest model reported in the source article.
