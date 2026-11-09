@@ -163,7 +163,7 @@ def q6_lift_energy(u4: np.ndarray, epsp4: np.ndarray, lam=1.0, mu=1.0):
 
 
 def periodic_triangle_complex(n: int, diagonal: str="sw_ne"):
-    """Integer incidence matrices for the periodic triangulated quotient torus."""
+    """Sparse integer incidence matrices for the periodic triangulated torus."""
     if n<3:
         raise ValueError("periodic triangulation requires n >= 3")
     def node(i,j): return (j % n)*n+(i % n)
@@ -183,15 +183,18 @@ def periodic_triangle_complex(n: int, diagonal: str="sw_ne"):
             edge_set.add((min(a,b),max(a,b)))
     edges=sorted(edge_set)
     edge_id={e:k for k,e in enumerate(edges)}
-    D0=np.zeros((len(edges),n*n),dtype=np.int64)
+    d0r=[]; d0c=[]; d0v=[]
     for k,(a,b) in enumerate(edges):
-        D0[k,a]=-1; D0[k,b]=1
-    D1=np.zeros((len(faces),len(edges)),dtype=np.int64)
+        d0r.extend((k,k)); d0c.extend((a,b)); d0v.extend((-1,1))
+    D0=coo_matrix((d0v,(d0r,d0c)),shape=(len(edges),n*n),dtype=np.int64).tocsr()
+    d1r=[]; d1c=[]; d1v=[]
     for f,tri in enumerate(faces):
         for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
-            key=(min(a,b),max(a,b))
-            D1[f,edge_id[key]] += 1 if a<b else -1
-    if np.any(D1@D0):
+            d1r.append(f)
+            d1c.append(edge_id[(min(a,b),max(a,b))])
+            d1v.append(1 if a<b else -1)
+    D1=coo_matrix((d1v,(d1r,d1c)),shape=(len(faces),len(edges)),dtype=np.int64).tocsr()
+    if (D1@D0).nnz:
         raise AssertionError("periodic P1 incidence matrices violate D1 D0 = 0")
     return edges,faces,D0,D1
 
@@ -299,7 +302,7 @@ def periodic_p1_solve(n: int, kind: str, diagonal: str="sw_ne",
                 stress[j,i]+=0.5*(C@e)
     out={"n":n,"h":h,"case":kind,"diagonal":diagonal,
          "p1_vertices":n*n,"p1_edges":len(edges),"p1_triangles":len(faces),
-         "p1_chain_boundary_of_boundary_max_abs":int(np.max(np.abs(D1@D0))),
+         "p1_chain_boundary_of_boundary_max_abs":int(np.max(np.abs((D1@D0).data))) if (D1@D0).nnz else 0,
          "p1_energy":energy,"p1_relative_free_residual":relres,
          "p1_mean_stress":[float(x) for x in stress.mean(axis=(0,1))]}
     if return_fields:
