@@ -88,6 +88,7 @@ The generated artifact from the full workflow reports the following relative (L^
 The errors decrease with refinement in the tested sequences. The wedge-dipole Q1/cochain relative energy difference also decreases from 31.23% at 65x65 to 12.12% at 129x129; this is still too large to claim energetic agreement at the present resolution.
 
 For the dedicated dipole-to-edge limit audit, with (b=0.002) and core width 0.025, reducing dipole separation from 0.1 to 0.025 gives:
+The fixed-grid sweep uses (n=129), hence (h=1/128); its separations are deliberately (0.1, 0.075, 0.05, 0.0375, 0.025), corresponding to (d/h=12.8, 9.6, 6.4, 4.8, 3.2). This avoids the stencil-locked value (d=2h), for which the centered finite-difference source can coincide algebraically with the discrete edge source and produce a misleading near-zero residual. The sweep is still a fixed-grid regularized check, not a proof of a continuum limit.
 - relative incompatibility-source difference: 70.12% → 4.74%;
 - relative Airy-stress difference: 23.76% → 1.26%.
 
