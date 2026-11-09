@@ -69,7 +69,7 @@ def main():
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     report = audit_csv(args.csv)
-    payload = json.dumps(report, indent=2) + "\\n"
+    payload = json.dumps(report, indent=2) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(payload, encoding="utf-8")
