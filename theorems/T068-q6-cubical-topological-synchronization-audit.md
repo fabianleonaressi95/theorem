@@ -53,6 +53,15 @@ Sine is componentwise. The original article uses simplicial complexes; the
 Q6 implementation substitutes square cells and is therefore a cubical
 generalization, not a result already established by the paper.
 
+The source-paper frequency convention is
+`omega_i ~ Normal(Omega0, 1/tau0)` and
+`omega_tilde_l ~ Normal(Omega1, 1/tau1)`. The numerical implementation
+uses the co-rotating node frame, subtracting the common Omega0 drift from
+node frequencies; it retains the link-frequency mean Omega1. Independent
+random streams are used for frequencies and initial phases, so forward and
+backward sweeps with the same seed have exactly the same intrinsic
+frequencies. This is necessary for a meaningful branch comparison.
+
 ## 4. Industrial hysteresis distinction
 
 Synchronization hysteresis is a bifurcation/continuation phenomenon.
