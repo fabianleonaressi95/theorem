@@ -20,6 +20,9 @@ on:
       - "models/football_shell.py"
       - "models/football_quaternion_tangent.py"
       - "tests/test_football_quaternion_tangent.py"
+      - "models/football_quaternion_bridge.py"
+      - "tests/test_football_quaternion_bridge.py"
+      - "docs/RGS_FOOTBALL_QUATERNION_BRIDGE.md"
       - "docs/FOOTBALL_QUATERNION_TANGENT.md"
       - "scripts/run_football_shell_audit.py"
       - "tests/test_football_shell.py"
@@ -73,6 +76,7 @@ jobs:
           tests/test_football_anisotropy.py
           tests/test_football_shell.py
           tests/test_football_quaternion_tangent.py
+          tests/test_football_quaternion_bridge.py
           -q
       - name: Reproduce orthotropic football shell audit
         run: >-
