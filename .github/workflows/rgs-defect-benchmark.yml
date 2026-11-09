@@ -7,9 +7,11 @@ on:
       - 'scripts/rgs_cochain_defect_benchmark.py'
       - 'scripts/compare_rgs_defect_solvers.py'
       - 'scripts/rgs_airy_reference.py'
+      - 'scripts/rgs_airy_cell_matrix_identity.py'
       - 'scripts/q6_prism_kinematic_map.py'
       - 'scripts/rgs_periodic_q6_fem_airy.py'
       - 'tests/test_rgs_airy_reference.py'
+      - 'tests/test_rgs_airy_cell_matrix_identity.py'
       - 'tests/test_rgs_defect_benchmark.py'
       - 'tests/test_rgs_cochain_defect_benchmark.py'
       - 'tests/test_q6_prism_kinematic_map.py'
@@ -38,6 +40,10 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_rgs_airy_reference.py' -v
           python scripts/rgs_airy_reference.py --out artifacts/rgs_airy_comparison
+      - name: Audit analytic Airy cell matrix identity
+        run: |
+          python -m unittest discover -s tests -p 'test_rgs_airy_cell_matrix_identity.py' -v
+          python scripts/rgs_airy_cell_matrix_identity.py --out artifacts/airy_cell_matrix_identity/report.json
       - name: Run exact Q6-to-material quotient audit
         run: |
           mkdir -p artifacts/q6_prism_kinematic
@@ -56,6 +62,7 @@ jobs:
             artifacts/rgs_cochain_defect/
             artifacts/rgs_defect_comparison/
             artifacts/rgs_airy_comparison/
+            artifacts/airy_cell_matrix_identity/
             artifacts/q6_prism_kinematic/
             artifacts/periodic_q6_fem_airy/
 
