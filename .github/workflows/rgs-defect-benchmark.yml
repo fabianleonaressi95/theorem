@@ -31,4 +31,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rgs-cochain-defect-report
-          path: artifacts/rgs_cochain_defect/\n            artifacts/rgs_defect_comparison/
+          path: |
+            artifacts/rgs_cochain_defect/
+            artifacts/rgs_defect_comparison/
