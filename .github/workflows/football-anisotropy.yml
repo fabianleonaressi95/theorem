@@ -6,11 +6,15 @@ on:
       - "models/football_anisotropy.py"
       - "models/football_quaternion_bridge.py"
       - "models/football_shell.py"
+      - "models/football_seam_law.py"
+      - "tests/test_football_seam_law.py"
+      - "manuscripts/DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md"
       - "scripts/build_rgs_football_geometric_transfer.py"
       - "scripts/run_rgs_football_triplet_spectral_comparison.py"
       - "tests/test_rgs_football_triplet_spectral_comparison.py"
       - "docs/RGS_FOOTBALL_TRIPLET_SPECTRAL_COMPARISON.md"
       - "tests/test_football_geometric_transfer.py"
+      - "tests/test_football_seam_law.py"
       - "data/rgs_188d/X_Oh_reconstructed.csv"
       - "docs/RGS_FOOTBALL_GEOMETRIC_TRANSFER.md"
       - "scripts/run_football_anisotropy_audit.py"
@@ -46,7 +50,7 @@ jobs:
       - name: Install numerical and test dependencies
         run: python -m pip install numpy scipy pytest
       - name: Run panel geometry and mechanics tests
-        run: python -m pytest -q tests/test_football_anisotropy.py tests/test_football_geometric_transfer.py tests/test_football_quaternion_bridge.py tests/test_football_quaternion_tangent.py tests/test_rgs_football_triplet_spectral_comparison.py
+        run: python -m pytest -q tests/test_football_anisotropy.py tests/test_football_geometric_transfer.py tests/test_football_quaternion_bridge.py tests/test_football_quaternion_tangent.py tests/test_football_seam_law.py tests/test_rgs_football_triplet_spectral_comparison.py
       - name: Build recovered RGS to football transfer
         run: python scripts/build_rgs_football_geometric_transfer.py
       - name: Run RGS to football triplet spectral comparison
