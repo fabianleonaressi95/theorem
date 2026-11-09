@@ -10,7 +10,7 @@ This prototype establishes a deliberately modest B0–B4 baseline for discussion
 - **B3:** solves a pair of opposite smooth eigenstrain inclusions.
 - **B4:** repeats the single-source case over mesh levels and records the empirical energy refinement trend.
 
-The element energy uses Q1 bilinear quadrilaterals with center-point strain evaluation and isotropic Lamé elasticity. The local strain vector is `[epsilon_xx, epsilon_yy, gamma_xy]`.
+The element energy uses Q1 bilinear quadrilaterals with full 2x2 Gauss integration and isotropic Lamé elasticity. The local strain vector is `[epsilon_xx, epsilon_yy, gamma_xy]`.
 
 ## Important scientific boundary
 
