@@ -42,15 +42,21 @@ This registry separates (i) measured actuator data, (ii) measured magnetic mater
 - Dataset describes measured H, B and J curves for multiple ferromagnetic materials.
 - Intended use: first-magnetization / anhysteretic-curve checks and material-unit consistency. It is not, by itself, a closed-loop validation set for hysteresis loss.
 
-### EMPIR HEFMAG NO/GO steel-sheet loops
+### EMPIR HEFMAG Hysteresis Loops Dataset (main record)
+
+- **Correct primary dataset DOI:** https://doi.org/10.5281/zenodo.5910892
+- HEFMAG's official project site explicitly lists `Hysteresis Loops Dataset: DOI: 10.5281/zenodo.5910892`.
+- This is the primary HEFMAG dataset to retrieve and inspect for the Jiles–Atherton validation. Do not substitute the sample record below.
+- Before fitting: verify the record metadata, version, downloadable files, checksums, licence, units, frequency, temperature, specimen geometry and loop segmentation. No checksum or licence is asserted here until the primary record itself is inspected.
+
+### EMPIR HEFMAG NO/GO steel-sheet sample loops (separate record)
 
 - Record: https://doi.org/10.5281/zenodo.5910893
 - Landing page: https://zenodo.org/records/5910893
 - File: `EMPIR 19ENG06 HEFMAG dataset loops NO and GO.zip` (318.9 kB; Zenodo MD5 `2ae32cfbcf0841e4a320d0adaf4e6355`).
-- Description: sample measured hysteresis loops for non-oriented and grain-oriented FeSi steel, used in power-loss work.
+- Description: a sample archive of measured hysteresis loops for non-oriented and grain-oriented FeSi steel; it is **not** the primary HEFMAG Hysteresis Loops Dataset DOI.
 - Rights: Zenodo's record leaves the Rights/License field blank. Do not redistribute or commit the archive until the rights are clarified with the depositor; access for analysis is distinct from redistribution permission.
-- Intended use: fit and test Jiles–Atherton loop shape and energy-loss metrics after inspecting the archive's units, waveform, frequency, sample metadata and loop segmentation.
-- The HEFMAG project site separately lists the main Hysteresis Loops Dataset as DOI `10.5281/zenodo.5910892`; it should be evaluated as a separate source, not conflated with this 5910893 sample archive.
+- Intended use: supplementary sample-loop inspection after checking units, waveform, frequency, sample metadata and loop segmentation.
 
 ### Magnetic powders / magnetorheological elastomers
 
