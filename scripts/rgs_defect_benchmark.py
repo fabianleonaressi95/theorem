@@ -65,7 +65,7 @@ def elasticity_tensor(lam: float, mu: float):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def source_field(n: int, kind: str, amplitude=0.02, width=0.12):
+def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, core_width=0.025):
     """Cell-centred engineering eigenstrain [exx*, eyy*, gamma_xy*].
     single/dipole are smooth shear eigenstrain inclusions, not atomistic cores.
     """
@@ -83,6 +83,9 @@ def source_field(n: int, kind: str, amplitude=0.02, width=0.12):
         eps[:,:,2]=amplitude*bump(0.5,0.5)
     elif kind=="dipole":
         eps[:,:,2]=amplitude*(bump(0.35,0.5)-bump(0.65,0.5))
+    elif kind=="volterra_edge":
+        delta=np.exp(-0.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        eps[:,:,2]=burgers*delta*(X>=.5)
     else:
         raise ValueError(kind)
     return eps
@@ -160,7 +163,7 @@ def run(out: Path, levels=(9,17,33,65)):
     b0=int(np.max(np.abs(D1@D0)))
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole"):
+        for case in ("affine","none","single","dipole","volterra_edge"):
             rows.append(solve_case(n,case))
     # B4 refinement trend for the regularized single-source problem.
     singles=[r for r in rows if r["case"]=="single"]
@@ -170,21 +173,23 @@ def run(out: Path, levels=(9,17,33,65)):
     report={
       "title":"RGS–PRISM defect benchmark prototype",
       "status":"candidate baseline; not yet an RGS/Q6 discretization",
-      "physical_scope":"2D isotropic linear elasticity with smooth prescribed plastic eigenstrain sources",
+      "physical_scope":"2D isotropic elasticity with smooth inclusions and a regularized Volterra slip cut",
       "limitations":[
-        "single/dipole sources are smooth eigenstrain inclusions, not singular Volterra dislocations",
+        "single/dipole sources are smooth eigenstrain inclusions",
+        "Volterra edge source is a regularized slip cut with finite core width, not a singular continuum or atomistic core",
         "no disclination connection or Airy-stress-function reproduction yet",
         "Q1 FEM baseline is not the RGS cochain method",
         "convergence trend is empirical and does not prove Mosco/Γ convergence"
       ],
       "B0":{"max_abs_d1d0":b0,"passed":bool(b0==0)},
-      "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,
+      "burgers_audit":{"definition":"integral of engineering plastic shear gamma^p across a vertical section through the slip cut","target":0.02,"note":"section sampled at a cell-centre x > 0.5"},
+      "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,"burgers_magnitude":0.02,"core_width":0.025,
                     "domain":[0.0,1.0,0.0,1.0],"boundary":"Dirichlet"},
       "levels":list(levels),"results":rows
     }
     (out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     with (out/"results.csv").open("w",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=list(rows[0].keys()))
+        w=csv.DictWriter(f,fieldnames=sorted({key for row in rows for key in row}))
         w.writeheader(); w.writerows(rows)
     try:
         import matplotlib.pyplot as plt
@@ -208,6 +213,10 @@ def self_test():
     assert a["affine_relative_error"] < 1e-9, a
     assert z["energy"] < 1e-20, z
     assert a["relative_free_residual"] < 1e-8, a
+    v=source_field(129,"volterra_edge",burgers=0.02,core_width=0.025)
+    h=1/128; ix=80
+    measured=float(np.sum(v[:,ix,2])*h)
+    assert abs(measured-0.02)<2e-4, measured
     return {"B0":"PASS","B1_affine_manufactured":"PASS",
             "B1_zero_source":"PASS","residual":"PASS",
             "affine_relative_error":a["affine_relative_error"]}
