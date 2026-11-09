@@ -9,7 +9,7 @@ This implementation makes the discrete kinematics explicit:
 - on each oriented triangle, edge differences reconstruct the constant P1 displacement gradient;
 - the symmetric gradient enters the isotropic elastic energy.
 
-The square is split along a fixed SW–NE diagonal. Each triangle inherits the smooth cellwise eigenstrain of its parent square. This is a cochain-based simplicial P1 comparator, not a physical realization of Q6 or the full PRISM graph. It also does not yet model singular Volterra dislocations, disclinations, or the Airy-stress formulation. The fixed diagonal may introduce directional bias, so a flipped-diagonal/orientation study is required before interpreting anisotropy.
+The square can be split along either the SW–NE or SE–NW diagonal. Both orientations are now assembled as separate chain complexes and are included in the Q1-versus-cochain comparison. Each triangle inherits the smooth cellwise eigenstrain of its parent square. This allows a first sensitivity audit for mesh-orientation bias, but does not eliminate all mesh anisotropy or replace a rotated-mesh study. This is a cochain-based simplicial P1 comparator, not a physical realization of Q6 or the full PRISM graph. It also does not yet model singular Volterra dislocations, disclinations, or the Airy-stress formulation.
 
 Run:
 
