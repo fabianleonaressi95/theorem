@@ -53,6 +53,15 @@ Sine is componentwise. The original article uses simplicial complexes; the
 Q6 implementation substitutes square cells and is therefore a cubical
 generalization, not a result already established by the paper.
 
+The source-paper frequency convention is
+`omega_i ~ Normal(Omega0, 1/tau0)` and
+`omega_tilde_l ~ Normal(Omega1, 1/tau1)`. The numerical implementation
+uses the co-rotating node frame, subtracting the common Omega0 drift from
+node frequencies; it retains the link-frequency mean Omega1. Independent
+random streams are used for frequencies and initial phases, so forward and
+backward sweeps with the same seed have exactly the same intrinsic
+frequencies. This is necessary for a meaningful branch comparison.
+
 ## 4. Industrial hysteresis distinction
 
 Synchronization hysteresis is a bifurcation/continuation phenomenon.
@@ -73,6 +82,8 @@ parameter convention. No industrial performance claim is included.
 Exact: finite cell counts, B1 B2 = 0, Anti-Twin chain-map identities.
 Implemented: NL/NLT vector fields on Q6; finite continuation runner; Preisach,
 PI and Bouc-Wen reference simulators/fit plumbing; loop metrics.
+Implemented: finite multi-seed/multi-dwell sweep study with branch-gap and loop-area summaries plus mean/dispersion plots.
+Open: robust Q6 hysteresis under independent initialization/fixed-frequency controls and larger finite-size comparisons,
 Open: robust Q6 hysteresis under sweep-rate/seed/initialization controls,
 Jiles-Atherton magnetic comparison, experimental data identification,
 continuum limits, industrial utility and PSU interpretation.

@@ -17,6 +17,8 @@ cubical extension, not a claim that the paper studied Q6.
 B1 has shape 64 x 192 and B2 has shape 192 x 240. Their entries are integers
 and B1 B2 = 0 is checked exactly. The graph cycle rank is 129. The square
 boundaries span the full graph cycle space (rank B2 = 129), so b1 of the
+2-skeleton is zero. Because C3 is omitted, the truncated 2-skeleton has b2 = 240 - 129 = 111.
+These classes are killed when the 3-cells of the full cube are restored.
 2-skeleton is zero. The 2-skeleton has nontrivial H2 because 3-cells are
 omitted; no claim of contractibility is made.
 
@@ -29,6 +31,12 @@ NL and NLT vector fields are transcribed from Eqs. (12)-(13) and (16)-(17)
 of the 2021 paper. Triangular faces are replaced by Q6 square cells. Order
 parameters are computed from node phases, B1 phi and B2^T phi. The runner
 uses a continuation sweep in sigma and starts the reverse sweep from the
+terminal forward state, with exactly the same intrinsic frequencies. The
+frequency sampler follows the source-paper convention: node frequencies
+N(Omega0, 1/tau0) and link frequencies N(Omega1, 1/tau1), with the common
+node drift removed by a co-rotating node frame and the link-frequency mean
+retained. Separate random streams ensure branch initialization cannot change
+the intrinsic frequency samples.
 terminal forward state, with the same intrinsic frequencies.
 
 This is a finite-size exploratory numerical benchmark. A hysteresis claim
@@ -62,6 +70,13 @@ industrial performance is claimed without experimental data.
 
 From repository root:
 
+    python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py tests/test_constitutive_hysteresis.py tests/test_q6_hysteresis_sweep_study.py
+    python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
+    python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --omega0 2 --omega1 2 --tau0 1 --tau1 1 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
+
+## Latest corrected production results
+
+See [corrected five-seed, four-rate results and interpretation](RESULTS_2026-11-09.md). The production workflow artifact contains the full JSON branches and NL/NLT plots. The earlier sweep performed before the frequency-stream audit is superseded and must not be cited.
     python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py
     python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
 
@@ -70,6 +85,33 @@ From repository root:
 - Exact finite incidence identity and Anti-Twin chain identities: implemented
   and tested.
 - NL/NLT vector fields: implemented on the cubical Q6 complex.
+- Q6 dynamical hysteresis: multi-seed/multi-dwell finite-size protocol study implemented; robust transition remains open pending production sweeps and initialization controls.
+- Industrial constitutive prediction: open pending experimental datasets and
+  parameter identification.
+- PSU, QCD or gravitational interpretation: not established here.
+
+
+## Multi-seed and multi-rate protocol study
+
+Run the controlled finite-size sweep study:
+
+    python scripts/run_q6_hysteresis_sweep_study.py \
+      --seeds 11,23,37,51,67 --dwell-steps 10,40,160 \
+      --sigma-max 2 --sigma-count 21 --dt 0.025 \
+      --output results/q6_hysteresis_sweep_study.json \
+      --plot-prefix results/q6_hysteresis_sweep
+
+The effective parameter sweep rate is Delta_sigma/(dwell_steps * dt). The
+same seed reproduces the same initial phases and source-paper frequency samples across
+dwell settings; forward and backward branches share exactly the same frequencies. The backward branch begins at the terminal forward state.
+The JSON stores every branch, per-seed branch-gap/loop-area metrics, and
+mean/standard deviation across seeds. Two PNGs compare forward and backward
+branches for NL and NLT, showing mean curves and seed dispersion.
+
+These controls test protocol sensitivity at one fixed Q6 size. They do not
+establish a thermodynamic limit. Different seeds jointly change intrinsic
+frequencies and initial phases; a separate fixed-frequency/multiple-initial-
+condition study remains a useful next control.
 - Q6 dynamical hysteresis: open pending convergence and finite-size controls.
 - Industrial constitutive prediction: open pending experimental datasets and
   parameter identification.

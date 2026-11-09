@@ -134,20 +134,54 @@ def rk4_step(K, theta, phi, omega, omega_link, sigma, model, dt):
     return (theta+dt*(k1t+2*k2t+2*k3t+k4t)/6,
             phi+dt*(k1p+2*k2p+2*k3p+k4p)/6)
 
-def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
-                    dt=.025, initial=None, return_final=False):
-    """Quasi-static continuation sweep; returns terminal state when requested."""
+def sample_intrinsic_frequencies(seed, n_nodes=64, n_links=192,
+                                 omega0=2.0, omega1=2.0,
+                                 tau0=1.0, tau1=1.0):
+    """Sample source-paper Gaussian frequencies in a co-rotating node frame.
+
+    The paper uses omega_i ~ N(Omega0, 1/tau0) and
+    omega_tilde_l ~ N(Omega1, 1/tau1).  The common node drift Omega0 is
+    removed by rotating the node phase frame; the link mean is retained.
+    """
+    if tau0 <= 0 or tau1 <= 0:
+        raise ValueError("tau0 and tau1 must be positive")
     rng=np.random.default_rng(seed)
+    omega=rng.normal(omega0,1.0/tau0,n_nodes)-omega0
+    omega_link=rng.normal(omega1,1.0/tau1,n_links)
+    return omega,omega_link
+
+
+def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
+                    dt=.025, initial=None, return_final=False,
+                    omega0=2.0, omega1=2.0, tau0=1.0, tau1=1.0):
+    """Quasi-static continuation with reproducible, configurable frequencies.
+
+    The same seed produces the same intrinsic node/link frequencies regardless
+    of branch initialization.  This lets the reverse sweep reuse the forward
+    terminal state without silently drawing a different frequency realization.
+    """
+    omega, omega_link = sample_intrinsic_frequencies(
+        seed, 64, 192, omega0, omega1, tau0, tau1
+    )
+
+    # Keep phase initialization on an independent stream so frequency sampling
+    # is unchanged when a supplied terminal state is used for the reverse branch.
+    phase_rng = np.random.default_rng(int(seed) + 1_000_003)
     if initial is None:
-        theta=rng.uniform(-np.pi,np.pi,64); phi=rng.uniform(-np.pi,np.pi,192)
+        theta = phase_rng.uniform(-np.pi, np.pi, 64)
+        phi = phase_rng.uniform(-np.pi, np.pi, 192)
     else:
-        theta,phi=np.array(initial[0],float).copy(),np.array(initial[1],float).copy()
-    omega=rng.normal(0,1,64); omega-=omega.mean()
-    omega_link=rng.normal(0,1,192); omega_link-=omega_link.mean()
-    rows=[]
-    for sigma in np.asarray(sigmas,float):
-        for _ in range(steps_per_sigma):
-            theta,phi=rk4_step(K,theta,phi,omega,omega_link,float(sigma),model,dt)
-        rows.append({"sigma":float(sigma),**order_parameters(K,theta,phi)})
-    if return_final: return rows,(theta,phi)
+        theta = np.array(initial[0], dtype=float).copy()
+        phi = np.array(initial[1], dtype=float).copy()
+
+    rows = []
+    for sigma in np.asarray(sigmas, dtype=float):
+        for _ in range(int(steps_per_sigma)):
+            theta, phi = rk4_step(
+                K, theta, phi, omega, omega_link, float(sigma), model, dt
+            )
+        rows.append({"sigma": float(sigma), **order_parameters(K, theta, phi)})
+
+    if return_final:
+        return rows, (theta, phi)
     return rows
