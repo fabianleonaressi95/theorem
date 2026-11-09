@@ -314,3 +314,128 @@ Il patrimonio già formalizzato nel repository dimostra che il programma dispone
 La proposta non chiede di accettare un'interpretazione fisica complessiva RGS–PSU. Chiede di verificare un'interfaccia matematica circoscritta, falsificabile e potenzialmente utile.
 
 **FLN**
+
+
+---
+
+# ADDENDUM DI RECUPERO FORENSE E RIPRODUCIBILITÀ — 9 NOVEMBRE 2026
+
+Questa sezione prevale su eventuali formulazioni meno precise nelle sezioni A.12–A.13 e nei riferimenti storici. È stata aggiunta dopo il recupero e il ricalcolo dei materiali d'archivio.
+
+## A.20. Audit PRISM 69.120: ricostruzione riproducibile
+
+È stato recuperato e rieseguito lo script di generazione delle matrici di incidenza. La struttura è il toro prodotto
+
+\[
+C_{64}\square C_6\square C_6\square C_6\square C_5.
+\]
+
+I risultati ricalcolati sono:
+
+| Quantità | Risultato |
+|---|---:|
+| Vertici | 69.120 |
+| Archi | 345.600 |
+| Facce quadrate | 691.200 |
+| Non nulli di B1 | 691.200 |
+| Non nulli di B2 | 2.764.800 |
+| Residuo esatto B1 B2 | 0 non nulli |
+| Rango ciclico del grafo E−V+1 | 276.481 |
+| Gap del Laplaciano sui vertici | 0,009630546655606143 |
+| Molteplicità del gap | 2 |
+
+L'hash strutturale delle matrici sparse B1 e B2, secondo la serializzazione documentata dallo script, è
+
+\[
+\texttt{c2f15e070e0e1dc99f4e2d8142290acc0b32bcc9222707d6cc655ef442bf6eb9}.
+\]
+
+La cella-count del toro prodotto è
+
+\[
+(69120,345600,691200,691200,345600,69120)
+\]
+
+e i Betti dichiarati sono
+
+\[
+(b_0,b_1,b_2,b_3,b_4,b_5)=(1,5,10,10,5,1).
+\]
+
+**Precisazione:** i Betti sono quelli del prodotto di cinque circonferenze e sono riportati mediante la struttura prodotto. Lo script pubblicato rigenera B1 e B2 e verifica B1B2=0 esattamente; non calcola ancora i ranghi di tutti gli operatori B_k per k=1,...,5. Non va quindi detto che l'intera omologia sia stata ricalcolata tramite una diagonalizzazione completa di tutte le matrici di bordo.
+
+Script e report:
+- `scripts/audit_prism_69120.py`
+- `reports/prism_69120_audit.json`
+- `reports/RECOVERY_MANIFEST.md`
+
+## A.21. Audit 188D: risultati riprodotti e correzione dell'interpretazione Anti-Twin
+
+È stato recuperato il bundle `188D_FINAL_BUNDLE.zip` e l'archivio matriciale `actual_original_X_report_matrices.npz`. Quest'ultimo contiene le matrici derivate per l'audit: Q_tangent, K0, P_G, Pi_AT, R_geo_tangent, A_raw, i frame ortonormali e l'estensione sul kernel. Non contiene però le coordinate originali X_Oh (64×3).
+
+I controlli ricalcolati sulle matrici archiviate danno:
+
+| Controllo | Residuo |
+|---|---:|
+| QᵀQ−I, norma Frobenius | 1,3145×10⁻¹⁴ |
+| P_G²−P_G | 5,0765×10⁻¹⁵ |
+| K0 P_G | 7,9998×10⁻¹² |
+| P_G K0 | 7,9999×10⁻¹² |
+| [K0,P_G] | 5,3775×10⁻¹⁴ |
+| R_geoᵀ−R_geo | 4,4476×10⁻¹⁵ |
+| R_geo²−I | 3,8258×10⁻¹⁴ |
+| [R_geo,P_G] | 9,2279 |
+| [R_geo,K0] | 83,8316 |
+| Involuzione Pi_AT²−I | 0 |
+
+Lo spettro di K0 presenta 64 autovalori quasi nulli e 124 positivi, con massimo 12,8 e primo modo dinamico a 0,5. P_G è un proiettore simmetrico di rango 64 e K0 annulla la sua immagine entro i residui riportati.
+
+Il controllo indipendente dell'allineamento geometrico restituisce coseni degli angoli principali compresi tra
+
+\[
+0,00265018\quad\text{e}\quad0,93108124,
+\]
+
+con
+
+\[
+\|P_GA-A\|_F=6,53706.
+\]
+
+Ne segue che **la specifica identificazione geometrica memorizzata da R_geo_tangent non commuta con il proiettore del kernel e non è certificata come intertwiner canonico**.
+
+L'estensione `R_AT_kernel_extension` ha invece residuo di involuzione circa 2,33×10⁻¹³ e commutatore con K0 circa 1,19×10⁻¹². Ma tale estensione è costruita direttamente sulla decomposizione del kernel; la sua commutazione con K0 è conseguenza della costruzione e non costituisce una prova indipendente dell'identificazione geometrica tra i 64 vertici e il kernel.
+
+**Verdetto corretto:**
+- kernel e proiettore intrinseci: verificati numericamente;
+- involuzione astratta estesa sul kernel: verificata numericamente;
+- identificazione geometrica canonica Anti-Twin/kernel: non verificata;
+- ricostruzione indipendente delle coordinate X_Oh: ancora da completare, perché il file delle coordinate non è nel bundle matriciale recuperato.
+
+Script e report:
+- `scripts/audit_188d_antitwin.py`
+- `tests/test_188d_antitwin_audit.py`
+- `reports/188d_antitwin_audit.json`
+- `reports/RECOVERY_MANIFEST.md`
+
+## A.22. Krist-All: stato della documentazione recuperata
+
+È stato recuperato l'archivio `PRISM_KristAll_recovered_sources.zip`. Contiene un manoscritto sul livello di codifica a 64 stati, lo spazio prodotto da 69.120 stati, una pipeline Merkle schematica, script di figure e note Python supplementari.
+
+L'archivio non contiene tuttavia:
+1. la definizione formale della relazione di equivalenza che produce le classi Krist-All;
+2. la tabella completa dei 11.725 rappresentanti o classi;
+3. il programma deterministico di enumerazione e un test di completezza;
+4. le definizioni operative e le matrici dell'operatore K e del residuo W0;
+5. un test riproducibile dell'identità K³=K²+I.
+
+Pertanto i valori 11.725, W0≈5,22×10⁻¹⁶ e K³=K²+I restano **risultati storici da recuperare e verificare**, non risultati certificati dall'archivio appena esaminato. Questo è un limite di provenienza documentale, non una dimostrazione che le affermazioni siano false.
+
+Documento di stato:
+- `reports/KRISTALL_RECOVERY_STATUS.md`
+
+## A.23. Implicazione per la proposta a Morandotti
+
+La proposta può ora poggiare su un audit PRISM concreto e su una parte sostanziale dell'audit 188D. Deve però presentare con chiarezza anche il risultato negativo relativo all'intertwiner geometrico Anti-Twin e lasciare Krist-All in stato aperto fino al recupero del generatore delle classi e degli operatori.
+
+Questa scelta rende il dossier più forte scientificamente: espone dati riproducibili, limita le conclusioni ai controlli effettivamente eseguiti e identifica con precisione i problemi matematici sui quali chiedere una collaborazione.
