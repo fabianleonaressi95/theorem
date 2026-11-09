@@ -29,7 +29,7 @@ jobs:
           python3 -c "from petsc4py import PETSc; print('PETSc', PETSc.Sys.getVersion())"
       - name: Run two-core six-field interaction audit
         run: |
-          python3 scripts/rgs_morandotti_two_core_c0_ipdg.py --mesh-sizes 0.24 0.16 0.11 --alpha 10 --out artifacts/morandotti_two_core/report.json
+          python3 scripts/rgs_morandotti_two_core_c0_ipdg.py --mesh-sizes 0.24 0.16 0.11 0.08 0.055 --alpha 10 --out artifacts/morandotti_two_core/report.json
       - name: Upload two-core report
         uses: actions/upload-artifact@v4
         with:
