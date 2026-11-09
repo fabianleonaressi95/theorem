@@ -73,6 +73,7 @@ parameter convention. No industrial performance claim is included.
 Exact: finite cell counts, B1 B2 = 0, Anti-Twin chain-map identities.
 Implemented: NL/NLT vector fields on Q6; finite continuation runner; Preisach,
 PI and Bouc-Wen reference simulators/fit plumbing; loop metrics.
-Open: robust Q6 hysteresis under sweep-rate/seed/initialization controls,
+Implemented: finite multi-seed/multi-dwell sweep study with branch-gap and loop-area summaries plus mean/dispersion plots.
+Open: robust Q6 hysteresis under independent initialization/fixed-frequency controls,
 Jiles-Atherton magnetic comparison, experimental data identification,
 continuum limits, industrial utility and PSU interpretation.
