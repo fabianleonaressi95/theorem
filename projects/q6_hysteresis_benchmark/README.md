@@ -29,7 +29,12 @@ NL and NLT vector fields are transcribed from Eqs. (12)-(13) and (16)-(17)
 of the 2021 paper. Triangular faces are replaced by Q6 square cells. Order
 parameters are computed from node phases, B1 phi and B2^T phi. The runner
 uses a continuation sweep in sigma and starts the reverse sweep from the
-terminal forward state, with the same intrinsic frequencies.
+terminal forward state, with exactly the same intrinsic frequencies. The
+frequency sampler follows the source-paper convention: node frequencies
+N(Omega0, 1/tau0) and link frequencies N(Omega1, 1/tau1), with the common
+node drift removed by a co-rotating node frame and the link-frequency mean
+retained. Separate random streams ensure branch initialization cannot change
+the intrinsic frequency samples.
 
 This is a finite-size exploratory numerical benchmark. A hysteresis claim
 requires longer relaxation, sweep-rate controls, multiple seeds, and
@@ -64,7 +69,7 @@ From repository root:
 
     python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py tests/test_constitutive_hysteresis.py tests/test_q6_hysteresis_sweep_study.py
     python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
-    python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
+    python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --omega0 2 --omega1 2 --tau0 1 --tau1 1 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
 
 ## Status
 
@@ -88,8 +93,8 @@ Run the controlled finite-size sweep study:
       --plot-prefix results/q6_hysteresis_sweep
 
 The effective parameter sweep rate is Delta_sigma/(dwell_steps * dt). The
-same seed reproduces the same initial phases and intrinsic frequencies across
-dwell settings. The backward branch begins at the terminal forward state.
+same seed reproduces the same initial phases and source-paper frequency samples across
+dwell settings; forward and backward branches share exactly the same frequencies. The backward branch begins at the terminal forward state.
 The JSON stores every branch, per-seed branch-gap/loop-area metrics, and
 mean/standard deviation across seeds. Two PNGs compare forward and backward
 branches for NL and NLT, showing mean curves and seed dispersion.
