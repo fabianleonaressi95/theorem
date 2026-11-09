@@ -26,9 +26,9 @@ jobs:
       - name: Install audit dependencies
         run: python -m pip install -r requirements-audit.txt
       - name: Compile Q6-D5 modules
-        run: python -m compileall -q src/rgs_q6_equivariant_cochains.py src/rgs_q6_euclidean_time_wilson.py src/rgs_q6_u1_character_electric_flux.py src/rgs_q6_u1_transfer_operator.py src/rgs_q6_d5_integer_fiber_quotient.py src/rgs_q6_d5_fiber_bessel_majorant.py src/rgs_q6_d5_saturated_kernel_bounds.py
+        run: python -m compileall -q src/rgs_q6_equivariant_cochains.py src/rgs_q6_euclidean_time_wilson.py src/rgs_q6_u1_character_electric_flux.py src/rgs_q6_u1_transfer_operator.py src/rgs_q6_d5_integer_fiber_quotient.py src/rgs_q6_d5_fiber_bessel_majorant.py src/rgs_q6_d5_saturated_kernel_bounds.py src/rgs_q6_d5_gaussian_poisson.py
       - name: Run focused exact-arithmetic tests
-        run: python -m pytest -q tests/test_rgs_q6_d5_integer_fiber_quotient.py tests/test_rgs_q6_d5_fiber_bessel_majorant.py tests/test_rgs_q6_d5_saturated_kernel_bounds.py
+        run: python -m pytest -q tests/test_rgs_q6_d5_integer_fiber_quotient.py tests/test_rgs_q6_d5_fiber_bessel_majorant.py tests/test_rgs_q6_d5_saturated_kernel_bounds.py tests/test_rgs_q6_d5_gaussian_poisson.py
       - name: Generate reproducible splitting and tail report
         run: python scripts/run_q6_d5_saturated_kernel_bounds.py --beta-time 2.0 --edge-l1-cutoff 500 --output reports/q6_d5_saturated_kernel_bounds.json
       - name: Upload exact-arithmetic audit report
