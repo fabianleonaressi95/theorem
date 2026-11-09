@@ -41,3 +41,14 @@ Su (h=0.22,0.14,0.09), gli errori relativi in seminorma (H^2) scendono:
 Le tracce di valore al core sono imposte con residui inferiori a (1,4	imes10^{-16}); i residui della derivata normale diminuiscono con il raffinamento. Le matrici Hessiana e Laplaciana sono simmetriche e positive definite. Tuttavia la loro differenza relativa è 0,114%, 0,131% e 0,158%: non è ancora monotona decrescente. Ho aggiunto (h=0.06) per discriminare comportamento pre-asintotico e problema di formulazione/assemblaggio.
 
 Questo è un primo test P3 C0-IPDG su un singolo core, non la riproduzione completa della procedura multi-core del lavoro pubblicato. La ricostruzione con matrice (mathcal M), più core, configurazioni fuori centro e limite singolare restano obiettivi successivi. Il report metodologico aggiornato è in [MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md](rgs_defect_benchmark/MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md).
+
+
+### Verifica aggiuntiva: identità Hessiana–Laplaciana nel P3 discreto
+
+Il driver P3 assembla ora anche il flusso completo al bordo fisico e sulle facce interne, verificando numericamente
+[
+M_\Delta-M_H=B_{\partial\Omega_\varepsilon}+B_{\mathcal F_h^i}.
+]
+Il contributo delle facce interne è necessario perché i campi C0-IPDG non hanno gradienti globalmente continui. Nel run [42662098640](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640), il residuo relativo dell'identità scende da (4,69\times10^{-7}) a (2,55\times10^{-10}) passando da (h=0.22) a (h=0.06). Il residuo di simmetria della matrice di flusso totale scende da (2,26\times10^{-5}) a (2,04\times10^{-8}).
+
+Questo chiude il controllo di assemblaggio dell'identità matriciale per i tre campi di cella P3 calcolati. Non chiude ancora la ricostruzione multi-core, il confronto su difetti fuori centro o il limite singolare del core.
