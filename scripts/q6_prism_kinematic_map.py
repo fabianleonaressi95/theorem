@@ -139,11 +139,13 @@ def build_q6_complex():
         ca, cb = coords[a], coords[b]
         x,y = int(ca[0]), int(ca[1])
         if axis == 0:
-            target = y*4+x
             delta = (int(cb[0])-int(ca[0])) % 4
+            edge_x = x if delta == 1 else (x-1) % 4
+            target = y*4+edge_x
         else:
-            target = 16+y*4+x
             delta = (int(cb[1])-int(ca[1])) % 4
+            edge_y = y if delta == 1 else (y-1) % 4
+            target = 16+edge_y*4+x
         if delta == 1:
             sign = 1
         elif delta == 3:
