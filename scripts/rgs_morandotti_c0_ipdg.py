@@ -104,8 +104,8 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
     a_form=(ufl.inner(Hu,Hv)*dx
         -(j_u*ufl.avg(Hvn)+j_v*ufl.avg(Hun))*dS
         -(ufl.dot(ufl.grad(u),n)*Hvn+ufl.dot(ufl.grad(v),n)*Hun)*ds
-        +(alpha/cell_h)*j_u*j_v*dS
-        +(alpha/cell_h)*ufl.dot(ufl.grad(u),n)*ufl.dot(ufl.grad(v),n)*ds)
+        +(alpha/ufl.avg(cell_h))*j_u*j_v*dS
+        +(alpha/cell_h('+'))*ufl.dot(ufl.grad(u),n)*ufl.dot(ufl.grad(v),n)*ds)
     outer_facets=facet_tags.find(1); core_facets=facet_tags.find(2)
     outer_dofs=fem.locate_dofs_topological(V,1,outer_facets)
     core_dofs=fem.locate_dofs_topological(V,1,core_facets)
@@ -125,7 +125,7 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
         zero=fem.Constant(mesh,PETSc.ScalarType(0.0))
         bcs=[fem.dirichletbc(zero,outer_dofs,V),
              fem.dirichletbc(gD,core_dofs)]
-        L=(-gN*Hvn+(alpha/cell_h)*gN*ufl.dot(ufl.grad(v),n))*ds(2)+zero*v*dx
+        L=(-gN*Hvn+(alpha/cell_h('+'))*gN*ufl.dot(ufl.grad(v),n))*ds(2)+zero*v*dx
         problem=LinearProblem(a_form,L,bcs=bcs,
             petsc_options_prefix=f"rgs_airy_cell_{mode}_",
             petsc_options={"ksp_type":"preonly","pc_type":"lu",
