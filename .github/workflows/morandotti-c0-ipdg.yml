@@ -1,6 +1,12 @@
 name: Morandotti P3 C0-IPDG reproduction
 
 on:
+  push:
+    branches:
+      - 'work/rgs-defect-benchmark-torino'
+    paths:
+      - 'scripts/rgs_morandotti_c0_ipdg.py'
+      - '.github/workflows/morandotti-c0-ipdg.yml'
   pull_request:
     paths:
       - 'scripts/rgs_morandotti_c0_ipdg.py'
