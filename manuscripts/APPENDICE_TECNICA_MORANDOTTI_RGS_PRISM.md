@@ -531,3 +531,15 @@ Il dossier operativo e i comandi riproducibili sono in \`docs/FOOTBALL_ORTHOTROP
 ## Documento applicativo complementare
 
 Il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md) collega le strutture shell già implementate al problema variazionale dei difetti, distinguendo analogie meccaniche, identificazioni matematiche ancora da costruire e validazioni sperimentali mancanti.
+
+
+## Giunzioni: raccordo di Darmois–Israel e legge elastica di interfaccia
+
+Il documento di raccordo calcistico include ora una sezione dedicata alle condizioni di Darmois–Israel. Per l'uso nel progetto si distingue esplicitamente:
+- continuità della prima forma fondamentale e, nel caso di Darmois senza strato singolare, della seconda forma fondamentale;
+- salto di curvatura estrinseca e tensore superficiale di Israel nella relatività generale;
+- salto diedrale/di curvatura e trazioni/momenti di linea nella shell elastica, da derivare dal funzionale costitutivo.
+
+Il tensore (S_{ab}) di Israel non viene identificato con la tensione della cucitura. La trasposizione al pallone è strutturale e geometrica; la legge fisica di giunzione deve essere derivata indipendentemente dalla shell energy e, se necessario, calibrata sperimentalmente.
+
+Riferimento interno: [Documento di raccordo calcistico — sezione 5-bis](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md).
