@@ -67,10 +67,10 @@ def clamped_constraints(n,h):
     for j in range(1,n-1): boundary.extend((idx(0,j),idx(n-1,j)))
     for k in boundary: add(((k,1.0),))
     # One-sided second-order normal derivative: -3v0+4v1-v2=0.
-    for i in range(1,n-1):
+    for i in range(2,n-2):
         add(((idx(i,0),-3/(2*h)),(idx(i,1),4/(2*h)),(idx(i,2),-1/(2*h))))
         add(((idx(i,n-1),3/(2*h)),(idx(i,n-2),-4/(2*h)),(idx(i,n-3),1/(2*h))))
-    for j in range(1,n-1):
+    for j in range(2,n-2):
         add(((idx(0,j),-3/(2*h)),(idx(1,j),4/(2*h)),(idx(2,j),-1/(2*h))))
         add(((idx(n-1,j),3/(2*h)),(idx(n-2,j),-4/(2*h)),(idx(n-3,j),1/(2*h))))
     return coo_matrix((vals,(rows,cols)),shape=(r,n*n)).tocsr()
