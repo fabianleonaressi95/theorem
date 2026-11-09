@@ -25,7 +25,7 @@ def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01,dipole_sep
     h=1.0/(n-1)
     x=np.linspace(0,1,n); X,Y=np.meshgrid(x,x)
     # Put the cut tip halfway between the two nodal columns bracketing x=1/2.
-    x0=.5  # align the Volterra cut with Q1/cochain cell-centred source
+    x0=.5+.5*h  # cut lies at the first Q1/cochain cell centre to the right of x=1/2
     e=np.zeros((n,n,3),float)
     delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
     if kind=="volterra_edge":
