@@ -161,6 +161,40 @@ def q6_lift_energy(u4: np.ndarray, epsp4: np.ndarray, lam=1.0, mu=1.0):
 
 
 
+
+def periodic_triangle_complex(n: int, diagonal: str="sw_ne"):
+    """Integer incidence matrices for the periodic triangulated quotient torus."""
+    if n<3:
+        raise ValueError("periodic triangulation requires n >= 3")
+    def node(i,j): return (j % n)*n+(i % n)
+    faces=[]
+    for j in range(n):
+        for i in range(n):
+            a,b,c,d=node(i,j),node(i+1,j),node(i+1,j+1),node(i,j+1)
+            if diagonal=="sw_ne":
+                faces.extend(((a,b,c),(a,c,d)))
+            elif diagonal=="se_nw":
+                faces.extend(((a,b,d),(b,c,d)))
+            else:
+                raise ValueError(diagonal)
+    edge_set=set()
+    for tri in faces:
+        for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
+            edge_set.add((min(a,b),max(a,b)))
+    edges=sorted(edge_set)
+    edge_id={e:k for k,e in enumerate(edges)}
+    D0=np.zeros((len(edges),n*n),dtype=np.int64)
+    for k,(a,b) in enumerate(edges):
+        D0[k,a]=-1; D0[k,b]=1
+    D1=np.zeros((len(faces),len(edges)),dtype=np.int64)
+    for f,tri in enumerate(faces):
+        for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
+            key=(min(a,b),max(a,b))
+            D1[f,edge_id[key]] += 1 if a<b else -1
+    if np.any(D1@D0):
+        raise AssertionError("periodic P1 incidence matrices violate D1 D0 = 0")
+    return edges,faces,D0,D1
+
 def periodic_tri_B(points: np.ndarray) -> np.ndarray:
     """Engineering-strain matrix for a linear triangle with unwrapped coordinates."""
     coeff=np.linalg.inv(np.column_stack((np.ones(3),points)))
@@ -215,6 +249,7 @@ def periodic_p1_solve(n: int, kind: str, diagonal: str="sw_ne",
     """
     h=LENGTH/n
     epsp=periodic_source(n,kind,amplitude,width)
+    edges,faces,D0,D1=periodic_triangle_complex(n,diagonal)
     C=elasticity_tensor(lam,mu)
     ndof=2*n*n
     rows=[]; cols=[]; vals=[]
@@ -263,6 +298,8 @@ def periodic_p1_solve(n: int, kind: str, diagonal: str="sw_ne",
                 strain[j,i]+=0.5*e
                 stress[j,i]+=0.5*(C@e)
     out={"n":n,"h":h,"case":kind,"diagonal":diagonal,
+         "p1_vertices":n*n,"p1_edges":len(edges),"p1_triangles":len(faces),
+         "p1_chain_boundary_of_boundary_max_abs":int(np.max(np.abs(D1@D0))),
          "p1_energy":energy,"p1_relative_free_residual":relres,
          "p1_mean_stress":[float(x) for x in stress.mean(axis=(0,1))]}
     if return_fields:
@@ -314,6 +351,9 @@ def compare(levels=(4,8,16,32), kinds=("shear_inclusion","shear_dipole")):
                  "p1_diagonal_energy_relative_difference":abs(p1a["p1_energy"]-p1b["p1_energy"])/max(abs(p1a["p1_energy"]),abs(p1b["p1_energy"]),1e-30),
                  "q1_residual":q["q1_relative_free_residual"],
                  "p1_residual":p1a["p1_relative_free_residual"],
+                 "p1_chain_residual":p1a["p1_chain_boundary_of_boundary_max_abs"],
+                 "p1_vertices":p1a["p1_vertices"],"p1_edges":p1a["p1_edges"],
+                 "p1_triangles":p1a["p1_triangles"],
                  "airy_residual":a["airy_spectral_compatibility_residual"]}
             if n==4:
                 e6q,pbq,liftedq=q6_lift_energy(q["displacement"],q["eigenstrain_cells"])
@@ -353,6 +393,7 @@ def self_test():
         assert rows[-1]["p1_stress_relative_l2"]<rows[0]["p1_stress_relative_l2"],rows
         assert max(r["q1_residual"] for r in rows)<1e-8,rows
         assert max(r["p1_residual"] for r in rows)<1e-8,rows
+        assert max(r["p1_chain_residual"] for r in rows)==0,rows
         assert max(r["airy_residual"] for r in rows)<1e-10,rows
         assert max(r["p1_diagonal_energy_relative_difference"] for r in rows)<1e-12,rows
     return {"periodic_q6_q1_p1_energy_pullback":"PASS",
