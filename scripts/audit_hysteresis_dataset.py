@@ -185,9 +185,14 @@ def main():
 
     # Cycle-level data export and true leave-one-cycle-out fitting.
     cycle_rows=[]
+    curve_points=[]
     for c0 in curves:
         cycle_rows.append({k:c0[k] for k in ("sheet","cycle","n","area_J_m3")})
+        for point_i,(hh,jj,bb) in enumerate(zip(c0["H"],c0["J"],c0["B"])):
+            curve_points.append({"sheet":c0["sheet"],"cycle":c0["cycle"],
+                "point":point_i,"H_kA_m":float(hh),"J_mT":float(jj),"B_mT":float(bb)})
     pd.DataFrame(cycle_rows).to_csv(out/"cycle_metrics.csv",index=False)
+    pd.DataFrame(curve_points).to_csv(out/"reconstructed_BH_loops.csv",index=False)
     for sheet in xls.sheet_names:
         cs=[c for c in curves if c["sheet"]==sheet]
         if len(cs)<2:
