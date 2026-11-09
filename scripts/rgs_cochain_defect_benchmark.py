@@ -66,7 +66,7 @@ def material(lam,mu):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_width=.025):
+def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_width=.025,frank=.01):
     h=1.0/(n-1)
     c=(np.arange(n-1)+0.5)*h
     X,Y=np.meshgrid(c,c)
@@ -79,6 +79,10 @@ def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_w
         # Symmetric part has engineering shear gamma^p = b delta(y-y0) H(x-x0).
         delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
         out[:,:,2]=burgers*delta*(X>=.5)
+    elif kind=="wedge_disclination":
+        # Rotational jump [u]=Omega J(x-x0)ex = Omega(x-x0)ey along the cut.
+        delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        out[:,:,1]=frank*(X-.5)*delta*(X>=.5)
     elif kind not in ("none","affine"): raise ValueError(kind)
     return out
 
@@ -88,6 +92,14 @@ def measure_volterra_burgers(n=129,burgers=.02,core_width=.025,x_probe=.75):
     h=1.0/(n-1); centres=(np.arange(n-1)+.5)*h
     ix=int(np.argmin(np.abs(centres-x_probe)))
     return float(np.sum(eps[:,ix,2])*h)
+
+def measure_wedge_frank(n=129,frank=.01,core_width=.025,x_left=.65,x_right=.85):
+    """Recover Frank angle from the x-derivative of integrated cut-normal slip."""
+    eps=eigenstrain_cell_centres(n,"wedge_disclination",frank=frank,core_width=core_width)
+    h=1.0/(n-1); centres=(np.arange(n-1)+.5)*h
+    il=int(np.argmin(np.abs(centres-x_left))); ir=int(np.argmin(np.abs(centres-x_right)))
+    jump_l=float(np.sum(eps[:,il,1])*h); jump_r=float(np.sum(eps[:,ir,1])*h)
+    return (jump_r-jump_l)/(centres[ir]-centres[il])
 
 def tri_strain_matrix(x):
     """Engineering strain [exx, eyy, gamma_xy] from triangle nodal DOFs."""
@@ -163,7 +175,7 @@ def run(out:Path,levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole","volterra_edge"):
+        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination"):
             rows.append(solve_cochain(n,case))
     D0,D1=None,None
     _,_,_,D0,D1=square_complex(9)
@@ -178,13 +190,15 @@ def run(out:Path,levels=(9,17,33,65)):
       "source_scope":"smooth inclusions plus a finite-width regularized Volterra slip-cut eigenstrain; not a singular continuum core",
       "limitations":["triangulation orientation may introduce directional bias",
         "regularized Volterra cut is not an atomistic core or singular Volterra solution",
+        "wedge disclination is a finite-width rotational slip cut, not a singular core solution",
         "no disclination connection or Airy-stress formulation",
         "no derived map from Q6/PRISM states to physical mesh",
         "empirical refinement is not a Mosco/Gamma convergence proof"],
       "B0":{"max_abs_d1d0":b0,"passed":b0==0},
+      "frank_audit":{"definition":"x derivative of integrated cut-normal plastic slip","target":0.01,"measured":measure_wedge_frank(),"absolute_error":abs(measure_wedge_frank()-.01),"x_interval":[.65,.85]},
       "burgers_audit":{"definition":"integral of regularized engineering plastic shear across the slip cut","target":0.02,"measured":measure_volterra_burgers(),"absolute_error":abs(measure_volterra_burgers()-.02),"probe_x":0.75},
       "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,
-        "domain":[0,1,0,1],"boundary":"homogeneous Dirichlet for source cases; manufactured affine trace for affine case","burgers_magnitude":0.02,"core_width":0.025},
+        "domain":[0,1,0,1],"boundary":"homogeneous Dirichlet for source cases; manufactured affine trace for affine case","burgers_magnitude":0.02,"frank_angle":0.01,"core_width":0.025},
       "levels":list(levels),"results":rows}
     (out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     with (out/"results.csv").open("w",newline="") as f:
