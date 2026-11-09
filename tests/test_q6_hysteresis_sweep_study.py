@@ -31,3 +31,24 @@ def test_small_multiseed_multirate_study_shape():
         "NL_dwell_1","NL_dwell_2","NLT_dwell_1","NLT_dwell_2"}
     assert r["protocol"]["seeds"]==[2,5]
     assert r["protocol"]["effective_sweep_rate"]["1"] > r["protocol"]["effective_sweep_rate"]["2"]
+
+
+def test_frequency_parameters_are_supported_and_reproducible():
+    from models.q6_topological_synchronization import (
+        build_q6_complex, simulate_branch,
+    )
+
+    K = build_q6_complex()
+    kwargs = dict(
+        seed=17, steps_per_sigma=1, dt=0.005,
+        omega0=1.5, omega1=2.5, tau0=2.0, tau1=3.0,
+    )
+    rows_a, terminal_a = simulate_branch(
+        K, [0.0, 0.1], "NL", return_final=True, **kwargs
+    )
+    rows_b, terminal_b = simulate_branch(
+        K, [0.0, 0.1], "NL", return_final=True, **kwargs
+    )
+    assert rows_a == rows_b
+    assert np.allclose(terminal_a[0], terminal_b[0])
+    assert np.allclose(terminal_a[1], terminal_b[1])

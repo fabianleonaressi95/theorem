@@ -98,3 +98,145 @@ def threshold_grid(u,levels=9):
     q=np.linspace(lo,hi,levels)
     pairs=[(a,b) for a in q for b in q if a>b]
     return np.array([p[0] for p in pairs]),np.array([p[1] for p in pairs])
+
+def _langevin(x):
+    """Stable Langevin function coth(x) - 1/x."""
+    x=np.asarray(x,float)
+    out=np.empty_like(x)
+    small=np.abs(x)<1e-4
+    xs=x[small]
+    out[small]=xs/3.0-xs**3/45.0+2.0*xs**5/945.0
+    xl=x[~small]
+    out[~small]=1.0/np.tanh(xl)-1.0/xl
+    return out
+
+
+def _langevin_derivative(x):
+    """Derivative of the Langevin function, with a stable small-x series."""
+    x=np.asarray(x,float)
+    out=np.empty_like(x)
+    small=np.abs(x)<1e-4
+    xs=x[small]
+    out[small]=1.0/3.0-xs**2/15.0+2.0*xs**4/189.0
+    xl=x[~small]
+    out[~small]=1.0/(xl**2)-1.0/(np.sinh(xl)**2)
+    return out
+
+
+def simulate_jiles_atherton(H, Ms, a, k, alpha, c, Mirr0=0.0):
+    """Simulate the classical scalar Jiles--Atherton magnetization model.
+
+    Parameters use one consistent field/magnetization unit system:
+    Ms saturation magnetization, a anhysteretic field scale, k pinning
+    parameter, alpha mean-field coupling, and c reversible fraction (0..1).
+    The irreversible state is advanced with a predictor-corrector step in H.
+    This is a reference quasi-static model, not a dynamic eddy-current model.
+    """
+    H=np.asarray(H,float)
+    if H.ndim!=1 or H.size<2 or not np.all(np.isfinite(H)):
+        raise ValueError("H must be a finite 1-D vector with at least two samples")
+    if not (Ms>0 and a>0 and k>0 and alpha>=0 and 0<=c<=1):
+        raise ValueError("require Ms,a,k > 0, alpha >= 0 and 0 <= c <= 1")
+    if not np.isfinite(Mirr0):
+        raise ValueError("Mirr0 must be finite")
+
+    Mirr=np.empty_like(H)
+    M=np.empty_like(H)
+    Mirr[0]=float(Mirr0)
+
+    def anhysteretic(he):
+        z=he/a
+        return Ms*_langevin(np.asarray(z))
+
+    def irreversible_rate(he, mirr, direction):
+        man=float(anhysteretic(np.asarray(he)))
+        delta=man-mirr
+        denom=direction*k-alpha*delta
+        if abs(denom)<1e-12*max(1.0,k,abs(alpha*delta)):
+            raise FloatingPointError("Jiles-Atherton irreversible denominator is singular")
+        return delta/denom
+
+    he0=H[0]+alpha*Mirr[0]
+    man0=float(anhysteretic(np.asarray(he0)))
+    M[0]=c*man0+(1.0-c)*Mirr[0]
+
+    for i in range(1,H.size):
+        dH=float(H[i]-H[i-1])
+        if dH==0.0:
+            Mirr[i]=Mirr[i-1]
+            M[i]=M[i-1]
+            continue
+        direction=float(np.sign(dH))
+        h0=float(H[i-1]+alpha*M[i-1])
+        r0=irreversible_rate(h0,Mirr[i-1],direction)
+        pred_mirr=Mirr[i-1]+dH*r0
+        pred_he=H[i]+alpha*M[i-1]
+        pred_man=float(anhysteretic(np.asarray(pred_he)))
+        pred_M=c*pred_man+(1.0-c)*pred_mirr
+        r1=irreversible_rate(float(H[i]+alpha*pred_M),pred_mirr,direction)
+        Mirr[i]=Mirr[i-1]+0.5*dH*(r0+r1)
+
+        # Close the mean-field relation H_eff = H + alpha*M by fixed-point
+        # iteration; this avoids evaluating the output at a stale field.
+        M[i]=M[i-1]
+        for _ in range(12):
+            man=float(anhysteretic(np.asarray(H[i]+alpha*M[i])))
+            updated=c*man+(1.0-c)*Mirr[i]
+            if abs(updated-M[i])<1e-12*max(1.0,Ms):
+                M[i]=updated
+                break
+            M[i]=updated
+    return M
+
+
+def asymmetric_play_features(u, lower_widths, upper_widths, initial_memory=None):
+    """Return asymmetric play-operator states for an input history.
+
+    For operator j the memory state is projected at each sample onto
+    [u[k] - lower_widths[j], u[k] + upper_widths[j]]. Unequal widths encode
+    different loading and unloading reversal distances. This is an
+    asymmetric PI dictionary baseline; it is not asserted to reproduce every
+    convention called Generalized Prandtl-Ishlinskii (GPI) in the literature.
+    """
+    u = np.asarray(u, float)
+    lower = np.asarray(lower_widths, float)
+    upper = np.asarray(upper_widths, float)
+    if (u.ndim != 1 or u.size < 2 or lower.ndim != 1 or upper.shape != lower.shape
+            or np.any(lower < 0) or np.any(upper < 0)
+            or not np.all(np.isfinite(u)) or not np.all(np.isfinite(lower))
+            or not np.all(np.isfinite(upper))):
+        raise ValueError("require finite vector input and matching nonnegative width vectors")
+    out = np.empty((u.size, lower.size), float)
+    for j, (lo, hi) in enumerate(zip(lower, upper)):
+        state = float(u[0] if initial_memory is None else initial_memory)
+        state = min(u[0] + hi, max(u[0] - lo, state))
+        out[0, j] = state
+        for k in range(1, u.size):
+            state = min(u[k] + hi, max(u[k] - lo, state))
+            out[k, j] = state
+    return out
+
+
+def asymmetric_prandtl_ishlinskii_design(u, lower_widths, upper_widths):
+    """Design matrix for an asymmetric PI model with a direct linear term."""
+    u = np.asarray(u, float)
+    return np.column_stack((u, asymmetric_play_features(u, lower_widths, upper_widths)))
+
+
+def fit_asymmetric_prandtl_ishlinskii(u, y, lower_widths, upper_widths):
+    """Least-squares fit of asymmetric PI weights on a fixed threshold dictionary."""
+    X = asymmetric_prandtl_ishlinskii_design(u, lower_widths, upper_widths)
+    y = np.asarray(y, float)
+    if y.shape != (X.shape[0],) or not np.all(np.isfinite(y)):
+        raise ValueError("y must be finite and match u")
+    coeff, _, rank, _ = np.linalg.lstsq(X, y, rcond=None)
+    return {"linear_gain": float(coeff[0]), "play_weights": coeff[1:],
+            "lower_widths": np.asarray(lower_widths, float),
+            "upper_widths": np.asarray(upper_widths, float), "rank": int(rank)}
+
+
+def predict_asymmetric_prandtl_ishlinskii(u, model):
+    X = asymmetric_prandtl_ishlinskii_design(
+        u, model["lower_widths"], model["upper_widths"])
+    coeff = np.r_[model["linear_gain"], model["play_weights"]]
+    return X @ coeff

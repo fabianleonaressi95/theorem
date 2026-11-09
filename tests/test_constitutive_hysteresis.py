@@ -2,7 +2,7 @@ import numpy as np
 from models.constitutive_hysteresis import (
     play_features,fit_prandtl_ishlinskii,predict_prandtl_ishlinskii,
     threshold_grid,preisach_features,fit_preisach,predict_preisach,
-    simulate_bouc_wen,
+    simulate_bouc_wen, simulate_jiles_atherton,
 )
 from models.hysteresis_metrics import loop_area,rmse
 
@@ -38,3 +38,22 @@ def test_preisach_and_pi_dictionary_fit_and_predict():
 def test_bouc_wen_generates_nonzero_loop_area():
     u=cycle(); y=simulate_bouc_wen(u,.01)
     assert loop_area(u,y)>0
+
+
+def test_jiles_atherton_is_finite_and_has_hysteresis():
+    up=np.linspace(-2.0,2.0,801)
+    H=np.r_[up,up[-2::-1]]
+    M=simulate_jiles_atherton(H,Ms=1.0,a=0.35,k=0.25,alpha=0.02,c=0.15)
+    assert M.shape==H.shape
+    assert np.all(np.isfinite(M))
+    assert np.max(np.abs(M))<=1.2
+    assert loop_area(H,M)>0.0
+
+
+def test_jiles_atherton_handles_zero_field_and_rejects_bad_parameters():
+    H=np.zeros(10)
+    M=simulate_jiles_atherton(H,Ms=1.0,a=0.3,k=0.2,alpha=0.0,c=0.1)
+    assert np.allclose(M,0.0)
+    import pytest
+    with pytest.raises(ValueError):
+        simulate_jiles_atherton(H,Ms=1.0,a=0.0,k=0.2,alpha=0.0,c=0.1)
