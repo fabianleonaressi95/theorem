@@ -526,3 +526,8 @@ Il modello meccanico comprende:
 **Classificazione:** modello shell discreto linearizzato, implementato e sottoposto a test numerici; non è ancora un modello a deformazioni finite geometricamente non lineare. Non sono inclusi contatto, pieghe, danno adesivo o omogeneizzazione alla scala dei filati. Nessuna scansione sperimentale o misura di provini è stata fornita: il confronto ICP nei test è sintetico e non costituisce validazione sperimentale. I valori costitutivi di default sono parametri dimostrativi, non proprietà misurate del pallone.
 
 Il dossier operativo e i comandi riproducibili sono in \`docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md\`; il runner è \`scripts/run_football_shell_audit.py\`; i test sono in \`tests/test_football_shell.py\`. L'identificazione di \(\alpha_C,\alpha_4,E_1,E_2,G_{12}\) e dei parametri di cucitura richiede misure indipendenti e validazione su scansioni non usate per il fit.
+
+
+## Documento applicativo complementare
+
+Il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md) collega le strutture shell già implementate al problema variazionale dei difetti, distinguendo analogie meccaniche, identificazioni matematiche ancora da costruire e validazioni sperimentali mancanti.
