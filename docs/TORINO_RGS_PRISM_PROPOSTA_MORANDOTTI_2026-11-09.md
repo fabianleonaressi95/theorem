@@ -98,7 +98,7 @@ Il benchmark controlla l'identità \(d_1d_0=0\), patch test affine, caso senza s
 
 Per il dipolo a \(n=129\), gli errori sono circa 5,67–5,97%; tuttavia la differenza relativa di energia Q1/cochain è ancora 12,12%. La tendenza al raffinamento è incoraggiante ma non è una prova di equivalenza energetica.
 
-Il test dipolo→dislocazione, con cariche opposte \(\pm s\), \(s=b/d\), mostra che riducendo la separazione \(d\) da 0,1 a 0,025 la differenza relativa della sorgente di incompatibilità scende dal 70,12% al 4,74%, e quella dello stress Airy dal 23,76% all'1,26%. È un controllo numerico di sorgenti regolarizzate, non la dimostrazione del teorema di energia rinormalizzata di [1].
+Il test dipolo→dislocazione, con cariche opposte \(\pm s\), \(s=b/d\), mostra che riducendo la separazione \(d\) da 0,1 a 0,025 la differenza relativa della sorgente di incompatibilità scende dal 70,12% al 4,74%, e quella dello stress Airy dal 23,76% all'1,26%. È un controllo numerico di sorgenti regolarizzate, non la dimostrazione del teorema di energia rinormalizzata di [1]. Nel report riproducibile la scansione usa (n=129), (h=1/128) e (d=0.1,0.075,0.05,0.0375,0.025), quindi (d/h=12.8,9.6,6.4,4.8,3.2): è stata esclusa la separazione allineata (d=2h), che produce una coincidenza artificiale dello stencil discreto. Anche la scansione corretta resta a griglia fissa e non dimostra da sola il limite continuo.
 
 **Limiti attuali:** i core sono regolarizzati con larghezza finita; il riferimento Airy è una realizzazione alle differenze finite e non il metodo CIP-DG pubblicato; la cella Q6 è periodica mentre il benchmark FEM/Airy della PR usa condizioni traction-free. Prima di confrontare i numeri occorre allineare dominio, condizioni al contorno, parametri e normalizzazione.
 
