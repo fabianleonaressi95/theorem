@@ -1,0 +1,10 @@
+{
+  "mods":[64,6,6,6,5],"vertices":69120,"edges":345600,"square_faces":691200,
+  "B1_shape":[69120,345600],"B1_nnz":691200,"B2_shape":[345600,691200],"B2_nnz":2764800,
+  "B1B2_nnz":0,"B1B2_exact_zero":true,"graph_cycle_rank":276481,
+  "cell_counts":[69120,345600,691200,691200,345600,69120],
+  "betti_product_torus":[1,5,10,10,5,1],"euler_characteristic":0,
+  "vertex_laplacian_gap":0.009630546655606143,"gap_multiplicity":2,
+  "structural_sha256":"c2f15e070e0e1dc99f4e2d8142290acc0b32bcc9222707d6cc655ef442bf6eb9",
+  "scope_note":"Betti numbers are standard product-torus values; this script does not compute all boundary ranks B_k for k=1,...,5."
+}
