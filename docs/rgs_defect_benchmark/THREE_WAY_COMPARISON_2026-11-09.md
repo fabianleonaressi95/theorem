@@ -124,3 +124,38 @@ Questa verifica è combinatoria/cinematica. Non è ancora il morfismo tra il com
 5. Solo dopo, introdurre variabili interne/dissipazione e procedere a cicli isteretici o dati sperimentali.
 
 **Riferimento teorico:** Cesana, De Luca, Morandotti, *Semi-discrete modeling of systems of wedge disclinations and edge dislocations via the Airy stress function method*, SIAM J. Math. Anal. 56(1), 79–136 (2024), DOI [10.1137/22M1523443](https://doi.org/10.1137/22M1523443). Il paper stabilisce l'equivalenza energetica asintotica nel limite singolare regolarizzato; il presente audit è un benchmark numerico preliminare e non una sua riproduzione completa.
+
+
+## 8. Cella periodica Q6 (C_4\times C_4) contro FEM e Airy periodico
+
+Il confronto periodico è stato aggiunto come audit distinto, senza mischiare le condizioni periodiche con il benchmark traction-free. Workflow: [run 42657756957 — success](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957). Artifact integrato: [JSON/CSV](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957/artifacts/13693605625).
+
+Configurazione:
+- toro fisico ([0,4]\times[0,4]), (lambda=mu=1);
+- Q6 quozientato sulla cella periodica (4\times4), 16 nodi e 16 celle;
+- Q1 FEM periodico con gauge traslazionale fissato in un vertice;
+- Airy spettrale di Fourier con ripristino del modo di stress medio (-C\bar\varepsilon^p);
+- due sorgenti shear periodiche lisce: inclusione gaussiana e dipolo gaussiano; nessun core singolare.
+
+### Identità del quoziente Q6
+
+Per entrambe le sorgenti, l'energia Q6 sollevata coincide con l'energia Q1 FEM della cella (4\times4) entro (1,5\times10^{-16}) in relativo. Il residuo massimo del pullback cinematico è esattamente zero. Questo verifica che, per la quadratura Q1 adottata, la fibra interna a quattro stati non altera la cinematica né l'energia del quoziente.
+
+### Convergenza periodica Q1 verso Airy spettrale
+
+| Sorgente | n | differenza energia Q1–Airy | errore stress | errore strain |
+|---|---:|---:|---:|---:|
+| Inclusione shear | 4 | 2,127% | 9,781% | 4,584% |
+| Inclusione shear | 8 | 0,454% | 3,198% | 1,383% |
+| Inclusione shear | 16 | 0,104% | 0,727% | 0,316% |
+| Inclusione shear | 32 | 0,0254% | 0,178% | 0,0772% |
+| Dipolo shear | 4 | 13,301% | 16,184% | 12,334% |
+| Dipolo shear | 8 | 1,691% | 5,175% | 3,142% |
+| Dipolo shear | 16 | 0,387% | 1,172% | 0,714% |
+| Dipolo shear | 32 | 0,0947% | 0,286% | 0,174% |
+
+I residui relativi FEM restano nell'ordine (10^{-14}) o inferiori; il residuo di compatibilità spettrale Airy è nell'ordine (10^{-16}).
+
+**Interpretazione e confini:** questo chiude il confronto cinematico/energetico della cella periodica Q6 con il corrispondente Q1 periodico e con Airy spettrale per sorgenti lisce. Non trasforma il Q6 (4\times4) in una mesh raffinata: i livelli (n=8,16,32) sono raffinamenti FEM di riferimento, non grafi Q6 più grandi. Non dimostra ancora il trasferimento di difetti singolari o disclinazioni periodiche sulla fibra Q6, né una convergenza Mosco/(Gamma), né la mappa dal grafo PRISM completo alla mesh fisica.
+
+Con questo audit il confronto è completo per i due regimi distinti attualmente implementati: **traction-free** (Q1/cochain/Airy finite-difference) e **periodico** (Q6 quotient/Q1 FEM/Airy spettrale). Le due famiglie di risultati restano separate per condizioni al contorno e sorgenti.
