@@ -11,12 +11,14 @@ import argparse, csv, json, sys
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
+SCRIPTS=ROOT/"scripts"
+for _p in (str(ROOT),str(SCRIPTS)):
+    if _p not in sys.path: sys.path.insert(0,_p)
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
 
-from scripts.rgs_defect_benchmark import q1_B, elasticity_tensor
-from scripts.q6_prism_kinematic_map import (
+from rgs_defect_benchmark import q1_B, elasticity_tensor
+from q6_prism_kinematic_map import (
     build_q6_complex, lift_displacement, cell_gradient_samples
 )
 
