@@ -44,14 +44,17 @@ def square_complex(n: int):
             a,b,c,d=v(i,j),v(i+1,j),v(i+1,j+1),v(i,j+1)
             # Consistent CCW triangles, fixed SW-NE diagonal.
             faces.extend([(a,b,c),(a,c,d)])
-    D0=np.zeros((len(edges),n*n),dtype=np.int64)
-    for k,(a,b) in enumerate(edges): D0[k,a]=-1; D0[k,b]=1
-    D1=np.zeros((len(faces),len(edges)),dtype=np.int64)
+    d0r=[]; d0c=[]; d0v=[]
+    for k,(a,b) in enumerate(edges):
+        d0r.extend((k,k)); d0c.extend((a,b)); d0v.extend((-1,1))
+    D0=coo_matrix((d0v,(d0r,d0c)),shape=(len(edges),n*n),dtype=np.int64).tocsr()
+    d1r=[]; d1c=[]; d1v=[]
     for f,tri in enumerate(faces):
         for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
             sign=1
             if a>b: a,b=b,a; sign=-1
-            D1[f,edge_id[(a,b)]]=sign
+            d1r.append(f); d1c.append(edge_id[(a,b)]); d1v.append(sign)
+    D1=coo_matrix((d1v,(d1r,d1c)),shape=(len(faces),len(edges)),dtype=np.int64).tocsr()
     return xy,edges,faces,D0,D1
 
 def material(lam,mu):
@@ -148,7 +151,7 @@ def run(out:Path,levels=(9,17,33,65)):
             rows.append(solve_cochain(n,case))
     D0,D1=None,None
     _,_,_,D0,D1=square_complex(9)
-    b0=int(np.max(np.abs(D1@D0)))
+    chain=(D1@D0).tocsr(); b0=int(np.max(np.abs(chain.data))) if chain.nnz else 0
     singles=[r for r in rows if r["case"]=="single"]
     for k,r in enumerate(singles):
         r["energy_delta_to_finest"]=abs(r["energy"]-singles[-1]["energy"])
@@ -172,7 +175,7 @@ def run(out:Path,levels=(9,17,33,65)):
 
 def self_test():
     xy,e,f,D0,D1=square_complex(8)
-    assert np.array_equal(D1@D0,np.zeros((len(f),len(xy)),dtype=np.int64))
+    assert (D1@D0).nnz==0
     aff=solve_cochain(9,"affine"); zero=solve_cochain(9,"none")
     assert aff["affine_relative_error"]<1e-9,aff
     assert aff["relative_free_residual"]<1e-8,aff
