@@ -73,3 +73,22 @@ A second incompatibility source, `wedge_dipole`, represents two opposite Frank c
 as `d -> 0`, which is the edge-dislocation incompatibility source for this orientation convention.
 
 The Airy script evaluates the regularized source and stress-field differences at fixed core width 0.025 and successively smaller separations. The asymptotic check is numerical and regularized; it does not reproduce the paper's renormalized-energy expansion or prove the singular limit. The Frank charges are kept small in the dedicated limiting audit (`b=0.002`) so that the linearized-kinematics approximation remains more credible.
+
+
+## First Airy-field comparison results (CI run #46)
+
+The generated artifact from the full workflow reports the following relative (L^2) errors on interior cells, excluding a three-cell boundary strip:
+
+| Defect, mesh | Q1 stress | Q1 strain | Cochain stress | Cochain strain |
+|---|---:|---:|---:|---:|
+| Volterra edge, 65x65 | 14.44% | 16.96% | 14.68% | 19.20% |
+| Wedge disclination, 65x65 | 6.28% | 5.90% | 6.62% | 6.23% |
+| Wedge dipole, 129x129 | 5.67% | 5.70% | 5.97% | 5.97% |
+
+The errors decrease with refinement in the tested sequences. The wedge-dipole Q1/cochain relative energy difference also decreases from 31.23% at 65x65 to 12.12% at 129x129; this is still too large to claim energetic agreement at the present resolution.
+
+For the dedicated dipole-to-edge limit audit, with (b=0.002) and core width 0.025, reducing dipole separation from 0.1 to 0.025 gives:
+- relative incompatibility-source difference: 70.12% → 4.74%;
+- relative Airy-stress difference: 23.76% → 1.26%.
+
+The discrete Airy weak residuals are below (1.5\times10^{-11}), and the Q1/cochain free-equilibrium residuals are below (2\times10^{-14}) in the reported runs. These are numerical consistency checks, not a proof of the singular asymptotic result.
