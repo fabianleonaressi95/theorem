@@ -22,7 +22,7 @@ jobs:
       - name: Install numerical dependencies
         run: python -m pip install --upgrade numpy scipy
       - name: Run defect benchmark tests
-        run: python -m unittest tests.test_rgs_defect_benchmark tests.test_rgs_cochain_defect_benchmark -v
+        run: python -m unittest discover -s tests -p 'test_rgs*_benchmark.py' -v
       - name: Run cochain refinement report
         run: python scripts/rgs_cochain_defect_benchmark.py --out artifacts/rgs_cochain_defect
       - name: Run side-by-side solver comparison
