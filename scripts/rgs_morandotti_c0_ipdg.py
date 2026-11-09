@@ -96,7 +96,7 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
     a_form=(ufl.inner(Hu,Hv)*dx
         -(j_u*ufl.avg(Hvn)+j_v*ufl.avg(Hun))*dS
         -(ufl.dot(ufl.grad(u),n)*Hvn+ufl.dot(ufl.grad(v),n)*Hun)*ds
-        +(alpha/ufl.avg(cell_h))*j_u*j_v*dS
+        +(alpha/cell_h)*j_u*j_v*dS
         +(alpha/cell_h)*ufl.dot(ufl.grad(u),n)*ufl.dot(ufl.grad(v),n)*ds)
     outer_facets=facet_tags.find(1); core_facets=facet_tags.find(2)
     outer_dofs=fem.locate_dofs_topological(V,1,outer_facets)
