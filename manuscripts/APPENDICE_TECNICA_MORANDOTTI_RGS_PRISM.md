@@ -3,6 +3,12 @@
 **Repository:** `fabianleonaressi95/theorem`  
 **Finalità:** dossier tecnico di accompagnamento; distingue risultati formalizzati nel repository centrale, verifiche finite, modelli esplorativi e materiale storico da archiviare.
 
+## Documento principale collegato
+
+Questa appendice va presentata insieme alla [Nota progettuale Morandotti — RGS–PRISM](NOTA_PROGETTUALE_MORANDOTTI_RGS_PRISM.md), che costituisce il documento principale di interlocuzione. La nota espone domanda scientifica, benchmark proposto, fasi di lavoro e richiesta di confronto; questa appendice documenta basi tecniche, risultati, limiti e stato delle verifiche.
+
+**Ordine di lettura per il destinatario:** prima la nota progettuale; poi questa appendice tecnica come supporto verificabile.
+
 ## 1. Criterio documentale
 
 Questa appendice non aggrega numeri eterogenei fingendo che provengano da un unico audit. Ogni risultato è associato al proprio record. In particolare:
