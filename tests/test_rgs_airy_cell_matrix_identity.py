@@ -1,7 +1,13 @@
 """Manufactured annulus tests for the Airy cell interaction matrix identity."""
 import unittest
-import numpy as np
-from scripts.rgs_airy_cell_matrix_identity import audit_annulus, run
+import json
+import sys
+import tempfile
+import io
+from pathlib import Path
+from contextlib import redirect_stdout
+from unittest.mock import patch
+from scripts.rgs_airy_cell_matrix_identity import audit_annulus, run, main
 
 
 class AiryCellMatrixIdentityTests(unittest.TestCase):
@@ -17,6 +23,15 @@ class AiryCellMatrixIdentityTests(unittest.TestCase):
         for case in result["cases"]:
             self.assertGreater(case["min_eigenvalue_hessian"], 0.0, case)
             self.assertGreater(case["min_eigenvalue_laplacian"], 0.0, case)
+
+    def test_written_report_is_valid_json(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target=Path(directory)/"report.json"
+            with patch.object(sys,"argv",["airy-cell-audit","--out",str(target)]):
+                with redirect_stdout(io.StringIO()):
+                    main()
+            payload=json.loads(target.read_text())
+            self.assertIn("max_relative_frobenius_difference",payload)
 
 
 if __name__ == "__main__":
