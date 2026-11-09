@@ -17,6 +17,11 @@ on:
       - "models/football_anisotropy.py"
       - "scripts/run_football_anisotropy_audit.py"
       - "tests/test_football_anisotropy.py"
+      - "models/football_shell.py"
+      - "scripts/run_football_shell_audit.py"
+      - "tests/test_football_shell.py"
+      - "docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md"
+      - "data/scans/**"
       - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
       - "reports/football_anisotropy_audit.json"
       - "reports/football_anisotropy_displacement.svg"
@@ -44,7 +49,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test runner
-        run: python -m pip install --upgrade pytest numpy
+        run: python -m pip install --upgrade pytest numpy scipy numpy
       - name: Run PRISM CA and evolutionary-search tests
         run: >-
           python -m pytest
@@ -52,7 +57,13 @@ jobs:
           tests/test_prism_ca_evolution.py
           tests/test_prism_billiard_coding.py
           tests/test_football_anisotropy.py
+          tests/test_football_shell.py
           -q
+      - name: Reproduce orthotropic football shell audit
+        run: >-
+          python scripts/run_football_shell_audit.py
+          --json reports/football_shell_audit.json
+          --csv reports/football_shell_displacements.csv
       - name: Reproduce football anisotropy audit
         run: >-
           python scripts/run_football_anisotropy_audit.py
