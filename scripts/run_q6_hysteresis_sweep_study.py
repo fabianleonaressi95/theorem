@@ -33,7 +33,7 @@ def compare_branches(sigmas, forward, backward):
         yb = _curve(backward, key)[::-1]
         gap = np.abs(yf-yb)
         # Signed trapezoidal integrals around the closed path.
-        area = abs(float(np.trapz(yf, x) + np.trapz(yb, x[::-1])))
+        area = abs(float(np.trapz(yf, x) + np.trapz(yb[::-1], x[::-1])))
         result[key] = {
             "mean_abs_branch_gap": float(np.mean(gap)),
             "max_abs_branch_gap": float(np.max(gap)),
