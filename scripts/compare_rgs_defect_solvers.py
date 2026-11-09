@@ -12,19 +12,21 @@ def compare(levels=(9,17,33,65)):
     rows=[]
     for n in levels:
         for case in ("affine","none","single","dipole"):
-            q=solve_q1(n,case); r=solve_cochain(n,case)
-            delta=abs(q["energy"]-r["energy"])
-            scale=max(abs(q["energy"]),abs(r["energy"]),1e-30)
-            rows.append({"n":n,"h":q["h"],"case":case,
-                "q1_energy":q["energy"],"cochain_energy":r["energy"],
-                "absolute_energy_difference":delta,
-                "relative_energy_difference":delta/scale,
-                "q1_relative_residual":q["relative_free_residual"],
-                "cochain_relative_residual":r["relative_free_residual"]})
+            q=solve_q1(n,case)
+            for diagonal in ("sw_ne","se_nw"):
+                r=solve_cochain(n,case,diagonal=diagonal)
+                delta=abs(q["energy"]-r["energy"])
+                scale=max(abs(q["energy"]),abs(r["energy"]),1e-30)
+                rows.append({"n":n,"h":q["h"],"case":case,"diagonal":diagonal,
+                    "q1_energy":q["energy"],"cochain_energy":r["energy"],
+                    "absolute_energy_difference":delta,
+                    "relative_energy_difference":delta/scale,
+                    "q1_relative_residual":q["relative_free_residual"],
+                    "cochain_relative_residual":r["relative_free_residual"]})
     return {"title":"Q1 reference versus edge-cochain P1 comparator",
       "interpretation":"same domain, material, eigenstrain source, and boundary data; different discretization families",
       "warning":"energy agreement is a numerical comparison, not a proof of equivalence or Mosco/Gamma convergence",
-      "levels":list(levels),"results":rows}
+      "levels":list(levels),"orientation_audit":"both SW-NE and SE-NW diagonals","results":rows}
 
 def main():
     p=argparse.ArgumentParser();p.add_argument("--out",default="artifacts/rgs_defect_comparison")
