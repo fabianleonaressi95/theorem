@@ -219,3 +219,18 @@ The next deliverable is a DOLFINx/Gmsh/PETSc execution environment for the singl
 5. mesh refinement and comparison against the radial continuum cell fields.
 
 This gate is deliberately separate from the lightweight NumPy/SciPy CI. Until the DOLFINx environment executes the driver, the P3 C0-IPDG solver remains **specified from source but not independently reproduced**.
+
+
+## 13. First executable P3 C0-IPDG driver added
+
+A DOLFINx implementation has been added in `scripts/rgs_morandotti_c0_ipdg.py`. It is scoped to the first controlled reproduction gate: one concentric circular core in a circular outer domain, with three P3 cell problems and \\(\\alpha=10\\). The implementation transcribes the public source's Hessian volume term, symmetric interior and boundary consistency terms, normal-gradient penalties, strong value traces, and active-core normal-derivative load.
+
+For each mesh size it is designed to report:
+- relative (H^2)-seminorm error against the analytic annular cell fields;
+- core value and normal-derivative residuals for all three cell problems;
+- Hessian and Laplacian interaction matrices from the same discrete fields;
+- symmetry, minimum eigenvalue and condition number.
+
+A dedicated workflow, `.github/workflows/morandotti-c0-ipdg.yml`, uses the official DOLFINx v0.11.0 container image and installs the Gmsh Python bindings. The workflow is intentionally separate from the lightweight regression because DOLFINx/PETSc is a large native dependency stack. The official DOLFINx project documents the stable Docker image as its recommended route when PETSc is required. See https://github.com/FEniCS/dolfinx#installation.
+
+**Execution status:** driver and dedicated workflow have been committed; the first container execution is pending. No numerical P3 result is claimed until that workflow finishes. If the container exposes API or mesh-generation incompatibilities, they must be fixed against the pinned DOLFINx 0.11.0 environment before the driver is accepted.
