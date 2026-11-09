@@ -1,4 +1,4 @@
-numpy>=1.26
-scipy>=1.11
-sympy>=1.12
-pytest>=8
+numpy==2.5.4
+scipy==1.18.1
+sympy==1.14.0
+pytest==9.2.0
