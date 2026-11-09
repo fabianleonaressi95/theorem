@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 from scripts.q6_prism_kinematic_map import (
-    build_q6_complex, lift_displacement, cell_gradients, elastic_energy, audit
+    build_q6_complex, lift_displacement, cell_gradients, cell_gradient_samples, elastic_energy, audit
 )
 
 
@@ -54,6 +54,16 @@ class Q6PrismKinematicMapTests(unittest.TestCase):
         self.assertTrue(np.all(np.isfinite(g)))
         self.assertGreaterEqual(elastic_energy(u), 0.0)
         self.assertEqual(elastic_energy(np.zeros((16,2))), 0.0)
+
+
+    def test_q1_gauss_energy_detects_checkerboard_modes(self):
+        # The cell-centre averaged gradient cancels this Nyquist mode;
+        # full Q1 Gauss integration must retain its nonzero elastic energy.
+        u = np.array([[(-1.0)**x, 0.0] for y in range(4) for x in range(4)])
+        self.assertEqual(cell_gradients(u).shape, (16,2,2))
+        samples = cell_gradient_samples(u)
+        self.assertEqual(samples.shape, (16,4,2,2))
+        self.assertGreater(elastic_energy(u), 0.0)
 
     def test_machine_readable_audit(self):
         r = audit()
