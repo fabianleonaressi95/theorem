@@ -29,7 +29,7 @@ jobs:
           python3 -c "from petsc4py import PETSc; print('PETSc', PETSc.Sys.getVersion())"
       - name: Run single-core P3 C0-IPDG reproduction
         run: |
-          python3 scripts/rgs_morandotti_c0_ipdg.py --mesh-sizes 0.22 0.14 0.09 --alpha 10 --out artifacts/morandotti_c0_ipdg/report.json
+          python3 scripts/rgs_morandotti_c0_ipdg.py --mesh-sizes 0.22 0.14 0.09 0.06 --alpha 10 --out artifacts/morandotti_c0_ipdg/report.json
       - name: Upload P3 C0-IPDG report
         uses: actions/upload-artifact@v4
         with:
