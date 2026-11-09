@@ -61,7 +61,15 @@ For (S_1), the boundary of the two consecutive oriented half-edges is the termin
 
 For (S_2), the four child squares have the same positive axis-pair orientation as the parent. Their internal edges occur twice with opposite signs and cancel. The remaining eight half-edges are exactly the subdivision (S_1) of the four oriented parent boundary edges. Thus (B'_2S_2=S_1B_2) on the face basis and hence on all of (C_2(K)). Each fine square separately satisfies the boundary-of-boundary identity, giving (B'_1B'_2=0). (square)
 
-## 5. Interpretation and non-conclusions
+## 5. Corollary — axis-direction transfer
+
+Each of the six coordinate directions contains 32 coarse edges. Aggregate the columns of \(S_1\) by parent direction and its rows by child direction, dividing by 32. Since each parent edge is replaced by exactly two half-edges parallel to the same axis, the resulting \(6\times6\) direction-count matrix is
+\[
+\boxed{D=2I_6.}
+\]
+Consequently, under an identification of three ordered trigram lines with any three fixed coordinate axes, this midpoint subdivision induces \(2I_3\) on **axis-direction counts**, not the tribonacci matrix. This is not a statement about the Walsh-character compression \(E^T\mathcal R E\); identifying those two representations would require an additional map.
+
+## 6. Interpretation and non-conclusions
 
 This theorem supplies an actual oriented parent-to-child refinement for the standard dyadic subdivision of the existing Q6 square complex. It is stronger than the bare incidence data because the child cells and subdivision maps are now explicitly specified.
 
