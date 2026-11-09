@@ -29,9 +29,10 @@ class CochainDefectTests(unittest.TestCase):
 
     def test_single_and_dipole(self):
         for kind in ("single","dipole"):
-            r=solve_cochain(9,kind,diagonal="sw_ne")
-            self.assertTrue(np.isfinite(r["energy"]))
-            self.assertGreaterEqual(r["energy"],0)
-            self.assertLess(r["relative_free_residual"],1e-8)
+            for diagonal in ("sw_ne","se_nw"):
+                r=solve_cochain(9,kind,diagonal=diagonal)
+                self.assertTrue(np.isfinite(r["energy"]))
+                self.assertGreaterEqual(r["energy"],0)
+                self.assertLess(r["relative_free_residual"],1e-8)
 
 if __name__=="__main__": unittest.main()
