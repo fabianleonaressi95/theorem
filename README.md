@@ -110,6 +110,9 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T062](theorems/T062-kathara-q6-integral-chain-map.md) | Explicit integral Kathara–Q6 chain map | Proves existence under a declared integer-coordinate code using root-path differences; injective on vertices but collapses all ten 2-cells, so it is not a cellular embedding or an RGS-canonical map. |
 | [T063](theorems/T063-quaternion-su2-so3-double-cover.md) | Quaternionic realization of SU(2) and the double cover of SO(3) | Proves the scalar-first Hamilton-quaternion isomorphism with SU(2), and the conjugation homomorphism onto SO(3) with kernel {±1}; fixes the active column-vector convention used by the bridge implementation. |
 | [T064](theorems/T064-finite-su2-lattice-holonomy-gauge-covariance.md) | Gauge covariance of finite SU(2) lattice transport and Wilson traces | Proves endpoint covariance of path transport, conjugation of closed holonomy, Wilson-trace invariance and the real normalized SU(2) trace bound. |
+| [T065](theorems/T065-cubical-subdivision-chain-map-and-naturality.md) | Exact cubical subdivision chain map and signed-permutation naturality | Proves the integral boundary-commuting subdivision map and its naturality under all 48 signed-permutation symmetries in 3D. |
+| [T066](theorems/T066-herasymov-parity-affine-shared-face-conformity.md) | Herasymov parity-cell affine shared-face conformity | Proves, under the explicit cellwise-affine interpretation and N≥2, that conformity holds iff all eight parity classes use the same affine coordinate map. |
+| [T067](theorems/T067-stokes-commuting-cubical-face-integral-interpolation.md) | Stokes commutation of cubical face-integral interpolation | Proves exact commutation of the face-integral interpolator with the cellular exterior derivative; numerical quadrature checks remain finite. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
@@ -168,6 +171,20 @@ See [T049C](theorems/T049C-qlg-dirac-intertwiner-classification.md), [T049D](the
 The Q6–D5 Wilson fibre specifications have been transferred into this central repository: [integer-fibre quotient](docs/Q6_D5_INTEGER_FIBER_QUOTIENT.md), [saturated kernel and factorial tail bound](docs/Q6_D5_SATURATED_KERNEL_AND_TAIL_BOUND.md), and [five-torus Wilson marginal](docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md). The associated theorem records are [T005](theorems/T005-q6-wilson-fiber-marginal-support.md)–[T009](theorems/T009-effective-wilson-fiber-quadratic-form.md). The implementation-port and certified-evaluation task is tracked in [Issue #84](https://github.com/fabianleonaressi95/theorem/issues/84).
 
 **Current boundary:** the rank-five rational quotient, rank-124 integer kernel, positive fibre-summed weight and exact Fourier/Haar identities are mathematical constructions under their stated hypotheses. The complete 124-dimensional fibre sum has **not** been numerically evaluated with a certified enclosure, and no Wilson-to-Bergman/Hua measure identification is established. The source implementation is being consolidated into THEOREM; the transferred specifications are not a runtime dependency on the bridge repository.
+
+
+### Curvilinear cubical de Rham / FEEC benchmark
+
+The finite benchmark and its mathematical status are now indexed centrally:
+- [T065 — exact cubical subdivision and signed-permutation naturality](theorems/T065-cubical-subdivision-chain-map-and-naturality.md)
+- [T066 — Herasymov parity-cell shared-face conformity](theorems/T066-herasymov-parity-affine-shared-face-conformity.md)
+- [T067 — Stokes commutation of cubical face-integral interpolation](theorems/T067-stokes-commuting-cubical-face-integral-interpolation.md)
+- [CI evidence record, 9 November 2026](audits/DE_RHAM_BENCHMARK_CI_2026-11-09.md)
+- [Benchmark theorematic foundations](projects/de_rham_benchmark/docs/THEOREMATIC_FOUNDATIONS.md)
+- [Uniform FEEC projection stability theorem](projects/de_rham_benchmark/docs/PROJECTION_STABILITY_THEOREM.md)
+- [Independent mathematical audit](projects/de_rham_benchmark/docs/INDEPENDENT_MATHEMATICAL_AUDIT.md)
+
+**Boundary:** the successful CI run certifies the configured finite audits and regression checks. It does not prove uniform FEEC projection stability, discrete compactness, Mosco convergence, norm-resolvent convergence, or spectral convergence on the curved RGS–PRISM refinement sequence. Those remain open under the assumptions and obligations recorded in T048 and the benchmark dossier.
 
 ## Connection to the Nielsen/Hopf research thread
 
