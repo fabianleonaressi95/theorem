@@ -90,6 +90,13 @@ def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, co
         raise ValueError(kind)
     return eps
 
+def measure_volterra_burgers(n=129,burgers=0.02,core_width=0.025,x_probe=0.75):
+    """Integrate regularized plastic engineering shear across the slip cut."""
+    eps=source_field(n,"volterra_edge",burgers=burgers,core_width=core_width)
+    h=1.0/(n-1); centres=(np.arange(n-1)+0.5)*h
+    ix=int(np.argmin(np.abs(centres-x_probe)))
+    return float(np.sum(eps[:,ix,2])*h)
+
 def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
                width=0.12):
     h=1.0/(n-1); nn=n*n; ndof=2*nn
@@ -182,7 +189,7 @@ def run(out: Path, levels=(9,17,33,65)):
         "convergence trend is empirical and does not prove Mosco/Γ convergence"
       ],
       "B0":{"max_abs_d1d0":b0,"passed":bool(b0==0)},
-      "burgers_audit":{"definition":"integral of engineering plastic shear gamma^p across a vertical section through the slip cut","target":0.02,"note":"section sampled at a cell-centre x > 0.5"},
+      "burgers_audit":{"definition":"integral of engineering plastic shear gamma^p across a vertical section through the slip cut","target":0.02,"measured":measure_volterra_burgers(),"absolute_error":abs(measure_volterra_burgers()-0.02),"note":"section sampled at x near 0.75, to the right of the cut tip"},
       "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,"burgers_magnitude":0.02,"core_width":0.025,
                     "domain":[0.0,1.0,0.0,1.0],"boundary":"Dirichlet"},
       "levels":list(levels),"results":rows
