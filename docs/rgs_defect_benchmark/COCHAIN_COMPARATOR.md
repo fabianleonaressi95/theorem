@@ -64,3 +64,12 @@ For the edge cut this gives the regularized derivative-of-Dirac source associate
 For the square domain, the Airy boundary condition is clamped `v=0, partial_n v=0`. On straight sides this is equivalent, modulo the affine gauge of the Airy potential, to the zero-traction condition `Hess(v) t=0`. Therefore the displacement-based Q1 and cochain defect solves now use natural traction-free boundaries; only three degrees of freedom are pinned to remove the two translations and one rotation. The manufactured affine patch test retains its Dirichlet boundary data.
 
 The new `scripts/rgs_airy_reference.py` compares stress and strain fields from Q1 and cochain P1 with the Airy reference on interior cells, excluding a three-cell boundary strip. It records topological source moments and weak residuals. This is an independent finite-difference reference, not a reproduction of the published semi-discrete/CIP-DG method. The core remains regularized and no singular-core asymptotic theorem is claimed.
+
+
+## Eshelby wedge-disclination dipole to edge-dislocation limit
+
+A second incompatibility source, `wedge_dipole`, represents two opposite Frank charges `+s` and `-s` at `y_0+d/2` and `y_0-d/2`, with `s=b/d`. The total Burgers vector of the dipole is therefore `B=s d e_x=b e_x`, in agreement with the kinematic relation discussed by Cesana–De Luca–Morandotti. At the source level,
+`s[delta(y-y0-d/2)-delta(y-y0+d/2)] -> -b partial_y delta(y-y0)`
+as `d -> 0`, which is the edge-dislocation incompatibility source for this orientation convention.
+
+The Airy script evaluates the regularized source and stress-field differences at fixed core width 0.025 and successively smaller separations. The asymptotic check is numerical and regularized; it does not reproduce the paper's renormalized-energy expansion or prove the singular limit. The Frank charges are kept small in the dedicated limiting audit (`b=0.002`) so that the linearized-kinematics approximation remains more credible.
