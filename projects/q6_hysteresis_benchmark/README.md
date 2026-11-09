@@ -74,3 +74,26 @@ From repository root:
 - Industrial constitutive prediction: open pending experimental datasets and
   parameter identification.
 - PSU, QCD or gravitational interpretation: not established here.
+
+
+## Multi-seed and multi-rate protocol study
+
+Run the controlled finite-size sweep study:
+
+    python scripts/run_q6_hysteresis_sweep_study.py \
+      --seeds 11,23,37,51,67 --dwell-steps 10,40,160 \
+      --sigma-max 2 --sigma-count 21 --dt 0.025 \
+      --output results/q6_hysteresis_sweep_study.json \
+      --plot-prefix results/q6_hysteresis_sweep
+
+The effective parameter sweep rate is Delta_sigma/(dwell_steps * dt). The
+same seed reproduces the same initial phases and intrinsic frequencies across
+dwell settings. The backward branch begins at the terminal forward state.
+The JSON stores every branch, per-seed branch-gap/loop-area metrics, and
+mean/standard deviation across seeds. Two PNGs compare forward and backward
+branches for NL and NLT, showing mean curves and seed dispersion.
+
+These controls test protocol sensitivity at one fixed Q6 size. They do not
+establish a thermodynamic limit. Different seeds jointly change intrinsic
+frequencies and initial phases; a separate fixed-frequency/multiple-initial-
+condition study remains a useful next control.
