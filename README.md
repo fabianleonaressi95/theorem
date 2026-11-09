@@ -206,6 +206,12 @@ Use this repository (**THEOREM**) as the authoritative programme-wide index for 
 - [Bridge's statement of its relationship to THEOREM](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/README.md#relationship-to-the-central-theorem-research-repository)
 
 
+## Kathara–Q3 chain-map bridge
+
+- [T060 — Coordinate-defined Kathara to Q3 chain map](theorems/T060-kathara-q3-chain-map.md)
+
+**Status:** explicit coarse candidate mapping the Kathara planar complex into one square face of Q3. The theorem records the map and its commuting-boundary tests; computational test execution remains pending. It does not identify Kathara with the full trigram cube or derive Krist-All.
+
 ## Curvilinear cubical de Rham benchmark
 
 A reproducible numerical benchmark for discrete Hodge–de Rham complexes on curvilinear cubical meshes is maintained in [`projects/de_rham_benchmark/`](projects/de_rham_benchmark/). It includes mesh/incidence construction, pullback geometry, diagonal Hodge weights, spectral diagnostics, pollution analysis, assumptions and report.
