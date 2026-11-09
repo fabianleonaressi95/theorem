@@ -159,3 +159,21 @@ I residui relativi FEM restano nell'ordine (10^{-14}) o inferiori; il residuo di
 **Interpretazione e confini:** questo chiude il confronto cinematico/energetico della cella periodica Q6 con il corrispondente Q1 periodico e con Airy spettrale per sorgenti lisce. Non trasforma il Q6 (4\times4) in una mesh raffinata: i livelli (n=8,16,32) sono raffinamenti FEM di riferimento, non grafi Q6 più grandi. Non dimostra ancora il trasferimento di difetti singolari o disclinazioni periodiche sulla fibra Q6, né una convergenza Mosco/(Gamma), né la mappa dal grafo PRISM completo alla mesh fisica.
 
 Con questo audit il confronto è completo per i due regimi distinti attualmente implementati: **traction-free** (Q1/cochain/Airy finite-difference) e **periodico** (Q6 quotient/Q1 FEM/Airy spettrale). Le due famiglie di risultati restano separate per condizioni al contorno e sorgenti.
+
+
+## 9. Estensione P1 periodica e chiusura del confronto Q6–Q1–P1–Airy
+
+La versione periodica è stata estesa con il risolutore P1 su cochain triangolate, le due diagonali, matrici d'incidenza sparse e test esatti (D_1D_0=0). La CI completa [42659067311](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311) è terminata con successo; l'artifact aggiornato è [13693946123](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311/artifacts/13693946123).
+
+Il report dedicato contiene i dati completi, tabelle, residui e limiti interpretativi:
+
+[Confronto periodico Q6–Q1–P1–Airy](PERIODIC_Q6_Q1_P1_AIRY_2026-11-09.md).
+
+Risultato essenziale a (n=32):
+- inclusione shear: errore energia Q1–Airy 0,0254%, P1–Airy 0,1070%;
+- dipolo shear: Q1–Airy 0,0947%, P1–Airy 0,4195%;
+- errori P1 stress/strain: 0,5570% / 0,3025% per l'inclusione e 0,8959% / 0,6936% per il dipolo;
+- (D_1D_0=0) esatto a tutti i livelli e per entrambe le diagonali;
+- al livello (n=4), pullback Q6 e conservazione dell'energia Q1/P1 verificati entro precisione macchina.
+
+La conclusione è deliberatamente non competitiva: in questo test Q1 è più vicino ad Airy di P1 a ogni livello; entrambi convergono. Il P1 periodico è un comparatore matematico trasparente, non un vantaggio già dimostrato di RGS. I livelli (n>4) sono raffinamenti FEM e non grafi Q6 più grandi. Il limite singolare, il C0-IPDG del preprint e la mappa verso il PRISM completo restano aperti.
