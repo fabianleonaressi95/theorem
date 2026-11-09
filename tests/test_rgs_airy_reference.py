@@ -36,6 +36,14 @@ class AiryReferenceTests(unittest.TestCase):
         self.assertLess(a[-1]["incompatibility_relative_l2"],a[0]["incompatibility_relative_l2"])
         self.assertLess(a[-1]["airy_stress_relative_l2"],a[0]["airy_stress_relative_l2"])
 
+    def test_dipole_sweep_avoids_stencil_locked_separations(self):
+        r=dipole_edge_equivalence(n=129)
+        a=r["results"]
+        ratios=[row["separation_over_h"] for row in a]
+        self.assertTrue(all(not np.isclose(q,2.0,rtol=0,atol=1e-12) for q in ratios),ratios)
+        self.assertLess(a[-1]["incompatibility_relative_l2"],a[0]["incompatibility_relative_l2"])
+        self.assertLess(a[-1]["airy_stress_relative_l2"],a[0]["airy_stress_relative_l2"])
+
     def test_airy_source_cut_matches_cell_centred_convention(self):
         n=33
         e=plastic_strain_nodes(n,"volterra_edge",burgers=.02)
