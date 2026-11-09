@@ -16,13 +16,16 @@ The element energy uses Q1 bilinear quadrilaterals with full 2x2 Gauss integrati
 
 The single/dipole fields are **regularized eigenstrain inclusions**, not singular Volterra dislocations and not a reproduction of the Airy-stress-function model in Cesana–De Luca–Morandotti (2024). This is a reference/prototype baseline only. It is not yet the RGS/Q6 discretization, contains no disclination connection, and proves no Mosco or Gamma convergence.
 
-The next mathematical step is to define a chain map/intertwiner from the RGS cochain variables to the continuum-compatible kinematic variables, then replace the Q1 reference assembly with the proposed RGS operator while retaining this code as a comparator.
+A finite-difference Airy-stress reference is now included in `scripts/rgs_airy_reference.py`. The defect cases in the Q1 and cochain solvers use natural traction-free boundaries with a three-DOF rigid-motion gauge; the manufactured affine patch retains Dirichlet data. The Airy reference solves the clamped biharmonic problem corresponding, on the straight square boundary and modulo the affine gauge, to zero traction. It compares stress and strain fields on interior cells. This remains a reference comparison, not a reproduction of the published CIP-DG method.
+
+The next mathematical step is to compare the Airy and displacement fields over core-width and mesh-refinement sequences, then define a chain map/intertwiner from the RGS cochain variables to continuum-compatible kinematic variables.
 
 ## Run
 
 ```bash
 python scripts/rgs_defect_benchmark.py --self-test
 python scripts/rgs_defect_benchmark.py --out artifacts/rgs_defect_benchmark
+python scripts/rgs_airy_reference.py --out artifacts/rgs_airy_comparison
 ```
 
 Dependencies: NumPy and SciPy. Matplotlib is optional and only used for the refinement plot.
