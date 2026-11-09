@@ -125,7 +125,7 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
         zero=fem.Constant(mesh,PETSc.ScalarType(0.0))
         bcs=[fem.dirichletbc(zero,outer_dofs,V),
              fem.dirichletbc(gD,core_dofs)]
-        L=(-gN*Hvn+(alpha/cell_h)*gN*ufl.dot(ufl.grad(v),n))*ds(2)
+        L=(-gN*Hvn+(alpha/cell_h)*gN*ufl.dot(ufl.grad(v),n))*ds(2)+zero*v*dx
         problem=LinearProblem(a_form,L,bcs=bcs,
             petsc_options_prefix=f"rgs_airy_cell_{mode}_",
             petsc_options={"ksp_type":"preonly","pc_type":"lu",
