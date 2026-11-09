@@ -34,6 +34,9 @@ def square_complex(n: int):
         for i in range(n-1): edges.append((v(i,j),v(i+1,j)))
     for j in range(n-1):
         for i in range(n): edges.append((v(i,j),v(i,j+1)))
+    # Add the SW-NE diagonal edges used by the fixed triangulation.
+    for j in range(n-1):
+        for i in range(n-1): edges.append((v(i,j),v(i+1,j+1)))
     edge_id={e:k for k,e in enumerate(edges)}
     faces=[]
     for j in range(n-1):
