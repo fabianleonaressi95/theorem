@@ -154,6 +154,29 @@ def sample_intrinsic_frequencies(seed, n_nodes=64, n_links=192,
 def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
                     dt=.025, initial=None, return_final=False,
                     omega0=2.0, omega1=2.0, tau0=1.0, tau1=1.0):
+    """Quasi-static continuation with seed-invariant intrinsic frequencies."""
+    omega,omega_link=sample_intrinsic_frequencies(
+        seed,64,192,omega0,omega1,tau0,tau1
+    )
+    # Separate RNG stream: branch initialization cannot alter sampled frequencies.
+    phase_rng=np.random.default_rng(int(seed)+1_000_003)
+    if initial is None:
+        theta=phase_rng.uniform(-np.pi,np.pi,64)
+        phi=phase_rng.uniform(-np.pi,np.pi,192)
+    else:
+        theta,phi=np.array(initial[0],float).copy(),np.array(initial[1],float).copy()
+def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
+                    dt=.025, initial=None, return_final=False):
+    """Quasi-static continuation sweep; returns terminal state when requested."""
+    rng=np.random.default_rng(seed)
+    omega=rng.normal(omega0,1.0/tau0,n_nodes)-omega0
+    omega_link=rng.normal(omega1,1.0/tau1,n_links)
+    return omega,omega_link
+
+
+def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
+                    dt=.025, initial=None, return_final=False,
+                    omega0=2.0, omega1=2.0, tau0=1.0, tau1=1.0):
     """Quasi-static continuation with reproducible, configurable frequencies.
 
     The same seed produces the same intrinsic node/link frequencies regardless
