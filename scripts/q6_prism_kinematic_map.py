@@ -160,16 +160,16 @@ def build_q6_complex():
         if {ai,aj} != {0,1}:
             continue
         mapped_boundary = row @ p1
-        s = mask
-        x,y = int(coords[s,0]), int(coords[s,1])
-        target = y*4+x
-        base_boundary = d1_base[target]
-        if np.array_equal(mapped_boundary, base_boundary):
-            p2[f,target] = 1
-        elif np.array_equal(mapped_boundary, -base_boundary):
-            p2[f,target] = -1
-        else:
-            raise AssertionError(("face projection is not a quotient 2-cell",i,j,mask))
+        matches = []
+        for target in range(16):
+            if np.array_equal(mapped_boundary, d1_base[target]):
+                matches.append((target, 1))
+            elif np.array_equal(mapped_boundary, -d1_base[target]):
+                matches.append((target, -1))
+        if len(matches) != 1:
+            raise AssertionError(("face projection is not a unique quotient 2-cell",i,j,mask,matches))
+        target, sign = matches[0]
+        p2[f,target] = sign
     return {
         "coords":coords, "edges":edges, "d0":d0, "d1_full":d1_full,
         "d1_product":d1_product, "product_faces":product_faces,
