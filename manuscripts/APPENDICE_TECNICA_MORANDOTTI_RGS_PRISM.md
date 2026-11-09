@@ -439,3 +439,47 @@ Documento di stato:
 La proposta può ora poggiare su un audit PRISM concreto e su una parte sostanziale dell'audit 188D. Deve però presentare con chiarezza anche il risultato negativo relativo all'intertwiner geometrico Anti-Twin e lasciare Krist-All in stato aperto fino al recupero del generatore delle classi e degli operatori.
 
 Questa scelta rende il dossier più forte scientificamente: espone dati riproducibili, limita le conclusioni ai controlli effettivamente eseguiti e identifica con precisione i problemi matematici sui quali chiedere una collaborazione.
+
+
+## A.24. Correzione dell'audit Anti-Twin: equivarianza geometrica e identificazione del kernel sono questioni distinte
+
+L'ispezione dello script originale `RGS_PSU_construct_geometric_intertwiner.py` e del report `actual_original_X_report.json` permette di precisare il risultato precedente.
+
+La costruzione definisce:
+- l'involuzione antipodale sui 64 siti, \(\Pi_{AT}\);
+- una base tangente \(Q\in\mathbb R^{192\times188}\);
+- una mappa geometrica \(A\in\mathbb R^{188\times64}\), ottenuta dal frame locale e dalla sua polarizzazione;
+- l'azione tangente \(R_{geo}\in\mathbb R^{188\times188}\).
+
+La relazione di equivarianza geometrica è verificata direttamente:
+
+\[
+R_{geo}A=A\Pi_{AT},
+\qquad
+\|R_{geo}A-A\Pi_{AT}\|_F
+=1,6473\times10^{-14}.
+\]
+
+Sono inoltre verificati, entro precisione numerica, la simmetria e l'involuzione di \(R_{geo}\), nonché la simmetria e l'involuzione di \(\Pi_{AT}\). Pertanto è corretto affermare che **la mappa geometrica costruita è Anti-Twin-equivarante**.
+
+Questo non dimostra però che la sua immagine coincida con il kernel del particolare operatore \(K_0\). Per il proiettore \(P_G\) archiviato:
+
+\[
+\|P_GA-A\|_F=6,53706,
+\]
+
+e i coseni degli angoli principali tra \(\operatorname{Im}(A)\) e \(\operatorname{Im}(P_G)\) variano da 0,00265018 a 0,93108124. La coincidenza dei due sottospazi non è quindi dimostrata.
+
+La costruzione successiva \(U_{geom}=\operatorname{polar}(P_GA)\) produce invece una base ortonormale contenuta nel kernel numerico; l'estensione dell'involuzione su tale base commuta con \(K_0\) entro circa \(1,19\times10^{-12}\). Questa commutazione è però conseguenza della costruzione sul kernel e non prova indipendentemente che la mappa geometrica non proiettata coincida con il kernel originario.
+
+Infine, i commutatori diretti \([R_{geo},P_G]\) e \([R_{geo},K_0]\) sono riportati come diagnostica condizionale: il loro significato richiede la conferma che le matrici siano espresse nella medesima base tangente di dimensione 188. Il report originale stesso contiene questa avvertenza. Non vanno dunque presentati come confutazione della geometria Anti-Twin.
+
+**Verdetto aggiornato:**
+- involuzione antipodale sui 64 siti: verificata numericamente;
+- equivarianza della mappa geometrica Anti-Twin: verificata numericamente;
+- kernel/proiettore intrinseco di dimensione 64: verificato numericamente;
+- identificazione tra immagine della mappa geometrica non proiettata e kernel: non dimostrata;
+- commutazione diretta di \(R_{geo}\) con \(K_0\): subordinata alla verifica della base comune;
+- coordinate originali \(X_{O_h}\): ancora da recuperare come array binario originale; il PDF recuperato documenta il codice e i nomi dei file salvati, ma non contiene l'array stesso.
+
+Il codice sorgente recuperato è archiviato in `archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py`. Il report JSON e lo script di audit principale sono stati aggiornati coerentemente.
