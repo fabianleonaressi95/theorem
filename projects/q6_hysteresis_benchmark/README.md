@@ -17,8 +17,8 @@ cubical extension, not a claim that the paper studied Q6.
 B1 has shape 64 x 192 and B2 has shape 192 x 240. Their entries are integers
 and B1 B2 = 0 is checked exactly. The graph cycle rank is 129. The square
 boundaries span the full graph cycle space (rank B2 = 129), so b1 of the
-2-skeleton is zero. The 2-skeleton has nontrivial H2 because 3-cells are
-omitted; no claim of contractibility is made.
+2-skeleton is zero. Because C3 is omitted, the truncated 2-skeleton has b2 = 240 - 129 = 111.
+These classes are killed when the 3-cells of the full cube are restored.
 
 Bitwise complement Anti-Twin lifts to signed permutation maps J0,J1,J2.
 The audit checks J0 B1 = B1 J1, J1 B2 = B2 J2 and Jk^2 = I.
