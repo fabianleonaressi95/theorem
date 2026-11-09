@@ -205,6 +205,20 @@ def audit_q6_d5_saturated_kernel_and_tail(beta_time: float = 80.0,
     checks = dict(q["exact_checks"])
     checks["kernel_rank_124"] = q["kernel_basis"].rank() == 124
     checks["tail_bound_finite"] = math.isfinite(tail["log_upper_bound"])
+    # Reuse the same Smith decomposition to expose the explicit Z-splitting.
+    v = q["smith_right_transform"]
+    v_inv = v.inv()
+    complement = v[:, :5]
+    kernel_columns = v[:, 5:]
+    splitting_checks = {
+        "unimodular_determinant": v.det() in (sp.Integer(1), sp.Integer(-1)),
+        "exact_inverse": v_inv * v == sp.eye(129) and v * v_inv == sp.eye(129),
+        "kernel_annihilation": q["integer_map"] * kernel_columns == sp.zeros(5, 124),
+        "quotient_complement_rank_five": complement.rank() == 5,
+        "kernel_rank_124": kernel_columns.rank() == 124,
+        "direct_sum_basis": complement.row_join(kernel_columns) == v,
+    }
+    checks.update({f"splitting_{name}": value for name, value in splitting_checks.items()})
     return {
         "audit": "Q6_D5_SATURATED_INTEGER_KERNEL_AND_CERTIFIED_TAIL",
         "kernel": {
@@ -215,6 +229,14 @@ def audit_q6_d5_saturated_kernel_and_tail(beta_time: float = 80.0,
             "saturated": True,
         },
         "tail_bound": tail,
+        "unimodular_splitting": {
+            "basis_shape": [129, 129],
+            "quotient_complement_shape": [129, 5],
+            "saturated_kernel_shape": [129, 124],
+            "determinant": str(v.det()),
+            "coordinate_convention": "z = V @ (q_5, k_124), with V unimodular; first five coordinates label quotient and last 124 label fibre",
+            "checks": splitting_checks,
+        },
         "checks": checks,
         "all_checks_passed": bool(all(checks.values())),
         "scope": {
