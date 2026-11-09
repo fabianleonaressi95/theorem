@@ -97,7 +97,6 @@ The latest PR #119 regression, [run #69](https://github.com/fabianleonaressi95/t
 
 The wedge-dipole energy discrepancy at \(n=129\) remains material: Q1/cochain 12.12%, Q1/Airy 7.28%, cochain/Airy 18.52%. This is an explicit blocker to claiming energetic validation.
 
-
 ## 7. Public implementation source inspected
 
 The paper links a public implementation: [EdoardoF1993/planar_elasticity_dislocations_disclinations](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations). The following source files have been inspected directly:
@@ -107,6 +106,36 @@ The paper links a public implementation: [EdoardoF1993/planar_elasticity_disloca
 - [`scripts/airy.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/airy.py): loads the 3N cell fields, assembles the interaction matrix using \(\int \Delta\kappa_i\,\Delta\kappa_j\), solves \(M a=\Phi\), and reconstructs \(v=-E/(1-\nu^2)\sum_i a_i\kappa_i\).
 - [`scripts/meshes/primitives.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/meshes/primitives.py): creates circular domains with circular cores through the Gmsh Python API.
 
-This source inspection narrows the reproduction task substantially: the operator, facet terms, basis boundary data, interaction-matrix assembly and reconstruction are no longer inferred from the paper alone. The remaining work is to port/run the same pipeline in a reproducible environment, verify the interaction matrix against the exact theorem convention, and compare the resulting fields/energies against the radial analytical benchmarks before connecting it to RGS.
+### 7.1 Hessian-product versus Laplacian-product matrix: identity resolved
 
-**Implementation detail requiring an explicit audit:** the cell-problem bilinear form in `Biharmonic.a()` uses the Hessian product, whereas the postprocessing matrix in `airy.py` uses the Laplacian product. This may be justified by the harmonic cell equations and boundary identities, but the equivalence must be checked against the paper's definition of \(\mathcal M\) and verified numerically; do not silently replace one by the other.
+The source difference is real but is **not, by itself, evidence of a coding inconsistency**. The cell solver assembles the Hessian product, while the Airy postprocessor assembles the Laplacian product for the interaction matrix. For sufficiently regular cell fields \(u,v\), in two dimensions,
+
+\[
+\operatorname{div}\!\left((\operatorname{cof}D^2u)\nabla v\right)
+=(\operatorname{cof}D^2u):D^2v
+=\Delta u\,\Delta v-D^2u:D^2v,
+\]
+
+because \(\operatorname{div}(\operatorname{cof}D^2u)=0\). Therefore
+
+\[
+\int_{\Omega_\varepsilon}
+\left(\Delta u\,\Delta v-D^2u:D^2v\right)dx
+=\int_{\partial\Omega_\varepsilon}
+(\operatorname{cof}D^2u\,n)\cdot\nabla v\,ds.
+\]
+
+On every boundary component, each cell field has affine Dirichlet trace and the matching normal derivative (the active core has data 1/0, \(x_1/n_1\), or \(x_2/n_2\); inactive cores and the outer boundary have zero data). These imply \(D^2u\,t=0\) on that component. In the orthonormal \((n,t)\) frame, this means \(D^2u=\operatorname{diag}(a,0)\), hence \((\operatorname{cof}D^2u)n=0\). The boundary integral vanishes, giving
+
+\[
+\boxed{\int_{\Omega_\varepsilon}D^2u:D^2v\,dx
+=\int_{\Omega_\varepsilon}\Delta u\,\Delta v\,dx.}
+\]
+
+Thus the two continuum bilinear forms coincide on the cell-function space under the stated affine boundary traces. This is the mathematical reason the postprocessor's Laplacian-product matrix can agree with the Hessian-product cell energy.
+
+**Discrete verification still required:** the finite-element cell fields satisfy the affine traces and normal derivatives only to the accuracy of the discrete boundary enforcement and approximation. The implementation audit must therefore report, for every mesh level, (i) the relative matrix difference \(\|M_{\Delta}-M_{H}\|_F/\|M_H\|_F\), (ii) symmetry residuals, (iii) smallest eigenvalue / conditioning, and (iv) the boundary identity residual. This is a convergence check, not a reason to alter the published implementation.
+
+## 8. Reproduction status
+
+**Source-level audit completed; numerical reproduction not yet run.** The exact operator, facet terms, boundary data, matrix postprocessing and reconstruction are now mapped to public source. The next executable task is a matched-mesh implementation of the published C0-IPDG cell problems, followed by the four matrix/energy checks in §7.1 and the radial benchmarks in §4. The published solver depends on DOLFINx/FEniCSx, Gmsh, PETSc/MUMPS and ADIOS4Dolfinx; no claim is made that these dependencies or the original run have been executed in the present environment.
