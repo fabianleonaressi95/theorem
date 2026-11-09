@@ -108,6 +108,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T060](theorems/T060-kathara-q3-chain-map.md) | Coordinate-defined Kathara–Q3 chain map | Coarse candidate into the b₂=0 square of the Q₃ 2-skeleton; chain-map test execution remains pending. |
 | [T061](theorems/T061-kathara-q3-chain-homotopy.md) | Chain homotopy between the two Kathara–Q3 path conventions | Explicit homotopy between b₀-first and b₁-first maps; the selected Kathara face is convention-dependent, while induced homology maps agree. Corrects the claim [K,Q₃] ≅ ℤ for a contractible disk source. |
 | [T062](theorems/T062-kathara-q6-integral-chain-map.md) | Explicit integral Kathara–Q6 chain map | Proves existence under a declared integer-coordinate code using root-path differences; injective on vertices but collapses all ten 2-cells, so it is not a cellular embedding or an RGS-canonical map. |
+| [T063](theorems/T063-quaternion-su2-so3-double-cover.md) | Quaternionic realization of SU(2) and the double cover of SO(3) | Proves the scalar-first Hamilton-quaternion isomorphism with SU(2), and the conjugation homomorphism onto SO(3) with kernel {±1}; fixes the active column-vector convention used by the bridge implementation. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
