@@ -1,0 +1,38 @@
+name: Morandotti two-core P3 C0-IPDG audit
+
+on:
+  push:
+    branches:
+      - 'work/rgs-defect-benchmark-torino'
+    paths:
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - '.github/workflows/morandotti-two-core-c0-ipdg.yml'
+  workflow_dispatch:
+
+jobs:
+  two-core-p3-c0-ipdg:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Gmsh Python bindings
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends libglu1-mesa
+          python3 -m pip install --break-system-packages gmsh
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, ufl, petsc4py, gmsh; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('Gmsh', gmsh.__version__)"
+          python3 -c "from petsc4py import PETSc; print('PETSc', PETSc.Sys.getVersion())"
+      - name: Run two-core six-field interaction audit
+        run: |
+          python3 scripts/rgs_morandotti_two_core_c0_ipdg.py --mesh-sizes 0.24 0.16 0.11 --alpha 10 --out artifacts/morandotti_two_core/report.json
+      - name: Upload two-core report
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-two-core-p3-c0-ipdg-report
+          path: artifacts/morandotti_two_core/report.json
+          if-no-files-found: error
