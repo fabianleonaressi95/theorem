@@ -7,9 +7,11 @@ periodic continuum reference. Smooth periodic eigenstrain sources are used;
 this is not a singular dislocation-core calculation.
 """
 from __future__ import annotations
-import argparse, csv, json
+import argparse, csv, json, sys
 from pathlib import Path
 import numpy as np
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
 
