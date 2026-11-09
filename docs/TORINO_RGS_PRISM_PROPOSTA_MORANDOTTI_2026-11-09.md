@@ -190,3 +190,14 @@ Il primo fascicolo integrativo è stato preparato il 9 novembre 2026; entro il 1
 [8] P. Cesana, A. Grillo, M. Morandotti, A. Pastore, *Dissipative Dynamics of Volterra Disclinations*, SIAM Journal on Applied Mathematics 85(4) (2025), 1361–1386. DOI: [10.1137/24M1688096](https://doi.org/10.1137/24M1688096).
 
 [9] N. Briatico, P. Cesana, M. Morandotti, *Effective Dynamics of Disclination Pairs*, preprint (2026), [arXiv:2608.12233](https://arxiv.org/abs/2608.12233), [CVGMT](https://cvgmt.sns.it/paper/7926/).
+
+
+### Aggiornamento quantitativo del confronto (9 novembre 2026)
+
+Il confronto Q1–cochain P1–Airy è stato esteso e superato in CI: [run 42656544200](https://github.com/fabianleonaressi95/theorem/actions/runs/42656544200), con [artifact JSON/CSV](https://github.com/fabianleonaressi95/theorem/actions/runs/42656544200/artifacts/13691882405). Sono stati prodotti 56 confronti Q1/cochain e 20 confronti Airy/Q1/cochain, con patch test, caso nullo, residui e doppia orientazione della diagonale.
+
+Per il dipolo di disclinazione, la differenza energetica Q1/cochain scende dal 60,64% a n=17 al 12,12% a n=129; gli errori di stress rispetto ad Airy a n=129 sono 5,67% (Q1) e 5,97% (cochain). Il divario energetico cochain–Airy resta però 18,52%, quindi il confronto non è ancora chiuso sul piano energetico.
+
+L'audit del dipolo–dislocazione su n=129, con separazioni grid-aligned da 16h a 2h, riduce l'errore relativo della sorgente di incompatibilità dall'85,28% a circa 5×10⁻¹⁴ e quello dello stress Airy dal 32,39% a circa 4×10⁻¹¹. L'ultimo valore è un'identità discreta dovuta allo stencil centrato, non una dimostrazione del limite continuo o del teorema energetico.
+
+Il report completo, con tabelle, definizioni degli errori e limiti, è disponibile in [THREE_WAY_COMPARISON_2026-11-09.md](rgs_defect_benchmark/THREE_WAY_COMPARISON_2026-11-09.md). Restano aperti il limite del core, la convergenza Mosco/Γ, la riproduzione CIP-DG e la mappa Q6/PRISM verso la mesh fisica.
