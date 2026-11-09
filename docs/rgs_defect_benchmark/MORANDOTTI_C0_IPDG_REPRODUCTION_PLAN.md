@@ -330,3 +330,22 @@ At all levels, both 6×6 interaction matrices are symmetric to assembly precisio
 **Open issue found by the first run:** the active-core normal-derivative residuals do not decrease monotonically. For the six core/mode pairs, the reported values span 0.079–0.346 and several increase under the first two refinements. Value-trace residuals remain at machine precision. This prevents accepting the boundary-condition convergence gate.
 
 The workflow has therefore been extended to h=0.08 and h=0.055. The finer run must determine whether the normal residuals enter a decreasing regime; if not, inspect the core normal convention, boundary Nitsche load/sign, and curved-facet scaling before changing the formulation. No convergence of the two-core boundary conditions is claimed at this stage.
+
+
+### 16.2 Extended two-core refinement: boundary residual enters a decreasing regime
+
+The extended workflow completed successfully: [run 42668015886](https://github.com/fabianleonaressi95/theorem/actions/runs/42668015886), artifact [13697008129](https://github.com/fabianleonaressi95/theorem/actions/runs/42668015886/artifacts/13697008129). The same six P3 cell fields were solved on five meshes (301, 438, 674, 1,265 and 2,485 triangles). The active-core normal residuals, listed in the fixed order (core 0 modes 0–2, core 1 modes 0–2), are:
+
+| target h | max normal residual | mean normal residual | flux identity residual | total-flux symmetry residual |
+|---:|---:|---:|---:|---:|
+| 0.24 | 0.28011 | 0.15486 | 2.62e-7 | 5.33e-5 |
+| 0.16 | 0.32536 | 0.16884 | 3.49e-7 | 4.86e-5 |
+| 0.11 | 0.34570 | 0.19709 | 5.34e-7 | 8.30e-5 |
+| 0.08 | 0.19079 | 0.09504 | 2.30e-8 | 2.21e-5 |
+| 0.055 | 0.08035 | 0.03979 | 2.59e-9 | 9.73e-7 |
+
+At h=0.055 the six normal residuals are (0.06832, 0.02206, 0.01832, 0.08035, 0.02806, 0.02162). Thus the coarse sequence is pre-asymptotic/non-monotone, but the two finest levels show a clear reduction: the maximum residual falls by 57.9% from h=0.08 to h=0.055, and the mean falls by 58.1%. The finest maximum is 0.0804, still not negligible; report this as numerical improvement, not exact satisfaction or a proved convergence rate.
+
+The value-trace residuals remain at machine precision (approximately 10^-16). Both interaction matrices remain symmetric to assembly precision and positive definite at every level. Their minimum eigenvalues at h=0.055 are 6.3694 (Hessian) and 6.3816 (Laplacian); the Hessian matrix condition number is 52.43. The full discrete flux identity improves to 2.59e-9, and total-flux symmetry to 9.73e-7.
+
+**Updated decision:** the two-core boundary gate has moved from unresolved coarse-mesh failure to a decreasing fine-mesh regime. It is not yet a strict acceptance of asymptotic convergence: add at least one finer level and monitor all six residuals individually, keeping geometry/curved-facet treatment fixed. The current evidence does not justify modifying the Nitsche signs or normal convention. This remains a two-core finite-domain numerical reproduction, not arbitrary-N reconstruction, singular-core analysis, dynamics, or material validation.
