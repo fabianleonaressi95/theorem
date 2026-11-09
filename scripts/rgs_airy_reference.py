@@ -24,16 +24,18 @@ def material_constants(lam=1.0,mu=1.0):
 def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01,dipole_separation=.1):
     h=1.0/(n-1)
     x=np.linspace(0,1,n); X,Y=np.meshgrid(x,x)
+    # Put the cut tip halfway between the two nodal columns bracketing x=1/2.
+    x0=.5+.5*h
     e=np.zeros((n,n,3),float)
     delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
     if kind=="volterra_edge":
-        e[:,:,2]=burgers*delta*(X>=.5)
+        e[:,:,2]=burgers*delta*(X>=x0)
     elif kind=="wedge_disclination":
-        e[:,:,1]=frank*(X-.5)*delta*(X>=.5)
+        e[:,:,1]=frank*(X-x0)*delta*(X>=x0)
     elif kind=="wedge_dipole":
         dp=np.exp(-.5*((Y-(.5+dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
         dm=np.exp(-.5*((Y-(.5-dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
-        e[:,:,1]=(burgers/dipole_separation)*(X-.5)*(X>=.5)*(dp-dm)
+        e[:,:,1]=(burgers/dipole_separation)*(X-x0)*(X>=x0)*(dp-dm)
     else:
         raise ValueError("Airy incompatibility reference supports Volterra edge and wedge disclination")
     return e
@@ -167,11 +169,35 @@ def run(out:Path,levels=(17,33,65)):
             "regularized core width fixed at 0.025; singular-core asymptotics not tested",
             "no Q6/PRISM-to-physical-mesh chain map",
             "no disclination dynamics or material calibration"],
-        "levels":list(levels),"results":rows}
+        "levels":list(levels),"results":rows,"dipole_edge_equivalence":dipole_edge_equivalence()}
     (out/"airy_comparison.json").write_text(json.dumps(report,indent=2)+"\n")
     with (out/"airy_comparison.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
     return report
+
+def dipole_edge_equivalence(n=129,burgers=.02,core_width=.025,separations=(.1,.075,.05,.0375,.025)):
+    """Compare a +/- wedge-dipole with its limiting edge-dislocation source."""
+    h=1/(n-1)
+    edge_ep=plastic_strain_nodes(n,"volterra_edge",burgers=burgers,core_width=core_width)
+    edge_inc=incompatibility(edge_ep,h)
+    edge=solve_airy(n,"volterra_edge",burgers=burgers,core_width=core_width,return_fields=True)
+    rows=[]
+    mask=(slice(4,-4),slice(4,-4))
+    for sep in separations:
+        dip_ep=plastic_strain_nodes(n,"wedge_dipole",burgers=burgers,core_width=core_width,dipole_separation=sep)
+        dip_inc=incompatibility(dip_ep,h)
+        dip=solve_airy(n,"wedge_dipole",burgers=burgers,core_width=core_width,dipole_separation=sep,return_fields=True)
+        src=float(np.linalg.norm((dip_inc-edge_inc)[mask])/max(np.linalg.norm(edge_inc[mask]),1e-30))
+        ds=dip["stress_cells"][mask]-edge["stress_cells"][mask]
+        ref=edge["stress_cells"][mask]
+        stress=float(np.linalg.norm(ds)/max(np.linalg.norm(ref),1e-30))
+        rows.append({"separation":sep,"frank_charge_each":burgers/sep,
+            "effective_burgers":(burgers/sep)*sep,
+            "incompatibility_relative_l2":src,"airy_stress_relative_l2":stress,
+            "airy_weak_residual":dip["weak_residual"]})
+    return {"n":n,"burgers":burgers,"core_width":core_width,
+        "interpretation":"opposite Frank charges +/-(b/d) separated by d; the dipole incompatibility tends to the edge-dislocation source as d -> 0",
+        "results":rows}
 
 def self_test():
     for kind in ("volterra_edge","wedge_disclination"):
