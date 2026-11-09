@@ -183,7 +183,7 @@ def run(out:Path,levels=(17,33,65)):
         w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
     return report
 
-def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.125,.0625,.03125,.015625)):
+def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.1,.075,.05,.0375,.025)):
     """Compare a +/- wedge-dipole with its limiting edge-dislocation source."""
     h=1/(n-1)
     edge_ep=plastic_strain_nodes(n,"volterra_edge",burgers=burgers,core_width=core_width)
@@ -199,12 +199,12 @@ def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.125
         ds=dip["stress_cells"][mask]-edge["stress_cells"][mask]
         ref=edge["stress_cells"][mask]
         stress=float(np.linalg.norm(ds)/max(np.linalg.norm(ref),1e-30))
-        rows.append({"separation":sep,"frank_charge_each":burgers/sep,
+        rows.append({"separation":sep,"separation_over_h":sep/h,"frank_charge_each":burgers/sep,
             "effective_burgers":(burgers/sep)*sep,
             "incompatibility_relative_l2":src,"airy_stress_relative_l2":stress,
             "airy_weak_residual":dip["weak_residual"]})
     return {"n":n,"burgers":burgers,"core_width":core_width,
-        "interpretation":"opposite Frank charges +/-(b/d) separated by d; the dipole incompatibility tends to the edge-dislocation source as d -> 0",
+        "interpretation":"fixed-grid regularized comparison of opposite Frank charges +/-(b/d); separations are deliberately not locked to a finite-difference stencil spacing, and the sweep is not a continuum-limit proof",
         "results":rows}
 
 def self_test():
