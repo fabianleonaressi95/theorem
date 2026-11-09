@@ -349,3 +349,21 @@ At h=0.055 the six normal residuals are (0.06832, 0.02206, 0.01832, 0.08035, 0.0
 The value-trace residuals remain at machine precision (approximately 10^-16). Both interaction matrices remain symmetric to assembly precision and positive definite at every level. Their minimum eigenvalues at h=0.055 are 6.3694 (Hessian) and 6.3816 (Laplacian); the Hessian matrix condition number is 52.43. The full discrete flux identity improves to 2.59e-9, and total-flux symmetry to 9.73e-7.
 
 **Updated decision:** the two-core boundary gate has moved from unresolved coarse-mesh failure to a decreasing fine-mesh regime. It is not yet a strict acceptance of asymptotic convergence: add at least one finer level and monitor all six residuals individually, keeping geometry/curved-facet treatment fixed. The current evidence does not justify modifying the Nitsche signs or normal convention. This remains a two-core finite-domain numerical reproduction, not arbitrary-N reconstruction, singular-core analysis, dynamics, or material validation.
+
+
+### 16.3 Additional fine level h=0.04: all six normal residuals decrease
+
+The next refinement completed successfully: [run 42669942733](https://github.com/fabianleonaressi95/theorem/actions/runs/42669942733), artifact [13699330167](https://github.com/fabianleonaressi95/theorem/actions/runs/42669942733/artifacts/13699330167). The h=0.04 mesh has 4,582 triangles and 20,912 P3 degrees of freedom. The six active-core normal residuals, in the same core/mode order as section 16.2, are:
+
+| core/mode | h=0.055 | h=0.04 |
+|---|---:|---:|
+| core 0, mode 0 | 0.068317 | 0.039586 |
+| core 0, mode 1 | 0.022057 | 0.014225 |
+| core 0, mode 2 | 0.018318 | 0.011058 |
+| core 1, mode 0 | 0.080354 | 0.041203 |
+| core 1, mode 1 | 0.028062 | 0.012739 |
+| core 1, mode 2 | 0.021619 | 0.010102 |
+
+All six decrease. The maximum residual falls from 0.08035 to 0.04120 (48.7%); the mean falls from 0.03979 to 0.02149 (46.0%). The value-trace residuals remain at approximately 10^-16. The two interaction matrices remain symmetric to assembly precision and positive definite: min eig(M_H)=6.41319, min eig(M_Delta)=6.41975; cond(M_H)=52.965. The full discrete flux identity residual is 3.98e-10 and total-flux symmetry residual is 1.37e-7.
+
+**Updated assessment:** the two-core finite-mesh boundary residuals now decrease for all six core/mode conditions across the two finest refinements (h=0.055 to 0.04). This is stronger numerical evidence than the previous single fine-level observation, but it is not a theorem, a measured asymptotic order, or a proof of convergence for arbitrary geometry/core count. The next useful gate is an additional h refinement with unchanged formulation, plus a manufactured off-centre reference or independent cross-check before generalizing the reconstruction.
