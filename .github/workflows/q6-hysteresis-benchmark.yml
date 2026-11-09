@@ -33,5 +33,5 @@ jobs:
         with:
           python-version: "3.11"
       - run: python -m pip install numpy pytest
-      - run: python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py
+      - run: python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py tests/test_constitutive_hysteresis.py
       - run: python scripts/run_q6_hysteresis_benchmark.py --steps-per-sigma 5 --sigma-count 3 --output /tmp/q6-hysteresis.json
