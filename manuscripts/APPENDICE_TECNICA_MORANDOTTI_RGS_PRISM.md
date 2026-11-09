@@ -483,3 +483,16 @@ Infine, i commutatori diretti \([R_{geo},P_G]\) e \([R_{geo},K_0]\) sono riporta
 - coordinate originali \(X_{O_h}\): ancora da recuperare come array binario originale; il PDF recuperato documenta il codice e i nomi dei file salvati, ma non contiene l'array stesso.
 
 Il codice sorgente recuperato è archiviato in `archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py`. Il report JSON e lo script di audit principale sono stati aggiornati coerentemente.
+
+
+## 7. Anisotropia pentagono–esagono nel pallone pressurizzato
+
+È stato aggiunto un dossier autonomo in `docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md`, con implementazione in `models/football_anisotropy.py`, runner in `scripts/run_football_anisotropy_audit.py` e test in `tests/test_football_anisotropy.py`.
+
+La geometria ideale è il icosaedro troncato: 60 vertici, 12 pentagoni, 20 esagoni e 90 adiacenze tra pannelli, delle quali 60 pentagono–esagono e 30 esagono–esagono. Il modello meccanico corrente assegna uno spostamento normale scalare a ciascun pannello e minimizza un'energia quadratica con rigidezza efficace (C_5) o (C_6), accoppiamento lungo i bordi condivisi e carico uniforme.
+
+**Baseline puramente modellistica** ((p=0.01, C_5/C_6=1.25, gamma=0.15)): spostamento medio dei pentagoni (0.00875363), degli esagoni (0.00962570), contrasto pentagono meno esagono (-8.72071\times10^{-4}), residuo relativo del sistema lineare (2.64\times10^{-16}). Il controllo isotropo (C_5=C_6=1) restituisce spostamento uniforme (p/C=0.01) e anisotropia incrementale nulla entro precisione numerica.
+
+Questi numeri verificano soltanto il modello discreto dichiarato. (C_5/C_6=1.25) è un valore dimostrativo, non una misura del pallone reale. Non sono ancora implementati shell nonlineare, cuciture, ortotropia tessile, deformazioni di bordo compatibili, campo di curvatura o calibrazione sperimentale. La metrica della superficie radiale continua è specificata nel dossier, ma non è stata numericamente ricostruita dal modello a centri di pannello.
+
+Il risultato è quindi classificato come **modello fenomenologico numericamente verificato**, non come spiegazione sperimentale già dimostrata della non-sfericità osservata. Il passo successivo con Morandotti è identificare (C_5,C_6,gamma) da dati di materiale e cucitura, sostituire i gradi di libertà scalari con una discretizzazione shell conforme e confrontare forma e deformazioni con scansioni 3D a pressione controllata.
