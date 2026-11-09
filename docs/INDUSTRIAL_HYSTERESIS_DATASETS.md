@@ -46,15 +46,20 @@ This registry separates (i) measured actuator data, (ii) measured magnetic mater
 
 - Record: https://doi.org/10.5281/zenodo.5910893
 - Landing page: https://zenodo.org/records/5910893
+- File: `EMPIR 19ENG06 HEFMAG dataset loops NO and GO.zip` (318.9 kB; Zenodo MD5 `2ae32cfbcf0841e4a320d0adaf4e6355`).
 - Description: sample measured hysteresis loops for non-oriented and grain-oriented FeSi steel, used in power-loss work.
-- Intended use: fit and test Jiles–Atherton loop shape and energy-loss metrics, after checking units, waveform, frequency and licence in the archive.
+- Rights: Zenodo's record leaves the Rights/License field blank. Do not redistribute or commit the archive until the rights are clarified with the depositor; access for analysis is distinct from redistribution permission.
+- Intended use: fit and test Jiles–Atherton loop shape and energy-loss metrics after inspecting the archive's units, waveform, frequency, sample metadata and loop segmentation.
+- The HEFMAG project site separately lists the main Hysteresis Loops Dataset as DOI `10.5281/zenodo.5910892`; it should be evaluated as a separate source, not conflated with this 5910893 sample archive.
 
 ### Magnetic powders / magnetorheological elastomers
 
 - Record: https://doi.org/10.5281/zenodo.17053338
 - Landing page: https://zenodo.org/records/17053338
-- Description: measured JH/BH hysteresis data for magnetorheological elastomers with several magnetic fillers.
-- Intended use: exploratory material comparison; check spreadsheet schema, measurement conditions and licence before use.
+- File: `Hysteresis_datasets.xlsx` (721.3 kB; Zenodo MD5 `f2284f438b4d54282ae893dec4697a29`).
+- Description: measured JH/BH hysteresis data for 50 wt% magnetorheological elastomers filled with carbonyl iron (SQ/HS), Fe85Si15, NdFeB, strontium ferrite, Fe3O4 or Fe2O3.
+- Rights: Zenodo's record leaves the Rights/License field blank. A third-party catalog reports CC BY 4.0, but that is not treated here as a substitute for the depositor's licence metadata. Clarify rights before redistribution.
+- Intended use: exploratory material comparison; inspect worksheet schema, units, sample geometry and measurement conditions before fitting.
 
 ## Required validation protocol
 
