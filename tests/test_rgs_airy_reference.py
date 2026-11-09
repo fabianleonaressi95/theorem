@@ -1,7 +1,7 @@
 """Tests for the Airy-stress incompatibility reference."""
 import unittest
 import numpy as np
-from scripts.rgs_airy_reference import solve_airy, incompatibility, plastic_strain_nodes, compare_case
+from scripts.rgs_airy_reference import solve_airy, incompatibility, plastic_strain_nodes, compare_case, dipole_edge_equivalence
 
 class AiryReferenceTests(unittest.TestCase):
     def test_wedge_incompatibility_charge(self):
@@ -23,6 +23,18 @@ class AiryReferenceTests(unittest.TestCase):
             for key in ("q1_airy_stress_rel_l2","q1_airy_strain_rel_l2",
                         "cochain_airy_stress_rel_l2","cochain_airy_strain_rel_l2"):
                 self.assertLess(fine[key],coarse[key],(kind,key,coarse[key],fine[key]))
+
+    def test_disclination_dipole_has_edge_burgers_moment(self):
+        n=129; h=1/(n-1); x=np.linspace(0,1,n); X,Y=np.meshgrid(x,x)
+        e=plastic_strain_nodes(n,"wedge_dipole",burgers=.02,dipole_separation=.05)
+        inc=incompatibility(e,h)
+        self.assertAlmostEqual(float(np.sum(Y*inc)*h*h),.02,delta=3e-4)
+
+    def test_disclination_dipole_converges_to_edge_source(self):
+        r=dipole_edge_equivalence(n=129,separations=(.1,.05,.025))
+        a=r["results"]
+        self.assertLess(a[-1]["incompatibility_relative_l2"],a[0]["incompatibility_relative_l2"])
+        self.assertLess(a[-1]["airy_stress_relative_l2"],a[0]["airy_stress_relative_l2"])
 
     def test_clamped_airy_solutions(self):
         for kind in ("volterra_edge","wedge_disclination"):
