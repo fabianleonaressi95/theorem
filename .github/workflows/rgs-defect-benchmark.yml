@@ -44,6 +44,7 @@ jobs:
         run: |
           mkdir -p artifacts/periodic_q6_fem_airy
           python -m unittest discover -s tests -p 'test_rgs_periodic_q6_fem_airy.py' -v
+          python scripts/rgs_periodic_q6_fem_airy.py --self-test
           python scripts/rgs_periodic_q6_fem_airy.py --out artifacts/periodic_q6_fem_airy
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
