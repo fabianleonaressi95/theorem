@@ -85,7 +85,15 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
     mesh,facet_tags=make_annulus_mesh(R,a,h,comm)
     mesh.topology.create_connectivity(mesh.topology.dim-1,mesh.topology.dim)
     V=fem.functionspace(mesh,("Lagrange",3))
-    n=ufl.FacetNormal(mesh); cell_h=fem.Constant(mesh,PETSc.ScalarType(h))
+    n=ufl.FacetNormal(mesh)
+    # P3 curved geometry: FFCx does not lower UFL CellDiameter here.
+    # Store the actual cellwise geometric diameter in a DG0 coefficient.
+    h_space=fem.functionspace(mesh,("DG",0))
+    cell_h=fem.Function(h_space)
+    num_cells=mesh.topology.index_map(mesh.topology.dim).size_local
+    cells=np.arange(num_cells,dtype=np.int32)
+    cell_h.x.array[:]=mesh.h(mesh.topology.dim,cells)
+    cell_h.x.scatter_forward()
     dx=ufl.Measure("dx",domain=mesh,metadata={"quadrature_degree":9})
     ds=ufl.Measure("ds",domain=mesh,subdomain_data=facet_tags,metadata={"quadrature_degree":9})
     dS=ufl.Measure("dS",domain=mesh,metadata={"quadrature_degree":9})
