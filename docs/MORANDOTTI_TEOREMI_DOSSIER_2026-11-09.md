@@ -45,7 +45,7 @@ Sia (K') la suddivisione a metà di ogni coordinata attiva. I conteggi del compl
 (|K'_0|,|K'_1|,|K'_2|)=(496,1344,960).
 \]
 
-Indichiamo con (B_1,B_2) gli operatori di bordo del complesso grossolano e con (B'_1,B'_2) quelli del raffinato. Le mappe di suddivisione intere (S_0,S_1,S_2) mandano rispettivamente un vertice nel vertice corrispondente, un arco nella somma dei suoi due semiar archi orientati e una faccia nella somma delle quattro sottofacce orientate.
+Indichiamo con (B_1,B_2) gli operatori di bordo del complesso grossolano e con (B'_1,B'_2) quelli del raffinato. Le mappe di suddivisione intere (S_0,S_1,S_2) mandano rispettivamente un vertice nel vertice corrispondente, un arco nella somma dei suoi due semiarchi orientati e una faccia nella somma delle quattro sottofacce orientate.
 
 Il risultato è
 
@@ -251,7 +251,7 @@ La struttura Q6/PRISM può essere proposta come discretizzazione candidata solta
 
 ## 10. Problemi aperti prioritari
 
-1. Completare la riproduzione dell'algoritmo multi-core del preprint 2026: (3N) problemi di cella, matrice Τ/ℳ di interazione e ricostruzione per dati generali di Burgers e Frank.
+1. Completare la riproduzione dell'algoritmo multi-core del preprint 2026: (3N) problemi di cella, matrice di interazione M e ricostruzione per dati generali di Burgers e Frank.
 2. Aggiungere core fuori centro e geometrie con più core non sovrapposti.
 3. Separare sistematicamente il limite (h\to0) dal limite (ε\to0), con rinormalizzazione.
 4. Dimostrare, se le ipotesi lo consentono, una convergenza variazionale Mosco o Γ.
