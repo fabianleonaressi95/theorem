@@ -177,8 +177,14 @@ def main():
                 hh,jj,bb=H[idx],J[idx],B[idx]
                 # ∮ H dB: kA/m * mT = J/m3 numerically.
                 area=float(abs(np.trapezoid(hh,bb)))
+                tt = (pd.to_numeric(df[cm["t"]],errors="coerce").to_numpy(float)[idx]
+                      if "t" in cm else None)
+                duration = (float(tt[-1]-tt[0]) if tt is not None and
+                            np.all(np.isfinite(tt)) and tt[-1]>tt[0] else None)
                 curves.append({"sheet":sheet,"cycle":ci+1,"n":len(idx),
-                    "H":hh,"J":jj,"B":bb,"area_J_m3":area})
+                    "H":hh,"J":jj,"B":bb,"t":tt,"duration_s":duration,
+                    "frequency_hz":(1.0/duration if duration else None),
+                    "area_J_m3":area})
         else:
             info["analysis_status"]="Required H/J/B columns not unambiguously identified; no physical fit attempted."
         report["sheets"][sheet]=info
@@ -187,10 +193,12 @@ def main():
     cycle_rows=[]
     curve_points=[]
     for c0 in curves:
-        cycle_rows.append({k:c0[k] for k in ("sheet","cycle","n","area_J_m3")})
+        cycle_rows.append({k:c0[k] for k in ("sheet","cycle","n","area_J_m3","duration_s","frequency_hz")})
         for point_i,(hh,jj,bb) in enumerate(zip(c0["H"],c0["J"],c0["B"])):
-            curve_points.append({"sheet":c0["sheet"],"cycle":c0["cycle"],
-                "point":point_i,"H_kA_m":float(hh),"J_mT":float(jj),"B_mT":float(bb)})
+            point={"sheet":c0["sheet"],"cycle":c0["cycle"],
+                "point":point_i,"H_kA_m":float(hh),"J_mT":float(jj),"B_mT":float(bb)}
+            if c0["t"] is not None: point["t_s"]=float(c0["t"][point_i])
+            curve_points.append(point)
     pd.DataFrame(cycle_rows).to_csv(out/"cycle_metrics.csv",index=False)
     pd.DataFrame(curve_points).to_csv(out/"reconstructed_BH_loops.csv",index=False)
     for sheet in xls.sheet_names:
