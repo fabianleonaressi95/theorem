@@ -11,7 +11,7 @@ from scripts.rgs_cochain_defect_benchmark import solve_cochain
 def compare(levels=(9,17,33,65)):
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole","volterra_edge"):
+        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination"):
             q=solve_q1(n,case)
             for diagonal in ("sw_ne","se_nw"):
                 r=solve_cochain(n,case,diagonal=diagonal)
