@@ -1,6 +1,9 @@
 name: RGS defect benchmark
 
 on:
+  push:
+    branches:
+      - 'work/rgs-defect-benchmark-torino'
   pull_request:
     paths:
       - 'scripts/rgs_defect_benchmark.py'
