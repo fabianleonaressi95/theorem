@@ -94,7 +94,7 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12):
     rhs=np.zeros(ndof,float); area_total=0.0
     for f,tri in enumerate(faces):
         pts=xy[list(tri)]
-        twice=np.cross(pts[1]-pts[0],pts[2]-pts[0])
+        twice=(pts[1,0]-pts[0,0])*(pts[2,1]-pts[0,1])-(pts[1,1]-pts[0,1])*(pts[2,0]-pts[0,0])
         area=abs(float(twice))/2
         B=tri_strain_matrix(pts)
         # Each pair of triangles inherits its parent square's cell source.
