@@ -59,7 +59,7 @@ class Q6PrismKinematicMapTests(unittest.TestCase):
     def test_q1_gauss_energy_detects_checkerboard_modes(self):
         # The cell-centre averaged gradient cancels this Nyquist mode;
         # full Q1 Gauss integration must retain its nonzero elastic energy.
-        u = np.array([[(-1.0)**x, 0.0] for y in range(4) for x in range(4)])
+        u = np.array([[(-1.0)**(x+y), 0.0] for y in range(4) for x in range(4)])
         self.assertEqual(cell_gradients(u).shape, (16,2,2))
         self.assertTrue(np.allclose(cell_gradients(u), 0.0))
         samples = cell_gradient_samples(u)
