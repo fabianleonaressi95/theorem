@@ -29,6 +29,46 @@ Il lavoro del 2024 tratta sistemi di dislocazioni di bordo e disclinazioni a cun
 
 Il dossier non attribuisce a RGS–PRISM risultati già dimostrati in questi lavori: li usa come riferimenti esterni rispetto ai quali misurare la riproducibilità e l'eventuale contributo originale.
 
+## 2. Teorema esterno di riferimento — Cesana, Fabbrini, León Baldelli, Morandotti (2026)
+
+**Classificazione: E — teorema pubblicato nel preprint del gruppo Morandotti; non è un risultato RGS.**
+
+Il Theorem 2.2 di *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation* è il riferimento analitico diretto per il dossier. Il dominio è limitato, semplicemente connesso e piecewise-$C^2$ Lipschitz; si rimuovono (N=J+K) core disgiunti di raggio $\varepsilon$, associati a dislocazioni di bordo e disclinazioni a cuneo. Il materiale è isotropo in plane strain, con (E>0) e $\nu\in(-1,1/2)$.
+
+Il teorema stabilisce tre livelli.
+
+1. **Caratterizzazione variazionale Airy.** Il minimizzatore unico del funzionale elastico in termini del potenziale di Airy equivale alla soluzione debole dell'equazione di Euler–Lagrange nella classe ammissibile $\mathscr C(\Omega_\varepsilon)$.
+2. **Equivalenza stress–strain.** Sotto l'ipotesi di regolarità $\hat v\in H^4(\Omega_\varepsilon)$, la deformazione ricavata da $\hat\epsilon=\mathbb C^{-1}\operatorname{cof}(D^2\hat v)$ è la soluzione unica del problema meccanico con equilibrio, trazione nulla, incompatibilità nulla fuori dai core e circuitazioni che codificano gli angoli di Frank e i vettori di Burgers.
+3. **Ricostruzione mediante problemi di cella.** Per una geometria fissata si risolvono (3N) problemi biharmonici: $\kappa_0^i,\kappa_1^i,\kappa_2^i$ per ciascun core. Il potenziale generale si ricostruisce mediante una matrice d'interazione $\mathcal M\in\mathbb R^{3N\times3N}$ e un vettore $\Phi$ costruito dai dati di Frank e Burgers:
+   
+   [
+   \hat v(x)=-\frac{E}{1-\nu^2}\langle\mathcal M^{-1}\kappa(x),\Phi\rangle.
+   ]
+
+Il punto algoritmico essenziale è la separazione tra geometria e dati dei difetti: a geometria, posizioni dei core e raggio fissati, i (3N) campi di cella si riutilizzano per differenti valori di Burgers e Frank, ricostruendo il campo tramite algebra finito-dimensionale.
+
+**Rilevanza per il nostro lavoro:** questa è la specifica matematica da riprodurre. Il driver RGS attuale esegue i tre problemi P3 per (N=1), ma non ha ancora la matrice multi-core completa $\mathcal M$, né la ricostruzione generale per (N>1). È quindi una riproduzione parziale di una componente del metodo, non del Theorem 2.2 nel suo complesso.
+
+Fonte primaria: [arXiv:2609.29614, Theorem 2.2 e Remark 2.3](https://arxiv.org/abs/2609.29614).
+
+## 3. Teorema esterno di evoluzione dissipativa con direzioni cristalline
+
+**Classificazione: E — teorema di esistenza pubblicato; modello e ipotesi specifiche.**
+
+Un secondo risultato direttamente pertinente è Cesana, Grillo, Morandotti e Pastore, *Dissipative evolution of Volterra disclinations*, SIAM Journal on Applied Mathematics 85 (2025), 1361–1386, DOI [10.1137/24M1688096](https://doi.org/10.1137/24M1688096), preprint [arXiv:2408.15457](https://arxiv.org/abs/2408.15457).
+
+Nel caso isotropo, le posizioni $\boldsymbol\Xi=(\Xi_1,\ldots,\Xi_N)$ evolvono secondo un sistema dissipativo guidato dalle forze ricavate dal potenziale elastico di Airy. Nel caso cristallino, si introduce un insieme finito $\mathcal G$ di direzioni unitarie, simmetrico rispetto al segno e tale che $\operatorname{Span}\mathcal G=\mathbb R^2$. Ogni difetto può muoversi lungo la direzione che massimizza l'allineamento con la forza. Nei punti in cui due direzioni sono entrambe massimizzanti, la dinamica diventa una inclusione differenziale.
+
+**Theorem 5.1:** per una configurazione iniziale interna al prodotto dei dischi e fuori dall'insieme di collisione $\Pi$, esiste un tempo $T^*>0$ e almeno una soluzione locale assolutamente continua della dinamica vincolata alle direzioni cristalline, nel senso della convessificazione dell'insieme delle velocità ammissibili.
+
+Il risultato è locale: non afferma esistenza globale, assenza di collisioni per ogni tempo, né unicità in tutti i casi. Il testo discute condizioni di unicità destra e fenomeni di cross-slip/fine cross-slip nei punti di cambio della direzione massimizzante.
+
+**Rilevanza per Morandotti e per RGS–PRISM:** questo è il ponte più diretto tra difetti e anisotropia discreta. L'insieme $\mathcal G$ può essere confrontato con direzioni preferenziali derivate da una microstruttura o da un reticolo. Per un confronto RGS–PRISM, tuttavia, non basta scegliere le direzioni del grafo: occorre dimostrare come la geometria del reticolo determina $\mathcal G$ e come le forze discrete convergono alle forze del modello continuo.
+
+**Nuovo problema concreto:** costruire una versione RGS discreta della legge di selezione direzionale, provarne la consistenza con il campo di forza Airy e confrontare traiettorie, energia e cambi di direzione con la differential inclusion pubblicata.
+
+Fonte primaria: [arXiv:2408.15457, §5 e Theorem 5.1](https://arxiv.org/abs/2408.15457); record editoriale [CVGMT](https://cvgmt.sns.it/paper/6744/).
+
 ## 2. T055 — teorema esatto di suddivisione dyadica Q6
 
 **Classificazione: D — teorema combinatorio dimostrato.**
@@ -73,7 +113,7 @@ La matrice aggregata di trasferimento delle sei direzioni coordinate è (D=2I_6)
 
 Fonte: [T055 — Exact dyadic subdivision chain map](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/theorems/T055-q6-dyadic-subdivision-chain-map.md).
 
-## 3. Identità analitica Hessiano–Laplaciano per le funzioni di cella Airy
+## 4. Identità analitica Hessiano–Laplaciano per le funzioni di cella Airy
 
 **Classificazione: D/E — identità analitica dimostrata sotto le ipotesi di regolarità e bordo qui dichiarate.**
 
@@ -110,7 +150,7 @@ Questo chiarisce perché il solver delle funzioni di cella possa assemblare il p
 
 **Distinzione:** l'identità è analitica; la sua realizzazione discreta richiede di contabilizzare i flussi sulle componenti fisiche del bordo e sulle facce interne della mesh, specialmente per campi C0 con gradienti non globalmente continui.
 
-## 4. Verifica P3 C0-IPDG dell'identità
+## 5. Verifica P3 C0-IPDG dell'identità
 
 **Classificazione: N — verifica numerica riproducibile su un singolo core concentrico.**
 
@@ -147,7 +187,7 @@ Il residuo di simmetria della matrice di flusso totale scende da (2,26\times10^{
 
 CI: [run 42662098640](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640). Artifact: [13693953816](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640/artifacts/13693953816).
 
-## 5. Confronto periodico Q6–Q1–P1–Airy
+## 6. Confronto periodico Q6–Q1–P1–Airy
 
 **Classificazione: N — benchmark numerico per sorgenti lisce.**
 
@@ -174,7 +214,7 @@ Per il complesso triangolato P1 vale esattamente (D_1D_0=0) a tutti i livelli e 
 
 Fonte: [report periodico Q6–Q1–P1–Airy](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/PERIODIC_Q6_Q1_P1_AIRY_2026-11-09.md). CI: [run 42659067311](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311), artifact [13693946123](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311/artifacts/13693946123).
 
-## 6. Difetti regolarizzati: Q1, P1/cochain e Airy
+## 7. Difetti regolarizzati: Q1, P1/cochain e Airy
 
 **Classificazione: N — confronto numerico; non teorema di limite singolare.**
 
@@ -200,7 +240,7 @@ Un audit separato avvicina un dipolo di disclinazioni di Frank opposte a una dis
 
 Fonte: [confronto Q1–cochain P1–Airy](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/THREE_WAY_COMPARISON_2026-11-09.md).
 
-## 7. Quoziente cinematico Q6 verso cella materiale periodica
+## 8. Quoziente cinematico Q6 verso cella materiale periodica
 
 **Classificazione: D/N — identità combinatorie esatte e verifica numerica dell'energia periodica.**
 
@@ -212,7 +252,7 @@ Il conteggio dei 240 quadrati del cubo a sei dimensioni va distinto: 192 apparte
 
 Fonte: [Q6 PRISM kinematic map](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/Q6_PRISM_KINEMATIC_MAP.md).
 
-## 8. Tabella di stato epistemico
+## 9. Tabella di stato epistemico
 
 | ID | Risultato | Stato | Portata effettiva |
 |---|---|---|---|
@@ -228,7 +268,7 @@ Fonte: [Q6 PRISM kinematic map](https://github.com/fabianleonaressi95/theorem/bl
 | PRISM-FEM | Mappa dal PRISM completo alla mesh fisica | O | Non costruita |
 | AM-EXP | Calibrazione su provini di manifattura additiva | O | Nessun dato sperimentale nel benchmark |
 
-## 9. Pertinenza per gradienti e materiali
+## 10. Pertinenza per gradienti e materiali
 
 ### Gradienti
 
@@ -249,7 +289,7 @@ Un test credibile richiede almeno:
 
 La struttura Q6/PRISM può essere proposta come discretizzazione candidata soltanto dopo aver definito una mappa verificabile tra celle astratte e microstruttura misurata. Non si afferma che ciò sia già stato fatto.
 
-## 10. Problemi aperti prioritari
+## 11. Problemi aperti prioritari
 
 1. Completare la riproduzione dell'algoritmo multi-core del preprint 2026: (3N) problemi di cella, matrice di interazione M e ricostruzione per dati generali di Burgers e Frank.
 2. Aggiungere core fuori centro e geometrie con più core non sovrapposti.
@@ -260,7 +300,7 @@ La struttura Q6/PRISM può essere proposta come discretizzazione candidata solta
 7. Solo successivamente introdurre variabili interne, dissipazione e isteresi.
 8. Confrontare con dati di provini reali, compresi materiali prodotti mediante manifattura additiva.
 
-## 11. Conclusione destinata al confronto scientifico
+## 12. Conclusione destinata al confronto scientifico
 
 Il progetto dispone già di un teorema combinatorio esatto di raffinamento Q6, di un'identità analitica che chiarisce la relazione tra le forme Hessiana e Laplaciana dei problemi di cella Airy, di benchmark FEM/Airy con dati quantitativi e di una prima verifica P3 C0-IPDG con flussi interni esplicitamente contabilizzati.
 
