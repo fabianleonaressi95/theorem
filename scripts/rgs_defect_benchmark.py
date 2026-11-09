@@ -65,7 +65,7 @@ def elasticity_tensor(lam: float, mu: float):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, core_width=0.025):
+def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, core_width=0.025, frank=0.01):
     """Cell-centred engineering eigenstrain [exx*, eyy*, gamma_xy*].
     single/dipole are smooth shear eigenstrain inclusions, not atomistic cores.
     """
@@ -86,6 +86,9 @@ def source_field(n: int, kind: str, amplitude=0.02, width=0.12, burgers=0.02, co
     elif kind=="volterra_edge":
         delta=np.exp(-0.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
         eps[:,:,2]=burgers*delta*(X>=.5)
+    elif kind=="wedge_disclination":
+        delta=np.exp(-0.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        eps[:,:,1]=frank*(X-.5)*delta*(X>=.5)
     else:
         raise ValueError(kind)
     return eps
@@ -96,6 +99,14 @@ def measure_volterra_burgers(n=129,burgers=0.02,core_width=0.025,x_probe=0.75):
     h=1.0/(n-1); centres=(np.arange(n-1)+0.5)*h
     ix=int(np.argmin(np.abs(centres-x_probe)))
     return float(np.sum(eps[:,ix,2])*h)
+
+def measure_wedge_frank(n=129,frank=0.01,core_width=0.025,x_left=.65,x_right=.85):
+    """Recover Frank angle from the x-derivative of integrated cut-normal slip."""
+    eps=source_field(n,"wedge_disclination",frank=frank,core_width=core_width)
+    h=1.0/(n-1); centres=(np.arange(n-1)+.5)*h
+    il=int(np.argmin(np.abs(centres-x_left))); ir=int(np.argmin(np.abs(centres-x_right)))
+    jump_l=float(np.sum(eps[:,il,1])*h); jump_r=float(np.sum(eps[:,ir,1])*h)
+    return (jump_r-jump_l)/(centres[ir]-centres[il])
 
 def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
                width=0.12):
@@ -170,7 +181,7 @@ def run(out: Path, levels=(9,17,33,65)):
     b0=int(np.max(np.abs(D1@D0)))
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole","volterra_edge"):
+        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination"):
             rows.append(solve_case(n,case))
     # B4 refinement trend for the regularized single-source problem.
     singles=[r for r in rows if r["case"]=="single"]
@@ -184,13 +195,15 @@ def run(out: Path, levels=(9,17,33,65)):
       "limitations":[
         "single/dipole sources are smooth eigenstrain inclusions",
         "Volterra edge source is a regularized slip cut with finite core width, not a singular continuum or atomistic core",
+        "wedge disclination is represented by a regularized rotational slip cut; no singular core asymptotics claimed",
         "no disclination connection or Airy-stress-function reproduction yet",
         "Q1 FEM baseline is not the RGS cochain method",
         "convergence trend is empirical and does not prove Mosco/Γ convergence"
       ],
       "B0":{"max_abs_d1d0":b0,"passed":bool(b0==0)},
       "burgers_audit":{"definition":"integral of engineering plastic shear gamma^p across a vertical section through the slip cut","target":0.02,"measured":measure_volterra_burgers(),"absolute_error":abs(measure_volterra_burgers()-0.02),"note":"section sampled at x near 0.75, to the right of the cut tip"},
-      "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,"burgers_magnitude":0.02,"core_width":0.025,
+      "frank_audit":{"definition":"x derivative of integrated cut-normal plastic slip","target":0.01,"measured":measure_wedge_frank(),"absolute_error":abs(measure_wedge_frank()-0.01)},
+      "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,"burgers_magnitude":0.02,"frank_angle":0.01,"core_width":0.025,
                     "domain":[0.0,1.0,0.0,1.0],"boundary":"Dirichlet"},
       "levels":list(levels),"results":rows
     }
