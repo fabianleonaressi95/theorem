@@ -69,7 +69,7 @@ Il risultato è locale: non afferma esistenza globale, assenza di collisioni per
 
 Fonte primaria: [arXiv:2408.15457, §5 e Theorem 5.1](https://arxiv.org/abs/2408.15457); record editoriale [CVGMT](https://cvgmt.sns.it/paper/6744/).
 
-## 2. T055 — teorema esatto di suddivisione dyadica Q6
+## 4. T055 — teorema esatto di suddivisione dyadica Q6
 
 **Classificazione: D — teorema combinatorio dimostrato.**
 
@@ -101,7 +101,7 @@ B'_1B'_2=0.
 
 ### Dimostrazione
 
-Per un arco orientato, la somma dei due semiar archi ha bordo uguale al vertice terminale meno il vertice iniziale: il vertice intermedio si cancella. Questo dà (B'_1S_1=S_0B_1) su ogni arco della base.
+Per un arco orientato, la somma dei due semiarchi ha bordo uguale al vertice terminale meno il vertice iniziale: il vertice intermedio si cancella. Questo dà (B'_1S_1=S_0B_1) su ogni arco della base.
 
 Per una faccia orientata, le quattro sottofacce hanno l'orientazione indotta dalla faccia madre. Ogni lato interno compare due volte con orientazioni opposte e si cancella; restano soltanto i lati esterni, che sono precisamente le suddivisioni dei quattro lati della faccia originaria. Questo dà (B'_2S_2=S_1B_2). Infine ogni faccia raffinata ha bordo chiuso, quindi (B'_1B'_2=0). Le identità sono intere, non uguaglianze approssimate in floating point. (square)
 
@@ -113,7 +113,7 @@ La matrice aggregata di trasferimento delle sei direzioni coordinate è (D=2I_6)
 
 Fonte: [T055 — Exact dyadic subdivision chain map](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/theorems/T055-q6-dyadic-subdivision-chain-map.md).
 
-## 4. Identità analitica Hessiano–Laplaciano per le funzioni di cella Airy
+## 5. Identità analitica Hessiano–Laplaciano per le funzioni di cella Airy
 
 **Classificazione: D/E — identità analitica dimostrata sotto le ipotesi di regolarità e bordo qui dichiarate.**
 
@@ -150,7 +150,7 @@ Questo chiarisce perché il solver delle funzioni di cella possa assemblare il p
 
 **Distinzione:** l'identità è analitica; la sua realizzazione discreta richiede di contabilizzare i flussi sulle componenti fisiche del bordo e sulle facce interne della mesh, specialmente per campi C0 con gradienti non globalmente continui.
 
-## 5. Verifica P3 C0-IPDG dell'identità
+## 6. Verifica P3 C0-IPDG dell'identità
 
 **Classificazione: N — verifica numerica riproducibile su un singolo core concentrico.**
 
@@ -187,7 +187,7 @@ Il residuo di simmetria della matrice di flusso totale scende da (2,26\times10^{
 
 CI: [run 42662098640](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640). Artifact: [13693953816](https://github.com/fabianleonaressi95/theorem/actions/runs/42662098640/artifacts/13693953816).
 
-## 6. Confronto periodico Q6–Q1–P1–Airy
+## 7. Confronto periodico Q6–Q1–P1–Airy
 
 **Classificazione: N — benchmark numerico per sorgenti lisce.**
 
@@ -214,7 +214,7 @@ Per il complesso triangolato P1 vale esattamente (D_1D_0=0) a tutti i livelli e 
 
 Fonte: [report periodico Q6–Q1–P1–Airy](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/PERIODIC_Q6_Q1_P1_AIRY_2026-11-09.md). CI: [run 42659067311](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311), artifact [13693946123](https://github.com/fabianleonaressi95/theorem/actions/runs/42659067311/artifacts/13693946123).
 
-## 7. Difetti regolarizzati: Q1, P1/cochain e Airy
+## 8. Difetti regolarizzati: Q1, P1/cochain e Airy
 
 **Classificazione: N — confronto numerico; non teorema di limite singolare.**
 
@@ -240,7 +240,7 @@ Un audit separato avvicina un dipolo di disclinazioni di Frank opposte a una dis
 
 Fonte: [confronto Q1–cochain P1–Airy](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/THREE_WAY_COMPARISON_2026-11-09.md).
 
-## 8. Quoziente cinematico Q6 verso cella materiale periodica
+## 9. Quoziente cinematico Q6 verso cella materiale periodica
 
 **Classificazione: D/N — identità combinatorie esatte e verifica numerica dell'energia periodica.**
 
@@ -252,7 +252,7 @@ Il conteggio dei 240 quadrati del cubo a sei dimensioni va distinto: 192 apparte
 
 Fonte: [Q6 PRISM kinematic map](https://github.com/fabianleonaressi95/theorem/blob/work/rgs-defect-benchmark-torino/docs/rgs_defect_benchmark/Q6_PRISM_KINEMATIC_MAP.md).
 
-## 9. Tabella di stato epistemico
+## 10. Tabella di stato epistemico
 
 | ID | Risultato | Stato | Portata effettiva |
 |---|---|---|---|
@@ -268,7 +268,7 @@ Fonte: [Q6 PRISM kinematic map](https://github.com/fabianleonaressi95/theorem/bl
 | PRISM-FEM | Mappa dal PRISM completo alla mesh fisica | O | Non costruita |
 | AM-EXP | Calibrazione su provini di manifattura additiva | O | Nessun dato sperimentale nel benchmark |
 
-## 10. Pertinenza per gradienti e materiali
+## 11. Pertinenza per gradienti e materiali
 
 ### Gradienti
 
@@ -289,7 +289,7 @@ Un test credibile richiede almeno:
 
 La struttura Q6/PRISM può essere proposta come discretizzazione candidata soltanto dopo aver definito una mappa verificabile tra celle astratte e microstruttura misurata. Non si afferma che ciò sia già stato fatto.
 
-## 11. Problemi aperti prioritari
+## 12. Problemi aperti prioritari
 
 1. Completare la riproduzione dell'algoritmo multi-core del preprint 2026: (3N) problemi di cella, matrice di interazione M e ricostruzione per dati generali di Burgers e Frank.
 2. Aggiungere core fuori centro e geometrie con più core non sovrapposti.
@@ -300,7 +300,7 @@ La struttura Q6/PRISM può essere proposta come discretizzazione candidata solta
 7. Solo successivamente introdurre variabili interne, dissipazione e isteresi.
 8. Confrontare con dati di provini reali, compresi materiali prodotti mediante manifattura additiva.
 
-## 12. Conclusione destinata al confronto scientifico
+## 13. Conclusione destinata al confronto scientifico
 
 Il progetto dispone già di un teorema combinatorio esatto di raffinamento Q6, di un'identità analitica che chiarisce la relazione tra le forme Hessiana e Laplaciana dei problemi di cella Airy, di benchmark FEM/Airy con dati quantitativi e di una prima verifica P3 C0-IPDG con flussi interni esplicitamente contabilizzati.
 
