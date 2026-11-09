@@ -47,12 +47,11 @@ def incidence_square(n: int):
             D1[f,top]=-1; D1[f,left]=-1
     return D0,D1
 
-def q1_B(h: float):
-    """Engineering-strain matrix at the center of a square Q1 element.
-    Node order: bottom-left, bottom-right, top-right, top-left.
-    """
-    dNdx=np.array([-1,1,1,-1],float)/(2*h)
-    dNdy=np.array([-1,-1,1,1],float)/(2*h)
+def q1_B(h: float, xi: float=0.0, eta: float=0.0):
+    """Engineering-strain matrix for a square Q1 element at (xi, eta)."""
+    dxi=np.array([-(1-eta),1-eta,1+eta,-(1+eta)],float)/4
+    deta=np.array([-(1-xi),-(1+xi),1+xi,1-xi],float)/4
+    dNdx=dxi*(2/h); dNdy=deta*(2/h)
     B=np.zeros((3,8),float)
     for a in range(4):
         B[0,2*a]=dNdx[a]
@@ -101,8 +100,13 @@ def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
         for i in range(n-1):
             ids=[node(i,j),node(i+1,j),node(i+1,j+1),node(i,j+1)]
             dofs=np.array([d for a in ids for d in (2*a,2*a+1)],int)
-            Ke=area*(B.T@C@B)
-            fe=area*(B.T@C@epsp[j,i])
+            Ke=np.zeros((8,8),float); fe=np.zeros(8,float)
+            gp=(-1/np.sqrt(3),1/np.sqrt(3))
+            for xi in gp:
+                for eta in gp:
+                    Bq=q1_B(h,xi,eta); wdet=area/4
+                    Ke+=wdet*(Bq.T@C@Bq)
+                    fe+=wdet*(Bq.T@C@epsp[j,i])
             rr,cc=np.meshgrid(dofs,dofs,indexing="ij")
             rows.extend(rr.ravel()); cols.extend(cc.ravel()); vals.extend(Ke.ravel())
             rhs[dofs]+=fe
@@ -130,8 +134,12 @@ def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
         for i in range(n-1):
             ids=[node(i,j),node(i+1,j),node(i+1,j+1),node(i,j+1)]
             dofs=np.array([d for a in ids for d in (2*a,2*a+1)],int)
-            e=B@u[dofs]-epsp[j,i]
-            energy += 0.5*area*float(e@C@e)
+            gp=(-1/np.sqrt(3),1/np.sqrt(3))
+            for xi in gp:
+                for eta in gp:
+                    Bq=q1_B(h,xi,eta)
+                    e=Bq@u[dofs]-epsp[j,i]
+                    energy += 0.5*(area/4)*float(e@C@e)
     residual=K@u-rhs
     reaction_scale=float(np.linalg.norm(K[free][:,fixed]@u[fixed]))
     relres=float(np.linalg.norm(residual[free])/max(np.linalg.norm(rhs[free]),reaction_scale,1e-30))
