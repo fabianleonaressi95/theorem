@@ -1,0 +1,31 @@
+name: RGS defect benchmark
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/rgs_defect_benchmark.py'
+      - 'scripts/rgs_cochain_defect_benchmark.py'
+      - 'tests/test_rgs_defect_benchmark.py'
+      - 'tests/test_rgs_cochain_defect_benchmark.py'
+      - '.github/workflows/rgs-defect-benchmark.yml'
+  workflow_dispatch:
+
+jobs:
+  defect-benchmark-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade numpy scipy
+      - name: Run defect benchmark tests
+        run: python -m unittest tests.test_rgs_defect_benchmark tests.test_rgs_cochain_defect_benchmark -v
+      - name: Run cochain refinement report
+        run: python scripts/rgs_cochain_defect_benchmark.py --out artifacts/rgs_cochain_defect
+      - name: Upload benchmark report
+        uses: actions/upload-artifact@v4
+        with:
+          name: rgs-cochain-defect-report
+          path: artifacts/rgs_cochain_defect/
