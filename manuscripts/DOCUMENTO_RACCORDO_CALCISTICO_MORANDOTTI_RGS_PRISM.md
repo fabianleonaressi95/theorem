@@ -186,6 +186,76 @@ Il tripletto delle rotazioni globali, se usato come benchmark cinematico, non va
 
 ---
 
+
+
+---
+
+## 5-bis. Giunzioni geometriche e condizioni di Darmois–Israel
+
+Il formalismo di Darmois–Israel fornisce un linguaggio geometrico particolarmente utile per descrivere un'interfaccia \\(\\Sigma\\) che separa due regioni. In relatività generale le due regioni possono essere due domini di spazio-tempo; nel problema del pallone, per analogia strutturale, possono essere due patch di pannello che si incontrano lungo una cucitura.
+
+Sia \\(h_{ab}^{\\pm}\\) la prima forma fondamentale indotta sui due lati dell'interfaccia e sia \\(K_{ab}^{\\pm}\\) la rispettiva seconda forma fondamentale, calcolata con normali coerentemente orientate. Si definiscono i salti
+\\[
+[h_{ab}]=h_{ab}^{+}-h_{ab}^{-},\\qquad
+[K_{ab}]=K_{ab}^{+}-K_{ab}^{-}.
+\\]
+
+### a) Condizione di Darmois
+
+Per una giunzione priva di strato singolare, la geometria indotta deve essere continua e, nella formulazione classica, anche la curvatura estrinseca:
+\\[
+[h_{ab}]=0,\\qquad [K_{ab}]=0.
+\\]
+La prima condizione impedisce un'apertura o una discontinuità della metrica intrinseca dell'interfaccia; la seconda esclude un salto della curvatura estrinseca che richiederebbe una sorgente superficiale singolare nelle equazioni di Einstein.
+
+### b) Condizione di Israel
+
+Se la metrica indotta è continua ma la curvatura estrinseca presenta un salto, \\([K_{ab}]\\ne0\\), le equazioni di Einstein ammettono uno strato sottile con tensore energia-impulso superficiale
+\\[
+S_{ab}=-\\frac{1}{8\\pi G}
+\\left([K_{ab}]-h_{ab}[K]\\right),
+\\qquad [K]=h^{ab}[K_{ab}],
+\\]
+per la convenzione di segno qui adottata. Il segno complessivo cambia se si cambia convenzione per la normale o per la seconda forma fondamentale; nella comparazione occorre quindi fissare una convenzione unica.
+
+### c) Traduzione controllata nel modello del pallone
+
+Nel guscio poligonale, l'interfaccia è una cucitura fra due pannelli. Il corrispettivo cinematico da imporre è la compatibilità della geometria di bordo: i due lati devono condividere la stessa curva fisica e una parametrizzazione coerente. In una shell perfettamente incollata, gli spostamenti di bordo sono compatibili; la rotazione normale può invece presentare un salto, misurato dal diedro fra le patch.
+
+Il salto di curvatura estrinseca è quindi un descrittore geometrico candidato della piega/rotazione relativa lungo la cucitura. Per una shell elastica, però, la relazione fra tale salto e la forza o il momento di linea deriva dal funzionale costitutivo della shell e dalla legge della giunzione, non dall'equazione di Israel. In particolare:
+- la continuità della prima forma fondamentale corrisponde a un'interfaccia senza apertura o scorrimento incompatibile;
+- il salto della seconda forma fondamentale descrive una discontinuità di curvatura/rotazione;
+- la risultante e il momento trasmessi dalla cucitura si ricavano dalla variazione del funzionale elastico e dalle condizioni di equilibrio all'interfaccia;
+- una cucitura cedevole o con scorrimento richiede condizioni cinematiche più generali e una legge di interfaccia esplicita.
+
+Non si deve dunque porre (S_{ab}) di Israel uguale alla tensione meccanica della cucitura: hanno dimensioni, significato fisico ed equazioni costitutive differenti. Il formalismo relativistico è un **modello guida per la struttura dei salti geometrici**, mentre la shell calcistica richiede una propria legge elastica di linea.
+
+### d) Ponte verso RGS–PRISM e teleparallelismo
+
+La formulazione discreta può registrare, su ogni interfaccia, almeno:
+1. la metrica indotta sui due lati;
+2. il frame tangente e la normale di ciascun pannello;
+3. la rotazione relativa, eventualmente rappresentata da un quaternione;
+4. il salto di curvatura estrinseca discreto;
+5. le forze e i momenti di linea ottenuti dalla variazione dell'energia.
+
+Questo fornisce un luogo matematico naturale per confrontare operatori di compatibilità, cochain e olonomie. In una formulazione teleparallela, inoltre, si può descrivere la geometria tramite tetradi e connessione di spin; l'eventuale torsione concentrata sull'interfaccia deve però essere derivata dalla scelta di connessione e dalle condizioni di raccordo, non identificata automaticamente con il salto di (K_{ab}).
+
+### e) Benchmark proposto
+
+Per una singola cucitura fra due patch:
+- verificare la continuità della curva di bordo e della metrica indotta;
+- calcolare le normali e le seconde forme fondamentali sui due lati;
+- misurare il salto \\([K_{ab}]\\) e il diedro discreto;
+- derivare dalla shell energy le trazioni e i momenti di linea;
+- confrontare il limite di cucitura molto rigida con il raccordo cinematicamente continuo;
+- confrontare il limite di rigidezza flessionale nulla con una cerniera ideale.
+
+Il risultato atteso non è una “Israel equation” per il pallone, ma una **legge di giunzione elastica discreta** che usa la stessa organizzazione geometrica: dati indotti continui, salti di curvatura e sorgenti superficiali/lineari definite da un funzionale.
+
+Questa estensione rende più preciso il collegamento fra il problema calcistico, le interfacce dei materiali e il programma geometrico RGS–PRISM, mantenendo separati il formalismo di relatività generale e la meccanica dei gusci.
+
+
 ## 6. Programma sperimentale: cosa misurare
 
 Il caso calcistico rende possibile un protocollo industriale concreto. Per rendere identificabili i parametri servono misure indipendenti:
