@@ -1,0 +1,81 @@
+{
+  "title": "188D original geometry recovery and Anti-Twin audit",
+  "date": "2026-11-09",
+  "source": {
+    "original_file": "X_Oh_reconstructed.npy",
+    "original_sha256": "4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f",
+    "committed_representation": "data/rgs_188d/X_Oh_reconstructed.csv",
+    "csv_sha256": "e03096d6c6bb05ee0b44507eb66855fac9b5957a98e7c7eabd70771ad45ae568",
+    "bundle_sha256": "a2660035925a63e04e63ba2ccf15496fb2ef76be75dd3ad9c814977324b76aa2"
+  },
+  "geometry": {
+    "shape": [
+      64,
+      3
+    ],
+    "dtype": "float64",
+    "finite": true,
+    "centroid": [
+      -3.469446951953614e-18,
+      0,
+      0
+    ],
+    "radial_min": 0.829027345109799,
+    "radial_max": 2.185129251114611,
+    "centered_rank": 3,
+    "second_moment": [
+      [
+        1.2500000000000002,
+        1.10170891471592e-17,
+        5.8129187192287784e-18
+      ],
+      [
+        1.10170891471592e-17,
+        1.2500000000000002,
+        4.078195243251971e-18
+      ],
+      [
+        5.8129187192287784e-18,
+        4.078195243251971e-18,
+        1.25
+      ]
+    ],
+    "antipodal_max_pair_residual": 0,
+    "antipodal_permutation_bijective": true,
+    "antipodal_involution": true
+  },
+  "replay": {
+    "script": "archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py",
+    "bundle": "188D_FINAL_BUNDLE.zip",
+    "status": "COMPUTED",
+    "tangent_basis_shape": [
+      192,
+      188
+    ],
+    "P_G_rank": 64,
+    "projected_rank": 64,
+    "ambient_antipodal_equivariance_residual": 0,
+    "geometric_map_equivariance_residual": 1.647294145743781e-14,
+    "geometry_to_kernel_frobenius_distance": 6.537062941350011,
+    "principal_angle_cosine_min": 0.002650180290793834,
+    "principal_angle_cosine_max": 0.9310812434297996,
+    "projected_polar_K0_commutator_relative": 1.4158305586806082e-14,
+    "direct_Rgeo_K0_commutator_relative_if_same_basis": 0.9968416840575127
+  },
+  "verdict": {
+    "verified": [
+      "Original 64x3 geometry recovered, finite, full rank, exactly antipodally paired",
+      "Constructed tangent-space Anti-Twin map is symmetric/involutive to numerical precision",
+      "R_geo A = A Pi_AT holds with residual 1.65e-14"
+    ],
+    "not_established": [
+      "The geometry-generated 64D space is not identified with Im(P_G): ||P_G A-A||_F=6.537; principal-angle cosines range 0.00265–0.931",
+      "The projected-polar extension commutator is construction-induced and not independent evidence",
+      "Direct [K0,R_geo] comparison remains conditional on equality of 188D tangent-coordinate bases"
+    ]
+  },
+  "limitations": [
+    "The source K0/P_G bundle and original NPZ are recovered in Library but not included in this text-only source commit; clean-checkout replay still requires these matrices to be committed as binary artifacts.",
+    "No claim is made that this feature map is the unique or canonical geometric Anti-Twin intertwiner."
+  ]
+}
