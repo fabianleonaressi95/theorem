@@ -102,6 +102,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T054](theorems/T054-static-radial-klein-gordon.md) | Static radial Klein–Gordon reduction | Exact reduction for a minimally coupled static radial scalar on the stated spherical metric ansatz. |
 | [T055](theorems/T055-q6-dyadic-subdivision-chain-map.md) | Exact dyadic subdivision chain map for the Q6 2-skeleton | Proved finite cubical midpoint subdivision with 496/1344/960 refined cells and exact boundary-commuting maps; not a Kathara/Krist-All identification. |
 | [T056](theorems/T056-phase21-trigram-supergolden-permutation-conjugacy.md) | Phase 21–trigram supergolden matrix conjugacy | Exact permutation similarity of the two 3-state transfer matrices; same polynomial and Perron root, but no geometric cell intertwiner is established. |
+| [T057](theorems/T057-kathara-square-similarity-center-overlay.md) | Kathara square similarity and center-overlay relation | Exact 45° clockwise / √2 map, two-stage 90° / ×2 relation, and center 6–9–12 overlay coordinates under the stated 2:1 geometry. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
