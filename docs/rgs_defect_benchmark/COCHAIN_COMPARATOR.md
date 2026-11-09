@@ -47,3 +47,20 @@ The corresponding cut-normal plastic distortion has a regularized `yy` component
 `beta^p_yy = Omega (x-x0) delta_sigma(y-y0) H(x-x0)`.
 
 The Frank-angle audit integrates this component across the cut-normal direction and differentiates the resulting slip with respect to x. The recovered slope is compared with the input `Omega=0.01` rad. This is a finite-width representation of a wedge-disclination slip cut. It is not a singular disclination-core solution, and its far-field stress asymptotics still require comparison with the analytical/semidiscrete reference model.
+
+
+## Airy-stress reference and boundary-condition alignment
+
+The comparison now includes an independent finite-difference Airy reference for the two defect incompatibilities. It solves
+
+`c Delta^2 v = -inc(eps_p),  c=(1-nu^2)/E`
+
+with
+`sigma_xx=v_yy, sigma_xy=-v_xy, sigma_yy=v_xx`.
+The discrete incompatibility operator is
+`inc(eps_p)=d_yy eps^p_xx + d_xx eps^p_yy - d_xy gamma^p_xy`.
+For the edge cut this gives the regularized derivative-of-Dirac source associated with a Burgers vector; for the wedge cut it gives the regularized Dirac source associated with a Frank angle. The Airy stress is divergence-free by construction.
+
+For the square domain, the Airy boundary condition is clamped `v=0, partial_n v=0`. On straight sides this is equivalent, modulo the affine gauge of the Airy potential, to the zero-traction condition `Hess(v) t=0`. Therefore the displacement-based Q1 and cochain defect solves now use natural traction-free boundaries; only three degrees of freedom are pinned to remove the two translations and one rotation. The manufactured affine patch test retains its Dirichlet boundary data.
+
+The new `scripts/rgs_airy_reference.py` compares stress and strain fields from Q1 and cochain P1 with the Airy reference on interior cells, excluding a three-cell boundary strip. It records topological source moments and weak residuals. This is an independent finite-difference reference, not a reproduction of the published semi-discrete/CIP-DG method. The core remains regularized and no singular-core asymptotic theorem is claimed.
