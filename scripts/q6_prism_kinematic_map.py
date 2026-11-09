@@ -208,14 +208,40 @@ def cell_gradients(u_base: np.ndarray, complex_data=None) -> np.ndarray:
     return grad
 
 
+def cell_gradient_samples(u_base: np.ndarray, complex_data=None) -> np.ndarray:
+    """Q1 bilinear gradients at the four 2x2 Gauss points of each unit cell."""
+    c = complex_data or build_q6_complex()
+    u = np.asarray(u_base, dtype=float)
+    if u.shape != (16,2):
+        raise ValueError(f"expected (16,2), got {u.shape}")
+    a = 1.0/np.sqrt(3.0)
+    samples = np.zeros((16,4,2,2), dtype=float)
+    gauss = ((-a,-a), (a,-a), (-a,a), (a,a))
+    for y in range(4):
+        for x in range(4):
+            f = y*4+x
+            nodes = np.array((y*4+x, y*4+((x+1)%4),
+                              ((y+1)%4)*4+x, ((y+1)%4)*4+((x+1)%4)))
+            ue = u[nodes]
+            for q,(xi,eta) in enumerate(gauss):
+                dxi = 0.25*np.array((-(1-eta), (1-eta), -(1+eta), (1+eta)))
+                deta = 0.25*np.array((-(1-xi), -(1+xi), (1-xi), (1+xi)))
+                # Unit-square coordinates: d/dx = 2 d/dxi, d/dy = 2 d/deta.
+                dN = 2.0*np.column_stack((dxi,deta))
+                samples[f,q] = ue.T @ dN
+    return samples
+
+
 def elastic_energy(u_base: np.ndarray, lam: float=1.0, mu: float=1.0) -> float:
+    """Periodic Q1 elastic energy integrated with full 2x2 Gauss quadrature."""
     if lam < 0 or mu <= 0:
         raise ValueError("require lam >= 0 and mu > 0")
-    g = cell_gradients(u_base)
-    eps = 0.5*(g + np.swapaxes(g,1,2))
-    tr = np.trace(eps, axis1=1, axis2=2)
-    density = 0.5*lam*tr**2 + mu*np.sum(eps*eps, axis=(1,2))
-    return float(np.sum(density))
+    g = cell_gradient_samples(u_base)
+    eps = 0.5*(g + np.swapaxes(g,2,3))
+    tr = np.trace(eps, axis1=2, axis2=3)
+    density = 0.5*lam*tr**2 + mu*np.sum(eps*eps, axis=(2,3))
+    # Each reference Gauss weight is one and the unit-square Jacobian is 1/4.
+    return float(0.25*np.sum(density))
 
 
 def audit() -> dict:
@@ -254,7 +280,7 @@ def audit() -> dict:
         },
         "sample":{"lifted_displacement_shape":list(lifted.shape),
                   "edge_cochain_shape":list(edge_q6.shape),
-                  "elastic_energy_lam1_mu1":elastic_energy(z)}
+                  "elastic_energy_lam1_mu1":elastic_energy(z),\n                  "energy_quadrature":"periodic Q1 bilinear, full 2x2 Gauss",\n                  "checkerboard_mode_energy":elastic_energy(np.array([[(-1.0)**x,0.0] for y in range(4) for x in range(4)]))}
     }
 
 
