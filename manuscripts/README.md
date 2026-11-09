@@ -2,6 +2,11 @@
 
 This directory contains cleaned mathematical notes, critical audits, and records of external manuscripts. It is **not** a list of peer-reviewed publications. A document is not promoted to a scientific result merely because it uses physical terminology, displays equations, or reports numerical output.
 
+## Integrated research synthesis
+
+- [RGS–PSU–PRISM–Q6–QLG: 27-chapter integrated monograph](../monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md) — principal synthesis with definitions, theorem interfaces, source provenance, numerical boundaries and open derivations.
+- [Canonical synthesis and closure programme](SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — concise architectural overview.
+
 ## Active, cleaned research notes
 
 These are the parts that can be stated precisely without importing unsupported physical conclusions:
