@@ -96,9 +96,11 @@ def run(args):
       "results":[]}
     omega,omega_link=sample_intrinsic_frequencies(args.frequency_seed,64,192,
         args.omega0,args.omega1,args.tau0,args.tau1)
-    rng=np.random.default_rng(args.phase_seed_base)
-    initials=[(rng.uniform(-np.pi,np.pi,64),rng.uniform(-np.pi,np.pi,192))
-              for _ in args.phase_seeds]
+    initials=[]
+    for phase_seed in args.phase_seeds:
+        phase_rng=np.random.default_rng(int(phase_seed))
+        initials.append((phase_rng.uniform(-np.pi,np.pi,64),
+                         phase_rng.uniform(-np.pi,np.pi,192)))
     for model in ("NL","NLT"):
       for sigma in args.sigmas:
        for dwell in args.dwells:
@@ -137,7 +139,6 @@ def main():
     p.add_argument("--dwells",default="2560,10240")
     p.add_argument("--phase-seeds",default="11,23,37,51,67,79,97,109")
     p.add_argument("--frequency-seed",type=int,default=20261109)
-    p.add_argument("--phase-seed-base",type=int,default=20261110)
     p.add_argument("--dt",type=float,default=0.025)
     p.add_argument("--omega0",type=float,default=2.0); p.add_argument("--omega1",type=float,default=2.0)
     p.add_argument("--tau0",type=float,default=1.0); p.add_argument("--tau1",type=float,default=1.0)
