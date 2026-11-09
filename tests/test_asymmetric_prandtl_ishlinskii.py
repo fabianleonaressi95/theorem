@@ -15,8 +15,9 @@ def test_asymmetric_play_has_distinct_loading_unloading_memory():
     features = asymmetric_play_features(u, [0.1, 0.25], [0.4, 0.6])
     assert features.shape == (len(u), 2)
     assert np.all(np.isfinite(features))
-    # Unequal projection widths produce a genuinely asymmetric branch response.
-    assert not np.allclose(features[:101, 0], features[101:, 0][::-1])
+    # Compare the two branches at the same 100 input levels (-1 to 0.98).
+    # The descending branch omits the duplicated turning-point sample.
+    assert not np.allclose(features[:100, 0], features[101:, 0][::-1])
 
 
 def test_asymmetric_pi_fit_predicts_fixed_dictionary_training_history():
