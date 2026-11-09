@@ -1,0 +1,36 @@
+{
+  "audit": "Q6_D5_EXACT_INTEGER_FIBER_AND_TAIL",
+  "date": "2026-11-09",
+  "source_run": "https://github.com/fabianleonaressi95/theorem/actions/runs/42644467074",
+  "job_id": 129253868688,
+  "focused_tests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "exact_certificate": {
+    "smith_identity_U_A_V_equals_S": true,
+    "integer_kernel_rank": 124,
+    "quotient_rank": 5,
+    "kernel_basis_saturated": true,
+    "unimodular_splitting_determinant": "1",
+    "exact_inverse": true,
+    "kernel_annihilation": true,
+    "complement_rank": 5,
+    "kernel_block_rank": 124
+  },
+  "tail": {
+    "beta_time": 2,
+    "edge_l1_cutoff": 500,
+    "log_upper_bound": 555.2376506791168,
+    "upper_bound": 1.3697705821761636e+241,
+    "geometric_ratio": 0.5293365365078226,
+    "status": "finite but numerically useless as a tight enclosure"
+  },
+  "not_completed": [
+    "complete 124-dimensional fibre sum is not numerically evaluated",
+    "fibre points inside the cutoff are not exhaustively enumerated",
+    "current rigorous global bound is too loose for a useful Wilson marginal interval",
+    "no Hua/Bergman or physical 3+1D conclusion"
+  ],
+  "verdict": "Exact quotient and saturated-kernel certification pass. Quantitative Wilson fibre marginal acceptance remains open."
+}
