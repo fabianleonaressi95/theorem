@@ -69,3 +69,20 @@ The recovered original binary was opened and independently checked:
 - Machine-readable results: `reports/188d_recovered_geometry_audit_2026-11-09.json`.
 
 This closes the **coordinate recovery and numerical replay** subtask, but does not close the entire 188D/Krist-All issue: binary `K0/P_G` source bundle and full recovered NPZ are still not committed in a clean-checkout reproducible form, and the 11,725-class Krist-All enumerator/equivalence relation/`K,W0` definitions remain absent. No missing data were synthesized.
+
+
+## Authoritative geometry replay update — 2026-11-09
+
+The original coordinate artifact has now been independently inspected and its geometry-only audit is committed in the repository.
+
+- Original source: `X_Oh_reconstructed.npy`, SHA-256 `4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f`.
+- Reproducible text representation: `data/rgs_188d/X_Oh_reconstructed.csv`, SHA-256 `e03096d6c6bb05ee0b44507eb66855fac9b5957a98e7c7eabd70771ad45ae568`.
+- Shape `(64,3)`, dtype float64, all finite, centered rank 3.
+- Centroid is zero to roundoff; second moment is `1.25 I_3) to roundoff.
+- Radial range: 0.8290273451–2.1851292511.
+- Antipodal matching is bijective and involutive, with maximum pair residual exactly zero in the stored decimal representation.
+- Geometry-only regression tests: `tests/test_188d_recovered_geometry_source.py`; recovery workflow run 42645820312 completed successfully, including these tests and the PRISM audit.
+
+This closes the missing-coordinate and geometry-only verification subtask. It does **not** close the full 188D replay: `K0.npy), `P_G.npy), and the archived matrix NPZ/bundle are still not committed as repository artifacts, and the recovered geometry-construction script has not been rerun in a clean checkout with those exact matrices. The historical geometric map residual and kernel-alignment results remain tied to the archived matrix package. The distinction is binding: verified coordinate geometry is not proof that the geometry-generated 64-space equals `Im(P_G)`.
+
+Krist-All remains separate and open: no deterministic 11,725-class enumerator, canonical representative table, or independent `K`/`W0` source has been recovered.
