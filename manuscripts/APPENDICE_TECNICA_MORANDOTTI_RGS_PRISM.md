@@ -496,3 +496,27 @@ La geometria ideale è il icosaedro troncato: 60 vertici, 12 pentagoni, 20 esago
 Questi numeri verificano soltanto il modello discreto dichiarato. (C_5/C_6=1.25) è un valore dimostrativo, non una misura del pallone reale. Non sono ancora implementati shell nonlineare, cuciture, ortotropia tessile, deformazioni di bordo compatibili, campo di curvatura o calibrazione sperimentale. La metrica della superficie radiale continua è specificata nel dossier, ma non è stata numericamente ricostruita dal modello a centri di pannello.
 
 Il risultato è quindi classificato come **modello fenomenologico numericamente verificato**, non come spiegazione sperimentale già dimostrata della non-sfericità osservata. Il passo successivo con Morandotti è identificare (C_5,C_6,gamma) da dati di materiale e cucitura, sostituire i gradi di libertà scalari con una discretizzazione shell conforme e confrontare forma e deformazioni con scansioni 3D a pressione controllata.
+
+
+## A.26. Estensione a shell discreta ortotropa e geometria cubo–sfera
+
+L'estensione del modello pallone integra esplicitamente il precedente lavoro RGS sul cubo e sulla sfera inscritta. Si riutilizzano
+\[
+r_C(\mathbf n)=a/\|\mathbf n\|_\infty,\quad r_S=a,\quad
+\chi_{CS}(\mathbf n)=1/\|\mathbf n\|_\infty-1,
+\quad H_4(\mathbf n)=n_x^4+n_y^4+n_z^4-3/5.
+\]
+La prima quantità è l'eccesso radiale esatto cubo–sfera; \(H_4\) è il modo armonico cubico di grado quattro. Sono due campi geometrici distinti dall'anisotropia costitutiva dei pannelli pentagonali ed esagonali.
+
+Il nuovo codice è in \`models/football_shell.py\`. La superficie di riferimento può includere i due modi geometrici con ampiezze esplicite \(\alpha_C,\alpha_4\), entrambe nulle per default. La geometria del pallone è il icosaedro troncato con 60 vertici, 12 pentagoni, 20 esagoni e 90 cuciture; la triangolazione conforme usa 92 nodi includendo i centri dei pannelli, 180 elementi CST e 270 cerniere diedrali.
+
+Il modello meccanico comprende:
+- elementi triangolari CST di membrana con legge ortotropa in tensione piana (\(E_1,E_2,G_{12},\nu_{12}\)) e assi materiali locali per pannello;
+- flessione discreta mediante cerniere sull'angolo diedro firmato fra triangoli adiacenti;
+- irrigidimento di cucitura indipendente, con termine assiale lineare opzionale e moltiplicatore flessionale;
+- pressione integrata sulle facce di riferimento e sei vincoli di gauge per rimuovere i modi rigidi;
+- confronto opzionale con nuvole di punti CSV/XYZ/OBJ/PLY tramite ICP rigido e distanze simmetriche campionate.
+
+**Classificazione:** modello shell discreto linearizzato, implementato e sottoposto a test numerici; non è ancora un modello a deformazioni finite geometricamente non lineare. Non sono inclusi contatto, pieghe, danno adesivo o omogeneizzazione alla scala dei filati. Nessuna scansione sperimentale o misura di provini è stata fornita: il confronto ICP nei test è sintetico e non costituisce validazione sperimentale. I valori costitutivi di default sono parametri dimostrativi, non proprietà misurate del pallone.
+
+Il dossier operativo e i comandi riproducibili sono in \`docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md\`; il runner è \`scripts/run_football_shell_audit.py\`; i test sono in \`tests/test_football_shell.py\`. L'identificazione di \(\alpha_C,\alpha_4,E_1,E_2,G_{12}\) e dei parametri di cucitura richiede misure indipendenti e validazione su scansioni non usate per il fit.
