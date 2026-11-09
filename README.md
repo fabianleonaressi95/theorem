@@ -246,3 +246,31 @@ A reproducible numerical benchmark for discrete Hodge–de Rham complexes on cur
 - [Results and plots](projects/de_rham_benchmark/results/run1/)
 
 **Status:** computational investigation only. The reported collapse of positive eigenvalues is an observed benchmark phenomenon; its interpretation as discrete-compactness failure is a conjecture pending independent reproduction and comparison with consistent FEEC mass matrices. No Mosco-convergence theorem is claimed.
+
+
+## RGS–PRISM recovery audits for the Morandotti dossier
+
+- [Technical appendix](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md)
+- [Audit records index](reports/README.md)
+- [PRISM 69,120 incidence audit](reports/prism_69120_audit.json)
+- [188D Anti-Twin recovered-matrix audit](reports/188d_antitwin_audit.json)
+- [Krist-All recovery status and missing evidence](reports/KRISTALL_RECOVERY_STATUS.md)
+- [Recovery provenance manifest](reports/RECOVERY_MANIFEST.md)
+
+Reproduction:
+```bash
+python -m pip install -r requirements-audit.txt
+python -m pytest -q tests/test_prism_audit.py tests/test_188d_antitwin_audit.py
+python scripts/audit_prism_69120.py
+python scripts/audit_188d_antitwin.py --input /path/to/actual_original_X_report_matrices.npz
+```
+
+The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered source provenance are recorded in the manifest. The script requires that exact archive as input and does not substitute synthetic data for the research matrices.
+
+
+### Recovered 188D Anti-Twin source
+
+- [Original geometry-driven intertwiner construction script](archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py)
+- [Corrected basis-aware audit report](reports/188d_antitwin_audit.json)
+- [Updated recovery provenance and basis caveats](reports/RECOVERY_MANIFEST.md)
+- [Expanded Morandotti appendix, including the corrected equivariance statement](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md)

@@ -2,6 +2,7 @@ import numpy as np
 from models.q6_topological_synchronization import (
     build_q6_complex,audit_q6_complex,anti_twin_chain_maps,
     order_parameters,rhs,rk4_step,sample_intrinsic_frequencies,
+    order_parameters,rhs,rk4_step,
 )
 
 def test_q6_counts_and_boundary_identity():

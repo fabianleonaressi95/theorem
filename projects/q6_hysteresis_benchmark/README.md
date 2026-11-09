@@ -19,6 +19,8 @@ and B1 B2 = 0 is checked exactly. The graph cycle rank is 129. The square
 boundaries span the full graph cycle space (rank B2 = 129), so b1 of the
 2-skeleton is zero. Because C3 is omitted, the truncated 2-skeleton has b2 = 240 - 129 = 111.
 These classes are killed when the 3-cells of the full cube are restored.
+2-skeleton is zero. The 2-skeleton has nontrivial H2 because 3-cells are
+omitted; no claim of contractibility is made.
 
 Bitwise complement Anti-Twin lifts to signed permutation maps J0,J1,J2.
 The audit checks J0 B1 = B1 J1, J1 B2 = B2 J2 and Jk^2 = I.
@@ -35,6 +37,7 @@ N(Omega0, 1/tau0) and link frequencies N(Omega1, 1/tau1), with the common
 node drift removed by a co-rotating node frame and the link-frequency mean
 retained. Separate random streams ensure branch initialization cannot change
 the intrinsic frequency samples.
+terminal forward state, with the same intrinsic frequencies.
 
 This is a finite-size exploratory numerical benchmark. A hysteresis claim
 requires longer relaxation, sweep-rate controls, multiple seeds, and
@@ -74,6 +77,8 @@ From repository root:
 ## Latest corrected production results
 
 See [corrected five-seed, four-rate results and interpretation](RESULTS_2026-11-09.md). The production workflow artifact contains the full JSON branches and NL/NLT plots. The earlier sweep performed before the frequency-stream audit is superseded and must not be cited.
+    python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py
+    python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
 
 ## Status
 
@@ -107,3 +112,7 @@ These controls test protocol sensitivity at one fixed Q6 size. They do not
 establish a thermodynamic limit. Different seeds jointly change intrinsic
 frequencies and initial phases; a separate fixed-frequency/multiple-initial-
 condition study remains a useful next control.
+- Q6 dynamical hysteresis: open pending convergence and finite-size controls.
+- Industrial constitutive prediction: open pending experimental datasets and
+  parameter identification.
+- PSU, QCD or gravitational interpretation: not established here.

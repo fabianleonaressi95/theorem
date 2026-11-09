@@ -165,6 +165,16 @@ def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
         phi=phase_rng.uniform(-np.pi,np.pi,192)
     else:
         theta,phi=np.array(initial[0],float).copy(),np.array(initial[1],float).copy()
+def simulate_branch(K, sigmas, model: ModelName, seed=0, steps_per_sigma=80,
+                    dt=.025, initial=None, return_final=False):
+    """Quasi-static continuation sweep; returns terminal state when requested."""
+    rng=np.random.default_rng(seed)
+    if initial is None:
+        theta=rng.uniform(-np.pi,np.pi,64); phi=rng.uniform(-np.pi,np.pi,192)
+    else:
+        theta,phi=np.array(initial[0],float).copy(),np.array(initial[1],float).copy()
+    omega=rng.normal(0,1,64); omega-=omega.mean()
+    omega_link=rng.normal(0,1,192); omega_link-=omega_link.mean()
     rows=[]
     for sigma in np.asarray(sigmas,float):
         for _ in range(steps_per_sigma):
