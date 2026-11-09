@@ -6,6 +6,8 @@ on:
       - 'scripts/rgs_defect_benchmark.py'
       - 'scripts/rgs_cochain_defect_benchmark.py'
       - 'scripts/compare_rgs_defect_solvers.py'
+      - 'scripts/rgs_airy_reference.py'
+      - 'tests/test_rgs_airy_reference.py'
       - 'tests/test_rgs_defect_benchmark.py'
       - 'tests/test_rgs_cochain_defect_benchmark.py'
       - '.github/workflows/rgs-defect-benchmark.yml'
@@ -27,6 +29,10 @@ jobs:
         run: python scripts/rgs_cochain_defect_benchmark.py --out artifacts/rgs_cochain_defect
       - name: Run side-by-side solver comparison
         run: python scripts/compare_rgs_defect_solvers.py --out artifacts/rgs_defect_comparison
+      - name: Run Airy reference tests and comparison
+        run: |
+          python -m unittest tests/test_rgs_airy_reference.py -v
+          python scripts/rgs_airy_reference.py --out artifacts/rgs_airy_comparison
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
         with:
@@ -34,3 +40,4 @@ jobs:
           path: |
             artifacts/rgs_cochain_defect/
             artifacts/rgs_defect_comparison/
+            artifacts/rgs_airy_comparison/
