@@ -118,6 +118,31 @@ def _shape_coefficients(vertices,directions,radius):
         "fit_rms":float(np.sqrt(np.mean(residual**2))),"radial_rms":float(np.std(radial)),
         "radial_peak_to_peak":float(np.ptp(radial))}
 
+def _discrete_metric_diagnostics(reference_nodes,deformed_nodes,triangles):
+    """Elementwise pullback metric and Green-Lagrange strain on each triangle."""
+    strains=[]; stretches=[]
+    for tri in triangles:
+        x=reference_nodes[list(tri)]; y=deformed_nodes[list(tri)]
+        e1=x[1]-x[0]; e2=x[2]-x[0]
+        b1=e1/np.linalg.norm(e1)
+        e2_perp=e2-(e2@b1)*b1; b2=e2_perp/np.linalg.norm(e2_perp)
+        reference_coordinates=np.array([[np.linalg.norm(e1),e2@b1],[0.,np.linalg.norm(e2_perp)]])
+        deformed_edges=np.column_stack((y[1]-y[0],y[2]-y[0]))
+        F=deformed_edges@np.linalg.inv(reference_coordinates)
+        C=F.T@F
+        Egreen=.5*(C-np.eye(2))
+        eig=np.linalg.eigvalsh(C)
+        strains.append(np.linalg.norm(Egreen,ord="fro"))
+        stretches.extend(np.sqrt(np.maximum(eig,0.)))
+    return {
+        "definition":"g'_ab=partial_a X' dot partial_b X'; E_GL=0.5*(F^T F-I)",
+        "triangle_count":int(len(triangles)),
+        "green_lagrange_metric_strain_rms":float(np.sqrt(np.mean(np.square(strains)))),
+        "principal_stretch_min":float(np.min(stretches)),
+        "principal_stretch_max":float(np.max(stretches)),
+    }
+
+
 def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=.25,G12=300.,
         material_angle=0.,seam_Et=0.,seam_bending_factor=4.,panel_hinge_factor=1.):
     """Linearised orthotropic CST membrane + signed-dihedral bending shell."""
@@ -162,6 +187,7 @@ def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=
         "radial_peak_to_peak_after":float(np.ptp(r1)),"mean_radius_after":float(np.mean(r1)),
         "physical_seam_count":int(seam_count),"triangular_element_count":int(len(mesh["triangles"])),
         "hinge_count":int(len(mesh["edge_triangles"]))}
+    diag["discrete_metric"]=_discrete_metric_diagnostics(X,deformed,mesh["triangles"])
     return deformed,u,K,diag
 
 def sample_shell_surface(nodes,triangles,subdivisions=3):
