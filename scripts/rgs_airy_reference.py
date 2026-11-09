@@ -142,6 +142,7 @@ def compare_case(n,kind,lam=1.0,mu=1.0,diagonal="sw_ne",dipole_separation=.1):
     sl=(slice(3,-3),slice(3,-3))
     out={"n":n,"case":kind,"diagonal":diagonal,
         "q1_energy":q["energy"],"cochain_energy":p["energy"],
+        "q1_cochain_relative_energy_difference":abs(q["energy"]-p["energy"])/max(abs(q["energy"]),abs(p["energy"]),1e-30),
         "airy_topological_moment_error":a["topological_moment_error"],
         "airy_weak_residual":a["weak_residual"]}
     for label,res in (("q1",q),("cochain",p)):
@@ -160,6 +161,9 @@ def run(out:Path,levels=(17,33,65)):
         for kind in ("volterra_edge","wedge_disclination","wedge_dipole"):
             for diagonal in ("sw_ne","se_nw"):
                 rows.append(compare_case(n,kind,diagonal=diagonal))
+    # The narrow dipole core needs a finer grid: add a dedicated n=129 comparison.
+    for diagonal in ("sw_ne","se_nw"):
+        rows.append(compare_case(129,"wedge_dipole",diagonal=diagonal))
     report={"title":"Airy-stress reference versus displacement/cochain elasticity",
         "status":"finite-difference clamped-biharmonic reference; not the published CIP-DG implementation",
         "model":"c Delta^2 v = -inc(eps_p), sigma11=v_yy, sigma12=-v_xy, sigma22=v_xx",
@@ -175,7 +179,7 @@ def run(out:Path,levels=(17,33,65)):
         w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
     return report
 
-def dipole_edge_equivalence(n=129,burgers=.02,core_width=.025,separations=(.1,.075,.05,.0375,.025)):
+def dipole_edge_equivalence(n=129,burgers=.002,core_width=.025,separations=(.1,.075,.05,.0375,.025)):
     """Compare a +/- wedge-dipole with its limiting edge-dislocation source."""
     h=1/(n-1)
     edge_ep=plastic_strain_nodes(n,"volterra_edge",burgers=burgers,core_width=core_width)
