@@ -171,12 +171,20 @@ def simulate_jiles_atherton(H, Ms, a, k, alpha, c, Mirr0=0.0):
         h0=float(H[i-1]+alpha*M[i-1])
         r0=irreversible_rate(h0,Mirr[i-1],direction)
         pred_mirr=Mirr[i-1]+dH*r0
-        pred_man=float(anhysteretic(np.asarray(H[i]+alpha*(c*float(anhysteretic(
-            np.asarray(H[i]+alpha*M[i-1])))+(1.0-c)*pred_mirr))))
-        r1=irreversible_rate(float(H[i]+alpha*(c*pred_man+(1.0-c)*pred_mirr)),
-                             pred_mirr,direction)
+        pred_he=H[i]+alpha*M[i-1]
+        pred_man=float(anhysteretic(np.asarray(pred_he)))
+        pred_M=c*pred_man+(1.0-c)*pred_mirr
+        r1=irreversible_rate(float(H[i]+alpha*pred_M),pred_mirr,direction)
         Mirr[i]=Mirr[i-1]+0.5*dH*(r0+r1)
-        he=H[i]+alpha*M[i-1]
-        man=float(anhysteretic(np.asarray(he)))
-        M[i]=c*man+(1.0-c)*Mirr[i]
+
+        # Close the mean-field relation H_eff = H + alpha*M by fixed-point
+        # iteration; this avoids evaluating the output at a stale field.
+        M[i]=M[i-1]
+        for _ in range(12):
+            man=float(anhysteretic(np.asarray(H[i]+alpha*M[i])))
+            updated=c*man+(1.0-c)*Mirr[i]
+            if abs(updated-M[i])<1e-12*max(1.0,Ms):
+                M[i]=updated
+                break
+            M[i]=updated
     return M
