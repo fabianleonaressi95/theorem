@@ -81,7 +81,8 @@ def solve_airy(n,kind,lam=1.0,mu=1.0,burgers=.02,core_width=.025,frank=.01,retur
     incp=incompatibility(ep,h)
     L=laplacian_interior_matrix(n,h)
     K=(c*h*h)*(L.T@L)
-    rhs=(-incp[1:-1,1:-1].ravel())*h*h
+    rhs=np.zeros(n*n,float)
+    rhs.reshape(n,n)[1:-1,1:-1]=(-incp[1:-1,1:-1])*h*h
     C=clamped_constraints(n,h)
     saddle=bmat([[K,C.T],[C,None]],format="csc")
     sol=spsolve(saddle,np.concatenate((rhs,np.zeros(C.shape[0]))))
