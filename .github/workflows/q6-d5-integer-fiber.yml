@@ -29,3 +29,11 @@ jobs:
         run: python -m compileall -q src/rgs_q6_equivariant_cochains.py src/rgs_q6_euclidean_time_wilson.py src/rgs_q6_u1_character_electric_flux.py src/rgs_q6_u1_transfer_operator.py src/rgs_q6_d5_integer_fiber_quotient.py src/rgs_q6_d5_fiber_bessel_majorant.py src/rgs_q6_d5_saturated_kernel_bounds.py
       - name: Run focused exact-arithmetic tests
         run: python -m pytest -q tests/test_rgs_q6_d5_integer_fiber_quotient.py tests/test_rgs_q6_d5_fiber_bessel_majorant.py tests/test_rgs_q6_d5_saturated_kernel_bounds.py
+      - name: Generate reproducible splitting and tail report
+        run: python scripts/run_q6_d5_saturated_kernel_bounds.py --beta-time 2.0 --edge-l1-cutoff 500 --output reports/q6_d5_saturated_kernel_bounds.json
+      - name: Upload exact-arithmetic audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: q6-d5-saturated-kernel-audit
+          path: reports/q6_d5_saturated_kernel_bounds.json
+          if-no-files-found: error
