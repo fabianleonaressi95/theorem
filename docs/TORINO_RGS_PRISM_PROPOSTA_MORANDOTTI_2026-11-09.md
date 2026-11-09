@@ -115,17 +115,25 @@ Il test dipolo→dislocazione, con cariche opposte \(\pm s\), \(s=b/d\), mostra 
 
 **Gate A:** nessuna pretesa di vantaggio RGS. Si prosegue solo se le quantità convergono e gli errori sono spiegabili rispetto al riferimento.
 
-### Fase B — struttura di gradiente e memoria (6–10 settimane)
+### Fase B — struttura di gradiente, dinamica dei difetti e memoria (6–10 settimane)
 
-Si introduce una variabile interna \(z_h\) che descriva, a seconda del livello di modello, slip plastico, posizione/segno dei difetti o stato microstrutturale. La dinamica non va ridotta al solo gradiente dell'energia: per fenomeni rate-independent e isteretici serve una dissipation potential \(\mathcal R(\dot z_h)\), ad esempio
+Questa fase ha un collegamento diretto con lavori specifici di Morandotti e coautori, non soltanto con una generica analogia fra gradienti:
+
+1. **Dinamica di dislocazioni e minimizing movements.** Bonaschi, van Meurs e Morandotti (2017) studiano una struttura di gradient flow per dislocazioni a vite. Con un numero finito di direzioni di scorrimento e un criterio di massima dissipazione, l'evoluzione è una inclusione differenziale; il modello continuo è ottenuto come limite di schemi temporali che vincolano ogni passo a una direzione di glide. È il riferimento metodologico per costruire una dinamica discreta RGS senza sostituire arbitrariamente la dissipazione con una metrica quadratica [7].
+
+2. **Dinamica dissipativa delle disclinazioni di Volterra.** Cesana, Grillo, Morandotti e Pastore (2025) trattano sistemi finiti di disclinazioni a cuneo, con moti isotropi oppure vincolati a direzioni preferenziali di un materiale cristallino [8]. Questo fornisce il riferimento per introdurre orientazioni di glide, mobilità e leggi di dissipazione nel modello discreto.
+
+3. **Equivalenza dinamica dipolo–dislocazione.** Briatico, Cesana e Morandotti (2026, preprint) individuano per una coppia di disclinazioni a cuneo opposte due regimi — divergenza delle disclinazioni e annichilazione del dipolo — e mostrano che, nel regime di annichilazione e dopo una riscalatura temporale, la legge del dipolo coincide con quella di una dislocazione di bordo [9]. Questo è un benchmark dinamico particolarmente adatto al nostro audit statico già esistente: non basta riprodurre la convergenza delle sorgenti e dei campi, occorre confrontare anche traiettorie, punti stazionari, stabilità e tempi caratteristici.
+
+La proposta RGS è quindi introdurre uno stato discreto (z_h) che registri posizione, segno e orientazione dei difetti, insieme a una variabile interna separata per lo slip/memoria plastica. L'energia (E_h) deve derivare dal problema elastico già confrontato con Airy; la dissipazione (mathcal R_h) deve invece essere derivata dalla regola di glide scelta e dalle eventuali direzioni ammissibili. La forma astratta da verificare è
 
 \[
-0\in\partial_{\dot z_h}\mathcal R(\dot z_h)
+0\in\partial_{\dot z_h}\mathcal R_h(\dot z_h)
 +\partial_{z_h}E_h(u_h,z_h),\qquad
 0\in\partial_{u_h}E_h(u_h,z_h).
 \]
 
-Si confrontano cicli di carico/scarico, dissipazione, loop area, coercività e stabilità rispetto al passo temporale. Questo è il collegamento naturale con le strutture di gradiente e con i modelli evolutivi; la simulazione numerica non equivale a identificazione sperimentale dei parametri.
+Non si assume a priori che (mathcal R_h) sia quadratica, isotropa o metrica: il confronto con i modelli di massima dissipazione serve proprio a determinare la struttura corretta. Il primo test dinamico dovrebbe riprodurre i due regimi della coppia di disclinazioni e verificare la legge dipolo→dislocazione dopo la riscalatura temporale. Solo dopo si introducono cicli di carico/scarico, dissipazione, area dei loop, memoria e confronto con prove meccaniche. Una simulazione non equivale a identificazione sperimentale dei parametri.
 
 ### Fase C — materiali AM e IAM@PoliTo (da definire con i ricercatori)
 
@@ -176,3 +184,9 @@ Il primo fascicolo integrativo è stato preparato il 9 novembre 2026; entro il 1
 [5] E. Fabbrini, P. Cesana, A. A. León Baldelli, M. Morandotti, *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation*, lavoro sottomesso (2026), scheda CVGMT: [paper 7600](https://cvgmt.sns.it/paper/7600/).
 
 [6] [DISMA — Calcolo delle variazioni e applicazioni](https://www.disma.polito.it/la_ricerca/temi/calcolo_delle_variazioni_e_applicazioni).
+
+[7] G. A. Bonaschi, P. van Meurs, M. Morandotti, *Dynamics of screw dislocations: A generalised minimising-movements scheme approach*, European Journal of Applied Mathematics 28(4) (2017), 636–655. DOI: [10.1017/S0956792516000462](https://doi.org/10.1017/S0956792516000462).
+
+[8] P. Cesana, A. Grillo, M. Morandotti, A. Pastore, *Dissipative Dynamics of Volterra Disclinations*, SIAM Journal on Applied Mathematics 85(4) (2025), 1361–1386. DOI: [10.1137/24M1688096](https://doi.org/10.1137/24M1688096).
+
+[9] N. Briatico, P. Cesana, M. Morandotti, *Effective Dynamics of Disclination Pairs*, preprint (2026), [arXiv:2608.12233](https://arxiv.org/abs/2608.12233), [CVGMT](https://cvgmt.sns.it/paper/7926/).
