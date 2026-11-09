@@ -485,7 +485,7 @@ Infine, i commutatori diretti \([R_{geo},P_G]\) e \([R_{geo},K_0]\) sono riporta
 Il codice sorgente recuperato è archiviato in `archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py`. Il report JSON e lo script di audit principale sono stati aggiornati coerentemente.
 
 
-## 7. Anisotropia pentagono–esagono nel pallone pressurizzato
+## A.25. Anisotropia pentagono–esagono nel pallone pressurizzato
 
 È stato aggiunto un dossier autonomo in `docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md`, con implementazione in `models/football_anisotropy.py`, runner in `scripts/run_football_anisotropy_audit.py` e test in `tests/test_football_anisotropy.py`.
 
