@@ -19,6 +19,15 @@ on:
       - ".github/workflows/football-anisotropy.yml"
   pull_request:
     paths:
+      - "models/football_quaternion_bridge.py"
+      - "models/football_shell.py"
+      - "scripts/build_rgs_football_geometric_transfer.py"
+      - "scripts/run_rgs_football_triplet_spectral_comparison.py"
+      - "tests/test_football_geometric_transfer.py"
+      - "tests/test_rgs_football_triplet_spectral_comparison.py"
+      - "docs/RGS_FOOTBALL_GEOMETRIC_TRANSFER.md"
+      - "docs/RGS_FOOTBALL_TRIPLET_SPECTRAL_COMPARISON.md"
+      - "data/rgs_188d/X_Oh_reconstructed.csv"
       - "models/football_anisotropy.py"
       - "scripts/run_football_anisotropy_audit.py"
       - "tests/test_football_anisotropy.py"
