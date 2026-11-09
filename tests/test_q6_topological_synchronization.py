@@ -1,7 +1,7 @@
 import numpy as np
 from models.q6_topological_synchronization import (
     build_q6_complex,audit_q6_complex,anti_twin_chain_maps,
-    order_parameters,rhs,rk4_step,
+    order_parameters,rhs,rk4_step,sample_intrinsic_frequencies,
 )
 
 def test_q6_counts_and_boundary_identity():
@@ -40,3 +40,12 @@ def test_nl_nlt_rhs_and_rk4():
     assert np.allclose(nl[0],nlt[0]) and not np.allclose(nl[1],nlt[1])
     out=rk4_step(K,th,ph,om,ol,.5,"NLT",.01)
     assert out[0].shape==(64,) and out[1].shape==(192,)
+
+def test_source_frequency_sampling_is_seed_reproducible_and_keeps_link_mean():
+    w1,l1=sample_intrinsic_frequencies(17,n_nodes=20000,n_links=20000)
+    w2,l2=sample_intrinsic_frequencies(17,n_nodes=20000,n_links=20000)
+    assert np.array_equal(w1,w2) and np.array_equal(l1,l2)
+    assert abs(float(np.mean(w1))) < .03
+    assert abs(float(np.mean(l1))-2.0) < .03
+    np.testing.assert_allclose(np.std(w1),1.0,atol=.03)
+    np.testing.assert_allclose(np.std(l1),1.0,atol=.03)
