@@ -34,3 +34,16 @@ The elastic energy uses the symmetric plastic strain, whose engineering shear co
 The delta is regularized by a normalized Gaussian of width `core_width=0.025`. The code integrates this engineering shear across a vertical section to audit the Burgers magnitude (`b=0.02`). Both Q1 and cochain solvers include this source, and the comparison script runs it for both triangulation diagonals.
 
 This is a controlled regularized Volterra slip-cut benchmark, not an exact singular Volterra solution: the core is smeared, the cut is represented by an eigenstrain field, and no atomistic core physics is included. The Burgers integral validates the imposed slip jump; it does not by itself validate the far-field Volterra stress/displacement asymptotics.
+
+
+## Regularized wedge-disclination source
+
+The `wedge_disclination` case adds a rotational Volterra cut. Along the same horizontal cut, the prescribed displacement jump is
+
+`[u](x) = Omega (x-x0) e_y H(x-x0)`.
+
+The corresponding cut-normal plastic distortion has a regularized `yy` component
+
+`beta^p_yy = Omega (x-x0) delta_sigma(y-y0) H(x-x0)`.
+
+The Frank-angle audit integrates this component across the cut-normal direction and differentiates the resulting slip with respect to x. The recovered slope is compared with the input `Omega=0.01` rad. This is a finite-width representation of a wedge-disclination slip cut. It is not a singular disclination-core solution, and its far-field stress asymptotics still require comparison with the analytical/semidiscrete reference model.
