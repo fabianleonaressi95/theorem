@@ -109,7 +109,7 @@ def measure_wedge_frank(n=129,frank=0.01,core_width=0.025,x_left=.65,x_right=.85
     return (jump_r-jump_l)/(centres[ir]-centres[il])
 
 def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
-               width=0.12):
+               width=0.12, return_fields=False):
     h=1.0/(n-1); nn=n*n; ndof=2*nn
     B=q1_B(h); C=elasticity_tensor(lam,mu)
     epsp=source_field(n,kind,amplitude,width)
@@ -133,12 +133,18 @@ def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
             rhs[dofs]+=fe
     K=coo_matrix((vals,(rows,cols)),shape=(ndof,ndof)).tocsr()
     coords=np.array([((i*h),(j*h)) for j in range(n) for i in range(n)])
-    fixed_nodes=[]
-    for j in range(n):
-        for i in range(n):
-            if i==0 or j==0 or i==n-1 or j==n-1:
-                fixed_nodes.append(node(i,j))
-    fixed=np.array([d for a in fixed_nodes for d in (2*a,2*a+1)],int)
+    if kind=="affine":
+        fixed_nodes=[]
+        for j in range(n):
+            for i in range(n):
+                if i==0 or j==0 or i==n-1 or j==n-1:
+                    fixed_nodes.append(node(i,j))
+        fixed=np.array([d for a in fixed_nodes for d in (2*a,2*a+1)],int)
+        boundary_type="manufactured_dirichlet"
+    else:
+        # Natural zero-traction boundary; remove the three rigid modes only.
+        fixed=np.array([0,1,3],dtype=int)
+        boundary_type="traction_free_rigid_gauge"
     free=np.setdiff1d(np.arange(ndof),fixed)
     u=np.zeros(ndof,float)
     if kind=="affine":
@@ -170,10 +176,24 @@ def solve_case(n: int, kind: str, lam=1.0, mu=1.0, amplitude=0.02,
         field_error=float(np.linalg.norm(u-exact)/max(np.linalg.norm(exact),1e-30))
     else:
         field_error=None
-    return {"n":n,"h":h,"case":kind,"energy":float(energy),
+    result={"n":n,"h":h,"case":kind,"energy":float(energy),
             "relative_free_residual":relres,"affine_relative_error":field_error,
             "displacement_l2":float(np.linalg.norm(u)),
-            "dof_total":int(ndof),"dof_free":int(len(free))}
+            "dof_total":int(ndof),"dof_free":int(len(free)),
+            "boundary_type":boundary_type}
+    if return_fields:
+        strain=np.zeros((n-1,n-1,3),float); stress=np.zeros_like(strain)
+        for j in range(n-1):
+            for i in range(n-1):
+                ids=[node(i,j),node(i+1,j),node(i+1,j+1),node(i,j+1)]
+                dofs=np.array([d for a in ids for d in (2*a,2*a+1)],int)
+                e=q1_B(h)@u[dofs]-epsp[j,i]
+                strain[j,i]=e
+                stress[j,i]=C@e
+        result["strain_cells"]=strain
+        result["stress_cells"]=stress
+        result["displacement_nodes"]=u.reshape(n,n,2)
+    return result
 
 def run(out: Path, levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
