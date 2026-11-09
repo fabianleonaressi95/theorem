@@ -82,6 +82,13 @@ def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_w
     elif kind not in ("none","affine"): raise ValueError(kind)
     return out
 
+def measure_volterra_burgers(n=129,burgers=.02,core_width=.025,x_probe=.75):
+    """Integrate regularized plastic engineering shear across the slip cut."""
+    eps=eigenstrain_cell_centres(n,"volterra_edge",burgers=burgers,core_width=core_width)
+    h=1.0/(n-1); centres=(np.arange(n-1)+.5)*h
+    ix=int(np.argmin(np.abs(centres-x_probe)))
+    return float(np.sum(eps[:,ix,2])*h)
+
 def tri_strain_matrix(x):
     """Engineering strain [exx, eyy, gamma_xy] from triangle nodal DOFs."""
     M=np.column_stack((np.ones(3),x))
@@ -175,6 +182,7 @@ def run(out:Path,levels=(9,17,33,65)):
         "no derived map from Q6/PRISM states to physical mesh",
         "empirical refinement is not a Mosco/Gamma convergence proof"],
       "B0":{"max_abs_d1d0":b0,"passed":b0==0},
+      "burgers_audit":{"definition":"integral of regularized engineering plastic shear across the slip cut","target":0.02,"measured":measure_volterra_burgers(),"absolute_error":abs(measure_volterra_burgers()-.02),"probe_x":0.75},
       "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,
         "domain":[0,1,0,1],"boundary":"homogeneous Dirichlet for source cases; manufactured affine trace for affine case","burgers_magnitude":0.02,"core_width":0.025},
       "levels":list(levels),"results":rows}
