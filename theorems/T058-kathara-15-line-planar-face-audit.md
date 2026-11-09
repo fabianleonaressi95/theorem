@@ -9,7 +9,7 @@ Let the vertices be \(V=\{1,\ldots,12\}\), with integer coordinates
 \[
 \begin{array}{c|rrrrrrrrrrrr}
 v&1&2&3&4&5&6&7&8&9&10&11&12\\\hline
-x&0&0&-1&1&0&-1&1&0&-1&1&0&0\\
+x&0&0&-2&2&0&-2&2&0&-2&2&0&0\\
 y&0&1&2&2&3&4&4&5&6&6&7&8
 \end{array}
 \]
