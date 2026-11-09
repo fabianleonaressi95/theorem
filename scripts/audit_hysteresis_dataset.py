@@ -210,9 +210,25 @@ def main():
     pd.DataFrame(curve_points).to_csv(out/"reconstructed_BH_loops.csv",index=False)
     for sheet in xls.sheet_names:
         cs=[c for c in curves if c["sheet"]==sheet]
-        if len(cs)<2:
+        if len(cs)==0:
             report["sheets"][sheet]["JA_LOCO"]={"status":"NOT_RUN",
-                "reason":"Fewer than two complete cycles detected."}
+                "reason":"No complete measured loop detected."}
+            continue
+        if len(cs)==1:
+            # One measured loop per material permits calibration, not an
+            # independent held-out-loop validation. Keep that distinction
+            # explicit and never relabel the in-sample residual as validation.
+            only=cs[0]
+            params,pred,fit_info=fit_ja(only["H"],only["J"])
+            report["sheets"][sheet]["JA_SINGLE_LOOP_CALIBRATION"]={
+                "status":"IN_SAMPLE_CALIBRATION_ONLY",
+                "validation_status":"NOT_VALIDATED",
+                "reason":"Only one complete loop is present for this material; no independent loop remains for hold-out testing.",
+                "fit":fit_info,
+                "parameters":{"Ms_kA_m":float(params[0]),"a_kA_m":float(params[1]),
+                    "alpha":float(params[2]),"c":float(params[3]),"k_kA_m":float(params[4])}}
+            report["sheets"][sheet]["JA_LOCO"]={"status":"NOT_RUN",
+                "reason":"One loop per material: leave-one-cycle-out validation is impossible."}
             continue
         fold_results=[]
         for test_i,test in enumerate(cs):
