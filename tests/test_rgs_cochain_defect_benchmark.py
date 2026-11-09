@@ -49,6 +49,12 @@ class CochainDefectTests(unittest.TestCase):
             self.assertGreaterEqual(result["energy"],0.0)
             self.assertLess(result["relative_free_residual"],1e-8)
 
+    def test_defect_energy_is_diagonal_invariant_on_square_mesh(self):
+        for kind in ("single","volterra_edge","wedge_disclination"):
+            a=solve_cochain(17,kind,diagonal="sw_ne")["energy"]
+            b=solve_cochain(17,kind,diagonal="se_nw")["energy"]
+            self.assertAlmostEqual(a,b,delta=1e-14*max(1.0,abs(a),abs(b)))
+
     def test_single_and_dipole(self):
         for kind in ("single","dipole"):
             for diagonal in ("sw_ne","se_nw"):
