@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/rgs_defect_benchmark.py'
       - 'scripts/rgs_cochain_defect_benchmark.py'
+      - 'scripts/compare_rgs_defect_solvers.py'
       - 'tests/test_rgs_defect_benchmark.py'
       - 'tests/test_rgs_cochain_defect_benchmark.py'
       - '.github/workflows/rgs-defect-benchmark.yml'
@@ -24,8 +25,10 @@ jobs:
         run: python -m unittest tests.test_rgs_defect_benchmark tests.test_rgs_cochain_defect_benchmark -v
       - name: Run cochain refinement report
         run: python scripts/rgs_cochain_defect_benchmark.py --out artifacts/rgs_cochain_defect
+      - name: Run side-by-side solver comparison
+        run: python scripts/compare_rgs_defect_solvers.py --out artifacts/rgs_defect_comparison
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
         with:
           name: rgs-cochain-defect-report
-          path: artifacts/rgs_cochain_defect/
+          path: artifacts/rgs_cochain_defect/\n            artifacts/rgs_defect_comparison/
