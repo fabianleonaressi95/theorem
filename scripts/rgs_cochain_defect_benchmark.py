@@ -119,7 +119,7 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12):
         u[free]=spsolve(K[free][:,free],rhs[free])
     energy=0.0
     for f,tri in enumerate(faces):
-        pts=xy[list(tri)]; area=abs(float(np.cross(pts[1]-pts[0],pts[2]-pts[0])))/2
+        pts=xy[list(tri)]; area=abs(float((pts[1,0]-pts[0,0])*(pts[2,1]-pts[0,1])-(pts[1,1]-pts[0,1])*(pts[2,0]-pts[0,0])))/2
         B=tri_strain_matrix(pts)
         cell=f//2; j=cell//(n-1); i=cell%(n-1)
         epsp=epscell[j,i]
@@ -127,7 +127,8 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12):
         e=B@u[dofs]-epsp
         energy+=.5*area*float(e@C@e)
     residual=K@u-rhs
-    relres=float(np.linalg.norm(residual[free])/(np.linalg.norm(rhs[free])+1e-30))
+    reaction_scale=float(np.linalg.norm(K[free][:,fixed]@u[fixed]))
+    relres=float(np.linalg.norm(residual[free])/max(np.linalg.norm(rhs[free]),reaction_scale,1e-30))
     affine_error=None
     if kind=="affine":
         a,b,c,d=.01,-.004,.003,.008
