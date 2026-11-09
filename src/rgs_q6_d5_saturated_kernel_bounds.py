@@ -41,6 +41,76 @@ def _smith_kernel_basis(integer_map: sp.Matrix) -> tuple[sp.Matrix, sp.Matrix, s
     return kernel_columns.T, s, v
 
 
+def q6_d5_unimodular_lattice_splitting(data=None) -> dict:
+    """Return an explicit Z-basis splitting Z^129 = Q_complement ⊕ K_Z.
+
+    Columns of the Smith right transform V form a unimodular basis. Since
+    U*A*V=S has rank five, V[:, :5] is a complement and V[:, 5:] is
+    a saturated basis of the full integer kernel. Coordinates are obtained
+    exactly with V^{-1}; the first five are quotient coordinates and the
+    remaining 124 are fibre coordinates.
+    """
+    result = build_q6_d5_saturated_integer_kernel(data)
+    a = result["integer_map"]
+    v = result["smith_right_transform"]
+    if v.shape != (129, 129):
+        raise ArithmeticError("Smith right transform must be 129x129")
+    determinant = sp.factor(v.det())
+    if determinant not in (sp.Integer(1), sp.Integer(-1)):
+        raise ArithmeticError("Smith right transform is not unimodular")
+    v_inv = v.inv()
+    if v * v_inv != sp.eye(129) or v_inv * v != sp.eye(129):
+        raise ArithmeticError("exact inverse identity for Smith basis failed")
+    complement = v[:, :5]
+    kernel = v[:, 5:]
+    if a * kernel != sp.zeros(5, 124):
+        raise ArithmeticError("kernel block is not annihilated by the integer map")
+    if complement.rank() != 5 or kernel.rank() != 124:
+        raise ArithmeticError("splitting blocks have incorrect ranks")
+    if complement.row_join(kernel) != v:
+        raise ArithmeticError("splitting blocks do not reconstruct the Smith basis")
+    return {
+        "integer_map": a,
+        "unimodular_basis": v,
+        "inverse_unimodular_basis": v_inv,
+        "quotient_complement_columns": complement,
+        "saturated_kernel_columns": kernel,
+        "determinant": determinant,
+        "checks": {
+            "determinant_plus_minus_one": True,
+            "exact_inverse_left": v_inv * v == sp.eye(129),
+            "exact_inverse_right": v * v_inv == sp.eye(129),
+            "kernel_annihilation": a * kernel == sp.zeros(5, 124),
+            "complement_rank_five": complement.rank() == 5,
+            "kernel_rank_124": kernel.rank() == 124,
+            "direct_sum_basis": complement.row_join(kernel) == v,
+        },
+    }
+
+
+def q6_d5_split_integer_cycle_coordinates(vector, splitting=None) -> dict:
+    """Express z in the explicit quotient-plus-fibre Z coordinates."""
+    z = sp.Matrix(vector)
+    if z.shape not in ((129, 1), (1, 129)):
+        raise ValueError("vector must have 129 integer entries")
+    z = z if z.cols == 1 else z.T
+    if any(not value.is_Integer for value in z):
+        raise ValueError("vector entries must be exact integers")
+    split = q6_d5_unimodular_lattice_splitting() if splitting is None else splitting
+    coordinates = split["inverse_unimodular_basis"] * z
+    if any(not value.is_Integer for value in coordinates):
+        raise ArithmeticError("unimodular coordinates are not integral")
+    reconstructed = split["unimodular_basis"] * coordinates
+    if reconstructed != z:
+        raise ArithmeticError("integer coordinate reconstruction failed")
+    return {
+        "quotient_coordinates": coordinates[:5, :],
+        "fiber_coordinates": coordinates[5:, :],
+        "all_coordinates": coordinates,
+        "reconstruction_exact": reconstructed == z,
+    }
+
+
 def _log_integer_l1_shell_bound(beta: float, shell: int, edge_count: int = 192) -> float:
     """Log upper bound for sum of Wilson weights over all Z^edge_count vectors
     with l1 norm exactly shell.
