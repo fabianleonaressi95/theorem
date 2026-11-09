@@ -43,7 +43,7 @@ jobs:
       - run: python scripts/run_q6_hysteresis_benchmark.py --steps-per-sigma 5 --sigma-count 3 --output /tmp/q6-hysteresis.json
       - run: python scripts/run_q6_hysteresis_sweep_study.py --seeds 2,5 --dwell-steps 1,2 --sigma-max 0.2 --sigma-count 3 --dt 0.01 --output /tmp/q6-hysteresis-sweep-smoke.json --plot-prefix /tmp/q6-hysteresis-sweep-smoke
       - run: mkdir -p results
-      - run: python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160 --sigma-max 2 --sigma-count 21 --dt 0.025 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
+      - run: python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
       - uses: actions/upload-artifact@v4
         with:
           name: q6-multiseed-multirate-study
