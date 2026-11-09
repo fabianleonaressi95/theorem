@@ -128,7 +128,7 @@ Questa verifica è combinatoria/cinematica. Non è ancora il morfismo tra il com
 
 ## 8. Cella periodica Q6 (C_4\times C_4) contro FEM e Airy periodico
 
-Il confronto periodico è stato aggiunto come audit distinto, senza mischiare le condizioni periodiche con il benchmark traction-free. Workflow: [run 42657756957 — success](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957). Artifact integrato: [JSON/CSV](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957/artifacts/13693605625).
+Il confronto periodico è stato aggiunto come audit distinto, senza mischiare le condizioni periodiche con il benchmark traction-free. Workflow: [run 42657822468 — success](https://github.com/fabianleonaressi95/theorem/actions/runs/42657822468). Artifact integrato: [JSON/CSV](https://github.com/fabianleonaressi95/theorem/actions/runs/42657822468/artifacts/13691798892).
 
 Configurazione:
 - toro fisico ([0,4]\times[0,4]), (lambda=mu=1);
