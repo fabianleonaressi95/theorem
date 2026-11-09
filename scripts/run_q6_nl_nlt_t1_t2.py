@@ -157,6 +157,15 @@ def t2_for_model(K, model, sigmas, seeds, frequency_seed, omega0, omega1,
                 "absolute_family_separation":abs(mean),
                 "separation_over_sd":abs(mean)/sd if sd>0 else None,
                 "passes_T2_at_this_time":bool(abs(mean)>0.2 and sd>0 and abs(mean)>3*sd)})
+    # The preregistered persistence requirement compares the absolute family
+    # separation at 4T with that at T, using the same paired seeds.
+    for sigma in sigmas:
+        sT=next(x for x in summary if x["sigma"]==float(sigma) and x["steps"]==T_steps)
+        s4T=next(x for x in summary if x["sigma"]==float(sigma) and x["steps"]==4*T_steps)
+        s4T["persistence_ratio_4T_over_T"]=(s4T["absolute_family_separation"] /
+            sT["absolute_family_separation"] if sT["absolute_family_separation"]>0 else None)
+        s4T["passes_temporal_persistence"]=(s4T["persistence_ratio_4T_over_T"] is not None and
+            s4T["persistence_ratio_4T_over_T"]>=0.5)
     return {"frequency_realization":{"seed":frequency_seed,"omega0":omega0,
             "omega1":omega1,"tau0":tau0,"tau1":tau1,
             "node_mean_removed":True,"link_mean_removed":False},
