@@ -241,3 +241,29 @@ A dedicated workflow, `.github/workflows/morandotti-c0-ipdg.yml`, uses the offic
 The first executions reached the variational-form JIT and exposed a further issue: FFCx 2026.1.0 does not lower UFL `CellDiameter` for the curved P3 geometry element (warning: only P1/Q1 cell diameter is supported; fatal `Not handled: ufl.geometry.CellDiameter`). The driver now stores the actual mesh cell-size values returned by `mesh.h(tdim, cells)` in a DG0 coefficient and uses that coefficient in the interior and boundary penalty terms. This preserves cellwise (h_T) scaling rather than substituting one global target mesh size.
 
 The other runtime fixes already applied are the DOLFINx 0.11 Gmsh import (`dolfinx.io.gmsh`) and the explicit function-space argument for the active-core Dirichlet condition. These were discovered from actual container traces, not guessed. The DG0 implementation is committed; its DOLFINx workflow is pending. No P3 numerical output is accepted until the form compiles, all three cell solves complete, and the report artifact is uploaded.
+
+
+## 15. First successful P3 C0-IPDG execution — single-core annulus
+
+The first DOLFINx 0.11.0 run completed successfully:
+- Workflow: [run 42661115929](https://github.com/fabianleonaressi95/theorem/actions/runs/42661115929)
+- Artifact: [morandotti-p3-c0-ipdg-report, ID 13693913162](https://github.com/fabianleonaressi95/theorem/actions/runs/42661115929/artifacts/13693913162)
+- Mesh targets: (h=0.22,0.14,0.09); polynomial degree (P_3); (alpha=10); one concentric core (a=0.2), outer radius (R=1); serial MPI.
+- All three cell problems (kappa_0,kappa_1,kappa_2) were assembled and solved at each level.
+
+| target h | cells | relative H2 error (kappa_0) | (kappa_1) | (kappa_2) | relative (M_H-M_Delta) |
+|---:|---:|---:|---:|---:|---:|
+| 0.22 | 196 | 17.74% | 22.66% | 22.13% | 0.1142% |
+| 0.14 | 400 | 12.74% | 16.22% | 16.43% | 0.1314% |
+| 0.09 | 920 | 6.70% | 8.12% | 9.29% | 0.1584% |
+
+The core value traces are enforced to residuals (<1.4	imes10^{-16}). The core normal-derivative residuals decrease with refinement:
+- (kappa_0): 0.2465, 0.1574, 0.0670;
+- (kappa_1): 0.1352, 0.0867, 0.0352;
+- (kappa_2): 0.1335, 0.0889, 0.0411.
+
+Both interaction matrices are symmetric to assembly precision and positive definite at all three levels. Their condition numbers are approximately 5.3–5.4.
+
+**Important unresolved signal:** the relative Hessian/Laplacian matrix discrepancy is small (0.11–0.16%) but is not monotone decreasing on these three meshes. The cell-field (H^2) errors and boundary normal residuals decrease, but the matrix identity has not yet passed a convergence gate. A finer (h=0.06) level has been added to the dedicated workflow to determine whether this is pre-asymptotic geometry/quadrature behavior or a formulation/assembly issue. Until that result is checked, do not claim convergence of (M_H-M_Delta).
+
+This is the first actual execution of the single-core P3 C0-IPDG port, not yet the full multi-core reconstruction algorithm of the paper. The multi-core matrix (mathcal M), reconstruction for arbitrary defect data, off-centre cores and singular-core limit remain open.
