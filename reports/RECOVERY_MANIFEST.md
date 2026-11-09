@@ -55,3 +55,17 @@ The recovered material does not include a deterministic enumerator, full canonic
 ## Recovery status update — original 64-site coordinates located
 
 On 2026-11-09, the Library search located `X_Oh_reconstructed.npy` (Library file ID `file_000000005bcc81f4bea800dd7f5e1fe8`; 1,664 bytes), and the file was materialized at `/mnt/data/files/X_Oh_reconstructed.npy`. This is a genuine recovery milestone: the original coordinate artifact is no longer classified as missing. The binary has not yet been opened or hashed, and the recovered geometric intertwiner script has not yet been rerun with it and the `K0.npy`/`P_G.npy` matrices from `188D_FINAL_BUNDLE.zip`. Consequently, shape/content checks, geometric invariants, exact antipodal matching, regenerated matrices and comparisons against `actual_original_X_report_matrices.npz` remain **pending**. The earlier numerical conclusions in this manifest remain tied to the archived NPZ only.
+
+
+## Independent replay update — 2026-11-09 (supersedes the pending-coordinate paragraphs above)
+
+The recovered original binary was opened and independently checked:
+- `X_Oh_reconstructed.npy`: shape `(64,3)`, dtype `float64`, all finite; SHA-256 `4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f`.
+- Exact antipodal matching under nearest `-X_i`: maximum residual `0.0`; induced permutation is bijective and involutive.
+- Centroid is numerically zero; centered coordinate rank is 3; second moment is `1.25 I_3` to floating-point precision; radial range is `[0.829027345109799, 2.185129251114611]`.
+- Text representation committed at `data/rgs_188d/X_Oh_reconstructed.csv` (SHA-256 `e03096d6c6bb05ee0b44507eb66855fac9b5957a98e7c7eabd70771ad45ae568`).
+- Archived geometry-driven intertwiner script rerun against original coordinate binary and `K0.npy`/`P_G.npy` extracted from `188D_FINAL_BUNDLE.zip` (bundle SHA-256 `a2660035925a63e04e63ba2ccf15496fb2ef76be75dd3ad9c814977324b76aa2`). Result: ambient antipodal equivariance residual 0; `R_geo A - A Pi_AT` residual `1.647294145743781e-14`; `P_G` rank 64; projected rank 64.
+- Crucial negative result: the unprojected geometry-generated 64-space is **not** identified with `Im(P_G)`: `||P_G A-A||_F = 6.537062941350011`; principal-angle cosines range from `0.002650180290793834` to `0.9310812434297996`. The projected-polar extension's near-zero `K0` commutator is construction-induced, not independent geometric evidence. Direct `[K0,R_geo]` remains conditional on a common 188D tangent-coordinate basis.
+- Machine-readable results: `reports/188d_recovered_geometry_audit_2026-11-09.json`.
+
+This closes the **coordinate recovery and numerical replay** subtask, but does not close the entire 188D/Krist-All issue: binary `K0/P_G` source bundle and full recovered NPZ are still not committed in a clean-checkout reproducible form, and the 11,725-class Krist-All enumerator/equivalence relation/`K,W0` definitions remain absent. No missing data were synthesized.
