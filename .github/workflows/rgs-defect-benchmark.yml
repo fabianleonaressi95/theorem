@@ -31,7 +31,7 @@ jobs:
         run: python scripts/compare_rgs_defect_solvers.py --out artifacts/rgs_defect_comparison
       - name: Run Airy reference tests and comparison
         run: |
-          python -m unittest tests/test_rgs_airy_reference.py -v
+          python -m unittest discover -s tests -p 'test_rgs_airy_reference.py' -v
           python scripts/rgs_airy_reference.py --out artifacts/rgs_airy_comparison
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
