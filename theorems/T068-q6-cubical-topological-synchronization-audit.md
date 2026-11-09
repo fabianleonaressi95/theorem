@@ -15,8 +15,9 @@ B2: C2 -> C1 (192 x 240). The exact identity B1 B2 = 0 follows because
 each square boundary is a closed cycle and is checked entrywise.
 
 The graph cycle rank is 192-63=129. The 240 square boundaries span the
-cycle space, rank(B2)=129, so b1 of the 2-skeleton is zero. The 2-skeleton
-still has nontrivial H2 because the 3-cells are not included.
+cycle space, rank(B2)=129, so b1 of the 2-skeleton is zero. Since the
+truncated complex has no C3, its second Betti number is b2=240-129=111.
+These 2-cycles are killed by the omitted 3-cells in the full 6-cube.
 
 ## 2. Anti-Twin chain involution
 
