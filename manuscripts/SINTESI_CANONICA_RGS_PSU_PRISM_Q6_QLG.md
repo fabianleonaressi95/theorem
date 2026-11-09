@@ -185,3 +185,14 @@ Ordine scientifico (non ordine di quantità di codice):
 La monografia unitaria non deve essere un collage. Ogni capitolo dovrà contenere: definizioni canoniche, risultati già provati, audit riproducibili, dipendenze, non-conclusioni, problemi aperti e collegamento al capitolo successivo.
 
 Il documento presente è un indice integrativo e una prima sintesi scientifica. Non sostituisce i theorem record né certifica risultati che dipendono da file, dataset o script non riesaminati in questa versione.
+
+
+## Aggiornamento audit geometria originale 188D — 9 novembre 2026
+
+La matrice originale `X_Oh_reconstructed.npy` è stata recuperata; la rappresentazione testuale `data/rgs_188d/X_Oh_reconstructed.csv` è versionata nel repository. L'audit geometry-only verifica 64×3, valori finiti, rango centrato 3, baricentro nullo, secondo momento (1.25 I_3), pairing antipodale bijettivo e involutivo. Il workflow RGS recovery run 42645820312 è terminato con successo.
+
+Questo non chiude il confronto con il kernel 188D: le matrici originali K0/P_G e il bundle binario non sono ancora committati, e la ricostruzione dell'intertwiner non è stata ripetuta da clean checkout. La mappa geometrica candidata resta distinta dal sottospazio Im(P_G).
+
+## Correzione topologica Q6
+
+Per il solo grafo Q6, \\(\\beta_1=192-64+1=129\\). Nel 2-scheletro cubicale, \\(\\operatorname{rank}B_2=129\\), dunque \\(b_1=0\\) e \\(b_2=240-129=111\\). Il cubo cubicale completo, con tutte le celle fino alla dimensione 6, è contrattile. Non usare la locuzione "complesso completo di facce" per indicare il cubo completo.
