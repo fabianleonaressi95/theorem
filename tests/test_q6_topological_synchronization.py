@@ -15,6 +15,7 @@ def test_q6_homology_of_two_skeleton():
     assert report["rank_B2_numeric"]==129
     assert report["graph_cycle_rank"]==129
     assert report["filled_betti_1"]==0
+    assert report["b2_of_truncated_2_skeleton"]==111
 
 def test_antitwin_signed_chain_involution():
     K=build_q6_complex(); J0,J1,J2=anti_twin_chain_maps(K)
