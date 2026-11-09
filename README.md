@@ -266,3 +266,11 @@ python scripts/audit_188d_antitwin.py --input /path/to/actual_original_X_report_
 ```
 
 The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered source provenance are recorded in the manifest. The script requires that exact archive as input and does not substitute synthetic data for the research matrices.
+
+
+### Recovered 188D Anti-Twin source
+
+- [Original geometry-driven intertwiner construction script](archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py)
+- [Corrected basis-aware audit report](reports/188d_antitwin_audit.json)
+- [Updated recovery provenance and basis caveats](reports/RECOVERY_MANIFEST.md)
+- [Expanded Morandotti appendix, including the corrected equivariance statement](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md)
