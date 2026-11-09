@@ -31,7 +31,7 @@ class AiryReferenceTests(unittest.TestCase):
         self.assertAlmostEqual(float(np.sum(Y*inc)*h*h),.02,delta=3e-4)
 
     def test_disclination_dipole_converges_to_edge_source(self):
-        r=dipole_edge_equivalence(n=129,separations=(.1,.05,.025))
+        r=dipole_edge_equivalence(n=129,separations=(.125,.0625,.03125,.015625))
         a=r["results"]
         self.assertLess(a[-1]["incompatibility_relative_l2"],a[0]["incompatibility_relative_l2"])
         self.assertLess(a[-1]["airy_stress_relative_l2"],a[0]["airy_stress_relative_l2"])
