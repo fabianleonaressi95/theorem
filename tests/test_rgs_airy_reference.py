@@ -36,6 +36,22 @@ class AiryReferenceTests(unittest.TestCase):
         self.assertLess(a[-1]["incompatibility_relative_l2"],a[0]["incompatibility_relative_l2"])
         self.assertLess(a[-1]["airy_stress_relative_l2"],a[0]["airy_stress_relative_l2"])
 
+    def test_airy_source_cut_matches_cell_centred_convention(self):
+        n=33
+        e=plastic_strain_nodes(n,"volterra_edge",burgers=.02)
+        # The cut starts at x=1/2, matching the Q1/cochain cell-centred profile.
+        self.assertGreater(float(np.max(np.abs(e[:,n//2,2]))),0.0)
+
+    def test_energy_comparison_is_finite_and_positive(self):
+        r=compare_case(17,"volterra_edge")
+        for key in ("q1_energy","cochain_energy","airy_energy",
+                    "q1_airy_relative_energy_difference",
+                    "cochain_airy_relative_energy_difference"):
+            self.assertTrue(np.isfinite(r[key]),(key,r[key]))
+        self.assertGreater(r["q1_energy"],0.0)
+        self.assertGreater(r["cochain_energy"],0.0)
+        self.assertGreater(r["airy_energy"],0.0)
+
     def test_clamped_airy_solutions(self):
         for kind in ("volterra_edge","wedge_disclination"):
             r=solve_airy(17,kind)
