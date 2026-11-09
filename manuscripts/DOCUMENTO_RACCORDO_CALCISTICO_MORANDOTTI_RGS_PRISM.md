@@ -353,6 +353,106 @@ L'isteresi, se osservata, va distinta fra risposta del materiale, cucitura, attr
 
 ---
 
+
+
+---
+
+## 5-quater. Equilibrio variazionale completo della cucitura
+
+### Funzionale totale e variazione
+
+Siano \(\Pi^+_{sh}\) e \(\Pi^-_{sh}\) i funzionali delle due patch, comprendenti energia membranale, flessionale e lavoro dei carichi. Per una cucitura con salto traslazionale \(\delta=[u]=u^+-u^-\) e salto rotazionale \(\eta=\theta^+-\theta^- -\eta_0\), consideriamo
+\[
+\Pi=\Pi^+_{sh}+\Pi^-_{sh}
++\int_\Gamma\left[
+\frac12\delta^T K_\Gamma\delta
++\frac12 k_\theta\eta^2
++\frac12 k_s(\partial_s\eta)^2
+\right]ds.
+\]
+I tre termini di interfaccia sono distinti: coesione traslazionale, molla rotazionale locale e regolarizzazione longitudinale opzionale. Per una cucitura perfettamente incollata si impone \(\delta=0\) come vincolo cinematico e si elimina il termine coesivo; non si deve contemporaneamente fissare \(\delta=0\) e trattarlo come variabile libera.
+
+Ponendo \(m_0=k_\theta\eta\) e \(m_s=k_s\partial_s\eta\), la variazione dell'energia di interfaccia è
+\[
+\delta\Pi_\Gamma=\int_\Gamma\left[
+(K_\Gamma\delta)\cdot\delta(\delta)
++m_0\,\delta\eta
++m_s\,\partial_s(\delta\eta)
+\right]ds.
+\]
+Integrando per parti il termine longitudinale:
+\[
+\delta\Pi_\Gamma=\int_\Gamma\left[
+(K_\Gamma\delta)\cdot\delta(\delta)
++\left(m_0-\partial_s m_s\right)\delta\eta
+\right]ds
++\left[m_s\delta\eta\right]_{\partial\Gamma}.
+\]
+Pertanto la coppia distribuita efficace che entra nell'equilibrio rotazionale è
+\[
+\boxed{m_{eff}=k_\theta\eta-\partial_s(k_s\partial_s\eta).}
+\]
+La derivata lungo la cucitura compare **solo** se \(k_s\ne0\), cioè se si introduce energia dipendente dal gradiente longitudinale della rotazione. Non è presente nella legge locale \(\psi_\Gamma=\frac12k_\theta\eta^2\) da sola.
+
+### Condizioni di equilibrio all'interfaccia
+
+Adottiamo la convenzione che \(Q_n^\pm\) e \(C_n^\pm\) siano le azioni generalizzate di bordo delle due patch, con i segni già riferiti alle rispettive normali uscenti. La stazionarietà del funzionale fornisce, in forma locale:
+\[
+\boxed{Q_n^+ + Q_n^- + K_\Gamma\delta=0,}
+\]
+\[
+\boxed{C_n^+ + m_{eff}=0,\qquad
+C_n^- - m_{eff}=0.}
+\]
+La prima equazione è il bilancio delle forze di bordo con la trazione coesiva. Le due equazioni successive sono il bilancio dei momenti coniugati alle rotazioni indipendenti dei due lati: il momento di cucitura agisce con segno opposto sulle due patch. Se la cucitura è perfettamente incollata, \(\delta=0\) e la trazione coesiva è sostituita dalla reazione del vincolo; il bilancio delle forze va scritto includendo tale reazione.
+
+Con la sola molla rotazionale locale (\(k_s=0\)):
+\[
+m_{eff}=k_\theta(\theta^+-\theta^- -\eta_0).
+\]
+Con la regolarizzazione longitudinale:
+\[
+m_{eff}=k_\theta\eta-\partial_s(k_s\partial_s\eta).
+\]
+Alle estremità libere della cucitura, in assenza di coppie concentrate applicate, la condizione naturale è \(m_s=k_s\partial_s\eta=0\). Se la cucitura è chiusa o periodica, i termini di bordo si cancellano imponendo periodicità di \(\eta\) e del flusso \(m_s\).
+
+La formula abbreviata \([\![Q_n]\!]+dM_\Gamma/ds=0\) non è dunque la condizione generale della molla rotazionale locale. Può emergere in modelli ridotti differenti, quando il momento di bordo è un flusso longitudinale associato a un'energia con gradiente, ma non va introdotta senza specificare variabili, segni e funzionale.
+
+### Discretizzazione e assemblaggio
+
+Per i gradi di libertà nodali \(u\), sia \(\eta_e(u)\) il salto angolare sulla cucitura \(e\), \(g_e=\nabla_u\eta_e\), \(k_e=\alpha_eD_{eff,e}\ell_e/w_e\). L'energia locale
+\[
+E_e=\frac12k_e\eta_e(u)^2
+\]
+genera
+\[
+r_e=\nabla_uE_e=k_e\eta_e g_e,
+\qquad
+K_e^{mat}=k_eg_eg_e^T.
+\]
+Per una formulazione non lineare coerente va aggiunto
+\[
+K_e^{geo}=k_e\eta_e\nabla_u^2\eta_e.
+\]
+Quindi \(K_e^{tan}=K_e^{mat}+K_e^{geo}\). Il codice attuale espone la parte materiale; la parte geometrica richiede la derivata seconda del diedro e non è dichiarata implementata.
+
+Il termine longitudinale si discretizza con una matrice di differenze \(D_s\):
+\[
+E_{s}=\frac12(D_s\eta)^T W_s k_s(D_s\eta),
+\quad
+r_s=D_s^TW_sk_sD_s\eta,
+\quad
+K_s=D_s^TW_sk_sD_s.
+\]
+Questa forma è simmetrica e semidefinita positiva per \(W_s k_s\succeq0\). Il termine coesivo ha analogamente \(E_c=\frac12\delta^TW_\Gamma K_\Gamma\delta\).
+
+### Verifiche e stato
+
+Sono state aggiunte routine per i residui di equilibrio di forza/coppia e per l'energia di gradiente longitudinale, con test dedicati. Il segno delle risultanti è esplicito nella convenzione adottata; il confronto con un solver di shell completo richiederà di derivare le azioni di bordo dalla specifica formulazione variazionale scelta (Kirchhoff–Love, Reissner–Mindlin o discreta a cerniere).
+
+**Stato:** derivazione continua della stazionarietà dell'interfaccia e discretizzazione matriciale; funzioni ausiliarie e test unitari aggiunti. Non è ancora un assemblaggio globale verificato sul pallone, né una validazione sperimentale.
+
+
 ## 7. Benchmark comuni e criteri di riuscita
 
 Il programma congiunto può essere valutato attraverso una matrice di benchmark:
