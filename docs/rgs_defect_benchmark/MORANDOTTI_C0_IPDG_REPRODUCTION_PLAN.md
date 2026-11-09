@@ -96,3 +96,17 @@ Only after the published benchmark is independently reproduced should RGS be tes
 The latest PR #119 regression, [run #69](https://github.com/fabianleonaressi95/theorem/actions/runs/42657016309), completed successfully. It ran the defect benchmark, Q1/P1 comparison, nine Airy tests, seven Q6 quotient tests and uploaded the numerical artifact. The non-grid-locked fixed-grid dipole sweep at \(n=129\), \(h=1/128\) reduced incompatibility relative \(L^2\) error from 70.12% to 4.74% and Airy-stress relative \(L^2\) error from 23.76% to 1.26% as separation decreased from 0.1 to 0.025. This remains a regularized fixed-grid trend, not a continuum-limit proof.
 
 The wedge-dipole energy discrepancy at \(n=129\) remains material: Q1/cochain 12.12%, Q1/Airy 7.28%, cochain/Airy 18.52%. This is an explicit blocker to claiming energetic validation.
+
+
+## 7. Public implementation source inspected
+
+The paper links a public implementation: [EdoardoF1993/planar_elasticity_dislocations_disclinations](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations). The following source files have been inspected directly:
+
+- [`scripts/models/__init__.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/models/__init__.py): `Biharmonic` assembles the cell-problem volume term as \(\int D^2u:D^2v\), symmetric facet consistency terms involving jumps of normal gradients and averages of normal-normal Hessians, and interior/boundary penalty terms proportional to \(\alpha/h\). It uses the parameter `alpha_penalty`.
+- [`scripts/cellFormulas.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/cellFormulas.py): constructs the perforated Gmsh mesh, identifies outer and core boundary DOFs, and solves the three cell problems for each core.
+- [`scripts/airy.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/airy.py): loads the 3N cell fields, assembles the interaction matrix using \(\int \Delta\kappa_i\,\Delta\kappa_j\), solves \(M a=\Phi\), and reconstructs \(v=-E/(1-\nu^2)\sum_i a_i\kappa_i\).
+- [`scripts/meshes/primitives.py`](https://github.com/EdoardoF1993/planar_elasticity_dislocations_disclinations/blob/main/scripts/meshes/primitives.py): creates circular domains with circular cores through the Gmsh Python API.
+
+This source inspection narrows the reproduction task substantially: the operator, facet terms, basis boundary data, interaction-matrix assembly and reconstruction are no longer inferred from the paper alone. The remaining work is to port/run the same pipeline in a reproducible environment, verify the interaction matrix against the exact theorem convention, and compare the resulting fields/energies against the radial analytical benchmarks before connecting it to RGS.
+
+**Implementation detail requiring an explicit audit:** the cell-problem bilinear form in `Biharmonic.a()` uses the Hessian product, whereas the postprocessing matrix in `airy.py` uses the Laplacian product. This may be justified by the harmonic cell equations and boundary identities, but the equivalence must be checked against the paper's definition of \(\mathcal M\) and verified numerically; do not silently replace one by the other.
