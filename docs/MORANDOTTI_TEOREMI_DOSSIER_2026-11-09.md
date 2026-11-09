@@ -33,21 +33,21 @@ Il dossier non attribuisce a RGS–PRISM risultati già dimostrati in questi lav
 
 **Classificazione: E — teorema pubblicato nel preprint del gruppo Morandotti; non è un risultato RGS.**
 
-Il Theorem 2.2 di *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation* è il riferimento analitico diretto per il dossier. Il dominio è limitato, semplicemente connesso e piecewise-$C^2$ Lipschitz; si rimuovono (N=J+K) core disgiunti di raggio $\varepsilon$, associati a dislocazioni di bordo e disclinazioni a cuneo. Il materiale è isotropo in plane strain, con (E>0) e $\nu\in(-1,1/2)$.
+Il Theorem 2.2 di *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation* è il riferimento analitico diretto per il dossier. Il dominio è limitato, semplicemente connesso e piecewise-$C^2$ Lipschitz; si rimuovono $N=J+K$ core disgiunti di raggio $\varepsilon$, associati a dislocazioni di bordo e disclinazioni a cuneo. Il materiale è isotropo in plane strain, con $E>0$ e $\nu\in(-1,1/2)$.
 
 Il teorema stabilisce tre livelli.
 
 1. **Caratterizzazione variazionale Airy.** Il minimizzatore unico del funzionale elastico in termini del potenziale di Airy equivale alla soluzione debole dell'equazione di Euler–Lagrange nella classe ammissibile $\mathscr C(\Omega_\varepsilon)$.
 2. **Equivalenza stress–strain.** Sotto l'ipotesi di regolarità $\hat v\in H^4(\Omega_\varepsilon)$, la deformazione ricavata da $\hat\epsilon=\mathbb C^{-1}\operatorname{cof}(D^2\hat v)$ è la soluzione unica del problema meccanico con equilibrio, trazione nulla, incompatibilità nulla fuori dai core e circuitazioni che codificano gli angoli di Frank e i vettori di Burgers.
-3. **Ricostruzione mediante problemi di cella.** Per una geometria fissata si risolvono (3N) problemi biharmonici: $\kappa_0^i,\kappa_1^i,\kappa_2^i$ per ciascun core. Il potenziale generale si ricostruisce mediante una matrice d'interazione $\mathcal M\in\mathbb R^{3N\times3N}$ e un vettore $\Phi$ costruito dai dati di Frank e Burgers:
+3. **Ricostruzione mediante problemi di cella.** Per una geometria fissata si risolvono $3N$ problemi biharmonici: $\kappa_0^i,\kappa_1^i,\kappa_2^i$ per ciascun core. Il potenziale generale si ricostruisce mediante una matrice d'interazione $\mathcal M\in\mathbb R^{3N\times3N}$ e un vettore $\Phi$ costruito dai dati di Frank e Burgers:
    
-   [
+   $
    \hat v(x)=-\frac{E}{1-\nu^2}\langle\mathcal M^{-1}\kappa(x),\Phi\rangle.
-   ]
+   $
 
 Il punto algoritmico essenziale è la separazione tra geometria e dati dei difetti: a geometria, posizioni dei core e raggio fissati, i (3N) campi di cella si riutilizzano per differenti valori di Burgers e Frank, ricostruendo il campo tramite algebra finito-dimensionale.
 
-**Rilevanza per il nostro lavoro:** questa è la specifica matematica da riprodurre. Il driver RGS attuale esegue i tre problemi P3 per (N=1), ma non ha ancora la matrice multi-core completa $\mathcal M$, né la ricostruzione generale per (N>1). È quindi una riproduzione parziale di una componente del metodo, non del Theorem 2.2 nel suo complesso.
+**Rilevanza per il nostro lavoro:** questa è la specifica matematica da riprodurre. Il driver RGS attuale esegue i tre problemi P3 per $N=1$, ma non ha ancora la matrice multi-core completa $\mathcal M$, né la ricostruzione generale per $N>1$. È quindi una riproduzione parziale di una componente del metodo, non del Theorem 2.2 nel suo complesso.
 
 Fonte primaria: [arXiv:2609.29614, Theorem 2.2 e Remark 2.3](https://arxiv.org/abs/2609.29614).
 
@@ -105,7 +105,7 @@ Per un arco orientato, la somma dei due semiarchi ha bordo uguale al vertice ter
 
 Per una faccia orientata, le quattro sottofacce hanno l'orientazione indotta dalla faccia madre. Ogni lato interno compare due volte con orientazioni opposte e si cancella; restano soltanto i lati esterni, che sono precisamente le suddivisioni dei quattro lati della faccia originaria. Questo dà (B'_2S_2=S_1B_2). Infine ogni faccia raffinata ha bordo chiuso, quindi (B'_1B'_2=0). Le identità sono intere, non uguaglianze approssimate in floating point. (square)
 
-La matrice aggregata di trasferimento delle sei direzioni coordinate è (D=2I_6): ogni arco viene sostituito da due semiar archi paralleli alla stessa direzione.
+La matrice aggregata di trasferimento delle sei direzioni coordinate è (D=2I_6): ogni arco viene sostituito da due semiarchi paralleli alla stessa direzione.
 
 **Rilevanza per Morandotti:** il teorema fornisce una costruzione di raffinamento cellulare che conserva esattamente gli operatori di bordo. È una base matematica per discretizzazioni struttura-preservanti e per costruire complessi raffinati.
 
