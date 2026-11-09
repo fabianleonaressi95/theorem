@@ -78,11 +78,27 @@ The original coordinate artifact has now been independently inspected and its ge
 - Original source: `X_Oh_reconstructed.npy`, SHA-256 `4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f`.
 - Reproducible text representation: `data/rgs_188d/X_Oh_reconstructed.csv`, SHA-256 `e03096d6c6bb05ee0b44507eb66855fac9b5957a98e7c7eabd70771ad45ae568`.
 - Shape `(64,3)`, dtype float64, all finite, centered rank 3.
-- Centroid is zero to roundoff; second moment is `1.25 I_3) to roundoff.
+- Centroid is zero to roundoff; second moment is `1.25 I_3` to roundoff.
 - Radial range: 0.8290273451–2.1851292511.
 - Antipodal matching is bijective and involutive, with maximum pair residual exactly zero in the stored decimal representation.
 - Geometry-only regression tests: `tests/test_188d_recovered_geometry_source.py`; recovery workflow run 42645820312 completed successfully, including these tests and the PRISM audit.
 
-This closes the missing-coordinate and geometry-only verification subtask. It does **not** close the full 188D replay: `K0.npy), `P_G.npy), and the archived matrix NPZ/bundle are still not committed as repository artifacts, and the recovered geometry-construction script has not been rerun in a clean checkout with those exact matrices. The historical geometric map residual and kernel-alignment results remain tied to the archived matrix package. The distinction is binding: verified coordinate geometry is not proof that the geometry-generated 64-space equals `Im(P_G)`.
+This closes the missing-coordinate and geometry-only verification subtask. It does **not** close the full 188D replay: `K0.npy`, `P_G.npy`, and the archived matrix NPZ/bundle are not yet committed as repository artifacts. The original-input replay has now been executed locally using the recovered bundle, but the generated full report and matrices still need to be committed and the run repeated from a clean checkout. The historical geometric map residual and kernel-alignment results remain tied to the archived matrix package. The distinction is binding: verified coordinate geometry is not proof that the geometry-generated 64-space equals `Im(P_G)`.
 
 Krist-All remains separate and open: no deterministic 11,725-class enumerator, canonical representative table, or independent `K`/`W0` source has been recovered.
+
+
+## Geometric intertwiner replay — local execution result, 2026-11-09
+
+The original-input script `RGS_PSU_construct_geometric_intertwiner.py` was executed with the recovered `X_Oh_reconstructed.npy` and `188D_FINAL_BUNDLE.zip` (including the original `K0.npy` and `P_G.npy`), not with the proxy embedding.
+
+Reported diagnostics from that execution:
+
+- Antipodal geometric equivariance residual: \\(1.65\\times10^{-14}\\).
+- Raw geometric map/kernel distance: \\(\\|P_GA-A\\|_F=6.53706\\).
+- Minimum principal cosine: \\(0.00265018\\).
+- Projected-polar extension commutator residual: \\(1.42\\times10^{-14}\\).
+
+Interpretation: the geometric map is antipodally equivariant to numerical precision, but its raw image is not the 64-dimensional kernel image of \\(P_G\\). The projected-polar extension has a small commutator because it is constructed inside that image; this is not an independent proof of geometric identification. Therefore the proposed canonical geometric intertwiner is **not established** by this replay.
+
+Artifact status: the replay output was generated in the working environment, but its full JSON report and matrix NPZ have not yet been committed. The values above are a recorded local execution result, not a clean-checkout CI certificate. To close this gate, commit the report and matrices, add regression tests against the original bundle, and rerun the workflow from a clean checkout.
