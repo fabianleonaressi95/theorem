@@ -60,12 +60,18 @@ for example magnetization, strain or actuator displacement. These are
 different observables and require different validation.
 
 Loop-area, RMSE and loading/unloading branch-separation metrics are supplied.
-No Preisach, Prandtl-Ishlinskii, Bouc-Wen or Jiles-Atherton identification,
-and no industrial performance claim, is included.
+Reference implementations are included for discrete Preisach relays,
+Prandtl-Ishlinskii play operators and Bouc-Wen dynamics. Linear weights for
+fixed Preisach/PI dictionaries can be fitted by least squares. This is
+synthetic/model-level plumbing, not industrial identification or validation.
+Jiles-Atherton is deferred to a ferromagnetic B-H data study with a specified
+parameter convention. No industrial performance claim is included.
 
 ## 5. Verification boundary
 
 Exact: finite cell counts, B1 B2 = 0, Anti-Twin chain-map identities.
-Implemented: NL/NLT vector fields on Q6.
-Open: existence/robustness of Q6 synchronization hysteresis, continuum
-limits, constitutive prediction, industrial utility and PSU interpretation.
+Implemented: NL/NLT vector fields on Q6; finite continuation runner; Preisach,
+PI and Bouc-Wen reference simulators/fit plumbing; loop metrics.
+Open: robust Q6 hysteresis under sweep-rate/seed/initialization controls,
+Jiles-Atherton magnetic comparison, experimental data identification,
+continuum limits, industrial utility and PSU interpretation.
