@@ -143,7 +143,7 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
                         "core_value_L2_residual":float(val_res),
                         "core_normal_derivative_L2_residual":float(normal_res),
                         "hessian_energy":float(assemble_scalar(0.5*ufl.inner(ufl.grad(ufl.grad(uh)),ufl.grad(ufl.grad(uh)))*dx,mesh))})
-    MH=np.zeros((3,3)); ML=np.zeros((3,3)); MB=np.zeros((3,3))
+    MH=np.zeros((3,3)); ML=np.zeros((3,3)); MB=np.zeros((3,3)); MI=np.zeros((3,3))
     hessians=[ufl.grad(ufl.grad(field)) for field in fields]
     cofactors=[ufl.as_matrix([[H[1,1],-H[0,1]],[-H[1,0],H[0,0]]])
                for H in hessians]
@@ -154,15 +154,22 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
                                      ufl.div(ufl.grad(fields[j]))*dx,mesh)
             boundary_flux=ufl.dot(ufl.dot(cofactors[i],n),ufl.grad(fields[j]))
             MB[i,j]=assemble_scalar(boundary_flux*ds,mesh)
+            interior_flux=(ufl.dot(ufl.dot(cofactors[i]("+"),n("+")),ufl.grad(fields[j])("+"))
+                           +ufl.dot(ufl.dot(cofactors[i]("-"),n("-")),ufl.grad(fields[j])("-")))
+            MI[i,j]=assemble_scalar(interior_flux*dS,mesh)
+    Mflux=MB+MI
     rel=np.linalg.norm(MH-ML,"fro")/max(np.linalg.norm(MH,"fro"),1e-300)
-    boundary_identity_residual=np.linalg.norm((ML-MH)-MB,"fro")/max(np.linalg.norm(MH,"fro"),1e-300)
+    boundary_identity_residual=np.linalg.norm((ML-MH)-Mflux,"fro")/max(np.linalg.norm(MH,"fro"),1e-300)
     report={"h_target":h,"num_cells":int(mesh.topology.index_map(2).size_local),
         "num_vertices":int(mesh.topology.index_map(0).size_local),
         "polynomial_degree":3,"penalty_alpha":alpha,"cell_problems":results,
         "M_hessian":MH.tolist(),"M_laplacian":ML.tolist(),
         "relative_matrix_difference":float(rel),
         "M_boundary_flux":MB.tolist(),
+        "M_interior_facet_flux":MI.tolist(),
+        "M_total_flux":Mflux.tolist(),
         "boundary_identity_relative_residual":float(boundary_identity_residual),
+        "total_flux_symmetry_residual":float(np.linalg.norm(Mflux-Mflux.T)),
         "boundary_flux_symmetry_residual":float(np.linalg.norm(MB-MB.T)),
         "symmetry_residual_hessian":float(np.linalg.norm(MH-MH.T)),
         "symmetry_residual_laplacian":float(np.linalg.norm(ML-ML.T)),
