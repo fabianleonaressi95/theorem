@@ -196,3 +196,16 @@ Questo non chiude il confronto con il kernel 188D: le matrici originali K0/P_G e
 ## Correzione topologica Q6
 
 Per il solo grafo Q6, \\(\\beta_1=192-64+1=129\\). Nel 2-scheletro cubicale, \\(\\operatorname{rank}B_2=129\\), dunque \\(b_1=0\\) e \\(b_2=240-129=111\\). Il cubo cubicale completo, con tutte le celle fino alla dimensione 6, è contrattile. Non usare la locuzione "complesso completo di facce" per indicare il cubo completo.
+
+
+## Aggiornamento 188D: replay geometrico originale (9 novembre 2026)
+
+È stato eseguito localmente lo script originale `RGS_PSU_construct_geometric_intertwiner.py` con le coordinate originali e il bundle contenente `K0.npy` e `P_G.npy`; non è stato usato il proxy `bridge_arrays.npz::Y`.
+
+Risultati riportati:
+- equivarianza antipodale della mappa geometrica: residuo (1.65\times10^{-14});
+- distanza della mappa grezza dal kernel: (|P_GA-A|_F=6.53706);
+- coseno principale minimo: (0.00265018);
+- commutatore dell'estensione polare proiettata: (1.42\times10^{-14}).
+
+La conclusione è negativa per l'identificazione canonica: la mappa grezza è antipodalmente equivarante, ma non cade nel kernel di (P_G). Il piccolo commutatore dell'estensione proiettata non è una verifica indipendente, perché l'estensione è costruita nel kernel. Il report numerico completo e le matrici derivate sono ancora da committare e verificare da clean checkout; questo replay non è ancora un certificato CI riproducibile.
