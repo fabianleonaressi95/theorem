@@ -277,3 +277,15 @@ The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered 
 - [Corrected basis-aware audit report](reports/188d_antitwin_audit.json)
 - [Updated recovery provenance and basis caveats](reports/RECOVERY_MANIFEST.md)
 - [Expanded Morandotti appendix, including the corrected equivariance statement](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md)
+
+
+### Pentagon–hexagon anisotropy in a pressurised football
+
+- [Research and model note](docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md)
+- [Panel-network implementation](models/football_anisotropy.py)
+- [Reproducible audit runner](scripts/run_football_anisotropy_audit.py)
+- [Automated tests](tests/test_football_anisotropy.py)
+- [JSON audit output](reports/football_anisotropy_audit.json)
+- [Panel displacement SVG](reports/football_anisotropy_displacement.svg)
+
+**Status:** the truncated-icosahedron incidence counts and the linear panel-network equilibrium are implemented and tested. The panel model is phenomenological; it is not yet a nonlinear shell/finite-element model and has no experimental material calibration. See the note for the exact scope and next validation requirements.
