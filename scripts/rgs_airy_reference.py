@@ -25,7 +25,7 @@ def plastic_strain_nodes(n,kind,burgers=.02,core_width=.025,frank=.01,dipole_sep
     h=1.0/(n-1)
     x=np.linspace(0,1,n); X,Y=np.meshgrid(x,x)
     # Put the cut tip halfway between the two nodal columns bracketing x=1/2.
-    x0=.5+.5*h
+    x0=.5  # align the Volterra cut with Q1/cochain cell-centred source
     e=np.zeros((n,n,3),float)
     delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
     if kind=="volterra_edge":
@@ -140,9 +140,12 @@ def compare_case(n,kind,lam=1.0,mu=1.0,diagonal="sw_ne",dipole_separation=.1):
     a=solve_airy(n,kind,lam,mu,dipole_separation=dipole_separation,return_fields=True)
     # Compare away from the outer boundary, where finite-difference closure is least accurate.
     sl=(slice(3,-3),slice(3,-3))
+    airy_energy=float(0.5*np.sum(a["stress_cells"]*a["strain_cells"])*((1.0/(n-1))**2))
     out={"n":n,"case":kind,"diagonal":diagonal,
-        "q1_energy":q["energy"],"cochain_energy":p["energy"],
+        "q1_energy":q["energy"],"cochain_energy":p["energy"],"airy_energy":airy_energy,
         "q1_cochain_relative_energy_difference":abs(q["energy"]-p["energy"])/max(abs(q["energy"]),abs(p["energy"]),1e-30),
+        "q1_airy_relative_energy_difference":abs(q["energy"]-airy_energy)/max(abs(q["energy"]),abs(airy_energy),1e-30),
+        "cochain_airy_relative_energy_difference":abs(p["energy"]-airy_energy)/max(abs(p["energy"]),abs(airy_energy),1e-30),
         "airy_topological_moment_error":a["topological_moment_error"],
         "airy_weak_residual":a["weak_residual"]}
     for label,res in (("q1",q),("cochain",p)):
@@ -168,8 +171,9 @@ def run(out:Path,levels=(17,33,65)):
         "status":"finite-difference clamped-biharmonic reference; not the published CIP-DG implementation",
         "model":"c Delta^2 v = -inc(eps_p), sigma11=v_yy, sigma12=-v_xy, sigma22=v_xx",
         "boundary":"traction-free Airy condition on straight sides, equivalent modulo affine gauge to clamped Airy data",
-        "comparison":"stress and strain relative L2 errors on the interior cells (three-cell boundary margin)",
+        "comparison":"Q1 and P1-cochain energies against Airy stress-derived elastic energy; stress and strain relative L2 errors on interior cells (three-cell boundary margin). All three use the same regularized source parameters and traction-free boundary convention.",
         "limitations":["finite-difference Airy reference, not a reproduction of the paper's semi-discrete/CIP-DG solver",
+            "the Airy nodal source and Q1/cochain cell-centred source are samples of the same regularized profile; residual quadrature/interpolation differences remain",
             "regularized core width fixed at 0.025; singular-core asymptotics not tested",
             "no Q6/PRISM-to-physical-mesh chain map",
             "no disclination dynamics or material calibration"],
