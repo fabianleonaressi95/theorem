@@ -200,6 +200,16 @@ it does not assert that the original voxel-value recursion alone defines
 that geometry, nor does it prove FEEC stability or Mosco convergence.
 
 
+## Central theorem records
+
+The programme-wide theorem register holds the proof records:
+- [T065 — exact cubical subdivision and signed-permutation naturality](../../theorems/T065-cubical-subdivision-chain-map-and-naturality.md)
+- [T066 — Herasymov parity-cell affine shared-face conformity](../../theorems/T066-herasymov-parity-affine-shared-face-conformity.md)
+- [T067 — Stokes commutation of cubical face-integral interpolation](../../theorems/T067-stokes-commuting-cubical-face-integral-interpolation.md)
+- [CI evidence record for 9 November 2026](../../audits/DE_RHAM_BENCHMARK_CI_2026-11-09.md)
+
+This project directory retains the executable implementation, regression tests, numerical outputs, assumptions and detailed analytical dossier. The root `theorems/` directory is the canonical theorem register; a successful finite CI audit is not a substitute for a proof or for the open uniform estimates.
+
 ## Theorematic foundations
 
 The formal statements, proof sketches, hypotheses, open obligations, and theorem-status ledger are collected in [THEOREMATIC_FOUNDATIONS.md](docs/THEOREMATIC_FOUNDATIONS.md). This document distinguishes universal proofs from finite CI audits and conditional FEEC/Mosco convergence statements.
