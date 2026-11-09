@@ -25,7 +25,7 @@ def test_complexity_and_return_times():
 def test_q6_block_labels_and_hamming():
     labels=q6_six_bit_blocks((1,0,1,0,1,0,1,1,1,0,0,0))
     assert labels==(42,56)
-    assert hamming_transition_counts(labels)==(3,)
+    assert hamming_transition_counts(labels)==(2,)
 
 def test_cycle_lift_and_frequency():
     assert cycle_lift((0,1,1),7)==(0,1,1,0,1,1,0)
