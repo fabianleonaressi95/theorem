@@ -106,6 +106,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T058](theorems/T058-kathara-15-line-planar-face-audit.md) | Kathara 12-center / 15-line planar face audit | Conditional exact graph theorem: 12 vertices, 21 elementary edges, 10 bounded faces, connected planar embedding and Euler characteristic 2. |
 | [T059](theorems/T059-kathara-cellular-chain-hodge-audit.md) | Kathara cellular chain complex and Hodge operators | Exact integer incidence construction conditional on filling the 10 bounded faces: B1B2=0, ranks (11,10), Betti numbers (1,0,0), Euler characteristic 1; no Krist-All or Q3/Q6 identification claimed. |
 | [T060](theorems/T060-kathara-q3-chain-map.md) | Coordinate-defined Kathara–Q3 chain map | Coarse candidate into the b₂=0 square of the Q₃ 2-skeleton; chain-map test execution remains pending. |\n| [T061](theorems/T061-kathara-q3-chain-homotopy.md) | Chain homotopy between the two Kathara–Q3 path conventions | Explicit homotopy between b₀-first and b₁-first maps; the selected Kathara face is convention-dependent, while induced homology maps agree. Corrects the claim [K,Q₃] ≅ ℤ for a contractible disk source. |
+| [T062](theorems/T062-kathara-q6-integral-chain-map.md) | Explicit integral Kathara–Q6 chain map | Proves existence under a declared integer-coordinate code using root-path differences; injective on vertices but collapses all ten 2-cells, so it is not a cellular embedding or an RGS-canonical map. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
@@ -207,12 +208,13 @@ Use this repository (**THEOREM**) as the authoritative programme-wide index for 
 - [Bridge's statement of its relationship to THEOREM](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/README.md#relationship-to-the-central-theorem-research-repository)
 
 
-## Kathara–Q3 chain-map bridge
+## Kathara chain-map bridge
 
 - [T060 — Coordinate-defined Kathara to Q3 chain map](theorems/T060-kathara-q3-chain-map.md)
 - [T061 — Chain homotopy between the two path conventions](theorems/T061-kathara-q3-chain-homotopy.md)
+- [T062 — Explicit integral Kathara to Q6 chain map](theorems/T062-kathara-q6-integral-chain-map.md)
 
-**Status:** T060 records the coordinate-defined chain-map candidate into one square face of Q3; independent test execution remains pending. T061 records the explicit homotopy between the b₀-first and b₁-first path conventions and corrects the overstrong claim that the homotopy classes from a contractible disk to Q3 form ℤ. Neither result identifies Kathara with the full trigram cube or derives Krist-All.
+**Status:** T060 records the coordinate-defined chain-map candidate into one square face of Q3; T061 records the explicit homotopy between its two path conventions. T062 proves an integral Kathara-to-Q6 chain map under an explicit integer-coordinate code, but its 2-cell map is zero on all ten source faces. It is an existence result for a degenerate chain map, not a cellular embedding, not RGS-equivariant, and not a canonical identification. Independent test execution remains pending. None of these records identifies Kathara with the full trigram cube or derives Krist-All.
 
 ## Curvilinear cubical de Rham benchmark
 
