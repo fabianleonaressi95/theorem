@@ -99,7 +99,9 @@ def solve_airy(n,kind,lam=1.0,mu=1.0,burgers=.02,core_width=.025,frank=.01,retur
     strain[:,:,2]=2*(1+nu)/young*stress[:,:,2]
     # Discrete weak residual on unconstrained degrees of freedom.
     weak=K@v.ravel()-rhs
-    weak_res=float(np.linalg.norm(weak)/max(np.linalg.norm(rhs),1e-30))
+    constrained=np.unique(C.indices)
+    free=np.setdiff1d(np.arange(n*n),constrained)
+    weak_res=float(np.linalg.norm(weak[free])/max(np.linalg.norm(rhs[free]),1e-30))
     # Check the source moments: wedge charge and Burgers first moment.
     xx=np.linspace(0,1,n); X,Y=np.meshgrid(xx,xx)
     if kind=="wedge_disclination":
