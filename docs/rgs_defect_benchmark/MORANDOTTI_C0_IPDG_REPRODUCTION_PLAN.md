@@ -256,6 +256,7 @@ The first DOLFINx 0.11.0 run completed successfully:
 | 0.22 | 196 | 17.74% | 22.66% | 22.13% | 0.1142% |
 | 0.14 | 400 | 12.74% | 16.22% | 16.43% | 0.1314% |
 | 0.09 | 920 | 6.70% | 8.12% | 9.29% | 0.1584% |
+| 0.06 | 2030 | 3.46% | 4.47% | 4.60% | 0.0881% |
 
 The core value traces are enforced to residuals (<1.4	imes10^{-16}). The core normal-derivative residuals decrease with refinement:
 - (kappa_0): 0.2465, 0.1574, 0.0670;
@@ -267,3 +268,10 @@ Both interaction matrices are symmetric to assembly precision and positive defin
 **Important unresolved signal:** the relative Hessian/Laplacian matrix discrepancy is small (0.11–0.16%) but is not monotone decreasing on these three meshes. The cell-field (H^2) errors and boundary normal residuals decrease, but the matrix identity has not yet passed a convergence gate. A finer (h=0.06) level has been added to the dedicated workflow to determine whether this is pre-asymptotic geometry/quadrature behavior or a formulation/assembly issue. Until that result is checked, do not claim convergence of (M_H-M_Delta).
 
 This is the first actual execution of the single-core P3 C0-IPDG port, not yet the full multi-core reconstruction algorithm of the paper. The multi-core matrix (mathcal M), reconstruction for arbitrary defect data, off-centre cores and singular-core limit remain open.
+
+
+### 15.1 Finer P3 level h=0.06
+
+The finer run is [CI 42661368865](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865), success, with artifact [13695060857](https://github.com/fabianleonaressi95/theorem/actions/runs/42661368865/artifacts/13695060857). It contains 2,030 cells. The relative Hessian/Laplacian matrix discrepancy drops to (8.8091\times10^{-4}) (0.0881%), while the relative H2 errors fall to 3.46%, 4.47% and 4.60% for (kappa_0,kappa_1,kappa_2). Core normal-derivative residuals are 0.0281, 0.0158 and 0.0163.
+
+The trend is now consistent with convergence after the pre-asymptotic coarse levels, but it is not sufficient to assert an asymptotic order. The next check is a finer (h) level plus the boundary identity residual computed from the discrete fields.
