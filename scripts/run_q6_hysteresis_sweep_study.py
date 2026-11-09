@@ -42,7 +42,8 @@ def compare_branches(sigmas, forward, backward):
     return result
 
 
-def run_study(seeds, dwell_steps, sigma_max, sigma_count, dt):
+def run_study(seeds, dwell_steps, sigma_max, sigma_count, dt,
+              omega0=2.0, omega1=2.0, tau0=1.0, tau1=1.0):
     K = build_q6_complex()
     sigmas = np.linspace(0.0, sigma_max, sigma_count)
     delta_sigma = float(sigmas[1]-sigmas[0])
@@ -57,6 +58,11 @@ def run_study(seeds, dwell_steps, sigma_max, sigma_count, dt):
             "sigma_count": int(sigma_count),
             "delta_sigma": delta_sigma,
             "dt": float(dt),
+            "frequency_distribution": {
+                "node_omega0": float(omega0), "node_tau0": float(tau0),
+                "link_omega1": float(omega1), "link_tau1": float(tau1),
+                "convention": "Normal(mean=Omega, standard_deviation=1/tau); node Omega0 removed by co-rotating frame; link mean retained",
+            },
             "effective_sweep_rate": {
                 str(n): delta_sigma/(n*dt) for n in dwell_steps
             },
@@ -84,11 +90,13 @@ def run_study(seeds, dwell_steps, sigma_max, sigma_count, dt):
             for seed in seeds:
                 forward, terminal = simulate_branch(
                     K, sigmas, model, seed=int(seed),
-                    steps_per_sigma=int(dwell), dt=dt, return_final=True
+                    steps_per_sigma=int(dwell), dt=dt, return_final=True,
+                    omega0=omega0, omega1=omega1, tau0=tau0, tau1=tau1
                 )
                 backward = simulate_branch(
                     K, sigmas[::-1], model, seed=int(seed),
-                    steps_per_sigma=int(dwell), dt=dt, initial=terminal
+                    steps_per_sigma=int(dwell), dt=dt, initial=terminal,
+                    omega0=omega0, omega1=omega1, tau0=tau0, tau1=tau1
                 )
                 metrics = compare_branches(sigmas, forward, backward)
                 run = {
@@ -172,15 +180,20 @@ def main():
     p.add_argument("--sigma-max",type=float,default=2.0)
     p.add_argument("--sigma-count",type=int,default=21)
     p.add_argument("--dt",type=float,default=.025)
+    p.add_argument("--omega0",type=float,default=2.0)
+    p.add_argument("--omega1",type=float,default=2.0)
+    p.add_argument("--tau0",type=float,default=1.0)
+    p.add_argument("--tau1",type=float,default=1.0)
     p.add_argument("--output",type=Path,default=Path("q6_hysteresis_sweep_study.json"))
     p.add_argument("--plot-prefix",default="q6_hysteresis_sweep")
     p.add_argument("--no-plots",action="store_true")
     a=p.parse_args()
     seeds=[int(x) for x in a.seeds.split(",") if x.strip()]
     dwells=sorted({int(x) for x in a.dwell_steps.split(",") if x.strip()})
-    if not seeds or not dwells or min(dwells)<1 or a.sigma_count<2 or a.sigma_max<=0 or a.dt<=0:
+    if not seeds or not dwells or min(dwells)<1 or a.sigma_count<2 or a.sigma_max<=0 or a.dt<=0 or a.tau0<=0 or a.tau1<=0:
         p.error("provide seeds, positive dwell steps, sigma-count >= 2, sigma-max > 0 and dt > 0")
-    report=run_study(seeds,dwells,a.sigma_max,a.sigma_count,a.dt)
+    report=run_study(seeds,dwells,a.sigma_max,a.sigma_count,a.dt,
+                     a.omega0,a.omega1,a.tau0,a.tau1)
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     if not a.no_plots:
