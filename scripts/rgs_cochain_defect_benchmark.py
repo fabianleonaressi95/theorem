@@ -66,7 +66,7 @@ def material(lam,mu):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12):
+def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_width=.025):
     h=1.0/(n-1)
     c=(np.arange(n-1)+0.5)*h
     X,Y=np.meshgrid(c,c)
@@ -74,6 +74,11 @@ def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12):
     bump=lambda x,y: np.exp(-((X-x)**2+(Y-y)**2)/(2*width**2))
     if kind=="single": out[:,:,2]=amplitude*bump(.5,.5)
     elif kind=="dipole": out[:,:,2]=amplitude*(bump(.35,.5)-bump(.65,.5))
+    elif kind=="volterra_edge":
+        # Regularized Volterra slip cut: beta^p = b (ex tensor ey) delta(y-y0) H(x-x0).
+        # Symmetric part has engineering shear gamma^p = b delta(y-y0) H(x-x0).
+        delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        out[:,:,2]=burgers*delta*(X>=.5)
     elif kind not in ("none","affine"): raise ValueError(kind)
     return out
 
@@ -90,10 +95,10 @@ def tri_strain_matrix(x):
         B[2,2*a+1]=gx[a]
     return B
 
-def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne'):
+def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne',burgers=.02,core_width=.025):
     xy,edges,faces,D0,D1=square_complex(n,diagonal)
     C=material(lam,mu)
-    epscell=eigenstrain_cell_centres(n,kind,amplitude,width)
+    epscell=eigenstrain_cell_centres(n,kind,amplitude,width,burgers,core_width)
     ndof=2*len(xy); rows=[]; cols=[]; vals=[]
     rhs=np.zeros(ndof,float); area_total=0.0
     for f,tri in enumerate(faces):
@@ -151,7 +156,7 @@ def run(out:Path,levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole"):
+        for case in ("affine","none","single","dipole","volterra_edge"):
             rows.append(solve_cochain(n,case))
     D0,D1=None,None
     _,_,_,D0,D1=square_complex(9)
@@ -163,18 +168,19 @@ def run(out:Path,levels=(9,17,33,65)):
     report={"title":"RGS edge-cochain elasticity comparator",
       "status":"cochain-based P1 simplicial comparator; not yet Q6/PRISM physical realization",
       "discrete_definition":"two displacement 0-cochains; oriented edge coboundary d0; trianglewise reconstruction of constant gradient; symmetric strain and isotropic elastic energy",
-      "source_scope":"smooth cellwise prescribed shear eigenstrain inclusions; not singular Volterra defects",
-      "limitations":["fixed diagonal triangulation may introduce directional bias",
+      "source_scope":"smooth inclusions plus a finite-width regularized Volterra slip-cut eigenstrain; not a singular continuum core",
+      "limitations":["triangulation orientation may introduce directional bias",
+        "regularized Volterra cut is not an atomistic core or singular Volterra solution",
         "no disclination connection or Airy-stress formulation",
         "no derived map from Q6/PRISM states to physical mesh",
         "empirical refinement is not a Mosco/Gamma convergence proof"],
       "B0":{"max_abs_d1d0":b0,"passed":b0==0},
       "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,
-        "domain":[0,1,0,1],"boundary":"homogeneous Dirichlet for source cases; manufactured affine trace for affine case"},
+        "domain":[0,1,0,1],"boundary":"homogeneous Dirichlet for source cases; manufactured affine trace for affine case","burgers_magnitude":0.02,"core_width":0.025},
       "levels":list(levels),"results":rows}
     (out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     with (out/"results.csv").open("w",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
+        w=csv.DictWriter(f,fieldnames=sorted({key for row in rows for key in row})); w.writeheader(); w.writerows(rows)
     return report
 
 def self_test():
@@ -184,7 +190,7 @@ def self_test():
     assert aff["affine_relative_error"]<1e-9,aff
     assert aff["relative_free_residual"]<1e-8,aff
     assert zero["energy"]<1e-20,zero
-    for kind in ("single","dipole"):
+    for kind in ("single","dipole","volterra_edge"):
         r=solve_cochain(9,kind)
         assert np.isfinite(r["energy"]) and r["energy"]>=0
         assert r["relative_free_residual"]<1e-8
