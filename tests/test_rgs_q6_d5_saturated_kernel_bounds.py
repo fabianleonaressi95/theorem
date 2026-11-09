@@ -46,6 +46,11 @@ def test_combined_audit_reports_proved_scope():
     assert report["all_checks_passed"], report["checks"]
     assert report["kernel"]["saturated"]
     assert report["kernel"]["rank"] == 124
+    split = report["unimodular_splitting"]
+    assert split["basis_shape"] == [129, 129]
+    assert split["quotient_complement_shape"] == [129, 5]
+    assert split["saturated_kernel_shape"] == [129, 124]
+    assert all(split["checks"].values())
 
 
 
