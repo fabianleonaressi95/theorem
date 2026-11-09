@@ -8,11 +8,13 @@ automatically divergence-free. This is a finite-difference reference, not
 the CIP-DG method of Cesana et al.
 """
 from __future__ import annotations
-import argparse, csv, json
+import argparse, csv, json, sys
 from pathlib import Path
 import numpy as np
 from scipy.sparse import coo_matrix, bmat, csr_matrix
 from scipy.sparse.linalg import spsolve
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 
 def material_constants(lam=1.0,mu=1.0):
     nu=lam/(2.0*(lam+mu))
