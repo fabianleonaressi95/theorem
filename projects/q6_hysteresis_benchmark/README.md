@@ -64,7 +64,7 @@ From repository root:
 
     python -m pytest -q tests/test_q6_topological_synchronization.py tests/test_hysteresis_metrics.py tests/test_constitutive_hysteresis.py tests/test_q6_hysteresis_sweep_study.py
     python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
-    python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160 --sigma-max 2 --sigma-count 21 --dt 0.025 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
+    python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
 
 ## Status
 
