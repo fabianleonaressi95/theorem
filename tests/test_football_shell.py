@@ -23,6 +23,9 @@ def test_shell_equilibrium_residual_and_stability():
  _,_,K,d=solve_discrete_shell(m,E1=1000,E2=1000,G12=1000/(2*1.25))
  assert d["linear_system_relative_residual_free_dofs"]<1e-10
  assert d["constrained_stiffness_min_eigenvalue"]>0 and d["physical_seam_count"]==90
+ assert d["discrete_metric"]["triangle_count"]==180
+ assert d["discrete_metric"]["principal_stretch_min"]>0
+ assert d["discrete_metric"]["green_lagrange_metric_strain_rms"]>0
  assert np.allclose(K,K.T,atol=1e-9)
 
 def test_orthotropy_and_seam_reinforcement_change_response():
