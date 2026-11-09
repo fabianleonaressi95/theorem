@@ -79,6 +79,8 @@ con differenze nulle sugli spigoli della fibra. Le mappe \(P_0,P_1,P_2\) sono co
 
 **Distinzione topologica non negoziabile:** i 240 quadrati del 2-scheletro dell'ipercubo Q6 si separano in 192 facce del prodotto \(C_4^3\) e 48 quadrati generati dai due bit appartenenti alla stessa coppia. La mappa materiale usa il sottocomplesso prodotto da 192 facce; non identifica automaticamente i 48 quadrati rimanenti con facce del materiale. Il conteggio 240 resta quello dell'audit Q6 completo, mentre il quoziente periodico usa la struttura prodotto. Questa distinzione è documentata e testata nel codice.
 
+Il workflow GitHub Actions [42655229679](https://github.com/fabianleonaressi95/theorem/actions/runs/42655229679) ha eseguito sei test dedicati e l'audit JSON: tutti i residui esatti di catena e di pullback sono zero. Il test e il report sono quindi riproducibili sul ramo della PR.
+
 Questa è una mappa cinematica esatta su una cella finita, non ancora la mappa verso la griglia FEM a trazione libera e non ancora una costruzione sul grafo PRISM completo \(C_{64}\square C_6^3\square C_5\). Il collegamento alla struttura PRISM completa richiede un ulteriore morfismo di complessi e una scelta motivata delle scale.
 
 ## 3. Primo benchmark: ciò che è stato fatto e ciò che manca
@@ -159,7 +161,7 @@ Si propone un incontro tecnico di 30–45 minuti con tre decisioni:
 2. concordare le condizioni al contorno e le quantità da confrontare;
 3. valutare se esiste un campione AM e un protocollo IAM realistico per una successiva verifica.
 
-Il deliverable successivo sarebbe un report riproducibile con codice, dati di input, test, curve di convergenza, confronto Airy/FEM/cochain e registro esplicito di risultati verificati, ipotesi e problemi aperti.
+Il primo fascicolo integrativo è stato preparato il 9 novembre 2026; entro il 18 novembre il deliverable successivo proposto è un report di confronto con codice, dati di input, test, curve di convergenza, confronto Airy/FEM/cochain e registro esplicito di risultati verificati, ipotesi e problemi aperti.
 
 ## Riferimenti
 
