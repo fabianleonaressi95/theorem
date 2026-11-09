@@ -156,3 +156,66 @@ It samples the three exact annular cell fields at the vertices and edge midpoint
 The CI report records the full matrices, relative Frobenius discrepancy, symmetry residuals, smallest eigenvalues, and observed refinement rates on four mesh levels.
 
 **Interpretation limit:** this is a (P_2) interpolation patch test on a polygonal annulus, not a variationally constrained (P_2) solve and not the paper's (P_3) C0-IPDG implementation. It tests whether the matrix identity is recovered under polynomial interpolation/refinement; it does not establish equivalence of the published discrete bilinear forms. The actual C0-IPDG reproduction remains a separate task.
+
+
+## 10. P2 annular matrix-identity results — CI run #97
+
+The corrected full regression completed successfully:
+- Workflow run: https://github.com/fabianleonaressi95/theorem/actions/runs/42659504594
+- Run number: 97
+- Tested commit: `98e2b3949d52f18290e65ddaaf4e7b5daf298356`
+- All workflow steps passed, including the P2 matrix audit and the periodic Q6/FEM/Airy comparison.
+- Artifact: `rgs-cochain-defect-report`, artifact ID `13693762589`.
+
+The P2 annular interpolation audit produced the following relative Frobenius discrepancies:
+| radial × angular cells | triangles | \\(\\|M_H-M_\\Delta\\|_F/\\|M_H\\|_F\\) |
+|---:|---:|---:|
+| 4 × 16 | 128 | 5.5539998 × 10⁻² |
+| 8 × 32 | 512 | 1.3881021 × 10⁻² |
+| 16 × 64 | 2,048 | 3.4584608 × 10⁻³ |
+| 32 × 128 | 8,192 | 8.6316931 × 10⁻⁴ |
+
+Observed halving rates: 2.0004, 2.0049, 2.0024. Both matrices are symmetric to assembly precision and have positive smallest eigenvalues in all reported cases.
+
+**Interpretation:** the discrete matrix discrepancy decreases by approximately a factor of four per mesh halving in this (P_2) interpolation experiment. This is evidence that the continuum identity is recovered under this particular interpolation/refinement procedure. It is not evidence that the published P3 C0-IPDG bilinear form has been independently reproduced, nor does it prove a general convergence rate for the method. The nonzero coarse-grid discrepancy is important and is retained rather than hidden.
+
+## 11. Exact published C0-IPDG operator to be ported
+
+The source-level formula in `scripts/models/__init__.py` is now transcribed explicitly. With (H(u)=D^2u), (h) the cell diameter, (n) the facet normal, and (alpha=10), the symmetric form is
+
+[
+\begin{aligned}
+a_h(u,v)={}&\sum_{T}\int_T H(u):H(v)\,dx\\
+&-\sum_{F\in\mathcal F_h^i}\int_F
+\left(\llbracket\nabla u\rrbracket_n\,\{H(v)_{nn}\}
++\llbracket\nabla v\rrbracket_n\,\{H(u)_{nn}\}\right)ds\\
+&-\sum_{F\in\mathcal F_h^b}\int_F
+\left(\partial_nu\,H(v)_{nn}
++\partial_nv\,H(u)_{nn}\right)ds\\
+&+\sum_{F\in\mathcal F_h^i}\int_F
+\frac{\alpha}{\{h\}}\llbracket\nabla u\rrbracket_n
+\llbracket\nabla v\rrbracket_n\,ds
++\sum_{F\in\mathcal F_h^b}\int_F
+\frac{\alpha}{h}\partial_nu\,\partial_nv\,ds.
+\end{aligned}
+]
+
+For the active core, the Nitsche load is
+[
+\ell_h(v)=-\int_{\Gamma_i}g_N H(v)_{nn}\,ds
++\int_{\Gamma_i}\frac{\alpha}{h}g_N\partial_nv\,ds,
+]
+with (g_N=0,n_1,n_2) for the (\kappa_0,\kappa_1,\kappa_2) problems, respectively. The value traces are imposed strongly; outer and inactive-core value and normal-derivative data are zero. This is the operator to match, not a generic biharmonic penalty form.
+
+**Implementation caution:** the published script uses `jump(grad(u), n)` and `avg(dot(dot(hessian(v), n), n))`; the port must preserve UFL's scalar normal-jump convention and the same boundary-facet treatment. Any refactoring into alternative jump notation must be checked against the source expression and tested on a two-cell patch.
+
+## 12. Next reproduction gate
+
+The next deliverable is a DOLFINx/Gmsh/PETSc execution environment for the single-core annulus, polynomial degree 3, (alpha=10), followed by:
+1. all three cell fields;
+2. the full (3\times3) Hessian and Laplacian matrices assembled from the same discrete fields;
+3. boundary normal-derivative residuals;
+4. matrix symmetry, smallest eigenvalue and condition number;
+5. mesh refinement and comparison against the radial continuum cell fields.
+
+This gate is deliberately separate from the lightweight NumPy/SciPy CI. Until the DOLFINx environment executes the driver, the P3 C0-IPDG solver remains **specified from source but not independently reproduced**.
