@@ -1,7 +1,7 @@
 """Tests for the edge-cochain elasticity comparator."""
 import unittest
 import numpy as np
-from scripts.rgs_cochain_defect_benchmark import square_complex, solve_cochain
+from scripts.rgs_cochain_defect_benchmark import square_complex, solve_cochain, measure_volterra_burgers
 
 class CochainDefectTests(unittest.TestCase):
     def test_boundary_of_boundary(self):
@@ -26,6 +26,17 @@ class CochainDefectTests(unittest.TestCase):
 
     def test_zero_source(self):
         self.assertLess(solve_cochain(9,"none")["energy"],1e-20)
+
+    def test_regularized_volterra_burgers_integral(self):
+        measured=measure_volterra_burgers(n=129,burgers=.02,core_width=.025)
+        self.assertAlmostEqual(measured,.02,delta=2e-4)
+
+    def test_volterra_solution_on_both_diagonals(self):
+        for diagonal in ("sw_ne","se_nw"):
+            result=solve_cochain(17,"volterra_edge",diagonal=diagonal)
+            self.assertTrue(np.isfinite(result["energy"]))
+            self.assertGreaterEqual(result["energy"],0.0)
+            self.assertLess(result["relative_free_residual"],1e-8)
 
     def test_single_and_dipole(self):
         for kind in ("single","dipole"):
