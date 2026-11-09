@@ -105,7 +105,8 @@ def solve_level(h: float, R: float=1.0, a: float=0.2, alpha: float=10.0):
     results=[]; fields=[]
     for mode in range(3):
         if mode==0:
-            gD=fem.Constant(mesh,PETSc.ScalarType(1.0))
+            gD=fem.Function(V)
+            gD.interpolate(lambda X: np.ones(X.shape[1],dtype=PETSc.ScalarType))
             gN=ufl.as_ufl(0.0)
         elif mode==1:
             gD=fem.Function(V); gD.interpolate(lambda X:X[0])
