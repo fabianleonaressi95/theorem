@@ -71,6 +71,10 @@ From repository root:
     python scripts/run_q6_hysteresis_benchmark.py --output /tmp/q6-hysteresis.json
     python scripts/run_q6_hysteresis_sweep_study.py --seeds 11,23,37,51,67 --dwell-steps 10,40,160,640 --sigma-max 2 --sigma-count 21 --dt 0.025 --omega0 2 --omega1 2 --tau0 1 --tau1 1 --output results/q6_hysteresis_sweep_study.json --plot-prefix results/q6_hysteresis_sweep
 
+## Latest corrected production results
+
+See [corrected five-seed, four-rate results and interpretation](RESULTS_2026-11-09.md). The production workflow artifact contains the full JSON branches and NL/NLT plots. The earlier sweep performed before the frequency-stream audit is superseded and must not be cited.
+
 ## Status
 
 - Exact finite incidence identity and Anti-Twin chain identities: implemented
