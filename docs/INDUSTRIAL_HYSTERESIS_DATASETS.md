@@ -46,8 +46,8 @@ This registry separates (i) measured actuator data, (ii) measured magnetic mater
 
 - **Correct primary dataset DOI:** https://doi.org/10.5281/zenodo.5910892
 - HEFMAG's official project site explicitly lists `Hysteresis Loops Dataset: DOI: 10.5281/zenodo.5910892`.
-- This is the primary HEFMAG dataset to retrieve and inspect for the Jiles–Atherton validation. Do not substitute the sample record below.
-- Before fitting: verify the record metadata, version, downloadable files, checksums, licence, units, frequency, temperature, specimen geometry and loop segmentation. No checksum or licence is asserted here until the primary record itself is inspected.
+- The official HEFMAG project page lists this DOI as its `Hysteresis Loops Dataset` (page section WP1). This verifies the project-to-DOI association, but **does not verify the Zenodo record's current metadata or contents**.
+- Retrieval checkpoint (2026-11-09): the official project page is readable and explicitly names DOI `10.5281/zenodo.5910892`; however, the Zenodo record/API and DOI landing page could not be retrieved in this execution environment. Consequently the version, files, checksums, licence, units, frequency, temperature, specimen geometry and loop segmentation remain **unverified**. No fitting or experimental-validation claim is made. Do not treat the separate 5910893 sample archive as a substitute for the primary record.
 
 ### EMPIR HEFMAG NO/GO steel-sheet sample loops (separate record)
 
