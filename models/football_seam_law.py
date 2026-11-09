@@ -58,14 +58,15 @@ def quaternion_relative_rotation(q_minus, q_plus, edge_tangent):
     qm = qm / np.linalg.norm(qm)
     qp = qp / np.linalg.norm(qp)
     t = t / np.linalg.norm(t)
-    # q_rel = conjugate(q_minus) * q_plus
+    # q_rel = q_plus * conjugate(q_minus), expressed in ambient coordinates
     w1, x1, y1, z1 = qm
     w2, x2, y2, z2 = qp
+    # Hamilton product qp * conjugate(qm).
     qrel = np.array([
-        w1*w2 + x1*x2 + y1*y2 + z1*z2,
-        w1*x2 - x1*w2 - y1*z2 + z1*y2,
-        w1*y2 + x1*z2 - y1*w2 - z1*x2,
-        w1*z2 - x1*y2 + y1*x2 - z1*w2,
+        w2*w1 + x2*x1 + y2*y1 + z2*z1,
+        -w2*x1 + x2*w1 - y2*z1 + z2*y1,
+        -w2*y1 + x2*z1 + y2*w1 - z2*x1,
+        -w2*z1 - x2*y1 + y2*x1 + z2*w1,
     ])
     qrel /= np.linalg.norm(qrel)
     # Choose the principal representative; q and -q encode the same SO(3) rotation.
@@ -90,3 +91,40 @@ def seam_tangent_matrix(tangent_stiffness, dihedral_gradient):
     """Material part of the consistent tangent: k * grad(theta) grad(theta)^T."""
     g = np.asarray(dihedral_gradient, dtype=float).reshape(-1)
     return float(tangent_stiffness) * np.outer(g, g)
+
+
+
+def seam_equilibrium_residual(force_jump, moment_jump, seam_traction=None, seam_couple=None):
+    """Interface force/couple balance under an explicit sign convention.
+
+    Residuals are [[Q_n]] + t_Gamma and [[M_n]] + m_Gamma.
+    Here t_Gamma is force per unit length and m_Gamma is couple per unit length.
+    """
+    q = np.asarray(force_jump, dtype=float).reshape(-1)
+    m = np.asarray(moment_jump, dtype=float).reshape(-1)
+    t = np.zeros_like(q) if seam_traction is None else np.asarray(seam_traction, dtype=float).reshape(-1)
+    c = np.zeros_like(m) if seam_couple is None else np.asarray(seam_couple, dtype=float).reshape(-1)
+    if t.shape != q.shape or c.shape != m.shape:
+        raise ValueError("interface resultants must have the same dimensions as their jumps")
+    return {"force_balance_residual": q + t, "moment_balance_residual": m + c}
+
+
+def seam_gradient_energy(theta, theta0, gradient_stiffness, length):
+    """Optional longitudinal regularisation: 1/2 integral k_s |d_s(theta-theta0)|^2 ds.
+
+    For constant edgewise gradient this returns energy and the natural endpoint
+    couples. The continuum Euler-Lagrange contribution is -d_s(k_s d_s eta).
+    """
+    if gradient_stiffness < 0 or length <= 0:
+        raise ValueError("gradient_stiffness must be nonnegative and length positive")
+    eta = np.asarray(theta, dtype=float) - np.asarray(theta0, dtype=float)
+    if eta.ndim != 1 or eta.size < 2:
+        raise ValueError("theta and theta0 must be one-dimensional nodal arrays of size >= 2")
+    ds = float(length) / (eta.size - 1)
+    slope = np.diff(eta) / ds
+    energy = 0.5 * float(gradient_stiffness) * float(np.sum(slope**2) * ds)
+    flux = float(gradient_stiffness) * slope
+    return {"energy": energy, "segment_gradient": slope, "moment_flux": flux,
+            "interior_variation": -np.diff(flux) / ds,
+            "left_natural_couple": -float(flux[0]),
+            "right_natural_couple": float(flux[-1])}
