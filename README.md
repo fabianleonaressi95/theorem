@@ -104,6 +104,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T056](theorems/T056-phase21-trigram-supergolden-permutation-conjugacy.md) | Phase 21–trigram supergolden matrix conjugacy | Exact permutation similarity of the two 3-state transfer matrices; same polynomial and Perron root, but no geometric cell intertwiner is established. |
 | [T057](theorems/T057-kathara-square-similarity-center-overlay.md) | Kathara square similarity and center-overlay relation | Exact 45° clockwise / √2 map, two-stage 90° / ×2 relation, and center 6–9–12 overlay coordinates under the stated 2:1 geometry. |
 | [T058](theorems/T058-kathara-15-line-planar-face-audit.md) | Kathara 12-center / 15-line planar face audit | Conditional exact graph theorem: 12 vertices, 21 elementary edges, 10 bounded faces, connected planar embedding and Euler characteristic 2. |
+| [T059](theorems/T059-kathara-cellular-chain-hodge-audit.md) | Kathara cellular chain complex and Hodge operators | Exact integer incidence construction conditional on filling the 10 bounded faces: B1B2=0, ranks (11,10), Betti numbers (1,0,0), Euler characteristic 1; no Krist-All or Q3/Q6 identification claimed. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
