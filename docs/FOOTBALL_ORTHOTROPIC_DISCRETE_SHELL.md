@@ -106,3 +106,5 @@ Per una superficie radiale continua \(X=(R+u(\theta,\phi))\mathbf n\), la metric
 g'_{ab}=(R+u)^2\gamma_{ab}+\partial_a u\,\partial_bu.
 \]
 Nel guscio triangolato, ogni elemento calcola la mappa tangente discreta \(F\), il tensore \(C=F^TF\) e la deformazione di Green–Lagrange \(E_{GL}=(C-I)/2\). Il JSON riporta RMS della deformazione metrica e intervallo degli allungamenti principali. È quindi presente un collegamento numerico esplicito fra trasformazione radiale, metrica superficiale e risposta elastica; non viene ancora ricostruito un campo continuo di curvatura gaussiana.
+
+ICP is a local rigid registration method: it assumes scan and model have already been brought into approximately the same orientation and does not estimate scale. The synthetic test uses a small initial rotation and a translation. For arbitrary scanner poses, supply a coarse pre-alignment or fiducial orientation before ICP; report the alignment protocol with the scan.
