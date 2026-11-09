@@ -2,7 +2,7 @@ name: Q6 topological hysteresis benchmark
 
 on:
   push:
-    branches: [main]
+    branches: ['**']
     paths:
       - "models/q6_topological_synchronization.py"
       - "models/hysteresis_metrics.py"
