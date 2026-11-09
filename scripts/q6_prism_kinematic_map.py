@@ -280,7 +280,9 @@ def audit() -> dict:
         },
         "sample":{"lifted_displacement_shape":list(lifted.shape),
                   "edge_cochain_shape":list(edge_q6.shape),
-                  "elastic_energy_lam1_mu1":elastic_energy(z),\n                  "energy_quadrature":"periodic Q1 bilinear, full 2x2 Gauss",\n                  "checkerboard_mode_energy":elastic_energy(np.array([[(-1.0)**x,0.0] for y in range(4) for x in range(4)]))}
+                  "elastic_energy_lam1_mu1":elastic_energy(z),
+                  "energy_quadrature":"periodic Q1 bilinear, full 2x2 Gauss",
+                  "checkerboard_mode_energy":elastic_energy(np.array([[(-1.0)**x,0.0] for y in range(4) for x in range(4)]))}
     }
 
 
