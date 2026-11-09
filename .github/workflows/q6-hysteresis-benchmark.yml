@@ -9,6 +9,8 @@ on:
       - "scripts/run_q6_hysteresis_benchmark.py"
       - "tests/test_q6_topological_synchronization.py"
       - "tests/test_hysteresis_metrics.py"
+      - "models/constitutive_hysteresis.py"
+      - "tests/test_constitutive_hysteresis.py"
       - "projects/q6_hysteresis_benchmark/**"
       - ".github/workflows/q6-hysteresis-benchmark.yml"
   pull_request:
