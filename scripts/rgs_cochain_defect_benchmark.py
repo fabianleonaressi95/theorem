@@ -114,7 +114,7 @@ def tri_strain_matrix(x):
         B[2,2*a+1]=gx[a]
     return B
 
-def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne',burgers=.02,core_width=.025):
+def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne',burgers=.02,core_width=.025,return_fields=False):
     xy,edges,faces,D0,D1=square_complex(n,diagonal)
     C=material(lam,mu)
     epscell=eigenstrain_cell_centres(n,kind,amplitude,width,burgers,core_width)
@@ -136,10 +136,16 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne'
         rhs[dofs]+=fe
         area_total+=area
     K=coo_matrix((vals,(rows,cols)),shape=(ndof,ndof)).tocsr()
-    boundary=[]
-    for k,(x,y) in enumerate(xy):
-        if min(x,y,1-x,1-y)<1e-12: boundary.extend((2*k,2*k+1))
-    fixed=np.array(boundary,dtype=int)
+    if kind=="affine":
+        boundary=[]
+        for k,(x,y) in enumerate(xy):
+            if min(x,y,1-x,1-y)<1e-12: boundary.extend((2*k,2*k+1))
+        fixed=np.array(boundary,dtype=int)
+        boundary_type="manufactured_dirichlet"
+    else:
+        # Natural zero-traction boundary; remove translations and rotation.
+        fixed=np.array([0,1,3],dtype=int)
+        boundary_type="traction_free_rigid_gauge"
     free=np.setdiff1d(np.arange(ndof),fixed)
     u=np.zeros(ndof,float)
     if kind=="affine":
@@ -165,11 +171,24 @@ def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne'
         a,b,c,d=.01,-.004,.003,.008
         exact=np.array([v for x,y in xy for v in (a*x+b*y,c*x+d*y)])
         affine_error=float(np.linalg.norm(u-exact)/max(np.linalg.norm(exact),1e-30))
-    return {"n":n,"h":1/(n-1),"case":kind,"energy":float(energy),
+    result={"n":n,"h":1/(n-1),"case":kind,"energy":float(energy),
             "relative_free_residual":relres,"affine_relative_error":affine_error,
             "dof_total":ndof,"dof_free":int(len(free)),
             "vertices":int(len(xy)),"edges":int(len(edges)),"triangles":int(len(faces)),
-            "domain_area":area_total,"diagonal":diagonal}
+            "domain_area":area_total,"diagonal":diagonal,"boundary_type":boundary_type}
+    if return_fields:
+        strain_cells=np.zeros((n-1,n-1,3),float); stress_cells=np.zeros_like(strain_cells)
+        for f,tri in enumerate(faces):
+            pts=xy[list(tri)]; B=tri_strain_matrix(pts)
+            cell=f//2; j=cell//(n-1); i=cell%(n-1)
+            dofs=np.array([d for a in tri for d in (2*a,2*a+1)],int)
+            e=B@u[dofs]-epscell[j,i]
+            strain_cells[j,i]+=0.5*e
+            stress_cells[j,i]+=0.5*(C@e)
+        result["strain_cells"]=strain_cells
+        result["stress_cells"]=stress_cells
+        result["displacement_nodes"]=u.reshape(n,n,2)
+    return result
 
 def run(out:Path,levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
