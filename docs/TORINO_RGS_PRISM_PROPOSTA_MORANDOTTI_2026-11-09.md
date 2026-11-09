@@ -210,3 +210,12 @@ La regressione [run #69](https://github.com/fabianleonaressi95/theorem/actions/r
 A n=129 per il wedge dipole, la differenza energetica Q1/cochain è ancora 12,12%; la differenza Q1/Airy è 7,28% e cochain/Airy 18,52%. Non si dichiara quindi validazione energetica.
 
 È stato preparato il piano per riprodurre direttamente il metodo pubblicato nel 2026: [MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md](rgs_defect_benchmark/MORANDOTTI_C0_IPDG_REPRODUCTION_PLAN.md). Il metodo usa 3N problemi locali Airy in P3 C0-IPDG su domini perforati, una matrice finita di ricostruzione e parametri di core espliciti. Il nostro Airy a differenze finite resta un riferimento indipendente, non l'implementazione CIP-DG del gruppo.
+
+
+### Confronto periodico Q6–FEM–Airy
+
+È stato completato anche un audit separato per le condizioni periodiche, evitando di confrontare direttamente il quoziente toroidale Q6 con il benchmark a trazione libera. Sul toro ([0,4]^2), la cella Q6 (C_4\times C_4) è stata confrontata con Q1 FEM periodico e Airy spettrale di Fourier, per inclusione shear e dipolo shear lisci.
+
+L'energia del campo Q1 periodico (4\times4), dopo il pullback sulla fibra Q6, coincide con l'energia FEM entro (1,5\times10^{-16}); il residuo cinematico di pullback è zero. Raffinando il FEM periodico da (n=4) a (n=32), lo scarto energetico rispetto ad Airy scende dal 2,127% allo 0,0254% per l'inclusione e dal 13,301% allo 0,0947% per il dipolo. Gli errori di stress a (n=32) sono rispettivamente 0,178% e 0,286%.
+
+CI: [run 42657756957](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957); artifact [JSON/CSV](https://github.com/fabianleonaressi95/theorem/actions/runs/42657756957/artifacts/13693605625). Il confronto usa sorgenti periodiche lisce: non dimostra ancora il trasferimento di difetti singolari o disclinazioni sulla fibra Q6, né il morfismo verso la mesh fisica o la convergenza Mosco/Γ.
