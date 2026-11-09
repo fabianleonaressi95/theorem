@@ -66,7 +66,7 @@ def material(lam,mu):
                      [lam,lam+2*mu,0.0],
                      [0.0,0.0,mu]],float)
 
-def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_width=.025,frank=.01):
+def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_width=.025,frank=.01,dipole_separation=.1):
     h=1.0/(n-1)
     c=(np.arange(n-1)+0.5)*h
     X,Y=np.meshgrid(c,c)
@@ -83,6 +83,10 @@ def eigenstrain_cell_centres(n,kind,amplitude=0.02,width=0.12,burgers=.02,core_w
         # Rotational jump [u]=Omega J(x-x0)ex = Omega(x-x0)ey along the cut.
         delta=np.exp(-.5*((Y-.5)/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
         out[:,:,1]=frank*(X-.5)*delta*(X>=.5)
+    elif kind=="wedge_dipole":
+        dp=np.exp(-.5*((Y-(.5+dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        dm=np.exp(-.5*((Y-(.5-dipole_separation/2))/core_width)**2)/(np.sqrt(2*np.pi)*core_width)
+        out[:,:,1]=(burgers/dipole_separation)*(X-.5)*(X>=.5)*(dp-dm)
     elif kind not in ("none","affine"): raise ValueError(kind)
     return out
 
@@ -114,10 +118,10 @@ def tri_strain_matrix(x):
         B[2,2*a+1]=gx[a]
     return B
 
-def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne',burgers=.02,core_width=.025,return_fields=False):
+def solve_cochain(n,kind,lam=1.0,mu=1.0,amplitude=.02,width=.12,diagonal='sw_ne',burgers=.02,core_width=.025,return_fields=False,dipole_separation=.1):
     xy,edges,faces,D0,D1=square_complex(n,diagonal)
     C=material(lam,mu)
-    epscell=eigenstrain_cell_centres(n,kind,amplitude,width,burgers,core_width)
+    epscell=eigenstrain_cell_centres(n,kind,amplitude,width,burgers,core_width,dipole_separation=dipole_separation)
     ndof=2*len(xy); rows=[]; cols=[]; vals=[]
     rhs=np.zeros(ndof,float); area_total=0.0
     for f,tri in enumerate(faces):
@@ -194,7 +198,7 @@ def run(out:Path,levels=(9,17,33,65)):
     out.mkdir(parents=True,exist_ok=True)
     rows=[]
     for n in levels:
-        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination"):
+        for case in ("affine","none","single","dipole","volterra_edge","wedge_disclination","wedge_dipole"):
             rows.append(solve_cochain(n,case))
     D0,D1=None,None
     _,_,_,D0,D1=square_complex(9)
