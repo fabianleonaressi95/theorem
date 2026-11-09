@@ -8,7 +8,7 @@
 - Trigger: push to `main`
 - Result: **success**, job `smoke`, duration approximately 43 seconds.
 
-The same workflow also completed successfully for PR #106 (run #91), PR #105 (run #89), commit #90, PR #104 (run #87), commit #88, PR #104 open event (run #87), and commit #86. The current record lists the seven user-supplied run IDs without interpreting repeated PR/push runs as independent mathematical proofs.
+The same workflow also completed successfully for: run #91 (PR #106), run #90 (commit 463ac92), run #89 (PR #105), run #88 (commit 62c174c), run #87 (PR #104), and run #86 (commit 4c802ae). These are repeated CI executions of the same configured benchmark, not independent mathematical proofs.
 
 ## Checks executed by run #92
 
