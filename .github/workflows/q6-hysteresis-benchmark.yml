@@ -1,5 +1,9 @@
 name: Q6 topological hysteresis benchmark
 
+concurrency:
+  group: q6-hysteresis-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: ['**']
