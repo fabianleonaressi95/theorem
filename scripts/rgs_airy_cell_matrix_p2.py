@@ -119,7 +119,7 @@ def main():
     result=run(); payload=json.dumps(result,indent=2)
     if args.out:
         path=Path(args.out); path.parent.mkdir(parents=True,exist_ok=True)
-        path.write_text(payload+"\\n")
+        path.write_text(payload+"\n")
     print(payload)
 
 
