@@ -1,7 +1,7 @@
 """Tests for scripts/rgs_defect_benchmark.py."""
 import unittest
 import numpy as np
-from scripts.rgs_defect_benchmark import incidence_square, solve_case, measure_volterra_burgers
+from scripts.rgs_defect_benchmark import incidence_square, solve_case, measure_volterra_burgers, measure_wedge_frank
 
 class DefectBenchmarkTests(unittest.TestCase):
     def test_boundary_of_boundary_is_zero(self):
@@ -23,6 +23,16 @@ class DefectBenchmarkTests(unittest.TestCase):
 
     def test_volterra_solution_is_finite(self):
         result=solve_case(33,"volterra_edge")
+        self.assertTrue(np.isfinite(result["energy"]))
+        self.assertGreaterEqual(result["energy"],0.0)
+        self.assertLess(result["relative_free_residual"],1e-8)
+
+    def test_regularized_wedge_frank_angle(self):
+        measured=measure_wedge_frank(n=129,frank=0.01,core_width=0.025)
+        self.assertAlmostEqual(measured,0.01,delta=2e-4)
+
+    def test_wedge_disclination_solution_is_finite(self):
+        result=solve_case(33,"wedge_disclination")
         self.assertTrue(np.isfinite(result["energy"]))
         self.assertGreaterEqual(result["energy"],0.0)
         self.assertLess(result["relative_free_residual"],1e-8)
