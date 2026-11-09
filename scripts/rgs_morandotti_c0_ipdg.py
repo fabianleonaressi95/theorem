@@ -15,7 +15,7 @@ import gmsh
 import ufl
 from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
-from dolfinx.io import gmshio
+from dolfinx.io import gmsh as gmshio
 
 
 def radial_coefficients(a: float, R: float, mode: int) -> np.ndarray:
