@@ -108,3 +108,41 @@ python -m unittest discover -s tests -p 'test_q6_prism_kinematic_map.py' -v
 ```
 
 Il workflow della PR #119 esegue entrambi i comandi e conserva il JSON dell'audit come artifact.
+
+
+## 6. Confronto periodico allineato Q6–Q1–P1–Airy
+
+È stato aggiunto scripts/rgs_periodic_q6_fem_airy.py con quattro livelli di confronto sul medesimo toro fisico \([0,4]^2\):
+
+1. **Q6 quotient:** cella \(C_4\square C_4\), 16 nodi, fibra interna di cardinalità 4;
+2. **Q1 FEM:** quadrilateri bilineari periodici, quadratura completa di Gauss \(2\times2\);
+3. **P1 cochain:** triangolazione periodica degli stessi nodi e delle stesse celle, gradiente costante per triangolo, due orientazioni della diagonale;
+4. **Airy spettrale:** soluzione di Fourier del problema biharmonico periodico, con il modo medio di tensione ripristinato.
+
+Per tutti e quattro si usano lo stesso tensore isotropo \((\lambda,\mu)=(1,1)\), la stessa sorgente di eigenstrain shear periodica campionata al centro delle celle e le stesse condizioni periodiche. Le due sorgenti sono un'inclusione shear e un dipolo shear. Sono sorgenti lisce di test: non sono nuclei singolari di Volterra e non costituiscono una calibrazione materiale.
+
+La diagonale P1 è una differenza derivata tra due vertici già esistenti: non introduce gradi di libertà nodali ulteriori e non viene dichiarata un nuovo spigolo del grafo Q6. Il pullback dei gradi di libertà nodali dal quoziente a Q6 è invece verificato sulle 192 cochain di spigolo con residuo esatto nullo.
+
+### Risultati registrati dal report
+
+Il report JSON/CSV registra, per ogni livello \(n=4,8,16,32\):
+- energia Q1, P1 e Airy;
+- differenze relative di energia Q1–Airy, P1–Airy e Q1–P1;
+- errori relativi \(L^2\) di stress e strain rispetto ad Airy;
+- residui dei sistemi Q1/P1 e della compatibilità spettrale Airy;
+- sensibilità energetica alle due diagonali P1;
+- per \(n=4\), uguaglianza dell'energia dopo il lift Q6 e residuo del pullback delle cochain.
+
+**Lettura corretta:** il confronto \(n=4\) è l'unico livello che coincide con il quoziente Q6 finito. I livelli \(n=8,16,32\) sono raffinamenti della famiglia di celle periodiche Q1/P1; non sono grafi Q6 più grandi e non dimostrano da soli un limite continuo del grafo PRISM.
+
+La convergenza numerica Q1/P1 verso Airy è un controllo di consistenza per le sorgenti lisce e per la geometria periodica. Non prova l'equivalenza energetica singolare dipolo-dislocazione del teorema Cesana–De Luca–Morandotti, né sostituisce la riproduzione del metodo C0-IPDG del preprint 2026.
+
+### CI
+
+Il workflow RGS defect benchmark esegue:
+- regressione del benchmark traction-free Q1/cochain/Airy;
+- audit esatto del quoziente Q6;
+- confronto periodico Q6/Q1/P1/Airy;
+- generazione dei report JSON e CSV nell'artifact rgs-cochain-defect-report.
+
+I numeri da citare nel dossier sono quelli del report dell'ultimo run completato sul commit che contiene sia lo script sia i test P1; non usare artifact di run precedenti alla modifica.
