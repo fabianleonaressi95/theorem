@@ -18,9 +18,9 @@ class PeriodicQ6FEMAiryTests(unittest.TestCase):
         r=compare(levels=(4,8,16))
         for kind in ("shear_inclusion","shear_dipole"):
             rows=[x for x in r["results"] if x["case"]==kind]
-            self.assertLess(rows[-1]["relative_energy_difference"],rows[0]["relative_energy_difference"])
-            self.assertLess(rows[-1]["stress_relative_l2"],rows[0]["stress_relative_l2"])
-            self.assertLess(rows[-1]["strain_relative_l2"],rows[0]["strain_relative_l2"])
+            self.assertLess(rows[-1]["q1_airy_relative_energy_difference"],rows[0]["q1_airy_relative_energy_difference"])
+            self.assertLess(rows[-1]["q1_stress_relative_l2"],rows[0]["q1_stress_relative_l2"])
+            self.assertLess(rows[-1]["q1_strain_relative_l2"],rows[0]["q1_strain_relative_l2"])
 
     def test_periodic_solver_residuals_and_mean_stress(self):
         q=periodic_q1_solve(8,"shear_inclusion")
