@@ -43,10 +43,15 @@ The recovered construction script explicitly separates the original 64x3 geometr
 
 The same data do **not** show that the unprojected geometry map lies in the K0 kernel: `||P_G A-A||_F = 6.53706`, and principal-angle cosines range from 0.00265018 to 0.93108124. The projected polar extension maps into the kernel, but its K0 commutator is a consequence of its construction. Raw commutators `[R_geo_tangent,P_G]` and `[R_geo_tangent,K0]` are conditional diagnostics only, because the archive does not establish that these matrices use the same tangent-coordinate basis.
 
-The original `X_Oh_reconstructed.npy` (64x3) is referenced by source and historical logs, but is not present in the recovered binary bundle or the currently materialized Library files. The PDFs contain code and references to the saved coordinate file, not the coordinate array itself. No coordinates have been fabricated.
+The original `X_Oh_reconstructed.npy` has now been located in the user's Library and materialized at `/mnt/data/files/X_Oh_reconstructed.npy` (Library file ID `file_000000005bcc81f4bea800dd7f5e1fe8`; 1,664 bytes). This changes the recovery status from **missing** to **recovered, pending numerical inspection**. Its shape, dtype, finite-value check, SHA-256, centroid, second moment, radial range, antipodal pairing and provenance have not yet been independently audited in the current execution. The exact geometric reconstruction script has not yet been rerun against this file. Therefore the previously archived NPZ results remain results from the archived matrix package; they must not yet be attributed to a fresh run from the recovered coordinate array. No numerical properties of the newly found file are asserted here.
 
 ## Krist-All
 
 The recovered archive `PRISM_KristAll_recovered_sources.zip` includes a 64-state/69,120-state manuscript source and bibliography, figure source files, a recovered supplementary Python-notes artifact with a distinct cube–octahedron 14-site model and historical diagnostics, and supplementary PDFs.
 
 The recovered material does not include a deterministic enumerator, full canonical representative table, or formal equivalence relation for the reported 11,725 Krist-All classes. Nor does it provide a complete independent derivation of the reported `W0` residual and `K^3=K^2+I`. These remain unverified. The 14-site cube–octahedron notes are a separate finite model and must not be conflated with the 11,725-class PRISM/Krist-All enumeration.
+
+
+## Recovery status update — original 64-site coordinates located
+
+On 2026-11-09, the Library search located `X_Oh_reconstructed.npy` (Library file ID `file_000000005bcc81f4bea800dd7f5e1fe8`; 1,664 bytes), and the file was materialized at `/mnt/data/files/X_Oh_reconstructed.npy`. This is a genuine recovery milestone: the original coordinate artifact is no longer classified as missing. The binary has not yet been opened or hashed, and the recovered geometric intertwiner script has not yet been rerun with it and the `K0.npy`/`P_G.npy` matrices from `188D_FINAL_BUNDLE.zip`. Consequently, shape/content checks, geometric invariants, exact antipodal matching, regenerated matrices and comparisons against `actual_original_X_report_matrices.npz` remain **pending**. The earlier numerical conclusions in this manifest remain tied to the archived NPZ only.
