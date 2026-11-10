@@ -143,6 +143,32 @@ def _discrete_metric_diagnostics(reference_nodes,deformed_nodes,triangles):
     }
 
 
+
+def _assemble_physical_seam_axial_stiffness(nodes, physical_seams, line_stiffness):
+    """Assemble conservative axial springs on physical seam edges.
+
+    line_stiffness is EA [force], so each edge contributes
+    0.5*(EA/L)*(t dot (u_b-u_a))**2. This is an axial reinforcement
+    model, not a displacement-jump/cohesive interface law.
+    """
+    if line_stiffness < 0:
+        raise ValueError("seam line stiffness must be non-negative")
+    ndof=3*len(nodes)
+    Kseam=np.zeros((ndof,ndof))
+    for edge in sorted(physical_seams):
+        a,b=edge
+        delta=nodes[b]-nodes[a]
+        length=np.linalg.norm(delta)
+        if length<=1e-14:
+            raise ValueError("physical seam contains a zero-length edge")
+        tangent=delta/length
+        grad=np.zeros(ndof)
+        grad[3*a:3*a+3]=-tangent
+        grad[3*b:3*b+3]=tangent
+        Kseam+=(line_stiffness/length)*np.outer(grad,grad)
+    return Kseam
+
+
 def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=.25,G12=300.,
         material_angle=0.,seam_Et=0.,seam_bending_factor=4.,panel_hinge_factor=1.):
     """Linearised orthotropic CST membrane + signed-dihedral bending shell."""
@@ -170,10 +196,8 @@ def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=
         K[np.ix_(dofs,dofs)]+=kb*np.outer(g,g)
         if seam:
             seam_count+=1
-            if seam_Et>0:
-                tangent=(X[b]-X[a])/length; grad=np.zeros(ndof)
-                grad[3*a:3*a+3]=-tangent; grad[3*b:3*b+3]=tangent
-                K+=(seam_Et/length)*np.outer(grad,grad)
+    Kseam=_assemble_physical_seam_axial_stiffness(X,mesh["physical_seams"],seam_Et)
+    K+=Kseam
     constrained=np.array([0,1,2,4,5,8]); free=np.setdiff1d(np.arange(ndof),constrained)
     Kff=K[np.ix_(free,free)]; uf=np.linalg.solve(Kff,force[free]); u=np.zeros(ndof); u[free]=uf
     u=u.reshape(-1,3); deformed=X+u
@@ -185,7 +209,10 @@ def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=
         "rms_node_displacement":float(np.sqrt(np.mean(np.sum(u*u,axis=1)))),
         "radial_increment_rms":float(np.std(r1-r0)),"radial_rms_after":float(np.std(r1)),
         "radial_peak_to_peak_after":float(np.ptp(r1)),"mean_radius_after":float(np.mean(r1)),
-        "physical_seam_count":int(seam_count),"triangular_element_count":int(len(mesh["triangles"])),
+        "physical_seam_count":int(seam_count),
+        "seam_axial_spring_energy":float(0.5*u.ravel()@Kseam@u.ravel()),
+        "seam_axial_spring_model":"EA/L times squared axial endpoint displacement difference; no opening/sliding jump DOFs",
+        "triangular_element_count":int(len(mesh["triangles"])),
         "hinge_count":int(len(mesh["edge_triangles"]))}
     diag["discrete_metric"]=_discrete_metric_diagnostics(X,deformed,mesh["triangles"])
     return deformed,u,K,diag
