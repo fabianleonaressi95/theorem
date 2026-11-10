@@ -228,3 +228,8 @@ The formal statements, proof sketches, hypotheses, open obligations, and theorem
 - [Theorematic foundations](docs/THEOREMATIC_FOUNDATIONS.md): exact cubical algebra, Stokes commutation, Herasymov conformity criterion, and conditional Mosco framework.
 - [Uniform FEEC projection stability theorem](docs/PROJECTION_STABILITY_THEOREM.md): local mass equivalence, sufficient bounded-projection criterion, and the canonical-interpolation obstruction.
 - [Independent mathematical audit](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md): verified source-level findings and remaining analytical gaps.
+
+
+## Digamma–supergolden analysis
+
+The digamma-first analytic programme is documented in [DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md](../../docs/DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md). It records the exact Gamma shift and Gauss multiplication identities, the trigamma integral representation, the asymptotic limit of digamma increments along supergolden scales, and the remaining open problem of deriving the three-channel transfer from Q6 geometry without inserting its target matrix.
