@@ -34,7 +34,9 @@ def test_triplett_pushforward_is_psd_and_tangent_at_every_shell_node():
     mesh = build_football_shell()
     maps = build_rgs_shell_tangent_fibre_maps(X, mesh, neighbors=16)
     triplett = np.array([[1.0, 0.0, 1.0], [0.0, 1.0, 1.0]])
-    tensors = push_triplett_to_shell_nodes(triplett, maps)
+    V = np.eye(188, 3)
+    pushed = push_triplett_to_shell_nodes(triplett, maps, V)
+    tensors = pushed["tangent_tensors"]
 
     assert tensors.shape == (92, 3, 3)
     for A, n in zip(tensors, maps["shell_normals"]):
@@ -55,13 +57,15 @@ def test_local_fibre_matrix_changes_by_gauge_conjugation_only():
     R = triplett.T @ Gamma @ triplett
     i = 17
     Llocal = maps["local_maps"][i]
-    A = Llocal @ R @ Llocal.T
+    V = np.eye(188, 3)
+    Ulocal = Llocal @ V
+    A = Ulocal @ R @ Ulocal.T
 
     theta = 0.413
     O = np.array([[np.cos(theta), -np.sin(theta)],
                   [np.sin(theta), np.cos(theta)]])
-    Lchanged = O.T @ Llocal
-    Achanged = Lchanged @ R @ Lchanged.T
+    Uchanged = O.T @ Ulocal
+    Achanged = Uchanged @ R @ Uchanged.T
     assert np.allclose(Achanged, O.T @ A @ O, atol=1e-10)
     assert np.allclose(np.linalg.eigvalsh(Achanged),
                        np.linalg.eigvalsh(A), atol=1e-10)
