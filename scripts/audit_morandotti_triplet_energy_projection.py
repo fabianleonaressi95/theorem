@@ -73,7 +73,7 @@ def main():
         Kseam_line=Kline-Kwith_seam
     components={"membrane":Kmem,"panel_hinges":Kpanel,"seam_hinge_increment":a.seam_bending_factor*Kseam_hinge,
         "seam_line_reinforcement":Kseam_line}
-    Ksum=components['membrane']+components['panel_hinges']+a.seam_bending_factor*components['seam_hinge_increment']+components['seam_line_reinforcement']
+    Ksum=sum(components.values())
     reconstruction=float(np.linalg.norm(Ksum-(Kwith_seam+Kseam_line))/max(np.linalg.norm(Kwith_seam+Kseam_line),1e-30))
     Ktan_total=T.T@(Kwith_seam+Kseam_line)@T
     eigvals,eigvecs=eigh(.5*(Ktan_total+Ktan_total.T))
