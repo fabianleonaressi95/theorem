@@ -273,13 +273,15 @@ No global trivialization of \(TS\), no automatic flatness of the induced connect
 
 ## 13. Triplett-induced anisotropy in the seam tangent bundle
 
-The tangential part of the interface stiffness must be a symmetric bundle endomorphism of \(TS|_{\Gamma_e}\), not a fixed \(2\times2\) matrix copied from one panel chart. T073 §2.1 specifies the candidate construction:
+The tangential part of the interface stiffness is a symmetric bundle endomorphism of \(TS|_{\Gamma_e}\), not a fixed \(2\times2\) matrix copied from one panel chart. T073 §2.1 specifies the candidate construction:
 \[
 \Gamma_T=R_T^TQ_{G_2}R_T,\qquad
 U_x=L_xV,\qquad
 A_T(x)=U_x\Gamma_TU_x^*.
 \]
-Here \(V\) is the recorded orthonormal Q6 \(T_{2u}\) triplet in the 188-dimensional tangent space; \(R_T\) is one of the 216 PRISM/G2 tripletti; and \(L_x:\mathbb R^{188}\to T_xS\) is an explicit pointwise transfer. The local rank-two property of the Q6 triplet data motivates, but does not prove, \(\operatorname{rank}U_x=2\) on the shell. The map \(L_x\) is still unconstructed and must not be replaced by an arbitrary fit.
+The first Q6 \(T_{2u}\) triplet \(V\in\mathbb R^{188\times3}\) is now reconstructed by the 48-element \(O_h\) character projector and the constrained Coulomb Hessian. Its isotypic projector has rank 30; the first eigenvalue is \(-0.069949330084017\) with multiplicity three. A deterministic coordinate-pivoted frame is exported by scripts/reconstruct_rgs_t2u_triplet.py. The spectral subspace is invariant, but the particular orthonormal basis within the degenerate triplet is a gauge choice.
+
+The finite-mesh shell map is explicitly assembled as \(L_i=P_iW_iQ\), where \(W\) is the direction-grouped 64-to-92 transfer and \(P_i\) projects to the nodal shell tangent plane. The map is computationally specified at all 92 shell nodes. The 216 PRISM/G2 tripletti remain separate channel data; their Gram forms are pushed forward only after composing \(L_iV\). No equality between the 216 tripletti and the Q6 triplet is assumed.
 
 A candidate seam operator is
 \[
@@ -289,9 +291,10 @@ K_e(x)=
 \]
 It separates tangent-plane anisotropy from normal peel/opening. In a local tangent frame its matrix changes by orthogonal conjugation under frame rotation; the fibre operator and its eigenvalues do not change. Thus the constitutive law is frame-covariant, provided the transfer \(L_x\), the triplett channel identification and the seam transition maps are themselves compatible.
 
-The new module models/tangent_triplet_anisotropy.py implements the finite-dimensional Gram push-forward and the block fibre stiffness. Its tests check positive semidefiniteness/rank of the G2 Gram form, tangency, rank two, frame covariance and separation of the normal channel. This is an algebraic unit-test target; no shell material calibration or physical anisotropy claim follows from it.
+The module models/tangent_triplet_anisotropy.py implements the T2u reconstruction, finite-mesh bundle transfer, Gram push-forward and block fibre stiffness. Regression tests have been added for the T2u eigen-residual, the all-node rank-two map, tangency, positive semidefiniteness and local frame covariance; their execution is pending until the PR workflow reports a result.
 
-**Status:** G2 triplett Gram structure and Q6 T2u triplet are existing programme data; their tangent-fibre composition is a formulated candidate; the shell transfer \(L_x\), covariant transport across all 90 seams, and physical calibration remain OPEN. Do not identify the 216 tripletti with the Q6 T2u triplet, and do not identify either with an invertible tetrad.
+**Status:** T2u spectral subspace — numerically reconstructed and verified against the recorded eigenvalue; finite-mesh nodal transfer — implemented; G2 triplett Gram structure — recorded programme data; fibrewise composition — implemented as a candidate. The smooth connection, transition maps/holonomy across all 90 seams, PRISM-channel gauge alignment and physical calibration remain OPEN. Neither the T2u triplet nor the 216 tripletti are an invertible tetrad.
+
 
 
 ## 14. Explicit nodal transfer for the tangent anisotropy
@@ -308,4 +311,4 @@ The source direction grouping (56 distinct directions and eight duplicate pairs)
 
 This is an explicit discrete nodal bundle map. It is not yet a continuous bundle morphism, and it does not by itself supply parallel transport or seam transition matrices. The triplett-induced anisotropy must still be transported to a common seam fibre before assembling the 90 interface operators. No constitutive coefficients are calibrated by this construction.
 
-The new test file checks the rank-two condition at all 92 nodes, tangency, source-basis residuals, positive semidefiniteness of the pushed tensors and local frame covariance. Test execution is pending; no CI result is claimed.
+The new test files check the T2u spectral reconstruction, rank-two condition at all 92 nodes, tangency, source-basis residuals, positive semidefiniteness of the pushed tensors and local frame covariance. The reconstruction script exports the 188×3 basis, spectral projector and diagnostics. Test execution is pending; no CI result is claimed.
