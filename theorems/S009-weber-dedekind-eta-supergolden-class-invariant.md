@@ -1,6 +1,6 @@
 # Lemma S.9 — Dedekind–Weber class invariant and the supergolden root at discriminant -31
 
-**Status:** exact modular/class-field bridge, conditional on the published Weber class equation for discriminant \(-31\). The transformations and reciprocal-cubic reduction are derived below. The source class polynomial is cited explicitly; this record does not claim to re-prove its construction from scratch.
+**Status:** conditional exact modular/class-field consequence, using the principal Weber invariant and the tabulated \\(D=-31\\) minimal polynomial in Yui–Zagier (1997). The eta-product identity and Weber transformation steps are exact. The class-polynomial entry is a published computational result; this record does not re-prove its class-field construction from scratch. Yui–Zagier explicitly note that the stronger assertion that all signed \\(f(A)\\) values are conjugates is conjectural in their paper; this lemma does not rely on that stronger assertion.
 
 ## 1. Arithmetic setting
 
@@ -161,7 +161,7 @@ The document 18_57.pdf is not evidence for this Weber calculation: it concerns s
 
 ## 5. Class-field consequence and the \(j\)-invariant distinction
 
-The Weber class invariant \(\rho\) generates the Hilbert class field over \(K\) under the class-invariant theorem for this discriminant. Since \(\psi=\rho^{-1}\),
+The principal invariant \\(\\rho\\) lies in the Hilbert class field by the Weber class-invariant construction. Its tabulated irreducible cubic \\(X^3+X-1\\) has degree \\(h_K=3\\); hence \\(K(\\rho)\\) has degree 3 over \\(K\\) and equals \\(H_K\\). This conclusion uses the published minimal-polynomial entry for the principal invariant, not the stronger all-classes conjugacy assertion that Yui–Zagier explicitly leave conjectural. Since \\(\\psi=\\rho^{-1}\\),
 \[
 K(\psi)=K(\rho)=H_K,\qquad [H_K:K]=h_K=3.
 \]
