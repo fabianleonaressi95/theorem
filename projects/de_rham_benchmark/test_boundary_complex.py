@@ -71,6 +71,23 @@ def test_top_degree_has_no_boundary_trace_dofs():
                   == mesh.nk[3])
 
 
+
+def test_relative_codifferential_adjoint_identity_and_convergence():
+    from run_relative_codifferential_study import run_level
+
+    coarse = run_level(4)
+    fine = run_level(8)
+    assert coarse["relative_betti"] == [0, 0, 1]
+    assert fine["relative_betti"] == [0, 0, 1]
+    assert coarse["relative_adjoint_identity_rel"] < 1e-11
+    assert fine["relative_adjoint_identity_rel"] < 1e-11
+    assert fine["codifferential_error_M0"] < coarse["codifferential_error_M0"]
+    assert coarse["max_boundary_tangential_dof"] < 1e-10
+    assert fine["max_boundary_tangential_dof"] < 1e-10
+    assert coarse["max_boundary_delta_dof"] < 1e-10
+    assert fine["max_boundary_delta_dof"] < 1e-10
+
+
 if __name__ == "__main__":
     for name, fn in sorted(list(globals().items())):
         if name.startswith("test_"):
