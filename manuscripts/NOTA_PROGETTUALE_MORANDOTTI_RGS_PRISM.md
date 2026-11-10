@@ -208,3 +208,8 @@ Per la ricostruzione passo per passo dei vincoli, del tangente 188D, della riduz
 ## Operatore discreto di incompatibilità: sviluppo successivo
 
 Il raccordo costruttivo tra tangente, deformazione, incompatibilità elastica e geometria quaternionica è sviluppato nel [capitolo sull'operatore discreto di incompatibilità](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md). La nota distingue la formulazione debole piana di Saint-Venant, il ponte Cartan SU(2) (connessione indipendente e co-base), il ruolo delle triplette come settori di simmetria e l'estensione superficiale ancora da derivare.
+
+
+## Primo prototipo dell'operatore di incompatibilità
+
+È stato aggiunto un kernel software per la forma debole piana di Saint-Venant e per il carico distribuzionale Burgers/Frank. La specifica, i limiti e i test regressivi sono documentati nel [capitolo dedicato](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md); il test è stato incluso nel workflow GitHub, ma non ne dichiariamo l'esito prima della conclusione della CI. Questo prototipo non è ancora il modello curvo RGS–PRISM né la sua connessione quaternionica.
