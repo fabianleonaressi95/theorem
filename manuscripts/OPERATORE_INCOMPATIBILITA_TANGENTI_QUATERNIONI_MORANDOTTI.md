@@ -446,7 +446,7 @@ Questo è un **kernel di assemblaggio debole**, non ancora un elemento finito co
 | Identità continua \(\operatorname{inc}(\operatorname{sym}\nabla u)=0\) | Identità classica |
 | Tangente RGS 192×188 e proiettore | Ricostruiti e validati numericamente nel report A14 |
 | Tangente shell 276×184 e frame quaternionici | Implementati/testati nel modello shell |
-| Operatore debole piano \(A_h\) qui definito | Formulazione proposta; non ancora implementata |
+| Operatore debole piano \\(A_h\\) | Kernel generico di assemblaggio implementato; test regressivi aggiunti, esito CI dedicato non ancora disponibile; spazi FE conformi e convergenza non ancora implementati |
 | Sorgenti deboli Burgers/Frank | Assemblaggio del carico puntuale implementato; test regressivo aggiunto, esito CI dedicato non ancora disponibile |
 | Link SU(2) indipendenti \(U_{fg}\) | Nuove variabili proposte; non implementate |
 | Curvatura/olonomia quaternionica | Definizione proposta; non implementata |
