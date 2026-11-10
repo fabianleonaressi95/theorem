@@ -94,3 +94,22 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 - Cite Barroso–Matias–Morandotti–Owen (2017) for the disarrangement field M = grad g − G and its curl interpretation.
 - Cite Cesana et al. for planar incompatible elasticity/Airy and the specific finite-element formulations.
 - Internal RGS/Q6 numerical observations must cite the internal theorem/audit and its data artifact; an external article does not certify those values.
+
+
+## G. Fourth-moment constitutive, gauge and coframe frameworks
+
+19. **Dyson, F. J.**, “The Threefold Way: Algebraic Structure of Symmetry Groups and Ensembles in Quantum Mechanics,” *Journal of Mathematical Physics* **3** (1962), 1199–1215. DOI: [10.1063/1.1703863](https://doi.org/10.1063/1.1703863).  
+    **Status:** VERIFIED. Reference for real/complex/quaternionic representation types and commutant division algebras. It does not imply that the RGS five-dimensional representation is quaternionic.
+
+20. **Hehl, F. W.; Obukhov, Y. N.**, *Foundations of Classical Electrodynamics: Charge, Flux, and Metric*, Birkhäuser, 2003. DOI: [10.1007/978-94-010-0205-8](https://doi.org/10.1007/978-94-010-0205-8).  
+    **Status:** VERIFIED. General constitutive-tensor and differential-form framework; not a derivation of the RGS-specific Maxwell response.
+
+21. **Kogut, J. B.**, “An Introduction to Lattice Gauge Theory and Spin Systems,” *Reviews of Modern Physics* **51** (1979), 659–713. DOI: [10.1103/RevModPhys.51.659](https://doi.org/10.1103/RevModPhys.51.659).  
+    **Status:** VERIFIED. Background for lattice gauge and Wilson constructions; it does not produce the proposed fourth-moment order parameter.
+
+22. **Hermann, R.**, *Gauge Fields and Cartan–Ehresmann Connections*, Math Sci Press, 1975.  
+    **Status:** IDENTIFIED. General principal-bundle and connection framework. Edition/publication details should be checked against the copy actually consulted before a page-specific citation.
+
+23. **Internal fourth-moment implementation and audit.** RGS–QLG Quaternion Bridge, paths src/rgs_fourth_moment_bridge.py, src/rgs_fourth_moment_connection.py, src/rgs_fourth_moment_maxwell_bridge.py, src/rgs_fourth_moment_variation.py and their corresponding tests. The 64-site seed reconstruction records the A14 archive and coordinate-array SHA-256 in the source.  
+    **Status:** IMPLEMENTATION PROVENANCE. These are internal computational records, not external literature and not independent physical validation.
+
