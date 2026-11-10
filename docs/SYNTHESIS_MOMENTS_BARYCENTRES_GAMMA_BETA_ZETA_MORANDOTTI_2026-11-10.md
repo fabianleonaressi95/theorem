@@ -303,6 +303,10 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 6. Use actual scan and material/coupon data before claiming a physical explanation of football anisotropy.
 7. Do not identify the Veneziano amplitude, a phase integral, a Q6 phase, torsion, curvature or a Morandotti defect density without explicit maps and proofs.
 
+### 9.1 Numerical replay record
+
+The independent finite-seed, Dirichlet quadrature, fourth-moment variation and Q6 cubical checks performed during this synthesis are collected in [the 10 November numerical replay report](../reports/2026-11-10_integrated_synthesis_numerical_replay.md). This is explicitly separate from a pytest/CI pass and does not include the real football-shell scan or a continuum/Mosco verification.
+
 ## 10. Bibliography
 
 The special-function and Morandotti sources newly catalogued for this synthesis are in [the special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md). The wider 55-record Morandotti publication map is in [MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md](../manuscripts/MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
