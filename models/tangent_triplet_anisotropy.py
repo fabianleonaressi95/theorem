@@ -99,3 +99,27 @@ def seam_fibre_stiffness(tangent_tensor, isotropic_tangent=0.0,
     if np.linalg.eigvalsh(K)[0] < -1e-10:
         raise ValueError("fibre stiffness must be positive semidefinite")
     return K
+
+
+def induce_local_channel_map(t2u_basis, q6_to_shell_tangent, normal, tol=1e-9):
+    """Compose the established Q6 T2u triplet with an explicit shell transfer.
+
+    t2u_basis is V in R^(188x3); q6_to_shell_tangent is a pointwise
+    3x188 map. Their composition U_x=P_x V must have rank two and image
+    in the shell tangent plane. The transfer P_x is not inferred here.
+    """
+    V = np.asarray(t2u_basis, dtype=float)
+    L = np.asarray(q6_to_shell_tangent, dtype=float)
+    n = np.asarray(normal, dtype=float)
+    if V.shape != (188, 3) or L.shape != (3, 188) or n.shape != (3,):
+        raise ValueError("expected V(188x3), transfer(3x188), normal(3,)")
+    if not np.allclose(V.T @ V, np.eye(3), atol=tol):
+        raise ValueError("T2u triplet basis must be orthonormal")
+    U = L @ V
+    n = n / np.linalg.norm(n)
+    Ptan = np.eye(3) - np.outer(n, n)
+    if np.linalg.norm(Ptan @ U - U) > tol * max(1.0, np.linalg.norm(U)):
+        raise ValueError("Q6-to-shell transfer does not land in the tangent fibre")
+    if np.linalg.matrix_rank(U, tol=tol) != 2:
+        raise ValueError("transferred T2u triplet must have local rank two")
+    return U
