@@ -1,59 +1,53 @@
-# S.2 — Unified square–triangle–pentagon and supergolden-ratio geometry
+# S.2 — Unified square–triangle–pentagon–hexagon and supergolden geometry
 
-**Status: exact component results proved; common geometric realization partially specified; supergolden construction link open.**
+**Status: exact component results proved; common reference-circle construction specified; labelled incidence and supergolden construction remain open.**
 
-## 1. Purpose and common reference scale
+## 1. Common geometric frame
 
-This note collects three geometric/algebraic structures that should be considered together without conflating their origins:
+Take a square of side length \(2R\), centred at \(O\), with incircle of radius \(R\). This circle is the common reference circle for the square construction and for regular polygons inscribed in it.
 
-1. the square, its diagonal right triangles, and the silver ratio;
-2. the regular pentagon inscribed in the square's incircle, and the golden ratio;
-3. a rectangle with supergolden aspect ratio.
+The square, regular pentagon, and regular hexagon can therefore be studied at one scale. Their orientations are not automatically fixed relative to one another: any assertion about a particular vertex lying on a square diagonal, a side midpoint, or a tangency point requires an explicit rotation convention.
 
-Use a square of side length $2R$, with incircle of radius $R$. The incircle is the common reference circle for the first two structures. The supergolden rectangle can be assigned the same reference length $R$, but this scale choice alone does not establish a geometric construction linking it to the square or pentagon.
+## 2. Square and right triangles: the silver ratio
 
-## 2. Square and diagonal: the silver-ratio component
-
-Let $C$ be a square corner and $O$ the centre of the square and incircle. Then $CO=R\sqrt2$, by the isosceles right triangle formed by the two half-sides. The near intersection $P$ of diagonal $CO$ with the incircle satisfies
+Let \(C\) be a square corner. The centre distance is the hypotenuse of a right isosceles triangle with legs \(R\), so \(CO=R\sqrt2\). The near intersection \(P\) of diagonal \(CO\) with the incircle is at distance
 
 $$
 d=CP=R(\sqrt2-1)=\frac{R}{\delta_S},
 \qquad \delta_S=1+\sqrt2.
 $$
 
-If a smaller circle of radius $r$ is tangent to the two sides issuing from $C$ and externally tangent to the incircle, its centre is $(r,r)$ in corner coordinates. The centre-distance equation is
+If a smaller circle of radius \(r\) is tangent to the two sides issuing from \(C\) and externally tangent to the incircle, its centre is \((r,r)\) in corner coordinates. The centre-distance equation is
 
 $$
 \sqrt2(R-r)=R+r,
 $$
 
-so
+which gives
 
 $$
 r=R(\sqrt2-1)^2=\frac{R}{\delta_S^2}.
 $$
 
-Thus the already-proved Lemma S.1 gives
+Thus Lemma S.1 establishes the exact local scale relation
 
 $$
 R:d:r=1:\delta_S^{-1}:\delta_S^{-2},
 \qquad r=\frac{d^2}{R}.
 $$
 
-The tangency to the incircle is **external**. These statements concern the specified corner configuration, not a general packing or a refinement law.
+The small circle is externally tangent to the incircle. This is a local corner configuration, not a general packing or a refinement law.
 
-## 3. The inscribed regular pentagon: the golden-ratio component
+## 3. Inscribed regular pentagon: the golden ratio
 
-Now inscribe a regular pentagon in that same circle of radius $R$. Its orientation may be arbitrary for the following chord-length identities; orientation matters only for any additional alignment with the square's corners or diagonal.
-
-A side subtends a central angle $72^\circ$, while a diagonal subtends $144^\circ$. Hence
+Inscribe a regular pentagon in the same circle of radius \(R\). A side subtends \(72^\circ\) at the centre and a diagonal subtends \(144^\circ\). If \(s\) and \(D\) denote its side and diagonal, respectively, then
 
 $$
 s=2R\sin36^\circ,
 \qquad D=2R\sin72^\circ.
 $$
 
-Therefore
+Consequently,
 
 $$
 \frac{D}{s}
@@ -63,69 +57,98 @@ $$
 =\varphi.
 $$
 
-The pentagon also decomposes into isosceles triangles with central angle $72^\circ$; its diagonals form the familiar (36^\circ)-$72^\circ$-$72^\circ$ golden triangles. This gives the exact golden-ratio structure inside the same reference circle as the square's silver-ratio construction.
+This is an exact chord identity, independent of the pentagon's rotation. Its particular alignment with the square remains a separate incidence question.
 
-For reference, the pentagon side and diagonal in units of the incircle radius are
+## 4. Inscribed regular hexagon: the bronze ratio
+
+Inscribe a regular hexagon in the same circle of radius \(R\). Its circumradius equals its side length, so write
 
 $$
-\frac{s}{R}=2\sin36^\circ,
-\qquad
-\frac{D}{R}=2\sin72^\circ=\varphi\,\frac{s}{R}.
+s_6=R.
 $$
 
-The ratio $D/s=\varphi$ is independent of the pentagon's rotation. A claim about a particular pentagon vertex lying on a square diagonal, side, or tangency point would require the actual orientation and vertex convention; it is not assumed here.
+The distance between opposite vertices is the major diagonal \(2s_6\). The distance between opposite sides (the across-flats width) is twice the apothem:
 
-## 4. The supergolden rectangle
+$$
+h_6=2s_6\cos30^\circ=\sqrt3\,s_6.
+$$
 
-Define the supergolden number (Psi) as the unique positive real solution of
+The hexagon therefore supplies the dimensionless geometric factor \(\sqrt3\). In particular, the sum of one side length and the across-flats width, normalized by the side, is
+
+$$
+\frac{s_6+h_6}{s_6}=1+\sqrt3=\delta_B.
+$$
+
+Thus
+
+$$
+\boxed{\delta_B=1+\sqrt3}.
+$$
+
+This makes precise one way the regular hexagon encodes the bronze ratio. It is important not to identify \(\delta_B\) with either the major-diagonal/side ratio \(2\), or the across-flats/side ratio \(\sqrt3\): the bronze ratio is the **sum** \(1+\sqrt3\).
+
+## 5. Supergolden rectangle
+
+Define \(\Psi\) as the unique positive real root of
 
 $$
 \Psi^3=\Psi^2+1,
 \qquad \Psi\approx1.465571231876768.
 $$
 
-A supergolden rectangle is a rectangle whose longer-to-shorter side ratio is (Psi). If its shorter side is chosen to be $R$, its longer side is (Psi R). The defining equation can equivalently be written
+A supergolden rectangle has longer-to-shorter side ratio \(\Psi\). Its defining equation is equivalently
 
 $$
 \Psi-1=\Psi^{-2}.
 $$
 
-This reciprocal-square identity is structurally reminiscent of the square-corner relation (r/R=\delta_S^{-2}), but the resemblance is not itself a geometric derivation: the variables and constructions are different. No exact construction of this rectangle from the square and pentagon is specified in the present record.
+This reciprocal-square identity is structurally reminiscent of the square-corner relation \(r/R=\delta_S^{-2}\), but it does not derive one construction from the other. In this record the supergolden rectangle is an additional exact algebraic ratio; a construction of it from the square, pentagon, or hexagon has not yet been established.
 
-## 5. What is proved together, and what remains open
+## 6. Unified comparison on the common reference scale
 
-The exact results can be placed on one reference scale $R$:
+The four structures now sit in one geometric framework:
 
-- **Square / silver:** (d/R=\delta_S^{-1}) and (r/R=\delta_S^{-2}), with (delta_S=1+\sqrt2).
-- **Inscribed pentagon / golden:** $D/s=\varphi$, with (arphi=(1+\sqrt5)/2).
-- **Supergolden rectangle:** its aspect ratio is (Psi), where (Psi^3-\Psi^2-1=0).
+| Figure | Exact geometric datum | Ratio |
+|---|---|---|
+| Square and diagonal right triangle | diagonal leg ratio | \(\sqrt2\), giving \(\delta_S=1+\sqrt2\) |
+| Square-corner circle tangency | corner-circle scale | \(r/R=\delta_S^{-2}\) |
+| Regular pentagon | diagonal / side | \(\varphi=(1+\sqrt5)/2\) |
+| Regular hexagon | across-flats / side | \(\sqrt3\), giving \(\delta_B=1+\sqrt3\) |
+| Supergolden rectangle | long side / short side | \(\Psi\), with \(\Psi^3-\Psi^2-1=0\) |
 
-The first two are geometrically co-located by the incircle: the pentagon is inscribed in the square's incircle, while the silver-ratio lengths are measured along a square diagonal and in a corner tangency configuration. The third is presently an algebraically defined aspect ratio that can be normalized using the same length $R$.
+The square, pentagon, and hexagon are co-located by the same circle: the square's incircle is simultaneously the circumcircle of the two regular polygons. The pentagon contributes the golden chord ratio; the hexagon contributes the \(\sqrt3\) metric and, by adding one side to its across-flats width, the bronze ratio. The square contributes the \(\sqrt2\) diagonal geometry and the silver corner-tangency scale.
 
-The following stronger claims are **not** established by these identities alone:
+This is a common geometric **framework**, not yet one single forced polygonal overlay. A specific simultaneous orientation of the pentagon and hexagon relative to the square must be supplied before claims about shared vertices, crossings, or special intersection points can be made.
 
-1. that a specific pentagon orientation is forced by the square diagonal or by the corner tangency;
-2. that the supergolden rectangle is exactly constructible from the square–pentagon configuration by a stated sequence of straightedge-and-compass operations, intersections, or tangencies;
-3. that (delta_S), (arphi), and (Psi) are roots of one common geometric scale operator;
+## 7. What remains open
+
+The exact component identities above do not by themselves prove:
+
+1. a unique orientation or vertex correspondence for the pentagon and hexagon relative to the square;
+2. that \(\delta_S\), \(\varphi\), \(\delta_B\), and \(\Psi\) arise as eigenvalues or scale factors of one common geometric operator;
+3. that the supergolden rectangle is constructible from this polygonal overlay by a specified finite sequence of incidences, tangencies, or intersections;
 4. that the construction is generated by Q6, PRISM, Krist-All, or an RGS–PSU refinement rule.
 
-To close the geometric bridge, one must specify the pentagon's orientation and labelled vertices, the supergolden rectangle's position, and the exact incidence/tangency/intersection rules that construct it. These data would define a testable coordinate problem. Until then, this note is a synthesis of exact component theorems, not a proof of a single supergolden construction.
+To close these bridges, the next mathematical input is a labelled coordinate diagram: fix the square, specify the angular phase of the pentagon and hexagon, and state which vertices, diagonals, sides, and tangencies are intended to coincide. The resulting incidence equations can then be solved exactly and tested for the appearance of \(\Psi\).
 
-## 6. Algebraic identities for cross-checking
-
-$$
-\delta_S=1+\sqrt2,\quad \delta_S^{-1}=\sqrt2-1,
-\quad \delta_S^2=2\delta_S+1;
-$$
+## 8. Algebraic identities for audit
 
 $$
-\varphi=\frac{1+\sqrt5}{2},\quad
-\varphi^2=\varphi+1,\quad \varphi^{-1}=\varphi-1;
+\delta_S=1+\sqrt2,\qquad \delta_S^{-1}=\sqrt2-1,
+\qquad \delta_S^2=2\delta_S+1;
 $$
 
 $$
-\Psi^3=\Psi^2+1,\quad
-\Psi-1=\Psi^{-2}.
+\varphi=\frac{1+\sqrt5}{2},\qquad
+\varphi^2=\varphi+1,\qquad \varphi^{-1}=\varphi-1;
 $$
 
-These identities give three distinct algebraic signatures: quadratic silver, quadratic golden, and cubic supergolden. Their coexistence in a proposed drawing is a meaningful structural observation, but a derivation among them requires the missing incidence construction.
+$$
+\delta_B=1+\sqrt3,\qquad \delta_B^{-1}=\frac{\sqrt3-1}{2};
+$$
+
+$$
+\Psi^3=\Psi^2+1,\qquad \Psi-1=\Psi^{-2}.
+$$
+
+These are distinct algebraic signatures: silver and bronze are quadratic over \(\mathbb Q\), golden is quadratic over \(\mathbb Q\), and supergolden is cubic. Their coexistence in the common-circle construction is exact; any deeper algebraic or dynamical relation requires a separately proved incidence or operator identity.
