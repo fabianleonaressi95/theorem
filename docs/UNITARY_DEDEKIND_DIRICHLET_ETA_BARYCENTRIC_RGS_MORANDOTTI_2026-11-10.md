@@ -85,6 +85,32 @@ x_0=-\psi,\qquad x_0^3+x_0^2+1=0.
 \]
 The Weber invariant \(\rho=1/\psi\) generates the Hilbert class field over \(K\) under the cited class-invariant theorem. The statement that \(\psi\) is a unit follows from its monic polynomial and norm \(1\); calling it the *fundamental* unit requires a separate regulator/minimality proof and is not assumed here.
 
+
+### 2.1 Direct eta-product verification and terminology safeguard
+
+From the defining quotient and \(q=e^{2\pi i\tau}\),
+\[
+f(\tau)=q^{-1/48}\prod_{n\ge1}
+\frac{1-(-q^{1/2})^n}{1-q^n}
+=q^{-1/48}\prod_{n\ge1}(1+q^{n-1/2}).
+\]
+The even-index factors cancel the denominator product; the remaining odd-index factors give the standard Weber product.
+
+At \(\tau=i\sqrt{31}\), direct evaluation gives
+\[
+q=6.4113268701409869\ldots\times10^{-16},\qquad
+f(i\sqrt{31})=2.0726307127439694\ldots.
+\]
+The product correction beyond \(q^{-1/48}\) is about \(2.53206\times10^{-8}\).
+
+Do not confuse the **plastic constant** \(p\), root of \(p^3-p-1=0\) (approximately \(1.3247179572\)), with the project's **supergolden number** \(\psi\), root of \(\psi^3-\psi^2-1=0\) (approximately \(1.4655712319\)). The correct comparison is
+\[
+\sqrt2\,\psi=2.0726307127439694\ldots=f(i\sqrt{31}),
+\]
+whereas \(\sqrt2 p\) is not the Weber value. This independently confirms the exact transformation in S.9. The degree-six equation for \(W=f(i\sqrt{31})^2\) is compatible with the cubic equation for \(\psi\).
+
+The file 18_57.pdf, which concerns spectra of homogeneous spherical spaces, is not a source for the Weber function or the eta quotient. The modular calculation is supported separately by the Weber and Dedekind-eta references in the bibliography.
+
 ## 3. Dirichlet eta and the arithmetic of the same field
 
 For the quadratic character
