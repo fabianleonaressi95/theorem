@@ -244,10 +244,6 @@ The six-cube vertex measure has covariance (I_6/4). Neither is the triangle-cell
 
 Q6 has 64 vertices, 192 edges and 240 square 2-cells. For the truncated cubical 2-skeleton, (B_1B_2=0), \(\operatorname{rank}B_1=63\), \(\operatorname{rank}B_2=129\), (b_1=0), and (b_2=111). The 111 two-cycles are killed by the omitted 3-cells in the full six-cube. Bitwise complement induces signed involutions on vertices, edges and squares and satisfies the exact chain-map identities in T071. The NL/NLT synchronization dynamics are an exploratory cubical adaptation of a simplicial source model; hysteresis in that simulation is not industrial constitutive hysteresis.
 
-### 8.4 RGS 188D and PRISM comparison modules
-
-The RGS 188-dimensional operator audit and the PRISM/Krist-All graph records are retained as separate finite-dimensional comparison modules. The 188D audit records the (O_h)-commutation and tangent/bulk decomposition under its archived matrix conventions; its negative and quasi-zero eigenvalue sectors are spectral properties of that operator, not a proof of a shell continuum limit. The PRISM graph record (C_{64}\square C_6^3\square C_5) has (N=69120), degree 10, 1,920 active vertices, 108 length-640 cycles, (b_1=5), (b_2=10), spectral gap (0.009630546656), and the recorded Krist-All residual (5.22\times10^{-16}). The supergolden relation (K^3=K^2+I) is an exact algebraic identity for the specified matrix. These values belong to the PRISM graph/operator data; they are not invariants of the 92-node football shell or the 64-vertex Q6 cube unless an explicit transfer theorem is supplied.
-
 ### 8.3 Earlier Q6 subdivision and the supergolden operator
 
 T055 proves the specified dyadic midpoint subdivision chain maps. Its restriction to the three selected directions is (2I_3), not the supergolden companion matrix
@@ -256,7 +252,8 @@ A_* = \begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix},\qquad \det(xI-A_*)=x^3-x^
 \]
 The same cubic appears in the T056 transfer-matrix conjugacy and in the Weber/supergolden arithmetic, but no derivation of (A_*) from T055 or from a digamma-generated refinement operator is claimed. The latter is an explicit open construction problem.
 
-### 8.3 Gate D to Gate E and the football transfer
+
+### 8.4 Gate D to Gate E and the football transfer
 
 The shell has 92 nodes and 180 triangular facets; Q6 has 64 vertices and 240 square faces. There is no canonical bijection from these counts. The bridge must be a pair of explicit maps on the relevant chain/field spaces, with orientation, incidence, geometry, metric and measure compatibility stated.
 
@@ -265,6 +262,11 @@ The shell has 92 nodes and 180 triangular facets; Q6 has 64 vertices and 240 squ
 - **Football transfer robustness:** PR #124 and its merged audit compare the football triplet transfer under the declared finite model. This is a finite robustness result, not a proof that the 92-node shell and 64-state Q6 are spectrally identical.
 
 The correct Gate D→E statement is therefore a **composition programme**: first a finite chain/field transfer with declared conventions; then local geometric quadrature on actual shell facets; then uniform refinement estimates and a continuum limit. Each arrow has its own proof obligations.
+
+### 8.5 RGS 188D and PRISM comparison modules
+
+The RGS 188-dimensional operator audit and the PRISM/Krist-All graph records are retained as separate finite-dimensional comparison modules. The 188D audit records the (O_h)-commutation and tangent/bulk decomposition under its archived matrix conventions; its negative and quasi-zero eigenvalue sectors are spectral properties of that operator, not a proof of a shell continuum limit. The PRISM graph record (C_{64}\square C_6^3\square C_5) has (N=69120), degree 10, 1,920 active vertices, 108 length-640 cycles, (b_1=5), (b_2=10), spectral gap (0.009630546656), and the recorded Krist-All residual (5.22\times10^{-16}). The supergolden relation (K^3=K^2+I) is an exact algebraic identity for the specified matrix. These values belong to the PRISM graph/operator data; they are not invariants of the 92-node football shell or the 64-vertex Q6 cube unless an explicit transfer theorem is supplied.
+
 
 ## 9. Fourth moments and constitutive branches
 
