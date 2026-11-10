@@ -199,3 +199,57 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 43. **Unified synthesis of the 10 November programme.**  
     Path: docs/UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md  
     **Status:** integrated dependency map and audit register; no unsupported physical or continuum identification is asserted.
+
+
+## K. Supplementary sources for the Dedekind–Dirichlet eta bridge (10 November 2026)
+
+44. **Apostol, T. M.**, *Introduction to Analytic Number Theory*, Undergraduate Texts in Mathematics, Springer, 1976. DOI: [10.1007/978-1-4757-5579-4](https://doi.org/10.1007/978-1-4757-5579-4). In particular, chapters on arithmetical functions and Dirichlet multiplication, Dirichlet series/Euler products, and the functions \\(\\zeta(s)\\) and \\(L(s,\\chi)\\).  
+    Publisher record: https://link.springer.com/book/10.1007/978-1-4757-5579-4  
+    **Status:** REFERENCE. Standard source for Dirichlet characters, Dirichlet series, Euler products and quadratic characters. The alternating eta identity follows by separating even and odd terms in the zeta series.
+
+45. **Cox, D. A.**, *Primes of the Form \\(x^2+ny^2\\): Fermat, Class Field Theory, and Complex Multiplication*, 3rd ed., American Mathematical Society, 2022.  
+    Author's book page: https://dacox.people.amherst.edu/primes.html  
+    **Status:** REFERENCE. Quadratic forms, imaginary quadratic class groups, complex multiplication and Weber functions; especially useful background for the class-field interpretation of the \\(D=-31\\) invariant. The exact Weber polynomial used in S.9 remains cited to Yui–Zagier (1997), not inferred from Cox.
+
+46. **Schertz, R.**, “Weber's class invariants revisited,” *Journal de théorie des nombres de Bordeaux* **14** (2002), no. 1, 325–343. DOI: [10.5802/jtnb.361](https://doi.org/10.5802/jtnb.361).  
+    Open article: https://jtnb.centre-mersenne.org/articles/10.5802/jtnb.361/  
+    **Status:** VERIFIED. Gives a rigorous treatment of singular values of \\(f,f_1,f_2\\), class invariants, Shimura reciprocity and the eta multiplier/root-of-unity issue. Use alongside Yui–Zagier for the normalization and transformation steps in S.9.
+
+47. **Birch, B. J.**, “Weber's Class Invariants,” *Mathematika* **16** (1969), 283–294.  
+    **Status:** IDENTIFIED from the reference list in Schertz (2002). Classical source on Weber class invariants; consult the original before making page-specific claims.
+
+48. **Minka, T. P.**, “Estimating a Dirichlet distribution,” technical report, 2000; revised 2003, 2009 and 2012.  
+    Author's page and PDF: https://tminka.github.io/papers/dirichlet/  
+    **Status:** REFERENCE. Explicit Dirichlet density, Gamma normalization, expected log-coordinates and digamma gradient. It supports the log-partition identities in S.3/S.10; the covariance of log-coordinates follows by differentiating once more (trigamma Hessian).
+
+49. **Gupta, R. D.; Richards, D. St P.**, “Moment Properties of the Multivariate Dirichlet Distributions,” *Journal of Multivariate Analysis* **82** (2002), no. 1, 240–262. DOI: [10.1006/jmva.2001.2016](https://doi.org/10.1006/jmva.2001.2016).  
+    **Status:** VERIFIED. Peer-reviewed moment-theory reference; the matrix-variate scope is broader than the elementary simplex formulas used in T070, so cite it as supplementary rather than as the sole source for the scalar Dirichlet covariance.
+
+50. **NIST Digital Library of Mathematical Functions**, §§23.15 and 23.18 (Dedekind eta definition and modular transformations), §§25.2 and 25.15 (zeta alternating-series identity and Dirichlet \\(L\\)-functions), and §24.2 (Bernoulli numbers and polynomials).  
+    URLs: https://dlmf.nist.gov/23.15 ; https://dlmf.nist.gov/23.18 ; https://dlmf.nist.gov/25.2 ; https://dlmf.nist.gov/25.15 ; https://dlmf.nist.gov/24.2  
+    **Status:** REFERENCE. Primary handbook-style authority for the modular eta transformation law, the alternating zeta series and Dirichlet \\(L\\)-function framework. In particular, DLMF §25.2, Eq. 25.2.3 gives \\(\\zeta(s)=(1-2^{1-s})^{-1}\\eta_D(s)\\) for \\(\\Re s>0\\).
+
+51. **Sutherland, A. V.**, MIT 18.785, Lecture 19, “The Analytic Class Number Formula,” Fall 2021, 15 November 2021.  
+    Official lecture PDF: https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/resources/mit18_785f21_lec19/  
+    **Status:** REFERENCE. States the Dedekind-zeta residue formula with class number, regulator, roots of unity and discriminant. For \\(K=\\mathbb Q(\\sqrt{-31})\\), combine it with \\(h_K=3\\), \\(w_K=2\\), and the quadratic factorization \\(\\zeta_K(s)=\\zeta(s)L(s,\\chi_{-31})\\) to obtain \\(L(1,\\chi_{-31})=3\\pi/\\sqrt{31}\\).
+
+52. **Finite character-sum check for \\(D=-31\\)** (internal exact arithmetic record).  
+    For the primitive odd quadratic character modulo 31, direct evaluation of the 30 residues gives
+    \\[
+    \\sum_{a=1}^{30}a\\,\\chi_{-31}(a)=-93.
+    \\]
+    The standard odd-character formula then gives
+    \\[
+    L(1,\\chi_{-31})=-\\frac{\\pi}{31^{3/2}}
+    \\sum_{a=1}^{30}a\\,\\chi_{-31}(a)
+    =\\frac{3\\pi}{\\sqrt{31}}.
+    \\]
+    **Status:** exact finite computation (the sum was explicitly evaluated); not an external bibliographic theorem. Cite Apostol/DLMF for the character and (L)-series framework, and retain this finite sum as an internal check.
+
+## K. Citation map and limits
+
+- **S.9 (Weber/Dedekind/supergolden):** Yui–Zagier (1997) is the source for the \\(D=-31\\) Weber class-polynomial entry; Schertz (2002) supports the singular-value and transformation framework; DLMF §§23.15, 23.18 and 27.14 support the eta definition and modular transformations; Cox supports the CM/class-field background.
+- **S.10 (Dirichlet eta and quadratic zeta):** Apostol and DLMF §§25.2, 25.15 support the alternating zeta series, characters and (L)-functions; Sutherland Lecture 19 supports the analytic class-number formula; the finite sum \\( -93\\) is recorded as a direct exact computation.
+- **S.3/T070 (Dirichlet simplex):** Minka supports the Gamma-normalized density and expected log-coordinate/digamma formula; Gupta–Richards and Johnson–Kotz–Balakrishnan support moment theory; the triangular affine push-forward and local quadrature statements are proved in the internal records.
+- **Morandotti interface:** Amar–Matias–Morandotti–Zappale (2022) remains the source for periodic structured-deformation homogenization under its own Euclidean hypotheses. None of the number-theoretic references proves curved-shell homogenization.
+- **No source substitution:** Ikeda (1995), document 18_57.pdf, concerns homogeneous spherical-space spectra and is not cited for Weber functions, either eta function, the field of discriminant \\(-31\\), or the Dirichlet class-number calculation.
