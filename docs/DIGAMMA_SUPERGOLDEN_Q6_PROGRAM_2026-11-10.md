@@ -86,39 +86,39 @@ Un secondo punto di contatto è la formula di moltiplicazione di Gauss, che lega
 
 ### 3.1 La sezione argentea: un secondo valore esatto del digamma
 
-Introduciamo una notazione distinta dalla costante superaurea (s):
-[
-delta=1+sqrt2,qquad delta^2-2delta-1=0.
-]
-(delta) è il rapporto argenteo. L'identità trigonometrica esatta
-[
-oxed{cot(pi/8)=1+sqrt2=delta}
-]
-segue dalla formula dell'angolo metà, oppure da (\tan(pi/8)=\sqrt2-1).
+Introduciamo una notazione distinta dalla costante superaurea \(s\):
+\[
+\delta=1+\sqrt2,\qquad \delta^2-2\delta-1=0.
+\]
+\(\delta\) è il rapporto argenteo. L'identità trigonometrica esatta
+\[
+\boxed{\cot(\pi/8)=1+\sqrt2=\delta}
+\]
+segue dalla formula dell'angolo metà, oppure da \(\tan(\pi/8)=\sqrt2-1\).
 
-Applicando la stessa formula di riflessione del digamma a (z=1/8):
-[
-oxed{
-psi(7/8)-psi(1/8)
-=picot(pi/8)
-=pi(1+sqrt2)
-=pidelta.
+Applicando la stessa formula di riflessione del digamma a \(z=1/8\):
+\[
+\boxed{
+\psi(7/8)-\psi(1/8)
+=\pi\cot(\pi/8)
+=\pi(1+\sqrt2)
+=\pi\delta.
 }
-]
-Quindi il rapporto argenteo non è soltanto un valore geometrico della cotangente: è esattamente il coefficiente della differenza fra due valori razionali del digamma. La relazione contiene (pi) in modo esplicito ed è un'identità analitica esatta.
+\]
+Quindi il rapporto argenteo non è soltanto un valore geometrico della cotangente: è esattamente il coefficiente della differenza fra due valori razionali del digamma. La relazione contiene \(\pi\) in modo esplicito ed è un'identità analitica esatta.
 
 Le due connessioni vanno tenute affiancate ma non confuse:
-[
-egin{aligned}
-psi(7/8)-psi(1/8)&=\pi\delta,
+\[
+\begin{aligned}
+\psi(7/8)-\psi(1/8)&=\pi\delta,
 &&\delta=1+\sqrt2,\\
-psi(2-s)-psi(s)+(s-1)^{-1}&=\pi\cot(\pi s),
+\psi(2-s)-\psi(s)+(s-1)^{-1}&=\pi\cot(\pi s),
 &&s^3-s^2-1=0.
-end{aligned}
-]
-La prima seleziona l'angolo razionale (pi/8) e il rapporto argenteo; la seconda valuta la riflessione al parametro superaureo. Non è ancora dimostrata un'identità algebrica che trasformi (cot(pi s)) in (delta), né una derivazione comune dei due numeri dalla geometria Q6/PSU. La loro presenza nella medesima formula di riflessione è il ponte analitico rigoroso; il ponte geometrico resta una domanda di ricerca.
+\end{aligned}
+\]
+La prima seleziona l'angolo razionale \(\pi/8\) e il rapporto argenteo; la seconda valuta la riflessione al parametro superaureo. Non è ancora dimostrata un'identità algebrica che trasformi \(\cot(\pi s)\) in \(\delta\), né una derivazione comune dei due numeri dalla geometria Q6/PSU. La loro presenza nella medesima formula di riflessione è il ponte analitico rigoroso; il ponte geometrico resta una domanda di ricerca.
 
-**Nota di notazione:** in tutto il dossier (s) indica esclusivamente la costante superaurea; (delta) indica esclusivamente il rapporto argenteo. Non usare (s) per entrambe.
+**Nota di notazione:** in tutto il dossier \(s\) indica esclusivamente la costante superaurea; \(\delta\) indica esclusivamente il rapporto argenteo. Non usare \(s\) per entrambe.
 
 ## 4. Campionamento sulle scale superauree
 
