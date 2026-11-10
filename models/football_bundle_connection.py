@@ -99,3 +99,31 @@ def gauge_covariance_residual(fibre_maps,t2u_basis,triplett,orthogonal_gauge,q_g
     A=push_triplett_to_shell_nodes(R,fibre_maps,V,q_g2)["tangent_tensors"]
     Ap=push_triplett_to_shell_nodes(Rp,fibre_maps,Vp,q_g2)["tangent_tensors"]
     return float(np.linalg.norm(A-Ap)/max(1.,np.linalg.norm(A)))
+
+
+def fibre_seam_jump(u_minus,u_plus,transition_plus_from_minus):
+    """Compute [u]=u_plus-g_{+-}u_minus in the plus-side fibre coordinates."""
+    um=np.asarray(u_minus,float).reshape(-1)
+    up=np.asarray(u_plus,float).reshape(-1)
+    g=np.asarray(transition_plus_from_minus,float)
+    if g.shape!=(up.size,um.size):
+        raise ValueError("transition dimensions do not match the two fibre traces")
+    return up-g@um
+
+
+def transform_seam_chart(u_minus,u_plus,g_plus_from_minus,O_minus,O_plus):
+    """Change both panel frames and return transformed traces/transition.
+
+    Frame changes F_s -> F_s O_s induce components u_s -> O_s.T u_s and
+    g_{+-} -> O_plus.T g_{+-} O_minus.
+    """
+    um,up=np.asarray(u_minus,float),np.asarray(u_plus,float)
+    g=np.asarray(g_plus_from_minus,float)
+    Om,Op=np.asarray(O_minus,float),np.asarray(O_plus,float)
+    if Om.shape!=(um.size,um.size) or Op.shape!=(up.size,up.size):
+        raise ValueError("chart gauge dimensions do not match fibre traces")
+    if not np.allclose(Om.T@Om,np.eye(um.size),atol=1e-10):
+        raise ValueError("minus chart change must be orthogonal")
+    if not np.allclose(Op.T@Op,np.eye(up.size),atol=1e-10):
+        raise ValueError("plus chart change must be orthogonal")
+    return Om.T@um, Op.T@up, Op.T@g@Om
