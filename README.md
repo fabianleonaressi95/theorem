@@ -129,9 +129,12 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [S.7](theorems/S007-fourth-moment-maxwell-and-a4-bridge.md) | Fourth-moment Maxwell obstruction and A4 bridge | Exact tensor no-go and subgroup representation result; Maxwell constitutive law is a candidate and the explicit intertwiner is open. |
 | [S.8](theorems/S008-fourth-moment-coframe-variation.md) | Fourth-moment algebraic coframe variation | Exact first variations for the displayed action; no torsion generation or complete gravitational equation is claimed. |
 | [T068](theorems/T068-barycentric-covariance-quadrature-law.md) | Barycentric–covariance quadrature on a planar triangle | Exact local Taylor identity, triangle covariance formula and (A_F h_F^3\sup\|D^3g\|/6) remainder bound; global refinement and Bernoulli asymptotics remain open. |
-| [T068](theorems/T068-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport and phi/psi emergence remain open. |
+| [T069](theorems/T069-q6-antipodal-walsh-covariance.md) | Q6 antipodality, RGS coordinate inversion, Walsh sectors and covariance | Exact pair decomposition and Walsh identities; archived seed values require independent numerical replay. |
+| [T070](theorems/T070-dirichlet-barycentric-phase-moments.md) | Dirichlet barycentres, covariance and phase moments on triangular cells | Exact Gamma/Beta normalization, weighted centroid and covariance, cubic Taylor remainder and affine-phase moment bound; global shell refinement remains open. |
+| [T071](theorems/T071-q6-cubical-topological-synchronization-audit.md) | Q6 cubical chain complex, Anti-Twin lift and synchronization benchmark | Exact finite chain identities; exploratory synchronization/hysteresis model, with physical and continuum claims open. |
+| [T072](theorems/T072-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport remains open. |
 
-**Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
+**Numbering note.** The T068 collision between the barycentric theorem and two Q6 records has been resolved: T068 is the barycentric theorem, T071 is the cubical synchronization audit, and T072 is the Möbius/flat-connection theorem. Historical overlapping T034 labels are a separate legacy issue.
 
 The file `001-fixed-lattice-temporal-wilson-limit.md` is a pre-existing result and is not part of the T001–T007 numbering sequence.
 
