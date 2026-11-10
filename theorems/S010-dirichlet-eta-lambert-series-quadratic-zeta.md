@@ -202,9 +202,11 @@ None of these rank-four objects is identified with the modular eta function, the
 
 ## References
 
-1. NIST DLMF, §27.14 (Dedekind eta product and transformations): https://dlmf.nist.gov/27.14.
-2. NIST DLMF, §20.10 (Mellin transforms of theta kernels and the factor \(1-2^{1-s}\)): https://dlmf.nist.gov/20.10.
-3. NIST DLMF, §25.15 (Dirichlet \(L\)-functions and Hurwitz-zeta representation): https://dlmf.nist.gov/25.15.
+1. NIST DLMF, §25.2, especially Eq. 25.2.3, for the alternating zeta series \\(\\eta_D(s)=(1-2^{1-s})\\zeta(s)\\): https://dlmf.nist.gov/25.2.
+2. NIST DLMF, §25.15, for Dirichlet \\(L\\)-functions and their Hurwitz-zeta representation: https://dlmf.nist.gov/25.15.
+3. NIST DLMF, §24.2, for Bernoulli numbers and polynomials: https://dlmf.nist.gov/24.2.
+4. NIST DLMF, §§5.11, 5.12 and 5.15, for Gamma/Beta and digamma/polygamma asymptotics and identities: https://dlmf.nist.gov/5.11 ; https://dlmf.nist.gov/5.12 ; https://dlmf.nist.gov/5.15.
+5. NIST DLMF, §§23.15 and 23.18, for the separate Dedekind eta function and its modular transformations: https://dlmf.nist.gov/23.15 ; https://dlmf.nist.gov/23.18.nist.gov/25.15.
 4. A. V. Sutherland, MIT 18.785, Lecture 19, *The Analytic Class Number Formula* (2021): https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/mit18_785f21_lec19.pdf.
 5. N. Yui and D. Zagier, “On the Singular Values of Weber Modular Functions,” *Mathematics of Computation* 66 (1997), 1645–1662, DOI: 10.1090/S0025-5718-97-00854-5.
 
