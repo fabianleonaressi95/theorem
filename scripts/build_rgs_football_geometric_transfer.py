@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Construct and audit the geometry-driven RGS(64x3)->football(92x3) transfer."""
 from pathlib import Path
-import argparse, json
+import argparse, json, sys
 import numpy as np
+
+# Running a file under scripts/ puts that directory, not the repository root,
+# at sys.path[0]. Add the project root so the models namespace is importable.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from models.football_shell import build_football_shell
 from models.football_quaternion_bridge import build_geometry_transfer, project_shell_tangent
 
