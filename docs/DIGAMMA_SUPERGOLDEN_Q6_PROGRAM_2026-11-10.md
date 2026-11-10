@@ -59,7 +59,32 @@ Dunque il digamma è strettamente crescente sul semiasse positivo. Per ogni \(a,
 \]
 Questa formula fornisce una rappresentazione esatta delle differenze sulle scale \(s^n\), senza attribuire loro una ricorrenza inesistente.
 
-## 3. Campionamento sulle scale superauree
+## 3. La connessione diretta digamma–supergolden–\(\pi\)
+
+La relazione che mancava nel primo audit è la formula di riflessione delle funzioni poligamma:
+\[
+\boxed{\psi(1-z)-\psi(z)=\pi\cot(\pi z),\qquad z\notin\mathbb Z.}
+\]
+Ponendo \(z=s\), con \(s\) radice di \(s^3-s^2-1=0\), si ottiene direttamente:
+\[
+\boxed{\psi(1-s)-\psi(s)=\pi\cot(\pi s).}
+\]
+Per mantenere entrambi gli argomenti del digamma positivi, poniamo invece \(z=s-1\in(0,1)\):
+\[
+\psi(2-s)-\psi(s-1)=\pi\cot(\pi(s-1))
+=\pi\cot(\pi s).
+\]
+Usando anche la ricorrenza \(\psi(s)=\psi(s-1)+(s-1)^{-1}\):
+\[
+\boxed{\psi(2-s)-\psi(s)+\frac1{s-1}=\pi\cot(\pi s).}
+\]
+Questa è una connessione esatta e non una semplice sostituzione numerica: lo stesso argomento superaureo compare nella funzione trigonometrica periodica, mentre il digamma ne lega i valori riflessi. La formula contiene esplicitamente \(\pi\).
+
+La formula di riflessione non dimostra che \(s\) determini \(\pi\), né che \(\pi\) sia algebrico: \(\pi\) entra come costante della struttura Gamma/trigonometrica. Il risultato dimostrato è una relazione trascendente esatta che valuta il digamma in argomenti legati a \(s\).
+
+Un secondo punto di contatto è la formula di moltiplicazione di Gauss, che lega valori del digamma a \(\log m\), mentre i valori speciali della Gamma e le formule di riflessione/duplicazione coinvolgono \(\pi\) (per esempio \(\Gamma(1/2)=\sqrt\pi\)). Queste identità vanno mantenute distinte: la formula di Gauss da sola non introduce \(\pi\).
+
+## 4. Campionamento sulle scale superauree
 
 Definiamo:
 \[
@@ -102,7 +127,7 @@ Valori calcolati ad alta precisione con \(s\) radice positiva di \(x^3-x^2-1\):
 
 Il valore \(s^3=s^2+1\) è visibile direttamente nella tabella. I valori sono controlli numerici, mentre le identità delle sezioni 2 e 3 sono esatte.
 
-## 4. Test che distinguono una vera legge da una coincidenza
+## 5. Test che distinguono una vera legge da una coincidenza
 
 Il test ingenuo
 \[
@@ -127,7 +152,7 @@ A_s=\begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix},
 \]
 La comparsa dello stesso polinomio in un operatore costruito indipendentemente dal digamma sarebbe un risultato nuovo. Un semplice campionamento di \(\psi(s^n)\) non basta.
 
-## 5. Ponte con Q6, Anti-Twin e quaternioni
+## 6. Ponte con Q6, Anti-Twin e quaternioni
 
 La catena di lavoro proposta è:
 
@@ -139,7 +164,7 @@ La catena di lavoro proposta è:
 
 La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre direzioni: non produce \(A_s\). Il nuovo candidato deve quindi provenire da una partizione orientata diversa e documentata, non da una reinterpretazione della suddivisione midpoint.
 
-## 6. Stato epistemico
+## 7. Stato epistemico
 
 | Affermazione | Stato |
 |---|---|
@@ -154,7 +179,7 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 | Derivazione Q6/PSU della superaurea tramite digamma | **Aperta** |
 | Interpretazione fisica universale | **Non dimostrata** |
 
-## 7. Riferimenti e riproducibilità
+## 8. Riferimenti e riproducibilità
 
 Le identità usate sono quelle standard della funzione Gamma e delle funzioni poligamma (ricorrenza, formula di moltiplicazione di Gauss, serie della trigamma ed espansione asintotica di Stirling). Per riprodurre i valori della tabella è sufficiente calcolare la radice positiva di \(x^3-x^2-1\) ad alta precisione e valutare \(\operatorname{digamma}(s^n)\) con una libreria di precisione arbitraria.
 
