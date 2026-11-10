@@ -120,6 +120,41 @@ La prima seleziona l'angolo razionale \(\pi/8\) e il rapporto argenteo; la secon
 
 **Nota di notazione:** in tutto il dossier \(s\) indica esclusivamente la costante superaurea; \(\delta\) indica esclusivamente il rapporto argenteo. Non usare \(s\) per entrambe.
 
+### 3.2 La sezione aurea: un terzo valore razionale
+
+La costante aurea
+\[
+\varphi=\frac{1+\sqrt5}{2}=2\cos(\pi/5)
+\]
+è legata all'angolo di 36 gradi. Dalla relazione
+\[
+\cot^2(\pi/5)=\frac{1+\cos(2\pi/5)}{1-\cos(2\pi/5)}
+=1+\frac{2}{\sqrt5},
+\]
+e dal fatto che \(\cot(\pi/5)>0\), segue
+\[
+\cot(\pi/5)=\sqrt{1+\frac{2}{\sqrt5}}.
+\]
+La riflessione del digamma in \(z=1/5\) dà pertanto
+\[
+\boxed{
+\psi(4/5)-\psi(1/5)
+=\pi\cot(\pi/5)
+=\pi\sqrt{1+\frac{2}{\sqrt5}}.
+}
+\]
+Questa è una relazione esatta nel campo algebrico generato da \(\sqrt5\); la sua connessione con \(\varphi\) passa dall'angolo caratteristico del pentagono regolare. Non si deve però sostituire il coefficiente con \(\varphi\): infatti \(\cot(\pi/5)\ne\varphi\).
+
+Il quadro dei tre casi è quindi:
+\[
+\begin{aligned}
+\psi(7/8)-\psi(1/8)&=\pi(1+\sqrt2),\\
+\psi(4/5)-\psi(1/5)&=\pi\sqrt{1+2/\sqrt5},\\
+\psi(2-s)-\psi(s)+(s-1)^{-1}&=\pi\cot(\pi s).
+\end{aligned}
+\]
+I primi due sono valori razionali dell'argomento del digamma, associati rispettivamente alle geometrie dell'ottagono e del pentagono; il terzo usa l'argomento algebrico irrazionale \(s\). È un unico meccanismo analitico (riflessione), ma non ancora una legge geometrica unificante.
+
 ## 4. Campionamento sulle scale superauree
 
 Definiamo:
