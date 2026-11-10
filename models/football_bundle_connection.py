@@ -36,7 +36,7 @@ def build_physical_seam_bundle_transitions(mesh):
     from .football_shell import _panel_frame
     nodes=np.asarray(mesh["nodes"],float)
     panels=mesh["panels"]
-    frames={}; normals={}
+    frames={}; full_frames={}; normals={}
     for p,face in enumerate(panels):
         e1,e2,n=_panel_frame(nodes,face,0.0)
         frames[p]=np.column_stack((e1,e2))
@@ -68,9 +68,9 @@ def build_physical_seam_bundle_transitions(mesh):
         })
     if len(rows)!=90: raise ArithmeticError(f"expected 90 physical seams, got {len(rows)}")
     return {
-        "panel_frames":frames, "panel_normals":normals, "seams":rows,
+        "panel_frames":frames, "panel_full_frames":full_frames, "panel_normals":normals, "seams":rows,
         "seam_count":len(rows),
-        "maximum_transition_orthogonality_residual":max(x["orthogonality_residual"] for x in rows),
+        "maximum_transition_orthogonality_residual":max(x["orthogonality_residual"] for x in rows),\n        "maximum_full_transition_orthogonality_residual":max(float(np.linalg.norm(x["full_transition_plus_from_minus"].T@x["full_transition_plus_from_minus"]-np.eye(3))) for x in rows),
         "maximum_normal_transport_residual":max(x["normal_transport_residual"] for x in rows),
         "connection":"hinge-wise discrete Levi-Civita transport by minimal normal rotation",
         "status":"FINITE_POLYHEDRAL_CONNECTION; CONTINUUM_EXTENSION_OPEN",
