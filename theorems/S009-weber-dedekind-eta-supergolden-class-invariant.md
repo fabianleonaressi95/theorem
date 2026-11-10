@@ -196,3 +196,7 @@ The algebraic integer \(\psi\) is a unit (its monic polynomial has constant term
 
 1. N. Yui and D. Zagier, “On the Singular Values of Weber Modular Functions,” *Mathematics of Computation* **66** (1997), no. 220, 1645–1662, DOI: [10.1090/S0025-5718-97-00854-5](https://doi.org/10.1090/S0025-5718-97-00854-5), especially the Weber functions/class invariants and the \(D=-31\) row of Table 1.
 2. NIST Digital Library of Mathematical Functions, §27.14, Dedekind eta product and transformation law: https://dlmf.nist.gov/27.14.
+
+3. R. Schertz, “Weber's class invariants revisited,” *Journal de théorie des nombres de Bordeaux* 14 (2002), no. 1, 325–343. DOI: [10.5802/jtnb.361](https://doi.org/10.5802/jtnb.361). This supplies a rigorous account of the singular values of the Weber functions, eta multipliers and Shimura reciprocity.
+4. D. A. Cox, *Primes of the Form \\(x^2+ny^2\\): Fermat, Class Field Theory, and Complex Multiplication*, 3rd ed., American Mathematical Society, 2022. Background on quadratic forms, CM and class fields.
+5. NIST DLMF, §§23.15, 23.18 and 27.14, for the Dedekind eta definition, product and modular transformation law.
