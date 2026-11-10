@@ -33,6 +33,6 @@ def test_quaternion_frames_reconstruct_local_normals():
     mesh=build_football_shell()
     _,_,K,_=solve_discrete_shell(mesh)
     out=build_tangent_quaternion_audit(mesh,K)
-    for R in out["local_frames"]:
+    for R in np.asarray(out["local_frames"]):
         assert np.allclose(R.T@R,np.eye(3),atol=1e-12)
         assert np.linalg.det(R)>0.999999
