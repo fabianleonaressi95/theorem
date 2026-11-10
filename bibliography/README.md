@@ -26,6 +26,7 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 - [Olografia ed emergenza dello spazio-tempo](holography-emergent-spacetime/README.md)
 - [Geometria discreta, ipercubi e combinatoria](discrete-geometry-combinatorics/README.md)
 - [Informazione e IIT](information-theory/README.md)
+- [Funzioni speciali, momenti, Beta–zeta–Bernoulli e Veneziano](special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Fonti critiche e non standard](critical-and-nonstandard/README.md)
 
 ## Regola
