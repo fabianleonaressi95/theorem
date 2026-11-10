@@ -266,9 +266,9 @@ T073 §2.2 now specifies the finite-mesh map rather than leaving \(L_x\) wholly 
 \[
 L_i=P_iW_iQ,\qquad [L_i]_{F_i}=F_i^TW_iQ.
 \]
-The implementation returns all 92 ambient and local maps and evaluates
+The implementation returns all 92 ambient and local maps. Given the explicit orthonormal Q6 triplet basis \(V\in\\mathbb R^{188\\times3}\), it forms \(U_i=L_iV\) and evaluates
 \[
-A_T(x_i)=L_i\Gamma_TL_i^T.
+A_T(x_i)=U_i\Gamma_TU_i^T.
 \]
 The source direction grouping (56 distinct directions and eight duplicate pairs) is retained; the existing 16-neighbour setting is the reference configuration, not a claimed optimum.
 
