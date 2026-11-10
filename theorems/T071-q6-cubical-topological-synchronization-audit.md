@@ -14,10 +14,9 @@ The integer boundary matrices have shapes B1: C1 -> C0 (64 x 192) and
 B2: C2 -> C1 (192 x 240). The exact identity B1 B2 = 0 follows because
 each square boundary is a closed cycle and is checked entrywise.
 
-The graph cycle rank is 192-63=129. The 240 square boundaries span the
-cycle space, rank(B2)=129, so b1 of the 2-skeleton is zero. Since the
-truncated complex has no C3, its second Betti number is b2=240-129=111.
-These 2-cycles are killed by the omitted 3-cells in the full 6-cube.
+The graph cycle rank is 192-63=129. The 240 square boundaries span the cycle space, so \(\operatorname{rank}B_2=129\) and \(b_1\) of the 2-skeleton is zero. Here is a combinatorial proof of the spanning statement. An edge walk is a word in the six coordinate flips. A closed walk uses each coordinate flip an even number of times. Adjacent distinct flips can be interchanged by adding the boundary of the corresponding elementary square; adjacent equal flips cancel as a backtrack. Reordering the word into equal pairs and cancelling them expresses every cycle as an integer sum of square boundaries. Hence \(\operatorname{im}B_2=\ker B_1\) and \(\operatorname{rank}B_2=192-\operatorname{rank}B_1=192-63=129\).
+
+Since the truncated complex has no \(C_3\), its second Betti number is \(b_2=240-129=111\). These 2-cycles are killed by the omitted 3-cells in the full 6-cube.
 
 ## 2. Anti-Twin chain involution
 
