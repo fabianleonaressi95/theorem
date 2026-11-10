@@ -121,6 +121,44 @@ Indeed, substituting \(W=2\psi^2\) and \(\psi^3=\psi^2+1\) makes the left-hand s
 
 **CM-order warning.** The point \(\tau_0=(-1+i\sqrt{31})/2\) has discriminant \(-31\). The point \(i\sqrt{31}\) has quadratic order discriminant \(-124\). They are not the same CM point; the displayed Weber transformations are the exact bridge between the two evaluations. This distinction repairs the imprecise point identification in the input note.
 
+
+## 4.1 Independent check from the eta quotient and correction of a constant-name mix-up
+
+The eta quotient definition above can be checked directly from the infinite product:
+\[
+\begin{aligned}
+f(\tau)
+&=e^{-\pi i/24}\frac{\eta_{\rm Ded}((\tau+1)/2)}{\eta_{\rm Ded}(\tau)}\\
+&=q^{-1/48}\prod_{n\ge1}
+\frac{1-(-q^{1/2})^n}{1-q^n}\\
+&=q^{-1/48}\prod_{n\ge1}(1+q^{n-1/2}).
+\end{aligned}
+\]
+In the last equality, the even-index numerator factors cancel the denominator product, leaving the odd-index factors. This confirms the standard Weber f-product with the stated q convention.
+
+At \(\tau=i\sqrt{31}\),
+\[
+q=e^{-2\pi\sqrt{31}}=6.4113268701409869\ldots\times10^{-16},
+\]
+\[
+q^{-1/48}=2.0726306602637215\ldots,
+\quad
+\prod_{n\ge1}(1+q^{n-1/2})=1.0000000253205981\ldots,
+\]
+and therefore
+\[
+f(i\sqrt{31})=2.0726307127439694\ldots.
+\]
+The leading product correction is \(q^{1/2}=2.5320598\ldots\times10^{-8}\), small but not negligible if quoting eight significant digits.
+
+**Terminology correction.** The plastic constant \(p=1.3247179572\ldots\), root of \(p^3-p-1=0\), is not the supergolden number used in this project. Here \(\psi=1.4655712318767680\ldots\) is the positive root of \(\psi^3-\psi^2-1=0\). Thus \(\sqrt2 p=1.87369\ldots\) is not the Weber value, whereas
+\[
+\boxed{\sqrt2\,\psi=2.0726307127439694\ldots=f(i\sqrt{31}).}
+\]
+The exact equality in Section 4 is numerically confirmed, not refuted. The degree-six polynomial for \(W=f(i\sqrt{31})^2\) is consistent with \(W=2\psi^2\); it does not imply incompatibility with the cubic equation for \(\psi\).
+
+The document 18_57.pdf is not evidence for this Weber calculation: it concerns spectra of homogeneous spherical spaces. The eta quotient, product expansion and CM class equation must be supported by the Weber/Dedekind-eta sources cited below, independently of that PDF.
+
 ## 5. Class-field consequence and the \(j\)-invariant distinction
 
 The Weber class invariant \(\rho\) generates the Hilbert class field over \(K\) under the class-invariant theorem for this discriminant. Since \(\psi=\rho^{-1}\),
