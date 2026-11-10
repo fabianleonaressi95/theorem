@@ -114,6 +114,16 @@ With vanishing first and third moments, (\frac12M_a^{(2)}=g^{-1}+O(a^2)), bounde
 
 The earlier continuum-to-discrete metric programme also recorded the conditional requirements: odd-moment cancellation, uniform fourth-moment control, (O(a^2)) metric consistency under H1–H6, and stronger (C^2)-type control before claiming curvature/Einstein convergence. These are hypotheses and proof obligations, not a completed curvature theorem.
 
+### 2.5 Fourth-moment derivative, Maxwell and coframe branches
+
+The fourth-moment work contains three further, distinct mathematical records:
+
+- **S.6 — connection current:** shift the self-adjoint fourth-moment operator to a positive operator (H) on (operatorname{Sym}_0(3)), define (D_iQ=\partial_iQ+[\omega_i,Q]), and vary the positive gradient energy. The exact local current is (J_i=\kappa[H(D_iQ),Q]\in\mathfrak{so}(3)). This is a derived local variational identity; flat-connection constraints and complete TEGR/coframe equations remain open.
+- **S.7 — Maxwell obstruction and common subgroup:** the direct contraction (R_{ijkl}F_{ij}F_{kl}) vanishes identically for antisymmetric (F). The viable intermediate is an independent STF tensor (Q), with (A(Q)=R:Q). The proposed electric/magnetic response matrices are candidate constitutive laws. The representation-theoretic bridge is only after restriction to a common tetrahedral (A_4), where the five-dimensional sectors split as (2\oplus3); an actual intertwiner matrix and connection compatibility are still required.
+- **S.8 — algebraic coframe variation:** for (\mathcal L=N\sqrt h\,\frac{\lambda}{2}R_{abcd}Q^{ab}Q^{cd}), with (R,Q) held independent of the coframe, the first variations are explicit. Because this action contains no derivatives of the coframe, it does not generate torsion.
+
+These records prevent three common errors: treating a fully symmetric rank-four moment as torsion, inserting it directly into an antisymmetric (RFF) contraction, or treating an algebraic coframe potential as a torsion-generating action.
+
 ## 3. Gamma, Beta, digamma, zeta and Bernoulli identities
 
 The following chain is exact:
@@ -249,12 +259,15 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 | S.3 | Dirichlet log-partition gradients and cumulants | Proved special-function lemma |
 | S.4 | 64-site RGS fourth-moment anisotropy | Prior seed numerical record + exact tensor algebra |
 | S.5 | Fourth jump moment and graph Laplacian consistency | Proved conditional Taylor lemma |
+| S.6 | Fourth-moment SO(3) connection current | Proved local variational identity; complete teleparallel dynamics open |
+| S.7 | Fourth-moment Maxwell obstruction and A4 bridge | Exact no-go/representation identities; constitutive and intertwiner applications partly open |
+| S.8 | Fourth-moment algebraic coframe variation | Proved for the displayed action; full gravitational equations open |
 | T040–T045 | Barnes zeta, twisted Gamma reduction, individual zeta poles | Existing theorem/audit records; do not duplicate |
 | T048–T054 | Mosco changing spaces and further geometric/analytic records | Preserve their individual statuses; open convergence obligations remain open |
 
 ## 9. Open proof obligations — explicit, not hidden
 
-1. Import the original 64-site coordinate artifact and companion fourth-moment audit/test into this repository to make S.4 independently reproducible.
+1. The hash-checked 64-site coordinate reconstruction, fourth-moment audit and regression test have now been imported into this repository. Execute the test and audit before upgrading the recorded prior numerical values to a newly reproduced central-repository result.
 2. Verify the actual RGS/Q6/PRISM stencil moments (M_a^{(1)},\ldots,M_a^{(4)}) for every refinement level and establish uniform bounds.
 3. Define a common map, if any, between the fixed-seed fourth moment S.4 and the refinement jump moment S.5.
 4. Derive any Bernoulli/Euler–Maclaurin coefficients from the actual refinement summation rule.
