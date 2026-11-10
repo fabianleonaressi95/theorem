@@ -528,6 +528,85 @@ Il modello meccanico comprende:
 Il dossier operativo e i comandi riproducibili sono in \`docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md\`; il runner è \`scripts/run_football_shell_audit.py\`; i test sono in \`tests/test_football_shell.py\`. L'identificazione di \(\alpha_C,\alpha_4,E_1,E_2,G_{12}\) e dei parametri di cucitura richiede misure indipendenti e validazione su scansioni non usate per il fit.
 
 
+## A.27. Aggiornamento 2026: baseline CIP-DG e specifica del ponte RGS discreto
+
+### Riferimento continuo e numerico aggiornato
+
+La linea bibliografica più direttamente pertinente comprende ora:
+- P. Cesana, L. De Luca, M. Morandotti (2024), formulazione semi-discreta Airy per disclinazioni a cuneo e dislocazioni di bordo;
+- P. Cesana, E. Fabbrini, M. Morandotti (2025), formulazione variazionale dell'elasticità lineare piana con cinematica incompatibile;
+- P. Cesana, E. Fabbrini, A. A. León Baldelli, M. Morandotti (2026), *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation*, preprint arXiv:2609.29614.
+
+Il lavoro 2026 considera elasticità isotropa linearizzata in piano di deformazione, sorgenti di Burgers e Frank, regolarizzazione mediante core radius e un problema ellittico del quarto ordine per la funzione di Airy. La formulazione numerica usa elementi finiti con continuous interior penalty discontinuous Galerkin (CIP-DG) e un numero finito di problemi locali di cell formula; una volta calcolate le soluzioni fondamentali, configurazioni di difetti possono essere composte in post-processing. Il lavoro dichiara confronti con benchmark analitici e configurazioni d'interazione.
+
+Questo costituisce la baseline numerica da riprodurre e non un dettaglio da ignorare. La proposta RGS–PRISM deve confrontarsi con essa a parità di dominio, materiale, sorgenti, core radius, condizioni al contorno e osservabili. Non è scientificamente corretto descrivere RGS–PRISM come la prima soluzione discreta del problema.
+
+### Equazioni da usare come riferimento
+
+Per la deformazione simmetrica piana \\(\epsilon\\), la sorgente distribuzionale di incompatibilità è
+\\[
+\\operatorname{inc}\\,\\epsilon=\\zeta,
+\\qquad
+\\zeta=
+\\sum_{j=1}^{J}|b^j|\\,
+\\partial_{(b^j)^\\perp/|b^j|}\\delta_{x^j}
+-
+\\sum_{k=1}^{K}s^k\\delta_{y^k}.
+\\]
+I vettori (b^j) sono i vettori di Burgers; (s^k) sono gli angoli di Frank. Nel caso isotropo lineare piano, introducendo la funzione di Airy (v), il riferimento del lavoro FEM è
+\\[
+\\sigma=\\operatorname{cof}(D^2v),
+\\qquad
+\\frac{1-\\nu^2}{E}\\Delta^2v=\\zeta,
+\\]
+e la parte quadratica dell'energia di Airy è
+\\[
+\\mathcal G(v;\\Omega)
+=\\frac12\\frac{1+\\nu}{E}
+\\int_\\Omega
+\\left(|D^2v|^2-\\nu(\\Delta v)^2\\right)\\,dx.
+\\]
+La regolarizzazione core-radius rimuove dischi attorno ai difetti e trasferisce le sorgenti sui bordi dei core. Per la riproduzione numerica si devono mantenere le stesse convenzioni di segno, dati di sorgente e condizioni al bordo del paper di riferimento.
+
+### Specifica discreta RGS da dimostrare
+
+Il complesso cinematico discreto può essere scritto
+\\[
+C^0_h\\xrightarrow{d_{0,h}}C^1_h
+\\xrightarrow{d_{1,h}}C^2_h,
+\\qquad d_{1,h}d_{0,h}=0.
+\\]
+L'identità (d_{1,h}d_{0,h}=0) è la chiusura del complesso: **non** rappresenta la sorgente di difetto. Il difetto deve entrare tramite un operatore di incompatibilità che agisce sulla deformazione simmetrica discreta, costruita dal gradiente cinematico e dalla metrica/material tensor:
+\\[
+\\epsilon_h=\\operatorname{sym}G_h u_h
+\\quad\text{(oppure una variabile di deformazione indipendente, se la formulazione lo richiede),}
+\\]
+\\[
+\\operatorname{Inc}_h\\epsilon_h=\\zeta_h.
+\\]
+La sorgente (\\zeta_h) deve approssimare separatamente i contributi traslazionali di Burgers e quelli rotazionali di Frank, inclusa la regolarizzazione del core. La costruzione di (\\operatorname{Inc}_h), (\\zeta_h), della condizione al bordo e della forma energetica è ancora da progettare e dimostrare.
+
+Il gradiente RGS locale e i pesi geometrici possono contribuire alla costruzione di (G_h) e della metrica discreta. Non si deve però identificare il gradiente scalare Q6 con l'operatore tensoriale \\(\\operatorname{Inc}_h\\), né assumere che la sola identità di catena produca automaticamente la legge di incompatibilità elastica. Le formule già disponibili per gradienti locali least-squares e metriche (g_i=E_i^TE_i) sono ingredienti candidati; la loro compatibilità con la forma di Airy deve essere dimostrata sul benchmark piano.
+
+### Test di equivalenza e criteri di confronto
+
+1. **Test di sorgente:** riprodurre la distribuzione di Burgers/Frank e il suo trasferimento al core discreto.
+2. **Test cinematico:** verificare (d_{1,h}d_{0,h}=0) esattamente e controllare separatamente la relazione (\\operatorname{Inc}_h\\epsilon_h=\\zeta_h).
+3. **Test energetico:** confrontare la forma RGS con la forma di Airy su campi di prova e sulle soluzioni minimizzanti.
+4. **Test di bordo:** riprodurre le condizioni di trazione libera nella formulazione di Airy.
+5. **Test numerico:** confrontare CIP-DG e RGS su energia, (L^2)-stress, Hessiana di Airy, residuo, condizionamento, tempo e memoria.
+6. **Test di raffinamento:** almeno tre livelli, con studio separato dell'errore spaziale e della dipendenza dal core radius.
+
+Solo dopo questi test ha senso chiedere una convergenza variazionale: liminf, successioni di recupero e compattezza devono essere trattati separatamente. La convergenza di Mosco della famiglia curva RGS–PRISM rimane aperta.
+
+### Implicazione per il caso calcistico
+
+Il guscio calcistico rimane un secondo benchmark, con variabili di superficie, anisotropia ortotropa e cuciture. Non va identificato direttamente con il dominio piano del problema Airy: il trasferimento richiede una formulazione su patch curve e una derivazione delle curvature/incompatibilità superficiali. Le condizioni di cucitura già derivate costituiscono un bilancio meccanico di interfaccia; non sono la stessa sorgente \\(\\zeta\\) del modello di difetti cristallini.
+
+**Stato:** riferimento continuo e baseline CIP-DG identificati; specifica di ricerca RGS discreta formulata; nessuna equivalenza numerica RGS–CIP-DG, nessuna prova di convergenza e nessuna superiorità sono ancora dichiarate.
+
+Per la classificazione bibliografica completa si veda [Matrice bibliografica Morandotti–RGS–PRISM](MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
+
 ## Documento applicativo complementare
 
 Il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md) collega le strutture shell già implementate al problema variazionale dei difetti, distinguendo analogie meccaniche, identificazioni matematiche ancora da costruire e validazioni sperimentali mancanti.
