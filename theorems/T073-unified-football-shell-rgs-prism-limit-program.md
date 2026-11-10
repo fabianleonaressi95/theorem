@@ -13,27 +13,34 @@ The comparison cubical complex \(Q_6\) has 64 vertices, 192 edges and 240 square
 
 The orientability of the closed embedded shell supplies a global choice of unit normal away from the panel singularities. If the piecewise-\(C^2\) structure has creases, the two one-sided normals and the convention for traces at each crease must be specified; a global orientation does not make the normal continuous across a crease.
 
-## 2. Intrinsic structured-deformation variables
+## 2. Intrinsic fibré structured-deformation variables
 
-For an \(\mathbb R^m\)-valued deformation \(g\), the intrinsic tangential derivative is a section
+The shell displacement must be treated as a section of a vector bundle, not globally as a list of unrelated Cartesian components. Let \(S\) be the oriented reference shell, with tangent bundle \(TS\), normal line bundle \(NS\), and displacement bundle
 \[
-\nabla_S g\in L^p(S;T^*S\otimes\mathbb R^m).
+\pi:E=TS\oplus NS\longrightarrow S.
 \]
-The structured-deformation field \(G\) must belong to the same bundle. Only then is
+The embedding in \(\mathbb R^3\) gives an ambient trivialization of \(E\), but does not provide a global tangent frame. Tangential and normal components are local bundle components and must transform under changes of panel frame.
+
+A displacement is a section \(u\) of \(E\). When jumps are allowed at panel boundaries, use panelwise sections \(u_p\in SBV(P_p;E|_{P_p})\). The covariant derivative is
 \[
-M=\nabla_Sg-G
+\nabla^E u\in L^p(S;T^*S\otimes E),
 \]
-a well-defined section of \(T^*S\otimes\mathbb R^m\). In a local chart this is represented by an \(m\times2\) matrix; under a change of chart the two factors transform covariantly, so the bundle-valued difference is chart-independent.
+with the connection induced by the Levi-Civita connection on \(TS\) and the normal connection on \(NS\). If a structured-deformation variable \(G\) is introduced, it must belong to the same bundle as \(\nabla^E u\), so that \(M=\nabla^E u-G\) is intrinsically defined.
 
-A candidate state space is
+For each panel chart, local frames are trivializations only. On a seam overlap, the transition map \(g_{+-}(x):E_x^-\to E_x^+\) identifies fibre coordinates. The intrinsic jump is
 \[
-(g,G)\in SBV(S;\mathbb R^m)\times
-L^p(S;T^*S\otimes\mathbb R^m).
+[u]_e=u^+-g_{+-}u^-\in E|_{\Gamma_e}.
 \]
-Here \(SBV\) on \(S\) must be defined intrinsically, for example through a finite atlas and compatible trace/jump definitions, or through an equivalent ambient formulation. The atlas, transition maps and uniformity required for a family of approximating surfaces \(S_h\) must be stated. This is an obligation, not a result supplied by the Euclidean structured-deformation theorem.
+At multi-panel junctions, the transition maps must satisfy cocycle/holonomy compatibility; force covectors and resultants must be transported to a common fibre before balance is imposed.
 
-The shell metric is denoted by \(g_S\) (or another unambiguous symbol); it must not be confused with the deformation \(g\) or the structured field \(G\).
+A candidate state space is therefore the bundle-valued structured-deformation space
+\[
+\mathcal{SD}_p(S;E)=
+SBV(S;E)\times L^p(S;T^*S\otimes E),
+\]
+or its panelwise version with prescribed seam traces. Its precise definition on a piecewise-\(C^2\) surface, including traces, jump measures, connection regularity and varying-surface comparison maps, remains a proof obligation. The earlier notation \(SBV(S;\mathbb R^m)\) is recovered only after choosing an ambient trivialization; it is not the intrinsic definition.
 
+The physical seam network \(\Gamma_{\rm phys}\) is prescribed material/geometric data. The mesh skeleton \(\mathcal S_h\) and the variational jump set \(S_u\) are different objects and must remain distinct. A seam energy is a fibrewise density on \(E|_{\Gamma_e}\), with its transition maps and frame covariance explicitly specified.
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
 For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
