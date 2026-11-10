@@ -54,7 +54,7 @@ The square-corner tangency lemma S.1 gives, for \(\delta_S=1+\sqrt2\),
 \[
 R:d:r=1:\delta_S^{-1}:\delta_S^{-2},\qquad r=d^2/R.
 \]
-The S.2 construction places square/silver, pentagonal/golden, hexagonal/bronze and supergolden algebraic identities in a common geometric discussion. The component identities are exact in their own configurations; a common circle, shared polynomial or visual arrangement does not by itself prove a common incidence law, a refinement operator or a physical dynamics. The labelled incidence construction that would derive the supergolden scale from the panel geometry remains open.
+The S.2 construction places square/silver, pentagonal/golden, hexagonal/bronze and supergolden algebraic identities in a common geometric discussion. The component identities are exact in their own configurations; a common circle, shared polynomial or visual arrangement does not by itself prove a common incidence law, a refinement operator or a physical dynamics. The labelled incidence construction that would derive the supergolden scale from the panel geometry remains open. The related T056 record proves permutation similarity of the Phase-21 and trigram three-state transfer matrices, hence equality of their characteristic polynomial and Perron root; it does not provide a geometric cell intertwiner between the two constructions.
 
 The cube/sphere radial excess, cubic harmonic anisotropy and pentagon/hexagon constitutive contrast are also distinct mechanisms. They are not identified without an explicit map.
 
@@ -243,6 +243,18 @@ The six-cube vertex measure has covariance (I_6/4). Neither is the triangle-cell
 ### 8.2 Cubical topology and Anti-Twin
 
 Q6 has 64 vertices, 192 edges and 240 square 2-cells. For the truncated cubical 2-skeleton, (B_1B_2=0), \(\operatorname{rank}B_1=63\), \(\operatorname{rank}B_2=129\), (b_1=0), and (b_2=111). The 111 two-cycles are killed by the omitted 3-cells in the full six-cube. Bitwise complement induces signed involutions on vertices, edges and squares and satisfies the exact chain-map identities in T071. The NL/NLT synchronization dynamics are an exploratory cubical adaptation of a simplicial source model; hysteresis in that simulation is not industrial constitutive hysteresis.
+
+### 8.4 RGS 188D and PRISM comparison modules
+
+The RGS 188-dimensional operator audit and the PRISM/Krist-All graph records are retained as separate finite-dimensional comparison modules. The 188D audit records the (O_h)-commutation and tangent/bulk decomposition under its archived matrix conventions; its negative and quasi-zero eigenvalue sectors are spectral properties of that operator, not a proof of a shell continuum limit. The PRISM graph record (C_{64}\square C_6^3\square C_5) has (N=69120), degree 10, 1,920 active vertices, 108 length-640 cycles, (b_1=5), (b_2=10), spectral gap (0.009630546656), and the recorded Krist-All residual (5.22\times10^{-16}). The supergolden relation (K^3=K^2+I) is an exact algebraic identity for the specified matrix. These values belong to the PRISM graph/operator data; they are not invariants of the 92-node football shell or the 64-vertex Q6 cube unless an explicit transfer theorem is supplied.
+
+### 8.3 Earlier Q6 subdivision and the supergolden operator
+
+T055 proves the specified dyadic midpoint subdivision chain maps. Its restriction to the three selected directions is (2I_3), not the supergolden companion matrix
+\[
+A_* = \begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix},\qquad \det(xI-A_*)=x^3-x^2-1.
+\]
+The same cubic appears in the T056 transfer-matrix conjugacy and in the Weber/supergolden arithmetic, but no derivation of (A_*) from T055 or from a digamma-generated refinement operator is claimed. The latter is an explicit open construction problem.
 
 ### 8.3 Gate D to Gate E and the football transfer
 
