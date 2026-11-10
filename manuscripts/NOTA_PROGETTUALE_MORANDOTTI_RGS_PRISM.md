@@ -185,6 +185,12 @@ La lettura congiunta è quindi:
 1. P. Cesana, L. De Luca, M. Morandotti (2024), *Semi-discrete modeling of systems of wedge disclinations and edge dislocations via the Airy stress function method*, SIAM J. Math. Anal. 56(1), 79–136. [DOI: 10.1137/22M1523443](https://doi.org/10.1137/22M1523443).
 2. Repository tecnico RGS–PRISM: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/theorem).
 3. Benchmark de Rham / FEEC: [README e risultati](../projects/de_rham_benchmark/README.md).
+4. P. Cesana, E. Fabbrini, M. Morandotti (2025), *Variational Formulation of Planar Linearized Elasticity with Incompatible Kinematics*, Journal of Elasticity 157, art. 71. [DOI: 10.1007/s10659-025-10161-5](https://doi.org/10.1007/s10659-025-10161-5).
+5. P. Cesana, E. Fabbrini, A. A. León Baldelli, M. Morandotti (2026), *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation*, preprint [arXiv:2609.29614](https://arxiv.org/abs/2609.29614).
+6. P. Cesana, A. Grillo, M. Morandotti, A. Pastore (2025), *Dissipative Dynamics of Volterra Disclinations*, SIAM J. Appl. Math. 85(4), 1361–1386. [DOI: 10.1137/24M1688096](https://doi.org/10.1137/24M1688096).
+7. N. Briatico, P. Cesana, M. Morandotti (2026), *Effective Dynamics of Disclination Pairs*, preprint [arXiv:2608.12233](https://arxiv.org/abs/2608.12233).
+8. P. Cesana, M. Morandotti, A. Sambo (2026), *Equilibrium and Interaction Regimes in Mixed Disclination-Dislocation Systems*, preprint [arXiv:2608.10930](https://arxiv.org/abs/2608.10930).
+9. Matrice bibliografica ragionata: [MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md](MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
 
 **FLN**
 
