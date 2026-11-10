@@ -1,118 +1,194 @@
 # T073 — Unified football-shell / RGS–PRISM–Q6 limit programme
 
-**Status: OPEN — conditional theorem target, not a proved convergence theorem.**  
-**Role:** formal statement of the common limit problem underlying the 10 November 2026 work. The local ingredients T068–T072 and S.1–S.11 remain governed by their own proof statuses. This record does not promote their separate conclusions into a global theorem.
+**Status: OPEN — conditional research programme; no global Γ-convergence theorem is claimed.**  
+**Scope:** organise the local barycentric results, the football-shell discretisation, structured deformations, discrete transfer maps and possible operator limits. The local results T068–T072 and S.1–S.11 retain their own proof classifications. None is promoted here into a global limit theorem.
 
-## 1. Geometric and functional setting
+## 1. Geometry, meshes and distinct complexes
 
-Let (Ssubsetmathbb R^3) be a compact, oriented, piecewise-(C^2) shell with a finite panel decomposition. In the football model the panel complex has 60 vertices, 12 pentagons, 20 hexagons and 90 physical panel seams. Its fan triangulation has 180 triangular CST facets and the recorded shell discretization has 92 nodes including panel centres. Let (mathcal T_h) be a conforming, shape-regular family of triangular refinements of (S), with maximum element diameter (h	o0). Physical seams are retained as a distinguished interface set (mathcal S_h).
+Let \(S\subset\mathbb R^3\) be a compact, orientable, embedded, piecewise-\(C^2\) surface representing the football shell. Its panel complex has 60 vertices, 12 pentagons, 20 hexagons and 90 physical panel seams. The fan triangulation has 180 triangular CST facets; the recorded shell discretisation has 92 nodes when panel centres are included.
 
-The discrete comparison complex is the six-cube (Q_6), with 64 vertices, 192 edges and 240 square 2-cells. A Kathara complex may also be included. The 92-node shell and the 64-vertex Q6 complex are not identified by cardinality; all comparisons must be made through explicit maps.
+Let \(\mathcal T_h\) be a conforming triangular refinement of the shell, with maximum element diameter \(h\to0\). Shape regularity alone is not enough for the conclusions below: the geometric approximation, element maps, metric tensors, normals and seam incidence must also be controlled uniformly.
 
-For a structured-deformation field, use the standard pair
-[
-(g,G)in SBV(S;mathbb R^m)	imes L^p(S;mathbb R^{m	imes2}),
-qquad M=
-abla_Sg-G,
-]
-with the tangent/covariant interpretation fixed by the shell geometry. (G) here is the structured-deformation field, not the shell metric.
+The comparison cubical complex \(Q_6\) has 64 vertices, 192 edges and 240 square 2-cells. The 92-node shell and \(Q_6\) are different complexes. No bijection or canonical identification is inferred from their node counts. Any comparison must use explicitly defined chain or field maps, with stated domains, codomains and norms.
 
-## 2. Local cell measure and the proved quadrature input
+The orientability of the closed embedded shell supplies a global choice of unit normal away from the panel singularities. If the piecewise-\(C^2\) structure has creases, the two one-sided normals and the convention for traces at each crease must be specified; a global orientation does not make the normal continuous across a crease.
 
-On each triangle (Finmathcal T_h), choose parameters (a_{F,i}>0), (S_F=sum_i a_{F,i}), barycentric coordinates (lambda_i), and vertex matrix (V_F). Define
-[
-Z_F(a_F)=2A_Frac{prod_iGamma(a_{F,i})}{Gamma(S_F)},qquad
-m_{F,i}=rac{a_{F,i}}{S_F},
-]
-[
-C_{F,ij}=rac{a_{F,i}(S_Fdelta_{ij}-a_{F,j})}
-{S_F^2(S_F+1)},qquad
-c_{F,a}=V_F^{mathsf T}m_F,qquad
-Sigma_{F,a}=V_F^{mathsf T}C_FV_F.
-]
-For (g_Fin C^3) on a neighbourhood of (F), T068/T070 prove
-[
-int_Fg_F,dmu_{F,a}
-=g_F(c_{F,a})+rac12D^2g_F(c_{F,a}):Sigma_{F,a}+R_F,
-quad
-|R_F|lerac{h_F^3}{6}sup_F|D^3g_F|_{m op}.
-]
-For the unnormalized integral multiply by (Z_F(a_F)). In particular, if the parameters are uniformly controlled and the derivatives are uniformly bounded, then
-[
-sum_{Finmathcal T_h}Z_F(a_F)|R_F|
-le rac{h^3}{6}sup_F|D^3g_F|_{m op}
-sum_{Finmathcal T_h}Z_F(a_F),
-]
-where (h=max_F h_F). This is the local-to-global quadrature estimate to be used in the shell argument; its uniform hypotheses must be verified for the actual family.
+## 2. Intrinsic structured-deformation variables
 
-## 3. Candidate discrete energy
+For an \(\mathbb R^m\)-valued deformation \(g\), the intrinsic tangential derivative is a section
+\[
+\nabla_S g\in L^p(S;T^*S\otimes\mathbb R^m).
+\]
+The structured-deformation field \(G\) must belong to the same bundle. Only then is
+\[
+M=\nabla_Sg-G
+\]
+a well-defined section of \(T^*S\otimes\mathbb R^m\). In a local chart this is represented by an \(m\times2\) matrix; under a change of chart the two factors transform covariantly, so the bundle-valued difference is chart-independent.
 
-For shell fields (u_h,	heta_h) and a structured-deformation pair ((g_h,G_h)), consider a functional of the form
-[
-mathcal E_h=
-sum_{Finmathcal T_h}int_F
-W_F(X,
-abla_Su_h,G_h,	heta_h,
-abla_S	heta_h),dA
-+sum_{einmathcal S_h}int_e
-arphi_e([g_h],
-u_e,	heta_h),dmathcal H^1
-+mathcal E_h^{(4)}.
-]
-The seam density (arphi_e) and the fourth-moment contribution (mathcal E_h^{(4)}) must be specified independently. The schematic expression does not prescribe a constitutive law. A physical panel seam is not automatically a jump set of (g_h), and a quadratic seam penalty is not automatically covered by a one-homogeneous interfacial density.
+A candidate state space is
+\[
+(g,G)\in SBV(S;\mathbb R^m)\times
+L^p(S;T^*S\otimes\mathbb R^m).
+\]
+Here \(SBV\) on \(S\) must be defined intrinsically, for example through a finite atlas and compatible trace/jump definitions, or through an equivalent ambient formulation. The atlas, transition maps and uniformity required for a family of approximating surfaces \(S_h\) must be stated. This is an obligation, not a result supplied by the Euclidean structured-deformation theorem.
 
-The Gamma/Beta/Dirichlet parameters generate local barycentric moments. The digamma/trigamma derivatives generate parameter cumulants. Zeta/Bernoulli values enter through special-function identities and asymptotic expansions. These identities do not, without an actual mesh summation rule, supply the Euler–Maclaurin coefficients of (mathcal T_h).
+The shell metric is denoted by \(g_S\) (or another unambiguous symbol); it must not be confused with the deformation \(g\) or the structured field \(G\).
 
-## 4. Required hypotheses for the global theorem
+## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
-A proof must establish, rather than assume implicitly, hypotheses of the following types.
+For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
+\[
+B_3(a_F)=\frac{\prod_i\Gamma(a_{F,i})}{\Gamma(S_F)},
+\qquad Z_F=2A_FB_3(a_F),
+\qquad p_{F,i}=\frac{a_{F,i}}{S_F}.
+\]
+For the Dirichlet probability measure,
+\[
+C_{F,ij}
+=\operatorname{Cov}(\lambda_i,\lambda_j)
+=\frac{p_{F,i}\delta_{ij}-p_{F,i}p_{F,j}}{S_F+1}
+=\frac{a_{F,i}(S_F\delta_{ij}-a_{F,j})}
+{S_F^2(S_F+1)}.
+\]
+The barycentre and physical covariance are
+\[
+c_F=V_F^{\mathsf T}p_F,\qquad
+\Sigma_F=V_F^{\mathsf T}C_FV_F.
+\]
+For a scalar- or vector-valued \(u\in C^3\) on a neighbourhood of \(F\), the local Taylor estimate is
+\[
+\mathbb E_F[u(X)]
+=u(c_F)+\frac12D^2u(c_F):\Sigma_F+R_F,
+\qquad
+|R_F|\le \frac{h_F^3}{6}
+\sup_F\|D^3u\|_{\mathrm{op}},
+\]
+with the unnormalised integral obtained by multiplying by \(Z_F\).
 
-- **H1 — Surface geometry and refinement.** (S) has the regularity required by the chosen surface finite-element setting; (mathcal T_h) is conforming and uniformly shape regular; panel seams and their incidence are tracked under refinement.
-- **H2 — Dirichlet weights and local moments.** (a_{F,i}) stay in a declared admissible range; (Z_F), barycentres, covariances and phase moments have uniform bounds; the sum of the local Taylor remainders tends to zero.
-- **H3 — Field compactness and density regularity.** The interpolated fields have the Sobolev/BV bounds needed for compactness; the composed bulk density has the required regularity for quadrature wherever T068/T070 are invoked.
-- **H4 — Bulk and interface energy.** (W_F) and (arphi_e) satisfy the precise coercivity, growth, lower-semicontinuity and compatibility assumptions required by the selected structured-deformation relaxation theorem. The interface measure and seam/jump-set convention are explicit.
-- **H5 — Moment consistency.** The refinement stencil has the required first/third-moment cancellation, second-moment metric consistency, uniform fourth-moment bounds and higher regularity for the S.5 Taylor estimate. S.4 (fixed-cloud fourth moment) and S.5 (jump fourth moment) are not interchangeable.
-- **H6 — Discrete transfer.** There are explicitly defined maps between the relevant Q6/Kathara and shell chain/field spaces. They commute with the boundary operators where required, are uniformly bounded, and satisfy independently stated geometry, metric, measure and orientation consistency. The finite Gate D identities alone do not imply these analytic properties.
-- **H7 — Operator convergence.** If a Mosco or spectral conclusion is sought, the varying Hilbert spaces, comparison maps, quadratic forms, compactness and resolvent hypotheses are all specified. A chain map is not by itself a Mosco-convergence theorem.
+Consequently,
+\[
+\sum_{F\in\mathcal T_h}Z_F|R_F|
+\le \frac{h^3}{6}
+\left(\sup_F\|D^3u\|_{\mathrm{op}}\right)
+\sum_{F\in\mathcal T_h}Z_F,
+\qquad h=\max_Fh_F,
+\]
+provided the displayed supremum is uniform. This is a conditional summation of the local estimate, not by itself a global convergence theorem. To conclude that the right-hand side tends to zero one must establish a uniform bound on the total weights \(\sum_F Z_F\), as well as the stated uniform derivative bound and admissible control of the Dirichlet parameters.
 
-## 5. The target conclusions (separate statements)
+T068/T070 establish local moment, covariance and Taylor/quadrature statements under their stated hypotheses. They do not establish uniformity for every football refinement, a global surface quadrature theorem, or a Γ-limit.
 
-Under suitable verified versions of H1–H7, the programme seeks the following results. They must be proved separately.
+The derivatives of \(\log B_3\) are expressed through digamma and trigamma functions and encode cumulants of logarithmic barycentric coordinates. Zeta, Bernoulli and Euler–Maclaurin identities may enter asymptotic expansions, but they do not determine mesh-summation correction terms without an explicit refinement and summation rule.
 
-**(A) Global barycentric quadrature.** The sum of the T068/T070 cell expansions converges to the surface bulk integral, with an explicit global error bound. The Bernoulli/Euler–Maclaurin correction terms, if present, are derived from the actual refinement summation rule.
+## 4. Candidate discrete energy — constitutive choices remain open
 
-**(B) Structured-deformation Gamma limit.** The functionals (mathcal E_h) Gamma-converge (in a declared topology) to a surface bulk/interface functional (mathcal E). The proof requires compactness, a liminf inequality and a recovery sequence. The Euclidean periodic theorem of Amar–Matias–Morandotti–Zappale (2022) is not, without an extension proof, a theorem on the closed curved shell.
+A schematic family may have the form
+\[
+\begin{aligned}
+\mathcal E_h(u_h,g_h,G_h,\theta_h)
+={}&\sum_{F\in\mathcal T_h}\int_F
+W_F(X,\nabla_Su_h,G_h,\theta_h,\nabla_S\theta_h)\,dA\\
+&+\sum_{e\in\mathcal S_h}\int_e
+\psi_e([g_h],\nu_e,\theta_h)\,d\mathcal H^1
++\mathcal E_h^{(4)}.
+\end{aligned}
+\]
+This is only a template. The bulk density \(W_F\), seam density \(\psi_e\), fourth-moment term \(\mathcal E_h^{(4)}\), admissible variables and boundary conditions must be specified before a Γ-convergence statement is even a complete mathematical proposition.
 
-**(C) Mosco/operator limit.** Separately, the discrete quadratic forms associated with the selected shell/Q6 operators Mosco-converge on the declared varying Hilbert spaces. The comparison maps must preserve the relevant energy and (L^2) structures in the limit.
+In particular, a physical panel seam \(\Gamma_{\rm phys}\) is prescribed geometric data, whereas the jump set \(S_{g_h}\) is part of the variational state. They must not be identified without an explicit modelling choice. A seam term quadratic in the jump is not automatically covered by a theory requiring a one-homogeneous interfacial density.
 
-**(D) Spectral convergence.** Only after (C), together with the required compactness/compact-resolvent and multiplicity-control hypotheses, may convergence of eigenvalues or spectral projectors be concluded. The (Q_6) Walsh spectrum, the (S^3/T^*) spectrum and the (S^3/2I) spectrum are separate exact finite/spherical benchmarks; none is automatically the limit spectrum of the football shell.
+## 5. Required hypotheses — obligations, not established assumptions
 
-## 6. Exact finite inputs already available
+A proof must verify the following items for the actual mesh family and energy.
 
-- **T068/T070:** proved local uniform/weighted triangle barycentre, covariance and Taylor quadrature laws; T070 also gives the affine-phase moment bound.
-- **T069:** exact pair mean/difference covariance identity for a fixed-point-free involution; the recovered RGS seed covariance and XOR 7/XOR 63 distinction are finite numerical records.
-- **T071:** exact Q6 cubical chain identities (B_1B_2=0), Anti-Twin chain-map identities and the stated truncated-2-skeleton ranks/Betti numbers; synchronization/hysteresis is exploratory.
-- **T072:** exact Möbius phase-translation action, pure-gauge vertex-phase connection, Q6 Walsh Laplacian spectrum and antipodal (32+32) decomposition; the canonical equal-time connection is trivial.
-- **Gate D / PR #195:** the recorded finite Kathara–Q6 chain-map identities and rank checks; no (O_h)-equivariance, canonical metric, shell embedding or spin transport is claimed.
-- **Gate E.1 / T068:** local quadrature law and companion implementation; not a global limit theorem.
-- **S.4–S.8:** fourth-moment tensor, local current, Maxwell obstruction and algebraic coframe variation with the exact/numerical distinctions in their records.
-- **S.9/S.10:** Weber–Dedekind eta, supergolden class invariant, Dirichlet eta/(L)-function/quadratic zeta and Bernoulli/polygamma identities.
-- **S011:** source-verified binary-tetrahedral (S^3/T^*) spectrum and independent Molien check. The binary-icosahedral (S^3/2I) spectrum remains a separate module.
+- **H1 — Surface approximation and geometry.** Specify \(S_h\), element-to-surface maps and comparison maps to \(S\). Require appropriate uniform bi-Lipschitz bounds, convergence of metrics and surface measures, and convergence/control of one-sided normals. Shape regularity alone does not imply all of these.
+- **H2 — Mesh and local moments.** Require uniform shape regularity, admissible Dirichlet parameters, bounds on \(Z_F\), barycentres and covariance tensors, and a uniform Taylor remainder estimate. In particular establish \(\sup_h\sum_F Z_F<\infty\) if using the global estimate in §3.
+- **H3 — Field compactness.** State the topology and prove uniform bounds sufficient for compactness of \(g_h\) in \(L^1\), weak compactness of \(G_h\) in \(L^p\), and control of the jump measures. A typical sufficient coercivity assumption is
+  \[
+  W(X,A,B)\ge c_1(|A|^p+|B|^p)-c_2,\qquad p>1,
+  \]
+  but it is not necessary in this exact form. Control of \(B\) may instead follow from a bound on \(A-B\) together with control of \(A\). A bound on \(A\) alone does not control \(B\).
+- **H4 — Bulk/interface relaxation.** State the precise growth, coercivity, measurability, lower-semicontinuity, quasiconvexity and interfacial subadditivity assumptions needed by the chosen relaxation theorem. The Euclidean periodic theorem of Amar–Matias–Morandotti–Zappale (2022) applies under its own hypotheses; it is not automatically a theorem for a compact curved shell.
+- **H5 — Seams and jumps.** Fix one seam model (see §7), define whether physical seams are admissible jump locations, and prevent double counting between a seam energy and the jump part of the bulk/interface functional.
+- **H6 — Moment and fourth-order consistency.** Prove the required first-, second-, third- and fourth-moment bounds/cancellations for the actual refinement. S.4 (fixed-cloud fourth moment), S.5 (jump fourth moment/Taylor expansion), S.6 (derivative), S.7 (Maxwell obstruction) and S.8 (coframe variation) are distinct results and must not be conflated.
+- **H7 — Discrete transfer.** Define each map between \(Q_6\), Kathara and shell chain/field spaces, including domain, codomain, norms and orientation conventions. Prove the relevant chain identities, uniform boundedness and geometric/metric/measure consistency. The finite Gate D chain identities alone do not imply these analytic properties.
+- **H8 — Operator and spectral convergence.** If sought, separately specify varying Hilbert spaces, comparison maps, quadratic forms, Mosco convergence, compactness of resolvents and multiplicity control. A chain map or Γ-limit of a non-quadratic energy is not by itself an operator- or spectral-convergence theorem.
 
-## 7. What would falsify or invalidate the proposed unification
+## 6. L1–L6: proof obligations and current status
 
-The proposed global theorem fails in its stated form if any of the following cannot be supplied: a shape-regular shell refinement; uniform local moment bounds; a compatible surface bulk/interface density; a seam/jump-set convention satisfying the energy assumptions; a transfer map with the required metric/measure compatibility; or compactness and recovery constructions. A numerical fit between spectra, a shared algebraic polynomial, a common phase parameter, or a visual correspondence of cells cannot replace these hypotheses.
+The following are the logical work packages. Their surface versions remain open unless a separate proof is added.
 
-## 8. Status and repository links
+| Lemma | Required statement and missing proof | Status |
+|---|---|---|
+| **L1 — Compactness** | Prove compactness of \(g_h\) in the declared \(L^1\) topology and weak compactness of \(G_h\) in \(L^p\). This requires coercive bounds, control of the jump measure (typically a uniform \(\mathcal H^1(S_{g_h})\) bound or the precise substitute supplied by the energy), an \(L^1/L^\infty\) bound or normalization, and uniform surface charts/transfer maps. The Euclidean SBV compactness theorem does not automatically supply the uniform statement on varying \(S_h\). | **OPEN on the shell.** Euclidean compactness is established in the relevant classical theory under its hypotheses. |
+| **L2 — Localisation and Radon measure** | Show that the limiting set function on open subsets of \(S\) is finite, increasing and suitably subadditive, and verify the De Giorgi–Letta/Fonseca–Malý hypotheses in the intrinsic surface topology. The local compact-space measure argument is potentially transferable, but the required nested subadditivity and seam conventions must actually be checked. | **OPEN for this functional on \(S\).** General measure-representation machinery is available; its hypotheses have not been verified here. |
+| **L3 — Relaxation and cell density** | Define the local blow-up/cell problem, prove existence of the limiting density, and establish independence from charts and local frames. The periodic cell formula in Euclidean space cannot simply be copied to a general compact surface, which has no global translation group. The effective density may depend on position, tangent plane and curvature. | **OPEN.** No intrinsic cell formula or chart-independence proof is supplied. |
+| **L4 — Liminf inequality** | For the declared convergence, prove \(\mathcal E(g,G)\le\liminf_h\mathcal E_h(g_h,G_h)\). This requires the appropriate intrinsic lower-semicontinuity/quasiconvexity and control of the limiting interface measure, including discrete seams and one-sided geometry. | **OPEN.** |
+| **L5 — Recovery sequence** | For each admissible \((g,G)\), construct a sequence \((g_h,G_h)\) with \(\limsup_h\mathcal E_h(g_h,G_h)\le\mathcal E(g,G)\). The approximation of a general jump set by mesh edges, and the associated seam/jump cost, must be controlled. A jump not aligned with edges cannot be assumed to have a cost-free or uniformly bounded mesh approximation. | **OPEN.** |
+| **L6 — Discrete/continuous transfer** | Define explicit maps \(T_h\), prove consistency and stability, and verify the chain/field and metric properties needed by the intended limit. Without a specified \(T_h\), this is not yet a fully testable theorem statement. | **OPEN; not yet an instantiated lemma.** |
 
-**Status: OPEN.** This is the formal research target organising the results, not a proof that the global limit exists.
+Logical dependencies: L1 supports L2, L4 and L5; L2 supplies a measure framework for L3; L3 supplies candidate densities for L4 and L5; L4 and L5 together establish Γ-convergence once compactness/equicoercivity is also available. L6 is a separate prerequisite for conclusions that compare the shell discretisation with \(Q_6\)/Kathara or identify discrete operators with continuum ones.
+
+## 7. Physical seam models — choose one before proving a limit
+
+Let \(\Gamma_{\rm phys}\subset S\) be the prescribed panel-seam network.
+
+- **Model A — kinematic constraint.** Impose a trace constraint such as \([g]=0\), or a prescribed jump, on \(\Gamma_{\rm phys}\). The seam is a constraint, not an additional free jump energy. The admissible class and trace convention must be specified.
+- **Model B — cohesive interface.** Assign a separate density \(\psi_\Gamma([g],\nu,\theta)\) to the fixed interface. State its growth, continuity and lower-semicontinuity assumptions and ensure that the same interface is not counted again in a generic jump term.
+- **Model C — geometric seam without an energetic jump penalty.** The seam records a change of panel geometry, metric or normal but contributes no independent jump cost. This is mathematically possible only after specifying the admissible traces and the bulk density across the seam; zero penalty can otherwise permit energetically uncontrolled jumps.
+
+These are different models, not interchangeable notational conventions. The energy must say whether \(S_g\) may intersect \(\Gamma_{\rm phys}\), whether it may contain it, and how the seam contribution is counted. In particular, double-counting a seam once as a prescribed interface and again as a free jump is a modelling error unless the two terms represent distinct physical mechanisms.
+
+A useful falsification test is to compare meshes with seams aligned to edges against meshes where the same fixed seam cuts element interiors. Compute the seam and jump contributions separately. A non-vanishing discrepancy under refinement signals that the discrete interface convention is not consistent; it is not, by itself, a proof of a general counterexample.
+
+## 8. Four convergence claims that must remain separate
+
+1. **Γ-convergence** concerns convergence of functionals in a declared topology. It does not by itself imply convergence of minimisers without equicoercivity, nor convergence of operators.
+2. **Mosco convergence** is a weak-liminf/strong-recovery convergence for convex functionals (in particular closed quadratic forms) on a fixed Hilbert space, or on varying spaces with explicitly controlled comparison maps. It is not merely another name for Γ-convergence.
+3. **Operator/resolvent convergence** requires the relevant closed forms, domains and Hilbert-space identifications, plus the hypotheses of the chosen form-convergence theorem.
+4. **Spectral convergence** additionally requires suitable compactness of resolvents (or another precise spectral compactness condition) and control of multiplicities. Compactness of \(S\) alone is not enough if the limiting form domain or coercivity does not give compact embedding.
+
+The \(Q_6\) Walsh spectrum, the \(S^3/T^*\) spectrum and the \(S^3/2I\) spectrum are separate exact benchmarks. None is automatically the limit spectrum of the football shell.
+
+## 9. Separate target statements
+
+The programme has four targets, each requiring its own hypotheses and proof.
+
+**(A) Global barycentric quadrature.** Sum the local T068/T070 expansions and prove an explicit global error bound, including uniform control of the total weights and derivative norms. Derive any Bernoulli/Euler–Maclaurin corrections from the actual mesh summation rule.
+
+**(B) Structured-deformation Γ-limit.** Define the surface functional, topology and seam model; prove compactness/equicoercivity, liminf and recovery. Any use of Amar–Matias–Morandotti–Zappale (2022) must identify the exact Euclidean hypotheses used and prove the additional surface/mesh extension.
+
+**(C) Mosco/operator limit.** Define the discrete and continuum quadratic forms and comparison maps; prove weak-liminf and strong-recovery properties on the declared Hilbert spaces.
+
+**(D) Spectral convergence.** After (C), prove the required compact-resolvent and spectral multiplicity hypotheses. Do not infer it from a finite chain map, a numerical spectral fit or a common algebraic parameter.
+
+## 10. Existing finite inputs and their scope
+
+- **T068/T070:** local triangle barycentre, covariance and Taylor/quadrature identities under their stated hypotheses; not a global shell limit.
+- **T069:** exact pair mean/difference covariance identity for a fixed-point-free involution; the recovered RGS seed covariance and XOR 7/XOR 63 distinction are finite records.
+- **T071:** exact \(Q_6\) cubical chain identities \(B_1B_2=0\), Anti-Twin chain-map identities and the stated truncated-2-skeleton ranks/Betti numbers; synchronisation/hysteresis remains exploratory.
+- **T072:** exact Möbius phase-translation action, pure-gauge vertex-phase connection, \(Q_6\) Walsh Laplacian spectrum and antipodal \(32+32\) decomposition; the canonical equal-time connection is trivial.
+- **Gate D / PR #195:** recorded finite Kathara–\(Q_6\) chain-map identities and rank checks; no \(O_h\)-equivariance, canonical metric, shell embedding or spin transport follows.
+- **Gate E.1 / T068:** local quadrature law and companion implementation; no global limit theorem.
+- **S.4–S.8:** fourth-moment tensor, jump expansion, derivative, Maxwell obstruction and coframe variation, each with its own exact/numerical status.
+- **S.9/S.10:** Weber–Dedekind eta, supergolden class invariant, Dirichlet eta/\(L\)-function/quadratic-zeta and Bernoulli/polygamma identities; these special-function identities do not prove the shell limit.
+- **S011:** binary-tetrahedral \(S^3/T^*\) spectrum with an independent Molien/Peter–Weyl reconstruction. The binary-icosahedral \(S^3/2I\) spectrum is a separate module.
+
+## 11. Falsification and proof gates
+
+The global programme cannot be promoted if any required item remains absent: a uniformly controlled shell refinement; intrinsic function spaces and traces; uniform local-moment and total-weight bounds; a specified bulk/interface energy; a seam convention without double counting; compactness and relaxation; liminf and recovery; explicit transfer maps with the required consistency; and, for operator/spectral claims, Mosco and compact-resolvent arguments.
+
+A numerical fit, common polynomial, shared phase parameter, visual cell correspondence or finite chain identity cannot replace these proof obligations.
+
+## 12. Status and references
+
+**Status: OPEN.** T073 is a structured research programme and checklist, not a theorem asserting that the global limit exists. The sufficient coercivity and geometric assumptions listed above are candidate hypotheses to be tested against a fully specified energy; they are not claimed to be minimal or already verified.
 
 - [Canonical unitary theory](../docs/UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md).
 - [Integrated moments/barycentres/Gamma–Beta–zeta/Morandotti synthesis](../docs/SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
 - [Independent numerical replay report](../reports/2026-11-10_integrated_synthesis_numerical_replay.md).
 - [Special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md).
 
-## References
+### References
 
 1. N. Yui and D. Zagier, “On the Singular Values of Weber Modular Functions,” *Mathematics of Computation* 66 (1997), 1645–1662.
 2. A. Ikeda, “On the Spectrum of Homogeneous Spherical Space Forms,” *Kodai Mathematical Journal* 18 (1995), 57–67.
