@@ -83,7 +83,7 @@ The negative Grablovitz root is simply
 \[
 x_0=-\psi,\qquad x_0^3+x_0^2+1=0.
 \]
-The Weber invariant \(\rho=1/\psi\) generates the Hilbert class field over \(K\) under the cited class-invariant theorem. The statement that \(\psi\) is a unit follows from its monic polynomial and norm \(1\); calling it the *fundamental* unit requires a separate regulator/minimality proof and is not assumed here.
+The principal Weber invariant \(\rho=1/\psi\) generates the Hilbert class field over \(K\) conditional on the tabulated irreducible principal-invariant polynomial. Yui–Zagier explicitly leave the stronger assertion that all class values are conjugate without sign ambiguity as conjectural; this construction does not rely on that stronger assertion. The statement that \(\psi\) is a unit follows from its monic polynomial and norm \(1\); calling it the *fundamental* unit requires a separate regulator/minimality proof and is not assumed here.
 
 
 ### 2.1 Direct eta-product verification and terminology safeguard
