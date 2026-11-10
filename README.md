@@ -49,6 +49,7 @@ theorem/
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Special functions and Morandotti bibliography](bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Repository PDF inventory and source audit (13 PDFs)](audits/2026-11-10_pdf_repository_audit.md)
+- [Unitary theory: truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](docs/UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md) — canonical dependency map for all 10 November results, including the football geometry, barycentric moments, special functions, phases, fourth moments, Q6 and spherical spectra.
 - [Integrated synthesis: moments, barycentres, Gamma–Beta–zeta and Morandotti](docs/SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md)
 - [Unified Dedekind–Dirichlet eta, Weber–supergolden, barycentric and RGS–Morandotti construction](docs/UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md) — integrates the exact modular/class-field bridge at discriminant −31 with Dirichlet (L)-functions, Beta/Gamma cumulants, barycentric quadrature, Q6 and fourth moments.
 - [10 November independent numerical replay report](reports/2026-11-10_integrated_synthesis_numerical_replay.md) — seed moments, Walsh sectors, Duffy–Jacobi checks, fourth-moment variations and Q6 cubical chain identities; explicitly not a pytest/CI pass.
