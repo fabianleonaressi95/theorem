@@ -118,6 +118,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T065](theorems/T065-cubical-subdivision-chain-map-and-naturality.md) | Exact cubical subdivision chain map and signed-permutation naturality | Proves the integral boundary-commuting subdivision map and its naturality under all 48 signed-permutation symmetries in 3D. |
 | [T066](theorems/T066-herasymov-parity-affine-shared-face-conformity.md) | Herasymov parity-cell affine shared-face conformity | Proves, under the explicit cellwise-affine interpretation and N≥2, that conformity holds iff all eight parity classes use the same affine coordinate map. |
 | [T067](theorems/T067-stokes-commuting-cubical-face-integral-interpolation.md) | Stokes commutation of cubical face-integral interpolation | Proves exact commutation of the face-integral interpolator with the cellular exterior derivative; numerical quadrature checks remain finite. |
+| [T068](theorems/T068-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport and \\(\\varphi\\)/\\(\\psi\\) emergence remain open. |
 
 **Numbering note.** Historical records include overlapping T034 labels in the repository's development history. The linked files identify the intended record; the numbering conflict is not silently resolved by this index and should be handled in a dedicated renumbering change.
 
