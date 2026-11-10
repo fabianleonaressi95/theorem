@@ -95,6 +95,10 @@ The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geo
 
 The [10 November 2026 analytic audit](docs/CURVILINEAR_MESH_ANALYTIC_AUDIT_2026-11-10.md) proves global injectivity and uniform pullback-metric ellipticity for the default sinusoid and axis-bump maps using explicit contraction bounds. This upgrades the default-map injectivity status beyond sampled Jacobian diagnostics. Parameter sweeps outside those bounds, stable commuting projections, discrete compactness and Mosco convergence remain open.
 
+## Relative boundary complex implementation
+
+A first executable relative-complex constructor is now available in `ddr/boundary_complex.py`, with tests in `test_boundary_complex.py`. It removes tangential boundary-trace DOFs, restricts incidence and consistent masses, checks that the retained spaces form a subcomplex, and computes relative Betti numbers. The expected topology is `beta=(0,0,1)` for a square and `beta=(0,0,0,1)` for a cube. This is a structural implementation; runtime CI and convergence of the relative codifferential have not yet been run.
+
 ## Boundary Green identity and adjoint domains
 
 The [boundary Green identity audit](docs/BOUNDARY_GREEN_IDENTITY_AND_ADJOINT_DOMAINS_2026-11-10.md) formalizes why the unconstrained matrix adjoint need not converge to the strong codifferential without matching operator domains. It specifies separate full/weak and relative/essential experiments, including topology, restricted masses, trace pairings and acceptance criteria. No boundary-constrained convergence result is claimed until those experiments are implemented and run.
