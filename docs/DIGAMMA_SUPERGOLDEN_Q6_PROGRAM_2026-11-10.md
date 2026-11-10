@@ -332,3 +332,14 @@ La classificazione aritmetica della riflessione del digamma è stata isolata in 
 - [Teorema — legge di riflessione del digamma e dicotomia razionale/irrazionale](../theorems/DIGAMMA_REFLECTION_CYCLOTOMIC_LAW.md) — **dimostrato**.
 
 Il teorema prova che per un parametro algebrico razionale il coefficiente cotangente è algebrico, mentre per un parametro algebrico irrazionale è trascendente. La derivazione di un unico operatore geometrico Q6/PSU resta aperta.
+
+
+## Teorema di crescita e incremento digamma
+
+Il collegamento fra una sostituzione orientata astratta a tre canali e il digamma è ora formalizzato nel [teorema di crescita supergolden a tre canali](../theorems/ORIENTED_THREE_CHANNEL_SUPERGOLDEN_GROWTH_LAW.md). Il risultato dimostrato è
+\[
+N_{n+3}=N_{n+2}+N_n,\qquad
+\frac{N_{n+1}}{N_n}\longrightarrow s,\qquad
+\psi(N_{n+1})-\psi(N_n)\longrightarrow\log s.
+\]
+La derivazione geometrica della sostituzione dai dati Q6/PSU resta esplicitamente aperta.
