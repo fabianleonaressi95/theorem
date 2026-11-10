@@ -183,6 +183,49 @@ A reproducible follow-up should report:
 6. principal curvatures and (K_G>0) checks for any reconstructed ovaloid;
 7. sensitivity to seam stiffness and mesh refinement.
 
+
+## 11. Physical status of seams: literature-based correction
+
+A seam is not merely a curve in a drawing. In a textile/membrane structure it is a **joint between material panels**, and its load-transfer and failure behaviour must be characterised independently of the parent fabric. The JRC report *Prospect for European Guidance for the Structural Design of Tensile Membrane Structures* (Stranghöner et al., 2023, JRC 132615, DOI 10.2760/24763) explicitly states that membrane joints are carried out by seams; uncoated fabrics are sewn, while coated fabrics commonly use welded or clamped joints. It requires seam resistance to be established by tensile tests and distinguishes seam strength from bulk tensile strength, tear strength and adhesion. See the dedicated literature audit at `audits/2026-11-10_physical_seams_interfaces_literature_audit.md`.
+
+This is consistent with experimental work on welded PVDF membranes (Liu et al., 2026, DOI 10.1016/j.tws.2026.114501) and off-axis welded-fabric seam testing (Yu et al., 2025, DOI 10.1177/15589250251342853). The seam may fail by tensile rupture or peeling; it can be the limiting structural component even when the base membrane remains intact.
+
+### 11.1 The physics connection, stated precisely
+
+Physics contains several related but non-identical interface objects:
+- grain boundaries and disconnections in polycrystalline solids (Han, Thomas & Srolovitz, 2018);
+- dislocations and disclinations as line defects (Kleman & Friedel, 2008);
+- ferroic domain walls and lower-dimensional defects hosted by them (Nataf et al., 2020);
+- cohesive, adhesive and frictional interfaces in continuum mechanics.
+
+These are not literally sewn textile seams. The common mathematical structure is that an interface can carry its own energy, internal variables, defects, transport law and failure/kinetic response. Therefore the football seam network can be treated using interface mechanics, while analogies to grain boundaries or domain walls must remain structural analogies unless a specific physical identification is proved.
+
+### 11.2 Corrected interface functional
+
+Let (P_p) be the material panel regions on the reference ovaloid and (Gamma_e) the physical seam curves. The general energy is
+[
+mathcal E[y,z]=
+sum_{p=1}^{32}int_{P_p}W_p(x,
+abla_Sy),dA_g
++sum_{e=1}^{90}int_{Gamma_e}
+psi_e(x,[y],[
+abla_Sy],z_e),ds_g
++mathcal E_{m bend}[y].
+]
+The seam state (z_e) may encode damage, slip, thread pull-out, frictional state or hysteresis, but only if the actual joining process supports those variables. A cohesive law has traction (t_e=partial_deltapsi_e) with (delta=[y]); a frictional/clamped interface requires contact and tangential-slip laws; a sewn textile seam may require an effective law calibrated against stitch/thread and fabric tests. A welded seam needs tensile/peel and process-dependent parameters. These classes must not be collapsed into one universal spring.
+
+The current code's axial line spring on physical seam edges and separate seam bending multiplier are only a rudimentary discrete special case. They do not implement cohesive damage, peel, thread pull-out, frictional slip, fatigue or hysteresis. The 270 triangulation hinges remain distinct from the 90 physical seams.
+
+### 11.3 Consequence for the ellipsoid/ovaloid reduction
+
+The seam network is now treated as a metric-measure graph embedded in the global ellipsoid/ovaloid:
+[
+(Gamma,ds_g,{psi_e}_{e=1}^{90}).
+]
+The global ellipsoid captures the low-dimensional shape; panel fields describe bulk material response; seam fields encode the joining physics. At seam crossings or multi-panel junctions, separate junction balance/compatibility conditions may be required. Any homogenised seam law must be derived in a stated scale regime and validated against seam-specific experiments.
+
+**Revised status:** existence and mechanical relevance of seams are established by the engineering literature; the actual seam law for this football, its parameters, fatigue/hysteresis response and the seam-aware ovaloid limit remain open pending construction data and experiments.
+
 ## References and provenance
 
 - Repository `models/football_shell.py`: generated truncated-icosahedral shell, 90 physical seams, orthotropic CST membrane, dihedral hinges, optional physical seam line reinforcement.
