@@ -97,6 +97,7 @@ is derived directly in S.10 by expanding the Fermi kernel and integrating termwi
 
 - `theorems/S009-weber-dedekind-eta-supergolden-class-invariant.md`: source caveat, class-field scope, corrected DLMF references.
 - `theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md`: completely cleaned and corrected reference section; removed the malformed duplicate tail and invalid DLMF §20.10 attribution.
+- `theorems/S011-ikeda-binary-tetrahedral-spectrum.md`: verified index convention, subgroup inclusion–exclusion, Ikeda multiplicity formula, independent Molien derivation and initial multiplicities; explicitly excludes any eta/Weber attribution.
 - `bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md`: corrected DLMF entries 37–38, corrected the citation map, added Khan's Maxwell Optics source and a precise Yui–Zagier scope note.
 - `docs/UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md`: corrected DLMF section map and made the Yui–Zagier class-value caveat explicit.
 
@@ -148,3 +149,26 @@ The paper's introduction (p. 57) defines the spherical quotient \(S^{2n-1}/G\), 
 - **Quarantined:** archive/unclassified/zps (1).pdf; retain outside the evidentiary chain until provenance and relevance are established.
 
 This status register distinguishes inventory completeness from semantic review completeness: all 13 PDFs are inventoried, but the three files named above remain unclassified (two pending and one quarantined). It does not claim a complete page-by-page audit of every PDF.
+
+
+### M.4 Exact verification of Ikeda's binary-tetrahedral formula
+
+The source check and the independent calculation are now recorded as theorem file `theorems/S011-ikeda-binary-tetrahedral-spectrum.md`.
+
+- **Index:** the general (S^3) harmonic degree is \\(\\ell\\), with eigenvalue \\(\\ell(\\ell+2)\\). Ikeda's binary-tetrahedral index is \\(\\ell=2k\\), so \\(\\lambda_k=4k(k+1)\\). This agrees with Theorem 4.4(2) at (n=1); there is no eigenvalue discrepancy.
+- **Subgroup average:** Proposition 3.1(2) gives four cyclic subgroups of order 6 and three of order 4, all sharing the central (C_2). Their union has size (4(6-2)+3(4-2)+2=24). Inclusion–exclusion gives exactly
+  \\[F_{T^*}=\\frac{24F_6+12F_4-12F_2}{24}
+  =F_6+\\frac12F_4-\\frac12F_2,\\]
+  matching the coefficients printed in the p. 63 Poincaré-series formula.
+- **Molien:** the defining (SU(2)) representation gives
+  \\[M(t)=\\frac1{24}\\left[
+  \\frac1{(1-t)^2}+\\frac1{(1+t)^2}+\\frac6{1+t^2}
+  +\\frac8{1-t+t^2}+\\frac8{1+t+t^2}\\right]
+  =\\frac{1+t^{12}}{(1-t^6)(1-t^8)}.\\]
+  Its even-degree coefficient is
+  \\[m_{2k}=1+2\\lfloor k/3\\rfloor+\\lfloor k/2\\rfloor-k.\\]
+  Multiplication by the other (SU(2)) factor's dimension (2k+1) recovers Ikeda's
+  \\[a_k=(2k+1)m_{2k}.\\]
+- **Numerical spot checks:** (k=3): (m_6=1, a_3=7); (k=6): (m_{12}=2, a_6=26). The initial table is in S011.
+- **Scope:** Ikeda supports the spherical-spectrum and finite-group quotient strand only. It does not support a Weber/Dedekind-eta/Dirichlet-eta or \\(\\mathbb Q(\\sqrt{-31})\\) connection.
+
