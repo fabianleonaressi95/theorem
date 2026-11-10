@@ -52,15 +52,15 @@ For constant \(\mathcal W_F=W_0\), \(\mathcal E_F(a)=W_0\), since the Dirichlet 
 For a parameter \(a_i\), differentiation under the integral is justified, for example, when the density and its logarithmic moments admit a common integrable majorant in a neighbourhood of \(a\). Then
 \[
 \partial_{a_i}\log p_a(\lambda)
-=\psi(S)-\psi(a_i)+\log\lambda_i,
+=\psi_{\mathrm{dig}}(S)-\psi_{\mathrm{dig}}(a_i)+\log\lambda_i,
 \]
-where \(\psi=\Gamma_E'/\Gamma_E\) is the digamma function. Consequently
+where \(\psi_{\mathrm{dig}}=\Gamma_E'/\Gamma_E\) is the digamma function \(\psi_{\mathrm{dig}}\). Consequently
 \[
 \boxed{
 \partial_{a_i}\mathcal E_F(a)
 =\mathbb E_a\!\left[
 \mathcal W_F(\lambda)
-\{\psi(S)-\psi(a_i)+\log\lambda_i\}
+\{\psi_{\mathrm{dig}}(S)-\psi_{\mathrm{dig}}(a_i)+\log\lambda_i\}
 \right].
 }
 \]
@@ -69,7 +69,7 @@ The score has zero mean, so a constant cell density has zero parameter derivativ
 The second derivatives involve
 \[
 \partial_{a_j}\partial_{a_i}\log p_a
-=\psi_1(S)-\delta_{ij}\psi_1(a_i),
+=\psi_{\mathrm{dig}}^{(1)}(S)-\delta_{ij}\psi_{\mathrm{dig}}^{(1)}(a_i),
 \]
 and products of score functions. Thus trigamma/polygamma functions arise as exact sensitivities of the barycentric averaging measure. These derivatives quantify how the averaged second-order energy responds to changes in barycentric concentration; they do not by themselves constitute a physical evolution law for \(\Gamma_{\mathrm{Mor}}\).
 
@@ -97,7 +97,7 @@ For non-polynomial constitutive densities, use the T068–T070 Taylor/quadrature
 - Digamma/polygamma appear when differentiating the Dirichlet normalization or logarithmic moments.
 - Hurwitz zeta is related to polygamma at positive integer order:
   \[
-  \psi^{(m)}(z)=(-1)^{m+1}m!\,\zeta(m+1,z),\qquad m\ge1.
+  \psi_{\mathrm{dig}}^{(m)}(z)=(-1)^{m+1}m!\,\zeta(m+1,z),\qquad m\ge1.
   \]
 - Dirichlet eta \(\eta_D(s)=(1-2^{1-s})\zeta(s)\) is distinct from Dedekind eta \(\eta_{\mathrm{Ded}}(\tau)\). Neither follows automatically from the local Morandotti field. They can enter only after a specified series/spectral or modular structure has been derived.
 - A zeta-regularized determinant requires a specified elliptic operator, domain, boundary conditions and zero-mode prescription. It is not supplied merely by writing \(\Gamma_{\mathrm{Mor}}\) in an energy density.
