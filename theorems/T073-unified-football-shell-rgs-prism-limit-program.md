@@ -60,26 +60,27 @@ Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad
 \]
 The recorded family has 216 tripletti and 20 Gram classes; every \(\Gamma_T\) is positive semidefinite with rank at most two. These Gram classes encode channel anisotropy. They are not automatically the constitutive tensor of the football fabric.
 
-**(iii) Required bridge.** At each shell point \(x\), an explicit transfer
+**(iii) Finite-mesh bridge; continuum extension open.** At each of the 92 shell nodes \(x_i\), the implemented transfer is
 \[
-L_x:\mathbb R^{188}\longrightarrow\mathbb R^3
+L_i:\mathbb R^{188}\longrightarrow T_{x_i}S\subset\mathbb R^3,
+\qquad L_i=P_iW_iQ.
 \]
-must be supplied, with image in \(T_xS\subset\mathbb R^3\). The transferred T2u channel map is
+The transferred T2u channel map is
 \[
-U_x=L_xV:\mathbb R^3\longrightarrow T_xS,
-\qquad \operatorname{rank}U_x=2.
+U_i=L_iV:\mathbb R^3\longrightarrow T_{x_i}S,
+\qquad \operatorname{rank}U_i=2.
 \]
-The rank-two condition is checked pointwise; it is not inferred from the global multiplicity-three statement. For a selected G2 triplett class, the induced tangent anisotropy is
+The implementation checks the rank at every node and raises if it fails; the dedicated all-node regression test is included but its CI execution is still pending. The formula defines a finite-mesh nodal map, not yet a smooth family \(L_x\) at every continuum point. For a selected G2 triplett class, the nodal tangent anisotropy is
 \[
-A_T(x)=U_x\Gamma_TU_x^*
-\in\operatorname{Sym}^+(T_xS).
+A_T(x_i)=U_i\Gamma_TU_i^*
+\in\operatorname{Sym}^+(T_{x_i}S).
 \]
-Equivalently, in a local orthonormal tangent frame \(F_x:\mathbb R^2\to T_xS\),
+Equivalently, in a local orthonormal tangent frame \(F_i:\mathbb R^2\to T_{x_i}S\),
 \[
-[A_T(x)]_{F_x}=F_x^TU_x\Gamma_TU_x^TF_x.
+[A_T(x_i)]_{F_i}=F_i^TU_i\Gamma_TU_i^TF_i.
 \]
-Under a frame change \(F_x\mapsto F_xO_x\), this matrix transforms as
-\(A_F\mapsto O_x^TA_FO_x\); its eigenvalues and anisotropy ratio are frame-independent. The ambient tensor \(U_x\Gamma_TU_x^T\) is unchanged.
+Under a frame change \(F_i\mapsto F_iO_i\), this matrix transforms as
+\(A_F\mapsto O_i^TA_FO_i\); its eigenvalues and anisotropy ratio are frame-independent. The ambient tensor \(U_i\Gamma_TU_i^T\) is unchanged. A connection-preserving extension along panel interiors and across seam overlaps remains open.
 
 The induced seam constitutive form is then a bundle endomorphism on
 \(E|_{\Gamma_e}=TS|_{\Gamma_e}\oplus NS|_{\Gamma_e}\), for example
