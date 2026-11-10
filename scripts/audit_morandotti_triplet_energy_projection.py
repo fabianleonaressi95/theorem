@@ -30,6 +30,8 @@ def main():
     p.add_argument("--seam-bending-factor",type=float,default=4.)
     p.add_argument("--material-angle",type=float,default=0.)
     a=p.parse_args()
+    if a.seam_bending_factor <= 0 or abs(a.seam_bending_factor-1e-3) < 1e-12:
+        p.error('--seam-bending-factor must be positive and different from the internal reference epsilon=1e-3')
     dat=np.genfromtxt(ROOT/a.source,delimiter=",",names=True)
     X=np.column_stack([dat[k] for k in ("x","y","z")])
     C=np.zeros((4,192)); C[0,0::3]=1; C[1,1::3]=1; C[2,2::3]=1; C[3]=X.reshape(-1)
