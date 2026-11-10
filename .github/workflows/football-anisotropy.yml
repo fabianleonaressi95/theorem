@@ -10,6 +10,8 @@ on:
       - "tests/test_*football*.py"
       - "tests/test_discrete_incompatibility_weak.py"
       - "models/tangent_triplet_anisotropy.py"
+      - "models/football_bundle_connection.py"
+      - "tests/test_football_bundle_connection.py"
       - "tests/test_rgs_shell_tangent_fibre_transfer.py"
       - "tests/test_reconstruct_rgs_t2u_triplet.py"
       - "scripts/reconstruct_rgs_t2u_triplet.py"
@@ -75,7 +77,8 @@ jobs:
             tests/test_rgs_football_triplet_spectral_comparison.py \
             tests/test_discrete_incompatibility_weak.py \
             tests/test_rgs_shell_tangent_fibre_transfer.py \
-            tests/test_reconstruct_rgs_t2u_triplet.py
+            tests/test_reconstruct_rgs_t2u_triplet.py \
+            tests/test_football_bundle_connection.py
 
       - name: Build RGS-to-football geometric transfer
         run: python scripts/build_rgs_football_geometric_transfer.py
