@@ -10,6 +10,10 @@ Questo dossier è il punto di ingresso per la discussione tecnica su pallone/inv
 
 4. [Trasferimento della tripletta rotazionale RGS → pallone](APPENDIX_RGS_TO_FOOTBALL_ROTATIONAL_TRIPLET_2026-11-10.md) — costruzione 64→92, riduzione tangente 184D, angoli principali, robustezza e ruolo delle cuciture.
 
+
+5. [Proiezione delle energie sul tripletto](APPENDIX_TRIPLET_ENERGY_PROJECTION_AND_SEAM_ABLATION_2026-11-10.md) — separazione dei contributi membranali, cerniere interne e cuciture; audit riproducibile.
+6. [Script di audit](../../scripts/audit_morandotti_triplet_energy_projection.py) — calcolo delle matrici efficaci (3\times3) sul sottospazio trasferito.
+
 ## Regola di lettura
 
 Il modello (O_h) a 64 punti / 188 dimensioni tangenti e la mesh shell a 92 nodi / 276 coordinate sono due discretizzazioni distinte. Il trasferimento tra i due deve essere costruito e verificato; non si identificano per notazione. I parametri materiali e di cucitura restano dimostrativi finché non sono calibrati su provini e scansioni reali.
