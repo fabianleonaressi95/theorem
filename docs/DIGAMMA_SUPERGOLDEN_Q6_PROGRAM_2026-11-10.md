@@ -343,3 +343,15 @@ N_{n+3}=N_{n+2}+N_n,\qquad
 \psi(N_{n+1})-\psi(N_n)\longrightarrow\log s.
 \]
 La derivazione geometrica della sostituzione dai dati Q6/PSU resta esplicitamente aperta.
+
+## Legge angolare derivata dalla similarità quadrata Kathara
+
+La trasformazione quadrata registrata nel programma Kathara è
+\[
+T=\begin{pmatrix}1&1\\-1&1\end{pmatrix}
+=\sqrt2R(-\pi/4).
+\]
+Il suo angolo di rotazione è \(\alpha=\pi/4\), e quindi la cotangente del semiangolo è il rapporto argenteo. La derivazione completa, con la riflessione del digamma, è ora un teorema autonomo:
+[Legge angolare Kathara–argentea–digamma](../theorems/KATHARA_SILVER_DIGAMMA_ANGLE_LAW.md).
+
+Questo è un ponte geometrico-analitico dimostrato per la branca argentea. Non va confuso con una derivazione spettrale della superaurea.
