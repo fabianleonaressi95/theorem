@@ -3,7 +3,7 @@ name: PRISM cellular automata
 on:
   push:
     paths:
-      - "models/prism_cellular_automata.py"
+       - "projects/de_rham_benchmark/**"\n      - "projects/de_rham_benchmark/**"\n     - "models/prism_cellular_automata.py"
       - "models/prism_ca_evolution.py"
       - "tests/test_prism_cellular_automata.py"
       - "tests/test_prism_ca_evolution.py"
@@ -45,3 +45,27 @@ jobs:
           tests/test_prism_ca_evolution.py
           tests/test_prism_billiard_coding.py
           -q
+
+  feec-relative-boundary:
+    if: contains(github.event.pull_request.changed_files, 'projects/de_rham_benchmark')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install FEEC numerical and test dependencies
+        run: python -m pip install --upgrade pytest numpy scipy
+      - name: Run relative-boundary and FEEC regression tests
+        working-directory: projects/de_rham_benchmark
+        run: python -m pytest -q test_boundary_complex.py test_feec_study.py
+      - name: Reproduce relative codifferential refinement study
+        working-directory: projects/de_rham_benchmark
+        run: python run_relative_codifferential_study.py --levels 4 8 16 --output reports/relative_codifferential.json
+      - name: Upload relative codifferential report
+        uses: actions/upload-artifact@v4
+        with:
+          name: relative-codifferential-study
+          path: projects/de_rham_benchmark/reports/relative_codifferential.json
