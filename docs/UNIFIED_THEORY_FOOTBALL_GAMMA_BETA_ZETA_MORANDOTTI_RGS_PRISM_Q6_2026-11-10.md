@@ -371,6 +371,15 @@ The rigorous target is a *conditional convergence theorem*, not the assertion th
 9. Independently derive the (D=-31) Weber class polynomial if a proof independent of the published Yui–Zagier table is required.
 10. Do not claim a Veneziano-shell identity, a physical supergolden constant, a torsion interpretation of the symmetric fourth moment, or an industrial hysteresis law without the missing derivation/data.
 
+### Companion records and evidence
+
+- [Integrated moments/barycentres/Gamma–Beta–zeta/Morandotti synthesis](SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
+- [Dedekind–Dirichlet eta and Weber–supergolden construction](UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md).
+- [Digamma–supergolden–Q6 analytic dossier](DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md).
+- [Independent numerical replay report](../reports/2026-11-10_integrated_synthesis_numerical_replay.md); numerical replay is not a pytest/CI pass.
+- [PDF source inventory and audit](../audits/2026-11-10_pdf_repository_audit.md).
+- [Special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md).
+
 ## 15. Primary references and repository sources
 
 - A. Ikeda, “On the Spectrum of Homogeneous Spherical Space Forms,” *Kodai Mathematical Journal* 18 (1995), 57–67, especially Proposition 3.1(2), p. 63 Poincaré series, Theorem 4.4. Publisher PDF: https://www.jstage.jst.go.jp/article/kodaimath1978/18/1/18_1_57/_pdf/-char/en.
