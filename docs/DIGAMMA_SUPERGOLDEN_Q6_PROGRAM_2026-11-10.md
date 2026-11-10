@@ -155,6 +155,70 @@ Il quadro dei tre casi è quindi:
 \]
 I primi due sono valori razionali dell'argomento del digamma, associati rispettivamente alle geometrie dell'ottagono e del pentagono; il terzo usa l'argomento algebrico irrazionale \(s\). È un unico meccanismo analitico (riflessione), ma non ancora una legge geometrica unificante.
 
+
+### 3.3 Duplicazione angolare: il test esatto della sezione argentea
+
+Per separare una vera legge di moltiplicazione angolare da una coincidenza, definiamo
+\[
+C_n(t)=\cot(n\theta)\quad\text{quando }t=\cot\theta.
+\]
+Dalla formula di addizione della cotangente:
+\[
+C_1(t)=t,\qquad
+\boxed{C_{n+1}(t)=\frac{tC_n(t)-1}{t+C_n(t)}}
+\]
+quando il denominatore è diverso da zero. In particolare,
+\[
+C_2(t)=\frac{t^2-1}{2t}.
+\]
+Per il rapporto argenteo, la relazione minima
+\[
+\delta^2-2\delta-1=0
+\]
+implica esattamente
+\[
+C_2(\delta)=\frac{\delta^2-1}{2\delta}=1.
+\]
+Poiché \(\delta=\cot(\pi/8)\), questo è precisamente
+\[
+\boxed{\cot(\pi/4)=1.}
+\]
+La stessa affermazione, riscritta con la riflessione del digamma, è
+\[
+\boxed{
+\psi(7/8)-\psi(1/8)=\pi\delta,
+\qquad
+\psi(3/4)-\psi(1/4)=\pi.
+}
+\]
+Quindi la relazione quadratica dell'argentea è compatibile con la duplicazione dell'angolo; non è una semplice analogia numerica.
+
+### 3.4 Test di moltiplicazione angolare per la supergolden
+
+Per \(\theta=\pi s\), la stessa ricorrenza definisce esattamente
+\[
+C_n(\cot(\pi s))=\cot(n\pi s).
+\]
+La relazione cubica \(s^3-s^2-1=0\) è una relazione fra il parametro \(s\) e le sue potenze; non è una relazione fra \(\cot(\pi s)\) e le sue potenze. Pertanto non autorizza a sostituire \(t=s\) nella ricorrenza delle cotangenti, né produce automaticamente un'equazione cubica per \(t=\cot(\pi s)\).
+
+Un controllo numerico esplorativo, con la radice positiva di \(s^3-s^2-1=0\), dà:
+| \(n\) | \(\cot(n\pi s)\) |
+|---:|---:|
+| 1 | 0.10858493479947186 |
+| 2 | −4.550397869463016 |
+| 3 | 0.3363727104100731 |
+| 4 | −2.165318433214175 |
+
+Questi numeri sono soltanto controlli della ricorrenza trigonometrica; non sono autovalori RGS e non dimostrano una legge di raffinamento.
+
+C'è inoltre una distinzione aritmetica utile. Poiché \(s\) è algebrico irrazionale, il teorema di Gelfond–Schneider implica che \(e^{\pi i s}\), valore di \((-1)^s\) ottenuto con il logaritmo principale, è trascendente. Ne segue che \(\cot(\pi s)\) è trascendente: se fosse algebrico, dalla relazione
+\[
+e^{2\pi i s}=\frac{\cot(\pi s)+i}{\cot(\pi s)-i}
+\]
+risulterebbe algebrico anche \(e^{2\pi i s}\), in contraddizione. Dunque il coefficiente trigonometrico della riflessione al parametro supergolden non può essere identificato con il rapporto argenteo, che è algebrico.
+
+**Esito del test:** l'argentea chiude esattamente sotto la duplicazione angolare; per la supergolden è definita una dinamica di moltiplicazione angolare, ma la cubica di \(s\) non ne è il polinomio caratteristico. Un eventuale ponte RGS deve derivare da dati geometrici indipendenti.
+
 ## 4. Campionamento sulle scale superauree
 
 Definiamo:
@@ -257,68 +321,3 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 Le identità usate sono quelle standard della funzione Gamma e delle funzioni poligamma (ricorrenza, formula di moltiplicazione di Gauss, serie della trigamma ed espansione asintotica di Stirling). Per riprodurre i valori della tabella è sufficiente calcolare la radice positiva di \(x^3-x^2-1\) ad alta precisione e valutare \(\operatorname{digamma}(s^n)\) con una libreria di precisione arbitraria.
 
 Questo dossier integra, ma non sostituisce, [l'audit Q6–RGS–PSU del ponte supergolden](SUPERGOLDEN_Q6_RGS_BRIDGE_AUDIT_2026-11-10.md).
-
-
-### 3.3 Duplicazione angolare: il test esatto della sezione argentea
-
-Per separare una vera legge di moltiplicazione angolare da una coincidenza, definiamo
-\[
-C_n(t)=\cot(n\theta)\quad\text{quando }t=\cot\theta.
-\]
-Dalla formula di addizione della cotangente:
-\[
-C_1(t)=t,\qquad
-\boxed{C_{n+1}(t)=\frac{tC_n(t)-1}{t+C_n(t)}}
-\]
-quando il denominatore è diverso da zero. In particolare,
-\[
-C_2(t)=\frac{t^2-1}{2t}.
-\]
-Per il rapporto argenteo, la relazione minima
-\[
-\delta^2-2\delta-1=0
-\]
-implica esattamente
-\[
-C_2(\delta)=\frac{\delta^2-1}{2\delta}=1.
-\]
-Poiché \(\delta=\cot(\pi/8)\), questo è precisamente
-\[
-\boxed{\cot(\pi/4)=1.}
-\]
-La stessa affermazione, riscritta con la riflessione del digamma, è
-\[
-\boxed{
-\psi(7/8)-\psi(1/8)=\pi\delta,
-\qquad
-\psi(3/4)-\psi(1/4)=\pi.
-}
-\]
-Quindi la relazione quadratica dell'argentea è compatibile con la duplicazione dell'angolo; non è una semplice analogia numerica.
-
-### 3.4 Test di moltiplicazione angolare per la supergolden
-
-Per \(\theta=\pi s\), la stessa ricorrenza definisce esattamente
-\[
-C_n(\cot(\pi s))=\cot(n\pi s).
-\]
-La relazione cubica \(s^3-s^2-1=0\) è una relazione fra il parametro \(s\) e le sue potenze; non è una relazione fra \(\cot(\pi s)\) e le sue potenze. Pertanto non autorizza a sostituire \(t=s\) nella ricorrenza delle cotangenti, né produce automaticamente un'equazione cubica per \(t=\cot(\pi s)\).
-
-Un controllo numerico esplorativo, con la radice positiva di \(s^3-s^2-1=0\), dà:
-| \(n\) | \(\cot(n\pi s)\) |
-|---:|---:|
-| 1 | 0.10858493479947186 |
-| 2 | −4.550397869463016 |
-| 3 | 0.3363727104100731 |
-| 4 | −2.165318433214175 |
-
-Questi numeri sono soltanto controlli della ricorrenza trigonometrica; non sono autovalori RGS e non dimostrano una legge di raffinamento.
-
-C'è inoltre una distinzione aritmetica utile. Poiché \(s\) è algebrico irrazionale, il teorema di Gelfond–Schneider implica che \(e^{\pi i s}\), valore di \((-1)^s\) ottenuto con il logaritmo principale, è trascendente. Ne segue che \(\cot(\pi s)\) è trascendente: se fosse algebrico, dalla relazione
-\[
-e^{2\pi i s}=\frac{\cot(\pi s)+i}{\cot(\pi s)-i}
-\]
-risulterebbe algebrico anche \(e^{2\pi i s}\), in contraddizione. Dunque il coefficiente trigonometrico della riflessione al parametro supergolden non può essere identificato con il rapporto argenteo, che è algebrico.
-
-**Esito del test:** l'argentea chiude esattamente sotto la duplicazione angolare; per la supergolden è definita una dinamica di moltiplicazione angolare, ma la cubica di \(s\) non ne è il polinomio caratteristico. Un eventuale ponte RGS deve derivare da dati geometrici indipendenti.
-
