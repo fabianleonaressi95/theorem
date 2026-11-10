@@ -227,6 +227,10 @@ A(s,t)\propto B(-\alpha(s),-\alpha(t))
 ]
 This is an exact mathematical use of the Beta/Gamma relation in a physical amplitude. It motivates studying Beta integrals and their analytic continuation, but does **not** identify a football-shell phase integral with a string scattering amplitude. Such an identification would require an explicit variable map, analytic domain, normalization and a theorem relating the observables.
 
+## 5.1 Right gauge / left fluid Bernoulli-gradient bridge
+
+T077 fixes the sector convention: right = gauge bundle with \(D_A\Psi\); left = fluid with \(B_L=p+\frac12\rho|v|^2+\rho\Phi\). Their common geometric bridge is the cell centroid/Dirichlet barycentre and covariance tensor \(\Sigma_{F,a}\), not an identification of the fields. The directional gradient diagnostics are \((\nabla_SB_L)^T M_{F,a}\nabla_SB_L\) on the fluid side and the corresponding gauge-invariant contraction of \(D_A\Psi\) on the gauge side. T068/T070 give the exact local Taylor/covariance correction for each sector density. Bernoulli numbers in Gamma/polygamma asymptotics remain distinct from Bernoulli's fluid law. The anisotropic kinetic metric and the PRISM-to-fluid/gauge coupling are candidate models, not established physical laws.
+
 ## 5. Gradients, barycentres and the Morandotti interface
 
 For a smooth bulk density on a surface,
@@ -281,6 +285,7 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 | T068 | Uniform triangle centroid/covariance quadrature | Proved local theorem |
 | T069 | Q6 antipodal pair covariance and Walsh sectors | Exact finite identities + seed numerical audit |
 | T070 | Dirichlet weighted barycentres, covariance and phase moments | Proved local theorem |
+| T077 | Bernoulli-gradient barycentre bridge: right gauge / left fluid sectors | Exact local moment input + candidate coupled anisotropy |
 | T071 | Q6 cubical 2-skeleton, Anti-Twin chain action and NL/NLT benchmark | Exact finite chain identities; exploratory dynamics and hysteresis remain non-physical/unvalidated |
 | T072 | Möbius phase translation, exact vertex-phase connection and Q6 spectrum | Exact finite-graph identities; canonical equal-time connection is trivial |
 | S.1–S.2 | Silver/bronze/golden/supergolden geometric synthesis | Exact geometry/algebra under stated construction |
