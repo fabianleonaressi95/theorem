@@ -81,7 +81,7 @@ C=\frac{1+2s+s^{-1}}{3s^2-2s}
 \]
 \[
 |B|^2=\frac{1+s-s^2}{(3s-2)(3s+1)}
-=0.024559\ldots,
+=0.0245603001\ldots,
 \qquad |B|=0.15671726\ldots.
 \]
 La formula per \(|B|^2\) è un'espressione in \(\mathbb Q(s)\); la positività segue dalla scelta della radice reale \(s\).
