@@ -71,9 +71,34 @@ def build_physical_seam_bundle_transitions(mesh):
             "normal_transport_residual":float(np.linalg.norm(R@normals[pm]-normals[pp])),
         })
     if len(rows)!=90: raise ArithmeticError(f"expected 90 physical seams, got {len(rows)}")
+    directed={}
+    for row in rows:
+        pm,pp=row["panel_minus"],row["panel_plus"]
+        directed[(pm,pp)]=row["transition_plus_from_minus"]
+        directed[(pp,pm)]=row["transition_plus_from_minus"].T
+    vertex_holonomies=[]
+    vertex_count=len(mesh["vertices"])
+    for vertex in range(vertex_count):
+        incident=[p for p,face in enumerate(panels) if vertex in face]
+        if len(incident)!=3:
+            raise ArithmeticError(f"expected three incident panels at vertex {vertex}")
+        p0,p1,p2=incident
+        try:
+            H=directed[(p0,p2)]@directed[(p2,p1)]@directed[(p1,p0)]
+        except KeyError as exc:
+            raise ArithmeticError(f"missing seam transition around vertex {vertex}") from exc
+        angle=float(np.arctan2(H[1,0]-H[0,1],H[0,0]+H[1,1]))
+        vertex_holonomies.append({
+            "vertex":vertex,"incident_panels":incident,"holonomy":H,
+            "angle_radians":angle,
+            "orthogonality_residual":float(np.linalg.norm(H.T@H-np.eye(2))),
+        })
     return {
         "panel_frames":frames, "panel_full_frames":full_frames,
         "panel_normals":normals, "seams":rows, "seam_count":len(rows),
+        "vertex_holonomies":vertex_holonomies,
+        "vertex_holonomy_count":len(vertex_holonomies),
+        "maximum_vertex_holonomy_orthogonality_residual":max(x["orthogonality_residual"] for x in vertex_holonomies),
         "maximum_transition_orthogonality_residual":max(x["orthogonality_residual"] for x in rows),
         "maximum_full_transition_orthogonality_residual":max(x["full_orthogonality_residual"] for x in rows),
         "maximum_normal_transport_residual":max(x["normal_transport_residual"] for x in rows),
