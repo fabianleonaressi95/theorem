@@ -281,6 +281,26 @@ The repository history records **80 commits in THEOREM** and **10 commits in the
 
 The T068 collision was corrected: T068 is the barycentric theorem, T069 the antipodal/Walsh record, T070 the weighted Dirichlet theorem, T071 the cubical synchronization audit, and T072 the Möbius/flat-connection record. The README now has a unique index for these IDs and S.1–S.8.
 
+### 9.1 Additional same-day audits that remain part of the programme
+
+**FEEC boundary and mesh maps.** The curvilinear sinusoid/axis-bump maps used by the default benchmark now have analytic sufficient injectivity bounds. For a map \(\Phi=I+u\), the condition \(\sup\|Du\|_2=L<1\) gives
+\[
+|\Phi(x)-\Phi(y)|\ge(1-L)|x-y|
+\]
+and uniform bi-Lipschitz bounds. The default configurations satisfy the recorded bound. This proves global injectivity of those particular maps, not FEEC projection stability or Mosco convergence.
+
+The discrete codifferential
+\[
+\delta_h^k=M_{k-1}^{-1}D_{k-1}^TM_k
+\]
+is exactly the Hilbert adjoint on the *unconstrained finite-dimensional cochain spaces*. It is not automatically a consistent approximation of the strong codifferential with a prescribed boundary domain. The continuous Green boundary pairing and the choice of minimal/maximal domains are part of the operator. The new relative-boundary and codifferential baseline records this issue; it does not claim a completed Mosco theorem.
+
+**Defect elasticity / Morandotti.** The day's initial Torino baseline is a regularized 2D eigenstrain benchmark with Q1 quadrilaterals, cochain P1 and an Airy reference. Its exact incidence check \(D_1D_0=0\), manufactured patch checks and finite-mesh comparisons are useful computational controls. The regularized inclusions are not singular Volterra dislocations and the benchmark is not a reproduction of the full published multi-core C0-IPDG method. The previous periodic comparison and the first P3 C0-IPDG annulus run are retained as numerical baselines with their own mesh/error limitations.
+
+**Football shell and tangent transfer.** The exact truncated-icosahedron counts are \(60\) vertices, \(12\) pentagons, \(20\) hexagons and \(90\) panel seams; the fan mesh has \(180\) CST triangles, \(92\) nodes and \(270\) dihedral hinges. The shell uses orthotropic CST membrane stiffness, signed-dihedral bending and separate seam reinforcement. The material parameters are demonstrations, not measured textile constants. The rotational-triplet transfer from the 188-dimensional RGS tangent space to the 184-dimensional shell tangent space is a numerical geometric comparison; its robustness grid does not prove equivalence of the discretizations or identify the triplet with the separate \(T_{2u}\) mode.
+
+**Kathara Gate D and Gate E.1.** The companion repository contains ten same-day commits. Gate D replaces the degenerate vertex-potential edge map with shortest Q6 paths in the declared fixed order \((1,2,0,3,4,5)\), then fills the resulting square words by commuting adjacent distinct flips. This gives an integral chain map with \(\operatorname{rank}R_2=10\) for the explicit chart. The axis order is deterministic but not RGS-canonical. Gate E.1 proves the local planar triangle barycentric–covariance formula. Neither gate, by itself, proves a geometric embedding of the entire Kathara complex into a refined Q6 surface or a global continuum limit.
+
 ## 10. What is now genuinely unified
 
 The exact bridges form a connected chain:
