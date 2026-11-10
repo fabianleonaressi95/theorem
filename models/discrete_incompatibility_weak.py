@@ -61,7 +61,7 @@ def assemble_inc_weak(
     if np.any(w <= 0):
         raise ValueError("quadrature weights must be positive")
     cofH = cofactor_hessian_2d(H)
-    return np.einsum("tkqij,kq aij,kq->ta", cofH, E, w, optimize=True)
+    return np.einsum("tkqij,kqaij,kq->ta", cofH, E, w, optimize=True)
 
 
 def p1_triangle_symmetric_strain(
