@@ -397,3 +397,34 @@ The equivalent Dirichlet-eta expansion uses \(\\eta_D(n+1)=(1-2^{-n})\\zeta(n+1)
 \psi_{\\mathrm{dig}}(s)=\frac1{2r}-\frac\pi2\cot(\pi r)+\frac1{r^2-1}+1-\\gamma-\\sum_{k\ge1}(\\zeta(2k+1)-1)r^{2k}.
 \]
 Because \(r^2=s^{-4}=0.216756\\ldots\), this odd-zeta series converges faster than the direct Euler expansion in powers of \(s^{-2}\). A Tonelli rearrangement gives the equivalent positive series \(\\sum_{n\ge2}r^2/[n(n^2-r^2)]\). This is an exact convergent formula, not a finite elementary closed form. Numerical value: \(\\psi_{\\mathrm{dig}}(s)=0.00380489074098203186438725795\\ldots\).
+
+
+### 9.13 T085 — Supergolden Weber–Dedekind–Hurwitz–digamma bridge
+
+T085 formalizes the discriminant \(-31\) modular specification of the supergolden constant and its exact analytic consequences. With
+\[
+s^3-s^2-1=0,\quad r=s-1=s^{-2},\quad
+\tau_{31}=\frac{1+i\sqrt{31}}2,
+\]
+the principal Weber invariant for \(Q_0=[1,1,8]\), \(\tau_0=(-1+i\sqrt{31})/2\), is
+\[
+f(Q_0)=e^{\pi i/24}\sqrt2\frac{\eta(2\tau_0)}{\eta(\tau_0)}.
+\]
+The Yui–Zagier table gives \(W_{-31}(X)=X^3+X-1\). Applying the eta translation laws from \(\tau_0\) to \(\tau_{31}=\tau_0+1\) yields
+\[
+s=\frac1{f(Q_0)}
+=\frac{e^{\pi i/24}\eta(\tau_{31})}{\sqrt2\eta(2\tau_{31})}.
+\]
+Consequently the digamma value has the exact Hurwitz representations
+\[
+\psi_{\rm dig}(s)
+=-\operatorname{FP}_{u=1}\zeta_H(u,s)
+=\left.\partial_a\zeta_H'(0,a)\right|_{a=s},
+\]
+and the exact modular integral / positive series
+\[
+\psi_{\rm dig}(s)
+=-\gamma+\int_0^1\frac{1-t^{s-1}}{1-t}\,dt
+=-\gamma+\sum_{n=1}^{\infty}\frac{s-1}{n(n+s-1)}.
+\]
+This is an exact modularly specified representation, **not** a finite closed-form evaluation of the digamma in eta or Dirichlet \(L\)-values. The principal-class identification is used; the conjectural all-conjugates assertion in Yui–Zagier is not required. Full proof and hypotheses: `theorems/T085-supergolden-weber-hurwitz-digamma-bridge.md`.
