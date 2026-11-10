@@ -87,7 +87,7 @@ python run_feec_study.py configs/feec_default.json --out results/feec
 python test_feec_study.py
 ```
 
-## Golden / supergolden synthesis
+\n\n## Q6-to-supergolden bridge audit\n\nThe [Q6–RGS–PSU bridge audit](../../docs/SUPERGOLDEN_Q6_RGS_BRIDGE_AUDIT_2026-11-10.md) separates the exact supergolden transfer matrix from the exact Q6 midpoint chain refinement. It records the key obstruction: the standard cubical midpoint rule induces `2 I` on coordinate directions, not the supergolden three-channel operator. The reproducible algebraic/combinatorial audit is `scripts/audit_supergolden_q6_bridge.py` (run from the repository root), with unit tests in `tests/test_supergolden_q6_bridge.py`. The geometric intertwiner remains open.\n\n## Golden / supergolden synthesis
 
 The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geometry, Mosco convergence, and the exact algebraic scale identities for the golden ratio and supergolden constant is in [PHI_PSI_FEEC_SYNTHESIS.md](docs/PHI_PSI_FEEC_SYNTHESIS.md). It distinguishes proved identities from candidate refinement laws and open convergence results.
 
