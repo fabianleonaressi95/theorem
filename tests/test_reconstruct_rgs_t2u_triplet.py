@@ -54,3 +54,23 @@ def test_reconstructed_t2u_channels_land_in_all_92_shell_tangent_fibres():
         assert np.allclose(A, A.T, atol=1e-10)
         assert np.linalg.eigvalsh(A)[0] >= -1e-9
         assert np.linalg.norm(A @ n) < 1e-8
+
+
+def test_actual_t2u_basis_pushforward_is_invariant_under_common_channel_gauge():
+    from models.football_shell import build_football_shell
+    from models.football_bundle_connection import gauge_covariance_residual
+    from models.tangent_triplet_anisotropy import build_rgs_shell_tangent_fibre_maps
+
+    root = Path(__file__).resolve().parents[1]
+    data = np.genfromtxt(root / "data/rgs_188d/X_Oh_reconstructed.csv",
+                         delimiter=",", names=True)
+    X = np.column_stack([data[k] for k in ("x", "y", "z")])
+    V = reconstruct_rgs_t2u_triplet(X)["basis"]
+    maps = build_rgs_shell_tangent_fibre_maps(X, build_football_shell(), neighbors=16)
+    R = np.array([[1.0, 0.0, 1.0], [0.0, 1.0, 1.0]])
+    theta = 0.37
+    O = np.array([[np.cos(theta),-np.sin(theta),0.0],
+                  [np.sin(theta), np.cos(theta),0.0],
+                  [0.0,0.0,1.0]])
+    residual = gauge_covariance_residual(maps,V,R,O,np.array([[2.,-3.],[-3.,6.]]))
+    assert residual < 1e-12
