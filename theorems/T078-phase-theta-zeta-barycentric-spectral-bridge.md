@@ -139,6 +139,137 @@ For example, a Euclidean weight \(\exp[-c n^2/g^2+i n\vartheta_{\rm top}]\), \(c
 
 If \(D\) marked defects/punctures are removed from the shell, the topology changes: for \(D\geq1\), \(H_1(S^2\setminus\{p_1,\ldots,p_D\};\mathbb Z)\cong\mathbb Z^{D-1}\). Such cycles can support independent holonomy data subject to the global relation. A defect-based theta lattice is therefore possible only after the defect set, boundary/meridian conditions and action are specified. The physical seams alone are not punctures.
 
+## 3.2. Discrete Villain gauge action on the 32-panel shell and the induced flux theta series
+
+This subsection derives the quadratic weight of the Chern sectors from a concrete two-dimensional compact \(U(1)\) gauge action. It uses the cellular cochain complex of the *closed panel surface*, not the seam graph alone.
+
+### 3.2.1. Cochain variables and the integer flux class
+
+Let \(K\) be the oriented cellular decomposition with \(C^0(K;\mathbb Z)\cong\mathbb Z^{60}\), \(C^1(K;\mathbb Z)\cong\mathbb Z^{90}\), and \(C^2(K;\mathbb Z)\cong\mathbb Z^{32}\). Choose one orientation for every edge and face, and let
+\[
+d_0:C^0\to C^1,\qquad d_1:C^1\to C^2
+\]
+be the cellular coboundary matrices, so \(d_1d_0=0\).
+
+A Villain \(U(1)\) field consists of a real link cochain \(a\in C^1(K;\mathbb R)\) and an integer plaquette cochain \(m\in C^2(K;\mathbb Z)\), with dimensionless integrated face curvature
+\[
+x=d_1a+2\pi m\in C^2(K;\mathbb R).
+\]
+Under a large gauge shift \(a\mapsto a+2\pi k\), \(k\in C^1(K;\mathbb Z)\), take \(m\mapsto m-d_1k\); then \(x\) is unchanged. The sign of this simultaneous shift is conventional. Since the oriented sum of all face boundaries vanishes on a closed surface,
+\[
+\sum_{f=1}^{32}(d_1a)_f=0,
+\qquad
+\frac{1}{2\pi}\sum_f x_f=\sum_f m_f=:n\in\mathbb Z.
+\]
+The integer \(n\) is invariant under \(m\mapsto m-d_1k\). On this oriented sphere, the quotient of integer 2-cochains by integer coboundaries is \(H^2(K;\mathbb Z)\cong\mathbb Z\), and the total sum gives its generator coordinate. Thus the Villain flux class is exactly the discrete first-Chern class. The Bianchi condition is automatic in dimension two at the level of 3-cochains because \(C^3(K)=0\); it must not be confused with a three-dimensional monopole constraint.
+
+### 3.2.2. Gauge action and PRISM-compatible face constitutive weight
+
+For each face \(f\), let \(\mathcal A_f>0\) be its physical area. The isotropic two-dimensional Maxwell/Villain action is
+\[
+S_g[x]=\frac{1}{2g^2}\sum_f\frac{x_f^2}{\mathcal A_f},
+\qquad g^2>0.
+\]
+This is the piecewise-constant discretization of \((2g^2)^{-1}\int_S F\wedge *_gF\), since \(x_f=\int_fF\). It is dimensionless when \(g^2\) has the units of area in this two-dimensional normalization (or after choosing a reference area).
+
+To include a positive tangent constitutive anisotropy without inventing the missing 216 PRISM matrices, let \(A_T(x)\) be a symmetric positive-semidefinite tangent endomorphism supplied by the finite-mesh transfer in T073, and define
+\[
+G_\epsilon(x)=I_{TS_x}+\epsilon A_T(x),\qquad
+\epsilon>-\|A_T\|_{\mathrm{op}}^{-1}
+\]
+(with \(\epsilon\geq0\) a sufficient simple choice). Its induced area density is \(\sqrt{\det G_\epsilon}\). Define the effective face area
+\[
+\mathcal A_f^{(\epsilon)}
+=\int_f\sqrt{\det G_\epsilon(x)}\,dA_g(x)>0.
+\]
+The corresponding metric-induced two-form action is
+\[
+S_g^{(\epsilon)}[x]
+=\frac{1}{2g^2}\sum_f\frac{x_f^2}{\mathcal A_f^{(\epsilon)}}.
+\]
+This is the canonical \(F\wedge *_{G_\epsilon}F\) action for a two-form in two dimensions. **Important dimensional restriction:** a 2-form in two dimensions has only one local component. A tangent anisotropy therefore enters this pure gauge kinetic term only through the area density \(\sqrt{\det G_\epsilon}\); it does not create a directional splitting of the scalar face flux. Direction-dependent gauge response would require an additional constitutive tensor/operator on forms or a higher-dimensional extension, and must be separately derived.
+
+The T073 PRISM map currently provides nodal \(A_T(x_i)=U_i\Gamma_TU_i^T\), not a validated smooth field over every face and not the full canonical 216-triplett table. Therefore \(\mathcal A_f^{(\epsilon)}\) is a well-defined continuum/discrete *target definition* when a positive face field is supplied, but its numerical evaluation on the actual shell remains conditional on a connection-compatible interpolation and audited PRISM inputs. No numerical areas or theta modulus are asserted here.
+
+### 3.2.3. Exact minimization in a fixed Chern sector
+
+Write \(A_f^\epsilon=\mathcal A_f^{(\epsilon)}\) and impose the topological constraint
+\[
+\sum_f x_f=2\pi n.
+\]
+The constrained minimum of the positive quadratic action is obtained by a Lagrange multiplier:
+\[
+\min_{\sum_fx_f=2\pi n}
+\frac{1}{2g^2}\sum_f\frac{x_f^2}{A_f^\epsilon}.
+\]
+Stationarity gives \(x_f/A_f^\epsilon=\) constant, hence
+\[
+x_f^{\star}
+=2\pi n\,\frac{A_f^\epsilon}{A_{\rm eff}},
+\qquad
+A_{\rm eff}:=\sum_fA_f^\epsilon,
+\]
+and
+\[
+\boxed{\;
+S_{\min}(n)=\frac{2\pi^2}{g^2A_{\rm eff}}\,n^2.
+\;}
+\]
+The same result follows from Cauchy–Schwarz:
+\[
+(2\pi n)^2
+=\left(\sum_f\frac{x_f}{\sqrt{A_f^\epsilon}}\sqrt{A_f^\epsilon}\right)^2
+\leq
+\left(\sum_f\frac{x_f^2}{A_f^\epsilon}\right)
+\left(\sum_fA_f^\epsilon\right).
+\]
+Equality holds exactly for \(x_f\propto A_f^\epsilon\). This is an exact finite-cell variational identity for the stated quadratic action.
+
+### 3.2.4. The resulting topological theta factor
+
+If the path integral sums over all line-bundle classes \(n\in\mathbb Z\), and if the fluctuation determinant within each class is independent of \(n\) (as for this abelian quadratic Maxwell action with the same linear fluctuation space), the topological part factors as
+\[
+Z_{\rm flux}(\vartheta_{\rm top})
+\propto
+\sum_{n\in\mathbb Z}
+\exp\!\left[
+-\frac{2\pi^2}{g^2A_{\rm eff}}n^2
++i n\vartheta_{\rm top}
+\right].
+\]
+Thus
+\[
+Z_{\rm flux}\propto
+\vartheta_3\!\left(
+\frac{\vartheta_{\rm top}}{2\pi}\,\middle|\,
+\frac{2\pi i}{g^2A_{\rm eff}}
+\right),
+\qquad
+\operatorname{Im}\tau=\frac{2\pi}{g^2A_{\rm eff}}>0.
+\]
+This identifies the coefficient \(c=2\pi^2/A_{\rm eff}\) in the normalization of §3.1. The proportionality factor includes the common Gaussian fluctuation/gauge-volume factor and any measure normalization; it is not evaluated here. If determinants or matter couplings depend on \(n\), the simple theta factor is modified and factorization must be rechecked.
+
+The theta modulus is therefore not a fitted parameter: in this specified two-dimensional Maxwell/Villain model it is fixed by \(g^2\) and the effective anisotropic area. The model still has to justify that this is the correct gauge action for the physical Q-ball.
+
+### 3.2.5. Relation to barycentric quadrature
+
+On each triangular subfacet \(T\subset f\), T068–T070 provide the barycentric measure and covariance. For a smooth positive density \(q(x)=\sqrt{\det G_\epsilon(x)}\),
+\[
+\int_Tq\,dA
+=q(c_{T,a})+\frac12D^2q(c_{T,a}):\Sigma_{T,a}+R_T
+\]
+in the normalized reference-coordinate convention of T068–T070, with the geometric Jacobian included when mapping to the physical face. Summing over the triangulation of a pentagonal/hexagonal panel gives a controlled local approximation to \(A_f^\epsilon=\int_fq\,dA\), provided the map, Jacobian and derivative bounds satisfy the hypotheses of those quadrature results. This is the explicit point where the Gamma–Beta barycentric moments and the PRISM-induced anisotropic area enter the theta modulus.
+
+The approximation error in \(A_{\rm eff}\) propagates to the modulus by
+\[
+\tau=i\,\frac{2\pi}{g^2A_{\rm eff}},
+\qquad
+\delta\tau=-i\,\frac{2\pi}{g^2A_{\rm eff}^2}\,\delta A_{\rm eff}
+\]
+to first order, for fixed \(g^2\). A quantitative global bound still requires summing the panelwise quadrature remainders and controlling the interpolation of \(A_T\).
+
+**Status:** the cochain flux quantization, constrained minimizer and theta-series reduction are exact for the specified finite-cell quadratic model. The physical identification of the Maxwell/Villain action, the connection-compatible PRISM field, numerical \(A_f^\epsilon\), coupling \(g^2\), and refinement limit remain open.
+
 ## 4. From periodic phases to Jacobi theta: the missing winding sum
 
 A single characteristic function \(\Phi_F(t)\) is not generally a Jacobi theta function. A theta function appears when periodicity is combined with a quadratic weight on an integer winding/charge lattice.
