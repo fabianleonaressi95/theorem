@@ -627,3 +627,8 @@ Riferimento interno: [Documento di raccordo calcistico — sezione 5-bis](DOCUME
 ## A.28. Derivazione dei sottospazi tangenti, quaternioni e triplette
 
 La derivazione completa, con Jacobiano dei quattro vincoli, costruzione di Q, proiettore tangente, Hessiana del Lagrangiano, triplette rotazionali, distinzione T1u/T2u, frame quaternionici, trasferimento 192→276 e angoli principali, è raccolta nel [Capitolo metodologico dedicato](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md). Il capitolo va letto insieme ai report A14 e agli audit della geometria 188D: non identifica automaticamente K0 con la Hessiana vincolata originale e non promuove i cluster numerici a rappresentazioni irriducibili senza verifica dei caratteri e dei commutatori.
+
+
+## A.29. Operatore discreto di incompatibilità e ponte Cartan–quaternionico
+
+La definizione debole di Inc_h, il pairing con le sorgenti di Burgers/Frank, la connessione SU(2) indipendente dai frame, l'olonomia, la co-base discreta e il programma di calibrazione sono raccolti nel [capitolo dedicato](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md). La formulazione è proposta e falsificabile, ma non va descritta come già implementata: la mappa tra torsione/curvatura discrete e sorgente Airy, nonché l'operatore superficiale curvo, restano aperti.
