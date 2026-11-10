@@ -123,6 +123,35 @@ An independent numerical replay of the implemented formulas using the reconstruc
 
 This upgrades the previous unspecified \(L_x\) to an explicit finite-mesh nodal transfer. It does not yet prove a smooth bundle morphism over every point of \(S\), connection preservation along panels/seams, or convergence under shell refinement. The previously reported principal-angle comparison (three angles near \(2.4^\circ\) at 16 neighbours) concerns the transferred rotational triplet against the three lowest shell tangent modes; it is not a proof about the separate Q6 \(T_{2u}\) eigenspace or the 216 PRISM tripletti.
 
+## Discrete seam connection and gauge compatibility (finite-mesh level)
+
+The implementation in `models/football_bundle_connection.py` now constructs, for each of the 90 physical seam edges, the hinge-wise minimal rotation \(R_{-+}\in SO(3)\) carrying the minus panel normal to the plus panel normal. With fixed panel tangent frames \(F_\pm\in\mathbb R^{3\times2}\), it returns
+\[
+g^{TS}_{+-}=F_+^T R_{-+}F_-\in O(2).
+\]
+It also augments the frames by their normals, \(\widehat F_\pm=[F_\pm,n_\pm]\), and returns the full displacement-bundle transition
+\[
+g^{E}_{+-}=\widehat F_+^T R_{-+}\widehat F_-\in O(3),
+\qquad E=TS\oplus NS.
+\]
+The seam jump is evaluated in the plus chart as \([u]_e=u_+-g^E_{+-}u_-\). Under independent orthogonal chart changes \(O_\pm\), the rules are
+\[
+u_\pm' = O_\pm^T u_\pm,\qquad
+(g^E_{+-})'=O_+^Tg^E_{+-}O_-,\qquad
+[u]'_e=O_+^T[u]_e.
+\]
+Thus a fibrewise quadratic seam energy is chart-independent when its stiffness is transformed by the same conjugation.
+
+The T2u/PRISM channel basis has a separate \(O(3)\) gauge. If \(V\mapsto VO\) and \(R_T\mapsto O^TR_T\), then \(\Gamma_T\mapsto O^T\Gamma_TO\), \(U_i\mapsto U_iO\), and
+\[
+(U_iO)(O^T\Gamma_TO)(U_iO)^T=U_i\Gamma_TU_i^T.
+\]
+The code and tests implement this simultaneous gauge law. This proves gauge covariance of the formula; it does **not** select a physical alignment between the reconstructed T2u basis and the labelled PRISM channels.
+
+**Data-provenance boundary:** the theorem repository currently contains the T2u reconstruction and the PRISM Gram definition \(Q_{G_2}\), but no machine-readable table of the 216 physical \(2\times3\) tripletti with their canonical channel labels and 20 class assignments. The implementation therefore does not fabricate those matrices or claim all-216 validation. Supplying the source table (or its canonical generator) is required to fix the physical channel gauge and run the complete 216-case push-forward audit.
+
+The connection and chart-covariance tests have been added to the football workflow. Their CI result is pending; the finite-mesh construction is not a smooth continuum connection, and its hinge holonomy/refinement limit remains open.
+
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
 For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
