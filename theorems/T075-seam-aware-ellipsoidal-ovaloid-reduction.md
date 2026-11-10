@@ -232,3 +232,8 @@ The global ellipsoid captures the low-dimensional shape; panel fields describe b
 - Repository `docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md`: model scope, discrete metric diagnostics and experimental scan interface.
 - User-provided PDF, *Serie di Fibonacci, rapporto aureo e ovaloidi a sezione aurea*, chapter 3, pp. 29–35: secondary reproduction of the prescribed-metric ovaloid framework attributed to Caccioppoli (1940). Primary-source verification remains required.
 - T073 and T074.
+
+
+## 12. Constitutive continuation
+
+The construction-specific constitutive, damage, contact/friction, fatigue and hysteresis framework for the 90 physical seams is developed separately in [T076](T076-constitutive-mechanics-fatigue-hysteresis-football-seams.md). T075 supplies the geometric and panel/interface setting; T076 supplies candidate interface-law classes and the experimental identification gates. Neither record assigns unmeasured parameters to the football.
