@@ -105,7 +105,7 @@ def induce_local_channel_map(t2u_basis, q6_to_shell_tangent, normal, tol=1e-9):
     """Compose the established Q6 T2u triplet with an explicit shell transfer.
 
     t2u_basis is V in R^(188x3); q6_to_shell_tangent is a pointwise
-    3x188 map. Their composition U_x=P_x V must have rank two and image
+    3x188 map. Their composition U_x=L_x V must have rank two and image
     in the shell tangent plane. The transfer P_x is not inferred here.
     """
     V = np.asarray(t2u_basis, dtype=float)
