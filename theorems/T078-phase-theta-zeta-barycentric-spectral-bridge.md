@@ -268,6 +268,39 @@ The approximation error in \(A_{\rm eff}\) propagates to the modulus by
 \]
 to first order, for fixed \(g^2\). A quantitative global bound still requires summing the panelwise quadrature remainders and controlling the interpolation of \(A_T\).
 
+### 3.2.6. Reproducible isotropic area audit of the repository's Q-ball geometry
+
+The existing generator \`models/football_shell.py::build_football_shell\` supplies a concrete 60-vertex, 32-panel geometry. At its default parameters \(R=1\), \(\alpha_{\rm cube}=0\), \(\alpha_{H_4}=0\), the panel polygons were evaluated directly from their ordered vertex coordinates using the oriented polygon area vector. The resulting baseline is:
+
+| Panel family | Count | Area per panel | Total area |
+|---|---:|---:|---:|
+| Pentagon | 12 | \(0.280181739887\) | \(3.362180878647\) |
+| Hexagon | 20 | \(0.423099723953\) | \(8.461994479063\) |
+| **Total** | **32** | — | **\(11.824175357710\)** |
+
+All values are in squared units of the input radius. For a uniform rescaling \(R\), every panel area and the total scale exactly as \(R^2\):
+\[
+A_{\rm eff}^{(0)}(R,0,0)=11.824175357710\,R^2.
+\]
+The pentagon and hexagon areas are not equal; replacing the shell by 32 equal-area faces would therefore lose information already present in the repository geometry.
+
+Reproducibility script:
+\`scripts/compute_qball_effective_panel_areas.py\`
+It evaluates the actual generated polygon coordinates and accepts \`--radius\`, \`--cube-alpha\`, and \`--h4-alpha\). For nonzero shape parameters, rerun the script: the table above must not be reused.
+
+**Interpretation boundary.** This is a numerical audit of the repository's *parameterized shell generator*, not an experimental scan of a manufactured Q-ball. The generator defaults to the regular truncated-icosahedral baseline; its cube-sphere and \(H_4\) deformations are independent model inputs. No measured scan has been supplied in this audit.
+
+The isotropic baseline gives the provisional modulus
+\[
+\tau_0(R)=\frac{2\pi i}{11.824175357710\,g^2R^2}.
+\]
+This is a model expression, not a numerical value: \(g^2\) and the physical radius/unit convention have not been identified. The PRISM-anisotropic correction
+\[
+A_{\rm eff}^{(\epsilon)}
+=\sum_f\int_f\sqrt{\det(I+\epsilon A_T(x))}\,dA_g
+\]
+remains uncomputed because the audited repository does not contain the canonical 216 PRISM triplett matrices/20 class labels or a validated connection-compatible interpolation \(A_T(x)\) over the faces. A physical Q-ball modulus additionally requires a measured surface scan and material/gauge calibration.
+
 **Status:** the cochain flux quantization, constrained minimizer and theta-series reduction are exact for the specified finite-cell quadratic model. The physical identification of the Maxwell/Villain action, the connection-compatible PRISM field, numerical \(A_f^\epsilon\), coupling \(g^2\), and refinement limit remain open.
 
 ## 4. From periodic phases to Jacobi theta: the missing winding sum
