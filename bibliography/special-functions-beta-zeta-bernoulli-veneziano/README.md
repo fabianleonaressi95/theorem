@@ -234,17 +234,21 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
     **Status:** REFERENCE. States the Dedekind-zeta residue formula with class number, regulator, roots of unity and discriminant. For \\(K=\\mathbb Q(\\sqrt{-31})\\), combine it with \\(h_K=3\\), \\(w_K=2\\), and the quadratic factorization \\(\\zeta_K(s)=\\zeta(s)L(s,\\chi_{-31})\\) to obtain \\(L(1,\\chi_{-31})=3\\pi/\\sqrt{31}\\).
 
 52. **Finite character-sum check for \\(D=-31\\)** (internal exact arithmetic record).  
-    For the primitive odd quadratic character modulo 31, direct evaluation of the 30 residues gives
+    For the primitive odd quadratic character modulo 31, \\(\\chi_{-31}(a)=(a/31)\\). The quadratic residues in \\(1,\\ldots,30\\) are
     \\[
-    \\sum_{a=1}^{30}a\\,\\chi_{-31}(a)=-93.
+    \\{1,2,4,5,7,8,9,10,14,16,18,19,20,25,28\\},
     \\]
-    The standard odd-character formula then gives
+    with sum 186; the complementary nonresidues
+    \\[
+    \\{3,6,11,12,13,15,17,21,22,23,24,26,27,29,30\\}
+    \\]
+    have sum 279. Thus \\(\\sum_{a=1}^{30}a\\chi_{-31}(a)=186-279=-93\\). Since the quadratic Gauss sum is \\(\\tau(\\chi_{-31})=i\\sqrt{31}\\), the primitive odd-character formula gives
     \\[
     L(1,\\chi_{-31})=-\\frac{\\pi}{31^{3/2}}
     \\sum_{a=1}^{30}a\\,\\chi_{-31}(a)
     =\\frac{3\\pi}{\\sqrt{31}}.
     \\]
-    **Status:** exact finite computation (the sum was explicitly evaluated); not an external bibliographic theorem. Cite Apostol/DLMF for the character and (L)-series framework, and retain this finite sum as an internal check.
+    **Status:** exact finite computation and independent check of the analytic class-number formula; not an external bibliographic theorem. Cite Apostol/DLMF for the character and (L)-series framework.
 
 ## L. Citation map and limits
 
