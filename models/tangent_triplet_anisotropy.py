@@ -240,3 +240,192 @@ def push_triplett_to_shell_nodes(triplett, fibre_maps, t2u_basis, q_g2=Q_G2):
     tensors = 0.5 * (tensors + np.swapaxes(tensors, 1, 2))
     return {"tangent_tensors": tensors, "channel_maps": channel_maps,
             "triplett_gram": Gamma}
+
+
+def reconstruct_rgs_t2u_triplet(source_points, target_eigenvalue=-0.06994933008401777,
+                                eigenvalue_tolerance=1e-8, rank_tolerance=1e-8):
+    """Reconstruct the first Coulomb T2u triplet from the archived 64-site geometry.
+
+    The 48 signed permutation matrices give O_h. The T2u character is obtained
+    as odd inversion parity times the T2g character on (xy,yz,zx). The resulting
+    character projector selects the 30-dimensional T2u isotypic component.
+    The constrained Coulomb Hessian is then diagonalised only in that component.
+    A deterministic coordinate-pivoted frame is extracted from the first
+    three-dimensional spectral projector; the frame is reproducible for the
+    fixed site ordering, while its physical alignment with PRISM channel labels
+    remains a separate gauge-identification question.
+    """
+    from itertools import permutations, product
+    from scipy.linalg import null_space, eigh
+
+    X = np.asarray(source_points, dtype=float)
+    if X.shape != (64, 3) or not np.all(np.isfinite(X)):
+        raise ValueError("source_points must be a finite 64x3 array")
+
+    # Exact four-constraint tangent space: translations plus fixed scale.
+    C = np.zeros((4, 192))
+    C[0, 0::3] = 1.0
+    C[1, 1::3] = 1.0
+    C[2, 2::3] = 1.0
+    C[3] = X.reshape(-1)
+    Q = null_space(C)
+    if Q.shape != (192, 188):
+        raise ArithmeticError("the source constraint nullspace is not 192x188")
+
+    def t2g_character(R):
+        # T2g is the action on the off-diagonal quadratic channels xy,yz,zx.
+        value = 0.0
+        for i, j in ((0, 1), (1, 2), (2, 0)):
+            ii = int(np.argmax(np.abs(R[:, i])))
+            jj = int(np.argmax(np.abs(R[:, j])))
+            if {ii, jj} == {i, j}:
+                value += R[ii, i] * R[jj, j]
+        return float(value)
+
+    projectors = []
+    max_site_residual = 0.0
+    max_tangent_residual = 0.0
+    for perm_axes in permutations(range(3)):
+        Paxis = np.zeros((3, 3))
+        for i, j in enumerate(perm_axes):
+            Paxis[j, i] = 1.0
+        for signs in product((-1.0, 1.0), repeat=3):
+            G = Paxis @ np.diag(signs)
+            parity = int(round(np.linalg.det(G)))
+            Rproper = parity * G
+            character = parity * t2g_character(Rproper)
+
+            transformed = X @ G.T
+            distances = np.linalg.norm(transformed[:, None, :] - X[None, :, :], axis=2)
+            site_map = np.argmin(distances, axis=1)
+            residual = float(np.max(distances[np.arange(64), site_map]))
+            if residual > 1e-8 or len(np.unique(site_map)) != 64:
+                raise ArithmeticError("the recovered 64-site geometry is not O_h invariant")
+            max_site_residual = max(max_site_residual, residual)
+
+            D = np.zeros((192, 192))
+            for source, target in enumerate(site_map):
+                D[3*target:3*target+3, 3*source:3*source+3] = G
+            Rtan = Q.T @ D @ Q
+            max_tangent_residual = max(
+                max_tangent_residual,
+                float(np.linalg.norm(D @ Q - Q @ Rtan))
+            )
+            projectors.append((character, Rtan))
+
+    if len(projectors) != 48:
+        raise ArithmeticError("the O_h group construction did not produce 48 elements")
+    P_T2u = (3.0 / 48.0) * sum(character * R for character, R in projectors)
+    P_T2u = 0.5 * (P_T2u + P_T2u.T)
+    projector_error = float(np.linalg.norm(P_T2u @ P_T2u - P_T2u))
+    pvals, pvecs = eigh(P_T2u)
+    selected = pvals > 0.5
+    isotypic_rank = int(np.sum(selected))
+    if projector_error > 1e-8 or isotypic_rank != 30:
+        raise ArithmeticError(
+            f"T2u character projector failed: rank={isotypic_rank}, "
+            f"idempotence={projector_error:.3e}"
+        )
+    B_T2u = pvecs[:, selected]
+
+    # Coulomb energy E=sum_{a<b}1/r_ab, its Hessian, and constrained Hessian.
+    H = np.zeros((192, 192))
+    force = np.zeros((64, 3))
+    energy = 0.0
+    I3 = np.eye(3)
+    for a in range(64):
+        for b in range(a + 1, 64):
+            d = X[a] - X[b]
+            r2 = float(d @ d)
+            if r2 <= 0.0:
+                raise ValueError(f"coincident source sites {a} and {b}")
+            r = np.sqrt(r2)
+            energy += 1.0 / r
+            f = d / r**3
+            force[a] += f
+            force[b] -= f
+            Hpair = 3.0 * np.outer(d, d) / r**5 - I3 / r**3
+            ia, ib = slice(3*a, 3*a+3), slice(3*b, 3*b+3)
+            H[ia, ia] += Hpair
+            H[ib, ib] += Hpair
+            H[ia, ib] -= Hpair
+            H[ib, ia] -= Hpair
+    H = 0.5 * (H + H.T)
+    lambda_force = float(np.sum(force * X) / np.sum(X * X))
+    K = Q.T @ (H + lambda_force * np.eye(192)) @ Q
+    K = 0.5 * (K + K.T)
+
+    K_projector_commutator = float(np.linalg.norm(K @ P_T2u - P_T2u @ K))
+    K_T2u = B_T2u.T @ K @ B_T2u
+    K_T2u = 0.5 * (K_T2u + K_T2u.T)
+    eigenvalues, eigenvectors = eigh(K_T2u)
+    matches = np.flatnonzero(np.abs(eigenvalues - target_eigenvalue) <= eigenvalue_tolerance)
+    if len(matches) != 3 or not np.array_equal(matches, np.arange(3)):
+        raise ArithmeticError(
+            "the lowest T2u cluster is not the expected threefold eigenvalue "
+            f"{target_eigenvalue}: first values={eigenvalues[:6].tolist()}"
+        )
+
+    Vraw = B_T2u @ eigenvectors[:, matches]
+    P_triplet = Vraw @ Vraw.T
+
+    # Deterministic frame from the invariant 3D spectral projector.
+    columns = []
+    pivots = []
+    for j in range(188):
+        v = P_triplet[:, j].copy()
+        for qv in columns:
+            v -= float(qv @ v) * qv
+        nv = float(np.linalg.norm(v))
+        if nv > rank_tolerance:
+            v /= nv
+            if v[j] < 0.0:
+                v = -v
+            columns.append(v)
+            pivots.append(j)
+        if len(columns) == 3:
+            break
+    if len(columns) != 3:
+        raise ArithmeticError("could not extract a deterministic orthonormal T2u frame")
+    V = np.column_stack(columns)
+    reduced = V.T @ K @ V
+    residual = float(np.linalg.norm(K @ V - V @ reduced))
+    orthogonality = float(np.linalg.norm(V.T @ V - np.eye(3)))
+    triplet_eigenvalues = np.linalg.eigvalsh(reduced)
+    gap = float(eigenvalues[3] - eigenvalues[2])
+
+    diagnostics = {
+        "status": "RECONSTRUCTED_AND_NUMERICALLY_VERIFIED",
+        "group_order": 48,
+        "t2u_isotypic_rank": isotypic_rank,
+        "triplet_rank": int(np.linalg.matrix_rank(P_triplet, tol=1e-8)),
+        "triplet_pivot_columns": pivots,
+        "coulomb_energy": float(energy),
+        "lambda_force": lambda_force,
+        "triplet_eigenvalues": triplet_eigenvalues.tolist(),
+        "target_eigenvalue": float(target_eigenvalue),
+        "triplet_eigenvalue_spread": float(np.ptp(triplet_eigenvalues)),
+        "gap_to_next_t2u_eigenvalue": gap,
+        "projector_idempotence_residual": projector_error,
+        "K_T2u_commutator_residual": K_projector_commutator,
+        "site_action_residual": max_site_residual,
+        "tangent_action_residual": max_tangent_residual,
+        "tangent_constraint_residual": float(np.linalg.norm(C @ Q)),
+        "tangent_basis_orthogonality": float(np.linalg.norm(Q.T @ Q - np.eye(188))),
+        "triplet_orthogonality_residual": orthogonality,
+        "triplet_eigen_residual": residual,
+        "basis_convention": (
+            "deterministic coordinate-pivoted frame extracted from the first "
+            "triplet spectral projector; PRISM-channel gauge alignment is not "
+            "implied"
+        ),
+    }
+    return {
+        "basis": V,
+        "triplet_projector": P_triplet,
+        "t2u_isotypic_projector": P_T2u,
+        "source_tangent_basis": Q,
+        "constrained_coulomb_hessian": K,
+        "t2u_eigenvalues": eigenvalues,
+        "diagnostics": diagnostics,
+    }
