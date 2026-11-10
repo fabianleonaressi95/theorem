@@ -309,7 +309,7 @@ The independent finite-seed, Dirichlet quadrature, fourth-moment variation and Q
 
 ## 9.2 Binary-tetrahedral spectrum (Ikeda)
 
-The source-verified spectrum of the binary tetrahedral quotient is now recorded in [S011](../theorems/S011-ikeda-binary-tetrahedral-spectrum.md). The index convention is \(\ell=2k\), giving \(\lambda_k=4k(k+1)\); the Poincaré average is \(F_{T^*}=F_6+\tfrac12F_4-\tfrac12F_2\), and the independent Molien series is \(M(t)=(1+t^{12})/((1-t^6)(1-t^8))\). This is the (S^3/T^*) result and is separate from the binary-icosahedral (S^3/2I) programme. Ikeda does not support a Weber/Dedekind-eta connection.
+The source-verified spectrum of the binary tetrahedral quotient is now recorded in [S011](../theorems/S011-ikeda-binary-tetrahedral-spectrum.md). The index convention is \(\ell=2k\), giving \(\lambda_k=4k(k+1)\); the Poincaré average is \(F_{T^*}=F_6+\tfrac12F_4-\tfrac12F_2\), and the independently reconstructed Molien series is \(M(t)=(1+t^{12})/((1-t^6)(1-t^8))\). This is the (S^3/T^*) result and is separate from the binary-icosahedral (S^3/2I) programme. Ikeda does not support a Weber/Dedekind-eta connection.
 
 ## 9.3 Dedekind eta, Dirichlet eta and the discriminant \(-31\)
 
