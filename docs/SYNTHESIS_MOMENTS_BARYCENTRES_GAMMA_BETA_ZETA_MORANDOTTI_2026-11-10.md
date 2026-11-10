@@ -54,7 +54,7 @@ Therefore
 [
 c_{F,a}=V^T\frac aS,\qquad \Sigma_{F,a}=V^TCV.
 ]
-This is **T070**. Its uniform case (a=(1,1,1)) reduces to T068.
+This is **T070**. Its uniform case (a=(1,1,1)) reduces to T068. The central implementation now includes the corrected Duffy–Gauss–Jacobi rule. Under the map \(\lambda_0=(1-s)(1-t),\lambda_1=s,\lambda_2=(1-s)t\), the Jacobi parameters are \((\alpha_s,\beta_s)=(a_0+a_2-1,a_1-1)\) and \((\alpha_t,\beta_t)=(a_0-1,a_2-1)\); each mapped rule carries its own \(2^{-(\alpha+\beta+1)}\) factor, and the physical triangle integral carries \(2A_F\). The code stores \(M=\mathbb E[\lambda\lambda^T]\) separately from \(C=M-\mathbb E[\lambda]\mathbb E[\lambda]^T\). A1–A3 regression tests are deposited; their execution is not claimed here.
 
 ### 2.3 Q6 point-cloud and antipodal covariances
 
