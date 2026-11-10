@@ -81,3 +81,13 @@ def test_p1_strain_rejects_degenerate_triangle():
         assert "degenerate" in str(exc)
     else:
         raise AssertionError("degenerate triangle must be rejected")
+
+
+def test_p1_strain_recovers_affine_symmetric_gradient():
+    nodes = np.array([[0., 0.], [1., 0.], [1., 1.], [0., 1.]])
+    triangles = np.array([[0, 1, 2], [0, 2, 3]])
+    grad = np.array([[2., 3.], [-1., 4.]])
+    displacement = nodes @ grad.T + np.array([.3, -.7])
+    strain = p1_triangle_symmetric_strain(nodes, triangles, displacement)
+    expected = .5 * (grad + grad.T)
+    assert np.allclose(strain, np.broadcast_to(expected, strain.shape), atol=1e-14)
