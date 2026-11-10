@@ -64,6 +64,7 @@ theorem/
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
 - [Theorem records](theorems/)
+- [S011 — Binary tetrahedral spherical spectrum (Ikeda 1995)](theorems/S011-ikeda-binary-tetrahedral-spectrum.md) — source-verified eigenvalue indexing, subgroup inclusion–exclusion and independent Molien multiplicity check.
 - [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
 - [Q6 T012–T017 compatibility matrix](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md)
 
