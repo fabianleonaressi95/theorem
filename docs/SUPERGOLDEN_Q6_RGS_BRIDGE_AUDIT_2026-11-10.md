@@ -219,3 +219,20 @@ ha crescita Perron supergolden e che, per il conteggio totale \(N_n\),
 Questo chiude il passaggio **sostituzione astratta → crescita supergolden → incremento digamma**.
 
 Non chiude il passaggio **Q6 geometrico → sostituzione**: la lista dei figli orientati deve ancora essere ricavata dalle celle e dalle incidenze, senza imporre la matrice. Il trasferimento midpoint T055 resta \(2I_3\) e non soddisfa il criterio.
+
+## 14. Teorema angolare Kathara–argentea–digamma
+
+È stato formalizzato il [teorema della legge angolare Kathara–argentea–digamma](../theorems/KATHARA_SILVER_DIGAMMA_ANGLE_LAW.md). La trasformazione quadrata già registrata
+\[
+T=\begin{pmatrix}1&1\\-1&1\end{pmatrix}
+=\sqrt2R(-\pi/4)
+\]
+ha angolo di rotazione \(\alpha=\pi/4\). La cotangente del semiangolo è quindi
+\[
+\cot(\alpha/2)=\cot(\pi/8)=1+\sqrt2=\delta,
+\]
+e la riflessione del digamma dà
+\[
+\psi(7/8)-\psi(1/8)=\pi\delta.
+\]
+Questo collega esattamente la regola di similarità quadrata alla branca argentea. Non identifica \(\delta\) con un autovalore di \(T\): gli autovalori di \(T\) sono \(1\pm i\). La branca supergolden resta quella della sostituzione a tre canali, la cui realizzazione geometrica Q6/Kathara è ancora aperta.
