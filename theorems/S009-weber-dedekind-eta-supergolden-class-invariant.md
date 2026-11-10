@@ -199,4 +199,4 @@ The algebraic integer \(\psi\) is a unit (its monic polynomial has constant term
 
 3. R. Schertz, “Weber's class invariants revisited,” *Journal de théorie des nombres de Bordeaux* 14 (2002), no. 1, 325–343. DOI: [10.5802/jtnb.361](https://doi.org/10.5802/jtnb.361). This supplies a rigorous account of the singular values of the Weber functions, eta multipliers and Shimura reciprocity.
 4. D. A. Cox, *Primes of the Form \\(x^2+ny^2\\): Fermat, Class Field Theory, and Complex Multiplication*, 3rd ed., American Mathematical Society, 2022. Background on quadratic forms, CM and class fields.
-5. NIST DLMF, §§23.15, 23.18 and 27.14, for the Dedekind eta definition, product and modular transformation law.
+5. NIST DLMF, §§23.15 and 23.18, for the Dedekind eta definition and modular transformation law.
