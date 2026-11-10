@@ -3,7 +3,7 @@ import sys
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
-from models.football_shell import _assemble_physical_seam_axial_stiffness,build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
+from models.football_shell import _assemble_physical_seam_axial_stiffness,assemble_seam_jump_stiffness,build_seam_discontinuous_mesh,build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
 
 def test_closed_truncated_icosahedron_shell_counts():
  m=build_football_shell()
@@ -78,3 +78,32 @@ def test_shell_reports_axial_seam_energy_separately_from_hinges():
  assert d["hinge_count"]==270
  assert d["seam_axial_spring_energy"]>=0
  assert "no opening/sliding jump DOFs" in d["seam_axial_spring_model"]
+
+
+def test_discontinuous_panel_traces_duplicate_all_90_physical_seams():
+ m=build_football_shell()
+ dm=build_seam_discontinuous_mesh(m)
+ assert dm["physical_seam_count"]==90
+ assert dm["seam_pairs"].shape==(90,6)
+ assert len(dm["nodes"])>len(m["nodes"])
+ assert dm["triangles"].shape==m["triangles"].shape
+ # The two panel-side copies of every original seam endpoint coincide in reference geometry.
+ for _,_,a0,b0,a1,b1 in dm["seam_pairs"]:
+  assert np.allclose(dm["nodes"][a0],dm["nodes"][a1])
+  assert np.allclose(dm["nodes"][b0],dm["nodes"][b1])
+
+
+def test_consistent_seam_jump_penalty_is_psd_and_has_rigid_translation_kernel():
+ dm=build_seam_discontinuous_mesh(build_football_shell())
+ K=assemble_seam_jump_stiffness(dm,line_penalty=25.)
+ assert K.shape==(3*len(dm["nodes"]),3*len(dm["nodes"]))
+ assert np.allclose(K,K.T,atol=1e-12)
+ assert np.linalg.eigvalsh(K)[0]>-1e-9
+ rigid=np.tile(np.array([.4,-.2,1.1]),len(dm["nodes"]))
+ assert np.linalg.norm(K@rigid)<1e-9
+ # A constant relative translation of one side of one seam has positive penalty.
+ row=dm["seam_pairs"][0]
+ _,_,a0,b0,a1,b1=map(int,row)
+ u=np.zeros((len(dm["nodes"]),3))
+ u[[a1,b1],0]=.1
+ assert .5*u.ravel()@K@u.ravel()>0
