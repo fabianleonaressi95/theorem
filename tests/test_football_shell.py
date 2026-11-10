@@ -3,7 +3,7 @@ import sys
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
-from models.football_shell import build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
+from models.football_shell import _assemble_physical_seam_axial_stiffness,build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
 
 def test_closed_truncated_icosahedron_shell_counts():
  m=build_football_shell()
@@ -47,3 +47,34 @@ def test_scan_icp_recovers_rigidly_transformed_synthetic_surface(tmp_path):
  np.savetxt(path,scan,delimiter=",",header="x,y,z",comments="")
  result=compare_scan(read_point_cloud(path),m["nodes"],m["triangles"],2)
  assert result["symmetric_chamfer_rms"]<1e-8
+
+
+def test_physical_seam_axial_springs_are_energy_consistent_and_rigid_motion_invariant():
+ m=build_football_shell()
+ EA=12.5
+ Ks=_assemble_physical_seam_axial_stiffness(m["nodes"],m["physical_seams"],EA)
+ assert Ks.shape==(3*len(m["nodes"]),3*len(m["nodes"]))
+ assert np.allclose(Ks,Ks.T,atol=1e-12)
+ assert np.linalg.eigvalsh(Ks)[0]>-1e-10
+ # A rigid translation has no axial extension on any physical seam.
+ rigid=np.tile(np.array([.3,-.7,1.2]),len(m["nodes"]))
+ assert np.linalg.norm(Ks@rigid)<1e-10
+ # Compare assembled quadratic energy with the edge-by-edge definition.
+ rng=np.random.default_rng(20261110)
+ u=rng.normal(size=(len(m["nodes"]),3))
+ direct=0.
+ for a,b in m["physical_seams"]:
+  d=m["nodes"][b]-m["nodes"][a]
+  L=np.linalg.norm(d); t=d/L
+  direct += .5*EA/L*(t@(u[b]-u[a]))**2
+ assembled=.5*u.ravel()@Ks@u.ravel()
+ assert np.isclose(assembled,direct,rtol=1e-12,atol=1e-12)
+
+
+def test_shell_reports_axial_seam_energy_separately_from_hinges():
+ m=build_football_shell()
+ _,u,_,d=solve_discrete_shell(m,seam_Et=12.5)
+ assert d["physical_seam_count"]==90
+ assert d["hinge_count"]==270
+ assert d["seam_axial_spring_energy"]>=0
+ assert "no opening/sliding jump DOFs" in d["seam_axial_spring_model"]
