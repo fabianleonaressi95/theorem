@@ -176,7 +176,7 @@ The first positive indices follow directly from the formulas above.
 
 For the two lens rows, the index \(r\) is the full spherical-harmonic degree and the eigenvalue is \(r(r+2)\). For the binary rows, \(k\) is half the full degree and the eigenvalue is \(4k(k+1)\). This distinction prevents an apparent index mismatch in the table.
 
-These values agree with the three-dimensional list in Ikeda's Theorem 5.1 (pp. 66–67). The multiplicities are independently recovered from the formulas in Sections 2–6 above.
+The first-eigenvalue sequence agrees with the three-dimensional list in Ikeda's Theorem 5.1 (pp. 66–67). The multiplicities in this table are independently recovered from Theorems 4.2–4.6 above; in particular, the (m=2) versus (m>2) dihedral multiplicity distinction is read from the explicit formula in Theorem 4.3(1), not inferred from the OCR layout of the summary table.
 
 ## 8. Correct use and non-use of Lemma 2.6
 
