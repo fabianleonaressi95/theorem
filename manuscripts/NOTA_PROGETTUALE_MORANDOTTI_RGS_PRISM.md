@@ -203,3 +203,8 @@ Per il raccordo fra incompatibilità dei difetti, shell poligonale, ortotropia d
 ## Capitolo metodologico: tangenti, quaternioni e triplette
 
 Per la ricostruzione passo per passo dei vincoli, del tangente 188D, della riduzione della Hessiana, delle triplette geometriche e spettrali, dei frame quaternionici e del confronto con il tangente 184D del guscio calcistico, si veda il nuovo [Capitolo sui sottospazi tangenti, quaternioni e triplette](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md). Questo capitolo esplicita anche i limiti delle etichette T1u/T2u e distingue il doppio ricoprimento SU(2)→SO(3) dalla rappresentazione finita del gruppo 2I.
+
+
+## Operatore discreto di incompatibilità: sviluppo successivo
+
+Il raccordo costruttivo tra tangente, deformazione, incompatibilità elastica e geometria quaternionica è sviluppato nel [capitolo sull'operatore discreto di incompatibilità](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md). La nota distingue la formulazione debole piana di Saint-Venant, il ponte Cartan SU(2) (connessione indipendente e co-base), il ruolo delle triplette come settori di simmetria e l'estensione superficiale ancora da derivare.
