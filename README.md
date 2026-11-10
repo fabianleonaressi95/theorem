@@ -55,6 +55,7 @@ theorem/
 - [Quarantined source files](archive/README.md)
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
+- [Supergolden–digamma–Möbius–Anti-Twin dossier](docs/SUPERGOLDEN_DIGAMMA_MOBIUS_ANTITWIN_DOSSIER_2026-11-10.md) — exact spectral asymptotics, algebraic phase, Möbius dynamics, corrected Anti-Twin quotient invariants, and the open Q6 realization problem.
 - [Theorem records](theorems/)
 - [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
 - [Q6 T012–T017 compatibility matrix](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md)
