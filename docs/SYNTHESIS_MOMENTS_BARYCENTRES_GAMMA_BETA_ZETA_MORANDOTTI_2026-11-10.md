@@ -309,7 +309,7 @@ The independent finite-seed, Dirichlet quadrature, fourth-moment variation and Q
 
 ## 9.3 Binary-tetrahedral spectrum (Ikeda)
 
-The source-verified spectrum of the binary tetrahedral quotient is now recorded in [S011](../theorems/S011-ikeda-binary-tetrahedral-spectrum.md). The index convention is \\(\\ell=2k\\), giving \\(\\lambda_k=4k(k+1)\\); the Poincaré average is \\(F_{T^*}=F_6+\\tfrac12F_4-\\tfrac12F_2\\), and the independent Molien series is \\(M(t)=(1+t^{12})/((1-t^6)(1-t^8))\\). This is the (S^3/T^*) result and is separate from the binary-icosahedral (S^3/2I) programme. Ikeda does not support a Weber/Dedekind-eta connection.
+The source-verified spectrum of the binary tetrahedral quotient is now recorded in [S011](../theorems/S011-ikeda-binary-tetrahedral-spectrum.md). The index convention is \(\ell=2k\), giving \(\lambda_k=4k(k+1)\); the Poincaré average is \(F_{T^*}=F_6+\tfrac12F_4-\tfrac12F_2\), and the independent Molien series is \(M(t)=(1+t^{12})/((1-t^6)(1-t^8))\). This is the (S^3/T^*) result and is separate from the binary-icosahedral (S^3/2I) programme. Ikeda does not support a Weber/Dedekind-eta connection.
 
 ## 9.2 Dedekind eta, Dirichlet eta and the discriminant \(-31\)
 
@@ -321,6 +321,10 @@ The two new records are:
 - [S.10 — Dirichlet eta, Dedekind eta Lambert series and quadratic zeta](../theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md): exact Dirichlet-series products, \(\zeta_K(s)=\zeta(s)L(s,\chi_{-31})\), the class-number value and Bernoulli/polygamma links.
 
 These records keep the modular eta, alternating Dirichlet eta, Dirichlet \(L\)-function, Dedekind zeta and Dirichlet simplex distribution distinct.
+
+## 9.4 Canonical integrated theory
+
+The canonical dependency map for the entire 10 November programme is now [the unitary theory of the truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md). It assembles the shell geometry, T068–T072, S.1–S.10, the fourth-moment branch, the Gate D→E transfer programme, and the separate (T^*)/(2I) spectral modules while keeping each proof status intact.
 
 ## 10. Bibliography
 
