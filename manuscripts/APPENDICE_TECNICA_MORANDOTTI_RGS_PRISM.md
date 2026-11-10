@@ -622,3 +622,8 @@ Il documento di raccordo calcistico include ora una sezione dedicata alle condiz
 Il tensore (S_{ab}) di Israel non viene identificato con la tensione della cucitura. La trasposizione al pallone è strutturale e geometrica; la legge fisica di giunzione deve essere derivata indipendentemente dalla shell energy e, se necessario, calibrata sperimentalmente.
 
 Riferimento interno: [Documento di raccordo calcistico — sezione 5-bis](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md).
+
+
+## A.28. Derivazione dei sottospazi tangenti, quaternioni e triplette
+
+La derivazione completa, con Jacobiano dei quattro vincoli, costruzione di Q, proiettore tangente, Hessiana del Lagrangiano, triplette rotazionali, distinzione T1u/T2u, frame quaternionici, trasferimento 192→276 e angoli principali, è raccolta nel [Capitolo metodologico dedicato](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md). Il capitolo va letto insieme ai report A14 e agli audit della geometria 188D: non identifica automaticamente K0 con la Hessiana vincolata originale e non promuove i cluster numerici a rappresentazioni irriducibili senza verifica dei caratteri e dei commutatori.
