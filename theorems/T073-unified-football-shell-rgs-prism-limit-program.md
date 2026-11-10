@@ -41,6 +41,61 @@ SBV(S;E)\times L^p(S;T^*S\otimes E),
 or its panelwise version with prescribed seam traces. Its precise definition on a piecewise-\(C^2\) surface, including traces, jump measures, connection regularity and varying-surface comparison maps, remains a proof obligation. The earlier notation \(SBV(S;\mathbb R^m)\) is recovered only after choosing an ambient trivialization; it is not the intrinsic definition.
 
 The physical seam network \(\Gamma_{\rm phys}\) is prescribed material/geometric data. The mesh skeleton \(\mathcal S_h\) and the variational jump set \(S_u\) are different objects and must remain distinct. A seam energy is a fibrewise density on \(E|_{\Gamma_e}\), with its transition maps and frame covariance explicitly specified.
+
+## 2.1. Triplett anisotropy transferred to the tangent fibre
+
+Two established finite-dimensional structures must be kept distinct and then connected by an explicit map.
+
+**(i) Q6 tangent T2u triplet.** The recorded spectral triplet is
+\[
+V\in\mathbb R^{188\times3},\qquad V^TV=I_3,\qquad
+\lambda_{T_{2u}}=-0.06994933008401777
+\]
+with multiplicity three. Its lifted/local data \(U=QV\in\mathbb R^{192\times3}\) have local blocks \(U_i\in\mathbb R^{3\times3}\) of rank two. This rank-two property is compatible with a two-dimensional tangent fibre, but it does **not** by itself identify a Q6 local block with the tangent plane of the football shell. Nor is the triplet an invertible tetrad.
+
+**(ii) PRISM/G2 tripletti.** For each triplett \(T=(r_1,r_2,r_3)\), with \(r_i\in\mathbb R^2\), put \(R_T=[r_1\ r_2\ r_3]\) and
+\[
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad
+\Gamma_T=R_T^TQ_{G_2}R_T.
+\]
+The recorded family has 216 tripletti and 20 Gram classes; every \(\Gamma_T\) is positive semidefinite with rank at most two. These Gram classes encode channel anisotropy. They are not automatically the constitutive tensor of the football fabric.
+
+**(iii) Required bridge.** At each shell point \(x\), an explicit transfer
+\[
+L_x:\mathbb R^{188}\longrightarrow\mathbb R^3
+\]
+must be supplied, with image in \(T_xS\subset\mathbb R^3\). The transferred T2u channel map is
+\[
+U_x=L_xV:\mathbb R^3\longrightarrow T_xS,
+\qquad \operatorname{rank}U_x=2.
+\]
+The rank-two condition is checked pointwise; it is not inferred from the global multiplicity-three statement. For a selected G2 triplett class, the induced tangent anisotropy is
+\[
+A_T(x)=U_x\Gamma_TU_x^*
+\in\operatorname{Sym}^+(T_xS).
+\]
+Equivalently, in a local orthonormal tangent frame \(F_x:\mathbb R^2\to T_xS\),
+\[
+[A_T(x)]_{F_x}=F_x^TU_x\Gamma_TU_x^TF_x.
+\]
+Under a frame change \(F_x\mapsto F_xO_x\), this matrix transforms as
+\(A_F\mapsto O_x^TA_FO_x\); its eigenvalues and anisotropy ratio are frame-independent. The ambient tensor \(U_x\Gamma_TU_x^T\) is unchanged.
+
+The induced seam constitutive form is then a bundle endomorphism on
+\(E|_{\Gamma_e}=TS|_{\Gamma_e}\oplus NS|_{\Gamma_e}\), for example
+\[
+K_e(x)=
+\begin{pmatrix}
+k_{0,e}I_{T_xS}+\alpha_e A_T(x)&0\\
+0&k_{o,e}
+\end{pmatrix}.
+\]
+This is a model class, not a fitted law: \(\alpha_e,k_{0,e},k_{o,e}\) require material/seam identification. It keeps tangential anisotropy distinct from shell-normal peel/opening.
+
+The code primitive models/tangent_triplet_anisotropy.py implements the Gram construction, the explicitly supplied transfer composition, tangent-fibre push-forward, frame-covariance diagnostics and the block seam-fibre stiffness. Unit tests are in tests/test_tangent_triplet_anisotropy.py.
+
+**Critical open item:** no validated transfer \(L_x\) from the 188-dimensional Q6 tangent space to the football shell tangent fibres has yet been constructed. Until that map is derived from the programme's discrete transfer/geometry data and its stability/covariance is proved, this is a mathematically specified bridge and tested algebraic primitive, not a demonstrated physical coupling. The 216 tripletti / 20 Gram classes and the T2u triplet are not to be collapsed into one object.
+
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
 For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
