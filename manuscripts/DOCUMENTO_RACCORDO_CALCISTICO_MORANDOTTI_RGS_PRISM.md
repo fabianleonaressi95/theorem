@@ -543,3 +543,8 @@ I tre documenti hanno funzioni distinte e complementari:
 3. **Appendice tecnica:** quali strutture, implementazioni, test e risultati RGS–PRISM sono già disponibili e quali restano aperti.
 
 Il pallone fornisce così un ponte applicativo verificabile tra il problema astratto dei difetti e una struttura ingegneristica reale, senza confondere analogia, modello numerico e validazione sperimentale.
+
+
+## 5-bis. Percorso matematico dei tangenti, quaternioni e triplette
+
+Il raccordo con Morandotti deve includere il percorso matematico completo, non soltanto il modello shell. Il [capitolo metodologico dedicato](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md) spiega perché i 64 siti producono un tangente 188D, come si riduce la forma energetica, come si definisce la tripletta delle rotazioni infinitesime, perché i frame locali si sollevano a quaternioni e come si confronta il tangente RGS con quello della shell 184D. La distinzione tra tripletta geometrica, cluster spettrale candidato e rappresentazione irriducibile certificata è vincolante per l'interpretazione dei risultati.
