@@ -148,6 +148,24 @@ La geometria globale serve a verificare se gli effetti locali si accumulano o si
 
 ---
 
+## 4-bis. Baseline aggiornata per il ponte difetti–shell
+
+Il benchmark piano non deve essere costruito come se mancasse una discretizzazione numerica del problema Airy. Il preprint 2026 di Cesana, Fabbrini, León Baldelli e Morandotti (arXiv:2609.29614) presenta già una formulazione FEM CIP-DG del problema ellittico del quarto ordine, con regolarizzazione core-radius e problemi locali di cell formula. La proposta RGS–PRISM deve riprodurre prima uno dei suoi casi analitici e confrontarsi con tale baseline.
+
+La corrispondenza discreta da progettare è:
+\\[
+\\operatorname{Inc}_h\\epsilon_h=\\zeta_h,
+\\]
+dove (\\epsilon_h) è la deformazione simmetrica discreta e (\\zeta_h) approssima separatamente sorgenti di Burgers e Frank. Questa relazione non va confusa con la chiusura del complesso cinematico (d_{1,h}d_{0,h}=0): quest'ultima resta un'identità esatta e non è la sorgente del difetto.
+
+Il trasferimento dal piano alla shell richiede poi una formulazione su patch curve: metrica superficiale, operatori di deformazione/incompatibilità superficiali, condizioni al bordo e legge di interfaccia devono essere definiti sul medesimo funzionale. Le cuciture del pallone sono interfacce meccaniche con salti e azioni generalizzate; non sono automaticamente dislocazioni o disclinazioni. La loro eventuale relazione con sorgenti di incompatibilità va dimostrata tramite una riduzione cinematica e variazionale.
+
+**Conseguenza per il programma:** due benchmark separati ma coordinati:
+1. piano Airy: riproduzione CIP-DG e confronto con RGS discreto;
+2. shell calcistica: equilibrio membranale/flessionale, ortotropia e cuciture, prima senza identificare le cuciture con difetti cristallini.
+
+La specifica completa e le equazioni del riferimento sono nell'[Appendice tecnica, sezione A.27](APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md); la mappa dei lavori è nella [Matrice bibliografica Morandotti–RGS–PRISM](MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
+
 ## 5. Il livello quaternionico: orientazione locale e trasporto
 
 Il lavoro già sviluppato introduce un riferimento locale tangente in ogni nodo della shell. Per il pallone:
