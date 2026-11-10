@@ -248,7 +248,7 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 
 ## L. Citation map and limits
 
-- **S.9 (Weber/Dedekind/supergolden):** Yui–Zagier (1997) is the source for the \\(D=-31\\) Weber class-polynomial entry; Schertz (2002) supports the singular-value and transformation framework; DLMF §§23.15, 23.18 and 27.14 support the eta definition and modular transformations; Cox supports the CM/class-field background.
+- **S.9 (Weber/Dedekind/supergolden):** Yui–Zagier (1997) is the source for the \\(D=-31\\) Weber class-polynomial entry; Schertz (2002) supports the singular-value and transformation framework; DLMF §§23.15 and 23.18 support the eta definition and modular transformations; Cox supports the CM/class-field background.
 - **S.10 (Dirichlet eta and quadratic zeta):** Apostol and DLMF §§25.2, 25.15 support the alternating zeta series, characters and (L)-functions; Sutherland Lecture 19 supports the analytic class-number formula; the finite sum \\( -93\\) is recorded as a direct exact computation.
 - **S.3/T070 (Dirichlet simplex):** Minka supports the Gamma-normalized density and expected log-coordinate/digamma formula; Gupta–Richards and Johnson–Kotz–Balakrishnan support moment theory; the triangular affine push-forward and local quadrature statements are proved in the internal records.
 - **Morandotti interface:** Amar–Matias–Morandotti–Zappale (2022) remains the source for periodic structured-deformation homogenization under its own Euclidean hypotheses. None of the number-theoretic references proves curved-shell homogenization.
