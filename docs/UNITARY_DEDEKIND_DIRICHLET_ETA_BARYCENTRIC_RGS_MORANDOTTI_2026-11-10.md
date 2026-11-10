@@ -370,7 +370,7 @@ The local moment expansion then connects \((c_{F,a},\Sigma_{F,a})\) to the Moran
 ## 12. Primary references
 
 - N. Yui and D. Zagier, “On the Singular Values of Weber Modular Functions,” *Math. Comp.* 66 (1997), 1645–1662, DOI 10.1090/S0025-5718-97-00854-5.
-- NIST DLMF §§20.10, 23.15, 23.18, 25.15, 27.14.
+- NIST DLMF §§5.11, 5.12, 5.15, 23.15, 23.18, 24.2, 25.2 and 25.15.
 - A. V. Sutherland, MIT 18.785, Lecture 19, *The Analytic Class Number Formula* (2021).
 - Amar–Matias–Morandotti–Zappale (2022), periodic homogenization in structured deformations; retain the Euclidean-domain and density hypotheses of the source paper.
 - Barroso–Matias–Morandotti–Owen (2017), relaxed disarrangement densities; retain the distinction \(M=\nabla g-G\).
