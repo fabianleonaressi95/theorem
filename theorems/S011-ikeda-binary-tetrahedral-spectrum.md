@@ -15,7 +15,7 @@ In the binary-tetrahedral quotient formula, Ikeda's index is \(\ell=2k\). Thus
 \[
 \boxed{\lambda_k=2k(2k+2)=4k(k+1),\qquad k=0,1,2,\ldots.}
 \]
-This is exactly the specialization \(n=1\) of Ikeda's Theorem 4.4(2), which gives \(4k(2n+k-1)\) on \(S^{4n-1}/T^*\). It is not a contradiction with the general spherical eigenvalue \(\ell(\ell+2)\); the indices differ by \(\ell=2k\).
+This follows from the standard unit-sphere eigenvalue \(\lambda_\ell=\ell(\ell+2)\) after setting \(\ell=2k\). It must **not** be described as a specialization of Ikeda's Theorem 4.4(2): that part is explicitly stated only for \(n>1\). The 3-dimensional quotient is covered by Theorem 4.4(1), while the eigenvalue conversion is an independent reconstruction.
 
 ## 2. Poincaré-series average: inclusion–exclusion
 
