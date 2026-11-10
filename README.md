@@ -47,6 +47,8 @@ theorem/
 - [Canonical synthesis and closure programme](manuscripts/SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — short strategic overview.
 
 - [Bibliography and source catalogue](bibliography/README.md)
+- [Integrated synthesis: moments, barycentres, Gamma–Beta–zeta and Morandotti](docs/SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md)
+- [Digamma–supergolden–Q6 analytic dossier](docs/DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
 - [Cleaned research notes and manuscript editorial register](manuscripts/README.md)
 - [XCont emergent-dynamics integration](manuscripts/XCONT_EMERGENT_DYNAMICS_INTEGRATION.md) — external cellular-automata, symbolic-billiard and graph-convolution methods mapped to PRISM/Q6 as testable research interfaces.
@@ -120,6 +122,8 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [T067](theorems/T067-stokes-commuting-cubical-face-integral-interpolation.md) | Stokes commutation of cubical face-integral interpolation | Proves exact commutation of the face-integral interpolator with the cellular exterior derivative; numerical quadrature checks remain finite. |
 | [T069](theorems/T069-q6-antipodal-walsh-covariance.md) | Q6 antipodality, RGS coordinate inversion, Walsh sectors and covariance | Separates the global Q6 antipode (XOR 63) from the RGS seed's coordinate inversion (XOR 7); records the exact covariance decomposition and finite numerical/Walsh audit. Phase dynamics and cell-covariance transport remain open. |
 | [T070](theorems/T070-dirichlet-barycentric-phase-moments.md) | Dirichlet barycentres, covariance and phase moments on triangular cells | Exact Gamma/Beta normalization, weighted centroid and covariance, cubic Taylor remainder, affine-phase moment bound; football-shell global refinement and Bernoulli asymptotics remain open. |
+| [S.4](theorems/S004-rgs-seed-fourth-moment-anisotropy.md) | RGS 64-site fourth-moment anisotropy | Raw second/fourth moments, isotropic projection, cubic residual and Eg/T2g seed spectrum; prior numerical record, independent replay still required. |
+| [S.5](theorems/S005-fourth-jump-moment-graph-laplacian-consistency.md) | Fourth-jump-moment consistency | Conditional Taylor expansion and O(a²) graph-Laplacian consistency; application to the actual RGS refinement remains open. |
 | [T068](theorems/T068-barycentric-covariance-quadrature-law.md) | Barycentric–covariance quadrature on a planar triangle | Exact local Taylor identity, triangle covariance formula and (A_F h_F^3\sup\|D^3g\|/6) remainder bound; global refinement and Bernoulli asymptotics remain open. |
 | [T068](theorems/T068-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport and phi/psi emergence remain open. |
 
@@ -132,6 +136,8 @@ The file `001-fixed-lattice-temporal-wilson-limit.md` is a pre-existing result a
 - [Lemma S.1 — Silver-ratio scaling in a square-corner tangency configuration](theorems/S001-silver-ratio-square-corner-tangency.md) — proves the exact relations `d/R = 1/(1+sqrt(2))` and `r/R = 1/(1+sqrt(2))^2` for the incircle/corner-circle tangency geometry. This is a local Euclidean lemma; no Q6 refinement or infinite self-similarity is claimed.
 - [S.2 — Unified square–triangle–pentagon–hexagon and supergolden geometry](theorems/S002-square-pentagon-supergolden-synthesis.md) — places the square's silver-ratio diagonal/tangency geometry, an inscribed regular pentagon's golden-ratio chords, and an inscribed regular hexagon's bronze-ratio metric on the same circle; records the supergolden rectangle and the still-open incidence/construction bridges.
 - [S.3 — Dirichlet log-partition gradient and cumulants](theorems/S003-dirichlet-log-partition-gradient-cumulants.md) — identifies parameter-gradients with mean logarithmic barycentric coordinates and the Hessian with their covariance; gives the exact digamma/trigamma and Bernoulli/zeta asymptotic link.
+- [S.4 — RGS 64-site fourth-moment anisotropy](theorems/S004-rgs-seed-fourth-moment-anisotropy.md) — separates the fully symmetric seed fourth moment into isotropic and cubic-anisotropic parts; reports the prior numerical Eg/T2g decomposition and explicitly excludes torsion identification.
+- [S.5 — Fourth-jump-moment graph Laplacian consistency](theorems/S005-fourth-jump-moment-graph-laplacian-consistency.md) — gives the Taylor expansion through order four and a conditional O(a²) consistency criterion under first/third-moment cancellation and uniform fourth-moment bounds.
 
 ## Selected research records
 
