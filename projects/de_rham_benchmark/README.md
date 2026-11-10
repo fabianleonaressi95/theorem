@@ -95,6 +95,10 @@ The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geo
 
 The [10 November 2026 analytic audit](docs/CURVILINEAR_MESH_ANALYTIC_AUDIT_2026-11-10.md) proves global injectivity and uniform pullback-metric ellipticity for the default sinusoid and axis-bump maps using explicit contraction bounds. This upgrades the default-map injectivity status beyond sampled Jacobian diagnostics. Parameter sweeps outside those bounds, stable commuting projections, discrete compactness and Mosco convergence remain open.
 
+## Boundary Green identity and adjoint domains
+
+The [boundary Green identity audit](docs/BOUNDARY_GREEN_IDENTITY_AND_ADJOINT_DOMAINS_2026-11-10.md) formalizes why the unconstrained matrix adjoint need not converge to the strong codifferential without matching operator domains. It specifies separate full/weak and relative/essential experiments, including topology, restricted masses, trace pairings and acceptance criteria. No boundary-constrained convergence result is claimed until those experiments are implemented and run.
+
 ## Independent mathematical audit
 
 A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
