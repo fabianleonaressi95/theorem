@@ -3,6 +3,8 @@
 **Date:** 10 November 2026  
 **Scope:** audit and synthesis of the 10 November work recorded in THEOREM and the companion RGS–QLG repository, with the earlier Dedekind-eta/Weber material recovered from the supplied Nardelli note. This is a structured mathematical programme, not a claim that every strand has already been reduced to one theorem.
 
+**Canonical integration:** this document is the detailed modular/arithmetic branch of the [unitary theory of the truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md). The latter is the master dependency map for the full 10 November programme, including the Ikeda (S^3/T^*) spectral record S011.
+
 ## 1. The four meanings that must remain distinct
 
 This construction uses four different objects:
