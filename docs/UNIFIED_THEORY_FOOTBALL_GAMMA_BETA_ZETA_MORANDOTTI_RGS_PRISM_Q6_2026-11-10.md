@@ -181,11 +181,11 @@ Since (\eta_D(1)=\log2), the regularized product value is
 \eta_D(1)L(1,\chi_{-31})=\frac{3\pi\log2}{\sqrt{31}}.
 \]
 
-For the principal Weber class invariant, Yui–Zagier's (D=-31) table gives
+For the principal Weber class invariant, the user's reported full-text check of Yui–Zagier's (D=-31) table (p. 1649) records
 \[
 \rho^3+\rho-1=0,\qquad \rho=\psi_*^{-1}.
 \]
-The exact Weber transformations then give
+The reciprocal identification \\(\\rho=\\psi_*^{-1}\\) is an algebraic reconstruction from the tabulated polynomial, not terminology used by Yui–Zagier. The exact Weber transformations then give
 \[
 f(i\sqrt{31})=\sqrt2\,\psi_*,\qquad
 f(i\sqrt{31})^2=2\psi_*^2.
@@ -309,7 +309,7 @@ It gives
 m_{2k}=1+2\lfloor k/3\rfloor+\lfloor k/2\rfloor-k,
 \qquad a_k=(2k+1)m_{2k}.
 \]
-For example (a_3=7) and (a_6=26). This is S011, source-verified against Ikeda (1995) and independently checked by Molien. It concerns (S^3/T^*), not (S^3/2I).
+For example (a_3=7) and (a_6=26). This is S011: the quoted multiplicity formula and subgroup/Poincaré statements are source-recorded from Ikeda (1995); the eigenvalue indexing and Molien series are independent reconstructions/checks. It concerns (S^3/T^*), not (S^3/2I).
 
 ### 10.2 Binary icosahedral quotient (S^3/2I)
 
