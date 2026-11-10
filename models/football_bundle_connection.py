@@ -109,7 +109,7 @@ def build_physical_seam_bundle_transitions(mesh):
 def transform_channel_gauge(t2u_basis,triplett,orthogonal_gauge):
     """Apply one O(3) channel-basis change consistently to V and R.
 
-    V' = V O and R' = O.T R, hence Gamma'=O.T Gamma O and
+    V' = V O and R' = R O, hence Gamma'=O.T Gamma O and
     (L V') Gamma' (L V')* = (L V) Gamma (L V)* exactly.
     """
     V=np.asarray(t2u_basis,float); R=np.asarray(triplett,float); O=np.asarray(orthogonal_gauge,float)
@@ -117,7 +117,7 @@ def transform_channel_gauge(t2u_basis,triplett,orthogonal_gauge):
         raise ValueError("expected V(188x3), R(2x3), O(3x3)")
     if not np.allclose(O.T@O,np.eye(3),atol=1e-10):
         raise ValueError("channel gauge must be orthogonal")
-    return V@O, O.T@R
+    return V@O, R@O
 
 
 def gauge_covariance_residual(fibre_maps,t2u_basis,triplett,orthogonal_gauge,q_g2):
