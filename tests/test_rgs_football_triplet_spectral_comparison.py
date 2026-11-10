@@ -53,3 +53,19 @@ def test_quaternion_double_cover_and_rotation_action():
     q=quaternion_from_matrix(R); v=np.array([.2,-.5,.7])
     assert np.linalg.norm(qrotate(q,v)-R@v)<1e-12
     assert np.linalg.norm(qrotate(q,v)-qrotate(-q,v))<1e-12
+
+
+def test_full_transfer_robustness_grid_executes(tmp_path):
+    import json,subprocess
+    output=tmp_path/"robustness.json"
+    script=ROOT/"scripts/audit_rgs_football_transfer_robustness.py"
+    run=subprocess.run([sys.executable,str(script),"--out",str(output)],
+        cwd=ROOT,text=True,capture_output=True,check=True)
+    report=json.loads(output.read_text())
+    assert report["status"]=="COMPUTED_TRANSFER_ROBUSTNESS_AUDIT"
+    assert [r["neighbors"] for r in report["robustness_grid"]]==[8,12,16,24,32]
+    assert all(r["transferred_triplet_rank"]==3 for r in report["robustness_grid"])
+    assert report["source"]["tangent_basis_shape"]==[192,188]
+    assert report["quaternionic_audit"]["rotation_action_max_residual"]<1e-10
+    assert report["quaternionic_audit"]["double_cover_q_vs_minus_q_max_residual"]<1e-10
+    assert output.with_suffix(".npz").exists()
