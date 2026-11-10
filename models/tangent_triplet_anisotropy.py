@@ -219,12 +219,24 @@ def build_rgs_shell_tangent_fibre_maps(source_points, shell_mesh, neighbors=16,
     }
 
 
-def push_triplett_to_shell_nodes(triplett, fibre_maps, q_g2=Q_G2):
-    """Evaluate A_T(x_i)=L_i Gamma_T L_i* at all shell nodes."""
+def push_triplett_to_shell_nodes(triplett, fibre_maps, t2u_basis, q_g2=Q_G2):
+    """Evaluate A_T(x_i)=(L_i V) Gamma_T (L_i V)* at all shell nodes.
+
+    t2u_basis is the actual 188x3 orthonormal Q6 triplet basis. It is an
+    explicit required input: the 188D-to-fibre map alone is not the 3-channel
+    map and must not be multiplied directly by the 3x3 Gram matrix.
+    """
     Gamma = triplett_gram(triplett, q_g2)
     L = np.asarray(fibre_maps["ambient_maps"], dtype=float)
+    V = np.asarray(t2u_basis, dtype=float)
     if L.ndim != 3 or L.shape[1:] != (3, 188):
         raise ValueError("fibre maps must have shape (N,3,188)")
-    tensors = np.einsum("nai,ij,nbj->nab", L, Gamma, L)
+    if V.shape != (188, 3):
+        raise ValueError("t2u_basis must have shape (188,3)")
+    if not np.allclose(V.T @ V, np.eye(3), atol=1e-8):
+        raise ValueError("t2u_basis must have orthonormal columns")
+    channel_maps = np.einsum("nai,ik->nak", L, V)
+    tensors = np.einsum("nak,kl,nbl->nab", channel_maps, Gamma, channel_maps)
     tensors = 0.5 * (tensors + np.swapaxes(tensors, 1, 2))
-    return tensors
+    return {"tangent_tensors": tensors, "channel_maps": channel_maps,
+            "triplett_gram": Gamma}
