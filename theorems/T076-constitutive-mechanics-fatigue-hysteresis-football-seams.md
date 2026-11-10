@@ -1,6 +1,6 @@
 # T076 — Constitutive mechanics, damage and cyclic response of the 90 physical football seams
 
-**Status: INTERFACE FRAMEWORK FORMULATED; football-specific constitutive identification OPEN.**  
+**Status: INTERFACE FRAMEWORK FORMULATED; AXIAL GATE B IMPLEMENTED; full interface kinematics and football-specific identification OPEN.**  
 **Depends on:** T073 (football-shell continuum programme), T074 (icosahedral shell combinatorics), T075 (ellipsoid/ovaloid reduction and physical seam network), `models/football_shell.py`.
 
 ## 1. Object and scope
@@ -135,7 +135,7 @@ Use replicate specimens and report scatter/quantiles; do not fit a deterministic
 The current `models/football_shell.py` line reinforcement and seam bending multiplier are not a general cohesive/contact/fatigue model. The next implementation should proceed in gates:
 
 - **Gate A — topology audit:** verify the 90 physical seam edges and junction incidence independently of the 270 fan-triangulation hinges.
-- **Gate B — elastic line interface:** add separate normal/shear seam jumps and energy-consistent assembly; preserve the existing model as a regression baseline.
+- **Gate B — elastic line reinforcement (partially implemented):** the existing axial spring is now isolated in an energy-consistent assembler on the 90 physical seam edges, with tests for symmetry, semidefiniteness, rigid-translation invariance and energy equivalence. The present conforming mesh shares panel-boundary nodes, so independent opening/sliding jumps cannot occur; duplicated side traces or interface enrichment are still required for a true normal/shear interface law.
 - **Gate C — construction-specific branch:** implement either (i) cohesive opening/damage, (ii) discrete stitch/thread law, or (iii) contact/friction/clamp law only after construction is identified.
 - **Gate D — cyclic state:** add internal variables and cycle update only after cyclic coupon data exist; test non-negative dissipation and mesh/time-step objectivity.
 - **Gate E — calibration/validation:** fit on one subset of coupons and validate on held-out seam orientations, widths and junction tests; report uncertainty and failure-mode confusion matrix.
@@ -153,7 +153,7 @@ No arbitrary seam stiffness, damage threshold, fatigue exponent or hysteresis co
 | Fatigue/hysteresis can matter for cyclically loaded welded seams | Experimentally supported in coated membrane literature |
 | Actual football seam technology and parameters | Unknown/open |
 | Sewn seam thread pull-out law for this football | Open; requires construction details and tests |
-| Football-specific damage/fatigue/hysteresis law | Open; requires cyclic tests |
+| Energy-consistent axial spring on 90 physical seam edges | Implemented in Gate B; regression tests added, execution not yet confirmed |\n| Independent opening/sliding interface jumps | Open; current mesh shares seam nodes; needs duplicated traces/enrichment |\n| Football-specific damage/fatigue/hysteresis law | Open; requires cyclic tests |
 | Seam-aware ellipsoid/ovaloid numerical calibration | Open |
 | Industrial durability or certification | Not established |
 
