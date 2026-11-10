@@ -69,3 +69,11 @@ def test_full_transfer_robustness_grid_executes(tmp_path):
     assert report["quaternionic_audit"]["rotation_action_max_residual"]<1e-10
     assert report["quaternionic_audit"]["double_cover_q_vs_minus_q_max_residual"]<1e-10
     assert output.with_suffix(".npz").exists()
+    import warnings
+    summary={"neighbor_grid":[r["neighbors"] for r in report["robustness_grid"]],
+        "principal_angles_degrees":[r["principal_angles_degrees"] for r in report["robustness_grid"]],
+        "angle_spread_degrees":report["stability"]["per_mode_max_angle_spread_degrees"],
+        "max_angle_spread_degrees":report["stability"]["max_angle_spread_degrees"],
+        "affine_residuals":[r["transfer_diagnostics"]["affine_direction_reproduction_frobenius"] for r in report["robustness_grid"]],
+        "max_intertwiner_residual":report["quaternionic_audit"]["abstract_vector_representation_intertwiner"]["normalized_residual"]}
+    warnings.warn("RGS_FOOTBALL_ROBUSTNESS_RESULTS="+json.dumps(summary),RuntimeWarning)
