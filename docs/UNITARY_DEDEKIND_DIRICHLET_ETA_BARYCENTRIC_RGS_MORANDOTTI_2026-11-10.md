@@ -17,7 +17,7 @@ This construction uses four different objects:
    =(1-2^{1-s})\zeta(s).
    \]
 3. **Dirichlet \(L\)-function** \(L(s,\chi)\), including the quadratic character \(\chi_{-31}\).
-4. **Dirichlet distribution on a simplex**, whose normalizer is the multivariate Beta function \(B_3(a)\).
+4. **Dirichlet distribution on a simplex**, whose normalizer is the multivariate Beta function \(B_3(a)\). The Euler Beta function \(B(x,y)\) and the Dirichlet beta \(L(s,\chi_4)\) are also distinct objects; neither is the Dirichlet eta function.
 
 There is also a fifth, related object: the **Dedekind zeta function** \(\zeta_K(s)\) of a number field. It is not the Dedekind eta function.
 
@@ -105,6 +105,11 @@ The right side is regular at \(s=1\), because the zero of \(1-2^{1-s}\) cancels 
 Since \(h_K=3\), \(w_K=2\), and \(D_K=-31\), the imaginary-quadratic class-number formula gives
 \[
 L(1,\chi_{-31})=\frac{3\pi}{\sqrt{31}}.
+\] The primitive odd character also gives the finite check
+\[
+\sum_{a=1}^{30}a\,\chi_{-31}(a)=-93,\qquad
+L(1,\chi_{-31})=-\frac{\pi}{31^{3/2}}\sum_{a=1}^{30}a\,\chi_{-31}(a)
+=\frac{3\pi}{\sqrt{31}}.
 \]
 Using \(\eta_D(1)=\log2\),
 \[
