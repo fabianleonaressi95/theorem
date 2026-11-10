@@ -1,4 +1,4 @@
-name: PRISM cellular automata and FEEC boundary audit
+name: PRISM cellular automata
 
 on:
   push:
@@ -13,8 +13,25 @@ on:
       - "models/prism_billiard_coding.py"
       - "tests/test_prism_billiard_coding.py"
       - "scripts/run_prism_billiard_coding.py"
-      - "projects/de_rham_benchmark/**"
       - ".github/workflows/prism-ca.yml"
+      - "models/football_anisotropy.py"
+      - "scripts/run_football_anisotropy_audit.py"
+      - "tests/test_football_anisotropy.py"
+      - "models/football_shell.py"
+      - "models/football_quaternion_tangent.py"
+      - "tests/test_football_quaternion_tangent.py"
+      - "models/football_quaternion_bridge.py"
+      - "tests/test_football_quaternion_bridge.py"
+      - "docs/RGS_FOOTBALL_QUATERNION_BRIDGE.md"
+      - "docs/FOOTBALL_QUATERNION_TANGENT.md"
+      - "scripts/run_football_shell_audit.py"
+      - "tests/test_football_shell.py"
+      - "docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md"
+      - "data/scans/**"
+      - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
+      - "reports/football_anisotropy_audit.json"
+      - "reports/football_anisotropy_displacement.svg"
+      - ".github/workflows/football-anisotropy.yml"
   pull_request:
     paths:
       - "models/prism_cellular_automata.py"
@@ -24,11 +41,18 @@ on:
       - "scripts/run_prism_ca_evolution.py"
       - "scripts/run_prism_ca_benchmark.py"
       - "scripts/run_prism_ca_coevolution.py"
-      - "models/prism_billiard_coding.py"
-      - "tests/test_prism_billiard_coding.py"
-      - "scripts/run_prism_billiard_coding.py"
-      - "projects/de_rham_benchmark/**"
       - ".github/workflows/prism-ca.yml"
+      - "models/football_anisotropy.py"
+      - "scripts/run_football_anisotropy_audit.py"
+      - "tests/test_football_anisotropy.py"
+      - "models/football_shell.py"
+      - "scripts/run_football_shell_audit.py"
+      - "tests/test_football_shell.py"
+      - "docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md"
+      - "data/scans/**"
+      - "docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md"
+      - "reports/football_anisotropy_audit.json"
+      - "reports/football_anisotropy_displacement.svg"
   workflow_dispatch:
 
 jobs:
@@ -49,29 +73,28 @@ jobs:
           tests/test_prism_cellular_automata.py
           tests/test_prism_ca_evolution.py
           tests/test_prism_billiard_coding.py
+          tests/test_football_anisotropy.py
+          tests/test_football_shell.py
+          tests/test_football_quaternion_tangent.py
+          tests/test_football_quaternion_bridge.py
           -q
+      - name: Reproduce orthotropic football shell audit
+        run: >-
+          python scripts/run_football_shell_audit.py
+          --json reports/football_shell_audit.json
+          --csv reports/football_shell_displacements.csv
+      - name: Reproduce football anisotropy audit
+        run: >-
+          python scripts/run_football_anisotropy_audit.py
+          --json reports/football_anisotropy_audit.json
+          --svg reports/football_anisotropy_displacement.svg
 
-  feec-relative-boundary:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install FEEC numerical and test dependencies
-        run: python -m pip install --upgrade pytest numpy scipy
-      - name: Run relative-boundary and FEEC regression tests
-        working-directory: projects/de_rham_benchmark
-        run: python -m pytest -q test_boundary_complex.py test_feec_study.py
-      - name: Reproduce relative codifferential refinement study
-        if: always()
-        working-directory: projects/de_rham_benchmark
-        run: python run_relative_codifferential_study.py --levels 4 8 16 --output reports/relative_codifferential.json
-      - name: Upload relative codifferential report
-        if: always()
+      - name: Upload reproducible football audit outputs
         uses: actions/upload-artifact@v4
         with:
-          name: relative-codifferential-study
-          path: projects/de_rham_benchmark/reports/relative_codifferential.json
+          name: football-shell-audit
+          path: |
+            reports/football_shell_audit.json
+            reports/football_shell_displacements.csv
+            reports/football_anisotropy_audit.json
+            reports/football_anisotropy_displacement.svg
