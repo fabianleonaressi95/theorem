@@ -50,12 +50,18 @@ def main():
     Bcoord,_=orth(T.T@Uambient)
     B=T@Bcoord
     # Exact additive ablation of the assembled stiffness terms.
-    _,_,Kmem,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
+    # The membrane-only shell has out-of-plane mechanisms, so solve_discrete_shell
+    # cannot be used with both hinge multipliers exactly zero. Use a small positive
+    # reference hinge factor eps and remove it algebraically from the two assembled K.
+    eps=1e-3
+    _,_,Keps,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
-        seam_bending_factor=0.,panel_hinge_factor=0.)
+        seam_bending_factor=0.,panel_hinge_factor=eps)
     _,_,Kmem_panel,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
         seam_bending_factor=0.,panel_hinge_factor=1.)
+    Kpanel=(Kmem_panel-Keps)/(1.-eps)
+    Kmem=Keps-eps*Kpanel
     _,_,Kwith_seam,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
         seam_bending_factor=a.seam_bending_factor,panel_hinge_factor=1.)
