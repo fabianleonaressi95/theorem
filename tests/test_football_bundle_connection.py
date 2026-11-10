@@ -18,6 +18,8 @@ def test_all_90_physical_seams_have_orthogonal_discrete_lc_transitions():
     mesh=build_football_shell()
     data=build_physical_seam_bundle_transitions(mesh)
     assert data["seam_count"]==90
+    assert data["vertex_holonomy_count"]==60
+    assert data["maximum_vertex_holonomy_orthogonality_residual"]<1e-10
     assert data["maximum_transition_orthogonality_residual"]<1e-10
     assert data["maximum_full_transition_orthogonality_residual"]<1e-10
     assert data["maximum_normal_transport_residual"]<1e-10
