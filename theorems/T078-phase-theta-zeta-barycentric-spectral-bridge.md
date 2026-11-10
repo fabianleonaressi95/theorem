@@ -128,14 +128,14 @@ c_1(L)=\frac{1}{2\pi}\int_{S^2}F_A=n\in\mathbb Z,
 \]
 where \(F_A=dA\) in local unitary trivializations and the sign follows the chosen orientation/connection convention. This integer is magnetic/first-Chern flux, not a flat one-cycle winding. A nonzero \(n\) requires a nontrivial line bundle and cannot be represented by one globally defined smooth potential \(A\) on all of \(S^2\); use local potentials and transition functions on overlaps.
 
-**Candidate topological theta sector.** If the model assigns an action quadratic in the Chern number, with a positive dimensionless coefficient \(g^{-2}\), and a topological angle \(\vartheta_{\rm top}\), then summing over line-bundle sectors gives the schematic factor
+**Candidate topological theta sector.** If the model assigns an action quadratic in the Chern number, with a positive dimensionless coefficient \(\kappa\), and a topological angle \(\vartheta_{\rm top}\), then summing over line-bundle sectors gives the schematic factor
 \[
 Z_{\rm top}(\tau,z)
 =\sum_{n\in\mathbb Z}\exp\!\left(\pi i\tau n^2+2\pi i n z\right)
 =\vartheta_3(z\mid\tau),
 \qquad \operatorname{Im}\tau>0.
 \]
-For example, a Euclidean weight \(\exp[-c n^2/g^2+i n\vartheta_{\rm top}]\), \(c>0\), is of this form with \(\tau=i c/(\pi g^2)\) and \(z=\vartheta_{\rm top}/(2\pi)\). The coefficient \(c\), the normalization of the flux action, and the existence of a physical sum over line bundles must be derived from the chosen gauge action; they are not fixed by the shell combinatorics. This gives a mathematically valid candidate source of a unary theta function from \(H^2\), rather than inventing \(H^1\) winding cycles.
+For example, a Euclidean weight \(\exp[-\kappa n^2+i n\vartheta_{\rm top}]\), \(\kappa>0\), is of this form with \(\tau=i\kappa/\pi\) and \(z=\vartheta_{\rm top}/(2\pi)\). The coefficient \(c\), the normalization of the flux action, and the existence of a physical sum over line bundles must be derived from the chosen gauge action; they are not fixed by the shell combinatorics. This gives a mathematically valid candidate source of a unary theta function from \(H^2\), rather than inventing \(H^1\) winding cycles.
 
 If \(D\) marked defects/punctures are removed from the shell, the topology changes: for \(D\geq1\), \(H_1(S^2\setminus\{p_1,\ldots,p_D\};\mathbb Z)\cong\mathbb Z^{D-1}\). Such cycles can support independent holonomy data subject to the global relation. A defect-based theta lattice is therefore possible only after the defect set, boundary/meridian conditions and action are specified. The physical seams alone are not punctures.
 
