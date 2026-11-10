@@ -49,9 +49,7 @@ theta_dot = omega - sigma R1_down B1 sin(B1^T theta),
 phi_dot = omega_link - sigma R0 R1_up B1^T sin(B1 phi)
           - sigma R1_down B2 sin(B2^T phi).
 
-Sine is componentwise. The original article uses simplicial complexes; the
-Q6 implementation substitutes square cells and is therefore a cubical
-generalization, not a result already established by the paper.
+Sine is componentwise. The source model is Ghorbanchian, Restrepo, Torres and Bianconi, “Higher-order simplicial synchronization of coupled topological signals,” Communications Physics 4, 120 (2021), DOI 10.1038/s42005-021-00605-4. The equations are adapted from its Eqs. (12)–(13) and (16)–(17). The original article uses simplicial complexes; the Q6 implementation substitutes square cells and is therefore a cubical generalization, not a result already established by the paper.
 
 The source-paper frequency convention is
 `omega_i ~ Normal(Omega0, 1/tau0)` and
