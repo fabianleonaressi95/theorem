@@ -28,6 +28,19 @@ Il lavoro tratta difetti reticolari di tipo rotazionale e traslazionale attraver
 
 La proposta RGS–PRISM si innesta precisamente su questa struttura: non cambia il problema continuo di riferimento, ma studia una possibile rappresentazione discreta delle variabili, dei vincoli di incompatibilità e dell'energia.
 
+## 2-bis. Aggiornamento bibliografico e baseline numerica 2025–2026
+
+La proposta va letta alla luce degli sviluppi più recenti del gruppo. Oltre al lavoro Airy del 2024, sono ora disponibili:
+- Cesana–Fabbrini–Morandotti (2025), *Variational Formulation of Planar Linearized Elasticity with Incompatible Kinematics*, che caratterizza variazionalmente l'equilibrio piano con incompatibilità traslazionali e rotazionali e riduce il problema Airy a formule di cella;
+- Cesana–Fabbrini–León Baldelli–Morandotti (2026), *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation* (preprint arXiv:2609.29614), che implementa una formulazione FEM CIP-DG di un problema ellittico del quarto ordine, con problemi locali di cell formula e benchmark analitici;
+- Cesana–Grillo–Morandotti–Pastore (2025), *Dissipative Dynamics of Volterra Disclinations*, per l'evoluzione dissipativa dei difetti rotazionali;
+- Briatico–Cesana–Morandotti (2026), *Effective Dynamics of Disclination Pairs* (preprint arXiv:2608.12233), sul limite dinamico di un dipolo di disclinazioni che, dopo riscalamento temporale nel regime di annichilazione, segue la legge di una dislocazione;
+- Cesana–Morandotti–Sambo (2026), *Equilibrium and Interaction Regimes in Mixed Disclination-Dislocation Systems* (preprint arXiv:2608.10930), per energia, equilibrio e dinamica di sistemi misti.
+
+Questi lavori modificano il posizionamento della proposta: **non** si propone di introdurre una prima discretizzazione numerica del problema Airy, perché una baseline CIP-DG esiste già. La domanda RGS–PRISM è se una discretizzazione geometrico-topologica possa preservare ulteriori identità discrete, trattare in modo strutturato le sorgenti e offrire un vantaggio misurabile rispetto a quella baseline.
+
+La matrice bibliografica ragionata dei 55 record CVGMT, con classificazione M1–M9 e priorità di lettura, è nel documento [Matrice bibliografica Morandotti–RGS–PRISM](MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
+
 ## 3. Domanda scientifica e ipotesi di lavoro
 
 Il primo obiettivo è costruire una discretizzazione che conservi, a livello discreto, le identità geometriche e algebriche necessarie al problema.
@@ -48,8 +61,8 @@ Le corrispondenze tra le variabili del modello di Airy e i cochain RGS–PRISM s
 
 - Selezionare una configurazione del modello Cesana–De Luca–Morandotti: una disclinazione, un dipolo di disclinazioni e il corrispondente limite di dislocazione.
 - Fissare dominio, regolarizzazione del core, parametri elastici, condizioni al contorno e convenzioni di segno.
-- Implementare una soluzione di riferimento continua/semi-discreta e una discretizzazione RGS–PRISM sul medesimo problema.
-- Confrontare energia minima, dipendenza dal raggio del core, dipendenza dalla separazione del dipolo e campi ricostruiti.
+- Riprodurre anzitutto il riferimento FEM/CIP-DG 2026 (o un caso analitico equivalente) e implementare una discretizzazione RGS–PRISM sul medesimo problema.
+- Confrontare energia minima, dipendenza dal raggio del core, dipendenza dalla separazione del dipolo, campi ricostruiti, residui, condizionamento e costo computazionale rispetto alla baseline CIP-DG.
 
 ### Fase B — Verifica matematica e numerica
 
