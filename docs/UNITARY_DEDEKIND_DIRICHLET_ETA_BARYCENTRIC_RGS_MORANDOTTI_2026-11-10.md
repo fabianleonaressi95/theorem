@@ -203,9 +203,34 @@ with
 \]
 This is the precise handoff to a smooth local energy density.
 
+### 6.1 Digamma–supergolden identities already established today
+
+Let \(s=\psi>0\) solve \(s^3-s^2-1=0\). The Gamma recurrence gives the exact identity
+\[
+\digamma(s^3)-\digamma(s^2)=s^{-2}.
+\]
+Gauss multiplication is used only at the integer \(m=3\):
+\[
+\sum_{k=0}^{2}\digamma\!\left(\frac{s^3+k}{3}\right)
+=3\digamma(s^2)+3s^{-2}-3\log3.
+\]
+For \(d_n=\digamma(s^n)\), the asymptotic increment satisfies
+\[
+d_{n+1}-d_n\longrightarrow\log s.
+\]
+The incorrect recurrence \(d_{n+3}=d_{n+2}+d_n\) does not follow from \(s^{n+3}=s^{n+2}+s^n\); the digamma is not additive. The full derivation and numerical table are in [the digamma–supergolden dossier](DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md).
+
+The separate matrix identity T056 is exact:
+\[
+M_T=P A_\psi P^{-1},\qquad
+\det(\lambda I-A_\psi)=\det(\lambda I-M_T)
+=\lambda^3-\lambda^2-1.
+\]
+It proves equality after a cyclic state relabelling only. It does not derive the matrix from a geometric Q6/Kathara refinement.
+
 ## 7. Discrete RGS/Q6 layer: what is connected and what is not
 
-The Q6 2-skeleton has 64 vertices, 192 edges and 240 square faces. The exact chain identities, ranks and Anti-Twin action are recorded in T071; the exact Möbius phase action, pure-gauge connection and Walsh spectrum are recorded in T072. Its graph Laplacian has eigenvalues \(2k\) with multiplicities \(\binom6k\), \(k=0,\ldots,6\). Its finite spectral zeta is
+The Q6 2-skeleton has 64 vertices, 192 edges and 240 square faces. The exact chain identities, ranks and Anti-Twin action are recorded in T071; the exact Möbius phase action, pure-gauge connection and Walsh spectrum are recorded in T072. The companion Kathara–Q6 Gate D work constructs an integral face lift \(R_0,R_1,R_2\) with \(\operatorname{rank}R_2=10\) for the declared vertex chart and fixed axis order \((1,2,0,3,4,5)\). This is a non-degenerate chain map for that convention, not an RGS-canonical or quaternionically canonical map. Its graph Laplacian has eigenvalues \(2k\) with multiplicities \(\binom6k\), \(k=0,\ldots,6\). Its finite spectral zeta is
 \[
 Z_{Q6}(s)=\sum_{k=1}^6\binom6k(2k)^{-s},
 \]
@@ -247,7 +272,7 @@ The repository history records **80 commits in THEOREM** and **10 commits in the
 | Defect elasticity / Airy / Torino | Initial 2D benchmark, cochain/Airy comparisons, C0-IPDG reproduction plan | Reproducible numerical work; not a curved-surface homogenisation theorem |
 | Football geometry | Orthotropic CST shell, panel anisotropy, triplet transfer and seam model | Exact panel combinatorics; demonstration material parameters; no scan validation |
 | FEEC | Relative boundary complex, injectivity and codifferential convergence audit | Hypotheses and finite-mesh checks remain distinct from Mosco convergence |
-| Digamma / supergolden | Shift and multiplication identities, asymptotic count filter | Exact analytic identities; Q6/PSU derivation of \(\psi\) remains open |
+| Digamma / supergolden | Shift and integer Gauss-multiplication identities, \(\delta_n\to\log\psi\), asymptotic level-count filter, and T056 permutation conjugacy | Exact analytic/matrix identities; geometric derivation of \(A_\psi\) from Q6/PSU remains open |
 | Kathara–Q6 Gate D | Integral non-degenerate face lift \(R_0,R_1,R_2\), rank \(R_2=10\) | Exact chain map for the declared vertex chart and fixed axis order \((1,2,0,3,4,5)\); not RGS-canonical |
 | Triangle barycentres | T068 / Gate E.1, T070, S.3 and Duffy–Jacobi implementation | Local Euclidean identities; regression tests deposited, full execution not claimed |
 | Fourth moments | S.4–S.8, hash-checked seed reconstruction, \(O_h\) action, connection/Maxwell/coframe branches | Seed values are numerical; S.6–S.8 are conditional local variational records |
