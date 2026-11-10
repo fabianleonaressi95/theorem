@@ -7,6 +7,9 @@ Questo dossier è il punto di ingresso per la discussione tecnica su pallone/inv
 
 3. [Appendice sui tripletti](APPENDIX_TRIPLETS_GEOMETRY_TANGENT_QUATERNIONS_2026-11-10.md) — significato di tripletta cinematica e modale, (T_{1u})/(T_{2u}), proiettori, sottospazi tangenti e quaternioni.
 
+
+4. [Trasferimento della tripletta rotazionale RGS → pallone](APPENDIX_RGS_TO_FOOTBALL_ROTATIONAL_TRIPLET_2026-11-10.md) — costruzione 64→92, riduzione tangente 184D, angoli principali, robustezza e ruolo delle cuciture.
+
 ## Regola di lettura
 
 Il modello (O_h) a 64 punti / 188 dimensioni tangenti e la mesh shell a 92 nodi / 276 coordinate sono due discretizzazioni distinte. Il trasferimento tra i due deve essere costruito e verificato; non si identificano per notazione. I parametri materiali e di cucitura restano dimostrativi finché non sono calibrati su provini e scansioni reali.
