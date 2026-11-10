@@ -120,3 +120,55 @@ python -m unittest tests/test_supergolden_q6_bridge.py
 ```
 
 Il JSON risultante è un audit di algebra e combinatoria finita. Non certifica il ponte geometrico ancora mancante.
+
+
+## 8. Raffinamento dei tre canali: il vincolo di simmetria
+
+La decomposizione canonica dei sei bit in due triple dà
+\\[
+Q_6=Q_3^{\\rm lower}\\square Q_3^{\\rm upper}.
+\\]
+Per una singola tripletta, lo spazio delle funzioni sui suoi otto stati ha la base di Walsh e una componente intrinseca tridimensionale
+\\[
+\\mathcal H_1=\\operatorname{span}\\{\\chi_1,\\chi_2,\\chi_3\\}.
+\\]
+Questi sono i tre canali naturali su cui comprimere un operatore geometrico \\(\\mathcal R\\):
+\\[
+M=E^T\\mathcal R E,\\qquad
+\\mathcal L=(I-EE^T)\\mathcal R E.
+\\]
+La chiusura dei tre canali richiede \\(\\mathcal L=0\\). Questa è una condizione necessaria da testare, non una proprietà automatica.
+
+L'audit indipendente del settore trigrammatico stabilisce due ostacoli:
+
+1. Se \\(\\mathcal R\\) commuta con tutte le otto traslazioni di \\(\\mathbb Z_2^3\\), la compressione \\(M\\) è diagonale nella base di Walsh. Il target \\(M_T\\) non è diagonale.
+2. Se \\(\\mathcal R\\) commuta con tutte le permutazioni \\(S_3\\) dei tre bit, allora \\(M=\\alpha I+\\beta(J-I)\\). Anche questa forma non coincide con \\(M_T\\).
+
+Dunque la superaurea non può emergere da un raffinamento che conservi integralmente le simmetrie di traslazione del trigramma e di permutazione dei tre assi. Serve un dato geometrico che selezioni un orientamento e un ordinamento dei canali.
+
+## 9. Ruolo corretto dei quaternioni e del rapporto aureo
+
+Un riferimento quaternionico \\(q\\) può trasportare una terna orientata:
+\\[
+e_a(q)=q e_a q^{-1},\\qquad a=1,2,3.
+\\]
+Ma la sola terna ortonormale orientata non determina i coefficienti di raffinamento. Per ottenere il target non simmetrico occorre specificare anche:
+- quale canale è distinto come iniziale;
+- quale ordine ciclico/orientato hanno i tre canali;
+- come l'Anti-Twin agisce su tale ordinamento;
+- quali figli geometrici sono assegnati a ciascun genitore.
+
+La verifica decisiva è costruire \\(\\mathcal R\\) dalle incidenze orientate dei figli e poi misurare \\(E^T\\mathcal R E-M_T\\) e \\(\\|(I-EE^T)\\mathcal R E\\|\\). Definire direttamente \\(\\mathcal R=EM_TE^T+\\lambda(I-EE^T)\\) sarebbe circolare e non è ammesso come derivazione.
+
+Il collegamento già presente tra \\(\\varphi\\) e \\(\\psi\\) nel modello Cantor–Q6 usa pesi di ramo scelti esplicitamente in funzione di \\(\\varphi\\), ma assume già la matrice \\(A_\\psi\\). È quindi un modello simbolico accoppiato, non una deduzione di \\(\\psi\\) da \\(\\varphi\\). Il ponte geometrico deve ancora mostrare come le proporzioni auree della cella o del coframe producano i conteggi/trasferimenti a tre canali.
+
+## 10. Prossimo test geometrico discriminante
+
+La prossima costruzione non deve partire dal polinomio. Deve partire da un oggetto geometrico orientato:
+1. scegliere una cella genitore e i suoi tre tipi di direzione tangente, identificati mediante il coframe quaternionico;
+2. elencare tutti i figli con orientazione e molteplicità, includendo le identificazioni sulle facce condivise;
+3. assemblare la matrice di conteggio/trasferimento senza imporre coefficienti;
+4. verificare la compatibilità di bordo e l'azione Anti-Twin;
+5. comprimere sui tre canali di Walsh e misurare chiusura e residuo rispetto a \\(M_T\\).
+
+Se il trasferimento risultasse diagonalizzabile o simmetrico per effetto delle simmetrie residue, la proposta supergolden andrebbe modificata o respinta per quella geometria. Se invece il dato orientato producesse esattamente \\(M_T\\), allora \\(\\psi\\) emergerebbe come raggio spettrale del raffinamento, senza essere stata inserita a priori.
