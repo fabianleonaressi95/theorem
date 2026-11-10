@@ -50,32 +50,30 @@ def main():
     Bcoord,_=orth(T.T@Uambient)
     B=T@Bcoord
     # Exact additive ablation of the assembled stiffness terms.
-    # The membrane-only shell has out-of-plane mechanisms, so solve_discrete_shell
-    # cannot be used with both hinge multipliers exactly zero. Use a small positive
-    # reference hinge factor eps and remove it algebraically from the two assembled K.
+    # The membrane-only shell has out-of-plane mechanisms. Keep a small positive
+    # reference factor on both edge families, then remove it algebraically.
     eps=1e-3
     _,_,Keps,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
-        seam_bending_factor=0.,panel_hinge_factor=eps)
-    _,_,Kmem_panel,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
+        seam_bending_factor=eps,panel_hinge_factor=eps)
+    _,_,Kpanel_ref,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
-        seam_bending_factor=0.,panel_hinge_factor=1.)
-    Kpanel=(Kmem_panel-Keps)/(1.-eps)
-    Kmem=Keps-eps*Kpanel
+        seam_bending_factor=eps,panel_hinge_factor=1.)
+    Kpanel=(Kpanel_ref-Keps)/(1.-eps)
     _,_,Kwith_seam,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
         nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=0.,
         seam_bending_factor=a.seam_bending_factor,panel_hinge_factor=1.)
-    Kpanel=Kmem_panel-Kmem
-    Kseam_hinge=Kwith_seam-Kmem_panel
+    Kseam_hinge=(Kwith_seam-Kpanel_ref)/(a.seam_bending_factor-eps) if abs(a.seam_bending_factor-eps)>1e-14 else np.zeros_like(Keps)
+    Kmem=Keps-eps*Kpanel-eps*Kseam_hinge
     Kseam_line=np.zeros_like(Kmem)
     if a.seam_Et:
         _,_,Kline,_=solve_discrete_shell(mesh,pressure=0.,thickness=a.thickness,E1=a.E1,E2=a.E2,
             nu12=a.nu12,G12=a.G12,material_angle=a.material_angle,seam_Et=a.seam_Et,
             seam_bending_factor=a.seam_bending_factor,panel_hinge_factor=1.)
         Kseam_line=Kline-Kwith_seam
-    components={"membrane":Kmem,"panel_hinges":Kpanel,"seam_hinge_increment":Kseam_hinge,
+    components={"membrane":Kmem,"panel_hinges":Kpanel,"seam_hinge_increment":a.seam_bending_factor*Kseam_hinge,
         "seam_line_reinforcement":Kseam_line}
-    Ksum=sum(components.values())
+    Ksum=components['membrane']+components['panel_hinges']+a.seam_bending_factor*components['seam_hinge_increment']+components['seam_line_reinforcement']
     reconstruction=float(np.linalg.norm(Ksum-(Kwith_seam+Kseam_line))/max(np.linalg.norm(Kwith_seam+Kseam_line),1e-30))
     Ktan_total=T.T@(Kwith_seam+Kseam_line)@T
     eigvals,eigvecs=eigh(.5*(Ktan_total+Ktan_total.T))
