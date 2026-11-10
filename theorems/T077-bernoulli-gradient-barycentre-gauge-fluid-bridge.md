@@ -95,13 +95,100 @@ Apply this separately to a gauge density \(g_R=\mathcal E_R\) and a fluid densit
 \]
 This is the precise local bridge: same barycentric geometry and anisotropic second moment, different covariant gradients and constitutive Hessians. The gradients enter through the derivatives of the sector densities; the covariance selects their principal spatial directions.
 
-## 6. Bernoulli numbers versus Bernoulli's fluid law
+## 6. The Gamma–Beta–zeta–eta network and the two Bernoulli meanings
 
-Two notions must remain distinct:
-1. **Bernoulli fluid law:** the pressure–kinetic–potential balance in Section 3.
-2. **Bernoulli numbers:** coefficients in special-function asymptotics (for example digamma/polygamma) and in applicable Euler–Maclaurin summation formulas.
+These functions form a connected analytic structure, but the distinct meanings of “beta” and “eta” must be labelled.
 
-T070 establishes the Gamma/Beta and digamma identities for Dirichlet barycentric moments. Bernoulli numbers can occur in the asymptotics of those special functions, but they are not automatically coefficients of the fluid Bernoulli scalar or of a football refinement expansion. To obtain mesh-asymptotic Bernoulli coefficients one must specify a refinement family, summation rule, and prove the relevant Euler–Maclaurin hypotheses.
+### 6.1 Euler Gamma and Euler Beta
+
+The Euler beta integral is
+\[
+B(x,y)=\int_0^1t^{x-1}(1-t)^{y-1}\,dt
+=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}
+\qquad(\Re x,\Re y>0).
+\]
+The Dirichlet barycentric partition function in T070 is precisely a multivariate beta factor:
+\[
+Z_F(a)=2A_F B_3(a),\qquad
+B_3(a)=\frac{\prod_i\Gamma(a_i)}{\Gamma(S_a)}.
+\]
+Thus the barycentre and covariance are derivatives/moments of a Gamma-normalized partition function, not unrelated geometric formulae.
+
+### 6.2 Logarithmic derivatives: digamma, polygamma and Hurwitz zeta
+
+Differentiating \(\log B_3\) gives
+\[
+\partial_{a_i}\log B_3=\psi(a_i)-\psi(S_a)
+=\mathbb E[\log\lambda_i],
+\]
+\[
+\partial_{a_i}\partial_{a_j}\log B_3
+=\delta_{ij}\psi_1(a_i)-\psi_1(S_a)
+=\operatorname{Cov}(\log\lambda_i,\log\lambda_j).
+\]
+For integer \(m\geq1\),
+\[
+\psi^{(m)}(z)=(-1)^{m+1}m!\,\zeta(m+1,z),
+\]
+where \(\zeta(s,z)\) is the Hurwitz zeta function. At \(z=1\), this reduces to the Riemann zeta values. Consequently higher derivatives of the barycentric log-partition function are governed by Hurwitz-zeta values and their parameter combinations.
+
+### 6.3 Riemann zeta, Dirichlet eta and Dirichlet beta
+
+The Dirichlet eta function (alternating zeta series) is
+\[
+\eta_D(s)=\sum_{n\geq1}\frac{(-1)^{n-1}}{n^s}
+=(1-2^{1-s})\zeta(s)
+\]
+in its initial convergence domain, with analytic continuation thereafter. It is not the Dedekind eta function.
+
+The Dirichlet beta function is a different L-function,
+\[
+\beta_D(s)=\sum_{n\geq0}\frac{(-1)^n}{(2n+1)^s}
+=L(s,\chi_{-4}).
+\]
+It must not be confused with Euler's beta integral \(B(x,y)\). More generally, Dirichlet L-functions encode character-weighted zeta sums; for example the quadratic field with character \(\chi_{-31}\) has \(\zeta_K(s)=\zeta(s)L(s,\chi_{-31})\).
+
+### 6.4 Dedekind eta and modular structure
+
+The Dedekind eta function is
+\[
+\eta_{\mathrm{Ded}}(\tau)
+=q^{1/24}\prod_{n\geq1}(1-q^n),
+\qquad q=e^{2\pi i\tau},\quad\Im\tau>0.
+\]
+It is a modular form of weight \(1/2\) with a multiplier system. Its logarithmic derivatives and modular transformations connect it to Eisenstein series, divisor sums and zeta values. It is not the alternating Dirichlet eta series. A bridge from the barycentric cell partition function to \(\eta_{\mathrm{Ded}}\) requires a specified spectral determinant, lattice/modular parameter or product expansion; it is not obtained merely by renaming the Dirichlet parameter.
+
+### 6.5 Bernoulli numbers and the Bernoulli fluid law
+
+Bernoulli numbers enter the even zeta values,
+\[
+\zeta(2n)=(-1)^{n+1}
+\frac{B_{2n}(2\pi)^{2n}}{2(2n)!},
+\]
+and the asymptotic expansion
+\[
+\psi(z)\sim\log z-\frac1{2z}
+-\sum_{k\geq1}\frac{B_{2k}}{2kz^{2k}}.
+\]
+They also occur in Euler–Maclaurin summation when its hypotheses hold. This analytic Bernoulli structure is distinct from **Bernoulli's fluid law** \(B_L=p+\frac12\rho|v|^2+\rho\Phi\). The two may coexist in the same programme, but no identity equates their Bernoulli symbols or coefficients.
+
+The precise programme-level chain is therefore
+\[
+\boxed{
+\text{Gamma}
+\xrightarrow{\log\,\partial}
+\text{digamma/polygamma}
+\xrightarrow{}
+\text{Hurwitz/Riemann zeta}
+\xleftrightarrow{\text{alternating factor}}
+\text{Dirichlet eta};
+\quad
+\text{Gamma ratios}\leftrightarrow\text{Euler Beta};
+\quad
+\text{Dedekind eta}\leftrightarrow\text{modular/spectral data}.
+}
+\]
+The common geometric use is through the Dirichlet barycentric measure and its moments; the modular/spectral branch is a further structure requiring its own map.
 
 ## 7. Anisotropy induced by the Q6/PRISM triplet
 
