@@ -55,14 +55,15 @@ def positive_constitutive_metric(residual, beta=1.0, margin=1e-8):
     if not np.isfinite(beta) or not np.isfinite(margin) or margin<=0:
         raise ValueError("beta must be finite and margin strictly positive")
     a=fourth_moment_operator(residual)
-    eig=np.linalg.eigvalsh(a)
-    shift=max(0.0,-float(beta)*float(eig[0]))+float(margin)
-    h=shift*np.eye(5)+float(beta)*a
+    scaled=float(beta)*a
+    eig=np.linalg.eigvalsh(scaled)
+    shift=max(0.0,-float(eig[0]))+float(margin)
+    h=shift*np.eye(5)+scaled
     heig=np.linalg.eigvalsh(h)
     if heig[0]<=0:
         raise ArithmeticError("positive constitutive shift failed")
     return {"operator":h,"raw_operator":a,"shift":shift,
-            "raw_eigenvalues":eig,"eigenvalues":heig,
+            "raw_eigenvalues":np.linalg.eigvalsh(a),"eigenvalues":heig,
             "minimum_eigenvalue":float(heig[0])}
 
 
