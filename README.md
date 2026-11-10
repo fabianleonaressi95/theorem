@@ -49,6 +49,7 @@ theorem/
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Special functions and Morandotti bibliography](bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Integrated synthesis: moments, barycentres, Gamma–Beta–zeta and Morandotti](docs/SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md)
+- [10 November independent numerical replay report](reports/2026-11-10_integrated_synthesis_numerical_replay.md) — seed moments, Walsh sectors, Duffy–Jacobi checks, fourth-moment variations and Q6 cubical chain identities; explicitly not a pytest/CI pass.
 - [Digamma–supergolden–Q6 analytic dossier](docs/DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
 - [Cleaned research notes and manuscript editorial register](manuscripts/README.md)
