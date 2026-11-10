@@ -202,15 +202,14 @@ None of these rank-four objects is identified with the modular eta function, the
 
 ## References
 
-1. NIST DLMF, §25.2, especially Eq. 25.2.3, for the alternating zeta series \\(\\eta_D(s)=(1-2^{1-s})\\zeta(s)\\): https://dlmf.nist.gov/25.2.
+1. NIST Digital Library of Mathematical Functions, §25.2, especially Eq. 25.2.3, for the alternating zeta series \\(\\eta_D(s)=(1-2^{1-s})\\zeta(s)\\): https://dlmf.nist.gov/25.2.
 2. NIST DLMF, §25.15, for Dirichlet \\(L\\)-functions and their Hurwitz-zeta representation: https://dlmf.nist.gov/25.15.
 3. NIST DLMF, §24.2, for Bernoulli numbers and polynomials: https://dlmf.nist.gov/24.2.
-4. NIST DLMF, §§5.11, 5.12 and 5.15, for Gamma/Beta and digamma/polygamma asymptotics and identities: https://dlmf.nist.gov/5.11 ; https://dlmf.nist.gov/5.12 ; https://dlmf.nist.gov/5.15.
-5. NIST DLMF, §§23.15 and 23.18, for the separate Dedekind eta function and its modular transformations: https://dlmf.nist.gov/23.15 ; https://dlmf.nist.gov/23.18.nist.gov/25.15.
-4. A. V. Sutherland, MIT 18.785, Lecture 19, *The Analytic Class Number Formula* (2021): https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/mit18_785f21_lec19.pdf.
-5. N. Yui and D. Zagier, “On the Singular Values of Weber Modular Functions,” *Mathematics of Computation* 66 (1997), 1645–1662, DOI: 10.1090/S0025-5718-97-00854-5.
+4. NIST DLMF, §§5.11, 5.12 and 5.15, for Gamma/Beta and digamma/polygamma identities and asymptotic expansions: https://dlmf.nist.gov/5.11 ; https://dlmf.nist.gov/5.12 ; https://dlmf.nist.gov/5.15.
+5. NIST DLMF, §§23.15 and 23.18, for the distinct Dedekind eta function and its modular transformations: https://dlmf.nist.gov/23.15 ; https://dlmf.nist.gov/23.18.
+6. T. M. Apostol, *Introduction to Analytic Number Theory*, Springer, 1976, for Dirichlet series, Euler products, characters and \\(L(s,\\chi)\\). DOI: [10.1007/978-1-4757-5579-4](https://doi.org/10.1007/978-1-4757-5579-4).
+7. A. V. Sutherland, MIT 18.785, Lecture 19, “The Analytic Class Number Formula,” Fall 2021: https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/mit18_785f21_lec19.pdf.
+8. T. P. Minka, “Estimating a Dirichlet distribution,” technical report (2000; revised 2003, 2009, 2012): https://tminka.github.io/papers/dirichlet/.
+9. R. D. Gupta and D. St P. Richards, “Moment Properties of the Multivariate Dirichlet Distributions,” *Journal of Multivariate Analysis* 82 (2002), no. 1, 240–262. DOI: [10.1006/jmva.2001.2016](https://doi.org/10.1006/jmva.2001.2016).
 
-6. T. M. Apostol, *Introduction to Analytic Number Theory*, Springer, 1976, especially the chapters on Dirichlet series, Euler products, characters and \\(L(s,\\chi)\\). DOI: [10.1007/978-1-4757-5579-4](https://doi.org/10.1007/978-1-4757-5579-4).
-7. A. V. Sutherland, MIT 18.785, Lecture 19, “The Analytic Class Number Formula,” Fall 2021. Official lecture resource: https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/resources/mit18_785f21_lec19/.
-8. NIST DLMF §§25.2 and 25.15, for the alternating zeta series and Dirichlet \\(L\\)-functions; §24.2 for Bernoulli numbers and polynomials.
-9. T. P. Minka, “Estimating a Dirichlet distribution,” technical report (2000; revised 2003, 2009, 2012), https://tminka.github.io/papers/dirichlet/, for the Gamma-normalized simplex density and expected logarithmic coordinates.
+**Derivation note.** The Mellin identity \\(\\Gamma(s)\\eta_D(s)=\\int_0^\\infty x^{s-1}/(e^x+1)\\,dx\\) follows by expanding \\(1/(e^x+1)\\) as its alternating exponential series and integrating termwise for \\(\\Re s>0\\); it is derived in this lemma rather than attributed to the unrelated DLMF §20.10.
