@@ -164,3 +164,38 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 35. **Independent synthesis numerical replay report (10 November 2026).**  
     Path: reports/2026-11-10_integrated_synthesis_numerical_replay.md.  
     **Status:** numerical replay record with explicit scope and limitations; not a pytest/CI execution report and not experimental validation.
+
+
+## J. Dedekind eta, Weber class invariants, Dirichlet eta and quadratic zeta
+
+36. **Yui, N.; Zagier, D.**, “On the Singular Values of Weber Modular Functions,” *Mathematics of Computation* **66** (1997), no. 220, 1645–1662. DOI: [10.1090/S0025-5718-97-00854-5](https://doi.org/10.1090/S0025-5718-97-00854-5).  
+    Full text: https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1090/S0025-5718-97-00854-5/fulltext.pdf  
+    **Status:** VERIFIED. Primary source for the Weber functions \(f,f_1,f_2\), their transformation laws, Weber class invariants, and the \(D=-31\) table entry \(W_{-31}(X)=X^3+X-1\). The distinction between the principal CM point \((-1+\sqrt{-31})/2\) and \(\sqrt{-31}\) is retained in S.9.
+
+37. **NIST Digital Library of Mathematical Functions**, §27.14, “Unrestricted Partitions: Relation to Modular Functions.”  
+    URL: https://dlmf.nist.gov/27.14  
+    **Status:** REFERENCE. Dedekind eta product, modular transformation law and Dedekind sums.
+
+38. **NIST Digital Library of Mathematical Functions**, §20.10, “Theta Functions: Integrals.”  
+    URL: https://dlmf.nist.gov/20.10  
+    **Status:** REFERENCE. Mellin integral containing the factor \(1-2^{1-s}\), which is the Dirichlet-eta factor multiplying \(\zeta(s)\).
+
+39. **NIST Digital Library of Mathematical Functions**, §25.15, “Dirichlet \(L\)-Functions.”  
+    URL: https://dlmf.nist.gov/25.15  
+    **Status:** REFERENCE. Dirichlet \(L\)-series, Euler product and finite Hurwitz-zeta representation.
+
+40. **Sutherland, A. V.**, MIT 18.785, Lecture 19, “The Analytic Class Number Formula,” Fall 2021.  
+    URL: https://ocw.mit.edu/courses/18-785-number-theory-i-fall-2021/mit18_785f21_lec19.pdf  
+    **Status:** REFERENCE. Dedekind zeta function and analytic class-number formula; used for the quadratic \(K=\mathbb Q(\sqrt{-31})\) arithmetic interface.
+
+41. **Internal Lemma S.9** — Weber–Dedekind eta class invariant and the supergolden root at discriminant \(-31\).  
+    Path: theorems/S009-weber-dedekind-eta-supergolden-class-invariant.md  
+    **Status:** exact consequence of the cited Weber class equation and transformation laws; the published class polynomial is cited rather than re-derived from scratch.
+
+42. **Internal Lemma S.10** — Dirichlet eta, Dedekind eta Lambert series and quadratic zeta.  
+    Path: theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md  
+    **Status:** exact analytic identities and Dirichlet-series products.
+
+43. **Unified synthesis of the 10 November programme.**  
+    Path: docs/UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md  
+    **Status:** integrated dependency map and audit register; no unsupported physical or continuum identification is asserted.
