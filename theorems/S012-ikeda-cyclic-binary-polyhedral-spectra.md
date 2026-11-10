@@ -83,7 +83,7 @@ a_k(D_m^*)=
 \begin{cases}
 (2k+1)\bigl(\lfloor k/m\rfloor+1\bigr),& k\ \text{even},\\[2mm]
 (2k+1)\lfloor k/m\rfloor,& k\ \text{odd and }k\ge m,\\[1mm]
-0,& k\ \text{odd and }k\le m.
+0,& k\ \text{odd and }k<m.
 \end{cases}
 \]
 The eigenvalue is \(4k(k+1)\). The odd branch begins at \(k\ge m\), not strictly \(k>m\): at the endpoint \(k=m\) (when (m) is odd), the coefficient count gives multiplicity \(2m+1\). The scan/OCR glyph at this threshold is ambiguous, so the endpoint is fixed by the exact coefficient calculation. This is the piecewise structure in Ikeda's Theorem 4.3(1), p. 62. Positivity is manifest in this formula; no appeal to Lemma 2.6 is needed for the three-dimensional case.
