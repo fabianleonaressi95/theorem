@@ -1,0 +1,62 @@
+name: RGS defect benchmark
+
+on:
+  push:
+    branches:
+      - 'work/rgs-defect-benchmark-torino'
+  workflow_dispatch:
+
+jobs:
+  defect-benchmark-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade numpy scipy
+      - name: Run defect benchmark tests
+        run: python -m unittest discover -s tests -p 'test_rgs*_benchmark.py' -v
+      - name: Run cochain refinement report
+        run: python scripts/rgs_cochain_defect_benchmark.py --out artifacts/rgs_cochain_defect
+      - name: Run side-by-side solver comparison
+        run: python scripts/compare_rgs_defect_solvers.py --out artifacts/rgs_defect_comparison
+      - name: Run Airy reference tests and comparison
+        run: |
+          python -m unittest discover -s tests -p 'test_rgs_airy_reference.py' -v
+          python scripts/rgs_airy_reference.py --out artifacts/rgs_airy_comparison
+      - name: Audit analytic Airy cell matrix identity
+        run: |
+          python -m unittest discover -s tests -p 'test_rgs_airy_cell_matrix_identity.py' -v
+          python scripts/rgs_airy_cell_matrix_identity.py --out artifacts/airy_cell_matrix_identity/report.json
+      - name: Audit P2 FEM Airy cell matrix convergence
+        run: |
+          python -m unittest discover -s tests -p 'test_rgs_airy_cell_matrix_p2.py' -v
+          python scripts/rgs_airy_cell_matrix_p2.py --out artifacts/airy_cell_matrix_p2/report.json
+      - name: Run exact Q6-to-material quotient audit
+        run: |
+          mkdir -p artifacts/q6_prism_kinematic
+          python -m unittest discover -s tests -p 'test_q6_prism_kinematic_map.py' -v
+          python scripts/q6_prism_kinematic_map.py > artifacts/q6_prism_kinematic/report.json
+      - name: Run periodic Q6 / FEM / Airy comparison
+        run: |
+          mkdir -p artifacts/periodic_q6_fem_airy
+          python -m unittest discover -s tests -p 'test_rgs_periodic_q6_fem_airy.py' -v
+          python scripts/rgs_periodic_q6_fem_airy.py --self-test
+          python scripts/rgs_periodic_q6_fem_airy.py --out artifacts/periodic_q6_fem_airy
+      - name: Upload benchmark report
+        uses: actions/upload-artifact@v4
+        with:
+          name: rgs-cochain-defect-report
+          path: |
+            artifacts/rgs_cochain_defect/
+            artifacts/rgs_defect_comparison/
+            artifacts/rgs_airy_comparison/
+            artifacts/airy_cell_matrix_identity/
+            artifacts/airy_cell_matrix_p2/
+            artifacts/q6_prism_kinematic/
+            artifacts/periodic_q6_fem_airy/
+
+# Full regression rerun after periodic Q1 Gauss-energy and Airy source-alignment fixes.

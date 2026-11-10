@@ -7,6 +7,14 @@ from the exact four constraints documented in the recovered A14 source.
 """
 from pathlib import Path
 import argparse,json
+import sys
+
+# Direct execution puts scripts/, not the repository root, on sys.path.
+# Add the root explicitly so the sibling models package is importable.
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
 import numpy as np
 from scipy.linalg import null_space,eigh
 from models.football_shell import build_football_shell,solve_discrete_shell
