@@ -632,3 +632,8 @@ La derivazione completa, con Jacobiano dei quattro vincoli, costruzione di Q, pr
 ## A.29. Operatore discreto di incompatibilità e ponte Cartan–quaternionico
 
 La definizione debole di Inc_h, il pairing con le sorgenti di Burgers/Frank, la connessione SU(2) indipendente dai frame, l'olonomia, la co-base discreta e il programma di calibrazione sono raccolti nel [capitolo dedicato](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md). La formulazione è proposta e falsificabile, ma non va descritta come già implementata: la mappa tra torsione/curvatura discrete e sorgente Airy, nonché l'operatore superficiale curvo, restano aperti.
+
+
+## A.30. Prototipo computazionale dell'operatore debole
+
+Il repository contiene ora `models/discrete_incompatibility_weak.py` e `tests/test_discrete_incompatibility_weak.py`. Il modulo assembla il pairing debole di Saint-Venant da basi di deformazione e Hessiane dei test, ricostruisce la deformazione simmetrica P1 e assembla il carico puntuale Burgers/Frank. La suite è stata aggiunta al workflow `football-anisotropy`; l'esito CI dedicato non è ancora disponibile. Il prototipo non è un elemento finito completo: mancano la generazione degli spazi H² conformi/CIP-DG, la connessione SU(2) indipendente, la calibrazione Cartan–Airy e l'operatore superficiale curvo. Si veda il [capitolo di derivazione](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md).
