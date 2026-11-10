@@ -1,7 +1,9 @@
 """Tests for scripts/rgs_defect_benchmark.py."""
 import unittest
+import tempfile
+from pathlib import Path
 import numpy as np
-from scripts.rgs_defect_benchmark import incidence_square, solve_case, measure_volterra_burgers, measure_wedge_frank
+from scripts.rgs_defect_benchmark import incidence_square, solve_case, measure_volterra_burgers, measure_wedge_frank, run
 
 class DefectBenchmarkTests(unittest.TestCase):
     def test_boundary_of_boundary_is_zero(self):
@@ -36,6 +38,20 @@ class DefectBenchmarkTests(unittest.TestCase):
         self.assertTrue(np.isfinite(result["energy"]))
         self.assertGreaterEqual(result["energy"],0.0)
         self.assertLess(result["relative_free_residual"],1e-8)
+
+    def test_report_boundary_metadata_matches_solver_cases(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            report = run(Path(tmp), levels=(9,))
+        expected = {
+            "affine": "manufactured_dirichlet",
+            "none": "traction_free_rigid_gauge",
+            "single": "traction_free_rigid_gauge",
+            "dipole": "traction_free_rigid_gauge",
+            "volterra_edge": "traction_free_rigid_gauge",
+            "wedge_disclination": "traction_free_rigid_gauge",
+            "wedge_dipole": "traction_free_rigid_gauge",
+        }
+        self.assertEqual(report["parameters"]["boundary_conditions_by_case"], expected)
 
     def test_single_and_dipole_are_finite(self):
         for case in ("single","dipole"):
