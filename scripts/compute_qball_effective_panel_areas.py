@@ -18,25 +18,26 @@ import numpy as np
 from models.football_shell import build_football_shell
 
 
-def polygon_area(points: np.ndarray) -> float:
-    """Area of a planar polygon from its oriented boundary vector."""
-    p = np.asarray(points, dtype=float)
-    area_vector = sum(
-        (np.cross(x, y) for x, y in zip(p, np.roll(p, -1, axis=0))),
-        np.zeros(3),
-    )
-    return 0.5 * float(np.linalg.norm(area_vector))
+def panel_fan_area(nodes: np.ndarray, face: tuple[int, ...], centre_index: int) -> float:
+    """Area of the panel's actual piecewise-planar centre-fan triangulation."""
+    centre = np.asarray(nodes[centre_index], dtype=float)
+    area = 0.0
+    for u, v in zip(face, face[1:] + face[:1]):
+        area += 0.5 * float(np.linalg.norm(
+            np.cross(nodes[u] - centre, nodes[v] - centre)
+        ))
+    return area
 
 
 def compute(radius: float, cube_alpha: float, h4_alpha: float) -> dict:
     mesh = build_football_shell(
         radius=radius, cube_alpha=cube_alpha, h4_alpha=h4_alpha
     )
-    vertices = np.asarray(mesh["vertices"], dtype=float)
+    nodes = np.asarray(mesh["nodes"], dtype=float)
     rows = []
     for i, face in enumerate(mesh["panels"]):
         typ = str(mesh["panel_types"][i])
-        area = polygon_area(vertices[np.asarray(face, dtype=int)])
+        area = panel_fan_area(nodes, face, len(mesh["vertices"]) + i)
         rows.append({"panel": i, "type": typ, "area": area,
                      "vertex_count": len(face)})
     by_type = {}
