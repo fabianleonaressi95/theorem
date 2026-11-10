@@ -87,9 +87,17 @@ The three reduced forms of discriminant \(-31\) give \(h_K=3\). Since \(K\) is i
 \[
 L(1,\chi_{-31})=\frac{\pi h_K}{\sqrt{31}}
 =\frac{3\pi}{\sqrt{31}}.
-\] For the odd primitive character of conductor \(31\), the finite character-sum formula gives the independent exact check
+\] For the odd primitive character of conductor \(31\), \(\chi_{-31}(a)=(\frac{a}{31})\). Its quadratic residues and nonresidues are
 \[
-\sum_{a=1}^{30}a\,\chi_{-31}(a)=-93,\qquad
+R=\{1,2,4,5,7,8,9,10,14,16,18,19,20,25,28\},\quad
+N=\{3,6,11,12,13,15,17,21,22,23,24,26,27,29,30\}.
+\]
+Their sums are respectively \(186\) and \(279\), so
+\[
+\sum_{a=1}^{30}a\,\chi_{-31}(a)=186-279=-93.
+\]
+For a primitive odd character, \(L(1,\chi)=\frac{\pi i\tau(\chi)}{f^2}\sum_{a=1}^{f-1}a\,\overline{\chi(a)}\). Here \(f=31\) and \(\tau(\chi_{-31})=i\sqrt{31}\), giving the independent exact check
+\[
 L(1,\chi_{-31})=-\frac{\pi}{31^{3/2}}
 \sum_{a=1}^{30}a\,\chi_{-31}(a)
 =\frac{3\pi}{\sqrt{31}}.
