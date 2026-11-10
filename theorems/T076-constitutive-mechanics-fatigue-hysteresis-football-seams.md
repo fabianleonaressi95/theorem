@@ -258,3 +258,20 @@ It separates tangent-plane anisotropy from normal peel/opening. In a local tange
 The new module models/tangent_triplet_anisotropy.py implements the finite-dimensional Gram push-forward and the block fibre stiffness. Its tests check positive semidefiniteness/rank of the G2 Gram form, tangency, rank two, frame covariance and separation of the normal channel. This is an algebraic unit-test target; no shell material calibration or physical anisotropy claim follows from it.
 
 **Status:** G2 triplett Gram structure and Q6 T2u triplet are existing programme data; their tangent-fibre composition is a formulated candidate; the shell transfer \(L_x\), covariant transport across all 90 seams, and physical calibration remain OPEN. Do not identify the 216 tripletti with the Q6 T2u triplet, and do not identify either with an invertible tetrad.
+
+
+## 14. Explicit nodal transfer for the tangent anisotropy
+
+T073 §2.2 now specifies the finite-mesh map rather than leaving \(L_x\) wholly abstract. Let \(W\) be the established 64-to-92 affine geometric transfer, \(Q\) the \(192\times188\) null-space basis of the four RGS constraints, and \(P_i\) the tangent projector at shell node \(x_i\). For the three-row block \(W_i\),
+\[
+L_i=P_iW_iQ,\qquad [L_i]_{F_i}=F_i^TW_iQ.
+\]
+The implementation returns all 92 ambient and local maps and evaluates
+\[
+A_T(x_i)=L_i\Gamma_TL_i^T.
+\]
+The source direction grouping (56 distinct directions and eight duplicate pairs) is retained; the existing 16-neighbour setting is the reference configuration, not a claimed optimum.
+
+This is an explicit discrete nodal bundle map. It is not yet a continuous bundle morphism, and it does not by itself supply parallel transport or seam transition matrices. The triplett-induced anisotropy must still be transported to a common seam fibre before assembling the 90 interface operators. No constitutive coefficients are calibrated by this construction.
+
+The new test file checks the rank-two condition at all 92 nodes, tangency, source-basis residuals, positive semidefiniteness of the pushed tensors and local frame covariance. Test execution is pending; no CI result is claimed.
