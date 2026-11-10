@@ -198,3 +198,8 @@ La lettura congiunta è quindi:
 ## Caso applicativo collegato: il pallone da calcio
 
 Per il raccordo fra incompatibilità dei difetti, shell poligonale, ortotropia dei pannelli, cuciture e frame quaternionici si veda il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md). Il pallone è proposto come banco di prova meccanico distinto dal benchmark piano di Airy; non si identificano automaticamente cuciture e difetti cristallini.
+
+
+## Capitolo metodologico: tangenti, quaternioni e triplette
+
+Per la ricostruzione passo per passo dei vincoli, del tangente 188D, della riduzione della Hessiana, delle triplette geometriche e spettrali, dei frame quaternionici e del confronto con il tangente 184D del guscio calcistico, si veda il nuovo [Capitolo sui sottospazi tangenti, quaternioni e triplette](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md). Questo capitolo esplicita anche i limiti delle etichette T1u/T2u e distingue il doppio ricoprimento SU(2)→SO(3) dalla rappresentazione finita del gruppo 2I.
