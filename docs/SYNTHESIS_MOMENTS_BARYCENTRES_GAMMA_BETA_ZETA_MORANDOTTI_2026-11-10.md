@@ -357,3 +357,17 @@ The canonical dependency map for the entire 10 November programme is now [the un
 The special-function and Morandotti sources newly catalogued for this synthesis are in [the special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md). The wider 55-record Morandotti publication map is in [MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md](../manuscripts/MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
 
 **Editorial rule:** future results in this programme must be deposited first as a theorem/lemma/identity record with assumptions, proof or evidence, scope and bibliography; then indexed here and in the README. Never leave a result only in chat.
+
+
+## 9.10 Notation convention: supergolden constant versus digamma function
+
+To prevent a collision in the symbol \(\psi\), the project reserves
+\[
+\psi_{\mathrm{sg}}=1.465571231876768\ldots,\qquad
+\psi_{\mathrm{sg}}^3-\psi_{\mathrm{sg}}^2-1=0
+\]
+for the **supergolden constant** used in the PRISM/Krist-All algebraic and spectral programme. The digamma function is written
+\[
+\psi_{\mathrm{dig}}(z)=\frac{d}{dz}\log\Gamma_E(z),
+\]
+and its higher derivatives are \(\psi_{\mathrm{dig}}^{(m)}(z)\). The bare symbol \(\psi\) must not be used ambiguously in new theorem records. In quantum-mechanical contexts use \(\Psi\) for a wavefunction; for the second Chebyshev function write \(\psi_{\mathrm{Ch}}(x)\). T081 and T082 have been corrected to use \(\psi_{\mathrm{dig}}\) for the logarithmic derivative of Euler Gamma. This is a notation clarification, not a new identity connecting the supergolden constant to the digamma function.
