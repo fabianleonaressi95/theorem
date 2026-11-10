@@ -124,6 +124,32 @@ The fourth-moment work contains three further, distinct mathematical records:
 
 These records prevent three common errors: treating a fully symmetric rank-four moment as torsion, inserting it directly into an antisymmetric (RFF) contraction, or treating an algebraic coframe potential as a torsion-generating action.
 
+### 2.6 Q6 cubical 2-skeleton, Anti-Twin and synchronization
+
+The Q6 cubical 2-skeleton has 64 vertices, 192 edges and 240 square faces. With the stated integer orientations, \(B_1B_2=0\). Its graph cycle rank is 129; the square boundaries span that cycle space, so \(b_1=0\). Because this is the **truncated 2-skeleton**, with no 3-cells attached, \(b_2=240-129=111\). Those 111 classes are killed when the 3-cells of the full six-cube are attached. Do not confuse the truncated 2-skeleton with the contractible full cube.
+
+The coordinatewise complement \(v\mapsto\mathbf1-v\), equivalently XOR 63, induces signed involutions \(J_0,J_1,J_2\) on vertices, edges and squares and satisfies the chain-map identities \(J_0B_1=B_1J_1\) and \(J_1B_2=B_2J_2\). This is the Anti-Twin cellular action recorded in T071.
+
+The NL/NLT equations are adapted from Ghorbanchian–Restrepo–Torres–Bianconi (2021), equations (12)–(13) and (16)–(17), by replacing simplicial triangles with Q6 square 2-cells. That replacement is a cubical generalization made by this project, not a result of the cited paper. The numerical synchronization and hysteresis study is exploratory; it is not evidence of constitutive hysteresis in a real material. Preisach, Prandtl–Ishlinskii and Bouc–Wen models are reference constitutive simulators, not industrially identified material models.
+
+### 2.7 Möbius phase action and flat Q6 connection
+
+For \(u=\tan(\phi/2)\), a phase translation by \(\delta\) acts projectively as
+\[
+u\longmapsto\frac{u+\tan(\delta/2)}{1-u\tan(\delta/2)},
+\]
+with homogeneous matrix
+\[
+R(\delta)=
+\begin{pmatrix}
+\cos(\delta/2)&\sin(\delta/2)\\
+-\sin(\delta/2)&\cos(\delta/2)
+\end{pmatrix}.
+\]
+For a vertex phase \(\phi_v\), the edge transport \(U_{vw}=e^{i(\phi_w-\phi_v)}\) is exact and has unit holonomy on every closed cycle. On an equal-proper-time Q6 slice it reduces to \(U_{vw}=1\). Its covariant Laplacian is therefore gauge-conjugate to the ordinary Q6 graph Laplacian, whose Walsh eigenvalues are \(2|S|\) with multiplicity \(\binom6{|S|}\). The canonical graph antipode is XOR 63 and gives the even/odd Walsh sectors of dimensions 32+32 (T072).
+
+This XOR 63 involution is the same bitwise complement used by the Anti-Twin chain map in T071. It is **not** the RGS seed coordinate inversion XOR 7 in T069. The three records describe compatible but different structures: cubical chain action (T071), pure-gauge phase transport and graph spectrum (T072), and the archived 64-point coordinate pairing (T069). None derives a nontrivial physical holonomy without additional vertex proper-time or geometric transport data.
+
 ## 3. Gamma, Beta, digamma, zeta and Bernoulli identities
 
 The following chain is exact:
@@ -255,6 +281,8 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 | T068 | Uniform triangle centroid/covariance quadrature | Proved local theorem |
 | T069 | Q6 antipodal pair covariance and Walsh sectors | Exact finite identities + seed numerical audit |
 | T070 | Dirichlet weighted barycentres, covariance and phase moments | Proved local theorem |
+| T071 | Q6 cubical 2-skeleton, Anti-Twin chain action and NL/NLT benchmark | Exact finite chain identities; exploratory dynamics and hysteresis remain non-physical/unvalidated |
+| T072 | Möbius phase translation, exact vertex-phase connection and Q6 spectrum | Exact finite-graph identities; canonical equal-time connection is trivial |
 | S.1–S.2 | Silver/bronze/golden/supergolden geometric synthesis | Exact geometry/algebra under stated construction |
 | S.3 | Dirichlet log-partition gradients and cumulants | Proved special-function lemma |
 | S.4 | 64-site RGS fourth-moment anisotropy | Prior seed numerical record + exact tensor algebra |
@@ -267,7 +295,7 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 
 ## 9. Open proof obligations — explicit, not hidden
 
-1. The hash-checked 64-site coordinate reconstruction, fourth-moment audit and regression test have now been imported into this repository. Execute the test and audit before upgrading the recorded prior numerical values to a newly reproduced central-repository result.
+1. The 64-site seed loader reproduces the archived coordinate-array SHA-256. An independent numerical replay in this synthesis turn recovered M^(2)=80 I_3, the listed M^(4)/R components, the E_g/T_2g eigenvalues and the O_h residual. The imported pytest suite remains unexecuted; retain the distinction between this replay and a test-suite pass.
 2. Verify the actual RGS/Q6/PRISM stencil moments (M_a^{(1)},\ldots,M_a^{(4)}) for every refinement level and establish uniform bounds.
 3. Define a common map, if any, between the fixed-seed fourth moment S.4 and the refinement jump moment S.5.
 4. Derive any Bernoulli/Euler–Maclaurin coefficients from the actual refinement summation rule.
