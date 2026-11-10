@@ -123,6 +123,10 @@ The table is a navigation index, not a claim that every item is a theorem in the
 
 The file `001-fixed-lattice-temporal-wilson-limit.md` is a pre-existing result and is not part of the T001–T007 numbering sequence.
 
+## Exact geometric lemmas
+
+- [Lemma S.1 — Silver-ratio scaling in a square-corner tangency configuration](theorems/S001-silver-ratio-square-corner-tangency.md) — proves the exact relations `d/R = 1/(1+sqrt(2))` and `r/R = 1/(1+sqrt(2))^2` for the incircle/corner-circle tangency geometry. This is a local Euclidean lemma; no Q6 refinement or infinite self-similarity is claimed.
+
 ## Selected research records
 
 ### RGS cellular dynamics benchmark
