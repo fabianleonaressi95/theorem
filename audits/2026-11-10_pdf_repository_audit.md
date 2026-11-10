@@ -24,9 +24,9 @@ The following 13 PDF blobs were present in the recursive Git tree at the time of
 | `master05-26-2025.pdf` | `f6a69be2d53e` | Filename alone is insufficient to identify author/title/version. Pending document-level classification; do not cite from filename. |
 | `archive/unclassified/zps (1).pdf` | `8bd25231d00c` | Already located under `archive/unclassified/`; retain quarantined until its title, provenance and relevance are established. |
 
-## 2. Direct source audit: Yui–Zagier (1997)
+## 2. Source audit: Yui–Zagier (1997) — provenance recorded
 
-The full paper is available at the author's institutional URL and is also stored in this repository.
+The full paper is stored in this repository as `S0025-5718-97-00854-5.pdf`. The page-by-page checks reported here (pp. 1645–1662, including B1–B6 and the numerical principal-value check) were performed by the user after reading the complete paper on a mirror. They are recorded as user-performed verification, not as a separate assistant re-reading in this audit.
 
 - **p. 1647:** defines the classical Weber functions and their transformation under (	aumapsto	au+1) and (	aumapsto-1/	au); defines the class invariant (f(Q)).
 - **p. 1648:** gives the alternate formula
@@ -153,9 +153,9 @@ This status register distinguishes inventory completeness from semantic review c
 
 ### M.4 Exact verification of Ikeda's binary-tetrahedral formula
 
-The source check and the independent calculation are now recorded as theorem file `theorems/S011-ikeda-binary-tetrahedral-spectrum.md`.
+The source statements and independent reconstructions are recorded separately in `theorems/S011-ikeda-binary-tetrahedral-spectrum.md`. The repository PDF `18_57.pdf` is the source used for the quoted Ikeda statements.
 
-- **Index:** the general (S^3) harmonic degree is \(\ell\), with eigenvalue \(\ell(\ell+2)\). Ikeda's binary-tetrahedral index is \(\ell=2k\), so \(\lambda_k=4k(k+1)\). This agrees with Theorem 4.4(2) at (n=1); there is no eigenvalue discrepancy.
+- **Index:** the general (S^3) harmonic degree is \(\ell\), with eigenvalue \(\ell(\ell+2)\). Ikeda's binary-tetrahedral index is \(\ell=2k\), so \(\lambda_k=4k(k+1)\). This is a reconstruction from the standard sphere eigenvalue and \\(\\ell=2k\\). Ikeda's Theorem 4.4(2) is stated for \\(n>1\\), so it does not itself cover \\(S^3/T^*\\); the \\(n=1\\) agreement is algebraic only.
 - **Subgroup average:** Proposition 3.1(2) gives four cyclic subgroups of order 6 and three of order 4, all sharing the central (C_2). Their union has size (4(6-2)+3(4-2)+2=24). Inclusion–exclusion gives exactly
   \[F_{T^*}=\frac{24F_6+12F_4-12F_2}{24}
   =F_6+\frac12F_4-\frac12F_2,\]
@@ -172,3 +172,13 @@ The source check and the independent calculation are now recorded as theorem fil
 - **Numerical spot checks:** (k=3): (m_6=1, a_3=7); (k=6): (m_{12}=2, a_6=26). The initial table is in S011.
 - **Scope:** Ikeda supports the spherical-spectrum and finite-group quotient strand only. It does not support a Weber/Dedekind-eta/Dirichlet-eta or \(\mathbb Q(\sqrt{-31})\) connection.
 
+
+
+## M.5 Provenance and correction register — Weber/Ikeda
+
+- **Ikeda (1995):** the source statements in `18_57.pdf` are recorded as directly present in the repository PDF: Proposition 3.1(2), p. 63 coefficient combination, and Theorem 4.4(1). Theorem 4.4(2) is explicitly scoped to `n>1`; it is not cited as covering `S^3/T*`. The eigenvalue `4k(k+1)` is an independent reconstruction from `ell=2k` and the unit-sphere eigenvalue. The Molien calculation is also an independent check.
+- **Yui–Zagier (1997):** B1–B6 page checks and the 40-digit numerical check are attributed to the user's reported reading of the complete paper, pp. 1645–1662. Do not claim that these checks were independently repeated by the assistant. The `D=-31` polynomial is a tabulated published result; `rho=psi_*^{-1}` is an algebraic reconstruction, and the term `supergolden` is not attributed to Yui–Zagier.
+- **Congruence:** the general abbreviated phase/sign condition is `b ≡ -a (mod 48)`, not modulo 24; the user-reported counterexample `[1,23,140]` must be retained in S009.
+- **Class values:** the all-classes conjugacy statement remains conjectural in Yui–Zagier. The principal-class conclusion does not rely on that conjecture.
+- **Erroneous alternate Molien formula:** do not use `(1+t^6)/((1-t^4)(1-t^6))` for `T*`; the correct binary-tetrahedral Hilbert series in S011 is `(1+t^12)/((1-t^6)(1-t^8))`.
+- **CM points:** `(-1+i sqrt(31))/2` has discriminant `-31`; `i sqrt(31)` has order discriminant `-124`. The Weber transformation through the equivalent principal-class representative `(1+i sqrt(31))/2` connects the evaluations. The discriminant distinction does not refute the transformation identity.
