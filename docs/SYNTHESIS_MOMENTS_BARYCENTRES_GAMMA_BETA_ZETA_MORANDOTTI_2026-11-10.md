@@ -307,6 +307,17 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 
 The independent finite-seed, Dirichlet quadrature, fourth-moment variation and Q6 cubical checks performed during this synthesis are collected in [the 10 November numerical replay report](../reports/2026-11-10_integrated_synthesis_numerical_replay.md). This is explicitly separate from a pytest/CI pass and does not include the real football-shell scan or a continuum/Mosco verification.
 
+## 9.2 Dedekind eta, Dirichlet eta and the discriminant \(-31\)
+
+The modular and arithmetic eta constructions are now integrated in a separate dependency document:
+[Unified Dedekind–Dirichlet eta, Weber–supergolden, barycentric and RGS–Morandotti construction](UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md).
+
+The two new records are:
+- [S.9 — Weber–Dedekind eta class invariant and the supergolden root](../theorems/S009-weber-dedekind-eta-supergolden-class-invariant.md): the \(D=-31\) Weber class invariant \(\rho\) satisfies \(\rho^3+\rho-1=0\), hence \(\rho=1/\psi\); the Weber transformations give \(f(i\sqrt{31})=\sqrt2\psi\).
+- [S.10 — Dirichlet eta, Dedekind eta Lambert series and quadratic zeta](../theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md): exact Dirichlet-series products, \(\zeta_K(s)=\zeta(s)L(s,\chi_{-31})\), the class-number value and Bernoulli/polygamma links.
+
+These records keep the modular eta, alternating Dirichlet eta, Dirichlet \(L\)-function, Dedekind zeta and Dirichlet simplex distribution distinct.
+
 ## 10. Bibliography
 
 The special-function and Morandotti sources newly catalogued for this synthesis are in [the special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md). The wider 55-record Morandotti publication map is in [MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md](../manuscripts/MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
