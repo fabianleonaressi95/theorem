@@ -307,6 +307,10 @@ is an exact combinatorial/algebraic object. The digamma scale sampling does not 
 
 The independent finite-seed, Dirichlet quadrature, fourth-moment variation and Q6 cubical checks performed during this synthesis are collected in [the 10 November numerical replay report](../reports/2026-11-10_integrated_synthesis_numerical_replay.md). This is explicitly separate from a pytest/CI pass and does not include the real football-shell scan or a continuum/Mosco verification.
 
+## 9.3 Binary-tetrahedral spectrum (Ikeda)
+
+The source-verified spectrum of the binary tetrahedral quotient is now recorded in [S011](../theorems/S011-ikeda-binary-tetrahedral-spectrum.md). The index convention is \\(\\ell=2k\\), giving \\(\\lambda_k=4k(k+1)\\); the Poincaré average is \\(F_{T^*}=F_6+\\tfrac12F_4-\\tfrac12F_2\\), and the independent Molien series is \\(M(t)=(1+t^{12})/((1-t^6)(1-t^8))\\). This is the (S^3/T^*) result and is separate from the binary-icosahedral (S^3/2I) programme. Ikeda does not support a Weber/Dedekind-eta connection.
+
 ## 9.2 Dedekind eta, Dirichlet eta and the discriminant \(-31\)
 
 The modular and arithmetic eta constructions are now integrated in a separate dependency document:
