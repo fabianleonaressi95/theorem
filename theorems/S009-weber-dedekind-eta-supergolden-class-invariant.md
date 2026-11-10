@@ -2,6 +2,10 @@
 
 **Status:** conditional exact modular/class-field consequence, using the principal Weber invariant and the tabulated \\(D=-31\\) minimal polynomial in Yui–Zagier (1997). The eta-product identity and Weber transformation steps are exact. The class-polynomial entry is a published computational result; this record does not re-prove its class-field construction from scratch. Yui–Zagier explicitly note that the stronger assertion that all signed \\(f(A)\\) values are conjugates is conjectural in their paper; this lemma does not rely on that stronger assertion.
 
+
+
+**Verification provenance and scope.** The repository copy of Yui–Zagier (1997) is `S0025-5718-97-00854-5.pdf`. The full-text page checks on pp. 1645–1662, including the B1–B6 items below, were reported as having been performed by the user against the complete paper (also consulted on a mirror); the associated numerical check of the principal value was reported at 40-digit precision. This record preserves those as **user-performed bibliographic/numerical checks**; it does not relabel them as an independent re-reading by the assistant. The polynomial in Table 1 is a published tabulated result, not a new proof of the class-polynomial construction. The reciprocal identity with the supergolden root is an algebraic reconstruction from that polynomial; Yui–Zagier do not use the name “supergolden” or establish that terminology.
+
 ## 1. Arithmetic setting
 
 Let
@@ -50,6 +54,10 @@ Thus the real positive class invariant \(\rho\) satisfies
 \[
 \rho^3+\rho-1=0.
 \]
+
+
+
+**Congruence correction (Yui–Zagier pp. 1647–1648).** The abbreviated phase/sign rule must retain the congruence condition modulo 48: use \\(b\\equiv-a\\pmod{48}\\), not merely modulo 24. The user-reported counterexample \\([1,23,140]\\) distinguishes the two: the primary formula gives \\(+\\rho\\), whereas the modulo-24 abbreviation would give \\(-\\rho\\). The principal-class calculation above is unaffected, but the general shorthand must not be recorded with modulus 24.
 
 ## 3. Exact identification with the supergolden number
 
@@ -121,6 +129,10 @@ Indeed, substituting \(W=2\psi^2\) and \(\psi^3=\psi^2+1\) makes the left-hand s
 
 **CM-order warning.** The point \(\tau_0=(-1+i\sqrt{31})/2\) has discriminant \(-31\). The point \(i\sqrt{31}\) has quadratic order discriminant \(-124\). They are not the same CM point; the displayed Weber transformations are the exact bridge between the two evaluations. This distinction repairs the imprecise point identification in the input note.
 
+
+
+
+An equivalent representative of the principal class used for the value at the purely imaginary point is \\(Q=[1,-1,8]\\), with \\(\\tau_Q=(1+i\\sqrt{31})/2\\). It satisfies \\(2\\tau_Q-1=i\\sqrt{31}\\), so the p. 1647 Weber relation can be applied directly to \\(f(i\\sqrt{31})\\). This avoids treating \\(i\\sqrt{31}\\) as the same CM point as \\(\\tau_0\\): its order discriminant is \\(-124\\), while \\(\\tau_0\\) has discriminant \\(-31\\). The transformation is the bridge between the evaluations, not an equality of CM points.
 
 ## 4.1 Independent check from the eta quotient and correction of a constant-name mix-up
 
