@@ -126,3 +126,105 @@ def induce_local_channel_map(t2u_basis, q6_to_shell_tangent, normal, tol=1e-9):
     if np.linalg.matrix_rank(U, tol=tol) != 2:
         raise ValueError("transferred T2u triplet must have local rank two")
     return U
+
+
+def build_rgs_shell_tangent_fibre_maps(source_points, shell_mesh, neighbors=16,
+                                       rank_tolerance=1e-9):
+    """Construct the pointwise maps L_x: R^188 -> T_x S from the audited bridge.
+
+    Uses the existing 64->92 direction-grouped affine transfer W (lifted to
+    Cartesian coordinates), the exact 188D source constraint tangent basis Q,
+    and node-wise shell tangent projectors. Returns both ambient 3x188 maps
+    and local 2x188 matrices in orthonormal tangent frames.
+
+    This is a discrete nodal bundle map for this mesh, not yet a smooth
+    continuum bundle morphism or a connection-preserving map.
+    """
+    from scipy.linalg import null_space
+    from .football_quaternion_bridge import build_geometry_transfer
+
+    X = np.asarray(source_points, dtype=float)
+    nodes = np.asarray(shell_mesh["nodes"], dtype=float)
+    triangles = np.asarray(shell_mesh["triangles"], dtype=int)
+    if X.shape != (64, 3) or nodes.shape != (92, 3):
+        raise ValueError("expected 64 RGS source points and 92 shell nodes")
+
+    C = np.zeros((4, 192))
+    C[0, 0::3] = 1.0
+    C[1, 1::3] = 1.0
+    C[2, 2::3] = 1.0
+    C[3, :] = X.reshape(-1)
+    Q = null_space(C)
+    if Q.shape != (192, 188):
+        raise ArithmeticError("source constraint tangent basis is not 192x188")
+
+    W, transfer_diagnostics = build_geometry_transfer(
+        X, nodes, neighbors=neighbors
+    )
+    # Node-wise oriented normals from the shell's triangular area vectors.
+    normals = np.zeros_like(nodes)
+    for tri in triangles:
+        p = nodes[tri]
+        area_normal = np.cross(p[1] - p[0], p[2] - p[0])
+        for node in tri:
+            normals[node] += area_normal
+    lengths = np.linalg.norm(normals, axis=1)
+    if np.any(lengths <= rank_tolerance):
+        raise ArithmeticError("degenerate shell normal at one or more nodes")
+    normals /= lengths[:, None]
+
+    ambient_maps = np.empty((len(nodes), 3, 188))
+    local_maps = np.empty((len(nodes), 2, 188))
+    frames = np.empty((len(nodes), 3, 2))
+    ranks = []
+    tangency_residuals = []
+    for i, normal in enumerate(normals):
+        seed = np.array([1.0, 0.0, 0.0])
+        if abs(seed @ normal) > 0.9:
+            seed = np.array([0.0, 1.0, 0.0])
+        e1 = seed - (seed @ normal) * normal
+        e1 /= np.linalg.norm(e1)
+        e2 = np.cross(normal, e1)
+        F = np.column_stack((e1, e2))
+        P = F @ F.T
+        Wi = W[3*i:3*i+3, :]
+        Li = P @ Wi @ Q
+        Llocal = F.T @ Li
+        rank = int(np.linalg.matrix_rank(Llocal, tol=rank_tolerance))
+        if rank != 2:
+            raise ArithmeticError(f"tangent transfer rank {rank} at shell node {i}")
+        ambient_maps[i] = Li
+        local_maps[i] = Llocal
+        frames[i] = F
+        ranks.append(rank)
+        tangency_residuals.append(float(np.linalg.norm((np.eye(3)-P) @ Li)))
+    return {
+        "ambient_maps": ambient_maps,
+        "local_maps": local_maps,
+        "tangent_frames": frames,
+        "shell_normals": normals,
+        "source_tangent_basis": Q,
+        "cartesian_transfer": W,
+        "transfer_diagnostics": transfer_diagnostics,
+        "nodewise_ranks": ranks,
+        "minimum_nodewise_rank": int(min(ranks)),
+        "maximum_tangency_residual": float(max(tangency_residuals)),
+        "source_constraint_residual": float(np.linalg.norm(C @ Q)),
+        "source_basis_orthogonality": float(np.linalg.norm(Q.T @ Q - np.eye(188))),
+        "interpretation": (
+            "Explicit finite-mesh nodal bundle map assembled as "
+            "L_i=P_i W_i Q. It is not yet a smooth connection-preserving "
+            "continuum bundle morphism."
+        ),
+    }
+
+
+def push_triplett_to_shell_nodes(triplett, fibre_maps, q_g2=Q_G2):
+    """Evaluate A_T(x_i)=L_i Gamma_T L_i* at all shell nodes."""
+    Gamma = triplett_gram(triplett, q_g2)
+    L = np.asarray(fibre_maps["ambient_maps"], dtype=float)
+    if L.ndim != 3 or L.shape[1:] != (3, 188):
+        raise ValueError("fibre maps must have shape (N,3,188)")
+    tensors = np.einsum("nai,ij,nbj->nab", L, Gamma, L)
+    tensors = 0.5 * (tensors + np.swapaxes(tensors, 1, 2))
+    return tensors
