@@ -61,11 +61,11 @@ def profile_audit(profile: str, d_over_h: float, sigma_over_h: float,
     q = (f(z - half) - f(z + half)) / ratio
     target = -fp
 
-    norm = np.sqrt(np.trapezoid(target * target, z))
-    error = np.sqrt(np.trapezoid((q - target) ** 2, z)) / norm
+    norm = np.sqrt(np.trapz(target * target, z))
+    error = np.sqrt(np.trapz((q - target) ** 2, z)) / norm
     # The target has unit first moment: integral z*(-f') dz = 1.
-    moment = np.trapezoid(z * q, z)
-    zeroth = np.trapezoid(q, z)
+    moment = np.trapz(z * q, z)
+    zeroth = np.trapz(q, z)
     return {
         "profile": profile,
         "d_over_h": d_over_h,
