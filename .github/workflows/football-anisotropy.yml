@@ -23,6 +23,7 @@ on:
       - ".github/workflows/football-anisotropy.yml"
   pull_request:
     paths:
+      - "tests/test_football_seam_law.py"
       - "models/football_quaternion_bridge.py"
       - "models/football_shell.py"
       - "scripts/build_rgs_football_geometric_transfer.py"
