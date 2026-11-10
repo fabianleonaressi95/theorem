@@ -60,7 +60,7 @@ The cube/sphere radial excess, cubic harmonic anisotropy and pentagon/hexagon co
 
 ## 3. The local probabilistic geometry: Gamma, Beta and barycentric moments
 
-Let (F) be a nondegenerate planar triangle with ordered vertices (v_0,v_1,v_2), area (A_F), diameter (h_F), vertex matrix (V) (rows are the vertices), and barycentric coordinate vector \(\lambda=(\lambda_0,\lambda_1,\lambda_2)\). For parameters (a_i>0), put (S=a_0+a_1+a_2). The weighted partition function is
+Let \(F\) be a nondegenerate planar triangle with ordered vertices (v_0,v_1,v_2), area (A_F), diameter (h_F), vertex matrix (V) (rows are the vertices), and barycentric coordinate vector \(\lambda=(\lambda_0,\lambda_1,\lambda_2)\). For parameters (a_i>0), put (S=a_0+a_1+a_2). The weighted partition function is
 \[
 Z_F(a)=\int_F\prod_{i=0}^2\lambda_i^{a_i-1}\,dA
 =2A_F B_3(a)
@@ -77,7 +77,7 @@ c_{F,a}=V^{\mathsf T}m,\qquad
 \Sigma_{F,a}=V^{\mathsf T}CV.
 \]
 
-For (a=(1,1,1)), (Z_F=A_F), the barycentre is the ordinary triangle centroid and T070 reduces to T068. For every (g\in C^3) on a neighbourhood of (F),
+For (a=(1,1,1)), (Z_F=A_F), the barycentre is the ordinary triangle centroid and T070 reduces to T068. For every (g\in C^3) on a neighbourhood of \(F\),
 \[
 \int_F g\,d\mu_{F,a}
 =g(c_{F,a})+\frac12D^2g(c_{F,a}):\Sigma_{F,a}+R_{F,a},
@@ -233,31 +233,31 @@ and the canonical graph antipode XOR 63 splits the vertex space into even/odd se
 
 ### 8.1 Three different covariance structures
 
-The archived RGS 64-point seed has numerical normalized covariance (\Sigma_X=5I_3/4). Its coordinate inversion is XOR 7. The canonical graph antipode of Q6 is XOR 63. T069 proves the pair mean/difference law of total covariance for any fixed-point-free involution:
+The archived RGS 64-point seed has numerical normalized covariance \(\Sigma_X=5I_3/4\). Its coordinate inversion is XOR 7. The canonical graph antipode of Q6 is XOR 63. T069 proves the pair mean/difference law of total covariance for any fixed-point-free involution:
 \[
 \operatorname{Cov}(X)=\frac1{32}\sum_i d_id_i^{\mathsf T}
 +\frac1{32}\sum_i(m_i-\bar m)(m_i-\bar m)^{\mathsf T}.
 \]
-The six-cube vertex measure has covariance (I_6/4). Neither is the triangle-cell covariance (\Sigma_{F,a}). Their relation needs an explicit push-forward or transfer map.
+The six-cube vertex measure has covariance \(I_6/4\). Neither is the triangle-cell covariance (\Sigma_{F,a}). Their relation needs an explicit push-forward or transfer map.
 
 ### 8.2 Cubical topology and Anti-Twin
 
-Q6 has 64 vertices, 192 edges and 240 square 2-cells. For the truncated cubical 2-skeleton, (B_1B_2=0), \(\operatorname{rank}B_1=63\), \(\operatorname{rank}B_2=129\), (b_1=0), and (b_2=111). The 111 two-cycles are killed by the omitted 3-cells in the full six-cube. Bitwise complement induces signed involutions on vertices, edges and squares and satisfies the exact chain-map identities in T071. The NL/NLT synchronization dynamics are an exploratory cubical adaptation of a simplicial source model; hysteresis in that simulation is not industrial constitutive hysteresis.
+Q6 has 64 vertices, 192 edges and 240 square 2-cells. For the truncated cubical 2-skeleton, \(B_1B_2=0\), \(\operatorname{rank}B_1=63\), \(\operatorname{rank}B_2=129\), \(b_1=0\), and \(b_2=111\). The 111 two-cycles are killed by the omitted 3-cells in the full six-cube. Bitwise complement induces signed involutions on vertices, edges and squares and satisfies the exact chain-map identities in T071. The NL/NLT synchronization dynamics are an exploratory cubical adaptation of a simplicial source model; hysteresis in that simulation is not industrial constitutive hysteresis.
 
 ### 8.3 Earlier Q6 subdivision and the supergolden operator
 
-T055 proves the specified dyadic midpoint subdivision chain maps. Its restriction to the three selected directions is (2I_3), not the supergolden companion matrix
+T055 proves the specified dyadic midpoint subdivision chain maps. Its restriction to the three selected directions is \(2I_3\), not the supergolden companion matrix
 \[
 A_* = \begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix},\qquad \det(xI-A_*)=x^3-x^2-1.
 \]
-The same cubic appears in the T056 transfer-matrix conjugacy and in the Weber/supergolden arithmetic, but no derivation of (A_*) from T055 or from a digamma-generated refinement operator is claimed. The latter is an explicit open construction problem.
+The same cubic appears in the T056 transfer-matrix conjugacy and in the Weber/supergolden arithmetic, but no derivation of \(A_*\) from T055 or from a digamma-generated refinement operator is claimed. The latter is an explicit open construction problem.
 
 
 ### 8.4 Gate D to Gate E and the football transfer
 
 The shell has 92 nodes and 180 triangular facets; Q6 has 64 vertices and 240 square faces. There is no canonical bijection from these counts. The bridge must be a pair of explicit maps on the relevant chain/field spaces, with orientation, incidence, geometry, metric and measure compatibility stated.
 
-- **Gate D / Kathara–Q6:** the recorded PR #195 identities (B_1R_1=R_0B_1^K) and (B_2R_2=R_1B_2^K), the 10/10 face correspondence and the (240\times10) map (R_2) of rank 10 modulo 1,000,003 establish the stated finite chain-map result. They do not establish (O_h)-equivariance, canonical RGS metric, a shell embedding or spin transport.
+- **Gate D / Kathara–Q6:** the recorded PR #195 identities \(B_1R_1=R_0B_1^K\) and \(B_2R_2=R_1B_2^K\), the 10/10 face correspondence and the \(240\times10\) map \(R_2\) of rank 10 modulo 1,000,003 establish the stated finite chain-map result. They do not establish \(O_h\)-equivariance, canonical RGS metric, a shell embedding or spin transport.
 - **Gate E.1 / barycentric quadrature:** T068/T070 provide local triangle moment and quadrature laws; the companion RGS–QLG implementation and tests are separate software evidence. Gate E.1 does not by itself prove global embedding or continuum convergence.
 - **Football transfer robustness:** PR #124 and its merged audit compare the football triplet transfer under the declared finite model. This is a finite robustness result, not a proof that the 92-node shell and 64-state Q6 are spectrally identical.
 
@@ -265,17 +265,17 @@ The correct Gate D→E statement is therefore a **composition programme**: first
 
 ### 8.5 RGS 188D and PRISM comparison modules
 
-The RGS 188-dimensional operator audit and the PRISM/Krist-All graph records are retained as separate finite-dimensional comparison modules. The 188D audit records the (O_h)-commutation and tangent/bulk decomposition under its archived matrix conventions; its negative and quasi-zero eigenvalue sectors are spectral properties of that operator, not a proof of a shell continuum limit. The PRISM graph record (C_{64}\square C_6^3\square C_5) has (N=69120), degree 10, 1,920 active vertices, 108 length-640 cycles, (b_1=5), (b_2=10), spectral gap (0.009630546656), and the recorded Krist-All residual (5.22\times10^{-16}). The supergolden relation (K^3=K^2+I) is an exact algebraic identity for the specified matrix. These values belong to the PRISM graph/operator data; they are not invariants of the 92-node football shell or the 64-vertex Q6 cube unless an explicit transfer theorem is supplied.
+The RGS 188-dimensional operator audit and the PRISM/Krist-All graph records are retained as separate finite-dimensional comparison modules. The 188D audit records the \(O_h\)-commutation and tangent/bulk decomposition under its archived matrix conventions; its negative and quasi-zero eigenvalue sectors are spectral properties of that operator, not a proof of a shell continuum limit. The PRISM graph record \(C_{64}\square C_6^3\square C_5\) has \(N=69120\), degree 10, 1,920 active vertices, 108 length-640 cycles, \(b_1=5\), \(b_2=10\), spectral gap \(0.009630546656\), and the recorded Krist-All residual \(5.22\times10^{-16}\). The supergolden relation \(K^3=K^2+I\) is an exact algebraic identity for the specified matrix. These values belong to the PRISM graph/operator data; they are not invariants of the 92-node football shell or the 64-vertex Q6 cube unless an explicit transfer theorem is supplied.
 
 
 ## 9. Fourth moments and constitutive branches
 
 Keep the fourth-moment objects separate.
 
-1. **S.4 fixed-seed fourth moment:** the fully symmetric rank-four moment of the 64-site RGS cloud. The recorded seed has (M^{(2)}=80I_3), isotropic fourth-moment coefficient (c=67.4361954632), and residual components (R_{xxxx}=-6.3213417395), (R_{xxyy}=3.1606708698). Its (E_g) and (T_{2g}) eigenvalues are numerical seed values, not exact symbolic constants. A fully symmetric rank-four tensor is not torsion.
-2. **S.5 refinement jump moment:** for the graph stencil, the fourth jump moment enters the (a^2) term of the Taylor expansion. Under vanishing first/third moments, second-moment metric consistency, bounded fourth moments and uniform (C^5) control, it gives a conditional second-order consistency result. It is not the S.4 fixed-cloud tensor.
-3. **S.6 connection current:** varying the positive fourth-moment gradient energy gives the local (SO(3)) current (J_i=\kappa[H(D_iQ),Q]). Complete TEGR/coframe equations and flat-connection constraints remain open.
-4. **S.7 Maxwell obstruction:** the direct contraction (R_{ijkl}F_{ij}F_{kl}) vanishes for antisymmetric (F). The independent STF order parameter (Q) is the viable intermediate; the constitutive matrices and the (A_4) intertwiner application remain partly open.
+1. **S.4 fixed-seed fourth moment:** the fully symmetric rank-four moment of the 64-site RGS cloud. The recorded seed has \(M^{(2)}=80I_3\), isotropic fourth-moment coefficient \(c=67.4361954632\), and residual components \(R_{xxxx}=-6.3213417395\), \(R_{xxyy}=3.1606708698\). Its \(E_g\) and \(T_{2g}\) eigenvalues are numerical seed values, not exact symbolic constants. A fully symmetric rank-four tensor is not torsion.
+2. **S.5 refinement jump moment:** for the graph stencil, the fourth jump moment enters the \(a^2\) term of the Taylor expansion. Under vanishing first/third moments, second-moment metric consistency, bounded fourth moments and uniform \(C^5\) control, it gives a conditional second-order consistency result. It is not the S.4 fixed-cloud tensor.
+3. **S.6 connection current:** varying the positive fourth-moment gradient energy gives the local \(SO(3)\) current \(J_i=\kappa[H(D_iQ),Q]\). Complete TEGR/coframe equations and flat-connection constraints remain open.
+4. **S.7 Maxwell obstruction:** the direct contraction \(R_{ijkl}F_{ij}F_{kl}\) vanishes for antisymmetric \(F\). The independent STF order parameter \(Q\) is the viable intermediate; the constitutive matrices and the \(A_4\) intertwiner application remain partly open.
 5. **S.8 coframe variation:** the displayed algebraic coframe action has the recorded variation but contains no coframe derivatives and therefore does not generate torsion.
 
 The fourth-moment branch is an independent constitutive/variational module of the unified shell programme; it is not an identification with the Dirichlet covariance, Morandotti disarrangement tensor or a modular function.
