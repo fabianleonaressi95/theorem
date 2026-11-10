@@ -70,7 +70,8 @@ jobs:
         working-directory: projects/de_rham_benchmark
         run: python run_relative_codifferential_study.py --levels 4 8 16 --output reports/relative_codifferential.json
       - name: Upload relative codifferential report
-        if: always()\n        uses: actions/upload-artifact@v4
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: relative-codifferential-study
           path: projects/de_rham_benchmark/reports/relative_codifferential.json
