@@ -82,7 +82,7 @@ Only even full harmonic degrees \(r=2k\) occur. In degree \(2k\), the cyclic \(2
 a_k(D_m^*)=
 \begin{cases}
 (2k+1)\bigl(\lfloor k/m\rfloor+1\bigr),& k\ \text{even},\\[2mm]
-(2k+1)\lfloor k/m\rfloor,& k\ \text{odd and }k>m,\\[1mm]
+(2k+1)\lfloor k/m\rfloor,& k\ \text{odd and }k\ge m,\\[1mm]
 0,& k\ \text{odd and }k\le m.
 \end{cases}
 \]
