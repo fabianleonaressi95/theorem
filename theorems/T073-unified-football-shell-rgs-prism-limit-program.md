@@ -51,7 +51,7 @@ Two established finite-dimensional structures must be kept distinct and then con
 V\in\mathbb R^{188\times3},\qquad V^TV=I_3,\qquad
 \lambda_{T_{2u}}=-0.06994933008401777
 \]
-with multiplicity three. Its lifted/local data \(U=QV\in\mathbb R^{192\times3}\) have local blocks \(U_i\in\mathbb R^{3\times3}\) of rank two. This rank-two property is compatible with a two-dimensional tangent fibre, but it does **not** by itself identify a Q6 local block with the tangent plane of the football shell. Nor is the triplet an invertible tetrad.
+with multiplicity three. The first triplet has now been reconstructed from the recovered 64-site geometry, the 48-element signed-permutation action of \\(O_h\\), the \\(T_{2u}\\) character projector and the constrained Coulomb Hessian. The isotypic projector has rank 30; the lowest restricted eigenvalue is \\(-0.069949330084017\\) with multiplicity three, separated from the next \\(T_{2u}\\) eigenvalue by approximately \\(0.3193062\\). The exported frame \\(V\\) is a deterministic coordinate-pivoted orthonormal basis of this three-dimensional spectral subspace. Its span/projector is invariant, while the particular basis within the degenerate triplet is a gauge choice. The implementation is reconstruct_rgs_t2u_triplet in models/tangent_triplet_anisotropy.py; the reproducible export is scripts/reconstruct_rgs_t2u_triplet.py. This rank-three spectral subspace is not an invertible tetrad.
 
 **(ii) PRISM/G2 tripletti.** For each triplett \(T=(r_1,r_2,r_3)\), with \(r_i\in\mathbb R^2\), put \(R_T=[r_1\ r_2\ r_3]\) and
 \[
@@ -94,9 +94,7 @@ This is a model class, not a fitted law: \(\alpha_e,k_{0,e},k_{o,e}\) require ma
 
 The code primitive models/tangent_triplet_anisotropy.py implements the Gram construction, the explicitly supplied transfer composition, tangent-fibre push-forward, frame-covariance diagnostics and the block seam-fibre stiffness. Unit tests are in tests/test_tangent_triplet_anisotropy.py.
 
-**Critical open item:** no validated transfer \(L_x\) from the 188-dimensional Q6 tangent space to the football shell tangent fibres has yet been constructed. Until that map is derived from the programme's discrete transfer/geometry data and its stability/covariance is proved, this is a mathematically specified bridge and tested algebraic primitive, not a demonstrated physical coupling. The 216 tripletti / 20 Gram classes and the T2u triplet are not to be collapsed into one object.
-
-
+**Status correction:** the finite-mesh nodal transfer \\(L_i=P_iW_iQ\\) is now explicitly implemented in §2.2, and the T2u triplet can be reconstructed from the original 64-site geometry rather than supplied as an opaque external array. The bridge is therefore computationally specified at the 92 shell nodes. Still open are (a) execution of the repository's complete regression suite, (b) a smooth/connection-preserving extension over the continuum shell, (c) seam transition maps and holonomy, (d) refinement stability/convergence, and (e) physical identification of the PRISM channel gauge and seam coefficients. The 216 tripletti / 20 Gram classes and the T2u eigenspace remain distinct objects connected only by the displayed maps.
 
 ### 2.2. Explicit discrete construction of the shell fibre map
 
@@ -115,7 +113,8 @@ The affine \(W\) is the existing 64-point to 92-node direction-grouped transfer:
 
 Implementation:
 - build_rgs_shell_tangent_fibre_maps in models/tangent_triplet_anisotropy.py returns all 92 ambient maps \(L_i\), local \(2\times188\) matrices, frames, ranks and residual diagnostics.
-- push_triplett_to_shell_nodes requires the explicit orthonormal Q6 triplet \(V\in\\mathbb R^{188\\times3}\), forms \(U_i=L_iV\), and evaluates \(A_T(x_i)=U_i\\Gamma_TU_i^T\).
+- reconstruct_rgs_t2u_triplet reconstructs the first T2u eigenspace by the O_h character projector and the constrained Coulomb Hessian; scripts/reconstruct_rgs_t2u_triplet.py exports the 188×3 frame and projector diagnostics.
+- push_triplett_to_shell_nodes composes the reconstructed orthonormal Q6 triplet \(V\in\\mathbb R^{188\\times3}\), forms \(U_i=L_iV\), and evaluates \(A_T(x_i)=U_i\\Gamma_TU_i^T\).
 - tests/test_rgs_shell_tangent_fibre_transfer.py checks all-node rank two, tangency, source constraints, positive semidefiniteness and local gauge covariance.
 - scripts/audit_rgs_shell_tangent_fibre_transfer.py reproduces the nodal-map diagnostics and optionally accepts an audited 188x3 T2u basis plus a 2x3 triplett file to compute the pushed anisotropy.
 
