@@ -548,3 +548,8 @@ Il pallone fornisce così un ponte applicativo verificabile tra il problema astr
 ## 5-bis. Percorso matematico dei tangenti, quaternioni e triplette
 
 Il raccordo con Morandotti deve includere il percorso matematico completo, non soltanto il modello shell. Il [capitolo metodologico dedicato](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md) spiega perché i 64 siti producono un tangente 188D, come si riduce la forma energetica, come si definisce la tripletta delle rotazioni infinitesime, perché i frame locali si sollevano a quaternioni e come si confronta il tangente RGS con quello della shell 184D. La distinzione tra tripletta geometrica, cluster spettrale candidato e rappresentazione irriducibile certificata è vincolante per l'interpretazione dei risultati.
+
+
+## 5-ter. Operatore di incompatibilità: raccordo da dimostrare
+
+Il [capitolo sull'operatore discreto di incompatibilità](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md) formalizza il benchmark piano e spiega quali ingredienti aggiuntivi servono per trasferirlo alla shell curva: connessione indipendente, co-base, olonomia, torsione e operatore superficiale derivato dalla cinematica. Il modello calcistico attuale resta una shell linearizzata e non è ancora una realizzazione di questo operatore.
