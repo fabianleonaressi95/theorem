@@ -204,3 +204,18 @@ Il programma trigrammatico più dettagliato è mantenuto nel repository compleme
 - [Krist-All/supergolden crosswalk](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/TRIGRAM_KRISTALL_SUPERGOLDEN_CROSSWALK.md).
 
 Questi documenti forniscono il criterio di compressione e gli ostacoli di simmetria; non contengono ancora la lista geometrica orientata dei figli Kathara/Krist-All necessaria a chiudere la derivazione.
+
+
+## 13. Teorema astratto di crescita a tre canali
+
+È stato dimostrato separatamente il teorema [Oriented three-channel supergolden growth law](../theorems/ORIENTED_THREE_CHANNEL_SUPERGOLDEN_GROWTH_LAW.md). Esso prova che la sostituzione astratta
+\[
+A\mapsto A+B,\qquad B\mapsto C,\qquad C\mapsto A
+\]
+ha crescita Perron supergolden e che, per il conteggio totale \(N_n\),
+\[
+\lim_{n\to\infty}\bigl[\psi(N_{n+1})-\psi(N_n)\bigr]=\log s.
+\]
+Questo chiude il passaggio **sostituzione astratta → crescita supergolden → incremento digamma**.
+
+Non chiude il passaggio **Q6 geometrico → sostituzione**: la lista dei figli orientati deve ancora essere ricavata dalle celle e dalle incidenze, senza imporre la matrice. Il trasferimento midpoint T055 resta \(2I_3\) e non soddisfa il criterio.
