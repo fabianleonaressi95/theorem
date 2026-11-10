@@ -30,9 +30,9 @@ from ddr.test_forms import ScalarField, Form
 def boundary_compatible_form():
     # sin(y)cos(x) = 1/2[sin(x+y) + sin(y-x)].
     f = ScalarField(2, [
-        {"kind": "sin", "amp": 0.5, "freq": np.array([1.0, 1.0]),
+        {"kind": "sin", "amp": 0.5, "freq": np.array([np.pi, np.pi]),
          "phase": 0.0},
-        {"kind": "sin", "amp": 0.5, "freq": np.array([-1.0, 1.0]),
+        {"kind": "sin", "amp": 0.5, "freq": np.array([-np.pi, np.pi]),
          "phase": 0.0},
     ])
     return Form.single(2, 1, f, (0,))
