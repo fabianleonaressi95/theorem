@@ -310,6 +310,9 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 | \(\psi(7/8)-\psi(1/8)=\pi(1+\sqrt2)\) | **Identità esatta: sezione argentea** |
 | \(\psi(4/5)-\psi(1/5)=\pi\sqrt{1+2/\sqrt5}\) | **Identità esatta: angolo aureo** |
 | \(\delta_n\to\log s\) | **Conseguenza asintotica dimostrabile** |
+| Duplicazione \(C_2(\delta)=1\) dalla relazione \(\delta^2=2\delta+1\) | **Identità esatta** |
+| Trascendenza di \(\cot(\pi s)\) (Gelfond–Schneider) | **Conseguenza teorica esatta** |
+| Ricorrenza \(C_{n+1}=(tC_n-1)/(t+C_n)\) | **Identità trigonometrica esatta** |
 | Campionamento numerico riportato | **Verifica numerica** |
 | Ricorrenza di ordine tre per \(d_n\) | **Non dimostrata; non segue dall'algebra di \(s\)** |
 | Operatore digamma con polinomio \(x^3-x^2-1\) | **Candidato da costruire** |
