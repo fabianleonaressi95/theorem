@@ -116,7 +116,10 @@ def induce_local_channel_map(t2u_basis, q6_to_shell_tangent, normal, tol=1e-9):
     if not np.allclose(V.T @ V, np.eye(3), atol=tol):
         raise ValueError("T2u triplet basis must be orthonormal")
     U = L @ V
-    n = n / np.linalg.norm(n)
+    nn = np.linalg.norm(n)
+    if nn <= tol:
+        raise ValueError("normal must be nonzero")
+    n = n / nn
     Ptan = np.eye(3) - np.outer(n, n)
     if np.linalg.norm(Ptan @ U - U) > tol * max(1.0, np.linalg.norm(U)):
         raise ValueError("Q6-to-shell transfer does not land in the tangent fibre")
