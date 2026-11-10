@@ -1,0 +1,67 @@
+{
+  "study": "relative_codifferential_curved_square",
+  "date": "2026-11-10",
+  "source_workflow_run": 42790810928,
+  "source_commit": "97f8f62697c05111c81db27961dce1a5edef8e90",
+  "map": {
+    "type": "sinusoid",
+    "amplitude": 0.08,
+    "frequency": 1
+  },
+  "ambient_metric": "identity",
+  "test_form": "u = sin(pi*y) cos(pi*x) dx",
+  "continuous_codifferential": "delta u = pi sin(pi*x) sin(pi*y)",
+  "levels": [
+    {
+      "N": 4,
+      "h": 0.25,
+      "relative_dimensions": [9, 24, 16],
+      "relative_betti": [0, 0, 1],
+      "relative_adjoint_identity_residual": 0.0,
+      "codifferential_error_M0": 0.09323046932074519,
+      "relative_codifferential_error": 0.06600165650149732,
+      "rhs_norm_M0": 1.4125474156641835,
+      "max_boundary_tangential_dof": 2.5978948675984275e-17,
+      "max_boundary_delta_dof": 3.8473413874435795e-16,
+      "minimum_mass_eigenvalue": 0.011298926869542257
+    },
+    {
+      "N": 8,
+      "h": 0.125,
+      "relative_dimensions": [49, 112, 64],
+      "relative_betti": [0, 0, 1],
+      "relative_adjoint_identity_residual": 2.082425036477976e-16,
+      "codifferential_error_M0": 0.026559970213037604,
+      "relative_codifferential_error": 0.017365723782742634,
+      "rhs_norm_M0": 1.5294479254260538,
+      "max_boundary_tangential_dof": 1.4680465515823544e-17,
+      "max_boundary_delta_dof": 8.881784197001252e-16,
+      "minimum_mass_eigenvalue": 0.0018936625621783652,
+      "observed_rate": 1.8115480007881757
+    },
+    {
+      "N": 16,
+      "h": 0.0625,
+      "relative_dimensions": [225, 480, 256],
+      "relative_betti": [0, 0, 1],
+      "relative_adjoint_identity_residual": 0.0,
+      "codifferential_error_M0": 0.0068863397054846264,
+      "relative_codifferential_error": 0.004413348266169768,
+      "rhs_norm_M0": 1.5603435963283054,
+      "max_boundary_tangential_dof": 9.095251780682771e-18,
+      "max_boundary_delta_dof": 8.881784197001252e-16,
+      "minimum_mass_eigenvalue": 0.00039716376953023854,
+      "observed_rate": 1.9474442722916905
+    }
+  ],
+  "interpretation": {
+    "status": "finite-level convergence verified for this smooth boundary-compatible form and configured curved geometry",
+    "not_proven": [
+      "uniform operator convergence",
+      "discrete compactness",
+      "Mosco convergence",
+      "norm-resolvent convergence",
+      "spectral convergence for the full refinement family"
+    ]
+  }
+}
