@@ -1,9 +1,9 @@
-name: PRISM cellular automata
+name: PRISM cellular automata and FEEC boundary audit
 
 on:
   push:
     paths:
-       - "projects/de_rham_benchmark/**"\n      - "projects/de_rham_benchmark/**"\n     - "models/prism_cellular_automata.py"
+      - "models/prism_cellular_automata.py"
       - "models/prism_ca_evolution.py"
       - "tests/test_prism_cellular_automata.py"
       - "tests/test_prism_ca_evolution.py"
@@ -13,6 +13,7 @@ on:
       - "models/prism_billiard_coding.py"
       - "tests/test_prism_billiard_coding.py"
       - "scripts/run_prism_billiard_coding.py"
+      - "projects/de_rham_benchmark/**"
       - ".github/workflows/prism-ca.yml"
   pull_request:
     paths:
@@ -23,6 +24,10 @@ on:
       - "scripts/run_prism_ca_evolution.py"
       - "scripts/run_prism_ca_benchmark.py"
       - "scripts/run_prism_ca_coevolution.py"
+      - "models/prism_billiard_coding.py"
+      - "tests/test_prism_billiard_coding.py"
+      - "scripts/run_prism_billiard_coding.py"
+      - "projects/de_rham_benchmark/**"
       - ".github/workflows/prism-ca.yml"
   workflow_dispatch:
 
@@ -37,7 +42,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test runner
-        run: python -m pip install --upgrade pytest
+        run: python -m pip install --upgrade pytest numpy scipy
       - name: Run PRISM CA and evolutionary-search tests
         run: >-
           python -m pytest
@@ -47,7 +52,6 @@ jobs:
           -q
 
   feec-relative-boundary:
-    if: contains(github.event.pull_request.changed_files, 'projects/de_rham_benchmark')
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
