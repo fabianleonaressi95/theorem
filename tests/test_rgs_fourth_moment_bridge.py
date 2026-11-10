@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.rgs_ellis_refinement import load_rgs_seed_data
+from src.rgs_seed_64_reconstruction import load_rgs_seed_data
 from src.rgs_fourth_moment_bridge import (
     anisotropic_response_operator,
     audit_rgs_fourth_moment,
