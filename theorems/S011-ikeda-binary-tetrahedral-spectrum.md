@@ -1,6 +1,6 @@
 # S011 — Spectrum of the binary tetrahedral spherical space form
 
-**Classification:** VERIFIED THEOREM (source formula and independent Molien check)  
+**Classification:** SOURCE-VERIFIED FORMULA (Ikeda, Theorem 4.4(1)); independent Molien reconstruction and index/eigenvalue bookkeeping are recorded separately.  
 **Primary source:** Akira Ikeda, “On the Spectrum of Homogeneous Spherical Space Forms,” *Kodai Mathematical Journal* 18 (1995), 57–67, especially Proposition 3.1(2), the Poincaré-series calculation on p. 63, and Theorem 4.4(1)–(2).  
 **Repository PDF:** `18_57.pdf`  
 **Publisher copy:** https://www.jstage.jst.go.jp/article/kodaimath1978/18/1/18_1_57/_pdf/-char/en
@@ -28,7 +28,7 @@ If \(F_q\) denotes the normalized cyclic-subgroup contribution used by Ikeda, th
 \boxed{F_{T^*}=\frac{24F_6+12F_4-12F_2}{24}
 =F_6+\frac12F_4-\frac12F_2.}
 \]
-This is the coefficient combination printed in Ikeda's p. 63 Poincaré-series calculation. The earlier alternative coefficients are incorrect and are superseded by this inclusion–exclusion derivation.
+The printed p. 63 coefficient combination agrees with this reconstruction. The simplified expression is \\(F_6+\\frac12F_4-\\frac12F_2\\). The interpretation of the symbols as cyclic-subgroup series is stated as a reconstruction, not as a verbatim definition supplied by the quoted coefficient line.
 
 ## 3. Independent Molien check
 
@@ -87,6 +87,7 @@ In particular, \(m_6=1\), \(a_3=7\), and \(m_{12}=2\), \(a_6=26\).
 
 ## 5. Scope and exclusions
 
-- **Established:** Ikeda's binary-tetrahedral spherical spectrum and multiplicity formula; the subgroup-union count and Poincaré-series coefficients; the independent Molien coefficient check above.
+- **Directly reported by the source:** Proposition 3.1(2) subgroup decomposition; p. 63 Poincaré-series coefficient combination; Theorem 4.4(1) multiplicity formula and its excluded indices. The PDF is the repository file `18_57.pdf`.
+- **Independent reconstruction:** the order count from the subgroup decomposition; the simplified Poincaré average and cyclic-series interpretation; the eigenvalue \\(4k(k+1)\\) from \\(\\ell=2k\\) and the unit-sphere spectrum; the Molien series and its coefficient check.
 - **Not established by this paper:** any connection to Weber functions, Dedekind's modular eta, Dirichlet eta, \(\mathbb Q(\sqrt{-31})\), Gamma/Beta integrals, or barycentric covariance. Those are separate research strands and must not be attributed to Ikeda.
 - **No broader geometric or physical interpretation is inferred** from this spectral calculation alone.
