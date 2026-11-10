@@ -157,6 +157,77 @@ No arbitrary seam stiffness, damage threshold, fatigue exponent or hysteresis co
 | Seam-aware ellipsoid/ovaloid numerical calibration | Open |
 | Industrial durability or certification | Not established |
 
+
+## 12. Intrinsic fibré formulation — required geometric level
+
+The interface model is to be defined on bundles over the reference shell, not on a globally chosen list of Cartesian nodal components.
+
+Let \(S\) be the compact oriented reference shell and let
+\[
+\pi:E\longrightarrow S,\qquad E=TS\oplus NS
+\]
+be the displacement vector bundle, where \(NS\) is the normal line bundle. For an oriented embedded surface in \(\mathbb R^3\), \(NS\) is trivial once a global unit normal is chosen, but the tangent bundle \(TS\) is not globally trivial in general. The decomposition \(E\simeq S\times\mathbb R^3\) is available through the embedding, but must not be confused with a global tangent frame.
+
+The fibre of \(E_x\) is the admissible infinitesimal displacement at \(x\). A displacement is a section \(u\in\Gamma(E)\), or a panelwise section
+\[
+u=(u_p)_{p=1}^{32},\qquad
+u_p\in SBV(P_p;E|_{P_p}),
+\]
+when jumps are admitted at physical seams. The covariant derivative is a section
+\[
+\nabla^E u\in T^*S\otimes E,
+\]
+using the connection induced by the Levi-Civita connection on \(TS\) and the normal connection on \(NS\). For the Euclidean embedding, this is equivalently the induced ambient connection with its tangential/normal splitting; local components must transform under frame changes.
+
+For each panel \(P_p\), choose a local orthonormal frame \(\mathcal F_p\) only as a trivialization. On an overlap along a seam \(\Gamma_e\), the two frames are related by a transition map
+\[
+g_{+-}(x):E_x^-\longrightarrow E_x^+,
+\qquad x\in\Gamma_e,
+\]
+with the cocycle compatibility required wherever three or more panel charts meet. The intrinsic jump is therefore
+\[
+[u]_e(x)=u^+(x)-g_{+-}(x)u^-(x)\in E_x^+,
+\]
+not the raw subtraction of coordinate columns expressed in unrelated panel frames. If both traces are expressed in one common ambient trivialization, this formula reduces to the ordinary vector difference; that is a representation choice, not the definition.
+
+The seam carries its own interface bundle (the restriction of the displacement bundle, or equivalently the bundle of admissible jump vectors)
+\[
+E|_{\Gamma_e}\longrightarrow\Gamma_e.
+\]
+A quadratic elastic interface density is a fibrewise positive semidefinite form
+\[
+\psi_e(x,\xi)=\tfrac12\langle K_e(x)\xi,\xi\rangle_{E_x},
+\qquad \xi=[u]_e(x),
+\]
+where \(K_e\) is a section of the bundle of symmetric bilinear forms on \(E|_{\Gamma_e}\). The corresponding energy is
+\[
+\mathcal E_{\rm seam}(u)=
+\frac12\sum_{e=1}^{90}\int_{\Gamma_e}
+\langle K_e(x)[u]_e,[u]_e\rangle\,ds_g.
+\]
+The decomposition into tangential slip, in-surface opening/peel and shell-normal displacement is defined using the seam tangent, the panel conormals and the shell normal. It must be transported with the local frames; scalar coefficients \(k_s,k_m,k_o\) are meaningful only after these subbundles/projectors have been specified.
+
+The discrete panel-local copies introduced in Gate B2 are permissible coordinate representatives of the two restrictions \(E|_{P_p}\) and \(E|_{P_q}\). The coincidence of their reference coordinates identifies the base point \(x\); it does not identify their fibre coordinates unless the transition map \(g_{+-}\) is applied. The current implementation duplicates three ambient Cartesian components and uses the identity identification in that ambient trivialization. It is therefore a special trivialized representation of the bundle jump, not yet a frame-covariant implementation of general \(g_{+-}\), material director transport or a nontrivial connection.
+
+At a multi-panel junction \(v\), all incident panel fibres are compared by their transition maps. The product of transition maps around any closed chart cycle must satisfy the cocycle/holonomy compatibility. Junction equilibrium is a balance in the common fibre \(E_v\), after transport of every incident force covector/resultant to that fibre. It is not obtained merely by sharing or duplicating a Cartesian node.
+
+### Fibré status and obligations
+
+| Object | Status |
+|---|---|
+| Displacement bundle \(E=TS\oplus NS\) over an oriented embedded shell | Geometric definition |
+| Panelwise SBV sections and intrinsic covariant derivative | Formulated; functional-analytic hypotheses on the piecewise-smooth shell remain to be fixed |
+| Seam transition maps and cocycle compatibility | Required; actual panel-frame transition data not yet encoded |
+| Fibre-valued jump \([u]_e=u^+-g_{+-}u^-\) | Defined |
+| Fibrewise quadratic interface energy | Defined as a model class |
+| Gate B2 duplicated Cartesian traces | Implemented as a local trivialization with identity ambient transition |
+| Frame-covariant discrete transport and connection assembly | Open |
+| Junction holonomy/force balance in common fibres | Open |
+| Bundle-valued cohesive damage, contact and cyclic internal variables | Open; construction-specific calibration required |
+| Intrinsic \(\Gamma\)-/Mosco limit for the fibrated seam functional | Open; T073 L1–L6 remain proof obligations |
+
+No global trivialization of \(TS\), no automatic flatness of the induced connection, and no vanishing of seam holonomy is assumed. A numerical Cartesian representation may be used for assembly, but every local quantity and transition must be shown to transform covariantly so that the energy is independent of the chosen panel frames.
+
 ## References
 
 - Stranghöner et al. (2023), *Prospect for European Guidance for the Structural Design of Tensile Membrane Structures*, JRC 132615, DOI: 10.2760/24763.
