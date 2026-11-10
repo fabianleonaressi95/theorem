@@ -353,7 +353,7 @@ The rigorous target is a *conditional convergence theorem*, not the assertion th
 6. convergence of the relevant fourth-moment/stencil operators under separately stated moment assumptions;
 7. spectral convergence only after specifying the operator, measure, metric, quotient and transfer-map hypotheses.
 
-**Status: OPEN.** Shape regularity, the actual refinement family, the shell-to-Q6 transfer, surface structured-deformation compactness, seam/jump-set treatment, and Mosco/spectral convergence have not all been established. The theorem is the unifying research target; it is not a result claimed today.
+**Status: OPEN.** Shape regularity, the actual refinement family, the shell-to-Q6 transfer, surface structured-deformation compactness, seam/jump-set treatment, and Mosco/spectral convergence have not all been established. The theorem is the unifying research target; it is not a result claimed today. The formal hypothesis list and separate target conclusions (global quadrature, structured-deformation Gamma limit, Mosco limit and spectral convergence) are registered as [T073 — Unified football-shell / RGS–PRISM–Q6 limit programme](../theorems/T073-unified-football-shell-rgs-prism-limit-program.md).
 
 ## 13. Repository map: source records to preserve
 
