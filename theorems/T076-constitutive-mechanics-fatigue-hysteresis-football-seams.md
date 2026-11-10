@@ -235,3 +235,26 @@ No global trivialization of \(TS\), no automatic flatness of the induced connect
 - Yu et al. (2025), *Experimental study on mechanical properties and failure mechanisms of coated fabrics with different welding lengths*, DOI: 10.1177/15589250251342853.
 - Zhao et al., *Study on tensile performance of welded seams of PVC coated fabric membrane under uniaxial cyclic load*, DOI: 10.1177/15280837241300935.
 - See also `audits/2026-11-10_physical_seams_interfaces_literature_audit.md` for the broader interface/defect literature audit.
+
+
+## 13. Triplett-induced anisotropy in the seam tangent bundle
+
+The tangential part of the interface stiffness must be a symmetric bundle endomorphism of \(TS|_{\Gamma_e}\), not a fixed \(2\times2\) matrix copied from one panel chart. T073 §2.1 specifies the candidate construction:
+\[
+\Gamma_T=R_T^TQ_{G_2}R_T,\qquad
+U_x=L_xV,\qquad
+A_T(x)=U_x\Gamma_TU_x^*.
+\]
+Here \(V\) is the recorded orthonormal Q6 \(T_{2u}\) triplet in the 188-dimensional tangent space; \(R_T\) is one of the 216 PRISM/G2 tripletti; and \(L_x:\mathbb R^{188}\to T_xS\) is an explicit pointwise transfer. The local rank-two property of the Q6 triplet data motivates, but does not prove, \(\operatorname{rank}U_x=2\) on the shell. The map \(L_x\) is still unconstructed and must not be replaced by an arbitrary fit.
+
+A candidate seam operator is
+\[
+K_e(x)=
+\left(k_{0,e}I_{T_xS}+\alpha_e A_T(x)\right)
+\oplus k_{o,e}I_{N_xS}.
+\]
+It separates tangent-plane anisotropy from normal peel/opening. In a local tangent frame its matrix changes by orthogonal conjugation under frame rotation; the fibre operator and its eigenvalues do not change. Thus the constitutive law is frame-covariant, provided the transfer \(L_x\), the triplett channel identification and the seam transition maps are themselves compatible.
+
+The new module models/tangent_triplet_anisotropy.py implements the finite-dimensional Gram push-forward and the block fibre stiffness. Its tests check positive semidefiniteness/rank of the G2 Gram form, tangency, rank two, frame covariance and separation of the normal channel. This is an algebraic unit-test target; no shell material calibration or physical anisotropy claim follows from it.
+
+**Status:** G2 triplett Gram structure and Q6 T2u triplet are existing programme data; their tangent-fibre composition is a formulated candidate; the shell transfer \(L_x\), covariant transport across all 90 seams, and physical calibration remain OPEN. Do not identify the 216 tripletti with the Q6 T2u triplet, and do not identify either with an invertible tetrad.
