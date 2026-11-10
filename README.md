@@ -66,6 +66,7 @@ theorem/
 - [Project map](projects/README.md)
 - [Theorem records](theorems/)
 - [S011 — Binary tetrahedral spherical spectrum (Ikeda 1995)](theorems/S011-ikeda-binary-tetrahedral-spectrum.md) — source-verified eigenvalue indexing, subgroup inclusion–exclusion and independent Molien multiplicity check.
+- [T073 — Unified football-shell / RGS–PRISM–Q6 limit programme](theorems/T073-unified-football-shell-rgs-prism-limit-program.md) — formal open target theorem separating the local results already proved from the global homogenisation and spectral limits still to prove.
 - [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
 - [Q6 T012–T017 compatibility matrix](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md)
 
@@ -144,6 +145,7 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [S011](theorems/S011-ikeda-binary-tetrahedral-spectrum.md) | Binary tetrahedral spherical spectrum | Ikeda's (S^3/T^*) eigenvalue and multiplicity formula, subgroup inclusion–exclusion and independent Molien check; separate from (S^3/2I). |
 | [T071](theorems/T071-q6-cubical-topological-synchronization-audit.md) | Q6 cubical chain complex, Anti-Twin lift and synchronization benchmark | Exact finite chain identities; exploratory synchronization/hysteresis model, with physical and continuum claims open. |
 | [T072](theorems/T072-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport remains open. |
+| [T073](theorems/T073-unified-football-shell-rgs-prism-limit-program.md) | Unified football-shell / RGS–PRISM–Q6 limit programme | Open conditional target: global barycentric quadrature, curved-shell structured-deformation Gamma limit, changing-space Mosco convergence and spectral convergence; no global theorem is claimed. |
 
 **Numbering note.** The T068 collision between the barycentric theorem and two Q6 records has been resolved: T068 is the barycentric theorem, T071 is the cubical synchronization audit, and T072 is the Möbius/flat-connection theorem. Historical overlapping T034 labels are a separate legacy issue.
 
