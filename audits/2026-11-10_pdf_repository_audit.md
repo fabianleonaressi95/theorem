@@ -19,7 +19,7 @@ The following 13 PDF blobs were present in the recursive Git tree at the time of
 | `mit18_785f21_lec19.pdf` | `0bc82cf66b37` | A. V. Sutherland, MIT 18.785 Lecture 19, *The Analytic Class Number Formula* (15 Nov 2021). Supports the Dedekind-zeta residue/class-number step. |
 | `2203.12769v1.pdf` | `817657f30970` | Amar–Matias–Morandotti–Zappale, *Periodic Homogenization in the Context of Structured Deformations*. Published in ZAMP 73 (2022), article 173, DOI 10.1007/s00033-022-01817-6. Applies under its stated Euclidean periodic hypotheses; it does not prove curved-shell homogenization. |
 | `0205083v1.pdf` | `58bda11d547f` | Sameen Ahmed Khan, *Maxwell Optics: I. An Exact Matrix Representation of the Maxwell Equations in a Medium*, Physica Scripta 71 (2005), 440–442; arXiv:physics/0205083. Background on 8×8 Maxwell matrix representations, not a derivation of the RGS fourth-moment constitutive ansatz. |
-| `18_57.pdf` | `4f5e841771c2` | Per repository-owner identification: Ikeda (1995), spectra of homogeneous spherical spaces. It is not evidence for Weber functions, either eta function, or the (D=-31) class equation. |
+| `18_57.pdf` | `4f5e841771c2` | **IDENTIFIED / SCOPE-VERIFIED:** Akira Ikeda, “On the Spectrum of Homogeneous Spherical Space Forms,” *Kodai Mathematical Journal* 18 (1995), 57–67. Source: J-STAGE full paper. It derives Poincaré series and Laplace spectra/multiplicities for homogeneous spherical space forms associated with cyclic, binary dihedral, binary tetrahedral, binary octahedral and binary icosahedral groups. Relevant to the spherical-spectrum/finite-group strand; irrelevant as evidence for Dedekind/Dirichlet eta, Weber invariants, \(\mathbb Q(\sqrt{-31})\), or barycentric Dirichlet covariance. |
 | `Mukai.pdf` | `8da87273582b` | Filename alone is insufficient to identify edition/title/content reliably. Pending document-level classification; do not cite from filename. |
 | `master05-26-2025.pdf` | `f6a69be2d53e` | Filename alone is insufficient to identify author/title/version. Pending document-level classification; do not cite from filename. |
 | `archive/unclassified/zps (1).pdf` | `8bd25231d00c` | Already located under `archive/unclassified/`; retain quarantined until its title, provenance and relevance are established. |
@@ -105,3 +105,46 @@ is derived directly in S.10 by expanding the Fermi kernel and integrating termwi
 The three files `Mukai.pdf`, `master05-26-2025.pdf`, and `archive/unclassified/zps (1).pdf` remain unclassified in this audit. No bibliographic details or mathematical relevance have been inferred from their filenames. They need document-level title/author/page inspection before inclusion in a theorem or bibliography.
 
 This is a source and mathematical-claim audit, not a pytest/CI report. No test-suite pass is claimed here.
+
+
+## M. Explicit correction and classification — quadratic character sum and Ikeda (1995)
+
+### M.1 The finite character sum is \(-93\)
+
+For \(D=-31\), the primitive quadratic character is \(\chi_{-31}(a)=(a/31)\). Its quadratic residues in \(1,\ldots,30\) are
+\[
+\{1,2,4,5,7,8,9,10,14,16,18,19,20,25,28\},
+\]
+whose sum is \(186\). The complementary nonresidues are
+\[
+\{3,6,11,12,13,15,17,21,22,23,24,26,27,29,30\},
+\]
+whose sum is \(279\). Since \(1+\cdots+30=465\), the signed sum is
+\[
+\sum_{a=1}^{30}a\chi_{-31}(a)=186-279=-93.
+\]
+The previous conversational values \(-63\) and \(-33\) were both arithmetic errors. In particular, the earlier claimed total \(30\cdot31/2=495\) was wrong; it is \(465\). The repository's original value \(-93\) and the resulting formula
+\[
+L(1,\chi_{-31})=-\frac{\pi}{31^{3/2}}(-93)
+=\frac{3\pi}{\sqrt{31}}
+\]
+are correct. The odd-character finite formula follows from the standard Gauss-sum expression for \(L(1,\chi)\); for this quadratic character, \(\tau(\chi_{-31})=i\sqrt{31}\).
+
+### M.2 What Ikeda (1995) does and does not establish
+
+The PDF 18_57.pdf is positively identified as Akira Ikeda, “On the Spectrum of Homogeneous Spherical Space Forms,” *Kodai Mathematical Journal* 18 (1995), 57–67. The publisher-hosted J-STAGE PDF is:
+https://www.jstage.jst.go.jp/article/kodaimath1978/18/1/18_1_57/_pdf/-char/en
+
+The paper's introduction (p. 57) defines the spherical quotient \(S^{2n-1}/G\), the Laplacian eigenvalues and multiplicities, and the associated Poincaré series. Section 3 (pp. 59–60) discusses Wolf's classification and the cyclic, binary dihedral, binary tetrahedral, binary octahedral and binary icosahedral groups. Section 4 (pp. 60–66) computes the spectra and multiplicities. Therefore classify this PDF as **VERIFIED — relevant to homogeneous spherical spectra and finite-group quotient geometry**. It is **NOT RELEVANT** as a source for Dedekind eta, Dirichlet eta, Weber functions, the field \(\mathbb Q(\sqrt{-31})\), the character \(\chi_{-31}\), Euler Beta/Gamma simplex integrals, or barycentric covariance. No such connection is claimed in S.9/S.10.
+
+### M.3 Status register for the 13 repository PDFs
+
+- **Verified and directly relevant to Weber/eta/CM:** Yui–Zagier (1997), Schertz (2002), DLMF §§23.15/23.18.
+- **Verified and directly relevant to Dirichlet eta, zeta, Bernoulli, Gamma/Beta/polygamma:** DLMF §25.2, DLMF §25.15, general DLMF with exact sections, Minka, and MIT 18.785 Lecture 19 for the class-number formula.
+- **Verified, relevant to the Morandotti/structured-deformation strand under the paper's own assumptions:** Amar–Matias–Morandotti–Zappale (2022).
+- **Verified, relevant only as background for matrix Maxwell formulations:** Khan (2005).
+- **Verified, relevant to spherical spectra / finite groups but not the eta/CM calculation:** Ikeda (1995), 18_57.pdf.
+- **Pending identification / content audit:** Mukai.pdf and master05-26-2025.pdf; do not cite or use until their title pages, authorship, version and mathematical contents are inspected.
+- **Quarantined:** archive/unclassified/zps (1).pdf; retain outside the evidentiary chain until provenance and relevance are established.
+
+This status register distinguishes inventory completeness from semantic review completeness: all 13 PDFs are inventoried, but the three files named above remain unclassified (two pending and one quarantined). It does not claim a complete page-by-page audit of every PDF.
