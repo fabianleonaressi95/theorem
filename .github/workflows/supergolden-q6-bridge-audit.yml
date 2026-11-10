@@ -1,0 +1,19 @@
+name: Supergolden Q6 bridge audit
+
+on:
+  push:
+    branches:
+      - "morandotti/ball-shell-quaternion-dossier-2026-11-10"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy
+      - run: python scripts/audit_supergolden_q6_bridge.py --output reports/q6_supergolden_bridge_audit_2026-11-10.json
+      - run: python -m unittest tests/test_supergolden_q6_bridge.py
