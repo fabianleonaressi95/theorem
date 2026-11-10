@@ -14,7 +14,7 @@ a_{\rm RGS}(v)=v\mathbin{\mathrm{XOR}}7.
 \]
 These are different involutions. This distinction is decisive: the central inversion of the RGS point cloud must not be identified with the canonical antipode of the six-cube graph.
 
-The seed convention is implemented in `rgs-qlg-quaternion-bridge/src/rgs_psu_fibred_intertwiner.py` and reconstructed/hash-checked by `src/rgs_ellis_refinement.py`. The audit in this repository independently reproduces the documented orbit representatives and sign ordering.
+The seed convention is implemented in `rgs-qlg-quaternion-bridge/src/rgs_psu_fibred_intertwiner.py`. In this repository it is reconstructed and hash-checked by `src/rgs_seed_64_reconstruction.py`; the independent audit reproduces the documented orbit representatives and sign ordering.
 
 ## 2. Pair decomposition and total covariance
 
