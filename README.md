@@ -126,6 +126,7 @@ The file `001-fixed-lattice-temporal-wilson-limit.md` is a pre-existing result a
 ## Exact geometric lemmas
 
 - [Lemma S.1 — Silver-ratio scaling in a square-corner tangency configuration](theorems/S001-silver-ratio-square-corner-tangency.md) — proves the exact relations `d/R = 1/(1+sqrt(2))` and `r/R = 1/(1+sqrt(2))^2` for the incircle/corner-circle tangency geometry. This is a local Euclidean lemma; no Q6 refinement or infinite self-similarity is claimed.
+- [S.2 — Unified square–triangle–pentagon and supergolden-ratio geometry](theorems/S002-square-pentagon-supergolden-synthesis.md) — places the square's silver-ratio diagonal/tangency geometry and an inscribed regular pentagon's golden-ratio chords on the same incircle; defines the supergolden rectangle by `Psi^3 = Psi^2 + 1` and records the still-open construction bridge.
 
 ## Selected research records
 
