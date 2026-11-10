@@ -112,6 +112,29 @@ Differentiating (log Z_F(a)) with respect to (a_i) generates logarithmic barycen
 ]
 Higher derivatives give covariances of (log\lambda_i) and involve polygamma functions. Zeta values and Bernoulli numbers enter through established special-function expansions of polygamma functions (and, in a separate discrete-summation setting, Euler–Maclaurin). They do **not** automatically appear as coefficients of a football-mesh refinement expansion. Such coefficients require a specified refinement family and a proved summation/asymptotic formula.
 
+### Numerical Duffy–Gauss–Jacobi implementation
+
+The central repository also contains a Duffy–Gauss–Jacobi quadrature implementation for the weighted integral. It uses
+\[
+\lambda_0=(1-s)(1-t),\quad \lambda_1=s,\quad \lambda_2=(1-s)t,
+\]
+with Jacobi parameters
+\[
+(\alpha_s,\beta_s)=(a_0+a_2-1,a_1-1),\qquad
+(\alpha_t,\beta_t)=(a_0-1,a_2-1),
+\]
+and the two independent map factors \(2^{-(\alpha+\beta+1)}\). The physical integral includes the factor \(2A_F\).
+
+The routine explicitly returns both the raw second moment
+\[
+M_{ij}=\mathbb E[\lambda_i\lambda_j]
+\]
+and the covariance
+\[
+C=M-\mathbb E[\lambda]\mathbb E[\lambda]^T.
+\]
+This distinction prevents the raw-moment/covariance error in numerical implementations. Source: src/dirichlet_triangle_quadrature.py; A1–A3 tests: tests/test_dirichlet_triangle_quadrature.py; derivation: docs/DIRICHLET_DUFFY_JACOBI_QUADRATURE.md. The tests are present but are not declared passed until executed.
+
 ## 7. Evidence classification and exclusions
 
 - **PROVED:** Dirichlet normalization; weighted barycentre and covariance; cell Taylor identity and cubic remainder; affine-phase expansion and its stated bound.
