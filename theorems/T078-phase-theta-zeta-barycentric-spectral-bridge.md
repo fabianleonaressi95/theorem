@@ -170,7 +170,7 @@ For each face \(f\), let \(\mathcal A_f>0\) be its physical area. The isotropic 
 S_g[x]=\frac{1}{2g^2}\sum_f\frac{x_f^2}{\mathcal A_f},
 \qquad g^2>0.
 \]
-This is the piecewise-constant discretization of \((2g^2)^{-1}\int_S F\wedge *_gF\), since \(x_f=\int_fF\). It is dimensionless when \(g^2\) has the units of area in this two-dimensional normalization (or after choosing a reference area).
+This is the piecewise-constant discretization of \((2g^2)^{-1}\int_S F\wedge *_gF\), since \(x_f=\int_fF\). It is dimensionless when \(g^2\) has units of inverse area in this two-dimensional normalization (or after choosing a reference area).
 
 To include a positive tangent constitutive anisotropy without inventing the missing 216 PRISM matrices, let \(A_T(x)\) be a symmetric positive-semidefinite tangent endomorphism supplied by the finite-mesh transfer in T073, and define
 \[
