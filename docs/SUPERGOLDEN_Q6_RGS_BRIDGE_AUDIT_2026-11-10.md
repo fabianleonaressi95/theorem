@@ -22,7 +22,7 @@ La derivazione richiede una mappa geometrica/intertwiner. La sola presenza di tr
 
 La matrice
 \[
-A_\psi=\begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix}
+A_\psi=\begin{pmatrix}1&0&1\1&0&0\0&1&0\end{pmatrix}
 \]
 ha polinomio caratteristico \(\lambda^3-\lambda^2-1\). La ricorrenza associata è
 \[
@@ -33,7 +33,7 @@ Quindi \(S_{n+1}/S_n\to\psi\), per la dominanza della radice reale positiva.
 
 La matrice trigrammatica già registrata,
 \[
-M_T=\begin{pmatrix}0&0&1\\1&0&0\\0&1&1\end{pmatrix},
+M_T=\begin{pmatrix}0&0&1\1&0&0\0&1&1\end{pmatrix},
 \]
 è esattamente coniugata ad \(A_\psi\) tramite la permutazione ciclica \(P\):
 \[
@@ -172,3 +172,35 @@ La prossima costruzione non deve partire dal polinomio. Deve partire da un ogget
 5. comprimere sui tre canali di Walsh e misurare chiusura e residuo rispetto a \(M_T\).
 
 Se il trasferimento risultasse diagonalizzabile o simmetrico per effetto delle simmetrie residue, la proposta supergolden andrebbe modificata o respinta per quella geometria. Se invece il dato orientato producesse esattamente \(M_T\), allora \(\psi\) emergerebbe come raggio spettrale del raffinamento, senza essere stata inserita a priori.
+
+
+## 11. Regola locale che la geometria dovrebbe riprodurre
+
+Con la convenzione \(n_{k+1}=A_\psi n_k\), le colonne di \(A_\psi\) specificano i figli di ciascun tipo genitore:
+\[
+\begin{aligned}
+1&\longrightarrow 1+2,\\
+2&\longrightarrow 3,\\
+3&\longrightarrow 1.
+\end{aligned}
+\]
+Questa è la regola di sostituzione orientata che il modello geometrico dovrebbe produrre, eventualmente dopo il riordinamento ciclico \(M_T=P A_\psi P^{-1}\). Non sono i gradi cellulari 0, 1 e 2: sono tre tipi/canali di Walsh. La distinzione è essenziale.
+
+I vettori di Perron destro e sinistro possono essere scelti come
+\[
+r=(1,\psi^{-1},\psi^{-2})^T,\qquad
+\ell=(1,\psi^{-2},\psi^{-1})^T.
+\]
+Il destro descrive la direzione asintotica delle frequenze nel sistema \(n_{k+1}=A_\psi n_k\); il sinistro fornisce i pesi positivi compatibili con il conteggio dei figli. Un'interpretazione di questi pesi come lunghezze, aree o volumi richiede una misura geometrica definita e una verifica di additività sulle celle.
+
+Quindi il test di Morandotti/PSU è concreto: classificare le celle orientate in tre famiglie tangenziali, enumerare i figli di ogni famiglia e verificare se la tabella dei conteggi è, senza adattamenti a posteriori, la matrice \(A_\psi\) o la sua coniugata \(M_T\).
+
+## 12. Documenti sorgente collegati
+
+Il programma trigrammatico più dettagliato è mantenuto nel repository complementare:
+- [Phase 21: Cantor–Q6–supergolden transfer](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/PHASE21_CANTOR_Q6_SUPERGOLDEN_TRANSFER.md);
+- [Walsh decomposition and trigram refinement gates](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/TRIGRAM_Q3_WALSH_REFINEMENT_THEOREMS.md);
+- [symmetry obstruction audit](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/TRIGRAM_REFINEMENT_SYMMETRY_OBSTRUCTIONS.md);
+- [Krist-All/supergolden crosswalk](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/TRIGRAM_KRISTALL_SUPERGOLDEN_CROSSWALK.md).
+
+Questi documenti forniscono il criterio di compressione e gli ostacoli di simmetria; non contengono ancora la lista geometrica orientata dei figli Kathara/Krist-All necessaria a chiudere la derivazione.
