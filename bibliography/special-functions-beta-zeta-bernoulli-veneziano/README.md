@@ -154,3 +154,8 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 33. **Central fourth-moment implementation and tests.**  
     Paths: src/rgs_seed_64_reconstruction.py, src/rgs_q6_oh_action.py, src/rgs_fourth_moment_bridge.py, src/rgs_fourth_moment_connection.py, src/rgs_fourth_moment_maxwell_bridge.py, src/rgs_fourth_moment_variation.py and corresponding tests under tests/.  
     **Status:** source and regression tests are present in THEOREM. Presence is not equivalent to a recorded test-suite pass; execution evidence must be attached separately.
+
+
+34. **Duffy–Gauss–Jacobi triangle quadrature implementation.**  
+    Paths: docs/DIRICHLET_DUFFY_JACOBI_QUADRATURE.md, src/dirichlet_triangle_quadrature.py, tests/test_dirichlet_triangle_quadrature.py.  
+    **Status:** implementation and A1–A3 regression tests deposited; the change-of-variables/Jacobi-parameter derivation is exact; test execution is not yet recorded.
