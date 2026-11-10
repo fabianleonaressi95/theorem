@@ -81,9 +81,25 @@ distinct source directions. For every (k\), it records:
 - three principal angles against the three lowest shell tangent eigenmodes.
 
 The spread of each principal angle across the grid is a sensitivity diagnostic.
-It is **not** a convergence theorem. A stable result across this finite grid
-would strengthen numerical robustness, but further tests under mesh refinement,
-alternative transfer families, and material calibration remain necessary.
+It is **not** a convergence theorem. The CI execution produced the following
+values (angles in degrees):
+
+| Distinct directions (k) | Principal angle 1 | Principal angle 2 | Principal angle 3 |
+|---:|---:|---:|---:|
+| 8  | 5.6259 | 5.6337 | 5.6431 |
+| 12 | 3.2543 | 3.2642 | 3.2656 |
+| 16 | 2.4055 | 2.4070 | 2.4089 |
+| 24 | 2.5595 | 2.5945 | 2.6220 |
+| 32 | 2.2535 | 2.2620 | 2.2848 |
+
+Across the five-point grid, the per-mode peak-to-peak spreads are
+3.3723°, 3.3717°, and 3.3583° (maximum 3.3723°). The dependence is not
+monotone: the angles decrease strongly from k=8 to k=16, rise slightly at
+k=24, and decrease again at k=32. Therefore the data support a good geometric
+alignment throughout the tested grid (maximum angle 5.6431°), but do **not**
+support describing the result as grid-independent or converged. Mesh
+refinement, alternative transfer families, and material calibration remain
+necessary.
 
 ## Quaternionic formulation and what the audit proves
 
@@ -135,7 +151,7 @@ only checking that the modules import.
 | (\dim\ker C=188) and the source rotational generators have rank 3 | Numerically verified by the audit |
 | 64 source points reduce to 56 distinct directions, with eight duplicated direction pairs | Explicitly verified from the source coordinates |
 | Direction-grouped affine transfer reproduces constants and directions to numerical tolerance | Numerically verified per neighbor count |
-| Principal-angle alignment is stable across (k=8,12,16,24,32) | To be filled from the executed CI report; not assumed here |
+| Principal-angle alignment across (k=8,12,16,24,32) | Numerically evaluated; maximum angle 5.6431° and maximum per-mode grid spread 3.3723°. Non-monotone sensitivity; convergence not established |
 | Quaternion double-cover and composition identities | Algebraic numerical checks |
 | A physical symmetry-protected common eigenspace or shared microscopic dynamics | Open; not established |
 | Experimental validation of shell material parameters | Open; requires scans and coupon/constitutive data |
