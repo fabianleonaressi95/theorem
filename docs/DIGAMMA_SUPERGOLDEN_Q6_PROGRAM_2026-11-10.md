@@ -31,11 +31,7 @@ Poiché \(s^3=s^2+1\), segue l'identità esatta:
 \[
 \boxed{\psi(s^3)-\psi(s^2)=s^{-2}.}
 \]
-Più in generale, per ogni intero \(n\geq0\):
-\[
-\psi(s^{n+3})-\psi(s^{n+2}+0)
-\]
-non si riduce alla ricorrenza precedente: infatti \(s^{n+3}-s^{n+2}=s^n\), che non è in generale un intero. La sola identità di shift immediata è quella per \(n=0\). Non si deve estendere abusivamente la ricorrenza a traslazioni non intere.
+Per gli esponenti successivi vale \\(s^{n+3}-s^{n+2}=s^n\\), ma la ricorrenza del digamma riguarda uno shift di un intero, non uno shift arbitrario. Quindi per \\(n>0\\) non si può dedurre \\(\\psi(s^{n+3})-\\psi(s^{n+2})=s^{-n}\\). La relazione algebrica tra le potenze non è una proprietà additiva del digamma.
 
 ### 2.2 Formula di moltiplicazione di Gauss
 
