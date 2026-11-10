@@ -96,6 +96,30 @@ The code primitive models/tangent_triplet_anisotropy.py implements the Gram cons
 
 **Critical open item:** no validated transfer \(L_x\) from the 188-dimensional Q6 tangent space to the football shell tangent fibres has yet been constructed. Until that map is derived from the programme's discrete transfer/geometry data and its stability/covariance is proved, this is a mathematically specified bridge and tested algebraic primitive, not a demonstrated physical coupling. The 216 tripletti / 20 Gram classes and the T2u triplet are not to be collapsed into one object.
 
+
+
+### 2.2. Explicit discrete construction of the shell fibre map
+
+The geometry transfer is assembled from the existing direction-grouped affine map \(W\in\mathbb R^{276\times192}\), the exact source constraint tangent basis \(Q\in\mathbb R^{192\times188}\), and the node-wise tangent projector \(P_i=F_iF_i^T\):
+\[
+CQ=0,\quad Q^TQ=I_{188},\qquad
+L_i=P_iW_iQ:\mathbb R^{188}\to T_{x_i}S.
+\]
+Here \(W_i\in\mathbb R^{3\times192}\) is the three-row block of \(W\) associated with shell node \(x_i\), and \(F_i\in\mathbb R^{3\times2}\) is an orthonormal tangent frame. In local coordinates,
+\[
+[L_i]_{F_i}=F_i^TW_iQ\in\mathbb R^{2\times188}.
+\]
+Under \(F_i\mapsto F_iO_i\), the local matrix transforms to \(O_i^T[L_i]_{F_i}\), while the ambient map is unchanged.
+
+The affine \(W\) is the existing 64-point to 92-node direction-grouped transfer: 56 distinct source directions, eight duplicated direction pairs at different radii, with each directional weight split equally among its radial representatives. The source \(Q\) is the null-space basis of the four stated constraints (three translations and the radial/scale constraint). The \(P_i\) are formed from oriented area-weighted node normals of the 180-triangle football shell.
+
+Implementation:
+- build_rgs_shell_tangent_fibre_maps in models/tangent_triplet_anisotropy.py returns all 92 ambient maps \(L_i\), local \(2\times188\) matrices, frames, ranks and residual diagnostics.
+- push_triplett_to_shell_nodes evaluates \(A_T(x_i)=L_i\Gamma_TL_i^T\).
+- tests/test_rgs_shell_tangent_fibre_transfer.py checks all-node rank two, tangency, source constraints, positive semidefiniteness and local gauge covariance.
+
+This upgrades the previous unspecified \(L_x\) to an explicit finite-mesh nodal transfer. It does not yet prove a smooth bundle morphism over every point of \(S\), connection preservation along panels/seams, or convergence under shell refinement. The previously reported principal-angle comparison (three angles near \(2.4^\circ\) at 16 neighbours) concerns the transferred rotational triplet against the three lowest shell tangent modes; it is not a proof about the separate Q6 \(T_{2u}\) eigenspace or the 216 PRISM tripletti.
+
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
 For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
