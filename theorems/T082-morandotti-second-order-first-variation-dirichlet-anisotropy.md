@@ -97,10 +97,10 @@ This is the sought field-side variational response averaged with the barycentric
 For a parameter direction \(h=(h_1,h_2,h_3)\), differentiating the normalized Dirichlet density gives its score
 \[
 s_h(\lambda)
-=\Big(\sum_i h_i\Big)\psi(S)
--\sum_i h_i\psi(a_i)
+=\Big(\sum_i h_i\Big)\psi_{\mathrm{dig}}(S)
+-\sum_i h_i\psi_{\mathrm{dig}}(a_i)
 +\sum_i h_i\log\lambda_i,
-\qquad \psi=\Gamma_E'/\Gamma_E.
+\qquad \psi_{\mathrm{dig}}=\Gamma_E'/\Gamma_E.
 \]
 For any integrable \(f\) with the required domination,
 \[
@@ -135,7 +135,7 @@ provided the spatial/field arguments are held fixed as functions of \(\lambda\).
 This mixed response is the precise mathematical object linking:
 - the Morandotti second-order field response \(\partial_DW_2\);
 - the barycentric anisotropy encoded by \(a\) and \(\operatorname{Cov}_a(\lambda)\);
-- the special-function score involving the digamma function.
+- the special-function score involving the digamma function \(\psi_{\mathrm{dig}}\).
 
 The anisotropy is not simply the Dirichlet score: its geometric directional effect is carried by the map \(X(\lambda)\), the tangent metric/covariance, and the dependence of \(A,B,D\) on position.
 
@@ -167,9 +167,9 @@ p_a(\lambda)=
 \frac{\Gamma_E(S)}{\prod_i\Gamma_E(a_i)}
 \prod_i\lambda_i^{a_i-1}.
 \]
-Its logarithmic derivative creates the digamma score \(\psi\); higher parameter derivatives produce polygamma functions. For \(m\geq1\),
+Its logarithmic derivative creates the digamma score \(\psi_{\mathrm{dig}}\) \(\psi_{\mathrm{dig}}\); higher parameter derivatives produce polygamma functions. For \(m\geq1\),
 \[
-\psi^{(m)}(z)=(-1)^{m+1}m!\,\zeta(m+1,z),
+\psi_{\mathrm{dig}}^{(m)}(z)=(-1)^{m+1}m!\,\zeta(m+1,z),
 \]
 where the zeta function is the Hurwitz zeta. Beta functions appear in lower-dimensional edge/simplex integrations and through Gamma ratios.
 
