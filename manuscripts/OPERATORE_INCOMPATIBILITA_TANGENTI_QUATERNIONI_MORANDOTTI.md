@@ -431,7 +431,15 @@ La connessione quaternionica può rappresentare il trasporto dei frame tra patch
 
 ---
 
-## 11. Prototipo software effettivamente aggiunto\n\nÈ stato aggiunto il modulo \`models/discrete_incompatibility_weak.py\` con tre funzioni: (i) assemblaggio della forma duale \\(A_h\\) da basi di deformazione e Hessiane delle funzioni test; (ii) ricostruzione della deformazione simmetrica P1 su triangoli; (iii) assemblaggio del carico debole puntuale Burgers/Frank con la convenzione distribuzionale dichiarata.\n\nIl test \`tests/test_discrete_incompatibility_weak.py\` verifica l'annullamento della forma debole per una deformazione compatibile P1 contro una funzione test globale in \\(H^2_0\\), la ricostruzione di un gradiente affine, la convenzione di segno delle sorgenti e il rifiuto di triangoli degeneri. Il pairing di compatibilità è stato anche controllato numericamente durante la preparazione (residuo dell'ordine di \\(10^{-17}\\) nel caso sintetico). La nuova suite è stata aggiunta al workflow GitHub; il relativo esito non è ancora disponibile. Il test non va dichiarato superato in CI finché non si osserva il risultato del job.\n\nQuesto è un **kernel di assemblaggio debole**, non ancora un elemento finito completo: non genera uno spazio Argyris/HCT, non implementa CIP-DG, non introduce i link quaternionici indipendenti e non calibra la mappa Cartan–Airy.\n\n## 12. Stato epistemico e conclusione per Morandotti
+## 11. Prototipo software effettivamente aggiunto
+
+È stato aggiunto il modulo `models/discrete_incompatibility_weak.py` con tre funzioni: (i) assemblaggio della forma duale \(A_h\) da basi di deformazione e Hessiane delle funzioni test; (ii) ricostruzione della deformazione simmetrica P1 su triangoli; (iii) assemblaggio del carico debole puntuale Burgers/Frank con la convenzione distribuzionale dichiarata.
+
+Il test `tests/test_discrete_incompatibility_weak.py` verifica l'annullamento della forma debole per una deformazione compatibile P1 contro una funzione test globale in \(H^2_0\), la ricostruzione di un gradiente affine, la convenzione di segno delle sorgenti e il rifiuto di triangoli degeneri. Il pairing di compatibilità è stato anche controllato numericamente durante la preparazione (residuo dell'ordine di \(10^{-17}\) nel caso sintetico). La nuova suite è stata aggiunta al workflow GitHub; il relativo esito non è ancora disponibile. Il test non va dichiarato superato in CI finché non si osserva il risultato del job.
+
+Questo è un **kernel di assemblaggio debole**, non ancora un elemento finito completo: non genera uno spazio Argyris/HCT, non implementa CIP-DG, non introduce i link quaternionici indipendenti e non calibra la mappa Cartan–Airy.
+
+## 12. Stato epistemico e conclusione per Morandotti
 
 | Passaggio | Stato |
 |---|---|
@@ -439,7 +447,7 @@ La connessione quaternionica può rappresentare il trasporto dei frame tra patch
 | Tangente RGS 192×188 e proiettore | Ricostruiti e validati numericamente nel report A14 |
 | Tangente shell 276×184 e frame quaternionici | Implementati/testati nel modello shell |
 | Operatore debole piano \(A_h\) qui definito | Formulazione proposta; non ancora implementata |
-| Sorgenti deboli Burgers/Frank | Assemblaggio del carico puntuale implementato; test regressivo aggiunto, CI in corso |
+| Sorgenti deboli Burgers/Frank | Assemblaggio del carico puntuale implementato; test regressivo aggiunto, esito CI dedicato non ancora disponibile |
 | Link SU(2) indipendenti \(U_{fg}\) | Nuove variabili proposte; non implementate |
 | Curvatura/olonomia quaternionica | Definizione proposta; non implementata |
 | Co-base discreta e torsione/Burgers | Definizione strutturale proposta; calibrazione aperta |
