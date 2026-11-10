@@ -86,7 +86,7 @@ a_k(D_m^*)=
 0,& k\ \text{odd and }k\le m.
 \end{cases}
 \]
-The eigenvalue is \(4k(k+1)\). This is exactly the piecewise structure in Ikeda's Theorem 4.3(1), p. 62. Positivity is manifest in this formula; no appeal to Lemma 2.6 is needed for the three-dimensional case.
+The eigenvalue is \(4k(k+1)\). The odd branch begins at \(k\ge m\), not strictly \(k>m\): at the endpoint \(k=m\) (when (m) is odd), the coefficient count gives multiplicity \(2m+1\). The scan/OCR glyph at this threshold is ambiguous, so the endpoint is fixed by the exact coefficient calculation. This is the piecewise structure in Ikeda's Theorem 4.3(1), p. 62. Positivity is manifest in this formula; no appeal to Lemma 2.6 is needed for the three-dimensional case.
 
 ## 4. Binary tetrahedral group — Theorem 4.4(1)
 
