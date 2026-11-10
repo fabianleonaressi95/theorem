@@ -99,6 +99,10 @@ The [10 November 2026 analytic audit](docs/CURVILINEAR_MESH_ANALYTIC_AUDIT_2026-
 
 A first executable relative-complex constructor is now available in `ddr/boundary_complex.py`, with tests in `test_boundary_complex.py`. It removes tangential boundary-trace DOFs, restricts incidence and consistent masses, checks that the retained spaces form a subcomplex, and computes relative Betti numbers. The expected topology is `beta=(0,0,1)` for a square and `beta=(0,0,0,1)` for a cube. This is a structural implementation; runtime CI and convergence of the relative codifferential have not yet been run.
 
+## Relative codifferential refinement experiment
+
+The executable [relative codifferential study](run_relative_codifferential_study.py) compares the restricted-mass adjoint on the relative cubical complex with face-integral interpolation of the analytic codifferential for a smooth 1-form satisfying tangential relative boundary conditions. Run from this directory with `python run_relative_codifferential_study.py --levels 4 8 16 --output reports/relative_codifferential.json`. It records relative Betti numbers, the discrete adjoint identity, boundary trace residuals, mass positivity indicators and observed refinement rates. GitHub Actions now runs this study and uploads the JSON report. The result is a finite-level convergence experiment, not a Mosco or operator-norm proof.
+
 ## Boundary Green identity and adjoint domains
 
 The [boundary Green identity audit](docs/BOUNDARY_GREEN_IDENTITY_AND_ADJOINT_DOMAINS_2026-11-10.md) formalizes why the unconstrained matrix adjoint need not converge to the strong codifferential without matching operator domains. It specifies separate full/weak and relative/essential experiments, including topology, restricted masses, trace pairings and acceptance criteria. No boundary-constrained convergence result is claimed until those experiments are implemented and run.
