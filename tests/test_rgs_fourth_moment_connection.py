@@ -41,3 +41,10 @@ def test_zero_gradient_has_zero_spin_current():
     r,q,_,w=fixture(); h=positive_constitutive_metric(r)["operator"]
     j=spin_current(q,np.zeros((3,3)),h)
     assert np.linalg.norm(j)==0.0
+
+
+def test_shifted_metric_is_positive_for_negative_beta():
+    r,_,_,_=fixture()
+    out=positive_constitutive_metric(r,beta=-1.0)
+    assert out['minimum_eigenvalue']>0
+    assert np.all(np.linalg.eigvalsh(out['operator'])>0)
