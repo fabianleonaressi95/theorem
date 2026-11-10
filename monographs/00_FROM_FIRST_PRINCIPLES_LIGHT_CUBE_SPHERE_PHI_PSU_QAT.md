@@ -10,6 +10,12 @@
 
 La domanda non è inizialmente «quale grafo usare?» o «quale Laplaciano converge?». È: **quale struttura geometrica minima può organizzare luce, causalità, unità fondamentali e doppio foglio spazio-temporale senza introdurre parametri arbitrari?**
 
+Il primo schema storico da recuperare integralmente è la catena ZPE–vuoto–cutoff–scala geometrica–massa/potenziale. Nei quaderni precedenti è stata registrata nella forma
+\[
+\mathrm{ZPE}\to\rho_{\rm vac}\to\ell\to\rho_p\to(\eta,R)\to m,\,F,\,V.
+\]
+Le formule annotate erano \(\rho_{\rm vac}=6\hbar c/(\pi\ell^4)\), \(\ell=\sqrt{\hbar G/c^3}=\ell_P\), \(\rho_p=3\hbar c/(\pi r_p^4)\), \(r_p=4\lambda_p\) e \(m_p=\sqrt{\alpha_g}\,m_\ell\). Queste espressioni sono **formule storiche del modello da sottoporre a audit dimensionale e fisico**, non vengono qui promosse a identità standard né a risultati verificati. Il recupero deve chiarire definizioni di \(\rho_p,r_p,\lambda_p,\eta,R,\alpha_g,m_\ell\), unità, normalizzazioni e derivazione di ogni fattore numerico.
+
 Il punto di partenza è il ruolo della luce e delle costanti che fissano le scale:
 \[
 c,\qquad \hbar,\qquad G,\qquad
@@ -62,12 +68,18 @@ Il rapporto aureo non va introdotto come costante scelta per fitting. La sua ori
 \]
 La metà è \(\pi/5\). La geometria della diagonale e del lato, insieme alla relazione corda-raggio, porta a
 \[
-\varphi=2\cos\left(\frac{\pi}{5}\right)
-=\frac{1+\sqrt5}{2},
-\qquad
-\varphi^2=\varphi+1.
+\ell=2R\sin\left(\frac{\pi}{5}\right),\qquad
+ d=2R\sin\left(\frac{2\pi}{5}\right),\qquad
+\frac d\ell=\frac{\sin(2\pi/5)}{\sin(\pi/5)}
+=2\cos\left(\frac{\pi}{5}\right)=\varphi.
 \]
-Questa è la relazione esatta che connette l'angolo razionale in \(\pi\) alla radice quadratica aurea.
+La diagonale \(d\) e il lato \(\ell\) del pentagono regolare hanno quindi rapporto aureo. Dalla geometria delle corde si ottiene l'equazione
+\[
+\varphi^2-\varphi-1=0,
+\qquad
+\varphi=\frac{1+\sqrt5}{2}.
+\]
+La stessa relazione si può ricavare dalla somma delle radici quinte dell'unità, scegliendo la radice reale positiva pertinente. Questa è la relazione esatta che connette l'angolo razionale in \(\pi\) alla radice quadratica aurea.
 
 La catena da documentare nel suo ordine originario è:
 \[
