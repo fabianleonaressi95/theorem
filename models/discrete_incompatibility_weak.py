@@ -89,7 +89,7 @@ def p1_triangle_symmetric_strain(
         det = np.linalg.det(DX)
         if abs(det) < 1e-14:
             raise ValueError(f"degenerate triangle at index {k}")
-        grad_u = DU.T @ np.linalg.inv(DX)
+        grad_u = np.linalg.solve(DX, DU).T
         strains[k] = 0.5 * (grad_u + grad_u.T)
     return strains
 
