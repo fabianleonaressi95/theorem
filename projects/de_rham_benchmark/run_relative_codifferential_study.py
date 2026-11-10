@@ -22,7 +22,7 @@ import scipy.sparse.linalg as spla
 from ddr.mesh import CubicalMesh
 from ddr.geometry import PullbackGeometry
 from ddr.feec_mass import assemble_consistent_masses
-from ddr.boundary_complex import build_relative_complex
+from ddr.boundary_complex import build_relative_complex, relative_betti_numbers
 from ddr.feec_study import face_dofs, discrete_norm2
 from ddr.test_forms import ScalarField, Form
 
@@ -88,7 +88,7 @@ def run_level(N: int, amplitude: float = 0.08, nq: int = 5,
         "N": N,
         "h": 1.0 / N,
         "dimensions": rel.dimensions,
-        "relative_betti": build_relative_complex(mesh).__class__.__name__,
+        "relative_betti": relative_betti_numbers(rel)[0],
         "relative_adjoint_identity_rel": relative_adjoint_identity(rel),
         "codifferential_error_M0": err_norm,
         "codifferential_relative_error": err_norm / max(rhs_norm, 1e-300),
