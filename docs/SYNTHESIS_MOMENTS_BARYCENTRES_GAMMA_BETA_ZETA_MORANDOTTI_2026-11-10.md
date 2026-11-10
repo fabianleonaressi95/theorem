@@ -388,3 +388,12 @@ Integrating the same series yields
 \\frac{(-1)^n\\zeta(n)}{n s^{2n}}.
 \]
 The equivalent Dirichlet-eta expansion uses \(\\eta_D(n+1)=(1-2^{-n})\\zeta(n+1)\), with \(\\eta_D\) explicitly distinguished from Dedekind eta. Together with S009's Weber/Dedekind eta quotient at discriminant \(-31\), this gives a genuine arithmetic–modular–special-function bridge. The digamma value is not asserted to have an elementary closed form.
+
+
+## 9.12 Accelerated supergolden–digamma formula
+
+[T084](../theorems/T084-supergolden-digamma-odd-zeta-accelerated-formula.md) substitutes \(r=s^{-2}=s-1\) into NIST DLMF 5.7.5 and obtains
+\[
+\psi_{\\mathrm{dig}}(s)=\frac1{2r}-\frac\pi2\cot(\pi r)+\frac1{r^2-1}+1-\\gamma-\\sum_{k\ge1}(\\zeta(2k+1)-1)r^{2k}.
+\]
+Because \(r^2=s^{-4}=0.216756\\ldots\), this odd-zeta series converges faster than the direct Euler expansion in powers of \(s^{-2}\). A Tonelli rearrangement gives the equivalent positive series \(\\sum_{n\ge2}r^2/[n(n^2-r^2)]\). This is an exact convergent formula, not a finite elementary closed form. Numerical value: \(\\psi_{\\mathrm{dig}}(s)=0.00380489074098203186438725795\\ldots\).
