@@ -66,6 +66,7 @@ theorem/
 - [Project map](projects/README.md)
 - [Theorem records](theorems/)
 - [S011 — Binary tetrahedral spherical spectrum (Ikeda 1995)](theorems/S011-ikeda-binary-tetrahedral-spectrum.md) — Ikeda source formulas separated from the reconstructed eigenvalue indexing, Poincaré simplification and independent Molien multiplicity check.
+- [S012 — Ikeda cyclic and binary-polyhedral spectra (1995)](theorems/S012-ikeda-cyclic-binary-polyhedral-spectra.md) — independent derivations for Theorem 4.2, the three-dimensional parts of Theorems 4.3–4.6, and the first-eigenvalue table; higher-dimensional binary cases remain explicitly open.
 - [T073 — Unified football-shell / RGS–PRISM–Q6 limit programme](theorems/T073-unified-football-shell-rgs-prism-limit-program.md) — formal open target theorem separating the local results already proved from the global homogenisation and spectral limits still to prove.
 - [Open-problem and external-validation matrix](open-problems/EXTERNAL_MATHEMATICAL_VALIDATION_MATRIX.md)
 - [Q6 T012–T017 compatibility matrix](open-problems/Q6-T012-T017-COMPATIBILITY-MATRIX.md)
