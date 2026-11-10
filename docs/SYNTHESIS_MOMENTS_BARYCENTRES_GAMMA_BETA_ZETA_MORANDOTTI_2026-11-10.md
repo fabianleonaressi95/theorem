@@ -331,6 +331,10 @@ These records keep the modular eta, alternating Dirichlet eta, Dirichlet \(L\)-f
 
 The canonical dependency map for the entire 10 November programme is now [the unitary theory of the truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md). It assembles the shell geometry, T068–T072, S.1–S.10, the fourth-moment branch, the Gate D→E transfer programme, and the separate (T^*)/(2I) spectral modules while keeping each proof status intact.
 
+## 9.5 Phase–theta–zeta–barycentric spectral bridge
+
+[T078](../theorems/T078-phase-theta-zeta-barycentric-spectral-bridge.md) adds the exact Dirichlet characteristic function of an affine lifted barycentric phase, its Lauricella-series representation and first two moments. It separates this local transform from the additional global winding-lattice sum needed to obtain a Jacobi theta function. The Jacobi theta-constant product identity then gives the standard Dedekind eta relation. A zeta-regularized determinant is included only after an elliptic operator, domain, seam conditions and zero-mode prescription are specified. No automatic phase-to-theta, theta-to-determinant or football-shell eta identity is claimed.
+
 ## 10. Bibliography
 
 The special-function and Morandotti sources newly catalogued for this synthesis are in [the special-functions and Morandotti bibliography](../bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md). The wider 55-record Morandotti publication map is in [MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md](../manuscripts/MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
