@@ -243,6 +243,8 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 | \(\psi(s^3)-\psi(s^2)=s^{-2}\) | **Identità esatta** |
 | Formula di moltiplicazione di Gauss per \(m=3\) | **Identità esatta** |
 | Monotonia e rappresentazione integrale via trigamma | **Identità esatta** |
+| \(\psi(7/8)-\psi(1/8)=\pi(1+\sqrt2)\) | **Identità esatta: sezione argentea** |
+| \(\psi(4/5)-\psi(1/5)=\pi\sqrt{1+2/\sqrt5}\) | **Identità esatta: angolo aureo** |
 | \(\delta_n\to\log s\) | **Conseguenza asintotica dimostrabile** |
 | Campionamento numerico riportato | **Verifica numerica** |
 | Ricorrenza di ordine tre per \(d_n\) | **Non dimostrata; non segue dall'algebra di \(s\)** |
