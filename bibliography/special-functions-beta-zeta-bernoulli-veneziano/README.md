@@ -172,13 +172,13 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
     Full text: https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1090/S0025-5718-97-00854-5/fulltext.pdf  
     **Status:** VERIFIED. Primary source for the Weber functions \(f,f_1,f_2\), their transformation laws, Weber class invariants, and the \(D=-31\) table entry \(W_{-31}(X)=X^3+X-1\). The distinction between the principal CM point \((-1+\sqrt{-31})/2\) and \(\sqrt{-31}\) is retained in S.9.
 
-37. **NIST Digital Library of Mathematical Functions**, §27.14, “Unrestricted Partitions: Relation to Modular Functions.”  
-    URL: https://dlmf.nist.gov/27.14  
-    **Status:** REFERENCE. Dedekind eta product, modular transformation law and Dedekind sums.
+37. **NIST Digital Library of Mathematical Functions**, §23.15, “Definitions,” including Dedekind's eta function.  
+    URL: https://dlmf.nist.gov/23.15  
+    **Status:** REFERENCE. Definition and identities for the modular eta function.
 
-38. **NIST Digital Library of Mathematical Functions**, §20.10, “Theta Functions: Integrals.”  
-    URL: https://dlmf.nist.gov/20.10  
-    **Status:** REFERENCE. Mellin integral containing the factor \(1-2^{1-s}\), which is the Dirichlet-eta factor multiplying \(\zeta(s)\).
+38. **NIST Digital Library of Mathematical Functions**, §23.18, “Modular Transformations.”  
+    URL: https://dlmf.nist.gov/23.18  
+    **Status:** REFERENCE. Modular transformation formulae for the functions in Chapter 23.
 
 39. **NIST Digital Library of Mathematical Functions**, §25.15, “Dirichlet \(L\)-Functions.”  
     URL: https://dlmf.nist.gov/25.15  
