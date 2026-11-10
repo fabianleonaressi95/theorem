@@ -270,7 +270,7 @@ to first order, for fixed \(g^2\). A quantitative global bound still requires su
 
 ### 3.2.6. Reproducible isotropic area audit of the repository's Q-ball geometry
 
-The existing generator \`models/football_shell.py::build_football_shell\` supplies a concrete 60-vertex, 32-panel geometry. At its default parameters \(R=1\), \(\alpha_{\rm cube}=0\), \(\alpha_{H_4}=0\), the panel polygons were evaluated directly from their ordered vertex coordinates using the oriented polygon area vector. The resulting baseline is:
+The existing generator \`models/football_shell.py::build_football_shell\` supplies a concrete 60-vertex, 32-panel geometry. At its default parameters \(R=1\), \(\alpha_{\rm cube}=0\), \(\alpha_{H_4}=0\), the panel areas were evaluated by summing the actual centre-fan triangular elements used by the shell generator (180 CST facets in total). For the undeformed baseline the panels are planar, so this agrees with the polygon area vector; for nonzero radial deformations the fan sum correctly measures the chosen piecewise-planar panel surface. The resulting baseline is:
 
 | Panel family | Count | Area per panel | Total area |
 |---|---:|---:|---:|
