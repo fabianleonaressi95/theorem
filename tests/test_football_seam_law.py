@@ -3,7 +3,8 @@ import pytest
 
 from models.football_seam_law import (
     seam_bending_law, seam_cohesive_law, quaternion_relative_rotation,
-    seam_internal_force, seam_tangent_matrix, seam_equilibrium_residual,\n    seam_gradient_energy,
+    seam_internal_force, seam_tangent_matrix, seam_equilibrium_residual,
+    seam_gradient_energy,
 )
 
 
