@@ -30,6 +30,40 @@ The panel bulk energy and interface energy are separate:
 \\]
 Here \\(\\eta_e\\) denotes any relative rotation or director jump required by a shell theory, and \\(z_e\\) collects interface internal variables. The line energy density \\(\\psi_e\\) has units J/m; its derivative with respect to a displacement jump has units N/m. A seam represented by discrete stitches instead requires a sum of stitch energies, or a justified homogenisation to a line density.
 
+## 2.1. Fibre-covariant seam jump and tangent anisotropy
+
+The seam jump is a section of the restricted displacement bundle, not intrinsically a vector obtained by subtracting two unrelated panel-coordinate triples. Set
+\[
+E=TS\oplus NS\longrightarrow S.
+\]
+For panel-side trivializations, let \(g_{+-}(x):E_x^-\to E_x^+\) be the transition map. The intrinsic jump is
+\[
+[u]_e=u^+-g_{+-}u^-\in E|_{\Gamma_e}.
+\]
+Any seam traction, stiffness or internal variable must be transformed by the corresponding bundle maps when the local frame changes. At a multi-panel junction, incident resultants are transported to a common fibre before balance is imposed. The transition maps must obey the cocycle/holonomy compatibility conditions; flatness is not assumed.
+
+A candidate fibrewise quadratic energy, prior to damage, is
+\[
+\psi_e^{\rm fib}(x,[u]_e)
+=\frac12\left\langle K_e(x)[u]_e,[u]_e\right\rangle_{E_x},
+\qquad
+K_e(x)=
+\begin{pmatrix}
+k_{0,e}I_{T_xS}+\alpha_e A_T(x)&0\\
+0&k_{o,e}
+\end{pmatrix}.
+\]
+Here \(A_T(x)\in\operatorname{Sym}^+(T_xS)\) is the tangent anisotropy induced by the distinct Q6 T2u triplet and a PRISM/G2 Gram form:
+\[
+U_x=L_xV,\qquad
+A_T(x)=U_x\Gamma_TU_x^*,
+\qquad
+\Gamma_T=R_T^TQ_{G_2}R_T.
+\]
+The first three-dimensional T2u spectral subspace is now reconstructible from the 64-site O_h action and constrained Coulomb Hessian; the finite-mesh shell map \(L_i=P_iW_iQ\) is implemented in T073. This makes the discrete candidate tensor computable without confusing the 188D source space with a shell tangent fibre.
+
+The coefficients \(k_{0,e},\alpha_e,k_{o,e}\) remain construction-specific parameters to be identified from seam coupons. This is not yet a calibrated football constitutive law. Under a local tangent-frame change \(F_x\mapsto F_xO_x\), the matrix of \(A_T\) changes by conjugation \(A_F\mapsto O_x^TA_FO_x\), so the fibrewise energy is frame-independent when all components and transition maps are transformed consistently. Damage and hysteresis variables must likewise be assigned to the appropriate interface bundle or scalar internal-variable bundle.
+
 ## 3. Reversible traction response
 
 Before damage, a simple local elastic interface potential is
