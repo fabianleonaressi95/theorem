@@ -96,6 +96,7 @@ bound \(\det D\Phi\ge1-|a|m\pi\).
 |---|---:|---:|---:|---:|---|
 | `sinusoid_2d` | 2 | 0.20 | 1 | 0.888577 | globally injective |
 | `aniso_metric_2d` | 2 | 0.15 | 1 | 0.666432 | globally injective |
+| `axis_bump_2d` | 2 | 0.15 | — | 0.666432 | globally injective |
 | `sinusoid_3d` | 3 | 0.15 | 1 | 0.816248 | globally injective |
 
 All three satisfy the strict bound (3.3). For the default direction \(e_1\),
