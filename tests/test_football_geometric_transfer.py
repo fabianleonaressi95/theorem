@@ -7,8 +7,8 @@ from models.football_shell import build_football_shell
 from models.football_quaternion_bridge import build_geometry_transfer, project_shell_tangent
 
 def test_geometry_transfer_reproduces_constant_and_direction_fields():
-    from itertools import product
-    X=np.array(list(product((-1.,1.),repeat=3))+[(2*a,b,c) for a,b,c in product((-1.,1.),repeat=3)]+[(a,2*b,c) for a,b,c in product((-1.,1.),repeat=3)]+[(a,b,2*c) for a,b,c in product((-1.,1.),repeat=3)],float)[:64]
+    data=np.genfromtxt(ROOT/"data/rgs_188d/X_Oh_reconstructed.csv",delimiter=",",names=True)
+    X=np.column_stack([data[k] for k in ("x","y","z")])
     mesh=build_football_shell()
     W,diag=build_geometry_transfer(X,mesh["nodes"],neighbors=16)
     assert W.shape==(276,192)
@@ -29,4 +29,5 @@ def test_shell_tangent_projection_is_tangent():
         p=X[tri]; a=np.cross(p[1]-p[0],p[2]-p[0])
         for i in tri: normals[i]+=a
     normals/=np.linalg.norm(normals,axis=1)[:,None]
-    assert np.max(np.abs(np.sum(normals*T,axis=1)))<1e-10
+    tangent_modes=T.reshape(len(X),3,-1)
+    assert np.max(np.abs(np.einsum("ni,nik->nk",normals,tangent_modes)))<1e-10
