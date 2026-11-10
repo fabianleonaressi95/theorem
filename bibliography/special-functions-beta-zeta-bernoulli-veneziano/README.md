@@ -159,3 +159,8 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 34. **Duffy–Gauss–Jacobi triangle quadrature implementation.**  
     Paths: docs/DIRICHLET_DUFFY_JACOBI_QUADRATURE.md, src/dirichlet_triangle_quadrature.py, tests/test_dirichlet_triangle_quadrature.py.  
     **Status:** implementation and A1–A3 regression tests deposited; the change-of-variables/Jacobi-parameter derivation is exact; test execution is not yet recorded.
+
+
+35. **Independent synthesis numerical replay report (10 November 2026).**  
+    Path: reports/2026-11-10_integrated_synthesis_numerical_replay.md.  
+    **Status:** numerical replay record with explicit scope and limitations; not a pytest/CI execution report and not experimental validation.
