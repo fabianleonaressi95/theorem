@@ -118,6 +118,40 @@ Poiché \(N_n\) è intero, \(N_n\) è l'unico intero più vicino a \(Cs^n\) per 
 
 Questo risultato è più forte di un controllo su 1200 indici: la conclusione segue dalla maggiorazione algebrica esatta di \(|B|\), non da un campionamento numerico. Il valore decimale di \(|B|\) serve solo come controllo.
 
+### 2.4 Incremento del digamma sui conteggi
+
+Definiamo
+\[
+\mathcal D_n=\psi(N_{n+1})-\psi(N_n).
+\]
+Poiché
+\[
+N_n=Cs^n\bigl(1+O(s^{-3n/2})\bigr),
+\]
+e
+\[
+\psi(y)=\log y-\frac1{2y}+O(y^{-2}),
+\]
+si ottiene
+\[
+\boxed{
+\mathcal D_n
+=\log s+\frac{1-s^{-1}}{2C}s^{-n}
++O(s^{-3n/2}).
+}
+\]
+Il termine principale è \(\log s\); il primo termine correttivo non oscillante proviene dal termine \(-1/(2y)\) dell'espansione del digamma. La fase complessa della successione entra nel resto oscillante di ordine \(s^{-3n/2}\).
+
+In particolare,
+\[
+\boxed{
+\lim_{n\to\infty}s^n(\mathcal D_n-\log s)
+=\frac{1-s^{-1}}{2C}
+=0.1209329293\ldots.
+}
+\]
+La sottrazione di \(\log s\) è essenziale: non è \(s^n\mathcal D_n\) a convergere a questa costante.
+
 ## 3. Fase complessa, trascendenza dell'angolo e digamma
 
 ### 3.1 Trascendenza di \(\theta/\pi\)
