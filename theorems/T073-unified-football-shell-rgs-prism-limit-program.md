@@ -152,6 +152,10 @@ The code and tests implement this simultaneous gauge law. This proves gauge cova
 
 The connection and chart-covariance tests have been added to the football workflow. Their CI result is pending; the finite-mesh construction is not a smooth continuum connection, and its hinge holonomy/refinement limit remains open.
 
+## 2.3. Bernoulli-gradient bridge: right gauge and left fluid sectors
+
+The cellwise anisotropy is not defined by the seam transition alone. T077 now connects the existing centroid/barycentre/covariance results (T068–T070) to the two sector fields: the **right gauge sector** through \(D_A\Psi\), and the **left fluid sector** through the Bernoulli scalar \(B_L=p+\frac12\rho|v|^2+\rho\Phi\). Both are evaluated over the same triangular cells using the same Dirichlet barycentre \(c_{F,a}\) and covariance \(\Sigma_{F,a}\), but their gradients and Hessians remain sector-specific. The exact local bridge is the T068/T070 covariance–Taylor formula applied separately to the two scalar densities. The PRISM-induced tangent tensor may supply an additional anisotropy, but its coupling to the fluid constitutive law is still a candidate, not a proved physical equation. See [T077](T077-bernoulli-gradient-barycentre-gauge-fluid-bridge.md).
+
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 
 For a triangle \(F\) of area \(A_F\), let \(a_{F,i}>0\), \(S_F=\sum_{i=1}^3a_{F,i}\), \(\lambda_i\) be barycentric coordinates and \(V_F\) the vertex matrix. Define
