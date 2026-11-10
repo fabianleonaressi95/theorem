@@ -113,3 +113,44 @@ Status labels: **VERIFIED** = bibliographic metadata checked against publisher/i
 23. **Internal fourth-moment implementation and audit.** RGS–QLG Quaternion Bridge, paths src/rgs_fourth_moment_bridge.py, src/rgs_fourth_moment_connection.py, src/rgs_fourth_moment_maxwell_bridge.py, src/rgs_fourth_moment_variation.py and their corresponding tests. The 64-site seed reconstruction records the A14 archive and coordinate-array SHA-256 in the source.  
     **Status:** IMPLEMENTATION PROVENANCE. These are internal computational records, not external literature and not independent physical validation.
 
+
+
+## H. Q6 cubical topology, synchronization and finite-group representations
+
+24. **Ghorbanchian, R.; Restrepo, J. G.; Torres, J. J.; Bianconi, G.**, “Higher-order simplicial synchronization of coupled topological signals,” *Communications Physics* **4**, article 120 (2021). DOI: [10.1038/s42005-021-00605-4](https://doi.org/10.1038/s42005-021-00605-4).  
+    **Status:** VERIFIED. Source model for the node/link NL and NLT equations used in T071 (Eqs. 12–13 and 16–17). T071 replaces simplicial triangles with Q6 square faces; that cubical substitution is the present project's generalization, not a theorem from the article.
+
+25. **Serre, J.-P.**, *Linear Representations of Finite Groups*, Graduate Texts in Mathematics 42, Springer, 1977.  
+    **Status:** REFERENCE. Character theory and restriction of finite-group representations used in the \(A_5\downarrow A_4\) and \(O_h\downarrow A_4\) comparison in S.7. The specific intertwiner matrix is not supplied by the reference or by the current record.
+
+26. **Hatcher, A.**, *Algebraic Topology*, Cambridge University Press, 2002, especially §2.1.  
+    **Status:** REFERENCE. Cellular homology and chain-complex background for the Q6 cubical 2-skeleton in T071. The finite Q6 incidence and rank statements are project-specific and are proved/audited in the repository.
+
+27. **Johnson, N. L.; Kotz, S.; Balakrishnan, N.**, *Continuous Multivariate Distributions*, Vol. 1: *Models and Applications*, 2nd ed., Wiley, 1994.  
+    **Status:** REFERENCE. Standard Dirichlet-distribution moments and multivariate-beta normalization underlying T070. The repository gives its own derivation for the triangular-cell normalization.
+
+## I. Internal records completed or consolidated in this synthesis
+
+28. **T071** — Q6 cubical chain complex, Anti-Twin lift and synchronization benchmark.  
+    Path: theorems/T071-q6-cubical-topological-synchronization-audit.md  
+    **Status:** exact finite chain identities; cubical NL/NLT dynamics implemented; hysteresis and physical interpretation remain exploratory/open.
+
+29. **T072** — Möbius phase action and canonical flat Q6 connection.  
+    Path: theorems/T072-q6-mobius-phase-flat-connection.md  
+    **Status:** exact projective phase-translation identity, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal sectors.
+
+30. **S.6** — Fourth-moment SO(3) connection current.  
+    Path: theorems/S006-fourth-moment-so3-connection-current.md  
+    **Status:** exact local variational identity; finite-difference implementation supplied, full teleparallel equations open.
+
+31. **S.7** — Fourth-moment Maxwell obstruction and common \(A_4\) intertwiner.  
+    Path: theorems/S007-fourth-moment-maxwell-and-a4-bridge.md  
+    **Status:** exact tensor no-go and representation restriction; Maxwell response candidate and explicit intertwiner open.
+
+32. **S.8** — Algebraic fourth-moment coframe variation.  
+    Path: theorems/S008-fourth-moment-coframe-variation.md  
+    **Status:** exact conditional first variations for the displayed algebraic action; torsion generation and full gravitational equations not claimed.
+
+33. **Central fourth-moment implementation and tests.**  
+    Paths: src/rgs_seed_64_reconstruction.py, src/rgs_q6_oh_action.py, src/rgs_fourth_moment_bridge.py, src/rgs_fourth_moment_connection.py, src/rgs_fourth_moment_maxwell_bridge.py, src/rgs_fourth_moment_variation.py and corresponding tests under tests/.  
+    **Status:** source and regression tests are present in THEOREM. Presence is not equivalent to a recorded test-suite pass; execution evidence must be attached separately.
