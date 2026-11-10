@@ -182,3 +182,57 @@ The source statements and independent reconstructions are recorded separately in
 - **Class values:** the all-classes conjugacy statement remains conjectural in Yui–Zagier. The principal-class conclusion does not rely on that conjecture.
 - **Erroneous alternate Molien formula:** do not use `(1+t^6)/((1-t^4)(1-t^6))` for `T*`; the correct binary-tetrahedral Hilbert series in S011 is `(1+t^12)/((1-t^6)(1-t^8))`.
 - **CM points:** `(-1+i sqrt(31))/2` has discriminant `-31`; `i sqrt(31)` has order discriminant `-124`. The Weber transformation through the equivalent principal-class representative `(1+i sqrt(31))/2` connects the evaluations. The discriminant distinction does not refute the transformation identity.
+
+
+## M.6 Final correction register — Ikeda and the binary-tetrahedral invariant space
+
+The corrected independent reconstruction uses invariants in the defining binary-tetrahedral representation, not the commutant:
+\[
+a_\ell=(\ell+1)\dim\bigl(\operatorname{Sym}^{\ell}(\mathbb C^2)^{T^*}\bigr).
+\]
+Peter–Weyl gives \(L^2(SU(2)/T^*)\cong\bigoplus_\ell H_\ell\otimes(H_\ell^*)^{T^*}\); the invariant dimension is taken in one factor, while the other factor contributes \(\dim H_\ell=\ell+1\). The previous expression \(\dim(\operatorname{End}(H_\ell)^{T^*})\) counts a commutant and is the wrong quantity for this quotient spectrum. Any table derived from that commutant, in particular one with positive multiplicities at odd \(\ell\), is withdrawn.
+
+The central element \(-I\in T^*\) acts on \(\operatorname{Sym}^{\ell}(\mathbb C^2)\) by \((-1)^\ell\), so odd-degree invariant spaces vanish. The independently derived Molien series is
+\[
+M(t)=\frac{1+t^{12}}{(1-t^6)(1-t^8)},\qquad
+c_\ell=[t^\ell]M(t),
+\]
+and the spherical multiplicity is \(a_\ell=(\ell+1)c_\ell\). Since only even degrees survive, set \(\ell=2k\); coefficient extraction gives
+\[
+c_{2k}=1+2\left\lfloor\frac{k}{3}\right\rfloor
++\left\lfloor\frac{k}{2}\right\rfloor-k,
+\quad
+a_{2k}=(2k+1)c_{2k}.
+\]
+This agrees with the formula printed in Ikeda Theorem 4.4(1), including zero multiplicities at \(k=1,2,5\). This is an independent Molien/Peter–Weyl verification of the source formula, not a replacement for the source citation.
+
+**Do not confuse the two index conventions:** \(\ell\) is the full spherical-harmonic degree and \(\lambda_\ell=\ell(\ell+2)\) on the unit \(S^3\); Ikeda's binary-tetrahedral index is \(k\), with \(\ell=2k\), hence \(\lambda_k=4k(k+1)\). Theorem 4.4(2) has the explicit restriction \(n>1\); its algebraic \(n=1\) specialization does not extend its theorem or multiplicity statement to \(S^3/T^*\). Theorem 4.4(1) is the relevant \(S^3/T^*\) multiplicity formula.
+
+The Molien series \((1+t^6)/((1-t^4)(1-t^6))\) previously asserted in a draft is **not** the binary-tetrahedral invariant series and must not be reintroduced. The correct series is the one displayed above. S011 is the canonical detailed record and is not to be rewritten merely to reflect a superseded objection.
+
+## M.7 Yui–Zagier: source status and exact scope
+
+The repository contains the complete Yui–Zagier paper as S0025-5718-97-00854-5.pdf. The page-specific checks B1–B6 in this audit are attributed to the user's reported reading of the full article, pp. 1645–1662, and numerical checks; they are not represented as a fresh assistant-side PDF read. In particular:
+
+- The principal form \(Q_0=[1,1,8]\) and \(\tau_0=(-1+i\sqrt{31})/2\) are the \(d=-31\) principal-form data (p. 1647).
+- Table 1 (p. 1649) lists \(W_{-31}(X)=X^3+X-1\), with class number 3 and coefficient row \(1,0,1,-1\). It is a tabulated numerical class-invariant result in the paper, not a formal proof of every broader class-value assertion.
+- The identity \(f(i\sqrt{31})=\sqrt2\,\psi_*\), with \(\psi_*^3-\psi_*^2-1=0\), is not refuted by the fact that \(i\sqrt{31}\) has order discriminant \(-124\) whereas \(\tau_0\) has discriminant \(-31\). The Weber transformation is applied through the equivalent principal-class representative \(\tau=(1+i\sqrt{31})/2\), for which \(2\tau-1=i\sqrt{31}\). The relation \(\rho=1/\psi_*\), \(\rho^3+\rho-1=0\), is an elementary algebraic reconstruction; “supergolden” is project terminology, not Yui–Zagier terminology.
+- Preserve the reported sign/congruence caveat: the abbreviated condition \(b\equiv-a\pmod{24}\) does not determine a 48th-root-of-unity phase. The reported counterexample \([1,23,140]\) shows why the sign-sensitive representative condition must be handled modulo 48 in that transformation. This correction does not invalidate the principal-class calculation using \([1,-1,8]\).
+- The paper's stronger assertion that all \(f(A)\), rather than only their squares/up-to-sign values, are conjugates is stated conjecturally by the authors. Do not promote it to a theorem or extend the principal-class conclusion to all three classes without a separate proof.
+
+**Repository policy:** keep the source result, independent algebra, numerical agreement and conjectural extension in separate labels. Do not label the Weber transformation false solely because the two displayed CM points have different order discriminants.
+
+## M.8 T073 referee audit — no global theorem follows from the current hypotheses
+
+T073 remains **OPEN**. The referee analysis supplied for this audit identifies the following obligations, now made explicit in the T073 record:
+
+1. **Intrinsic function spaces:** define \(SBV(S;\mathbb R^m)\), traces, jump sets and \(\nabla_Sg-G\) on the surface, with compatible charts/frames and uniform control for the approximating surfaces.
+2. **Coercivity and compactness:** coercivity in \(\nabla_Sg\) alone does not bound \(G\). A joint bound in \(A=\nabla_Sg\) and \(B=G\), or a bound on \(A-B\) together with a bound on \(A\), is a sufficient route to \(L^p\)-control of \(G\). SBV compactness also needs control of jump measure and an \(L^1\) bound or normalization; these do not follow from shape regularity.
+3. **Geometry:** require appropriate geometric convergence of \(S_h\to S\), uniformly controlled element maps, metrics/measures and one-sided normals. Shape regularity by itself does not establish these.
+4. **L1–L6 remain separate:** compactness; localisation/Radon representation; intrinsic relaxation/cell density; liminf; recovery; and discrete-continuous transfer. L3 is especially nontrivial on a general compact surface because there is no global translation group; an effective density may depend on position, tangent plane and curvature.
+5. **Seam modelling:** distinguish the prescribed panel-seam network \(\Gamma_{\rm phys}\) from the variational jump set \(S_g\). Choose a kinematic constraint, a cohesive interface, or a geometric seam with separately specified admissible traces. Prevent double counting between seam and jump energies. Test aligned and non-aligned mesh seams separately.
+6. **Convergence hierarchy:** Γ-convergence, Mosco convergence, operator/resolvent convergence and spectral convergence are distinct claims. The latter steps require explicit comparison maps, closed forms/domains, compactness and (for spectral conclusions) compact-resolvent/multiplicity control.
+
+The proposed coercivity \(W(X,A,B)\ge c(|A|^p+|B|^p)-C\), \(p>1\), is a useful sufficient hypothesis, not a necessary characterization. Likewise, a surface version of the Euclidean periodic structured-deformation theorem is not established merely by replacing \(\nabla\) with \(\nabla_S\). The referee's proposed short list H1–H5 is not, by itself, a proof of Γ-convergence: compactness, intrinsic relaxation, liminf and recovery still require complete statements and proofs.
+
+**No change to the status:** T073 is a research programme/checklist. No curved-shell Γ-limit, Mosco limit, operator convergence or spectral convergence is claimed. The update is a clarification of proof obligations, not a theorem promotion.
