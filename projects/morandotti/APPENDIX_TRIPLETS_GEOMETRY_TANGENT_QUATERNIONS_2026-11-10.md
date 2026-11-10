@@ -19,6 +19,8 @@ Quindi: **tre coordinate sono una descrizione; una tripletta è una descrizione 
 
 ## 2. Prima tripletta: le tre rotazioni infinitesime del corpo
 
+**Precisazione di parità:** sotto il gruppo cubico completo (O_h), le tre traslazioni sono polari e appartengono a (T_{1u}); le tre rotazioni sono assiali e appartengono a (T_{1g}). La tripletta (G_x,G_y,G_z) di questa sezione è dunque (T_{1g})-like, non (T_{1u}).
+
 Siano (X_i\in\mathbb R^3) le posizioni dei nodi del pallone. Una rotazione infinitesima di vettore angolare \(\boldsymbol\omega=(\omega_x,\omega_y,\omega_z)\) produce
 \[
 \delta X_i=\boldsymbol\omega\times X_i
@@ -227,5 +229,7 @@ Questi numeri sono risultati del framework discreto precedente, non ancora risul
 10. **Validazione:** confrontare le forme modali con scansioni e prove, separando calibrazione e validazione.
 
 ## 11. Messaggio sintetico per Morandotti
+
+La tripletta rotazionale è assiale ((T_{1g})-like) e non va confusa con il settore polare (T_{1u}) delle traslazioni. La classificazione (T_{2u}) richiede un calcolo distinto dei caratteri e dei proiettori.
 
 I tripletti sono modi tridimensionali classificati dalla simmetria della struttura. La tripletta cinematica delle rotazioni rigide descrive i tre assi di rotazione del pallone; le triplette (T_{1u}) e (T_{2u}) descrivono invece famiglie distinte di deformazioni che si trasformano secondo rappresentazioni diverse del gruppo cubico. I quaternioni rappresentano le rotazioni finite e collegano in modo naturale le tre componenti angolari; il sottospazio tangente elimina le variazioni incompatibili con i vincoli; la Hessiana ridotta permette di studiare stabilità e modi elastici. Sul pallone reale bisogna ricostruire questi oggetti sulla mesh shell, poi misurare come pannelli, trama e cuciture separino o accoppino le triplette.
