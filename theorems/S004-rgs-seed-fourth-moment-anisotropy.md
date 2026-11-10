@@ -95,11 +95,15 @@ They are different measures, dimensions, normalizations and geometric objects. A
 
 ## 6. Provenance and reproduction obligations
 
-The prior audit identified the companion paths
+The central repository now contains a hash-checked reconstruction of the 64-site coordinate seed and the audit implementation/tests:
+- `src/rgs_seed_64_reconstruction.py`
+- `src/rgs_q6_oh_action.py`
 - `src/rgs_fourth_moment_bridge.py`
 - `tests/test_rgs_fourth_moment_bridge.py`
 
-The numerical values above are carried forward from that 4 November 2026 audit. Those companion files and the exact 64-coordinate input are not currently included in this theorem repository's tracked tree; therefore this record does not claim that the fourth-moment calculation has just been rerun here. To upgrade the numerical evidence to a self-contained repository certificate, import the original coordinate artifact with its hash and the audit/test files, then verify all 81 tensor entries, permutation symmetry, contractions, the isotropic projection, the residual trace constraints and the (E_g/T_{2g}) spectrum.
+The seed provenance is A14_RGS_PSU_QLG_JACOBIAN_BUNDLE.zip (archive SHA-256 `80442238349cd6ddc720dabae93d083075dea88decba8acf0a78c3ec03e0abcc`); the reconstructed float64 coordinate array has SHA-256 `6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e67f286126e419cf`. The loader verifies the array hash before returning the coordinates.
+
+In this synthesis turn, the coordinate reconstruction and key fourth-moment quantities were independently recomputed from the archived orbit constants: (M^{(2)}=80I_3), the coefficient (c), the displayed (M^{(4)}) and (R) components, the trace-free/orthogonality residuals, the (O_h) invariance residual (approximately (2.8\times10^{-13})), and the (E_g/T_{2g}) eigenvalue split. This is an independent numerical replay of the core formulas, not a claim that the full imported pytest suite has been executed. The repository audit/test now makes that full replay reproducible.
 
 ## 7. Evidence classification
 
