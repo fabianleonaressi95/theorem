@@ -354,3 +354,8 @@ La sequenza logica da illustrare è:
 Ogni freccia ha un significato matematico distinto e un proprio controllo. La proposta a Morandotti è di stabilire quali passaggi possano essere integrati in una formulazione discreta rigorosa dell'elasticità incompatibile e quali proprietà meritino una dimostrazione di convergenza.
 
 La forza della presentazione sta nel mostrare una catena di costruzioni verificabili, dichiarare i punti aperti e individuare un benchmark nel quale un risultato positivo o negativo sia scientificamente informativo.
+
+
+## Operatore di incompatibilità: sviluppo del ponte variazionale
+
+Il capitolo complementare [Dall'architettura tangente–quaternionica all'operatore discreto di incompatibilità](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md) mostra come la deformazione discreta ottenuta sul tangente entri in un operatore debole di Saint-Venant. Chiarisce inoltre che i frame quaternionici non generano da soli curvatura: per rappresentare disclinazioni occorre una connessione SU(2) indipendente; le triplette intervengono solo dopo aver verificato la covarianza dell'operatore.
