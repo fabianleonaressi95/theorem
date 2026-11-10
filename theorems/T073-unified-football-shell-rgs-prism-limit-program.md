@@ -115,7 +115,7 @@ The affine \(W\) is the existing 64-point to 92-node direction-grouped transfer:
 
 Implementation:
 - build_rgs_shell_tangent_fibre_maps in models/tangent_triplet_anisotropy.py returns all 92 ambient maps \(L_i\), local \(2\times188\) matrices, frames, ranks and residual diagnostics.
-- push_triplett_to_shell_nodes evaluates \(A_T(x_i)=L_i\Gamma_TL_i^T\).
+- push_triplett_to_shell_nodes requires the explicit orthonormal Q6 triplet \(V\in\\mathbb R^{188\\times3}\), forms \(U_i=L_iV\), and evaluates \(A_T(x_i)=U_i\\Gamma_TU_i^T\).
 - tests/test_rgs_shell_tangent_fibre_transfer.py checks all-node rank two, tangency, source constraints, positive semidefiniteness and local gauge covariance.
 
 This upgrades the previous unspecified \(L_x\) to an explicit finite-mesh nodal transfer. It does not yet prove a smooth bundle morphism over every point of \(S\), connection preservation along panels/seams, or convergence under shell refinement. The previously reported principal-angle comparison (three angles near \(2.4^\circ\) at 16 neighbours) concerns the transferred rotational triplet against the three lowest shell tangent modes; it is not a proof about the separate Q6 \(T_{2u}\) eigenspace or the 216 PRISM tripletti.
