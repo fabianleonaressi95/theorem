@@ -19,10 +19,14 @@ def test_all_90_physical_seams_have_orthogonal_discrete_lc_transitions():
     data=build_physical_seam_bundle_transitions(mesh)
     assert data["seam_count"]==90
     assert data["maximum_transition_orthogonality_residual"]<1e-10
+    assert data["maximum_full_transition_orthogonality_residual"]<1e-10
     assert data["maximum_normal_transport_residual"]<1e-10
     for seam in data["seams"]:
         g=seam["transition_plus_from_minus"]
         assert g.shape==(2,2)
+        G=seam["full_transition_plus_from_minus"]
+        assert G.shape==(3,3)
+        assert np.allclose(G.T@G,np.eye(3),atol=1e-10)
         assert np.allclose(g.T@g,np.eye(2),atol=1e-10)
         assert seam["edge_length"]>0
 
