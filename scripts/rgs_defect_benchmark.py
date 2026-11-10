@@ -228,7 +228,7 @@ def run(out: Path, levels=(9,17,33,65)):
       "burgers_audit":{"definition":"integral of engineering plastic shear gamma^p across a vertical section through the slip cut","target":0.02,"measured":measure_volterra_burgers(),"absolute_error":abs(measure_volterra_burgers()-0.02),"note":"section sampled at x near 0.75, to the right of the cut tip"},
       "frank_audit":{"definition":"x derivative of integrated cut-normal plastic slip","target":0.01,"measured":measure_wedge_frank(),"absolute_error":abs(measure_wedge_frank()-0.01)},
       "parameters":{"lambda":1.0,"mu":1.0,"amplitude":0.02,"width":0.12,"burgers_magnitude":0.02,"frank_angle":0.01,"core_width":0.025,
-                    "domain":[0.0,1.0,0.0,1.0],"boundary":"Dirichlet"},
+                    "domain":[0.0,1.0,0.0,1.0],"boundary_conditions_by_case":{r["case"]:r["boundary_type"] for r in rows}},
       "levels":list(levels),"results":rows
     }
     (out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
