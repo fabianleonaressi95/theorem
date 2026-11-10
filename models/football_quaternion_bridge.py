@@ -93,46 +93,73 @@ def compare_rgs_shell_triplets(rgs_triplet_192, shell_triplet_276,
     return result
 
 
-def build_geometry_transfer(source_points, target_nodes, neighbors=12, rank_tolerance=1e-10):
-    """Build a reproducible 192->276 geometric transfer from source/target positions.
+def build_geometry_transfer(source_points, target_nodes, neighbors=12, rank_tolerance=1e-10,
+                            direction_tolerance=1e-10):
+    """Build a 192->276 transfer using distinct source directions.
 
-    For each target direction, compute minimum-norm local affine weights on
-    the nearest source directions, constrained to reproduce constants and
-    the three direction coordinates exactly (up to numerical residual).
-    The scalar weights are applied identically to x,y,z components.
-    This is a geometric interpolation operator, not a claim that the two
-    discretisations describe identical physical sites.
+    Coincident source directions at different radii are first grouped. The
+    affine directional weights are computed on unique directions, then each
+    group's weight is split equally among its original radial representatives.
+    This removes KD-tree tie-breaking dependence without pretending the
+    different-radius points are the same physical site.
     """
     from scipy.spatial import cKDTree
     X=np.asarray(source_points,float); Y=np.asarray(target_nodes,float)
     if X.shape!=(64,3) or Y.shape!=(92,3):
         raise ValueError("expected source_points (64,3) and target_nodes (92,3)")
-    if neighbors<4 or neighbors>64: raise ValueError("neighbors must lie in [4,64]")
-    Xn=X/np.linalg.norm(X,axis=1)[:,None]
-    Yn=Y/np.linalg.norm(Y,axis=1)[:,None]
-    tree=cKDTree(Xn); k=min(int(neighbors),len(Xn))
-    weights=np.zeros((len(Yn),len(Xn)))
-    condition_numbers=[]
+    if neighbors<4: raise ValueError("neighbors must be at least four")
+    nx=np.linalg.norm(X,axis=1); ny=np.linalg.norm(Y,axis=1)
+    if np.any(nx<=0) or np.any(ny<=0): raise ValueError("points must be nonzero")
+    Xn=X/nx[:,None]; Yn=Y/ny[:,None]
+
+    # Deterministic tolerance-based grouping of coincident unit directions.
+    groups=[]; representatives=[]
+    for i,direction in enumerate(Xn):
+        match=None
+        for g,rep in enumerate(representatives):
+            if np.linalg.norm(direction-rep)<=direction_tolerance:
+                match=g; break
+        if match is None:
+            representatives.append(direction.copy()); groups.append([i])
+        else:
+            groups[match].append(i)
+    U=np.asarray(representatives)
+    if len(U)<4: raise ValueError("fewer than four distinct source directions")
+    if neighbors>len(U):
+        raise ValueError(f"neighbors={neighbors} exceeds {len(U)} distinct source directions")
+    tree=cKDTree(U); k=int(neighbors)
+    weights_unique=np.zeros((len(Yn),len(U))); condition_numbers=[]
     for j,y in enumerate(Yn):
         _,ids=tree.query(y,k=k); ids=np.atleast_1d(ids).astype(int)
-        # Affine constraints: sum_i w_i=1 and sum_i w_i*n_i = target direction.
-        C=np.vstack((np.ones(k),Xn[ids].T))
-        d=np.r_[1.,y]
+        C=np.vstack((np.ones(k),U[ids].T)); d=np.r_[1.,y]
         gram=C@C.T
         condition_numbers.append(float(np.linalg.cond(gram)))
         w=C.T@np.linalg.pinv(gram,rcond=rank_tolerance)@d
-        weights[j,ids]=w
+        weights_unique[j,ids]=w
+    weights=np.zeros((len(Yn),len(Xn)))
+    for g,members in enumerate(groups):
+        weights[:,members]=weights_unique[:,g,None]/len(members)
     W=np.kron(weights,np.eye(3))
-    affine=np.column_stack((np.ones(64),Xn))
-    affine_residual=float(np.linalg.norm(weights@affine-np.column_stack((np.ones(92),Yn)),ord="fro"))
-    return W,{"source_direction_min_separation":float(np.min(np.linalg.norm(Xn[:,None]-Xn[None,:]+np.eye(64)[:,:,None]*0,axis=2)+np.eye(64)*10)),
-        "neighbors":k,"weights_min":float(weights.min()),"weights_max":float(weights.max()),
+    affine=np.column_stack((np.ones(len(U)),U))
+    affine_residual=float(np.linalg.norm(
+        weights_unique@affine-np.column_stack((np.ones(len(Yn)),Yn)),ord="fro"))
+    pairwise=np.linalg.norm(U[:,None,:]-U[None,:,:],axis=2)
+    pairwise+=np.eye(len(U))*10.
+    duplicate_sizes=[len(g) for g in groups if len(g)>1]
+    duplicate_radial_spreads=[float(np.ptp(nx[g])) for g in groups if len(g)>1]
+    return W,{"source_point_count":int(len(Xn)),
+        "distinct_source_direction_count":int(len(U)),
+        "duplicate_direction_group_count":int(len(duplicate_sizes)),
+        "duplicate_direction_group_sizes":duplicate_sizes,
+        "duplicate_direction_radial_spreads":duplicate_radial_spreads,
+        "source_direction_min_separation_unique":float(np.min(pairwise)),
+        "neighbors_distinct_directions":k,
+        "weights_min":float(weights.min()),"weights_max":float(weights.max()),
         "max_local_constraint_condition":float(max(condition_numbers)),
         "affine_direction_reproduction_frobenius":affine_residual,
         "weights_row_sum_residual":float(np.linalg.norm(weights.sum(axis=1)-1)),
         "transfer_shape":list(W.shape),
-        "method":"local minimum-norm affine directional interpolation; same scalar weights for each Cartesian component"}
-
+        "method":"local minimum-norm affine interpolation on unique directions; each directional weight is split equally across coincident radial representatives"}
 
 def project_shell_tangent(mesh, ambient_modes):
     """Project 3N ambient vector modes into the node-wise shell tangent plane."""
