@@ -49,6 +49,7 @@ theorem/
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Special functions and Morandotti bibliography](bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Integrated synthesis: moments, barycentres, Gamma–Beta–zeta and Morandotti](docs/SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md)
+- [Unified Dedekind–Dirichlet eta, Weber–supergolden, barycentric and RGS–Morandotti construction](docs/UNITARY_DEDEKIND_DIRICHLET_ETA_BARYCENTRIC_RGS_MORANDOTTI_2026-11-10.md) — integrates the exact modular/class-field bridge at discriminant −31 with Dirichlet (L)-functions, Beta/Gamma cumulants, barycentric quadrature, Q6 and fourth moments.
 - [10 November independent numerical replay report](reports/2026-11-10_integrated_synthesis_numerical_replay.md) — seed moments, Walsh sectors, Duffy–Jacobi checks, fourth-moment variations and Q6 cubical chain identities; explicitly not a pytest/CI pass.
 - [Digamma–supergolden–Q6 analytic dossier](docs/DIGAMMA_SUPERGOLDEN_Q6_PROGRAM_2026-11-10.md)
 - [Formula extraction register](bibliography/FORMULA_EXTRACTION_REGISTER.md)
@@ -135,6 +136,8 @@ The table is a navigation index, not a claim that every item is a theorem in the
 | [S.6](theorems/S006-fourth-moment-so3-connection-current.md) | Fourth-moment SO(3) connection current | Proved local variational identity for the connection current; flatness constraint and full TEGR equations remain open. |
 | [S.7](theorems/S007-fourth-moment-maxwell-and-a4-bridge.md) | Fourth-moment Maxwell obstruction and A4 bridge | Exact tensor no-go and subgroup representation result; Maxwell constitutive law is a candidate and the explicit intertwiner is open. |
 | [S.8](theorems/S008-fourth-moment-coframe-variation.md) | Fourth-moment algebraic coframe variation | Exact first variations for the displayed action; no torsion generation or complete gravitational equation is claimed. |
+| [S.9](theorems/S009-weber-dedekind-eta-supergolden-class-invariant.md) | Weber–Dedekind eta class invariant and supergolden root | Reciprocal Weber class invariant at discriminant −31 gives the supergolden root; class-polynomial provenance and CM-point conventions are explicit. |
+| [S.10](theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md) | Dirichlet eta, Dedekind eta coefficients and quadratic zeta | Exact Lambert-series Dirichlet products, ζ_K factorization, class-number value and Bernoulli/polygamma links. |
 | [T071](theorems/T071-q6-cubical-topological-synchronization-audit.md) | Q6 cubical chain complex, Anti-Twin lift and synchronization benchmark | Exact finite chain identities; exploratory synchronization/hysteresis model, with physical and continuum claims open. |
 | [T072](theorems/T072-q6-mobius-phase-flat-connection.md) | Möbius phase action and canonical flat Q6 connection | Exact phase-translation Möbius action, pure-gauge vertex-phase connection, Q6 Laplacian spectrum and antipodal 32+32 decomposition; nontrivial RGS–PSU transport remains open. |
 
