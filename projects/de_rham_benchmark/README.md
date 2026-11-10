@@ -91,6 +91,10 @@ python test_feec_study.py
 
 The conditional synthesis connecting the de Rham–FEEC complex, curvilinear geometry, Mosco convergence, and the exact algebraic scale identities for the golden ratio and supergolden constant is in [PHI_PSI_FEEC_SYNTHESIS.md](docs/PHI_PSI_FEEC_SYNTHESIS.md). It distinguishes proved identities from candidate refinement laws and open convergence results.
 
+## Analytic global audit of the shipped curved meshes
+
+The [10 November 2026 analytic audit](docs/CURVILINEAR_MESH_ANALYTIC_AUDIT_2026-11-10.md) proves global injectivity and uniform pullback-metric ellipticity for the default sinusoid and axis-bump maps using explicit contraction bounds. This upgrades the default-map injectivity status beyond sampled Jacobian diagnostics. Parameter sweeps outside those bounds, stable commuting projections, discrete compactness and Mosco convergence remain open.
+
 ## Independent mathematical audit
 
 A source-level audit of the cubical FEEC mass construction, incidence orientations, discrete adjoints, commuting projections, Mosco convergence, discrete compactness, norm-resolvent convergence, and harmonic-kernel stability is available in [INDEPENDENT_MATHEMATICAL_AUDIT.md](docs/INDEPENDENT_MATHEMATICAL_AUDIT.md). It records a concrete incidence-orientation mismatch and separates verified algebraic facts from convergence hypotheses that remain open.
