@@ -27,11 +27,11 @@ def _minimal_normal_rotation(n_from,n_to,tol=1e-10):
 
 
 def build_physical_seam_bundle_transitions(mesh):
-    """Build all 90 oriented seam transitions and discrete LC transports.
+    """Build all 90 oriented seam transitions on TS and E=TS (+) NS.
 
-    Panel tangent frames are fixed per panel. For a seam oriented from panel
-    p_minus to p_plus, R maps the minus normal to the plus normal by the
-    minimal hinge rotation; g=F_plus.T R F_minus is the 2x2 component map.
+    For each seam, R maps the minus panel normal to the plus panel normal by
+    the minimal hinge rotation. The tangent transition is F_plus.T R F_minus;
+    the full displacement transition uses the augmented frames [F,n].
     """
     from .football_shell import _panel_frame
     nodes=np.asarray(mesh["nodes"],float)
@@ -40,6 +40,7 @@ def build_physical_seam_bundle_transitions(mesh):
     for p,face in enumerate(panels):
         e1,e2,n=_panel_frame(nodes,face,0.0)
         frames[p]=np.column_stack((e1,e2))
+        full_frames[p]=np.column_stack((e1,e2,n))
         normals[p]=n
     rows=[]
     for edge in sorted(mesh["physical_seams"]):
@@ -47,35 +48,38 @@ def build_physical_seam_bundle_transitions(mesh):
         if len(adjacent)!=2: raise ArithmeticError("seam is not shared by two triangles")
         p0,p1=(int(mesh["triangle_panels"][ti]) for ti in adjacent)
         if p0==p1: raise ArithmeticError("physical seam lies inside one panel")
-        # Deterministic orientation: lower panel id is minus, higher is plus.
         pm,pp=sorted((p0,p1))
         R=_minimal_normal_rotation(normals[pm],normals[pp])
         Fm,Fp=frames[pm],frames[pp]
+        Gm,Gp=full_frames[pm],full_frames[pp]
         g=Fp.T@R@Fm
-        edge_vec=nodes[edge[1]]-nodes[edge[0]]
-        edge_length=float(np.linalg.norm(edge_vec))
+        G=Gp.T@R@Gm
+        edge_length=float(np.linalg.norm(nodes[edge[1]]-nodes[edge[0]]))
         dihedral=float(np.arctan2(
             np.linalg.norm(np.cross(normals[pm],normals[pp])),
             np.clip(normals[pm]@normals[pp],-1.,1.)
         ))
         rows.append({
             "edge":tuple(map(int,edge)), "panel_minus":pm, "panel_plus":pp,
-            "rotation_minus_to_plus":R, "transition_plus_from_minus":g,
+            "rotation_minus_to_plus":R,
+            "transition_plus_from_minus":g,
+            "full_transition_plus_from_minus":G,
             "edge_length":edge_length, "dihedral_angle":dihedral,
             "orthogonality_residual":float(np.linalg.norm(g.T@g-np.eye(2))),
+            "full_orthogonality_residual":float(np.linalg.norm(G.T@G-np.eye(3))),
             "determinant":float(np.linalg.det(g)),
             "normal_transport_residual":float(np.linalg.norm(R@normals[pm]-normals[pp])),
         })
     if len(rows)!=90: raise ArithmeticError(f"expected 90 physical seams, got {len(rows)}")
     return {
-        "panel_frames":frames, "panel_full_frames":full_frames, "panel_normals":normals, "seams":rows,
-        "seam_count":len(rows),
-        "maximum_transition_orthogonality_residual":max(x["orthogonality_residual"] for x in rows),\n        "maximum_full_transition_orthogonality_residual":max(float(np.linalg.norm(x["full_transition_plus_from_minus"].T@x["full_transition_plus_from_minus"]-np.eye(3))) for x in rows),
+        "panel_frames":frames, "panel_full_frames":full_frames,
+        "panel_normals":normals, "seams":rows, "seam_count":len(rows),
+        "maximum_transition_orthogonality_residual":max(x["orthogonality_residual"] for x in rows),
+        "maximum_full_transition_orthogonality_residual":max(x["full_orthogonality_residual"] for x in rows),
         "maximum_normal_transport_residual":max(x["normal_transport_residual"] for x in rows),
         "connection":"hinge-wise discrete Levi-Civita transport by minimal normal rotation",
         "status":"FINITE_POLYHEDRAL_CONNECTION; CONTINUUM_EXTENSION_OPEN",
     }
-
 
 def transform_channel_gauge(t2u_basis,triplett,orthogonal_gauge):
     """Apply one O(3) channel-basis change consistently to V and R.
