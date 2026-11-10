@@ -324,3 +324,11 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 Le identità usate sono quelle standard della funzione Gamma e delle funzioni poligamma (ricorrenza, formula di moltiplicazione di Gauss, serie della trigamma ed espansione asintotica di Stirling). Per riprodurre i valori della tabella è sufficiente calcolare la radice positiva di \(x^3-x^2-1\) ad alta precisione e valutare \(\operatorname{digamma}(s^n)\) con una libreria di precisione arbitraria.
 
 Questo dossier integra, ma non sostituisce, [l'audit Q6–RGS–PSU del ponte supergolden](SUPERGOLDEN_Q6_RGS_BRIDGE_AUDIT_2026-11-10.md).
+
+## Teorema formalizzato
+
+La classificazione aritmetica della riflessione del digamma è stata isolata in un enunciato autonomo, con dimostrazione:
+
+- [Teorema — legge di riflessione del digamma e dicotomia razionale/irrazionale](../theorems/DIGAMMA_REFLECTION_CYCLOTOMIC_LAW.md) — **dimostrato**.
+
+Il teorema prova che per un parametro algebrico razionale il coefficiente cotangente è algebrico, mentre per un parametro algebrico irrazionale è trascendente. La derivazione di un unico operatore geometrico Q6/PSU resta aperta.
