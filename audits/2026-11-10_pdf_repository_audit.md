@@ -243,7 +243,7 @@ The proposed coercivity \(W(X,A,B)\ge c(|A|^p+|B|^p)-C\), \(p>1\), is a useful s
 The new canonical record theorems/S012-ikeda-cyclic-binary-polyhedral-spectra.md separates the general cyclic calculation from the three-dimensional binary-group calculations.
 
 - Theorem 4.2 is reconstructed from the harmonic Poincaré series, roots-of-unity filter, and the coefficient identity in Proposition 2.4.
-- Theorem 4.3(1) is recorded for \(S^3/D_m^*\), with the explicit even/odd floor-function multiplicity.
+- Theorem 4.3(1) is recorded for \(S^3/D_m^*\), with the explicit even/odd floor-function multiplicity. The odd branch starts at \(k\ge m\): the endpoint \(k=m\) for odd \(m\) has multiplicity \(2m+1\) by the exact cyclic-average coefficient count; the scanned inequality glyph is OCR-ambiguous.
 - Theorems 4.5(1) and 4.6(1) are reconstructed from the subgroup decompositions in Proposition 3.1 and the corresponding Molien series.
 - Theorem 5.1(1) is checked from the resulting first positive indices and multiplicities.
 - The tetrahedral case remains in S011, which is the canonical detailed record.
