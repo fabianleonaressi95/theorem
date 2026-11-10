@@ -371,3 +371,20 @@ for the **supergolden constant** used in the PRISM/Krist-All algebraic and spect
 \psi_{\mathrm{dig}}(z)=\frac{d}{dz}\log\Gamma_E(z),
 \]
 and its higher derivatives are \(\psi_{\mathrm{dig}}^{(m)}(z)\). The bare symbol \(\psi\) must not be used ambiguously in new theorem records. In quantum-mechanical contexts use \(\Psi\) for a wavefunction; for the second Chebyshev function write \(\psi_{\mathrm{Ch}}(x)\). T081 and T082 have been corrected to use \(\psi_{\mathrm{dig}}\) for the logarithmic derivative of Euler Gamma. This is a notation clarification, not a new identity connecting the supergolden constant to the digamma function.
+
+
+## 9.11 Supergolden–digamma–zeta identity
+
+[T083](../theorems/T083-supergolden-digamma-zeta-gamma-identity.md) proves the exact bridge obtained from the supergolden cubic. If \(s=\psi_{\\mathrm{sg}}\), then \(s-1=s^{-2}\in(0,1)\). Substitution into Euler's absolutely convergent Taylor series gives
+\[
+\psi_{\\mathrm{dig}}(s)
+=-\gamma+\sum_{n=1}^{\\infty}(-1)^{n+1}
+\\frac{\\zeta(n+1)}{s^{2n}}.
+\]
+Integrating the same series yields
+\[
+\\log\\Gamma_E(s)
+=-\\gamma s^{-2}+\\sum_{n=2}^{\\infty}
+\\frac{(-1)^n\\zeta(n)}{n s^{2n}}.
+\]
+The equivalent Dirichlet-eta expansion uses \(\\eta_D(n+1)=(1-2^{-n})\\zeta(n+1)\), with \(\\eta_D\) explicitly distinguished from Dedekind eta. Together with S009's Weber/Dedekind eta quotient at discriminant \(-31\), this gives a genuine arithmetic–modular–special-function bridge. The digamma value is not asserted to have an elementary closed form.
