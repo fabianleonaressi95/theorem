@@ -249,6 +249,8 @@ Use this repository (**THEOREM**) as the authoritative programme-wide index for 
 
 **Status:** T060 records the coordinate-defined chain-map candidate into one square face of Q3; T061 records the explicit homotopy between its two path conventions. T062 proves an integral Kathara-to-Q6 chain map under an explicit integer-coordinate code, but its 2-cell map is zero on all ten source faces. It is an existence result for a degenerate chain map, not a cellular embedding, not RGS-equivariant, and not a canonical identification. Independent test execution remains pending. None of these records identifies Kathara with the full trigram cube or derives Krist-All.
 
+A separate implementation-level **Gate D candidate** is being audited in the [RGS–QLG Quaternion Bridge, PR #195](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/195). It uses nonzero cubical face fillings and a declared, non-RGS-canonical Q6 path-order convention. It must not be conflated with T062: T062 remains the proved degenerate map above. Gate D does not yet establish RGS equivariance, a cellular embedding, or Ellis/SU(2) transport; its CI and exact rank certificate must pass before any theorem-level promotion.
+
 ## Curvilinear cubical de Rham benchmark
 
 A reproducible numerical benchmark for discrete Hodge–de Rham complexes on curvilinear cubical meshes is maintained in [`projects/de_rham_benchmark/`](projects/de_rham_benchmark/). It includes mesh/incidence construction, pullback geometry, diagonal Hodge weights, spectral diagnostics, pollution analysis, assumptions and report.
