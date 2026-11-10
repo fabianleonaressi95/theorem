@@ -236,3 +236,20 @@ T073 remains **OPEN**. The referee analysis supplied for this audit identifies t
 The proposed coercivity \(W(X,A,B)\ge c(|A|^p+|B|^p)-C\), \(p>1\), is a useful sufficient hypothesis, not a necessary characterization. Likewise, a surface version of the Euclidean periodic structured-deformation theorem is not established merely by replacing \(\nabla\) with \(\nabla_S\). The referee's proposed short list H1–H5 is not, by itself, a proof of Γ-convergence: compactness, intrinsic relaxation, liminf and recovery still require complete statements and proofs.
 
 **No change to the status:** T073 is a research programme/checklist. No curved-shell Γ-limit, Mosco limit, operator convergence or spectral convergence is claimed. The update is a clarification of proof obligations, not a theorem promotion.
+
+
+## M.9 Ikeda (1995): organized theorem-level reconstruction and dimensional scope
+
+The new canonical record theorems/S012-ikeda-cyclic-binary-polyhedral-spectra.md separates the general cyclic calculation from the three-dimensional binary-group calculations.
+
+- Theorem 4.2 is reconstructed from the harmonic Poincaré series, roots-of-unity filter, and the coefficient identity in Proposition 2.4.
+- Theorem 4.3(1) is recorded for \(S^3/D_m^*\), with the explicit even/odd floor-function multiplicity.
+- Theorems 4.5(1) and 4.6(1) are reconstructed from the subgroup decompositions in Proposition 3.1 and the corresponding Molien series.
+- Theorem 5.1(1) is checked from the resulting first positive indices and multiplicities.
+- The tetrahedral case remains in S011, which is the canonical detailed record.
+
+**Dimensional correction:** the binary-group parts (2) of Theorems 4.3–4.6 concern \(S^{4n-1}\) with Ikeda's quaternionic parameter \(n>1\). Lemma 2.6 has \(N=2n-2>0\) there and may be used in those higher-dimensional sign comparisons. The three-dimensional parts (1) have \(n=1\), hence \(N=0\); Lemma 2.6 cannot prove their positivity. Those cases are instead closed by the explicit floor-function formulas in S011–S012.
+
+**Index correction:** for \(S^3/G\), the full spherical-harmonic degree is \(r\), with eigenvalue \(r(r+2)\). Binary groups contain \(-I\), so only \(r=2k\) survives; Ikeda's binary index \(k\) therefore has eigenvalue \(4k(k+1)\). Do not identify the binary index \(k\) with the full harmonic degree.
+
+The higher-dimensional parts (2) of Theorems 4.3–4.6 are **not** promoted to proved in S012; their exact binomial formulas still require a separate transcription and term-by-term audit.
