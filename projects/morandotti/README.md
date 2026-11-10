@@ -5,6 +5,8 @@ Questo dossier è il punto di ingresso per la discussione tecnica su pallone/inv
 1. [Nota progettuale](MORANDOTTI_PROJECT_NOTE_BALL_SHELL_SEAMS_2026-11-10.md) — problema ingegneristico, catena geometrica, piano di validazione e raccordo applicativo al pallone.
 2. [Appendice tecnica](APPENDIX_MORANDOTTI_SHELL_TANGENT_TRIPLETS_QUATERNIONS_2026-11-10.md) — formule, spazi vincolati, Hessiana ridotta, shell, costitutiva ortotropa, interfacce, rappresentazioni e test.
 
+3. [Appendice sui tripletti](APPENDIX_TRIPLETS_GEOMETRY_TANGENT_QUATERNIONS_2026-11-10.md) — significato di tripletta cinematica e modale, (T_{1u})/(T_{2u}), proiettori, sottospazi tangenti e quaternioni.
+
 ## Regola di lettura
 
 Il modello (O_h) a 64 punti / 188 dimensioni tangenti e la mesh shell a 92 nodi / 276 coordinate sono due discretizzazioni distinte. Il trasferimento tra i due deve essere costruito e verificato; non si identificano per notazione. I parametri materiali e di cucitura restano dimostrativi finché non sono calibrati su provini e scansioni reali.
