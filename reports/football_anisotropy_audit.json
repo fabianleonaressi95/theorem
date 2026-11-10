@@ -1,0 +1,88 @@
+{
+  "comparison": {
+    "anisotropic_minus_isotropic_radial_rms": 0.000393394240657556,
+    "anisotropy_ratio_C5_over_C6": 1.25
+  },
+  "geometry": {
+    "hexagon_hexagon_adjacencies": 30,
+    "hexagons": 20,
+    "panel_adjacencies": 90,
+    "pentagon_hexagon_adjacencies": 60,
+    "pentagon_pentagon_adjacencies": 0,
+    "pentagons": 12,
+    "panels": 32,
+    "vertices": 60
+  },
+  "interpretation": "The pentagon/hexagon contrast is a coarse-grained patch response. Radial RMS is the weighted variation of panel-centre radial increments, not a certified continuum sphericity measure.",
+  "isotropic_control": {
+    "C5": 1,
+    "C6": 1,
+    "displacement_contrast": -3.469446951953614e-18,
+    "expected_uniform_displacement": 0.01,
+    "max_abs_displacement_error": 5.204170427930421e-18,
+    "panel_center_radial_rms_anisotropy": 5.551115123125783e-17
+  },
+  "model": "linear_panel_normal_network_v1",
+  "not_claimed": [
+    "nonlinear_shell_solution",
+    "finite_element_validation",
+    "experimental_material_validation"
+  ],
+  "parameters": {
+    "C5": 1.25,
+    "C6": 1,
+    "coupling": 0.15,
+    "pressure": 0.01
+  },
+  "reproducibility": {
+    "numpy": "2.3.5",
+    "python": "3.13.5"
+  },
+  "sensitivity_sweep": [
+    {
+      "C5_over_C6": 1,
+      "linear_system_relative_residual": 3.5026932520462006e-16,
+      "panel_center_radial_rms_anisotropy": 5.551115123125783e-17,
+      "pentagon_hexagon_displacement_contrast": -3.469446951953614e-18
+    },
+    {
+      "C5_over_C6": 1.1,
+      "linear_system_relative_residual": 3.820715110229633e-16,
+      "panel_center_radial_rms_anisotropy": 0.00017007637032460439,
+      "pentagon_hexagon_displacement_contrast": -0.00037702307820766494
+    },
+    {
+      "C5_over_C6": 1.25,
+      "linear_system_relative_residual": 2.6432956336401625e-16,
+      "panel_center_radial_rms_anisotropy": 0.0003933942406576115,
+      "pentagon_hexagon_displacement_contrast": -0.0008720712188226773
+    },
+    {
+      "C5_over_C6": 1.5,
+      "linear_system_relative_residual": 2.489340081819772e-16,
+      "panel_center_radial_rms_anisotropy": 0.0006995933419153854,
+      "pentagon_hexagon_displacement_contrast": -0.0015508493905363038
+    },
+    {
+      "C5_over_C6": 2,
+      "linear_system_relative_residual": 2.705499335569131e-16,
+      "panel_center_radial_rms_anisotropy": 0.001145326979464244,
+      "pentagon_hexagon_displacement_contrast": -0.002538945901348768
+    }
+  ],
+  "solution": {
+    "energy": -0.0005544196540665841,
+    "hexagon_mean_displacement": 0.009625702304545273,
+    "linear_system_relative_residual": 2.6432956336401625e-16,
+    "mean_panel_displacement": 0.00937773057814216,
+    "mean_radial_increment": 0.009377730578142129,
+    "panel_center_mean_radius_after": 0.9312387284465472,
+    "panel_center_mean_radius_before": 0.9218609978684051,
+    "panel_center_radial_increment_peak_to_peak": 0.000872071218822712,
+    "panel_center_radial_rms_anisotropy": 0.0003933942406576115,
+    "pentagon_hexagon_displacement_contrast": -0.0008720712188226773,
+    "pentagon_mean_displacement": 0.008753631085722595,
+    "stiffness_min_eigenvalue": 0.39311700357110096
+  },
+  "status": "numerically_verified_phenomenological_model"
+}

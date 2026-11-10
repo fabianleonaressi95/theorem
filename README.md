@@ -41,6 +41,8 @@ theorem/
 
 ### Main indexes
 
+- **[Ricostruzione dalle fondamenta](monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md)** — luce e unità di Planck, cubo-sfera, derivazione π→φ, icosaedro/quaternioni/2I, PSU–Anti-Twin, Q-ball, QAT e interfaccia Calabi–Yau. È il punto di partenza della ricostruzione; Q6 e PRISM vengono dopo.
+
 - **[Integrated 27-chapter monograph](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md)** — consolidated reference for Q6, Q6-D5/Wilson, 2I/Rumin, RGS 188D, PRISM/Krist-All, FEEC/Mosco, QLG, Einstein–Cartan/teleparallelism, QAT, XCont and hysteresis. Includes explicit epistemic status and recovery caveats.
 - [Canonical synthesis and closure programme](manuscripts/SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — short strategic overview.
 
@@ -277,3 +279,26 @@ The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered 
 - [Corrected basis-aware audit report](reports/188d_antitwin_audit.json)
 - [Updated recovery provenance and basis caveats](reports/RECOVERY_MANIFEST.md)
 - [Expanded Morandotti appendix, including the corrected equivariance statement](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md)
+
+
+### Pentagon–hexagon anisotropy in a pressurised football
+
+- [Research and model note](docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md)
+- [Panel-network implementation](models/football_anisotropy.py)
+- [Reproducible audit runner](scripts/run_football_anisotropy_audit.py)
+- [Automated tests](tests/test_football_anisotropy.py)
+- [JSON audit output](reports/football_anisotropy_audit.json)
+- [Panel displacement SVG](reports/football_anisotropy_displacement.svg)
+
+**Status:** the truncated-icosahedron incidence counts and the linear panel-network equilibrium are implemented and tested. The panel model is phenomenological; it is not yet a nonlinear shell/finite-element model and has no experimental material calibration. See the note for the exact scope and next validation requirements.
+
+
+### Orthotropic discrete shell and cube–sphere coupling
+
+- [Discrete shell implementation](models/football_shell.py)
+- [Shell audit and scan runner](scripts/run_football_shell_audit.py)
+- [Technical note: cube/sphere, orthotropy, seams and scan validation](docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md)
+- [Shell tests](tests/test_football_shell.py)
+- [Experimental scan input instructions](data/scans/README.md)
+
+The current implementation is a linearised triangular membrane + signed-dihedral bending shell. It includes panel-wise orthotropy, seam reinforcement, the existing cube/sphere radial field and the cubic H4 mode. Experimental scan comparison is implemented, but no real scan or material coupon data has yet been supplied; CI uses a synthetic ICP registration test only.

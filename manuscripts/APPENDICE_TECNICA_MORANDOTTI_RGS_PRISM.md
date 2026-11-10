@@ -3,6 +3,12 @@
 **Repository:** `fabianleonaressi95/theorem`  
 **Finalità:** dossier tecnico di accompagnamento; distingue risultati formalizzati nel repository centrale, verifiche finite, modelli esplorativi e materiale storico da archiviare.
 
+## Documento principale collegato
+
+Questa appendice va presentata insieme alla [Nota progettuale Morandotti — RGS–PRISM](NOTA_PROGETTUALE_MORANDOTTI_RGS_PRISM.md), che costituisce il documento principale di interlocuzione. La nota espone domanda scientifica, benchmark proposto, fasi di lavoro e richiesta di confronto; questa appendice documenta basi tecniche, risultati, limiti e stato delle verifiche.
+
+**Ordine di lettura per il destinatario:** prima la nota progettuale; poi questa appendice tecnica come supporto verificabile.
+
 ## 1. Criterio documentale
 
 Questa appendice non aggrega numeri eterogenei fingendo che provengano da un unico audit. Ogni risultato è associato al proprio record. In particolare:
@@ -483,3 +489,151 @@ Infine, i commutatori diretti \([R_{geo},P_G]\) e \([R_{geo},K_0]\) sono riporta
 - coordinate originali \(X_{O_h}\): ancora da recuperare come array binario originale; il PDF recuperato documenta il codice e i nomi dei file salvati, ma non contiene l'array stesso.
 
 Il codice sorgente recuperato è archiviato in `archive/recovered_188d/RGS_PSU_construct_geometric_intertwiner.py`. Il report JSON e lo script di audit principale sono stati aggiornati coerentemente.
+
+
+## A.25. Anisotropia pentagono–esagono nel pallone pressurizzato
+
+È stato aggiunto un dossier autonomo in `docs/FOOTBALL_PENTAGON_HEXAGON_ANISOTROPY.md`, con implementazione in `models/football_anisotropy.py`, runner in `scripts/run_football_anisotropy_audit.py` e test in `tests/test_football_anisotropy.py`.
+
+La geometria ideale è il icosaedro troncato: 60 vertici, 12 pentagoni, 20 esagoni e 90 adiacenze tra pannelli, delle quali 60 pentagono–esagono e 30 esagono–esagono. Il modello meccanico corrente assegna uno spostamento normale scalare a ciascun pannello e minimizza un'energia quadratica con rigidezza efficace (C_5) o (C_6), accoppiamento lungo i bordi condivisi e carico uniforme.
+
+**Baseline puramente modellistica** ((p=0.01, C_5/C_6=1.25, gamma=0.15)): spostamento medio dei pentagoni (0.00875363), degli esagoni (0.00962570), contrasto pentagono meno esagono (-8.72071\times10^{-4}), residuo relativo del sistema lineare (2.64\times10^{-16}). Il controllo isotropo (C_5=C_6=1) restituisce spostamento uniforme (p/C=0.01) e anisotropia incrementale nulla entro precisione numerica.
+
+Questi numeri verificano soltanto il modello discreto dichiarato. (C_5/C_6=1.25) è un valore dimostrativo, non una misura del pallone reale. Non sono ancora implementati shell nonlineare, cuciture, ortotropia tessile, deformazioni di bordo compatibili, campo di curvatura o calibrazione sperimentale. La metrica della superficie radiale continua è specificata nel dossier, ma non è stata numericamente ricostruita dal modello a centri di pannello.
+
+Il risultato è quindi classificato come **modello fenomenologico numericamente verificato**, non come spiegazione sperimentale già dimostrata della non-sfericità osservata. Il passo successivo con Morandotti è identificare (C_5,C_6,gamma) da dati di materiale e cucitura, sostituire i gradi di libertà scalari con una discretizzazione shell conforme e confrontare forma e deformazioni con scansioni 3D a pressione controllata.
+
+
+## A.26. Estensione a shell discreta ortotropa e geometria cubo–sfera
+
+L'estensione del modello pallone integra esplicitamente il precedente lavoro RGS sul cubo e sulla sfera inscritta. Si riutilizzano
+\[
+r_C(\mathbf n)=a/\|\mathbf n\|_\infty,\quad r_S=a,\quad
+\chi_{CS}(\mathbf n)=1/\|\mathbf n\|_\infty-1,
+\quad H_4(\mathbf n)=n_x^4+n_y^4+n_z^4-3/5.
+\]
+La prima quantità è l'eccesso radiale esatto cubo–sfera; \(H_4\) è il modo armonico cubico di grado quattro. Sono due campi geometrici distinti dall'anisotropia costitutiva dei pannelli pentagonali ed esagonali.
+
+Il nuovo codice è in \`models/football_shell.py\`. La superficie di riferimento può includere i due modi geometrici con ampiezze esplicite \(\alpha_C,\alpha_4\), entrambe nulle per default. La geometria del pallone è il icosaedro troncato con 60 vertici, 12 pentagoni, 20 esagoni e 90 cuciture; la triangolazione conforme usa 92 nodi includendo i centri dei pannelli, 180 elementi CST e 270 cerniere diedrali.
+
+Il modello meccanico comprende:
+- elementi triangolari CST di membrana con legge ortotropa in tensione piana (\(E_1,E_2,G_{12},\nu_{12}\)) e assi materiali locali per pannello;
+- flessione discreta mediante cerniere sull'angolo diedro firmato fra triangoli adiacenti;
+- irrigidimento di cucitura indipendente, con termine assiale lineare opzionale e moltiplicatore flessionale;
+- pressione integrata sulle facce di riferimento e sei vincoli di gauge per rimuovere i modi rigidi;
+- confronto opzionale con nuvole di punti CSV/XYZ/OBJ/PLY tramite ICP rigido e distanze simmetriche campionate.
+
+**Classificazione:** modello shell discreto linearizzato, implementato e sottoposto a test numerici; non è ancora un modello a deformazioni finite geometricamente non lineare. Non sono inclusi contatto, pieghe, danno adesivo o omogeneizzazione alla scala dei filati. Nessuna scansione sperimentale o misura di provini è stata fornita: il confronto ICP nei test è sintetico e non costituisce validazione sperimentale. I valori costitutivi di default sono parametri dimostrativi, non proprietà misurate del pallone.
+
+Il dossier operativo e i comandi riproducibili sono in \`docs/FOOTBALL_ORTHOTROPIC_DISCRETE_SHELL.md\`; il runner è \`scripts/run_football_shell_audit.py\`; i test sono in \`tests/test_football_shell.py\`. L'identificazione di \(\alpha_C,\alpha_4,E_1,E_2,G_{12}\) e dei parametri di cucitura richiede misure indipendenti e validazione su scansioni non usate per il fit.
+
+
+## A.27. Aggiornamento 2026: baseline CIP-DG e specifica del ponte RGS discreto
+
+### Riferimento continuo e numerico aggiornato
+
+La linea bibliografica più direttamente pertinente comprende ora:
+- P. Cesana, L. De Luca, M. Morandotti (2024), formulazione semi-discreta Airy per disclinazioni a cuneo e dislocazioni di bordo;
+- P. Cesana, E. Fabbrini, M. Morandotti (2025), formulazione variazionale dell'elasticità lineare piana con cinematica incompatibile;
+- P. Cesana, E. Fabbrini, A. A. León Baldelli, M. Morandotti (2026), *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation*, preprint arXiv:2609.29614.
+
+Il lavoro 2026 considera elasticità isotropa linearizzata in piano di deformazione, sorgenti di Burgers e Frank, regolarizzazione mediante core radius e un problema ellittico del quarto ordine per la funzione di Airy. La formulazione numerica usa elementi finiti con continuous interior penalty discontinuous Galerkin (CIP-DG) e un numero finito di problemi locali di cell formula; una volta calcolate le soluzioni fondamentali, configurazioni di difetti possono essere composte in post-processing. Il lavoro dichiara confronti con benchmark analitici e configurazioni d'interazione.
+
+Questo costituisce la baseline numerica da riprodurre e non un dettaglio da ignorare. La proposta RGS–PRISM deve confrontarsi con essa a parità di dominio, materiale, sorgenti, core radius, condizioni al contorno e osservabili. Non è scientificamente corretto descrivere RGS–PRISM come la prima soluzione discreta del problema.
+
+### Equazioni da usare come riferimento
+
+Per la deformazione simmetrica piana \(\epsilon\), la sorgente distribuzionale di incompatibilità è
+\[
+\operatorname{inc}\,\epsilon=\zeta,
+\qquad
+\zeta=
+\sum_{j=1}^{J}|b^j|\,
+\partial_{(b^j)^\perp/|b^j|}\delta_{x^j}
+-
+\sum_{k=1}^{K}s^k\delta_{y^k}.
+\]
+I vettori (b^j) sono i vettori di Burgers; (s^k) sono gli angoli di Frank. Nel caso isotropo lineare piano, introducendo la funzione di Airy (v), il riferimento del lavoro FEM è
+\[
+\sigma=\operatorname{cof}(D^2v),
+\qquad
+\frac{1-\nu^2}{E}\Delta^2v=\zeta,
+\]
+e la parte quadratica dell'energia di Airy è
+\[
+\mathcal G(v;\Omega)
+=\frac12\frac{1+\nu}{E}
+\int_\Omega
+\left(|D^2v|^2-\nu(\Delta v)^2\right)\,dx.
+\]
+La regolarizzazione core-radius rimuove dischi attorno ai difetti e trasferisce le sorgenti sui bordi dei core. Per la riproduzione numerica si devono mantenere le stesse convenzioni di segno, dati di sorgente e condizioni al bordo del paper di riferimento.
+
+### Specifica discreta RGS da dimostrare
+
+Il complesso cinematico discreto può essere scritto
+\[
+C^0_h\xrightarrow{d_{0,h}}C^1_h
+\xrightarrow{d_{1,h}}C^2_h,
+\qquad d_{1,h}d_{0,h}=0.
+\]
+L'identità (d_{1,h}d_{0,h}=0) è la chiusura del complesso: **non** rappresenta la sorgente di difetto. Il difetto deve entrare tramite un operatore di incompatibilità che agisce sulla deformazione simmetrica discreta, costruita dal gradiente cinematico e dalla metrica/material tensor:
+\[
+\epsilon_h=\operatorname{sym}G_h u_h
+\quad\text{(oppure una variabile di deformazione indipendente, se la formulazione lo richiede),}
+\]
+\[
+\operatorname{Inc}_h\epsilon_h=\zeta_h.
+\]
+La sorgente (\zeta_h) deve approssimare separatamente i contributi traslazionali di Burgers e quelli rotazionali di Frank, inclusa la regolarizzazione del core. La costruzione di (\operatorname{Inc}_h), (\zeta_h), della condizione al bordo e della forma energetica è ancora da progettare e dimostrare.
+
+Il gradiente RGS locale e i pesi geometrici possono contribuire alla costruzione di (G_h) e della metrica discreta. Non si deve però identificare il gradiente scalare Q6 con l'operatore tensoriale \(\operatorname{Inc}_h\), né assumere che la sola identità di catena produca automaticamente la legge di incompatibilità elastica. Le formule già disponibili per gradienti locali least-squares e metriche (g_i=E_i^TE_i) sono ingredienti candidati; la loro compatibilità con la forma di Airy deve essere dimostrata sul benchmark piano.
+
+### Test di equivalenza e criteri di confronto
+
+1. **Test di sorgente:** riprodurre la distribuzione di Burgers/Frank e il suo trasferimento al core discreto.
+2. **Test cinematico:** verificare (d_{1,h}d_{0,h}=0) esattamente e controllare separatamente la relazione (\operatorname{Inc}_h\epsilon_h=\zeta_h).
+3. **Test energetico:** confrontare la forma RGS con la forma di Airy su campi di prova e sulle soluzioni minimizzanti.
+4. **Test di bordo:** riprodurre le condizioni di trazione libera nella formulazione di Airy.
+5. **Test numerico:** confrontare CIP-DG e RGS su energia, (L^2)-stress, Hessiana di Airy, residuo, condizionamento, tempo e memoria.
+6. **Test di raffinamento:** almeno tre livelli, con studio separato dell'errore spaziale e della dipendenza dal core radius.
+
+Solo dopo questi test ha senso chiedere una convergenza variazionale: liminf, successioni di recupero e compattezza devono essere trattati separatamente. La convergenza di Mosco della famiglia curva RGS–PRISM rimane aperta.
+
+### Implicazione per il caso calcistico
+
+Il guscio calcistico rimane un secondo benchmark, con variabili di superficie, anisotropia ortotropa e cuciture. Non va identificato direttamente con il dominio piano del problema Airy: il trasferimento richiede una formulazione su patch curve e una derivazione delle curvature/incompatibilità superficiali. Le condizioni di cucitura già derivate costituiscono un bilancio meccanico di interfaccia; non sono la stessa sorgente \(\zeta\) del modello di difetti cristallini.
+
+**Stato:** riferimento continuo e baseline CIP-DG identificati; specifica di ricerca RGS discreta formulata; nessuna equivalenza numerica RGS–CIP-DG, nessuna prova di convergenza e nessuna superiorità sono ancora dichiarate.
+
+Per la classificazione bibliografica completa si veda [Matrice bibliografica Morandotti–RGS–PRISM](MATRICE_BIBLIOGRAFICA_MORANDOTTI_RGS_PRISM.md).
+
+## Documento applicativo complementare
+
+Il [Documento di raccordo calcistico](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md) collega le strutture shell già implementate al problema variazionale dei difetti, distinguendo analogie meccaniche, identificazioni matematiche ancora da costruire e validazioni sperimentali mancanti.
+
+
+## Giunzioni: raccordo di Darmois–Israel e legge elastica di interfaccia
+
+Il documento di raccordo calcistico include ora una sezione dedicata alle condizioni di Darmois–Israel. Per l'uso nel progetto si distingue esplicitamente:
+- continuità della prima forma fondamentale e, nel caso di Darmois senza strato singolare, della seconda forma fondamentale;
+- salto di curvatura estrinseca e tensore superficiale di Israel nella relatività generale;
+- salto diedrale/di curvatura e trazioni/momenti di linea nella shell elastica, da derivare dal funzionale costitutivo.
+
+Il tensore (S_{ab}) di Israel non viene identificato con la tensione della cucitura. La trasposizione al pallone è strutturale e geometrica; la legge fisica di giunzione deve essere derivata indipendentemente dalla shell energy e, se necessario, calibrata sperimentalmente.
+
+Riferimento interno: [Documento di raccordo calcistico — sezione 5-bis](DOCUMENTO_RACCORDO_CALCISTICO_MORANDOTTI_RGS_PRISM.md).
+
+
+## A.28. Derivazione dei sottospazi tangenti, quaternioni e triplette
+
+La derivazione completa, con Jacobiano dei quattro vincoli, costruzione di Q, proiettore tangente, Hessiana del Lagrangiano, triplette rotazionali, distinzione T1u/T2u, frame quaternionici, trasferimento 192→276 e angoli principali, è raccolta nel [Capitolo metodologico dedicato](CAPITOLO_SOTTOSPAZI_TANGENTI_QUATERNIONI_TRIPLETTE_MORANDOTTI.md). Il capitolo va letto insieme ai report A14 e agli audit della geometria 188D: non identifica automaticamente K0 con la Hessiana vincolata originale e non promuove i cluster numerici a rappresentazioni irriducibili senza verifica dei caratteri e dei commutatori.
+
+
+## A.29. Operatore discreto di incompatibilità e ponte Cartan–quaternionico
+
+La definizione debole di Inc_h, il pairing con le sorgenti di Burgers/Frank, la connessione SU(2) indipendente dai frame, l'olonomia, la co-base discreta e il programma di calibrazione sono raccolti nel [capitolo dedicato](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md). La formulazione è proposta e falsificabile, ma non va descritta come già implementata: la mappa tra torsione/curvatura discrete e sorgente Airy, nonché l'operatore superficiale curvo, restano aperti.
+
+
+## A.30. Prototipo computazionale dell'operatore debole
+
+Il repository contiene ora `models/discrete_incompatibility_weak.py` e `tests/test_discrete_incompatibility_weak.py`. Il modulo assembla il pairing debole di Saint-Venant da basi di deformazione e Hessiane dei test, ricostruisce la deformazione simmetrica P1 e assembla il carico puntuale Burgers/Frank. La suite è stata aggiunta al workflow `football-anisotropy`; l'esito CI dedicato non è ancora disponibile. Il prototipo non è un elemento finito completo: mancano la generazione degli spazi H² conformi/CIP-DG, la connessione SU(2) indipendente, la calibrazione Cartan–Airy e l'operatore superficiale curvo. Si veda il [capitolo di derivazione](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md).
