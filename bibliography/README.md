@@ -13,6 +13,9 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 ## Estrazione e verifica delle formule
 - [Registro maestro delle formule](FORMULA_EXTRACTION_REGISTER.md): inventario, stati epistemici, protocollo e priorità.
 
+## Geometria sferica e teoria spettrale
+- [S013 — Spherical space forms, Molien theory, diagonal SU(2) actions and Ikeda correction chain](../theorems/S013-general-spherical-space-form-molien-diagonal-actions.md): Ikeda (1995), Lehoucq–Uzan–Weeks (2003), Aurich–Lustig–Steiner (2005), Aurich–Lustig (2012), Allcock (2018), and Martin–Merino–Poddar–Roby (2026 preprint), with source status and unresolved audit items.
+
 ## Fonti citate online
 - [Autori, articoli e pagine online citati nelle conversazioni](online-citations/README.md): registro separato dai documenti caricati nella Library, con fonti verificate e lacune esplicite.
 
