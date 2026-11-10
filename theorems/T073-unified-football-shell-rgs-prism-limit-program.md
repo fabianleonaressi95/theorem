@@ -142,7 +142,7 @@ u_\pm' = O_\pm^T u_\pm,\qquad
 \]
 Thus a fibrewise quadratic seam energy is chart-independent when its stiffness is transformed by the same conjugation.
 
-The T2u/PRISM channel basis has a separate \(O(3)\) gauge. If \(V\mapsto VO\) and \(R_T\mapsto O^TR_T\), then \(\Gamma_T\mapsto O^T\Gamma_TO\), \(U_i\mapsto U_iO\), and
+The T2u/PRISM channel basis has a separate \(O(3)\) gauge. If \(V\mapsto VO\) and \(R_T\mapsto R_TO\), then \(\Gamma_T\mapsto O^T\Gamma_TO\), \(U_i\mapsto U_iO\), and
 \[
 (U_iO)(O^T\Gamma_TO)(U_iO)^T=U_i\Gamma_TU_i^T.
 \]
