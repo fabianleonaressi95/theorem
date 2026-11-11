@@ -449,7 +449,16 @@ def main():
           } for i in range(1, len(levels))
         ],
         "levels":levels,
-        "distance_sweep": {\n            "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",\n            "reference_separation":0.56,"support_radius":0.32,\n            "mesh_size":a.distance_mesh_size,"separations":a.distance_values,\n            "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",\n            "definition_C_d":"||M_01||_F/||M_00||_F",\n            "results":distance_sweep,\n            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "positive corner areas are a necessary but not sufficient curved-element quality certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]\n        },\n        "orientation_covariance": {
+        "distance_sweep": {
+            "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",
+            "reference_separation":0.56,"support_radius":0.32,
+            "mesh_size":a.distance_mesh_size,"separations":a.distance_values,
+            "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",
+            "definition_C_d":"||M_01||_F/||M_00||_F",
+            "results":distance_sweep,
+            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "positive corner areas are a necessary but not sufficient curved-element quality certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]
+        },
+        "orientation_covariance": {
             "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
             "mesh_size":a.orientation_mesh_size,
             "angles_deg":a.orientation_angles_deg,
@@ -457,7 +466,8 @@ def main():
             "interpretation":"same reference mesh connectivity is rotated in place, so covariance differences isolate numerical transformation/geometry effects rather than angle-dependent remeshing",
         }}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(report, indent=2) + "
+", encoding="utf-8")
     print(json.dumps(report,indent=2))
 
 
