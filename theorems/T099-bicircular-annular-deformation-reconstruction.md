@@ -34,7 +34,7 @@ end{aligned}
 ]
 These are classical circle-intersection identities. The centroid lies on the line of centres by reflection symmetry. Its first coordinate is obtained from the one-dimensional cap integral
 [
-ar x={2over A}int_{d-R_2}^{R_1}
+ar x={2over A}int_{x_{\rm lo}}^{x_{\rm hi}}
 xmin{sqrt{R_1^2-x^2},sqrt{R_2^2-(x-d)^2}},dx,
 ]
 with the integrand split at (x_*) and the integration limits intersected with the actual lens interval. The implementation uses Gauss–Legendre quadrature and checks the area against the closed formula.
