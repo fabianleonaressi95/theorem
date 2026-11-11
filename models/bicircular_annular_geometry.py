@@ -53,18 +53,23 @@ def lens_area_centroid(r1: float, r2: float, d: float, order: int = 160) -> tupl
     """Gauss-Legendre area and centroid; y-centroid is zero by symmetry."""
     g = lens_geometry(r1, r2, d)
     nodes, weights = np.polynomial.legendre.leggauss(order)
+    # The sin^2 map removes the square-root endpoint singularities of the
+    # circular caps, giving spectral convergence for the area and first moment.
+    t = 0.25 * math.pi * (nodes + 1.0)
+    wt = 0.25 * math.pi * weights
     x_star, x_lo, x_hi = g["x_star"], g["x_lo"], g["x_hi"]
 
     def integrate(a: float, b: float, which: int, moment: bool) -> float:
         if b <= a:
             return 0.0
-        x = 0.5 * (b - a) * nodes + 0.5 * (a + b)
+        x = a + (b - a) * np.sin(t) ** 2
+        jac = 2.0 * (b - a) * np.sin(t) * np.cos(t)
         if which == 2:
             y = np.sqrt(np.maximum(0.0, r2 * r2 - (x - d) ** 2))
         else:
             y = np.sqrt(np.maximum(0.0, r1 * r1 - x ** 2))
-        f = 2.0 * y * (x if moment else 1.0)
-        return 0.5 * (b - a) * float(np.dot(weights, f))
+        f = 2.0 * y * (x if moment else 1.0) * jac
+        return float(np.dot(wt, f))
 
     area = integrate(x_lo, x_star, 2, False) + integrate(x_star, x_hi, 1, False)
     first = integrate(x_lo, x_star, 2, True) + integrate(x_star, x_hi, 1, True)
