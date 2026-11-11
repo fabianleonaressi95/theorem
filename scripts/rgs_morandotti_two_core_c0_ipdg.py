@@ -162,7 +162,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     field_coefficients = np.stack([q.x.array.copy() for q in fields])
     dof_coordinates = V.tabulate_dof_coordinates().copy()
     geometry_coordinates = mesh.geometry.x.copy()
-    geometry_dofmap = mesh.geometry.dofmap.array.copy()
+    geometry_dofmap = np.asarray(mesh.geometry.dofmap).copy()
     cases = {
         "single_disclination_core_0": (np.array([0.2, 0.0]), np.zeros((2,2))),
         "single_edge_dislocation_core_1": (np.zeros(2), np.array([[0.0,0.0],[0.03,-0.04]])),
