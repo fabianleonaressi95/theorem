@@ -1,46 +1,72 @@
-# Morandotti two-core audit: implementation gaps
+# Morandotti two-core C0-IPDG audit: current implementation and evidence
 
-**Audit date:** 2026-11-11  
-**Target:** `work/morandotti-cell-reconstruction`, PR #149  
-**Audit type:** source inspection. No DOLFINx/Gmsh numerical run was executed in this audit.
+**Updated:** 2026-11-11  
+**Repository:** \`fabianleonaressi95/theorem\`  
+**Scope:** finite-dimensional Frank/Burgers reconstruction, interior-facet traction jumps, and mesh-refinement execution.
 
-## What is already implemented
+## Merged implementation
 
-- The finite-dimensional map `Phi -> a -> v_h` is implemented in `models/morandotti_cell_reconstruction.py`.
-- The signs and ordering of the two-core mixed datum are covered by a unit test.
-- The algebraic tests cover a synthetic SPD matrix, linearity, and invalid matrix/data shapes.
-- The C0-IPDG script assembles six cell fields and reports both Hessian- and Laplacian-product matrices, together with boundary/interior flux terms.
+### PR #161 — Frank–Burgers traction-jump decomposition
 
-These are useful algebraic and assembly components, but they are not yet an end-to-end defect computation.
+[PR #161](https://github.com/fabianleonaressi95/theorem/pull/161) was merged as \`d43b6906ef88840f0688b8939045fbc8900110e7\`.
 
-## Gaps found by source inspection and implementation status
+The implementation computes the interior-facet traction jump from the reconstructed stress as
+\[
+j=\llbracket\sigma n\rrbracket=j_\Omega+j_B.
+\]
+It records the Frank and Burgers L2 norms and independently assembles the signed mixed term
+\[
+2\int_{\mathcal F_h^{\rm int}}j_\Omega\cdot j_B\,dS,
+\]
+together with the squared-norm additivity residual. It also records total, Frank, Burgers, and mixed second-moment tensors in laboratory coordinates and in the longitudinal/transverse core frame, plus the total directional anisotropy.
 
-1. **Resolved in the current branch: FE field export.**  
-   The driver now saves the six FE coefficient vectors, dof coordinates, geometry coordinates/dofmap, and interaction matrices in one compressed `.npz` artifact per mesh level. The run remains serial-only.
+The [DOLFINx two-core audit run #46](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760) completed successfully. Its algebraic tests, numerical audit, and artifact upload all passed.
 
-2. **Resolved at source level: four defect-data reconstructions.**  
-   The driver builds `Phi`, solves the actual assembled Laplacian-product system, and reconstructs Airy FE values for a single disclination, a single edge dislocation, an opposite-sign disclination dipole, and the mixed two-core source. Each case records the linear-system residual.
+### PR #162 — five-level traction-jump refinement
 
-3. **Resolved at source level: boundary and stress diagnostics.**  
-   Value and normal-derivative residuals are now recorded on the outer boundary and both cores for every cell field. For each reconstructed Airy potential, the driver forms the elementwise cofactor Hessian stress, reports traction L2 norms on all three boundary components, and reports the interior-facet traction jump. These diagnostics have not yet been executed or independently validated.
+[PR #162](https://github.com/fabianleonaressi95/theorem/pull/162) was merged as \`e88da3e16257a9ab3a867e3b72e97fbd70a2d943\`.
 
-4. **Still open: actual mesh-convergence analysis.**  
-   Multiple mesh sizes are solved and per-level matrices, fields, reconstructed stress diagnostics, eigenvalue and condition diagnostics are recorded. The report does not yet compare these quantities between successive levels or report observed rates.
+It adds a dedicated DOLFINx 0.11.0 workflow and executes the two-core audit at
+\[
+h\in\{0.08,\ 0.06,\ 0.045,\ 0.035,\ 0.027\},
+\]
+with the existing material and penalty settings. The workflow reruns the 13 algebraic reconstruction tests and uploads the JSON report and per-level FE fields.
 
-5. **Still open: execute the actual assembled operator.**  
-   Existing unit tests use a synthetic SPD matrix. The new driver now exercises the actual assembled Laplacian-product matrix, but it has not yet been run in the required DOLFINx environment; positive definiteness, conditioning, and reconstruction accuracy are therefore unverified.
+Both the [base two-core audit run #47](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351) and the [dedicated five-level refinement run](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456) completed successfully. The five-level artifact is available through the latter workflow run.
 
-6. **Parallel execution is explicitly unsupported.**  
-   The script raises for communicator size greater than one. This is an honest limitation; no multi-core/MPI scalability claim should be made.
+## What the successful runs establish
 
-## Required next validation increment
+- The configured DOLFINx/Gmsh/PETSc environment was initialized successfully.
+- The 13 algebraic reconstruction tests passed in the five-level workflow.
+- The five-level finite-element audit completed without workflow failure.
+- The JSON report and per-level FE fields were uploaded successfully.
+- The Frank/Burgers/mixed traction-jump quantities and their directional second moments are part of the recorded output.
 
-- Save, for each mesh level, the six FE coefficient vectors, dof coordinates, mesh geometry/topology metadata, and the assembled Laplacian-product matrix. Keep the Hessian-product and flux matrices as independent diagnostics.
-- Add a postprocessing stage that builds `Phi` for: (i) one wedge disclination, (ii) one edge dislocation, (iii) an opposite-sign disclination dipole, and (iv) the mixed two-core datum already documented in the reconstruction gate.
-- Reconstruct `v_h` and the elementwise Hessian/stress. Report the residual `||M a-Phi||`, matrix symmetry and spectrum/condition number, plus value and normal-derivative residuals on every boundary component.
-- Report traction residuals `||sigma_h n||` separately on the outer boundary and each core. For C0-IPDG, document the elementwise Hessian convention and facet treatment.
-- Compare fields, stresses, and energies across mesh levels and against an independent analytic benchmark on identical geometry, core radius, material parameters, and boundary conditions.
+## What remains open
 
-## Acceptance rule
+The successful workflow is evidence that the configured computation ran; it is not, by itself, a convergence theorem. The numerical report and FE fields must be inspected before assigning an observed rate or claiming stabilization of the traction-jump norms. In particular:
 
-Until these gates pass, classify the result as **algebraic reconstruction implemented + two-core cell-matrix audit scaffold**. Do not classify it as validated two-core Airy reconstruction, physical validation, or a proof of Mosco/Γ convergence.
+1. Compare each traction-jump norm and the signed mixed term across all five mesh sizes.
+2. Check the additivity residual and symmetry/positive-semidefinite properties of the second-moment tensors at every level.
+3. Separate stabilization of the total jump from stabilization of its Frank, Burgers, and mixed components.
+4. Avoid fitting a continuum decay law unless the five-level data and further refinement support it.
+5. Keep mesh-coordinate anisotropy separate from defect-induced stress anisotropy.
+6. Do not infer physical force balance, a material constitutive law, circulation, or a Möbius/topological contribution from these static Airy-stress diagnostics.
+
+## Reproduction
+
+The five-level command used by the dedicated workflow is:
+
+\`\`\`bash
+python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \\
+  --mesh-sizes 0.08 0.06 0.045 0.035 0.027 \\
+  --alpha 10 \\
+  --young-modulus 1.0 \\
+  --poisson-ratio 0.0 \\
+  --out artifacts/morandotti_traction_refinement/report.json
+\`\`\`
+
+See also [MORANDOTTI_ANISOTROPY.md](../../MORANDOTTI_ANISOTROPY.md) for the definitions of the longitudinal/transverse frame, the Frank–Burgers split, and the signed mixed traction-jump contribution.
+
+---
+**FLN**
