@@ -13,7 +13,7 @@ from __future__ import annotations
 import numpy as np
 
 from models.discrete_incompatibility_weak import (
-    assemble_compliance_energy,
+    assemble_constitutive_energy,
     assemble_inc_weak,
     solve_constrained_energy,
 )
@@ -30,12 +30,12 @@ def _hermite_1d(t: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     return h, dh, ddh
 
 
-def plane_stress_compliance(young_modulus: float, poisson_ratio: float) -> np.ndarray:
-    """Fourth-order inverse plane-stress stiffness on Sym(2), tensor-shear convention.
+def plane_stress_stiffness(young_modulus: float, poisson_ratio: float) -> np.ndarray:
+    """Fourth-order plane-stress stiffness on Sym(2), tensor-shear convention.
 
-    As an operator on symmetric tensors:
-        S(E) = ((1+nu)/E) E - (nu/E) tr(E) I.
-    Its volumetric/deviatoric eigenvalues are (1-nu)/E and (1+nu)/E.
+    As an operator on symmetric strains: C(eps)=2*mu*eps+lambda_2d*tr(eps)*I,
+    where mu=E/(2*(1+nu)) and lambda_2d=E*nu/(1-nu**2).
+    Its deviatoric/volumetric eigenvalues are E/(1+nu) and E/(1-nu).
     """
     E = float(young_modulus)
     nu = float(poisson_ratio)
@@ -44,14 +44,16 @@ def plane_stress_compliance(young_modulus: float, poisson_ratio: float) -> np.nd
     if not np.isfinite(nu) or not (-1.0 < nu < 1.0):
         raise ValueError("poisson_ratio must lie strictly between -1 and 1")
     I = np.eye(2)
-    S = np.empty((2, 2, 2, 2), dtype=float)
+    C = np.empty((2, 2, 2, 2), dtype=float)
     for i in range(2):
         for j in range(2):
             for k in range(2):
                 for l in range(2):
                     sym_identity = 0.5 * (I[i, k]*I[j, l] + I[i, l]*I[j, k])
-                    S[i, j, k, l] = ((1.0 + nu)*sym_identity - nu*I[i, j]*I[k, l]) / E
-    return S
+                    mu = E / (2.0*(1.0 + nu))
+                    lam = E*nu / (1.0 - nu**2)
+                    C[i, j, k, l] = 2.0*mu*sym_identity + lam*I[i, j]*I[k, l]
+    return C
 
 
 def assemble_bfs_rectangular(
@@ -137,9 +139,9 @@ def assemble_bfs_rectangular(
         strain_basis[k, :, 3*k+2, 0, 1] = 1.0/np.sqrt(2.0)
         strain_basis[k, :, 3*k+2, 1, 0] = 1.0/np.sqrt(2.0)
 
-    compliance = plane_stress_compliance(young_modulus, poisson_ratio)
+    stiffness = plane_stress_stiffness(young_modulus, poisson_ratio)
     A = assemble_inc_weak(strain_basis, test_hessians, weights)
-    M = assemble_compliance_energy(strain_basis, weights, compliance)
+    M = assemble_constitutive_energy(strain_basis, weights, stiffness)
     return {
         "A": A, "M": M, "test_hessians": test_hessians,
         "strain_basis": strain_basis, "weights": weights,
