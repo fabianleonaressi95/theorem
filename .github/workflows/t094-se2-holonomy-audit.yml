@@ -6,7 +6,7 @@ on:
     paths:
       - 'scripts/rgs_se2_holonomy_audit.py'
       - 'tests/test_rgs_se2_holonomy_audit.py'
-      - 'models/morandotti_cell_reconstruction.py'
+      - 'models/morandotti_cell_reconstruction.py'\n      - 'data/morandotti_two_core_core_holonomies.json'
       - 'theorems/T094-se2-holonomy-morandotti-audit.md'
       - '.github/workflows/t094-se2-holonomy-audit.yml'
   pull_request:
@@ -39,7 +39,7 @@ jobs:
         run: |
           python scripts/rgs_se2_holonomy_audit.py \
             --sizes 0.32 0.16 0.08 0.04 \
-            --out artifacts/se2_holonomy_audit/report.json
+            --core-holonomies data/morandotti_two_core_core_holonomies.json \\\n            --out artifacts/se2_holonomy_audit/report.json
       - name: Upload audit report
         uses: actions/upload-artifact@v4
         with:
