@@ -366,6 +366,12 @@ The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmi
 
 The implementation integrates ordered edge transports for a smooth noncommuting SE(2) connection, compares face holonomy with the analytic Cartan curvature, and exports an optional adapter from measured integrated core-loop data to the existing Morandotti Frank/Burgers source-vector convention. **Execution and numerical verification are pending; no convergence result is claimed yet.**
 
+### T096 — Airy-strain holonomy identifiability gate
+
+- [T096 theorem](theorems/T096-airy-strain-holonomy-nonidentifiability.md) proves that symmetric strain recovered from Airy stress does not determine the skew elastic-distortion field or its Burgers loop closure.
+- [Audit runner](scripts/rgs_airystress_holonomy_identifiability.py) and [regression tests](tests/test_rgs_airystress_holonomy_identifiability.py) construct two equal-strain fields with different loop closures; [dedicated workflow](.github/workflows/t096-airy-holonomy-identifiability.yml) checks the witness.
+- **Consequence:** measured SE(2) holonomy requires an independently defined displacement/plastic-distortion field, a microrotation model, or an explicitly specified skew-field recovery problem. No loop integral of symmetric strain alone is labelled a Burgers vector.
+
 ### Two-Circle geometry to Frank–Burgers holonomy
 
 - [T093 — Conforming global assembly and Cartan-holonomy consistency](theorems/T093-conforming-global-assembly-cartan-holonomy.md) — proves finite seed-cell insertion into a conforming polygonal triangulation and seed-preserving midpoint refinement; establishes a local (O(h_K)) consistency estimate for smooth (SE(2))/Cartan face holonomy, recovering curvature and torsion densities. Singular-core and coupled elasticity convergence remain open.
