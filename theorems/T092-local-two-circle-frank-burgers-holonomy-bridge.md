@@ -16,7 +16,7 @@ This record isolates the geometric bridge from the Two-Circle construction to Fr
 
 Let \(U\subset\mathbb R^2\) be open, \(x\in U\), and \(\epsilon>0\). Since \(U\) is open, there exists \(\rho>0\) such that \(B(x,\rho)\subset U\). Choose a unit vector \(u\), let \(u^\perp\) be its positive quarter-turn, and choose
 \[
-0<r<\min\{\rho,\epsilon\}.
+0<r<\min\{\rho/2,\epsilon\}.
 \]
 Set
 \[
@@ -30,7 +30,7 @@ Then
 \[
 |c_1-c_2|=|c_1-p_\pm|=|c_2-p_\pm|=r.
 \]
-Thus the two radius-\(r\) circles centred at \(c_1,c_2\) intersect at \(p_+\) and \(p_-\), and each triple \((c_1,c_2,p_\pm)\) is an equilateral triangle of side \(r\). Since all three vertices lie in \(B(x,r)\subset U\), the triangles lie in \(U\); their diameter is \(r<\epsilon\).
+Thus the two radius-\(r\) circles centred at \(c_1,c_2\) intersect at \(p_+\) and \(p_-\), and each triple \((c_1,c_2,p_\pm)\) is an equilateral triangle of side \(r\). The triangle vertices lie in \(B(x,r)\subset U\). Moreover, every point of either circle lies within distance \(2r<\rho\) of \(x\), so both complete circles lie in \(B(x,\rho)\subset U\). The triangle diameter is \(r<\epsilon\).
 
 **Theorem 92.1 (arbitrarily small local two-circle cells).** For every \(x\) in every open set \(U\subset\mathbb R^2\) and every \(\epsilon>0\), there exist two equal circles with centre separation equal to their radius, contained locally in \(U\), whose intersection produces an equilateral triangle of diameter smaller than \(\epsilon\). In fact the construction gives two triangles, one on each side of the line of centres.
 
