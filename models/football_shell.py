@@ -143,6 +143,104 @@ def _discrete_metric_diagnostics(reference_nodes,deformed_nodes,triangles):
     }
 
 
+
+
+def build_seam_discontinuous_mesh(mesh):
+    """Duplicate panel traces so each side of every physical seam has its own DOFs.
+
+    Panel interiors and panel centres remain local to their panel. A physical
+    seam edge yields one pair of corresponding endpoint traces, one per
+    adjacent panel. The returned seam_pairs are (panel_a, panel_b, node_a-, 
+    node_b-, node_a+, node_b+) tuples; no penalty law is imposed here.
+    """
+    old_nodes=np.asarray(mesh["nodes"],float)
+    triangles=np.asarray(mesh["triangles"],int)
+    tri_panels=np.asarray(mesh["triangle_panels"],int)
+    panel_count=len(mesh["panels"])
+    local_map={}
+    new_nodes=[]
+    for pi,face in enumerate(mesh["panels"]):
+        originals=set(face)
+        originals.add(len(mesh["vertices"])+pi)
+        for old in sorted(originals):
+            local_map[(pi,old)]=len(new_nodes)
+            new_nodes.append(old_nodes[old].copy())
+    new_triangles=np.asarray([
+        [local_map[(int(tri_panels[ti]),int(old))] for old in tri]
+        for ti,tri in enumerate(triangles)
+    ],dtype=int)
+    seam_pairs=[]
+    for edge in sorted(mesh["physical_seams"]):
+        adjacent=mesh["edge_triangles"][edge]
+        if len(adjacent)!=2:
+            raise ValueError("each physical seam must have exactly two adjacent panel triangles")
+        p0,p1=(int(tri_panels[ti]) for ti in adjacent)
+        if p0==p1:
+            raise ValueError("physical seam edge is internal to one panel")
+        a,b=map(int,edge)
+        seam_pairs.append((p0,p1,local_map[(p0,a)],local_map[(p0,b)],
+                           local_map[(p1,a)],local_map[(p1,b)]))
+    return {"nodes":np.asarray(new_nodes,float),"triangles":new_triangles,
+            "triangle_panels":tri_panels.copy(),"seam_pairs":np.asarray(seam_pairs,dtype=int),
+            "original_node_count":int(len(old_nodes)),
+            "physical_seam_count":int(len(seam_pairs)),
+            "panel_trace_count":int(len(new_nodes))}
+
+
+def assemble_seam_jump_stiffness(discontinuous_mesh, line_penalty):
+    """Consistent P1 line-interface penalty for the full 3D displacement jump.
+
+    For each seam segment, E=1/2*kappa*integral_Gamma |u+ - u-|^2 ds.
+    line_penalty kappa has units N/m^2; resulting K has units N/m.
+    This is a penalty interface (not cohesive damage, contact, or friction).
+    """
+    if line_penalty<0:
+        raise ValueError("line penalty must be non-negative")
+    nodes=discontinuous_mesh["nodes"]
+    ndof=3*len(nodes)
+    K=np.zeros((ndof,ndof))
+    for row in discontinuous_mesh["seam_pairs"]:
+        _,_,a0,b0,a1,b1=map(int,row)
+        length=np.linalg.norm(nodes[b0]-nodes[a0])
+        if length<=1e-14:
+            raise ValueError("zero-length seam segment")
+        # Consistent P1 mass matrix on the seam: L/6 [[2,1],[1,2]].
+        ids=[a0,b0,a1,b1]
+        signs=np.array([-1.,-1.,1.,1.])
+        M=(line_penalty*length/6.)*np.array([[2.,1.],[1.,2.]])
+        for i in range(4):
+            for j in range(4):
+                mi,mj=i%2,j%2
+                block=signs[i]*signs[j]*M[mi,mj]*np.eye(3)
+                K[3*ids[i]:3*ids[i]+3,3*ids[j]:3*ids[j]+3]+=block
+    return K
+
+
+def _assemble_physical_seam_axial_stiffness(nodes, physical_seams, line_stiffness):
+    """Assemble conservative axial springs on physical seam edges.
+
+    line_stiffness is EA [force], so each edge contributes
+    0.5*(EA/L)*(t dot (u_b-u_a))**2. This is an axial reinforcement
+    model, not a displacement-jump/cohesive interface law.
+    """
+    if line_stiffness < 0:
+        raise ValueError("seam line stiffness must be non-negative")
+    ndof=3*len(nodes)
+    Kseam=np.zeros((ndof,ndof))
+    for edge in sorted(physical_seams):
+        a,b=edge
+        delta=nodes[b]-nodes[a]
+        length=np.linalg.norm(delta)
+        if length<=1e-14:
+            raise ValueError("physical seam contains a zero-length edge")
+        tangent=delta/length
+        grad=np.zeros(ndof)
+        grad[3*a:3*a+3]=-tangent
+        grad[3*b:3*b+3]=tangent
+        Kseam+=(line_stiffness/length)*np.outer(grad,grad)
+    return Kseam
+
+
 def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=.25,G12=300.,
         material_angle=0.,seam_Et=0.,seam_bending_factor=4.,panel_hinge_factor=1.):
     """Linearised orthotropic CST membrane + signed-dihedral bending shell."""
@@ -170,10 +268,8 @@ def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=
         K[np.ix_(dofs,dofs)]+=kb*np.outer(g,g)
         if seam:
             seam_count+=1
-            if seam_Et>0:
-                tangent=(X[b]-X[a])/length; grad=np.zeros(ndof)
-                grad[3*a:3*a+3]=-tangent; grad[3*b:3*b+3]=tangent
-                K+=(seam_Et/length)*np.outer(grad,grad)
+    Kseam=_assemble_physical_seam_axial_stiffness(X,mesh["physical_seams"],seam_Et)
+    K+=Kseam
     constrained=np.array([0,1,2,4,5,8]); free=np.setdiff1d(np.arange(ndof),constrained)
     Kff=K[np.ix_(free,free)]; uf=np.linalg.solve(Kff,force[free]); u=np.zeros(ndof); u[free]=uf
     u=u.reshape(-1,3); deformed=X+u
@@ -185,7 +281,10 @@ def solve_discrete_shell(mesh,pressure=1e-3,thickness=.02,E1=1000.,E2=700.,nu12=
         "rms_node_displacement":float(np.sqrt(np.mean(np.sum(u*u,axis=1)))),
         "radial_increment_rms":float(np.std(r1-r0)),"radial_rms_after":float(np.std(r1)),
         "radial_peak_to_peak_after":float(np.ptp(r1)),"mean_radius_after":float(np.mean(r1)),
-        "physical_seam_count":int(seam_count),"triangular_element_count":int(len(mesh["triangles"])),
+        "physical_seam_count":int(seam_count),
+        "seam_axial_spring_energy":float(0.5*u.ravel()@Kseam@u.ravel()),
+        "seam_axial_spring_model":"EA/L times squared axial endpoint displacement difference; no opening/sliding jump DOFs",
+        "triangular_element_count":int(len(mesh["triangles"])),
         "hinge_count":int(len(mesh["edge_triangles"]))}
     diag["discrete_metric"]=_discrete_metric_diagnostics(X,deformed,mesh["triangles"])
     return deformed,u,K,diag

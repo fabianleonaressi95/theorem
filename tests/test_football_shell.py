@@ -3,7 +3,7 @@ import sys
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
-from models.football_shell import build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
+from models.football_shell import _assemble_physical_seam_axial_stiffness,assemble_seam_jump_stiffness,build_seam_discontinuous_mesh,build_football_shell,compare_scan,cube_sphere_fields,read_point_cloud,run_shell_audit,sample_shell_surface,solve_discrete_shell
 
 def test_closed_truncated_icosahedron_shell_counts():
  m=build_football_shell()
@@ -47,3 +47,63 @@ def test_scan_icp_recovers_rigidly_transformed_synthetic_surface(tmp_path):
  np.savetxt(path,scan,delimiter=",",header="x,y,z",comments="")
  result=compare_scan(read_point_cloud(path),m["nodes"],m["triangles"],2)
  assert result["symmetric_chamfer_rms"]<1e-8
+
+
+def test_physical_seam_axial_springs_are_energy_consistent_and_rigid_motion_invariant():
+ m=build_football_shell()
+ EA=12.5
+ Ks=_assemble_physical_seam_axial_stiffness(m["nodes"],m["physical_seams"],EA)
+ assert Ks.shape==(3*len(m["nodes"]),3*len(m["nodes"]))
+ assert np.allclose(Ks,Ks.T,atol=1e-12)
+ assert np.linalg.eigvalsh(Ks)[0]>-1e-10
+ # A rigid translation has no axial extension on any physical seam.
+ rigid=np.tile(np.array([.3,-.7,1.2]),len(m["nodes"]))
+ assert np.linalg.norm(Ks@rigid)<1e-10
+ # Compare assembled quadratic energy with the edge-by-edge definition.
+ rng=np.random.default_rng(20261110)
+ u=rng.normal(size=(len(m["nodes"]),3))
+ direct=0.
+ for a,b in m["physical_seams"]:
+  d=m["nodes"][b]-m["nodes"][a]
+  L=np.linalg.norm(d); t=d/L
+  direct += .5*EA/L*(t@(u[b]-u[a]))**2
+ assembled=.5*u.ravel()@Ks@u.ravel()
+ assert np.isclose(assembled,direct,rtol=1e-12,atol=1e-12)
+
+
+def test_shell_reports_axial_seam_energy_separately_from_hinges():
+ m=build_football_shell()
+ _,u,_,d=solve_discrete_shell(m,seam_Et=12.5)
+ assert d["physical_seam_count"]==90
+ assert d["hinge_count"]==270
+ assert d["seam_axial_spring_energy"]>=0
+ assert "no opening/sliding jump DOFs" in d["seam_axial_spring_model"]
+
+
+def test_discontinuous_panel_traces_duplicate_all_90_physical_seams():
+ m=build_football_shell()
+ dm=build_seam_discontinuous_mesh(m)
+ assert dm["physical_seam_count"]==90
+ assert dm["seam_pairs"].shape==(90,6)
+ assert len(dm["nodes"])>len(m["nodes"])
+ assert dm["triangles"].shape==m["triangles"].shape
+ # The two panel-side copies of every original seam endpoint coincide in reference geometry.
+ for _,_,a0,b0,a1,b1 in dm["seam_pairs"]:
+  assert np.allclose(dm["nodes"][a0],dm["nodes"][a1])
+  assert np.allclose(dm["nodes"][b0],dm["nodes"][b1])
+
+
+def test_consistent_seam_jump_penalty_is_psd_and_has_rigid_translation_kernel():
+ dm=build_seam_discontinuous_mesh(build_football_shell())
+ K=assemble_seam_jump_stiffness(dm,line_penalty=25.)
+ assert K.shape==(3*len(dm["nodes"]),3*len(dm["nodes"]))
+ assert np.allclose(K,K.T,atol=1e-12)
+ assert np.linalg.eigvalsh(K)[0]>-1e-9
+ rigid=np.tile(np.array([.4,-.2,1.1]),len(dm["nodes"]))
+ assert np.linalg.norm(K@rigid)<1e-9
+ # A constant relative translation of one side of one seam has positive penalty.
+ row=dm["seam_pairs"][0]
+ _,_,a0,b0,a1,b1=map(int,row)
+ u=np.zeros((len(dm["nodes"]),3))
+ u[[a1,b1],0]=.1
+ assert .5*u.ravel()@K@u.ravel()>0

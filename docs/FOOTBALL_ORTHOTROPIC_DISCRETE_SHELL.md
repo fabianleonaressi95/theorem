@@ -108,3 +108,53 @@ g'_{ab}=(R+u)^2\gamma_{ab}+\partial_a u\,\partial_bu.
 Nel guscio triangolato, ogni elemento calcola la mappa tangente discreta \(F\), il tensore \(C=F^TF\) e la deformazione di Green–Lagrange \(E_{GL}=(C-I)/2\). Il JSON riporta RMS della deformazione metrica e intervallo degli allungamenti principali. È quindi presente un collegamento numerico esplicito fra trasformazione radiale, metrica superficiale e risposta elastica; non viene ancora ricostruito un campo continuo di curvatura gaussiana.
 
 ICP is a local rigid registration method: it assumes scan and model have already been brought into approximately the same orientation and does not estimate scale. The synthetic test uses a small initial rotation and a translation. For arbitrary scanner poses, supply a coarse pre-alignment or fiducial orientation before ICP; report the alignment protocol with the scan.
+
+
+## 4 ter. Gate B — energy-consistent axial seam spring
+
+The physical-seam axial contribution is now assembled by the dedicated helper
+\`_assemble_physical_seam_axial_stiffness\`. It uses only the 90 edges in
+\`mesh["physical_seams"]\`, independently of the 270 dihedral hinges. The
+reported diagnostic includes the assembled axial spring energy and explicitly
+labels the model as having no opening/sliding jump degrees of freedom.
+
+The regression tests check symmetry, positive semidefiniteness to numerical
+tolerance, invariance under rigid translation, and equality between the
+assembled quadratic energy and the edge-by-edge energy formula. These are
+algebraic/software checks; they do not constitute a material calibration or
+experimental validation.
+
+**Important limitation:** the shell mesh is conforming and shares the same
+boundary nodes between adjacent panels. Consequently, its displacement trace
+is continuous at the seam and it cannot represent independent opening or
+sliding jumps. A genuine cohesive/contact interface requires duplicated
+side-specific trace degrees of freedom (or an equivalent interface
+enrichment), consistent panel-side assembly, and appropriate junction
+constraints. Gate B therefore implements and isolates the existing axial
+reinforcement law; it does not claim to implement the full T076 interface law.
+
+
+## 4 quater. Gate B2 — discontinuous traces and line-penalty primitive
+
+\`build_seam_discontinuous_mesh(mesh)\` creates panel-local copies of each
+panel-boundary vertex. It returns remapped fan triangles and exactly 90
+side-to-side seam segment pairs. In the reference configuration the paired
+traces occupy identical coordinates, while their displacement unknowns are
+independent.
+
+\`assemble_seam_jump_stiffness(discontinuous_mesh, kappa)\` assembles the
+consistent P1 line penalty
+\\[
+E_\\Gamma(u)=\\frac12\\sum_{e=1}^{90}\\kappa_e
+\\int_{\\Gamma_e}\\lvert u^+-u^-\\rvert^2\\,ds.
+\\]
+For a segment of length \\(L\\), its scalar consistent mass matrix is
+\\(L/6\\begin{bmatrix}2&1\\\\1&2\\end{bmatrix}\\), multiplied by
+\\(\\kappa\\) and the signed side-jump operator. The coefficient
+\\(\\kappa\\) has units N/m^2 when the energy density is J/m.
+
+This is an elastic penalty primitive for the full vector displacement jump.
+It is not yet connected to the pressure-loaded CST/dihedral shell solve:
+bulk membrane and bending matrices must be reassembled on panel-local DOFs,
+and multi-panel junction balance/constraints must be handled explicitly.
+It is also not a cohesive damage, frictional contact, or discrete stitch law.

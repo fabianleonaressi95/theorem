@@ -13,26 +13,148 @@ The comparison cubical complex \(Q_6\) has 64 vertices, 192 edges and 240 square
 
 The orientability of the closed embedded shell supplies a global choice of unit normal away from the panel singularities. If the piecewise-\(C^2\) structure has creases, the two one-sided normals and the convention for traces at each crease must be specified; a global orientation does not make the normal continuous across a crease.
 
-## 2. Intrinsic structured-deformation variables
+## 2. Intrinsic fibré structured-deformation variables
 
-For an \(\mathbb R^m\)-valued deformation \(g\), the intrinsic tangential derivative is a section
+The shell displacement must be treated as a section of a vector bundle, not globally as a list of unrelated Cartesian components. Let \(S\) be the oriented reference shell, with tangent bundle \(TS\), normal line bundle \(NS\), and displacement bundle
 \[
-\nabla_S g\in L^p(S;T^*S\otimes\mathbb R^m).
+\pi:E=TS\oplus NS\longrightarrow S.
 \]
-The structured-deformation field \(G\) must belong to the same bundle. Only then is
-\[
-M=\nabla_Sg-G
-\]
-a well-defined section of \(T^*S\otimes\mathbb R^m\). In a local chart this is represented by an \(m\times2\) matrix; under a change of chart the two factors transform covariantly, so the bundle-valued difference is chart-independent.
+The embedding in \(\mathbb R^3\) gives an ambient trivialization of \(E\), but does not provide a global tangent frame. Tangential and normal components are local bundle components and must transform under changes of panel frame.
 
-A candidate state space is
+A displacement is a section \(u\) of \(E\). When jumps are allowed at panel boundaries, use panelwise sections \(u_p\in SBV(P_p;E|_{P_p})\). The covariant derivative is
 \[
-(g,G)\in SBV(S;\mathbb R^m)\times
-L^p(S;T^*S\otimes\mathbb R^m).
+\nabla^E u\in L^p(S;T^*S\otimes E),
 \]
-Here \(SBV\) on \(S\) must be defined intrinsically, for example through a finite atlas and compatible trace/jump definitions, or through an equivalent ambient formulation. The atlas, transition maps and uniformity required for a family of approximating surfaces \(S_h\) must be stated. This is an obligation, not a result supplied by the Euclidean structured-deformation theorem.
+with the connection induced by the Levi-Civita connection on \(TS\) and the normal connection on \(NS\). If a structured-deformation variable \(G\) is introduced, it must belong to the same bundle as \(\nabla^E u\), so that \(M=\nabla^E u-G\) is intrinsically defined.
 
-The shell metric is denoted by \(g_S\) (or another unambiguous symbol); it must not be confused with the deformation \(g\) or the structured field \(G\).
+For each panel chart, local frames are trivializations only. On a seam overlap, the transition map \(g_{+-}(x):E_x^-\to E_x^+\) identifies fibre coordinates. The intrinsic jump is
+\[
+[u]_e=u^+-g_{+-}u^-\in E|_{\Gamma_e}.
+\]
+At multi-panel junctions, the transition maps must satisfy cocycle/holonomy compatibility; force covectors and resultants must be transported to a common fibre before balance is imposed.
+
+A candidate state space is therefore the bundle-valued structured-deformation space
+\[
+\mathcal{SD}_p(S;E)=
+SBV(S;E)\times L^p(S;T^*S\otimes E),
+\]
+or its panelwise version with prescribed seam traces. Its precise definition on a piecewise-\(C^2\) surface, including traces, jump measures, connection regularity and varying-surface comparison maps, remains a proof obligation. The earlier notation \(SBV(S;\mathbb R^m)\) is recovered only after choosing an ambient trivialization; it is not the intrinsic definition.
+
+The physical seam network \(\Gamma_{\rm phys}\) is prescribed material/geometric data. The mesh skeleton \(\mathcal S_h\) and the variational jump set \(S_u\) are different objects and must remain distinct. A seam energy is a fibrewise density on \(E|_{\Gamma_e}\), with its transition maps and frame covariance explicitly specified.
+
+## 2.1. Triplett anisotropy transferred to the tangent fibre
+
+Two established finite-dimensional structures must be kept distinct and then connected by an explicit map.
+
+**(i) Q6 tangent T2u triplet.** The recorded spectral triplet is
+\[
+V\in\mathbb R^{188\times3},\qquad V^TV=I_3,\qquad
+\lambda_{T_{2u}}=-0.06994933008401777
+\]
+with multiplicity three. The first triplet has now been reconstructed from the recovered 64-site geometry, the 48-element signed-permutation action of \(O_h\), the \(T_{2u}\) character projector and the constrained Coulomb Hessian. The isotypic projector has rank 30; the lowest restricted eigenvalue is \(-0.069949330084017\) with multiplicity three, separated from the next \(T_{2u}\) eigenvalue by approximately \(0.3193062\). The exported frame \(V\) is a deterministic coordinate-pivoted orthonormal basis of this three-dimensional spectral subspace. Its span/projector is invariant, while the particular basis within the degenerate triplet is a gauge choice. The implementation is reconstruct_rgs_t2u_triplet in models/tangent_triplet_anisotropy.py; the reproducible export is scripts/reconstruct_rgs_t2u_triplet.py. This rank-three spectral subspace is not an invertible tetrad.
+
+**(ii) PRISM/G2 tripletti.** For each triplett \(T=(r_1,r_2,r_3)\), with \(r_i\in\mathbb R^2\), put \(R_T=[r_1\ r_2\ r_3]\) and
+\[
+Q_{G_2}=\begin{pmatrix}2&-3\\-3&6\end{pmatrix},\qquad
+\Gamma_T=R_T^TQ_{G_2}R_T.
+\]
+The recorded family has 216 tripletti and 20 Gram classes; every \(\Gamma_T\) is positive semidefinite with rank at most two. These Gram classes encode channel anisotropy. They are not automatically the constitutive tensor of the football fabric.
+
+**(iii) Finite-mesh bridge; continuum extension open.** At each of the 92 shell nodes \(x_i\), the implemented transfer is
+\[
+L_i:\mathbb R^{188}\longrightarrow T_{x_i}S\subset\mathbb R^3,
+\qquad L_i=P_iW_iQ.
+\]
+The transferred T2u channel map is
+\[
+U_i=L_iV:\mathbb R^3\longrightarrow T_{x_i}S,
+\qquad \operatorname{rank}U_i=2.
+\]
+The implementation checks the rank at every node and raises if it fails; the dedicated all-node regression test is included but its CI execution is still pending. The formula defines a finite-mesh nodal map, not yet a smooth family \(L_x\) at every continuum point. For a selected G2 triplett class, the nodal tangent anisotropy is
+\[
+A_T(x_i)=U_i\Gamma_TU_i^*
+\in\operatorname{Sym}^+(T_{x_i}S).
+\]
+Equivalently, in a local orthonormal tangent frame \(F_i:\mathbb R^2\to T_{x_i}S\),
+\[
+[A_T(x_i)]_{F_i}=F_i^TU_i\Gamma_TU_i^TF_i.
+\]
+Under a frame change \(F_i\mapsto F_iO_i\), this matrix transforms as
+\(A_F\mapsto O_i^TA_FO_i\); its eigenvalues and anisotropy ratio are frame-independent. The ambient tensor \(U_i\Gamma_TU_i^T\) is unchanged. A connection-preserving extension along panel interiors and across seam overlaps remains open.
+
+The induced seam constitutive form is then a bundle endomorphism on
+\(E|_{\Gamma_e}=TS|_{\Gamma_e}\oplus NS|_{\Gamma_e}\), for example
+\[
+K_e(x)=
+\begin{pmatrix}
+k_{0,e}I_{T_xS}+\alpha_e A_T(x)&0\\
+0&k_{o,e}
+\end{pmatrix}.
+\]
+This is a model class, not a fitted law: \(\alpha_e,k_{0,e},k_{o,e}\) require material/seam identification. It keeps tangential anisotropy distinct from shell-normal peel/opening.
+
+The code primitive models/tangent_triplet_anisotropy.py implements the Gram construction, the explicitly supplied transfer composition, tangent-fibre push-forward, frame-covariance diagnostics and the block seam-fibre stiffness. Unit tests are in tests/test_tangent_triplet_anisotropy.py.
+
+**Status correction:** the finite-mesh nodal transfer \\(L_i=P_iW_iQ\\) is now explicitly implemented in §2.2, and the T2u triplet can be reconstructed from the original 64-site geometry rather than supplied as an opaque external array. The bridge is therefore computationally specified at the 92 shell nodes. Still open are (a) execution of the repository's complete regression suite, (b) a smooth/connection-preserving extension over the continuum shell, (c) seam transition maps and holonomy, (d) refinement stability/convergence, and (e) physical identification of the PRISM channel gauge and seam coefficients. The 216 tripletti / 20 Gram classes and the T2u eigenspace remain distinct objects connected only by the displayed maps.
+
+### 2.2. Explicit discrete construction of the shell fibre map
+
+The geometry transfer is assembled from the existing direction-grouped affine map \(W\in\mathbb R^{276\times192}\), the exact source constraint tangent basis \(Q\in\mathbb R^{192\times188}\), and the node-wise tangent projector \(P_i=F_iF_i^T\):
+\[
+CQ=0,\quad Q^TQ=I_{188},\qquad
+L_i=P_iW_iQ:\mathbb R^{188}\to T_{x_i}S.
+\]
+Here \(W_i\in\mathbb R^{3\times192}\) is the three-row block of \(W\) associated with shell node \(x_i\), and \(F_i\in\mathbb R^{3\times2}\) is an orthonormal tangent frame. In local coordinates,
+\[
+[L_i]_{F_i}=F_i^TW_iQ\in\mathbb R^{2\times188}.
+\]
+Under \(F_i\mapsto F_iO_i\), the local matrix transforms to \(O_i^T[L_i]_{F_i}\), while the ambient map is unchanged.
+
+The affine \(W\) is the existing 64-point to 92-node direction-grouped transfer: 56 distinct source directions, eight duplicated direction pairs at different radii, with each directional weight split equally among its radial representatives. The source \(Q\) is the null-space basis of the four stated constraints (three translations and the radial/scale constraint). The \(P_i\) are formed from oriented area-weighted node normals of the 180-triangle football shell.
+
+Implementation:
+- build_rgs_shell_tangent_fibre_maps in models/tangent_triplet_anisotropy.py returns all 92 ambient maps \(L_i\), local \(2\times188\) matrices, frames, ranks and residual diagnostics.
+- reconstruct_rgs_t2u_triplet reconstructs the first T2u eigenspace by the O_h character projector and the constrained Coulomb Hessian; scripts/reconstruct_rgs_t2u_triplet.py exports the 188×3 frame and projector diagnostics.
+- push_triplett_to_shell_nodes composes the reconstructed orthonormal Q6 triplet \(V\in\mathbb R^{188\times3}\), forms \(U_i=L_iV\), and evaluates \(A_T(x_i)=U_i\Gamma_TU_i^T\).
+- tests/test_rgs_shell_tangent_fibre_transfer.py checks all-node rank two, tangency, source constraints, positive semidefiniteness and local gauge covariance.
+
+An independent numerical replay of the implemented formulas using the reconstructed T2u frame gives rank \(\operatorname{rank}(L_iV)=2\) at all 92 nodes. The maximum normal-component residual \(\max_i\|U_i^Tn_i\|\) is \(3.71\times10^{-17}\). For the algebraic regression triplett \(R=\begin{psmallmatrix}1&0&1\\0&1&1\end{psmallmatrix}\) (a test representative, not a claim that this is one of the archived 216), the pushed tensors are symmetric to \(2.46\times10^{-18}\), have minimum eigenvalue \(-1.60\times10^{-18}\) (roundoff), and maximum normal residual \(7.66\times10^{-18}\). These are independent numerical checks, not yet the repository CI result or validation of all 216 physical tripletti.
+- scripts/audit_rgs_shell_tangent_fibre_transfer.py reproduces the nodal-map diagnostics and optionally accepts an audited 188x3 T2u basis plus a 2x3 triplett file to compute the pushed anisotropy.
+
+This upgrades the previous unspecified \(L_x\) to an explicit finite-mesh nodal transfer. It does not yet prove a smooth bundle morphism over every point of \(S\), connection preservation along panels/seams, or convergence under shell refinement. The previously reported principal-angle comparison (three angles near \(2.4^\circ\) at 16 neighbours) concerns the transferred rotational triplet against the three lowest shell tangent modes; it is not a proof about the separate Q6 \(T_{2u}\) eigenspace or the 216 PRISM tripletti.
+
+## Discrete seam connection and gauge compatibility (finite-mesh level)
+
+The implementation in `models/football_bundle_connection.py` now constructs, for each of the 90 physical seam edges, the hinge-wise minimal rotation \(R_{-+}\in SO(3)\) carrying the minus panel normal to the plus panel normal. With fixed panel tangent frames \(F_\pm\in\mathbb R^{3\times2}\), it returns
+\[
+g^{TS}_{+-}=F_+^T R_{-+}F_-\in O(2).
+\]
+It also augments the frames by their normals, \(\widehat F_\pm=[F_\pm,n_\pm]\), and returns the full displacement-bundle transition
+\[
+g^{E}_{+-}=\widehat F_+^T R_{-+}\widehat F_-\in O(3),
+\qquad E=TS\oplus NS.
+\]
+The seam jump is evaluated in the plus chart as \([u]_e=u_+-g^E_{+-}u_-\). Under independent orthogonal chart changes \(O_\pm\), the rules are
+\[
+u_\pm' = O_\pm^T u_\pm,\qquad
+(g^E_{+-})'=O_+^Tg^E_{+-}O_-,\qquad
+[u]'_e=O_+^T[u]_e.
+\]
+Thus a fibrewise quadratic seam energy is chart-independent when its stiffness is transformed by the same conjugation.
+
+The T2u/PRISM channel basis has a separate \(O(3)\) gauge. If \(V\mapsto VO\) and \(R_T\mapsto R_TO\), then \(\Gamma_T\mapsto O^T\Gamma_TO\), \(U_i\mapsto U_iO\), and
+\[
+(U_iO)(O^T\Gamma_TO)(U_iO)^T=U_i\Gamma_TU_i^T.
+\]
+The code and tests implement this simultaneous gauge law. This proves gauge covariance of the formula; it does **not** select a physical alignment between the reconstructed T2u basis and the labelled PRISM channels.
+
+**Data-provenance boundary:** the theorem repository currently contains the T2u reconstruction and the PRISM Gram definition \(Q_{G_2}\), but no machine-readable table of the 216 physical \(2\times3\) tripletti with their canonical channel labels and 20 class assignments. The implementation therefore does not fabricate those matrices or claim all-216 validation. Supplying the source table (or its canonical generator) is required to fix the physical channel gauge and run the complete 216-case push-forward audit.
+
+The connection and chart-covariance tests have been added to the football workflow. Their CI result is pending; the finite-mesh construction is not a smooth continuum connection, and its hinge holonomy/refinement limit remains open.
+
+## 2.3. Bernoulli-gradient bridge: right gauge and left fluid sectors
+
+The cellwise anisotropy is not defined by the seam transition alone. T077 now connects the existing centroid/barycentre/covariance results (T068–T070) to the two sector fields: the **right gauge sector** through \(D_A\Psi\), and the **left fluid sector** through the Bernoulli scalar \(B_L=p+\frac12\rho|v|^2+\rho\Phi\). Both are evaluated over the same triangular cells using the same Dirichlet barycentre \(c_{F,a}\) and covariance \(\Sigma_{F,a}\), but their gradients and Hessians remain sector-specific. The exact local bridge is the T068/T070 covariance–Taylor formula applied separately to the two scalar densities. The PRISM-induced tangent tensor may supply an additional anisotropy, but its coupling to the fluid constitutive law is still a candidate, not a proved physical equation. See [T077](T077-bernoulli-gradient-barycentre-gauge-fluid-bridge.md).
 
 ## 3. Local Dirichlet–Gamma/Beta moments and what T068/T070 prove
 

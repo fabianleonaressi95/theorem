@@ -9,6 +9,13 @@ on:
       - "scripts/*football*.py"
       - "tests/test_*football*.py"
       - "tests/test_discrete_incompatibility_weak.py"
+      - "models/tangent_triplet_anisotropy.py"
+      - "models/football_bundle_connection.py"
+      - "tests/test_football_bundle_connection.py"
+      - "tests/test_rgs_shell_tangent_fibre_transfer.py"
+      - "tests/test_reconstruct_rgs_t2u_triplet.py"
+      - "scripts/reconstruct_rgs_t2u_triplet.py"
+      - "scripts/audit_rgs_shell_tangent_fibre_transfer.py"
       - "docs/*FOOTBALL*.md"
       - "docs/*football*.md"
       - "manuscripts/*CALCISTICO*.md"
@@ -21,6 +28,13 @@ on:
       - "scripts/*football*.py"
       - "tests/test_*football*.py"
       - "tests/test_discrete_incompatibility_weak.py"
+      - "models/tangent_triplet_anisotropy.py"
+      - "models/football_bundle_connection.py"
+      - "tests/test_football_bundle_connection.py"
+      - "tests/test_rgs_shell_tangent_fibre_transfer.py"
+      - "tests/test_reconstruct_rgs_t2u_triplet.py"
+      - "scripts/reconstruct_rgs_t2u_triplet.py"
+      - "scripts/audit_rgs_shell_tangent_fibre_transfer.py"
       - "docs/*FOOTBALL*.md"
       - "docs/*football*.md"
       - "manuscripts/*CALCISTICO*.md"
@@ -63,7 +77,10 @@ jobs:
             tests/test_football_quaternion_tangent.py \
             tests/test_football_seam_law.py \
             tests/test_rgs_football_triplet_spectral_comparison.py \
-            tests/test_discrete_incompatibility_weak.py
+            tests/test_discrete_incompatibility_weak.py \
+            tests/test_rgs_shell_tangent_fibre_transfer.py \
+            tests/test_reconstruct_rgs_t2u_triplet.py \
+            tests/test_football_bundle_connection.py
 
       - name: Build RGS-to-football geometric transfer
         run: python scripts/build_rgs_football_geometric_transfer.py
@@ -76,6 +93,9 @@ jobs:
           python scripts/audit_rgs_football_transfer_robustness.py \
             --out reports/rgs_football_transfer_robustness.json
 
+      - name: Reconstruct the original Q6 T2u first triplet
+        run: python scripts/reconstruct_rgs_t2u_triplet.py
+
       - name: Upload numerical audit reports
         uses: actions/upload-artifact@v4
         with:
@@ -83,5 +103,8 @@ jobs:
           path: |
             reports/rgs_football_transfer_robustness.json
             reports/rgs_football_transfer_robustness.npz
+            reports/rgs_q6_t2u_first_triplet.npy
+            reports/rgs_q6_t2u_first_triplet.npz
+            reports/rgs_q6_t2u_reconstruction.json
           if-no-files-found: error
           retention-days: 14
