@@ -197,7 +197,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             "mode_longitudinal_normal_residual": rx,
             "mode_transverse_normal_residual": ry,
             "signed_directional_anisotropy": float((rx*rx-ry*ry)/denom) if denom else 0.0,
-            "residual_ratio_x_over_y": float(rx/ry) if ry else None,
+            "residual_ratio_longitudinal_over_transverse": float(rx/ry) if ry else None,
         }
 
     # The published finite-dimensional reconstruction uses the Laplacian
@@ -383,7 +383,7 @@ def main():
         ],
         "levels":levels,
         "orientation_covariance": {
-            "protocol":"rotate core centres and Burgers vectors together; resolve translational modes in the co-rotating longitudinal/transverse frame",
+            "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
             "mesh_size":a.orientation_mesh_size,
             "angles_deg":a.orientation_angles_deg,
             "comparisons":orientation_covariance,
