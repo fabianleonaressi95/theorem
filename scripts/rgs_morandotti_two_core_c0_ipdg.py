@@ -305,7 +305,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         M_boundary_flux=MB, M_interior_facet_flux=MI,
         centers=np.asarray(centers), core_radius=np.asarray([a]),
         mesh_target_h=np.asarray([h]), cell_count=np.asarray([nc]))
-    return {"h_target":h,"orientation_angle_deg":float(orientation_angle_deg),
+    return {"h_target":h,"core_separation":float(np.linalg.norm(np.asarray(centers[1])-np.asarray(centers[0]))),\n        "min_signed_corner_area":min_signed_area,"orientation_angle_deg":float(orientation_angle_deg),
         "defect_data_co_rotated":bool(rotate_defect_data),
         "cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
         "cores":[{"center":list(c),"radius":a} for c in centers],
