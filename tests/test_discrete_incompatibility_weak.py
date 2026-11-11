@@ -91,3 +91,60 @@ def test_p1_strain_recovers_affine_symmetric_gradient():
     strain = p1_triangle_symmetric_strain(nodes, triangles, displacement)
     expected = .5 * (grad + grad.T)
     assert np.allclose(strain, np.broadcast_to(expected, strain.shape), atol=1e-14)
+
+
+
+def test_compliance_energy_matrix_is_symmetric_positive_definite():
+    from models.discrete_incompatibility_weak import assemble_compliance_energy
+
+    # Two independent constant symmetric strain modes on one unit cell.
+    E = np.zeros((1, 1, 2, 2, 2))
+    E[0, 0, 0, 0, 0] = 1.0
+    E[0, 0, 1, 1, 1] = 1.0
+    S = np.zeros((2, 2, 2, 2))
+    S[0, 0, 0, 0] = 2.0
+    S[1, 1, 1, 1] = 3.0
+    M = assemble_compliance_energy(E, np.ones((1, 1)), S)
+    assert np.allclose(M, np.diag([2.0, 3.0]))
+    assert np.all(np.linalg.eigvalsh(M) > 0.0)
+
+
+def test_kkt_solver_satisfies_constraint_stationarity_and_energy_identity():
+    from models.discrete_incompatibility_weak import solve_constrained_energy
+
+    M = np.diag([2.0, 3.0, 4.0])
+    A = np.array([[1.0, 1.0, 0.0], [0.0, 1.0, 1.0]])
+    z = np.array([1.0, 2.0])
+    out = solve_constrained_energy(M, A, z)
+    e = out["strain_coefficients"]
+    lam = out["multiplier"]
+    assert np.linalg.norm(A @ e - z) < 1e-12
+    assert np.linalg.norm(M @ e + A.T @ lam) < 1e-12
+    assert np.isclose(out["primal_energy"], out["dual_energy"], atol=1e-12)
+    assert out["constraint_rank"] == 2
+    assert out["kkt_condition_number"] > 0.0
+
+
+def test_kkt_solver_rejects_infeasible_source():
+    from models.discrete_incompatibility_weak import solve_constrained_energy
+
+    M = np.eye(2)
+    A = np.array([[1.0, 0.0], [2.0, 0.0]])
+    # Redundant constraints are rejected before feasibility is considered.
+    try:
+        solve_constrained_energy(M, A, np.array([1.0, 3.0]))
+    except ValueError as exc:
+        assert "full row rank" in str(exc)
+    else:
+        raise AssertionError("rank-deficient constraints must be rejected")
+
+
+def test_kkt_solver_rejects_non_positive_energy():
+    from models.discrete_incompatibility_weak import solve_constrained_energy
+
+    try:
+        solve_constrained_energy(np.diag([1.0, 0.0]), np.array([[1.0, 0.0]]), np.array([1.0]))
+    except ValueError as exc:
+        assert "positive definite" in str(exc)
+    else:
+        raise AssertionError("non-positive energy must be rejected")
