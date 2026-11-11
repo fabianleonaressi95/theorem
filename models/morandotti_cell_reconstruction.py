@@ -31,6 +31,46 @@ def build_defect_vector(centers: np.ndarray, frank_angles: np.ndarray,
     return phi.reshape(3 * n)
 
 
+
+def deform_two_core_coordinates(coordinates: np.ndarray,
+                                reference_centers: np.ndarray,
+                                target_centers: np.ndarray,
+                                core_radius: float,
+                                support_radius: float) -> np.ndarray:
+    """Move two circular cores on a fixed mesh using compact radial weights.
+
+    The Wendland C2 weight is normalized to one at the core boundary and
+    vanishes outside support_radius. Thus core-boundary nodes follow their
+    assigned centre while sufficiently distant outer-boundary nodes stay put.
+    The caller remains responsible for checking element quality after mapping.
+    """
+    x = np.asarray(coordinates, dtype=float)
+    source = np.asarray(reference_centers, dtype=float)
+    target = np.asarray(target_centers, dtype=float)
+    a, radius = float(core_radius), float(support_radius)
+    if x.ndim != 2 or x.shape[1] != 2:
+        raise ValueError("coordinates must have shape (N, 2)")
+    if source.shape != (2, 2) or target.shape != (2, 2):
+        raise ValueError("reference_centers and target_centers must have shape (2, 2)")
+    if not (np.isfinite(x).all() and np.isfinite(source).all() and np.isfinite(target).all()):
+        raise ValueError("coordinates and centres must be finite")
+    if not (np.isfinite(a) and np.isfinite(radius) and 0.0 < a < radius):
+        raise ValueError("radii must satisfy 0 < core_radius < support_radius")
+    q0 = a / radius
+    normalizer = (1.0 - q0)**4 * (4.0*q0 + 1.0)
+    moved = x.copy()
+    displacement = np.zeros_like(x)
+    for centre, shift in zip(source, target-source):
+        q = np.linalg.norm(x-centre, axis=1) / radius
+        weight = np.zeros_like(q)
+        active = q < 1.0
+        weight[active] = (1.0-q[active])**4 * (4.0*q[active]+1.0)
+        weight /= normalizer
+        displacement += weight[:, None] * shift[None, :]
+    moved += displacement
+    return moved
+
+
 def solve_interaction_system(interaction_matrix: np.ndarray,
                              defect_vector: np.ndarray) -> np.ndarray:
     """Solve M a = Phi after symmetry and positive-definiteness checks."""
