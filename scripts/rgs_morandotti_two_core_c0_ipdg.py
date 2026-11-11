@@ -73,10 +73,16 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     theta = np.deg2rad(float(orientation_angle_deg))
     rotation = np.array([[np.cos(theta), -np.sin(theta)],
                          [np.sin(theta),  np.cos(theta)]])
-    centers = tuple(tuple(q) for q in (np.asarray(centers, dtype=float) @ rotation.T))
+    base_centers = np.asarray(centers, dtype=float)
+    centers = tuple(tuple(q) for q in (base_centers @ rotation.T))
     axis = rotation @ np.array([1.0, 0.0])
     transverse_axis = rotation @ np.array([0.0, 1.0])
-    mesh, tags = make_mesh(R, a, centers, h, comm)
+    # Generate one reference mesh, then rotate its geometry coordinates in
+    # place. This preserves connectivity and avoids angle-dependent remeshing
+    # noise in the covariance comparison.
+    mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in base_centers), h, comm)
+    if abs(orientation_angle_deg) > 1e-14:
+        mesh.geometry.x[:, :2] = mesh.geometry.x[:, :2] @ rotation.T
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
     V = fem.functionspace(mesh, ("Lagrange", 3))
     n = ufl.FacetNormal(mesh)
@@ -387,7 +393,7 @@ def main():
             "mesh_size":a.orientation_mesh_size,
             "angles_deg":a.orientation_angles_deg,
             "comparisons":orientation_covariance,
-            "interpretation":"differences include remeshing/discretization error; covariance is tested rather than assumed",
+            "interpretation":"same reference mesh connectivity is rotated in place, so covariance differences isolate numerical transformation/geometry effects rather than angle-dependent remeshing",
         }}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
