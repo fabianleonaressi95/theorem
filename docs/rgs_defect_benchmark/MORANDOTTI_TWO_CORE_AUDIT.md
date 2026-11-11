@@ -75,6 +75,26 @@ The orientation audit rotates the mesh in place at 0°, 30° and 60°. With defe
 
 The separate one-mesh separation sweep gives normalized off-diagonal operator coupling C(d) of approximately 0.2583, 0.1138, 0.0624 and 0.0349 at d = 0.48, 0.56, 0.64 and 0.72. The signed operator anisotropy is non-monotone. Since the distance sweep uses one mesh size, it is screening evidence only, not a continuum distance-decay law.
 
+
+## Variation–residual law
+
+The exact finite-dimensional sensitivity relation is also recorded in T091. If the interaction system is \(M(p)x(p)=\Phi(p)\) and the selected boundary residual is \(r(p)=C(p)x(p)-g(p)\), then
+\[
+x'=M^{-1}(\Phi'-M'x),\qquad
+r'=C'x+C M^{-1}(\Phi'-M'x)-g'.
+\]
+For fixed source, trace map and boundary data, \(r'=-CM^{-1}M'x\). The derivative of the signed longitudinal/transverse residual anisotropy
+\[
+\mathcal A_r=\frac{r_\parallel^2-r_\perp^2}{r_\parallel^2+r_\perp^2}
+\]
+is
+\[
+\mathcal A_r'=
+\frac{4r_\parallel r_\perp(r_\perp r_\parallel'-r_\parallel r_\perp')}
+{(r_\parallel^2+r_\perp^2)^2}.
+\]
+This is the precise finite-dimensional link between a changing anisotropic interaction operator and changing directional residuals. It is a sensitivity identity, not a claim that anisotropy is the unique physical cause. For rotating frames, frame-derivative terms must be retained. The same formula applies to directional core-traction anisotropy.
+
 ## Evidence boundary and open work
 
 - **Proved:** the finite-dimensional tensor identity and its scalar/directional contractions under linear reconstruction and a common facet-jump convention.
