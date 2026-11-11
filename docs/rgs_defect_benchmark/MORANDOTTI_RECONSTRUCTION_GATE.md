@@ -1,6 +1,6 @@
 # Morandotti reconstruction gate: from cell fields to the Airy potential
 
-**Status:** algebraic postprocessing implemented and unit-tested in this branch; no new DOLFINx run or end-to-end physical benchmark is claimed.
+**Status:** algebraic postprocessing is implemented and unit-tested. The two-core DOLFINx driver now exports the six FE coefficient vectors and mesh/dof metadata, assembles four defect-data cases, solves the actual Laplacian-product system, and stores reconstructed Airy values at FE degrees of freedom. This source-level integration has **not** yet been executed in a DOLFINx runtime; no numerical output or end-to-end physical validation is claimed.
 
 ## Exact target from Theorem 2.2
 
