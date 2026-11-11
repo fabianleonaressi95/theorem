@@ -50,7 +50,7 @@ jobs:
       - name: Run two-core six-field interaction audit
         run: |
           python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
-            --mesh-sizes 0.08 0.06 \
+            --mesh-sizes 0.08 0.06 0.045 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
