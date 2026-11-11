@@ -57,6 +57,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: t094-se2-holonomy-${{ github.run_id }}-${{ github.run_attempt }}
-          path: artifacts/se2_holonomy_audit/report.json
+          path: |
+            artifacts/se2_holonomy_audit/report.json
+            artifacts/airystress_holonomy_identifiability/report.json
           if-no-files-found: error
           retention-days: 14
