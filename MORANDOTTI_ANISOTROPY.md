@@ -27,7 +27,7 @@ when the denominator is nonzero. Both mixed components are retained; they must n
 
 ## Residual anisotropy
 
-For each active core and each boundary component, let \(r_\parallel\) and \(r_\perp\) be the normal-derivative residuals for the translational modes resolved in the preferred frame. In the current axis-aligned benchmark these are the recorded x/y mode residuals. Report
+For each active core and each boundary component, let \(r_\parallel\) and \(r_\perp\) be the normal-derivative residuals for the translational modes resolved in the preferred frame. The implementation records these as longitudinal/transverse modes in the co-rotating frame, including for rotated configurations. Report
 \[
 A_r=\frac{r_\parallel^2-r_\perp^2}
 {r_\parallel^2+r_\perp^2},
@@ -50,6 +50,6 @@ These quantities make the proposed chain testable:
 \text{two-core geometry}\to\text{directional operator response}
 \to\text{directional residuals and traction resultants}.
 \]
-They quantify correlation and directional structure; they do **not** prove that anisotropy is the unique cause of residuals. A causal claim requires a controlled orientation study: rotate the core axis and all defect data together, compare covariant outputs, then rotate only the defect data or vary the core separation to isolate geometric and source anisotropy. Mesh refinement must be repeated at each orientation, with residuals normalized by boundary measure and field scale.
+They quantify correlation and directional structure; they do **not** prove that anisotropy is the unique cause of residuals. The implemented orientation audit performs two distinct sweeps at fixed mesh size: (A) rotate the core centres and Burgers vectors together; (B) rotate the core centres while keeping Burgers vectors fixed in laboratory coordinates. In each run, the translational cell modes and reported force components are resolved in the co-rotating longitudinal/transverse frame. It compares the local interaction matrix, directional boundary residuals and core traction components. For an isotropic continuum model, sweep A should be covariant up to remeshing error. Sweep B isolates the relative orientation of the dislocation source and the two-core axis; its traction response can therefore change even though the cell operator and its boundary residuals do not depend on the defect source. The sweep is a first controlled test, not a full causal proof: mesh refinement at every angle, residual normalization by boundary measure/field scale, and separation-parameter variation remain required.
 
-The current three-grid benchmark is a numerical audit, not a proof of asymptotic convergence, force equilibrium, or a material law. The Airy stress potential does not define a velocity field, so Kelvin circulation is not inferred from these diagnostics.
+The default orientation sweep uses 0°, 30° and 60° at a common mesh size, alongside the existing three-grid benchmark. Its differences include Gmsh remeshing error and must not be interpreted as physical anisotropy without a mesh/orientation convergence study. The numerical audit is not a proof of asymptotic convergence, force equilibrium, or a material law. The Airy stress potential does not define a velocity field, so Kelvin circulation is not inferred from these diagnostics.
