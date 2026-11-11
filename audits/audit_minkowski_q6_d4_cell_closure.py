@@ -75,6 +75,7 @@ def _orientation_sign(cycle, canonical):
 def _build_orbit_cells(K, group):
     edge_cells = set()
     face_by_vertices = {}
+    face_cycles = set()
     incompatible_cycles = []
 
     for g in group:
@@ -84,10 +85,15 @@ def _build_orbit_cells(K, group):
             mapped = tuple(g[v] for v in face)
             vertex_key = frozenset(mapped)
             cycle_key = _canonical_cycle(mapped)
+            face_cycles.add(cycle_key)
             previous = face_by_vertices.get(vertex_key)
             if previous is None:
                 face_by_vertices[vertex_key] = cycle_key
-            elif previous != cycle_key:
+            elif previous != cycle_key and not any(
+                item["vertices"] == sorted(vertex_key)
+                and item["second_cycle"] == list(cycle_key)
+                for item in incompatible_cycles
+            ):
                 incompatible_cycles.append({
                     "vertices": sorted(vertex_key),
                     "first_cycle": list(previous),
@@ -95,7 +101,7 @@ def _build_orbit_cells(K, group):
                 })
 
     edges = tuple(sorted(edge_cells))
-    faces = tuple(sorted(face_by_vertices.values()))
+    faces = tuple(sorted(face_cycles))
     return edges, faces, incompatible_cycles
 
 
@@ -159,7 +165,7 @@ def _boundary_matrices(edges, faces, n_vertices):
 
 
 def _chain_maps(group, edges, faces, edge_index, n_vertices):
-    face_index = {frozenset(f): i for i, f in enumerate(faces)}
+    face_index = {_canonical_cycle(f): i for i, f in enumerate(faces)}
     results = []
     for g in group:
         J0 = np.zeros((n_vertices, n_vertices), dtype=np.int64)
@@ -176,7 +182,7 @@ def _chain_maps(group, edges, faces, edge_index, n_vertices):
 
         for i, face in enumerate(faces):
             mapped = tuple(g[v] for v in face)
-            target = face_index[frozenset(mapped)]
+            target = face_index[_canonical_cycle(mapped)]
             sign = _orientation_sign(mapped, faces[target])
             J2[target, i] = sign
 
