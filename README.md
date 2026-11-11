@@ -357,6 +357,10 @@ The current implementation is a linearised triangular membrane + signed-dihedral
 
 The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmit implementation: `models/morandotti_bfs_kkt.py`, with tests in `tests/test_morandotti_bfs_kkt.py`. It assembles globally H2-conforming scalar test Hessians, the cellwise-constant symmetric strain basis, the isotropic plane-stress stiffness tensor, and the finite-dimensional matrices A_h and M_h. The 2x2 mesh prototype has four clamped-interior test DOFs and twelve strain DOFs. Pointwise Burgers/Frank source evaluation and a normalized Gaussian-core prototype are implemented with D1/D2 KKT regression tests; the Gaussian core convention, D3, h/epsilon-separated refinement, and comparison with the Airy/CIP-DG baseline remain open. This KKT/BFS track is distinct from the executed two-core C0-IPDG reconstruction audit below. See [the benchmark specification](manuscripts/MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md) and [technical appendix](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md).
 
+### Two-Circle geometry to Frank–Burgers holonomy
+
+- [T092 — Local two-circle geometry and the Frank–Burgers holonomy bridge](theorems/T092-local-two-circle-frank-burgers-holonomy-bridge.md) — proves the arbitrarily small local equilateral construction on open planar domains, defines discrete Frank/Burgers closure through ordered $SE(2)$ holonomy, and states the conditional Cartan curvature/torsion bridge. Global assembly, refinement convergence and the elastic continuum limit remain open.
+
 ### Morandotti two-core C0-IPDG: Frank–Burgers interaction law and refinement
 
 The two-core reconstruction has passed two successive GitHub Actions audits and both changes are merged:
