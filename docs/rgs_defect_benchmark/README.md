@@ -58,3 +58,8 @@ python scripts/rgs_morandotti_two_core_c0_ipdg.py \
 ```
 
 Each mesh level writes a `cell_fields_h*.npz` artifact beside the report. The archive contains the six FE coefficient vectors, dof and geometry metadata, and the Hessian/Laplacian/flux matrices. The JSON report includes the four defect-data cases, boundary value/normal-derivative diagnostics, elementwise Airy stress, traction L2 norms on the outer boundary and both cores, and the interior-facet traction jump. These are implemented diagnostics, not yet validated numerical results: the driver still must be executed in the target DOLFINx environment, its mesh trends inspected, and its stress compared with an independent analytic benchmark. See [MORANDOTTI_TWO_CORE_AUDIT.md](MORANDOTTI_TWO_CORE_AUDIT.md) and [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md).
+
+
+## Morandotti–vorticity research bridge
+
+A scoped geometric note separates Cartan torsion/curvature (elastic dislocations/disclinations) from ordinary kinematic or medium vorticity 2-forms. It defines the circulation and Cartan quantities that could be measured around the two cores, and records the numerical gates and the separate superconducting extension. No FDT–torsion identification or dynamic coupling is assumed: [MORANDOTTI_VORTICITY_BRIDGE.md](MORANDOTTI_VORTICITY_BRIDGE.md).
