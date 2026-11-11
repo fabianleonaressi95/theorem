@@ -370,7 +370,8 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 - [T098](theorems/T098-two-circle-positive-gradient-negative-barycentre-duality.md) is the foundational geometric law: the two equal-radius circles generate the positively oriented gradient triangle and the negatively oriented barycentre triangle as one reflected pair.
 - It proves the exact paired-centroid separation, reflection law, positive-triangle mean-gradient boundary identity, covariance transport and Euclidean scale covariance.
-- Its universality is geometric and differential. Physical field/measure assignments and constitutive consequences remain conditional on the relevant model.
+- **Derived RGS–Morandotti inheritance:** T098.2 derives the rotational sector from the gradient polar frame (T097), the translational sector from structured-gradient mismatch and Stokes (T079–T080), their ordered closure from Cartan/SE(2) transport (T092–T094), and the barycentric/anisotropic response from T068–T070, T082 and T091.
+- No ad hoc Frank-to-Burgers map or universal residual PDE is introduced. The identities are inherited under the precise hypotheses of their source theorems; extraction and validation on the same measured two-core FEM fields remain open.
 
 ### T097 — Morandotti Frank–Burgers application of the two-circle programme
 
