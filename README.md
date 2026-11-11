@@ -359,6 +359,7 @@ The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmi
 
 ### Two-Circle geometry to Frank–Burgers holonomy
 
+- [T093 — Conforming global assembly and Cartan-holonomy consistency](theorems/T093-conforming-global-assembly-cartan-holonomy.md) — proves finite seed-cell insertion into a conforming polygonal triangulation and seed-preserving midpoint refinement; establishes a local (O(h_K)) consistency estimate for smooth (SE(2))/Cartan face holonomy, recovering curvature and torsion densities. Singular-core and coupled elasticity convergence remain open.
 - [T092 — Local two-circle geometry and the Frank–Burgers holonomy bridge](theorems/T092-local-two-circle-frank-burgers-holonomy-bridge.md) — proves the arbitrarily small local equilateral construction on open planar domains, defines discrete Frank/Burgers closure through ordered $SE(2)$ holonomy, and states the conditional Cartan curvature/torsion bridge. Global assembly, refinement convergence and the elastic continuum limit remain open.
 
 ### Morandotti two-core C0-IPDG: Frank–Burgers interaction law and refinement
