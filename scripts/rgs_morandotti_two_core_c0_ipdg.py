@@ -67,7 +67,8 @@ def assemble(expr, mesh):
 
 
 def solve_level(h, alpha=10.0, R=1.0, a=0.12,
-                centers=((-0.28, 0.0), (0.28, 0.0))):
+                centers=((-0.28, 0.0), (0.28, 0.0)),
+                args_artifact_path="cell_fields.npz"):
     comm = MPI.COMM_WORLD
     mesh, tags = make_mesh(R, a, centers, h, comm)
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
