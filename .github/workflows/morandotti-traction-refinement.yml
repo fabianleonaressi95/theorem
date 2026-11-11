@@ -1,0 +1,41 @@
+name: Morandotti Frank-Burgers traction refinement
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'tests/test_morandotti_cell_reconstruction.py'
+      - '.github/workflows/morandotti-traction-refinement.yml'
+  workflow_dispatch:
+
+jobs:
+  traction-refinement:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, ufl, petsc4py, gmsh; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('Gmsh', gmsh.__version__)"
+          python3 -c "from petsc4py import PETSc; print('PETSc', PETSc.Sys.getVersion())"
+      - name: Run algebraic reconstruction tests
+        run: python3 -m pytest -q tests/test_morandotti_cell_reconstruction.py
+      - name: Run refined Frank-Burgers traction-jump audit
+        run: |
+          python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
+            --mesh-sizes 0.08 0.06 0.045 0.035 0.027 \
+            --alpha 10 \
+            --young-modulus 1.0 \
+            --poisson-ratio 0.0 \
+            --out artifacts/morandotti_traction_refinement/report.json
+      - name: Upload refined traction-jump report and FE fields
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-traction-refinement
+          path: |
+            artifacts/morandotti_traction_refinement/report.json
+            artifacts/morandotti_traction_refinement/cell_fields_h*.npz
+          if-no-files-found: error
