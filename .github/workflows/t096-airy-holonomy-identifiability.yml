@@ -38,3 +38,10 @@ jobs:
           python scripts/rgs_airystress_holonomy_identifiability.py \
             --radius 0.2 --vertices 256 --rotation-gradient 1.0 \
             --out artifacts/airystress_holonomy_identifiability/report.json
+      - name: Upload T096 witness
+        uses: actions/upload-artifact@v4
+        with:
+          name: t096-airy-holonomy-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/airystress_holonomy_identifiability/report.json
+          if-no-files-found: error
+          retention-days: 14
