@@ -82,7 +82,7 @@ def test_two_core_coordinate_deformation_moves_core_boundaries_and_fixes_outer_n
         [-0.28 + 0.12, 0.0], [0.28 - 0.12, 0.0],
         [0.0, 0.0], [0.0, 1.0],
     ])
-    moved = deform_two_core_coordinates(points, reference, target, 0.12, 0.32)
+    moved = deform_two_core_coordinates(points, reference, target, 0.12, 0.50)
     assert np.allclose(moved[0], [-0.32 + 0.12, 0.0], atol=1e-13)
     assert np.allclose(moved[1], [0.32 - 0.12, 0.0], atol=1e-13)
     assert np.allclose(moved[3], points[3], atol=1e-14)
