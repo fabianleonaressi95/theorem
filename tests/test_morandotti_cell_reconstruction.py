@@ -96,3 +96,11 @@ def test_symmetric_separation_change_keeps_pair_midpoint_fixed():
     points = np.array([[0.0, 0.0], [0.0, 0.25], [0.0, 0.8]])
     moved = deform_two_core_coordinates(points, reference, target, 0.12, 0.32)
     assert np.allclose(moved, points, atol=1e-14)
+
+
+def test_two_core_support_radius_is_based_on_reference_separation():
+    from models.morandotti_cell_reconstruction import two_core_support_radius
+    assert two_core_support_radius(0.12, 0.56, 0.50) == pytest.approx(0.44)
+    assert two_core_support_radius(0.12, 0.80, 0.50) == pytest.approx(0.50)
+    with pytest.raises(ValueError):
+        two_core_support_radius(0.12, 0.24, 0.50)
