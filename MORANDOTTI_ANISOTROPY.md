@@ -61,7 +61,7 @@ The distance experiment uses a single reference triangulation at separation
 \(d_0=0.56\). For each target separation, the same mesh coordinates are
 smoothly deformed with compactly supported Wendland-C2 radial weights centred
 on the two reference cores. The weights are normalized to one at the core
-radius and vanish outside a support radius of 0.32. Core-boundary nodes
+radius and vanish outside a maximum support radius of 0.50. Core-boundary nodes
 therefore follow the prescribed centres, while the outer boundary remains
 fixed for the tested separations. Cell connectivity is never regenerated.
 
