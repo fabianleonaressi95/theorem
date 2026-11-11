@@ -207,6 +207,21 @@ The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger
 
 ## 8. A common discrete language for Q6/PRISM
 
+| Continuum object | Discrete candidate | Required check |
+|---|---|---|
+| Gauge connection (A) or (omega) | Oriented edge variables / link holonomies | Gauge covariance and orientation |
+| Field strength (F) or curvature (R) | Plaquette holonomy / 2-cochain | Discrete Bianchi identity |
+| Electric, mass or spin current | Edge or vertex current cochain | Continuity / Noether conservation |
+| Magnetic flux | Oriented plaquette 2-cochain | Discrete divergence constraint |
+| Fluid density and velocity | Vertex density plus link transport | Positivity and continuity |
+| Quantum phase | Compact vertex phase | Gauge covariance and winding |
+| Superconducting fluxon | Josephson phase kink on a superconducting weak link | Sine-Gordon dynamics; supercurrent, flux and fluxoid |
+| Coframe and torsion | Edge coframe plus connection mismatch | Cartan identity and physical dimensions |
+
+The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger transport network. Neither alone supplies physical units, constitutive parameters, a Lorentzian metric, or a continuum limit. Hodge stars, material laws and comparison maps are indispensable.
+
+## 9. Research sequence and falsifiable gates
+
 **Gate A — classical field audit**
 1. Reconstruct the magnetic field of the Ratti magnets and coils from geometry/current data.
 2. Solve the Lorentz trajectories for already-existing charged particles.
