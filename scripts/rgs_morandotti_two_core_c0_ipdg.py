@@ -371,8 +371,6 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         jump_frank = ufl.jump(sigma_frank, n)
         jump_burgers = ufl.jump(sigma_burgers, n)
         jump_total = ufl.jump(sigma_case, n)
-        jump_cross = jump_total - jump_frank - jump_burgers
-
         def facet_vector_second_moment(vector):
             return np.array([
                 [assemble(vector[0]*vector[0]*dS, mesh),
@@ -388,7 +386,10 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         jump_frank_sq = float(assemble(ufl.inner(jump_frank, jump_frank)*dS, mesh))
         jump_burgers_sq = float(assemble(ufl.inner(jump_burgers, jump_burgers)*dS, mesh))
         jump_total_sq = float(assemble(ufl.inner(jump_total, jump_total)*dS, mesh))
-        jump_cross_term = float(jump_total_sq - jump_frank_sq - jump_burgers_sq)
+        # Assemble the mixed term independently (rather than obtaining it
+        # by subtraction), so the additivity residual is a genuine check.
+        jump_cross_term = float(2.0 * assemble(
+            ufl.inner(jump_frank, jump_burgers)*dS, mesh))
         jump_additivity_residual = float(
             jump_total_sq - jump_frank_sq - jump_burgers_sq - jump_cross_term)
         jump_moment_local = frame.T @ jump_moment_total @ frame
