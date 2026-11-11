@@ -137,7 +137,7 @@ The identity \(\operatorname{inc}(\operatorname{sym}\nabla u)=0\) is exact in th
 2. Check symmetry and positive definiteness on the chosen strain space.
 3. Check the KKT residual and constraint residual \(\|Ae-z\|\).
 4. Check feasibility of each source vector before solving.
-5. Compare the primal energy \(\tfrac12e^TM_{\mathbb S}e\) with the dual value \(\tfrac12 z^T\lambda\), using the same sign convention.
+5. Compare the primal energy \(\tfrac12e^TM_{\mathbb S}e\) with the dual value \(-\tfrac12 z^T\lambda\), using the same sign convention.
 6. Record condition numbers, solver tolerances, rank decisions and mesh/core parameters.
 
 The dual-energy identity follows from the KKT equations when the constraint is feasible and the stated rank assumptions hold. It is a useful independent implementation check.
