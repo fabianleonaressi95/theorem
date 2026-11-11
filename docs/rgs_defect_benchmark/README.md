@@ -41,3 +41,8 @@ Outputs: `report.json`, `results.csv`, and (when Matplotlib is installed) `singl
 5. Finite nonnegative energies for single and dipole sources.
 
 Passing these tests validates only this baseline implementation, not a physical dislocation model or the RGS continuum limit.
+
+
+## Morandotti C0-IPDG cell reconstruction
+
+The exact finite-dimensional postprocessing step from Theorem 2.2 is implemented in `models/morandotti_cell_reconstruction.py`: it builds the Frank/Burgers vector `Phi`, solves `M a = Phi`, and reconstructs the Airy potential from the `3N` cell fields. See [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md) for sign conventions, the two-core mixed regression case, and the remaining traction/stress validation gates. The algebraic layer is separate from the DOLFINx cell-field solve and does not claim end-to-end validation.
