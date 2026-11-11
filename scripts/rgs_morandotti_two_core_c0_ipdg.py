@@ -234,7 +234,7 @@ def main():
         "material":{"young_modulus":a.young_modulus,"poisson_ratio":a.poisson_ratio},
         "limitations":["only two equal circular cores in a fixed outer disk",
           "no analytic off-centre cell-field error available",
-          "Airy values are exported at FE dofs; elementwise Hessian/stress and traction postprocessing remain to be implemented",
+          "stress/traction diagnostics are implemented in source but remain unexecuted and independently unvalidated",
           "not the arbitrary-N production reconstruction",
           "no singular-core limit, dynamics or material calibration"],
         "levels":levels}
