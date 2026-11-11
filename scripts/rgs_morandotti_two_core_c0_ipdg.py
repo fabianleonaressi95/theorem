@@ -66,7 +66,7 @@ def assemble(expr, mesh):
     return mesh.comm.allreduce(fem.assemble_scalar(fem.form(expr)), op=MPI.SUM)
 
 
-def solve_level(h, alpha=10.0, R=1.0, a=0.12,
+def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
                 centers=((-0.28, 0.0), (0.28, 0.0)),
                 args_artifact_path="cell_fields.npz"):
     comm = MPI.COMM_WORLD
@@ -173,11 +173,11 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12,
     for name, (frank, burgers) in cases.items():
         phi = build_defect_vector(np.asarray(centers), frank, burgers)
         coeff = solve_interaction_system(ML, phi)
-        vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, 1.0, 0.0)
+        vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
         reconstruction[name] = {
             "Phi": phi.tolist(), "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
-            "airy_dof_values_unit_E_nu": vh_dofs.tolist(),
+            "airy_dof_values": vh_dofs.tolist(),
         }
     npz_path = Path(args_artifact_path)
     npz_path.parent.mkdir(parents=True, exist_ok=True)
@@ -207,12 +207,15 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--mesh-sizes",nargs="+",type=float,default=[0.24,0.16,0.11])
     p.add_argument("--alpha",type=float,default=10.0)
+    p.add_argument("--young-modulus",type=float,default=1.0)
+    p.add_argument("--poisson-ratio",type=float,default=0.0)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
-    levels=[solve_level(h,alpha=a.alpha,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
+    levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
     report={"title":"Two-core P3 C0-IPDG interaction matrix audit",
         "reference":"Cesana, Fabbrini, León Baldelli, Morandotti (2026), arXiv:2609.29614",
         "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit with algebraic Airy reconstruction",
+        "material":{"young_modulus":a.young_modulus,"poisson_ratio":a.poisson_ratio},
         "limitations":["only two equal circular cores in a fixed outer disk",
           "no analytic off-centre cell-field error available",
           "Airy values are exported at FE dofs; elementwise Hessian/stress and traction postprocessing remain to be implemented",
