@@ -90,7 +90,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     # transform its coordinates in place and preserve the cell connectivity.
     mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in reference_centers), h, comm)
     mesh.geometry.x[:, :2] = deform_two_core_coordinates(
-        mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.32)
+        mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.50)
     if abs(orientation_angle_deg) > 1e-14:
         mesh.geometry.x[:, :2] = mesh.geometry.x[:, :2] @ rotation.T
     geometry_cells = np.asarray(mesh.geometry.dofmap)
@@ -342,6 +342,13 @@ def main():
     p.add_argument("--distance-mesh-size",type=float,default=0.06)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
+    if (not np.isfinite(a.distance_mesh_size) or a.distance_mesh_size <= 0.0):
+        raise ValueError("--distance-mesh-size must be finite and positive")
+    if (not np.isfinite(a.distance_values).all()
+            or any(d <= 2.0*0.12 or d >= 2.0*(1.0-0.12) for d in a.distance_values)):
+        raise ValueError("distance values must be finite and satisfy 2a < d < 2(R-a), with R=1 and a=0.12")
+    if any(b <= aa for aa, b in zip(a.distance_values, a.distance_values[1:])):
+        raise ValueError("--distance-values must be strictly increasing and contain no duplicates")
     levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
     def orientation_sweep(co_rotate_defects, label):
         sweep=[]
@@ -454,7 +461,7 @@ def main():
         "levels":levels,
         "distance_sweep": {
             "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",
-            "reference_separation":0.56,"support_radius":0.32,
+            "reference_separation":0.56,"maximum_support_radius":0.50,
             "mesh_size":a.distance_mesh_size,"separations":a.distance_values,
             "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",
             "definition_C_d":"||M_01||_F/||M_00||_F",
