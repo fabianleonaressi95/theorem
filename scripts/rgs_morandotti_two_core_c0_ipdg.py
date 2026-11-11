@@ -365,9 +365,41 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                     max((fx*axis[0]+fy*axis[1])**2+(-fx*axis[1]+fy*axis[0])**2, 1e-300)),
             }
 
-        facet_traction_jump = ufl.jump(sigma_case, n)
-        interior_traction_jump = float(np.sqrt(max(
-            assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
+        # Decompose the interior-facet traction jump into Frank, Burgers,
+        # and their signed cross contribution. With UFL's jump convention,
+        # each term is a physical vector on the interior facet.
+        jump_frank = ufl.jump(sigma_frank, n)
+        jump_burgers = ufl.jump(sigma_burgers, n)
+        jump_total = ufl.jump(sigma_case, n)
+        jump_cross = jump_total - jump_frank - jump_burgers
+
+        def facet_vector_second_moment(vector):
+            return np.array([
+                [assemble(vector[0]*vector[0]*dS, mesh),
+                 assemble(vector[0]*vector[1]*dS, mesh)],
+                [assemble(vector[1]*vector[0]*dS, mesh),
+                 assemble(vector[1]*vector[1]*dS, mesh)]
+            ], dtype=float)
+
+        jump_moment_total = facet_vector_second_moment(jump_total)
+        jump_moment_frank = facet_vector_second_moment(jump_frank)
+        jump_moment_burgers = facet_vector_second_moment(jump_burgers)
+        jump_moment_cross = jump_moment_total - jump_moment_frank - jump_moment_burgers
+        jump_frank_sq = float(assemble(ufl.inner(jump_frank, jump_frank)*dS, mesh))
+        jump_burgers_sq = float(assemble(ufl.inner(jump_burgers, jump_burgers)*dS, mesh))
+        jump_total_sq = float(assemble(ufl.inner(jump_total, jump_total)*dS, mesh))
+        jump_cross_term = float(jump_total_sq - jump_frank_sq - jump_burgers_sq)
+        jump_additivity_residual = float(
+            jump_total_sq - jump_frank_sq - jump_burgers_sq - jump_cross_term)
+        jump_moment_local = frame.T @ jump_moment_total @ frame
+        jump_moment_cross_local = frame.T @ jump_moment_cross @ frame
+        jump_eigenvalues = np.linalg.eigvalsh(0.5*(jump_moment_local + jump_moment_local.T))
+        jump_directional_anisotropy = float(
+            (jump_eigenvalues[-1]-jump_eigenvalues[0]) /
+            max(jump_eigenvalues[-1]+jump_eigenvalues[0], 1e-300))
+        interior_traction_jump = float(np.sqrt(max(jump_total_sq, 0.0)))
+        interior_traction_jump_frank = float(np.sqrt(max(jump_frank_sq, 0.0)))
+        interior_traction_jump_burgers = float(np.sqrt(max(jump_burgers_sq, 0.0)))
         reconstruction[name] = {
             "Phi": phi.tolist(), "Phi_global_xy": phi_global.tolist(),
             "Phi_frank_local": phi_frank.tolist(),
@@ -391,6 +423,22 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             "core_traction_resultants": core_resultants,
             "traction_normal_convention": "outward normal of material domain; points into each core hole",
             "interior_facet_traction_jump_L2": interior_traction_jump,
+            "interior_facet_traction_jump_frank_L2": interior_traction_jump_frank,
+            "interior_facet_traction_jump_burgers_L2": interior_traction_jump_burgers,
+            "interior_facet_traction_jump_squared_decomposition": {
+                "frank_squared": jump_frank_sq,
+                "burgers_squared": jump_burgers_sq,
+                "mixed_cross_term": jump_cross_term,
+                "total_squared": jump_total_sq,
+                "additivity_residual": jump_additivity_residual,
+            },
+            "interior_facet_traction_jump_second_moment_total_xy": jump_moment_total.tolist(),
+            "interior_facet_traction_jump_second_moment_frank_xy": jump_moment_frank.tolist(),
+            "interior_facet_traction_jump_second_moment_burgers_xy": jump_moment_burgers.tolist(),
+            "interior_facet_traction_jump_second_moment_cross_xy": jump_moment_cross.tolist(),
+            "interior_facet_traction_jump_second_moment_total_local": jump_moment_local.tolist(),
+            "interior_facet_traction_jump_second_moment_cross_local": jump_moment_cross_local.tolist(),
+            "interior_facet_traction_jump_directional_anisotropy": jump_directional_anisotropy,
         }
     npz_path = Path(args_artifact_path)
     npz_path.parent.mkdir(parents=True, exist_ok=True)
