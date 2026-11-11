@@ -86,3 +86,23 @@ def test_bfs_point_and_finite_core_defect_sources_are_finite_and_distinct():
     assert np.linalg.norm(point) > 0.0
     assert np.linalg.norm(core) > 0.0
     assert not np.allclose(point, core)
+
+
+
+def test_bfs_dislocation_and_disclination_loads_separately_feed_kkt():
+    empty2 = np.empty((0, 2))
+    empty1 = np.empty((0,))
+    d1 = assemble_bfs_defect_source(
+        np.array([[0.35, 0.45]]), np.array([[1.0, 0.0]]),
+        empty2, empty1, nx=2, ny=2, core_radius=0.12,
+    )
+    d2 = assemble_bfs_defect_source(
+        empty2, empty2, np.array([[0.65, 0.55]]), np.array([0.2]),
+        nx=2, ny=2, core_radius=0.12,
+    )
+    for source in (d1, d2):
+        out = solve_bfs_kkt(source, nx=2, ny=2)
+        assert np.linalg.norm(source) > 0.0
+        assert out["constraint_residual"] < 1e-10
+        assert out["stationarity_residual"] < 1e-10
+        assert np.isclose(out["primal_energy"], out["dual_energy"], atol=1e-10)
