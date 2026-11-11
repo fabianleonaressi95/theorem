@@ -1,0 +1,49 @@
+name: T094 SE2 Cartan holonomy audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_se2_holonomy_audit.py'
+      - 'tests/test_rgs_se2_holonomy_audit.py'
+      - 'models/morandotti_cell_reconstruction.py'
+      - 'theorems/T094-se2-holonomy-morandotti-audit.md'
+      - '.github/workflows/t094-se2-holonomy-audit.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_se2_holonomy_audit.py'
+      - 'tests/test_rgs_se2_holonomy_audit.py'
+      - 'models/morandotti_cell_reconstruction.py'
+      - 'theorems/T094-se2-holonomy-morandotti-audit.md'
+      - '.github/workflows/t094-se2-holonomy-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  se2-holonomy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy pytest
+      - name: Run SE2 holonomy regression tests
+        run: python -m pytest -q tests/test_rgs_se2_holonomy_audit.py
+      - name: Generate manufactured-connection report
+        run: |
+          python scripts/rgs_se2_holonomy_audit.py \
+            --sizes 0.32 0.16 0.08 0.04 \
+            --out artifacts/se2_holonomy_audit/report.json
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: t094-se2-holonomy-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/se2_holonomy_audit/report.json
+          if-no-files-found: error
+          retention-days: 14
