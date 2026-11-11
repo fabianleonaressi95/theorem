@@ -197,3 +197,36 @@ defect sector contributes to the unresolved interior traction jump; a
 nonzero cross term alone does not establish causality or convergence.
 The decomposition is performed on the reconstructed defect stresses, not
 on the source-independent boundary residuals of the six cell basis fields.
+
+## Frank–Burgers tensorial interaction law (T091)
+
+For the reconstructed interior-facet traction jump, split
+\[
+j=\llbracket\sigma n\rrbracket=j_F+j_B
+\]
+into Frank/disclination and Burgers/dislocation sectors. Define
+\[
+T_F=\int j_F\otimes j_F\,dS,\qquad
+T_B=\int j_B\otimes j_B\,dS,
+\]
+\[
+T_{FB}=\int(j_F\otimes j_B+j_B\otimes j_F)\,dS.
+\]
+The exact discrete composition law is
+\[
+T=T_F+T_B+T_{FB},\qquad
+\int|j|^2\,dS=\int|j_F|^2\,dS+\int|j_B|^2\,dS
++2\int j_F\cdot j_B\,dS.
+\]
+The mixed term is signed and carries directional information. It can be positive, negative or zero; it must be assembled rather than discarded.
+
+For the two-core axis \(e_\parallel\) and its perpendicular \(e_\perp\), define
+\[
+\mathcal A_\parallel(T)=
+\frac{e_\parallel^TTe_\parallel-e_\perp^TTe_\perp}
+{\operatorname{tr}T}.
+\]
+Its numerator and denominator decompose through \(T_F,T_B,T_{FB}\), giving the exact axis-resolved anisotropy composition formula in T091. The eigenvalue anisotropy reported by the benchmark is a separate rotation-invariant nonlinear diagnostic; it is not additive across sectors.
+
+The five-level mixed-source computation records a positive mixed traction contribution of about 17–28% of the total squared jump for this particular source configuration. This is numerical evidence for a non-negligible interaction term in that benchmark, not a universal sign statement or continuum law. Full derivation, table, hypotheses and limitations: [T091](theorems/T091-frank-burgers-tensorial-anisotropy-composition-law.md).
+
