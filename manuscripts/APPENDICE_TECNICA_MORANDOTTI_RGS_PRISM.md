@@ -648,3 +648,12 @@ Il repository contiene ora `models/discrete_incompatibility_weak.py` e `tests/te
 ## Benchmark variazionale piano — aggiornamento 11 novembre 2026
 
 È stata aggiunta la specifica [MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md](MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md). Il kernel `models/discrete_incompatibility_weak.py` ora include anche l'assemblaggio della matrice di energia da un tensore di compliance elastica e il solver KKT per \(\min \frac12 e^TMe\) con vincolo \(Ae=z\). I test coprono simmetria/positività dell'esempio di energia, residui primal/dual, identità energetica e rifiuto di vincoli degeneri o energie non positive. I test sono stati aggiunti ma non risultano ancora eseguiti da CI; il confronto con Airy/CIP-DG e la convergenza restano aperti.
+
+
+## A.31. Prima assemblazione FEM rettangolare H2-conforme — 11 novembre 2026
+
+È stato aggiunto `models/morandotti_bfs_kkt.py`, prototipo su griglia rettangolare uniforme con elementi Bogner–Fox–Schmit bicubici. I gradi di libertà nodali sono (v, dx v, dy v, dxy v); tutti i gradi di libertà sui vertici di bordo sono clamped. Lo spazio test globale è C1, dunque H2-conforme. Le deformazioni sono inizialmente tre modi simmetrici costanti per cella; il tensore di compliance è quello isotropo di plane stress, con convenzione di taglio tensoriale esplicitata nel codice.
+
+La prima griglia 2x2, con quadratura di Gauss 3x3 per cella, produce dimensioni A_h in R^(4x12), M_h in R^(12x12); nell'audit numerico indipendente della stessa contrazione, rank(A_h)=4, gli autovalori di M_h sono quattro valori 0.175 e otto valori 0.325 per E=1, nu=0.3. Per un carico costruito come z=A_h e_0, i residui KKT risultano dell'ordine di 10^-17 e le energie primal/dual coincidono a precisione macchina. Questi numeri verificano la formulazione algebraica e la contrazione implementata, ma non sono ancora un benchmark di difetto fisico: il carico D1/D2 deve ancora essere valutato sulle funzioni BFS e regolarizzato per core finito.
+
+I test dedicati sono in `tests/test_morandotti_bfs_kkt.py`. Non dichiarare CI o pytest superati: i commit non hanno workflow associati e l'esecuzione completa della suite nel repository resta da fare. Il prototipo non include ancora raffinamento multi-mesh, confronto Airy/CIP-DG, convergenza variazionale o validazione sperimentale.
