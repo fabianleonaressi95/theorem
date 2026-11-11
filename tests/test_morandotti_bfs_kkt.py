@@ -2,18 +2,18 @@ import numpy as np
 
 from models.morandotti_bfs_kkt import (
     assemble_bfs_rectangular,
-    plane_stress_compliance,
+    plane_stress_stiffness,
     solve_bfs_kkt,
 )
 
 
-def test_plane_stress_compliance_has_elastic_symmetries_and_positive_modes():
-    S = plane_stress_compliance(young_modulus=210.0, poisson_ratio=0.3)
+def test_plane_stress_stiffness_has_elastic_symmetries_and_positive_modes():
+    S = plane_stress_stiffness(young_modulus=210.0, poisson_ratio=0.3)
     assert np.allclose(S, S.swapaxes(0, 1))
     assert np.allclose(S, S.swapaxes(2, 3))
     assert np.allclose(S, S.transpose(2, 3, 0, 1))
-    assert np.isclose((1.0 - 0.3) / 210.0, 0.7 / 210.0)
-    assert np.isclose((1.0 + 0.3) / 210.0, 1.3 / 210.0)
+    assert np.isclose(210.0 / (1.0 - 0.3), 210.0 / 0.7)
+    assert np.isclose(210.0 / (1.0 + 0.3), 210.0 / 1.3)
 
 
 def test_bfs_assembly_is_h2_conforming_dimensionally_and_full_row_rank():
@@ -25,7 +25,9 @@ def test_bfs_assembly_is_h2_conforming_dimensionally_and_full_row_rank():
     assert out["strain_basis"].shape == (4, 9, 12, 2, 2)
     assert np.linalg.matrix_rank(A) == A.shape[0]
     assert np.allclose(M, M.T, atol=1e-13)
-    assert np.linalg.eigvalsh(M).min() > 0.0
+    eig = np.linalg.eigvalsh(M)
+    assert eig.min() > 0.0
+    assert np.allclose(eig, np.array([1.0/1.3]*8 + [1.0/0.7]*4), atol=1e-10)
     assert np.all(out["weights"] > 0.0)
 
 
@@ -48,7 +50,7 @@ def test_bfs_rejects_invalid_mesh_and_elastic_parameters():
     else:
         raise AssertionError("one-cell direction must be rejected")
     try:
-        plane_stress_compliance(1.0, 1.0)
+        plane_stress_stiffness(1.0, 1.0)
     except ValueError as exc:
         assert "poisson_ratio" in str(exc)
     else:
