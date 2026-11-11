@@ -1,6 +1,6 @@
 # Morandotti reconstruction gate: from cell fields to the Airy potential
 
-**Status:** algebraic postprocessing is implemented and unit-tested. The two-core DOLFINx driver now exports the six FE coefficient vectors and mesh/dof metadata, assembles four defect-data cases, solves the actual Laplacian-product system, and stores reconstructed Airy values at FE degrees of freedom. This source-level integration has **not** yet been executed in a DOLFINx runtime; no numerical output or end-to-end physical validation is claimed.
+**Status:** algebraic postprocessing is implemented and unit-tested. The two-core DOLFINx driver now exports the six FE coefficient vectors and mesh/dof metadata, assembles four defect-data cases, solves the actual Laplacian-product system, and stores reconstructed Airy values at FE degrees of freedom. This source-level integration now also forms the elementwise Airy stress \\(\\sigma_h=\\operatorname{cof}(D^2v_h)\\), records traction L2 norms on the outer boundary and both cores, and records the interior-facet traction jump. It has **not** yet been executed in a DOLFINx runtime; no numerical output or end-to-end physical validation is claimed.
 
 ## Exact target from Theorem 2.2
 
