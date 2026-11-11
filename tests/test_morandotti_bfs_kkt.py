@@ -67,7 +67,7 @@ def test_bfs_basis_values_and_gradients_at_interior_vertex():
     assert values.shape == (4, 1)
     assert gradients.shape == (4, 1, 2)
     assert np.allclose(values[:, 0], np.array([1.0, 0.0, 0.0, 0.0]), atol=1e-13)
-    assert np.allclose(gradients[:, 0], np.zeros((4, 2)), atol=1e-13)
+    assert np.allclose(gradients[:, 0], np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [0.0, 0.0]]), atol=1e-13)
 
 
 def test_bfs_point_and_finite_core_defect_sources_are_finite_and_distinct():
