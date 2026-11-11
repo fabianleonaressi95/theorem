@@ -466,8 +466,7 @@ def main():
             "interpretation":"same reference mesh connectivity is rotated in place, so covariance differences isolate numerical transformation/geometry effects rather than angle-dependent remeshing",
         }}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(report, indent=2) + "
-", encoding="utf-8")
+    path.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8")
     print(json.dumps(report,indent=2))
 
 
