@@ -177,8 +177,8 @@ In the ordered character basis \((D,E,A,B,C)\), pullback by the M3 generators ha
 \[
 \rho(R)=
 \begin{pmatrix}
-0&-1&0&0&0\\
-1&0&0&0&0\\
+0&1&0&0&0\\
+-1&0&0&0&0\\
 0&0&1&0&0\\
 0&0&0&1&0\\
 0&0&0&0&-1
@@ -193,14 +193,14 @@ In the ordered character basis \((D,E,A,B,C)\), pullback by the M3 generators ha
 0&0&0&0&-1
 \end{pmatrix}.
 \]
-These satisfy
+Here the action on functions is defined by \((g\cdot f)(v)=f(g^{-1}v)\), so the matrices form a genuine (rather than contravariant) representation. They satisfy
 \[
 \rho(R)^4=\rho(S)^2=I,\qquad
 \rho(S)\rho(R)\rho(S)=\rho(R)^{-1}.
 \]
-Both matrices are orthogonal with determinant \(+1\), so this is an explicit representation
+Both matrices are orthogonal, so this is an explicit representation
 \[
-D_4\longrightarrow SO(5).
+D_4\longrightarrow O(5).
 \]
 It decomposes as the standard two-dimensional rotation/reflection representation, two trivial one-dimensional representations, and one one-dimensional representation with \(R\mapsto-1,\ S\mapsto-1\).
 
