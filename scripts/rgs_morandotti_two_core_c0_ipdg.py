@@ -341,6 +341,13 @@ def main():
     p.add_argument("--distance-mesh-size",type=float,default=0.06)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
+    if (not np.isfinite(a.distance_mesh_size) or a.distance_mesh_size <= 0.0):
+        raise ValueError("--distance-mesh-size must be finite and positive")
+    if (not np.isfinite(a.distance_values).all()
+            or any(d <= 2.0*0.12 or d >= 2.0*(1.0-0.12) for d in a.distance_values)):
+        raise ValueError("distance values must be finite and satisfy 2a < d < 2(R-a), with R=1 and a=0.12")
+    if any(b <= aa for aa, b in zip(a.distance_values, a.distance_values[1:])):
+        raise ValueError("--distance-values must be strictly increasing and contain no duplicates")
     levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
     def orientation_sweep(co_rotate_defects, label):
         sweep=[]
