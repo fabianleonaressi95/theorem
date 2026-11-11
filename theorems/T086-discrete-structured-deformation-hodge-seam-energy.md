@@ -129,7 +129,11 @@ Substitution gives
 \bigl[M-MB_1^TL_M^\dagger B_1M\bigr]G\rangle.
 }
 \]
-The bracketed operator is symmetric positive semidefinite. It is the \(M\)-weighted orthogonal projector onto the complement of \(\operatorname{im}d_0\), expressed in the original edge coordinates. Its kernel is exactly \(\operatorname{im}d_0\).
+Define
+\[
+P_M:=I-B_1^TL_M^\dagger B_1M.
+\]
+Then \(P_M^2=P_M\) and \(P_M^TM=MP_M\): this is the \(M\)-orthogonal projector onto the complement of \(\operatorname{im}d_0\). The bracketed operator in the energy formula is \(MP_M\), which is symmetric positive semidefinite but is not, in general, itself an idempotent projector. Its kernel is exactly \(\operatorname{im}d_0\).
 
 This formula is useful computationally: it provides an independent energy evaluation from the assembled graph Laplacian and exposes the relaxed energy as a quadratic form in the prescribed microscopic cochain. For large meshes one should not form the dense pseudoinverse; solve the gauge-fixed sparse Laplacian system and evaluate the residual energy instead.
 
@@ -233,6 +237,37 @@ The theorem suggests the next benchmark, rather than another generic comparison:
 5. **Seam test:** duplicate the 90 physical seam traces, apply nontrivial panel-frame transitions, and verify that matching transported traces have zero interface energy while a prescribed jump produces exactly the declared quadratic cost.
 
 These tests are finite-dimensional algebraic/variational audits. They do not claim a continuum convergence rate.
+
+
+## 8A. Executed Q-ball shell audit (11 November 2026)
+
+The finite-mesh numerical gate has now been executed on the canonical T080 shell, reconstructed from `models/football_shell.py`. The incidence matrices use the T080 orientation convention. The edge metric is the declared positive diagonal choice
+\[
+M=\operatorname{diag}(\ell_e^{-1}),
+\]
+where \(\ell_e\) is the Euclidean length of edge \(e\). This is a graph-energy metric for this audit, not a calibrated material tensor.
+
+The observed combinatorial counts are \((|V|,|E|,|F|,|\mathcal S|)=(92,270,180,90)\), and \(\max|B_1B_2|=0\) exactly.
+
+| Test | Numerical result |
+|---|---:|
+| Exact cochain energy, \(G=B_1^Tz\) | \(1.3343\times10^{-27}\) |
+| Recovery error modulo translation | \(3.0665\times10^{-14}\) |
+| Exact-case Hodge residual | \(1.6375\times10^{-13}\) |
+| Non-exact impulse curl norm | \(1.4142135624\) |
+| Curl identity residual, \(\|d_1D_*+d_1G\|\) | \(8.6897\times10^{-18}\) |
+| Non-exact Hodge residual, \(\|B_1MD_*\|\) | \(3.0954\times10^{-15}\) |
+| Direct minimum energy | \(0.8277381346948023\) |
+| Schur-formula energy | \(0.8277381346948021\) |
+| Energy discrepancy | \(2.2204\times10^{-16}\) |
+| Projector idempotence residual, \(\|P_M^2-P_M\|\) | \(2.6094\times10^{-14}\) |
+| \(M\)-self-adjointness residual | \(8.2459\times10^{-14}\) |
+
+The exact case confirms recovery modulo the translational gauge. The impulse case confirms that nonzero local curl survives as an incompatibility while the minimizing residual is Hodge-orthogonal. The Schur energy and the residual energy agree to floating-point precision.
+
+**Reproduction:** run `python scripts/audit_t086_hodge_projection.py` from the repository root. The script prints the full JSON audit. The random seed is fixed at `20261111`.
+
+These are finite-mesh numerical verification results. They do not test the torus harmonic case, the panel-frame seam transition law, or any continuum refinement limit; those remain separate gates.
 
 ## 9. Classification
 
