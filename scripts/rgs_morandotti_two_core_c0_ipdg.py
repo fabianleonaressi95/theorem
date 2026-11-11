@@ -156,6 +156,44 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     MF = MB + MI
     rel = lambda X: float(np.linalg.norm(X-X.T, "fro")/max(np.linalg.norm(X,"fro"),1e-300))
 
+    # Resolve the two-core interaction into the geometrically preferred
+    # longitudinal/transverse frame. This quantifies anisotropy; it does not
+    # by itself establish that anisotropy is the sole cause of any residual.
+    axis = np.asarray(centers[1], dtype=float) - np.asarray(centers[0], dtype=float)
+    axis = axis / np.linalg.norm(axis)
+    frame = np.column_stack((axis, np.array([-axis[1], axis[0]])))
+    matrix_anisotropy = {}
+    for i in range(2):
+        for j in range(2):
+            block = ML[3*i+1:3*i+3, 3*j+1:3*j+3]
+            local = frame.T @ block @ frame
+            longitudinal, transverse = float(local[0, 0]), float(local[1, 1])
+            denom = abs(longitudinal) + abs(transverse)
+            matrix_anisotropy[f"core_{i}_to_core_{j}"] = {
+                "longitudinal": longitudinal,
+                "transverse": transverse,
+                "signed_anisotropy": float((longitudinal-transverse)/denom) if denom else 0.0,
+                "longitudinal_transverse_coupling": float(local[0, 1]),
+                "transverse_longitudinal_coupling": float(local[1, 0]),
+                "local_block": local.tolist(),
+            }
+
+    residual_anisotropy = {}
+    residual_groups = {}
+    for row in boundary_rows:
+        if row["mode"] in (1, 2):
+            key = (row["active_core"], row["boundary"])
+            residual_groups.setdefault(key, {})[row["mode"]] = row["normal_derivative_L2_residual"]
+    for (active_core, boundary_name), values in residual_groups.items():
+        rx, ry = float(values.get(1, 0.0)), float(values.get(2, 0.0))
+        denom = rx*rx + ry*ry
+        residual_anisotropy[f"active_core_{active_core}_{boundary_name}"] = {
+            "mode_x_normal_residual": rx,
+            "mode_y_normal_residual": ry,
+            "signed_directional_anisotropy": float((rx*rx-ry*ry)/denom) if denom else 0.0,
+            "residual_ratio_x_over_y": float(rx/ry) if ry else None,
+        }
+
     # The published finite-dimensional reconstruction uses the Laplacian
     # product matrix. Preserve the six actual FE coefficient vectors and the
     # mesh/dof metadata so a later run can reproduce the reconstructed field.
@@ -202,6 +240,10 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                 "force_y_domain_normal": float(fy),
                 "moment_z_domain_normal": float(moment),
                 "force_norm": float(np.hypot(fx, fy)),
+                "force_longitudinal": float(fx*axis[0] + fy*axis[1]),
+                "force_transverse": float(-fx*axis[1] + fy*axis[0]),
+                "force_directional_anisotropy": float(((fx*axis[0]+fy*axis[1])**2-(-fx*axis[1]+fy*axis[0])**2) /
+                    max((fx*axis[0]+fy*axis[1])**2+(-fx*axis[1]+fy*axis[0])**2, 1e-300)),
             }
 
         facet_traction_jump = ufl.jump(sigma_case, n)
@@ -237,7 +279,13 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         "min_eigenvalue_hessian":float(np.linalg.eigvalsh(MH).min()),
         "min_eigenvalue_laplacian":float(np.linalg.eigvalsh(ML).min()),
         "condition_hessian":float(np.linalg.cond(MH)),
-        "condition_laplacian":float(np.linalg.cond(ML))}
+        "condition_laplacian":float(np.linalg.cond(ML)),
+        "anisotropy": {
+            "definition": "longitudinal/transverse frame aligned with the center-to-center axis",
+            "axis_unit_vector": axis.tolist(),
+            "matrix_blocks": matrix_anisotropy,
+            "normal_derivative_residuals": residual_anisotropy,
+        }}
 
 
 def main():
