@@ -350,3 +350,8 @@ The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered 
 - [Experimental scan input instructions](data/scans/README.md)
 
 The current implementation is a linearised triangular membrane + signed-dihedral bending shell. It includes panel-wise orthotropy, seam reinforcement, the existing cube/sphere radial field and the cubic H4 mode. Experimental scan comparison is implemented, but no real scan or material coupon data has yet been supplied; CI uses a synthetic ICP registration test only.
+
+
+### Morandotti planar incompatibility: first H2-conforming assembly
+
+The weak Saint-Venant/KKT benchmark now has a first rectangular Bogner–Fox–Schmit implementation: `models/morandotti_bfs_kkt.py`, with tests in `tests/test_morandotti_bfs_kkt.py`. It assembles the globally H2-conforming scalar test Hessians, the cellwise-constant symmetric strain basis, the isotropic plane-stress compliance matrix, and the finite-dimensional matrices A_h and M_h. The 2x2 mesh prototype has four clamped-interior test DOFs and twelve strain DOFs. The test suite is committed, but repository pytest/CI execution is not yet confirmed. Defect-source evaluation on BFS functions, finite-core D1/D2 cases, mesh refinement, and comparison with Morandotti's Airy/CIP-DG baseline remain open. See [the benchmark specification](manuscripts/MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md) and [technical appendix](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md).
