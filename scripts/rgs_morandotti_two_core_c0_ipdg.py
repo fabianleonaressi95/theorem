@@ -16,7 +16,7 @@ from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 from models.morandotti_cell_reconstruction import (
-    build_defect_vector, build_defect_components, rotate_defect_vector_to_frame,
+    build_defect_components, rotate_defect_vector_to_frame,
     defect_quadratic_decomposition, deformation_metric,
     solve_interaction_system, reconstruct_airy_potential,
     deform_two_core_coordinates, two_core_support_radius,
@@ -315,7 +315,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
 
         def stress_second_moment(stress):
             return np.array([
-                [assemble(stress[0,0]**2 + stress[1,0]**2, mesh) if False else assemble((stress[0,0]**2 + stress[1,0]**2)*dx, mesh),
+                [assemble((stress[0,0]**2 + stress[1,0]**2)*dx, mesh),
                  assemble((stress[0,0]*stress[0,1] + stress[1,0]*stress[1,1])*dx, mesh)],
                 [assemble((stress[0,0]*stress[0,1] + stress[1,0]*stress[1,1])*dx, mesh),
                  assemble((stress[0,1]**2 + stress[1,1]**2)*dx, mesh)]
@@ -325,10 +325,18 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         stress_moment_frank = stress_second_moment(sigma_frank)
         stress_moment_burgers = stress_second_moment(sigma_burgers)
         stress_moment_cross = stress_moment_total - stress_moment_frank - stress_moment_burgers
-        stress_moment_local = frame.T @ stress_moment_total @ frame
-        stress_eigenvalues = np.linalg.eigvalsh(0.5*(stress_moment_local + stress_moment_local.T))
-        stress_anisotropy = float((stress_eigenvalues[-1]-stress_eigenvalues[0]) /
-                                  max(stress_eigenvalues[-1]+stress_eigenvalues[0], 1e-300))
+
+        def directional_stress_anisotropy(moment):
+            local_moment = frame.T @ moment @ frame
+            eigenvalues = np.linalg.eigvalsh(0.5*(local_moment + local_moment.T))
+            value = float((eigenvalues[-1]-eigenvalues[0]) /
+                          max(eigenvalues[-1]+eigenvalues[0], 1e-300))
+            return local_moment, value
+
+        stress_moment_local, stress_anisotropy = directional_stress_anisotropy(stress_moment_total)
+        stress_moment_frank_local, stress_anisotropy_frank = directional_stress_anisotropy(stress_moment_frank)
+        stress_moment_burgers_local, stress_anisotropy_burgers = directional_stress_anisotropy(stress_moment_burgers)
+        stress_moment_cross_local = frame.T @ stress_moment_cross @ frame
         traction = ufl.dot(sigma_case, n)
         boundary_traction = {}
         for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
@@ -370,7 +378,12 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             "stress_second_moment_burgers_xy": stress_moment_burgers.tolist(),
             "stress_second_moment_cross_xy": stress_moment_cross.tolist(),
             "stress_second_moment_total_local": stress_moment_local.tolist(),
+            "stress_second_moment_frank_local": stress_moment_frank_local.tolist(),
+            "stress_second_moment_burgers_local": stress_moment_burgers_local.tolist(),
+            "stress_second_moment_cross_local": stress_moment_cross_local.tolist(),
             "stress_directional_anisotropy": stress_anisotropy,
+            "stress_directional_anisotropy_frank": stress_anisotropy_frank,
+            "stress_directional_anisotropy_burgers": stress_anisotropy_burgers,
             "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
