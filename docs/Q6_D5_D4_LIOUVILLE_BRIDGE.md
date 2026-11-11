@@ -275,3 +275,58 @@ derived rather than imposed. Viable routes are:
 
 Until one of these constructions is completed, the correct status is:
 **two exact five-dimensional sectors, no natural D4 intertwiner between them**.
+
+
+## 9. Full D4-orbit edge Hodge complex: construction and audit protocol
+
+The next comparison is now formulated on the full orbit graph, rather than
+by transporting vectors inside the old 192-edge subspace. Starting from the
+64 Q6 vertices, take the D4 orbit of the original 192 unoriented edges:
+\[
+E_{\rm orb}=\{\,\{g(u),g(v)\}: \{u,v\}\in E(Q_6),\ g\in D_4\,\},
+\qquad |E_{\rm orb}|=256.
+\]
+Likewise take the D4 orbit of the original square *cyclic boundaries*.
+Two squares with the same four vertices but different cyclic order are
+retained as distinct labelled 2-cells; they must not be silently identified.
+Let \(F_{\rm orb}\) be this set of unoriented cyclic square cells.
+
+Orient each edge by its ordered vertex labels and each square by a chosen
+canonical cyclic representative. Define integer boundary maps
+\[
+B_1:C_1(E_{\rm orb};\mathbb Z)\to C_0,\qquad
+B_2:C_2(F_{\rm orb};\mathbb Z)\to C_1
+\]
+by the signed endpoints and signed cyclic boundaries. By construction,
+\[
+B_1B_2=0.
+\]
+The edge Hodge operator is
+\[
+\boxed{H_1^{\rm orb}=B_1^TB_1+B_2B_2^T.}
+\]
+Its harmonic edge space is \(\ker H_1^{\rm orb}\), and its positive spectrum
+contains the exact coexact modes contributed by the square boundary map.
+The D4 signed permutation actions \(J_0,J_1,J_2\) must satisfy
+\[
+J_0B_1=B_1J_1,\qquad J_1B_2=B_2J_2.
+\]
+Consequently \(H_1^{\rm orb}\) commutes with every \(J_1\), and each of its
+eigenspaces is a D4 module.
+
+The executable exact-arithmetic construction is
+\`audits/audit_m3_d4_orbit_edge_hodge.py\`; its regression tests are in
+\`tests/test_m3_d4_orbit_edge_hodge.py\`. It reports the orbit 2-cell count,
+integer boundary ranks, first Betti number, exact edge-Hodge spectrum, and
+the D4 character traces on every eigenspace. The computation has been
+committed but **has not yet been executed**. In particular, this document
+does not pre-announce a five-dimensional positive eigenspace: its existence,
+eigenvalue, and D4 character are outputs to be established by running the
+audit.
+
+The resulting object is an equivariant chain complex. Whether it is a
+regular square CW complex is a separate question: the audit must retain and
+report incompatible cyclic cells and non-regular intersections rather than
+assume them away. If regularity fails, the chain complex still has the
+stated algebraic boundary maps, but its topological interpretation must be
+specified as a labelled cell complex or an appropriate quotient/refinement.
