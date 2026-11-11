@@ -2,6 +2,8 @@ import numpy as np
 
 from models.morandotti_bfs_kkt import (
     assemble_bfs_rectangular,
+    assemble_bfs_defect_source,
+    evaluate_bfs_test_basis,
     plane_stress_stiffness,
     solve_bfs_kkt,
 )
@@ -57,3 +59,30 @@ def test_bfs_rejects_invalid_mesh_and_elastic_parameters():
         assert "poisson_ratio" in str(exc)
     else:
         raise AssertionError("invalid Poisson ratio must be rejected")
+
+
+
+def test_bfs_basis_values_and_gradients_at_interior_vertex():
+    values, gradients = evaluate_bfs_test_basis(np.array([[0.5, 0.5]]), nx=2, ny=2)
+    assert values.shape == (4, 1)
+    assert gradients.shape == (4, 1, 2)
+    assert np.allclose(values[:, 0], np.array([1.0, 0.0, 0.0, 0.0]), atol=1e-13)
+    assert np.allclose(gradients[:, 0], np.zeros((4, 2)), atol=1e-13)
+
+
+def test_bfs_point_and_finite_core_defect_sources_are_finite_and_distinct():
+    xd = np.array([[0.35, 0.45]])
+    burgers = np.array([[1.0, 0.0]])
+    xf = np.array([[0.65, 0.55]])
+    frank = np.array([0.2])
+    point = assemble_bfs_defect_source(xd, burgers, xf, frank, nx=2, ny=2)
+    core = assemble_bfs_defect_source(
+        xd, burgers, xf, frank, nx=2, ny=2, core_radius=0.12,
+        quadrature_order=3,
+    )
+    assert point.shape == (4,)
+    assert core.shape == (4,)
+    assert np.isfinite(point).all() and np.isfinite(core).all()
+    assert np.linalg.norm(point) > 0.0
+    assert np.linalg.norm(core) > 0.0
+    assert not np.allclose(point, core)
