@@ -67,10 +67,22 @@ def assemble(expr, mesh):
 
 
 def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
-                centers=((-0.28, 0.0), (0.28, 0.0)),
-                args_artifact_path="cell_fields.npz"):
+                centers=((-0.28, 0.0), (0.28, 0.0)), orientation_angle_deg=0.0,
+                rotate_defect_data=True, args_artifact_path="cell_fields.npz"):
     comm = MPI.COMM_WORLD
-    mesh, tags = make_mesh(R, a, centers, h, comm)
+    theta = np.deg2rad(float(orientation_angle_deg))
+    rotation = np.array([[np.cos(theta), -np.sin(theta)],
+                         [np.sin(theta),  np.cos(theta)]])
+    base_centers = np.asarray(centers, dtype=float)
+    centers = tuple(tuple(q) for q in (base_centers @ rotation.T))
+    axis = rotation @ np.array([1.0, 0.0])
+    transverse_axis = rotation @ np.array([0.0, 1.0])
+    # Generate one reference mesh, then rotate its geometry coordinates in
+    # place. This preserves connectivity and avoids angle-dependent remeshing
+    # noise in the covariance comparison.
+    mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in base_centers), h, comm)
+    if abs(orientation_angle_deg) > 1e-14:
+        mesh.geometry.x[:, :2] = mesh.geometry.x[:, :2] @ rotation.T
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
     V = fem.functionspace(mesh, ("Lagrange", 3))
     n = ufl.FacetNormal(mesh)
@@ -110,11 +122,11 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                 gd.x.array[dofs] = 1.0
                 gn = ufl.as_ufl(0.0)
             elif mode == 1:
-                gd.x.array[dofs] = dof_xy[dofs, 0]
-                gn = n[0]
+                gd.x.array[dofs] = dof_xy[dofs] @ axis
+                gn = axis[0]*n[0] + axis[1]*n[1]
             else:
-                gd.x.array[dofs] = dof_xy[dofs, 1]
-                gn = n[1]
+                gd.x.array[dofs] = dof_xy[dofs] @ transverse_axis
+                gn = transverse_axis[0]*n[0] + transverse_axis[1]*n[1]
             gd.x.scatter_forward()
             bcs = [fem.dirichletbc(zero, outer_dofs, V),
                    fem.dirichletbc(gd, all_core_dofs)]
@@ -130,7 +142,9 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             # component, not only the active core. Inactive components carry
             # homogeneous data for this cell problem.
             xcoord = ufl.SpatialCoordinate(mesh)
-            val_active = 1.0 if mode == 0 else (xcoord[0] if mode == 1 else xcoord[1])
+            val_active = (1.0 if mode == 0 else
+                (axis[0]*xcoord[0] + axis[1]*xcoord[1] if mode == 1 else
+                 transverse_axis[0]*xcoord[0] + transverse_axis[1]*xcoord[1]))
             for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
                 target_value = val_active if boundary_tag == tag else 0.0
                 target_normal = gn if boundary_tag == tag else 0.0
@@ -159,9 +173,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     # Resolve the two-core interaction into the geometrically preferred
     # longitudinal/transverse frame. This quantifies anisotropy; it does not
     # by itself establish that anisotropy is the sole cause of any residual.
-    axis = np.asarray(centers[1], dtype=float) - np.asarray(centers[0], dtype=float)
-    axis = axis / np.linalg.norm(axis)
-    frame = np.column_stack((axis, np.array([-axis[1], axis[0]])))
+    frame = np.column_stack((axis, transverse_axis))
     matrix_anisotropy = {}
     for i in range(2):
         for j in range(2):
@@ -188,10 +200,10 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         rx, ry = float(values.get(1, 0.0)), float(values.get(2, 0.0))
         denom = rx*rx + ry*ry
         residual_anisotropy[f"active_core_{active_core}_{boundary_name}"] = {
-            "mode_x_normal_residual": rx,
-            "mode_y_normal_residual": ry,
+            "mode_longitudinal_normal_residual": rx,
+            "mode_transverse_normal_residual": ry,
             "signed_directional_anisotropy": float((rx*rx-ry*ry)/denom) if denom else 0.0,
-            "residual_ratio_x_over_y": float(rx/ry) if ry else None,
+            "residual_ratio_longitudinal_over_transverse": float(rx/ry) if ry else None,
         }
 
     # The published finite-dimensional reconstruction uses the Laplacian
@@ -209,7 +221,16 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     }
     reconstruction = {}
     for name, (frank, burgers) in cases.items():
-        phi = build_defect_vector(np.asarray(centers), frank, burgers)
+        # Rotate the Burgers vectors together with the two-core geometry.
+        burgers_used = np.asarray(burgers) @ rotation.T if rotate_defect_data else np.asarray(burgers)
+        phi_global = build_defect_vector(np.asarray(centers), frank, burgers_used)
+        # The FE translation basis is (longitudinal, transverse), not the
+        # laboratory (x,y) basis. Express each Frank-Burgers pair in that
+        # local frame before solving the interaction system.
+        phi_blocks_global = phi_global.reshape(len(centers), 3)
+        phi_blocks_local = phi_blocks_global.copy()
+        phi_blocks_local[:, 1:3] = phi_blocks_global[:, 1:3] @ rotation
+        phi = phi_blocks_local.reshape(-1)
         coeff = solve_interaction_system(ML, phi)
         vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
         vh = fem.Function(V)
@@ -250,7 +271,8 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         interior_traction_jump = float(np.sqrt(max(
             assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
         reconstruction[name] = {
-            "Phi": phi.tolist(), "coefficients": coeff.tolist(),
+            "Phi": phi.tolist(), "Phi_global_xy": phi_global.tolist(),
+            "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
             "boundary_traction_L2": boundary_traction,
@@ -266,7 +288,9 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         M_boundary_flux=MB, M_interior_facet_flux=MI,
         centers=np.asarray(centers), core_radius=np.asarray([a]),
         mesh_target_h=np.asarray([h]), cell_count=np.asarray([nc]))
-    return {"h_target":h,"cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
+    return {"h_target":h,"orientation_angle_deg":float(orientation_angle_deg),
+        "defect_data_co_rotated":bool(rotate_defect_data),
+        "cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
         "cores":[{"center":list(c),"radius":a} for c in centers],
         "cell_fields":len(fields),"interaction_dimension":[m,m],
         "boundary_residuals":boundary_rows,"reconstruction_cases":reconstruction,
@@ -294,9 +318,61 @@ def main():
     p.add_argument("--alpha",type=float,default=10.0)
     p.add_argument("--young-modulus",type=float,default=1.0)
     p.add_argument("--poisson-ratio",type=float,default=0.0)
+    p.add_argument("--orientation-angles-deg",nargs="+",type=float,default=[0.0,30.0,60.0])
+    p.add_argument("--orientation-mesh-size",type=float,default=0.06)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
     levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
+    def orientation_sweep(co_rotate_defects, label):
+        sweep=[]
+        for angle in a.orientation_angles_deg:
+            if (abs(angle) < 1e-12 and abs(a.orientation_mesh_size-a.mesh_sizes[-1]) < 1e-12
+                    and co_rotate_defects):
+                sweep.append(levels[-1])
+            else:
+                sweep.append(solve_level(
+                    a.orientation_mesh_size, alpha=a.alpha, young_modulus=a.young_modulus,
+                    poisson_ratio=a.poisson_ratio, orientation_angle_deg=angle,
+                    rotate_defect_data=co_rotate_defects,
+                    args_artifact_path=str(Path(a.out).with_name(
+                        f"orientation_{label}_{angle:g}_deg_fields.npz"))))
+        base=sweep[0]
+        comparisons=[]
+        for level in sweep:
+            base_matrix=np.asarray(base["M_laplacian"])
+            matrix=np.asarray(level["M_laplacian"])
+            matrix_rel=float(np.linalg.norm(matrix-base_matrix,"fro")/max(np.linalg.norm(base_matrix,"fro"),1e-300))
+            base_res=base["anisotropy"]["normal_derivative_residuals"]
+            cur_res=level["anisotropy"]["normal_derivative_residuals"]
+            residual_rel={}
+            for key,values in cur_res.items():
+                ref=base_res[key]
+                v=np.array([values["mode_longitudinal_normal_residual"],values["mode_transverse_normal_residual"]])
+                v0=np.array([ref["mode_longitudinal_normal_residual"],ref["mode_transverse_normal_residual"]])
+                residual_rel[key]=float(np.linalg.norm(v-v0)/max(np.linalg.norm(v0),1e-300))
+            traction_covariance={}
+            for case,case_data in level["reconstruction_cases"].items():
+                traction_covariance[case]={}
+                for core,force in case_data["core_traction_resultants"].items():
+                    traction_covariance[case][core]={
+                        "force_longitudinal":force["force_longitudinal"],
+                        "force_transverse":force["force_transverse"],
+                        "force_directional_anisotropy":force["force_directional_anisotropy"],
+                    }
+            comparisons.append({
+                "angle_deg":level["orientation_angle_deg"],
+                "local_interaction_matrix_relative_difference_from_first":matrix_rel,
+                "directional_residual_relative_difference_by_boundary":residual_rel,
+                "core_traction_components_by_case":traction_covariance,
+            })
+        return {"defect_orientation":label,"comparisons":comparisons}
+
+    # Experiment A: rotate geometry and Burgers vectors together.
+    # Experiment B: rotate geometry only; keep Burgers vectors fixed in lab axes.
+    orientation_covariance=[
+        orientation_sweep(True,"co_rotated"),
+        orientation_sweep(False,"defects_fixed_in_lab_frame"),
+    ]
     report={"title":"Two-core P3 C0-IPDG interaction matrix audit",
         "reference":"Cesana, Fabbrini, León Baldelli, Morandotti (2026), arXiv:2609.29614",
         "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit with algebraic Airy reconstruction",
@@ -319,7 +395,14 @@ def main():
             }
           } for i in range(1, len(levels))
         ],
-        "levels":levels}
+        "levels":levels,
+        "orientation_covariance": {
+            "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
+            "mesh_size":a.orientation_mesh_size,
+            "angles_deg":a.orientation_angles_deg,
+            "comparisons":orientation_covariance,
+            "interpretation":"same reference mesh connectivity is rotated in place, so covariance differences isolate numerical transformation/geometry effects rather than angle-dependent remeshing",
+        }}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report,indent=2))

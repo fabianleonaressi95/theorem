@@ -57,3 +57,18 @@ def test_interaction_solver_rejects_non_symmetric_or_non_spd_matrix():
 def test_defect_vector_rejects_inconsistent_shapes():
     with pytest.raises(ValueError, match="frank_angles"):
         build_defect_vector(np.zeros((2, 2)), np.zeros(1), np.zeros((2, 2)))
+
+def test_defect_vector_is_rotation_equivariant():
+    centers = np.array([[-0.28, 0.0], [0.28, 0.0]])
+    frank = np.array([0.2, 0.0])
+    burgers = np.array([[0.0, 0.0], [0.03, -0.04]])
+    theta = np.deg2rad(37.0)
+    R = np.array([[np.cos(theta), -np.sin(theta)],
+                  [np.sin(theta), np.cos(theta)]])
+    phi = build_defect_vector(centers, frank, burgers).reshape(2, 3)
+    phi_rot = build_defect_vector(centers @ R.T, frank, burgers @ R.T).reshape(2, 3)
+    expected = phi.copy()
+    expected[:, 1:3] = phi[:, 1:3] @ R.T
+    assert np.allclose(phi_rot[:, 0], phi[:, 0], atol=1e-14)
+    assert np.allclose(phi_rot[:, 1:3], expected[:, 1:3], atol=1e-14)
+
