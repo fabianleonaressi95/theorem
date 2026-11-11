@@ -87,16 +87,46 @@ def run_audit():
     if len(cycles) != 384 or len(orbit_edges) != 256:
         raise ArithmeticError("unexpected Q6 D4 orbit counts")
 
-    # Keep only nondegenerate parallelograms: planar and simple automatically.
+    # Select only whole D4 face-orbits whose every member is a
+    # nondegenerate parallelogram. The raw parallelogram predicate need not
+    # be invariant under a Boolean-coordinate action, so selecting individual
+    # faces would generally destroy D4 closure.
+    unseen = set(cycles)
+    face_orbits = []
+    while unseen:
+        seed = min(unseen)
+        orbit = {
+            _canonical_cycle(tuple(g[v] for v in seed))
+            for g in group
+        }
+        if not orbit.issubset(set(cycles)):
+            raise ArithmeticError("D4 action does not close on orbit-face set")
+        face_orbits.append(tuple(sorted(orbit)))
+        unseen.difference_update(orbit)
+
     admissible = []
-    for cycle in cycles:
-        points = tuple(tuple(int(x) for x in K.vertices[v]) for v in cycle)
-        if not all(points[0][i] + points[2][i] ==
-                   points[1][i] + points[3][i] for i in range(6)):
-            continue
-        area2 = _area_squared(points)
-        if area2:
-            admissible.append((cycle, points, int(area2)))
+    rejected_orbits = {"contains_nonparallelogram": 0, "contains_degenerate": 0}
+    for orbit in face_orbits:
+        orbit_records = []
+        all_parallelograms = True
+        all_nondegenerate = True
+        for cycle in orbit:
+            points = tuple(tuple(int(x) for x in K.vertices[v]) for v in cycle)
+            parallelogram = all(
+                points[0][i] + points[2][i] == points[1][i] + points[3][i]
+                for i in range(6)
+            )
+            area2 = _area_squared(points) if parallelogram else 0
+            all_parallelograms &= parallelogram
+            all_nondegenerate &= area2 > 0
+            orbit_records.append((cycle, points, int(area2)))
+        if not all_parallelograms:
+            rejected_orbits["contains_nonparallelogram"] += 1
+        elif not all_nondegenerate:
+            rejected_orbits["contains_degenerate"] += 1
+        else:
+            admissible.extend(orbit_records)
+    admissible.sort(key=lambda item: item[0])
     admissible_cycles = tuple(item[0] for item in admissible)
     admissible_index = {f: i for i, f in enumerate(admissible_cycles)}
 
@@ -235,7 +265,7 @@ def run_audit():
         "orbit_vertices": 64,
         "orbit_edges": 256,
         "orbit_faces_total": 384,
-        "admissible_parallelogram_faces": len(admissible),
+        "admissible_parallelogram_faces": len(admissible),\n        "face_orbit_count": len(face_orbits),\n        "admissible_face_orbit_count": sum(1 for orbit in face_orbits if all(\n            item[0] in {record[0] for record in admissible} for item in\n            [(face,) for face in orbit]\n        )),\n        "rejected_face_orbit_counts": rejected_orbits,
         "B1_shape": [64, 256],
         "B2_shape": [256, len(admissible)],
         "B1B2_exact_zero": True,
