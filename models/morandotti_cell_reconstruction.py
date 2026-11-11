@@ -32,6 +32,20 @@ def build_defect_vector(centers: np.ndarray, frank_angles: np.ndarray,
 
 
 
+def two_core_support_radius(core_radius: float, reference_separation: float,
+                            maximum_support_radius: float) -> float:
+    """Support radius vanishing on the other core's reference boundary."""
+    a, separation, maximum = map(float, (core_radius, reference_separation, maximum_support_radius))
+    if not (np.isfinite(a) and np.isfinite(separation) and np.isfinite(maximum)):
+        raise ValueError("support radii and separation must be finite")
+    if not (0.0 < a and 2.0*a < separation and maximum > a):
+        raise ValueError("require 0 < core_radius, 2*core_radius < reference_separation and maximum_support_radius > core_radius")
+    local_radius = min(maximum, separation-a)
+    if local_radius <= a:
+        raise ValueError("core separation is too small for disjoint boundary weights")
+    return float(local_radius)
+
+
 def deform_two_core_coordinates(coordinates: np.ndarray,
                                 reference_centers: np.ndarray,
                                 target_centers: np.ndarray,
@@ -57,12 +71,10 @@ def deform_two_core_coordinates(coordinates: np.ndarray,
     if not (np.isfinite(a) and np.isfinite(radius) and 0.0 < a < radius):
         raise ValueError("radii must satisfy 0 < core_radius < support_radius")
     separation = float(np.linalg.norm(source[1]-source[0]))
-    # Keep each core's displacement weight identically zero on the other
-    # core boundary. A larger support smooths the map, while the adaptive
-    # cap prevents one core's field from moving the other core's boundary.
-    local_radius = min(radius, separation-a)
-    if local_radius <= a:
-        raise ValueError("core separation is too small for disjoint boundary weights")
+    # Use the FIXED REFERENCE separation, not the target distance. Thus each
+    # reference core-boundary node receives zero displacement from the other
+    # core's radial field throughout the distance sweep.
+    local_radius = two_core_support_radius(a, separation, radius)
     moved = x.copy()
     displacement = np.zeros_like(x)
     for centre, shift in zip(source, target-source):
