@@ -106,3 +106,37 @@ def test_bfs_dislocation_and_disclination_loads_separately_feed_kkt():
         assert out["constraint_residual"] < 1e-10
         assert out["stationarity_residual"] < 1e-10
         assert np.isclose(out["primal_energy"], out["dual_energy"], atol=1e-10)
+
+
+def test_disclination_dipole_load_converges_to_edge_dislocation_load():
+    """Symmetric Frank dipole tends to a Burgers source in the weak load."""
+    center = np.array([0.5, 0.5])
+    burgers = np.array([[0.6, 0.8]])
+    magnitude = float(np.linalg.norm(burgers[0]))
+    normal = np.array([-burgers[0, 1], burgers[0, 0]]) / magnitude
+
+    empty2 = np.empty((0, 2))
+    empty1 = np.empty((0,))
+    target = assemble_bfs_defect_source(
+        center[None, :], burgers, empty2, empty1,
+        nx=4, ny=4, core_radius=0.10, quadrature_order=6,
+    )
+
+    errors = []
+    for separation in (0.24, 0.12, 0.06):
+        # zeta_dip = -s delta_(x+d n/2) + s delta_(x-d n/2),
+        # with s*d=|b|. The symmetric pair has the same first moment
+        # as the edge-dislocation source.
+        frank_strength = magnitude / separation
+        positions = np.stack((
+            center + 0.5*separation*normal,
+            center - 0.5*separation*normal,
+        ))
+        dipole = assemble_bfs_defect_source(
+            empty2, empty2, positions,
+            np.array([frank_strength, -frank_strength]),
+            nx=4, ny=4, core_radius=0.10, quadrature_order=6,
+        )
+        errors.append(np.linalg.norm(dipole - target))
+
+    assert errors[2] < errors[1] < errors[0]
