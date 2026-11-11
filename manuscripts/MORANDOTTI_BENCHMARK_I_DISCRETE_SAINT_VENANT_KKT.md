@@ -215,6 +215,6 @@ This specification closes the algebraic formulation of the finite-dimensional co
 
 The next implementation should therefore be a small planar KKT solver with one declared constitutive convention and D1–D3 regression cases. Only after that solver agrees with the Airy/CIP-DG reference should the independent SU(2)-coframe calibration be coupled to it.
 
-**Classification:** derived finite-dimensional formulation / implementation specification; numerical validation pending; continuum convergence open; physical validation absent.
+**Classification:** derived finite-dimensional formulation; generic compliance-energy assembly and KKT solver implemented with regression tests added; execution in repository CI and benchmark-specific Airy comparison pending; continuum convergence open; physical validation absent.
 
 **FLN**
