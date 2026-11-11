@@ -15,6 +15,7 @@ import numpy as np
 from models.discrete_incompatibility_weak import (
     assemble_constitutive_energy,
     assemble_inc_weak,
+    assemble_burgers_frank_load,
     solve_constrained_energy,
 )
 
@@ -176,3 +177,125 @@ def solve_bfs_kkt(
     out = solve_constrained_energy(assembled["M"], assembled["A"], source)
     out.update({k: assembled[k] for k in ("A", "M", "free_dofs", "ncell", "n_test")})
     return out
+
+
+
+def evaluate_bfs_test_basis(
+    points: np.ndarray, nx: int = 2, ny: int = 2
+) -> tuple[np.ndarray, np.ndarray]:
+    """Evaluate all free clamped BFS test functions and gradients at points.
+
+    Points must lie in the closed unit square. Values have shape
+    (n_test,n_points), gradients have shape (n_test,n_points,2).
+    """
+    P = np.asarray(points, dtype=float)
+    if P.ndim != 2 or P.shape[1] != 2 or not np.isfinite(P).all():
+        raise ValueError("points must be a finite array of shape (npoint,2)")
+    if np.any(P < 0.0) or np.any(P > 1.0):
+        raise ValueError("all evaluation points must lie in [0,1]^2")
+    nx, ny = int(nx), int(ny)
+    if nx < 2 or ny < 2:
+        raise ValueError("nx and ny must be >=2")
+    xs, ys = np.linspace(0.0, 1.0, nx+1), np.linspace(0.0, 1.0, ny+1)
+    free = []
+    for j in range(1, ny):
+        for i in range(1, nx):
+            node = j*(nx+1) + i
+            free.extend(range(4*node, 4*node+4))
+    free_map = {g: k for k, g in enumerate(free)}
+    V = np.zeros((len(free), len(P)), dtype=float)
+    G = np.zeros((len(free), len(P), 2), dtype=float)
+    for p, (x, y) in enumerate(P):
+        i = min(int(x*nx), nx-1)
+        j = min(int(y*ny), ny-1)
+        hx, hy = xs[i+1]-xs[i], ys[j+1]-ys[j]
+        tx, ty = (x-xs[i])/hx, (y-ys[j])/hy
+        hxv, hxd, _ = _hermite_1d(float(tx))
+        hyv, hyd, _ = _hermite_1d(float(ty))
+        vertices = ((i, j), (i+1, j), (i+1, j+1), (i, j+1))
+        for ix, iy in vertices:
+            node = iy*(nx+1) + ix
+            ex, ey = int(ix != i), int(iy != j)
+            vx, dx, vy, dy = 2*ex, 2*ex+1, 2*ey, 2*ey+1
+            for dof in range(4):
+                if dof == 0:
+                    ax, ay, scale = vx, vy, 1.0
+                elif dof == 1:
+                    ax, ay, scale = dx, vy, hx
+                elif dof == 2:
+                    ax, ay, scale = vx, dy, hy
+                else:
+                    ax, ay, scale = dx, dy, hx*hy
+                row = free_map.get(4*node+dof)
+                if row is None:
+                    continue
+                V[row, p] += scale*hxv[ax]*hyv[ay]
+                G[row, p, 0] += scale*hxd[ax]/hx*hyv[ay]
+                G[row, p, 1] += scale*hxv[ax]*hyd[ay]/hy
+    return V, G
+
+
+def assemble_bfs_defect_source(
+    dislocation_positions: np.ndarray,
+    burgers_vectors: np.ndarray,
+    disclination_positions: np.ndarray,
+    frank_angles: np.ndarray,
+    *,
+    nx: int = 2,
+    ny: int = 2,
+    core_radius: float | None = None,
+    quadrature_order: int = 3,
+) -> np.ndarray:
+    """Assemble point or normalized Gaussian-core Burgers/Frank loads.
+
+    For core_radius=None or zero, the distributions are evaluated pointwise.
+    For core_radius>0, a Gaussian is integrated over the mesh quadrature and
+    normalized on the unit square (including boundary truncation). The
+    normalization is part of this prototype's explicit core convention.
+    """
+    Xd = np.asarray(dislocation_positions, dtype=float).reshape(-1, 2)
+    B = np.asarray(burgers_vectors, dtype=float).reshape(-1, 2)
+    Xf = np.asarray(disclination_positions, dtype=float).reshape(-1, 2)
+    F = np.asarray(frank_angles, dtype=float).reshape(-1)
+    if len(Xd) != len(B) or len(Xf) != len(F):
+        raise ValueError("each defect position must have one Burgers/Frank datum")
+    if core_radius is not None and (not np.isfinite(core_radius) or core_radius < 0):
+        raise ValueError("core_radius must be finite and nonnegative")
+    assembled = assemble_bfs_rectangular(
+        nx, ny, quadrature_order=quadrature_order
+    )
+    if core_radius is None or core_radius == 0.0:
+        Vd, Gd = evaluate_bfs_test_basis(Xd, nx, ny)
+        Vf, _ = evaluate_bfs_test_basis(Xf, nx, ny)
+    else:
+        eps = float(core_radius)
+        Vq = assembled["test_values"]
+        Gq = assembled["test_gradients"]
+        w = assembled["weights"]
+        def gaussian_moments(center: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+            # Reconstruct the same tensor-product Gauss points used by assembly.
+            q, _ = np.polynomial.legendre.leggauss(quadrature_order)
+            q = 0.5*(q+1.0)
+            pts = []
+            for j in range(ny):
+                for i in range(nx):
+                    hx, hy = 1.0/nx, 1.0/ny
+                    for tx in q:
+                        for ty in q:
+                            pts.append(((i+tx)*hx, (j+ty)*hy))
+            pts = np.asarray(pts).reshape(nx*ny, quadrature_order**2, 2)
+            rho = np.exp(-np.sum((pts-center[None, None, :])**2, axis=2)/(2*eps**2))
+            norm = float(np.sum(rho*w))
+            if norm <= np.finfo(float).tiny:
+                raise ValueError("Gaussian core is numerically unresolved by the mesh quadrature")
+            values = np.einsum("tkq,kq,kq->t", Vq, rho, w)/norm
+            gradients = np.einsum("tkqd,kq,kq->td", Gq, rho, w)/norm
+            return values, gradients
+        Vd = np.zeros((len(assembled["free_dofs"]), len(Xd)))
+        Gd = np.zeros((len(assembled["free_dofs"]), len(Xd), 2))
+        for j, center in enumerate(Xd):
+            Vd[:, j], Gd[:, j] = gaussian_moments(center)
+        Vf = np.zeros((len(assembled["free_dofs"]), len(Xf)))
+        for j, center in enumerate(Xf):
+            Vf[:, j], _ = gaussian_moments(center)
+    return assemble_burgers_frank_load(Vd, Gd, B, Vf, F)
