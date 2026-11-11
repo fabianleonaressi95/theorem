@@ -504,7 +504,7 @@ def main():
         ],
         "levels":levels,
         "distance_sweep": {
-            "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",
+            "protocol":"one reference mesh object and geometry-DOF map reused; reference coordinates restored before each compactly supported deformation; fixed core radius, material and source orientation",
             "reference_separation":distance_reference_separation,
             "maximum_support_radius":0.50,
             "effective_support_radius":distance_effective_support_radius,
@@ -514,7 +514,7 @@ def main():
             "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",
             "definition_C_d":"||M_01||_F/||M_00||_F",
             "results":distance_sweep,
-            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "positive corner areas are a necessary but not sufficient curved-element quality certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]
+            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "cubic-geometry Jacobian is sampled on a 12-subdivision barycentric lattice; positive samples are not a formal all-points positivity certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]
         },
         "orientation_covariance": {
             "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
