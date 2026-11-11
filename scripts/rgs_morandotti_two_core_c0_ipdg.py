@@ -15,7 +15,9 @@ import gmsh, ufl
 from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
-from models.morandotti_cell_reconstruction import (\n    build_defect_vector, solve_interaction_system, reconstruct_airy_potential,\n)
+from models.morandotti_cell_reconstruction import (
+    build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
+)
 
 
 def make_mesh(R, a, centers, h, comm):
@@ -217,7 +219,8 @@ def main():
           "no singular-core limit, dynamics or material calibration"],
         "levels":levels}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(report,indent=2)+"\n")
+    path.write_text(json.dumps(report,indent=2)+"
+")
     print(json.dumps(report,indent=2))
 
 
