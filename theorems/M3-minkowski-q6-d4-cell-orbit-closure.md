@@ -95,3 +95,18 @@ The audit reports the number of distinct square cells, incompatible face identif
 python audits/audit_minkowski_q6_d4_cell_closure.py
 pytest -q tests/test_minkowski_q6_d4_cell_closure.py
 ```
+
+
+## 7. Liouville–Bergman connection
+
+The exact conditional invariance lemma and its limitations are recorded separately in
+`docs/Q6_D5_D4_LIOUVILLE_BRIDGE.md`. It proves that an orthogonal five-dimensional
+representation of D4 acting diagonally on canonical coordinates `(q, pi)`
+preserves the Liouville measure and the type-IV Bergman density
+`N(z)^(-5) dmu_L`.
+
+It does **not** yet identify that representation with the one induced from
+the M3 Q6 orbit complex. Such an identification requires the D4-equivariant
+cell/cochain complex, its Hodge operator, and an explicit intertwiner on the
+five-dimensional spectral sector. The original Q6 cubical complex is not
+D4-invariant under the M3 generator R.
