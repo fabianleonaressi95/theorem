@@ -140,7 +140,7 @@ def sample_loop_closure(
     b = np.asarray(burgers, dtype=float)
     # Vector-valued one-form: each component has circulation b_component.
     tangent_field = np.column_stack((-mids[:, 1], mids[:, 0])) / (2.0 * np.pi * r2[:, None])
-    b_measured = np.sum(tangent_field * increments, axis=0)[:,] if False else (b[:, None] * tangent_field.T) @ increments
+    circulation = float(np.sum(np.einsum("ij,ij->i", tangent_field, increments)))\n    b_measured = b * circulation
     # Scalar rotational connection with circulation frank.
     omega = frank * tangent_field
     frank_measured = float(np.sum(np.einsum("ij,ij->i", omega, increments)))
