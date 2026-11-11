@@ -366,11 +366,17 @@ The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmi
 
 The implementation integrates ordered edge transports for a smooth noncommuting SE(2) connection, compares face holonomy with the analytic Cartan curvature, and exports an optional adapter from measured integrated core-loop data to the existing Morandotti Frank/Burgers source-vector convention. **Execution and numerical verification are pending; no convergence result is claimed yet.**
 
-### T097 — Barycentric–kinematic Frank–Burgers reconstruction law
+### T098 — Universal two-circle positive-gradient / negative-barycentre duality
 
-- [T097](theorems/T097-barycentric-kinematic-frank-burgers-law.md) combines gradient-derived polar rotation, structured-mismatch Burgers circulation, barycentric covariance correction and ordered SE(2) composition.
-- It reuses T068–T070, T079–T080, T082 and T091–T095; it does not treat centroid displacement alone as Burgers closure.
-- [Component tests](tests/test_t097_barycentric_kinematic_law.py) and [dedicated workflow](.github/workflows/t097-barycentric-kinematic-law.yml) check the polar-angle, covariance and semidirect-product identities. Extraction from the actual two-core Morandotti FE fields remains open.
+- [T098](theorems/T098-two-circle-positive-gradient-negative-barycentre-duality.md) is the foundational geometric law: the two equal-radius circles generate the positively oriented gradient triangle and the negatively oriented barycentre triangle as one reflected pair.
+- It proves the exact paired-centroid separation, reflection law, positive-triangle mean-gradient boundary identity, covariance transport and Euclidean scale covariance.
+- Its universality is geometric and differential. Physical field/measure assignments and constitutive consequences remain conditional on the relevant model.
+
+### T097 — Morandotti Frank–Burgers application of the two-circle programme
+
+- [T097](theorems/T097-barycentric-kinematic-frank-burgers-law.md) is a downstream reconstruction layer, not the foundational two-circle law.
+- It combines gradient-derived rotation, structured-mismatch Burgers circulation, barycentric covariance correction and ordered SE(2) composition, using T068–T070, T079–T080, T082 and T091–T095.
+- [Component tests](tests/test_t097_barycentric_kinematic_law.py) and [dedicated workflow](.github/workflows/t097-barycentric-kinematic-law.yml) check the component identities. Extraction from the actual two-core Morandotti FE fields remains open.
 
 ### T096 — Airy-strain holonomy identifiability gate
 
