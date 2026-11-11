@@ -15,3 +15,13 @@ def test_every_reported_edge_hodge_eigenspace_is_d4_invariant():
     result = run_audit()
     for eigenspace in result["edge_hodge"]["eigenspaces"].values():
         assert eigenspace["D4_invariant"]
+
+
+def test_coexact_spectrum_is_reported_separately():
+    result = run_audit()
+    coexact = result["coexact_hodge"]
+    assert coexact["definition"] == "B2*B2.T"
+    assert all(item["multiplicity"] > 0
+               for item in coexact["positive_spectrum"])
+    for eigenspace in coexact["eigenspaces"].values():
+        assert eigenspace["D4_invariant"]
