@@ -337,6 +337,8 @@ def main():
     p.add_argument("--poisson-ratio",type=float,default=0.0)
     p.add_argument("--orientation-angles-deg",nargs="+",type=float,default=[0.0,30.0,60.0])
     p.add_argument("--orientation-mesh-size",type=float,default=0.06)
+    p.add_argument("--distance-values",nargs="+",type=float,default=[0.48,0.56,0.64,0.72])
+    p.add_argument("--distance-mesh-size",type=float,default=0.06)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
     levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
