@@ -13,27 +13,27 @@
 
 These are useful algebraic and assembly components, but they are not yet an end-to-end defect computation.
 
-## Gaps found by source inspection
+## Gaps found by source inspection and implementation status
 
-1. **The six cell fields are not exported.**  
-   `solve_level` keeps the six DOLFINx Functions in memory and returns only scalar diagnostics and matrices. Consequently, the output cannot yet be passed to the Airy postprocessor, which requires the actual six fields (or their FE coefficient vectors and mesh/dof metadata).
+1. **Resolved in the current branch: FE field export.**  
+   The driver now saves the six FE coefficient vectors, dof coordinates, geometry coordinates/dofmap, and interaction matrices in one compressed `.npz` artifact per mesh level. The run remains serial-only.
 
-2. **No defect-data cases are reconstructed.**  
-   The script solves the geometry-dependent cell problems, but it does not build `Phi`, solve the assembled `M a = Phi` system, or construct the resulting Airy potential for a disclination, dislocation, opposite-sign dipole, or mixed source.
+2. **Resolved at source level: four defect-data reconstructions.**  
+   The driver builds `Phi`, solves the actual assembled Laplacian-product system, and reconstructs Airy FE values for a single disclination, a single edge dislocation, an opposite-sign disclination dipole, and the mixed two-core source. Each case records the linear-system residual.
 
-3. **Boundary checks are incomplete.**  
-   The report records value and normal-derivative residuals only on the *active* core for each cell problem. It does not report those residuals on the outer boundary and on the inactive core(s). It also does not reconstruct `sigma_h = cof(D^2 v_h)` or evaluate `sigma_h n` on any boundary.
+3. **Resolved at source level: boundary and stress diagnostics.**  
+   Value and normal-derivative residuals are now recorded on the outer boundary and both cores for every cell field. For each reconstructed Airy potential, the driver forms the elementwise cofactor Hessian stress, reports traction L2 norms on all three boundary components, and reports the interior-facet traction jump. These diagnostics have not yet been executed or independently validated.
 
-4. **The refinement study is not yet a convergence study.**  
-   Multiple mesh sizes are solved, and per-level eigenvalue/condition diagnostics are recorded. The script does not compare matrices, cell fields, reconstructed stresses, or energies between successive levels, nor does it report observed rates.
+4. **Still open: actual mesh-convergence analysis.**  
+   Multiple mesh sizes are solved and per-level matrices, fields, reconstructed stress diagnostics, eigenvalue and condition diagnostics are recorded. The report does not yet compare these quantities between successive levels or report observed rates.
 
-5. **The algebraic tests do not exercise the assembled operator.**  
-   The SPD matrix in the reconstruction test is randomly generated. This checks the linear algebra implementation, not positive definiteness, conditioning, or reconstruction accuracy of the actual C0-IPDG interaction matrix.
+5. **Still open: execute the actual assembled operator.**  
+   Existing unit tests use a synthetic SPD matrix. The new driver now exercises the actual assembled Laplacian-product matrix, but it has not yet been run in the required DOLFINx environment; positive definiteness, conditioning, and reconstruction accuracy are therefore unverified.
 
 6. **Parallel execution is explicitly unsupported.**  
    The script raises for communicator size greater than one. This is an honest limitation; no multi-core/MPI scalability claim should be made.
 
-## Required next implementation increment
+## Required next validation increment
 
 - Save, for each mesh level, the six FE coefficient vectors, dof coordinates, mesh geometry/topology metadata, and the assembled Laplacian-product matrix. Keep the Hessian-product and flux matrices as independent diagnostics.
 - Add a postprocessing stage that builds `Phi` for: (i) one wedge disclination, (ii) one edge dislocation, (iii) an opposite-sign disclination dipole, and (iv) the mixed two-core datum already documented in the reconstruction gate.
