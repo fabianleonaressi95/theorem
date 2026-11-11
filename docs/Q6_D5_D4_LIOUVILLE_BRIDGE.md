@@ -132,3 +132,78 @@ Until these steps are completed, the relation between the M3 D4 action and the p
 - **Open:** deriving the Bergman density or its Hua generic-norm regulator as a limit/pushforward of the finite-coupling Wilson fibre marginal.
 
 The formula \(dV_B=N^{-5}d\mu_L\) must not be presented as the evaluation of \(W_{\rm eff}\), nor as a consequence of the rank-five integer quotient.
+
+
+## 6. An exact five-dimensional D4 module in the orbit graph
+
+There is a stronger finite result available directly from the M3 graph. Let
+\[
+\mathscr D=\{e_1,e_2,e_3,e_4,e_5,e_6,e_1+e_3,e_2+e_3\}
+\subset\mathbb F_2^6
+\]
+be its eight edge directions. Its vertex Laplacian is the Cayley-graph operator
+\[
+(\Delta f)(v)=\sum_{d\in\mathscr D}(f(v)-f(v+d)).
+\]
+For every character \(\chi_k(v)=(-1)^{k\cdot v}\),
+\[
+\Delta\chi_k=2m(k)\chi_k,\qquad
+m(k)=\sum_{d\in\mathscr D}(k\cdot d\bmod2).
+\]
+Writing \(k=(k_1,k_2,k_3,k_4,k_5,k_6)\),
+\[
+m(k)=k_1+k_2+k_3+k_4+k_5+k_6
+ +(k_1\oplus k_3)+(k_2\oplus k_3).
+\]
+The equation \(m(k)=2\) has exactly five solutions:
+\[
+\begin{aligned}
+k_A&=(1,0,0,0,0,0),&
+k_B&=(0,1,0,0,0,0),\\
+k_C&=(0,0,0,1,1,0),&
+k_D&=(0,0,0,1,0,1),\\
+k_E&=(0,0,0,0,1,1).
+\end{aligned}
+\]
+Therefore the graph Laplacian has an exact five-dimensional eigenspace
+\[
+\mathcal E_4=\operatorname{span}_{\mathbb R}
+\{\chi_{k_A},\chi_{k_B},\chi_{k_C},\chi_{k_D},\chi_{k_E}\},
+\qquad \Delta|_{\mathcal E_4}=4I.
+\]
+Because the orbit graph is D4-invariant, this eigenspace is D4-invariant too.
+
+In the ordered character basis \((D,E,A,B,C)\), pullback by the M3 generators has matrices
+\[
+\rho(R)=
+\begin{pmatrix}
+0&-1&0&0&0\\
+1&0&0&0&0\\
+0&0&1&0&0\\
+0&0&0&1&0\\
+0&0&0&0&-1
+\end{pmatrix},
+\qquad
+\rho(S)=
+\begin{pmatrix}
+-1&0&0&0&0\\
+0&1&0&0&0\\
+0&0&1&0&0\\
+0&0&0&1&0\\
+0&0&0&0&-1
+\end{pmatrix}.
+\]
+These satisfy
+\[
+\rho(R)^4=\rho(S)^2=I,\qquad
+\rho(S)\rho(R)\rho(S)=\rho(R)^{-1}.
+\]
+Both matrices are orthogonal with determinant \(+1\), so this is an explicit representation
+\[
+D_4\longrightarrow SO(5).
+\]
+It decomposes as the standard two-dimensional rotation/reflection representation, two trivial one-dimensional representations, and one one-dimensional representation with \(R\mapsto-1,\ S\mapsto-1\).
+
+This gives a **genuine D4-invariant five-dimensional mode space of the M3 orbit graph**, not merely an arbitrarily chosen five-dimensional representation. Applying the phase-space construction of Sections 2–3 to this representation gives an exact D4-invariant Liouville measure and Bergman density on the associated five-mode type-IV chart.
+
+**Important distinction:** \(\mathcal E_4\) is the eigenvalue-4 eigenspace of the *vertex Laplacian of the D4-orbit graph*. It is not yet identified with the previously certified eigenvalue-12 five-dimensional coexact eigenspace of the original Q6 edge Hodge operator. An explicit intertwiner between those two five-dimensional sectors, and a derivation of the oscillator coefficients from the same discrete action, remain open. Thus the result establishes a rigorous new D4–five-mode–Liouville bridge, but not yet the Wilson-to-Bergman limit.
