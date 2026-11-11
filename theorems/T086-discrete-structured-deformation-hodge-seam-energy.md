@@ -109,6 +109,30 @@ v^TB_1MB_1^Tv=\|B_1^Tv\|_M^2.
 \]
 It vanishes precisely when \(v\) is constant on the connected graph. Coercivity on the quotient gives existence and uniqueness. The normal equation is exactly the orthogonality condition, which characterizes the weighted orthogonal projection. \(\square\)
 
+
+## 5A. Explicit Schur-complement formula
+
+The minimizer and the relaxed energy can be written without solving for the displacement component-by-component. On the quotient by translations, let
+\[
+L_M=B_1MB_1^T,\qquad
+y_*=L_M^\dagger B_1MG,
+\]
+where \(L_M^\dagger\) is the Moore–Penrose inverse (acting independently on the three ambient components). Then
+\[
+D_*=(B_1^TL_M^\dagger B_1M-I)G.
+\]
+Substitution gives
+\[
+\boxed{
+\mathcal W_h(G)
+=\frac12\langle G,
+\bigl[M-MB_1^TL_M^\dagger B_1M\bigr]G\rangle.
+}
+\]
+The bracketed operator is symmetric positive semidefinite. It is the \(M\)-weighted orthogonal projector onto the complement of \(\operatorname{im}d_0\), expressed in the original edge coordinates. Its kernel is exactly \(\operatorname{im}d_0\).
+
+This formula is useful computationally: it provides an independent energy evaluation from the assembled graph Laplacian and exposes the relaxed energy as a quadratic form in the prescribed microscopic cochain. For large meshes one should not form the dense pseudoinverse; solve the gauge-fixed sparse Laplacian system and evaluate the residual energy instead.
+
 ## 5. Exact incompatibility and the zero-energy criterion
 
 Because \(d_1d_0=0\),
