@@ -125,7 +125,7 @@ def test_kkt_solver_satisfies_constraint_stationarity_and_energy_identity():
     assert out["kkt_condition_number"] > 0.0
 
 
-def test_kkt_solver_rejects_infeasible_source():
+def test_kkt_solver_rejects_rank_deficient_constraints():
     from models.discrete_incompatibility_weak import solve_constrained_energy
 
     M = np.eye(2)
