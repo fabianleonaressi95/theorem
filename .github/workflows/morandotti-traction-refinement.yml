@@ -37,5 +37,5 @@ jobs:
           name: morandotti-traction-refinement
           path: |
             artifacts/morandotti_traction_refinement/report.json
-            artifacts/cell_fields_h*.npz
+            artifacts/morandotti_traction_refinement/cell_fields_h*.npz
           if-no-files-found: error
