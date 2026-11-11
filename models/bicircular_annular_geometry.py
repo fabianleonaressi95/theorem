@@ -6,7 +6,6 @@ kinematic reconstruction. No physical constitutive law is inferred here.
 from __future__ import annotations
 
 import math
-from typing import Callable
 
 import numpy as np
 
@@ -145,7 +144,8 @@ def sample_loop_closure(
     b = np.asarray(burgers, dtype=float)
     # Vector-valued one-form: each component has circulation b_component.
     tangent_field = np.column_stack((-mids[:, 1], mids[:, 0])) / (2.0 * np.pi * r2[:, None])
-    circulation = float(np.sum(np.einsum("ij,ij->i", tangent_field, increments)))\n    b_measured = b * circulation
+    circulation = float(np.sum(np.einsum("ij,ij->i", tangent_field, increments)))
+    b_measured = b * circulation
     # Scalar rotational connection with circulation frank.
     omega = frank * tangent_field
     frank_measured = float(np.sum(np.einsum("ij,ij->i", omega, increments)))
