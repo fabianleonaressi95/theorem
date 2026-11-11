@@ -165,3 +165,35 @@ The resulting testable chain is
 \longrightarrow \text{directional stress response},
 \]
 with the mesh metric (G) retained as a separate geometric/numerical control. This is a finite-dimensional numerical decomposition, not yet a general continuum theorem or a proof of a topological Möbius contribution.
+
+
+## Frank–Burgers decomposition of interior traction jumps
+
+For each reconstructed Airy stress, the interior-facet traction jump is
+computed with the same UFL normal-jump convention:
+\[
+j=\llbracket\sigma n\rrbracket
+=j_{\Omega}+j_B.
+\]
+The audit now stores the separate Frank and Burgers norms and the signed
+quadratic cross term
+\[
+\int_{\mathcal F_h^{\mathrm{int}}}|j|^2\,dS
+=
+\int|j_{\Omega}|^2\,dS
++\int|j_B|^2\,dS
++2\int j_{\Omega}\cdot j_B\,dS.
+\]
+It also stores the directional second-moment tensors
+\[
+T(j)=\int_{\mathcal F_h^{\mathrm{int}}}j\otimes j\,dS,
+\qquad
+T_{\Omega B}=T(j)-T(j_{\Omega})-T(j_B),
+\]
+both in laboratory coordinates and in the longitudinal/transverse core
+frame. The total tensor's eigenvalue contrast is reported separately from
+the signed cross tensor. These diagnostics directly test whether the mixed
+defect sector contributes to the unresolved interior traction jump; a
+nonzero cross term alone does not establish causality or convergence.
+The decomposition is performed on the reconstructed defect stresses, not
+on the source-independent boundary residuals of the six cell basis fields.
