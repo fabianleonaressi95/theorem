@@ -88,9 +88,9 @@ Any positron flux large enough to account for megajoule-scale annihilation energ
 
 [4] M. Tajmar, F. Plesescu, K. Marhold, C. J. de Matos, “Experimental Detection of the Gravitomagnetic London Moment,” arXiv:gr-qc/0603033 (2006). The original report and its interpretation must be treated as a historical experimental claim, not as an established laboratory gravitomagnetic technology. Names normalized to C. J. de Matos and ARC Seibersdorf Research; the old EarthTech and ESA URLs are archival pointers, not current validation.
 
-[5] E. Fermi, *Nuclear Physics*, University of Chicago Press (1950), p. 12, item 3. Exact passage and page context should be checked against the cited edition before quotation.
+[5] E. Fermi, *Nuclear Physics: A Course Given by Enrico Fermi at the University of Chicago*, revised edition, notes compiled by J. Orear, A. H. Rosenfeld and R. A. Schluter, University of Chicago Press (1950). The title, publisher and edition are catalogued; the claimed p. 12, item 3 passage still requires direct inspection before quotation.
 
-[6] T. D. Lee, *Particle Physics and Introduction to Field Theory*, Harwood Academic Publishers (1981). The quotation attributed in D6 (“…if indeed we are able to alter the vacuum…”) is unverified and is not reproduced as authenticated text.
+[6] T. D. Lee, *Particle Physics and Introduction to Field Theory*, revised and updated first edition, Harwood Academic Publishers (1981). The title and publication data are catalogued; the quotation attributed in D6 (“…if indeed we are able to alter the vacuum…”) is unverified and is not reproduced as authenticated text.
 
 ### B. Standard physics references
 
@@ -116,7 +116,7 @@ Any positron flux large enough to account for megajoule-scale annihilation energ
 
 [17] W. E. Lamb Jr. and R. C. Retherford, “Fine Structure of the Hydrogen Atom by a Microwave Method,” *Physical Review* **72**, 241–243 (1947), DOI: 10.1103/PhysRev.72.241.
 
-[18] J. Schwinger, “On Quantum-Electrodynamics and the Magnetic Moment of the Electron,” *Physical Review* **73**, 416–417 (1948).
+[18] J. Schwinger, “On Quantum-Electrodynamics and the Magnetic Moment of the Electron,” *Physical Review* **73**, 416–417 (1948), DOI: 10.1103/PhysRev.73.416.
 
 [19] S. W. Hawking, “Black hole explosions?,” *Nature* **248**, 30–31 (1974), DOI: 10.1038/248030a0; and “Particle Creation by Black Holes,” *Communications in Mathematical Physics* **43**, 199–220 (1975), DOI: 10.1007/BF02345020.
 
@@ -156,8 +156,8 @@ A positive result requires a reproducible positron signal and a closed energy ba
 - **Source-derived:** document titles, dates, claimed apparatus, numerical outputs and internal inconsistencies as reported in the supplied synopsis.
 - **Standard physics:** the cited historical discoveries and established QED/GR framework.
 - **Critical assessment:** the inference from virtual pairs to a zero-cost energy source is not supported by standard quantum field theory; the apparatus mechanism and claimed outputs require independent measurement.
-- **Bibliographically checked against publisher/index records:** Heisenberg 1927; Clark–Tucker 2000; Dirac 1928/1931; Dorfan et al. 1965; Lamoreaux 1997; Lamb–Retherford 1947; STAR antihelium 2011; Hawking 1974/1975; Massam et al. 1965.
-- **Still unverified at primary-source level:** Block et al. title; exact Fermi passage; Lee quotation; full metadata and original scans for D1–D7; D7 content; current status of historical URLs. Some classic references (including the Pauli and Schwinger entries) still merit direct publisher-catalog confirmation before a final typeset bibliography.
+- **Bibliographically checked against publisher/index/catalog records:** Einstein 1905; Heisenberg 1927; Pauli 1925; Clark–Tucker 2000; Dirac 1928/1931; Dorfan et al. 1965; Massam et al. 1965; Lamoreaux 1997; Lamb–Retherford 1947; Schwinger 1948; STAR antihelium 2011; Hawking 1974/1975; Fermi 1950 book record; Lee 1981 book record.
+- **Still unverified at primary-source level:** Block et al. title and exact identification; Fermi's claimed p. 12, item 3 passage; Lee quotation; full metadata and original scans for D1–D7; D7 content; current status of historical URLs.
 - **Do not promote:** Ratti's generator, its energy output, or its metallic-ion extension to an established discovery or to evidence for FDT/RGS–PRISM.
 
 This appendix is designed to accompany the 13-page *FDT Empirical Evidence Report* (15 February 2026). It preserves the original report's claims as claims while adding provenance, bibliographic traceability, and a stricter evidence boundary.
