@@ -236,3 +236,34 @@ def solve_constrained_energy(
         "constraint_rank": rank,
         "kkt_condition_number": float(np.linalg.cond(KKT)),
     }
+
+
+
+def assemble_constitutive_energy(
+    strain_basis: np.ndarray,
+    quadrature_weights: np.ndarray,
+    stiffness: np.ndarray,
+) -> np.ndarray:
+    """Assemble the physical strain energy matrix M_ab = integral psi_a:C:psi_b.
+
+    Here the coefficients multiply strain basis functions, so the tensor
+    must be the elastic stiffness C (not its inverse compliance). The
+    tensor-shear convention is used throughout.
+    """
+    E = np.asarray(strain_basis, dtype=float)
+    w = np.asarray(quadrature_weights, dtype=float)
+    C = np.asarray(stiffness, dtype=float)
+    if E.ndim != 5 or E.shape[-2:] != (2, 2):
+        raise ValueError("strain_basis must have shape (ncell,nq,nstrain,2,2)")
+    if w.shape != E.shape[:2] or np.any(w <= 0):
+        raise ValueError("quadrature_weights must match cells and be positive")
+    if C.shape != (2, 2, 2, 2):
+        raise ValueError("stiffness must have shape (2,2,2,2)")
+    if not (np.allclose(C, C.swapaxes(0, 1)) and
+            np.allclose(C, C.swapaxes(2, 3)) and
+            np.allclose(C, C.transpose(2, 3, 0, 1))):
+        raise ValueError("stiffness must satisfy minor and major elastic symmetries")
+    if not (np.isfinite(E).all() and np.isfinite(w).all() and np.isfinite(C).all()):
+        raise ValueError("all energy assembly inputs must be finite")
+    M = np.einsum("kqaij,ijlm,kqblm,kq->ab", E, C, E, w, optimize=True)
+    return 0.5 * (M + M.T)
