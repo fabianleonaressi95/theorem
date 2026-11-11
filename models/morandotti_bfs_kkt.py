@@ -259,6 +259,10 @@ def assemble_bfs_defect_source(
     F = np.asarray(frank_angles, dtype=float).reshape(-1)
     if len(Xd) != len(B) or len(Xf) != len(F):
         raise ValueError("each defect position must have one Burgers/Frank datum")
+    if not (np.isfinite(Xd).all() and np.isfinite(B).all() and np.isfinite(Xf).all() and np.isfinite(F).all()):
+        raise ValueError("defect data must be finite")
+    if np.any(Xd < 0.0) or np.any(Xd > 1.0) or np.any(Xf < 0.0) or np.any(Xf > 1.0):
+        raise ValueError("all defect positions must lie in [0,1]^2")
     if core_radius is not None and (not np.isfinite(core_radius) or core_radius < 0):
         raise ValueError("core_radius must be finite and nonnegative")
     assembled = assemble_bfs_rectangular(
