@@ -92,21 +92,6 @@ with orientation and branch conventions fixed. This expression is a proposed lat
 
 ## 5. Toroidal geometry as the proposed unifying architecture
 
-In the weak-field, slow-motion limit of general relativity, the metric can be decomposed into gravitoelectric and gravitomagnetic potentials. The gravitomagnetic vector potential is sourced by mass currents (more precisely, by the relevant components of the stress-energy tensor); its curl gives a gravitomagnetic field. This GEM analogy is useful for frame dragging, gyroscope precession and spin-curvature effects.
-
-The analogy with Maxwell theory is not identity:
-- coupling constants and signs differ;
-- gravity couples universally to stress-energy, not to electric charge;
-- the GEM equations depend on gauge and normalization conventions;
-- the weak-field approximation is not an independent laboratory field knob;
-- for a compact rotating laboratory object the effect is extraordinarily small and must be calculated from its actual mass distribution and angular momentum.
-
-A spin-rotation/gravitomagnetic Stern–Gerlach term can be studied in linearized GR, but this does not establish a large spin-control effect or positron production in the Ratti device.
-
-**Required Ratti audit:** use the actual dimensions, masses, angular velocities and geometry of each rotating component; compute its mass-current multipoles and the corresponding weak-field GEM field; propagate uncertainties; compare with electromagnetic fields and detector sensitivity. Do not infer a gravitomagnetic field from a magnetic field measurement, and do not tune it independently of the mass-current source.
-
-## 5. Toroidal geometry as the proposed unifying architecture
-
 The torus is not introduced as a decorative analogy or as one more independent physical mechanism. In the user's programme it is the proposed common geometric carrier for the football-shell construction, Q-ball sector, FDT/QAT, PSU/Anti-Twin, QLG and the gauge/fluid sectors. The purpose is to place these sectors in one geometry and then derive their respective fields, currents, constraints and observables on that geometry.
 
 ### 5.1 Two complementary sectors and the throat
@@ -171,7 +156,24 @@ The closure programme is therefore:
 
 Only after these steps can “the torus unifies/resolves the framework” be elevated from the programme's organizing hypothesis to a theorem. The one-way current, traversable-wormhole interpretation, simultaneous realization of Q-ball/FDT/QAT, and all claimed physical effects remain separate proof/validation obligations.
 
+
 ## 6. Gravitomagnetism: what the connection really is
+
+In the weak-field, slow-motion limit of general relativity, the metric can be decomposed into gravitoelectric and gravitomagnetic potentials. The gravitomagnetic vector potential is sourced by mass currents (more precisely, by the relevant components of the stress-energy tensor); its curl gives a gravitomagnetic field. This GEM analogy is useful for frame dragging, gyroscope precession and spin-curvature effects.
+
+The analogy with Maxwell theory is not identity:
+- coupling constants and signs differ;
+- gravity couples universally to stress-energy, not to electric charge;
+- the GEM equations depend on gauge and normalization conventions;
+- the weak-field approximation is not an independent laboratory field knob;
+- for a compact rotating laboratory object the effect is extraordinarily small and must be calculated from its actual mass distribution and angular momentum.
+
+A spin-rotation/gravitomagnetic Stern–Gerlach term can be studied in linearized GR, but this does not establish a large spin-control effect or positron production in the Ratti device.
+
+**Required Ratti audit:** use the actual dimensions, masses, angular velocities and geometry of each rotating component; compute its mass-current multipoles and the corresponding weak-field GEM field; propagate uncertainties; compare with electromagnetic fields and detector sensitivity. Do not infer a gravitomagnetic field from a magnetic field measurement, and do not tune it independently of the mass-current source.
+
+
+## 7. GEM is not Cartan torsion
 
 In a coframe/connection formulation,
 [
@@ -188,22 +190,6 @@ This distinction is consistent with the current repository records:
 - T049B defines the Lorentzian Dirac axial current and an EC contact invariant, while leaving the Noether normalization to the canonical spin tensor and the gauge-covariant inter-site transport open.
 - T049C/T049D classify candidate QLG-to-Dirac embeddings; they do not yet derive a physical QHD state.
 
-## 7. GEM is not Cartan torsion
-
-A possible architecture, to be derived and tested, is:
-
-| Continuum object | Discrete candidate | Required check |
-|---|---|---|
-| Gauge connection \(A\) or \(\omega\) | oriented edge variables / link holonomies | gauge covariance and orientation |
-| Field strength \(F\) or curvature \(R\) | plaquette holonomy / 2-cochain | discrete Bianchi identity |
-| Electric/mass/spin current | edge or vertex current cochain | continuity / Noether conservation |
-| Magnetic flux | oriented plaquette 2-cochain | discrete divergence constraint |
-| Fluid density and velocity | vertex density + link transport | positivity and continuity |
-| Quantum phase | compact vertex phase | gauge covariance and winding |
-| Vorticity/fluxon | integer plaquette winding / localized defect | stability, energy and refinement |
-| Coframe and torsion | edge coframe + connection mismatch | correct dimensions and Cartan identity |
-
-The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger transport network. Neither alone supplies physical units, constitutive parameters, a Lorentzian metric, or a continuum limit. Hodge stars, material laws and comparison maps are indispensable.
 
 ## 8. A common discrete language for Q6/PRISM
 
