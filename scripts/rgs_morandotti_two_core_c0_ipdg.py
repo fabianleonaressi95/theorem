@@ -17,7 +17,7 @@ from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 from models.morandotti_cell_reconstruction import (
     build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
-    deform_two_core_coordinates,
+    deform_two_core_coordinates, two_core_support_radius,
 )
 
 
@@ -70,7 +70,8 @@ def assemble(expr, mesh):
 def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
                 centers=((-0.28, 0.0), (0.28, 0.0)), orientation_angle_deg=0.0,
                 rotate_defect_data=True, core_separation=None,
-                args_artifact_path="cell_fields.npz"):
+                args_artifact_path="cell_fields.npz", mesh_bundle=None,
+                reference_geometry=None):
     comm = MPI.COMM_WORLD
     theta = np.deg2rad(float(orientation_angle_deg))
     rotation = np.array([[np.cos(theta), -np.sin(theta)],
@@ -88,7 +89,15 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     transverse_axis = rotation @ np.array([0.0, 1.0])
     # Generate the reference mesh once. Both orientation and distance studies
     # transform its coordinates in place and preserve the cell connectivity.
-    mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in reference_centers), h, comm)
+    if mesh_bundle is None:
+        mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in reference_centers), h, comm)
+    else:
+        mesh, tags = mesh_bundle
+        if reference_geometry is None or reference_geometry.shape != mesh.geometry.x.shape:
+            raise ValueError("a matching reference_geometry snapshot is required with mesh_bundle")
+        mesh.geometry.x[:] = reference_geometry
+    reference_separation = float(np.linalg.norm(reference_centers[1]-reference_centers[0]))
+    effective_support_radius = two_core_support_radius(a, reference_separation, 0.50)
     mesh.geometry.x[:, :2] = deform_two_core_coordinates(
         mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.50)
     if abs(orientation_angle_deg) > 1e-14:
@@ -99,7 +108,24 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                         -(corner_xy[:,1,1]-corner_xy[:,0,1])*(corner_xy[:,2,0]-corner_xy[:,0,0]))
     min_signed_area = float(np.min(signed_areas))
     if not np.isfinite(min_signed_area) or min_signed_area <= 0.0:
-        raise RuntimeError(f"Distance/orientation map inverted a cell: min signed area={min_signed_area}")
+        raise RuntimeError(f"Distance/orientation map inverted a corner triangle: min signed area={min_signed_area}")
+    # Cubic Gmsh geometry requires checking the curved coordinate map, not
+    # only the corner triangle. Sample det(J) on a dense barycentric lattice.
+    jacobian_subdivisions = 12
+    reference_points = np.asarray([
+        (i / jacobian_subdivisions, j / jacobian_subdivisions)
+        for i in range(jacobian_subdivisions + 1)
+        for j in range(jacobian_subdivisions + 1 - i)
+    ], dtype=np.float64)
+    jacobian_expression = fem.Expression(ufl.det(ufl.Jacobian(mesh)), reference_points, comm=comm)
+    geometry_cells_local = np.arange(mesh.topology.index_map(mesh.topology.dim).size_local, dtype=np.int32)
+    sampled_jacobians = jacobian_expression.eval(mesh, geometry_cells_local)
+    min_sampled_jacobian = float(np.min(sampled_jacobians))
+    if not np.isfinite(min_sampled_jacobian) or min_sampled_jacobian <= 0.0:
+        raise RuntimeError(
+            "Distance/orientation map has a non-positive sampled cubic-geometry Jacobian: "
+            f"min det(J)={min_sampled_jacobian}"
+        )
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
     V = fem.functionspace(mesh, ("Lagrange", 3))
     n = ufl.FacetNormal(mesh)
@@ -306,7 +332,11 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         centers=np.asarray(centers), core_radius=np.asarray([a]),
         mesh_target_h=np.asarray([h]), cell_count=np.asarray([nc]))
     return {"h_target":h,"core_separation":float(np.linalg.norm(np.asarray(centers[1])-np.asarray(centers[0]))),
-        "min_signed_corner_area":min_signed_area,"orientation_angle_deg":float(orientation_angle_deg),
+        "min_signed_corner_area":min_signed_area,
+        "min_sampled_jacobian_determinant":min_sampled_jacobian,
+        "jacobian_sampling_subdivisions":jacobian_subdivisions,
+        "effective_support_radius":effective_support_radius,
+        "orientation_angle_deg":float(orientation_angle_deg),
         "defect_data_co_rotated":bool(rotate_defect_data),
         "cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
         "cores":[{"center":list(c),"radius":a} for c in centers],
@@ -401,9 +431,18 @@ def main():
         orientation_sweep(False,"defects_fixed_in_lab_frame"),
     ]
 
-    # Distance sweep: one reference triangulation is smoothly deformed for
-    # each separation. The same material, core radius and relative source
-    # orientation are retained; no Gmsh remeshing occurs between distances.
+    # Build one reference mesh and reuse that exact mesh object/connectivity.
+    distance_reference_mesh_bundle = make_mesh(1.0, 0.12,
+        ((-0.28, 0.0), (0.28, 0.0)), a.distance_mesh_size, MPI.COMM_WORLD)
+    distance_reference_mesh = distance_reference_mesh_bundle[0]
+    distance_reference_geometry = distance_reference_mesh.geometry.x.copy()
+    distance_reference_separation = 0.56
+    distance_effective_support_radius = two_core_support_radius(0.12,
+        distance_reference_separation, 0.50)
+    import hashlib
+    distance_geometry_dofmap_sha256 = hashlib.sha256(
+        np.asarray(distance_reference_mesh.geometry.dofmap).tobytes()).hexdigest()
+    # Same mesh object, material, core radius and laboratory-fixed defect data.
     distance_sweep=[]
     for distance in a.distance_values:
         if distance <= 2.0*0.12:
@@ -411,6 +450,8 @@ def main():
         level=solve_level(a.distance_mesh_size, alpha=a.alpha,
             young_modulus=a.young_modulus, poisson_ratio=a.poisson_ratio,
             core_separation=distance,
+            mesh_bundle=distance_reference_mesh_bundle,
+            reference_geometry=distance_reference_geometry,
             args_artifact_path=str(Path(a.out).with_name(f"distance_{distance:g}_fields.npz")))
         M=np.asarray(level["M_laplacian"])
         cross=M[1:3,4:6]
@@ -424,6 +465,9 @@ def main():
             "core_separation":float(distance),"edge_gap":float(distance-2.0*0.12),
             "h_target":float(a.distance_mesh_size),"cells":level["cells"],"dofs":level["dofs"],
             "min_signed_corner_area":level["min_signed_corner_area"],
+            "min_sampled_jacobian_determinant":level["min_sampled_jacobian_determinant"],
+            "jacobian_sampling_subdivisions":level["jacobian_sampling_subdivisions"],
+            "effective_support_radius":level["effective_support_radius"],
             "M_parallel_01":m_parallel,"M_transverse_01":m_transverse,
             "signed_anisotropy_A_d":anisotropy,
             "longitudinal_transverse_coupling_01":float(local[0,1]),
@@ -460,13 +504,17 @@ def main():
         ],
         "levels":levels,
         "distance_sweep": {
-            "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",
-            "reference_separation":0.56,"maximum_support_radius":0.50,
+            "protocol":"one reference mesh object and geometry-DOF map reused; reference coordinates restored before each compactly supported deformation; fixed core radius, material and source orientation",
+            "reference_separation":distance_reference_separation,
+            "maximum_support_radius":0.50,
+            "effective_support_radius":distance_effective_support_radius,
+            "reference_mesh_reused":True,
+            "geometry_dofmap_sha256":distance_geometry_dofmap_sha256,
             "mesh_size":a.distance_mesh_size,"separations":a.distance_values,
             "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",
             "definition_C_d":"||M_01||_F/||M_00||_F",
             "results":distance_sweep,
-            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "positive corner areas are a necessary but not sufficient curved-element quality certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]
+            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "cubic-geometry Jacobian is sampled on a 12-subdivision barycentric lattice; positive samples are not a formal all-points positivity certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]
         },
         "orientation_covariance": {
             "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
