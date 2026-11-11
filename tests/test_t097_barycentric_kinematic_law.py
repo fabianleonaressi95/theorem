@@ -28,7 +28,7 @@ def test_barycentric_covariance_is_psd_and_tangent_to_triangle():
     Sigma = V.T @ C @ V
     assert np.linalg.eigvalsh(Sigma).min() > -1e-13
     assert np.allclose(Sigma[2], 0.0, atol=1e-13)
-    assert np.isclose(np.trace(C), 0.0, atol=1e-13) is False
+    assert np.trace(Sigma) > 0.0
 
 def test_semidirect_product_rotation_transports_translation():
     theta = np.pi / 2
