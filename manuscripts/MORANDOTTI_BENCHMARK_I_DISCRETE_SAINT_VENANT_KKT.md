@@ -42,21 +42,21 @@ The current prototype assembles this pairing on a cellwise strain basis and an \
 Choose:
 - a finite-dimensional symmetric-strain space \(E_h=\operatorname{span}\{\psi_a\}_{a=1}^{n_e}\);
 - a finite-dimensional scalar test space \(V_h=\operatorname{span}\{\varphi_i\}_{i=1}^{n_v}\subset H^2_0(\Omega)\);
-- a positive-definite compliance tensor \(\mathbb S=\mathbb C^{-1}\), with the plane-stress or plane-strain convention stated explicitly.
+- a positive-definite elastic stiffness tensor \(\mathbb C\), with the plane-stress or plane-strain convention stated explicitly.
 
 Write \(\epsilon_h=\sum_a e_a\psi_a\). Define
 \[
 A_{ia}=\sum_{K\in\mathcal T_h}\int_K
 \psi_a:\operatorname{cof}(D^2\varphi_i)\,dx,
 \qquad
-(M_{\mathbb S})_{ab}
-=\int_\Omega\psi_a:\mathbb S:\psi_b\,dx.
+(M_{\mathbb C})_{ab}
+=\int_\Omega\psi_a:\mathbb C:\psi_b\,dx.
 \]
 For a prescribed discrete defect source \(z\in\mathbb R^{n_v}\), the first RGS-compatible variational problem is
 \[
 \boxed{\quad
 \min_{e\in\mathbb R^{n_e}}
-\frac12 e^T M_{\mathbb S}e
+\frac12 e^T M_{\mathbb C}e
 \quad\text{subject to}\quad Ae=z.
 \quad}
 \]
@@ -64,7 +64,7 @@ Its KKT system is
 \[
 \boxed{
 \begin{pmatrix}
-M_{\mathbb S}&A^T\\
+M_{\mathbb C}&A^T\\
 A&0
 \end{pmatrix}
 \begin{pmatrix}e\\\lambda\end{pmatrix}
@@ -73,14 +73,14 @@ A&0
 \]
 Here \(\lambda\) is the discrete Airy-type multiplier. It must not be identified with the continuum Airy potential until the sign, normalization, constitutive convention and boundary conditions have been matched.
 
-If \(M_{\mathbb S}\) is positive definite and \(A\) has full row rank, the KKT matrix is nonsingular. More generally, feasibility requires \(z\in\operatorname{Ran}A\); redundant test constraints must be removed or handled on the quotient/range. The reduced dual operator is
+If \(M_{\mathbb C}\) is positive definite and \(A\) has full row rank, the KKT matrix is nonsingular. More generally, feasibility requires \(z\in\operatorname{Ran}A\); redundant test constraints must be removed or handled on the quotient/range. The reduced dual operator is
 \[
-L_h=A M_{\mathbb S}^{-1}A^T,
+L_h=A M_{\mathbb C}^{-1}A^T,
 \]
 and, when the stated rank conditions hold,
 \[
 L_h\lambda=-z,\qquad
-e=-M_{\mathbb S}^{-1}A^T\lambda.
+e=-M_{\mathbb C}^{-1}A^T\lambda.
 \]
 This is the finite-dimensional fourth-order operator to compare with the biharmonic Airy equation. It is a derived Schur complement of the chosen discrete energy and incompatibility constraint, not an assumed Laplacian stencil.
 
@@ -133,11 +133,11 @@ The identity \(\operatorname{inc}(\operatorname{sym}\nabla u)=0\) is exact in th
 
 ### Gate 2 — constitutive energy and KKT system
 
-1. Assemble \(M_{\mathbb S}\) from one explicitly declared plane-stress or plane-strain tensor.
+1. Assemble \(M_{\mathbb C}\) from one explicitly declared plane-stress or plane-strain tensor.
 2. Check symmetry and positive definiteness on the chosen strain space.
 3. Check the KKT residual and constraint residual \(\|Ae-z\|\).
 4. Check feasibility of each source vector before solving.
-5. Compare the primal energy \(\tfrac12e^TM_{\mathbb S}e\) with the dual value \(-\tfrac12 z^T\lambda\), using the same sign convention.
+5. Compare the primal energy \(\tfrac12e^TM_{\mathbb C}e\) with the dual value \(-\tfrac12 z^T\lambda\), using the same sign convention.
 6. Record condition numbers, solver tolerances, rank decisions and mesh/core parameters.
 
 The dual-energy identity is \\(\\tfrac12 e^TM_{\\mathbb C}e=-\\tfrac12 z^T\\lambda\\) for this KKT sign convention; it follows from the KKT equations when the constraint is feasible and the stated rank assumptions hold. It is a useful independent implementation check.
@@ -206,7 +206,7 @@ tested first on D1 and D2. Burgers has dimensions of length and Frank is dimensi
 ## 6. What this closes — and what remains open
 
 This specification closes the algebraic formulation of the finite-dimensional constrained energy problem associated with the existing weak matrix \(A_h\), and gives a concrete verification sequence. It does **not** close:
-- implementation of \(M_{\mathbb S}\), KKT solve and Airy comparison;
+- implementation of \(M_{\mathbb C}\), KKT solve and Airy comparison;
 - convergence/stability of the chosen discrete spaces;
 - the singular dipole-to-dislocation energy limit for the chosen discrete core;
 - the curved-surface incompatibility operator;
