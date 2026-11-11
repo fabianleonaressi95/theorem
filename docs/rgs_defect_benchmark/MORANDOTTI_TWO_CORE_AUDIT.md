@@ -85,14 +85,14 @@ The successful workflow establishes that the configured computation ran and its 
 
 ## Reproduction
 
-\`\`\`bash
-python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \\
-  --mesh-sizes 0.08 0.06 0.045 0.035 0.027 \\
-  --alpha 10 \\
-  --young-modulus 1.0 \\
-  --poisson-ratio 0.0 \\
+```bash
+python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
+  --mesh-sizes 0.08 0.06 0.045 0.035 0.027 \
+  --alpha 10 \
+  --young-modulus 1.0 \
+  --poisson-ratio 0.0 \
   --out artifacts/morandotti_traction_refinement/report.json
-\`\`\`
+```
 
 See [MORANDOTTI_ANISOTROPY.md](../../MORANDOTTI_ANISOTROPY.md) for operational definitions and the orientation/separation protocols.
 
