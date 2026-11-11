@@ -39,33 +39,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Gmsh Python bindings
-        run: |
-          set -euo pipefail
-
-          # GitHub-hosted container networking can briefly lose DNS resolution.
-          # Retry apt metadata refresh instead of failing on the first resolver hiccup.
-          for attempt in 1 2 3 4 5; do
-            if apt-get \
-              -o Acquire::Retries=3 \
-              -o Acquire::http::Timeout=30 \
-              -o Acquire::https::Timeout=30 \
-              update; then
-              break
-            fi
-            if [ "$attempt" -eq 5 ]; then
-              echo "::error::apt-get update failed after 5 attempts; DNS diagnostics follow."
-              getent hosts security.ubuntu.com || true
-              getent hosts archive.ubuntu.com || true
-              cat /etc/resolv.conf || true
-              exit 1
-            fi
-            sleep "$((attempt * 10))"
-          done
-
-          apt-get -o Acquire::Retries=3 install -y --no-install-recommends libglu1-mesa
-          python3 -m pip install --retries 5 --timeout 30 --break-system-packages gmsh pytest
-
       - name: Verify numerical environment
         run: |
           python3 -c "import dolfinx, ufl, petsc4py, gmsh; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('Gmsh', gmsh.__version__)"
