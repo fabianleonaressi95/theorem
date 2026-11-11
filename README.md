@@ -366,6 +366,12 @@ The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmi
 
 The implementation integrates ordered edge transports for a smooth noncommuting SE(2) connection, compares face holonomy with the analytic Cartan curvature, and exports an optional adapter from measured integrated core-loop data to the existing Morandotti Frank/Burgers source-vector convention. **Execution and numerical verification are pending; no convergence result is claimed yet.**
 
+### T097 — Barycentric–kinematic Frank–Burgers reconstruction law
+
+- [T097](theorems/T097-barycentric-kinematic-frank-burgers-law.md) combines gradient-derived polar rotation, structured-mismatch Burgers circulation, barycentric covariance correction and ordered SE(2) composition.
+- It reuses T068–T070, T079–T080, T082 and T091–T095; it does not treat centroid displacement alone as Burgers closure.
+- [Component tests](tests/test_t097_barycentric_kinematic_law.py) and [dedicated workflow](.github/workflows/t097-barycentric-kinematic-law.yml) check the polar-angle, covariance and semidirect-product identities. Extraction from the actual two-core Morandotti FE fields remains open.
+
 ### T096 — Airy-strain holonomy identifiability gate
 
 - [T096 theorem](theorems/T096-airy-strain-holonomy-nonidentifiability.md) proves that symmetric strain recovered from Airy stress does not determine the skew elastic-distortion field or its Burgers loop closure.
