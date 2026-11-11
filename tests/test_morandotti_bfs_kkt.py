@@ -12,8 +12,10 @@ def test_plane_stress_stiffness_has_elastic_symmetries_and_positive_modes():
     assert np.allclose(S, S.swapaxes(0, 1))
     assert np.allclose(S, S.swapaxes(2, 3))
     assert np.allclose(S, S.transpose(2, 3, 0, 1))
-    assert np.isclose(210.0 / (1.0 - 0.3), 210.0 / 0.7)
-    assert np.isclose(210.0 / (1.0 + 0.3), 210.0 / 1.3)
+    dev = np.diag([1.0, -1.0])
+    vol = np.eye(2)
+    assert np.allclose(np.einsum('ijkl,kl->ij', S, dev), 210.0/1.3*dev)
+    assert np.allclose(np.einsum('ijkl,kl->ij', S, vol), 210.0/0.7*vol)
 
 
 def test_bfs_assembly_is_h2_conforming_dimensionally_and_full_row_rank():
@@ -27,7 +29,7 @@ def test_bfs_assembly_is_h2_conforming_dimensionally_and_full_row_rank():
     assert np.allclose(M, M.T, atol=1e-13)
     eig = np.linalg.eigvalsh(M)
     assert eig.min() > 0.0
-    assert np.allclose(eig, np.array([1.0/1.3]*8 + [1.0/0.7]*4), atol=1e-10)
+    assert np.allclose(eig, np.array([1.0/(4.0*1.3)]*8 + [1.0/(4.0*0.7)]*4), atol=1e-10)
     assert np.all(out["weights"] > 0.0)
 
 
