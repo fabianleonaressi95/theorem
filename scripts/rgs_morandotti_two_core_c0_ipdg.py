@@ -15,6 +15,9 @@ import gmsh, ufl
 from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
+from models.morandotti_cell_reconstruction import (
+    build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
+)
 
 
 def make_mesh(R, a, centers, h, comm):
@@ -63,8 +66,9 @@ def assemble(expr, mesh):
     return mesh.comm.allreduce(fem.assemble_scalar(fem.form(expr)), op=MPI.SUM)
 
 
-def solve_level(h, alpha=10.0, R=1.0, a=0.12,
-                centers=((-0.28, 0.0), (0.28, 0.0))):
+def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
+                centers=((-0.28, 0.0), (0.28, 0.0)),
+                args_artifact_path="cell_fields.npz"):
     comm = MPI.COMM_WORLD
     mesh, tags = make_mesh(R, a, centers, h, comm)
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
@@ -122,14 +126,19 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12,
                                "pc_factor_mat_solver_type":"mumps"})
             uh = problem.solve()
             fields.append(uh)
-            val = 1.0 if mode == 0 else (ufl.SpatialCoordinate(mesh)[0] if mode == 1
-                                         else ufl.SpatialCoordinate(mesh)[1])
-            value_res = np.sqrt(max(assemble((uh-val)**2*ds(tag), mesh), 0.0))
-            normal_target = gn
-            normal_res = np.sqrt(max(assemble((ufl.dot(ufl.grad(uh),n)-normal_target)**2*ds(tag),mesh),0.0))
-            boundary_rows.append({"core":core_idx,"mode":mode,
-                                  "core_value_L2_residual":float(value_res),
-                                  "active_core_normal_L2_residual":float(normal_res)})
+            # Record value and normal-derivative residuals on every boundary
+            # component, not only the active core. Inactive components carry
+            # homogeneous data for this cell problem.
+            xcoord = ufl.SpatialCoordinate(mesh)
+            val_active = 1.0 if mode == 0 else (xcoord[0] if mode == 1 else xcoord[1])
+            for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
+                target_value = val_active if boundary_tag == tag else 0.0
+                target_normal = gn if boundary_tag == tag else 0.0
+                value_res = np.sqrt(max(assemble((uh-target_value)**2*ds(boundary_tag), mesh), 0.0))
+                normal_res = np.sqrt(max(assemble((ufl.dot(ufl.grad(uh),n)-target_normal)**2*ds(boundary_tag), mesh), 0.0))
+                boundary_rows.append({"active_core":core_idx,"mode":mode,
+                    "boundary":boundary_name,"value_L2_residual":float(value_res),
+                    "normal_derivative_L2_residual":float(normal_res)})
     m = len(fields)
     MH, ML, MB, MI = (np.zeros((m,m)) for _ in range(4))
     Hs = [ufl.grad(ufl.grad(q)) for q in fields]
@@ -146,10 +155,59 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12,
             MI[i,j] = assemble(fi*dS, mesh)
     MF = MB + MI
     rel = lambda X: float(np.linalg.norm(X-X.T, "fro")/max(np.linalg.norm(X,"fro"),1e-300))
+
+    # The published finite-dimensional reconstruction uses the Laplacian
+    # product matrix. Preserve the six actual FE coefficient vectors and the
+    # mesh/dof metadata so a later run can reproduce the reconstructed field.
+    field_coefficients = np.stack([q.x.array.copy() for q in fields])
+    dof_coordinates = V.tabulate_dof_coordinates().copy()
+    geometry_coordinates = mesh.geometry.x.copy()
+    geometry_dofmap = mesh.geometry.dofmap.array.copy()
+    cases = {
+        "single_disclination_core_0": (np.array([0.2, 0.0]), np.zeros((2,2))),
+        "single_edge_dislocation_core_1": (np.zeros(2), np.array([[0.0,0.0],[0.03,-0.04]])),
+        "opposite_disclination_dipole": (np.array([0.2,-0.2]), np.zeros((2,2))),
+        "mixed_disclination_dislocation": (np.array([0.2,0.0]), np.array([[0.0,0.0],[0.03,-0.04]])),
+    }
+    reconstruction = {}
+    for name, (frank, burgers) in cases.items():
+        phi = build_defect_vector(np.asarray(centers), frank, burgers)
+        coeff = solve_interaction_system(ML, phi)
+        vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
+        vh = fem.Function(V)
+        vh.x.array[:] = vh_dofs
+        vh.x.scatter_forward()
+        Hv_case = ufl.grad(ufl.grad(vh))
+        sigma_case = ufl.as_matrix([[Hv_case[1,1], -Hv_case[0,1]],
+                                    [-Hv_case[1,0], Hv_case[0,0]]])
+        traction = ufl.dot(sigma_case, n)
+        boundary_traction = {}
+        for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
+            boundary_traction[boundary_name] = float(np.sqrt(max(
+                assemble(ufl.inner(traction, traction)*ds(boundary_tag), mesh), 0.0)))
+        facet_traction_jump = ufl.jump(sigma_case, n)
+        interior_traction_jump = float(np.sqrt(max(
+            assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
+        reconstruction[name] = {
+            "Phi": phi.tolist(), "coefficients": coeff.tolist(),
+            "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
+            "airy_dof_values": vh_dofs.tolist(),
+            "boundary_traction_L2": boundary_traction,
+            "interior_facet_traction_jump_L2": interior_traction_jump,
+        }
+    npz_path = Path(args_artifact_path)
+    npz_path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(npz_path, field_coefficients=field_coefficients,
+        dof_coordinates=dof_coordinates, geometry_coordinates=geometry_coordinates,
+        geometry_dofmap=geometry_dofmap, M_laplacian=ML, M_hessian=MH,
+        M_boundary_flux=MB, M_interior_facet_flux=MI,
+        centers=np.asarray(centers), core_radius=np.asarray([a]),
+        mesh_target_h=np.asarray([h]), cell_count=np.asarray([nc]))
     return {"h_target":h,"cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
         "cores":[{"center":list(c),"radius":a} for c in centers],
         "cell_fields":len(fields),"interaction_dimension":[m,m],
-        "boundary_residuals":boundary_rows,
+        "boundary_residuals":boundary_rows,"reconstruction_cases":reconstruction,
+        "field_export":str(npz_path),
         "M_hessian":MH.tolist(),"M_laplacian":ML.tolist(),
         "M_boundary_flux":MB.tolist(),"M_interior_facet_flux":MI.tolist(),
         "boundary_identity_relative_residual":float(np.linalg.norm((ML-MH)-MF,"fro")/max(np.linalg.norm(MH,"fro"),1e-300)),
@@ -165,19 +223,24 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--mesh-sizes",nargs="+",type=float,default=[0.24,0.16,0.11])
     p.add_argument("--alpha",type=float,default=10.0)
+    p.add_argument("--young-modulus",type=float,default=1.0)
+    p.add_argument("--poisson-ratio",type=float,default=0.0)
     p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
     a=p.parse_args()
-    levels=[solve_level(h,alpha=a.alpha) for h in a.mesh_sizes]
+    levels=[solve_level(h,alpha=a.alpha,young_modulus=a.young_modulus,poisson_ratio=a.poisson_ratio,args_artifact_path=str(Path(a.out).with_name(f"cell_fields_h{h:.4f}.npz"))) for h in a.mesh_sizes]
     report={"title":"Two-core P3 C0-IPDG interaction matrix audit",
         "reference":"Cesana, Fabbrini, León Baldelli, Morandotti (2026), arXiv:2609.29614",
-        "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit",
+        "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit with algebraic Airy reconstruction",
+        "material":{"young_modulus":a.young_modulus,"poisson_ratio":a.poisson_ratio},
         "limitations":["only two equal circular cores in a fixed outer disk",
           "no analytic off-centre cell-field error available",
+          "stress/traction diagnostics are implemented in source but remain unexecuted and independently unvalidated",
           "not the arbitrary-N production reconstruction",
           "no singular-core limit, dynamics or material calibration"],
         "levels":levels}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(report,indent=2)+"\n")
+    path.write_text(json.dumps(report,indent=2)+"
+")
     print(json.dumps(report,indent=2))
 
 

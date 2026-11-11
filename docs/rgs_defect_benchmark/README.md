@@ -41,3 +41,20 @@ Outputs: `report.json`, `results.csv`, and (when Matplotlib is installed) `singl
 5. Finite nonnegative energies for single and dipole sources.
 
 Passing these tests validates only this baseline implementation, not a physical dislocation model or the RGS continuum limit.
+
+
+## Morandotti C0-IPDG cell reconstruction
+
+The exact finite-dimensional postprocessing step from Theorem 2.2 is implemented in `models/morandotti_cell_reconstruction.py`: it builds the Frank/Burgers vector `Phi`, solves `M a = Phi`, and reconstructs the Airy potential from the `3N` cell fields. See [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md) for sign conventions, the two-core mixed regression case, and the remaining traction/stress validation gates. The algebraic layer is separate from the DOLFINx cell-field solve and does not claim end-to-end validation.
+
+
+The two-core C0-IPDG driver now exports the six FE cell fields and mesh/dof metadata, and performs the four algebraic Airy reconstructions against the assembled Laplacian-product matrix. Run in the DOLFINx 0.11 / Gmsh / PETSc-MUMPS environment:
+
+```bash
+python scripts/rgs_morandotti_two_core_c0_ipdg.py \
+  --mesh-sizes 0.24 0.16 0.11 \
+  --young-modulus 1.0 --poisson-ratio 0.0 \
+  --out artifacts/morandotti_two_core/report.json
+```
+
+Each mesh level writes a `cell_fields_h*.npz` artifact beside the report. The archive contains the six FE coefficient vectors, dof and geometry metadata, and the Hessian/Laplacian/flux matrices. The JSON report includes the four defect-data cases, boundary value/normal-derivative diagnostics, elementwise Airy stress, traction L2 norms on the outer boundary and both cores, and the interior-facet traction jump. These are implemented diagnostics, not yet validated numerical results: the driver still must be executed in the target DOLFINx environment, its mesh trends inspected, and its stress compared with an independent analytic benchmark. See [MORANDOTTI_TWO_CORE_AUDIT.md](MORANDOTTI_TWO_CORE_AUDIT.md) and [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md).
