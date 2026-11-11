@@ -108,6 +108,11 @@ def run_audit() -> dict:
         "even": _sector_data(B1, B2, J_full, +1),
         "odd": _sector_data(B1, B2, J_full, -1),
     }
+    J_graph_antipode = _chain_involutions(K, 63)
+    graph_antipode_sectors = {
+        "even": _sector_data(B1, B2, J_graph_antipode, +1),
+        "odd": _sector_data(B1, B2, J_graph_antipode, -1),
+    }
 
     expected = {
         "chain_dimensions": [32, 80, 80],
@@ -124,6 +129,8 @@ def run_audit() -> dict:
     assert all(value < 1e-12 for value in seed_reflection_residuals.values())
     assert full_sectors["even"]["betti"] == [1, 0, 55]
     assert full_sectors["odd"]["betti"] == [0, 0, 56]
+    assert graph_antipode_sectors["even"]["betti"] == [1, 0, 55]
+    assert graph_antipode_sectors["odd"]["betti"] == [0, 0, 56]
 
     return {
         "audit": "M2_MINKOWSKI_Q6_ONE_AXIS_REFLECTION_V1",
@@ -134,6 +141,7 @@ def run_audit() -> dict:
         "seed_reflection_residuals": seed_reflection_residuals,
         "one_axis_sector_results": sector_results,
         "full_three_axis_inversion_sector_results": full_sectors,
+        "canonical_q6_graph_antipode_sector_results": graph_antipode_sectors,
         "checks": {
             "B1B2_zero": bool(np.count_nonzero(K.B1 @ K.B2) == 0),
             "all_three_seed_reflections_exact": all(
@@ -148,6 +156,10 @@ def run_audit() -> dict:
             "full_inversion_betti_55_56": (
                 full_sectors["even"]["betti"] == [1, 0, 55]
                 and full_sectors["odd"]["betti"] == [0, 0, 56]
+            ),
+            "graph_antipode_betti_55_56": (
+                graph_antipode_sectors["even"]["betti"] == [1, 0, 55]
+                and graph_antipode_sectors["odd"]["betti"] == [0, 0, 56]
             ),
         },
     }
