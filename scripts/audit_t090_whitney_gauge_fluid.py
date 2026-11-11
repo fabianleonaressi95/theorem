@@ -108,7 +108,7 @@ def energy_and_grad(meshdata, rho, theta, a, need_grad=True):
             vals=[]
             for (i,j) in ((0,1),(1,2),(2,0)):
                 vals.append(lam[i]*grads[j]-lam[j]*grads[i])
-            wvals.append(np.asarray(vals).T @ np.diag(signs))
+            wvals.append(np.asarray(vals).T)
         locv=v[le]*np.asarray(signs)
         # The local basis is oriented as (t0,t1),(t1,t2),(t2,t0).
         for (lam,wgt),Wmat in zip(quadrature3(),wvals):
