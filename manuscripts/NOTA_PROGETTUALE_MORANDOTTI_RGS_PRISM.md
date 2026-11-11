@@ -213,3 +213,8 @@ Il raccordo costruttivo tra tangente, deformazione, incompatibilità elastica e 
 ## Primo prototipo dell'operatore di incompatibilità
 
 È stato aggiunto un kernel software per la forma debole piana di Saint-Venant e per il carico distribuzionale Burgers/Frank. La specifica, i limiti e i test regressivi sono documentati nel [capitolo dedicato](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md); il test è stato incluso nel workflow GitHub, ma non ne dichiariamo l'esito prima della conclusione della CI. Questo prototipo non è ancora il modello curvo RGS–PRISM né la sua connessione quaternionica.
+
+
+## Aggiornamento tecnico — primo calcolo del limite D3
+
+La convenzione di segno e il limite distribuzionale del dipolo simmetrico sono ora esplicitati nel [record D3](MORANDOTTI_D3_DIPOLE_TO_DISLOCATION_LIMIT.md). Per una separazione \(d\), la scelta \(s_d=|b|/d\) e la direzione \(n=b^\perp/|b|\) produce la sorgente di dislocazione al limite, con resto \(O(d^2)\) contro funzioni test regolari. Il test BFS associato è una verifica del carico discreto, non ancora delle energie. La verifica energetica resta da condurre con la regolarizzazione e la rinormalizzazione esatte del riferimento Cesana–De Luca–Morandotti.
