@@ -56,12 +56,19 @@ def deform_two_core_coordinates(coordinates: np.ndarray,
         raise ValueError("coordinates and centres must be finite")
     if not (np.isfinite(a) and np.isfinite(radius) and 0.0 < a < radius):
         raise ValueError("radii must satisfy 0 < core_radius < support_radius")
-    q0 = a / radius
-    normalizer = (1.0 - q0)**4 * (4.0*q0 + 1.0)
+    separation = float(np.linalg.norm(source[1]-source[0]))
+    # Keep each core's displacement weight identically zero on the other
+    # core boundary. A larger support smooths the map, while the adaptive
+    # cap prevents one core's field from moving the other core's boundary.
+    local_radius = min(radius, separation-a)
+    if local_radius <= a:
+        raise ValueError("core separation is too small for disjoint boundary weights")
     moved = x.copy()
     displacement = np.zeros_like(x)
     for centre, shift in zip(source, target-source):
-        q = np.linalg.norm(x-centre, axis=1) / radius
+        q0 = a / local_radius
+        normalizer = (1.0-q0)**4 * (4.0*q0+1.0)
+        q = np.linalg.norm(x-centre, axis=1) / local_radius
         weight = np.zeros_like(q)
         active = q < 1.0
         weight[active] = (1.0-q[active])**4 * (4.0*q[active]+1.0)
