@@ -43,6 +43,7 @@ theorem/
 
 - **[Ricostruzione dalle fondamenta](monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md)** — luce e unità di Planck, cubo-sfera, derivazione π→φ, icosaedro/quaternioni/2I, PSU–Anti-Twin, Q-ball, QAT e interfaccia Calabi–Yau. È il punto di partenza della ricostruzione; Q6 e PRISM vengono dopo.
 
+- [Morandotti benchmark I — discrete Saint-Venant KKT specification](manuscripts/MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md) — finite-dimensional constrained energy, implemented generic KKT solver and energy assembly, D1–D3 defect tests and Airy/CIP-DG comparison gates; CI execution, continuum convergence and physical validation remain open.
 - **[Integrated 27-chapter monograph](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md)** — consolidated reference for Q6, Q6-D5/Wilson, 2I/Rumin, RGS 188D, PRISM/Krist-All, FEEC/Mosco, QLG, Einstein–Cartan/teleparallelism, QAT, XCont and hysteresis. Includes explicit epistemic status and recovery caveats.
 - [Canonical synthesis and closure programme](manuscripts/SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — short strategic overview.
 
@@ -349,3 +350,13 @@ The 188D matrix NPZ is not committed in this release; its SHA-256 and recovered 
 - [Experimental scan input instructions](data/scans/README.md)
 
 The current implementation is a linearised triangular membrane + signed-dihedral bending shell. It includes panel-wise orthotropy, seam reinforcement, the existing cube/sphere radial field and the cubic H4 mode. Experimental scan comparison is implemented, but no real scan or material coupon data has yet been supplied; CI uses a synthetic ICP registration test only.
+
+
+### Morandotti planar incompatibility: first H2-conforming assembly
+
+The weak Saint-Venant/KKT benchmark now has a first rectangular Bogner–Fox–Schmit implementation: `models/morandotti_bfs_kkt.py`, with tests in `tests/test_morandotti_bfs_kkt.py`. It assembles the globally H2-conforming scalar test Hessians, the cellwise-constant symmetric strain basis, the isotropic plane-stress stiffness tensor, and the finite-dimensional matrices A_h and M_h. The 2x2 mesh prototype has four clamped-interior test DOFs and twelve strain DOFs. The test suite is committed, but repository pytest/CI execution is not yet confirmed. Pointwise Burgers/Frank source evaluation and a normalized Gaussian-core prototype are implemented, with separate D1/D2 KKT regression tests. The Gaussian has not yet been matched to the reference paper's core convention. D3, h/epsilon-separated mesh refinement, and comparison with Morandotti's Airy/CIP-DG baseline remain open. See [the benchmark specification](manuscripts/MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md) and [technical appendix](manuscripts/APPENDICE_TECNICA_MORANDOTTI_RGS_PRISM.md).
+
+
+### FDT / Ratti comparative bibliography
+
+A separate critical appendix integrates S. P. Ratti's supplied primary-document bibliography (D1–D7), the standard physics references on pair production, antimatter, Casimir/Lamb effects and gravitomagnetism, and a falsifiability protocol. It is classified as a comparative case study—not as evidence supporting FDT or RGS–PRISM. D7 remains unread and several source-level metadata items remain unverified. See [Ratti bibliography and critical integration](research/FDT_RATTI_BIBLIOGRAPHY_AND_CRITICAL_INTEGRATION.md).

@@ -9,6 +9,12 @@ Questa appendice va presentata insieme alla [Nota progettuale Morandotti — RGS
 
 **Ordine di lettura per il destinatario:** prima la nota progettuale; poi questa appendice tecnica come supporto verificabile.
 
+
+
+## Nuovo sviluppo: chiusura variazionale del benchmark piano
+
+La specifica successiva del problema piano è ora raccolta in [Morandotti benchmark I — operatore discreto di Saint-Venant e sistema KKT](MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md). Essa deriva il problema discreto di minimizzazione vincolata, il sistema KKT e l'operatore duale \(A_hM_{\\mathbb S}^{-1}A_h^T\), e fissa i gate di verifica D1–D3, il confronto Airy/CIP-DG e la calibrazione Cartan–SU(2) come passaggio separato. È una specifica matematica/implementativa: solver KKT, confronto numerico e convergenza restano da eseguire.
+
 ## 1. Criterio documentale
 
 Questa appendice non aggrega numeri eterogenei fingendo che provengano da un unico audit. Ogni risultato è associato al proprio record. In particolare:
@@ -637,3 +643,24 @@ La definizione debole di Inc_h, il pairing con le sorgenti di Burgers/Frank, la 
 ## A.30. Prototipo computazionale dell'operatore debole
 
 Il repository contiene ora `models/discrete_incompatibility_weak.py` e `tests/test_discrete_incompatibility_weak.py`. Il modulo assembla il pairing debole di Saint-Venant da basi di deformazione e Hessiane dei test, ricostruisce la deformazione simmetrica P1 e assembla il carico puntuale Burgers/Frank. La suite è stata aggiunta al workflow `football-anisotropy`; l'esito CI dedicato non è ancora disponibile. Il prototipo non è un elemento finito completo: mancano la generazione degli spazi H² conformi/CIP-DG, la connessione SU(2) indipendente, la calibrazione Cartan–Airy e l'operatore superficiale curvo. Si veda il [capitolo di derivazione](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md).
+
+
+## Benchmark variazionale piano — aggiornamento 11 novembre 2026
+
+È stata aggiunta la specifica [MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md](MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md). Il kernel `models/discrete_incompatibility_weak.py` ora include anche l'assemblaggio della matrice di energia da un tensore costitutivo elastico e il solver KKT per \(\min \frac12 e^TMe\) con vincolo \(Ae=z\). I test coprono simmetria/positività dell'esempio di energia, residui primal/dual, identità energetica e rifiuto di vincoli degeneri o energie non positive. I test sono stati aggiunti ma non risultano ancora eseguiti da CI; il confronto con Airy/CIP-DG e la convergenza restano aperti.
+
+
+## A.31. Prima assemblazione FEM rettangolare H2-conforme — 11 novembre 2026
+
+È stato aggiunto `models/morandotti_bfs_kkt.py`, prototipo su griglia rettangolare uniforme con elementi Bogner–Fox–Schmit bicubici. I gradi di libertà nodali sono (v, dx v, dy v, dxy v); tutti i gradi di libertà sui vertici di bordo sono clamped. Lo spazio test globale è C1, dunque H2-conforme. Le deformazioni sono inizialmente tre modi simmetrici costanti per cella; il tensore di rigidezza è quello isotropo di plane stress, con convenzione di taglio tensoriale esplicitata nel codice.
+
+La prima griglia 2x2, con quadratura di Gauss 3x3 per cella, produce dimensioni A_h in R^(4x12), M_h in R^(12x12); nell'audit numerico indipendente della stessa contrazione, rank(A_h)=4, gli autovalori di M_h sono otto valori 0.1923076923 e quattro valori 0.3571428571 per E=1, nu=0.3. Per un carico costruito come z=A_h e_0, i residui KKT risultano dell'ordine di 10^-17 e le energie primal/dual coincidono a precisione macchina (nel test sintetico con i parametri sopra, entrambe 0.05625). Questi numeri verificano la formulazione algebraica e la contrazione implementata, ma non sono ancora un benchmark di difetto fisico: il carico D1/D2 deve ancora essere valutato sulle funzioni BFS e regolarizzato per core finito.
+
+I test dedicati sono in `tests/test_morandotti_bfs_kkt.py`. Non dichiarare CI o pytest superati: i commit non hanno workflow associati e l'esecuzione completa della suite nel repository resta da fare. Il prototipo non include ancora raffinamento multi-mesh, confronto Airy/CIP-DG, convergenza variazionale o validazione sperimentale.
+
+
+## A.32. Valutazione delle sorgenti D1/D2 sulla base BFS — 11 novembre 2026
+
+Il modulo BFS ora valuta le funzioni test e i loro gradienti nei punti di difetto e assembla i carichi di Burgers/Frank con la convenzione di segno già fissata nel dossier. È disponibile anche una regolarizzazione di core gaussiana, integrata sulla quadratura della mesh e normalizzata sul dominio unitario (quindi con troncamento al bordo esplicito). I test aggiunti trattano separatamente D1 (dislocazione) e D2 (disclinazione), oltre al confronto puntuale/core e al solve KKT sintetico.
+
+Questa gaussiana è una convenzione di prototipo, non va identificata automaticamente con il profilo di core del modello di Morandotti/Cesana. Prima del confronto energetico bisogna imporre la stessa mollificazione, la stessa normalizzazione e le stesse condizioni al bordo della formulazione di riferimento. D3 (dipolo), il raffinamento h/epsilon e il confronto Airy/CIP-DG restano aperti. I test sono stati aggiunti ma non eseguiti in CI: nessun esito CI viene dichiarato.
