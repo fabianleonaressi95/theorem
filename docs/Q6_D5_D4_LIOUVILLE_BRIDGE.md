@@ -23,7 +23,7 @@ The exact repository audit establishes rank five, saturated integer kernel rank 
 The pointwise Wilson weight does not descend to this quotient. The positive effective weight is the complete fibre sum
 \[
 W_{\rm eff}([c])=\sum_{k\in K_{\mathbb Z}}
-\prod_{e=1}^{192}\frac{I_{|(c+k)C)_e|}(\beta_t)}{I_0(\beta_t)},
+\prod_{e=1}^{192}\frac{I_{|((c+k)C)_e|}(\beta_t)}{I_0(\beta_t)},
 \]
 where the intended flux index is \(|((c+k)C)_e|\). The sum is absolutely convergent, but its complete numerical value is not yet enclosed by a useful certified interval. No Wilson-to-Bergman limit is established by the integer quotient alone.
 
@@ -38,7 +38,7 @@ H_5(q,\pi)=\frac{\|\pi\|^2}{2\beta_{\rm eff}}
 \quad
 \lambda_{\rm eff}=\frac{12}{a_s^2},
 \quad
-\Omega=\sqrt{\beta_{\rm eff}\lambda_{\rm eff}}/\beta_{\rm eff}
+\Omega=\sqrt{\lambda_{\rm eff}}
 =\frac{\sqrt{12}}{a_s},
 \]
 define
