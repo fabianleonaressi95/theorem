@@ -93,6 +93,8 @@ def assemble_bfs_rectangular(
     q, qw = 0.5*(q + 1.0), 0.5*qw
     nq, ncell = order*order, nx*ny
     H_all = np.zeros((ndof, ncell, nq, 2, 2), dtype=float)
+    V_all = np.zeros((ndof, ncell, nq), dtype=float)
+    G_all = np.zeros((ndof, ncell, nq, 2), dtype=float)
     weights = np.zeros((ncell, nq), dtype=float)
 
     cell = 0
@@ -123,6 +125,9 @@ def assemble_bfs_rectangular(
                             else:
                                 ax, ay, scale = dx, dy, hx*hy
                             g = 4*node + dof
+                            V_all[g, cell, iq] = scale*hxv[ax]*hyv[ay]
+                            G_all[g, cell, iq, 0] = scale*hxd[ax]/hx*hyv[ay]
+                            G_all[g, cell, iq, 1] = scale*hxv[ax]*hyd[ay]/hy
                             H_all[g, cell, iq, 0, 0] = scale*hxdd[ax]/hx**2*hyv[ay]
                             H_all[g, cell, iq, 1, 1] = scale*hxv[ax]*hydd[ay]/hy**2
                             cross = scale*hxd[ax]/hx*hyd[ay]/hy
@@ -132,6 +137,8 @@ def assemble_bfs_rectangular(
             cell += 1
 
     test_hessians = H_all[free]
+    test_values = V_all[free]
+    test_gradients = G_all[free]
     strain_basis = np.zeros((ncell, nq, 3*ncell, 2, 2), dtype=float)
     for k in range(ncell):
         strain_basis[k, :, 3*k, 0, 0] = 1.0
@@ -144,6 +151,7 @@ def assemble_bfs_rectangular(
     M = assemble_constitutive_energy(strain_basis, weights, stiffness)
     return {
         "A": A, "M": M, "test_hessians": test_hessians,
+        "test_values": test_values, "test_gradients": test_gradients,
         "strain_basis": strain_basis, "weights": weights,
         "free_dofs": free, "ncell": ncell, "n_test": len(free),
         "quadrature_order": order, "young_modulus": float(young_modulus),
