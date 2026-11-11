@@ -110,3 +110,24 @@ the M3 Q6 orbit complex. Such an identification requires the D4-equivariant
 cell/cochain complex, its Hodge operator, and an explicit intertwiner on the
 five-dimensional spectral sector. The original Q6 cubical complex is not
 D4-invariant under the M3 generator R.
+
+
+## 8. Comparison with the original Q6 coexact D5 sector
+
+An exact rational-arithmetic audit has now compared the original
+\(\ker(D_1^TD_1-12I)\subset\mathbb Q^{192}\) with the new M3 orbit-graph
+five-mode sector. The natural signed edge transport acts on the 256-edge
+orbit graph. Under this transport,
+\[
+\operatorname{rank}((I-EE^T)J_REV)=2,
+\]
+so the old Q6 five-mode sector is not preserved by the M3 rotation.
+Moreover, the old Q6 sector has \(S\)-action \(-I_5\), whereas the M3
+orbit-graph five-mode sector has \(S\)-spectrum \((-1,-1,+1,+1,+1)\).
+The representations are inequivalent; no invertible intertwiner exists.
+
+This does not affect the exact D4 action on the orbit graph or its own
+five-dimensional eigenspace. It rules out the naive identification with
+the previously constructed Q6-D5 quotient. See
+\`docs/Q6_D5_D4_LIOUVILLE_BRIDGE.md\` and the exact audit
+\`audits/audit_q6_d5_m3_d4_intertwiner_obstruction.py\`.
