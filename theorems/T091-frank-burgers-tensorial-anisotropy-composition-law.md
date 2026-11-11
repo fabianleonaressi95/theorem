@@ -1,7 +1,7 @@
 # T091 — Frank–Burgers tensorial interaction and anisotropy composition law
 
 **Date:** 11 November 2026  
-**Status:** exact discrete tensor identity proved under linear reconstruction; five-level numerical verification completed for the stated two-core benchmark; continuum limit, constitutive interpretation and universal distance law remain open.  
+**Status:** exact discrete tensor and sensitivity identities proved under the stated finite-dimensional hypotheses; five-level numerical verification completed for the stated two-core benchmark; continuum limit, constitutive interpretation and universal distance law remain open.  
 **Dependencies:** PR #161, PR #162; the operational anisotropy definitions in MORANDOTTI_ANISOTROPY.md.
 
 ## 1. Scope and hypotheses
@@ -141,7 +141,61 @@ The total jump norm decreases along the tested refinement sequence, while the re
 
 The single-sector controls have zero mixed term by construction. The mixed case is therefore the relevant test of the cross interaction, rather than a comparison of independently computed Frank-only and Burgers-only anisotropy scores.
 
-## 5. Geometry, orientation and separation controls
+## 5. Operator anisotropy and variation–residual sensitivity law
+
+The tensor composition law describes the Frank/Burgers content of the reconstructed jump. The variation of the discrete response and of boundary residuals under a geometric or source parameter is governed by a second exact finite-dimensional identity.
+
+Let \(p\mapsto M(p)\) be a differentiable family of invertible interaction matrices, \(x(p)\) the reconstructed coefficient vector, and \(\Phi(p)\) the source vector:
+\[
+M(p)x(p)=\Phi(p).
+\]
+Let the residual observable be
+\[
+r(p)=C(p)x(p)-g(p),
+\]
+where \(C\) extracts the selected boundary traces/normal-derivative residuals and \(g\) is the prescribed boundary datum. Differentiating the linear system gives
+\[
+\boxed{x'(p)=M(p)^{-1}\bigl(\Phi'(p)-M'(p)x(p)\bigr).}
+\tag{91.6}
+\]
+Consequently,
+\[
+\boxed{
+r'(p)=C'(p)x(p)+
+C(p)M(p)^{-1}\bigl(\Phi'(p)-M'(p)x(p)\bigr)-g'(p).
+}
+\tag{91.7}
+\]
+If the source and residual extraction/data are fixed while only the interaction operator changes, this reduces to
+\[
+\boxed{r'(p)=-C(p)M(p)^{-1}M'(p)x(p).}
+\tag{91.8}
+\]
+Thus the residual variation is determined by the operator variation filtered through the inverse interaction matrix and the residual trace map. Directional anisotropy enters through the longitudinal/transverse projections of this response; it is not an independent additive residual source.
+
+For co-rotating unit directions \(e_\parallel,e_\perp\), write
+\(r_\parallel=e_\parallel\cdot r\) and
+\(r_\perp=e_\perp\cdot r\), and define
+\[
+\mathcal A_r(p)=
+\frac{r_\parallel(p)^2-r_\perp(p)^2}
+{r_\parallel(p)^2+r_\perp(p)^2},
+\]
+when the denominator is nonzero. If the frame is fixed in the co-rotating coordinates, direct differentiation yields
+\[
+\boxed{
+\mathcal A_r'(p)=
+\frac{4r_\parallel r_\perp
+\left(r_\perp r_\parallel'-r_\parallel r_\perp'\right)}
+{\left(r_\parallel^2+r_\perp^2\right)^2}.
+}
+\tag{91.9}
+\]
+If the frame itself varies in laboratory coordinates, its derivative must also be included in \(r_\parallel'\) and \(r_\perp'\). The same identity applies to the longitudinal/transverse components of a core traction resultant \(F\), replacing \(r\) by \(F\).
+
+Equations (91.6)–(91.9) are exact sensitivity identities for a differentiable finite-dimensional system. They formalize how operator anisotropy can account for changes in directional response and residuals. They do not, without a parameter study and a validated continuum limit, prove that anisotropy is the unique physical cause of the observed variation.
+
+## 6. Geometry, orientation and separation controls
 
 The orientation audit rotates the mesh geometry in place and compares 0°, 30° and 60°. With defects co-rotated, the local interaction matrix changes by at most approximately \(4.2\times10^{-13}\), and directional boundary-residual differences are at most approximately \(2.7\times10^{-11}\). This supports covariance of the implemented discrete geometry/source-frame transformation for that fixed mesh. When Burgers data are held fixed in the laboratory frame, the core traction components change with relative orientation, as expected; this is a controlled orientation response, not a proof of a universal constitutive anisotropy.
 
@@ -152,7 +206,7 @@ C(d)=\frac{\|M_{01}(d)\|_F}{\|M_{00}(d)\|_F}
 of approximately 0.2583, 0.1138, 0.0624 and 0.0349 at
 \(d=0.48,0.56,0.64,0.72\), respectively. This is a monotone decrease over the four sampled separations. The signed operator anisotropy is non-monotone (approximately 0.6185, 0.5493, 0.5715, 0.4800). Because this sweep uses one mesh size, these values are screening data only; they do not establish a continuum distance-decay law.
 
-## 6. Classification and open work
+## 7. Classification and open work
 
 - **Proved:** the finite-dimensional tensor identity (91.1), scalar identity (91.2), directional identity (91.3), and normalized axis-resolved composition formula (91.4), under the stated linear reconstruction and common jump convention.
 - **Numerically verified:** the five-level additivity residual and a nonzero positive mixed contribution for the reported mixed-source configuration; fixed-mesh orientation covariance; the one-resolution separation-screening trend.
@@ -160,7 +214,7 @@ of approximately 0.2583, 0.1138, 0.0624 and 0.0349 at
 
 The exact identity is not a new universal law of defect mechanics independent of the reconstruction: its mathematical content is the tensor expansion of a linearly reconstructed jump. The research content is the explicit Frank/Burgers sector bookkeeping, its directional tensor, and the numerical determination of the signed interaction term in this two-core problem.
 
-## 7. Reproducibility record
+## 8. Reproducibility record
 
 - [PR #161 — Frank–Burgers traction-jump decomposition](https://github.com/fabianleonaressi95/theorem/pull/161)
 - [PR #162 — five-level refinement workflow](https://github.com/fabianleonaressi95/theorem/pull/162)
