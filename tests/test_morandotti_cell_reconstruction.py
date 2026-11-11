@@ -87,3 +87,15 @@ def test_two_core_coordinate_deformation_moves_core_boundaries_and_fixes_outer_n
     assert np.allclose(moved[1], [0.32 - 0.12, 0.0], atol=1e-13)
     assert np.allclose(moved[3], points[3], atol=1e-14)
     assert np.isfinite(moved).all()
+
+
+def test_symmetric_separation_change_keeps_pair_midpoint_fixed():
+    from models.morandotti_cell_reconstruction import deform_two_core_coordinates
+    reference = np.array([[-0.28, 0.0], [0.28, 0.0]])
+    target = np.array([[-0.34, 0.0], [0.34, 0.0]])
+    points = np.array([[0.0, 0.0], [0.0, 0.25], [0.0, 0.8]])
+    moved = deform_two_core_coordinates(points, reference, target, 0.12, 0.32)
+    # Equal radial weights give equal and opposite displacements on the pair axis.
+    assert np.allclose(moved[0], points[0], atol=1e-14)
+    assert np.allclose(moved[1], points[1], atol=1e-14)
+    assert np.allclose(moved[2], points[2], atol=1e-14)
