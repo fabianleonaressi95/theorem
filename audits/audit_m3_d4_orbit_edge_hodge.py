@@ -112,33 +112,34 @@ def run_audit():
 
     # Edge Hodge Laplacian: d_0 d_0^* + d_1^* d_1.
     H1=B1.T*B1+B2*B2.T
+    Hco=B2*B2.T
     rank_B1=B1.rank(); rank_B2=B2.rank()
     beta1=len(edges)-rank_B1-rank_B2
     spectrum=H1.eigenvals()
-    eigenspaces={}
-    for eig,mult in spectrum.items():
-        eigenspaces[str(eig)]={"multiplicity":int(mult)}
-    # Exact D4 characters on each eigenspace: traces of restrictions.
-    eig_details={}
-    for eig,mult in spectrum.items():
-        V=sp.Matrix.hstack(*((H1-eig*sp.eye(len(edges))).nullspace()))
-        traces=[]
-        invariant=True
-        for _J0,J1,_J2 in maps:
-            image=J1*V
-            coeff=(V.T*V).inv()*V.T*image
-            if V*coeff != image: invariant=False
-            traces.append(int(sp.trace(coeff)))
-        eig_details[str(eig)]={
-            "multiplicity":int(mult),
-            "D4_invariant":invariant,
-            "character_traces_in_group_order":traces,
-        }
-    # Coexact positive spectrum is d1* d1; its image is orthogonal to im d0.
-    positive=[]
-    for eig,mult in spectrum.items():
-        if eig != 0:
-            positive.append({"eigenvalue":str(eig),"multiplicity":int(mult)})
+    co_spectrum=Hco.eigenvals()
+
+    def _eigenspace_report(operator, spectral_data):
+        details={}
+        for eig,mult in spectral_data.items():
+            V=sp.Matrix.hstack(*((operator-eig*sp.eye(operator.rows)).nullspace()))
+            traces=[]
+            invariant=True
+            for _J0,J1,_J2 in maps:
+                image=J1*V
+                coeff=(V.T*V).inv()*V.T*image
+                if V*coeff != image: invariant=False
+                traces.append(int(sp.trace(coeff)))
+            details[str(eig)]={
+                "multiplicity":int(mult),
+                "D4_invariant":invariant,
+                "character_traces_in_group_order":traces,
+            }
+        return details
+
+    eig_details=_eigenspace_report(H1,spectrum)
+    co_details=_eigenspace_report(Hco,co_spectrum)
+    positive=[{"eigenvalue":str(eig),"multiplicity":int(mult)}
+              for eig,mult in co_spectrum.items() if eig != 0]
     return {
         "audit":"M3_D4_ORBIT_EDGE_HODGE_EXACT",
         "arithmetic":"SymPy exact rational/integer",
@@ -149,11 +150,15 @@ def run_audit():
         "edge_hodge":{"definition":"B1.T*B1 + B2*B2.T",
                       "spectrum":positive,"zero_multiplicity":int(spectrum.get(0,0)),
                       "eigenspaces":eig_details},
+        "coexact_hodge":{"definition":"B2*B2.T",
+                         "positive_spectrum":positive,
+                         "zero_multiplicity":int(co_spectrum.get(0,0)),
+                         "eigenspaces":co_details},
         "D4":{"order":len(G),"all_eight_signed_chain_maps_exact":True},
         "five_dimensional_positive_eigenspaces":[
             {"eigenvalue":k,"multiplicity":v["multiplicity"],
              "character_traces":v["character_traces_in_group_order"]}
-            for k,v in eig_details.items() if v["multiplicity"]==5
+            for k,v in co_details.items() if k != "0" and v["multiplicity"]==5
         ],
     }
 
