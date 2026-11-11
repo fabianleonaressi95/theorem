@@ -113,3 +113,55 @@ python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
   --distance-mesh-size 0.06 \
   --out artifacts/morandotti_two_core/report.json
 ```
+
+
+## Dislocation–disclination sources and deformation metric
+
+For core (i), the finite-dimensional source block is
+\[
+\Phi_i=(\Omega_i,\;\Omega_i x_i+B_{i,y},\;
+\Omega_i y_i-B_{i,x}).
+\]
+The implementation now preserves the linear split
+\[
+\Phi=\Phi_{\Omega}+\Phi_B,
+\qquad
+a_{\Omega}=M^{-1}\Phi_{\Omega},\quad
+a_B=M^{-1}\Phi_B.
+\]
+The associated algebraic quadratic form is decomposed as
+\[
+\frac12\Phi^TM^{-1}\Phi
+=\underbrace{\frac12\Phi_{\Omega}^TM^{-1}\Phi_{\Omega}}_{Q_{\Omega}}
++\underbrace{\frac12\Phi_B^TM^{-1}\Phi_B}_{Q_B}
++\underbrace{\Phi_{\Omega}^TM^{-1}\Phi_B}_{Q_{\Omega B}}.
+\]
+The mixed term is retained with its sign. These are source-quadratic diagnostics of the discrete interaction system; they are **not labelled physical energies** until the normalization and constitutive interpretation of (M) are established.
+
+The reconstructed Airy stress is also split linearly into Frank and Burgers contributions. For each source case the report stores the integrated stress second moments
+\[
+S(\sigma)=\int_{\mathcal D}\sigma^T\sigma\,dx,
+\qquad
+S_{\Omega B}=S(\sigma_{\Omega}+\sigma_B)
+-S(\sigma_{\Omega})-S(\sigma_B),
+\]
+and the longitudinal/transverse eigenvalue contrast of the total moment tensor. The cross tensor records the interaction between the two source sectors; it is not discarded by adding two independent anisotropy scores.
+
+Separately, the mesh deformation metric is computed from paired reference/current curved-element Jacobians at identical reference points:
+\[
+F=J_{\mathrm{current}}J_{\mathrm{reference}}^{-1},
+\qquad G=F^TF,
+\qquad
+\mathcal A_G=\frac{\lambda_{\max}(G)-\lambda_{\min}(G)}
+{\lambda_{\max}(G)+\lambda_{\min}(G)}.
+\]
+This (G) measures the coordinate-map stretch of the numerical mesh. It is not the stress tensor, not a material constitutive anisotropy, and not a substitute for the Frank/Burgers source data. Its distribution is reported separately from the defect-induced stress anisotropy.
+
+The resulting testable chain is
+\[
+(\Omega_i,B_i,\mathbf x_i)
+\longrightarrow (\Phi_{\Omega},\Phi_B,Q_{\Omega B})
+\longrightarrow \sigma_{\Omega},\sigma_B, S_{\Omega B}
+\longrightarrow \text{directional stress response},
+\]
+with the mesh metric (G) retained as a separate geometric/numerical control. This is a finite-dimensional numerical decomposition, not yet a general continuum theorem or a proof of a topological Möbius contribution.

@@ -31,6 +31,96 @@ def build_defect_vector(centers: np.ndarray, frank_angles: np.ndarray,
     return phi.reshape(3 * n)
 
 
+def build_defect_components(centers: np.ndarray, frank_angles: np.ndarray,
+                            burgers_vectors: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Return separate Frank, Burgers, and total source vectors in the model convention."""
+    x = np.asarray(centers, dtype=float)
+    s = np.asarray(frank_angles, dtype=float)
+    b = np.asarray(burgers_vectors, dtype=float)
+    if x.ndim != 2 or x.shape[1] != 2 or x.shape[0] == 0:
+        raise ValueError("centers must have shape (N, 2), with N >= 1")
+    n = x.shape[0]
+    if s.shape != (n,) or b.shape != (n, 2):
+        raise ValueError("Frank and Burgers arrays must have shapes (N,) and (N, 2)")
+    zero_b = np.zeros_like(b)
+    zero_s = np.zeros_like(s)
+    phi_frank = build_defect_vector(x, s, zero_b)
+    phi_burgers = build_defect_vector(x, zero_s, b)
+    return phi_frank, phi_burgers, phi_frank + phi_burgers
+
+
+def rotate_defect_vector_to_frame(defect_vector: np.ndarray,
+                                  rotation: np.ndarray) -> np.ndarray:
+    """Express each (scalar, x, y) source block in a rotated translational frame."""
+    phi = np.asarray(defect_vector, dtype=float)
+    R = np.asarray(rotation, dtype=float)
+    if phi.ndim != 1 or phi.size == 0 or phi.size % 3:
+        raise ValueError("defect_vector must be a non-empty vector with 3 entries per core")
+    if R.shape != (2, 2) or not np.isfinite(R).all():
+        raise ValueError("rotation must be a finite 2x2 matrix")
+    if not np.isfinite(phi).all():
+        raise ValueError("defect_vector must be finite")
+    blocks = phi.reshape(-1, 3).copy()
+    blocks[:, 1:3] = blocks[:, 1:3] @ R
+    return blocks.reshape(-1)
+
+
+def deformation_metric(reference_jacobians: np.ndarray,
+                       current_jacobians: np.ndarray) -> dict[str, np.ndarray]:
+    """Compute F, G=F.T F and metric anisotropy from paired element Jacobians.
+
+    Jacobians must be sampled at identical reference-element points. The
+    resulting metric describes the mesh-coordinate deformation only; it is
+    not the defect stress, material constitutive tensor, or a topological
+    defect invariant.
+    """
+    J0 = np.asarray(reference_jacobians, dtype=float)
+    J1 = np.asarray(current_jacobians, dtype=float)
+    if J0.shape != J1.shape or J0.ndim < 2 or J0.shape[-2:] != (2, 2):
+        raise ValueError("reference and current Jacobians must have matching (..., 2, 2) shapes")
+    if not np.isfinite(J0).all() or not np.isfinite(J1).all():
+        raise ValueError("Jacobian samples must be finite")
+    det0 = np.linalg.det(J0)
+    det1 = np.linalg.det(J1)
+    scale = max(float(np.max(np.abs(det0))), 1.0)
+    if np.any(np.abs(det0) <= 1e-13 * scale):
+        raise ValueError("reference Jacobian samples must be nonsingular")
+    if np.any(det1 <= 0.0):
+        raise ValueError("current Jacobian samples must preserve positive orientation")
+    F = J1 @ np.linalg.inv(J0)
+    G = np.swapaxes(F, -1, -2) @ F
+    eigenvalues = np.linalg.eigvalsh(G)
+    if np.any(eigenvalues[..., 0] <= 0.0):
+        raise FloatingPointError("deformation metric is not positive definite")
+    anisotropy = ((eigenvalues[..., 1] - eigenvalues[..., 0]) /
+                  (eigenvalues[..., 1] + eigenvalues[..., 0]))
+    return {"deformation_gradient": F, "metric": G,
+            "eigenvalues": eigenvalues, "anisotropy": anisotropy}
+
+
+def defect_quadratic_decomposition(interaction_matrix: np.ndarray,
+                                   phi_frank: np.ndarray,
+                                   phi_burgers: np.ndarray) -> dict[str, float]:
+    """Split 1/2 Phi.T M^-1 Phi into Frank, Burgers and mixed terms.
+
+    These are algebraic source-quadratic diagnostics for the current
+    interaction matrix, not calibrated physical energies.
+    """
+    M = np.asarray(interaction_matrix, dtype=float)
+    f = np.asarray(phi_frank, dtype=float)
+    b = np.asarray(phi_burgers, dtype=float)
+    if f.ndim != 1 or b.shape != f.shape:
+        raise ValueError("Frank and Burgers source vectors must be matching 1D arrays")
+    af = solve_interaction_system(M, f)
+    ab = solve_interaction_system(M, b)
+    qf = 0.5 * float(f @ af)
+    qb = 0.5 * float(b @ ab)
+    qfb = float(f @ ab)
+    qt = 0.5 * float((f + b) @ (af + ab))
+    return {"frank_quadratic": qf, "burgers_quadratic": qb,
+            "mixed_cross_term": qfb, "total_quadratic": qt,
+            "additivity_residual": float(qt - qf - qb - qfb)}
+
 
 def two_core_support_radius(core_radius: float, reference_separation: float,
                             maximum_support_radius: float) -> float:

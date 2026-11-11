@@ -16,7 +16,9 @@ from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 from models.morandotti_cell_reconstruction import (
-    build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
+    build_defect_components, rotate_defect_vector_to_frame,
+    defect_quadratic_decomposition, deformation_metric,
+    solve_interaction_system, reconstruct_airy_potential,
     deform_two_core_coordinates, two_core_support_radius,
 )
 
@@ -98,6 +100,15 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         mesh.geometry.x[:] = reference_geometry
     reference_separation = float(np.linalg.norm(reference_centers[1]-reference_centers[0]))
     effective_support_radius = two_core_support_radius(a, reference_separation, 0.50)
+    jacobian_subdivisions = 12
+    reference_points = np.asarray([
+        (i / jacobian_subdivisions, j / jacobian_subdivisions)
+        for i in range(jacobian_subdivisions + 1)
+        for j in range(jacobian_subdivisions + 1 - i)
+    ], dtype=np.float64)
+    geometry_cells_local = np.arange(mesh.topology.index_map(mesh.topology.dim).size_local, dtype=np.int32)
+    jacobian_expression = fem.Expression(ufl.Jacobian(mesh), reference_points, comm=comm)
+    reference_jacobians = jacobian_expression.eval(mesh, geometry_cells_local)
     mesh.geometry.x[:, :2] = deform_two_core_coordinates(
         mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.50)
     if abs(orientation_angle_deg) > 1e-14:
@@ -109,18 +120,24 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     min_signed_area = float(np.min(signed_areas))
     if not np.isfinite(min_signed_area) or min_signed_area <= 0.0:
         raise RuntimeError(f"Distance/orientation map inverted a corner triangle: min signed area={min_signed_area}")
-    # Cubic Gmsh geometry requires checking the curved coordinate map, not
-    # only the corner triangle. Sample det(J) on a dense barycentric lattice.
-    jacobian_subdivisions = 12
-    reference_points = np.asarray([
-        (i / jacobian_subdivisions, j / jacobian_subdivisions)
-        for i in range(jacobian_subdivisions + 1)
-        for j in range(jacobian_subdivisions + 1 - i)
-    ], dtype=np.float64)
-    jacobian_expression = fem.Expression(ufl.det(ufl.Jacobian(mesh)), reference_points, comm=comm)
-    geometry_cells_local = np.arange(mesh.topology.index_map(mesh.topology.dim).size_local, dtype=np.int32)
-    sampled_jacobians = jacobian_expression.eval(mesh, geometry_cells_local)
+    # Compare the current curved-element Jacobian with the paired reference
+    # Jacobian at identical reference points. G=F^T F measures mesh-map stretch.
+    current_jacobians = jacobian_expression.eval(mesh, geometry_cells_local)
+    metric_data = deformation_metric(reference_jacobians, current_jacobians)
+    sampled_jacobians = np.linalg.det(current_jacobians)
     min_sampled_jacobian = float(np.min(sampled_jacobians))
+    metric_eigenvalues = metric_data["eigenvalues"]
+    metric_anisotropy = metric_data["anisotropy"]
+    metric_summary = {
+        "definition": "F=J_current @ inv(J_reference); G=F.T @ F",
+        "interpretation": "mesh-coordinate deformation metric; not a constitutive anisotropy or defect invariant",
+        "sample_count": int(metric_anisotropy.size),
+        "minimum_eigenvalue": float(np.min(metric_eigenvalues[..., 0])),
+        "maximum_eigenvalue": float(np.max(metric_eigenvalues[..., 1])),
+        "mean_anisotropy": float(np.mean(metric_anisotropy)),
+        "p95_anisotropy": float(np.quantile(metric_anisotropy, 0.95)),
+        "maximum_anisotropy": float(np.max(metric_anisotropy)),
+    }
     if not np.isfinite(min_sampled_jacobian) or min_sampled_jacobian <= 0.0:
         raise RuntimeError(
             "Distance/orientation map has a non-positive sampled cubic-geometry Jacobian: "
@@ -266,15 +283,16 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     for name, (frank, burgers) in cases.items():
         # Rotate the Burgers vectors together with the two-core geometry.
         burgers_used = np.asarray(burgers) @ rotation.T if rotate_defect_data else np.asarray(burgers)
-        phi_global = build_defect_vector(np.asarray(centers), frank, burgers_used)
-        # The FE translation basis is (longitudinal, transverse), not the
-        # laboratory (x,y) basis. Express each Frank-Burgers pair in that
-        # local frame before solving the interaction system.
-        phi_blocks_global = phi_global.reshape(len(centers), 3)
-        phi_blocks_local = phi_blocks_global.copy()
-        phi_blocks_local[:, 1:3] = phi_blocks_global[:, 1:3] @ rotation
-        phi = phi_blocks_local.reshape(-1)
+        phi_frank_global, phi_burgers_global, phi_global = build_defect_components(
+            np.asarray(centers), frank, burgers_used)
+        # Resolve the two source sectors independently in the FE translational frame.
+        phi_frank = rotate_defect_vector_to_frame(phi_frank_global, rotation)
+        phi_burgers = rotate_defect_vector_to_frame(phi_burgers_global, rotation)
+        phi = phi_frank + phi_burgers
+        source_quadratic = defect_quadratic_decomposition(ML, phi_frank, phi_burgers)
         coeff = solve_interaction_system(ML, phi)
+        coeff_frank = solve_interaction_system(ML, phi_frank)
+        coeff_burgers = solve_interaction_system(ML, phi_burgers)
         vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
         vh = fem.Function(V)
         vh.x.array[:] = vh_dofs
@@ -282,6 +300,43 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         Hv_case = ufl.grad(ufl.grad(vh))
         sigma_case = ufl.as_matrix([[Hv_case[1,1], -Hv_case[0,1]],
                                     [-Hv_case[1,0], Hv_case[0,0]]])
+        vh_frank = fem.Function(V)
+        vh_frank.x.array[:] = reconstruct_airy_potential(
+            field_coefficients, coeff_frank, young_modulus, poisson_ratio)
+        vh_frank.x.scatter_forward()
+        vh_burgers = fem.Function(V)
+        vh_burgers.x.array[:] = reconstruct_airy_potential(
+            field_coefficients, coeff_burgers, young_modulus, poisson_ratio)
+        vh_burgers.x.scatter_forward()
+        Hf = ufl.grad(ufl.grad(vh_frank))
+        Hb = ufl.grad(ufl.grad(vh_burgers))
+        sigma_frank = ufl.as_matrix([[Hf[1,1], -Hf[0,1]], [-Hf[1,0], Hf[0,0]]])
+        sigma_burgers = ufl.as_matrix([[Hb[1,1], -Hb[0,1]], [-Hb[1,0], Hb[0,0]]])
+
+        def stress_second_moment(stress):
+            return np.array([
+                [assemble((stress[0,0]**2 + stress[1,0]**2)*dx, mesh),
+                 assemble((stress[0,0]*stress[0,1] + stress[1,0]*stress[1,1])*dx, mesh)],
+                [assemble((stress[0,0]*stress[0,1] + stress[1,0]*stress[1,1])*dx, mesh),
+                 assemble((stress[0,1]**2 + stress[1,1]**2)*dx, mesh)]
+            ], dtype=float)
+
+        stress_moment_total = stress_second_moment(sigma_case)
+        stress_moment_frank = stress_second_moment(sigma_frank)
+        stress_moment_burgers = stress_second_moment(sigma_burgers)
+        stress_moment_cross = stress_moment_total - stress_moment_frank - stress_moment_burgers
+
+        def directional_stress_anisotropy(moment):
+            local_moment = frame.T @ moment @ frame
+            eigenvalues = np.linalg.eigvalsh(0.5*(local_moment + local_moment.T))
+            value = float((eigenvalues[-1]-eigenvalues[0]) /
+                          max(eigenvalues[-1]+eigenvalues[0], 1e-300))
+            return local_moment, value
+
+        stress_moment_local, stress_anisotropy = directional_stress_anisotropy(stress_moment_total)
+        stress_moment_frank_local, stress_anisotropy_frank = directional_stress_anisotropy(stress_moment_frank)
+        stress_moment_burgers_local, stress_anisotropy_burgers = directional_stress_anisotropy(stress_moment_burgers)
+        stress_moment_cross_local = frame.T @ stress_moment_cross @ frame
         traction = ufl.dot(sigma_case, n)
         boundary_traction = {}
         for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
@@ -315,6 +370,20 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
         reconstruction[name] = {
             "Phi": phi.tolist(), "Phi_global_xy": phi_global.tolist(),
+            "Phi_frank_local": phi_frank.tolist(),
+            "Phi_burgers_local": phi_burgers.tolist(),
+            "source_quadratic_decomposition": source_quadratic,
+            "stress_second_moment_total_xy": stress_moment_total.tolist(),
+            "stress_second_moment_frank_xy": stress_moment_frank.tolist(),
+            "stress_second_moment_burgers_xy": stress_moment_burgers.tolist(),
+            "stress_second_moment_cross_xy": stress_moment_cross.tolist(),
+            "stress_second_moment_total_local": stress_moment_local.tolist(),
+            "stress_second_moment_frank_local": stress_moment_frank_local.tolist(),
+            "stress_second_moment_burgers_local": stress_moment_burgers_local.tolist(),
+            "stress_second_moment_cross_local": stress_moment_cross_local.tolist(),
+            "stress_directional_anisotropy": stress_anisotropy,
+            "stress_directional_anisotropy_frank": stress_anisotropy_frank,
+            "stress_directional_anisotropy_burgers": stress_anisotropy_burgers,
             "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
@@ -335,6 +404,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         "min_signed_corner_area":min_signed_area,
         "min_sampled_jacobian_determinant":min_sampled_jacobian,
         "jacobian_sampling_subdivisions":jacobian_subdivisions,
+        "deformation_metric":metric_summary,
         "effective_support_radius":effective_support_radius,
         "orientation_angle_deg":float(orientation_angle_deg),
         "defect_data_co_rotated":bool(rotate_defect_data),
