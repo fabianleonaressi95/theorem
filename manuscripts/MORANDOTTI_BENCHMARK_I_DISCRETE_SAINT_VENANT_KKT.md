@@ -213,7 +213,7 @@ This specification closes the algebraic formulation of the finite-dimensional co
 - calibration from Cartan torsion/curvature to the planar Airy source;
 - validation on additive-manufacturing data or any industrial material.
 
-The next implementation should evaluate defect sources on the BFS basis, include finite-core mollification, and build D1/D2 regression cases. The D3 singular limit and Airy/CIP-DG comparison follow only after those source-level benchmarks are stable.
+The next implementation should align the finite-core convention with the reference paper and establish mesh-refinement curves for isolated D1 and D2 defects. Only then should the D3 dipole limit and Airy/CIP-DG comparison be attempted.
 
 **Classification (11 November 2026):** weak finite-dimensional formulation derived; generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly implemented; regression tests added for BFS matrix dimensions, full row rank, positive strain-energy matrix and feasible KKT solve. Repository pytest/CI execution remains unconfirmed; reference-matched core regularization, D3 dipole case, h/epsilon-separated refinement, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
 
