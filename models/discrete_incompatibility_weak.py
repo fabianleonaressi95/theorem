@@ -161,6 +161,10 @@ def assemble_compliance_energy(
         raise ValueError("quadrature_weights must match cells and be positive")
     if S.shape != (2, 2, 2, 2):
         raise ValueError("compliance must have shape (2,2,2,2)")
+    if not (np.allclose(S, S.swapaxes(0, 1)) and
+            np.allclose(S, S.swapaxes(2, 3)) and
+            np.allclose(S, S.transpose(2, 3, 0, 1))):
+        raise ValueError("compliance must satisfy minor and major elastic symmetries")
     if not (np.isfinite(E).all() and np.isfinite(w).all() and np.isfinite(S).all()):
         raise ValueError("all energy assembly inputs must be finite")
     # M_ab = sum_Kq w (psi_a)_{ij} S_{ijkl} (psi_b)_{kl}
