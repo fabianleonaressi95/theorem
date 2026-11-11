@@ -376,6 +376,7 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 - [T099](theorems/T099-bicircular-annular-deformation-reconstruction.md) extends the existing T092/T097/T098 two-circle programme with unequal-radius lens geometry, annular sampling around both centres, least-squares deformation-gradient recovery, Green strain and controlled loop-closure diagnostics.
 - [Operational note](docs/BICIRCULAR_ANNULAR_DEFORMATION.md), [implementation](models/bicircular_annular_geometry.py), [five-experiment runner](scripts/run_bicircular_annular_audit.py), and [tests](tests/test_bicircular_annular_geometry.py).
+- [Numerical replay report](reports/bicircular_annular_audit.json) — five manufactured checks; independent numerical replay, not CI or physical validation.
 - Status: exact lens identities and finite-dimensional affine fitting; manufactured numerical checks; continuum recovery, measured Morandotti fields, Möbius chart transport and constitutive interpretation remain conditional/open.
 
 ### T097 — Morandotti Frank–Burgers application of the two-circle programme
