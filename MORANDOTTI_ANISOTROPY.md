@@ -86,3 +86,21 @@ continuum distance law. Before fitting exponential, algebraic or limiting
 models, repeat the distance sweep at multiple mesh resolutions and inspect
 curved-element Jacobians, not only corner-triangle areas. No decay law is
 assumed in advance.
+
+
+### Reproduction command
+
+Run the full reference benchmark and the default distance sweep in the DOLFINx 0.11 environment with:
+
+```bash
+python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
+  --mesh-sizes 0.08 0.06 0.045 \
+  --orientation-angles-deg 0 30 60 \
+  --distance-values 0.48 0.56 0.64 0.72 \
+  --distance-mesh-size 0.06 \
+  --out artifacts/morandotti_two_core/report.json
+```
+
+The distance sweep is deliberately separated from the three-level reference
+mesh study: this keeps the initial run tractable while making the missing
+multi-resolution distance audit explicit.
