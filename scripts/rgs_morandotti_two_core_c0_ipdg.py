@@ -185,6 +185,25 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
             boundary_traction[boundary_name] = float(np.sqrt(max(
                 assemble(ufl.inner(traction, traction)*ds(boundary_tag), mesh), 0.0)))
+
+        # Integrated force and moment on each core boundary. The normal is
+        # UFL's outward normal of the material domain (therefore points into
+        # each circular hole); this convention is stated in the report.
+        xphys = ufl.SpatialCoordinate(mesh)
+        core_resultants = {}
+        for k, (cx, cy) in enumerate(centers):
+            tag = 2 + k
+            fx = assemble(traction[0]*ds(tag), mesh)
+            fy = assemble(traction[1]*ds(tag), mesh)
+            moment = assemble(((xphys[0]-cx)*traction[1]
+                               -(xphys[1]-cy)*traction[0])*ds(tag), mesh)
+            core_resultants[f"core_{k}"] = {
+                "force_x_domain_normal": float(fx),
+                "force_y_domain_normal": float(fy),
+                "moment_z_domain_normal": float(moment),
+                "force_norm": float(np.hypot(fx, fy)),
+            }
+
         facet_traction_jump = ufl.jump(sigma_case, n)
         interior_traction_jump = float(np.sqrt(max(
             assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
@@ -193,6 +212,8 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
             "boundary_traction_L2": boundary_traction,
+            "core_traction_resultants": core_resultants,
+            "traction_normal_convention": "outward normal of material domain; points into each core hole",
             "interior_facet_traction_jump_L2": interior_traction_jump,
         }
     npz_path = Path(args_artifact_path)
@@ -234,9 +255,22 @@ def main():
         "material":{"young_modulus":a.young_modulus,"poisson_ratio":a.poisson_ratio},
         "limitations":["only two equal circular cores in a fixed outer disk",
           "no analytic off-centre cell-field error available",
-          "stress/traction diagnostics are implemented in source but remain unexecuted and independently unvalidated",
+          "traction resultants are integrated diagnostics; equilibrium interpretation still requires convergence and boundary-condition validation",
+          "circulation is not computed: the static Airy stress potential does not define a velocity field",
           "not the arbitrary-N production reconstruction",
           "no singular-core limit, dynamics or material calibration"],
+        "convergence": [
+          {
+            "from_h": levels[i-1]["h_target"],
+            "to_h": levels[i]["h_target"],
+            "relative_M_laplacian_change": float(np.linalg.norm(np.asarray(levels[i]["M_laplacian"])-np.asarray(levels[i-1]["M_laplacian"]), "fro") / max(np.linalg.norm(np.asarray(levels[i]["M_laplacian"]), "fro"), 1e-300)),
+            "relative_M_hessian_change": float(np.linalg.norm(np.asarray(levels[i]["M_hessian"])-np.asarray(levels[i-1]["M_hessian"]), "fro") / max(np.linalg.norm(np.asarray(levels[i]["M_hessian"]), "fro"), 1e-300)),
+            "traction_jump_relative_change_by_case": {
+              name: float(abs(levels[i]["reconstruction_cases"][name]["interior_facet_traction_jump_L2"]-levels[i-1]["reconstruction_cases"][name]["interior_facet_traction_jump_L2"]) / max(abs(levels[i]["reconstruction_cases"][name]["interior_facet_traction_jump_L2"]), 1e-300))
+              for name in levels[i]["reconstruction_cases"]
+            }
+          } for i in range(1, len(levels))
+        ],
         "levels":levels}
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
