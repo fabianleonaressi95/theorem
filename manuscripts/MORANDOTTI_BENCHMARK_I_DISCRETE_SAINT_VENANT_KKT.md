@@ -215,6 +215,6 @@ This specification closes the algebraic formulation of the finite-dimensional co
 
 The next implementation should evaluate defect sources on the BFS basis, include finite-core mollification, and build D1/D2 regression cases. The D3 singular limit and Airy/CIP-DG comparison follow only after those source-level benchmarks are stable.
 
-**Classification (11 November 2026):** weak finite-dimensional formulation derived; generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly implemented; regression tests added for BFS matrix dimensions, full row rank, positive strain-energy matrix and feasible KKT solve. Repository pytest/CI execution remains unconfirmed; physical defect-source evaluation, finite-core D1–D3 cases, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
+**Classification (11 November 2026):** weak finite-dimensional formulation derived; generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly implemented; regression tests added for BFS matrix dimensions, full row rank, positive strain-energy matrix and feasible KKT solve. Repository pytest/CI execution remains unconfirmed; reference-matched core regularization, D3 dipole case, h/epsilon-separated refinement, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
 
 **FLN**
