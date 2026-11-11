@@ -1,5 +1,7 @@
 # T097 — Barycentric–kinematic reconstruction law for Frank–Burgers defect closure
 
+> **Hierarchy note (11 November 2026):** T097 is a downstream Morandotti/Frank–Burgers application. The foundational positive-gradient / negative-barycentre construction is stated in [T098](T098-two-circle-positive-gradient-negative-barycentre-duality.md). T097 must be read as an application of that geometric generator, not as its derivation.
+
 **Date:** 11 November 2026  
 **Status:** exact component identities under the hypotheses below; integrated reconstruction law is a conditional discrete/continuum bridge. Numerical calibration against the two-core Morandotti fields remains to be completed.  
 **Dependencies:** T068–T070 (barycentric moments and quadrature), T079 (structured-gradient split), T080 (discrete Stokes complex), T082 (Morandotti second-order variation and anisotropy), T091 (Frank–Burgers tensor composition and sensitivity), T092 (two-circle/SE(2) closure), T093–T095 (Cartan transport and two-core adapter).
