@@ -1,0 +1,47 @@
+name: T096 Airy-strain holonomy identifiability
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_airystress_holonomy_identifiability.py'
+      - 'tests/test_rgs_airystress_holonomy_identifiability.py'
+      - 'theorems/T096-airy-strain-holonomy-nonidentifiability.md'
+      - '.github/workflows/t096-airy-holonomy-identifiability.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_airystress_holonomy_identifiability.py'
+      - 'tests/test_rgs_airystress_holonomy_identifiability.py'
+      - 'theorems/T096-airy-strain-holonomy-nonidentifiability.md'
+      - '.github/workflows/t096-airy-holonomy-identifiability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  identifiability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip numpy pytest
+      - name: Run T096 regression tests
+        run: python -m pytest -q tests/test_rgs_airystress_holonomy_identifiability.py
+      - name: Generate polygonal non-identifiability witness
+        run: |
+          python scripts/rgs_airystress_holonomy_identifiability.py \
+            --radius 0.2 --vertices 256 --rotation-gradient 1.0 \
+            --out artifacts/airystress_holonomy_identifiability/report.json
+      - name: Upload T096 witness
+        uses: actions/upload-artifact@v4
+        with:
+          name: t096-airy-holonomy-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/airystress_holonomy_identifiability/report.json
+          if-no-files-found: error
+          retention-days: 14
