@@ -46,3 +46,15 @@ Passing these tests validates only this baseline implementation, not a physical 
 ## Morandotti C0-IPDG cell reconstruction
 
 The exact finite-dimensional postprocessing step from Theorem 2.2 is implemented in `models/morandotti_cell_reconstruction.py`: it builds the Frank/Burgers vector `Phi`, solves `M a = Phi`, and reconstructs the Airy potential from the `3N` cell fields. See [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md) for sign conventions, the two-core mixed regression case, and the remaining traction/stress validation gates. The algebraic layer is separate from the DOLFINx cell-field solve and does not claim end-to-end validation.
+
+
+The two-core C0-IPDG driver now exports the six FE cell fields and mesh/dof metadata, and performs the four algebraic Airy reconstructions against the assembled Laplacian-product matrix. Run in the DOLFINx 0.11 / Gmsh / PETSc-MUMPS environment:
+
+```bash
+python scripts/rgs_morandotti_two_core_c0_ipdg.py \
+  --mesh-sizes 0.24 0.16 0.11 \
+  --young-modulus 1.0 --poisson-ratio 0.0 \
+  --out artifacts/morandotti_two_core/report.json
+```
+
+Each mesh level writes a `cell_fields_h*.npz` artifact beside the report. The archive contains the six FE coefficient vectors, dof and geometry metadata, and the Hessian/Laplacian/flux matrices. The JSON report includes the four defect-data cases and boundary value/normal-derivative diagnostics on the outer boundary and both cores. These outputs are not yet stress/traction validation: elementwise Hessians, facet-aware stress traces, and an independent analytic benchmark remain acceptance gates. See [MORANDOTTI_TWO_CORE_AUDIT.md](MORANDOTTI_TWO_CORE_AUDIT.md) and [MORANDOTTI_RECONSTRUCTION_GATE.md](MORANDOTTI_RECONSTRUCTION_GATE.md).
