@@ -9,6 +9,12 @@ Questa appendice va presentata insieme alla [Nota progettuale Morandotti — RGS
 
 **Ordine di lettura per il destinatario:** prima la nota progettuale; poi questa appendice tecnica come supporto verificabile.
 
+
+
+## Nuovo sviluppo: chiusura variazionale del benchmark piano
+
+La specifica successiva del problema piano è ora raccolta in [Morandotti benchmark I — operatore discreto di Saint-Venant e sistema KKT](MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md). Essa deriva il problema discreto di minimizzazione vincolata, il sistema KKT e l'operatore duale \(A_hM_{\\mathbb S}^{-1}A_h^T\), e fissa i gate di verifica D1–D3, il confronto Airy/CIP-DG e la calibrazione Cartan–SU(2) come passaggio separato. È una specifica matematica/implementativa: solver KKT, confronto numerico e convergenza restano da eseguire.
+
 ## 1. Criterio documentale
 
 Questa appendice non aggrega numeri eterogenei fingendo che provengano da un unico audit. Ogni risultato è associato al proprio record. In particolare:
