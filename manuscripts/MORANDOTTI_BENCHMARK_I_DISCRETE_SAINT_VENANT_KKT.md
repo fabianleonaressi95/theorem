@@ -79,8 +79,8 @@ L_h=A M_{\mathbb S}^{-1}A^T,
 \]
 and, when the stated rank conditions hold,
 \[
-L_h\lambda=z,\qquad
-e=M_{\mathbb S}^{-1}A^T\lambda.
+L_h\lambda=-z,\qquad
+e=-M_{\mathbb S}^{-1}A^T\lambda.
 \]
 This is the finite-dimensional fourth-order operator to compare with the biharmonic Airy equation. It is a derived Schur complement of the chosen discrete energy and incompatibility constraint, not an assumed Laplacian stencil.
 
