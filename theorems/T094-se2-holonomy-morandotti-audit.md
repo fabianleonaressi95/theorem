@@ -1,7 +1,7 @@
 # T094 — Numerical SE(2) holonomy audit and Morandotti source adapter
 
 **Date:** 11 November 2026  
-**Status:** implementation and regression tests added; numerical execution and convergence assessment pending. This record does not promote the T093 consistency estimate to a numerically verified result.  
+**Status:** merged and CI-verified for the smooth manufactured-connection audit (4 regression tests; first-order density-error trend observed). The existing prescribed two-core Morandotti benchmark is now wired into the core-source adapter. Extraction of Frank/Burgers holonomies from a solved defect mesh and end-to-end coupling to the Morandotti interaction matrix remain open.  
 **Dependencies:** T091, T092, T093; `models/morandotti_cell_reconstruction.py`.
 
 ## 1. Purpose
@@ -87,12 +87,25 @@ python scripts/rgs_se2_holonomy_audit.py \
   --out artifacts/se2_holonomy_audit/report_with_morandotti_sources.json
 ```
 
-## 5. Classification and limitations
+## 5. Prescribed two-core Morandotti benchmark coupling
+
+The repository fixture `data/morandotti_two_core_core_holonomies.json` now carries the prescribed two-core benchmark charges already used by the Morandotti reconstruction gate:
+
+- core 1 at ((-0.28,0)): Frank angle (s^1=0.2), Burgers vector (b^1=(0,0));
+- core 2 at ((0.28,0)): Frank angle (s^2=0), Burgers vector (b^2=(0.03,-0.04)).
+
+To feed the adapter in the T093 convention, the fixture encodes (Theta_i=-s_i) and (q_i=-b_i). The resulting Morandotti source vector must be
+[
+Phi=(0.2,-0.056,0, 0,-0.04,-0.03).
+]
+The CI now runs the smooth audit and this benchmark source adapter in the same report. This is a genuine connection to the repository's existing prescribed disclination–dislocation benchmark, but it is **not** a measurement of loop holonomy extracted from the finite-element defect solution. The fixture makes that distinction explicit in its metadata.
+
+## 6. Classification and limitations
 
 - **Implemented:** numerical edge transport, ordered triangular (SE(2)) holonomy, analytic manufactured curvature, face-density error report, noncommuting connection, and core-loop-to-Morandotti source-vector adapter.
 - **Regression tests authored:** noncommuting connection, refinement trend, sign convention, source-vector ordering, and malformed-input rejection.
-- **Not yet verified:** tests have not been executed in this change; no numerical error table or observed convergence rate is claimed.
-- **Open:** singular-core loop extraction from a resolved defect mesh; weak convergence of defect measures; calibrated coupling to the C0-IPDG/KKT source and boundary conventions; mesh-independent Morandotti interaction convergence.
+- **Numerically verified:** CI executes the smooth manufactured audit and the prescribed two-core source-adapter fixture; the measured smooth density errors are recorded in the Actions artifact.
+- **Open:** singular-core loop extraction from a resolved defect mesh; weak convergence of defect measures; calibrated coupling of extracted loop data to the C0-IPDG/KKT source and boundary conventions; mesh-independent Morandotti interaction convergence.
 - **Not claimed:** the manufactured smooth connection is a physical defect solution; smooth curvature/torsion densities determine singular core charges without an additional limiting argument; or the adapter by itself validates the Morandotti constitutive model.
 
 **Classification:** computational audit implementation and regression specification; execution pending.  

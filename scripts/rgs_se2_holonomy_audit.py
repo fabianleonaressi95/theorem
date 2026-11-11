@@ -22,6 +22,15 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.linalg import logm
 
+
+def _json_default(value):
+    """Convert NumPy values at the JSON boundary without hiding unknown types."""
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, np.generic):
+        return value.item()
+    raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
+
 from models.morandotti_cell_reconstruction import build_defect_components
 
 
@@ -189,7 +198,7 @@ def main() -> None:
         report["morandotti_core_source_adapter"] = adapt_core_holonomies(args.core_holonomies)
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2) + "\n")
+    out.write_text(json.dumps(report, indent=2, default=_json_default) + "\n")
     print(json.dumps({
         "output": str(out),
         "commutator_norm": report["commutator_frobenius_norm_at_center"],
