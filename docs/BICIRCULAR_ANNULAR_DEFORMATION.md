@@ -15,8 +15,7 @@ The two disks provide a lens domain and two natural sampling centres. Annuli aro
 
 The geometric parameters alone are not enough to reconstruct an arbitrary deformation. Displacement/feature correspondences and a full-rank sampling design are required.
 
-## Run
-
+## Numerical replay\n\nThe five manufactured checks have a recorded numerical replay in [`reports/bicircular_annular_audit.json`](../reports/bicircular_annular_audit.json). This replay is not a GitHub Actions/pytest certification and is not physical validation.\n\n## Run\n
 ```bash
 python scripts/run_bicircular_annular_audit.py --out artifacts/bicircular_annular_audit.json
 python -m pytest -q tests/test_bicircular_annular_geometry.py
