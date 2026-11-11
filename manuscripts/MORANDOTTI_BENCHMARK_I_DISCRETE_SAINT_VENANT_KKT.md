@@ -140,7 +140,7 @@ The identity \(\operatorname{inc}(\operatorname{sym}\nabla u)=0\) is exact in th
 5. Compare the primal energy \(\tfrac12e^TM_{\mathbb S}e\) with the dual value \(-\tfrac12 z^T\lambda\), using the same sign convention.
 6. Record condition numbers, solver tolerances, rank decisions and mesh/core parameters.
 
-The dual-energy identity is \\(\\tfrac12 e^TM_{\\mathbb S}e=-\\tfrac12 z^T\\lambda\\) for this KKT sign convention; it follows from the KKT equations when the constraint is feasible and the stated rank assumptions hold. It is a useful independent implementation check.
+The dual-energy identity is \\(\\tfrac12 e^TM_{\\mathbb C}e=-\\tfrac12 z^T\\lambda\\) for this KKT sign convention; it follows from the KKT equations when the constraint is feasible and the stated rank assumptions hold. It is a useful independent implementation check.
 
 ### Gate 3 — analytic defect benchmarks
 
@@ -215,6 +215,6 @@ This specification closes the algebraic formulation of the finite-dimensional co
 
 The next implementation should evaluate defect sources on the BFS basis, include finite-core mollification, and build D1/D2 regression cases. The D3 singular limit and Airy/CIP-DG comparison follow only after those source-level benchmarks are stable.
 
-**Classification:** derived finite-dimensional formulation; generic compliance-energy assembly and KKT solver implemented with regression tests added; execution in repository CI and benchmark-specific Airy comparison pending; continuum convergence open; physical validation absent.
+**Classification:** derived finite-dimensional formulation; generic elastic strain-energy assembly and KKT solver implemented with regression tests added; execution in repository CI and benchmark-specific Airy comparison pending; continuum convergence open; physical validation absent.
 
 **FLN**
