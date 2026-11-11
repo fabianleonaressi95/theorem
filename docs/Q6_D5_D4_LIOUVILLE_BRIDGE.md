@@ -301,12 +301,16 @@ by the signed endpoints and signed cyclic boundaries. By construction,
 \[
 B_1B_2=0.
 \]
-The edge Hodge operator is
+The full edge Hodge operator and its coexact part are
 \[
-\boxed{H_1^{\rm orb}=B_1^TB_1+B_2B_2^T.}
+H_1^{\rm orb}=B_1^TB_1+B_2B_2^T,
+\qquad
+H_{1,\rm co}^{\rm orb}=B_2B_2^T.
 \]
-Its harmonic edge space is \(\ker H_1^{\rm orb}\), and its positive spectrum
-contains the exact coexact modes contributed by the square boundary map.
+The harmonic edge space is \(\ker H_1^{\rm orb}\). The positive spectrum of
+\(H_{1,\rm co}^{\rm orb}\) isolates the coexact modes and must be reported
+separately: an eigenvalue of the full Hodge operator can in principle occur
+simultaneously in exact and coexact summands.
 The D4 signed permutation actions \(J_0,J_1,J_2\) must satisfy
 \[
 J_0B_1=B_1J_1,\qquad J_1B_2=B_2J_2.
