@@ -140,6 +140,8 @@ The connection to the FDT report should be a separate comparative subsection or 
 
 **Boundary with the Morandotti/RGS–PRISM elasticity program.** The gravitomagnetic field discussed by Ratti is a weak-field GR analogy for rotating mass currents. It is not Cartan torsion, not a Burgers vector, and not a disclination curvature. In the elasticity benchmark, translational and rotational defects are represented by the coframe/connection pair and their torsion/curvature; any coupling to a gravitomagnetic sector would require a separately derived action, units, and observable map. No such identification is made here.
 
+The broader mathematical bridge is developed separately in [Gravitomagnetism, MHD, quantum hydrodynamics and fluxons](GRAVITOMAGNETISM_MHD_QHD_FLUXON_BRIDGE.md). That note supplies established field/transport frameworks for auditing the rotating magnets, coils, spin and flux claims, while keeping GEM distinct from Cartan torsion and leaving the proposed vacuum-to-positron conversion unproved.
+
 ## 7. Falsifiable test protocol
 
 1. **Positron identification:** calibrated HPGe or NaI(Tl) spectroscopy around 511 keV, with detector efficiency and background characterization; use coincidence timing and angular correlations to discriminate annihilation events from unrelated gamma backgrounds.
