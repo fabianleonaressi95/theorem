@@ -265,7 +265,7 @@ def run_audit():
         "orbit_vertices": 64,
         "orbit_edges": 256,
         "orbit_faces_total": 384,
-        "admissible_parallelogram_faces": len(admissible),\n        "face_orbit_count": len(face_orbits),\n        "admissible_face_orbit_count": sum(1 for orbit in face_orbits if all(\n            item[0] in {record[0] for record in admissible} for item in\n            [(face,) for face in orbit]\n        )),\n        "rejected_face_orbit_counts": rejected_orbits,
+        "admissible_parallelogram_faces": len(admissible),\n        "face_orbit_count": len(face_orbits),\n        "admissible_face_orbit_count": admissible_orbit_count,\n        "rejected_face_orbit_counts": rejected_orbits,
         "B1_shape": [64, 256],
         "B2_shape": [256, len(admissible)],
         "B1B2_exact_zero": True,
