@@ -69,7 +69,7 @@ def assemble_bfs_rectangular(
     Returns
     -------
     A: (n_test, 3*n_cell) weak incompatibility matrix.
-    M: (3*n_cell, 3*n_cell) compliance energy matrix.
+    M: (3*n_cell, 3*n_cell) physical strain-energy matrix using plane-stress stiffness.
     test_hessians: (n_test, n_cell, nq, 2, 2).
     strain_basis: (n_cell, nq, 3*n_cell, 2, 2).
     weights: physical quadrature weights (n_cell, nq).
