@@ -117,7 +117,37 @@ Theorem 98.1 is universal as a Euclidean geometric and differential identity. It
 
 For the Morandotti/RGS application, these choices must be made from the already verified gradient law and the existing barycentric moment identities, not fitted after the fact. Dislocations and disclinations enter only after the resulting kinematic data are converted into the appropriate incompatibility/holonomy variables. T091–T097 then provide downstream interaction, anisotropy, and Frank–Burgers machinery.
 
-## 7. Evidence classification
+## 7. Unification: what the reflection identifies, and what it does not
+
+The two-circle construction gives a canonical geometric correspondence between the positive and negative branches. It transports every field once its tensor type and transformation rule have been specified. This is the rigorous content of the unification principle: the two branches are two realizations of one geometric generator, rather than independently fitted geometries.
+
+For the reflection matrix \(Q=2uu^T-I\), the planar rotation generator satisfies
+\[
+QJQ^T=-J.
+\]
+Consequently, if a local rotational connection is \(\omega J\), its reflected connection is \(-\omega J\) (with the reflected path and chart convention understood). A translational vector \(b\), by contrast, is transported as \(Qb\). These are different representation laws.
+
+In Cartan language, curvature and torsion are respectively an \(\mathfrak{so}(2)\)-valued two-form and a vector-valued two-form. Under an orientation-reversing reflection their components acquire the induced representation and the two-form orientation sign. The reflection transports each object according to its own tensor character; it does **not** canonically turn an \(\mathfrak{so}(2)\)-valued curvature into a translational torsion, or a Frank charge into a Burgers vector. Likewise, Frank and Burgers data have different types (scalar angle versus vector translation in the planar setting) and cannot be identified merely by reflecting the triangles.
+
+Thus the unifying correspondence is:
+\[
+\begin{array}{c}
+\text{positive branch: gradient / boundary flux}\\
+\downarrow\quad \mathcal R_* \text{ (tensorial push-forward)}\\
+\text{negative branch: reflected gradient data / barycentric moments}
+\end{array}
+\]
+and, once a physical Cartan/defect model has been specified, the rotational and translational sectors are both transported consistently through that same geometric correspondence. A stronger **exchange**
+\[
+(\text{rotation},\text{Frank},\text{curvature})
+\longleftrightarrow
+(\text{translation},\text{Burgers},\text{torsion})
+\]
+would require an additional, explicitly defined bundle isomorphism or constitutive map between the rotational and translational representation spaces, with compatible units, equivariance and balance laws. The two-circle reflection alone does not supply such a map.
+
+**Two-core implication.** If the two centres are interpreted as defect-core locations, the reflection gives an exact geometric pairing of their sampling domains and transforms their gradient, centroid and covariance data. Whether the *measured* core fields, anisotropic energy contributions and residuals obey the corresponding reflected identities is a testable model statement. It must be checked on the actual FEM fields, with the core labels, material axes, boundary conditions and frame transports reflected consistently. A nonzero residual is not automatically a physical dual contribution: it is evidence of anisotropy or unresolved modelling only after the predicted reflected quantity and its error bound have been specified.
+
+## 8. Evidence classification
 
 - **PROVED:** two-circle intersection coordinates; equilateral geometry; opposite signed areas; exact negative-branch barycentre; reflection relation; mean-gradient boundary identity; reflected gradient transformation; similarity covariance.
 - **PROVED in T068:** triangle covariance identity and second-order barycentric quadrature with its stated remainder.
