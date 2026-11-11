@@ -223,7 +223,14 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     for name, (frank, burgers) in cases.items():
         # Rotate the Burgers vectors together with the two-core geometry.
         burgers_used = np.asarray(burgers) @ rotation.T if rotate_defect_data else np.asarray(burgers)
-        phi = build_defect_vector(np.asarray(centers), frank, burgers_used)
+        phi_global = build_defect_vector(np.asarray(centers), frank, burgers_used)
+        # The FE translation basis is (longitudinal, transverse), not the
+        # laboratory (x,y) basis. Express each Frank-Burgers pair in that
+        # local frame before solving the interaction system.
+        phi_blocks_global = phi_global.reshape(len(centers), 3)
+        phi_blocks_local = phi_blocks_global.copy()
+        phi_blocks_local[:, 1:3] = phi_blocks_global[:, 1:3] @ rotation
+        phi = phi_blocks_local.reshape(-1)
         coeff = solve_interaction_system(ML, phi)
         vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
         vh = fem.Function(V)
@@ -264,7 +271,8 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         interior_traction_jump = float(np.sqrt(max(
             assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
         reconstruction[name] = {
-            "Phi": phi.tolist(), "coefficients": coeff.tolist(),
+            "Phi": phi.tolist(), "Phi_global_xy": phi_global.tolist(),
+            "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
             "boundary_traction_L2": boundary_traction,
