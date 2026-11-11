@@ -164,7 +164,7 @@ def assemble_compliance_energy(
     if not (np.isfinite(E).all() and np.isfinite(w).all() and np.isfinite(S).all()):
         raise ValueError("all energy assembly inputs must be finite")
     # M_ab = sum_Kq w (psi_a)_{ij} S_{ijkl} (psi_b)_{kl}
-    M = np.einsum("kq aij,ijkl,kq bkl,kq->ab", E, S, E, w, optimize=True)
+    M = np.einsum("kqaij,ijlm,kqblm,kq->ab", E, S, E, w, optimize=True)
     M = 0.5 * (M + M.T)
     return M
 
@@ -218,7 +218,7 @@ def solve_constrained_energy(
     constraint_residual = float(np.linalg.norm(A @ e - z))
     stationarity_residual = float(np.linalg.norm(M @ e + A.T @ multiplier))
     primal_energy = float(0.5 * e @ M @ e)
-    dual_energy = float(0.5 * z @ multiplier)
+    dual_energy = float(-0.5 * z @ multiplier)
     return {
         "strain_coefficients": e,
         "multiplier": multiplier,
