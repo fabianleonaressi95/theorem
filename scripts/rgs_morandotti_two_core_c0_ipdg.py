@@ -17,7 +17,7 @@ from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 from models.morandotti_cell_reconstruction import (
     build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
-    deform_two_core_coordinates,
+    deform_two_core_coordinates, two_core_support_radius,
 )
 
 
