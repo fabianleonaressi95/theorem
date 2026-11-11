@@ -213,7 +213,7 @@ This specification closes the algebraic formulation of the finite-dimensional co
 - calibration from Cartan torsion/curvature to the planar Airy source;
 - validation on additive-manufacturing data or any industrial material.
 
-The next implementation should therefore be a small planar KKT solver with one declared constitutive convention and D1–D3 regression cases. Only after that solver agrees with the Airy/CIP-DG reference should the independent SU(2)-coframe calibration be coupled to it.
+The next implementation should evaluate defect sources on the BFS basis, include finite-core mollification, and build D1/D2 regression cases. The D3 singular limit and Airy/CIP-DG comparison follow only after those source-level benchmarks are stable.
 
 **Classification:** derived finite-dimensional formulation; generic compliance-energy assembly and KKT solver implemented with regression tests added; execution in repository CI and benchmark-specific Airy comparison pending; continuum convergence open; physical validation absent.
 
