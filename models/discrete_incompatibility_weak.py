@@ -185,7 +185,9 @@ def solve_constrained_energy(
 
     Requires symmetric positive-definite M and full-row-rank A. Infeasible
     sources and redundant constraints are rejected explicitly rather than
-    silently regularized. Returns primal/dual variables and diagnostics.
+    silently regularized. With the block convention [[M,A.T],[A,0]], the
+    multiplier obeys (A M^{-1} A.T) lambda = -source and the dual energy
+    is -0.5 * source.T @ lambda. Returns variables and diagnostics.
     """
     M = np.asarray(energy_matrix, dtype=float)
     A = np.asarray(incompatibility_matrix, dtype=float)
