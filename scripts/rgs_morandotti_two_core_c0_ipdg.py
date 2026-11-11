@@ -174,10 +174,26 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         phi = build_defect_vector(np.asarray(centers), frank, burgers)
         coeff = solve_interaction_system(ML, phi)
         vh_dofs = reconstruct_airy_potential(field_coefficients, coeff, young_modulus, poisson_ratio)
+        vh = fem.Function(V)
+        vh.x.array[:] = vh_dofs
+        vh.x.scatter_forward()
+        Hv_case = ufl.grad(ufl.grad(vh))
+        sigma_case = ufl.as_matrix([[Hv_case[1,1], -Hv_case[0,1]],
+                                    [-Hv_case[1,0], Hv_case[0,0]]])
+        traction = ufl.dot(sigma_case, n)
+        boundary_traction = {}
+        for boundary_tag, boundary_name in [(1, "outer"), (2, "core_0"), (3, "core_1")]:
+            boundary_traction[boundary_name] = float(np.sqrt(max(
+                assemble(ufl.inner(traction, traction)*ds(boundary_tag), mesh), 0.0)))
+        facet_traction_jump = ufl.jump(sigma_case, n)
+        interior_traction_jump = float(np.sqrt(max(
+            assemble(ufl.inner(facet_traction_jump, facet_traction_jump)*dS, mesh), 0.0)))
         reconstruction[name] = {
             "Phi": phi.tolist(), "coefficients": coeff.tolist(),
             "linear_system_residual": float(np.linalg.norm(ML @ coeff - phi)),
             "airy_dof_values": vh_dofs.tolist(),
+            "boundary_traction_L2": boundary_traction,
+            "interior_facet_traction_jump_L2": interior_traction_jump,
         }
     npz_path = Path(args_artifact_path)
     npz_path.parent.mkdir(parents=True, exist_ok=True)
