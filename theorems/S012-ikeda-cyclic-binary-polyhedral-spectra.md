@@ -83,7 +83,7 @@ a_k(D_m^*)=
 \begin{cases}
 (2k+1)\bigl(\lfloor k/m\rfloor+1\bigr),& k\ \text{even},\\[2mm]
 (2k+1)\lfloor k/m\rfloor,& k\ \text{odd and }k\ge m,\\[1mm]
-0,& k\ \text{odd and }k\le m.
+0,& k\ \text{odd and }k<m.
 \end{cases}
 \]
 The eigenvalue is \(4k(k+1)\). The odd branch begins at \(k\ge m\), not strictly \(k>m\): at the endpoint \(k=m\) (when (m) is odd), the coefficient count gives multiplicity \(2m+1\). The scan/OCR glyph at this threshold is ambiguous, so the endpoint is fixed by the exact coefficient calculation. This is the piecewise structure in Ikeda's Theorem 4.3(1), p. 62. Positivity is manifest in this formula; no appeal to Lemma 2.6 is needed for the three-dimensional case.
@@ -176,7 +176,7 @@ The first positive indices follow directly from the formulas above.
 
 For the two lens rows, the index \(r\) is the full spherical-harmonic degree and the eigenvalue is \(r(r+2)\). For the binary rows, \(k\) is half the full degree and the eigenvalue is \(4k(k+1)\). This distinction prevents an apparent index mismatch in the table.
 
-The first-eigenvalue sequence agrees with the three-dimensional list in Ikeda's Theorem 5.1 (pp. 66–67). The multiplicities in this table are independently recovered from Theorems 4.2–4.6 above; in particular, the (m=2) versus (m>2) dihedral multiplicity distinction is read from the explicit formula in Theorem 4.3(1), not inferred from the OCR layout of the summary table.
+The first-eigenvalue *values* agree with the three-dimensional list in Ikeda's Theorem 5.1 (pp. 66–67), but the printed prism-space multiplicity in that table does **not**. Ikeda's Theorem 5.1(1) gives multiplicity 3 for the first prism eigenvalue for all \(m\ge2\), whereas the coefficient formula in Theorem 4.3(1) gives 10 for \(m=2\) and 5 for \(m\ge3\). This is a separate internal inconsistency in the 1995 paper: it is not repaired by correcting the odd-index endpoint in Theorem 4.3(1). The multiplicities in this table are the independently reconstructed values. Do not say that the full Theorem 5.1 table agrees with the formulas.
 
 ## 8. Correct use and non-use of Lemma 2.6
 
