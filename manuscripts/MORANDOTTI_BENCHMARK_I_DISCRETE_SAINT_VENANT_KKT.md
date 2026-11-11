@@ -218,3 +218,8 @@ The next implementation should align the finite-core convention with the referen
 **Classification (11 November 2026):** weak finite-dimensional formulation derived; generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly implemented; regression tests added for BFS matrix dimensions, full row rank, positive strain-energy matrix and feasible KKT solve. Repository pytest/CI execution remains unconfirmed; reference-matched core regularization, D3 dipole case, h/epsilon-separated refinement, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
 
 **FLN**
+
+
+## D3 follow-up — dipole source limit
+
+The signed first-moment calculation and the corresponding BFS load regression are now recorded separately in [Morandotti D3 — limite debole del dipolo di disclinazioni verso la dislocazione](MORANDOTTI_D3_DIPOLE_TO_DISLOCATION_LIMIT.md). It fixes the orientation/sign convention and derives the distributional source limit with an \(O(d^2)\) symmetric-difference remainder. The new regression test checks only discrete load consistency; energy convergence and the reference-matched core limit remain open.
