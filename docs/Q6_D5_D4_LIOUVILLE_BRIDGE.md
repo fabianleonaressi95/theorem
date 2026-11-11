@@ -207,3 +207,71 @@ It decomposes as the standard two-dimensional rotation/reflection representation
 This gives a **genuine D4-invariant five-dimensional mode space of the M3 orbit graph**, not merely an arbitrarily chosen five-dimensional representation. Applying the phase-space construction of Sections 2–3 to this representation gives an exact D4-invariant Liouville measure and Bergman density on the associated five-mode type-IV chart.
 
 **Important distinction:** \(\mathcal E_4\) is the eigenvalue-4 eigenspace of the *vertex Laplacian of the D4-orbit graph*. It is not yet identified with the previously certified eigenvalue-12 five-dimensional coexact eigenspace of the original Q6 edge Hodge operator. An explicit intertwiner between those two five-dimensional sectors, and a derivation of the oscillator coefficients from the same discrete action, remain open. Thus the result establishes a rigorous new D4–five-mode–Liouville bridge, but not yet the Wilson-to-Bergman limit.
+
+
+## 8. Exact obstruction to identifying the two five-mode sectors
+
+The natural edge transport induced by the M3 generators was tested exactly,
+not merely inferred from the fact that R changes two edge directions.
+
+Let \(E:\mathbb Q^{192}\to\mathbb Q^{256}\) be the inclusion of the original
+Q6 cubical edge cochains into the D4 orbit-graph edge cochains, and let
+\(V\in\mathbb Q^{192\times5}\) be an exact basis of
+\(\ker(D_1^TD_1-12I)\). Let \(J_R,J_S\) be the signed permutation actions
+on the 256 oriented orbit edges. The exact audit computes
+\[
+\operatorname{rank}\big[(I-EE^T)J_REV\big]=2,
+\qquad
+(I-EE^T)J_SEV=0.
+\]
+Thus \(R\) sends part of the old five-mode sector outside the original
+192-edge subspace: the old sector is not an invariant subspace for the
+M3 rotation.
+
+There is a second, independent obstruction using the common generator S.
+On the original Q6 coexact eigenspace, its induced matrix is exactly
+\[
+\rho_{\rm old}(S)=-I_5.
+\]
+On the M3 orbit-graph five-character eigenspace, in the basis \((D,E,A,B,C)\),
+\[
+\rho_{\rm orbit}(S)=\operatorname{diag}(-1,1,1,1,-1).
+\]
+These matrices are not similar. In fact, an intertwiner \(T\) would have to
+satisfy
+\[
+T(-I_5)=\rho_{\rm orbit}(S)T,
+\quad\text{hence}\quad
+(\rho_{\rm orbit}(S)+I_5)T=0.
+\]
+The matrix \(\rho_{\rm orbit}(S)+I_5\) has rank 3 and kernel dimension 2,
+so every such \(T\) has rank at most 2. No invertible five-dimensional
+intertwiner exists.
+
+This is a **no-go result for the natural identification** of the original
+Q6 eigenvalue-12 coexact sector with the M3 orbit-graph eigenvalue-4
+vertex sector. It does not invalidate either five-dimensional construction
+separately. It says they are inequivalent D4 modules under the specified
+M3 action, and therefore the Liouville–Bergman symmetry of the orbit-graph
+five-mode chart cannot be transferred to the original Q6 D5 quotient by
+claiming an intertwiner.
+
+The exact reproducible calculation is
+\`audits/audit_q6_d5_m3_d4_intertwiner_obstruction.py\`, with regression
+test \`tests/test_q6_d5_m3_d4_intertwiner_obstruction.py\`.
+
+### What remains possible
+
+A bridge may still exist after changing the construction, but it must be
+derived rather than imposed. Viable routes are:
+
+1. build the full D4-equivariant orbit-edge Hodge complex on 256 edges and
+   compute its own coexact five-dimensional sector;
+2. search for a different five-dimensional Q6 sector whose restricted
+   \(S\)-character matches \((-1,-1,+1,+1,+1)\), then test the full D4
+   relations;
+3. construct a nontrivial quotient, induced module, or bundle map between
+   the two complexes, rather than an isomorphism of the original eigenspaces.
+
+Until one of these constructions is completed, the correct status is:
+**two exact five-dimensional sectors, no natural D4 intertwiner between them**.
