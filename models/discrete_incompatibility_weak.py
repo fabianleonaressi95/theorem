@@ -133,3 +133,100 @@ def assemble_burgers_frank_load(
     dislocation = -np.einsum("ijd,jd,j->i", Gd, n_perp, norms)
     disclination = -(Vf @ S)
     return dislocation + disclination
+
+
+def assemble_compliance_energy(
+    strain_basis: np.ndarray,
+    quadrature_weights: np.ndarray,
+    compliance: np.ndarray,
+) -> np.ndarray:
+    """Assemble M_ab = integral psi_a : S : psi_b.
+
+    Parameters
+    ----------
+    strain_basis:
+        Array (ncell, nq, nstrain, 2, 2).
+    quadrature_weights:
+        Array (ncell, nq), positive physical quadrature weights.
+    compliance:
+        Fourth-order tensor S[i,j,k,l], mapping stress to strain.
+        It must have the minor/major symmetries of an elastic compliance.
+    """
+    E = np.asarray(strain_basis, dtype=float)
+    w = np.asarray(quadrature_weights, dtype=float)
+    S = np.asarray(compliance, dtype=float)
+    if E.ndim != 5 or E.shape[-2:] != (2, 2):
+        raise ValueError("strain_basis must have shape (ncell,nq,nstrain,2,2)")
+    if w.shape != E.shape[:2] or np.any(w <= 0):
+        raise ValueError("quadrature_weights must match cells and be positive")
+    if S.shape != (2, 2, 2, 2):
+        raise ValueError("compliance must have shape (2,2,2,2)")
+    if not (np.isfinite(E).all() and np.isfinite(w).all() and np.isfinite(S).all()):
+        raise ValueError("all energy assembly inputs must be finite")
+    # M_ab = sum_Kq w (psi_a)_{ij} S_{ijkl} (psi_b)_{kl}
+    M = np.einsum("kq aij,ijkl,kq bkl,kq->ab", E, S, E, w, optimize=True)
+    M = 0.5 * (M + M.T)
+    return M
+
+
+def solve_constrained_energy(
+    energy_matrix: np.ndarray,
+    incompatibility_matrix: np.ndarray,
+    source: np.ndarray,
+    *,
+    feasibility_tol: float = 1e-10,
+    symmetry_tol: float = 1e-10,
+) -> dict[str, np.ndarray | float | int]:
+    """Solve min 1/2 e.T M e subject to A e = z by its KKT system.
+
+    Requires symmetric positive-definite M and full-row-rank A. Infeasible
+    sources and redundant constraints are rejected explicitly rather than
+    silently regularized. Returns primal/dual variables and diagnostics.
+    """
+    M = np.asarray(energy_matrix, dtype=float)
+    A = np.asarray(incompatibility_matrix, dtype=float)
+    z = np.asarray(source, dtype=float)
+    if M.ndim != 2 or M.shape[0] != M.shape[1]:
+        raise ValueError("energy_matrix must be square")
+    if A.ndim != 2 or A.shape[1] != M.shape[0]:
+        raise ValueError("incompatibility_matrix has incompatible shape")
+    if z.shape != (A.shape[0],):
+        raise ValueError("source must have one entry per constraint")
+    if A.shape[0] == 0 or M.shape[0] == 0:
+        raise ValueError("empty energy or constraint space")
+    if not (np.isfinite(M).all() and np.isfinite(A).all() and np.isfinite(z).all()):
+        raise ValueError("KKT inputs must be finite")
+    if not np.allclose(M, M.T, atol=symmetry_tol, rtol=symmetry_tol):
+        raise ValueError("energy_matrix must be symmetric")
+    M = 0.5 * (M + M.T)
+    eigmin = float(np.linalg.eigvalsh(M)[0])
+    if eigmin <= 0.0:
+        raise ValueError("energy_matrix must be positive definite")
+    rank = int(np.linalg.matrix_rank(A))
+    if rank != A.shape[0]:
+        raise ValueError("constraints must have full row rank")
+    e_ls, *_ = np.linalg.lstsq(A, z, rcond=None)
+    feasibility_residual = float(np.linalg.norm(A @ e_ls - z))
+    if feasibility_residual > feasibility_tol * (1.0 + float(np.linalg.norm(z))):
+        raise ValueError("source is infeasible: it is not in the range of A")
+
+    n, m = M.shape[0], A.shape[0]
+    KKT = np.block([[M, A.T], [A, np.zeros((m, m))]])
+    rhs = np.concatenate([np.zeros(n), z])
+    solution = np.linalg.solve(KKT, rhs)
+    e, multiplier = solution[:n], solution[n:]
+    constraint_residual = float(np.linalg.norm(A @ e - z))
+    stationarity_residual = float(np.linalg.norm(M @ e + A.T @ multiplier))
+    primal_energy = float(0.5 * e @ M @ e)
+    dual_energy = float(0.5 * z @ multiplier)
+    return {
+        "strain_coefficients": e,
+        "multiplier": multiplier,
+        "primal_energy": primal_energy,
+        "dual_energy": dual_energy,
+        "constraint_residual": constraint_residual,
+        "stationarity_residual": stationarity_residual,
+        "feasibility_residual": feasibility_residual,
+        "constraint_rank": rank,
+        "kkt_condition_number": float(np.linalg.cond(KKT)),
+    }
