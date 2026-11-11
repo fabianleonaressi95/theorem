@@ -90,7 +90,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
     # transform its coordinates in place and preserve the cell connectivity.
     mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in reference_centers), h, comm)
     mesh.geometry.x[:, :2] = deform_two_core_coordinates(
-        mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.32)
+        mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.50)
     if abs(orientation_angle_deg) > 1e-14:
         mesh.geometry.x[:, :2] = mesh.geometry.x[:, :2] @ rotation.T
     geometry_cells = np.asarray(mesh.geometry.dofmap)
@@ -461,7 +461,7 @@ def main():
         "levels":levels,
         "distance_sweep": {
             "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",
-            "reference_separation":0.56,"support_radius":0.32,
+            "reference_separation":0.56,"maximum_support_radius":0.50,
             "mesh_size":a.distance_mesh_size,"separations":a.distance_values,
             "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",
             "definition_C_d":"||M_01||_F/||M_00||_F",
