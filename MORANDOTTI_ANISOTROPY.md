@@ -53,3 +53,36 @@ These quantities make the proposed chain testable:
 They quantify correlation and directional structure; they do **not** prove that anisotropy is the unique cause of residuals. The implemented orientation audit performs two distinct sweeps at fixed mesh size: (A) rotate the core centres and Burgers vectors together; (B) rotate the core centres while keeping Burgers vectors fixed in laboratory coordinates. In each run, the translational cell modes, Frank–Burgers source components, and reported force components are expressed in the co-rotating longitudinal/transverse frame before solving or comparing. It compares the local interaction matrix, directional boundary residuals and core traction components. For an isotropic continuum model, sweep A should be covariant up to floating-point and finite-element geometry effects; angle-dependent remeshing noise is removed. Sweep B isolates the relative orientation of the dislocation source and the two-core axis; its traction response can therefore change even though the cell operator and its boundary residuals do not depend on the defect source. The sweep is a first controlled test, not a full causal proof: mesh refinement at every angle, residual normalization by boundary measure/field scale, and separation-parameter variation remain required.
 
 The default orientation sweep uses 0°, 30° and 60° at a common mesh size, alongside the existing three-grid benchmark. The in-place rotation removes angle-dependent Gmsh remeshing differences, but finite-element discretization and curved-boundary geometry errors remain; a mesh/orientation convergence study is still required. The numerical audit is not a proof of asymptotic convergence, force equilibrium, or a material law. The report retains both laboratory-frame and local-frame defect vectors so the basis transformation is auditable. The Airy stress potential does not define a velocity field, so Kelvin circulation is not inferred from these diagnostics.
+
+
+## Core-separation sweep
+
+The distance experiment uses a single reference triangulation at separation
+\(d_0=0.56\). For each target separation, the same mesh coordinates are
+smoothly deformed with compactly supported Wendland-C2 radial weights centred
+on the two reference cores. The weights are normalized to one at the core
+radius and vanish outside a support radius of 0.32. Core-boundary nodes
+therefore follow the prescribed centres, while the outer boundary remains
+fixed for the tested separations. Cell connectivity is never regenerated.
+
+The initial sweep uses \(d\in\{0.48,0.56,0.64,0.72\}\), with core radius
+\(a=0.12\), material parameters unchanged, and the same laboratory-fixed
+Frank/Burgers data. It records the free edge gap \(g=d-2a\), the longitudinal
+and transverse entries of the off-diagonal interaction block \(M_{01}\),
+\[
+A(d)=\frac{M_{\parallel}(d)-M_{\perp}(d)}
+{|M_{\parallel}(d)|+|M_{\perp}(d)|},\qquad
+C(d)=\frac{\|M_{01}(d)\|_F}{\|M_{00}(d)\|_F},
+\]
+the mixed longitudinal/transverse entries, and core traction resultants for
+each defect case. The report also records the minimum signed area of the
+linear corner triangles after coordinate deformation and aborts if an
+inversion is detected.
+
+This first distance sweep is a numerical screening study at one mesh size
+(default \(h=0.06\)); the existing three-mesh benchmark remains available at
+the reference separation. A trend in \(A(d)\) or \(C(d)\) is not yet a
+continuum distance law. Before fitting exponential, algebraic or limiting
+models, repeat the distance sweep at multiple mesh resolutions and inspect
+curved-element Jacobians, not only corner-triangle areas. No decay law is
+assumed in advance.

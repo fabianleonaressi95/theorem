@@ -72,3 +72,18 @@ def test_defect_vector_is_rotation_equivariant():
     assert np.allclose(phi_rot[:, 0], phi[:, 0], atol=1e-14)
     assert np.allclose(phi_rot[:, 1:3], expected[:, 1:3], atol=1e-14)
 
+
+
+def test_two_core_coordinate_deformation_moves_core_boundaries_and_fixes_outer_nodes():
+    from models.morandotti_cell_reconstruction import deform_two_core_coordinates
+    reference = np.array([[-0.28, 0.0], [0.28, 0.0]])
+    target = np.array([[-0.32, 0.0], [0.32, 0.0]])
+    points = np.array([
+        [-0.28 + 0.12, 0.0], [0.28 - 0.12, 0.0],
+        [0.0, 0.0], [0.0, 1.0],
+    ])
+    moved = deform_two_core_coordinates(points, reference, target, 0.12, 0.32)
+    assert np.allclose(moved[0], [-0.32 + 0.12, 0.0], atol=1e-13)
+    assert np.allclose(moved[1], [0.32 - 0.12, 0.0], atol=1e-13)
+    assert np.allclose(moved[3], points[3], atol=1e-14)
+    assert np.isfinite(moved).all()
