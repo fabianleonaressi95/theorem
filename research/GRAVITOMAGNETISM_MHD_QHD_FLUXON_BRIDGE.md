@@ -225,11 +225,11 @@ The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger
 3. Derive spin torque/magnetization terms and the Noether current.
 4. Compare continuum and discrete continuity/energy identities.
 
-**Gate D — fluxon sector**
-1. Specify a compact-phase action (e.g. a derived Josephson/sine-Gordon analogue).
-2. Derive integer winding and energy of a localized kink.
-3. Test stability, propagation, collisions and refinement.
-4. Keep superconducting fluxons distinct from any RGS-defined excitation.
+**Gate D — superconducting fluxon comparison**
+1. Specify an actual superconducting weak-link geometry, order parameter and Josephson phase difference.
+2. Derive the sine-Gordon (or perturbed sine-Gordon) equation from circuit and material parameters.
+3. Compute the kink, supercurrent, magnetic field, flux and fluxoid separately.
+4. If RGS/PRISM uses a similar winding defect, label it as an analogue, not as a superconducting fluxon.
 
 **Gate E — gravitational coupling**
 1. Derive GEM from a declared weak-field metric convention.
@@ -239,7 +239,7 @@ The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger
 
 **No-go boundary for the Ratti vacuum-extraction claim:** these bridges can improve the calculation of fields, transport, spin dynamics and diagnostics. They do not by themselves fill the missing QED pair-production mechanism. Positron production still requires an on-shell production calculation with energy-momentum conservation, a predicted rate and a detectable annihilation signature. MHD/QHD/fluxon analogies cannot replace that calculation or the calorimetric balance.
 
-## 9. Research sequence and falsifiable gates
+## 10. Selected references
 
 1. B. Mashhoon, “Gravitoelectromagnetism: A Brief Review,” arXiv:gr-qc/0311030 (2003).
 2. B. Mashhoon, “Gravitomagnetic Stern–Gerlach Force,” *Entropy* 23 (2021), 445, DOI: 10.3390/e23040445.
@@ -252,9 +252,9 @@ The Q6 2-skeleton supplies incidence topology; the PRISM graph supplies a larger
 9. “Fluxons in high-impedance long Josephson junctions,” *Applied Physics Letters* 120 (2022), 112601.
 10. “Vortex confinement through an unquantized magnetic flux,” *NPG Asia Materials* (2024), DOI: 10.1038/s41427-024-00564-6.
 
-## 10. Selected references
+## 11. Epistemic status
 
 - **Established theory used:** Maxwell equations; ideal/resistive MHD under stated closures; Madelung/QHD transformations; Josephson fluxons and fluxoid quantization; weak-field GEM; Cartan/Einstein–Cartan identities.
 - **Repository results reused:** T047, T049B, T049C, T049D and existing Q6/PRISM incidence/holonomy structures.
 - **Proposed bridges:** discrete MHD, discrete QHD, compact-phase fluxon sectors and any joint GEM–EC action.
-- **Open:** physical normalization, actual device field maps, continuum limits, stable RGS fluxon solutions, and any experimentally supported connection to Ratti's claimed positron production.
+- **Open:** physical normalization, actual device field maps, continuum limits, stable RGS winding-defect solutions, and any experimentally supported connection to Ratti's claimed positron production.
