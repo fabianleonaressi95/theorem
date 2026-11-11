@@ -31,7 +31,7 @@ For diagonal W1 and W2, the signed orientation factors square to one.
 - W2_raw is diagonal on the selected nondegenerate parallelogram faces,
   with \((W_2)_{FF}=1/A_F\), for one constant integrated 2-form flux per face.
 
-Only the selected admissible face family is included.
+Only complete D4-orbits for which every face is a nondegenerate parallelogram are included. This orbit-closure condition is essential: the Boolean-coordinate action is not automatically affine in the ambient Euclidean embedding, so selecting individual parallelograms could break equivariance.
 
 ## 3. Correct weighted Hodge formulation
 
@@ -57,7 +57,7 @@ preliminary nonsymmetric expression of that type.
 
 ## 4. Exact checks
 
-The audit constructs the Reynolds masses and K1 using SymPy exact arithmetic.
+The audit first partitions the 384 cycles into D4-orbits and retains only complete orbits whose every member is a nondegenerate parallelogram. It then constructs the Reynolds masses and K1 using SymPy exact arithmetic.
 It checks:
 
 - B1 B2=0;
