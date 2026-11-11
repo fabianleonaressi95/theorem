@@ -194,8 +194,8 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         rx, ry = float(values.get(1, 0.0)), float(values.get(2, 0.0))
         denom = rx*rx + ry*ry
         residual_anisotropy[f"active_core_{active_core}_{boundary_name}"] = {
-            "mode_x_normal_residual": rx,
-            "mode_y_normal_residual": ry,
+            "mode_longitudinal_normal_residual": rx,
+            "mode_transverse_normal_residual": ry,
             "signed_directional_anisotropy": float((rx*rx-ry*ry)/denom) if denom else 0.0,
             "residual_ratio_x_over_y": float(rx/ry) if ry else None,
         }
@@ -333,8 +333,8 @@ def main():
             residual_rel={}
             for key,values in cur_res.items():
                 ref=base_res[key]
-                v=np.array([values["mode_x_normal_residual"],values["mode_y_normal_residual"]])
-                v0=np.array([ref["mode_x_normal_residual"],ref["mode_y_normal_residual"]])
+                v=np.array([values["mode_longitudinal_normal_residual"],values["mode_transverse_normal_residual"]])
+                v0=np.array([ref["mode_longitudinal_normal_residual"],ref["mode_transverse_normal_residual"]])
                 residual_rel[key]=float(np.linalg.norm(v-v0)/max(np.linalg.norm(v0),1e-300))
             traction_covariance={}
             for case,case_data in level["reconstruction_cases"].items():
