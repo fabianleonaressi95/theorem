@@ -17,6 +17,7 @@ from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 from models.morandotti_cell_reconstruction import (
     build_defect_vector, solve_interaction_system, reconstruct_airy_potential,
+    deform_two_core_coordinates,
 )
 
 
@@ -68,21 +69,37 @@ def assemble(expr, mesh):
 
 def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
                 centers=((-0.28, 0.0), (0.28, 0.0)), orientation_angle_deg=0.0,
-                rotate_defect_data=True, args_artifact_path="cell_fields.npz"):
+                rotate_defect_data=True, core_separation=None,
+                args_artifact_path="cell_fields.npz"):
     comm = MPI.COMM_WORLD
     theta = np.deg2rad(float(orientation_angle_deg))
     rotation = np.array([[np.cos(theta), -np.sin(theta)],
                          [np.sin(theta),  np.cos(theta)]])
-    base_centers = np.asarray(centers, dtype=float)
-    centers = tuple(tuple(q) for q in (base_centers @ rotation.T))
+    reference_centers = np.asarray(centers, dtype=float)
+    if core_separation is None:
+        target_centers = reference_centers.copy()
+    else:
+        direction = (reference_centers[1]-reference_centers[0]) / np.linalg.norm(reference_centers[1]-reference_centers[0])
+        midpoint = 0.5*(reference_centers[0]+reference_centers[1])
+        target_centers = np.vstack((midpoint-0.5*float(core_separation)*direction,
+                                    midpoint+0.5*float(core_separation)*direction))
+    centers = tuple(tuple(q) for q in (target_centers @ rotation.T))
     axis = rotation @ np.array([1.0, 0.0])
     transverse_axis = rotation @ np.array([0.0, 1.0])
-    # Generate one reference mesh, then rotate its geometry coordinates in
-    # place. This preserves connectivity and avoids angle-dependent remeshing
-    # noise in the covariance comparison.
-    mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in base_centers), h, comm)
+    # Generate the reference mesh once. Both orientation and distance studies
+    # transform its coordinates in place and preserve the cell connectivity.
+    mesh, tags = make_mesh(R, a, tuple(tuple(q) for q in reference_centers), h, comm)
+    mesh.geometry.x[:, :2] = deform_two_core_coordinates(
+        mesh.geometry.x[:, :2], reference_centers, target_centers, a, 0.32)
     if abs(orientation_angle_deg) > 1e-14:
         mesh.geometry.x[:, :2] = mesh.geometry.x[:, :2] @ rotation.T
+    geometry_cells = np.asarray(mesh.geometry.dofmap)
+    corner_xy = mesh.geometry.x[geometry_cells[:, :3], :2]
+    signed_areas = 0.5*((corner_xy[:,1,0]-corner_xy[:,0,0])*(corner_xy[:,2,1]-corner_xy[:,0,1])
+                        -(corner_xy[:,1,1]-corner_xy[:,0,1])*(corner_xy[:,2,0]-corner_xy[:,0,0]))
+    min_signed_area = float(np.min(signed_areas))
+    if not np.isfinite(min_signed_area) or min_signed_area <= 0.0:
+        raise RuntimeError(f"Distance/orientation map inverted a cell: min signed area={min_signed_area}")
     mesh.topology.create_connectivity(mesh.topology.dim-1, mesh.topology.dim)
     V = fem.functionspace(mesh, ("Lagrange", 3))
     n = ufl.FacetNormal(mesh)
@@ -373,6 +390,42 @@ def main():
         orientation_sweep(True,"co_rotated"),
         orientation_sweep(False,"defects_fixed_in_lab_frame"),
     ]
+
+    # Distance sweep: one reference triangulation is smoothly deformed for
+    # each separation. The same material, core radius and relative source
+    # orientation are retained; no Gmsh remeshing occurs between distances.
+    distance_sweep=[]
+    for distance in a.distance_values:
+        if distance <= 2.0*0.12:
+            raise ValueError("every core separation must exceed twice the core radius")
+        level=solve_level(a.distance_mesh_size, alpha=a.alpha,
+            young_modulus=a.young_modulus, poisson_ratio=a.poisson_ratio,
+            core_separation=distance,
+            args_artifact_path=str(Path(a.out).with_name(f"distance_{distance:g}_fields.npz")))
+        M=np.asarray(level["M_laplacian"])
+        cross=M[1:3,4:6]
+        self_block=M[1:3,1:3]
+        frame=np.column_stack((np.array([1.0,0.0]),np.array([0.0,1.0])))
+        local=frame.T @ cross @ frame
+        m_parallel,m_transverse=float(local[0,0]),float(local[1,1])
+        denom=abs(m_parallel)+abs(m_transverse)
+        anisotropy=float((m_parallel-m_transverse)/denom) if denom else 0.0
+        distance_sweep.append({
+            "core_separation":float(distance),"edge_gap":float(distance-2.0*0.12),
+            "h_target":float(a.distance_mesh_size),"cells":level["cells"],"dofs":level["dofs"],
+            "min_signed_corner_area":level["min_signed_corner_area"],
+            "M_parallel_01":m_parallel,"M_transverse_01":m_transverse,
+            "signed_anisotropy_A_d":anisotropy,
+            "longitudinal_transverse_coupling_01":float(local[0,1]),
+            "transverse_longitudinal_coupling_01":float(local[1,0]),
+            "cross_block_frobenius":float(np.linalg.norm(cross,"fro")),
+            "self_block_frobenius_core0":float(np.linalg.norm(self_block,"fro")),
+            "normalized_coupling_C_d":float(np.linalg.norm(cross,"fro")/max(np.linalg.norm(self_block,"fro"),1e-300)),
+            "ratio_M_parallel_over_transverse":float(m_parallel/m_transverse) if abs(m_transverse)>1e-14 else None,
+            "core_traction_resultants_by_case":{
+                name:case["core_traction_resultants"]
+                for name,case in level["reconstruction_cases"].items()},
+        })
     report={"title":"Two-core P3 C0-IPDG interaction matrix audit",
         "reference":"Cesana, Fabbrini, León Baldelli, Morandotti (2026), arXiv:2609.29614",
         "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit with algebraic Airy reconstruction",
@@ -396,7 +449,7 @@ def main():
           } for i in range(1, len(levels))
         ],
         "levels":levels,
-        "orientation_covariance": {
+        "distance_sweep": {\n            "protocol":"same reference mesh connectivity; compactly supported coordinate deformation moves both core boundaries symmetrically; fixed core radius, material and source orientation",\n            "reference_separation":0.56,"support_radius":0.32,\n            "mesh_size":a.distance_mesh_size,"separations":a.distance_values,\n            "definition_A_d":"(M_parallel_01-M_transverse_01)/(|M_parallel_01|+|M_transverse_01|)",\n            "definition_C_d":"||M_01||_F/||M_00||_F",\n            "results":distance_sweep,\n            "limitations":["distance sweep is initially performed at one mesh size; the existing three-level benchmark is at the reference separation", "positive corner areas are a necessary but not sufficient curved-element quality certificate", "fit candidate decay laws only after mesh-refinement and mapping-quality checks"]\n        },\n        "orientation_covariance": {
             "protocol":"two sweeps: co-rotate core centres and Burgers vectors; then rotate core centres only while holding Burgers vectors fixed in laboratory coordinates; resolve modes in the co-rotating frame",
             "mesh_size":a.orientation_mesh_size,
             "angles_deg":a.orientation_angles_deg,
