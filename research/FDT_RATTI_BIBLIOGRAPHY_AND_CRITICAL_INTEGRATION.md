@@ -138,6 +138,8 @@ D1–D7 are listed in Section 2. Full bibliographic metadata, stable archive loc
 
 The connection to the FDT report should be a separate comparative subsection or appendix, not an additional “pillar” of FDT evidence. The Ratti material does not empirically corroborate FDT's density parameter, Clifford-torus interpretation, or quintuple identity. It is useful because it exposes the same evidential bottlenecks: vacuum ontology, a proposed field-to-particle conversion, a claimed energy source, and the absence of decisive particle-flux and energy-balance measurements.
 
+**Boundary with the Morandotti/RGS–PRISM elasticity program.** The gravitomagnetic field discussed by Ratti is a weak-field GR analogy for rotating mass currents. It is not Cartan torsion, not a Burgers vector, and not a disclination curvature. In the elasticity benchmark, translational and rotational defects are represented by the coframe/connection pair and their torsion/curvature; any coupling to a gravitomagnetic sector would require a separately derived action, units, and observable map. No such identification is made here.
+
 ## 7. Falsifiable test protocol
 
 1. **Positron identification:** calibrated HPGe or NaI(Tl) spectroscopy around 511 keV, with detector efficiency and background characterization; use coincidence timing and angular correlations to discriminate annihilation events from unrelated gamma backgrounds.
@@ -154,7 +156,8 @@ A positive result requires a reproducible positron signal and a closed energy ba
 - **Source-derived:** document titles, dates, claimed apparatus, numerical outputs and internal inconsistencies as reported in the supplied synopsis.
 - **Standard physics:** the cited historical discoveries and established QED/GR framework.
 - **Critical assessment:** the inference from virtual pairs to a zero-cost energy source is not supported by standard quantum field theory; the apparatus mechanism and claimed outputs require independent measurement.
-- **Unverified metadata:** Block et al. title; exact Fermi passage; Lee quotation; full metadata for D1–D7; D7 content; current status of historical URLs.
+- **Bibliographically checked against publisher/index records:** Heisenberg 1927; Clark–Tucker 2000; Dirac 1928/1931; Dorfan et al. 1965; Lamoreaux 1997; Lamb–Retherford 1947; STAR antihelium 2011; Hawking 1974/1975; Massam et al. 1965.
+- **Still unverified at primary-source level:** Block et al. title; exact Fermi passage; Lee quotation; full metadata and original scans for D1–D7; D7 content; current status of historical URLs. Some classic references (including the Pauli and Schwinger entries) still merit direct publisher-catalog confirmation before a final typeset bibliography.
 - **Do not promote:** Ratti's generator, its energy output, or its metallic-ion extension to an established discovery or to evidence for FDT/RGS–PRISM.
 
 This appendix is designed to accompany the 13-page *FDT Empirical Evidence Report* (15 February 2026). It preserves the original report's claims as claims while adding provenance, bibliographic traceability, and a stricter evidence boundary.
