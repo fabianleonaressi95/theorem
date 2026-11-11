@@ -643,3 +643,8 @@ La definizione debole di Inc_h, il pairing con le sorgenti di Burgers/Frank, la 
 ## A.30. Prototipo computazionale dell'operatore debole
 
 Il repository contiene ora `models/discrete_incompatibility_weak.py` e `tests/test_discrete_incompatibility_weak.py`. Il modulo assembla il pairing debole di Saint-Venant da basi di deformazione e Hessiane dei test, ricostruisce la deformazione simmetrica P1 e assembla il carico puntuale Burgers/Frank. La suite è stata aggiunta al workflow `football-anisotropy`; l'esito CI dedicato non è ancora disponibile. Il prototipo non è un elemento finito completo: mancano la generazione degli spazi H² conformi/CIP-DG, la connessione SU(2) indipendente, la calibrazione Cartan–Airy e l'operatore superficiale curvo. Si veda il [capitolo di derivazione](OPERATORE_INCOMPATIBILITA_TANGENTI_QUATERNIONI_MORANDOTTI.md).
+
+
+## Benchmark variazionale piano — aggiornamento 11 novembre 2026
+
+È stata aggiunta la specifica [MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md](MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md). Il kernel `models/discrete_incompatibility_weak.py` ora include anche l'assemblaggio della matrice di energia da un tensore di compliance elastica e il solver KKT per \(\min \frac12 e^TMe\) con vincolo \(Ae=z\). I test coprono simmetria/positività dell'esempio di energia, residui primal/dual, identità energetica e rifiuto di vincoli degeneri o energie non positive. I test sono stati aggiunti ma non risultano ancora eseguiti da CI; il confronto con Airy/CIP-DG e la convergenza restano aperti.
