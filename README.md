@@ -374,18 +374,18 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
 - [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
 
-### T106 — Born measure, Q6 phase torus, FDT, and Frank–Burgers defects
-
-- [T106 theorem record](theorems/T106-born-measure-q6-fdt-frank-burgers.md) specializes the known Haar/Born push-forward theorem to the 64 hexagram outcomes, records exact Dirichlet moments and the \(\\mathbb Z_4^3\) indexing, and separates Born/Haar measure from thermal equilibrium.
-- Adds the conditional classical Kubo/FDT bridge and a falsifiable response matrix for translational/dislocation and orientational/disclination observables; Burgers and Frank data remain conditional on calibrated spatial and frame fields.
-- [Exact audit](scripts/audit_t106_born_fdt_defects.py) and [tests](tests/test_t106_born_fdt_defects.py) check the 64-outcome moments, the \(\\mathbb Z_4^3\) bijection, and the distinction between branch winding and pure-gauge \(U(1)\) holonomy. They do not claim physical FDT or material-defect validation.
-
 ### T105 — Hexagram-resolved charge, two-field moiré coupling, and circuit response
 
 - [T105 theorem record](theorems/T105-hexagram-charge-moire-circuit-law.md) connects the 64 individually measured hexagram charges to the two registered circle-phase fields, Kirchhoff edge currents, node-charge correlations, moiré reconstruction, Green–Kubo response, and defect diagnostics.
 - Preserves all 64 charge sites and the two phase components on each site; explicitly keeps phase winding, Burgers closure, Frank holonomy, and T104 \\(\\mathbb F_2\\) flux distinct.
 - The constitutive phase-to-charge law, spatial embedding, reciprocal vectors, Green–Kubo coefficient, and material defect labels remain conditional on calibrated measurements. No physical charge values or moiré scale are invented.
 - [Audit script](scripts/audit_t105_hexagram_moire_circuit.py), [tests](tests/test_t105_hexagram_moire_circuit.py), and [dedicated CI workflow](.github/workflows/t105-hexagram-moire-circuit.yml).
+
+### T106 — Born measure, Q6 phase torus, FDT, and Frank–Burgers defects
+
+- [T106 theorem record](theorems/T106-born-measure-q6-fdt-frank-burgers.md) specializes the known Haar/Born push-forward theorem to the 64 hexagram outcomes, records exact Dirichlet moments and the \(\\mathbb Z_4^3\) indexing, and separates Born/Haar measure from thermal equilibrium.
+- Adds the conditional classical Kubo/FDT bridge and a falsifiable response matrix for translational/dislocation and orientational/disclination observables; Burgers and Frank data remain conditional on calibrated spatial and frame fields.
+- [Exact audit](scripts/audit_t106_born_fdt_defects.py) and [tests](tests/test_t106_born_fdt_defects.py) check the 64-outcome moments, the \(\\mathbb Z_4^3\) bijection, and the distinction between branch winding and pure-gauge \(U(1)\) holonomy. They do not claim physical FDT or material-defect validation.
 
 ### T104 — Q6 cycle–cocycle–holonomy law
 
