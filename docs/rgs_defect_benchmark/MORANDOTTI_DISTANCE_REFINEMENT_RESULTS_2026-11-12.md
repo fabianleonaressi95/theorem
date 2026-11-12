@@ -77,3 +77,19 @@ Before promoting any statement beyond finite-mesh verification:
 4. report uncertainty or observed rates only after enough levels show a consistent trend.
 
 The correct classification remains **numerical verification / convergence study incomplete**.
+
+
+## Reconstruction traction-jump cross-check
+
+The artifact also records the interior-facet traction-jump L2 diagnostic for four reconstruction cases. At d=0.56, all four values decrease monotonically over the three mesh levels:
+
+| case | h=0.080 | h=0.060 | h=0.045 |
+|---|---:|---:|---:|
+| single disclination, core 0 | 7.445e-3 | 3.195e-3 | 2.457e-3 |
+| single edge dislocation, core 1 | 3.990e-3 | 2.835e-3 | 2.286e-3 |
+| opposite disclination dipole | 6.164e-3 | 3.547e-3 | 2.747e-3 |
+| mixed disclination-dislocation | 9.920e-3 | 4.844e-3 | 3.686e-3 |
+
+This supports improved facet-traction consistency for the reference separation in this particular sequence. It is not by itself an error estimate for the reconstructed continuum solution.
+
+At d=0.64 the edge-dislocation traction-jump diagnostic changes from 6.385e-3 at h=0.060 to 1.919e-2 at h=0.045; the other reconstruction cases also do not show a common monotone trend. This reinforces the decision to keep d=0.64 classified as unresolved rather than interpreting its cross-core coupling trend as converged.
