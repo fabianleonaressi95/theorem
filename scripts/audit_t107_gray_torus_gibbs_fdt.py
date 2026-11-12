@@ -33,6 +33,40 @@ def edge_coherence_susceptibility(beta: float, d: int = D) -> float:
     return beta * edge_coherence_variance(d)
 
 
+
+def max_canonical_correlation(x: np.ndarray, y: np.ndarray) -> dict:
+    """Measure linear subspace overlap; this is not a test of independence."""
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    if x.ndim != 2 or y.ndim != 2 or x.shape[0] != y.shape[0]:
+        raise ValueError("x and y must be 2D arrays with the same sample count")
+    if x.shape[0] < 3:
+        raise ValueError("at least three paired observations are required")
+    x = x - x.mean(axis=0, keepdims=True)
+    y = y - y.mean(axis=0, keepdims=True)
+
+    def basis(a):
+        u, singular, _ = np.linalg.svd(a, full_matrices=False)
+        if singular.size == 0 or singular[0] == 0:
+            raise ValueError("each sector must contain nonconstant data")
+        tol = max(a.shape) * np.finfo(float).eps * singular[0]
+        rank = int(np.sum(singular > tol))
+        return u[:, :rank], rank
+
+    qx, rank_x = basis(x)
+    qy, rank_y = basis(y)
+    if x.shape[0] <= rank_x + rank_y:
+        raise ValueError("too few samples to distinguish the two sample subspaces")
+    canonical = np.linalg.svd(qx.T @ qy, compute_uv=False)
+    maximum = float(canonical[0]) if canonical.size else 0.0
+    return {
+        "max_canonical_correlation": maximum,
+        "rank_x": rank_x,
+        "rank_y": rank_y,
+        "exact_linear_overlap_at_1e-10": bool(1.0 - maximum <= 1e-10),
+    }
+
+
 def audit() -> dict:
     c = build_q6_complex()
     coords = c["coords"]
