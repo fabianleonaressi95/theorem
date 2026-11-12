@@ -684,7 +684,7 @@ La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta 
 | Moiré, cariche, FDT e difetti | T100–T107 | `theorems/T100–T107`, `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
 | Influenze booleane e AA | T108–T109 | `theorems/T108–T109` | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
 | KTHNY | Nelson–Halperin; Young; T106 | capitolo 27.5 e bibliografia primaria | teoria standard 2D; applicazione al sistema Q6/Morandotti condizionale |
-| \\(\\mathcal N=4\\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
+| \(\mathcal N=4\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
 
 ## Registro completo dei theorem record
 
