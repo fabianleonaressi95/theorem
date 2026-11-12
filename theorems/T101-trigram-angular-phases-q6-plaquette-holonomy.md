@@ -1,107 +1,101 @@
-# T101 — Two-circle trigram phases, complementary pairs, and Q6 plaquette holonomy
+# T101 — Two-circle trigram phases, complementary pairs, and Q6 defect winding
 
-**Status:** exact finite construction and audit identities; measured phase data, circle registration, spatial embedding, and physical defect interpretation remain data-dependent/open.
+**Status:** exact finite construction and combinatorial audit; measured phases, circle registration, physical-space reconstruction, and defect classification remain data-dependent/open.
 
-**Purpose.** Start from the geometry the model requires: each trigram has a measurable angular position on a circle, and its linewise complement is compared with it on the *opposite* circle. The six-cube carries the same paired-circle structure at the level of all 64 hexagrams. This is not the assumption that a complement is automatically the antipode on the same circle.
+**Purpose.** Each trigram has a measurable angular position on one of two opposite circles. Its linewise complement is compared on the other circle. The resulting cross-circle mismatch is then lifted to the 64-hexagram hypercube and tested around all 240 elementary squares. This preserves the individual hexagrams as the node-level degrees of freedom of T100.
 
 ## 1. Two circles and the eight complementary trigram pairs
 
-Let \(C_+\) and \(C_-\) be the two measured circles. For every trigram \(t\in\{0,\ldots,7\}\), record its angular phases
-\[
-\theta_t^+,\theta_t^-\in\mathbb R/(2\pi\mathbb Z).
-\]
-If the circle centres and radii are known, the corresponding measured positions are
+Let \(C_+\) and \(C_-\) be two measured circles. For every trigram \(t\in\{0,\ldots,7\}\), record phases \(\theta_t^+,\theta_t^-\in\mathbb R/(2\pi\mathbb Z)\). If centres and radii are known, positions are
 \[
 x_t^\pm=c_\pm+R_\pm(\cos\theta_t^\pm,\sin\theta_t^\pm).
 \]
-The trigram complement is \(\bar t=t\mathbin{\mathrm{xor}}7\), with bit 0 the bottom line and bit 2 the top line. A calibrated registration of the two circle frames is
+The linewise complement is \(\bar t=t\mathbin{\mathrm{xor}}7\), with bit 0 the bottom line and bit 2 the top line. Calibrate the relative circle-frame registration
 \[
-\rho(\theta)=\sigma\theta+\chi\pmod{2\pi},\qquad \sigma\in\{+1,-1\},
+\rho(\theta)=\sigma\theta+\chi\pmod{2\pi},\qquad \sigma\in\{+1,-1\}.
 \]
-where \(\chi\) is the measured relative frame offset and \(\sigma\) records whether the angular orientations agree or are reversed. The complementary-pair mismatch is
+Here \(\chi\) is the measured frame offset and \(\sigma\) records whether the two angular orientations agree or are reversed. Define the opposite-circle complement mismatch
 \[
 \epsilon_t=\operatorname{wrap}\big(\theta_{\bar t}^--\sigma\theta_t^+-\chi\big).
 \]
-Thus complementarity is tested *across* \(C_+\) and \(C_-\). The special antipodal convention is the calibrated case \(\chi=\pi\) (with the selected orientation \(\sigma\)); it is not silently imposed. There are eight residual entries but only four independent complementary pairs, with the reverse-pair relation fixed by the registration convention.
+The special antipodal registration corresponds to the calibrated choice \(\chi=\pi\); it is not imposed without measurement. The eight residuals contain four complementary pairs, with the pairwise relation determined by the chosen registration.
 
-## 2. The 64 hexagrams on paired two-torus copies
+## 2. Lift to the 64 individual hexagrams
 
-Write each hexagram as \(h=\ell+8u\), where \(\ell\) and \(u\) are the lower and upper trigrams. Each circle layer gives a 64-point labelled configuration on a two-torus:
+Write \(h=\ell+8u\), with lower trigram \(\ell\) and upper trigram \(u\). Each circle layer defines a labelled 64-point configuration on a two-torus:
 \[
-\Phi_\pm:Q_6\to T^2,\qquad
-\Phi_\pm(h)=
-(e^{i\theta_\ell^\pm},e^{i\theta_u^\pm}).
+\Phi_\pm(h)=\big(e^{i\theta_\ell^\pm},e^{i\theta_u^\pm}\big)\in T^2.
 \]
-The opposite-circle complement comparison pairs \(h\) on the plus layer with
+The complementary hexagram is \(\bar h=h\mathbin{\mathrm{xor}}63\). Its cross-circle mismatch relative to \(h\) is
 \[
-\bar h=h\mathbin{\mathrm{xor}}63
+E_h=(\epsilon_\ell,\epsilon_u).
 \]
-on the minus layer. Its two-coordinate mismatch is
-\[
-E_h=\left(
-\operatorname{wrap}(\theta_{\ell\mathbin{\mathrm{xor}}7}^--\sigma\theta_\ell^+-\chi),
-\operatorname{wrap}(\theta_{u\mathbin{\mathrm{xor}}7}^--\sigma\theta_u^+-\chi)
-\right).
-\]
-These are 64 paired six-line comparisons built from the eight trigram complement pairs. The two coordinates retain the lower/upper line triples as ordered factors; this does not replace the individual hexagram as the node-level degree of freedom in T100.
+Thus the 64 hexagrams inherit a two-component mismatch field from their two constituent trigram positions, while remaining distinct charge-bearing nodes. The map does not identify lower/upper trigram decomposition with a 32/32 bipartition.
 
-## 3. The Q6 one-skeleton and all 240 square loops
+## 3. The 192 edges and 240 elementary squares
 
-For either circle layer, the six-cube has 64 vertices and 192 edges. An oriented edge is \((h,h\mathbin{\mathrm{xor}}2^i)\), with bit \(i\) initially zero. Bits \(0,1,2\) change the lower trigram and bits \(3,4,5\) change the upper trigram; each family has 96 edges.
-
-For a fixed layer \(\nu\in\{+,-\}\), the endpoint phase increment is
-\[
-a_e^\nu=
-\begin{cases}
-\operatorname{wrap}(\theta_{\ell'}^\nu-\theta_\ell^\nu),&i<3,\\
-\operatorname{wrap}(\theta_{u'}^\nu-\theta_u^\nu),&i\ge3.
-\end{cases}
-\]
-For every pair of bit directions \(i<j\) and every base vertex \(h\) with both bits zero, the elementary square is
+The Q6 one-skeleton has 64 vertices and 192 edges. Bits \(0,1,2\) change the lower trigram (96 edges); bits \(3,4,5\) change the upper trigram (96 edges). For each pair of directions \(i<j\), and each base vertex \(h\) whose bits \(i,j\) are zero, the elementary square is
 \[
 p=(h,\ h\mathbin{\mathrm{xor}}2^i,\
 h\mathbin{\mathrm{xor}}2^i\mathbin{\mathrm{xor}}2^j,\
 h\mathbin{\mathrm{xor}}2^j).
 \]
-There are exactly
+There are exactly \(\binom62\,2^4=240\) such squares.
+
+Within either circle layer, endpoint phase differences are exact vertex differences and therefore form a pure-gauge \(U(1)\) connection. Their Wilson product around every square is one. This does not exhaust the defect information: the *cross-circle mismatch field* \(E_h\) is a separate observable.
+
+For an oriented edge \(e=(h,h')\), define the mismatch-phase increment using the component changed by that edge:
 \[
-\binom62\,2^4=240
+d_e=
+\begin{cases}
+\operatorname{wrap}(\epsilon_{\ell'}-\epsilon_\ell),&i<3,\\
+\operatorname{wrap}(\epsilon_{u'}-\epsilon_u),&i\ge3.
+\end{cases}
 \]
-such squares per Q6 layer. The same enumeration is run on \(C_+\) and \(C_-\), while the cross-circle complement mismatches \(E_h\) are recorded separately.
-
-## 4. Exact integrability: what the phase loops do and do not prove
-
-The edge increments \(a_e^\nu\) are differences of vertex phases on each layer. Hence they define a pure-gauge \(U(1)\) connection:
+The integer phase-winding index on a square is
 \[
-\prod_{e\in\partial p}e^{ia_e^\nu}=1
+n_p=\frac{1}{2\pi}\sum_{e\in\partial p}^{\rm oriented}d_e\in\mathbb Z,
 \]
-for every one of the 240 plaquettes on each layer. Equivalently, the plaquette circulation is zero modulo \(2\pi\), up to floating-point roundoff. A sum of principal representatives may be \(2\pi n_p\) with integer \(n_p\); this is a branch/interpolation winding diagnostic, not nonzero \(U(1)\) curvature. It must not be labelled a disclination.
+with principal increments in \((-\pi,\pi]\). Numerically, the sum is rounded to the nearest integer after checking its residual from \(2\pi\mathbb Z\). A nonzero \(n_p\) is a **candidate vortex/winding defect of the cross-circle mismatch field**. Mixed lower/upper plaquettes have zero winding for this separable two-component construction; lower-only and upper-only squares test the corresponding trigram mismatch sectors.
 
-This result does **not** say that the paired-circle geometry has no defects. It says that vertex phases alone, differenced along edges, cannot measure a nontrivial local-frame holonomy. To measure a disclination, independently record local-frame transport \(\alpha_e^\nu\) and compute
+## 4. From phase winding to disclination or dislocation
+
+The winding number is a topological phase diagnostic, not automatically a material defect label. Its physical interpretation depends on what the measured angular phase represents:
+
+- If the mismatch phase is a calibrated local-frame orientation, with an \(n\)-fold rotational identification, a winding can encode Frank/disclination charge. For orientation \(\alpha\) defined modulo \(2\pi/n\), the Frank angle is obtained from the lifted orientation winding with the declared \(n\)-fold convention.
+- If it is the phase of a translational density-wave mode with reciprocal vector \(G\), a winding \(2\pi m\) gives \(G\cdot b=-2\pi m\) under the displaced-mode convention, constraining the Burgers vector \(b\).
+- If the phase is only an abstract label or an uncalibrated angular coordinate, \(n_p\) remains a mathematical winding index and cannot be called a Frank angle or Burgers vector.
+
+A separate local-frame link connection \(\alpha_e\) can also be measured. Its rotational holonomy is
 \[
-\mathcal H_p^\nu=\exp\left(i\sum_{e\in\partial p}\alpha_e^\nu\right).
+\mathcal H_p=\exp\left(i\sum_{e\in\partial p}\alpha_e\right).
 \]
-A nontrivial value is a candidate rotational holonomy; conversion to a Frank angle requires a calibrated frame and a declared rotational symmetry group.
-
-A dislocation is translational closure failure. It requires physical-space registration \(X_h^\nu\), a displacement field, or a coframe. For a loop \(\Gamma\),
+A nontrivial value is evidence of frame holonomy; the Frank angle requires calibration of the frame and its rotational symmetry. A translational defect additionally requires a spatial embedding \(X_h\), displacement/registration field, or coframe, with
 \[
 b=\oint_\Gamma du.
 \]
-For a reconstructed reciprocal mode \(G\), the displaced-mode convention gives \(\Delta_\Gamma\theta_G=-G\cdot b\). The angular positions on the two circles alone do not determine \(b\) until the map to physical space and the reciprocal mode are specified.
+The eight phase pairs alone do not determine physical-space coordinates or a Burgers vector.
 
-## 5. Reproducible audit
+## 5. Reproducible audit and evidence boundary
 
-The companion script \`scripts/audit_t101_trigram_phase_holonomy.py\` accepts two JSON arrays of eight measured phases (plus and minus circles), a calibrated frame offset \(\chi\), and orientation \(\sigma\). It constructs the 64 paired points on each \(T^2\), all 192 edges and 240 plaquettes per layer, the eight trigram complement residuals, and the 64 complementary-hexagram mismatches. It reports the plaquette holonomies separately from cross-circle mismatch.
+The companion script \`scripts/audit_t101_trigram_phase_holonomy.py\` accepts two JSON arrays of eight measured phases, one for each circle, plus the calibrated frame offset \(\chi\) and relative orientation \(\sigma\). It reports:
+- all eight cross-circle trigram complement residuals;
+- all 64 hexagram mismatch pairs;
+- 192 edges and 240 squares per Q6 layer;
+- pure-gauge Wilson holonomies on each layer;
+- all 240 winding indices of the lifted complement-mismatch field.
 
-Synthetic angles in tests are software fixtures only. They are not proposed physical measurements. T100 remains the node-charge/correlation layer; T101 supplies the two-circle angular geometry and the exact identifiability conditions for defects.
+Synthetic angles in tests are software fixtures, not physical measurements. No charge law is invented. T100 remains the charge/correlation model; T101 provides the opposite-circle phase geometry and a falsifiable route to candidate defect indices.
 
 ## 6. Evidence register
 
 | Claim | Status |
 |---|---|
-| Eight trigram labels have measured phases on each of two circles | Input data / definition |
-| Opposite-circle complement relation via calibrated \((\sigma,\chi)\) | Exact testable criterion |
-| 64 paired hexagram comparisons, 192 edges and 240 squares per layer | Proved finite combinatorics |
-| Endpoint phase differences have trivial plaquette \(U(1)\) holonomy | Proved exact identity |
-| Cross-circle mismatch is itself a Frank angle or Burgers vector | Not claimed; requires frame/space reconstruction |
-| Physical charge law from angular phases | Open; connect to T100 using measured node data |
+| Opposite-circle complement residuals \(\epsilon_t\) | Exact measurable definition |
+| 64 two-component hexagram mismatch values \(E_h\) | Exact lift from trigram data |
+| 192 edges and 240 square faces of Q6 | Proved finite combinatorics |
+| Endpoint-phase Wilson product on either layer is one | Proved pure-gauge identity |
+| Nonzero mismatch winding \(n_p\) | Exact discrete phase-vortex diagnostic |
+| Winding as Frank/disclination charge | Conditional on calibrated orientation field and symmetry |
+| Winding as Burgers/dislocation charge | Conditional on translational density-wave phase and reciprocal vector |
+| Physical Burgers vector and material Frank angle | Require spatial/frame reconstruction and calibration |
