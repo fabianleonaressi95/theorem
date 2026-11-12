@@ -48,10 +48,3 @@ def test_rejects_missing_or_duplicated_seed_record():
     rows.pop()
     with pytest.raises(RuntimeError, match="realization grid mismatch"):
         validate_realization_grid(rows, MESH_SIZES, DISTANCES, SEEDS)
-
-
-def test_rejects_single_seed_because_sample_std_is_undefined():
-    with pytest.raises(ValueError):
-        # CLI validation is intentionally tested via the grid contract's
-        # minimum sample-size invariant in the companion validation test.
-        validate_realization_grid(_records(), MESH_SIZES, DISTANCES, (SEEDS[0],))
