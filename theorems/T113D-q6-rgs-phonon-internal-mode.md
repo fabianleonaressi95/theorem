@@ -31,7 +31,7 @@ The repository's canonical 64-point coordinate seed is not a generic icosahedral
 X:V(Q6)\longrightarrow\mathbb R^3
 \]
 defined in `src/rgs_seed_64_reconstruction.py`, with eight orbit representatives and three independent coordinate signs. Its canonical SHA-256 is
-`6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e7f286126e419cf`
+`6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e67f286126e419cf`
 (the audit imports the authoritative constant and checks the bytes).
 
 The induced point-cloud symmetry is the signed-coordinate-permutation group
