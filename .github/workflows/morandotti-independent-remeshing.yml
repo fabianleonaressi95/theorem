@@ -1,6 +1,7 @@
 name: Morandotti independent-remeshing audit
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main]
     paths:
