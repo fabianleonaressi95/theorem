@@ -780,3 +780,14 @@ Questi tre settori sono collegati alla geometria Q6/QLG solo tramite mappe espli
 Il dossier centrale è stato esteso con il ponte tra idrodinamica quantistica (Madelung/Gross–Pitaevskii), vorticità di Euler, flusso magnetico MHD, superconduttori di tipo II e QHD dei plasmi. Il nucleo comune è la geometria dei flussi, delle circolazioni, delle classi di omologia e delle leggi di trasporto; non si identificano però vortici neutri, linee di vorticità classiche e tubi di flusso magnetico. La quantizzazione del flusso magnetico richiede il condensato carico e l'accoppiamento gauge.
 
 Il programma di verifica comprende: confronto T110–Gross–Pitaevskii sotto raffinamento; conservazione di Kelvin e Alfvén nei rispettivi regimi ideali; riconnessione quantistica e magnetica; benchmark Ginzburg–Landau/London; estensione a modelli QHD multi-specie con termine di Bohm e legge di Ohm generalizzata. Le equazioni, le unità e le condizioni di validità sono registrate in `docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md`, §VI.
+
+
+## Appendice tecnica — Micro-nuotatori e controllo geometrico (T128)
+
+Il lavoro di Micalizio, Morandotti, Shum e Zoppello (2026), *Purcell swimmer near a wall*, fornisce un benchmark continuo pertinente al programma: due angoli interni \((\alpha_-,\alpha_+)\), tre variabili di corpo \((x,y,\theta)\), bilanci idrodinamici a basso Reynolds, connessione cinematica e controllabilità locale tramite parentesi di Lie. Il lavoro dichiara MATLAB con \texttt{ode45}; non documenta DOLFINx, PyTorch o TensorFlow per questo studio.
+
+Il record T128 separa il riferimento continuo dal possibile modello discreto Q6. La connessione continua si ricava dalla matrice di resistenza, \(A=-R_{bb}^{-1}R_{bs}\). Una discretizzazione Q6 richiede una mappa esplicita dai 64 vertici allo spazio delle forme, un'etichettatura dei controlli sugli archi e un trasporto discreto in \(SE(2)\) derivato da \(A\). Non è lecito assegnare arbitrariamente due direzioni del cubo ai due giunti.
+
+La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\), è conservata in \texttt{audits/purcell\_swimmer\_wall/}. Dopo aver corretto l'intervallo di arclunghezza delle aste esterne, essa restituisce \(\Delta x/\xi^2\simeq0.06172485\) per \(\xi=10^{-3}\), avvicinandosi al valore pubblicato \(5/81\simeq0.0617284\). I campi iniziali di controllo coincidono inoltre con quelli analitici riportati nell'articolo. Il benchmark numerico principale è riprodotto; questo non equivale alla dimostrazione indipendente del teorema di controllabilità.
+
+**Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
