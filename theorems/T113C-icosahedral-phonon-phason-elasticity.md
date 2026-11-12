@@ -1,3 +1,5 @@
+> **Scope warning — generic template only; not a Q6 result.** This record describes a generic icosahedral cut-and-project construction. It is not derived from the repository's 64-state Q6 graph or its hash-checked RGS seed. For the actual Q6/RGS programme, use [T113-D](T113D-q6-rgs-phonon-internal-mode.md). In particular, do not import this record's assumed physical/perpendicular 3D representations into Q6.
+
 # T113-C — Icosahedral phonon–phason elasticity by finite-group projection
 
 **Classification:** exact symmetry construction and variational reduction; constitutive coefficients and gravitational packet mass remain open.
