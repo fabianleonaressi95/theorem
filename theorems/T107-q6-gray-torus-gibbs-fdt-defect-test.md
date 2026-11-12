@@ -199,3 +199,8 @@ No material dislocation, disclination, transport coefficient, or RGS–Q6 physic
 2. scripts/q6_prism_kinematic_map.py and tests/test_q6_prism_kinematic_map.py (exact Gray-torus quotient and chain-map audit).
 3. R. Kubo, “The fluctuation-dissipation theorem,” *Reports on Progress in Physics* 29 (1966), 255–284, DOI: 10.1088/0034-4885/29/1/306.
 4. R. deWit, “Theory of Disclinations,” Parts II–III, *Journal of Research of the National Bureau of Standards A* 77A (1973).
+
+
+## 7. Independent XY torus benchmark (T110)
+
+The XY phase-vortex benchmark is specified separately in [T110](T110-xy-torus-vortex-kthny-bkt.md). T110 distinguishes the 2D torus quotient from the full 3D \\(C_4^3\\) realization, uses plaquette winding and dual-loop closure, and keeps BKT, KTHNY, and 3D XY loop proliferation separate. In particular, T107's 64 complex amplitudes and their Gibbs/FDT dynamics are not silently identified with XY spins or with elastic Burgers/Frank charges. Any empirical map between these sectors must be calibrated and tested independently.
