@@ -1,4 +1,4 @@
-name: T106 Born measure and defect-bridge audit
+name: T106 Born, FDT and Frank–Burgers audit
 
 on:
   push:
