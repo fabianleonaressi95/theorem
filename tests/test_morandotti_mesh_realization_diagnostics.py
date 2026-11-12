@@ -47,4 +47,5 @@ def test_reports_core_exchange_mismatch_and_mesh_quality(tmp_path):
         result["C_d_symmetric_geometric_mean_normalized"],
         cross_norm / np.sqrt(np.linalg.norm(M[1:3, 1:3]) * np.linalg.norm(M[4:6, 4:6])),
     )
-    assert result["C_d_symmetric_geometric_mean_normalized"] > result["C_d_original_core0_normalized"]
+# Here ||M_11||_F > ||M_00||_F, so the geometric-mean denominator is larger.
+    assert result["C_d_symmetric_geometric_mean_normalized"] < result["C_d_original_core0_normalized"]
