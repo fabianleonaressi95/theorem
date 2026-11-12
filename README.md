@@ -524,6 +524,15 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 
 **Status boundary:** these are finite algebraic/combinatorial results. The Pin/spin lift, torsion, RGS-metric canonicality, continuum limit and physical gauge dynamics remain separate open questions.
 
+### 2I / Möbius / Clifford theorem records — 12 November 2026
+
+- [T119 — Binary icosahedral group and selected representations](theorems/T119-binary-icosahedral-group-and-selected-representations.md): 120-element quaternion model, central characters and selected Schur intertwiners.
+- [T120 — Möbius orientation cocycle and independent SU(2) fibre](theorems/T120-mobius-orientation-cocycle-and-independent-su2-fibre.md): nontrivial dual-cycle orientation holonomy, separated from the internal gauge field.
+- [T121 — Icosahedral A5 action on Q6 and its exterior Clifford module](theorems/T121-icosahedral-a5-action-on-q6-clifford-module.md): signed-axis action and induced 64-dimensional exterior Clifford module.
+- [T122 — Pin+(4) lift and Möbius Clifford transport](https://github.com/fabianleonaressi95/theorem/blob/formalize/mobius-pin-plus-clifford-t122-2026-11-12/theorems/T122-pin-plus-mobius-clifford-transport.md): Pin+ lift and Clifford-compatible transport of the specified six-face dual-graph transitions.
+
+**Status boundary:** T119–T122 distinguish exact algebraic statements from floating-point source audits. T122 is a lift of the specified dual-graph transition system, not yet a full tangent-bundle Pin structure over the 2-complex. Torsion, continuum limit and physical gauge dynamics remain separate open questions.
+
 ## Unified programme update — 12 November 2026
 
 The canonical integration is maintained **inside the 27-chapter monograph**, not as a parallel theory: [Chapter 27 — unified RGS–PSU–PRISM–Q6–QLG programme](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). Its sections 27.5–27.9 integrate the Morandotti Frank–Burgers chain (T091–T099), the 64-hexagram charge/moiré and FDT chain (T100–T107), the Boolean influence records (T108–T109), KTHNY melting theory, and the toroidal compactification / S-duality interface of \(\mathcal N=4\) SYM.
