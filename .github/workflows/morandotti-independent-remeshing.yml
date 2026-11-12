@@ -30,7 +30,7 @@ jobs:
     container:
       image: dolfinx/dolfinx:v0.11.0
       options: --user root
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - name: Verify numerical environment
@@ -41,9 +41,9 @@ jobs:
       - name: Run independent-remeshing sweep
         run: |
           python3 scripts/rgs_morandotti_independent_remeshing.py \
-            --mesh-sizes 0.08 0.06 0.045 \
+            --mesh-sizes 0.08 0.06 0.045 0.035 \
             --distance-values 0.48 0.56 \
-            --mesh-seeds 11 29 47 \
+            --mesh-seeds 11 17 23 29 37 47 59 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
