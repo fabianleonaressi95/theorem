@@ -279,6 +279,30 @@ The two-circle phase lift of T101/T105 is a discrete input to this programme, no
 
 No physical defect, transport coefficient, or constitutive charge law is declared proved by T106.
 
+## 9. Related Shtetl-Optimized context and scope of the blog connection
+
+The linked 2019 guest post is the direct source for the geometric Haar/Born push-forward argument. Other relevant posts on the same blog sharpen the interpretation but do not supply the FDT or crystal-defect theory:
+
+- In “The quantum state cannot be interpreted as something other than a quantum state” (2011), Aaronson discusses the Pusey–Barrett–Rudolph result and the distinction between pure and mixed states. This is about ontological/statistical interpretations under preparation-independence assumptions, not a derivation of the Dirichlet push-forward law.
+- In “Interpretive cards (MWI, Bohm, Copenhagen: collect ’em all)” (2018), Aaronson notes that once the unitary structure and 2-norm are fixed, there are multiple mathematical arguments for the Born probabilities; the discussion also treats quantum equilibrium in Bohmian mechanics. This reinforces that Kuperberg's theorem is a measure theorem **given** the Born map, not a derivation of the Born rule from Q6, FDT, or mechanics.
+- In “Quantum Information Supremacy” (2025), Aaronson and collaborators discuss a resource separation between qubits and classical memory. The post and comments concern information/communication complexity and entangled-state resources; they do not imply that a Q6 circuit samples Haar measure or that a finite circuit is Haar-random.
+
+Targeted searches of the related blog material did not identify a treatment of the fluctuation–dissipation theorem, Frank angles, or Burgers vectors. Those connections in T106 therefore come from the independent linear-response and continuum-defect literature cited above, not from attributing those theories to Aaronson or Kuperberg.
+
+The correct chain is consequently:
+\[
+\text{Haar pure-state ensemble}
+\xrightarrow{\text{Born map}}
+\text{uniform simplex law}
+\]
+and, separately, for a specified equilibrium dynamics,
+\[
+\text{equilibrium correlations}
+\xrightarrow{\text{Kubo/FDT}}
+\text{linear response}.
+\]
+Only after spatial and frame reconstruction can the measured phase fields be assigned translational Burgers or rotational Frank data. These are linked research interfaces, not one theorem that derives all four structures from the Born map.
+
 ## References
 
 1. G. Kuperberg, “Archimedes’ other principle and quantum supremacy,” Shtetl-Optimized, 26 Nov 2019, https://scottaaronson.blog/?p=4432.
