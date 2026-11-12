@@ -73,13 +73,6 @@ def analyze_report(report):
                 },
             }
 
-                        "mean": float(np.mean([r[metric] for r in group])),
-                        "sample_std": float(np.std([r[metric] for r in group], ddof=1)),
-                        "minimum": float(np.min([r[metric] for r in group])),
-                        "maximum": float(np.max([r[metric] for r in group])),
-                    } for metric in METRICS
-                },
-            }
         distance_result["decomposition"] = {}
         for metric in METRICS:
             values = np.asarray([float(row[metric]) for row in subset])
