@@ -571,3 +571,8 @@ The finite cubical supersymmetry in T102 is **not** identified with \(\mathcal N
 ### T128 — Purcell swimmer and the Q6 geometric-control interface
 
 [T128](theorems/T128-purcell-swimmer-q6-geometric-control.md) records the continuous Purcell-swimmer connection/holonomy framework and the exact requirements for a Q6 discretization. A first-pass quadrature reconstruction is stored in [the audit directory](audits/purcell_swimmer_wall/README.md). The corrected reconstruction reproduces the published leading coefficient: at amplitude 10^-3 it gives approximately 0.06172485, approaching 5/81 ≈ 0.0617284, with stable results for quadrature orders 16–96. The initial control vector fields also match the analytic values. The Q6-to-shape-space map and discrete swimmer remain open. The article documents MATLAB/ode45, not DOLFINx or PyTorch.
+
+
+### T129 — Golden Q6 cut-and-project map and Purcell edge transport
+
+[T129](theorems/T129-q6-cut-project-purcell-shape-map.md) now constructs a parameterized map from all 64 Q6 vertices through the recovered golden internal projection (P_\perp\) into the two-angle shape chart: \(\Phi(v)=s_0+\sigma C P_\perp(v-\frac12\mathbf1)\). All six cut-and-project axes and all 192 edges are retained (32 edges per axis). The calibration \(C\in\mathbb R^{2\times3}\) is explicitly left as an input: the 3D internal space does not select a canonical 2D shape plane. The wall-dependent swimmer connection also produces state-dependent edge transport by integrating the continuous connection along each shape edge; a fixed universal \(U_e\) is not assumed. Finite structural and reversibility tests are added. Physical calibration, 192-edge holonomy, and refinement convergence remain open.
