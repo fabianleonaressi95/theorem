@@ -5,6 +5,10 @@
 
 **Canonical integration:** this document is the detailed modular/arithmetic branch of the [unitary theory of the truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md). The latter is the master dependency map for the full 10 November programme, including the Ikeda (S^3/T^*) spectral record S011.
 
+## 1. Notation safeguard: the common arithmetic–modular origin
+
+Throughout this document, the supergolden constant is denoted \(\psi_{\rm SA}\) (or \(s\) in formulas where this improves readability), and is defined by \(s^3-s^2-1=0\). The digamma function is denoted \(\digamma(x)=d\log\Gamma(x)/dx\), with trigamma \(\digamma_1\). These are distinct mathematical objects, but they are not being declared unrelated: the exact Weber/Dedekind class-invariant identity at discriminant \(-31\), the quadratic-field Dirichlet \(L\)-value, and the digamma/Gamma cumulant identities form the documented common arithmetic–modular network below. A shared symbol is not evidence of identity; the proved transformations are the evidence.
+
 ## 1. The four meanings that must remain distinct
 
 This construction uses four different objects:
@@ -286,13 +290,16 @@ The fully symmetric S.4 tensor is not torsion; the S.5 stencil moment is not the
 
 For the surface density
 \[
-g(X)=W(X,\nabla_Su,G,\theta,\nabla_S\theta),
+g(X)=W(X,
+abla_Su,G,\theta,
+abla_S\theta),
 \]
 T068/T070 provide local cell integration formulae when the composed density has the required \(C^3\) regularity. They do not prove compactness, a liminf inequality or a recovery sequence on a curved shell.
 
 Keep
 \[
-(g,G)\in SBV\times L^1,\qquad M=\nabla g-G
+(g,G)\in SBV\times L^1,\qquad M=
+abla g-G
 \]
 distinct from the metric \(J^TJ\). A physical seam is not automatically a jump set; a quadratic seam law is not automatically covered by a 1-homogeneous interfacial density. The football shell has exact combinatorial counts and a linearized orthotropic model, but material constants remain uncalibrated without scan/coupon data.
 
@@ -353,7 +360,8 @@ and, independently but compatibly,
 \longrightarrow \zeta(s)\zeta(s+1),\ \zeta(s)\zeta(s-1)
 \longrightarrow \eta_D(s)
 \longrightarrow \Gamma,\ B_{2n},\ \psi,\psi_1
-\longrightarrow \nabla_a^2\log B_3(a)
+\longrightarrow 
+abla_a^2\log B_3(a)
 \longrightarrow (c_{F,a},\Sigma_{F,a}).
 }
 \]
@@ -367,7 +375,8 @@ The local moment expansion then connects \((c_{F,a},\Sigma_{F,a})\) to the Moran
 4. Verify the real 180-facet football mesh against scan and material/coupon data.
 5. Prove the curved-surface compactness, liminf and recovery sequence for the Morandotti structured-deformation functional.
 6. Establish an explicit, non-circular map from Q6/PSU refinement data to the supergolden/Weber invariant if such a map exists.
-7. Keep the Dirichlet parameter gradient \(\partial_{a_i}\), the spatial gradient \(\nabla_S\), the fourth jump moment, the seed fourth moment, and the modular derivative \(q\,d/dq\) as distinct operators.
+7. Keep the Dirichlet parameter gradient \(\partial_{a_i}\), the spatial gradient \(
+abla_S\), the fourth jump moment, the seed fourth moment, and the modular derivative \(q\,d/dq\) as distinct operators.
 
 ## 12. Primary references
 
@@ -375,4 +384,5 @@ The local moment expansion then connects \((c_{F,a},\Sigma_{F,a})\) to the Moran
 - NIST DLMF §§5.11, 5.12, 5.15, 23.15, 23.18, 24.2, 25.2 and 25.15.
 - A. V. Sutherland, MIT 18.785, Lecture 19, *The Analytic Class Number Formula* (2021).
 - Amar–Matias–Morandotti–Zappale (2022), periodic homogenization in structured deformations; retain the Euclidean-domain and density hypotheses of the source paper.
-- Barroso–Matias–Morandotti–Owen (2017), relaxed disarrangement densities; retain the distinction \(M=\nabla g-G\).
+- Barroso–Matias–Morandotti–Owen (2017), relaxed disarrangement densities; retain the distinction \(M=
+abla g-G\).

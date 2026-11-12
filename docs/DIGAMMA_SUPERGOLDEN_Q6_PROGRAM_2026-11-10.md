@@ -3,13 +3,17 @@
 **Data:** 10 novembre 2026  
 **Stato:** identità speciali esatte; campionamento numerico riproducibile; derivazione geometrica PSU/Q6 ancora aperta.
 
+## Convenzione di notazione — origine comune, funzioni distinte
+
+In questo dossier \(s=\psi_{\rm SA}\) è sempre la costante superaurata, radice positiva di \(s^3-s^2-1=0\). La funzione digamma è scritta \(\digamma(x)=d\log\Gamma(x)/dx\), e la trigamma \(\digamma_1(x)=\digamma'(x)\). Questa distinzione tipografica evita di usare lo stesso simbolo per la costante e per la funzione speciale. Il collegamento non è una semplice omonimia: le identità di shift, moltiplicazione e asintotica qui sotto valutano la digamma sulle scale generate da \(\psi_{\rm SA}\). Il dossier modulare collegato documenta inoltre il ponte Weber–Dedekind eta al discriminante \(-31\).
+
 ## 1. Scelta di impostazione
 
 Il digamma
 \[
-\psi(x)=\frac{\Gamma'(x)}{\Gamma(x)}=\frac{d}{dx}\log\Gamma(x)
+\digamma(x)=\frac{\Gamma'(x)}{\Gamma(x)}=\frac{d}{dx}\log\Gamma(x)
 \]
-è assunto come osservabile analitico principale. La funzione Gamma codifica prodotti e normalizzazioni; il digamma ne misura la variazione infinitesima. La trigamma \(\psi_1=\psi'\) misura la risposta successiva.
+è assunto come osservabile analitico principale. La funzione Gamma codifica prodotti e normalizzazioni; il digamma ne misura la variazione infinitesima. La trigamma \(\digamma_1=\digamma'\) misura la risposta successiva.
 
 Questa scelta non implica che il digamma generi automaticamente la costante superaurea. Il compito è verificare quali identità esatte del digamma siano compatibili con la relazione algebrica e con i raffinamenti discreti già presenti nel programma RGS–PSU.
 
@@ -25,15 +29,15 @@ e quindi \(s^3=s^2+1\).
 
 Dalla relazione \(\Gamma(x+1)=x\Gamma(x)\), derivando il logaritmo:
 \[
-\boxed{\psi(x+1)=\psi(x)+\frac1x.}
+\boxed{\digamma(x+1)=\digamma(x)+\frac1x.}
 \]
 Poiché \(s^3=s^2+1\), segue l'identità esatta:
 \[
-\boxed{\psi(s^3)-\psi(s^2)=s^{-2}.}
+\boxed{\digamma(s^3)-\digamma(s^2)=s^{-2}.}
 \]
 Più in generale, per ogni intero \(n\geq0\):
 \[
-\psi(s^{n+3})-\psi(s^{n+2}+0)
+\digamma(s^{n+3})-\digamma(s^{n+2}+0)
 \]
 non si riduce alla ricorrenza precedente: infatti \(s^{n+3}-s^{n+2}=s^n\), che non è in generale un intero. La sola identità di shift immediata è quella per \(n=0\). Non si deve estendere abusivamente la ricorrenza a traslazioni non intere.
 
@@ -41,13 +45,13 @@ non si riduce alla ricorrenza precedente: infatti \(s^{n+3}-s^{n+2}=s^n\), che n
 
 Per un intero positivo \(m\):
 \[
-\boxed{\sum_{k=0}^{m-1}\psi\!\left(x+\frac{k}{m}\right)
+\boxed{\sum_{k=0}^{m-1}\digamma\!\left(x+\frac{k}{m}\right)
 =m\psi(mx)-m\log m.}
 \]
 Per \(m=3\) e \(x=s^3/3\), combinando con \(s^3=s^2+1\):
 \[
-\sum_{k=0}^{2}\psi\!\left(\frac{s^3+k}{3}\right)
-=3\psi(s^2)+\frac{3}{s^2}-3\log3.
+\sum_{k=0}^{2}\digamma\!\left(\frac{s^3+k}{3}\right)
+=3\digamma(s^2)+\frac{3}{s^2}-3\log3.
 \]
 È una relazione esatta che mette in comunicazione il valore del digamma alla scala superaurea con una terna di argomenti equispaziati. Il fattore 3 è intero: non si applica la formula di Gauss sostituendo \(m=s\), che sarebbe scorretto.
 
@@ -55,11 +59,11 @@ Per \(m=3\) e \(x=s^3/3\), combinando con \(s^3=s^2+1\):
 
 Per \(x>0\):
 \[
-\psi_1(x)=\psi'(x)=\sum_{j=0}^{\infty}\frac{1}{(x+j)^2}>0.
+\digamma_1(x)=\digamma'(x)=\sum_{j=0}^{\infty}\frac{1}{(x+j)^2}>0.
 \]
 Dunque il digamma è strettamente crescente sul semiasse positivo. Per ogni \(a,b>0\):
 \[
-\psi(b)-\psi(a)=\int_a^b\psi_1(t)\,dt.
+\digamma(b)-\digamma(a)=\int_a^b\digamma_1(t)\,dt.
 \]
 Questa formula fornisce una rappresentazione esatta delle differenze sulle scale \(s^n\), senza attribuire loro una ricorrenza inesistente.
 
@@ -67,14 +71,14 @@ Questa formula fornisce una rappresentazione esatta delle differenze sulle scale
 
 Definiamo:
 \[
-d_n=\psi(s^n),\qquad
+d_n=\digamma(s^n),\qquad
 \delta_n=d_{n+1}-d_n.
 \]
 Il campionamento è un'osservabile analitica ben definita. Non è, da solo, una legge di sostituzione Q6.
 
 Per \(x\to+\infty\), l'espansione asintotica è:
 \[
-\psi(x)\sim\log x-\frac{1}{2x}
+\digamma(x)\sim\log x-\frac{1}{2x}
 -\sum_{k\geq1}\frac{B_{2k}}{2k\,x^{2k}}.
 \]
 Ponendo \(x=s^n\):
@@ -94,7 +98,7 @@ Questa è una connessione rigorosa tra la scala moltiplicativa superaurea e l'in
 
 Valori calcolati ad alta precisione con \(s\) radice positiva di \(x^3-x^2-1\):
 
-| \(n\) | \(s^n\) | \(\psi(s^n)\) |
+| \(n\) | \(s^n\) | \(\digamma(s^n)\) |
 |---:|---:|---:|
 | 0 | 1.0000000000 | −0.5772156649015329 |
 | 1 | 1.4655712319 | 0.0038048907409820 |
@@ -126,10 +130,10 @@ Il collegamento corretto alla matrice supergolden deve essere cercato in una del
 
 Il target combinatorio resta:
 \[
-A_s=\begin{pmatrix}1&0&1\\1&0&0\\0&1&0\end{pmatrix},
+A_s=\begin{pmatrix}1&0&1\1&0&0\0&1&0\end{pmatrix},
 \qquad \det(\lambda I-A_s)=\lambda^3-\lambda^2-1.
 \]
-La comparsa dello stesso polinomio in un operatore costruito indipendentemente dal digamma sarebbe un risultato nuovo. Un semplice campionamento di \(\psi(s^n)\) non basta.
+La comparsa dello stesso polinomio in un operatore costruito indipendentemente dal digamma sarebbe un risultato nuovo. Un semplice campionamento di \(\digamma(s^n)\) non basta.
 
 ## 5. Ponte con Q6, Anti-Twin e quaternioni
 
@@ -147,8 +151,8 @@ La suddivisione midpoint T055 continua a dare \(2I_3\) sulla restrizione a tre d
 
 | Affermazione | Stato |
 |---|---|
-| Ricorrenza \(\psi(x+1)=\psi(x)+1/x\) | **Identità esatta** |
-| \(\psi(s^3)-\psi(s^2)=s^{-2}\) | **Identità esatta** |
+| Ricorrenza \(\digamma(x+1)=\digamma(x)+1/x\) | **Identità esatta** |
+| \(\digamma(s^3)-\digamma(s^2)=s^{-2}\) | **Identità esatta** |
 | Formula di moltiplicazione di Gauss per \(m=3\) | **Identità esatta** |
 | Monotonia e rappresentazione integrale via trigamma | **Identità esatta** |
 | \(\delta_n\to\log s\) | **Conseguenza asintotica dimostrabile** |

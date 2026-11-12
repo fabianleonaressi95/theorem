@@ -6,7 +6,7 @@
 
 ## 1. Scope
 
-T110 extracts integer vortex charge from wrapped phase increments. A Gross–Pitaevskii (GP) order parameter is complex, \(\psi=\sqrt n e^{i\theta}\), and a vortex core is a zero of \(\psi\). This record tests whether plaquette winding localizes that zero with a controlled grid error.
+T110 extracts integer vortex charge from wrapped phase increments. A Gross–Pitaevskii (GP) order parameter is complex, \(\Psi_{\rm GP}=\sqrt n e^{i\theta}\), and a vortex core is a zero of \(\Psi_{\rm GP}\). This record tests whether plaquette winding localizes that zero with a controlled grid error.
 
 The first benchmark is static and manufactured. It is **not** a numerical solution of the time-dependent GP equation and does not establish vortex dynamics, Kelvin-theorem breakdown, reconnection, or turbulence.
 
@@ -14,11 +14,11 @@ The first benchmark is static and manufactured. It is **not** a numerical soluti
 
 On \([-1,1]^2\), choose a zero \(z_0=(x_0,y_0)\) away from grid vertices and define
 \[
-\psi(x,y)=((x-x_0)+i(y-y_0))e^{-2((x-x_0)^2+(y-y_0)^2)}.
+\Psi_{\rm GP}(x,y)=((x-x_0)+i(y-y_0))e^{-2((x-x_0)^2+(y-y_0)^2)}.
 \]
 The Gaussian is strictly positive and does not change the phase. The isolated zero has local index +1.
 
-For each oriented grid plaquette \(p\), sample \(\theta_v=\arg\psi(v)\) at its four vertices and set
+For each oriented grid plaquette \(p\), sample \(\theta_v=\arg\Psi_{\rm GP}(v)\) at its four vertices and set
 \[
 q_p=\frac1{2\pi}\sum_{(v,w)\in\partial p}
 \operatorname{wrap}_{(-\pi,\pi]}(\theta_w-\theta_v).
