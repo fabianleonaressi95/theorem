@@ -32,7 +32,7 @@ def audit_one(n, zero=(0.137, -0.219)):
     x, y = np.meshgrid(axis, axis, indexing="ij")
     r2 = (x-x0)**2 + (y-y0)**2
     Psi_GP = ((x-x0) + 1j*(y-y0)) * np.exp(-2.0*r2)
-    phase = np.angle(psi)
+    phase = np.angle(Psi_GP)
     # Counter-clockwise plaquette boundary.
     circulation = (
         wrap(phase[1:, :-1] - phase[:-1, :-1])
@@ -62,7 +62,7 @@ def audit_extruded_3d(n_xy=32, n_z=8, zero=(0.137, -0.219)):
     r2 = (x-x0)**2 + (y-y0)**2
     # z-independent complex field: its zero is a straight line parallel to z.
     Psi_GP = ((x-x0) + 1j*(y-y0)) * np.exp(-2.0*r2)
-    phase = np.angle(psi)
+    phase = np.angle(Psi_GP)
     circulation = (
         wrap(phase[1:, :-1] - phase[:-1, :-1])
         + wrap(phase[1:, 1:] - phase[1:, :-1])
