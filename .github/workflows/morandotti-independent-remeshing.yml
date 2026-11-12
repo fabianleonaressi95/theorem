@@ -18,6 +18,7 @@ on:
       - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
       - 'models/morandotti_distance_refinement.py'
       - 'tests/test_morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_independent_remeshing.py'
       - '.github/workflows/morandotti-independent-remeshing.yml'
 
 permissions:
