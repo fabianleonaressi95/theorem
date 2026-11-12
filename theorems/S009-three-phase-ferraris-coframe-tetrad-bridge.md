@@ -263,17 +263,17 @@ The previous ansatz introduced an independent biaxial tensor
 \[
 Q=\operatorname{diag}(q,-q,0)
 \]
-and inferred a (2\Omega_{\rm el}) torsion-trace response. That calculation is conditionally correct for the displayed external-director model, but it inserts a material anisotropy not derived from the RGS operators. It is therefore superseded for the present programme. In particular, it does not establish that the RGS triplet produces a torsion trace or that a rotating Ferraris field alone generates torsion.
+and inferred a $2\Omega_{\rm el}$ torsion-trace response. That calculation is conditionally correct for the displayed external-director model, but it inserts a material anisotropy not derived from the RGS operators. It is therefore superseded for the present programme. In particular, it does not establish that the RGS triplet produces a torsion trace or that a rotating Ferraris field alone generates torsion.
 
 ### 14.1 Intrinsic RGS operator data
 
 The relevant numerical record is maintained in the companion repository:
 
 - [RGS–QLG quaternion bridge](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge)
-- [188D T2u geometry audit](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/reports/rgs_188d/188D_T2U_GEOMETRY_AUDIT.json)
-- [Kathara/Krystal square-similarity reconstruction](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/KATHARA_KRYSTAL_SPIRAL_SQUARE_GEOMETRY.md)
+- [188D T2u geometry audit]$https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/reports/rgs_188d/188D_T2U_GEOMETRY_AUDIT.json$
+- [Kathara/Krystal square-similarity reconstruction]$https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/KATHARA_KRYSTAL_SPIRAL_SQUARE_GEOMETRY.md$
 
-For the selected orthonormal triplet basis (J_0\in\mathbb R^{188\times3}), the archived audit reports
+For the selected orthonormal triplet basis $J_0\in\mathbb R^{188\times3}$, the archived audit reports
 \[
 \|J_0^TJ_0-I_3\|\simeq5.60\times10^{-16}.
 \]
@@ -282,17 +282,17 @@ It distinguishes two observables which must not be conflated:
 M_{\rm geom}=J_0^T K_{\rm tangent}^{+}J_0
 \simeq-0.95403126139055\,I_3,
 \]
-with relative anisotropy (3.96\times10^{-15}), and
+with relative anisotropy $3.96\times10^{-15}$, and
 \[
 M_{\rm field}=J_0^T K_{\rm field}^{+}J_0,
 \]
 whose reported eigenvalues are
 \[
-(0.8272550028,\;0.8272550028,\;0.9512140709),
+$0.8272550028,\;0.8272550028,\;0.9512140709$,
 \]
-with relative anisotropy (0.1427155). The direct compression (J_0^TK_{\rm field}J_0\) is instead approximately (4.96933853 I_3), but (J_0) is not invariant under (K_{\rm field}): the reported relative invariance residual is (0.7219434), and the leakage outside the triplet is (0.3321124).
+with relative anisotropy (0.1427155). The direct compression $J_0^TK_{\rm field}J_0$ is instead approximately $4.96933853 I_3$, but $J_0$ is not invariant under $K_{\rm field}$: the reported relative invariance residual is (0.7219434), and the leakage outside the triplet is (0.3321124).
 
-These are **numerical properties of the archived operators**, not a proof of a physical constitutive law. They show why an external (Q\) is unnecessary as an explanatory input: the anisotropic response is already visible in the full operator/inverse response and its coupling to modes outside the selected triplet. The geometry-compressed tangent observable remains isotropic. Do not state that every RGS triplet is anisotropic, or identify the selected (T_{2u}) triplet with the 94 dynamical two-planes.
+These are **numerical properties of the archived operators**, not a proof of a physical constitutive law. They show why an external $Q$ is unnecessary as an explanatory input: the anisotropic response is already visible in the full operator/inverse response and its coupling to modes outside the selected triplet. The geometry-compressed tangent observable remains isotropic. Do not state that every RGS triplet is anisotropic, or identify the selected $T_{2u}$ triplet with the 94 dynamical two-planes.
 
 ### 14.2 Kathara square map and quaternionic lift
 
@@ -307,15 +307,15 @@ Its square is
 T^2=\begin{pmatrix}0&2\\-2&0\end{pmatrix}
 =2R_{-\pi/2}.
 \]
-Thus two Kathara stages produce a clockwise quarter-turn and a length doubling. In complex notation (T:z\mapsto(1-i)z), so (T^2:z\mapsto-2iz). The scale-normalized quarter-turn is (R_{-\pi/2}\), represented in the spin double cover by
+Thus two Kathara stages produce a clockwise quarter-turn and a length doubling. In complex notation (T:z\mapsto(1-i)z), so $T^2:z\mapsto-2iz$. The scale-normalized quarter-turn is $R_{-\pi/2}$, represented in the spin double cover by
 \[
 q_{-90}=\frac{1-\mathbf k}{\sqrt2},
 \qquad q_{-90}^2=-\mathbf k,\quad
 q_{-90}^4=-1,\quad q_{-90}^8=1.
 \]
-The image in (SO(3)) has order four; this chosen lift in (SU(2)\) has order eight. The planar complex unit (i\), the quaternion unit \(\mathbf k\), and Cartesian sign sectors are related only through the declared representation map; they must not be silently identified.
+The image in (SO(3)) has order four; this chosen lift in (SU(2)\) has order eight. The planar complex unit $i$, the quaternion unit \$\mathbf k$, and Cartesian sign sectors are related only through the declared representation map; they must not be silently identified.
 
-For comparison, a proper (120^\circ) rotation around \(\mathbf n=(1,1,1)/\sqrt3\) has lift
+For comparison, a proper $120^\circ$ rotation around \(\mathbf n=(1,1,1)/\sqrt3\) has lift
 \[
 q_{120}=\frac{1+\mathbf i+\mathbf j+\mathbf k}{2},
 \qquad q_{120}^3=-1,\quad q_{120}^6=1.
@@ -335,13 +335,13 @@ The source chain to be tested is
 For the actual 188D representation, construct the lifted action (\rho(q)\) from the archived representation matrices and calculate
 \[
 [ K_{\rm field},\rho(q)],\qquad
-(I-J_0J_0^T)K_{\rm field}J_0,
+$I-J_0J_0^T$K_{\rm field}J_0,
 \qquad
 J_0^T K_{\rm field}^{+}J_0.
 \]
 The first tests equivariance, the second measures mode leakage, and the third is the response observable. No numerical value for the commutator with (\rho(q)\) is asserted until the actual representation matrix is recovered and the calculation is run.
 
-Only after this step may a coframe (e^a\), a connection choice (\omega^a{}_b\), and the Cartan expression
+Only after this step may a coframe $e^a$, a connection choice $\omega^a{}_b$, and the Cartan expression
 \[
 T^a=de^a+\omega^a{}_b\wedge e^b
 \]
@@ -353,9 +353,9 @@ in its documented conventions. This is an axial, algebraic torsion sourced by th
 
 ### 14.4 Epistemic and validation ledger
 
-- **Exact algebra:** Kathara planar similarity (T^TT=2I\), (T^2=2R_{-\pi/2}\), and the stated quaternionic lift identities.
+- **Exact algebra:** Kathara planar similarity $T^TT=2I$, $T^2=2R_{-\pi/2}$, and the stated quaternionic lift identities.
 - **Numerically reported:** the two compressed RGS observables, triplet leakage and invariance residuals quoted above; reproducibility still requires matching input hashes, commit, command and dependency versions.
 - **Candidate:** the induced Kathara/quaternionic action on the selected RGS triplet and its coupling to the coframe.
 - **Open:** representation matrix (\rho(q)\), commutator audit, coframe embedding, full connection variation, and any electromagnetic-to-torsion constitutive law.
-- **Retracted as an RGS claim:** the previous external (Q=\operatorname{diag}(q,-q,0)\) source model and its (2\Omega_{\rm el}\) prediction. It remains only a conditional toy model for an independently anisotropic material medium.
+- **Retracted as an RGS claim:** the previous external $Q=\operatorname{diag}(q,-q,0)$\) source model and its $2\Omega_{\rm el}$ prediction. It remains only a conditional toy model for an independently anisotropic material medium.
 
