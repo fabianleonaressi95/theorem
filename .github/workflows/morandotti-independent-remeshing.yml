@@ -48,6 +48,7 @@ jobs:
         run: |
           python3 -m pytest -q tests/test_morandotti_distance_refinement.py tests/test_morandotti_independent_remeshing.py tests/test_morandotti_resolution_decomposition.py tests/test_morandotti_mesh_realization_diagnostics.py
       - name: Run independent-remeshing sweep
+        if: github.event_name == 'workflow_dispatch'
         run: |
           python3 scripts/rgs_morandotti_independent_remeshing.py \
             --mesh-sizes 0.08 0.06 0.045 0.035 \
@@ -58,16 +59,19 @@ jobs:
             --poisson-ratio 0.0 \
             --out artifacts/morandotti_independent_remeshing/report.json
       - name: Decompose resolution and remeshing variability
+        if: github.event_name == 'workflow_dispatch'
         run: |
           python3 scripts/morandotti_resolution_decomposition.py \
             --input artifacts/morandotti_independent_remeshing/report.json \
             --out artifacts/morandotti_independent_remeshing/decomposition.json
       - name: Diagnose mesh quality and core-exchange symmetry
+        if: github.event_name == 'workflow_dispatch'
         run: |
           python3 scripts/morandotti_mesh_realization_diagnostics.py \
             --report artifacts/morandotti_independent_remeshing/report.json \
             --out artifacts/morandotti_independent_remeshing/mesh_diagnostics.json
       - name: Upload report, decompositions, diagnostics, and finite-element fields
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: morandotti-independent-remeshing
