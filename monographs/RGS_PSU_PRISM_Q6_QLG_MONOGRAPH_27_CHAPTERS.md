@@ -791,3 +791,17 @@ Il record T128 separa il riferimento continuo dal possibile modello discreto Q6.
 La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\), è conservata in \texttt{audits/purcell\_swimmer\_wall/}. Dopo aver corretto l'intervallo di arclunghezza delle aste esterne, essa restituisce \(\Delta x/\xi^2\simeq0.06172485\) per \(\xi=10^{-3}\), avvicinandosi al valore pubblicato \(5/81\simeq0.0617284\). I campi iniziali di controllo coincidono inoltre con quelli analitici riportati nell'articolo. Il benchmark numerico principale è riprodotto; questo non equivale alla dimostrazione indipendente del teorema di controllabilità.
 
 **Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
+
+
+## Appendice tecnica — Costruzione parametrica Q6–Purcell (T129)
+
+La geometria cut-and-project già implementata nel repository RGS–QLG–Quaternion Bridge fornisce la decomposizione aurea ortogonale \(\mathbb R^6=E_\parallel\oplus E_\perp\), con entrambi i sottospazi tridimensionali. Per i vertici \(v\in\{0,1\}^6\), la coordinata interna è \(P_\perp(v-\frac12\mathbf1)\). T129 definisce quindi una famiglia di mappe verso lo spazio delle forme del nuotatore,
+\[
+\Phi_{C,\sigma,s_0}(v)=s_0+\sigma C P_\perp(v-\tfrac12\mathbf1),
+\qquad C\in\mathbb R^{2\times3},\quad \operatorname{rank}C=2.
+\]
+La matrice \(C\) e la scala angolare \(\sigma\) non sono fissate dalla sola decomposizione aurea: costituiscono dati di calibrazione da derivare da osservabili indipendenti. Non viene scelto arbitrariamente un piano interno né vengono eliminati quattro assi. Tutte le sei direzioni coordinate e i 192 archi Q6 restano nel modello, con 32 archi per ciascuna direzione; la loro anisotropia proiettata è conservata.
+
+Nel problema vicino alla parete, la connessione \(A(s,y,\theta)=-R_{bb}^{-1}R_{bs}\) dipende anche dalla distanza dalla parete e dall'orientamento. Il trasporto di un arco deve dunque essere integrato come aggiornamento dipendente dallo stato, lungo il segmento di forma corrispondente, anziché essere postulato come una matrice universale \(U_e\). Il codice T129 implementa questa interfaccia tramite un callback della connessione e verifica il trasporto diretto/inverso su un caso costante di controllo.
+
+**Classificazione:** mappa parametrica e identità finite [P, condizionate alla calibrazione]; verifiche numeriche strutturali [N]; calibrazione fisica, olonomie dei 192 archi con la connessione di parete effettiva, convergenza sotto raffinamento e teorema di controllabilità Q6 [O]. T129 non afferma che i vertici Q6 siano configurazioni fisiche del micro-nuotatore.
