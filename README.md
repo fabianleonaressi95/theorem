@@ -373,6 +373,12 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
 - [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
 
+### T101 — Trigram angular phases and Q6 plaquette holonomy
+
+- [T101 theorem record](theorems/T101-trigram-angular-phases-q6-plaquette-holonomy.md) starts from eight measured trigram phases, constructs the 64 ordered lower/upper pairs on a two-torus, and tests antipodal complementarity against the opposite point on each circle.
+- The exact combinatorial audit enumerates all 192 Q6 edges and 240 square plaquettes, reporting complement residuals, the 64 complementary displacements, phase increments, and plaquette branch windings. See [audit script](scripts/audit_t101_trigram_phase_holonomy.py) and [tests](tests/test_t101_trigram_phase_holonomy.py).
+- **Critical identifiability boundary:** endpoint phase differences form a pure-gauge U(1) connection, so every plaquette holonomy is exactly trivial. A nonzero principal-branch winding is not, by itself, a disclination. Frank holonomy requires independent local-frame link transport; Burgers data require a spatial embedding and translational registration. No physical defect is inferred from eight phases alone.
+
 ### T100 — Hypercube–moiré response, Green–Kubo transport, and geometric defects
 
 - [T100 theorem record](theorems/T100-hypercube-moire-green-kubo-defects.md) treats the 64 individual hexagrams as the primary charge-bearing degrees of freedom; node-charge correlations are primary, while edge currents encode transfers.
