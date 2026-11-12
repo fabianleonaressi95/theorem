@@ -381,6 +381,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The constitutive phase-to-charge law, spatial embedding, reciprocal vectors, Green–Kubo coefficient, and material defect labels remain conditional on calibrated measurements. No physical charge values or moiré scale are invented.
 - [Audit script](scripts/audit_t105_hexagram_moire_circuit.py), [tests](tests/test_t105_hexagram_moire_circuit.py), and [dedicated CI workflow](.github/workflows/t105-hexagram-moire-circuit.yml).
 
+### T109 — General Q_n influence identities and the dimension gap
+
+- [T109 theorem record](theorems/T109-qn-dimension-uniform-influence-gap.md) extends the exact Walsh influence and Laplacian identities from Q6 to every Q_n.
+- Proves the degree-d total-influence bounds and the dimension-dependent estimate \(\max_i\mathcal I_i(f)\ge 4\operatorname{Var}(f)/n\).
+- Gives a bounded degree-one family showing that no *linear-in-variance* lower bound can be dimension-free. This does not contradict Aaronson–Ambainis, whose target is nonlinear in the variance.
+- Precisely isolates the missing ingredient: a degree-sensitive mechanism controlling concentration on individual coordinates. No independent proof of the dimension-free Aaronson–Ambainis theorem is claimed.
+
 ### T107 — Gray-torus geometry, reversible Q6 Gibbs dynamics, and preregistered FDT tests
 
 - [T107 theorem record](theorems/T107-q6-gray-torus-gibbs-fdt-defect-test.md) uses the graph-preserving Gray map \(Q_6\cong C_4^3\) and the existing exact quotient onto a periodic \(C_4\times C_4\) cell with a four-state internal fibre.
