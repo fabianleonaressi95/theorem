@@ -524,6 +524,12 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 
 **Status boundary:** these are finite algebraic/combinatorial results. The Pin/spin lift, torsion, RGS-metric canonicality, continuum limit and physical gauge dynamics remain separate open questions.
 
+### Q6–2I representation compatibility — 12 November 2026
+
+- [T123 — Central-character obstruction and an explicit 2I twist of the Q6 exterior module](https://github.com/fabianleonaressi95/theorem/blob/formalize/q6-2i-central-character-t123-clean-2026-11-12/theorems/T123-q6-2i-central-character-intertwiner.md): proves that the untwisted fundamental-doublet intertwiner vanishes; constructs an explicit embedding into the 128-dimensional doublet-twisted module.
+
+**Status boundary:** the zero-intertwiner result is exact. The tensor twist is an explicit representation-theoretic repair, not a derived physical coupling. A common Pin+(4)/2I bundle structure remains unconstructed.
+
 ### 2I / Möbius / Clifford theorem records — 12 November 2026
 
 - [T119 — Binary icosahedral group and selected representations](theorems/T119-binary-icosahedral-group-and-selected-representations.md): 120-element quaternion model, central characters and selected Schur intertwiners.
