@@ -524,7 +524,7 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 - [T119 — Binary icosahedral group and selected representations](theorems/T119-binary-icosahedral-group-and-selected-representations.md): 120-element quaternion model, central characters and selected Schur intertwiners.
 - [T120 — Möbius orientation cocycle and independent SU(2) fibre](theorems/T120-mobius-orientation-cocycle-and-independent-su2-fibre.md): nontrivial dual-cycle orientation holonomy and separation from the internal gauge field.
 - [T121 — Icosahedral A5 action on Q6 and its exterior Clifford module](theorems/T121-icosahedral-a5-action-on-q6-clifford-module.md): signed-axis action and induced 64-dimensional exterior Clifford module.
-- [T122 — Pin+(4) lift and Möbius Clifford transport](theorems/T122-pin-plus-mobius-clifford-transport.md): Pin+ lift and Clifford-compatible transport of the specified six-face dual-graph transitions (full tangent-bundle Pin structure remains open).
+- [T122 — Pin+(4) lift and Möbius Clifford transport](https://github.com/fabianleonaressi95/theorem/blob/formalize/mobius-pin-plus-clifford-t122-2026-11-12/theorems/T122-pin-plus-mobius-clifford-transport.md): Pin+ lift and Clifford-compatible transport of the specified six-face dual-graph transitions (full tangent-bundle Pin structure remains open).
 
 **Status boundary:** T114–T122 are finite algebraic/combinatorial results, with numerical source audits explicitly distinguished from proofs. The full tangent-bundle Pin extension, torsion, RGS-metric canonicality, continuum limit and physical gauge dynamics remain separate open questions.
 
