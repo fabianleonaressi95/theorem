@@ -395,6 +395,12 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - Separates translational Burgers cochains from rotational Frank holonomy and pre-registers held-out cross-prediction and FDT checks. The model is mathematical; no physical circuit or material validation is claimed.
 - [Audit](scripts/audit_t107_gray_torus_gibbs_fdt.py), [tests](tests/test_t107_gray_torus_gibbs_fdt.py), and [focused CI](.github/workflows/t107-gray-torus-gibbs-fdt.yml) verify the Gray graph map, quotient chain maps, and analytic susceptibility.
 
+### T110 — XY vortices on 2D/3D tori and the KTHNY boundary
+
+- [T110 theorem record](theorems/T110-xy-torus-vortex-kthny-bkt.md) defines integer plaquette winding on the 2D torus, harmonic winding sectors, and the divergence-free dual-link vortex flux on the 3D torus.
+- Distinguishes the 2D XY/BKT helicity-modulus jump from KTHNY dislocation unbinding (\( K_R=16\pi \)) and from 3D vortex-loop proliferation. The logarithmic pair potential is not identified with the signed charge correlator.
+- [Metropolis audit](scripts/audit_xy_torus_kthny_bkt.py), [tests](tests/test_xy_torus_kthny_bkt.py), and [focused CI](.github/workflows/t110-xy-torus-vortex-kthny-bkt.yml) check 2D neutrality, 3D dual-flux closure, winding integrality, and finite-size smoke runs. No transition temperature or material KTHNY bridge is claimed.
+
 ### T108 — Boolean influences, the Q6 Laplacian, and cubical cohomology
 
 - [T108 theorem record](theorems/T108-boolean-influences-q6-laplacian-cohomology.md) derives the exact Walsh influence identity on the six-cube and the fixed-dimension estimate \\(\\max_i\\operatorname{Inf}_i(f)\\ge(2/3)\\operatorname{Var}(f)\).
