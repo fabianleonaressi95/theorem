@@ -20,9 +20,9 @@ c_h=\sum_{e\in E_h} b_e\,e
 \]
 Its endpoint content is the cellular boundary
 \[
-\partial_1c_h\in C_0(G_h;\Lambda_B).
+\partial_1c_h\in C_0(G_h;\Lambda_B),\qquad \partial_1 e=w-v.
 \]
-The incidence identity \(\partial_0\partial_1=0\) is the ordinary chain-complex identity; it expresses endpoint balance and does not encode a cutting or reconnection event.
+It records the oriented Burgers content entering and leaving each vertex. It is endpoint bookkeeping only and does not encode a cutting or reconnection event.
 
 For a Frank–Read source, the pinned source segment is represented by a prescribed relative-boundary class (or, equivalently, prescribed endpoint content at the pinning set). A closed emitted loop is represented by a cycle \(\gamma_h\in C_1(G_h;\Lambda_B)\) with \(\partial_1\gamma_h=0\). Adding such a cycle preserves the endpoint content:
 \[
