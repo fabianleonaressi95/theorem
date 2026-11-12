@@ -512,6 +512,18 @@ A separate critical appendix integrates S. P. Ratti's supplied primary-document 
 - **Evidence boundary:** Q6 graph identities are inherited from T099. The charge assignment and its physical units, equilibrium noise/FDT model, mode-to-space embedding, transport validation, and extraction of dislocations/disclinations remain to be derived or measured. The graph Green operator is distinct from the Green–Kubo correlation integral.
 
 
+### Q6 / Möbius / SU(2) theorem records — 12 November 2026
+
+The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge), tracked from [issue #3](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/issues/3). The mathematical results are recorded here:
+
+- [T114 — Q6 gauge-covariant cubical Dirac–Kähler differential](theorems/T114-q6-gauge-covariant-cubical-dirac-kaehler.md): all-degree gauge covariance and spectral invariance, with curvature and Clifford-factor limits stated.
+- [T115 — RGS curved Clifford coframe identity](theorems/T115-rgs-curved-clifford-coframe-identity.md): pointwise curved Clifford relation from an invertible coframe; no torsion or field equation inferred.
+- [T116 — Non-degenerate integral Kathara-to-Q6 chain map](theorems/T116-nondegenerate-kathara-q6-integral-chain-map.md): exact finite chain identities and modular rank certificate under a declared path-order convention.
+- [T117 — Six-square Möbius subcomplex of Q6](theorems/T117-six-square-mobius-subcomplex-of-q6.md): cell structure, homology and non-orientability for the six specified square patterns.
+- [T118 — SU(2) path transport and Wilson holonomy](theorems/T118-su2-path-transport-wilson-holonomy.md): open-path covariance, closed-loop conjugation and Wilson-trace invariance on any finite graph.
+
+**Status boundary:** these are finite algebraic/combinatorial results. The Pin/spin lift, torsion, RGS-metric canonicality, continuum limit and physical gauge dynamics remain separate open questions.
+
 ## Unified programme update — 12 November 2026
 
 The canonical integration is maintained **inside the 27-chapter monograph**, not as a parallel theory: [Chapter 27 — unified RGS–PSU–PRISM–Q6–QLG programme](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). Its sections 27.5–27.9 integrate the Morandotti Frank–Burgers chain (T091–T099), the 64-hexagram charge/moiré and FDT chain (T100–T107), the Boolean influence records (T108–T109), KTHNY melting theory, and the toroidal compactification / S-duality interface of \(\mathcal N=4\) SYM.
