@@ -1,4 +1,11 @@
-from pathlib import Path\nimport sys\n\nROOT = Path(__file__).resolve().parents[1]\nif str(ROOT) not in sys.path:\n    sys.path.insert(0, str(ROOT))\n\nfrom scripts.morandotti_resolution_decomposition import analyze_report
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.morandotti_resolution_decomposition import analyze_report
 
 
 def _report():
@@ -34,3 +41,14 @@ def test_rejects_insufficient_remesh_replicates():
         pass
     else:
         raise AssertionError("expected insufficient-replicate validation")
+
+
+def test_rejects_unbalanced_resolution_groups():
+    report = _report()
+    report["runs"].pop()
+    try:
+        analyze_report(report)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("expected unbalanced-group validation")
