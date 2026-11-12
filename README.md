@@ -373,6 +373,12 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
 - [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
 
+### T103 — Q6 Z2 magnetic holonomy and twisted heat trace
+
+- [T103 theorem record](theorems/T103-q6-z2-magnetic-holonomy.md) defines Z2 link variables on the 192 Q6 edges, gauge transformations, all 240 plaquette fluxes, and the magnetic graph Laplacian.
+- The exact cubical audit verifies cell counts (64, 192, 240, 160), boundary ranks (63, 129, 111), the 111 independent 3-cell flux constraints, and the (2^{129}) gauge classes. The plaquette-flux map is injective on gauge classes; a flat connection is gauge-trivial on the contractible cube.
+- [Audit script](scripts/audit_t103_q6_z2_magnetic_holonomy.py) and [regression tests](tests/test_t103_q6_z2_magnetic_holonomy.py) compute spectra and heat traces for a finite representative set and check gauge invariance. **Exhaustive enumeration of all gauge classes is not attempted.** No supersymmetry in the curved sector, physical hexagram-charge map, continuum limit, or induced-gravity claim is made.
+
 ### T101 — Trigram angular phases and Q6 plaquette holonomy
 
 - [T101 theorem record](theorems/T101-trigram-angular-phases-q6-plaquette-holonomy.md) starts from measured phases of all eight trigrams on each of two opposite circles, registers their angular frames, and compares each trigram with its linewise complement on the other circle. It constructs both 64-point Q6 layers on paired two-tori.
