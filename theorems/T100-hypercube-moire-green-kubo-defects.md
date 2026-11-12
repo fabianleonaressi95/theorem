@@ -292,29 +292,29 @@ The companion audit scripts/audit_t100_q6_symmetry_classes.py computes the orbit
 
 ## 6.3 A concrete but non-conserved candidate: net line polarity
 
-An earlier exploratory ansatz can be tested without promoting it to the physical law. Encode each line by \\(\\varepsilon_a(h)=2h_a-1\\in\\{-1,+1\\}\\), with bit 1 denoting Yang and bit 0 Yin, and define
-\\[
-\\boxed{q_{\\rm net}(h)=q_0\\sum_{a=1}^6\\varepsilon_a(h)
+An earlier exploratory ansatz can be tested without promoting it to the physical law. Encode each line by \(\varepsilon_a(h)=2h_a-1\in\{-1,+1\}\), with bit 1 denoting Yang and bit 0 Yin, and define
+\[
+\boxed{q_{\rm net}(h)=q_0\sum_{a=1}^6\varepsilon_a(h)
 =q_0(2|h|-6).}
-\\]
-This candidate depends only on Hamming weight and is therefore invariant under arbitrary permutations of the six line positions, including top-bottom reversal. It takes seven values \\(-6q_0,-4q_0,-2q_0,0,2q_0,4q_0,6q_0\\), with exact multiplicities \\(1,6,15,20,15,6,1\\). It is odd under global Yin-Yang exchange:
-\\[
-q_{\\rm net}(h\\oplus63)=-q_{\\rm net}(h).
-\\]
-Thus it does **not** obey complement invariance except in the trivial case \\(q_0=0\\); the appropriate candidate symmetry is sign reversal, not invariance, under Yin-Yang exchange.
+\]
+This candidate depends only on Hamming weight and is therefore invariant under arbitrary permutations of the six line positions, including top-bottom reversal. It takes seven values \(-6q_0,-4q_0,-2q_0,0,2q_0,4q_0,6q_0\), with exact multiplicities \(1,6,15,20,15,6,1\). It is odd under global Yin-Yang exchange:
+\[
+q_{\rm net}(h\oplus63)=-q_{\rm net}(h).
+\]
+Thus it does **not** obey complement invariance except in the trivial case \(q_0=0\); the appropriate candidate symmetry is sign reversal, not invariance, under Yin-Yang exchange.
 
-For a single hexagram performing a continuous-time random walk on Q6, with each of the six lines independently flipped at rate \\(\\gamma\\), the generator is \\(W=-\\gamma L_6\\). Each one-line Walsh character has Laplacian eigenvalue 2, so under the uniform stationary distribution the candidate's mean is zero and its autocorrelation is exactly
-\\[
-\\boxed{\\langle q_{\\rm net}(X_t)q_{\\rm net}(X_0)\\rangle
-=6q_0^2e^{-2\\gamma|t|}.}
-\\]
-For unequal flip rates \\(\\gamma_a\\), this becomes \\(q_0^2\\sum_{a=1}^6e^{-2\\gamma_a|t|}\\). This is a *single-walker state-observable correlation*, distinct from the 64-node circuit covariance \\(C_{hh'}(t)\\) in Sections 2 and 6.1.
+For a single hexagram performing a continuous-time random walk on Q6, with each of the six lines independently flipped at rate \(\gamma\), the generator is \(W=-\gamma L_6\). Each one-line Walsh character has Laplacian eigenvalue 2, so under the uniform stationary distribution the candidate's mean is zero and its autocorrelation is exactly
+\[
+\boxed{\langle q_{\rm net}(X_t)q_{\rm net}(X_0)\rangle
+=6q_0^2e^{-2\gamma|t|}.}
+\]
+For unequal flip rates \(\gamma_a\), this becomes \(q_0^2\sum_{a=1}^6e^{-2\gamma_a|t|}\). This is a *single-walker state-observable correlation*, distinct from the 64-node circuit covariance \(C_{hh'}(t)\) in Sections 2 and 6.1.
 
-The candidate is not conserved by Q6 hopping. Let \\(D_q=\\operatorname{diag}(q_{\\rm net}(h))\\). Directly summing the squared commutator entries over the 192 undirected edges gives
-\\[
-\\boxed{\\|[D_q,L_6]\\|_F=16\\sqrt6\\,|q_0|.}
-\\]
-It vanishes only for \\(q_0=0\\). Therefore this ansatz can be tested as a state-dependent observable, but it cannot be called a conserved charge under the proposed one-line-flip dynamics. This does not rule out a different 64-node circuit interpretation with externally constrained node charges.
+The candidate is not conserved by Q6 hopping. Let \(D_q=\operatorname{diag}(q_{\rm net}(h))\). Directly summing the squared commutator entries over the 192 undirected edges gives
+\[
+\boxed{\|[D_q,L_6]\|_F=16\sqrt6\,|q_0|.}
+\]
+It vanishes only for \(q_0=0\). Therefore this ansatz can be tested as a state-dependent observable, but it cannot be called a conserved charge under the proposed one-line-flip dynamics. This does not rule out a different 64-node circuit interpretation with externally constrained node charges.
 
 The companion symmetry audit implements this candidate, its seven-level degeneracies, the random-walk autocorrelation, and the commutator norm. It is explicitly classified as a candidate ansatz, not as an established electric-charge law.
 
@@ -330,7 +330,8 @@ The companion symmetry audit implements this candidate, its seven-level degenera
 | Identifying graph Green operator with Green–Kubo response | Not established; requires a model-specific derivation |
 | Burgers phase winding and Frank rotational holonomy | Standard defect-theory identities under the stated continuum reconstruction |
 | Extracting dislocations/disclinations from the Q6/moiré circuit | Open and experimentally testable |
-| Net line-polarity ansatz q0 sum(epsilon_a) | Explicit candidate; 7 levels; not conserved under Q6 hopping |\n| A universal physical charge or transport law generated by hexagram labels | Not claimed; open hypothesis |
+| Net line-polarity ansatz q0 sum(epsilon_a) | Explicit candidate; 7 levels; not conserved under Q6 hopping |
+| A universal physical charge or transport law generated by hexagram labels | Not claimed; open hypothesis |
 
 ## 8. Falsifiability gates
 
