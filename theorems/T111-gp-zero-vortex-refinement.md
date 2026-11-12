@@ -6,7 +6,7 @@
 
 ## 1. Scope
 
-T110 extracts integer vortex charge from wrapped phase increments. A Gross–Pitaevskii (GP) order parameter is complex, \(\psi=\sqrt n e^{i\theta}\), and a vortex core is a zero of \(\psi\). This record tests whether plaquette winding localizes that zero with a controlled grid error.
+T110 extracts integer vortex charge from wrapped phase increments. A Gross–Pitaevskii (GP) order parameter is complex, \(\Psi_{\rm GP}=\sqrt n e^{i\theta}\), and a vortex core is a zero of \(\Psi_{\rm GP}\). This record tests whether plaquette winding localizes that zero with a controlled grid error.
 
 The first benchmark is static and manufactured. It is **not** a numerical solution of the time-dependent GP equation and does not establish vortex dynamics, Kelvin-theorem breakdown, reconnection, or turbulence.
 
