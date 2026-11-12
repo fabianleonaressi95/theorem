@@ -29,3 +29,14 @@ def test_projection_is_constant_on_each_orbit():
 
 def test_exact_symmetry_audit_passes():
     assert symmetry_audit()["status"] == "PASS"
+
+from scripts.audit_t100_q6_symmetry_classes import analyze_measured_vector
+
+def test_measured_vector_comparison_distinguishes_symmetry_models():
+    constant = [2.5] * 64
+    result = analyze_measured_vector(constant)
+    assert all(item["residual_l2"] < 1e-12 for item in result.values())
+    arbitrary = [float(h) for h in range(64)]
+    result = analyze_measured_vector(arbitrary)
+    assert result["unrestricted"]["residual_l2"] == 0.0
+    assert result["full_cube_automorphisms"]["residual_l2"] > 0.0
