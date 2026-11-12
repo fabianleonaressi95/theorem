@@ -46,6 +46,17 @@ If the hexagram is occupied or sampled dynamically, introduce an occupation vari
 Q_h(t)=q(h)n_h(t).
 \]
 For a multi-occupation circuit, \(n_h(t)\) may instead be a nonnegative occupation/number variable. Correlations are then computed from the observed \(Q_h(t)\). This separates the charge assigned to the hexagram from its time-dependent occupation.
+The 64 vertices are not merely labels for two collective trigram fields. The proposed constitutive law assigns an intrinsic charge (or charge-like observable) to each individual six-bit hexagram:
+\[
+q:V(Q_6)\to\mathbb R,\qquad h\mapsto q(h).
+\]
+Whether \(q(h)\) is electric charge, effective/coarse-grained charge, or a dimensionless observable—and its units—must be specified by the physical model. The 64 labels provide the domain of this map; its numerical rule is the central law to derive or measure, not a value to invent.
+
+For a dynamical circuit or statistical model, introduce an occupation variable \(n_h(t)\) and define the measured node charge
+\[
+Q_h(t)=q(h)n_h(t),\qquad Q(t)=(Q_1(t),\ldots,Q_{64}(t))^T.
+\]
+This separates the intrinsic charge assigned to a hexagram from its time-dependent occupation. In a circuit with continuously varying stored charge, \(Q_h(t)\) is simply the dynamical node-charge variable; the constitutive interpretation of \(q(h)\) must then be supplied separately.
 
 The primary equal-time and time-dependent correlation functions are
 \[
@@ -57,6 +68,13 @@ C_{hh'}(\tau)=
 Thus correlations are measured **between individual hexagrams**, not inferred by first postulating two macroscopic fields. The diagonal \(C_{hh}(0)\) measures the variance of the charge on hexagram \(h\); off-diagonal entries measure correlations between distinct hexagrams. Dependence on graph distance, Hamming distance, and the lower/upper-line transition classes can be compared without conflating trigram decomposition with a 32/32 partition.
 
 Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix of \(Q_6\), and let \(G=\operatorname{diag}(g_e)\) contain nonnegative edge conductances. With node potentials \(V=C_{\rm node}^{-1}q\), where \(C_{\rm node}\) is a positive node-capacitance matrix, define oriented edge currents
+\left\langle\delta Q_h(t+\tau)\,\delta Q_{h'}(t)\right\rangle_{\rm eq},
+\qquad
+\delta Q_h=Q_h-\langle Q_h\rangle_{\rm eq}.
+\]
+Thus correlations are measured **between individual hexagrams**, not inferred by first postulating two macroscopic fields. The diagonal \(C_{hh}(0)\) measures the variance of the measured charge on hexagram \(h\); off-diagonal entries measure correlations between distinct hexagrams. Dependence on graph distance, Hamming distance, and the lower/upper-line transition classes can be compared without conflating trigram decomposition with a 32/32 partition.
+
+Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix of \(Q_6\), and let \(G=\operatorname{diag}(g_e)\) contain nonnegative edge conductances. With node potentials \(V=C_{\rm node}^{-1}Q\), where \(C_{\rm node}\) is a positive node-capacitance matrix, define oriented edge currents
 \[
 j(t)=G B^\top V(t).
 \]
@@ -72,6 +90,16 @@ where \(s_h(t)\) is an explicitly specified source/sink term. Since \(BGB^\top=L
 The total charge obeys
 \[
 \frac{d}{dt}\mathbf1^\top q(t)=\mathbf1^\top s(t),
+\dot Q(t)=-B j(t)+s(t)
+=-BGB^\top C_{\rm node}^{-1}Q(t)+s(t),
+\]
+where \(s_h(t)\) is an explicitly specified source/sink term. Since \(BGB^\top=L_g\), this is the charge-variable form of the graph RC dynamics:
+\[
+\dot Q+L_g C_{\rm node}^{-1}Q=s.
+\]
+The total charge obeys
+\[
+\frac{d}{dt}\mathbf1^\top Q(t)=\mathbf1^\top s(t),
 \]
 so it is conserved when the net source vanishes. This conservation statement follows from \(\mathbf1^\top B=0\), independently of any moiré interpretation.
 
@@ -93,6 +121,7 @@ Without a spatial embedding, the corresponding well-defined object is the graph-
 ## 3. Spatial reconstruction: the additional data moiré requires
 
 The node-charge field (q_h(t)) is primary. A moiré pattern is a possible spatial signature of its correlations, not a replacement for the 64 node variables. It is not determined by an abstract finite graph alone. Introduce, as explicit model data:
+The node-charge field (Q_h(t)) is primary. A moiré pattern is a possible spatial signature of its correlations, not a replacement for the 64 node variables. It is not determined by an abstract finite graph alone. Introduce, as explicit model data:
 
 1. two spatial embeddings \(X_\pm:V(Q_6)\to\mathbb R^2\), or a declared common embedding together with two distinct reciprocal-mode families;
 2. complex mode amplitudes \(a^\pm_v\);
@@ -109,6 +138,7 @@ I(x)=|\psi_+(x)+\psi_-(x)|^2
 2\operatorname{Re}\!\left[
 A_+\overline{A_-}
 e^{i(q_m\cdot x+\Delta\phi(x))}
+A_+\overline{A_-}\,e^{i(q_m\cdot x+\Delta\phi(x))}
 \right],
 \]
 where
@@ -137,6 +167,9 @@ The static Kirchhoff equation \(L_gV=J\) from T099 does not by itself define an 
 C\dot V(t)+L_gV(t)=\eta(t)+J_{\rm ext}(t),
 \]
 where \(C_{\rm node}\) is a positive node-capacitance matrix, the constant-potential mode is treated consistently with total-charge conservation, and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy \(H(q)=\tfrac12q^TC_{\rm node}^{-1}q\), the equilibrium Langevin choice is \(\langle\eta(t)\eta(t')^T\rangle=2k_BT L_g\,\delta(t-t')\) on the dissipative subspace (with the zero mode projected out or separately constrained). This gives the fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
+C_{\rm node}\dot V(t)+L_gV(t)=\eta(t)+J_{\rm ext}(t),
+\]
+where \(C_{\rm node}\) is a positive node-capacitance matrix, the constant-potential mode is treated consistently with total-charge conservation, and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy \(H(Q)=\tfrac12Q^TC_{\rm node}^{-1}Q\), the equilibrium Langevin choice is \(\langle\eta(t)\eta(t')^T\rangle=2k_BT L_g\,\delta(t-t')\) on the dissipative subspace (with the zero mode projected out or separately constrained). This gives the fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
 
 For an oriented edge \(e=(i,j)\), let
 \[
@@ -164,6 +197,9 @@ The graph Green operator \(L_g^\dagger\) and the Green–Kubo integral are diffe
 e^{-C^{-1}L_gt}.
 \]
 Its time integral on the decaying subspace is related to the inverse of \(C^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
+e^{-C_{\rm node}^{-1}L_gt}.
+\]
+Its time integral on the decaying subspace is related to the inverse of \(C_{\rm node}^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
 
 ## 5. Dislocations and disclinations in the reconstructed moiré field
 
@@ -228,6 +264,101 @@ The following staged audit is the minimal route from the finite graph to a falsi
 - compare phase-derived Burgers data with translational holonomy and frame-derived Frank data with rotational holonomy;
 - test loop independence away from cores and convergence under refinement.
 
+
+## 6.1 Walsh charge-law decomposition and an exactly solvable RC benchmark
+
+A scalar charge assignment on the 64 hexagrams is a function
+\[
+q:\{0,1\}^6\to\mathbb R.
+\]
+It has the unique Walsh expansion
+\[
+q(h)=\sum_{S\subseteq\{1,\ldots,6\}}\widehat q(S)\chi_S(h),
+\qquad
+\chi_S(h)=(-1)^{|S\cap h|},
+\]
+with
+\[
+\widehat q(S)=\frac1{64}\sum_{h\in Q_6}q(h)\chi_S(h).
+\]
+The 64 Walsh characters form an orthogonal basis and satisfy
+\[
+L_6\chi_S=2|S|\chi_S.
+\]
+Consequently, this basis resolves every possible node-charge assignment into graph-frequency sectors \(k=|S|=0,\ldots,6\), with multiplicities \(\binom6k\). It does **not** determine the coefficients \(\widehat q(S)\): those require a constitutive derivation or a measured 64-component data vector.
+
+The full automorphism group of the six-cube acts transitively on its vertices. Therefore, if a scalar assignment obeys \(q(\gamma h)=q(h)\) for every cube automorphism \(\gamma\), then \(q\) is constant. A nonconstant charge law must either break some graph automorphisms or depend on additional structure (for example, a physically justified orientation, embedding, boundary condition, or external field). Such structure must be specified rather than silently built into the labels.
+
+For a separate dynamical benchmark, take \(C_{\rm node}=cI\), \(L_g=gL_6\), \(g,c>0\), and projected zero-total-charge fluctuations \(x=Q-\overline Q\) satisfying
+\[
+\dot x=-\frac gcL_6x+\eta,\qquad
+\langle\eta(t)\eta(t')^T\rangle=2k_BTgL_6\,\delta(t-t').
+\]
+On the subspace orthogonal to constants, the stationary covariance is \(k_BT c I\). In the full 64-dimensional notation this gives
+\[
+C(\tau)=k_BT c\,e^{-(g/c)L_6|\tau|}P_0,
+\qquad
+P_0=I-\frac1{64}\mathbf1\mathbf1^T.
+\]
+By the product heat kernel, if \(d=d_H(h,h')\) and \(r=e^{-2g|\tau|/c}\),
+\[
+\boxed{
+C_{hh'}(\tau)=k_BT c\left[
+\frac{(1+r)^{6-d}(1-r)^d}{64}-\frac1{64}
+\right].
+}
+\]
+This exact benchmark is a prediction of the declared homogeneous thermal RC model, not a derivation of the intrinsic constitutive law \(q(h)\). It is isotropic in Hamming distance and has zero row sums because the uniform total-charge mode is constrained. Nonzero mode-dependent structure beyond this kernel would require nonuniform conductances/capacitances, a symmetry-breaking charge law, external forcing, or additional degrees of freedom.
+
+The companion script scripts/audit_t100_q6_charge_correlations.py checks the Walsh transform/inverse, the Walsh Laplacian eigenvalues, the exact RC covariance, and its conservation constraint. A measured or independently derived 64-value charge vector can be supplied as JSON to compute its Walsh coefficients; no synthetic vector is treated as physical data. Tests are in tests/test_t100_q6_charge_correlations.py.
+
+
+## 6.2 Ordered-line symmetry classes: an exact model-selection audit
+
+Fix bit 0 as the bottom line and bit 5 as the top line. The number of independent values in a scalar law q:{0,1}^6 -> R depends on which transformations are physically required to leave the law invariant. These are distinct hypotheses:
+
+| Assumed invariance of q | Number of vertex orbits / independent values |
+|---|---:|
+| No extra symmetry | 64 |
+| Reversal of the six-line order h -> rev(h) | 36 |
+| Arbitrary permutation of six line positions (S6) | 7 |
+| Reversal together with global yin-yang exchange h -> h XOR 63 | 20 |
+| Full automorphism group of Q6 | 1 |
+
+For reversal alone, the orbit count is (64+8)/2=36: reversal fixes the eight palindromic six-bit strings. For the group generated by reversal and complement, Burnside's lemma gives (64+8+0+8)/4=20. Under arbitrary line permutations, the orbits are exactly the seven Hamming-weight classes of sizes 1,6,15,20,15,6,1. Under the full cube automorphism group, transitivity leaves only one orbit.
+
+These counts provide a falsifiable model-selection ladder. If a measured 64-vector is available, project it onto each invariant subspace by averaging within the corresponding orbits and compare residuals against measurement uncertainty. The smallest residual is not by itself proof of a symmetry: the symmetry must also be justified by the physical setup and survive independent measurements. In particular, line reversal, global yin-yang exchange, and arbitrary line permutation are separate assumptions. The vertical order of the six lines is retained unless evidence supports discarding it.
+
+The companion audit scripts/audit_t100_q6_symmetry_classes.py computes the orbit partitions and invariant projections. It accepts a JSON array of 64 measured or independently derived values with --charges and reports residuals for each hypothesis. Tests are in tests/test_t100_q6_symmetry_classes.py. This is an exact combinatorial classification, not yet a selection of the physical charge law.
+
+## 6.3 A concrete but non-conserved candidate: net line polarity
+
+An earlier exploratory ansatz can be tested without promoting it to the physical law. Encode each line by \(\varepsilon_a(h)=2h_a-1\in\{-1,+1\}\), with bit 1 denoting Yang and bit 0 Yin, and define
+\[
+\boxed{q_{\rm net}(h)=q_0\sum_{a=1}^6\varepsilon_a(h)
+=q_0(2|h|-6).}
+\]
+This candidate depends only on Hamming weight and is therefore invariant under arbitrary permutations of the six line positions, including top-bottom reversal. It takes seven values \(-6q_0,-4q_0,-2q_0,0,2q_0,4q_0,6q_0\), with exact multiplicities \(1,6,15,20,15,6,1\). It is odd under global Yin-Yang exchange:
+\[
+q_{\rm net}(h\oplus63)=-q_{\rm net}(h).
+\]
+Thus it does **not** obey complement invariance except in the trivial case \(q_0=0\); the appropriate candidate symmetry is sign reversal, not invariance, under Yin-Yang exchange.
+
+For a single hexagram performing a continuous-time random walk on Q6, with each of the six lines independently flipped at rate \(\gamma\), the generator is \(W=-\gamma L_6\). Each one-line Walsh character has Laplacian eigenvalue 2, so under the uniform stationary distribution the candidate's mean is zero and its autocorrelation is exactly
+\[
+\boxed{\langle q_{\rm net}(X_t)q_{\rm net}(X_0)\rangle
+=6q_0^2e^{-2\gamma|t|}.}
+\]
+For unequal flip rates \(\gamma_a\), this becomes \(q_0^2\sum_{a=1}^6e^{-2\gamma_a|t|}\). This is a *single-walker state-observable correlation*, distinct from the 64-node circuit covariance \(C_{hh'}(t)\) in Sections 2 and 6.1.
+
+The candidate is not conserved by Q6 hopping. Let \(D_q=\operatorname{diag}(q_{\rm net}(h))\). Directly summing the squared commutator entries over the 192 undirected edges gives
+\[
+\boxed{\|[D_q,L_6]\|_F=16\sqrt6\,|q_0|.}
+\]
+It vanishes only for \(q_0=0\). Therefore this ansatz can be tested as a state-dependent observable, but it cannot be called a conserved charge under the proposed one-line-flip dynamics. This does not rule out a different 64-node circuit interpretation with externally constrained node charges.
+
+The companion symmetry audit implements this candidate, its seven-level degeneracies, the random-walk autocorrelation, and the commutator norm. It is explicitly classified as a candidate ansatz, not as an established electric-charge law.
+
 ## 7. Evidence and status register
 
 | Statement | Status |
@@ -240,6 +371,7 @@ The following staged audit is the minimal route from the finite graph to a falsi
 | Identifying graph Green operator with Green–Kubo response | Not established; requires a model-specific derivation |
 | Burgers phase winding and Frank rotational holonomy | Standard defect-theory identities under the stated continuum reconstruction |
 | Extracting dislocations/disclinations from the Q6/moiré circuit | Open and experimentally testable |
+| Net line-polarity ansatz q0 sum(epsilon_a) | Explicit candidate; 7 levels; not conserved under Q6 hopping |
 | A universal physical charge or transport law generated by hexagram labels | Not claimed; open hypothesis |
 
 ## 8. Falsifiability gates
@@ -256,3 +388,4 @@ Passing these tests would validate the specified model, not establish that all I
 ## 9. Relation to T099
 
 T099 supplies the finite graph and conditional Kirchhoff network. T100 adds the missing spatial embedding, two-field interference, equilibrium dynamics, transport observables and defect reconstruction. T100 does not alter T099 and does not promote any of its open physical interpretations to theorem status.
+T099 supplies the finite graph and conditional Kirchhoff network. T100 adds the node-charge correlation model, conditional spatial reconstruction, equilibrium dynamics, transport observables and defect reconstruction. T100 does not alter T099 and does not promote any of its open physical interpretations to theorem status.

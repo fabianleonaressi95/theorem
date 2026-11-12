@@ -1,0 +1,26 @@
+name: T105 hexagram charge-moire circuit audit
+on:
+  push:
+    branches: [main, "feat/t105-hexagram-charge-moire-circuit-law"]
+    paths:
+      - "theorems/T105-hexagram-charge-moire-circuit-law.md"
+      - "scripts/audit_t105_hexagram_moire_circuit.py"
+      - "tests/test_t105_hexagram_moire_circuit.py"
+      - ".github/workflows/t105-hexagram-moire-circuit.yml"
+  pull_request:
+    paths:
+      - "theorems/T105-hexagram-charge-moire-circuit-law.md"
+      - "scripts/audit_t105_hexagram_moire_circuit.py"
+      - "tests/test_t105_hexagram_moire_circuit.py"
+      - ".github/workflows/t105-hexagram-moire-circuit.yml"
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest
+      - run: python -m pytest -q tests/test_t105_hexagram_moire_circuit.py
+      - run: python scripts/audit_t105_hexagram_moire_circuit.py

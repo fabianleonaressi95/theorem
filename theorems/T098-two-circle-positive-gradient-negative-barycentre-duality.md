@@ -156,3 +156,146 @@ would require an additional, explicitly defined bundle isomorphism or constituti
 
 **Classification:** foundational Euclidean duality theorem proved; physical universal-law interpretation conditional on the model's field and measure assignments.  
 **FLN**
+
+## 9. Derivation from the established RGS–Morandotti laws
+
+This section fixes the logical direction of the physical application. The two-circle construction is the geometric generator; the kinematic, incompatibility, moment, Cartan and interaction identities already established in the repository supply the downstream laws. No new Frank-to-Burgers constitutive map is introduced.
+
+### 9.1 Kinematic split: the common source of the two defect sectors
+
+For a planar structured deformation, take the fields and conventions of T079 and T097:
+\[
+\nabla g=G+\mathsf D,\qquad \mathsf D:=\nabla g-G.
+\tag{98.2}
+\]
+Here \(G\) is the specified microscopic/structured gradient and \(\mathsf D\) is its mismatch with the macroscopic gradient. They are not independent fitted fields.
+
+On every region where \(\det G>0\), the polar decomposition fixed in T097 gives
+\[
+G=R_GU_G,\qquad
+R_G\in SO(2),\qquad
+\theta_G=\operatorname{atan2}(G_{21}-G_{12},G_{11}+G_{22}),
+\]
+and the associated rotational connection is
+\[
+\omega_G=R_G^T dR_G=J\,d\theta_G.
+\tag{98.3}
+\]
+The Frank winding around a loop is the winding of this gradient-derived frame, with chart transitions included as specified in T097. It is not an independently postulated microrotation.
+
+The translational sector is fixed by the same kinematics:
+\[
+\boxed{
+b_\gamma
+=\oint_\gamma\mathsf D\,t\,ds
+=\int_V\operatorname{Curl}\mathsf D,
+\qquad \gamma=\partial V.
+}
+\tag{98.4}
+\]
+This is row-wise Stokes with the T079 convention. Interface/jump measures must be included when the field is piecewise smooth. Thus the rotational and translational data are both derived from the single split (98.2), by the already established polar-frame and Stokes identities. No centroid displacement is substituted for Burgers closure.
+
+### 9.2 Exact discrete inheritance
+
+On the finite oriented complex of T080, let \(\delta_0y\) be the nodal coboundary, \(G_h\) the declared microscopic edge cochain, and
+\[
+\mathsf D_h=\delta_0y-G_h.
+\]
+The chain-complex identity \(B_1B_2=0\) gives
+\[
+\boxed{
+B_2^T\mathsf D_h
+=B_2^T\delta_0y-B_2^TG_h
+=-B_2^TG_h.
+}
+\tag{98.5}
+\]
+For every face 2-chain \(q\),
+\[
+(B_2q)^T\mathsf D_h=q^T B_2^T\mathsf D_h.
+\tag{98.6}
+\]
+These are exact finite-mesh identities. They provide the discrete translational incompatibility and Stokes closure; they do not by themselves select the constitutive reconstruction of \(G_h\), nor prove a continuum shell homogenisation theorem.
+
+### 9.3 Cartan and ordered \(SE(2)\) composition
+
+Once the gradient-derived frame increments and the mismatch circulations have been computed in a common transported frame, T092–T094 prescribe their joint closure. For each oriented transport segment,
+\[
+g_e=(R(\Delta\theta_e),b_e)\in SE(2),
+\]
+and for an ordered loop \(\gamma=(e_1,\ldots,e_m)\),
+\[
+\boxed{
+H_\gamma=g_{e_m}\cdots g_{e_1},\qquad
+(R_2,b_2)(R_1,b_1)=(R_2R_1,b_2+R_2b_1).
+}
+\tag{98.7}
+\]
+The semidirect-product term is essential: translations are transported into the common base frame before they are added. T093 supplies the stated smooth-connection consistency result under its regularity and mesh hypotheses; T094 supplies a manufactured noncommuting numerical audit and a prescribed-source adapter. Neither is represented as extraction of singular core charges from the solved Morandotti FEM fields.
+
+In the continuum Cartan description of T092, for a specified coframe and metric-compatible connection,
+\[
+T^a=de^a+\omega^a{}_b\wedge e^b,\qquad
+R^a{}_b=d\omega^a{}_b+\omega^a{}_c\wedge\omega^c{}_b.
+\tag{98.8}
+\]
+These are the torsion and curvature of that specified Cartan structure. The two-circle reflection transports them in their respective representations; it does not identify the two forms or replace the coframe/connection data.
+
+### 9.4 Moment and anisotropy inheritance
+
+The negative branch retains its full covariance tensor. For a cell density \(q\) with the regularity required in T068–T070, the barycentric expansion is
+\[
+\mathbb E[q]
+=q(c)+\frac12D^2q(c):\Sigma+R,
+\tag{98.9}
+\]
+with the theorem's stated remainder bound (and exactness for quadratic densities). This is the controlled route by which the geometry's anisotropic second moment enters cellwise sampling; it is not an arbitrary scalar correction.
+
+For the Morandotti interaction, T091 proves on its fixed discrete mesh and source convention
+\[
+\boxed{T=T_F+T_B+T_{FB},}
+\tag{98.10}
+\]
+where the mixed tensor is signed and cannot in general be discarded. T082 supplies the conditional first variation of the second-order Morandotti value function under its differentiability/subgradient hypotheses. These results preserve anisotropy as a tensorial response and distinguish exact algebraic identities from the continuum constitutive interpretation.
+
+### 9.5 Reflection-equivariance: the precise residual statement
+
+Let \(\mathcal R(x)=M+Q(x-M)\). For a vector field, its reflected push-forward is
+\[
+(\mathcal R_*h)(x)=Qh(\mathcal R^{-1}x);
+\]
+for a two-point tensor such as a displacement gradient, both the value and spatial indices must be transported. The corresponding residual is the difference between the second-core field and the correctly typed push-forward of the first-core field.
+
+If the kinematic data, microscopic cochains, constitutive tensors, sources, boundary/interface traces and frame transitions are all transported by this same action, then the identities (98.2)–(98.10) are preserved by change of variables and by the chain-complex maps. In particular, the reflected mismatch circulation is the push-forward of the original circulation, and the ordered \(SE(2)\) product is conjugated by the change of base frame. This is the derived equivariance statement.
+
+A zero two-core residual follows when the actual data are related by that reflected action. It is not implied merely by the Euclidean shape of the two triangles. If the material axes or sources are not reflected, their difference remains a genuine anisotropic/source residual and must be evaluated using the T082/T091 tensorial energy and interaction quantities. No conditions such as \(\operatorname{div}R=0\), \(\operatorname{curl}R=0\), or vanishing on the centre axis are added as universal laws; they require separate consequences of the particular governing equations and data.
+
+### 9.6 Dependency theorem and evidence boundary
+
+**Theorem 98.2 (RGS–Morandotti inheritance of the two-circle duality).**  
+Take the two-circle pair of Theorem 98.1. On each branch, use the same reflected geometric identification and the kinematic fields of T079/T097. Assume the hypotheses already stated in those records: an orientation-preserving structured gradient wherever the polar frame is used; well-defined bulk and interface traces for the mismatch; compatible orientation and common-frame transport for loop data; and the regularity assumptions of T068–T070 for every barycentric Taylor expansion invoked. On a finite mesh, additionally use the oriented chain complex and cochains of T080.
+
+Then:
+
+1. the positive-branch gradient data are determined by the structured gradient and its polar frame, with rotational closure given by the frame winding and chart transitions;
+2. the translational closure is determined by the circulation of \(\mathsf D=\nabla g-G\), equivalently by its bulk-plus-interface curl, and on the T080 complex by (98.5)–(98.6);
+3. their joint discrete closure is the ordered \(SE(2)\) product (98.7), with the Cartan interpretation (98.8) only when the coframe and connection are specified;
+4. the negative-branch barycentric covariance enters through the exact moment identities and controlled expansion (98.9);
+5. the Frank–Burgers interaction and its anisotropy are composed by (98.10), retaining the signed mixed term.
+
+All five conclusions are inherited from the cited component laws and the two-circle change of variables; no additional Frank-to-Burgers map, residual PDE constraint, or penalty energy is assumed.
+
+**Proof.** The geometric pairing and reflection are Theorem 98.1. The structured-gradient split, polar reconstruction and row-wise Stokes identity are those of T079/T097. The finite-complex statements follow from \(B_1B_2=0\) and the discrete Stokes identity in T080. Ordered transport and the semidirect-product law are the exact group law used in T092–T094. The barycentric expansion follows from T068–T070, while the tensor decomposition follows by expansion of \(j=j_F+j_B\) in T091. Each identity is preserved under the reflected change of variables when all its inputs and frame conventions are transported consistently. The stated hypotheses are exactly those needed by the component results; no stronger continuum or physical conclusion is used. \(\square\)
+
+**Evidence boundary.** Theorem 98.2 is a dependency/transfer theorem: its component identities are proved under the cited hypotheses. It does not claim that the current two-core Morandotti FEM export already contains the required \(G_h\), \(\mathsf D_h\), chart transitions and measured loop holonomies. T093–T095 and T094's prescribed-source fixture are not substitutes for that extraction. End-to-end measured-field validation, singular-core convergence and the surface extension identified in T079 remain open.
+
+## 10. Corrected classification
+
+- **PROVED geometrically:** the two-circle pair, reflection, centroids, mean-gradient boundary identity and covariance transport.
+- **INHERITED EXACTLY under cited hypotheses:** structured-gradient split; polar-frame reconstruction; row-wise Stokes closure; finite-complex discrete Stokes; ordered \(SE(2)\) composition; barycentric moment expansion; Frank–Burgers tensor additivity.
+- **NUMERICALLY VERIFIED within stated scope:** the manufactured noncommuting Cartan/\(SE(2)\) audit and prescribed two-core source adapter of T094, together with the specific mesh/energy audits recorded in T091.
+- **OPEN:** extraction of \(G_h\), \(\mathsf D_h\), frame transitions and measured loop holonomies from the same solved two-core FEM fields; validation of reflected core fields with material anisotropy and boundary data transported consistently; singular-core and curved-surface convergence.
+- **NOT CLAIMED:** a universal constitutive identity \(b=(r/\sqrt3)f u^\perp\); automatic vanishing of the two-core residual; universal harmonicity of that residual; or a proved continuum physical equivalence between curvature and torsion.
+
+**Classification:** foundational two-circle geometric law plus a proved conditional inheritance theorem from the repository's established RGS–Morandotti identities. Physical validation on measured two-core fields remains open.  
+**FLN**
