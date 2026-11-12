@@ -55,3 +55,10 @@ def test_correlator_and_small_runs_return_finite_values():
         assert np.isfinite(result["beta_helicity_mean_by_axis"]).all()
         if dim == 3:
             assert max(result["max_abs_dual_vortex_divergence"]) == 0
+
+
+def test_principal_angle_wrap_uses_open_closed_interval():
+    from scripts.audit_xy_torus_kthny_bkt import wrap
+    values = wrap(np.array([-np.pi, np.pi, 3 * np.pi, -3 * np.pi]))
+    assert np.array_equal(values, np.array([np.pi, np.pi, np.pi, np.pi]))
+    assert np.all(values > -np.pi) and np.all(values <= np.pi)
