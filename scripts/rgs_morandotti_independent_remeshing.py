@@ -71,49 +71,49 @@ def main():
                 fingerprint = mesh_fingerprint(mesh)
                 field_path = output.with_name(f"fields_h{h:.4f}_d{distance:.4f}_seed{seed}.npz")
 
-            result = solve_level(
-                h,
-                alpha=args.alpha,
-                young_modulus=args.young_modulus,
-                poisson_ratio=args.poisson_ratio,
-                centers=centers,
-                core_separation=None,
-                mesh_bundle=bundle,
-                reference_geometry=reference_geometry,
-                args_artifact_path=str(field_path),
-            )
-            matrix = np.asarray(result["M_laplacian"], dtype=float)
-            key = f"d{distance:.4f}_h{h:.4f}"
-            groups.setdefault(key, []).append({"seed": seed, "matrix": matrix})
-            cross = matrix[1:3, 4:6]
-            self_block = matrix[1:3, 1:3]
-            denominator = abs(matrix[1, 4]) + abs(matrix[2, 5])
-            anisotropy = float((matrix[1, 4] - matrix[2, 5]) / denominator) if denominator else 0.0
-            runs.append({
-                "h_target": h,
-                "mesh_seed": seed,
-                "signed_anisotropy_A_d": anisotropy,
-                "normalized_coupling_C_d": float(np.linalg.norm(cross, "fro") / max(np.linalg.norm(self_block, "fro"), 1e-300)),
-                "distance": distance,
-                "cells": result["cells"],
-                "dofs": result["dofs"],
-                "fresh_mesh_fingerprint_sha256": fingerprint,
-                "fresh_mesh_generated_for_this_pair": True,
-                "minimum_signed_corner_area": result["min_signed_corner_area"],
-                "minimum_sampled_jacobian_determinant": result["min_sampled_jacobian_determinant"],
-                "minimum_interaction_eigenvalue": result["min_eigenvalue_laplacian"],
-                "interaction_matrix_symmetry_relative": result["laplacian_symmetry_relative"],
-                "boundary_identity_relative_residual": result["boundary_identity_relative_residual"],
-                "interior_facet_traction_jump_L2": {
-                    name: case["interior_facet_traction_jump_L2"]
-                    for name, case in result["reconstruction_cases"].items()
-                },
-                "field_export": str(field_path),
-            })
-            if result["min_signed_corner_area"] <= 0 or result["min_sampled_jacobian_determinant"] <= 0:
-                raise RuntimeError(f"non-positive mesh Jacobian at h={h}, d={distance}")
-            if result["laplacian_symmetry_relative"] > 1e-8:
-                raise RuntimeError(f"interaction matrix lost symmetry at h={h}, d={distance}")
+                result = solve_level(
+                    h,
+                    alpha=args.alpha,
+                    young_modulus=args.young_modulus,
+                    poisson_ratio=args.poisson_ratio,
+                    centers=centers,
+                    core_separation=None,
+                    mesh_bundle=bundle,
+                    reference_geometry=reference_geometry,
+                    args_artifact_path=str(field_path),
+                )
+                matrix = np.asarray(result["M_laplacian"], dtype=float)
+                key = f"d{distance:.4f}_h{h:.4f}"
+                groups.setdefault(key, []).append({"seed": seed, "matrix": matrix})
+                cross = matrix[1:3, 4:6]
+                self_block = matrix[1:3, 1:3]
+                denominator = abs(matrix[1, 4]) + abs(matrix[2, 5])
+                anisotropy = float((matrix[1, 4] - matrix[2, 5]) / denominator) if denominator else 0.0
+                runs.append({
+                    "h_target": h,
+                    "mesh_seed": seed,
+                    "signed_anisotropy_A_d": anisotropy,
+                    "normalized_coupling_C_d": float(np.linalg.norm(cross, "fro") / max(np.linalg.norm(self_block, "fro"), 1e-300)),
+                    "distance": distance,
+                    "cells": result["cells"],
+                    "dofs": result["dofs"],
+                    "fresh_mesh_fingerprint_sha256": fingerprint,
+                    "fresh_mesh_generated_for_this_pair": True,
+                    "minimum_signed_corner_area": result["min_signed_corner_area"],
+                    "minimum_sampled_jacobian_determinant": result["min_sampled_jacobian_determinant"],
+                    "minimum_interaction_eigenvalue": result["min_eigenvalue_laplacian"],
+                    "interaction_matrix_symmetry_relative": result["laplacian_symmetry_relative"],
+                    "boundary_identity_relative_residual": result["boundary_identity_relative_residual"],
+                    "interior_facet_traction_jump_L2": {
+                        name: case["interior_facet_traction_jump_L2"]
+                        for name, case in result["reconstruction_cases"].items()
+                    },
+                    "field_export": str(field_path),
+                })
+                if result["min_signed_corner_area"] <= 0 or result["min_sampled_jacobian_determinant"] <= 0:
+                    raise RuntimeError(f"non-positive mesh Jacobian at h={h}, d={distance}")
+                if result["laplacian_symmetry_relative"] > 1e-8:
+                    raise RuntimeError(f"interaction matrix lost symmetry at h={h}, d={distance}")
 
     ensemble_summary = {}
     for key, samples in groups.items():
