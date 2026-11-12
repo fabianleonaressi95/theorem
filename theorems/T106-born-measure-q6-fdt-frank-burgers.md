@@ -84,13 +84,23 @@ f_{64}(x)=\frac{63}{64}\left(1-\frac{x}{64}\right)^{62},
 \]
 which approaches \(e^{-x}\) in the large-dimension limit. The exponential/Porter–Thomas profile is therefore an asymptotic marginal statement, not an exact finite-\(64\) identity.
 
-The established bijection
+There are two distinct maps that must not be conflated.
+
+1. The pair-code map
 \[
-(b_0,\ldots,b_5)\longleftrightarrow
-(k_1,k_2,k_3)\in\mathbb Z_4^3,\qquad
-k_1=2b_0+b_1,\quad k_2=2b_2+b_3,\quad k_3=2b_4+b_5
+c_a=2b_{2a}+b_{2a+1},\qquad a=0,1,2,
 \]
-is an exact indexing of the 64 outcomes by a \(4\times4\times4\) discrete torus. It does **not** identify the 64 independent complex phases with only three phases. The state has 64 amplitudes and 64 coordinate phases before quotienting the common global phase.
+is a bijection of the 64 labels with the set \(\mathbb Z_4^3\). It is only a set-theoretic indexing: in general it does **not** preserve the one-bit-flip edges of \(Q_6\), so it is not by itself a graph isomorphism to the standard Cartesian torus graph.
+
+2. The graph-preserving Gray map used in the Q6–PRISM kinematic audit is
+\[
+g(00)=0,\quad g(01)=1,\quad g(11)=2,\quad g(10)=3,
+\qquad
+(x,y,z)=\big(g(b_0b_1),g(b_2b_3),g(b_4b_5)\big).
+\]
+Each two-bit square \(Q_2\) is thereby identified with a four-cycle \(C_4\), and the Cartesian product gives an exact graph isomorphism \(Q_6\cong C_4\square C_4\square C_4\). The existing kinematic audit further projects the third factor as a four-state internal fibre over the periodic \(C_4\square C_4\) cell and checks the vertex and face chain-map identities exactly. This is a finite combinatorial/kinematic construction, not yet a physical embedding.
+
+Neither map identifies the 64 independent complex phases with only three phases. The state has 64 amplitudes and 64 coordinate phases before quotienting the common global phase.
 
 For \(p_h>0\), write
 \[
@@ -111,12 +121,19 @@ The diagonal entries are \(p_h\); off-diagonal entries retain relative-phase inf
 
 For Haar-random pure states, unitary invariance gives
 \[
-\mathbb E[\rho]=\frac{I_{64}}{64},
+\mathbb E[\rho_{hk}]=\frac{\delta_{hk}}{64},
 \qquad
 \mathbb E[\rho_{hh}\rho_{kk}]
 =\frac{1+\delta_{hk}}{64\cdot65}.
 \]
-For \(h\ne k\), \(\mathbb E[\rho_{hk}]=0\). These are ensemble moments, not dynamical FDT correlations.
+In particular, for every edge \(e=\{h,k\}\in E(Q_6)\), with \(h\ne k\),
+\[
+\mathbb E[z_h\overline{z_k}]=0,
+\qquad
+\mathbb E[\operatorname{Re}(z_h\overline{z_k})]
+=\mathbb E[\operatorname{Im}(z_h\overline{z_k})]=0.
+\]
+Thus Haar sampling alone gives no nonzero mean coherence on any of the 192 edges. The adjacency selects which pair observables one may inspect; it does not induce dependence. A nontrivial edge correlation requires a specified non-Haar ensemble, interaction Hamiltonian, conditioning, or dynamics. These are ensemble moments, not dynamical FDT correlations.
 
 A crucial distinction for defects: if a single-valued vertex phase \(\theta:V(Q_6)\to S^1\) defines edge transports
 \[
