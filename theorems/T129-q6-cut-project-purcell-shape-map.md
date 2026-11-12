@@ -98,3 +98,10 @@ The tests check the golden orthogonal split, 64 vertices, 192 edges, 32 edges in
 
 1. Micalizio, Morandotti, Shum & Zoppello (2026), *Purcell swimmer near a wall*, DOI: 10.1007/s11012-026-02136-0.
 2. fabianleonaressi95/rgs-qlg-quaternion-bridge/src/rgs_psu_cut_project.py: recovered golden icosahedral six-axis projection and orthogonal internal/physical frame.
+
+
+## 6. Symmetry obstruction and anisotropy ledger
+
+For the standard icosahedral action, the internal three-dimensional space carries an irreducible \(A_5\) representation. Since \(A_5\) has no two-dimensional irreducible representation, there is no nonzero \(A_5\)-equivariant linear map from this irreducible internal module onto a two-dimensional shape module. Thus a rank-two calibration cannot be both a nontrivial projection and fully \(A_5\)-equivariant without additional symmetry-breaking or an enlarged target representation. The wall and the chosen swimmer frame are possible sources of additional structure, but the coupling must be specified rather than assumed.
+
+The implementation now exports the six projected shape vectors \(C P_\perp e_j\), their six lengths, and their \(6\times6\) Gram matrix. This makes anisotropy observable in the audit rather than replacing the six directions by two selected axes. It does **not** assert that every calibration preserves a prescribed anisotropy: that is a condition to impose and test when \(C\) is physically calibrated.
