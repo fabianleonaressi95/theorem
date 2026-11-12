@@ -819,3 +819,20 @@ Per punti di quadratura (x_i) e pesi positivi (w_i), il baricentro è (x_c=\sum_
 Per il modello locale-drag dichiarato, i Jacobiani cinematici (J_i) e i tensori dissipativi (D_i\succ0) producono (R_h=\sum_iw_iJ_i^TD_iJ_i\succeq0). Il complemento di Schur fornisce la connessione forza-libera (A_h=-R_{bb}^{-1}R_{bs}) e la metrica dissipativa delle forme. Questa identità non sostituisce Stokes/BEM: le interazioni idrodinamiche non locali richiedono un kernel accoppiato tra punti distinti.
 
 **Classificazione T130:** identità algebriche finite [P]; test numerici su campo affine e drag sintetico [N]; calibrazione dei pesi e dei Jacobiani delle aste, connessione idrodinamica vicino alla parete, convergenza e confronto con T128 [O]. Non si identifica il baricentro geometrico con il centro idrodinamico e non si dichiara una validazione fisica.
+
+
+## Addendum — T131: modi normali Q6, fasoni e trasporto Green–Kubo
+
+Il record [T131](../theorems/T131-q6-phonon-phason-green-kubo-transport.md) collega il modello di modi normali già introdotto in T113-D alla legge tensoriale di Green–Kubo. Il problema agli autovalori finito è (K e_\alpha=\omega_\alpha^2 M e_\alpha), con Hessiana simmetrica e matrice delle masse definita positiva. La classificazione longitudinale/trasversale si ricava dagli autovettori rispetto a una direzione di propagazione; non va confusa con la distinzione acustico/ottico, che dipende dal moto relativo degli atomi della base.
+
+La legge di trasporto usa lo stress microscopico totale estensivo:
+\[
+\eta_{ij,kl}=\frac{1}{k_BT V}\int_0^\infty\langle\delta\Pi_{ij}(t)\delta\Pi_{kl}(0)\rangle_{eq}\,dt.
+\]
+I contributi fononici, fasonici e misti, insieme alle correlazioni incrociate, devono provenire dalla stessa dinamica microscopica. La stima numerica implementata in T131 è esplicitamente a finestra temporale finita: non certifica da sola la convergenza dell'integrale infinito.
+
+Il grafo Q6 finito non determina automaticamente una dispersione di Bloch; occorrono geometria materiale, masse, Hessiana e una famiglia estesa con condizioni al contorno definite. Analogamente, lo spettro armonico non determina da solo una viscosità dissipativa: servono anarmonicità o un meccanismo di rilassamento fisicamente giustificato. I fasoni possono essere variabili continue rilassative oppure transizioni discrete tra configurazioni quasiperiodiche; non sono identificati automaticamente con il settore interno RGS.
+
+L'equazione di stato e la velocità del suono devono essere ricavate dalla stessa energia libera e dal percorso termodinamico dichiarato. La metrica acustica è applicabile nel limite fluido barotropico, inviscido e irrotazionale; mezzi anisotropi o dispersivi possono richiedere più superfici caratteristiche. Non si afferma una derivazione di gravità quantistica.
+
+**Stato:** identità matematiche e audit numerico sintetico [P]/[N]; calibrazione materiale Q6, dinamica fasonica, anarmonicità, convergenza Green–Kubo e applicazione acustica [O].
