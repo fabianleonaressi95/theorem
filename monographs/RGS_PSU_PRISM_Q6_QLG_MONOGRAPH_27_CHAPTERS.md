@@ -793,6 +793,13 @@ La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\),
 **Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
 
 
+## T129 — Ostacolo di equivarianza e mappa calibrata Q6–Purcell
+
+La proiezione interna aurea già recuperata in RGS–PSU fornisce \(P_\perp:\mathbb R^6\to E_\perp\simeq\mathbb R^3\), con i sei assi del cut-and-project e tutti i 192 archi Q6. T129 dimostra, sotto l'azione irriducibile standard di \(A_5\), che non esiste una mappa lineare non nulla globalmente \(A_5\)-equivariante dal 3-spazio interno a uno spazio reale bidimensionale dei controlli. Il dato aureo da solo non seleziona quindi i due giunti del nuotatore.
+
+Viene costruita la famiglia calibrata \(\Phi_{B,\kappa}(v)=\kappa B P_\perp(v-\frac12\mathbf1)\bmod 2\pi\), dove \(B\) è un 2-frame ortonormale interno e \(\kappa\) una scala angolare. Tutte le sei direzioni Q6 contribuiscono ai due controlli; \(B\) e \(\kappa\) restano parametri da derivare dalla geometria indipendente del nuotatore e della parete. Per ogni arco si calcola inoltre un trasporto locale \(SE(2)\) mediante la connessione continua T128 valutata al punto medio della variazione di forma.
+
+**Classificazione:** ostacolo di rappresentazione [P, sotto ipotesi esplicite]; mappa e trasporti finiti [N/C]; calibrazione fisica, propagazione globale, olonomia e convergenza sotto raffinamento [O]. Non è ancora dimostrato un nuotatore Q6 fisicamente completo.
 ## Appendice tecnica — Costruzione parametrica Q6–Purcell (T129)
 
 La geometria cut-and-project già implementata nel repository RGS–QLG–Quaternion Bridge fornisce la decomposizione aurea ortogonale \(\mathbb R^6=E_\parallel\oplus E_\perp\), con entrambi i sottospazi tridimensionali. Per i vertici \(v\in\{0,1\}^6\), la coordinata interna è \(P_\perp(v-\frac12\mathbf1)\). T129 definisce quindi una famiglia di mappe verso lo spazio delle forme del nuotatore,
@@ -847,3 +854,39 @@ Con stress simmetrico in notazione di Voigt a sei componenti, tre settori produc
 I termini incrociati sono nulli solo quando la misura d'equilibrio e le simmetrie lo impongono; la presenza di un Hamiltoniano d'interazione non li rende automaticamente tutti non nulli. Le parità temporali vanno trattate con Onsager–Casimir: per osservabili di parità \(\epsilon_a,\epsilon_b\), \(C_{ab}(t;\mathcal B)=\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B)\), con trasposizione degli indici tensoriali. Stress meccanico ordinario è normalmente pari sotto inversione temporale. Non si deduce che una singola correlazione sia dispari in \(t\) dalla sola differenza di parità.
 
 La parte simmetrica della risposta è quella dissipativa; una parte antisimmetrica può descrivere risposte Hall/giroscopiche non dissipative quando ammesse dalle simmetrie. Infine, il criterio numerico è il plateau dell'integrale temporale progressivo, non un plateau della correlazione: la correlazione deve decadere o avere una coda idrodinamica trattabile.
+### Precisazione T131 — stress simmetrico, iperstress e risposta fasonica
+
+La decomposizione settoriale è definita da un'unica Hamiltoniana dichiarata,
+\[
+H(\varepsilon,w)=H_{\mathrm{ph}}+H_{\mathrm{pha}}+H_{\mathrm{int}},
+\]
+e tutti i contributi allo stress fononico sono ottenuti variando ciascun termine rispetto alla stessa deformazione simmetrica \(\varepsilon_{ij}\):
+\[
+\Pi^a_{ij}(x)=-\frac{\delta H_a}{\delta\varepsilon_{ij}(x)},\qquad
+\Pi_{ij}=\sum_a\Pi^a_{ij}.
+\]
+Se la densità energetica dipende da gradienti della deformazione, la derivata funzionale contiene i termini di divergenza dell'iperstress e genera anche contributi al bordo. L'iperstress non rende automaticamente non simmetrico lo stress coniugato a una deformazione simmetrica. Una componente antisimmetrica richiede una struttura meccanica ulteriore, per esempio gradi di libertà rotazionali indipendenti o stress di coppia in una teoria micropolare. La corrente microscopica di quantità di moto impiegata in Green–Kubo deve essere derivata dal bilancio completo: non si aggiunge un termine di iperstress per analogia.
+
+Con stress fononico simmetrico, tre settori e sei componenti di Voigt per settore danno 18 canali e una matrice di correlazione \(18\times18\), composta da nove blocchi \(6\times6\). La convenzione di Voigt deve dichiarare l'ordinamento e l'uso di tagli tensoriali \(\varepsilon_{ij}\) oppure ingegneristici \(\gamma_{ij}=2\varepsilon_{ij}\), mantenendo la coniugazione lavoro-forza. La matrice \(27\times27\) è giustificata solo da nove componenti indipendenti di stress per settore in un modello che ammetta realmente stress non simmetrico; la presenza di gradienti o iperstress non basta.
+
+La deformazione fasonica \(w_{ij}\) ha un proprio stress coniugato \(\Pi^w_{ij}=-\delta H/\delta w_{ij}\). Le sue componenti indipendenti dipendono dalla cinematica fasonica adottata e possono arrivare a nove in tre dimensioni. La risposta congiunta fononica–fasonica va quindi organizzata in blocchi \(\varepsilon\varepsilon,\varepsilon w,w\varepsilon,ww\), con dimensioni determinate dai gradi di libertà effettivi e dalla convenzione di settore; non coincide automaticamente con la matrice di correlazione dello stress fononico.
+
+La correlazione totale contiene le nove coppie ordinate di settori. I contributi individuali dipendono dalla partizione dichiarata dell'energia d'interazione, mentre lo stress totale resta invariato se la somma Hamiltoniana e la sua variazione sono mantenute fisse. Le relazioni di reciprocità seguono Onsager–Casimir con inversione dei campi dispari temporali; non si deduce la disparità temporale di una singola correlazione incrociata dalla sola differenza di parità degli osservabili.
+
+Per Green–Kubo, il plateau riguarda l'integrale progressivo, non la correlazione. Una coda \(t^{-3/2}\) in tre dimensioni è integrabile con errore di troncamento \(O(t_{\max}^{-1/2})\); una coda \(t^{-1}\) in due dimensioni produce una divergenza logaritmica. Queste leggi richiedono modi lenti diffusivi con rilassamento proporzionale a \(k^2\): l'esponente Q6–PRISM resta aperto finché non è derivata la dinamica dei modi fononici, fasonici e misti.
+
+
+## Addendum — T132: benchmark accoppiato fonone–fasone
+
+Il record [T132](../theorems/T132-coupled-phonon-phason-ou-green-kubo.md) introduce un sistema gaussiano reversibile a due coordinate \(q=(u,w)\), con Hessiana definita positiva e accoppiamento non nullo. La dinamica di Ornstein–Uhlenbeck possiede una covarianza d'equilibrio esatta e un propagatore noto. Per tre osservabili quadratiche dichiarate — contributo fononico, fasonico e d'interazione — l'identità di Wick fornisce analiticamente le nove correlazioni ordinate:
+\[
+C_{ab}(t)=\frac12\operatorname{tr}[S_aE(t)S_bE(t)^T].
+\]
+La somma dei nove blocchi coincide con la correlazione dello stress totale; a campo nullo la matrice dei blocchi è reciproca. Un simulatore OU a passo esatto confronta la covarianza empirica con quella analitica senza introdurre l'errore di discretizzazione di Euler–Maruyama.
+
+**Limite essenziale:** il bagno OU e le matrici sintetiche sono ipotesi di benchmark, non un modello di scattering fononico, di flip fasonici o di rilassamento anarmonico calibrato. Il coefficiente integrato è quindi un risultato del modello matematico, non una viscosità materiale. Restano aperte la derivazione comune di Hessiana e stress da un'Hamiltoniana Q6/materiale, la cinematica e la cinetica fasonica, la corrente microscopica e la convergenza fisica. Le sei direzioni Q6 non vengono isotropizzate.
+
+
+## Audit execution register — 12 November 2026
+
+The repository's 27-chapter monograph now points to the reproducible finite audit record for T103/T104, T105, T107 and T131/T132. The associated CI runs and exact test counts are recorded in audits/reports/actions-validation-2026-11-12.md. These checks remain finite-model/software evidence and are not promoted to physical validation.

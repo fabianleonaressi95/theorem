@@ -189,3 +189,8 @@ The audit must report: (i) Kirchhoff continuity residuals; (ii) all 64 node mean
 **Conditional/model-dependent:** thermal-RC equilibrium covariance, fluctuation–dissipation noise, Green–Kubo transport, and spatial reconstruction depend on the specified circuit, ensemble, and embedding.
 
 **Open physical hypotheses:** the intrinsic constitutive charge \(q(h)\); a predictive phase-to-charge map \(\mathcal F_h\); the emergence of the two reciprocal fields from the circuit; and the identification of measured winding with material dislocations/disclinations. T105 makes these hypotheses measurable and falsifiable; it does not label them as proved.
+
+
+## 9. CI execution record — 12 November 2026
+
+The T105 synthetic-fixture regression suite completed with 8 passing tests, and the deterministic audit returned PASS in [GitHub Actions run #43245721916](https://github.com/fabianleonaressi95/theorem/actions/runs/43245721916). This verifies the implemented finite graph/circuit identities and software paths only. It does not close the stated data-calibration, material-defect, Green-Kubo response, or experimental acceptance gates.

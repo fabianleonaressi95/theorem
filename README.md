@@ -573,6 +573,7 @@ The finite cubical supersymmetry in T102 is **not** identified with \(\mathcal N
 [T128](theorems/T128-purcell-swimmer-q6-geometric-control.md) records the continuous Purcell-swimmer connection/holonomy framework and the exact requirements for a Q6 discretization. A first-pass quadrature reconstruction is stored in [the audit directory](audits/purcell_swimmer_wall/README.md). The corrected reconstruction reproduces the published leading coefficient: at amplitude 10^-3 it gives approximately 0.06172485, approaching 5/81 ≈ 0.0617284, with stable results for quadrature orders 16–96. The initial control vector fields also match the analytic values. The Q6-to-shape-space map and discrete swimmer remain open. The article documents MATLAB/ode45, not DOLFINx or PyTorch.
 
 
+- **T129 — Icosahedral equivariance obstruction and calibrated Q6–Purcell map:** [theorem record](theorems/T129-a5-equivariance-obstruction-and-calibrated-q6-purcell-map.md). The recovered golden internal projection retains all six Q6 edge directions (192 edges). Under the standard irreducible icosahedral \(A_5\) action, no nonzero linear globally equivariant map from the internal 3-space to a real 2D control space exists. A nonzero shape map therefore requires an explicit calibration frame \(B\) and scale \(\kappa\); the candidate \(\Phi_{B,\kappa}(v)=\kappa B P_\perp(v-\tfrac12\mathbf1)\bmod 2\pi\) uses every Q6 direction. The local edge transport is a one-step midpoint approximation in \(SE(2)\), not yet a convergent discrete connection. Audit code and tests are in the Purcell swimmer audit directory.
 ### T129 — Golden Q6 cut-and-project map and Purcell edge transport
 
 [T129](theorems/T129-q6-cut-project-purcell-shape-map.md) now constructs a parameterized map from all 64 Q6 vertices through the recovered golden internal projection (P_\perp\) into the two-angle shape chart: \(\Phi(v)=s_0+\sigma C P_\perp(v-\frac12\mathbf1)\). All six cut-and-project axes and all 192 edges are retained (32 edges per axis), and the six projected vectors and their Gram matrix are exported so anisotropy can be measured rather than assumed. The calibration \(C\in\mathbb R^{2\times3}\) is explicitly left as an input: the 3D internal space does not select a canonical 2D shape plane; the icosahedral A5 symmetry also forbids a nonzero equivariant projection onto a 2D module. The wall-dependent swimmer connection also produces state-dependent edge transport by integrating the continuous connection along each shape edge; a fixed universal \(U_e\) is not assumed. Finite structural and reversibility tests are added. Physical calibration, 192-edge holonomy, and refinement convergence remain open.
@@ -583,3 +584,20 @@ The finite cubical supersymmetry in T102 is **not** identified with \(\mathcal N
 [T130](theorems/T130-q6-discrete-gradients-barycentres-resistance.md) adds a local least-squares shape-gradient reconstruction on the Q6 graph, weighted geometric barycentres, traction resultants and moment-origin shifts, and a positive local-drag resistance assembly (R_h=\sum_i w_iJ_i^TD_iJ_i). Its Schur complement gives the finite force-free connection and shape dissipation metric. This is an algebraic/local-drag interface, not a nonlocal Stokes or BEM solver; physical quadrature, shape Jacobians, wall-corrected hydrodynamics and continuum convergence remain open.
 
 - [T131 — Q6 phonon–phason normal modes and Green–Kubo transport](theorems/T131-q6-phonon-phason-green-kubo-transport.md) — finite generalized normal modes, polarization diagnostics and finite-window stress Green–Kubo estimator; explicitly separates the bare Q6 graph spectrum from material dispersion and leaves physical Hessian, phason kinetics, anharmonic relaxation and converged transport open. [audit](audits/phonon_phason/normal_modes_kubo.py), [tests](tests/test_t131_phonon_phason_kubo.py).
+
+
+### T132 — Exact coupled phonon–phason OU benchmark
+
+[T132](theorems/T132-coupled-phonon-phason-ou-green-kubo.md) adds an exactly solvable two-coordinate reversible Ornstein–Uhlenbeck benchmark with coupled phonon/phason coordinates and three declared stress sectors (phonon, phason, interaction). Wick's identity gives every ordered correlation block analytically; the nine blocks recombine exactly into the total-stress correlation, and zero-field reciprocal symmetry is checked against a seeded exact-step stochastic trajectory. This validates sector bookkeeping and the numerical benchmark only: the OU bath and synthetic stress matrices are not a calibrated material relaxation model or a material viscosity. [implementation](audits/phonon_phason/coupled_ou_green_kubo.py), [tests](tests/test_t132_coupled_ou_green_kubo.py).
+
+
+### 12 November 2026 — finite audit execution record
+
+The following theorem-associated GitHub Actions runs completed successfully:
+
+- T103/T104 Q6 cycle-cocycle: 11 tests; cycle rank 129, cocycle rank 63, H1=0. [Run #43245722504](https://github.com/fabianleonaressi95/theorem/actions/runs/43245722504).
+- T105 hexagram/moiré circuit: 8 tests; deterministic audit PASS. [Run #43245721916](https://github.com/fabianleonaressi95/theorem/actions/runs/43245721916).
+- T107 Gray-torus Gibbs/FDT: 5 tests; deterministic audit PASS and Gray graph isomorphism true. [Run #43245722241](https://github.com/fabianleonaressi95/theorem/actions/runs/43245722241).
+- T131/T132 phonon-phason benchmark: module compilation and 11 tests passed. [Run #43245274034](https://github.com/fabianleonaressi95/theorem/actions/runs/43245274034).
+
+These are finite mathematical/software checks. They do not establish physical calibration, material transport coefficients, or experimental validation.

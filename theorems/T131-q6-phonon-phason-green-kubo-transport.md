@@ -161,6 +161,7 @@ It does **not** generate a material Hessian, a six-dimensional cut-and-project a
 - T112: golden geometry and KTHNY defect controls.
 
 ## 10. Exact stress-sector decomposition, cross-correlations and Onsager–Casimir symmetry
+## 10. Exact stress-sector decomposition, hyperstress and Onsager–Casimir symmetry
 
 The labels used here are:
 - \(\mathrm{ph}\): phonon-sector contribution;
@@ -178,6 +179,29 @@ and all terms are differentiated with respect to the same imposed strain, then
 \Pi_{ij}=\sum_{a\in\{\mathrm{ph},\mathrm{pha},\mathrm{int}\}}\Pi^a_{ij}.
 \]
 Consequently the centered stress correlation is exactly bilinear:
+They label a declared Hamiltonian decomposition; they do not imply statistical independence. Let
+\[
+H(\varepsilon,w)=H_{\mathrm{ph}}(\varepsilon,w)+H_{\mathrm{pha}}(\varepsilon,w)+H_{\mathrm{int}}(\varepsilon,w),
+\]
+where the same imposed phonon strain \(\varepsilon_{ij}=\varepsilon_{ji}\) and, when present, the same phason field \(w_{ij}\) are used in every term. The sector contributions conjugate to phonon strain are defined variationally by
+\[
+\Pi^a_{ij}(x)=-\frac{\delta H_a}{\delta\varepsilon_{ij}(x)},\qquad
+\Pi_{ij}(x)=\sum_a\Pi^a_{ij}(x).
+\]
+For a nonlocal or gradient-dependent Hamiltonian, the functional derivative is the Euler–Lagrange derivative, not merely the partial derivative of the density. For example, if
+\[
+H_a=\int h_a(\varepsilon,\partial\varepsilon,\ldots)\,dV,
+\]
+then, subject to the declared boundary conditions,
+\[
+\frac{\delta H_a}{\delta\varepsilon_{ij}}
+=\frac{\partial h_a}{\partial\varepsilon_{ij}}
+-\partial_k\frac{\partial h_a}{\partial(\partial_k\varepsilon_{ij})}
++\cdots.
+\]
+The coefficients conjugate to \(\partial_k\varepsilon_{ij}\) form a hyperstress (higher-gradient stress) and also generate boundary terms. Its presence does **not** by itself make the stress conjugate to symmetric \(\varepsilon\) nonsymmetric: symmetry follows from the symmetric strain variation, unless the adopted mechanical theory has additional independent rotational degrees of freedom, couple stresses, or a micropolar stress. The microscopic momentum flux used in Green–Kubo must be derived consistently from the full Hamiltonian, its gradient terms and the boundary conditions; one must not append a hyperstress correction to the Green–Kubo observable without deriving the corresponding momentum balance/current.
+
+The split into \(H_{\mathrm{ph}},H_{\mathrm{pha}},H_{\mathrm{int}}\) is a declared model convention. If an interaction term is reassigned between pieces, all pieces must still sum to the same total Hamiltonian and be differentiated consistently. Individual sector stresses and their correlations can then depend on that bookkeeping convention; the total stress and the total response do not. The total centered stress correlation is exactly bilinear:
 \[
 C_{ij,kl}(t)=\sum_{a,b}C^{ab}_{ij,kl}(t),\qquad
 C^{ab}_{ij,kl}(t)=
@@ -204,3 +228,34 @@ The dissipative viscosity is the symmetric Onsager part in the paired stress/str
 The antisymmetric part does not contribute to the quadratic entropy-production form for the paired generalized fluxes, but can encode nondissipative Hall/gyroscopic response when the relevant symmetries permit it. In a time-reversal-invariant equilibrium with no time-reversal-odd external field and even stress observables, Onsager reciprocity gives the corresponding symmetric response. Do not impose this symmetry in a field without applying the Casimir reversal.
 
 For numerical analysis, first test exact symmetry-forced zeros and reciprocal relations, then integrate the total correlation or its consistently assembled sector blocks. The correlation itself should decay (or have a controlled hydrodynamic long-time tail); it is the **running time integral** that should approach a stable plateau. A nonzero correlation plateau is not a convergence criterion and usually obstructs an ordinary finite Green–Kubo integral.
+There are nine ordered sector pairs: three diagonal autocorrelations and six ordered cross-correlations. In particular, \(C^{\mathrm{int},\mathrm{int}}\) is the interaction-stress autocorrelation, not a cross term.
+
+For symmetric phonon stress, fix a Voigt ordering, for example \((xx,yy,zz,yz,xz,xy)\), and explicitly state the shear convention: tensorial shear \(\varepsilon_{yz}\), or engineering shear \(\gamma_{yz}=2\varepsilon_{yz}\). The associated stress/strain and response matrices must use work-conjugate conventions consistently. With six independent stress components per sector and the three declared sectors, there are 18 channels \((a,I)\), and the full sector-resolved correlation matrix is \(18\times18\), with nine \(6\times6\) blocks \(C^{ab}_{IJ}(t)\). This dimension assumes symmetric phonon stress; it is not changed merely by the presence of hyperstress. A \(3\times3\) matrix records only sector labels for one fixed pair of stress components. A \(27\times27\) matrix is appropriate only if the model independently defines nine stress components per sector, for example in a genuinely nonsymmetric-stress formulation.
+
+The phason strain \(w_{ij}\) has its own conjugate stress,
+\[
+\Pi^w_{ij}(x)=-\frac{\delta H}{\delta w_{ij}(x)},
+\]
+with the independent components determined by the actual phason kinematics and constitutive model. In general \(w_{ij}\) need not be symmetric and has up to nine independent components in three dimensions. The phason response is therefore not obtained by relabeling the six phonon Voigt components. If both \(\varepsilon\) and \(w\) are treated as independent generalized strains, define a response matrix with explicitly specified conjugate fluxes and forces,
+\[
+\mathbf R=
+\begin{pmatrix}
+\mathbf R_{\varepsilon\varepsilon}&\mathbf R_{\varepsilon w}\\
+\mathbf R_{w\varepsilon}&\mathbf R_{ww}
+\end{pmatrix}.
+\]
+Its block dimensions follow from the independent components and any declared sector resolution; they are not fixed until those choices are made. The phonon-only sector-resolved block remains \(18\times18\) under the symmetric-stress assumption. Do not identify \(\Pi^w\), \(\Pi\), and the generalized momentum flux without a derivation from the same action/Hamiltonian.
+
+Cross-correlations vanish when the centered observables are statistically independent under the equilibrium measure (for example, a factorized equilibrium measure with each observable depending only on its own sector), or when exact symmetries force the relevant entry to vanish. A nonzero interaction generally spoils factorization but does not force every cross-correlation to be nonzero.
+
+Time-reversal relations are Onsager–Casimir relations, not a rule that an individual cross-correlation is odd in time. For observables with time-reversal parities \(\epsilon_a,\epsilon_b\) and external time-reversal-odd fields \(\mathcal B\),
+\[
+C_{ab}(t;\mathcal B)=\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B),
+\]
+with tensor indices transposed as appropriate. For a response matrix, the corresponding reciprocal relation is
+\[
+L_{AB}(\mathcal B)=\epsilon_A\epsilon_B L_{BA}(-\mathcal B).
+\]
+Ordinary mechanical stress conjugate to strain is normally even under time reversal. At zero time-reversal-odd field, even stress variables therefore give the usual reciprocal symmetry; in a field, the Casimir reversal must be retained. The dissipative part is the symmetric Onsager part in work-conjugate flux/force coordinates. An antisymmetric part does not contribute to the quadratic entropy-production form and can describe a nondissipative Hall/gyroscopic response only when the symmetries permit it.
+
+For numerical analysis, test symmetry-forced zeros and reciprocal relations, then assemble the total stress correlation from all consistently defined sector blocks. The correlation itself must decay or have a controlled long-time tail; it is the running Green–Kubo integral that should approach a stable plateau when the integral exists. In a three-dimensional diffusive hydrodynamic regime a \(t^{-3/2}\) tail is integrable but produces a slow \(t_{\max}^{-1/2}\) truncation error; a two-dimensional \(t^{-1}\) tail gives a logarithmic divergence and no finite plateau. These exponents apply only after the relevant slow modes and their diffusive \(k^2\) relaxation have been established. They are not assigned to Q6–PRISM without a derived dynamical model.

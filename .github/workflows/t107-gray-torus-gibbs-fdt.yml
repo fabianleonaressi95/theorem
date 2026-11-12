@@ -26,5 +26,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install numpy pytest
-      - run: python scripts/audit_t107_gray_torus_gibbs_fdt.py
+      - name: Run deterministic audit
+        env:
+          PYTHONPATH: .
+        run: python scripts/audit_t107_gray_torus_gibbs_fdt.py
       - run: python -m pytest -q tests/test_t107_gray_torus_gibbs_fdt.py
