@@ -51,6 +51,36 @@ def make_mesh(R, a, centers, h, comm, random_seed=1):
     if not outer_curves or any(not q for q in core_curves):
         gmsh.finalize()
         raise RuntimeError(f"Boundary classification failed: outer={outer_curves}, cores={core_curves}")
+
+    # Gmsh's RandomSeed alone can leave this CAD mesh unchanged. Force
+    # seed-dependent topology by embedding reproducible interior vertices.
+    # They stay away from every boundary; the CAD boundary and target h are
+    # unchanged. Distinct seeds therefore define genuinely distinct meshes.
+    rng = np.random.default_rng(int(random_seed))
+    interior_points = []
+    boundary_clearance = max(0.5 * h, 0.015)
+    point_clearance = max(0.75 * h, 0.02)
+    for _ in range(4000):
+        x, y = rng.uniform(-R + boundary_clearance, R - boundary_clearance, size=2)
+        if x*x + y*y >= (R - boundary_clearance)**2:
+            continue
+        if any(np.hypot(x-cx, y-cy) <= a + boundary_clearance for cx, cy in centers):
+            continue
+        if any(np.hypot(x-px, y-py) <= point_clearance for px, py in interior_points):
+            continue
+        interior_points.append((float(x), float(y)))
+        if len(interior_points) == 6:
+            break
+    if len(interior_points) != 6:
+        gmsh.finalize()
+        raise RuntimeError(
+            f"Could not place six seed-dependent interior vertices for seed={random_seed}, h={h}"
+        )
+    point_tags = [gmsh.model.occ.addPoint(x, y, 0.0) for x, y in interior_points]
+    gmsh.model.occ.synchronize()
+    surface_tags = [tag for dim, tag in surfaces if dim == 2]
+    for point_tag in point_tags:
+        gmsh.model.mesh.embed(0, [point_tag], 2, surface_tags[0])
     gmsh.model.addPhysicalGroup(2, [tag for _, tag in surfaces], 10)
     gmsh.model.addPhysicalGroup(1, outer_curves, 1)
     for k, q in enumerate(core_curves):
