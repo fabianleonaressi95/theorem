@@ -33,6 +33,9 @@ def test_parameterized_map_retains_all_six_projected_axes():
     report = audit_interface(calibration)
     assert report["six_axes_retained"]
     assert report["edge_axis_counts"] == [32] * 6
+    assert np.asarray(report["projected_axis_vectors_2d"]).shape == (2, 6)
+    assert np.asarray(report["projected_axis_gram"]).shape == (6, 6)
+    assert report["anisotropy_reported_not_constrained"]
 
 
 def test_shape_edge_transport_for_constant_connection_and_reverse():
