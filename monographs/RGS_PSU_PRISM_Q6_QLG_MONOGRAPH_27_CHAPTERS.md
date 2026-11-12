@@ -845,12 +845,23 @@ L'equazione di stato e la velocità del suono devono essere ricavate dalla stess
 **Stato:** identità matematiche e audit numerico sintetico [P]/[N]; calibrazione materiale Q6, dinamica fasonica, anarmonicità, convergenza Green–Kubo e applicazione acustica [O].
 
 
-### Precisazione T131 — decomposizione dello stress e correlazioni incrociate
+### Precisazione T131 — stress simmetrico, iperstress e risposta fasonica
 
-In T131, \(\mathrm{ph}\), \(\mathrm{pha}\) e \(\mathrm{int}\) indicano rispettivamente i contributi fononico, fasonico e d'interazione fonone–fasone. La somma dello stress è definita derivando ogni termine della stessa decomposizione Hamiltoniana rispetto alla medesima deformazione: \(\Pi^a_{ij}=-\partial H_a/\partial\varepsilon_{ij}\), e \(\Pi_{ij}=\sum_a\Pi^a_{ij}\). La correlazione totale contiene nove coppie ordinate \((a,b)\), comprese le autocorrelazioni del settore d'interazione e i sei termini incrociati. La ripartizione dei contributi individuali può dipendere dalla convenzione con cui si assegna l'energia d'interazione; la risposta totale non deve dipenderne.
+La decomposizione settoriale è definita da un'unica Hamiltoniana dichiarata,
+\[
+H(\varepsilon,w)=H_{\mathrm{ph}}+H_{\mathrm{pha}}+H_{\mathrm{int}},
+\]
+e tutti i contributi allo stress fononico sono ottenuti variando ciascun termine rispetto alla stessa deformazione simmetrica \(\varepsilon_{ij}\):
+\[
+\Pi^a_{ij}(x)=-\frac{\delta H_a}{\delta\varepsilon_{ij}(x)},\qquad
+\Pi_{ij}=\sum_a\Pi^a_{ij}.
+\]
+Se la densità energetica dipende da gradienti della deformazione, la derivata funzionale contiene i termini di divergenza dell'iperstress e genera anche contributi al bordo. L'iperstress non rende automaticamente non simmetrico lo stress coniugato a una deformazione simmetrica. Una componente antisimmetrica richiede una struttura meccanica ulteriore, per esempio gradi di libertà rotazionali indipendenti o stress di coppia in una teoria micropolare. La corrente microscopica di quantità di moto impiegata in Green–Kubo deve essere derivata dal bilancio completo: non si aggiunge un termine di iperstress per analogia.
 
-Con stress simmetrico in notazione di Voigt a sei componenti, tre settori producono 18 canali \((a,I)\) e una matrice di correlazione \(18\times18\), equivalentemente nove blocchi settore-settore ciascuno di dimensione \(6\times6\). La matrice \(3\times3\) descrive soltanto i settori per una coppia di componenti fissata.
+Con stress fononico simmetrico, tre settori e sei componenti di Voigt per settore danno 18 canali e una matrice di correlazione \(18\times18\), composta da nove blocchi \(6\times6\). La convenzione di Voigt deve dichiarare l'ordinamento e l'uso di tagli tensoriali \(\varepsilon_{ij}\) oppure ingegneristici \(\gamma_{ij}=2\varepsilon_{ij}\), mantenendo la coniugazione lavoro-forza. La matrice \(27\times27\) è giustificata solo da nove componenti indipendenti di stress per settore in un modello che ammetta realmente stress non simmetrico; la presenza di gradienti o iperstress non basta.
 
-I termini incrociati sono nulli solo quando la misura d'equilibrio e le simmetrie lo impongono; la presenza di un Hamiltoniano d'interazione non li rende automaticamente tutti non nulli. Le parità temporali vanno trattate con Onsager–Casimir: per osservabili di parità \(\epsilon_a,\epsilon_b\), \(C_{ab}(t;\mathcal B)=\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B)\), con trasposizione degli indici tensoriali. Stress meccanico ordinario è normalmente pari sotto inversione temporale. Non si deduce che una singola correlazione sia dispari in \(t\) dalla sola differenza di parità.
+La deformazione fasonica \(w_{ij}\) ha un proprio stress coniugato \(\Pi^w_{ij}=-\delta H/\delta w_{ij}\). Le sue componenti indipendenti dipendono dalla cinematica fasonica adottata e possono arrivare a nove in tre dimensioni. La risposta congiunta fononica–fasonica va quindi organizzata in blocchi \(\varepsilon\varepsilon,\varepsilon w,w\varepsilon,ww\), con dimensioni determinate dai gradi di libertà effettivi e dalla convenzione di settore; non coincide automaticamente con la matrice di correlazione dello stress fononico.
 
-La parte simmetrica della risposta è quella dissipativa; una parte antisimmetrica può descrivere risposte Hall/giroscopiche non dissipative quando ammesse dalle simmetrie. Infine, il criterio numerico è il plateau dell'integrale temporale progressivo, non un plateau della correlazione: la correlazione deve decadere o avere una coda idrodinamica trattabile.
+La correlazione totale contiene le nove coppie ordinate di settori. I contributi individuali dipendono dalla partizione dichiarata dell'energia d'interazione, mentre lo stress totale resta invariato se la somma Hamiltoniana e la sua variazione sono mantenute fisse. Le relazioni di reciprocità seguono Onsager–Casimir con inversione dei campi dispari temporali; non si deduce la disparità temporale di una singola correlazione incrociata dalla sola differenza di parità degli osservabili.
+
+Per Green–Kubo, il plateau riguarda l'integrale progressivo, non la correlazione. Una coda \(t^{-3/2}\) in tre dimensioni è integrabile con errore di troncamento \(O(t_{\max}^{-1/2})\); una coda \(t^{-1}\) in due dimensioni produce una divergenza logaritmica. Queste leggi richiedono modi lenti diffusivi con rilassamento proporzionale a \(k^2\): l'esponente Q6–PRISM resta aperto finché non è derivata la dinamica dei modi fononici, fasonici e misti.
