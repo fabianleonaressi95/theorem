@@ -14,11 +14,11 @@ The first benchmark is static and manufactured. It is **not** a numerical soluti
 
 On \([-1,1]^2\), choose a zero \(z_0=(x_0,y_0)\) away from grid vertices and define
 \[
-\psi(x,y)=((x-x_0)+i(y-y_0))e^{-2((x-x_0)^2+(y-y_0)^2)}.
+\Psi_{\rm GP}(x,y)=((x-x_0)+i(y-y_0))e^{-2((x-x_0)^2+(y-y_0)^2)}.
 \]
 The Gaussian is strictly positive and does not change the phase. The isolated zero has local index +1.
 
-For each oriented grid plaquette \(p\), sample \(\theta_v=\arg\psi(v)\) at its four vertices and set
+For each oriented grid plaquette \(p\), sample \(\theta_v=\arg\Psi_{\rm GP}(v)\) at its four vertices and set
 \[
 q_p=\frac1{2\pi}\sum_{(v,w)\in\partial p}
 \operatorname{wrap}_{(-\pi,\pi]}(\theta_w-\theta_v).
