@@ -5,7 +5,7 @@
 
 **Canonical integration:** this document is the detailed modular/arithmetic branch of the [unitary theory of the truncated-icosahedral shell, Gamma–Beta–zeta, Morandotti and RGS–PRISM–Q6](UNIFIED_THEORY_FOOTBALL_GAMMA_BETA_ZETA_MORANDOTTI_RGS_PRISM_Q6_2026-11-10.md). The latter is the master dependency map for the full 10 November programme, including the Ikeda (S^3/T^*) spectral record S011.
 
-## 1. The four meanings that must remain distinct
+## 1. Notation safeguard: the common arithmetic–modular origin\n\nThroughout this document, the supergolden constant is denoted \(\\psi_{\\rm SA}\) (or \(s\) in formulas where this improves readability), and is defined by \(s^3-s^2-1=0\). The digamma function is denoted \(\\digamma(x)=d\\log\\Gamma(x)/dx\), with trigamma \(\\digamma_1\). These are distinct mathematical objects, but they are not being declared unrelated: the exact Weber/Dedekind class-invariant identity at discriminant \(-31\), the quadratic-field Dirichlet \(L\)-value, and the digamma/Gamma cumulant identities form the documented common arithmetic–modular network below. A shared symbol is not evidence of identity; the proved transformations are the evidence.\n\n## 1. The four meanings that must remain distinct
 
 This construction uses four different objects:
 
