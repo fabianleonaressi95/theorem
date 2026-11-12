@@ -791,3 +791,48 @@ Il record T128 separa il riferimento continuo dal possibile modello discreto Q6.
 La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\), è conservata in \texttt{audits/purcell\_swimmer\_wall/}. Dopo aver corretto l'intervallo di arclunghezza delle aste esterne, essa restituisce \(\Delta x/\xi^2\simeq0.06172485\) per \(\xi=10^{-3}\), avvicinandosi al valore pubblicato \(5/81\simeq0.0617284\). I campi iniziali di controllo coincidono inoltre con quelli analitici riportati nell'articolo. Il benchmark numerico principale è riprodotto; questo non equivale alla dimostrazione indipendente del teorema di controllabilità.
 
 **Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
+
+
+## Appendice tecnica — Costruzione parametrica Q6–Purcell (T129)
+
+La geometria cut-and-project già implementata nel repository RGS–QLG–Quaternion Bridge fornisce la decomposizione aurea ortogonale \(\mathbb R^6=E_\parallel\oplus E_\perp\), con entrambi i sottospazi tridimensionali. Per i vertici \(v\in\{0,1\}^6\), la coordinata interna è \(P_\perp(v-\frac12\mathbf1)\). T129 definisce quindi una famiglia di mappe verso lo spazio delle forme del nuotatore,
+\[
+\Phi_{C,\sigma,s_0}(v)=s_0+\sigma C P_\perp(v-\tfrac12\mathbf1),
+\qquad C\in\mathbb R^{2\times3},\quad \operatorname{rank}C=2.
+\]
+La matrice \(C\) e la scala angolare \(\sigma\) non sono fissate dalla sola decomposizione aurea: costituiscono dati di calibrazione da derivare da osservabili indipendenti. Non viene scelto arbitrariamente un piano interno né vengono eliminati quattro assi. Tutte le sei direzioni coordinate e i 192 archi Q6 restano nel modello, con 32 archi per ciascuna direzione; i sei vettori proiettati e la loro matrice di Gram vengono registrati: l'anisotropia è misurata, non imposta né cancellata per assunzione.
+
+Nel problema vicino alla parete, la connessione \(A(s,y,\theta)=-R_{bb}^{-1}R_{bs}\) dipende anche dalla distanza dalla parete e dall'orientamento. Il trasporto di un arco deve dunque essere integrato come aggiornamento dipendente dallo stato, lungo il segmento di forma corrispondente, anziché essere postulato come una matrice universale \(U_e\). Il codice T129 implementa questa interfaccia tramite un callback della connessione e verifica il trasporto diretto/inverso su un caso costante di controllo.
+
+**Classificazione:** mappa parametrica e identità finite [P, condizionate alla calibrazione]; verifiche numeriche strutturali [N]; calibrazione fisica, olonomie dei 192 archi con la connessione di parete effettiva, convergenza sotto raffinamento e teorema di controllabilità Q6 [O]. T129 non afferma che i vertici Q6 siano configurazioni fisiche del micro-nuotatore.
+
+
+La simmetria icosaedrale standard agisce sullo spazio interno tridimensionale tramite una rappresentazione irriducibile di \(A_5\). Poiché \(A_5\) non possiede rappresentazioni irriducibili bidimensionali, non esiste una proiezione lineare non nulla \(A_5\)-equivariante da tale modulo verso uno spazio delle forme bidimensionale. La calibrazione \(C\) richiede quindi una struttura aggiuntiva che rompa o estenda quella simmetria (per esempio una geometria di parete e un frame del nuotatore specificati); non è dedotta dalla sola finestra aurea. Il codice registra i sei vettori proiettati, le loro norme e la matrice di Gram \(6\\times6\), così l'anisotropia resta una quantità verificabile della calibrazione.
+
+
+## Appendice tecnica — T130: gradienti, baricentri, momenti e resistenza
+
+T130 collega la geometria delle forme alla meccanica locale. Sul grafo Q6, il gradiente di un campo scalare è ricostruito con minimi quadrati sui sei archi incidenti; la matrice locale (G_v) deve avere rango due. Il test affine controlla che un campo (f(x)=a\cdot x+c) restituisca il gradiente (a), mentre il numero di condizionamento segnala stelle quasi degeneri.
+
+Per punti di quadratura (x_i) e pesi positivi (w_i), il baricentro è (x_c=\sum_iw_ix_i/\sum_iw_i). Le trazioni discrete determinano forza e momento. Il passaggio dall'origine (o) al baricentro soddisfa esattamente (M_c=M_o-(x_c-o)\times F): il baricentro è un riferimento geometrico, non va identificato automaticamente con il centro di resistenza.
+
+Per il modello locale-drag dichiarato, i Jacobiani cinematici (J_i) e i tensori dissipativi (D_i\succ0) producono (R_h=\sum_iw_iJ_i^TD_iJ_i\succeq0). Il complemento di Schur fornisce la connessione forza-libera (A_h=-R_{bb}^{-1}R_{bs}) e la metrica dissipativa delle forme. Questa identità non sostituisce Stokes/BEM: le interazioni idrodinamiche non locali richiedono un kernel accoppiato tra punti distinti.
+
+**Classificazione T130:** identità algebriche finite [P]; test numerici su campo affine e drag sintetico [N]; calibrazione dei pesi e dei Jacobiani delle aste, connessione idrodinamica vicino alla parete, convergenza e confronto con T128 [O]. Non si identifica il baricentro geometrico con il centro idrodinamico e non si dichiara una validazione fisica.
+
+
+## Addendum — T131: modi normali Q6, fasoni e trasporto Green–Kubo
+
+Il record [T131](../theorems/T131-q6-phonon-phason-green-kubo-transport.md) collega il modello di modi normali già introdotto in T113-D alla legge tensoriale di Green–Kubo. Il problema agli autovalori finito è (K e_\alpha=\omega_\alpha^2 M e_\alpha), con Hessiana simmetrica e matrice delle masse definita positiva. La classificazione longitudinale/trasversale si ricava dagli autovettori rispetto a una direzione di propagazione; non va confusa con la distinzione acustico/ottico, che dipende dal moto relativo degli atomi della base.
+
+La legge di trasporto usa lo stress microscopico totale estensivo:
+\[
+\eta_{ij,kl}=\frac{1}{k_BT V}\int_0^\infty\langle\delta\Pi_{ij}(t)\delta\Pi_{kl}(0)\rangle_{eq}\,dt.
+\]
+I contributi fononici, fasonici e misti, insieme alle correlazioni incrociate, devono provenire dalla stessa dinamica microscopica. La stima numerica implementata in T131 è esplicitamente a finestra temporale finita: non certifica da sola la convergenza dell'integrale infinito.
+
+Il grafo Q6 finito non determina automaticamente una dispersione di Bloch; occorrono geometria materiale, masse, Hessiana e una famiglia estesa con condizioni al contorno definite. Analogamente, lo spettro armonico non determina da solo una viscosità dissipativa: servono anarmonicità o un meccanismo di rilassamento fisicamente giustificato. I fasoni possono essere variabili continue rilassative oppure transizioni discrete tra configurazioni quasiperiodiche; non sono identificati automaticamente con il settore interno RGS.
+
+L'equazione di stato e la velocità del suono devono essere ricavate dalla stessa energia libera e dal percorso termodinamico dichiarato. La metrica acustica è applicabile nel limite fluido barotropico, inviscido e irrotazionale; mezzi anisotropi o dispersivi possono richiedere più superfici caratteristiche. Non si afferma una derivazione di gravità quantistica.
+
+**Stato:** identità matematiche e audit numerico sintetico [P]/[N]; calibrazione materiale Q6, dinamica fasonica, anarmonicità, convergenza Green–Kubo e applicazione acustica [O].
