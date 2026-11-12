@@ -559,6 +559,37 @@ Il significato fisico delle quattro quantità deve rimanere separato:
 
 Una mappa fra esse è un teorema ulteriore, non una convenzione di nomenclatura. T106 chiarisce inoltre che un vettore reciproco calibrato e un ordine traslazionale sono necessari per inferire Burgers; un campo di orientazione locale e la simmetria del reticolo sono necessari per inferire Frank.
 
+**C1. Sorgente di Frank–Read: soglia, geometria del difetto e dinamica vincolata.** T124 aggiunge il livello di attivazione della dislocazione al settore Frank–Burgers, senza sostituire la ricostruzione cinematica già formalizzata. Nel modello circolare a tensione di linea costante,
+\[
+\tau_c=\frac{2T}{bL}.
+\]
+Con la convenzione specifica \(T\simeq Gb^2/2\), segue \(\tau_c\simeq Gb/L\); la formula \(2Gb/L\) richiede una diversa convenzione per \(T\). Questa soglia è un risultato del modello ridotto, non una soglia universale indipendente dal carattere della dislocazione, dal core e dai pinning.
+
+Il collegamento ai risultati già verificati è il seguente:
+
+1. **T091 — interazione tensoriale Frank–Burgers.** Fornisce la decomposizione dei settori Frank, Burgers e del termine misto firmato, con identità tensoriali e sensibilità variazionale nel perimetro dichiarato.
+2. **T092–T095 — geometria locale, trasporto \(SE(2)\) e Cartan.** Forniscono la descrizione ordinata della chiusura traslazionale e rotazionale; T096 impedisce di ricavare Burgers dalla sola deformazione simmetrica di Airy.
+3. **T097–T098 — ricostruzione cinematica e dualità dei due cerchi.** Collegano gradiente, mismatch strutturato, frame rotazionale e covarianza baricentrica, sotto le ipotesi dei rispettivi record.
+4. **T099 — ricostruzione bicircolare/annulare e raffinamento.** Fornisce una pipeline di misura della deformazione e dei residui; il replay a cinque esperimenti è manufactured-data, non validazione su un cristallo.
+5. **T124 — Frank–Read.** Aggiunge il criterio di instabilità del segmento vincolato e identifica ciò che manca per passare dalla soglia al loop emesso: legge di evoluzione della curva, regola di cutting/reconnection e rigenerazione della sorgente.
+
+**Azioni GitHub già eseguite e verificate nel ramo Morandotti:** [PR #161 audit](https://github.com/fabianleonaressi95/theorem/pull/161), con [run 43051485760](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760), verifica la decomposizione dei salti di trazione Frank/Burgers e il termine misto; [PR #162 raffinamento](https://github.com/fabianleonaressi95/theorem/pull/162), con [run a cinque livelli 43052448456](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456) e [audit base 43052448351](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351), verifica la pipeline DOLFINx a cinque scale e conserva report e campi FE. Queste esecuzioni verificano la decomposizione e la pipeline di ricostruzione Morandotti; **non** verificano direttamente la soglia Frank–Read, il cutting/reconnection, la convergenza continua o la fisica del core.
+
+Le azioni dedicate [T096](../.github/workflows/t096-airy-holonomy-identifiability.yml) e [T097](../.github/workflows/t097-barycentric-kinematic-law.yml) costituiscono ulteriori gate riproducibili: la prima controlla la non-identificabilità da Airy strain, la seconda le identità della ricostruzione cinematica. [T094](../.github/workflows/t094-se2-holonomy-audit.yml) è invece un workflow specifico per olonomie Cartan/\(SE(2)\), il cui stato di esecuzione va controllato separatamente prima di chiamarlo verificato.
+
+La catena multiscala da chiudere è
+\[
+\text{core atomistico/DFT}
+\to (E_{\rm core},\,V_{\rm Peierls})
+\to (T_{\rm line},\,\text{mobilità})
+\to \text{curva vincolata}
+\to \text{loop Frank–Read}
+\to \text{densità e interazione dei difetti}.
+\]
+Il passaggio DFT→parametri efficaci richiede una procedura di coarse-graining; l'eventuale tunnelling quantistico richiede un'azione efficace e un tasso di transizione calcolato, non segue dalla soglia classica. La corrispondenza con il gas vettoriale KTHNY richiede inoltre di estrarre Burgers, energia di core e fugacità da un modello elastico 2D calibrato.
+
+**Classificazione integrata:** soglia circolare T124 [P, condizionata al modello]; decomposizione/ricostruzione Morandotti [P/N secondo i singoli record e le Actions citate]; parametro materiale e dinamica completa [M/O]; limite RGS–PRISM e raccordo KTHNY [O].
+
 **D. Statistica, FDT e trasporto.** T100, T105, T106 e T107 sono il livello dinamico dello stesso sistema: correlazioni complete \(64\times64\), correnti sui 192 archi, continuità di Kirchhoff, ensemble stazionario, risposta a campo debole e verifica indipendente della relazione Kubo/FDT. Il teorema Born/Haar in T106 dà una misura uniforme sul simplesso per stati puri complessi Haar; non dà una dinamica termica. Il modello Gibbs/diffusione reversibile di T107 è una realizzazione statistica distinta e dichiarata. La formula Green–Kubo richiede corrente fisica, unità, normalizzazione areale/volumica, ipotesi di equilibrio e controllo della convergenza; il Green operator del grafo non è l'integrale Green–Kubo.
 
 **E. KTHNY: limite termodinamico dei difetti bidimensionali.** KTHNY è la teoria di riferimento per la fusione 2D mediata da difetti. Nel regime triangolare e nelle ipotesi in cui lo scenario a due transizioni è valido, l'unbinding delle coppie di dislocazioni porta dal solido alla fase esatica; l'unbinding successivo delle disclinazioni porta al liquido isotropo. Il gas di Coulomb vettoriale di Young conserva sia interazioni radiali sia angolari. Con la convenzione standard
@@ -694,6 +725,7 @@ Nel toro 3D, i winding delle tre famiglie di plaquette diventano flussi sui link
 | Isteresi | T068 | `scripts/run_q6_hysteresis_sweep_study.py`, `models/constitutive_hysteresis.py` | benchmark multi-rate; dati industriali mancanti |
 | XCont/CA | note XCont | `models/prism_cellular_automata.py`, `models/prism_ca_evolution.py` | strumenti computazionali |
 | Frank–Burgers / Morandotti | T091–T099 | record T091–T099; `docs/rgs_defect_benchmark/` | identità finite, benchmark numerici e ponti cinematici condizionali |
+| Frank–Read / dislocation activation | T091–T099, T124 | `theorems/T124-frank-read-source-line-tension-atomistic-core.md`; PR #161/#162 Actions; DOLFINx two-core reports | soglia circolare [P condizionata]; decomposizione e ricostruzione numeriche verificate; cutting, core, evoluzione e limite continuo [O] |
 | Moiré, cariche, FDT e difetti | T100–T107 | records T100–T107; `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
 | Influenze booleane e AA | T108–T109 | records T108–T109 | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
 | XY/BKT e vortici 3D | T110 | scripts/audit_xy_torus_kthny_bkt.py, tests/test_xy_torus_kthny_bkt.py | identità di winding/chiusura; scaling critico ancora da eseguire |

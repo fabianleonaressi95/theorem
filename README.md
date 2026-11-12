@@ -545,6 +545,12 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 - **Critical formula audit:** if \(T=Gb^2/2\), then \(\tau_c=Gb/L\); \(2Gb/L\) requires the alternative convention \(T=Gb^2\). The material-specific threshold needs character-dependent elasticity and core/pinning corrections.
 - **Open RGS–PRISM bridge:** encode dislocation lines as Burgers-labelled 1-chains, derive energy and configurational force, and prove convergence of the constrained evolution. No Frank–Read source or tunnelling rate is claimed to have been derived from Q6.
 
+### T124 integrated with the verified Morandotti Frank–Burgers Actions
+
+T124 is now connected to the existing Frank–Burgers reconstruction chain in [Chapter 27, §27.5 C1](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). The verified computational anchors are [PR #161 / Action run 43051485760](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760) for the Frank/Burgers/mixed traction-jump decomposition and [PR #162 / five-level refinement run 43052448456](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456), with [base audit run 43052448351](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351). T096 and T097 add their dedicated identifiability and kinematic-regression workflows.
+
+**Evidence boundary:** these Actions verify the existing Morandotti reconstruction/decomposition pipeline, not a Frank–Read source simulation. T124's circular-arc threshold is analytic under constant line tension; material-specific activation, loop cutting/reconnection, atomistic calibration, quantum tunnelling and RGS–PRISM continuum convergence remain open.
+
 ## Unified programme update — 12 November 2026
 
 The canonical integration is maintained **inside the 27-chapter monograph**, not as a parallel theory: [Chapter 27 — unified RGS–PSU–PRISM–Q6–QLG programme](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). Its sections 27.5–27.9 integrate the Morandotti Frank–Burgers chain (T091–T099), the 64-hexagram charge/moiré and FDT chain (T100–T107), the Boolean influence records (T108–T109), KTHNY melting theory, and the toroidal compactification / S-duality interface of \(\mathcal N=4\) SYM.
