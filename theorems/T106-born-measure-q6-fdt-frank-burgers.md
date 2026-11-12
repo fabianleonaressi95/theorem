@@ -282,7 +282,7 @@ No physical defect, transport coefficient, or constitutive charge law is declare
 ## References
 
 1. G. Kuperberg, “Archimedes’ other principle and quantum supremacy,” Shtetl-Optimized, 26 Nov 2019, https://scottaaronson.blog/?p=4432.
-2. S. Sýkora, “Quantum theory and the classical probability simplex” / generalized Archimedes theorem (1974); bibliographic metadata must be checked against the primary publication before formal citation in a paper.
+2. S. Sýkora (1974), generalized Archimedes/Born-map result cited by Kuperberg; full primary-publication metadata remains to be verified before formal citation in a paper.
 3. R. Kubo, “The fluctuation-dissipation theorem,” *Reports on Progress in Physics* 29 (1966), 255–284, DOI: 10.1088/0034-4885/29/1/306.
 4. R. deWit, “Theory of Disclinations: II. Continuous and Discrete Disclinations in Anisotropic Elasticity,” *Journal of Research of the National Bureau of Standards A* 77A (1973), 49–100, DOI: 10.6028/jres.077A.003.
 5. R. deWit, “Theory of Disclinations: III. Continuous and Discrete Disclinations in Isotropic Elasticity,” *Journal of Research of the National Bureau of Standards A* 77A (1973), 359–368, DOI: 10.6028/jres.077A.024.
