@@ -13,7 +13,9 @@ import numpy as np
 
 def wrap(angle: np.ndarray | float) -> np.ndarray:
     """Principal angle in (-pi, pi]."""
-    return (np.asarray(angle) + np.pi) % (2.0 * np.pi) - np.pi
+    wrapped = (np.asarray(angle) + np.pi) % (2.0 * np.pi) - np.pi
+    # Adopt the stated (-pi, pi] convention at the branch endpoint.
+    return np.where(np.isclose(wrapped, -np.pi, rtol=0.0, atol=1e-14), np.pi, wrapped)
 
 
 def metropolis_sweep(theta: np.ndarray, beta: float, rng: np.random.Generator,
