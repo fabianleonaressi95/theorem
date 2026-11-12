@@ -1,0 +1,28 @@
+name: XY torus vortex and helicity audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "theorems/T110-xy-torus-vortex-kthny-bkt.md"
+      - "scripts/audit_xy_torus_kthny_bkt.py"
+      - "tests/test_xy_torus_kthny_bkt.py"
+      - ".github/workflows/t110-xy-torus-vortex-kthny-bkt.yml"
+  pull_request:
+    paths:
+      - "theorems/T110-xy-torus-vortex-kthny-bkt.md"
+      - "scripts/audit_xy_torus_kthny_bkt.py"
+      - "tests/test_xy_torus_kthny_bkt.py"
+      - ".github/workflows/t110-xy-torus-vortex-kthny-bkt.yml"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy pytest
+      - run: python scripts/audit_xy_torus_kthny_bkt.py --L 4 --dim 3 --therm 2 --meas 3
+      - run: python -m pytest -q tests/test_xy_torus_kthny_bkt.py
