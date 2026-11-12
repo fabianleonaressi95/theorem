@@ -808,3 +808,14 @@ Nel problema vicino alla parete, la connessione \(A(s,y,\theta)=-R_{bb}^{-1}R_{b
 
 
 La simmetria icosaedrale standard agisce sullo spazio interno tridimensionale tramite una rappresentazione irriducibile di \(A_5\). Poiché \(A_5\) non possiede rappresentazioni irriducibili bidimensionali, non esiste una proiezione lineare non nulla \(A_5\)-equivariante da tale modulo verso uno spazio delle forme bidimensionale. La calibrazione \(C\) richiede quindi una struttura aggiuntiva che rompa o estenda quella simmetria (per esempio una geometria di parete e un frame del nuotatore specificati); non è dedotta dalla sola finestra aurea. Il codice registra i sei vettori proiettati, le loro norme e la matrice di Gram \(6\\times6\), così l'anisotropia resta una quantità verificabile della calibrazione.
+
+
+## Appendice tecnica — T130: gradienti, baricentri, momenti e resistenza
+
+T130 collega la geometria delle forme alla meccanica locale. Sul grafo Q6, il gradiente di un campo scalare è ricostruito con minimi quadrati sui sei archi incidenti; la matrice locale (G_v) deve avere rango due. Il test affine controlla che un campo (f(x)=a\cdot x+c) restituisca il gradiente (a), mentre il numero di condizionamento segnala stelle quasi degeneri.
+
+Per punti di quadratura (x_i) e pesi positivi (w_i), il baricentro è (x_c=\sum_iw_ix_i/\sum_iw_i). Le trazioni discrete determinano forza e momento. Il passaggio dall'origine (o) al baricentro soddisfa esattamente (M_c=M_o-(x_c-o)\times F): il baricentro è un riferimento geometrico, non va identificato automaticamente con il centro di resistenza.
+
+Per il modello locale-drag dichiarato, i Jacobiani cinematici (J_i) e i tensori dissipativi (D_i\succ0) producono (R_h=\sum_iw_iJ_i^TD_iJ_i\succeq0). Il complemento di Schur fornisce la connessione forza-libera (A_h=-R_{bb}^{-1}R_{bs}) e la metrica dissipativa delle forme. Questa identità non sostituisce Stokes/BEM: le interazioni idrodinamiche non locali richiedono un kernel accoppiato tra punti distinti.
+
+**Classificazione T130:** identità algebriche finite [P]; test numerici su campo affine e drag sintetico [N]; calibrazione dei pesi e dei Jacobiani delle aste, connessione idrodinamica vicino alla parete, convergenza e confronto con T128 [O]. Non si identifica il baricentro geometrico con il centro idrodinamico e non si dichiara una validazione fisica.
