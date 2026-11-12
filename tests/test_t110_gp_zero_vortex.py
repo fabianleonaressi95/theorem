@@ -25,3 +25,10 @@ def test_full_refinement_report_passes_acceptance():
     report = module.run([8, 16, 32, 64, 128])
     assert report["acceptance"]["one_unit_positive_plaquette_per_grid"]
     assert report["acceptance"]["localization_error_bounded_by_sqrt2_h_over_2"]
+
+def test_extruded_3d_gp_zero_line_matches_closed_dual_flux():
+    result = module.audit_extruded_3d(n_xy=32, n_z=8)
+    assert result["charged_xy_plaquettes"] == 1
+    assert result["plaquette_charge"] == 1
+    assert result["dual_z_flux_links"] == 8
+    assert result["max_abs_dual_divergence"] == 0
