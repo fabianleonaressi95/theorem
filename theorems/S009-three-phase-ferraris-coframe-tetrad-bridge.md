@@ -253,3 +253,114 @@ It derives a local \(\mathfrak{so}(3)\)-connection current for the displayed gra
 | Nonzero torsion sourced by the electromagnetic/helical field | Candidate; requires a covariant action and constitutive derivation |
 | Identification of magnetic induction, vorticity and Cartan torsion | Not permitted without a derived map |
 | S.6 connection current as a source in a complete torsion equation | Open; requires full coframe/connection/matter variation |
+
+
+## 14. Minimal covariant electromagnetic source for the torsion trace
+
+This section supplies an explicit **effective Riemann--Cartan constitutive model**. It is a candidate dynamical bridge, not a derived law of vacuum electrodynamics and not yet a constrained teleparallel theory.
+
+Let the spacetime signature be \((-+++ )\), let \(u^\mu u_\mu=-1\) be the material observer field, and let \(Q_{\mu\nu}\) be a symmetric trace-free spatial material anisotropy:
+\[
+Q_{\mu\nu}=Q_{\nu\mu},\quad
+Q^\mu{}_{\mu}=0,\quad Q_{\mu\nu}u^\nu=0.
+\]
+Define the magnetic four-vector and the anisotropic magnetic invariant by
+\[
+B^\mu={}^\star F^{\mu\nu}u_\nu,\qquad
+\mathcal X_Q=Q_{\mu\nu}B^\mu B^\nu.
+\]
+The invariant is gauge invariant and has mass dimension four in natural units when \(Q\) is dimensionless.
+
+Use the torsion trace convention \(T_\mu=T^\nu{}_{\mu\nu}\). Treat this irreducible trace component as an independent variable in the local Riemann--Cartan variation, with the other irreducible torsion pieces held fixed. Consider
+\[
+S=\int d^4x\,e\left[
+-\frac14F_{\mu\nu}F^{\mu\nu}
+-\frac{M_T^2}{2}T_\mu T^\mu
++g_T T^\mu\nabla_\mu\mathcal X_Q
++\mathcal L_Q+\mathcal L_{\rm rest}
+\right].
+\]
+Here \(M_T^2>0\), \([g_T]=-2\) in mass units, and \(\mathcal L_Q\) supplies the material director's own dynamics and stabilizes its amplitude. The displayed torsion sector is algebraic in \(T_\mu\); no torsion kinetic term is assumed in this minimal effective model.
+
+### 14.1 Torsion-trace field equation
+
+Varying the independent trace gives
+\[
+\delta_T S=\int d^4x\,e
+\left(-M_T^2T_\mu+g_T\nabla_\mu\mathcal X_Q\right)
+\delta T^\mu.
+\]
+Therefore
+\[
+\boxed{T_\mu=\frac{g_T}{M_T^2}\nabla_\mu\mathcal X_Q.}
+\]
+This is the explicit constitutive source equation. The electromagnetic anisotropy gradient sources the torsion trace. It predicts no source when \(\mathcal X_Q\) is spacetime-constant. Substitution back into the action gives the local effective term
+\[
+\mathcal L_{T,\rm eff}
+=\frac{g_T^2}{2M_T^2}
+\nabla_\mu\mathcal X_Q\nabla^\mu\mathcal X_Q.
+\]
+The sign follows from the displayed \((-+++ )\) action and positive algebraic coefficient \(M_T^2\); stability of the complete material/field theory must be assessed together with \(\mathcal L_Q\), higher-derivative terms and boundary conditions.
+
+### 14.2 Maxwell equation and constitutive excitation
+
+Define
+\[
+P^{\mu\nu}:=\frac{\partial\mathcal X_Q}{\partial F_{\mu\nu}},
+\qquad P^{\mu\nu}=-P^{\nu\mu},
+\qquad D_T:=\nabla_\mu T^\mu.
+\]
+Up to a boundary term,
+\[
+g_T T^\mu\nabla_\mu\mathcal X_Q
+\doteq -g_TD_T\mathcal X_Q.
+\]
+The electromagnetic excitation associated with the displayed action is consequently
+\[
+\boxed{\mathcal H^{\mu\nu}
+=-2\frac{\partial\mathcal L}{\partial F_{\mu\nu}}
+=F^{\mu\nu}+2g_TD_TP^{\mu\nu}.}
+\]
+With the convention \(\nabla_\mu\mathcal H^{\mu\nu}=J^\nu\), the sourced Maxwell equation is
+\[
+\boxed{\nabla_\mu\left(F^{\mu\nu}+2g_TD_TP^{\mu\nu}\right)=J^\nu,}
+\qquad
+\nabla_{[\lambda}F_{\mu\nu]}=0.
+\]
+Thus the same coupling that sources torsion also changes the electromagnetic constitutive excitation. This reciprocal structure is essential: one must not add a torsion source to the Maxwell sector while leaving the variation of the same action inconsistent.
+
+### 14.3 Explicit rotating-field test
+
+In a local material rest frame, take a rotating magnetic field
+\[
+\mathbf B(t)=B_0(\cos\Omega_{\rm el}t,\sin\Omega_{\rm el}t,0)
+\]
+and a fixed biaxial material tensor
+\[
+Q=\operatorname{diag}(q,-q,0).
+\]
+Then
+\[
+\mathcal X_Q(t)=qB_0^2\cos(2\Omega_{\rm el}t),
+\qquad
+T_0(t)=\frac{g_T}{M_T^2}\partial_t\mathcal X_Q(t)
+=-\frac{2g_TqB_0^2\Omega_{\rm el}}{M_T^2}
+\sin(2\Omega_{\rm el}t),
+\]
+where the last expression uses the local coordinate component convention for the time derivative. The torsion-trace source oscillates at twice the electrical rotation frequency. It vanishes if \(q=0\), if \(B_0=0\), or if the invariant is constant. If the material tensor co-rotates exactly with the magnetic field, \(\mathcal X_Q\) is constant and this particular coupling produces no torsion. The effect is therefore controlled by **relative rotation between field and material anisotropy**, not by rotation alone.
+
+### 14.4 Scope and constraints
+
+1. This is a gauge-invariant nonminimal electromagnetic--torsion coupling because it depends on \(F\), not directly on the gauge potential \(A\).
+2. The equation above sources only the torsion trace irreducible component. It does not establish an axial or tensor torsion source.
+3. The model is a local Riemann--Cartan effective action. In a teleparallel formulation, the flatness/inertial-spin-connection constraint must be imposed and varied consistently; one cannot vary the torsion trace as an unconstrained independent field and then claim a teleparallel solution.
+4. The coframe and material director equations, stress-energy, boundary terms, and the remaining irreducible torsion sectors must be varied to obtain a complete coupled system.
+5. The S.6 current \(J_i=\kappa[H(D_iQ),Q]\) is a distinct connection current. Its contribution must be included through the complete connection variation, with compatible index and normalization conventions; it is not silently equal to the electromagnetic torsion-trace source above.
+6. A uniform isotropic Ferraris field in an isotropic medium has no \(Q\)-anisotropy invariant gradient and hence no source in this model. The nonzero prediction requires a fixed or spatially varying anisotropic material director and relative field/director motion.
+
+### 14.5 Evidence classification
+
+- **PROVED conditional variational identity:** the torsion-trace equation and Maxwell excitation follow from the displayed action and independent-trace variation.
+- **EXACT idealized test:** the biaxial fixed-director rotating-field invariant oscillates at \(2\Omega_{\rm el}\), and the displayed constitutive equation gives the stated trace response.
+- **CANDIDATE:** the effective coupling constant \(g_T/M_T^2\), the material director dynamics, and its identification with the user's RGS/PSU helical sector.
+- **OPEN:** constrained teleparallel reduction; complete tetrad/connection/material variation; positivity and hyperbolicity of the full coupled equations; numerical calibration and experimental/industrial validation.
