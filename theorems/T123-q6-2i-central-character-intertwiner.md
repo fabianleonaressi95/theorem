@@ -82,7 +82,7 @@ Companion source implementation:
 Tests:
 - \`tests/test_q6_2i_intertwiners.py\`
 
-The audit induces the signed-permutation action on all 64 exterior basis states, pulls it back to all 120 quaternion elements, verifies the opposite central characters, and checks the explicit twisted embedding against all group elements.
+The audit induces the signed-permutation action on all 64 exterior basis states, checks the 60 A5 signed-axis actions and all 120 fundamental 2I matrices, and verifies the tensor-product embedding from invariance of the exterior vacuum. It uses the abstract quotient 2I/{+/-1} ~= A5 and deliberately does not claim an elementwise matching between the two matrix presentations.
 
 Reproduction command in the source repository:
 \`\`\`bash
