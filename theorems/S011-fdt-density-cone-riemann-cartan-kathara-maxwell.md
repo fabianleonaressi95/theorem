@@ -289,3 +289,33 @@ This is not “ECSK plus a new name for torsion”. It is a layered candidate th
 Turning off (g_{Talpha}), removing the torsion kinetic term, setting (lambda_{BF}=0), and decoupling the FDT fields recovers the corresponding reference sectors. New physics exists only if the extra coefficients yield stable, gauge-consistent, causal and independently measurable deviations.
 
 **No laboratory effect, vacuum-energy extraction, superluminal signal or propagating torsion detection is claimed by this record.**
+
+
+## 10. Experimental and mathematical validation dependencies
+
+S011 does not absorb the following work as established evidence. These four open repository issues are the validation work packages; their outputs may constrain or falsify sectors of this action.
+
+| Work package | Role in S011 | Required evidence before use as a physical input |
+|---|---|---|
+| [#109 — 188D/Krist-All source-data recovery](https://github.com/fabianleonaressi95/theorem/issues/109) | Establish provenance and reproducibility of the RGS operator data and Krist-All claims used in §5 | Commit original binary artifacts with hashes and provenance; regenerate the 188D report from committed arrays; recover the original 64×3 coordinates from their generator; independently reproduce the Krist-All enumerator, equivalence relation, operator definitions and tests, or withdraw unsupported counts/residuals |
+| [#84 — Q6–D5 Wilson integer fibre](https://github.com/fabianleonaressi95/theorem/issues/84) | Certify the discrete Q6 measure/fibre construction before proposing a continuum density interpretation | Exact rational/integer incidence and saturated-kernel certificates; unimodular splitting; explicit positive fibre sum; rigorous tail interval; Poisson/Gaussian comparison with stated regime. No continuum FDT identification follows from the finite quotient alone |
+| [#114 — Jiles–Atherton measured magnetic loops](https://github.com/fabianleonaressi95/theorem/issues/114) | Independent magnetic-material benchmark for the Maxwell/material-response side; not a test of torsion by itself | Verify exact dataset version, files, checksum, licence, units, frequency, temperature and geometry; fit training loops and report held-out loops/specimens, loop area, coercivity, remanence, saturation and error; keep quasi-static and dynamic losses separate |
+| [#113 — experimental actuator hysteresis/GPI](https://github.com/fabianleonaressi95/theorem/issues/113) | Independent test of memory-bearing constitutive dynamics and possible industrial relevance; distinct from magnetic hysteresis | Verify Zenodo version/checksum/schema and trial/cycle boundaries; compare Preisach, PI, asymmetric GPI and Bouc–Wen on identical complete-cycle splits; report held-out-cycle errors, loop-area/branch/reversal errors, uncertainty and runtime. No industrial qualification follows from fit quality alone |
+
+### 10.1 Execution order and dependency logic
+
+**Stage A — provenance first:** close the source-data gaps in #109. Until then, 188D/Krist-All quantities remain reported audit values with explicit provenance limitations, not newly regenerated independent evidence.
+
+**Stage B — exact discrete measure:** complete #84. Only after the full integer-fibre sum and remainder are certified may it be used as a controlled discrete measure in a continuum-limit study. The Q6 quotient alone is not a derivation of the local FDT field \(\alpha(x)\).
+
+**Stage C — material validation in two separate tracks:** complete #114 for measured ferromagnetic loops and #113 for pneumatic actuator loops. Do not train Jiles–Atherton on actuator outputs, and do not treat pneumatic GPI/Preisach parameters as magnetic material constants. Both tracks must use held-out complete loops/cycles and preserve raw-data provenance.
+
+### 10.2 How the results can constrain S011
+
+- #109 can validate or force revision of the RGS operator inputs and the triplet anisotropy statement in §5.
+- #84 can validate the exact Q6 lattice measure, but an interpolation \(I_h\), normalization map and continuum convergence proof are still required to connect it to \(\Psi\) or \(\alpha\).
+- #114 can constrain ordinary magnetic constitutive response and the Maxwell/material sector. A successful Jiles–Atherton fit is not evidence for propagating torsion, aether flow or a new electromagnetic coupling.
+- #113 can quantify hysteretic memory in a real actuator and its predictive limits. It does not by itself identify the memory variable with Cartan torsion or FDT density.
+
+No fitted parameter from these issues is to be inserted into \(\lambda_{BF}\), \(g_{T\alpha}\), \(m_T\), or an RGS–FDT coupling without a separately derived parameter map and an independent measurement. The four issues are therefore **validation dependencies**, not confirmation of S011.
+
