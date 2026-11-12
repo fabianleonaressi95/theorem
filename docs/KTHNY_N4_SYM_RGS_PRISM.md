@@ -113,5 +113,3 @@ Cercare una costruzione precisa (riduzione dimensionale, teoria di difetto, inte
 4. A. Kapustin, “Wilson–’t Hooft operators in four-dimensional gauge theories and S-duality”, *Physical Review D* 74 (2006), 025005. DOI: [10.1103/PhysRevD.74.025005](https://doi.org/10.1103/PhysRevD.74.025005).
 5. Y. Hatsuda, T. Okazaki, “S-duality of boundary lines in \(\mathcal N=4\) SYM theories and supersymmetric indices”, *JHEP* 08 (2025) 127. DOI: [10.1007/JHEP08(2025)127](https://doi.org/10.1007/JHEP08(2025)127).
 6. P. Cesana, L. De Luca, M. Morandotti (2024), “Semi-discrete modeling of systems of wedge disclinations and edge dislocations via the Airy stress function method”, *SIAM Journal on Mathematical Analysis* 56(1), 79–136. DOI: [10.1137/22M1523443](https://doi.org/10.1137/22M1523443).
-
-**Nota bibliografica:** il riferimento Young è riportato una sola volta in bibliografia definitiva; il duplicato esplicativo sopra va eliminato in una revisione editoriale successiva.

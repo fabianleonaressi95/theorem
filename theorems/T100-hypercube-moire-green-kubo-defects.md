@@ -31,114 +31,77 @@ This is a weighted graph Laplacian. It is positive semidefinite, and for \(g_-,g
 
 ## 2. Primary variables: charge on each individual hexagram
 
-The 64 vertices are not merely labels for two collective trigram fields. Each individual hexagram \(h\in V(Q_6)\) is assigned a time-dependent charge variable
-\[
-q_h(t),\qquad h=1,\ldots,64.
-\]
-Collect them into \(q(t)\in\mathbb R^{64}\). The proposed constitutive law is a map
+The 64 vertices are not merely labels for two collective trigram fields. Each individual hexagram \(h\in V(Q_6)\) is a distinct measurement/model site. A candidate intrinsic assignment is
 \[
 q:V(Q_6)\to\mathbb R,\qquad h\mapsto q(h),
 \]
-so that the individual six-bit hexagram determines its assigned charge. Whether \(q(h)\) is an electric charge, an effective/coarse-grained charge, or a dimensionless charge-like observable—and its units—must be specified by the physical model. The 64 labels provide the domain of this map; the numerical rule \(q(h)\) is the central law to derive or measure, not a value to invent.
+but its physical meaning (electric charge, effective charge-like observable, or dimensionless variable), units and numerical values must be derived or measured. No value is assigned by the combinatorial label alone.
 
-If the hexagram is occupied or sampled dynamically, introduce an occupation variable \(n_h(t)\) and the measured node charge
+For a circuit or statistical realization, let \(Q_h(t)\) be the measured node charge. If an intrinsic label value and an occupation variable are useful, state the constitutive convention explicitly:
 \[
 Q_h(t)=q(h)n_h(t).
 \]
-For a multi-occupation circuit, \(n_h(t)\) may instead be a nonnegative occupation/number variable. Correlations are then computed from the observed \(Q_h(t)\). This separates the charge assigned to the hexagram from its time-dependent occupation.
-The 64 vertices are not merely labels for two collective trigram fields. The proposed constitutive law assigns an intrinsic charge (or charge-like observable) to each individual six-bit hexagram:
-\[
-q:V(Q_6)\to\mathbb R,\qquad h\mapsto q(h).
-\]
-Whether \(q(h)\) is electric charge, effective/coarse-grained charge, or a dimensionless observable—and its units—must be specified by the physical model. The 64 labels provide the domain of this map; its numerical rule is the central law to derive or measure, not a value to invent.
+Collect the 64 measured charges into \(Q(t)=(Q_0(t),\ldots,Q_{63}(t))^T\). A continuously varying circuit may instead take \(Q_h(t)\) as the primary measured variable without introducing a separate occupation model.
 
-For a dynamical circuit or statistical model, introduce an occupation variable \(n_h(t)\) and define the measured node charge
-\[
-Q_h(t)=q(h)n_h(t),\qquad Q(t)=(Q_1(t),\ldots,Q_{64}(t))^T.
-\]
-This separates the intrinsic charge assigned to a hexagram from its time-dependent occupation. In a circuit with continuously varying stored charge, \(Q_h(t)\) is simply the dynamical node-charge variable; the constitutive interpretation of \(q(h)\) must then be supplied separately.
-
-The primary equal-time and time-dependent correlation functions are
+The primary equal-time and time-dependent correlation matrix is
 \[
 C_{hh'}(\tau)=
-\left\langle\delta q_h(t+\tau)\,\delta q_{h'}(t)\right\rangle_{\rm eq},
-\qquad
-\delta q_h=q_h-\langle q_h\rangle_{\rm eq}.
-\]
-Thus correlations are measured **between individual hexagrams**, not inferred by first postulating two macroscopic fields. The diagonal \(C_{hh}(0)\) measures the variance of the charge on hexagram \(h\); off-diagonal entries measure correlations between distinct hexagrams. Dependence on graph distance, Hamming distance, and the lower/upper-line transition classes can be compared without conflating trigram decomposition with a 32/32 partition.
-
-Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix of \(Q_6\), and let \(G=\operatorname{diag}(g_e)\) contain nonnegative edge conductances. With node potentials \(V=C_{\rm node}^{-1}q\), where \(C_{\rm node}\) is a positive node-capacitance matrix, define oriented edge currents
 \left\langle\delta Q_h(t+\tau)\,\delta Q_{h'}(t)\right\rangle_{\rm eq},
 \qquad
 \delta Q_h=Q_h-\langle Q_h\rangle_{\rm eq}.
 \]
-Thus correlations are measured **between individual hexagrams**, not inferred by first postulating two macroscopic fields. The diagonal \(C_{hh}(0)\) measures the variance of the measured charge on hexagram \(h\); off-diagonal entries measure correlations between distinct hexagrams. Dependence on graph distance, Hamming distance, and the lower/upper-line transition classes can be compared without conflating trigram decomposition with a 32/32 partition.
+The full \(64\times64\) matrix is retained: its diagonal records each site's variance and its off-diagonal entries record correlations between distinct hexagrams. Dependence on graph distance, Hamming distance and the lower/upper-line transition classes can be compared without replacing the 64 sites by eight trigram averages.
 
-Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix of \(Q_6\), and let \(G=\operatorname{diag}(g_e)\) contain nonnegative edge conductances. With node potentials \(V=C_{\rm node}^{-1}Q\), where \(C_{\rm node}\) is a positive node-capacitance matrix, define oriented edge currents
+Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix, with \(+1\) at each edge tail and \(-1\) at its head. Let \(G=\operatorname{diag}(g_e)\), \(g_e\geq0\), with each \(g_e\) assigned from \(g_-\) or \(g_+\) according to the lower/upper edge family in T099, and let \(C_{\rm node}\) be a positive node-capacitance matrix. With
 \[
-j(t)=G B^\top V(t).
+V(t)=C_{\rm node}^{-1}Q(t),\qquad
+j(t)=G B^\top V(t),
 \]
-The charge-continuity equation is
+the charge-continuity equation is
 \[
-\dot q(t)=-B j(t)+s(t)
-=-BGB^\top C_{\rm node}^{-1}q(t)+s(t),
-\]
-where \(s_h(t)\) is an explicitly specified source/sink term. Since \(BGB^\top=L_g\), this is the charge-variable form of the graph RC dynamics:
-\[
-\dot q+L_g C_{\rm node}^{-1}q=s.
-\]
-The total charge obeys
-\[
-\frac{d}{dt}\mathbf1^\top q(t)=\mathbf1^\top s(t),
 \dot Q(t)=-B j(t)+s(t)
 =-BGB^\top C_{\rm node}^{-1}Q(t)+s(t),
 \]
-where \(s_h(t)\) is an explicitly specified source/sink term. Since \(BGB^\top=L_g\), this is the charge-variable form of the graph RC dynamics:
+where \(s(t)\) is the declared source/sink vector. Since \(L_g=BGB^\top\),
 \[
-\dot Q+L_g C_{\rm node}^{-1}Q=s.
+\boxed{\dot Q+L_g C_{\rm node}^{-1}Q=s.}
 \]
-The total charge obeys
+Summing over all 64 sites gives
 \[
-\frac{d}{dt}\mathbf1^\top Q(t)=\mathbf1^\top s(t),
+\frac{d}{dt}\mathbf1^\top Q(t)=\mathbf1^\top s(t).
 \]
-so it is conserved when the net source vanishes. This conservation statement follows from \(\mathbf1^\top B=0\), independently of any moiré interpretation.
+Thus total charge is conserved when the net source vanishes; this follows from \(\mathbf1^\top B=0\), independently of any moiré interpretation.
 
-The Green–Kubo observable is then built from the currents that transfer charge along edges. Given a declared spatial embedding \(X:V(Q_6)\to\mathbb R^d\), let \(d_e=X(h_{\rm head})-X(h_{\rm tail})\). Define the extensive charge-current flux
+Given a declared spatial embedding \(X:V(Q_6)\to\mathbb R^d\), orient each edge \(e=(h_{\rm tail},h_{\rm head})\) and set \(d_e=X(h_{\rm head})-X(h_{\rm tail})\). The extensive current flux is
 \[
-\mathcal J_a(t)=\sum_{e=1}^{192}d_{e,a}\,j_e(t).
+\mathcal J_a(t)=\sum_{e=1}^{192}d_{e,a}j_e(t).
 \]
-Its equilibrium autocorrelation, with normalization fixed by the chosen physical realization, is the transport observable. The node-charge correlations \(C_{hh'}(\tau)\) and edge-current correlations \(\langle j_e(t+\tau)j_{e'}(t)\rangle\) must both be recorded: they answer different questions and are linked by the continuity equation.
+The node-charge correlations \(C_{hh'}(\tau)\) and edge-current correlations \(\langle j_e(t+\tau)j_{e'}(t)\rangle\) are different observables and should both be recorded.
 
-A useful spectral summary of the node correlations, once coordinates \(X_h\) are specified, is
+Once coordinates \(X_h\) are specified, a spatial/dynamical structure factor is
 \[
 S(k,\omega)=
 \sum_{h,h'}e^{-ik\cdot(X_h-X_{h'})}
 \int_{-\infty}^{\infty}e^{i\omega\tau}
 C_{hh'}(\tau)\,d\tau.
 \]
-Without a spatial embedding, the corresponding well-defined object is the graph-mode correlation matrix obtained by projecting \(C(\tau)\) onto eigenvectors of \(L_g\). Peaks in \(S(k,\omega)\), or structured cross-correlations between graph-mode sectors, may reveal a modulation or candidate moiré scale. They do not establish one until the embedding and reciprocal-space interpretation are independently specified.
+Without a spatial embedding, the well-defined alternative is the graph-mode correlation matrix obtained by projecting \(C(\tau)\) onto eigenvectors of \(L_g\). Peaks may suggest modulation or a candidate moiré scale, but do not establish a physical reciprocal-space pattern without the embedding and its calibration.
 
 ## 3. Spatial reconstruction: the additional data moiré requires
 
-The node-charge field (q_h(t)) is primary. A moiré pattern is a possible spatial signature of its correlations, not a replacement for the 64 node variables. It is not determined by an abstract finite graph alone. Introduce, as explicit model data:
-The node-charge field (Q_h(t)) is primary. A moiré pattern is a possible spatial signature of its correlations, not a replacement for the 64 node variables. It is not determined by an abstract finite graph alone. Introduce, as explicit model data:
+The node-charge field \(Q_h(t)\) remains primary. A moiré pattern is a possible spatial signature of correlations between two reconstructed fields, not a replacement for the 64 node variables. It is not determined by the abstract graph alone. Specify either two embeddings \(X_\pm:V(Q_6)\to\mathbb R^2\), or one common embedding with two distinct reciprocal-mode families, together with measured complex amplitudes \(a_h^\pm\) and reciprocal vectors \(G^\pm\).
 
-1. two spatial embeddings \(X_\pm:V(Q_6)\to\mathbb R^2\), or a declared common embedding together with two distinct reciprocal-mode families;
-2. complex mode amplitudes \(a^\pm_v\);
-3. reciprocal vectors \(G^\pm\in\mathbb R^2\), or more generally finite reciprocal sets \(\mathcal G_\pm\).
-
-For the single-mode benchmark, define reconstructed fields
+For the single-mode benchmark, define
 \[
 \psi_\pm(x)=A_\pm(x)e^{i(G^\pm\cdot x+\phi_\pm(x))}.
 \]
-Their coherent intensity is
+Their coherent intensity is exactly
 \[
 I(x)=|\psi_+(x)+\psi_-(x)|^2
 =|A_+|^2+|A_-|^2+
 2\operatorname{Re}\!\left[
 A_+\overline{A_-}
 e^{i(q_m\cdot x+\Delta\phi(x))}
-A_+\overline{A_-}\,e^{i(q_m\cdot x+\Delta\phi(x))}
 \right],
 \]
 where
@@ -156,7 +119,7 @@ For two rotated copies of a reciprocal vector of length \(G\), with relative ang
 \qquad
 \Lambda_m=\frac{\pi}{G|\sin(\vartheta/2)|}.
 \]
-This is the standard two-wave interference/moiré relation. It becomes a Q6-derived prediction only after \(G^\pm\), amplitudes and embeddings have been obtained from a specified eigenmode or reconstruction procedure on the graph. No such canonical map is asserted here.
+This is the standard two-wave interference/moiré identity. It becomes a Q6-derived prediction only after \(G^\pm\), amplitudes and embeddings have been obtained from a specified eigenmode or reconstruction procedure. No canonical graph-to-space map is assumed.
 
 For nonconstant amplitudes or several modes, the intensity contains the corresponding pairwise cross terms. A scalar intensity map alone generally loses phase information; defect reconstruction therefore requires access to the complex fields or an equivalent phase-sensitive observable.
 
@@ -164,39 +127,32 @@ For nonconstant amplitudes or several modes, the intensity contains the correspo
 
 The static Kirchhoff equation \(L_gV=J\) from T099 does not by itself define an equilibrium time-correlation function. A dynamical model must be specified. One admissible linear circuit model is
 \[
-C\dot V(t)+L_gV(t)=\eta(t)+J_{\rm ext}(t),
-\]
-where \(C_{\rm node}\) is a positive node-capacitance matrix, the constant-potential mode is treated consistently with total-charge conservation, and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy \(H(q)=\tfrac12q^TC_{\rm node}^{-1}q\), the equilibrium Langevin choice is \(\langle\eta(t)\eta(t')^T\rangle=2k_BT L_g\,\delta(t-t')\) on the dissipative subspace (with the zero mode projected out or separately constrained). This gives the fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
 C_{\rm node}\dot V(t)+L_gV(t)=\eta(t)+J_{\rm ext}(t),
 \]
-where \(C_{\rm node}\) is a positive node-capacitance matrix, the constant-potential mode is treated consistently with total-charge conservation, and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy \(H(Q)=\tfrac12Q^TC_{\rm node}^{-1}Q\), the equilibrium Langevin choice is \(\langle\eta(t)\eta(t')^T\rangle=2k_BT L_g\,\delta(t-t')\) on the dissipative subspace (with the zero mode projected out or separately constrained). This gives the fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
-
-For an oriented edge \(e=(i,j)\), let
+where the constant-potential mode is treated consistently with total-charge conservation and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy
 \[
-j_e(t)=g_e\big(V_i(t)-V_j(t)\big)
+H(Q)=\tfrac12Q^TC_{\rm node}^{-1}Q,
 \]
-be the branch current, with the orientation fixed once. Given a spatial embedding \(X\), let \(d_e=X(j)-X(i)\). A macroscopic current observable can then be defined, for example, by
+the equilibrium Langevin choice is
 \[
-\mathcal J_a(t)=\sum_{e}d_{e,a}\,j_e(t),
+\langle\eta(t)\eta(t')^T\rangle
+=2k_BT L_g\,\delta(t-t')
 \]
-where \(\mathcal J_a\) is the extensive flux; its physical meaning and units depend on the circuit realization and embedding. The Green–Kubo prefactor below then includes \(1/\mathcal V\).
+on the dissipative subspace, with the zero mode projected out or separately constrained. This is a fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
 
 For a classical system in equilibrium, the Green–Kubo transport tensor has the form
 \[
-\boxed{\;
+\boxed{
 \kappa_{ab}=
 \frac{1}{k_BT\,\mathcal V}
 \int_0^\infty
-\left\langle \mathcal J_a(t)\mathcal J_b(0)\right\rangle_{\rm eq}\,dt
-\;}
+\left\langle\mathcal J_a(t)\mathcal J_b(0)\right\rangle_{\rm eq}\,dt
+}
 \]
-when \(\mathcal J\) is the extensive flux convention appropriate to this prefactor. If an intensive current density is used instead, the volume factor must be changed accordingly. For electrical conductivity, the flux must be the properly normalized electric current and the prefactor must match the chosen microscopic convention. Quantum response requires the corresponding Kubo commutator and, where applicable, diamagnetic/contact terms; the classical formula above must not be relabelled as a quantum conductivity formula.
+when \(\mathcal J\) is the extensive flux convention appropriate to this prefactor. If an intensive current density is used, the volume factor must be changed accordingly. For electrical conductivity, the flux must be the properly normalized electric current and the prefactor must match the chosen microscopic convention. Quantum response requires the corresponding Kubo commutator and, where applicable, diamagnetic/contact terms; the classical formula above must not be relabelled as a quantum conductivity formula.
 
-The graph Green operator \(L_g^\dagger\) and the Green–Kubo integral are different objects. In the linear deterministic RC model, the zero-mean propagator is
+The graph Green operator \(L_g^\dagger\) and the Green–Kubo integral are different objects. In the deterministic RC model, the zero-mean voltage propagator is
 \[
-e^{-C^{-1}L_gt}.
-\]
-Its time integral on the decaying subspace is related to the inverse of \(C^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
 e^{-C_{\rm node}^{-1}L_gt}.
 \]
 Its time integral on the decaying subspace is related to the inverse of \(C_{\rm node}^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
@@ -387,5 +343,4 @@ Passing these tests would validate the specified model, not establish that all I
 
 ## 9. Relation to T099
 
-T099 supplies the finite graph and conditional Kirchhoff network. T100 adds the missing spatial embedding, two-field interference, equilibrium dynamics, transport observables and defect reconstruction. T100 does not alter T099 and does not promote any of its open physical interpretations to theorem status.
 T099 supplies the finite graph and conditional Kirchhoff network. T100 adds the node-charge correlation model, conditional spatial reconstruction, equilibrium dynamics, transport observables and defect reconstruction. T100 does not alter T099 and does not promote any of its open physical interpretations to theorem status.

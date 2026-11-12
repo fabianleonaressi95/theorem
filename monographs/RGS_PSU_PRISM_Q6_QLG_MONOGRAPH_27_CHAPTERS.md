@@ -525,6 +525,147 @@ Una teoria unitaria non si ottiene sommando i nomi RGS, PSU, PRISM, Q6, QLG, QAT
 
 Ogni risultato pubblicabile deve avere: definizione, ipotesi, dimostrazione o protocollo numerico, codice, dati, test, limiti, riferimenti e confronto con letteratura primaria. Le affermazioni fisiche devono produrre osservabili e predizioni. Le affermazioni industriali devono essere valutate su dati e metriche concordate.
 
+
+### 27.5 — La spina dorsale unitaria: topologia, connessione, difetti, dinamica e limite
+
+L'integrazione dei risultati successivi a T068 non aggiunge una seconda teoria accanto alla monografia: completa il percorso già fissato nei capitoli 1–27. La struttura comune è la seguente:
+
+\[
+\boxed{
+\text{complesso cellulare}
+\to \text{cochain e Hodge}
+\to \text{connessioni/olonomie}
+\to \text{difetti cinematici}
+\to \text{energia elastica}
+\to \text{misura/dinamica}
+\to \text{risposta e rinormalizzazione}
+\to \text{limite continuo}.
+}
+\]
+
+Ogni freccia indica un'interfaccia matematica da costruire o un risultato già disponibile nel proprio perimetro; non afferma che tutti i modelli fisici siano già derivati da un'unica azione.
+
+**A. Supporto discreto e topologia.** Q6 conserva i 64 esagrammi come siti distinti, 192 archi e 240 facce quadrate del 2-scheletro. La distinzione fra grafo e cubo riempito resta essenziale: il numero ciclico del grafo è 129, mentre il cubo completo è contrattile. T055–T067 forniscono mappe di catena, naturalità, conformità e Stokes per le costruzioni effettivamente specificate; T099 fissa la rete di Kirchhoff e il Gray-torus cinematico; T103–T104 classificano connessioni \(\mathbb Z_2\), cicli, cocicli, flussi e olonomie sul cubo. Questi risultati sono il substrato comune, non una misura di carica fisica.
+
+**B. Campi di fase, cariche e moiré.** T100–T101–T105 costituiscono una sola catena: cariche e correlazioni sui 64 esagrammi; due famiglie di fasi misurate sui due cerchi; sollevamento delle fasi a tutti i 64 siti; ricostruzione dei due campi complessi; interferenza e vettore moiré. Le medie sui soli otto trigrammi non sostituiscono i 64 dati individuali. L'identità di interferenza è esatta una volta dati i campi, ma l'embedding, le ampiezze, le fasi e la legge costitutiva carica–fase richiedono calibrazione. T105 vieta di inferire una legge di carica dal solo conteggio combinatorio.
+
+**C. Connessione e difetti.** T091–T097 uniscono la meccanica di Morandotti al linguaggio geometrico: composizione tensoriale Frank–Burgers con termine misto firmato; trasporto \(SE(2)\); connessione di Cartan; curvatura e torsione; ricostruzione cinematica da gradiente e mismatch strutturato. T096 è un vincolo cruciale: il campo di deformazione simmetrico ricavato da Airy non determina da solo la parte antisimmetrica della distorsione e quindi non identifica univocamente la chiusura di Burgers. Per estrarre olonomie dai dati FEM occorre una variabile cinematica indipendente (spostamento/distorsione plastica), una microrotazione con legge costitutiva, oppure un problema di gauge/recovery esplicitamente posto.
+
+Il significato fisico delle quattro quantità deve rimanere separato:
+- winding di fase su un plaquette;
+- chiusura traslazionale/Burgers;
+- olonomia rotazionale/Frank;
+- flusso magnetico \(\mathbb Z_2\) di T103–T104.
+
+Una mappa fra esse è un teorema ulteriore, non una convenzione di nomenclatura. T106 chiarisce inoltre che un vettore reciproco calibrato e un ordine traslazionale sono necessari per inferire Burgers; un campo di orientazione locale e la simmetria del reticolo sono necessari per inferire Frank.
+
+**D. Statistica, FDT e trasporto.** T100, T105, T106 e T107 sono il livello dinamico dello stesso sistema: correlazioni complete \(64\times64\), correnti sui 192 archi, continuità di Kirchhoff, ensemble stazionario, risposta a campo debole e verifica indipendente della relazione Kubo/FDT. Il teorema Born/Haar in T106 dà una misura uniforme sul simplesso per stati puri complessi Haar; non dà una dinamica termica. Il modello Gibbs/diffusione reversibile di T107 è una realizzazione statistica distinta e dichiarata. La formula Green–Kubo richiede corrente fisica, unità, normalizzazione areale/volumica, ipotesi di equilibrio e controllo della convergenza; il Green operator del grafo non è l'integrale Green–Kubo.
+
+**E. KTHNY: limite termodinamico dei difetti bidimensionali.** KTHNY è la teoria di riferimento per la fusione 2D mediata da difetti. Nel regime triangolare e nelle ipotesi in cui lo scenario a due transizioni è valido, l'unbinding delle coppie di dislocazioni porta dal solido alla fase esatica; l'unbinding successivo delle disclinazioni porta al liquido isotropo. Il gas di Coulomb vettoriale di Young conserva sia interazioni radiali sia angolari. Con la convenzione standard
+\[
+K=\frac{Y a^2}{k_B T},
+\]
+il criterio alla soglia di unbinding delle dislocazioni è
+\[
+K_R=16\pi,
+\]
+dove \(K_R\) è la rigidità di Young **rinormalizzata**; non è un valore universale del modulo elastico nudo. Fugacità, energia di core, anisotropia, substrato e interazioni possono modificare o pre-emptare lo scenario semplice.
+
+La connessione già contenuta in T106 è quindi sostanziale: T091–T097 forniscono i settori cinematici Frank/Burgers e il benchmark elastico; T100–T107 forniscono correlazioni, risposta e test FDT; KTHNY fornisce il quadro RG termodinamico nel quale verificare proliferazione, screening e perdita degli ordini traslazionale/orientazionale. Non si assume che Q6 abbia già una transizione KTHNY: occorrono una geometria 2D calibrata, energia di core, fugacità, interazione difetto-difetto e flusso RG misurati o derivati.
+
+Gli operatori Wilson–'t Hooft sono classificati da cariche elettriche e magnetiche (dipendenti dal gruppo di gauge e dalla sua forma globale). Il parametro complesso di accoppiamento è
+\[
+\tau_{\rm YM}=\frac{\theta}{2\pi}+\frac{4\pi i}{g_{\rm YM}^2},
+\]
+e la trasformazione S agisce come \(\tau_{\rm YM}\mapsto-1/\tau_{\rm YM}\) nel caso autoduale, con la corrispondente trasformazione del gruppo di gauge nella formulazione generale.
+
+Il collegamento più concreto con il programma non è il numero sei del cubo, ma il **toro**. Harvey–Moore–Strominger studiano la compactificazione di \(D=4,\ \mathcal N=4\) Yang–Mills su \(T^2\): nel limite infrarosso la teoria efficace è descritta da una SCFT bidimensionale con struttura orbifold proposta, e la dualità \(S\) si traduce nella dualità \(T\), scambiando stati elettrici/magnetici con settori di momento/avvolgimento. Questo offre un'interfaccia naturale con i tori PRISM, i cicli Q6 e il gas di cariche KTHNY.
+
+La corrispondenza da costruire è precisa: identificare il reticolo di Burgers e quello delle cariche angolari/Frank, la forma quadratica d'interazione del gas di Coulomb, le fugacità e le dimensioni di scala degli operatori di difetto; confrontarli con i settori momento/avvolgimento e gli operatori di vertice della SCFT toroidale. La mappa deve preservare forma bilineare, regole di fusione/OPE e funzioni di partizione o correlatori. Occorre inoltre tenere distinti il parametro di accoppiamento \(\tau_{\rm YM}\), il parametro complesso di struttura del toro \(\tau_{T^2}\) e la rigidità elastica KTHNY \(K_R\): non sono la stessa variabile e non si identifica \(K_R\) con \(\operatorname{Im}\tau_{\rm YM}\) senza una derivazione. Solo se questa mappa è costruita si potrà identificare il gas vettoriale dei difetti KTHNY con un settore di cariche/momento-avvolgimento della teoria efficace toroidale. Per ora è un programma di confronto, non un'equivalenza dimostrata.
+
+La distinzione già esplicitata in T102 è vincolante: la supersimmetria cubicale del complesso de Rham/Hodge di Q6 è una supersimmetria finito-dimensionale di meccanica quantistica; **non** costruisce il multipletto, l'algebra, la dinamica conforme o la dualità di \(\mathcal N=4\) SYM. Le sei direzioni del cubo non sono automaticamente i sei scalari aggiunti di SYM. Per un embedding in SYM servono connessione \(SU(N)\), sei scalari aggiunti, quattro fermioni di Weyl, trasformazioni supersimmetriche, algebra di chiusura, simmetria \(SU(4)_R\) e controllo del limite.
+
+### 27.6 — Diagramma delle interfacce e obblighi di prova
+
+\[
+\begin{array}{c}
+\text{Q6 / PRISM: celle, cicli, cochain, Hodge}\
+\downarrow\
+\text{campi di fase, link gauge, connessione }SE(2)\
+\downarrow\
+\text{cariche per esagramma, moiré, olonomie}\
+\downarrow\
+\text{Burgers / Frank / torsione / curvatura}\
+\downarrow\
+\text{Morandotti: incompatibilità, Airy, KKT, C0-IPDG}\
+\downarrow\
+\text{Gibbs, FDT, Kubo/Green--Kubo}\
+\downarrow\
+\text{KTHNY: gas vettoriale, fugacità, RG, melting 2D}
+\end{array}
+\qquad
+\begin{array}{c}
+\mathcal N=4\text{ SYM in 4D}\
+\downarrow\
+\text{compactificazione su }T^2\
+\downarrow\
+\text{SCFT 2D / reticolo momento-avvolgimento}\
+\downarrow\
+\text{confronto di dualità con il settore toroidale}\
+\updownarrow\
+\text{PRISM / cicli Q6 / gas di cariche KTHNY}
+\end{array}
+\]
+
+Il diagramma a destra incontra quello a sinistra nel settore toroidale e nel linguaggio dei reticoli di carica; non autorizza una freccia di equivalenza senza la mappa di cui sopra.
+
+Obblighi prioritari:
+1. congelare la convenzione dei sei bit e il pairing inferiore/superiore, mantenendo i 64 esagrammi;
+2. collegare T101/T105 a misure reali dei due campi e alle correnti del circuito;
+3. ricostruire indipendentemente spostamento/distorsione e orientazione per estrarre Burgers e Frank dai campi Morandotti;
+4. derivare energia di core, fugacità e interazione del gas di difetti e confrontare il flusso RG con KTHNY;
+5. validare FDT confrontando correlazioni e risposta debole indipendente;
+6. definire il toro fisico e il reticolo di cariche, poi confrontare il settore KTHNY con il reticolo momento-avvolgimento della SYM compactificata;
+7. solo dopo, formulare un'azione efficace comune e provarne simmetrie, positività/stabilità, limiti e osservabili.
+
+### 27.7 — Registro integrato dei teoremi T091–T109
+
+| Record | Ruolo nel programma unitario | Stato da conservare |
+|---|---|---|
+| T091 | Composizione tensoriale Frank–Burgers e termine misto | Identità finite provate; benchmark numerico a due core; limite/legge costitutiva aperti |
+| T092–T094 | Geometria a due cerchi, trasporto \(SE(2)\), Cartan e audit | Teoremi locali/identità; audit numerico; estrazione da core FEM e limite singolare aperti |
+| T096 | Non-identificabilità della chiusura Burgers dai soli dati Airy simmetrici | Proposizione provata e witness numerico |
+| T097–T099 | Ricostruzione cinematica, barycentri, bicircolare e rete | Identità/risultati condizionali; calibrazione fisica e convergenza da completare |
+| T100–T101 | Cariche individuali, correlazioni, moiré e fasi sui 240 plaquette | Identità di grafo e definizioni; embedding e dati fisici aperti |
+| T102 | Supersimmetria cubicale e heat supertrace | Risultato finito esatto; distinto da \(\mathcal N=4\) SYM |
+| T103–T104 | Connessione magnetica \(\mathbb Z_2\), cicli/cocicli e olonomie | Classificazione finita provata; interpretazione fisica aperta |
+| T105 | Legge circuito–carica–moiré sui 64 siti | Identità di circuito/interferenza; legge costitutiva da misurare |
+| T106 | Born/Haar, FDT, difetti e raccordo KTHNY | Teoremi di misura e Kubo standard; ponte fisico condizionale |
+| T107 | Modello Gibbs reversibile, FDT e test preregistrati Frank/Burgers | Modello matematico definito; interpretazione materiale aperta |
+| T108–T109 | Influenze booleane, Laplaciano Qn e confronto AA | Identità Fourier/Laplaciane provate; non equivalgono a una legge fisica dei difetti |
+
+I record T001–T109 sono una rete di dipendenze, non una lista di teoremi tutti dello stesso rango. Ogni record conserva la propria classificazione [E]/[P]/[N]/[C]/[M]/[H]/[O]. In particolare T108–T109 sono un ramo matematico sul cubo booleano: la loro vicinanza a Q6 e alla congettura Aaronson–Ambainis non li trasforma in una dinamica di cariche o in una legge KTHNY.
+
+### 27.8 — Risultati preesistenti da riutilizzare, non riscoprire
+
+Il lavoro precedente contiene già oggetti denominati \(R_0,R_1,R_2\) come mappe di catena di dimensioni registrate rispettivamente \(64\times12\), \(192\times21\), \(240\times10\), con \(R_2=0\) nella costruzione degenerata e identità di commutazione registrate nell'audit storico. Vanno recuperati i file e le convenzioni originali prima di riutilizzarli; non vanno sostituiti con nuove mappe né dichiarati canonici o face-preserving senza verifica. Questo uso dei simboli non va confuso con il dossier radiale del wormhole: lì \(r_*\simeq0.9907068184\), \(R_0\simeq2.7178138074\), \(r_1\simeq1.089778\), \(r_2\simeq1.981414\); il parametro maiuscolo \(R_1\) non è stato determinato e non va identificato con \(r_1\).
+
+### 27.9 — Riferimenti primari per i due raccordi fisici
+
+**KTHNY / melting 2D**
+1. D. R. Nelson and B. I. Halperin, “Dislocation-mediated melting in two dimensions,” *Phys. Rev. B* 19 (1979), 2457. DOI: [10.1103/PhysRevB.19.2457](https://doi.org/10.1103/PhysRevB.19.2457).
+2. A. P. Young, “Melting and the vector Coulomb gas in two dimensions,” *Phys. Rev. B* 19 (1979), 1855. DOI: [10.1103/PhysRevB.19.1855](https://doi.org/10.1103/PhysRevB.19.1855).
+3. J. M. Kosterlitz, “Kosterlitz–Thouless physics: a review of key issues,” *Rep. Prog. Phys.* 79 (2016), 026001. DOI: [10.1088/0034-4885/79/2/026001](https://doi.org/10.1088/0034-4885/79/2/026001).
+
+**\(\mathcal N=4\) SYM / dualità / torus**
+4. J. A. Harvey, G. Moore, A. Strominger, “Reducing S duality to T duality,” *Phys. Rev. D* 52 (1995), 7161–7167. DOI: [10.1103/PhysRevD.52.7161](https://doi.org/10.1103/PhysRevD.52.7161), arXiv:[hep-th/9501022](https://arxiv.org/abs/hep-th/9501022).
+5. A. Kapustin, “Wilson–’t Hooft operators in four-dimensional gauge theories and S-duality,” *Phys. Rev. D* 74 (2006), 025005. DOI: [10.1103/PhysRevD.74.025005](https://doi.org/10.1103/PhysRevD.74.025005).
+6. A. Kapustin and N. Saulina, “The algebra of Wilson–’t Hooft operators,” *Nucl. Phys. B* 814 (2009), 327–365. DOI: [10.1016/j.nuclphysb.2009.02.004](https://doi.org/10.1016/j.nuclphysb.2009.02.004).
+7. J. Gomis and T. Okuda, “S-duality, ’t Hooft operators and the operator product expansion,” *JHEP* 09 (2009), 072. DOI: [10.1088/1126-6708/2009/09/072](https://doi.org/10.1088/1126-6708/2009/09/072).
+8. Y. Hatsuda and T. Okazaki, “S-duality of boundary lines in \(\mathcal N=4\) SYM theories and supersymmetric indices,” *JHEP* 08 (2025), 127. DOI: [10.1007/JHEP08(2025)127](https://doi.org/10.1007/JHEP08(2025)127).
+
+La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta come appendice bibliografico-tecnica di questo capitolo, non come teoria autonoma. Il testo canonico è questa monografia e i theorem record richiamati.
+
 ---
 
 # APPENDICE A — Registro dei risultati e dei riferimenti canonici
@@ -543,6 +684,11 @@ Ogni risultato pubblicabile deve avere: definizione, ipotesi, dimostrazione o pr
 | QAT/luce | bibliografia e note critiche | `bibliography/quantum-light-foundations/` | ipotesi da confrontare con Maxwell |
 | Isteresi | T068 | `scripts/run_q6_hysteresis_sweep_study.py`, `models/constitutive_hysteresis.py` | benchmark multi-rate; dati industriali mancanti |
 | XCont/CA | note XCont | `models/prism_cellular_automata.py`, `models/prism_ca_evolution.py` | strumenti computazionali |
+| Frank–Burgers / Morandotti | T091–T099 | record T091–T099; `docs/rgs_defect_benchmark/` | identità finite, benchmark numerici e ponti cinematici condizionali |
+| Moiré, cariche, FDT e difetti | T100–T107 | records T100–T107; `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
+| Influenze booleane e AA | T108–T109 | records T108–T109 | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
+| KTHNY | Nelson–Halperin; Young; T106 | capitolo 27.5 e bibliografia primaria | teoria standard 2D; applicazione al sistema Q6/Morandotti condizionale |
+| \(\mathcal N=4\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
 
 ## Registro completo dei theorem record
 
