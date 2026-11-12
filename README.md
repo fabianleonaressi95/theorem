@@ -67,6 +67,7 @@ theorem/
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
 - [T102 — Cubical supersymmetric quantum mechanics, heat supertrace and the Sakharov boundary](theorems/T102-cubical-supersymmetry-heat-kernel-sakharov.md) — exact cubical de Rham/Hodge complex on the six-cube, Q6 heat trace, finite-dimensional SUSY algebra and McKean–Singer supertrace; explicitly separates this result from N=4 SYM and leaves continuum Sakharov induction open. Reproducible audit: [script](scripts/audit_t102_cubical_susy_heat.py), [tests](tests/test_t102_cubical_susy_heat.py).
+- [T111 — GP order-parameter zeros and T110 plaquette-vortex refinement](theorems/T111-gp-zero-vortex-refinement.md) — manufactured static unit-vortex benchmark, exact plaquette index, O(h) zero localization, and explicit separation from time-dependent GP dynamics; [audit script](scripts/audit_t110_gp_zero_vortex.py), [tests](tests/test_t110_gp_zero_vortex.py).
 - [Three defect gases and QLG–RGS–N=4 SYM–IIB bridge](docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md) — separate calculation protocols for 2D XY/BKT, 3D XY dual vortex loops, and 2D KTHNY vector Coulomb gas; explicit derivation gates for QLG, N=4 SYM, and type-IIB AdS/CFT.
 
 - [Theorem records](theorems/)
