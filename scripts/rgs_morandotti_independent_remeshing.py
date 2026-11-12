@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+from collections import Counter, defaultdict
 import json
 import sys
 from pathlib import Path
@@ -28,6 +29,45 @@ def mesh_fingerprint(mesh):
     digest.update(np.ascontiguousarray(mesh.geometry.x).tobytes())
     digest.update(np.ascontiguousarray(mesh.geometry.dofmap).tobytes())
     return digest.hexdigest()
+
+
+
+def validate_realization_grid(runs, mesh_sizes, distances, seeds):
+    """Require one record and one distinct mesh fingerprint per requested seed."""
+    expected = Counter(
+        (round(float(h), 8), round(float(d), 8), int(seed))
+        for h in mesh_sizes for d in distances for seed in seeds
+    )
+    actual = Counter(
+        (round(float(row["h_target"]), 8), round(float(row["distance"]), 8),
+         int(row["mesh_seed"]))
+        for row in runs
+    )
+    if actual != expected:
+        missing = list((expected - actual).elements())
+        unexpected = list((actual - expected).elements())
+        raise RuntimeError(
+            f"realization grid mismatch: expected {sum(expected.values())} records; "
+            f"got {len(runs)}; missing={missing}; unexpected/duplicated={unexpected}"
+        )
+
+    groups = defaultdict(list)
+    for row in runs:
+        key = f"d{float(row['distance']):.4f}_h{float(row['h_target']):.4f}"
+        groups[key].append(row)
+    for key, samples in groups.items():
+        observed_seeds = [int(row["mesh_seed"]) for row in samples]
+        if sorted(observed_seeds) != sorted(int(seed) for seed in seeds):
+            raise RuntimeError(f"{key}: expected seeds {sorted(seeds)}, got {sorted(observed_seeds)}")
+        fingerprints = [row["fresh_mesh_fingerprint_sha256"] for row in samples]
+        if len(set(fingerprints)) != len(fingerprints):
+            raise RuntimeError(
+                f"{key}: duplicate mesh fingerprints across seeds; "
+                "seed ensemble is not independently remeshed"
+            )
+        if not all(row.get("fresh_mesh_generated_for_this_pair") for row in samples):
+            raise RuntimeError(f"{key}: a realization did not use a fresh mesh")
+    return groups
 
 
 def main():
@@ -58,7 +98,7 @@ def main():
 
     output = Path(args.out)
     output.parent.mkdir(parents=True, exist_ok=True)
-    runs, groups = [], {}
+    runs = []
 
     # A new Gmsh model and mesh are constructed for every (h, d) pair.
     for distance in args.distance_values:
@@ -84,7 +124,6 @@ def main():
                 )
                 matrix = np.asarray(result["M_laplacian"], dtype=float)
                 key = f"d{distance:.4f}_h{h:.4f}"
-                groups.setdefault(key, []).append({"seed": seed, "matrix": matrix})
                 cross = matrix[1:3, 4:6]
                 self_block = matrix[1:3, 1:3]
                 denominator = abs(matrix[1, 4]) + abs(matrix[2, 5])
@@ -115,19 +154,45 @@ def main():
                 if result["laplacian_symmetry_relative"] > 1e-8:
                     raise RuntimeError(f"interaction matrix lost symmetry at h={h}, d={distance}")
 
+    groups = validate_realization_grid(runs, args.mesh_sizes, args.distance_values, args.mesh_seeds)
+    for row in runs:
+        if not Path(row["field_export"]).is_file():
+            raise RuntimeError(f"missing finite-element field export: {row['field_export']}")
+
+    # Re-read matrices from the exported fields so the ensemble statistics are
+    # tied to the exact per-realization artifacts that are uploaded.
     ensemble_summary = {}
     for key, samples in groups.items():
-        matrices = np.stack([sample["matrix"] for sample in samples])
+        matrices = []
+        for sample in sorted(samples, key=lambda row: int(row["mesh_seed"])):
+            with np.load(sample["field_export"]) as field_data:
+                matrices.append(np.asarray(field_data["M_laplacian"], dtype=float))
+        matrices = np.stack(matrices)
         mean_matrix = np.mean(matrices, axis=0)
         deviations = [
             float(np.linalg.norm(matrix - mean_matrix, "fro") / max(np.linalg.norm(mean_matrix, "fro"), 1e-300))
             for matrix in matrices
         ]
+        anisotropy = np.asarray([row["signed_anisotropy_A_d"] for row in samples], dtype=float)
+        coupling = np.asarray([row["normalized_coupling_C_d"] for row in samples], dtype=float)
         ensemble_summary[key] = {
             "realization_count": len(samples),
-            "seeds": [sample["seed"] for sample in samples],
+            "seeds": sorted(int(row["mesh_seed"]) for row in samples),
+            "distinct_mesh_fingerprints": len({row["fresh_mesh_fingerprint_sha256"] for row in samples}),
+            "signed_anisotropy_A_d": {
+                "mean": float(np.mean(anisotropy)),
+                "sample_std": float(np.std(anisotropy, ddof=1)),
+                "minimum": float(np.min(anisotropy)),
+                "maximum": float(np.max(anisotropy)),
+            },
+            "normalized_coupling_C_d": {
+                "mean": float(np.mean(coupling)),
+                "sample_std": float(np.std(coupling, ddof=1)),
+                "minimum": float(np.min(coupling)),
+                "maximum": float(np.max(coupling)),
+            },
             "matrix_mean": mean_matrix.tolist(),
-            "matrix_entrywise_std": np.std(matrices, axis=0, ddof=1).tolist() if len(samples) > 1 else np.zeros_like(mean_matrix).tolist(),
+            "matrix_entrywise_std": np.std(matrices, axis=0, ddof=1).tolist(),
             "relative_frobenius_deviation_from_ensemble_mean": deviations,
             "relative_frobenius_deviation_max": max(deviations),
             "relative_frobenius_deviation_rms": float(np.sqrt(np.mean(np.square(deviations)))),
@@ -148,18 +213,27 @@ def main():
             "mesh_sizes": args.mesh_sizes,
             "separations": args.distance_values,
             "fresh_mesh_per_pair_and_seed": True,
+            "seeded_interior_vertices_per_realization": 6,
+            "distinct_fingerprint_per_seed_required": True,
             "mesh_seeds": args.mesh_seeds,
             "realizations_per_mesh_size_and_separation": len(args.mesh_seeds),
-            "mesh_generation": "Gmsh is initialized and a new geometry/mesh is generated independently for every (h, d) pair",
+            "mesh_generation": "Gmsh generates a fresh CAD mesh for every (h, d, seed); six seed-dependent interior vertices are embedded in the annulus before meshing",
             "geometry_mapping": "identity reference-to-target center map; no inherited connectivity from another separation or mesh level",
             "defect_data_orientation": "laboratory-fixed",
             "mpi": "serial only; distributed execution not audited",
         },
         "runs": runs,
         "independent_realization_ensemble": ensemble_summary,
+        "realization_grid_validation": {
+            "expected_realizations": len(args.mesh_sizes) * len(args.distance_values) * len(args.mesh_seeds),
+            "actual_realizations": len(runs),
+            "all_seed_fingerprints_distinct_within_each_pair": True,
+            "all_field_exports_present": True,
+        },
         "limitations": [
             "finite set of mesh sizes and core separations only",
             "independent remeshing changes mesh topology and node placement; differences combine discretization and mesh-realization effects",
+            "three-seed sample dispersion is descriptive and is not a confidence interval",
             "positive sampled Jacobians are not a formal all-points positivity certificate",
             "no continuum distance-decay law or mesh-independent limit is asserted",
             "no force-balance, Frank-Burgers constitutive, or material-validation claim is made",
