@@ -102,11 +102,6 @@ def analyze_report(report):
                 "resolution_mean_range": float(max(all_means) - min(all_means)),
             }
 
-                "pooled_within_resolution_sample_sd": float(np.sqrt(ss_within / (len(values) - len(mesh_sizes)))),
-                "between_resolution_sum_squares_fraction": float(ss_between / ss_total) if ss_total else 0.0,
-                "within_resolution_sum_squares_fraction": float(ss_within / ss_total) if ss_total else 0.0,
-                "resolution_mean_range": float(max(all_means) - min(all_means)),
-            }
         ordered_h = sorted(mesh_sizes)
         distance_result["adjacent_fine_resolution_mean_shifts"] = {}
         for metric in METRICS:
@@ -114,8 +109,6 @@ def analyze_report(report):
             for coarse_h, fine_h in zip(ordered_h[1:], ordered_h[:-1]):
                 coarse_mean = float(np.mean([row[metric] for row in groups[coarse_h]]))
                 fine_mean = float(np.mean([row[metric] for row in groups[fine_h]]))
-                coarse_mean = float(np.mean([r[metric] for r in groups[coarse_h]]))
-                fine_mean = float(np.mean([r[metric] for r in groups[fine_h]]))
                 shifts.append({
                     "from_h": coarse_h,
                     "to_h": fine_h,
@@ -129,10 +122,6 @@ def analyze_report(report):
 
         output["by_distance"][f"{distance:.4f}"] = distance_result
 
-                    "relative_mean_change": (fine_mean - coarse_mean) / abs(coarse_mean) if coarse_mean else None,
-                })
-            distance_result["adjacent_fine_resolution_mean_shifts"][metric] = shifts
-        output["by_distance"][f"{distance:.4f}"] = distance_result
     return output
 
 
