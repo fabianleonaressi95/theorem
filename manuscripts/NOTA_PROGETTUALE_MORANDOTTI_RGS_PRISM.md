@@ -231,3 +231,10 @@ La dinamica sui 64 stati consente di formulare correlazioni e una possibile rela
 ## Stato repository del benchmark iniziale
 
 La PR #119 del benchmark di difetti piano è stata integrata in `main` il 10 novembre 2026. La sua descrizione storica contiene formulazioni riferite allo stato precedente all'integrazione; per lo stato corrente fanno fede il commit di merge e i file presenti in `main`, non la vecchia dicitura "PR remains draft".
+
+
+## Quadro teorico ampliato: KTHNY e \(\\mathcal N=4\\) Super Yang–Mills
+
+Il dossier include ora il capitolo [KTHNY e \(\\mathcal N=4\\) SYM nel programma RGS–PRISM](../docs/KTHNY_N4_SYM_RGS_PRISM.md). KTHNY costituisce il riferimento fisico per la fusione bidimensionale mediata da dislocazioni e disclinazioni e per il flusso di rinormalizzazione delle costanti elastiche. Il benchmark Morandotti dovrà essere confrontato con energia di core, fugacità, screening e rigidità di Young rinormalizzata, distinguendo il criterio universale \(K_R=16\\pi\) dai parametri microscopici non universali.
+
+\(\\mathcal N=4\\) SYM viene inclusa come struttura di gauge conforme e dualità elettrico-magnetica, con operatori Wilson–'t Hooft e settori di difetto. Non si assume che le cariche di gauge coincidano con i vettori di Burgers o le cariche di Frank. Il collegamento passa da tre problemi espliciti: gas efficace di difetti, connessioni/olonomie e possibile riduzione o interfaccia verso un settore 2D. L'equivalenza tra le teorie non è dichiarata; è un problema aperto da dimostrare.
