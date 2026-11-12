@@ -373,6 +373,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
 - [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
 
+### T100 — Hypercube–moiré response, Green–Kubo transport, and geometric defects
+
+- [T100 theorem record](theorems/T100-hypercube-moire-green-kubo-defects.md) treats the 64 individual hexagrams as the primary charge-bearing degrees of freedom; node-charge correlations are primary, while edge currents encode transfers.
+- The 64-component charge assignment has an exact Walsh decomposition. Full Q6-automorphism invariance forces a scalar assignment to be constant; a nonconstant law needs justified symmetry-breaking or additional physical structure.
+- An exactly solvable homogeneous thermal-RC benchmark gives time-correlations as a function of Hamming distance. See `scripts/audit_t100_q6_charge_correlations.py` and `tests/test_t100_q6_charge_correlations.py`.
+- **Evidence boundary:** the intrinsic charge law and units, physical realization, spatial embedding, transport validation, and defect extraction remain open; the RC kernel is conditional on its declared model assumptions.
+
 ### T098 — Universal two-circle positive-gradient / negative-barycentre duality
 
 - [T098](theorems/T098-two-circle-positive-gradient-negative-barycentre-duality.md) is the foundational geometric law: the two equal-radius circles generate the positively oriented gradient triangle and the negatively oriented barycentre triangle as one reflected pair.
