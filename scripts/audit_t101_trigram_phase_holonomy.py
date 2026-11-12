@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit paired-circle trigram phases and Q6 plaquette holonomy."""
+"""Audit opposite-circle trigram mismatch and Q6 phase-winding indices."""
 from __future__ import annotations
 import argparse
 import json
@@ -43,17 +43,8 @@ def complement_residuals(plus: Sequence[float], minus: Sequence[float],
 def hexagram_complement_mismatches(plus: Sequence[float], minus: Sequence[float],
                                    offset: float = 0.0,
                                    orientation: int = 1) -> list[list[float]]:
-    p, m = validate(plus), validate(minus)
-    if orientation not in (-1, 1):
-        raise ValueError("orientation must be +1 or -1")
-    result = []
-    for h in range(N_VERTICES):
-        lo, up = h & 7, (h >> 3) & 7
-        result.append([
-            wrap(m[lo ^ 7] - orientation * p[lo] - offset),
-            wrap(m[up ^ 7] - orientation * p[up] - offset),
-        ])
-    return result
+    eps = complement_residuals(plus, minus, offset, orientation)
+    return [[eps[h & 7], eps[(h >> 3) & 7]] for h in range(N_VERTICES)]
 
 
 def enumerate_edges() -> list[tuple[int, int, int]]:
@@ -81,7 +72,8 @@ def edge_increment(h: int, hp: int, bit: int,
     return wrap(phases[lop] - phases[lo]) if bit < 3 else wrap(phases[upp] - phases[up])
 
 
-def plaquette_audit(phases: Sequence[float]) -> list[dict[str, float | int]]:
+def layer_plaquette_audit(phases: Sequence[float]) -> list[dict[str, float | int]]:
+    """Wilson audit of endpoint phases; all plaquette products are pure gauge."""
     p = validate(phases)
     records = []
     for h, hi, hij, hj, i, j in enumerate_plaquettes():
@@ -99,12 +91,35 @@ def plaquette_audit(phases: Sequence[float]) -> list[dict[str, float | int]]:
     return records
 
 
+def mismatch_plaquette_audit(plus: Sequence[float], minus: Sequence[float],
+                             offset: float = 0.0,
+                             orientation: int = 1) -> list[dict[str, int | float]]:
+    """Winding of the cross-circle complement-mismatch field on all Q6 squares."""
+    eps = complement_residuals(plus, minus, offset, orientation)
+    records = []
+    for h, hi, hij, hj, i, j in enumerate_plaquettes():
+        increments = (edge_increment(h, hi, i, eps),
+                      edge_increment(hi, hij, j, eps),
+                      edge_increment(hij, hj, i, eps),
+                      edge_increment(hj, h, j, eps))
+        raw = sum(increments)
+        winding = int(round(raw / TAU))
+        records.append({
+            "base_vertex": h, "directions": [i, j],
+            "raw_phase_sum": raw, "winding_number": winding,
+            "quantization_residual": raw - TAU * winding,
+            "candidate_phase_vortex": winding != 0,
+        })
+    return records
+
+
 def audit(plus: Sequence[float], minus: Sequence[float],
           offset: float = 0.0, orientation: int = 1,
           tolerance: float = 1e-10) -> dict[str, object]:
     p, m = validate(plus), validate(minus)
-    edge_list = enumerate_edges()
-    faces_plus, faces_minus = plaquette_audit(p), plaquette_audit(m)
+    edges = enumerate_edges()
+    plus_faces, minus_faces = layer_plaquette_audit(p), layer_plaquette_audit(m)
+    mismatch_faces = mismatch_plaquette_audit(p, m, offset, orientation)
 
     def layer_summary(faces: list[dict[str, float | int]]) -> dict[str, object]:
         error = max(math.hypot(float(x["holonomy_real"]) - 1.0,
@@ -119,21 +134,25 @@ def audit(plus: Sequence[float], minus: Sequence[float],
         "vertices_per_layer": N_VERTICES,
         "plus_torus_points": [list(phase_point(h, p)) for h in range(N_VERTICES)],
         "minus_torus_points": [list(phase_point(h, m)) for h in range(N_VERTICES)],
-        "edges_per_layer": len(edge_list),
-        "lower_trigram_edges_per_layer": sum(bit < 3 for _, _, bit in edge_list),
-        "upper_trigram_edges_per_layer": sum(bit >= 3 for _, _, bit in edge_list),
+        "edges_per_layer": len(edges),
+        "lower_trigram_edges_per_layer": sum(bit < 3 for _, _, bit in edges),
+        "upper_trigram_edges_per_layer": sum(bit >= 3 for _, _, bit in edges),
         "complement_frame_registration": {"offset_radians": offset,
                                           "orientation": orientation},
         "trigram_complement_residuals": complement_residuals(p, m, offset, orientation),
         "hexagram_complement_mismatches": hexagram_complement_mismatches(
             p, m, offset, orientation),
-        "plus_layer": layer_summary(faces_plus),
-        "minus_layer": layer_summary(faces_minus),
+        "plus_layer": layer_summary(plus_faces),
+        "minus_layer": layer_summary(minus_faces),
+        "complement_mismatch_plaquettes": mismatch_faces,
+        "candidate_phase_vortex_count": sum(
+            int(bool(x["candidate_phase_vortex"])) for x in mismatch_faces),
         "interpretation": (
-            "The two-circle complement residuals are measured cross-layer mismatches. "
-            "Within either layer, endpoint phase differences are pure gauge and have "
-            "trivial plaquette holonomy. Frank holonomy requires independent frame "
-            "transport; Burgers data require spatial registration/displacement."
+            "Cross-circle mismatch winding is a candidate phase-vortex index. "
+            "It becomes a Frank/disclination or Burgers/dislocation observable "
+            "only after the phase is calibrated as an orientation or translational "
+            "density-wave phase. Endpoint Wilson holonomy within either layer "
+            "remains pure gauge."
         ),
     }
 
