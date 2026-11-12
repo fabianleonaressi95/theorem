@@ -103,8 +103,7 @@ Their coherent intensity is
 I(x)=|\psi_+(x)+\psi_-(x)|^2
 =|A_+|^2+|A_-|^2+
 2\operatorname{Re}\!\left[
-A_+\overline{A_-}
-e^{i(q_m\cdot x+\Delta\phi(x))}
+A_+\overline{A_-}\,e^{i(q_m\cdot x+\Delta\phi(x))}
 \right],
 \]
 where
