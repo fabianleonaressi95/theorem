@@ -57,6 +57,10 @@ def diagnose_run(row, root=Path(".")):
         cross10 = M[4:6, 1:3]
         n0, n1 = np.linalg.norm(self0), np.linalg.norm(self1)
         cross_norm = np.linalg.norm(cross01)
+        # Keep the historical C_d definition and report a symmetric alternative
+        # side by side. Neither quantity is silently substituted for the other.
+        cd_original = cross_norm / max(n0, 1e-300)
+        cd_symmetric = cross_norm / max(np.sqrt(n0 * n1), 1e-300)
         scale = max(0.5 * (n0 + n1), 1e-300)
         reciprocity_scale = max(cross_norm, 1e-300)
         traction = row.get("interior_facet_traction_jump_L2", {})
@@ -76,6 +80,12 @@ def diagnose_run(row, root=Path(".")):
             "self_block_relative_mismatch": float(np.linalg.norm(self0 - self1) / scale),
             "self_block_norm_ratio": float(max(n0, n1) / max(min(n0, n1), 1e-300)),
             "cross_block_frobenius": float(cross_norm),
+            "C_d_original_core0_normalized": float(cd_original),
+            "C_d_symmetric_geometric_mean_normalized": float(cd_symmetric),
+            "C_d_symmetric_minus_original": float(cd_symmetric - cd_original),
+            "C_d_symmetric_relative_change": float(
+                (cd_symmetric - cd_original) / max(abs(cd_original), 1e-300)
+            ),
             "cross_block_reciprocity_relative": float(
                 np.linalg.norm(cross01 - cross10.T) / reciprocity_scale
             ),
@@ -101,10 +111,18 @@ def analyze_report(report, root=Path("."), mismatch_threshold=0.05):
     summaries = {}
     for (distance, h), samples in sorted(groups.items()):
         mismatch = np.asarray([x["self_block_relative_mismatch"] for x in samples])
+        cd0 = np.asarray([x["C_d_original_core0_normalized"] for x in samples])
+        cds = np.asarray([x["C_d_symmetric_geometric_mean_normalized"] for x in samples])
         summaries[f"d{distance:.4f}_h{h:.4f}"] = {
             "realizations": len(samples),
             "self_block_relative_mismatch_median": float(np.median(mismatch)),
             "self_block_relative_mismatch_max": float(np.max(mismatch)),
+            "C_d_original_mean": float(np.mean(cd0)),
+            "C_d_original_sample_std": float(np.std(cd0, ddof=1)) if len(cd0) > 1 else 0.0,
+            "C_d_symmetric_mean": float(np.mean(cds)),
+            "C_d_symmetric_sample_std": float(np.std(cds, ddof=1)) if len(cds) > 1 else 0.0,
+            "C_d_mean_absolute_difference": float(np.mean(np.abs(cds - cd0))),
+            "C_d_max_absolute_difference": float(np.max(np.abs(cds - cd0))),
             "corner_quality_min_over_ensemble": float(
                 min(x["corner_quality_min"] for x in samples)
             ),
@@ -127,6 +145,8 @@ def analyze_report(report, root=Path("."), mismatch_threshold=0.05):
         "interpretation": {
             "corner_quality": "computed from the three corner vertices only; does not certify the curved P3 map",
             "self_block_relative_mismatch": "relative Frobenius difference between the two 2x2 core self-interaction blocks in the paired local basis ordering",
+            "C_d_original_core0_normalized": "historical C_d = ||M_01||_F / ||M_00||_F; retained for backward comparison",
+            "C_d_symmetric_geometric_mean_normalized": "diagnostic alternative C_d_sym = ||M_01||_F / sqrt(||M_00||_F ||M_11||_F); not a replacement definition",
             "cross_block_reciprocity": "checks equality of the two cross blocks under transpose",
             "traction_jump": "reported interior-facet L2 jump diagnostic; not a continuum residual bound",
         },
