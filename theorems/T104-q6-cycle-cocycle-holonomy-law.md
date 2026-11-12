@@ -27,18 +27,18 @@ For this contractible cube, \(Z^1(X)=B^1(G)\), but this equality is a consequenc
 ## 2. Theorem: cycle–cocycle–holonomy correspondence
 
 **Cohomological hypotheses (explicit).** The isomorphism induced by the coboundary map,
-\\[
-\\overline{\\delta}_1:C^1(X;\\mathbb F_2)/\\operatorname{im}\\delta_0
-\\longrightarrow \\ker\\delta_2,
-\\qquad [a]\\longmapsto\\delta_1a,
-\\]
+\[
+\overline{\delta}_1:C^1(X;\mathbb F_2)/\operatorname{im}\delta_0
+\longrightarrow \ker\delta_2,
+\qquad [a]\longmapsto\delta_1a,
+\]
 uses both
-\\[
-H^1(X;\\mathbb F_2)=0
-\\qquad\\text{and}\\qquad
-H^2(X;\\mathbb F_2)=0.
-\\]
-The first gives \\(\\ker\\delta_1=\\operatorname{im}\\delta_0\\), hence injectivity on gauge classes; the second gives \\(\\ker\\delta_2=\\operatorname{im}\\delta_1\\), hence surjectivity. Both hold because \\(X=I^6\\) is contractible.
+\[
+H^1(X;\mathbb F_2)=0
+\qquad\text{and}\qquad
+H^2(X;\mathbb F_2)=0.
+\]
+The first gives \(\ker\delta_1=\operatorname{im}\delta_0\), hence injectivity on gauge classes; the second gives \(\ker\delta_2=\operatorname{im}\delta_1\), hence surjectivity. Both hold because \(X=I^6\) is contractible.
 
 **Theorem.** The following statements hold.
 
@@ -153,22 +153,22 @@ T103 defines the \(\mathbb Z_2\) magnetic connection, plaquette curvature, and m
 
 ## 7. Canonical duality clarification
 
-The graph cycle space \\(Z_1(G)=\\ker\\partial_1\\subset C_1(G)\\) must be distinguished from the cubical cocycle space \\(Z^1(X)=\\ker\\delta_1\\subset C^1(X)\\). The mod-2 edge pairing identifies \\(C^1(X)\\) with \\(C_1(G)^*\\). Restriction to graph cycles gives
-\\[
-r:C^1(X)\\longrightarrow Z_1(G)^*,
-\\qquad r(a)(z)=\\langle a,z\\rangle.
-\\]
-Its kernel is the annihilator of \\(Z_1(G)\\), which is \\(Z_1(G)^\\perp=\\operatorname{im}\\delta_0\\). Therefore
-\\[
-C^1(X)/\\operatorname{im}\\delta_0
-\\;\\cong\\;Z_1(G)^*
-=\\operatorname{Hom}(Z_1(G),\\mathbb F_2).
-\\]
-This is the canonical cycle-dual identification. Separately, the cohomological hypotheses above give the isomorphism induced by \\(\\delta_1\\):
-\\[
-C^1(X)/\\operatorname{im}\\delta_0
-\\xrightarrow{\\;\\overline{\\delta}_1\\;}
-\\ker\\delta_2.
-\\]
-Consequently \\(\\ker\\delta_2\\) is identified with \\(Z_1(G)^*\\) by composition of these two canonical isomorphisms. This avoids conflating graph cycles, graph cocycles/cuts, and cubical cocycles.
+The graph cycle space \(Z_1(G)=\ker\partial_1\subset C_1(G)\) must be distinguished from the cubical cocycle space \(Z^1(X)=\ker\delta_1\subset C^1(X)\). The mod-2 edge pairing identifies \(C^1(X)\) with \(C_1(G)^*\). Restriction to graph cycles gives
+\[
+r:C^1(X)\longrightarrow Z_1(G)^*,
+\qquad r(a)(z)=\langle a,z\rangle.
+\]
+Its kernel is the annihilator of \(Z_1(G)\), which is \(Z_1(G)^\perp=\operatorname{im}\delta_0\). Therefore
+\[
+C^1(X)/\operatorname{im}\delta_0
+\;\cong\;Z_1(G)^*
+=\operatorname{Hom}(Z_1(G),\mathbb F_2).
+\]
+This is the canonical cycle-dual identification. Separately, the cohomological hypotheses above give the isomorphism induced by \(\delta_1\):
+\[
+C^1(X)/\operatorname{im}\delta_0
+\xrightarrow{\;\overline{\delta}_1\;}
+\ker\delta_2.
+\]
+Consequently \(\ker\delta_2\) is identified with \(Z_1(G)^*\) by composition of these two canonical isomorphisms. This avoids conflating graph cycles, graph cocycles/cuts, and cubical cocycles.
 
