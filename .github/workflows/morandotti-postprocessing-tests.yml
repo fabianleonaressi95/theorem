@@ -1,4 +1,5 @@
 name: Morandotti post-processing tests
+# Focused pytest-only validation; no FEM sweep is launched.
 
 on:
   workflow_dispatch:
