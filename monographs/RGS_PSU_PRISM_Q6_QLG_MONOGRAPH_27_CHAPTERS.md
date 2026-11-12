@@ -713,3 +713,18 @@ Non si cancellano risultati negativi, correzioni o no-go. Sono parte integrante 
 ---
 
 **Dichiarazione finale.** Questa monografia è la sintesi di orientamento e dipendenze del repository al 9 novembre 2026. Non sostituisce i record matematici originali e non certifica automaticamente i risultati numerici riportati in archivi non riprodotti. Il suo scopo è rendere possibile una prosecuzione cumulativa, verificabile e scientificamente onesta del programma RGS–PSU–PRISM–Q6–QLG.
+
+
+---
+
+# Appendice di programma — Tre gas di difetti e ponte QLG–N=4 SYM–stringhe
+
+Il dossier operativo [Three defect gases and QLG–RGS–N=4 SYM–IIB bridge](../docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md) sviluppa tre calcoli separati:
+
+- **BKT 2D:** vortici scalari, fugacità e flusso della rigidità di fase; criterio rinormalizzato \(\Upsilon_R/(k_BT)=2/\pi\).
+- **XY 3D:** flussi vorticosi interi sul reticolo duale, chiusura esatta, omologia delle reti e distribuzione delle lunghezze con convenzione esplicita.
+- **KTHNY 2D:** gas vettoriale di Burgers, settore separato di Frank, kernel elastico derivato e criterio \(Y_Ra^2/(k_BT)=16\pi\).
+
+Questi tre settori sono collegati alla geometria Q6/QLG solo tramite mappe esplicite. La catena verso \(\mathcal N=4\) SYM e stringhe IIB è un programma di derivazione: T102 resta una supersimmetria cubicale finita, non una costruzione di SYM; AdS/CFT è il ponte consolidato della teoria standard, mentre l'embedding RGS/QLG è aperto.
+
+**Gate di accettazione:** definizioni e normalizzazioni; derivazione o approssimazione dichiarata; codice e dati riproducibili; controlli di taglia finita/incertezza; criteri di falsificazione. Nessun esponente, punto critico o dualità QLG–stringhe viene assunto in anticipo.
