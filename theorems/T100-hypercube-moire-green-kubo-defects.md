@@ -159,7 +159,7 @@ The graph Green operator \(L_g^\dagger\) and the Green–Kubo integral are diffe
 \[
 e^{-C_{\rm node}^{-1}L_gt}.
 \]
-Its time integral on the decaying subspace is related to the inverse of \(C^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
+Its time integral on the decaying subspace is related to the inverse of \(C_{\rm node}^{-1}L_g\), and hence to a graph Green operator. Green–Kubo instead integrates equilibrium correlations of a specified flux. A relation between the two requires the noise law, observable, equilibrium covariance and normalization to be derived.
 
 ## 5. Dislocations and disclinations in the reconstructed moiré field
 
