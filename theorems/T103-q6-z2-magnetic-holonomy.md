@@ -83,6 +83,53 @@ K_1(t)=(1+e^{-2t})^6.
 \]
 This is an ordinary trace. No supertrace or supersymmetry is inferred from this graph operator.
 
+
+## 4A. Cycle and cocycle spaces (explicit audit)
+
+The graph cycle space and the cubical cochain cocycle space are different objects and are treated separately.
+
+Let \(C_1=\mathbb F_2^{192}\), \(C_0=\mathbb F_2^{64}\), and let \(\partial_1:C_1\to C_0\) be the vertex-edge boundary. Then
+\[
+Z_1=\ker\partial_1,\qquad \dim Z_1=192-63=129.
+\]
+A deterministic spanning tree has 63 edges and 129 chords. Each chord together with its unique tree path gives one fundamental cycle; these 129 cycles form a basis of \(Z_1\).
+
+The graph cut/cocycle space is
+\[
+B^1_{\rm graph}=\operatorname{im}\delta_0
+=(\ker\partial_1)^\perp,\qquad \dim B^1_{\rm graph}=63.
+\]
+A basis is given by \(\delta_0(1_v)\) for the 63 non-root vertices, i.e. the corresponding vertex cuts. The cycle-cocycle pairing vanishes modulo two:
+\[
+\langle z,c\rangle=0\quad
+(z\in Z_1,\ c\in B^1_{\rm graph}).
+\]
+This is the graph-theoretic cycle/cut duality.
+
+For the full cubical complex, square boundaries span the graph cycle space:
+\[
+\operatorname{im}\partial_2=\ker\partial_1=Z_1,\qquad
+\dim\operatorname{im}\partial_2=129.
+\]
+The 240 square boundaries are therefore a generating family, not a basis; their relation space has dimension \(240-129=111\).
+
+The cubical 1-cocycle space is
+\[
+Z^1_{\rm cub}=\ker\delta_1
+=(\operatorname{im}\partial_2)^\perp.
+\]
+Since \(\operatorname{im}\partial_2=Z_1\), it follows that
+\[
+Z^1_{\rm cub}=B^1_{\rm graph}=\operatorname{im}\delta_0,
+\qquad \dim Z^1_{\rm cub}=63.
+\]
+Thus
+\[
+H_1(I^6;\mathbb F_2)=0,\qquad
+H^1(I^6;\mathbb F_2)=0.
+\]
+These are exact finite-complex statements. The companion audit_t103_cycle_cocycle.py constructs a fundamental cycle basis and a vertex-cut cocycle basis, checks their orthogonality, verifies that square boundaries span all cycles, and checks the vanishing of first homology and cohomology. Regression tests are in test_t103_cycle_cocycle.py.
+
 ## 5. Reproducible audit and finite representative set
 
 The accompanying audit constructs all cubical cells and boundary maps, checks the chain identities and ranks over \(\mathbb F_2\), fixes gauge on a deterministic spanning tree, verifies the plaquette-flux constraints and injectivity on gauge classes, and diagonalizes the magnetic Laplacian for a small declared set of representatives:
