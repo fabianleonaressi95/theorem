@@ -218,3 +218,16 @@ Il raccordo costruttivo tra tangente, deformazione, incompatibilità elastica e 
 ## Aggiornamento tecnico — primo calcolo del limite D3
 
 La convenzione di segno e il limite distribuzionale del dipolo simmetrico sono ora esplicitati nel [record D3](MORANDOTTI_D3_DIPOLE_TO_DISLOCATION_LIMIT.md). Per una separazione \(d\), la scelta \(s_d=|b|/d\) e la direzione \(n=b^\perp/|b|\) produce la sorgente di dislocazione al limite, con resto \(O(d^2)\) contro funzioni test regolari. Il test BFS associato è una verifica del carico discreto, non ancora delle energie. La verifica energetica resta da condurre con la regolarizzazione e la rinormalizzazione esatte del riferimento Cesana–De Luca–Morandotti.
+
+
+## Nuova direzione — cariche Q6, campi del circuito e correlazioni
+
+La specifica [Q6: cariche dei singoli esagrammi, campi di circuito, moiré e correlazioni](../docs/Q6_HEXAGRAM_CHARGES_MOIRE_GREEN_KUBO.md) introduce un possibile livello microscopico/discreto da affiancare, non sostituire, al benchmark piano Airy/CIP-DG.
+
+Il punto metodologico è conservare i 64 osservabili di stato prima di aggregarli: le cariche devono essere definite e tracciabili per ciascun esagramma. I due campi del circuito generano un campo relativo; la sua interpretazione come moiré richiede un osservabile misurabile. Una fase globale reale produce un cobordo chiuso e non descrive da sola un winding difettivo: per dislocazioni e disclinazioni servono rispettivamente contenuti traslazionali e rotazionali distinti, con una mappa esplicita verso le sorgenti di incompatibilità.
+
+La dinamica sui 64 stati consente di formulare correlazioni e una possibile relazione di tipo Green–Kubo, ma non si dichiara ancora alcun coefficiente fisico né una legge di trasporto. Sono necessari dati, definizione della corrente, stazionarietà, sommabilità e derivazione della risposta lineare. I conteggi combinatori e l'identità di complesso sono esatti; il raccordo fisico resta aperto.
+
+## Stato repository del benchmark iniziale
+
+La PR #119 del benchmark di difetti piano è stata integrata in `main` il 10 novembre 2026. La sua descrizione storica contiene formulazioni riferite allo stato precedente all'integrazione; per lo stato corrente fanno fede il commit di merge e i file presenti in `main`, non la vecchia dicitura "PR remains draft".
