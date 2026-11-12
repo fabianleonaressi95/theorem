@@ -1,0 +1,27 @@
+name: T108 Q6 Boolean influence audit
+
+on:
+  push:
+    paths:
+      - "theorems/T108-boolean-influences-q6-laplacian-cohomology.md"
+      - "scripts/audit_t108_boolean_influence_q6.py"
+      - "tests/test_t108_boolean_influence_q6.py"
+      - ".github/workflows/t108-q6-boolean-influence.yml"
+  pull_request:
+    paths:
+      - "theorems/T108-boolean-influences-q6-laplacian-cohomology.md"
+      - "scripts/audit_t108_boolean_influence_q6.py"
+      - "tests/test_t108_boolean_influence_q6.py"
+      - ".github/workflows/t108-q6-boolean-influence.yml"
+
+jobs:
+  exact-q6-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy pytest
+      - run: python -m pytest -q tests/test_t108_boolean_influence_q6.py
+      - run: python scripts/audit_t108_boolean_influence_q6.py
