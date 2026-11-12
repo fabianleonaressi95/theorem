@@ -21,6 +21,8 @@ on:
       - 'models/morandotti_distance_refinement.py'
       - 'tests/test_morandotti_distance_refinement.py'
       - 'tests/test_morandotti_independent_remeshing.py'
+      - 'scripts/morandotti_resolution_decomposition.py'
+      - 'tests/test_morandotti_resolution_decomposition.py'
       - '.github/workflows/morandotti-independent-remeshing.yml'
 
 permissions:
