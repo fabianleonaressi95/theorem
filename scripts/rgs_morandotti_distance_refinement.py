@@ -4,10 +4,15 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 from mpi4py import MPI
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from models.morandotti_distance_refinement import summarize_distance_refinement
 from scripts.rgs_morandotti_two_core_c0_ipdg import make_mesh, solve_level
