@@ -255,112 +255,107 @@ It derives a local \(\mathfrak{so}(3)\)-connection current for the displayed gra
 | S.6 connection current as a source in a complete torsion equation | Open; requires full coframe/connection/matter variation |
 
 
-## 14. Minimal covariant electromagnetic source for the torsion trace
+## 14. Supersession of the external-anisotropy ansatz
 
-This section supplies an explicit **effective Riemann--Cartan constitutive model**. It is a candidate dynamical bridge, not a derived law of vacuum electrodynamics and not yet a constrained teleparallel theory.
+**Correction status:** the effective model in the previous version of this section is retained only as a generic material-medium example. It is **not** the RGS/Kathara derivation and must not be used as its source law.
 
-Let the spacetime signature be \((-+++ )\), let \(u^\mu u_\mu=-1\) be the material observer field, and let \(Q_{\mu\nu}\) be a symmetric trace-free spatial material anisotropy:
+The previous ansatz introduced an independent biaxial tensor
 \[
-Q_{\mu\nu}=Q_{\nu\mu},\quad
-Q^\mu{}_{\mu}=0,\quad Q_{\mu\nu}u^\nu=0.
+Q=\operatorname{diag}(q,-q,0)
 \]
-Define the magnetic four-vector and the anisotropic magnetic invariant by
-\[
-B^\mu={}^\star F^{\mu\nu}u_\nu,\qquad
-\mathcal X_Q=Q_{\mu\nu}B^\mu B^\nu.
-\]
-The invariant is gauge invariant and has mass dimension four in natural units when \(Q\) is dimensionless.
+and inferred a $2\Omega_{\rm el}$ torsion-trace response. That calculation is conditionally correct for the displayed external-director model, but it inserts a material anisotropy not derived from the RGS operators. It is therefore superseded for the present programme. In particular, it does not establish that the RGS triplet produces a torsion trace or that a rotating Ferraris field alone generates torsion.
 
-Use the torsion trace convention \(T_\mu=T^\nu{}_{\mu\nu}\). Treat this irreducible trace component as an independent variable in the local Riemann--Cartan variation, with the other irreducible torsion pieces held fixed. Consider
-\[
-S=\int d^4x\,e\left[
--\frac14F_{\mu\nu}F^{\mu\nu}
--\frac{M_T^2}{2}T_\mu T^\mu
-+g_T T^\mu\nabla_\mu\mathcal X_Q
-+\mathcal L_Q+\mathcal L_{\rm rest}
-\right].
-\]
-Here \(M_T^2>0\), \([g_T]=-2\) in mass units, and \(\mathcal L_Q\) supplies the material director's own dynamics and stabilizes its amplitude. The displayed torsion sector is algebraic in \(T_\mu\); no torsion kinetic term is assumed in this minimal effective model.
+### 14.1 Intrinsic RGS operator data
 
-### 14.1 Torsion-trace field equation
+The relevant numerical record is maintained in the companion repository:
 
-Varying the independent trace gives
-\[
-\delta_T S=\int d^4x\,e
-\left(-M_T^2T_\mu+g_T\nabla_\mu\mathcal X_Q\right)
-\delta T^\mu.
-\]
-Therefore
-\[
-\boxed{T_\mu=\frac{g_T}{M_T^2}\nabla_\mu\mathcal X_Q.}
-\]
-This is the explicit constitutive source equation. The electromagnetic anisotropy gradient sources the torsion trace. It predicts no source when \(\mathcal X_Q\) is spacetime-constant. Substitution back into the action gives the local effective term
-\[
-\mathcal L_{T,\rm eff}
-=\frac{g_T^2}{2M_T^2}
-\nabla_\mu\mathcal X_Q\nabla^\mu\mathcal X_Q.
-\]
-The sign follows from the displayed \((-+++ )\) action and positive algebraic coefficient \(M_T^2\); stability of the complete material/field theory must be assessed together with \(\mathcal L_Q\), higher-derivative terms and boundary conditions.
+- [RGS–QLG quaternion bridge](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge)
+- [188D T2u geometry audit]$https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/reports/rgs_188d/188D_T2U_GEOMETRY_AUDIT.json$
+- [Kathara/Krystal square-similarity reconstruction]$https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/main/docs/KATHARA_KRYSTAL_SPIRAL_SQUARE_GEOMETRY.md$
 
-### 14.2 Maxwell equation and constitutive excitation
+For the selected orthonormal triplet basis $J_0\in\mathbb R^{188\times3}$, the archived audit reports
+\[
+\|J_0^TJ_0-I_3\|\simeq5.60\times10^{-16}.
+\]
+It distinguishes two observables which must not be conflated:
+\[
+M_{\rm geom}=J_0^T K_{\rm tangent}^{+}J_0
+\simeq-0.95403126139055\,I_3,
+\]
+with relative anisotropy $3.96\times10^{-15}$, and
+\[
+M_{\rm field}=J_0^T K_{\rm field}^{+}J_0,
+\]
+whose reported eigenvalues are
+\[
+$0.8272550028,\;0.8272550028,\;0.9512140709$,
+\]
+with relative anisotropy (0.1427155). The direct compression $J_0^TK_{\rm field}J_0$ is instead approximately $4.96933853 I_3$, but $J_0$ is not invariant under $K_{\rm field}$: the reported relative invariance residual is (0.7219434), and the leakage outside the triplet is (0.3321124).
 
-Define
+These are **numerical properties of the archived operators**, not a proof of a physical constitutive law. They show why an external $Q$ is unnecessary as an explanatory input: the anisotropic response is already visible in the full operator/inverse response and its coupling to modes outside the selected triplet. The geometry-compressed tangent observable remains isotropic. Do not state that every RGS triplet is anisotropic, or identify the selected $T_{2u}$ triplet with the 94 dynamical two-planes.
+
+### 14.2 Kathara square map and quaternionic lift
+
+Use the source-derived Kathara/Krystal planar stage map, not an independently postulated anisotropy tensor:
 \[
-P^{\mu\nu}:=\frac{\partial\mathcal X_Q}{\partial F_{\mu\nu}},
-\qquad P^{\mu\nu}=-P^{\nu\mu},
-\qquad D_T:=\nabla_\mu T^\mu.
+T=\sqrt2R_{-\pi/4}
+=\begin{pmatrix}1&1\\-1&1\end{pmatrix},
+\qquad T^TT=2I,\quad\det T=2.
 \]
-Up to a boundary term,
+Its square is
 \[
-g_T T^\mu\nabla_\mu\mathcal X_Q
-\doteq -g_TD_T\mathcal X_Q.
+T^2=\begin{pmatrix}0&2\\-2&0\end{pmatrix}
+=2R_{-\pi/2}.
 \]
-The electromagnetic excitation associated with the displayed action is consequently
+Thus two Kathara stages produce a clockwise quarter-turn and a length doubling. In complex notation $T:z\mapsto(1-i)z$, so $T^2:z\mapsto-2iz$. The scale-normalized quarter-turn is $R_{-\pi/2}$, represented in the spin double cover by
 \[
-\boxed{\mathcal H^{\mu\nu}
-=-2\frac{\partial\mathcal L}{\partial F_{\mu\nu}}
-=F^{\mu\nu}+2g_TD_TP^{\mu\nu}.}
+q_{-90}=\frac{1-\mathbf k}{\sqrt2},
+\qquad q_{-90}^2=-\mathbf k,\quad
+q_{-90}^4=-1,\quad q_{-90}^8=1.
 \]
-With the convention \(\nabla_\mu\mathcal H^{\mu\nu}=J^\nu\), the sourced Maxwell equation is
+The image in (SO(3)) has order four; this chosen lift in (SU(2)\) has order eight. The planar complex unit $i$, the quaternion unit \$\mathbf k$, and Cartesian sign sectors are related only through the declared representation map; they must not be silently identified.
+
+For comparison, a proper $120^\circ$ rotation around \(\mathbf n=(1,1,1)/\sqrt3\) has lift
 \[
-\boxed{\nabla_\mu\left(F^{\mu\nu}+2g_TD_TP^{\mu\nu}\right)=J^\nu,}
+q_{120}=\frac{1+\mathbf i+\mathbf j+\mathbf k}{2},
+\qquad q_{120}^3=-1,\quad q_{120}^6=1.
+\]
+Its (SO(3)\) image has order three and its (SU(2)\) lift order six. The axis and orientation must be specified when identifying this with a tetrahedral or three-phase action.
+
+### 14.3 Correct RGS-to-torsion derivation target
+
+The source chain to be tested is
+\[
+\text{Kathara planar similarity}
+\longrightarrow \text{quaternionic lift}
+\longrightarrow \text{induced action on }J_0
+\longrightarrow \text{operator commutators and leakage}
+\longrightarrow \text{coframe/connection variation}.
+\]
+For the actual 188D representation, construct the lifted action $\rho(q)$ from the archived representation matrices and calculate
+\[
+[ K_{\rm field},\rho(q)],\qquad
+$I-J_0J_0^T$K_{\rm field}J_0,
 \qquad
-\nabla_{[\lambda}F_{\mu\nu]}=0.
+J_0^T K_{\rm field}^{+}J_0.
 \]
-Thus the same coupling that sources torsion also changes the electromagnetic constitutive excitation. This reciprocal structure is essential: one must not add a torsion source to the Maxwell sector while leaving the variation of the same action inconsistent.
+The first tests equivariance, the second measures mode leakage, and the third is the response observable. No numerical value for the commutator with $\rho(q)$ is asserted until the actual representation matrix is recovered and the calculation is run.
 
-### 14.3 Explicit rotating-field test
-
-In a local material rest frame, take a rotating magnetic field
+Only after this step may a coframe $e^a$, a connection choice $\omega^a{}_b$, and the Cartan expression
 \[
-\mathbf B(t)=B_0(\cos\Omega_{\rm el}t,\sin\Omega_{\rm el}t,0)
+T^a=de^a+\omega^a{}_b\wedge e^b
 \]
-and a fixed biaxial material tensor
+be evaluated. The existing minimal Einstein--Cartan module supplies a separate action-derived matter-spin result,
 \[
-Q=\operatorname{diag}(q,-q,0).
+T_{abc}=-\frac{\kappa}{2}\epsilon_{abcd}J_5^d,
 \]
-Then
-\[
-\mathcal X_Q(t)=qB_0^2\cos(2\Omega_{\rm el}t),
-\qquad
-T_0(t)=\frac{g_T}{M_T^2}\partial_t\mathcal X_Q(t)
-=-\frac{2g_TqB_0^2\Omega_{\rm el}}{M_T^2}
-\sin(2\Omega_{\rm el}t),
-\]
-where the last expression uses the local coordinate component convention for the time derivative. The torsion-trace source oscillates at twice the electrical rotation frequency. It vanishes if \(q=0\), if \(B_0=0\), or if the invariant is constant. If the material tensor co-rotates exactly with the magnetic field, \(\mathcal X_Q\) is constant and this particular coupling produces no torsion. The effect is therefore controlled by **relative rotation between field and material anisotropy**, not by rotation alone.
+in its documented conventions. This is an axial, algebraic torsion sourced by the Dirac axial current; it is not automatically the torsion induced by the Kathara/RGS coframe. The Levi-Civita spin-connection kernel is torsion-free by construction. A teleparallel inertial connection is a third, distinct choice.
 
-### 14.4 Scope and constraints
+### 14.4 Epistemic and validation ledger
 
-1. This is a gauge-invariant nonminimal electromagnetic--torsion coupling because it depends on \(F\), not directly on the gauge potential \(A\).
-2. The equation above sources only the torsion trace irreducible component. It does not establish an axial or tensor torsion source.
-3. The model is a local Riemann--Cartan effective action. In a teleparallel formulation, the flatness/inertial-spin-connection constraint must be imposed and varied consistently; one cannot vary the torsion trace as an unconstrained independent field and then claim a teleparallel solution.
-4. The coframe and material director equations, stress-energy, boundary terms, and the remaining irreducible torsion sectors must be varied to obtain a complete coupled system.
-5. The S.6 current \(J_i=\kappa[H(D_iQ),Q]\) is a distinct connection current. Its contribution must be included through the complete connection variation, with compatible index and normalization conventions; it is not silently equal to the electromagnetic torsion-trace source above.
-6. A uniform isotropic Ferraris field in an isotropic medium has no \(Q\)-anisotropy invariant gradient and hence no source in this model. The nonzero prediction requires a fixed or spatially varying anisotropic material director and relative field/director motion.
+- **Exact algebra:** Kathara planar similarity $T^TT=2I$, $T^2=2R_{-\pi/2}$, and the stated quaternionic lift identities.
+- **Numerically reported:** the two compressed RGS observables, triplet leakage and invariance residuals quoted above; reproducibility still requires matching input hashes, commit, command and dependency versions.
+- **Candidate:** the induced Kathara/quaternionic action on the selected RGS triplet and its coupling to the coframe.
+- **Open:** representation matrix $\rho(q)$, commutator audit, coframe embedding, full connection variation, and any electromagnetic-to-torsion constitutive law.
+- **Retracted as an RGS claim:** the previous external $Q=\operatorname{diag}(q,-q,0)$ source model and its $2\Omega_{\rm el}$ prediction. It remains only a conditional toy model for an independently anisotropic material medium.
 
-### 14.5 Evidence classification
-
-- **PROVED conditional variational identity:** the torsion-trace equation and Maxwell excitation follow from the displayed action and independent-trace variation.
-- **EXACT idealized test:** the biaxial fixed-director rotating-field invariant oscillates at \(2\Omega_{\rm el}\), and the displayed constitutive equation gives the stated trace response.
-- **CANDIDATE:** the effective coupling constant \(g_T/M_T^2\), the material director dynamics, and its identification with the user's RGS/PSU helical sector.
-- **OPEN:** constrained teleparallel reduction; complete tetrad/connection/material variation; positivity and hyperbolicity of the full coupled equations; numerical calibration and experimental/industrial validation.
