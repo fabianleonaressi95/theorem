@@ -41,6 +41,7 @@ jobs:
           python3 scripts/rgs_morandotti_independent_remeshing.py \
             --mesh-sizes 0.08 0.06 0.045 \
             --distance-values 0.48 0.56 \
+            --mesh-seeds 11 29 47 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \

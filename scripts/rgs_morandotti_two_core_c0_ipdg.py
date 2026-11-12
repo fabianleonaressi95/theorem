@@ -23,11 +23,12 @@ from models.morandotti_cell_reconstruction import (
 )
 
 
-def make_mesh(R, a, centers, h, comm):
+def make_mesh(R, a, centers, h, comm, random_seed=1):
     if comm.size != 1:
         raise RuntimeError("This first two-core audit is serial; MPI is not yet audited")
     gmsh.initialize()
     gmsh.option.setNumber("General.Terminal", 0)
+    gmsh.option.setNumber("Mesh.RandomSeed", int(random_seed))
     gmsh.model.add("two_core_annulus")
     outer = gmsh.model.occ.addDisk(0, 0, 0, R, R)
     holes = [gmsh.model.occ.addDisk(cx, cy, 0, a, a) for cx, cy in centers]
