@@ -25,7 +25,7 @@ and
 T^2=\begin{pmatrix}0&2\\-2&0\end{pmatrix}
 =2R_{-\pi/2}.
 \]
-Consequently, two stages are a clockwise quarter-turn and a doubling of length. In complex coordinates (Tz=(1-i)z), hence $T^2z=-2iz$. This is a similarity, not a pure rotation.
+Consequently, two stages are a clockwise quarter-turn and a doubling of length. In complex coordinates $Tz=(1-i)z$, hence $T^2z=-2iz$. This is a similarity, not a pure rotation.
 
 For the three centers in the source reconstruction, with (w>0):
 \[
@@ -57,7 +57,7 @@ q_{-90}^2=-\mathbf k,\quad q_{-90}^4=-1,\quad q_{-90}^8=1.
 \]
 The (SO(3)) rotation has order four, while this (SU(2)\) lift has order eight. This double-cover sign is essential.
 
-For a $120^\circ$ rotation about (\mathbf n=(1,1,1)/\sqrt3):
+For a $120^\circ$ rotation about $\mathbf n=(1,1,1)/\sqrt3$:
 \[
 q_{120}=\frac12+\frac{\sqrt3}{2}\mathbf n
 =\frac{1+\mathbf i+\mathbf j+\mathbf k}{2},
@@ -94,7 +94,7 @@ Interpretation: anisotropic response is already present in the full operator/inv
 
 ## 5. The missing representation calculation
 
-Let (\rho(q)\) be the actual 188D representation induced by the quaternionic lift. It must be recovered from the archived representation/projector data, not guessed from the abstract quaternion. The decisive tests are
+Let $\rho(q)$ be the actual 188D representation induced by the quaternionic lift. It must be recovered from the archived representation/projector data, not guessed from the abstract quaternion. The decisive tests are
 \[
 [K_{\rm field},\rho(q)],\qquad
 $I-J_0J_0^T$K_{\rm field}J_0,\qquad
@@ -155,13 +155,13 @@ The source list supplied for this audit includes David Wilcock's *The Divine Cos
 ## 8. Falsification and next audit
 
 A valid RGS/Kathara bridge must fail cleanly if:
-- no representation matrix (\rho(q)\) compatible with the stored group action exists;
+- no representation matrix $\rho(q)$ compatible with the stored group action exists;
 - the proposed map fails the required group relations;
 - the commutator or leakage is incompatible with the claimed invariant sector;
 - the coframe/connection equations do not follow from a single declared action;
 - the result depends on an arbitrary external anisotropy tensor or unconstrained fitting parameter.
 
-The next implementation deliverable is a reproducible extractor/audit for (\rho(q)\) and the three operator tests in §5. It must record input hashes, source commit, tolerances, software versions and output JSON. Until then the RGS/Kathara quaternionic coupling is a candidate, not a proved physical torsion law.
+The next implementation deliverable is a reproducible extractor/audit for $\rho(q)$ and the three operator tests in §5. It must record input hashes, source commit, tolerances, software versions and output JSON. Until then the RGS/Kathara quaternionic coupling is a candidate, not a proved physical torsion law.
 
 ## References
 
