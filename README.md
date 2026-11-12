@@ -539,6 +539,12 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 
 **Status boundary:** T119–T122 distinguish exact algebraic statements from floating-point source audits. T122 is a lift of the specified dual-graph transition system, not yet a full tangent-bundle Pin structure over the 2-complex. Torsion, continuum limit and physical gauge dynamics remain separate open questions.
 
+### Frank–Read dislocation source and atomistic core — 12 November 2026
+
+- [T124 — Frank–Read source: line-tension threshold, pinned-curve evolution and atomistic core input](theorems/T124-frank-read-source-line-tension-atomistic-core.md): derives the circular-arc threshold \(\tau_c=2T/(bL)\), audits the factor of two in the common estimate, and separates line-tension mechanics, topological loop emission, atomistic core parameters and possible quantum tunnelling.
+- **Critical formula audit:** if \(T=Gb^2/2\), then \(\tau_c=Gb/L\); \(2Gb/L\) requires the alternative convention \(T=Gb^2\). The material-specific threshold needs character-dependent elasticity and core/pinning corrections.
+- **Open RGS–PRISM bridge:** encode dislocation lines as Burgers-labelled 1-chains, derive energy and configurational force, and prove convergence of the constrained evolution. No Frank–Read source or tunnelling rate is claimed to have been derived from Q6.
+
 ## Unified programme update — 12 November 2026
 
 The canonical integration is maintained **inside the 27-chapter monograph**, not as a parallel theory: [Chapter 27 — unified RGS–PSU–PRISM–Q6–QLG programme](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). Its sections 27.5–27.9 integrate the Morandotti Frank–Burgers chain (T091–T099), the 64-hexagram charge/moiré and FDT chain (T100–T107), the Boolean influence records (T108–T109), KTHNY melting theory, and the toroidal compactification / S-duality interface of \(\mathcal N=4\) SYM.
