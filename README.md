@@ -67,6 +67,8 @@ theorem/
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
 - [T102 — Cubical supersymmetric quantum mechanics, heat supertrace and the Sakharov boundary](theorems/T102-cubical-supersymmetry-heat-kernel-sakharov.md) — exact cubical de Rham/Hodge complex on the six-cube, Q6 heat trace, finite-dimensional SUSY algebra and McKean–Singer supertrace; explicitly separates this result from N=4 SYM and leaves continuum Sakharov induction open. Reproducible audit: [script](scripts/audit_t102_cubical_susy_heat.py), [tests](tests/test_t102_cubical_susy_heat.py).
+- [Three defect gases and QLG–RGS–N=4 SYM–IIB bridge](docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md) — separate calculation protocols for 2D XY/BKT, 3D XY dual vortex loops, and 2D KTHNY vector Coulomb gas; explicit derivation gates for QLG, N=4 SYM, and type-IIB AdS/CFT.
+
 - [Theorem records](theorems/)
 - [S011 — Binary tetrahedral spherical spectrum (Ikeda 1995)](theorems/S011-ikeda-binary-tetrahedral-spectrum.md) — Ikeda source formulas separated from the reconstructed eigenvalue indexing, Poincaré simplification and independent Molien multiplicity check.
 - [S012 — Ikeda cyclic and binary-polyhedral spectra (1995)](theorems/S012-ikeda-cyclic-binary-polyhedral-spectra.md) — independent derivations for Theorem 4.2, the three-dimensional parts of Theorems 4.3–4.6, and the first-eigenvalue table; higher-dimensional binary cases remain explicitly open.
