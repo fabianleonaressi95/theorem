@@ -680,6 +680,11 @@ La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta 
 | QAT/luce | bibliografia e note critiche | `bibliography/quantum-light-foundations/` | ipotesi da confrontare con Maxwell |
 | Isteresi | T068 | `scripts/run_q6_hysteresis_sweep_study.py`, `models/constitutive_hysteresis.py` | benchmark multi-rate; dati industriali mancanti |
 | XCont/CA | note XCont | `models/prism_cellular_automata.py`, `models/prism_ca_evolution.py` | strumenti computazionali |
+| Frank–Burgers / Morandotti | T091–T099 | `theorems/T091–T099`, `docs/rgs_defect_benchmark/` | identità finite, benchmark numerici e ponti cinematici condizionali |
+| Moiré, cariche, FDT e difetti | T100–T107 | `theorems/T100–T107`, `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
+| Influenze booleane e AA | T108–T109 | `theorems/T108–T109` | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
+| KTHNY | Nelson–Halperin; Young; T106 | capitolo 27.5 e bibliografia primaria | teoria standard 2D; applicazione al sistema Q6/Morandotti condizionale |
+| \\(\\mathcal N=4\\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
 
 ## Registro completo dei theorem record
 
