@@ -88,7 +88,9 @@ def green_kubo_blocks(times, correlations, *, kbt=1.0):
         raise ValueError("correlations must have shape (n_times, n_sectors, n_sectors)")
     if not np.all(np.isfinite(c)) or not np.isfinite(kbt) or kbt <= 0:
         raise ValueError("correlations and kbt must be finite; kbt must be positive")
-    return np.trapezoid(c, x=t, axis=0) / float(kbt)
+    intervals = np.diff(t)
+    integral = np.tensordot(intervals, 0.5 * (c[:-1] + c[1:]), axes=(0, 0))
+    return integral / float(kbt)
 
 
 def simulate_ou(
