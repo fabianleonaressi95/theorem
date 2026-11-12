@@ -44,7 +44,7 @@ def test_endpoint_phase_wilson_holonomy_is_trivial_on_both_layers():
 def test_complement_mismatch_winding_detects_a_phase_vortex():
     plus = [0.0] * 8
     # A unit winding on the lower-trigram square 0 -> 1 -> 3 -> 2 -> 0.
-    eps = [0.0, math.pi/2, -math.pi/2, math.pi, 0.0, 0.0, 0.0, 0.0]
+    eps = [0.0, math.pi/2, -math.pi/2, math.pi - 0.1, 0.0, 0.0, 0.0, 0.0]
     minus = [0.0] * 8
     for t in range(8):
         minus[t ^ 7] = eps[t] % (2 * math.pi)
