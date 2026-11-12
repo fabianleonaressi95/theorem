@@ -223,6 +223,55 @@ The following staged audit is the minimal route from the finite graph to a falsi
 - compare phase-derived Burgers data with translational holonomy and frame-derived Frank data with rotational holonomy;
 - test loop independence away from cores and convergence under refinement.
 
+
+## 6.1 Walsh charge-law decomposition and an exactly solvable RC benchmark
+
+A scalar charge assignment on the 64 hexagrams is a function
+\[
+q:\{0,1\}^6\to\mathbb R.
+\]
+It has the unique Walsh expansion
+\[
+q(h)=\sum_{S\subseteq\{1,\ldots,6\}}\widehat q(S)\chi_S(h),
+\qquad
+\chi_S(h)=(-1)^{|S\cap h|},
+\]
+with
+\[
+\widehat q(S)=\frac1{64}\sum_{h\in Q_6}q(h)\chi_S(h).
+\]
+The 64 Walsh characters form an orthogonal basis and satisfy
+\[
+L_6\chi_S=2|S|\chi_S.
+\]
+Consequently, this basis resolves every possible node-charge assignment into graph-frequency sectors \(k=|S|=0,\ldots,6\), with multiplicities \(\binom6k\). It does **not** determine the coefficients \(\widehat q(S)\): those require a constitutive derivation or a measured 64-component data vector.
+
+The full automorphism group of the six-cube acts transitively on its vertices. Therefore, if a scalar assignment obeys \(q(\gamma h)=q(h)\) for every cube automorphism \(\gamma\), then \(q\) is constant. A nonconstant charge law must either break some graph automorphisms or depend on additional structure (for example, a physically justified orientation, embedding, boundary condition, or external field). Such structure must be specified rather than silently built into the labels.
+
+For a separate dynamical benchmark, take \(C_{\rm node}=cI\), \(L_g=gL_6\), \(g,c>0\), and projected zero-total-charge fluctuations \(x=Q-\overline Q\) satisfying
+\[
+\dot x=-\frac gcL_6x+\eta,\qquad
+\langle\eta(t)\eta(t')^T\rangle=2k_BTgL_6\,\delta(t-t').
+\]
+On the subspace orthogonal to constants, the stationary covariance is \(k_BT c I\). In the full 64-dimensional notation this gives
+\[
+C(\tau)=k_BT c\,e^{-(g/c)L_6|\tau|}P_0,
+\qquad
+P_0=I-\frac1{64}\mathbf1\mathbf1^T.
+\]
+By the product heat kernel, if \(d=d_H(h,h')\) and \(r=e^{-2g|\tau|/c}\),
+\[
+\boxed{
+C_{hh'}(\tau)=k_BT c\left[
+\frac{(1+r)^{6-d}(1-r)^d}{64}-\frac1{64}
+\right].
+}
+\]
+This exact benchmark is a prediction of the declared homogeneous thermal RC model, not a derivation of the intrinsic constitutive law \(q(h)\). It is isotropic in Hamming distance and has zero row sums because the uniform total-charge mode is constrained. Nonzero mode-dependent structure beyond this kernel would require nonuniform conductances/capacitances, a symmetry-breaking charge law, external forcing, or additional degrees of freedom.
+
+The companion script scripts/audit_t100_q6_charge_correlations.py checks the Walsh transform/inverse, the Walsh Laplacian eigenvalues, the exact RC covariance, and its conservation constraint. A measured or independently derived 64-value charge vector can be supplied as JSON to compute its Walsh coefficients; no synthetic vector is treated as physical data. Tests are in tests/test_t100_q6_charge_correlations.py.
+
+
 ## 7. Evidence and status register
 
 | Statement | Status |
