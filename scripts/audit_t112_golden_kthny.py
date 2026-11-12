@@ -23,7 +23,7 @@ def fibonacci_matrix(n: int) -> np.ndarray:
 
 def audit(n_max: int = 12) -> dict:
     det = round(float(np.linalg.det(A)))
-    eig = np.linalg.eigvals(A.astype(float))
+    eig = np.sort(np.linalg.eigvals(A.astype(float)))
     phi = (1.0 + np.sqrt(5.0)) / 2.0
     powers = []
     for n in range(1, n_max + 1):
