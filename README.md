@@ -380,6 +380,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - [Regression tests](tests/test_t099_nonaffine_vesica_koopman.py) check the exact triangle–disk overlap benchmark, including h = 1 and h = sqrt(3).
 - **Open:** extraction of a genuinely non-proportional ellipse path from the same RGS two-core solve, multi-mesh EDMD data and spectral stability, and any autonomous physical-time Koopman flow.
 
+### T099 — Bicircular-annular deformation measurement
+
+- [T099](theorems/T099-bicircular-annular-deformation-reconstruction.md) extends the existing T092/T097/T098 two-circle programme with unequal-radius lens geometry, annular sampling around both centres, least-squares deformation-gradient recovery, Green strain and controlled loop-closure diagnostics.
+- [Operational note](docs/BICIRCULAR_ANNULAR_DEFORMATION.md), [implementation](models/bicircular_annular_geometry.py), [five-experiment runner](scripts/run_bicircular_annular_audit.py), and [tests](tests/test_bicircular_annular_geometry.py).
+- [Numerical replay report](reports/bicircular_annular_audit.json) — five manufactured checks; independent numerical replay, not CI or physical validation.
+- Status: exact lens identities and finite-dimensional affine fitting; manufactured numerical checks; continuum recovery, measured Morandotti fields, Möbius chart transport and constitutive interpretation remain conditional/open.
+
 ### T097 — Morandotti Frank–Burgers application of the two-circle programme
 
 - [T097](theorems/T097-barycentric-kinematic-frank-burgers-law.md) is a downstream reconstruction layer, not the foundational two-circle law.
