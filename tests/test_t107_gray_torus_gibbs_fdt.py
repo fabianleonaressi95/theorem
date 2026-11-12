@@ -37,3 +37,32 @@ def test_invalid_parameters_are_rejected():
         assert False, "nonpositive beta should be rejected"
     except ValueError:
         pass
+
+
+
+def test_sector_collinearity_diagnostic_detects_exact_linear_overlap():
+    import numpy as np
+    from scripts.audit_t107_gray_torus_gibbs_fdt import max_canonical_correlation
+
+    rng = np.random.default_rng(107)
+    x = rng.normal(size=(1000, 2))
+    y = x @ np.array([[2.0, -1.0], [0.5, 3.0]])
+    result = max_canonical_correlation(x, y)
+    assert result["rank_x"] == 2
+    assert result["rank_y"] == 2
+    assert result["max_canonical_correlation"] > 1 - 1e-10
+    assert result["exact_linear_overlap_at_1e-10"]
+
+
+def test_sector_collinearity_diagnostic_distinguishes_random_subspaces():
+    import numpy as np
+    from scripts.audit_t107_gray_torus_gibbs_fdt import max_canonical_correlation
+
+    rng = np.random.default_rng(108)
+    x = rng.normal(size=(1000, 2))
+    y = rng.normal(size=(1000, 2))
+    result = max_canonical_correlation(x, y)
+    assert result["rank_x"] == 2
+    assert result["rank_y"] == 2
+    assert result["max_canonical_correlation"] < 0.2
+    assert not result["exact_linear_overlap_at_1e-10"]
