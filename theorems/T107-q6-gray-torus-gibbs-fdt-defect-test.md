@@ -204,3 +204,8 @@ No material dislocation, disclination, transport coefficient, or RGS–Q6 physic
 ## 7. Independent XY torus benchmark (T110)
 
 The XY phase-vortex benchmark is specified separately in [T110](T110-xy-torus-vortex-kthny-bkt.md). T110 distinguishes the 2D torus quotient from the full 3D \\(C_4^3\\) realization, uses plaquette winding and dual-loop closure, and keeps BKT, KTHNY, and 3D XY loop proliferation separate. In particular, T107's 64 complex amplitudes and their Gibbs/FDT dynamics are not silently identified with XY spins or with elastic Burgers/Frank charges. Any empirical map between these sectors must be calibrated and tested independently.
+
+
+## 8. CI execution record — 12 November 2026
+
+The T107 deterministic audit returned PASS, confirmed the Gray graph isomorphism, and its regression suite completed with 5 passing tests in [GitHub Actions run #43245722241](https://github.com/fabianleonaressi95/theorem/actions/runs/43245722241). This validates the finite quotient/chain-map and specified equilibrium-model implementation. It is not evidence of a calibrated physical circuit, material defect, or measured FDT response.
