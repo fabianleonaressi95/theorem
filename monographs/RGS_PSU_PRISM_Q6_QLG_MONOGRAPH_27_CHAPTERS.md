@@ -876,3 +876,8 @@ C_{ab}(t)=\frac12\operatorname{tr}[S_aE(t)S_bE(t)^T].
 La somma dei nove blocchi coincide con la correlazione dello stress totale; a campo nullo la matrice dei blocchi è reciproca. Un simulatore OU a passo esatto confronta la covarianza empirica con quella analitica senza introdurre l'errore di discretizzazione di Euler–Maruyama.
 
 **Limite essenziale:** il bagno OU e le matrici sintetiche sono ipotesi di benchmark, non un modello di scattering fononico, di flip fasonici o di rilassamento anarmonico calibrato. Il coefficiente integrato è quindi un risultato del modello matematico, non una viscosità materiale. Restano aperte la derivazione comune di Hessiana e stress da un'Hamiltoniana Q6/materiale, la cinematica e la cinetica fasonica, la corrente microscopica e la convergenza fisica. Le sei direzioni Q6 non vengono isotropizzate.
+
+
+## Audit execution register — 12 November 2026
+
+The repository's 27-chapter monograph now points to the reproducible finite audit record for T103/T104, T105, T107 and T131/T132. The associated CI runs and exact test counts are recorded in audits/reports/actions-validation-2026-11-12.md. These checks remain finite-model/software evidence and are not promoted to physical validation.
