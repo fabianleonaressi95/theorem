@@ -72,9 +72,9 @@ def validate_realization_grid(runs, mesh_sizes, distances, seeds):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mesh-sizes", nargs="+", type=float, default=[0.08, 0.06, 0.045])
+    parser.add_argument("--mesh-sizes", nargs="+", type=float, default=[0.08, 0.06, 0.045, 0.035])
     parser.add_argument("--distance-values", nargs="+", type=float, default=[0.48, 0.56])
-    parser.add_argument("--mesh-seeds", nargs="+", type=int, default=[11, 29, 47])
+    parser.add_argument("--mesh-seeds", nargs="+", type=int, default=[11, 17, 23, 29, 37, 47, 59])
     parser.add_argument("--alpha", type=float, default=10.0)
     parser.add_argument("--young-modulus", type=float, default=1.0)
     parser.add_argument("--poisson-ratio", type=float, default=0.0)
@@ -91,8 +91,8 @@ def main():
         raise ValueError("distance values must be finite")
     if len(set(args.distance_values)) != len(args.distance_values):
         raise ValueError("distance values must be unique")
-    if not args.mesh_seeds or len(set(args.mesh_seeds)) != len(args.mesh_seeds):
-        raise ValueError("mesh seeds must be a non-empty list of unique integers")
+    if len(args.mesh_seeds) < 2 or len(set(args.mesh_seeds)) != len(args.mesh_seeds):
+        raise ValueError("at least two unique mesh seeds are required for sample dispersion")
     if any(d <= 0.24 or d >= 1.76 for d in args.distance_values):
         raise ValueError("each separation must satisfy 2a < d < 2(R-a), with a=0.12 and R=1")
 
@@ -233,9 +233,9 @@ def main():
         "limitations": [
             "finite set of mesh sizes and core separations only",
             "independent remeshing changes mesh topology and node placement; differences combine discretization and mesh-realization effects",
-            "three-seed sample dispersion is descriptive and is not a confidence interval",
+            "seed-sample dispersion is descriptive; it is not a confidence interval or a proof of mesh/continuum convergence",
             "positive sampled Jacobians are not a formal all-points positivity certificate",
-            "no continuum distance-decay law or mesh-independent limit is asserted",
+            "the expanded seed and mesh-size grid does not by itself establish a continuum distance-decay law or mesh-independent limit",
             "no force-balance, Frank-Burgers constitutive, or material-validation claim is made",
         ],
     }
