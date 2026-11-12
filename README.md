@@ -373,6 +373,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - **Derived RGS–Morandotti inheritance:** T098.2 derives the rotational sector from the gradient polar frame (T097), the translational sector from structured-gradient mismatch and Stokes (T079–T080), their ordered closure from Cartan/SE(2) transport (T092–T094), and the barycentric/anisotropic response from T068–T070, T082 and T091.
 - No ad hoc Frank-to-Burgers map or universal residual PDE is introduced. The identities are inherited under the precise hypotheses of their source theorems; extraction and validation on the same measured two-core FEM fields remain open.
 
+### T099 — Non-affine vesica and parameter-Koopman bridge
+
+- [T099](theorems/T099-nonaffine-vesica-parameter-koopman-bridge.md) defines the two-ellipse lens with distinct shape matrices, gives its affine classification and exact area/centroid/covariance shape derivatives under transverse boundary intersection.
+- It combines those geometric derivatives with the existing T091 Morandotti matrix/residual sensitivity to define a **parameter-Koopman** generator along a declared continuation coordinate (currently the core-separation parameter). This is not presented as physical time evolution.
+- [Regression tests](tests/test_t099_nonaffine_vesica_koopman.py) check the exact triangle–disk overlap benchmark, including h = 1 and h = sqrt(3).
+- **Open:** extraction of a genuinely non-proportional ellipse path from the same RGS two-core solve, multi-mesh EDMD data and spectral stability, and any autonomous physical-time Koopman flow.
+
 ### T097 — Morandotti Frank–Burgers application of the two-circle programme
 
 - [T097](theorems/T097-barycentric-kinematic-frank-burgers-law.md) is a downstream reconstruction layer, not the foundational two-circle law.
