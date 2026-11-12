@@ -126,7 +126,7 @@ The static Kirchhoff equation \(L_gV=J\) from T099 does not by itself define an 
 \[
 C\dot V(t)+L_gV(t)=\eta(t)+J_{\rm ext}(t),
 \]
-where \(C\) is a positive capacitance matrix, the constant-potential mode is grounded or projected out, and \(\eta\) is a stationary noise source. For a thermal equilibrium interpretation, the noise covariance and dissipative operator must satisfy the appropriate fluctuation–dissipation relation for the chosen circuit variables and units. This condition must be stated, not assumed from the graph.
+where \(C_{\rm node}\) is a positive node-capacitance matrix, the constant-potential mode is treated consistently with total-charge conservation, and \(\eta\) is a stationary current-noise source. For the linear thermal RC model with energy \(H(q)=\tfrac12q^TC_{\rm node}^{-1}q\), the equilibrium Langevin choice is \(\langle\eta(t)\eta(t')^T\rangle=2k_BT L_g\,\delta(t-t')\) on the dissipative subspace (with the zero mode projected out or separately constrained). This gives the fluctuation–dissipation relation for this particular overdamped model; other circuit realizations require their own noise covariance.
 
 For an oriented edge \(e=(i,j)\), let
 \[
@@ -134,9 +134,9 @@ j_e(t)=g_e\big(V_i(t)-V_j(t)\big)
 \]
 be the branch current, with the orientation fixed once. Given a spatial embedding \(X\), let \(d_e=X(j)-X(i)\). A macroscopic current observable can then be defined, for example, by
 \[
-\mathcal J_a(t)=\frac{1}{\mathcal V}\sum_{e}d_{e,a}\,j_e(t),
+\mathcal J_a(t)=\sum_{e}d_{e,a}\,j_e(t),
 \]
-where \(\mathcal V\) is the chosen normalization volume/area. Its physical meaning and units depend on the circuit realization and embedding.
+where \(\mathcal J_a\) is the extensive flux; its physical meaning and units depend on the circuit realization and embedding. The Green–Kubo prefactor below then includes \(1/\mathcal V\).
 
 For a classical system in equilibrium, the Green–Kubo transport tensor has the form
 \[
