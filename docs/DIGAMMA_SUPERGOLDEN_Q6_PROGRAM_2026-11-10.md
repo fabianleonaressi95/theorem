@@ -3,7 +3,7 @@
 **Data:** 10 novembre 2026  
 **Stato:** identità speciali esatte; campionamento numerico riproducibile; derivazione geometrica PSU/Q6 ancora aperta.
 
-## 1. Scelta di impostazione
+## Convenzione di notazione — origine comune, funzioni distinte\n\nIn questo dossier \(s=\psi_{\\rm SA}\) è sempre la costante superaurata, radice positiva di \(s^3-s^2-1=0\). La funzione digamma è scritta \(\\digamma(x)=d\\log\\Gamma(x)/dx\), e la trigamma \(\\digamma_1(x)=\\digamma'(x)\). Questa distinzione tipografica evita di usare lo stesso simbolo per la costante e per la funzione speciale. Il collegamento non è una semplice omonimia: le identità di shift, moltiplicazione e asintotica qui sotto valutano la digamma sulle scale generate da \(\\psi_{\\rm SA}\). Il dossier modulare collegato documenta inoltre il ponte Weber–Dedekind eta al discriminante \(-31\).\n\n## 1. Scelta di impostazione
 
 Il digamma
 \[
