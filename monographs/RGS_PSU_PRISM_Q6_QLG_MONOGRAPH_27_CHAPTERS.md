@@ -598,6 +598,10 @@ Il collegamento operativo è: **Q6/PRISM** fornisce una possibile struttura d'in
 
 
 
+
+
+**C4. Accettazione energetica degli eventi topologici (T127).** T127 completa il raccordo fra moto continuo e cambiamento di topologia. Su ciascun grafo, il flusso gradiente autonomo di T125 dissipa l'energia; un evento candidato di T126 è accettato soltanto se \(E_{dopo}+C_{evento}\le E_{prima}\), con costo dichiarato non negativo. Ne segue che l'energia ibrida non aumenta né durante l'evoluzione liscia né ai salti; se è limitata inferiormente, la somma dei costi degli eventi accettati è limitata dall'energia iniziale meno il limite inferiore. Il costo è un input costitutivo/di selezione, **non** una barriera di attivazione né un tasso cinetico. L'implementazione e i test sono proposti in source PR #200; CI non ancora certificata. Restano aperti calibrazione materiale, dinamica termica, rigenerazione Frank–Read e convergenza al continuo.
+
 **Classificazione integrata:** soglia circolare T124 [P, condizionata al modello]; decomposizione/ricostruzione Morandotti [P/N secondo i singoli record e le Actions citate]; parametro materiale e dinamica completa [M/O]; limite RGS–PRISM e raccordo KTHNY [O].
 
 **D. Statistica, FDT e trasporto.** T100, T105, T106 e T107 sono il livello dinamico dello stesso sistema: correlazioni complete \(64\times64\), correnti sui 192 archi, continuità di Kirchhoff, ensemble stazionario, risposta a campo debole e verifica indipendente della relazione Kubo/FDT. Il teorema Born/Haar in T106 dà una misura uniforme sul simplesso per stati puri complessi Haar; non dà una dinamica termica. Il modello Gibbs/diffusione reversibile di T107 è una realizzazione statistica distinta e dichiarata. La formula Green–Kubo richiede corrente fisica, unità, normalizzazione areale/volumica, ipotesi di equilibrio e controllo della convergenza; il Green operator del grafo non è l'integrale Green–Kubo.
