@@ -5,13 +5,13 @@
 
 ## 1. Scope and epistemic rule
 
-Kathara/Krystal is the geometric source for the planar stage rule in this record. The source-derived construction is formalized in the companion repository at `docs/KATHARA_KRYSTAL_SPIRAL_SQUARE_GEOMETRY.md`. This document extracts its exact linear algebra and states the tests needed to connect it to the RGS 188D operator and the selected (T_{2u}) triplet.
+Kathara/Krystal is the geometric source for the planar stage rule in this record. The source-derived construction is formalized in the companion repository at `docs/KATHARA_KRYSTAL_SPIRAL_SQUARE_GEOMETRY.md`. This document extracts its exact linear algebra and states the tests needed to connect it to the RGS 188D operator and the selected $T_{2u}$ triplet.
 
 The use of Kathara geometry as a mathematical input does **not** validate every cosmological, energetic, torsion-field, or antigravity interpretation associated with the wider literature. Exact geometric identities, numerical operator observations, physical hypotheses and historical attributions are kept separate.
 
 ## 2. Kathara/Krystal square similarity
 
-The stated stage rule is a clockwise (45^\circ) rotation together with a scale factor (\sqrt2):
+The stated stage rule is a clockwise $45^\circ$ rotation together with a scale factor $\sqrt2$:
 \[
 T=\sqrt2R_{-\pi/4}
 =\begin{pmatrix}1&1\\-1&1\end{pmatrix}.
@@ -25,7 +25,7 @@ and
 T^2=\begin{pmatrix}0&2\\-2&0\end{pmatrix}
 =2R_{-\pi/2}.
 \]
-Consequently, two stages are a clockwise quarter-turn and a doubling of length. In complex coordinates (Tz=(1-i)z), hence (T^2z=-2iz). This is a similarity, not a pure rotation.
+Consequently, two stages are a clockwise quarter-turn and a doubling of length. In complex coordinates (Tz=(1-i)z), hence $T^2z=-2iz$. This is a similarity, not a pure rotation.
 
 For the three centers in the source reconstruction, with (w>0):
 \[
@@ -39,16 +39,16 @@ This three-point orbit is exact under the stated overlay constraints. It does no
 
 The arithmetic action is also exact:
 \[
-T(\mathbb Z^2)=\{(u,v)\in\mathbb Z^2:u\equiv v\pmod2\},
-\quad T^2(\mathbb Z^2)=2\mathbb Z^2.
+T$\mathbb Z^2$=\{(u,v)\in\mathbb Z^2:u\equiv v\pmod2\},
+\quad T^2$\mathbb Z^2$=2\mathbb Z^2.
 \]
 The first image is an index-two checkerboard sublattice; the second has index four.
 
 ## 3. Quaternionic lift of the Cartesian quarter-turn
 
-The scale-free planar rotation is (R_{-\pi/2}). Embedded as a 3D rotation about the negative (z)-axis, its unit-quaternion lift is
+The scale-free planar rotation is $R_{-\pi/2}$. Embedded as a 3D rotation about the negative (z)-axis, its unit-quaternion lift is
 \[
-q_{-90}=\cos(-\pi/4)+\mathbf k\sin(-\pi/4)
+q_{-90}=\cos$-\pi/4$+\mathbf k\sin$-\pi/4$
 =\frac{1-\mathbf k}{\sqrt2}.
 \]
 Then
@@ -57,7 +57,7 @@ q_{-90}^2=-\mathbf k,\quad q_{-90}^4=-1,\quad q_{-90}^8=1.
 \]
 The (SO(3)) rotation has order four, while this (SU(2)\) lift has order eight. This double-cover sign is essential.
 
-For a (120^\circ) rotation about (\mathbf n=(1,1,1)/\sqrt3):
+For a $120^\circ$ rotation about (\mathbf n=(1,1,1)/\sqrt3):
 \[
 q_{120}=\frac12+\frac{\sqrt3}{2}\mathbf n
 =\frac{1+\mathbf i+\mathbf j+\mathbf k}{2},
@@ -65,11 +65,11 @@ q_{120}=\frac12+\frac{\sqrt3}{2}\mathbf n
 \]
 Its (SO(3)) image has order three and its spin lift order six.
 
-The quaternion units and the commuting scalar complex unit must remain notationally distinct. The planar rotation is a real (2\times2) representation; the quaternion is its chosen lift after specifying the embedding axis.
+The quaternion units and the commuting scalar complex unit must remain notationally distinct. The planar rotation is a real $2\times2$ representation; the quaternion is its chosen lift after specifying the embedding axis.
 
 ## 4. RGS 188D triplet: archived numerical observations
 
-The companion repository archives `reports/rgs_188d/188D_T2U_GEOMETRY_AUDIT.json`. For its selected orthonormal triplet basis (J_0\in\mathbb R^{188\times3}), the report gives:
+The companion repository archives `reports/rgs_188d/188D_T2U_GEOMETRY_AUDIT.json`. For its selected orthonormal triplet basis $J_0\in\mathbb R^{188\times3}$, the report gives:
 \[
 \|J_0^TJ_0-I_3\|\approx5.60\times10^{-16}.
 \]
@@ -78,7 +78,7 @@ It distinguishes:
 \[
 M_{\rm geom}=J_0^TK_{\rm tangent}^{+}J_0
 \]
-with three eigenvalues approximately (-0.95403126139055) and relative anisotropy (3.96\times10^{-15}), from
+with three eigenvalues approximately (-0.95403126139055) and relative anisotropy $3.96\times10^{-15}$, from
 \[
 M_{\rm field}=J_0^TK_{\rm field}^{+}J_0
 \]
@@ -88,16 +88,16 @@ with eigenvalues
 \]
 and relative anisotropy (0.1427155).
 
-The direct compression (J_0^TK_{\rm field}J_0\) is approximately (4.96933853I_3). This does not imply invariant-subspace behaviour: the archived relative invariance residual is (0.7219434), with leakage outside the triplet (0.3321124).
+The direct compression $J_0^TK_{\rm field}J_0$ is approximately $4.96933853I_3$. This does not imply invariant-subspace behaviour: the archived relative invariance residual is (0.7219434), with leakage outside the triplet (0.3321124).
 
-Interpretation: anisotropic response is already present in the full operator/inverse response and coupling to complementary modes; no independent phenomenological (Q\) should be inserted to manufacture it. The geometry-compressed tangent observable is numerically isotropic. These data do not imply that every RGS triplet is anisotropic, and the selected (T_{2u}) triplet must not be conflated with the separate 94 dynamical two-dimensional planes.
+Interpretation: anisotropic response is already present in the full operator/inverse response and coupling to complementary modes; no independent phenomenological $Q$ should be inserted to manufacture it. The geometry-compressed tangent observable is numerically isotropic. These data do not imply that every RGS triplet is anisotropic, and the selected $T_{2u}$ triplet must not be conflated with the separate 94 dynamical two-dimensional planes.
 
 ## 5. The missing representation calculation
 
 Let (\rho(q)\) be the actual 188D representation induced by the quaternionic lift. It must be recovered from the archived representation/projector data, not guessed from the abstract quaternion. The decisive tests are
 \[
 [K_{\rm field},\rho(q)],\qquad
-(I-J_0J_0^T)K_{\rm field}J_0,\qquad
+$I-J_0J_0^T$K_{\rm field}J_0,\qquad
 J_0^TK_{\rm field}^{+}J_0.
 \]
 The first tests equivariance, the second quantifies leakage, and the third records the effective triplet response.
@@ -107,7 +107,7 @@ The required implementation sequence is:
 1. identify the exact coordinate and orientation convention for the Kathara stage map;
 2. identify the corresponding element in the relevant finite rotation group and its (SU(2)) lift;
 3. recover the 188D representation matrix from the RGS data;
-4. verify orthogonality/unitarity, group relations and the action on (J_0);
+4. verify orthogonality/unitarity, group relations and the action on $J_0$;
 5. compute commutators, invariant-subspace residuals and mode leakage;
 6. only then construct the induced coframe and vary the declared connection action.
 
