@@ -561,3 +561,8 @@ The canonical integration is maintained **inside the 27-chapter monograph**, not
 **The unifying route:** Q6/PRISM cellular geometry → cochains and holonomies → calibrated phase/charge fields → Frank/Burgers defects → Morandotti elasticity → equilibrium correlations/FDT/Green–Kubo → KTHNY defect-unbinding RG. The \(\mathcal N=4\) SYM branch meets this route through toroidal compactification and momentum/winding charge lattices; the matching map is explicitly an open problem.
 
 The finite cubical supersymmetry in T102 is **not** identified with \(\mathcal N=4\) SYM. No direct identification is made between Wilson–'t Hooft charges and Burgers/Frank charges. The note [KTHNY_N4_SYM_RGS_PRISM.md](docs/KTHNY_N4_SYM_RGS_PRISM.md) is a subordinate literature/technical appendix; the monograph and theorem records remain canonical.
+
+
+### T128 — Purcell swimmer and the Q6 geometric-control interface
+
+[T128](theorems/T128-purcell-swimmer-q6-geometric-control.md) records the continuous Purcell-swimmer connection/holonomy framework and the exact requirements for a Q6 discretization. A first-pass quadrature reconstruction is stored in [the audit directory](audits/purcell_swimmer_wall/README.md). It is **not yet a successful reproduction**: the normalized longitudinal coefficient is stable near 0.0370356 under quadrature refinement, whereas the 2026 article reports 5/81 ≈ 0.0617284. The discrepancy is explicitly open; no Q6-to-shape-space map or discrete swimmer is claimed. The article documents MATLAB/ode45, not DOLFINx or PyTorch.
