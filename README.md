@@ -388,6 +388,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - Separates translational Burgers cochains from rotational Frank holonomy and pre-registers held-out cross-prediction and FDT checks. The model is mathematical; no physical circuit or material validation is claimed.
 - [Audit](scripts/audit_t107_gray_torus_gibbs_fdt.py), [tests](tests/test_t107_gray_torus_gibbs_fdt.py), and [focused CI](.github/workflows/t107-gray-torus-gibbs-fdt.yml) verify the Gray graph map, quotient chain maps, and analytic susceptibility.
 
+### T108 — Boolean influences, the Q6 Laplacian, and cubical cohomology
+
+- [T108 theorem record](theorems/T108-boolean-influences-q6-laplacian-cohomology.md) derives the exact Walsh influence identity on the six-cube and the fixed-dimension estimate \\(\\max_i\\operatorname{Inf}_i(f)\\ge(2/3)\\operatorname{Var}(f)\\).
+- Identifies each influence with the squared norm of a coordinate component of the exact edge gradient; verifies zero square circulation and keeps graph cycles (dimension 129) distinct from cubical cohomology (\\(H^1=0\\)).
+- This is a finite Q6 Poincaré result, **not** a dimension-uniform proof or improvement of the Aaronson–Ambainis theorem.
+- [Exact-rational audit](scripts/audit_t108_boolean_influence_q6.py), [tests](tests/test_t108_boolean_influence_q6.py), and [focused CI](.github/workflows/t108-q6-boolean-influence.yml).
+
 ### T106 — Born measure, Q6 phase torus, FDT, and Frank–Burgers defects
 
 - [T106 theorem record](theorems/T106-born-measure-q6-fdt-frank-burgers.md) specializes the known Haar/Born push-forward theorem to the 64 hexagram outcomes, records exact Dirichlet moments and the \(\\mathbb Z_4^3\) indexing, and separates Born/Haar measure from thermal equilibrium.
