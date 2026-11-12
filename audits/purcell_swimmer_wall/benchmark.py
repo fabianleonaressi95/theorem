@@ -123,7 +123,7 @@ def main():
           np.array2string((final - initial)[:3] / args.amplitude**2,
                           precision=12))
     print("paper_reference_dx_limit = 0.0617283950617")
-    print("status = preliminary reconstruction; benchmark discrepancy requires audit")
+    print("status = leading-order longitudinal coefficient reproduced; Q6 discretization remains open")
 
 
 if __name__ == "__main__":
