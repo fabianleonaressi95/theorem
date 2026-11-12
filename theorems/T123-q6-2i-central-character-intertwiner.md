@@ -1,4 +1,4 @@
-# T123 — Central-character obstruction and the minimal 2I twist of the Q6 exterior module
+# T123 — Central-character obstruction and an explicit 2I twist of the Q6 exterior module
 
 **Classification:** exact representation-theoretic theorem. The vanishing statement follows from the central element of \(2I\). The twisted embedding is explicit. Finite matrix audits are supporting implementation checks, not the proof.
 
@@ -41,7 +41,7 @@ Over \(\mathbb C\), this implies \(T=0\). Therefore
 
 This is exact and independent of numerical precision, basis choices, or the other group elements. In particular, the Q6 exterior module of T121 does not contain the fundamental \(2I\) doublet as a subrepresentation under the specified pulled-back \(A_5\)-action.
 
-## 3. Minimal tensor twist and explicit embedding
+## 3. Explicit tensor twist and equivariant embedding
 
 Define the twisted representation on \(S\otimes W\) by
 \[
@@ -82,7 +82,7 @@ Companion source implementation:
 Tests:
 - \`tests/test_q6_2i_intertwiners.py\`
 
-The audit induces the signed-permutation action on all 64 exterior basis states, checks the 60 A5 signed-axis actions and all 120 fundamental 2I matrices, and verifies the tensor-product embedding from invariance of the exterior vacuum. It uses the abstract quotient 2I/{+/-1} ~= A5 and deliberately does not claim an elementwise matching between the two matrix presentations.
+The audit induces the signed-permutation action on all 64 exterior basis states, checks the 60 A5 signed-axis actions and all 120 fundamental 2I matrices, verifies exterior functoriality on representative products, and checks the tensor-product embedding from invariance of the exterior vacuum. It uses the abstract quotient 2I/{+/-1} ~= A5 and deliberately does not claim an elementwise matching between the two matrix presentations.
 
 Reproduction command in the source repository:
 \`\`\`bash
