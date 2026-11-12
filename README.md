@@ -377,6 +377,7 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 - [T100 theorem record](theorems/T100-hypercube-moire-green-kubo-defects.md) treats the 64 individual hexagrams as the primary charge-bearing degrees of freedom; node-charge correlations are primary, while edge currents encode transfers.
 - The 64-component charge assignment has an exact Walsh decomposition. Full Q6-automorphism invariance forces a scalar assignment to be constant; a nonconstant law needs justified symmetry-breaking or additional physical structure.
+- Ordered-line symmetry classification gives 64 unrestricted values, 36 under line reversal, 7 under arbitrary line permutations, 20 under reversal plus global yin-yang exchange, and 1 under the full cube automorphism group. These are alternative hypotheses, not imposed physical symmetries; see the orbit audit and tests.
 - An exactly solvable homogeneous thermal-RC benchmark gives time-correlations as a function of Hamming distance. See `scripts/audit_t100_q6_charge_correlations.py` and `tests/test_t100_q6_charge_correlations.py`.
 - **Evidence boundary:** the intrinsic charge law and units, physical realization, spatial embedding, transport validation, and defect extraction remain open; the RC kernel is conditional on its declared model assumptions.
 
