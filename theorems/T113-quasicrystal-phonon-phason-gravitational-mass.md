@@ -137,3 +137,8 @@ This does not identify vorticity with Cartan curvature, or a superfluid vortex w
 1. A. Esposito, R. Krichevsky, A. Nicolis, “Gravitational Mass Carried by Sound Waves,” *Physical Review Letters* **122**, 084501 (2019), DOI: 10.1103/PhysRevLett.122.084501.
 2. S. B. Rochal, V. L. Lorman, “Anisotropy of acoustic-phonon properties of an icosahedral quasicrystal at high temperature due to phonon-phason coupling,” *Physical Review B* **62**, 874 (2000), DOI: 10.1103/PhysRevB.62.874.
 3. S. B. Rochal, V. L. Lorman, “Minimal model of the phonon-phason dynamics in icosahedral quasicrystals and its application to the problem of internal friction in the i-AlPdMn alloy,” *Physical Review B* **66**, 144204 (2002), DOI: 10.1103/PhysRevB.66.144204.
+
+
+## 9. Metric-action derivation appendix
+
+The explicit covariant quadratic phonon–phason action, variational stress-energy prescription, generalized Hellmann–Feynman sensitivity identity, and staged control sequence are developed in [T113-A](T113A-metric-action-phonon-phason-mode-sensitivity.md). T113-A derives the spectral sensitivity identity but deliberately does not identify it with gravitational mass before the full medium-plus-wave metric variation is evaluated.
