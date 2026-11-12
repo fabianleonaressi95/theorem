@@ -159,3 +159,97 @@ The embedding must be isometric if the circular field amplitude is to be preserv
 ## 9. Historical note
 
 The standard historical account credits Galileo Ferraris with the rotating magnetic field principle from two orthogonal coils carrying currents in temporal quadrature, with his 1888 publication. The exact priority, chronology, and comparison with Tesla's independent work should be documented from historical primary sources before being used as a priority claim in a publication. The mathematical identities above do not depend on the historical attribution.
+
+
+## 10. The already-established 120-degree quaternionic structure
+
+The 120-degree angle is not only the phase spacing of a balanced three-phase circuit. In the geometric programme it also occurs as a proper tetrahedral rotation and is represented by a unit quaternion. In the even Clifford algebra,
+\[
+Cl^+(3)=\operatorname{span}\{1,e_{23},e_{31},e_{12}\}\cong\mathbb H,
+\]
+and a rotation through angle \(\theta\) about unit axis \(\mathbf n\) is represented by
+\[
+q=\cos(\theta/2)+\mathbf n\sin(\theta/2).
+\]
+For \(\theta=2\pi/3\),
+\[
+q=\frac12+\frac{\sqrt3}{2}\mathbf n,
+\qquad q^3=-1,\quad q^6=1.
+\]
+The corresponding element of \(SO(3)\) has order three; its lift in \(SU(2)\) has order six. This is the correct double-cover distinction. It connects the threefold phase/spatial cycle to the already-used tetrahedral, \(H_3\), and binary-icosahedral quaternionic structures, but does not identify the electrical phase sequence with a particular group element until the axis, orientation and representation map are fixed.
+
+## 11. Maxwell's quaternionic formulation already fixed in the programme
+
+The quaternionic Maxwell notation used in the prior derivation is retained:
+\[
+\mathcal A=\frac{\phi}{c}+\mathbf i A_x+\mathbf j A_y+\mathbf k A_z,
+\qquad
+\mathcal F=\mathbf E+i c\mathbf B,
+\qquad
+\nabla_q=\mathbf i\partial_x+\mathbf j\partial_y+\mathbf k\partial_z.
+\]
+Here the quaternion units \(\mathbf i,\mathbf j,\mathbf k\) must not be silently confused with the commuting scalar complex unit \(i\) in the displayed field combination. The component conventions and signs must be checked against
+\[
+\partial_\mu F^{\mu\nu}=\mu_0J^\nu
+\]
+and the homogeneous Maxwell equations, component by component. The covariant Maxwell action, stress-energy tensor and four-momentum remain the reference formulation.
+
+This quaternionic packaging is a representation of the Abelian electromagnetic field. It does **not** by itself introduce a non-Abelian \(SU(2)\) gauge connection. Any additional \(SU(2)\) structure must be independently defined and varied; it is not a relabelling of Maxwell's \(U(1)\) potential.
+
+## 12. Rotating field and Cartan torsion: the precise bridge
+
+A rotating field can define a preferred local direction in the stator plane. If this direction is promoted to a spatially varying local coframe, write
+\[
+e^1=\cos\vartheta(x)\,dx+\sin\vartheta(x)\,dy,
+\qquad
+e^2=-\sin\vartheta(x)\,dx+\cos\vartheta(x)\,dy.
+\]
+Then the coframe derivatives are
+\[
+de^1=d\vartheta\wedge e^2,
+\qquad
+de^2=-d\vartheta\wedge e^1.
+\]
+The Cartan torsion is not \(de^a\) alone but
+\[
+T^a=de^a+\omega^a{}_b\wedge e^b.
+\]
+For the compensating inertial/Levi-Civita connection
+\[
+\omega^1{}_2=-d\vartheta,\qquad
+\omega^2{}_1=d\vartheta,
+\]
+one obtains \(T^1=T^2=0\). Thus a mere rotation of an orthonormal frame in flat space does not create physical torsion. If instead the coframe is coupled to an independent connection, or the material frame is genuinely non-integrable, the Cartan torsion can be nonzero and must be computed from the pair \((e,\omega)\).
+
+This is the rigorous sense in which a rotating magnetic texture can be connected to torsion: its orientation field can be used to construct a coframe, and gradients/holonomy of that coframe enter the Cartan structure equations. A nonzero torsion response requires a specified connection dynamics or constitutive coupling; it cannot be inferred from the temporal rotation of a uniform Ferraris field alone.
+
+In the earlier density/helical-field construction, keep the objects separate:
+\[
+T^a=de^a+\omega^a{}_b\wedge e^b,
+\qquad
+\Omega=d\varpi,
+\qquad
+\mathbf B.
+\]
+The proposed constitutive map \(\mathbf B=\mathcal K(T)\), or more generally \(B=\mathcal K\,T\) after choosing compatible tensor types, remains to be derived from an action with correct units, symmetries and observables. Mechanical vorticity, magnetic moment and magnetic induction may be related by projections in a specified medium, but they are not identical to Cartan torsion.
+
+The repository's S.6 connection-current variation is the appropriate existing variational starting point:
+\[
+D_iQ=\partial_iQ+[\omega_i,Q],
+\qquad
+J_i=\kappa[H(D_iQ),Q]\in\mathfrak{so}(3).
+\]
+It derives a local \(\mathfrak{so}(3)\)-connection current for the displayed gradient action. It does not yet solve a torsion field equation. S.8 explicitly contains no coframe derivatives and therefore cannot generate torsion on its own. A complete bridge must combine the coframe, the independent/inertial connection, the matter or spin current, and the electromagnetic constitutive sector in one covariant action.
+
+## 13. Updated claim ledger
+
+| Statement | Status |
+|---|---|
+| 120-degree rotation has an order-three image in \(SO(3)\) and order-six quaternionic lift in \(SU(2)\) | Exact |
+| Balanced three-phase currents generate a rotating stator field in the ideal model | Exact |
+| Maxwell field can be packaged in the previously fixed quaternionic notation | Exact representation, subject to component/sign audit |
+| A field-orientation texture can define a coframe whose derivatives enter Cartan's torsion equation | Exact construction |
+| A uniform rotating field necessarily produces nonzero Cartan torsion | False |
+| Nonzero torsion sourced by the electromagnetic/helical field | Candidate; requires a covariant action and constitutive derivation |
+| Identification of magnetic induction, vorticity and Cartan torsion | Not permitted without a derived map |
+| S.6 connection current as a source in a complete torsion equation | Open; requires full coframe/connection/matter variation |
