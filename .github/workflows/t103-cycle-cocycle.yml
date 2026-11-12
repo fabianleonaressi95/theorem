@@ -1,0 +1,37 @@
+name: T103-T104 Q6 cycle-cocycle CI
+
+on:
+  push:
+    branches:
+      - feat/t104-q6-cycle-cocycle-holonomy-law
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/t103-cycle-cocycle.yml"
+      - "scripts/audit_t103_q6_z2_magnetic_holonomy.py"
+      - "scripts/audit_t103_cycle_cocycle.py"
+      - "tests/test_t103_q6_z2_magnetic_holonomy.py"
+      - "tests/test_t103_cycle_cocycle.py"
+      - "theorems/T103-q6-z2-magnetic-holonomy.md"
+      - "theorems/T104-q6-cycle-cocycle-holonomy-law.md"
+
+permissions:
+  contents: read
+
+jobs:
+  q6-topology-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install numpy pytest
+      - name: Run regression tests
+        run: python -m pytest -q tests/test_t103_q6_z2_magnetic_holonomy.py tests/test_t103_cycle_cocycle.py
+      - name: Run cycle-cocycle audit
+        run: python scripts/audit_t103_cycle_cocycle.py
+      - name: Run magnetic holonomy audit
+        run: python scripts/audit_t103_q6_z2_magnetic_holonomy.py
