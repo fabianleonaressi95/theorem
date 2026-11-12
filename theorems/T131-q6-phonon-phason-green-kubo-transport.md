@@ -160,6 +160,7 @@ It does **not** generate a material Hessian, a six-dimensional cut-and-project a
 - T113-G: cut-and-project symmetry, anisotropy and missing canonical Q6 acceptance-window data.
 - T112: golden geometry and KTHNY defect controls.
 
+## 10. Exact stress-sector decomposition, cross-correlations and Onsager–Casimir symmetry
 ## 10. Exact stress-sector decomposition, hyperstress and Onsager–Casimir symmetry
 
 The labels used here are:
@@ -167,6 +168,17 @@ The labels used here are:
 - \(\mathrm{pha}\): phason-sector contribution;
 - \(\mathrm{int}\): phonon–phason interaction contribution.
 
+They are labels for a declared Hamiltonian decomposition, not an assertion that the sectors are statistically independent. If
+\[
+H(\varepsilon)=H_{\mathrm{ph}}(\varepsilon)+H_{\mathrm{pha}}(\varepsilon)+H_{\mathrm{int}}(\varepsilon),
+\]
+and all terms are differentiated with respect to the same imposed strain, then
+\[
+\Pi_{ij}^{a}=-\frac{\partial H_a}{\partial\varepsilon_{ij}},
+\qquad
+\Pi_{ij}=\sum_{a\in\{\mathrm{ph},\mathrm{pha},\mathrm{int}\}}\Pi^a_{ij}.
+\]
+Consequently the centered stress correlation is exactly bilinear:
 They label a declared Hamiltonian decomposition; they do not imply statistical independence. Let
 \[
 H(\varepsilon,w)=H_{\mathrm{ph}}(\varepsilon,w)+H_{\mathrm{pha}}(\varepsilon,w)+H_{\mathrm{int}}(\varepsilon,w),
@@ -195,6 +207,27 @@ C_{ij,kl}(t)=\sum_{a,b}C^{ab}_{ij,kl}(t),\qquad
 C^{ab}_{ij,kl}(t)=
 \left\langle\delta\Pi^a_{ij}(t)\delta\Pi^b_{kl}(0)\right\rangle_{\rm eq}.
 \]
+There are nine ordered sector pairs: three diagonal autocorrelations and six ordered cross-correlations. In particular, \(C^{\mathrm{int},\mathrm{int}}\) is the interaction-stress autocorrelation; it is not itself a cross term. The total stress is invariant under a reassignment convention for interaction energy only when the sum of all differentiated Hamiltonian pieces is kept fixed. Individual sector stresses can depend on the chosen partition of \(H_{\rm int}\); the total stress and total Green–Kubo response are the physical quantities.
+
+For symmetric stress tensors, choose a declared Voigt ordering, for example \((xx,yy,zz,yz,xz,xy)\), and let \(I,J=1,\ldots,6\) denote its components. The full data array with three sectors has 18 channels \((a,I)\). Its correlation matrix is therefore \(18\times18\), with blocks \(C^{ab}_{IJ}(t)\). Equivalently, for each pair \((I,J)\), the sector-resolved block is \(3\times3\), and the complete viscosity is a rank-four tensor represented by a \(6\times6\) Voigt matrix after summing all sector blocks. A \(3\times3\) matrix alone records sector labels, not all stress components.
+
+Cross-correlations vanish if the centered sector observables are statistically independent under the equilibrium measure (in particular, if the equilibrium measure factorizes into independent sector measures and each observable depends only on its own sector). A nonzero interaction Hamiltonian generally invalidates that factorization, but does not logically force every cross-correlation to be nonzero: additional symmetries can still make selected entries vanish. Such zeros must be derived from the actual equilibrium measure and transformation rules, not presumed.
+
+Time-reversal parity must be handled through Onsager–Casimir, not by the blanket assertion that opposite parities make an individual correlation odd in time. If observables \(A_a\) and \(B_b\) have time-reversal parities \(\epsilon_a,\epsilon_b\in\{+1,-1\}\), and the equilibrium dynamics is time-reversal invariant apart from external time-reversal-odd fields \(\mathcal B\), then
+\[
+C_{ab}(t;\mathcal B)=
+\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B)
+\]
+(with tensor indices transposed as appropriate). Opposite parities relate the two ordered cross-correlations with a minus sign; they do not, by themselves, imply that either one separately is an odd function of time. For ordinary mechanical stress derived from a time-reversal-invariant Hamiltonian, the stress is normally even under time reversal. Magnetic fields, rotation, or other time-reversal-breaking backgrounds require the corresponding Casimir reversal.
+
+The dissipative viscosity is the symmetric Onsager part in the paired stress/strain-rate indices:
+\[
+\eta^{\rm diss}_{IJ}(\mathcal B)=
+\frac12\left[\eta_{IJ}(\mathcal B)+\eta_{JI}(\mathcal B)\right].
+\]
+The antisymmetric part does not contribute to the quadratic entropy-production form for the paired generalized fluxes, but can encode nondissipative Hall/gyroscopic response when the relevant symmetries permit it. In a time-reversal-invariant equilibrium with no time-reversal-odd external field and even stress observables, Onsager reciprocity gives the corresponding symmetric response. Do not impose this symmetry in a field without applying the Casimir reversal.
+
+For numerical analysis, first test exact symmetry-forced zeros and reciprocal relations, then integrate the total correlation or its consistently assembled sector blocks. The correlation itself should decay (or have a controlled hydrodynamic long-time tail); it is the **running time integral** that should approach a stable plateau. A nonzero correlation plateau is not a convergence criterion and usually obstructs an ordinary finite Green–Kubo integral.
 There are nine ordered sector pairs: three diagonal autocorrelations and six ordered cross-correlations. In particular, \(C^{\mathrm{int},\mathrm{int}}\) is the interaction-stress autocorrelation, not a cross term.
 
 For symmetric phonon stress, fix a Voigt ordering, for example \((xx,yy,zz,yz,xz,xy)\), and explicitly state the shear convention: tensorial shear \(\varepsilon_{yz}\), or engineering shear \(\gamma_{yz}=2\varepsilon_{yz}\). The associated stress/strain and response matrices must use work-conjugate conventions consistently. With six independent stress components per sector and the three declared sectors, there are 18 channels \((a,I)\), and the full sector-resolved correlation matrix is \(18\times18\), with nine \(6\times6\) blocks \(C^{ab}_{IJ}(t)\). This dimension assumes symmetric phonon stress; it is not changed merely by the presence of hyperstress. A \(3\times3\) matrix records only sector labels for one fixed pair of stress components. A \(27\times27\) matrix is appropriate only if the model independently defines nine stress components per sector, for example in a genuinely nonsymmetric-stress formulation.

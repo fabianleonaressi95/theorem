@@ -845,6 +845,15 @@ L'equazione di stato e la velocità del suono devono essere ricavate dalla stess
 **Stato:** identità matematiche e audit numerico sintetico [P]/[N]; calibrazione materiale Q6, dinamica fasonica, anarmonicità, convergenza Green–Kubo e applicazione acustica [O].
 
 
+### Precisazione T131 — decomposizione dello stress e correlazioni incrociate
+
+In T131, \(\mathrm{ph}\), \(\mathrm{pha}\) e \(\mathrm{int}\) indicano rispettivamente i contributi fononico, fasonico e d'interazione fonone–fasone. La somma dello stress è definita derivando ogni termine della stessa decomposizione Hamiltoniana rispetto alla medesima deformazione: \(\Pi^a_{ij}=-\partial H_a/\partial\varepsilon_{ij}\), e \(\Pi_{ij}=\sum_a\Pi^a_{ij}\). La correlazione totale contiene nove coppie ordinate \((a,b)\), comprese le autocorrelazioni del settore d'interazione e i sei termini incrociati. La ripartizione dei contributi individuali può dipendere dalla convenzione con cui si assegna l'energia d'interazione; la risposta totale non deve dipenderne.
+
+Con stress simmetrico in notazione di Voigt a sei componenti, tre settori producono 18 canali \((a,I)\) e una matrice di correlazione \(18\times18\), equivalentemente nove blocchi settore-settore ciascuno di dimensione \(6\times6\). La matrice \(3\times3\) descrive soltanto i settori per una coppia di componenti fissata.
+
+I termini incrociati sono nulli solo quando la misura d'equilibrio e le simmetrie lo impongono; la presenza di un Hamiltoniano d'interazione non li rende automaticamente tutti non nulli. Le parità temporali vanno trattate con Onsager–Casimir: per osservabili di parità \(\epsilon_a,\epsilon_b\), \(C_{ab}(t;\mathcal B)=\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B)\), con trasposizione degli indici tensoriali. Stress meccanico ordinario è normalmente pari sotto inversione temporale. Non si deduce che una singola correlazione sia dispari in \(t\) dalla sola differenza di parità.
+
+La parte simmetrica della risposta è quella dissipativa; una parte antisimmetrica può descrivere risposte Hall/giroscopiche non dissipative quando ammesse dalle simmetrie. Infine, il criterio numerico è il plateau dell'integrale temporale progressivo, non un plateau della correlazione: la correlazione deve decadere o avere una coda idrodinamica trattabile.
 ### Precisazione T131 — stress simmetrico, iperstress e risposta fasonica
 
 La decomposizione settoriale è definita da un'unica Hamiltoniana dichiarata,
