@@ -52,7 +52,7 @@ C_{hh'}(\tau)=
 \]
 The full \(64\times64\) matrix is retained: its diagonal records each site's variance and its off-diagonal entries record correlations between distinct hexagrams. Dependence on graph distance, Hamming distance and the lower/upper-line transition classes can be compared without replacing the 64 sites by eight trigram averages.
 
-Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix, with \(+1\) at each edge tail and \(-1\) at its head. Let \(G=\operatorname{diag}(g_e)\), \(g_e\geq0\), and let \(C_{\rm node}\) be a positive node-capacitance matrix. With
+Let \(B\in\mathbb R^{64\times192}\) be an oriented incidence matrix, with \(+1\) at each edge tail and \(-1\) at its head. Let \(G=\operatorname{diag}(g_e)\), \(g_e\geq0\), with each \(g_e\) assigned from \(g_-\) or \(g_+\) according to the lower/upper edge family in T099, and let \(C_{\rm node}\) be a positive node-capacitance matrix. With
 \[
 V(t)=C_{\rm node}^{-1}Q(t),\qquad
 j(t)=G B^\top V(t),
