@@ -1,10 +1,12 @@
 import importlib.util
 from pathlib import Path
 import pytest
+import sys
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "audit_t110_gp_zero_vortex.py"
 spec = importlib.util.spec_from_file_location("audit_t110_gp_zero_vortex", MODULE_PATH)
 module = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = module
 spec.loader.exec_module(module)
 
 @pytest.mark.parametrize("n", [8, 16, 32, 64, 128])
