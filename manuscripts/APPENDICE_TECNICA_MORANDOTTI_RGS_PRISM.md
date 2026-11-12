@@ -664,3 +664,14 @@ I test dedicati sono in `tests/test_morandotti_bfs_kkt.py`. Non dichiarare CI o 
 Il modulo BFS ora valuta le funzioni test e i loro gradienti nei punti di difetto e assembla i carichi di Burgers/Frank con la convenzione di segno già fissata nel dossier. È disponibile anche una regolarizzazione di core gaussiana, integrata sulla quadratura della mesh e normalizzata sul dominio unitario (quindi con troncamento al bordo esplicito). I test aggiunti trattano separatamente D1 (dislocazione) e D2 (disclinazione), oltre al confronto puntuale/core e al solve KKT sintetico.
 
 Questa gaussiana è una convenzione di prototipo, non va identificata automaticamente con il profilo di core del modello di Morandotti/Cesana. Prima del confronto energetico bisogna imporre la stessa mollificazione, la stessa normalizzazione e le stesse condizioni al bordo della formulazione di riferimento. D3 (dipolo), il raffinamento h/epsilon e il confronto Airy/CIP-DG restano aperti. I test sono stati aggiunti ma non eseguiti in CI: nessun esito CI viene dichiarato.
+
+
+## A.33. Q6: cariche dei singoli esagrammi, campi di circuito, moiré e correlazioni — 12 novembre 2026
+
+La nuova specifica autonoma è [Q6_HEXAGRAM_CHARGES_MOIRE_GREEN_KUBO.md](../docs/Q6_HEXAGRAM_CHARGES_MOIRE_GREEN_KUBO.md). Essa mantiene distinti: (i) i 64 stati e il complesso cubico esatto; (ii) gli osservabili di carica da definire per ciascun esagramma; (iii) i due campi del circuito e il loro campo relativo; (iv) winding/olonomie e sorgenti di difetto; (v) la dinamica e le correlazioni di tipo Green–Kubo.
+
+Il dato primario proposto è la tabella dei 64 valori di carica, non una media su classi che cancelli l'informazione dei singoli stati. Per due fasi reali globali, il campo relativo è un cobordo e soddisfa esattamente d1 d0=0; perciò non può avere winding non nullo su cicli chiusi. Per descrivere winding fisico occorre una formulazione S1-valued con unwrap/olonomia controllati. Le sorgenti traslazionali di Burgers e rotazionali di Frank restano distinte e devono essere collegate ai campi mediante una mappa derivata, non postulata.
+
+La specifica definisce inoltre una dinamica di transizione P sui 64 stati, una correlazione stazionaria e una convenzione discreta simmetrizzata per la correlazione integrata. L'interpretazione come coefficiente di trasporto richiede ancora la derivazione di risposta lineare, la scelta della corrente, la normalizzazione fisica e il controllo di sommabilità.
+
+**Classificazione:** conteggi Q6 e identità del complesso esatti; cariche, moiré e dinamica da definire/misurare; ponte verso Burgers/Frank aperto; legge costitutiva o di trasporto non dimostrata. Nessuna validazione sperimentale viene dichiarata.
