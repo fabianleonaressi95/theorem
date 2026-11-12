@@ -35,7 +35,17 @@ The 64 vertices are not merely labels for two collective trigram fields. Each in
 \[
 q_h(t),\qquad h=1,\ldots,64.
 \]
-Collect them into \(q(t)\in\mathbb R^{64}\). The model must state whether \(q_h\) is an electric charge, an effective/coarse-grained charge, or a dimensionless charge-like observable. The graph alone does not determine its numerical value or its physical units. That assignment is the central constitutive input to be measured or derived.
+Collect them into \(q(t)\in\mathbb R^{64}\). The proposed constitutive law is a map
+\[
+q:V(Q_6)\to\mathbb R,\qquad h\mapsto q(h),
+\]
+so that the individual six-bit hexagram determines its assigned charge. Whether \(q(h)\) is an electric charge, an effective/coarse-grained charge, or a dimensionless charge-like observable—and its units—must be specified by the physical model. The 64 labels provide the domain of this map; the numerical rule \(q(h)\) is the central law to derive or measure, not a value to invent.
+
+If the hexagram is occupied or sampled dynamically, introduce an occupation variable \(n_h(t)\) and the measured node charge
+\[
+Q_h(t)=q(h)n_h(t).
+\]
+For a multi-occupation circuit, \(n_h(t)\) may instead be a nonnegative occupation/number variable. Correlations are then computed from the observed \(Q_h(t)\). This separates the charge assigned to the hexagram from its time-dependent occupation.
 
 The primary equal-time and time-dependent correlation functions are
 \[
