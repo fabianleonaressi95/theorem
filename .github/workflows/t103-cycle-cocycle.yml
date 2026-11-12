@@ -32,6 +32,10 @@ jobs:
       - name: Run regression tests
         run: python -m pytest -q tests/test_t103_q6_z2_magnetic_holonomy.py tests/test_t103_cycle_cocycle.py
       - name: Run cycle-cocycle audit
+        env:
+          PYTHONPATH: .
         run: python scripts/audit_t103_cycle_cocycle.py
       - name: Run magnetic holonomy audit
+        env:
+          PYTHONPATH: .
         run: python scripts/audit_t103_q6_z2_magnetic_holonomy.py

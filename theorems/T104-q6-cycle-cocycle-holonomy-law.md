@@ -172,3 +172,8 @@ C^1(X)/\operatorname{im}\delta_0
 \]
 Consequently \(\ker\delta_2\) is identified with \(Z_1(G)^*\) by composition of these two canonical isomorphisms. This avoids conflating graph cycles, graph cocycles/cuts, and cubical cocycles.
 
+
+
+## 8. CI execution record — 12 November 2026
+
+[GitHub Actions run #43245722504](https://github.com/fabianleonaressi95/theorem/actions/runs/43245722504) completed successfully: 11 T103/T104 regression tests passed; the cycle-cocycle audit returned cycle rank 129, cocycle rank 63, and H1=0. These checks certify the finite F2 chain/cochain computation, not a physical measurement map.
