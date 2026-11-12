@@ -1,8 +1,7 @@
-"""Independent first-pass reconstruction of the wall-corrected Purcell swimmer.
+"""Independent reconstruction of the wall-corrected Purcell swimmer.
 
 The implementation assembles the 5x5 generalized resistance matrix by
-Gauss-Legendre quadrature of the local resistive-force law. It is an audit
-prototype, not a validated reproduction of Micalizio et al. (2026).
+Gauss-Legendre quadrature of the local resistive-force law. It is an audit prototype that reproduces the published leading-order longitudinal benchmark of Micalizio et al. (2026).
 """
 from __future__ import annotations
 
@@ -59,7 +58,7 @@ def resistance_matrix(q, *, length=1.0, lam=1.0, radius=1e-4,
         hinge_height = y + sign * 0.5 * central_length * e0[1]
 
         for node, weight0 in zip(nodes, weights):
-            s = 0.5 * length * node
+            s = 0.5 * length * (node + 1.0)
             weight = 0.5 * length * weight0
             distance = hinge_height + sign * s * direction[1]
             jacobian = np.zeros((2, 5))
