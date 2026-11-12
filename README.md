@@ -375,9 +375,9 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 ### T101 — Trigram angular phases and Q6 plaquette holonomy
 
-- [T101 theorem record](theorems/T101-trigram-angular-phases-q6-plaquette-holonomy.md) starts from eight measured trigram phases, constructs the 64 ordered lower/upper pairs on a two-torus, and tests antipodal complementarity against the opposite point on each circle.
-- The exact combinatorial audit enumerates all 192 Q6 edges and 240 square plaquettes, reporting complement residuals, the 64 complementary displacements, phase increments, and plaquette branch windings. See [audit script](scripts/audit_t101_trigram_phase_holonomy.py) and [tests](tests/test_t101_trigram_phase_holonomy.py).
-- **Critical identifiability boundary:** endpoint phase differences form a pure-gauge U(1) connection, so every plaquette holonomy is exactly trivial. A nonzero principal-branch winding is not, by itself, a disclination. Frank holonomy requires independent local-frame link transport; Burgers data require a spatial embedding and translational registration. No physical defect is inferred from eight phases alone.
+- [T101 theorem record](theorems/T101-trigram-angular-phases-q6-plaquette-holonomy.md) starts from measured phases of all eight trigrams on each of two opposite circles, registers their angular frames, and compares each trigram with its linewise complement on the other circle. It constructs both 64-point Q6 layers on paired two-tori.
+- The exact combinatorial audit enumerates all 192 Q6 edges and 240 square plaquettes per layer, reporting the eight cross-circle trigram residuals, all 64 complementary-hexagram mismatches, phase increments, and plaquette holonomies. See [audit script](scripts/audit_t101_trigram_phase_holonomy.py) and [tests](tests/test_t101_trigram_phase_holonomy.py).
+- **Critical identifiability boundary:** endpoint phase differences within either layer form a pure-gauge U(1) connection, so every plaquette holonomy is exactly trivial. Cross-circle complement mismatch is measured separately. Frank holonomy requires independent local-frame link transport; Burgers data require spatial embedding and translational registration.
 
 ### T100 — Hypercube–moiré response, Green–Kubo transport, and geometric defects
 
