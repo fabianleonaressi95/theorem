@@ -865,3 +865,14 @@ La deformazione fasonica \(w_{ij}\) ha un proprio stress coniugato \(\Pi^w_{ij}=
 La correlazione totale contiene le nove coppie ordinate di settori. I contributi individuali dipendono dalla partizione dichiarata dell'energia d'interazione, mentre lo stress totale resta invariato se la somma Hamiltoniana e la sua variazione sono mantenute fisse. Le relazioni di reciprocità seguono Onsager–Casimir con inversione dei campi dispari temporali; non si deduce la disparità temporale di una singola correlazione incrociata dalla sola differenza di parità degli osservabili.
 
 Per Green–Kubo, il plateau riguarda l'integrale progressivo, non la correlazione. Una coda \(t^{-3/2}\) in tre dimensioni è integrabile con errore di troncamento \(O(t_{\max}^{-1/2})\); una coda \(t^{-1}\) in due dimensioni produce una divergenza logaritmica. Queste leggi richiedono modi lenti diffusivi con rilassamento proporzionale a \(k^2\): l'esponente Q6–PRISM resta aperto finché non è derivata la dinamica dei modi fononici, fasonici e misti.
+
+
+## Addendum — T132: benchmark accoppiato fonone–fasone
+
+Il record [T132](../theorems/T132-coupled-phonon-phason-ou-green-kubo.md) introduce un sistema gaussiano reversibile a due coordinate \(q=(u,w)\), con Hessiana definita positiva e accoppiamento non nullo. La dinamica di Ornstein–Uhlenbeck possiede una covarianza d'equilibrio esatta e un propagatore noto. Per tre osservabili quadratiche dichiarate — contributo fononico, fasonico e d'interazione — l'identità di Wick fornisce analiticamente le nove correlazioni ordinate:
+\[
+C_{ab}(t)=\frac12\operatorname{tr}[S_aE(t)S_bE(t)^T].
+\]
+La somma dei nove blocchi coincide con la correlazione dello stress totale; a campo nullo la matrice dei blocchi è reciproca. Un simulatore OU a passo esatto confronta la covarianza empirica con quella analitica senza introdurre l'errore di discretizzazione di Euler–Maruyama.
+
+**Limite essenziale:** il bagno OU e le matrici sintetiche sono ipotesi di benchmark, non un modello di scattering fononico, di flip fasonici o di rilassamento anarmonico calibrato. Il coefficiente integrato è quindi un risultato del modello matematico, non una viscosità materiale. Restano aperte la derivazione comune di Hessiana e stress da un'Hamiltoniana Q6/materiale, la cinematica e la cinetica fasonica, la corrente microscopica e la convergenza fisica. Le sei direzioni Q6 non vengono isotropizzate.

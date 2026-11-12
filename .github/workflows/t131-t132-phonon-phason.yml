@@ -1,0 +1,41 @@
+name: T131-T132 phonon-phason transport audit
+
+on:
+  push:
+    paths:
+      - "theorems/T131-q6-phonon-phason-green-kubo-transport.md"
+      - "theorems/T132-coupled-phonon-phason-ou-green-kubo.md"
+      - "audits/phonon_phason/**"
+      - "tests/test_t131_phonon_phason_kubo.py"
+      - "tests/test_t132_coupled_ou_green_kubo.py"
+      - ".github/workflows/t131-t132-phonon-phason.yml"
+  pull_request:
+    paths:
+      - "theorems/T131-q6-phonon-phason-green-kubo-transport.md"
+      - "theorems/T132-coupled-phonon-phason-ou-green-kubo.md"
+      - "audits/phonon_phason/**"
+      - "tests/test_t131_phonon_phason_kubo.py"
+      - "tests/test_t132_coupled_ou_green_kubo.py"
+      - ".github/workflows/t131-t132-phonon-phason.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phonon-phason-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install audit dependencies
+        run: python -m pip install numpy pytest
+      - name: Compile phonon-phason audit modules
+        run: |
+          python -m compileall -q audits/phonon_phason
+      - name: Run T131 and T132 tests
+        run: |
+          python -m pytest -q \
+            tests/test_t131_phonon_phason_kubo.py \
+            tests/test_t132_coupled_ou_green_kubo.py
