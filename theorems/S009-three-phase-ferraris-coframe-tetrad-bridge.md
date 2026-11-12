@@ -307,7 +307,7 @@ Its square is
 T^2=\begin{pmatrix}0&2\\-2&0\end{pmatrix}
 =2R_{-\pi/2}.
 \]
-Thus two Kathara stages produce a clockwise quarter-turn and a length doubling. In complex notation (T:z\mapsto(1-i)z), so $T^2:z\mapsto-2iz$. The scale-normalized quarter-turn is $R_{-\pi/2}$, represented in the spin double cover by
+Thus two Kathara stages produce a clockwise quarter-turn and a length doubling. In complex notation $T:z\mapsto(1-i)z$, so $T^2:z\mapsto-2iz$. The scale-normalized quarter-turn is $R_{-\pi/2}$, represented in the spin double cover by
 \[
 q_{-90}=\frac{1-\mathbf k}{\sqrt2},
 \qquad q_{-90}^2=-\mathbf k,\quad
@@ -332,14 +332,14 @@ The source chain to be tested is
 \longrightarrow \text{operator commutators and leakage}
 \longrightarrow \text{coframe/connection variation}.
 \]
-For the actual 188D representation, construct the lifted action (\rho(q)\) from the archived representation matrices and calculate
+For the actual 188D representation, construct the lifted action $\rho(q)$ from the archived representation matrices and calculate
 \[
 [ K_{\rm field},\rho(q)],\qquad
 $I-J_0J_0^T$K_{\rm field}J_0,
 \qquad
 J_0^T K_{\rm field}^{+}J_0.
 \]
-The first tests equivariance, the second measures mode leakage, and the third is the response observable. No numerical value for the commutator with (\rho(q)\) is asserted until the actual representation matrix is recovered and the calculation is run.
+The first tests equivariance, the second measures mode leakage, and the third is the response observable. No numerical value for the commutator with $\rho(q)$ is asserted until the actual representation matrix is recovered and the calculation is run.
 
 Only after this step may a coframe $e^a$, a connection choice $\omega^a{}_b$, and the Cartan expression
 \[
@@ -356,6 +356,6 @@ in its documented conventions. This is an axial, algebraic torsion sourced by th
 - **Exact algebra:** Kathara planar similarity $T^TT=2I$, $T^2=2R_{-\pi/2}$, and the stated quaternionic lift identities.
 - **Numerically reported:** the two compressed RGS observables, triplet leakage and invariance residuals quoted above; reproducibility still requires matching input hashes, commit, command and dependency versions.
 - **Candidate:** the induced Kathara/quaternionic action on the selected RGS triplet and its coupling to the coframe.
-- **Open:** representation matrix (\rho(q)\), commutator audit, coframe embedding, full connection variation, and any electromagnetic-to-torsion constitutive law.
-- **Retracted as an RGS claim:** the previous external $Q=\operatorname{diag}(q,-q,0)$\) source model and its $2\Omega_{\rm el}$ prediction. It remains only a conditional toy model for an independently anisotropic material medium.
+- **Open:** representation matrix $\rho(q)$, commutator audit, coframe embedding, full connection variation, and any electromagnetic-to-torsion constitutive law.
+- **Retracted as an RGS claim:** the previous external $Q=\operatorname{diag}(q,-q,0)$ source model and its $2\Omega_{\rm el}$ prediction. It remains only a conditional toy model for an independently anisotropic material medium.
 
