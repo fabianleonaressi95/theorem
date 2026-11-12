@@ -6,6 +6,10 @@ import json
 from collections import deque
 from pathlib import Path
 import argparse
+import sys
+
+# Make the repository root importable when this file is executed as a script.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from scripts.audit_t103_q6_z2_magnetic_holonomy import (
     cells, q6_edges, plaquette_edge_indices, gf2_rank, boundary_columns,
