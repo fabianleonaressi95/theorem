@@ -51,7 +51,9 @@ def test_complement_mismatch_winding_detects_a_phase_vortex():
     records = mismatch_plaquette_audit(plus, minus)
     assert len(records) == 240
     hits = [r for r in records if r["winding_number"] == 1]
-    assert len(hits) == 8  # same lower-trigram face, for each upper trigram
+    assert len(hits) == 16  # one positive-winding face per trigram factor, repeated over the other factor
+    negative = [r for r in records if r["winding_number"] == -1]
+    assert len(negative) == 16
     assert all(r["candidate_phase_vortex"] for r in hits)
 
 
