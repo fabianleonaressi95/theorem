@@ -1,0 +1,30 @@
+name: T107 Gray-torus Gibbs and FDT audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "theorems/T107-q6-gray-torus-gibbs-fdt-defect-test.md"
+      - "scripts/audit_t107_gray_torus_gibbs_fdt.py"
+      - "tests/test_t107_gray_torus_gibbs_fdt.py"
+      - "scripts/q6_prism_kinematic_map.py"
+      - ".github/workflows/t107-gray-torus-gibbs-fdt.yml"
+  pull_request:
+    paths:
+      - "theorems/T107-q6-gray-torus-gibbs-fdt-defect-test.md"
+      - "scripts/audit_t107_gray_torus_gibbs_fdt.py"
+      - "tests/test_t107_gray_torus_gibbs_fdt.py"
+      - "scripts/q6_prism_kinematic_map.py"
+      - ".github/workflows/t107-gray-torus-gibbs-fdt.yml"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy pytest
+      - run: python scripts/audit_t107_gray_torus_gibbs_fdt.py
+      - run: python -m pytest -q tests/test_t107_gray_torus_gibbs_fdt.py
