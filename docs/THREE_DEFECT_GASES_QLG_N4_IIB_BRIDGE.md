@@ -1,4 +1,4 @@
-# Three defect gases and the QLG–RGS–\u2115=4 SYM–IIB bridge
+# Three defect gases and the QLG–RGS–N=4 SYM–IIB bridge
 
 **Date:** 12 November 2026  
 **Status:** research specification; exact lattice identities are separated from RG approximations, finite-size estimators, and open physical identifications.  
