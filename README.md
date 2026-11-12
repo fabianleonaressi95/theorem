@@ -493,3 +493,12 @@ A separate critical appendix integrates S. P. Ratti's supplied primary-document 
 
 - [T100](theorems/T100-hypercube-moire-green-kubo-defects.md) treats the 64 individual hexagrams as charge-bearing degrees of freedom: node charges and their pair/time correlations are primary; edge currents encode charge transfer; graph-mode and spatial structure factors test for emergent moiré order; Green–Kubo and Burgers/Frank diagnostics are built from the corresponding dynamical and spatial data.
 - **Evidence boundary:** Q6 graph identities are inherited from T099. The charge assignment and its physical units, equilibrium noise/FDT model, mode-to-space embedding, transport validation, and extraction of dislocations/disclinations remain to be derived or measured. The graph Green operator is distinct from the Green–Kubo correlation integral.
+
+
+## Unified programme update — 12 November 2026
+
+The canonical integration is maintained **inside the 27-chapter monograph**, not as a parallel theory: [Chapter 27 — unified RGS–PSU–PRISM–Q6–QLG programme](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md#chapter-27--una-teoria-unitaria-requisiti-minimi-e-ordine-di-lavoro). Its sections 27.5–27.9 integrate the Morandotti Frank–Burgers chain (T091–T099), the 64-hexagram charge/moiré and FDT chain (T100–T107), the Boolean influence records (T108–T109), KTHNY melting theory, and the toroidal compactification / S-duality interface of \(\\mathcal N=4\\) SYM.
+
+**The unifying route:** Q6/PRISM cellular geometry → cochains and holonomies → calibrated phase/charge fields → Frank/Burgers defects → Morandotti elasticity → equilibrium correlations/FDT/Green–Kubo → KTHNY defect-unbinding RG. The \(\\mathcal N=4\\) SYM branch meets this route through toroidal compactification and momentum/winding charge lattices; the matching map is explicitly an open problem.
+
+The finite cubical supersymmetry in T102 is **not** identified with \(\\mathcal N=4\\) SYM. No direct identification is made between Wilson–'t Hooft charges and Burgers/Frank charges. The note [KTHNY_N4_SYM_RGS_PRISM.md](docs/KTHNY_N4_SYM_RGS_PRISM.md) is a subordinate literature/technical appendix; the monograph and theorem records remain canonical.
