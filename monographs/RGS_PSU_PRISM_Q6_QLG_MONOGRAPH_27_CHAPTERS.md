@@ -785,3 +785,12 @@ Il record T128 separa il riferimento continuo dal possibile modello discreto Q6.
 La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\), è conservata in \texttt{audits/purcell\_swimmer\_wall/}. Dopo aver corretto l'intervallo di arclunghezza delle aste esterne, essa restituisce \(\Delta x/\xi^2\simeq0.06172485\) per \(\xi=10^{-3}\), avvicinandosi al valore pubblicato \(5/81\simeq0.0617284\). I campi iniziali di controllo coincidono inoltre con quelli analitici riportati nell'articolo. Il benchmark numerico principale è riprodotto; questo non equivale alla dimostrazione indipendente del teorema di controllabilità.
 
 **Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
+
+
+## T129 — Ostacolo di equivarianza e mappa calibrata Q6–Purcell
+
+La proiezione interna aurea già recuperata in RGS–PSU fornisce \(P_\perp:\mathbb R^6\to E_\perp\simeq\mathbb R^3\), con i sei assi del cut-and-project e tutti i 192 archi Q6. T129 dimostra, sotto l'azione irriducibile standard di \(A_5\), che non esiste una mappa lineare non nulla globalmente \(A_5\)-equivariante dal 3-spazio interno a uno spazio reale bidimensionale dei controlli. Il dato aureo da solo non seleziona quindi i due giunti del nuotatore.
+
+Viene costruita la famiglia calibrata \(\Phi_{B,\kappa}(v)=\kappa B P_\perp(v-\frac12\mathbf1)\bmod 2\pi\), dove \(B\) è un 2-frame ortonormale interno e \(\kappa\) una scala angolare. Tutte le sei direzioni Q6 contribuiscono ai due controlli; \(B\) e \(\kappa\) restano parametri da derivare dalla geometria indipendente del nuotatore e della parete. Per ogni arco si calcola inoltre un trasporto locale \(SE(2)\) mediante la connessione continua T128 valutata al punto medio della variazione di forma.
+
+**Classificazione:** ostacolo di rappresentazione [P, sotto ipotesi esplicite]; mappa e trasporti finiti [N/C]; calibrazione fisica, propagazione globale, olonomia e convergenza sotto raffinamento [O]. Non è ancora dimostrato un nuotatore Q6 fisicamente completo.
