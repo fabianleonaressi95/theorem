@@ -86,6 +86,26 @@ def analyze_measured_vector(values):
         }
     return out
 
+def net_polarity_charge(h, q0=1.0):
+    """Candidate q(h)=q0*sum_a epsilon_a, epsilon=+1 for bit 1, -1 for bit 0."""
+    if not 0 <= h < N: raise ValueError("label must lie in {0,...,63}")
+    return q0 * (2*h.bit_count() - 6)
+
+def net_polarity_degeneracies():
+    """Return charge levels in units q0 and their exact multiplicities."""
+    import math
+    return {str(2*k-6): math.comb(6,k) for k in range(7)}
+
+def net_polarity_random_walk_correlation(tau, rate, q0=1.0):
+    """Autocorrelation for one uniformly stationary walker, each bit flips at rate."""
+    import math
+    if tau < 0 or rate < 0: raise ValueError("tau and rate must be nonnegative")
+    return 6.0 * q0*q0 * math.exp(-2.0*rate*abs(tau))
+
+def net_polarity_commutator_frobenius(q0=1.0):
+    """||[diag(q), L(Q6)]||_F, with L the unweighted graph Laplacian."""
+    return 16.0 * (6.0 ** 0.5) * abs(q0)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--charges", type=Path,
