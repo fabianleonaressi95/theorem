@@ -19,7 +19,7 @@ def test_q6_has_240_elementary_square_plaquettes():
 
 
 def test_antipodal_complement_fixture_is_exact():
-    phases = [2 * math.pi * t / 8 for t in range(8)]
+    phases = [0.0, 0.2, 0.4, 0.6, 0.6 + math.pi, 0.4 + math.pi, 0.2 + math.pi, math.pi]
     residuals = complement_residuals(phases)
     assert max(abs(x) for x in residuals) < 1e-12
     for displacement in complement_displacements(phases):
