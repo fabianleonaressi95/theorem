@@ -57,7 +57,7 @@ def polarization_weights(mode, propagation_direction):
     return {"longitudinal": longitudinal, "transverse": 1.0 - longitudinal}
 
 
-def green_kubo_stress(stress, dt, temperature, volume, *, max_lag=None):
+def green_kubo_stress(stress, dt, temperature, volume, *, max_lag=None, boltzmann_constant=1.380649e-23):
     """Estimate finite-window viscosity from sampled extensive stress.
 
     stress has shape (n_samples,) or (n_samples, n_components). The returned
@@ -78,6 +78,8 @@ def green_kubo_stress(stress, dt, temperature, volume, *, max_lag=None):
         raise ValueError("dt and temperature must be finite and positive")
     if not np.isfinite(volume) or volume <= 0:
         raise ValueError("volume must be finite and positive")
+    if not np.isfinite(boltzmann_constant) or boltzmann_constant <= 0:
+        raise ValueError("boltzmann_constant must be finite and positive")
     n = values.shape[0]
     if max_lag is None:
         lag = n - 1
@@ -89,8 +91,8 @@ def green_kubo_stress(stress, dt, temperature, volume, *, max_lag=None):
     corr = np.empty((lag + 1, values.shape[1], values.shape[1]), dtype=float)
     for j in range(lag + 1):
         corr[j] = centered[j:].T @ centered[:n-j] / (n-j)
-    integral = np.trapezoid(corr, dx=float(dt), axis=0)
-    viscosity = integral / (8.617333262145e-5 * temperature * volume)
+    integral = float(dt) * (0.5 * corr[0] + corr[1:-1].sum(axis=0) + 0.5 * corr[-1])
+    viscosity = integral / (boltzmann_constant * temperature * volume)
     if scalar:
         return {"correlation": corr[:, 0, 0], "integral": float(integral[0, 0]),
                 "viscosity": float(viscosity[0, 0]), "max_lag": lag}
