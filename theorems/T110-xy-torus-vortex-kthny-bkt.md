@@ -153,4 +153,4 @@ The implementation is an auditable baseline, not an optimized production Monte C
 3. A. P. Young, “Melting and the vector Coulomb gas in two dimensions,” *Phys. Rev. B* 19 (1979), 1855. DOI: 10.1103/PhysRevB.19.1855.
 4. P. Minnhagen, “The two-dimensional Coulomb gas, vortex unbinding, and superfluid-superconducting films,” *Rev. Mod. Phys.* 59 (1987), 1001. DOI: 10.1103/RevModPhys.59.1001.
 5. P. Olsson, “Effective vortex interaction in the two-dimensional XY model,” *Phys. Rev. B* 46 (1992), 14598. DOI: 10.1103/PhysRevB.46.14598.
-6. T. S. Monteiro et al., “Vortex loops in the three-dimensional XY model,” use the repository's linked dual-lattice loop-tracing reference for implementation details.
+6. F. James, *Complex Langevin dynamics as a cure for the sign problem*, PhD thesis, Swansea University (2012), Chapter 4.4, “Vortex loops” (dual-lattice loop tracing; the thesis also studies the 3D XY model).
