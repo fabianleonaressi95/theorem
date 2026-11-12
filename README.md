@@ -375,9 +375,10 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 ### T103 — Q6 Z2 magnetic holonomy and twisted heat trace
 
-- [T103 theorem record](theorems/T103-q6-z2-magnetic-holonomy.md) defines Z2 link variables on the 192 Q6 edges, gauge transformations, all 240 plaquette fluxes, and the magnetic graph Laplacian.
-- The exact cubical audit verifies cell counts (64, 192, 240, 160), boundary ranks (63, 129, 111), the 111 independent 3-cell flux constraints, and the (2^{129}) gauge classes. The plaquette-flux map is injective on gauge classes; a flat connection is gauge-trivial on the contractible cube.
-- [Audit script](scripts/audit_t103_q6_z2_magnetic_holonomy.py) and [regression tests](tests/test_t103_q6_z2_magnetic_holonomy.py) compute spectra and heat traces for a finite representative set and check gauge invariance. **Exhaustive enumeration of all gauge classes is not attempted.** No supersymmetry in the curved sector, physical hexagram-charge map, continuum limit, or induced-gravity claim is made.
+- [T103 theorem record](theorems/T103-q6-z2-magnetic-holonomy.md) defines Z2 link variables on the 192 Q6 edges, vertex gauge transformations, 240 plaquette fluxes, and the magnetic graph Laplacian.
+- Exact cubical ranks: boundary ranks (63, 129, 111); 111 independent 3-cell flux constraints; (2^{129}) gauge classes.
+- Cycle/cocycle audit: a 129-element fundamental cycle basis, a 63-element vertex-cut cocycle basis, orthogonality over F2, square boundaries spanning the cycle space, and (H_1=H^1=0).
+- [Magnetic audit](scripts/audit_t103_q6_z2_magnetic_holonomy.py), [cycle/cocycle audit](scripts/audit_t103_cycle_cocycle.py), and their regression tests compute representative spectra and verify the exact finite-complex identities. **Exhaustive enumeration of all gauge classes is not attempted.** No physical hexagram-charge map, curved-sector supersymmetry, continuum limit, or induced-gravity claim is made.
 
 ### T101 — Trigram angular phases and Q6 plaquette holonomy
 
