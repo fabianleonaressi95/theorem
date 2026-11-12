@@ -22,3 +22,19 @@ def test_quadrature_refinement_and_published_leading_coefficient():
     dx64 = (q64[0] - initial[0]) / amplitude**2
     assert abs(dx64 - dx32) < 1e-9
     assert abs(dx64 - 5.0 / 81.0) < 1e-4
+
+
+def test_initial_control_fields_match_published_values():
+    q = np.array([0.0, 1e-2, 0.0, 0.0, 0.0])
+    resistance = resistance_matrix(q, quadrature_order=64)
+    expected = (
+        np.array([0.0, 1.0 / 6.0, -7.0 / 27.0, 1.0, 0.0]),
+        np.array([0.0, -1.0 / 6.0, -7.0 / 27.0, 0.0, 1.0]),
+    )
+    for index, control in enumerate(((1.0, 0.0), (0.0, 1.0))):
+        body = np.linalg.solve(
+            resistance[:3, :3],
+            -resistance[:3, 3:] @ np.asarray(control),
+        )
+        field = np.concatenate((body, np.asarray(control)))
+        assert np.allclose(field, expected[index], atol=1e-10)
