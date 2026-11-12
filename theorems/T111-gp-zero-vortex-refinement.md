@@ -35,7 +35,17 @@ This is a geometric cell-localization bound, not a convergence theorem for arbit
 
 The implementation scripts/audit_t110_gp_zero_vortex.py evaluates sizes 8, 16, 32, 64, 128, checks that exactly one unit-positive plaquette is detected, and reports the localization error and refinement ratios. Tests are in tests/test_t110_gp_zero_vortex.py.
 
-## 4. Acceptance criteria and limitations
+## 4. Three-dimensional straight-filament control
+
+Extrude the same order parameter independently of a periodic coordinate \(z\):
+\[
+\psi(x,y,z)=((x-x_0)+i(y-y_0))e^{-2((x-x_0)^2+(y-y_0)^2)}.
+\]
+Its zero set is a straight line winding around the periodic \(z\)-direction. The \(xy\)-plaquette winding is copied along \(z\), producing a unit dual \(z\)-link flux at each layer; the other two plaquette orientations vanish. Since this flux is independent of \(z\), the discrete dual divergence is exactly zero. The script checks this on a \(32\times32\times8\) extrusion and reports eight unit-flux dual links.
+
+This is a controlled straight-line geometry, not a general 3D GP simulation or a reconnection test.
+
+## 5. Acceptance criteria and limitations
 
 **Accepted by the manufactured benchmark if:**
 1. exactly one plaquette has nonzero charge on every tested grid;
@@ -44,7 +54,7 @@ The implementation scripts/audit_t110_gp_zero_vortex.py evaluates sizes 8, 16, 3
 
 **Not established here:** a stationary or dynamically evolved GP solution; matching on arbitrary GP configurations; 3D dual-link flux matching to filament geometry; reconnection rates, helicity transfer, Kelvin-wave spectra, turbulence; or a Q6/QLG-to-GP continuum map.
 
-## 5. Next physical validation gate
+## 6. Next physical validation gate
 
 Solve the dimensionless time-dependent GP equation on periodic 2D/3D grids, extract phase winding and density minima independently, and compare their locations under refinement. In 3D, convert all three oriented plaquette fields to T110 dual-link flux and check exact divergence closure. Study reconnection only after static identification and the time integrator's conservation/error budget are validated.
 
