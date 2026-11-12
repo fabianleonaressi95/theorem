@@ -306,3 +306,148 @@ A calculation is accepted only with (i) definitions and normalization, (ii) deri
 - A. P. Young, “Melting and the vector Coulomb gas in two dimensions,” *Phys. Rev. B* 19 (1979), 1855. DOI: 10.1103/PhysRevB.19.1855.
 - J. Maldacena, “The Large N Limit of Superconformal Field Theories and Supergravity,” *Adv. Theor. Math. Phys.* 2 (1998), 231–252. DOI: 10.1023/A:1026654312961.
 - A. Kapustin, “Wilson–'t Hooft operators in four-dimensional gauge theories and S-duality,” *Phys. Rev. D* 74 (2006), 025005. DOI: 10.1103/PhysRevD.74.025005.
+
+
+---
+
+## VI. New physical bridge — QHD, quantum vortex flux, classical fluids and MHD
+
+This section makes explicit the physical route suggested by the vortex-flux sector. It distinguishes three meanings that are often all called “quantum hydrodynamics”:
+
+1. **QHD of a neutral condensate/superfluid**, obtained from a complex order parameter (Gross–Pitaevskii/Madelung description);
+2. **quantum-corrected charged-fluid/plasma models**, in which Bohm-type terms enter species momentum equations coupled to Maxwell fields and a generalized Ohm law;
+3. **MHD**, a classical or extended continuum theory for conducting fluids/plasmas.
+
+They share conservation and transport structures, but they are not the same equations.
+
+### VI1. Neutral quantum fluid: Madelung equations and quantized circulation
+
+For a dilute condensate in the Gross–Pitaevskii regime,
+\[
+i\hbar\partial_t\psi=
+\left[-\frac{\hbar^2}{2m}\nabla^2+V+g|\psi|^2\right]\psi.
+\]
+Set \(\psi=\sqrt n\,e^{iS/\hbar}\), and define \(\mathbf v=\nabla S/m\). Away from zeros of \(\psi\), the equations are
+\[
+\partial_t n+\nabla\cdot(n\mathbf v)=0,
+\]
+\[
+m(\partial_t\mathbf v+\mathbf v\cdot\nabla\mathbf v)
+=-\nabla(V+gn+Q),\qquad
+Q=-\frac{\hbar^2}{2m}\frac{\nabla^2\sqrt n}{\sqrt n}.
+\]
+The term \(Q\) is the quantum-pressure/Bohm potential. It regularizes vortex cores and participates in nucleation, sound emission and reconnection dynamics.
+
+Because the phase is single-valued modulo \(2\pi\), for a loop avoiding zeros of \(\psi\),
+\[
+\Gamma=\oint_C\mathbf v\cdot d\boldsymbol\ell
+=\frac{h}{m}\,w,\qquad w\in\mathbb Z.
+\]
+Thus the vorticity vanishes classically in smooth simply connected regions but is distributionally supported on quantized vortex filaments:
+\[
+\boldsymbol\omega=\nabla\times\mathbf v
+=\kappa\sum_a n_a\int
+\delta^{(3)}(\mathbf x-\mathbf X_a(s))\,
+\mathbf X'_a(s)\,ds,
+\qquad \kappa=h/m.
+\]
+This is the continuum counterpart of the integer dual-flux lines measured by T110 in 3D XY, provided the lattice phase field is interpreted as the phase of an order parameter. T110 alone does not supply the density field, quantum pressure, or GP dynamics; those are the next QHD layer.
+
+### VI2. The exact analogy with Euler and the qualified bridge to MHD
+
+For an inviscid barotropic classical fluid, the vorticity equation has the transport form
+\[
+\partial_t\boldsymbol\omega
+=\nabla\times(\mathbf u\times\boldsymbol\omega)
+\]
+(with baroclinic and other source terms added when the assumptions fail). For ideal MHD,
+\[
+\partial_t\mathbf B
+=\nabla\times(\mathbf u\times\mathbf B),
+\qquad \nabla\cdot\mathbf B=0.
+\]
+These equations have the same Lie-advection structure: vorticity flux in ideal barotropic flow and magnetic flux in ideal MHD are transported by the fluid velocity. Kelvin's circulation theorem and Alfvén's frozen-in-flux theorem are related geometric conservation statements.
+
+But the transported objects differ:
+- \(\boldsymbol\omega\) is curl of velocity;
+- \(\mathbf B\) is magnetic induction governed by Maxwell equations and Ohm's law;
+- a superfluid vortex is a singular, quantized defect of the phase field.
+
+The ideal-MHD induction equation is only the large-magnetic-Reynolds-number, ideal-Ohm-law limit. Resistivity, Hall terms, electron inertia, pressure anisotropy and kinetic effects can change magnetic topology. Likewise, quantum vortex lines can reconnect because the condensate density vanishes at their cores and the smooth-fluid hypotheses behind Kelvin's theorem fail there. Reconnection is therefore a particularly useful comparison problem, not proof that the two systems are identical.
+
+### VI3. Direct electromagnetic coupling: charged condensates and flux tubes
+
+A direct identification between phase vortices and magnetic flux tubes is available only in a charged condensate/superconductor. For charge \(q\), the gauge-covariant phase gradient is
+\[
+\mathbf v_s=\frac1m(\hbar\nabla\theta-q\mathbf A).
+\]
+Single-valuedness gives, around a contour outside the core,
+\[
+m\oint\mathbf v_s\cdot d\boldsymbol\ell
++q\Phi_B=nh.
+\]
+In the London limit where the supercurrent circulation term is negligible sufficiently far from an isolated type-II vortex, the flux is quantized:
+\[
+\Phi_B=n\Phi_0,\qquad \Phi_0=h/|q|.
+\]
+For Cooper pairs, \(|q|=2e\). Abrikosov vortices are therefore actual magnetic-flux tubes, unlike neutral-superfluid vortices. Their lattice elasticity, pinning, creep and reconnection/entry processes provide a concrete materials bridge to hysteresis and industrially relevant magnetic response.
+
+### VI4. Quantum-hydrodynamic plasmas
+
+For a charged multi-species plasma, the QHD layer must instead start from species continuity and momentum equations, for example
+\[
+\partial_t n_s+\nabla\cdot(n_s\mathbf u_s)=0,
+\]
+\[
+m_sn_s(\partial_t+\mathbf u_s\cdot\nabla)\mathbf u_s
+=q_sn_s(\mathbf E+\mathbf u_s\times\mathbf B)
+-\nabla p_s+n_s\mathbf F_{Q,s}+\mathbf R_s,
+\]
+coupled to Maxwell equations and a derived generalized Ohm law. \(\mathbf F_{Q,s}\) may contain a Bohm quantum force, while \(\mathbf R_s\) contains collisions or interspecies momentum exchange. Hall, electron-inertia, resistive and pressure-tensor terms must be retained or dropped by explicit scale ordering. A neutral GP condensate is not a substitute for this plasma closure.
+
+### VI5. Common geometric language: fluxes, complexes and defects
+
+The common mathematical object is a flux form/current with a conservation law, not a universal “vortex = magnetic line” identity.
+
+- In continuum language: divergence-free fluxes, circulation, helicity, linking and transport by a flow map.
+- In discrete language: integer-valued primal/dual cochains, incidence operators, boundary/coboundary identities, and a discrete Bianchi/closure constraint.
+- In Q6/QLG: candidate observables are cycle/cocycle classes, holonomies and transported fluxes. A chain map must preserve the boundary operator; a connection map must preserve parallel transport up to gauge transformation.
+- In RGS/PRISM: compare the measured dual-flux network with continuum vortex-filament statistics and, separately, with magnetic-flux-tube networks. Do not collapse their charge units or dynamics.
+
+A useful cross-domain observable set is:
+\[
+\{\text{flux},\ \text{circulation},\ \text{helicity/linking},\
+\text{winding/homology},\ \text{reconnection rate},\
+\text{energy spectrum},\ \text{transport coefficients}\}.
+\]
+Each observable needs its own units, normalization, conservation assumptions and measurement map.
+
+### VI6. New computational programme
+
+1. **QHD benchmark:** implement the 2D/3D GP equation with density and phase; verify mass conservation, energy conservation in the Hamiltonian regime, circulation quantization, vortex-core profiles and reconnection events.
+2. **T110 bridge:** compare integer plaquette/dual-link fluxes with zeros and phase winding of the GP order parameter under refinement; quantify the error in vortex position, line length and homology.
+3. **Euler/MHD comparison:** implement the vorticity and induction equations on the same periodic geometry; verify Kelvin/Alfvén invariants in their ideal regimes and quantify their breakdown under viscosity/resistivity or singular reconnection layers.
+4. **Charged-condensate benchmark:** implement the gauge-coupled GL/London model; verify flux quantum, penetration depth, coherence length and Abrikosov lattice response.
+5. **Plasma-QHD extension:** add species-resolved Bohm force and generalized Ohm terms; perform a controlled ordering study against ideal/resistive/Hall MHD.
+6. **QLG/RGS map:** construct commuting discrete flux and boundary diagrams, then compare continuum limits. Only after this step may a QLG flux class be assigned to a specific hydrodynamic or electromagnetic observable.
+
+### VI7. Acceptance criteria and no-go checks
+
+- GP: conservation residuals converge with spatial/time refinement; circulation is integer-quantized on contours outside cores.
+- T110–GP: vortex-line homology and charge agree in the refinement regime; report failures near unresolved cores or reconnection events.
+- Ideal MHD: magnetic flux is conserved only under the ideal Ohm/regularity assumptions; resistive and Hall departures are measured, not hidden.
+- Charged GL: flux quantum is \(h/|q|\), not the neutral-superfluid circulation quantum \(h/m\).
+- QHD plasma: every quantum correction is tied to a specified closure and scale ordering.
+- Cross-domain claim: a correspondence is accepted only if the map preserves equations, units, symmetries and observables—not merely visual similarity of filaments.
+
+**Status:** the Madelung, quantized-circulation, Euler-vorticity and ideal-MHD flux-freezing structures are established. The common discrete QLG/RGS implementation, the T110-to-GP refinement test, and the unified multi-physics simulations remain open.
+
+### VI8. References for the QHD–MHD bridge
+
+- A. J. Leggett, “Quantum Liquids,” Oxford University Press (2006).
+- C. F. Barenghi, L. Skrbek, K. R. Sreenivasan, “Introduction to quantum turbulence,” *PNAS* 111 (2014), 4647–4652. DOI: 10.1073/pnas.1312541111.
+- G. Villois, D. Proment, G. Krstulovic, “Universal and nonuniversal aspects of vortex reconnections in superfluid helium,” *Phys. Rev. Fluids* 2 (2017), 044701.
+- A. L. Fetter, “Quantum Theory of Superfluid Vortices. II. Type-II Superconductors,” *Phys. Rev.* 163 (1967), 390. DOI: 10.1103/PhysRev.163.390.
+- A. Enciso, D. Peralta-Salas, “Vortex reconnections in classical and quantum fluids,” *J. Math. Fluid Mech.* 24 (2022), 127. DOI: 10.1007/s40324-021-00277-8.
+- A. A. Schekochihin et al., “Lessons on collisionless reconnection from quantum fluids,” *Frontiers in Physics* 2 (2014), 76.
+- H. K. Moffatt, *Magnetic Field Generation in Electrically Conducting Fluids*, Cambridge University Press (1978).
