@@ -381,6 +381,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The constitutive phase-to-charge law, spatial embedding, reciprocal vectors, Green–Kubo coefficient, and material defect labels remain conditional on calibrated measurements. No physical charge values or moiré scale are invented.
 - [Audit script](scripts/audit_t105_hexagram_moire_circuit.py), [tests](tests/test_t105_hexagram_moire_circuit.py), and [dedicated CI workflow](.github/workflows/t105-hexagram-moire-circuit.yml).
 
+### T107 — Gray-torus geometry, reversible Q6 Gibbs dynamics, and preregistered FDT tests
+
+- [T107 theorem record](theorems/T107-q6-gray-torus-gibbs-fdt-defect-test.md) uses the graph-preserving Gray map \(Q_6\cong C_4^3\) and the existing exact quotient onto a periodic \(C_4\times C_4\) cell with a four-state internal fibre.
+- Specifies a Gibbs interaction \(H_J=-J\sum_{e\in E(Q_6)}\operatorname{Re}(z_h\bar z_k)\) on \(S^{127}\), a reversible overdamped generator, and the exact zero-coupling edge-coherence susceptibility \(\partial_J\langle c_e\rangle|_{0}=\beta/8320\).
+- Separates translational Burgers cochains from rotational Frank holonomy and pre-registers held-out cross-prediction and FDT checks. The model is mathematical; no physical circuit or material validation is claimed.
+- [Audit](scripts/audit_t107_gray_torus_gibbs_fdt.py), [tests](tests/test_t107_gray_torus_gibbs_fdt.py), and [focused CI](.github/workflows/t107-gray-torus-gibbs-fdt.yml) verify the Gray graph map, quotient chain maps, and analytic susceptibility.
+
 ### T106 — Born measure, Q6 phase torus, FDT, and Frank–Burgers defects
 
 - [T106 theorem record](theorems/T106-born-measure-q6-fdt-frank-burgers.md) specializes the known Haar/Born push-forward theorem to the 64 hexagram outcomes, records exact Dirichlet moments and the \(\\mathbb Z_4^3\) indexing, and separates Born/Haar measure from thermal equilibrium.
