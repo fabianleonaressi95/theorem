@@ -143,6 +143,17 @@ For an \(n\)-fold orientational order parameter \(\Psi_n=|\Psi_n|e^{in\alpha}\),
 
 The pair \((b_p,\Omega_p)\) is therefore a pair of independent observables: translational closure failure and rotational holonomy. T104's \(\mathbb F_2\) plaquette flux remains a third, separate discrete observable.
 
+### 4.3 First test: are the two measured sectors linearly distinguishable?
+
+Before fitting cross-dynamics, assemble paired, centered sample matrices \(B\) and \(F\), whose columns are the measured Burgers components and Frank-angle/frame components after calibration and declared normalization. Compute their numerical ranks by SVD and the largest canonical correlation
+\[
+\rho_{\max}=\|Q_B^\top Q_F\|_2,
+\]
+where \(Q_B,Q_F\) are orthonormal bases for the respective column spaces. If \(\rho_{\max}=1\) within the numerical tolerance, the two sample sectors have a common linear direction; if the rank is deficient, some declared components are redundant. Report the singular values, ranks, and \(\rho_{\max}\), not only a binary label.
+
+The numerical tolerance must be fixed relative to measurement/calibration precision before analysis. Use a block bootstrap to obtain an uncertainty interval for \(\rho_{\max}\). If the interval is compatible with one at the declared resolution, do **not** claim that the sectors are linearly distinguishable. If it is separated from one, this only rules out exact/near-exact linear overlap at that resolution: it does not prove statistical independence. The held-out cross-prediction test in §5 addresses predictive dependence beyond linear collinearity.
+
+
 ## 5. Preregistered test of sector independence and cross-response
 
 Before examining held-out data, fix:
