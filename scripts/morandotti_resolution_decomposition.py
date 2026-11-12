@@ -3,6 +3,8 @@
 
 Within-resolution spread combines seed, topology, and node-placement effects.
 It is descriptive and is not interpreted as pure random-seed noise.
+The within-resolution component combines seed, topology, and node-placement
+variation; it is not interpreted as a pure random-seed error estimate.
 """
 from __future__ import annotations
 
@@ -49,6 +51,13 @@ def analyze_report(report):
                 f"d={distance}: balanced decomposition requires equal remesh counts per resolution"
             )
 
+    distances = sorted({float(row["distance"]) for row in runs})
+    for distance in distances:
+        subset = [row for row in runs if float(row["distance"]) == distance]
+        mesh_sizes = sorted({float(row["h_target"]) for row in subset})
+        groups = {h: [row for row in subset if float(row["h_target"]) == h] for h in mesh_sizes}
+        if len(mesh_sizes) < 2 or any(len(group) < 2 for group in groups.values()):
+            raise ValueError(f"d={distance}: need at least two resolutions and two remeshes per resolution")
         distance_result = {"realizations": len(subset), "mesh_sizes": {}}
         for h, group in groups.items():
             distance_result["mesh_sizes"][f"{h:.6f}"] = {
@@ -64,6 +73,13 @@ def analyze_report(report):
                 },
             }
 
+                        "mean": float(np.mean([r[metric] for r in group])),
+                        "sample_std": float(np.std([r[metric] for r in group], ddof=1)),
+                        "minimum": float(np.min([r[metric] for r in group])),
+                        "maximum": float(np.max([r[metric] for r in group])),
+                    } for metric in METRICS
+                },
+            }
         distance_result["decomposition"] = {}
         for metric in METRICS:
             values = np.asarray([float(row[metric]) for row in subset])
@@ -93,6 +109,11 @@ def analyze_report(report):
                 "resolution_mean_range": float(max(all_means) - min(all_means)),
             }
 
+                "pooled_within_resolution_sample_sd": float(np.sqrt(ss_within / (len(values) - len(mesh_sizes)))),
+                "between_resolution_sum_squares_fraction": float(ss_between / ss_total) if ss_total else 0.0,
+                "within_resolution_sum_squares_fraction": float(ss_within / ss_total) if ss_total else 0.0,
+                "resolution_mean_range": float(max(all_means) - min(all_means)),
+            }
         ordered_h = sorted(mesh_sizes)
         distance_result["adjacent_fine_resolution_mean_shifts"] = {}
         for metric in METRICS:
@@ -100,6 +121,8 @@ def analyze_report(report):
             for coarse_h, fine_h in zip(ordered_h[1:], ordered_h[:-1]):
                 coarse_mean = float(np.mean([row[metric] for row in groups[coarse_h]]))
                 fine_mean = float(np.mean([row[metric] for row in groups[fine_h]]))
+                coarse_mean = float(np.mean([r[metric] for r in groups[coarse_h]]))
+                fine_mean = float(np.mean([r[metric] for r in groups[fine_h]]))
                 shifts.append({
                     "from_h": coarse_h,
                     "to_h": fine_h,
@@ -113,6 +136,10 @@ def analyze_report(report):
 
         output["by_distance"][f"{distance:.4f}"] = distance_result
 
+                    "relative_mean_change": (fine_mean - coarse_mean) / abs(coarse_mean) if coarse_mean else None,
+                })
+            distance_result["adjacent_fine_resolution_mean_shifts"][metric] = shifts
+        output["by_distance"][f"{distance:.4f}"] = distance_result
     return output
 
 
