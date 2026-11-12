@@ -377,7 +377,8 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 - [T101 theorem record](theorems/T101-trigram-angular-phases-q6-plaquette-holonomy.md) starts from measured phases of all eight trigrams on each of two opposite circles, registers their angular frames, and compares each trigram with its linewise complement on the other circle. It constructs both 64-point Q6 layers on paired two-tori.
 - The exact combinatorial audit enumerates all 192 Q6 edges and 240 square plaquettes per layer, reporting the eight cross-circle trigram residuals, all 64 complementary-hexagram mismatches, phase increments, and plaquette holonomies. See [audit script](scripts/audit_t101_trigram_phase_holonomy.py) and [tests](tests/test_t101_trigram_phase_holonomy.py).
-- **Critical identifiability boundary:** endpoint phase differences within either layer form a pure-gauge U(1) connection, so every plaquette holonomy is exactly trivial. Cross-circle complement mismatch is measured separately. Frank holonomy requires independent local-frame link transport; Burgers data require spatial embedding and translational registration.
+- The lifted two-component complement-mismatch field is also evaluated around all 240 Q6 squares. Nonzero integer winding is a candidate phase vortex; it can be interpreted as Frank/disclination or Burgers/dislocation data only after calibrating the phase as a local-frame orientation or translational density-wave phase.
+- **Critical identifiability boundary:** endpoint phase differences within either circle layer form a pure-gauge U(1) connection, so their Wilson plaquette holonomies are trivial. This does not erase winding in the *cross-circle mismatch field*. Physical Frank angles and Burgers vectors still require frame or spatial calibration.
 
 ### T100 — Hypercube–moiré response, Green–Kubo transport, and geometric defects
 
