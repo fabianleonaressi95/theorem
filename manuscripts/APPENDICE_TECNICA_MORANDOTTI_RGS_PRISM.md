@@ -675,3 +675,12 @@ Il dato primario proposto è la tabella dei 64 valori di carica, non una media s
 La specifica definisce inoltre una dinamica di transizione P sui 64 stati, una correlazione stazionaria e una convenzione discreta simmetrizzata per la correlazione integrata. L'interpretazione come coefficiente di trasporto richiede ancora la derivazione di risposta lineare, la scelta della corrente, la normalizzazione fisica e il controllo di sommabilità.
 
 **Classificazione:** conteggi Q6 e identità del complesso esatti; cariche, moiré e dinamica da definire/misurare; ponte verso Burgers/Frank aperto; legge costitutiva o di trasporto non dimostrata. Nessuna validazione sperimentale viene dichiarata.
+
+
+## A.34. KTHNY e \(\\mathcal N=4\\) SYM: due livelli teorici da collegare senza identificarli — 12 novembre 2026
+
+Il nuovo capitolo [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) inserisce entrambi i quadri nel programma. KTHNY è il riferimento diretto per l'unbinding di dislocazioni/disclinazioni, la fugacità e la rinormalizzazione elastica; il criterio universale \(K_R=16\\pi\) riguarda la rigidità di Young rinormalizzata alla soglia di unbinding delle dislocazioni, non il modulo nudo.
+
+\(\\mathcal N=4\\) SYM entra come teoria di gauge conforme con operatori Wilson–'t Hooft, cariche elettriche/magnetiche e dualità S. Questo offre un linguaggio comparativo per settori di difetto, olonomie e dualità, ma non autorizza a identificare tali cariche con Burgers/Frank. Il ponte fisico richiede una riduzione, un'interfaccia o una teoria efficace esplicita.
+
+Il programma è diviso in tre problemi: (P1) derivare il gas efficace di difetti e il flusso KTHNY dal benchmark Morandotti; (P2) confrontare connessioni/olonomie discrete con la classificazione degli operatori di linea; (P3) cercare una riduzione o interfaccia che produca un settore bidimensionale con cariche geometriche identificate. Fino a una derivazione, il rapporto KTHNY–SYM resta comparativo e il ponte RGS–PRISM è aperto.
