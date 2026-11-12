@@ -7,8 +7,6 @@ the 3D internal cut-and-project space has no canonical 2D subspace.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from itertools import combinations
-
 import numpy as np
 from scipy.integrate import solve_ivp
 
@@ -156,6 +154,7 @@ def audit_interface(calibration: np.ndarray) -> dict:
     states = q6_states()
     edges = q6_edges()
     increments = c.edge_increments()
+    projected_axis_vectors = c.scale * c.calibration @ p_internal
     return {
         "q6_vertices": int(len(states)),
         "q6_undirected_edges": int(len(edges)),
@@ -169,6 +168,10 @@ def audit_interface(calibration: np.ndarray) -> dict:
         "shape_calibration_rank": int(np.linalg.matrix_rank(c.calibration)),
         "edge_axis_counts": [int(np.count_nonzero(edges[:, 2] == j)) for j in range(6)],
         "edge_increment_matrix_rank": int(np.linalg.matrix_rank(increments[:, 3:])),
+        "projected_axis_vectors_2d": projected_axis_vectors.tolist(),
+        "projected_axis_lengths": np.linalg.norm(projected_axis_vectors, axis=0).tolist(),
+        "projected_axis_gram": (projected_axis_vectors.T @ projected_axis_vectors).tolist(),
         "six_axes_retained": bool(set(edges[:, 2].tolist()) == set(range(6))),
+        "anisotropy_reported_not_constrained": True,
         "status": "PARAMETERIZED_FINITE_INTERFACE; CALIBRATION_OPEN",
     }
