@@ -47,3 +47,11 @@ def test_audit_passes_and_does_not_claim_physical_fdt_or_defects():
     assert result["status"] == "PASS"
     assert "requires" in result["fdt"]
     assert "requires" in result["frank_burgers"]
+
+
+
+def test_qubit_born_simplex_is_uniform_interval():
+    m = dirichlet_uniform_moments(2)
+    assert math.isclose(m["mean"], 0.5)
+    assert math.isclose(m["variance"], 1 / 12)
+    assert math.isclose(m["off_diagonal_covariance"], -1 / 12)
