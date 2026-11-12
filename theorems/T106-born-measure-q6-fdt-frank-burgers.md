@@ -243,6 +243,19 @@ For the Q6 circuit realization, the corresponding sequence is:
 
 The existing thermal-RC noise covariance in T100/T105 is one model-specific FDT realization. It must not be silently reused for a mechanical defect field or for quantum dynamics.
 
+### 6.1 Two-dimensional melting: the KTHNY bridge
+
+If the eventual spatial realization is a two-dimensional crystal with the appropriate elastic and symmetry conditions, the Frank/Burgers split also connects to defect-mediated melting. In the KTHNY scenario:
+- dislocation-pair unbinding first destroys quasi-long-range translational order while sixfold orientational order can remain quasi-long-range, producing a hexatic regime;
+- subsequent disclination unbinding destroys the orientational order and produces the isotropic liquid.
+
+This is a conditional phase-transition scenario, not a universal law for every 2D material: interaction potentials, anisotropy, defect-core energies and grain-boundary proliferation can alter or pre-empt the two-step sequence.
+
+The measurable bridge to FDT is through translational and orientational susceptibilities. Define translational and bond-orientational order parameters, their equilibrium correlation functions, and the corresponding responses to weak stress and torque. Under equilibrium linear response, the susceptibilities are related to the appropriate time-dependent correlations by Kubo/FDT. In a KTHNY-like regime, changes in the defect populations and correlation lengths should be accompanied by changes in these susceptibilities. The topology labels the defects (Burgers/Frank); FDT quantifies how their order-parameter sectors fluctuate and respond. Neither relation says that FDT creates the defects or that a susceptibility peak alone proves a KTHNY transition.
+
+For a sixfold orientational field, use \(\Psi_6=|\Psi_6|e^{i6\alpha}\). Its elementary orientational winding is \(2\pi/6\) in \(\alpha\). Translational order requires independent reciprocal vectors \(G\) and fields \(\Psi_G\); do not infer Burgers vectors from \(\Psi_6\) alone.
+
+
 ## 7. Relation to moiré and the two registered phase fields
 
 For two coherent reconstructed modes
