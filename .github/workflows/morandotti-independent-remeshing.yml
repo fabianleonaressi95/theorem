@@ -1,0 +1,54 @@
+name: Morandotti independent-remeshing audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_morandotti_independent_remeshing.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_distance_refinement.py'
+      - '.github/workflows/morandotti-independent-remeshing.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_morandotti_independent_remeshing.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_distance_refinement.py'
+      - '.github/workflows/morandotti-independent-remeshing.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  independent-remeshing:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, ufl, petsc4py, gmsh; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('PETSc', petsc4py.__version__); print('Gmsh', gmsh.__version__)"
+      - name: Run pure post-processing tests
+        run: python3 -m pytest -q tests/test_morandotti_distance_refinement.py
+      - name: Run independent-remeshing sweep
+        run: |
+          python3 scripts/rgs_morandotti_independent_remeshing.py \
+            --mesh-sizes 0.08 0.06 0.045 \
+            --distance-values 0.48 0.56 \
+            --alpha 10 \
+            --young-modulus 1.0 \
+            --poisson-ratio 0.0 \
+            --out artifacts/morandotti_independent_remeshing/report.json
+      - name: Upload report and finite-element fields
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-independent-remeshing
+          path: artifacts/morandotti_independent_remeshing/
+          if-no-files-found: error
+          retention-days: 14
