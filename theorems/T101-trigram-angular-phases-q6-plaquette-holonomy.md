@@ -56,7 +56,7 @@ The integer phase-winding index on a square is
 \[
 n_p=\frac{1}{2\pi}\sum_{e\in\partial p}^{\rm oriented}d_e\in\mathbb Z,
 \]
-with principal increments in \((-\pi,\pi]\). Numerically, the sum is rounded to the nearest integer after checking its residual from \(2\pi\mathbb Z\). A nonzero \(n_p\) is a **candidate vortex/winding defect of the cross-circle mismatch field**. Mixed lower/upper plaquettes have zero winding for this separable two-component construction; lower-only and upper-only squares test the corresponding trigram mismatch sectors.
+with principal increments in \((-\pi,\pi]\). An edge difference exactly equal to \(\pi\) is branch-ambiguous and must be flagged or resolved by a declared continuous-interpolation/noise-aware convention; otherwise it can create convention-dependent winding. Numerically, the sum is rounded to the nearest integer after checking its residual from \(2\pi\mathbb Z\). A nonzero \(n_p\) is a **candidate vortex/winding defect of the cross-circle mismatch field**. Mixed lower/upper plaquettes have zero winding for this separable two-component construction; lower-only and upper-only squares test the corresponding trigram mismatch sectors.
 
 ## 4. From phase winding to disclination or dislocation
 
