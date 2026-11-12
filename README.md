@@ -66,6 +66,7 @@ theorem/
 - [Quarantined source files](archive/README.md)
 - [External manuscript provenance notes](bibliography/source-bibliographies/)
 - [Project map](projects/README.md)
+- [S.9 — Three-phase rotating fields, Ferraris' two-coil construction, and the coframe/tetrad](theorems/S009-three-phase-ferraris-coframe-tetrad-bridge.md) — exact two-coil and three-phase rotating-field identities, coframe/tetrad component maps, electromagnetic field-strength decomposition, and explicit separation of electrical phase from spin connection; [finite audit](scripts/audit_s009_ferraris_tetrad_bridge.py).
 - [T102 — Cubical supersymmetric quantum mechanics, heat supertrace and the Sakharov boundary](theorems/T102-cubical-supersymmetry-heat-kernel-sakharov.md) — exact cubical de Rham/Hodge complex on the six-cube, Q6 heat trace, finite-dimensional SUSY algebra and McKean–Singer supertrace; explicitly separates this result from N=4 SYM and leaves continuum Sakharov induction open. Reproducible audit: [script](scripts/audit_t102_cubical_susy_heat.py), [tests](tests/test_t102_cubical_susy_heat.py).
 - [Notation policy: supergolden constant, special functions and GP field](docs/NOTATION_SUPERGOLDEN_SPECIAL_FUNCTIONS_GP.md) — reserves \\(\\psi_{\\rm SA}\\) for the supergolden constant and \\(\\Psi_{\\rm GP}\\) for the Gross–Pitaevskii order parameter; records the already-established Weber–Dedekind–digamma arithmetic network without conflating its objects.
 - [T111 — GP order-parameter zeros and T110 plaquette-vortex refinement](theorems/T111-gp-zero-vortex-refinement.md)
