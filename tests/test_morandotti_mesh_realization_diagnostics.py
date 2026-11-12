@@ -41,3 +41,10 @@ def test_reports_core_exchange_mismatch_and_mesh_quality(tmp_path):
     assert result["corner_quality_min"] > 0.8
     assert result["self_block_relative_mismatch"] > 0.3
     assert result["cross_block_reciprocity_relative"] == 0.0
+    cross_norm = np.linalg.norm(M[1:3, 4:6])
+    assert np.isclose(result["C_d_original_core0_normalized"], cross_norm / np.linalg.norm(M[1:3, 1:3]))
+    assert np.isclose(
+        result["C_d_symmetric_geometric_mean_normalized"],
+        cross_norm / np.sqrt(np.linalg.norm(M[1:3, 1:3]) * np.linalg.norm(M[4:6, 4:6])),
+    )
+    assert result["C_d_symmetric_geometric_mean_normalized"] > result["C_d_original_core0_normalized"]
