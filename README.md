@@ -374,6 +374,13 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 - The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
 - [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
 
+### T105 — Hexagram-resolved charge, two-field moiré coupling, and circuit response
+
+- [T105 theorem record](theorems/T105-hexagram-charge-moire-circuit-law.md) connects the 64 individually measured hexagram charges to the two registered circle-phase fields, Kirchhoff edge currents, node-charge correlations, moiré reconstruction, Green–Kubo response, and defect diagnostics.
+- Preserves all 64 charge sites and the two phase components on each site; explicitly keeps phase winding, Burgers closure, Frank holonomy, and T104 \\(\\mathbb F_2\\) flux distinct.
+- The constitutive phase-to-charge law, spatial embedding, reciprocal vectors, Green–Kubo coefficient, and material defect labels remain conditional on calibrated measurements. No physical charge values or moiré scale are invented.
+- [Audit script](scripts/audit_t105_hexagram_moire_circuit.py), [tests](tests/test_t105_hexagram_moire_circuit.py), and [dedicated CI workflow](.github/workflows/t105-hexagram-moire-circuit.yml).
+
 ### T104 — Q6 cycle–cocycle–holonomy law
 
 - [T104 theorem record](theorems/T104-q6-cycle-cocycle-holonomy-law.md) proves the cycle–cocycle–holonomy correspondence on the contractible cubical six-cube over \\(\\mathbb F_2\\).
