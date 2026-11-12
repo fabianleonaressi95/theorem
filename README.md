@@ -466,3 +466,9 @@ The five-level report records a nonzero signed Frank–Burgers traction cross te
 ### FDT / Ratti comparative bibliography
 
 A separate critical appendix integrates S. P. Ratti's supplied primary-document bibliography (D1–D7), the standard physics references on pair production, antimatter, Casimir/Lamb effects and gravitomagnetism, and a falsifiability protocol. It is classified as a comparative case study—not as evidence supporting FDT or RGS–PRISM. D7 remains unread and several source-level metadata items remain unverified. See [Ratti bibliography and critical integration](research/FDT_RATTI_BIBLIOGRAPHY_AND_CRITICAL_INTEGRATION.md).
+
+
+### T100 — Hypercube–moiré response, Green–Kubo transport, and geometric defects
+
+- [T100](theorems/T100-hypercube-moire-green-kubo-defects.md) treats the 64 individual hexagrams as charge-bearing degrees of freedom: node charges and their pair/time correlations are primary; edge currents encode charge transfer; graph-mode and spatial structure factors test for emergent moiré order; Green–Kubo and Burgers/Frank diagnostics are built from the corresponding dynamical and spatial data.
+- **Evidence boundary:** Q6 graph identities are inherited from T099. The charge assignment and its physical units, equilibrium noise/FDT model, mode-to-space embedding, transport validation, and extraction of dislocations/disclinations remain to be derived or measured. The graph Green operator is distinct from the Green–Kubo correlation integral.
