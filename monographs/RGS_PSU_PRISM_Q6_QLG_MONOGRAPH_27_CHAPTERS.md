@@ -643,8 +643,9 @@ Obblighi prioritari:
 | T106 | Born/Haar, FDT, difetti e raccordo KTHNY | Teoremi di misura e Kubo standard; ponte fisico condizionale |
 | T107 | Modello Gibbs reversibile, FDT e test preregistrati Frank/Burgers | Modello matematico definito; interpretazione materiale aperta |
 | T108–T109 | Influenze booleane, Laplaciano Qn e confronto AA | Identità Fourier/Laplaciane provate; non equivalgono a una legge fisica dei difetti |
+| T110 | XY su toro 2D/3D, winding, vortici e confronto KTHNY | Identità di reticolo esatte; simulazione finita e transizioni da verificare |
 
-I record T001–T109 sono una rete di dipendenze, non una lista di teoremi tutti dello stesso rango. Ogni record conserva la propria classificazione [E]/[P]/[N]/[C]/[M]/[H]/[O]. In particolare T108–T109 sono un ramo matematico sul cubo booleano: la loro vicinanza a Q6 e alla congettura Aaronson–Ambainis non li trasforma in una dinamica di cariche o in una legge KTHNY.
+I record T001–T110 sono una rete di dipendenze, non una lista di teoremi tutti dello stesso rango. Ogni record conserva la propria classificazione [E]/[P]/[N]/[C]/[M]/[H]/[O]. In particolare T108–T109 sono un ramo matematico sul cubo booleano: la loro vicinanza a Q6 e alla congettura Aaronson–Ambainis non li trasforma in una dinamica di cariche o in una legge KTHNY.
 
 ### 27.8 — Risultati preesistenti da riutilizzare, non riscoprire
 
@@ -665,6 +666,15 @@ Il lavoro precedente contiene già oggetti denominati \(R_0,R_1,R_2\) come mappe
 8. Y. Hatsuda and T. Okazaki, “S-duality of boundary lines in \(\mathcal N=4\) SYM theories and supersymmetric indices,” *JHEP* 08 (2025), 127. DOI: [10.1007/JHEP08(2025)127](https://doi.org/10.1007/JHEP08(2025)127).
 
 La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta come appendice bibliografico-tecnica di questo capitolo, non come teoria autonoma. Il testo canonico è questa monografia e i theorem record richiamati.
+
+### 27.10 — XY su tori: BKT in 2D e loop di vortice in 3D
+
+Il controllo XY è ora separato dal modello Gibbs/FDT di T107 nel record [T110](../theorems/T110-xy-torus-vortex-kthny-bkt.md), con implementazione in `scripts/audit_xy_torus_kthny_bkt.py`. Sul toro 2D, il winding di plaquette è una carica intera globalmente neutra; i due winding armonici sui cicli non contrattibili sono dati distinti. La transizione BKT si diagnostica tramite la rigidità di elicità rinormalizzata, con salto universale \\(\Upsilon_R/(k_BT)=2/\pi\\), non identificando il correlatore firmato delle cariche con il potenziale logaritmico.
+
+Nel toro 3D, i winding delle tre famiglie di plaquette diventano flussi sui link del reticolo duale, con divergenza discreta nulla e supporto in reti di loop chiuse. Il caso \\(C_4^3\\) è il controllo combinatorio a 64 siti; il caso 2D \\(C_4^2\\) è il controllo di sezione/quotiente. Nessuno dei due è automaticamente una geometria materiale calibrata.
+
+**Separazione fisica essenziale:** BKT è il riferimento XY 2D a vortici scalari; KTHNY è il melting di un cristallo 2D attraverso dislocazioni vettoriali e disclinazioni, con \\(K_R=16\pi\\) alla soglia di unbinding delle dislocazioni. Il modello XY 3D ha proliferazione di loop e non riceve la soglia KTHNY 2D. Il raccordo con Burgers/Frank richiede quindi un modello elastico 2D autonomo e dati di calibrazione; T110 non identifica vortici XY, cariche dei 64 esagrammi, Burgers, Frank e flusso \\(\mathbb F_2\\) di T104.
+
 
 ---
 
@@ -687,6 +697,7 @@ La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta 
 | Frank–Burgers / Morandotti | T091–T099 | record T091–T099; `docs/rgs_defect_benchmark/` | identità finite, benchmark numerici e ponti cinematici condizionali |
 | Moiré, cariche, FDT e difetti | T100–T107 | records T100–T107; `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
 | Influenze booleane e AA | T108–T109 | records T108–T109 | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
+| XY/BKT e vortici 3D | T110 | `scripts/audit_xy_torus_kthny_bkt.py`, `tests/test_xy_torus_kthny_bkt.py` | identità di winding/chiusura; scaling critico ancora da eseguire |
 | KTHNY | Nelson–Halperin; Young; T106 | capitolo 27.5 e bibliografia primaria | teoria standard 2D; applicazione al sistema Q6/Morandotti condizionale |
 | \(\mathcal N=4\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
 
