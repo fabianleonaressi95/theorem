@@ -594,6 +594,9 @@ Il collegamento operativo è: **Q6/PRISM** fornisce una possibile struttura d'in
 
 **Classificazione T125:** identità di variazione prima e dissipazione [P, per grafo finito e modello dichiarato]; dati materiali e scelta costitutiva [M]; derivazione da Q6/PRISM, limite Γ e convergenza dell'evoluzione [O]; emissione Frank–Read e topological update [O]. Il risultato chiude la specifica variazionale a topologia fissa, non la dimostrazione della moltiplicazione Frank–Read.
 
+**C3. Riconnessione locale e conservazione esatta di Burgers (T126).** Per due archi orientati disgiunti \((a\to b;B_1)\), \((c\to d;B_2)\), la regola locale di scambio delle teste \((a\to d;B_1)\), \((c\to b;B_2)\) conserva l'intero bordo \(C_0(V;\Lambda_B)\) se e solo se \(B_1=B_2\) (per estremi distinti). T126 dimostra l'identità algebrica e rifiuta esplicitamente lo scambio a Burgers disuguali; per reazioni generali di giunzione resta necessario \(\sum B_{in}=\sum B_{out}\). L'implementazione è proposta in source PR #199 con test unitari, non ancora certificati da CI. Questa mossa chiude il requisito di conservazione per una riconnessione combinatoria ristretta, ma non stabilisce barriera energetica, trigger fisico, geometria di glide, reazione a Burgers disuguali o rigenerazione della sorgente Frank–Read.
+
+
 
 **Classificazione integrata:** soglia circolare T124 [P, condizionata al modello]; decomposizione/ricostruzione Morandotti [P/N secondo i singoli record e le Actions citate]; parametro materiale e dinamica completa [M/O]; limite RGS–PRISM e raccordo KTHNY [O].
 
