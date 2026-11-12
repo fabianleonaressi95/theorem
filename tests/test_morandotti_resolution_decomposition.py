@@ -8,8 +8,6 @@ if str(ROOT) not in sys.path:
 from scripts.morandotti_resolution_decomposition import analyze_report
 
 
-
-
 def _report():
     rows = []
     for distance in (0.48, 0.56):
@@ -43,3 +41,14 @@ def test_rejects_insufficient_remesh_replicates():
         pass
     else:
         raise AssertionError("expected insufficient-replicate validation")
+
+
+def test_rejects_unbalanced_resolution_groups():
+    report = _report()
+    report["runs"].pop()
+    try:
+        analyze_report(report)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("expected unbalanced-group validation")
