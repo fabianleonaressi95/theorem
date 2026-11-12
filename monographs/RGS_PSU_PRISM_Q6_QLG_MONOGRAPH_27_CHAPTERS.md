@@ -728,3 +728,10 @@ Il dossier operativo [Three defect gases and QLG–RGS–N=4 SYM–IIB bridge](.
 Questi tre settori sono collegati alla geometria Q6/QLG solo tramite mappe esplicite. La catena verso \(\mathcal N=4\) SYM e stringhe IIB è un programma di derivazione: T102 resta una supersimmetria cubicale finita, non una costruzione di SYM; AdS/CFT è il ponte consolidato della teoria standard, mentre l'embedding RGS/QLG è aperto.
 
 **Gate di accettazione:** definizioni e normalizzazioni; derivazione o approssimazione dichiarata; codice e dati riproducibili; controlli di taglia finita/incertezza; criteri di falsificazione. Nessun esponente, punto critico o dualità QLG–stringhe viene assunto in anticipo.
+
+
+## Appendice — Estensione QHD–Euler–MHD e flussi vorticosi
+
+Il dossier centrale è stato esteso con il ponte tra idrodinamica quantistica (Madelung/Gross–Pitaevskii), vorticità di Euler, flusso magnetico MHD, superconduttori di tipo II e QHD dei plasmi. Il nucleo comune è la geometria dei flussi, delle circolazioni, delle classi di omologia e delle leggi di trasporto; non si identificano però vortici neutri, linee di vorticità classiche e tubi di flusso magnetico. La quantizzazione del flusso magnetico richiede il condensato carico e l'accoppiamento gauge.
+
+Il programma di verifica comprende: confronto T110–Gross–Pitaevskii sotto raffinamento; conservazione di Kelvin e Alfvén nei rispettivi regimi ideali; riconnessione quantistica e magnetica; benchmark Ginzburg–Landau/London; estensione a modelli QHD multi-specie con termine di Bohm e legge di Ohm generalizzata. Le equazioni, le unità e le condizioni di validità sono registrate in `docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md`, §VI.
