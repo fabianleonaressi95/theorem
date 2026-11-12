@@ -545,6 +545,9 @@ The implementation source is [rgs-qlg-quaternion-bridge](https://github.com/fabi
 - **Critical formula audit:** if \(T=Gb^2/2\), then \(\tau_c=Gb/L\); \(2Gb/L\) requires the alternative convention \(T=Gb^2\). The material-specific threshold needs character-dependent elasticity and core/pinning corrections.
 - **Open RGS–PRISM bridge:** encode dislocation lines as Burgers-labelled 1-chains, derive energy and configurational force, and prove convergence of the constrained evolution. No Frank–Read source or tunnelling rate is claimed to have been derived from Q6.
 
+- [T125 — Q6/PRISM Burgers-labelled chains and the variational Frank–Read interface](theorems/T125-q6-prism-burgers-chain-frank-read-variational-interface.md): proves the finite-graph first-variation/nodal force-balance identity and the energy-dissipation identity for an explicitly chosen autonomous gradient flow; closed Burgers-labelled cycles preserve endpoint content. The embedding, Burgers lattice, energy, mobility and pinning law are model inputs; reconnection, Frank–Read emission and mesh-independent convergence remain open.
+
+
 ### T124 integrated with the verified Morandotti Frank–Burgers Actions
 
 T124 is now connected to the existing Frank–Burgers reconstruction chain in [Chapter 27, §27.5 C1](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md). The verified computational anchors are [PR #161 / Action run 43051485760](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760) for the Frank/Burgers/mixed traction-jump decomposition and [PR #162 / five-level refinement run 43052448456](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456), with [base audit run 43052448351](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351). T096 and T097 add their dedicated identifiability and kinematic-regression workflows.
