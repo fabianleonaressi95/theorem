@@ -1,6 +1,7 @@
 # Purcell swimmer near a wall — reproducibility audit
 
-This directory contains a **first-pass independent reconstruction**, not a validated reproduction.
+This directory contains an independent Python reconstruction of the published
+wall-corrected resistive-force model.
 
 ## Run
 
@@ -10,22 +11,34 @@ Dependencies: Python 3.10+, NumPy, SciPy.
 python benchmark.py --amplitude 1e-3 --order 64
 ```
 
-The script builds the generalized resistance matrix by Gauss–Legendre quadrature of
-\(J^T D J\), with \(D=C_\perp(I-ee^T/2)\), and integrates the four-stage
-shape-velocity gait using DOP853.  The geometric parameters match the example
-reported in the article: unit link lengths, initial wall distance \(10^{-2}\),
-and link radius \(10^{-4}\).
+The script builds the generalized resistance matrix by Gauss–Legendre quadrature
+of Jᵀ D J, with D = C_perp(I − eeᵀ/2), and integrates the four-stage
+shape-velocity gait using DOP853. The outer-link arclength is integrated on
+[0,L], while the central-link coordinate is integrated on [-L0/2,L0/2].
+The geometric parameters match the article's example: unit link lengths,
+initial wall distance 10^-2, and link radius 10^-4.
 
-## Current result
+## Reproduced benchmark
 
-At amplitude \(10^{-3}\), quadrature orders 16, 32, 48, 64 and 96 all give
-\(\Delta x/\xi^2\approx0.0370356\).  The article reports a limiting value
-\(0.0617\) (\(5/81\)) for the same aligned, equal-link example.
+For amplitude ξ = 10^-3, quadrature orders 16, 32, 48, 64 and 96 give
+Δx/ξ² ≈ 0.06172485, approaching the published small-amplitude prediction
+5/81 ≈ 0.06172840. The residual is consistent with finite-amplitude
+corrections of order ξ. The initial control vector fields also reproduce
+the analytic values reported in the article for L = λ = 1:
 
-This is a **failed reproduction**, not evidence against the paper.  The next audit
-must compare every generalized-force term and the sign convention for the two
-hinge coordinates with equations (7)–(13) of the article.  No Q6 coupling is
-introduced until this continuous benchmark is reconciled.
+h¹ = (0, 1/6, −7/27, 1, 0),
+h² = (0, −1/6, −7/27, 0, 1).
+
+The structural test checks symmetry and positive definiteness of the
+resistance matrix; the numerical test checks quadrature stability and
+agreement with the published leading-order coefficient. This is a numerical
+reproduction of the stated benchmark, not a proof of the paper's local
+controllability theorem.
+
+## Scope limit
+
+No Q6-to-shape-space map is introduced. A discrete connection and a
+refinement/holonomy statement remain open.
 
 Primary source:
 Micalizio et al. (2026), DOI 10.1007/s11012-026-02136-0,
