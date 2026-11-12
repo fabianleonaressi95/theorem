@@ -366,6 +366,13 @@ The weak Saint-Venant/KKT benchmark has a first rectangular Bogner–Fox–Schmi
 
 The implementation integrates ordered edge transports for a smooth noncommuting SE(2) connection, compares face holonomy with the analytic Cartan curvature, and exports an optional adapter from measured integrated core-loop data to the existing Morandotti Frank/Burgers source-vector convention. **Execution and numerical verification are pending; no convergence result is claimed yet.**
 
+### T099 — Shao–Yong hexagram product and Kirchhoff network
+
+- [T099 theorem record](theorems/T099-shao-yong-q6-kirchhoff-network.md) formalizes the 8×8 lower/upper-trigram product as the exact graph identity (Q_6=Q_3^{\mathrm{inf}}\square Q_3^{\mathrm{sup}}).
+- It proves the 64 vertices, degree six, 192 edges split into 96 lower-line and 96 upper-line edges, and the binomial Laplacian spectrum.
+- The weighted Kirchhoff/RC system is a conditional circuit model. The precise 64-label circular transcription and any physical charge law remain open; a circular drawing is not identified with an extra cycle graph.
+- [Reproducible audit](scripts/audit_t099_shao_yong_q6.py) and [tests](tests/test_t099_shao_yong_q6.py).
+
 ### T098 — Universal two-circle positive-gradient / negative-barycentre duality
 
 - [T098](theorems/T098-two-circle-positive-gradient-negative-barycentre-duality.md) is the foundational geometric law: the two equal-radius circles generate the positively oriented gradient triangle and the negatively oriented barycentre triangle as one reflected pair.
