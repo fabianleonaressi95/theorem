@@ -3,9 +3,9 @@ name: Morandotti post-processing tests
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [analysis/morandotti-resolution-decomposition]
     paths:
-      - 'tests/test_morandatti_distance_refinement.py'
+      - 'tests/test_morandotti_distance_refinement.py'
       - 'tests/test_morandotti_independent_remeshing.py'
       - 'tests/test_morandotti_resolution_decomposition.py'
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
