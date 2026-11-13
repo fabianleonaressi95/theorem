@@ -72,3 +72,22 @@ Do not label quadrature-degree convergence as exact integration. Do not
 promote (α=40) from provisional numerical tuning to a proved
 coercivity threshold until the matrix inequality above has a rigorous
 certificate and the geometric family hypotheses have been established.
+
+
+## Certified rational-integral enclosure primitive (follow-up implementation)
+
+`models/morandotti_certified_rational_integration.py` adds an exact-rational
+Bernstein enclosure for integrals of (p/q) on the reference triangle. On
+each rational subtriangle it composes (p,q) with the affine map, bounds
+each polynomial by its simplex Bernstein coefficients, certifies a strictly
+positive denominator (subdividing when needed), and encloses the integral
+by area times the quotient range. The accumulated enclosure width is bounded
+by the requested global tolerance. It rejects floating-point coefficients,
+uncertified denominator positivity, and unmet tolerances.
+
+This is a rigorous scalar integration primitive, not yet the T134 assembly:
+the curved-cell Hessian tensor contractions and curved-facet normal/metric
+terms have not been translated into its rational-polynomial input, and no
+matrix interval/PSD propagation is yet wired to the finite-element quotient.
+In particular, it does not resolve square-root metric factors on general
+curved edges. The T134 status above therefore remains unchanged.
