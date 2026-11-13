@@ -795,18 +795,16 @@ def assemble_dolfinx_mesh_interval_forms(
     cmap = mesh.geometry.cmaps[0]
     if cmap.degree != 3 or cmap.dim != 10:
         raise ValueError("geometry coordinate map must be triangular P3 with ten nodes")
+    # DOLFINx CoordinateElement exposes degree and variant directly.
+    # It does not expose the underlying Basix element.
     try:
-        coordinate_basix = cmap.basix_element
-        coordinate_variant = coordinate_basix.variant
-        coordinate_interpolation_identity = coordinate_basix.interpolation_is_identity
-    except AttributeError as exc:
+        coordinate_variant = basix.LagrangeVariant(cmap.variant)
+    except (AttributeError, TypeError, ValueError) as exc:
         raise RuntimeError(
-            "cannot verify coordinate-element variant and interpolation identity"
+            "cannot verify DOLFINx coordinate-element Lagrange variant"
         ) from exc
     if coordinate_variant != basix.LagrangeVariant.equispaced:
         raise ValueError("geometry coordinate map must use equispaced P3 nodes")
-    if not coordinate_interpolation_identity:
-        raise ValueError("geometry coordinate element must have identity interpolation")
     coordinate_element = basix.create_element(
         basix.ElementFamily.P, basix.CellType.triangle, 3,
         basix.LagrangeVariant.equispaced,
