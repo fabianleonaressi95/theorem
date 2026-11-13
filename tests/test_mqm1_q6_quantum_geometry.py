@@ -59,7 +59,7 @@ def test_rhs_preserves_quantum_norm_differentially_and_dissipates_energy():
         x, psi, x0, stiffness=1.2, coupling=0.8, mobility=0.3
     )
     assert predicted <= 0.0
-    assert predicted == pytest.approx(-0.3 * float(xdot @ xdot), abs=1e-11)
+    assert predicted == pytest.approx(-float(xdot @ xdot) / 0.3, abs=1e-11)
 
 
 def test_joint_energy_is_nonnegative_for_normalized_states():
