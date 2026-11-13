@@ -1,0 +1,33 @@
+name: Rodin Biot-Savart audit
+
+on:
+  push:
+    branches:
+      - research/rodin-biot-savart-audit-2026-11-13
+    paths:
+      - "scripts/audit_rodin_biot_savart.py"
+      - "tests/test_rodin_biot_savart.py"
+      - ".github/workflows/rodin-biot-savart.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_rodin_biot_savart.py"
+      - "tests/test_rodin_biot_savart.py"
+      - ".github/workflows/rodin-biot-savart.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rodin-biot-savart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install minimal test dependencies
+        run: python -m pip install --disable-pip-version-check numpy pytest
+      - name: Run focused tests
+        run: python -m pytest -q tests/test_rodin_biot_savart.py
