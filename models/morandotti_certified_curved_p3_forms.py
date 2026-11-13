@@ -785,21 +785,18 @@ def assemble_dolfinx_mesh_interval_forms(
         raise RuntimeError("cannot inspect the P3 solution element reference nodes") from exc
     if solution_points.shape != points.shape:
         raise ValueError("solution and geometry P3 elements have different node counts")
-    solution_lookup = {
-        (float(point[0]), float(point[1])): index
-        for index, point in enumerate(solution_points)
-    }
-    if len(solution_lookup) != len(solution_points):
-        raise ValueError("solution P3 element contains duplicate reference nodes")
-    try:
-        solution_order_for_geometry = np.asarray([
-            solution_lookup[(float(point[0]), float(point[1]))]
-            for point in points
-        ], dtype=np.int64)
-    except KeyError as exc:
-        raise ValueError(
-            "solution and geometry P3 elements do not use the same equispaced reference-node set"
-        ) from exc
+    solution_order = []
+    used_solution_nodes = set()
+    for point in points:
+        distances = np.linalg.norm(solution_points-point, axis=1)
+        index = int(np.argmin(distances))
+        if float(distances[index]) > 1e-12 or index in used_solution_nodes:
+            raise ValueError(
+                "solution and geometry P3 elements do not use the same equispaced reference-node set"
+            )
+        solution_order.append(index)
+        used_solution_nodes.add(index)
+    solution_order_for_geometry = np.asarray(solution_order, dtype=np.int64)
 
     nc = mesh.topology.index_map(tdim).size_local
     geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
