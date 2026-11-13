@@ -1,0 +1,155 @@
+{
+  "status": "EXPLORATORY_FINITE_Q6_MULTIVARIATE_AUDIT",
+  "source": {
+    "bundle": "A13_RGS_PSU_QLG_KAGGLE_BUNDLE.zip",
+    "bundle_sha256": "7ca0cdfeadbe1d693d4f776a5e22d957630b206b842f4b822f3afb578c488922",
+    "sea_operators_sha256": "8fd12b222ddb9a3d723808c47c0073f07431e816cb33182b3a9abce9e1c2b052",
+    "fibre_connection_sha256": "d1adc675126af3c9f850adfaf70cebedf80020c67c5bfccd669c2a65e0592015",
+    "stationary_field_source": "audits/morphodynamics/mqm_a13_local_backreaction.json"
+  },
+  "observational_units": {
+    "vertices": 64,
+    "edges": 192,
+    "degree": 6,
+    "independent_samples": false
+  },
+  "vertex_feature_names": [
+    "phi",
+    "tau",
+    "degree",
+    "neighbour_phi_mean",
+    "neighbour_phi_std",
+    "q6_laplacian_phi",
+    "quartic_potential_density",
+    "metric_dirichlet_energy_density"
+  ],
+  "varying_pca_features": [
+    "phi",
+    "tau",
+    "neighbour_phi_mean",
+    "neighbour_phi_std",
+    "q6_laplacian_phi",
+    "quartic_potential_density",
+    "metric_dirichlet_energy_density"
+  ],
+  "field_summary": {
+    "phi_min": 1.8583839853225923,
+    "phi_max": 1.9098098881836927,
+    "phi_mean": 1.8700400992256982,
+    "phi_std": 0.016199171390678137,
+    "tau_min": 0.07834386753742158,
+    "tau_max": 0.4502753724869217,
+    "tau_mean": 0.17614072604894634,
+    "tau_std": 0.11327256883205747,
+    "pearson_phi_tau": 0.9269816740965531
+  },
+  "metric_features": {
+    "conductance_definition": "w_e = ell_rms / L_e from archived raw four-component coframe",
+    "dirichlet_total": 0.022765925480688128
+  },
+  "pca": {
+    "method": "column-standardized SVD PCA on 64 spatially coupled vertex rows; constant degree column excluded",
+    "explained_variance_ratio": [
+      0.882315617,
+      0.108818084,
+      0.00797448491,
+      0.000853318018,
+      0.0000384953842
+    ],
+    "first_two_cumulative": 0.991133701
+  },
+  "pearson_correlation": {
+    "feature_names": [
+      "phi",
+      "tau",
+      "neighbour_phi_mean",
+      "neighbour_phi_std",
+      "q6_laplacian_phi",
+      "quartic_potential_density",
+      "metric_dirichlet_energy_density"
+    ],
+    "matrix": [
+      [
+        1,
+        0.92698167,
+        0.9643078,
+        0.72047535,
+        0.93980534,
+        0.99989313,
+        0.96743172
+      ],
+      [
+        0.92698167,
+        1,
+        0.81906995,
+        0.50285614,
+        0.96774681,
+        0.92881838,
+        0.84438101
+      ],
+      [
+        0.9643078,
+        0.81906995,
+        1,
+        0.87478946,
+        0.81578225,
+        0.96120275,
+        0.99615108
+      ],
+      [
+        0.72047535,
+        0.50285614,
+        0.87478946,
+        1,
+        0.44477395,
+        0.71153901,
+        0.86274162
+      ],
+      [
+        0.93980534,
+        0.96774681,
+        0.81578225,
+        0.44477395,
+        1,
+        0.94357904,
+        0.82757287
+      ],
+      [
+        0.99989313,
+        0.92881838,
+        0.96120275,
+        0.71153901,
+        0.94357904,
+        1,
+        0.96470827
+      ],
+      [
+        0.96743172,
+        0.84438101,
+        0.99615108,
+        0.86274162,
+        0.82757287,
+        0.96470827,
+        1
+      ]
+    ]
+  },
+  "checks": {
+    "q6_degree_constant_six": true,
+    "metric_weights_positive": true,
+    "edge_count_192": true,
+    "vertex_rows_64": true
+  },
+  "interpretation": [
+    "The first two standardized PCs explain about 99.11% of the variance in this finite feature table.",
+    "The high phi-tau association is model-conditioned because tau enters the determinant coupling.",
+    "The potential-density feature is almost perfectly correlated with phi here because phi occupies a narrow positive interval; this is not an independent physical degree of freedom.",
+    "The vertex rows are spatially coupled and must not be treated as iid samples."
+  ],
+  "limitations": [
+    "Exploratory description only; no p-values, causal inference or predictive validation.",
+    "No continuum refinement or physical-unit calibration.",
+    "The first PCA component can be dominated by deterministic nonlinear feature redundancy.",
+    "The numerical summary was independently recomputed directly from the mounted archived matrices and the reported 64-value stationary field; the committed CLI provides the reproducible entry point."
+  ]
+}
