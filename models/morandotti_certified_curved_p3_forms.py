@@ -783,8 +783,23 @@ def assemble_dolfinx_mesh_interval_forms(
         solution_points = np.asarray(function_space.element.basix_element.points, dtype=float)
     except AttributeError as exc:
         raise RuntimeError("cannot inspect the P3 solution element reference nodes") from exc
-    if solution_points.shape != points.shape or not np.array_equal(solution_points, points):
-        raise ValueError("solution and geometry P3 nodal orderings are not identical equispaced lattices")
+    if solution_points.shape != points.shape:
+        raise ValueError("solution and geometry P3 elements have different node counts")
+    solution_lookup = {
+        (float(point[0]), float(point[1])): index
+        for index, point in enumerate(solution_points)
+    }
+    if len(solution_lookup) != len(solution_points):
+        raise ValueError("solution P3 element contains duplicate reference nodes")
+    try:
+        solution_order_for_geometry = np.asarray([
+            solution_lookup[(float(point[0]), float(point[1]))]
+            for point in points
+        ], dtype=np.int64)
+    except KeyError as exc:
+        raise ValueError(
+            "solution and geometry P3 elements do not use the same equispaced reference-node set"
+        ) from exc
 
     nc = mesh.topology.index_map(tdim).size_local
     geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
@@ -792,8 +807,10 @@ def assemble_dolfinx_mesh_interval_forms(
         raise ValueError("expected ten coordinate nodes per owned P3 triangle")
     cell_nodes = [mesh.geometry.x[geometry_dofmap[c], :2].copy()
                   for c in range(nc)]
-    cell_dofs = [np.asarray(function_space.dofmap.cell_dofs(c), dtype=np.int64)
-                 for c in range(nc)]
+    cell_dofs = [
+        np.asarray(function_space.dofmap.cell_dofs(c), dtype=np.int64)[solution_order_for_geometry]
+        for c in range(nc)
+    ]
     if any(len(dofs) != 10 for dofs in cell_dofs):
         raise ValueError("solution space is not scalar P3 on every triangle")
     cells = np.arange(nc, dtype=np.int32)
