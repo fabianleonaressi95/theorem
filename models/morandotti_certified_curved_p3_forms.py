@@ -137,7 +137,7 @@ def integrate_rational_sqrt_segment(
         raise ZeroDivisionError("denominator and square-root radicand must be nonzero")
     if len(q) == 1 and len(s) == 1:
         q0, s0 = next(iter(q.values())), next(iter(s.values()))
-        if q0 == 0 or s0 <= 0:
+        if q0 <= 0 or s0 <= 0:
             raise ArithmeticError("constant facet denominator or metric is not positive")
         integral_p = sum((coefficient/F(degree+1)
                           for degree, coefficient in p.items()), F(0))
