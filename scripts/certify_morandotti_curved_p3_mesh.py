@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from time import perf_counter
 from fractions import Fraction
 from pathlib import Path
 
@@ -13,7 +14,8 @@ import basix.ufl
 from dolfinx import fem
 
 from models.morandotti_certified_curved_p3_forms import (
-    certify_dolfinx_mesh_trace_bound,
+    assemble_dolfinx_mesh_interval_forms,
+    certify_global_trace_bound,
 )
 from scripts.rgs_morandotti_two_core_c0_ipdg import make_mesh
 
@@ -56,10 +58,24 @@ def main():
         lagrange_variant=basix.LagrangeVariant.equispaced,
     )
     V = fem.functionspace(mesh, element)
-    certificate = certify_dolfinx_mesh_trace_bound(
-        mesh, V, bound, absolute_tolerance=tolerance,
-        max_depth=args.max_depth,
+    t0 = perf_counter()
+    assembled = assemble_dolfinx_mesh_interval_forms(
+        mesh, V, absolute_tolerance=tolerance, max_depth=args.max_depth,
     )
+    assembly_seconds = perf_counter() - t0
+
+    t1 = perf_counter()
+    certificate = certify_global_trace_bound(
+        assembled["D_interval"], assembled["H_interval"],
+        assembled["free_dofs"], bound,
+    )
+    psd_seconds = perf_counter() - t1
+    certificate.update({
+        "cell_count": assembled["cell_count"],
+        "interior_facet_count": assembled["interior_facet_count"],
+        "boundary_facet_count": assembled["boundary_facet_count"],
+        "assembly": "exact-rational local curved-P3 Hessian blocks with certified volume/facet integral enclosures",
+    })
     payload = {
         "title": "T134 exact curved-P3 finite-mesh trace certificate",
         "status": "certified" if certificate["certified"] else "not_certified",
@@ -67,6 +83,7 @@ def main():
         "core_distance": args.distance,
         "seed": args.seed,
         "integration_absolute_tolerance": str(tolerance),
+        "timings_seconds": {"assembly_and_interval_integration": assembly_seconds, "global_interval_PSD": psd_seconds, "total": assembly_seconds + psd_seconds},
         **certificate,
         "scope": "one finite generated mesh; no mesh-uniform conclusion",
     }
