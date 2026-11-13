@@ -20,7 +20,7 @@ from models.morandotti_exact_geometry import (
     _certify_positive_exact,
 )
 from models.morandotti_certified_rational_integration import (
-    integrate_rational_triangle,
+    integrate_rational_triangle, integrate_rational_triangle_many,
 )
 
 BPoly = Mapping[tuple[int, int], F]
@@ -448,18 +448,21 @@ def assemble_cell_volume_interval(
         node_coordinates, interpolation_points
     )
     result = [[None for _ in range(10)] for _ in range(10)]
-    for i in range(10):
-        for j in range(i, 10):
-            numerator = {}
-            for a in range(2):
-                for b in range(2):
-                    numerator = _add(numerator, _mul(
-                        hessians[i][a][b], hessians[j][a][b]))
-            lo, hi, leaves, depth = integrate_rational_triangle(
-                numerator, det5, absolute_tolerance=absolute_tolerance,
-                max_depth=max_depth,
-            )
-            result[i][j] = result[j][i] = (lo, hi)
+    pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    numerators = []
+    for i, j in pairs:
+        numerator = {}
+        for a in range(2):
+            for b in range(2):
+                numerator = _add(numerator, _mul(
+                    hessians[i][a][b], hessians[j][a][b]))
+        numerators.append(numerator)
+    enclosed = integrate_rational_triangle_many(
+        numerators, det5, absolute_tolerance=absolute_tolerance,
+        max_depth=max_depth,
+    )
+    for (i, j), (lo, hi, leaves, depth) in zip(pairs, enclosed):
+        result[i][j] = result[j][i] = (lo, hi)
     return {
         "matrix_interval": result,
         "determinant_polynomial": det,
