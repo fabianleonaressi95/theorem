@@ -22,16 +22,16 @@ def test_exact_constant_and_linear_integrals_are_enclosed():
 
 
 def test_rational_integral_with_positive_denominator():
-    # One exact midpoint subdivision suffices; this exercises the rational
-    # enclosure path without turning a unit test into a deep-refinement stress test.
+    # The rational Neumann enclosure certifies this mildly varying denominator
+    # on the root triangle, without unnecessary geometric subdivision.
     lo, hi, leaves, depth = integrate_rational_triangle(
         {(0, 0): 1}, {(0, 0): 1, (1, 0): 1},
         absolute_tolerance=F(1, 5), max_depth=2,
     )
     assert lo < hi
     assert hi-lo <= F(1, 5)
-    assert leaves == 4
-    assert depth == 1
+    assert leaves == 1
+    assert depth == 0
 
 
 def test_denominator_zero_or_uncertified_is_rejected():
