@@ -333,16 +333,17 @@ The kernel of the volume quadratic form is exactly
 \text{ is affine in }x\}
 =\operatorname{span}\{1,F_{K,1},F_{K,2}\}.
 \]
-The boundary Hessian quadratic form has the same kernel: an affine physical
-function has zero Hessian everywhere. On the quotient
-\(\mathbb P_3(\widehat K)/\mathcal N_F\), the volume form is positive
-definite. Its smallest eigenvalue is bounded away from zero uniformly over
-the compact admissible map class: otherwise a convergent sequence of
-normalized maps and unit quotient vectors would produce a nonzero quotient
-vector with zero volume Hessian, contradicting the stated kernel. The
-boundary quadratic form has uniformly bounded largest eigenvalue by the
-same compactness and the surface-Jacobian bounds. Their quotient is
-therefore uniformly bounded. This proves (10.2). Finally,
+On the quotient \(\mathbb P_3(\widehat K)/\mathcal N_F\), the volume form is
+positive definite. Its smallest eigenvalue is bounded away from zero
+uniformly over the compact admissible map class: otherwise a convergent
+sequence of normalized maps and unit quotient vectors would produce a
+nonzero quotient vector with zero physical Hessian in the cell, hence an
+affine physical function, contradicting the quotient construction. The
+boundary quadratic form (using the full Hessian trace) has uniformly bounded
+largest eigenvalue by (10.3), compactness, and the surface-Jacobian bounds.
+No equality of the volume and boundary kernels is needed for this
+one-sided trace estimate. Their quotient is therefore uniformly bounded.
+This proves (10.2). Finally,
 \(|n^TD_x^2v\,n|\le |D_x^2v|\), so the normal-normal version follows.
 \(\square\)
 
