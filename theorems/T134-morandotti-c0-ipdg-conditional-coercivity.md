@@ -368,9 +368,9 @@ N_{\widehat F}
 \]
 The volume form is positive definite on the quotient
 \(\mathbb P_3(\widehat K)/N_{\widehat F}\). Its smallest quotient
-eigenvalue has a positive lower bound uniform over \(\mathfrak F\).
+eigenvalue has a positive lower bound uniform over \(K_0\).
 To see this rigorously, suppose otherwise. Choose a sequence
-\(\widehat F_m\in\mathfrak F\) and representatives \(\hat v_m\)
+\(\widehat F_m\inK_0\) and representatives \(\hat v_m\)
 orthogonal, in one fixed coefficient-space inner product, to
 \(N_{\widehat F_m}\), with coefficient norm one and
 \(Q_{\widehat F_m}^{\rm vol}(\hat v_m)\to0\).
@@ -391,7 +391,7 @@ h_K\|D_x^2v\|_{L^2(\partial K)}^2
 \le C_{\rm loc}\|D_x^2v\|_{L^2(K)}^2,
 \tag{10.6}
 \]
-where \(C_{\rm loc}\) depends only on the fixed class \(\mathfrak F\),
+where \(C_{\rm loc}\) depends only on the fixed class \(K_0\),
 the reference cell, and the stated uniform geometric constants, and is
 independent of \(K,h\), and the seed. Since
 \(|n^TD_x^2v\,n|\le |D_x^2v|\), (10.6) also holds for the
