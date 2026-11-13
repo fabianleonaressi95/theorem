@@ -1,15 +1,22 @@
 import unittest
 import numpy as np
-from audits.morphodynamics.q6_mqm_metric_reference import metric_reference, metric_reference_report, rgs_edge_lengths
+from audits.morphodynamics.q6_mqm_metric_reference import (
+    metric_reference, metric_reference_report, rgs_edge_lengths, rgs_psu_edge_coframes,
+)
 from audits.morphodynamics.q6_mqm_symmetry import q6_edges, edge_permutation
 from audits.morphodynamics.q6_mqm_anisotropic_stabilizer import rgs_gate_vertex_permutations
 
-class TestMQMRGSMetricReference(unittest.TestCase):
+class TestMQMRGSPsuMetricReference(unittest.TestCase):
     def test_positive_finite_reference(self):
         x=metric_reference()
         self.assertEqual(x.shape,(192,))
         self.assertTrue(np.all(np.isfinite(x)))
         self.assertTrue(np.all(np.exp(x)>0))
+
+    def test_four_component_psu_coframe_is_reconstructed(self):
+        coframes=rgs_psu_edge_coframes()
+        self.assertEqual(coframes.shape,(192,4))
+        self.assertTrue(np.all(np.linalg.norm(coframes,axis=1)>0))
 
     def test_seed_metric_has_13_edge_length_classes(self):
         lengths=rgs_edge_lengths()
