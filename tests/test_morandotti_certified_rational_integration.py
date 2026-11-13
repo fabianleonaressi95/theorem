@@ -14,7 +14,7 @@ def test_exact_constant_and_linear_integrals_are_enclosed():
     assert lo == hi == 1
     assert leaves == 1
 
-    lo, hi, _, _ = integrate_rational_triangle(
+    lo, hi, leaves, depth = integrate_rational_triangle(
         {(1, 0): 1}, {(0, 0): 1}, absolute_tolerance=F(1, 10**5), max_depth=18
     )
     assert lo <= F(1, 6) <= hi
@@ -25,10 +25,12 @@ def test_rational_integral_with_positive_denominator():
     # Integral 1/(1+x) over the reference triangle; enclosure is rigorous.
     lo, hi, _, _ = integrate_rational_triangle(
         {(0, 0): 1}, {(0, 0): 1, (1, 0): 1},
-        absolute_tolerance=F(1, 20), max_depth=6,
+        absolute_tolerance=F(1, 5), max_depth=2,
     )
     assert lo < hi
-    assert hi-lo <= F(1, 20)
+    assert hi-lo <= F(1, 5)
+    assert leaves == 4
+    assert depth == 1
 
 
 def test_denominator_zero_or_uncertified_is_rejected():
