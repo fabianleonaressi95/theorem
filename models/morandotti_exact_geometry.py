@@ -113,6 +113,8 @@ def _certify_positive_exact(power: Poly, degree: int = 4,
         if lower > 0:
             leaves.append((lower, upper, depth))
             return True
+        if upper <= 0:
+            return False
         if depth >= max_depth:
             return False
         v0, v1, v2 = triangle
