@@ -196,3 +196,22 @@ open obligations.
 **Current status:** conditional coercivity proof; initial 12-case finite-mesh
 audit completed; extended 24-case refinement audit configured and pending.
 No uniform trace constant or unconditional coercivity claim is made.
+
+
+## 8. Statistical diagnostics added to the refinement workflow
+
+The extended audit now records exploratory Gaussian least-squares model
+comparisons using AIC, AICc, and BIC for three candidate trends in the
+seed-level estimates: a constant, a power law (a h^p), and an asymptotic
+finite-limit model (C_\infty+a h^p). It also performs a 2,000-replicate
+seed-stratified nonparametric bootstrap, resampling the independent mesh-seed
+realizations within each target mesh size and reporting a percentile interval
+for the fitted (C_\infty).
+
+These are model-selection and sampling-uncertainty diagnostics only. AIC/BIC
+rank the specified candidate models conditional on the observed data; they do
+not establish that the candidate family is correct. With three seeds per
+mesh level, bootstrap intervals are necessarily coarse and conditional on
+the mesh generator. Neither a preferred finite-limit model nor a bounded
+bootstrap interval proves a uniform trace inequality. The analytic
+mesh-uniform mapped-element estimate remains open.
