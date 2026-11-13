@@ -231,14 +231,15 @@ The abstract constrained minimization problem in Section 2 is no longer merely a
 
 T133 applies to a concrete assembled pair \((M_h,A_h)\) only after positive definiteness of \(M_h\) and full row rank of \(A_h\) have been established. Finite numerical eigenvalue and singular-value checks are instance-level diagnostics, not a uniform theorem over mesh refinement.
 
-For the P3 C0-IPDG cell solver, **T134** proves a conditional coercivity estimate for the symmetric Hessian interior-penalty form. If the mesh family satisfies a uniform trace-inverse bound with constant \(C_{\rm tr}\), and the penalty satisfies \(\alpha>2C_{\rm tr}\) under the stated normalization, then
+For the P3 C0-IPDG cell solver, **T134** now writes the form with the exact penalty lengths used by the implementation: \(\ell_F=\operatorname{avg}(h_K)\) on interior facets and \(\ell_F=h_K\) on boundary facets. It matches the Hessian volume term, symmetric normal-normal-Hessian/normal-derivative consistency terms, and weak normal-derivative penalties on both boundary components. Under the mesh-uniform mapped-P3 trace-inverse estimate (T134.1), the conditional bound is
 \[
-a_h(v,v)\ge\frac12\sum_K\|D^2v\|_{L^2(K)}^2
-+(\alpha-2C_{\rm tr})J_h(v)^2.
+a_{h,\ell}(v,v)\ge\frac12D_h(v)^2
++(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2,
+\qquad \alpha>2C_{\rm tr}.
 \]
 This is a sufficient, not sharp, threshold.
 
-**Important limitation:** the current implementation uses \(\alpha=10\), but no uniform value of \(C_{\rm tr}\) has yet been established for its curved P3 element maps and facet scaling. Therefore T134 does not yet certify that the production parameter 10 is coercive. The remaining proof obligations are to bound the curved-element trace constant uniformly, verify exact agreement of code and theorem facet conventions, establish elimination of the affine kernel by the homogeneous boundary conditions, and choose a penalty above the proved threshold.
+**Important limitation:** source inspection confirms the algebraic correspondence, but it is not an executed assembly-equivalence test. The current implementation uses \(\alpha=10\); no uniform value of \(C_{\rm tr}\), curved-map regularity bound, or uniform facet-scale comparability constant has yet been established. Therefore T134 does not certify that the production parameter 10 is coercive. The affine kernel must also be controlled by the homogeneous value boundary conditions.
 
 Even after these obligations are closed, convergence still requires consistency, approximation and mesh-uniform continuity estimates, together with sufficient regularity of the exact cell fields. Neither T133 nor T134 proves convergence of the multi-core interaction matrix or a continuum distance law.
 
