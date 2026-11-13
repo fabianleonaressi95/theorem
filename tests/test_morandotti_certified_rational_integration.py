@@ -3,7 +3,7 @@ from fractions import Fraction as F
 import pytest
 
 from models.morandotti_certified_rational_integration import (
-    integrate_rational_triangle,
+    integrate_rational_triangle, integrate_rational_triangle_many,
 )
 
 
@@ -46,3 +46,22 @@ def test_denominator_zero_or_uncertified_is_rejected():
 def test_float_coefficients_are_rejected():
     with pytest.raises(TypeError):
         integrate_rational_triangle({(0, 0): 0.5}, {(0, 0): 1})
+
+
+
+def test_shared_triangle_integrator_overlaps_scalar_enclosures():
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(0, 1): F(1)},
+    ]
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    kwargs = {"absolute_tolerance": F(1, 5), "max_depth": 4}
+    batch = integrate_rational_triangle_many(numerators, denominator, **kwargs)
+    scalar = [
+        integrate_rational_triangle(p, denominator, **kwargs)
+        for p in numerators
+    ]
+    for (blo, bhi, _, _), (slo, shi, _, _) in zip(batch, scalar):
+        assert blo <= shi
+        assert slo <= bhi
