@@ -6,6 +6,7 @@ on:
       - "models/eqc_ternary.py"
       - "models/eqc_language.py"
       - "tests/test_eqc_ternary.py"
+      - "theorems/EQC-3-hexagram-geometry-gates.md"
       - "tests/test_eqc_language.py"
       - "theorems/EQC-1-ternary-hexagram-qutrit-register.md"
       - ".github/workflows/eqc-ternary.yml"
