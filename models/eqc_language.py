@@ -50,6 +50,15 @@ def compile_source(source):
                 if sorted(permutation) != [0, 1, 2]:
                     raise ValueError("P requires a permutation of 0,1,2")
                 program.append((op, q, permutation))
+            elif op == "INV" and len(fields) == 2:
+                program.append((op, _qindex(fields[1])))
+            elif op == "SWAP" and len(fields) == 3:
+                a, b = _qindex(fields[1]), _qindex(fields[2])
+                if a == b:
+                    raise ValueError("SWAP registers must differ")
+                program.append((op, a, b))
+            elif op in {"REV", "ROT"} and len(fields) == 1:
+                program.append((op,))
             else:
                 raise ValueError("unknown instruction or wrong number of operands")
         except ValueError as exc:
@@ -100,6 +109,22 @@ def _apply_permutation(state, position, permutation):
     return out
 
 
+def _apply_position_permutation(state, order):
+    """Permute the six hexagram line/register positions."""
+    out = [0j] * DIM
+    for old_index, amplitude in enumerate(state):
+        old_digits = [0] * N_QUTRITS
+        value = old_index
+        for pos in range(N_QUTRITS - 1, -1, -1):
+            value, old_digits[pos] = divmod(value, 3)
+        new_digits = [old_digits[order[pos]] for pos in range(N_QUTRITS)]
+        new_index = 0
+        for digit in new_digits:
+            new_index = 3 * new_index + digit
+        out[new_index] = amplitude
+    return out
+
+
 def _apply_sum(state, control, target):
     out = [0j] * DIM
     cstride = 3 ** (N_QUTRITS - 1 - control)
@@ -135,6 +160,23 @@ def run(program, initial_state=None):
             state = _apply_permutation(state, instruction[1], instruction[2])
         elif op == "SUM":
             state = _apply_sum(state, instruction[1], instruction[2])
+        elif op == "INV":
+            # Digit map 0<->2, 1 fixed: symbol map -1<->+1, 0 fixed.
+            state = _apply_permutation(state, instruction[1], (2, 1, 0))
+        elif op == "SWAP":
+            order = list(range(N_QUTRITS))
+            order[instruction[1]], order[instruction[2]] = (
+                order[instruction[2]], order[instruction[1]]
+            )
+            state = _apply_position_permutation(state, order)
+        elif op == "REV":
+            state = _apply_position_permutation(
+                state, tuple(reversed(range(N_QUTRITS)))
+            )
+        elif op == "ROT":
+            state = _apply_position_permutation(
+                state, (1, 2, 3, 4, 5, 0)
+            )
         else:
             raise ValueError(f"unsupported instruction: {op}")
     return state
