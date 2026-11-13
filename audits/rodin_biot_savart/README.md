@@ -14,14 +14,18 @@ The paper gives the geometric relations
     Rc = Rp sin(theta),       l = 2 Rp cos(theta),
     Rp = D/2,                 theta = 90 degrees - theta_s/2.
 
-Substitution of the reported D and theta_s gives Rp = 49.75 mm and theta =
-15 degrees, hence Rc = 12.876 mm, whereas the reported aperture radius is
-14.5 mm. The discrepancy is about 1.624 mm (11.2% of the reported radius).
-Conversely, the reported aperture and outer radius imply a winding angle of
-about 146.1 degrees under the same triangle convention.
+Under a literal reading of the reported definitions, substitution of D and
+theta_s gives Rp = 49.75 mm and theta = 15 degrees, hence Rc = 12.876 mm,
+whereas the reported aperture radius is 14.5 mm. The difference is about
+1.624 mm (11.2% of the reported radius). Conversely, the reported aperture
+and outer radius imply a winding angle of about 146.1 degrees under the same
+triangle convention.
 
-This is an explicit source-geometry inconsistency to resolve, not a parameter
-to tune away. The audit script records it reproducibly:
+This is a parameter-definition ambiguity that must be put to the authors,
+not a discrepancy to tune away. Figure 2 contains several radii/diameters
+and the paper does not fully specify all reference circles in prose; the
+audit therefore records the literal arithmetic but does not claim a proven
+physical inconsistency. The audit script records it reproducibly:
 
     python -m scripts.audit_rodin_paper_geometry
 
@@ -38,11 +42,12 @@ the geometry and field. The article's central-field comparison is:
 | 1.25 A | 3.01 mT | 3.00 mT | 3.05 mT |
 | 0.60 A | 1.30 mT | 1.10 mT | 1.16 mT |
 
-The article also describes a 16 x 16 x 8 cm 3-D scan using a triaxial
-Melexis MLX90393 sensor with 0.5 cm steps. The raw vector scan data and a
-dimensioned 3-D wire centreline are not supplied in the retrieved article
-text. A centre-point magnitude table is not sufficient to validate a
-pointwise vector-field model.
+The article describes a 16 x 16 x 8 cm 3-D scan using a triaxial
+Melexis MLX90393 sensor with 0.5 cm steps. It states that mapped field
+signals are stored on a microSD card, and that the winding pattern consists
+of two coils connected in series. The paper does not publish the raw scan
+files or a dimensioned 3-D wire centreline. A centre-point magnitude table
+is not sufficient to validate a pointwise vector-field model.
 
 ## Existing torus-knot code
 
@@ -53,12 +58,13 @@ reported 3.90 mT value or described as the experimental Rodin coil.
 
 ## Required next inputs
 
-1. Resolve the 150-degree / 2.9-cm aperture discrepancy against Fig. 1 and
-   the original geometric construction.
-2. Obtain the actual wire path, connection topology, number of turns, and
-   signed current directions from a dimensioned drawing or authors.
-3. Obtain the measured XYZ scan data (or digitizable source data), sensor
-   coordinates, and coil coordinate frame.
+1. Ask the authors to clarify the reference circles and angle convention
+   behind the 150-degree / 2.9-cm aperture parameters.
+2. Obtain the actual wire path of both series-connected coils, their
+   connection topology, turn count, wire diameter, and signed current
+   directions from a dimensioned drawing or CAD file.
+3. Request the raw XYZ microSD scan data, sensor coordinates, scan origin,
+   axis orientation, current/frequency, and calibration metadata.
 4. Implement the paper's 12-segment polygon model separately from the
    physical wire model, then compare both to the vector scan.
 5. Add a conventional control coil with matched current and comparable
