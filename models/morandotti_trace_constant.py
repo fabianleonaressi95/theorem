@@ -70,7 +70,7 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-9,
                 f"ARPACK retries (n={n}, ncv={ncv_values}); "
                 f"partial eigenvalues={getattr(last_error, 'eigenvalues', None)}"
             ) from last_error
-        bmin, bmax = float("nan"), float("nan")
+        bmin, bmax = None, None
 
     Ax = A @ x
     Bx = B @ x
@@ -80,7 +80,8 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-9,
     diagnostics = {
         "denominator_lambda_min_estimate": bmin,
         "denominator_lambda_max_estimate": bmax,
-        "denominator_condition_estimate": float(bmax / bmin),
+        "denominator_condition_estimate": (float(bmax / bmin) if bmin is not None else None),
+        "denominator_extreme_eigenvalues_estimated": bmin is not None,
         "generalized_eigenvalue": result,
         "rayleigh_quotient_check": rayleigh,
         "relative_generalized_eigenpair_residual": residual,
