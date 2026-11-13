@@ -75,6 +75,7 @@ def certify_curved_p3_geometry(mesh):
     from fractions import Fraction
     import hashlib
     import math
+    import basix
 
     tdim = mesh.topology.dim
     nc = mesh.topology.index_map(tdim).size_local
@@ -86,7 +87,19 @@ def certify_curved_p3_geometry(mesh):
             f"coordinate element; got degree={cmap.degree}, dim={cmap.dim}, "
             f"lagrange_variant={lagrange_variant}"
         )
-    points = np.asarray(cmap.interpolation_points, dtype=np.float64)
+    expected_variant = int(basix.LagrangeVariant.equispaced)
+    if int(cmap.variant) != expected_variant:
+        raise RuntimeError(
+            "exact P3 reconstruction requires the equispaced Lagrange coordinate variant; "
+            f"got variant={int(cmap.variant)}, expected={expected_variant}"
+        )
+    coordinate_element = basix.create_element(
+        basix.ElementFamily.P, basix.CellType.triangle, 3,
+        basix.LagrangeVariant.equispaced,
+    )
+    if not coordinate_element.interpolation_is_identity:
+        raise RuntimeError("Basix equispaced P3 coordinate element is not nodal")
+    points = np.asarray(coordinate_element.points, dtype=np.float64)
     geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
     if geometry_dofmap.shape != (nc, 10):
         raise RuntimeError(
@@ -164,6 +177,7 @@ def certify_curved_p3_geometry(mesh):
             "degree": int(cmap.degree),
             "dimension": int(cmap.dim),
             "lagrange_variant": lagrange_variant,
+            "interpolation_is_identity": bool(coordinate_element.interpolation_is_identity),
             "reference_nodes": int(points.shape[0]),
             "node_set": "equispaced triangular P3 lattice, checked against interpolation points to 1e-12 before exact rational reconstruction",
         },
