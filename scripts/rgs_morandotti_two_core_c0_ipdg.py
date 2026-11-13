@@ -58,8 +58,12 @@ def make_mesh(R, a, centers, h, comm, random_seed=1):
     # unchanged. Distinct seeds therefore define genuinely distinct meshes.
     rng = np.random.default_rng(int(random_seed))
     interior_points = []
-    boundary_clearance = max(0.5 * h, 0.015)
-    point_clearance = max(0.75 * h, 0.02)
+    # Embedded marker vertices encode the seed, not the mesh resolution.
+    # Scaling their exclusion radii with h makes coarse profiling meshes
+    # geometrically impossible (e.g. h=0.8 in this annulus). Keep clearances
+    # small and bounded independently of the target element size.
+    boundary_clearance = max(0.015, min(0.5 * h, 0.05))
+    point_clearance = max(0.02, min(0.75 * h, 0.08))
     for _ in range(4000):
         x, y = rng.uniform(-R + boundary_clearance, R - boundary_clearance, size=2)
         if x*x + y*y >= (R - boundary_clearance)**2:
