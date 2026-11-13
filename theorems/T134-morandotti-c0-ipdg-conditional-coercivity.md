@@ -64,9 +64,6 @@ Assume there is a constant \(C_{\rm tr}\), independent of the mesh level, such t
 This is the precise trace estimate needed by the coercivity proof, and it includes both interior and boundary facets. Its constant depends on the polynomial degree, the shape-regularity bounds, the mapped-element regularity bounds, and the uniform facet-weight comparability constants. For a fixed-degree family (here P3), these dependencies are fixed and the required assertion is that the resulting constant is independent of the mesh level h. For a variable-degree method, the degree dependence must be tracked explicitly and the penalty must satisfy \(\alpha(p)>2C_{\rm tr}(p)\); no universal p-scaling is asserted here. For straight affine triangles and fixed polynomial degree it follows from the polynomial inverse-trace inequality and shape regularity, after scaling. For curved P3 cells the physical Hessian of a mapped polynomial is generally not a polynomial in physical coordinates. Therefore one must additionally assume a uniformly regular family of element maps: uniformly bounded scaled derivatives of the maps through the order entering the physical Hessian, uniformly bounded inverse Jacobians after scaling, and uniform nondegeneracy of the Jacobian determinant. Together with the weight comparability above, these conditions give a uniformly bounded family of pullback trace operators on the finite-dimensional mapped P3 reference space and hence (T134.1).
 
 The trace quantity here is the normal-normal Hessian trace \(n^TD^2v,n\), not the distinct quantity \(\partial_n\Delta v\). This paragraph explains a sufficient route to (T134.1); it does **not** claim that the current Gmsh meshes have already been shown to satisfy those uniform map bounds. An alternative direct proof or verified bound of (T134.1) for the generated mesh family is acceptable.
-This is the precise trace estimate needed by the coercivity proof. For straight affine triangles and fixed polynomial degree it follows from the polynomial inverse-trace inequality and shape regularity, after scaling. For curved P3 cells the physical Hessian of a mapped polynomial is generally not a polynomial in physical coordinates. Therefore one must additionally assume a uniformly regular family of element maps: uniformly bounded scaled derivatives of the maps through the order entering the physical Hessian, uniformly bounded inverse Jacobians after scaling, and uniform nondegeneracy of the Jacobian determinant. Together with the weight comparability above, these conditions give a uniformly bounded family of pullback trace operators on the finite-dimensional mapped P3 reference space and hence (T134.1).
-
-This paragraph explains a sufficient route to (T134.1); it does **not** claim that the current Gmsh meshes have already been shown to satisfy those uniform map bounds. An alternative direct proof or verified bound of (T134.1) for the generated mesh family is acceptable.
 
 ## 3. Bilinear form and theorem
 
@@ -250,180 +247,233 @@ None of these statistical procedures proves
 every point, or replaces the analytical mapped-element trace estimate.
 
 
-## 10. Analytical mapped-element trace lemma (proof; geometric hypothesis isolated)
+## 10. Conditional analytical mapped-element trace lemma
 
-This section supplies the analytical argument behind (T134.1), rather than
-inferring it from the generalized-eigenvalue experiments.
+This section proves the local trace estimate **under a fixed compact geometric
+admissibility hypothesis**. It does not prove that the present Gmsh generator
+produces a family satisfying that hypothesis. In particular, finite-dimensional
+norm equivalence is used only after uniformity of the normalized element-map
+family has been explicitly assumed.
 
-### 10.1 Uniform class of cubic element maps
+### 10.1 Fixed admissible class of normalized maps
 
-For every cell \(K\), let
+For every cell \(K\), write
 \[
-F_K:\widehat K\longrightarrow K,\qquad
-x=x_K+h_K\widehat F_K(\widehat x),
+F_K(\hat x)=x_K+h_K\widehat F_K(\hat x),\qquad
+h_K=\operatorname{diam}(K),
 \]
-where \(\widehat K\) is the fixed reference triangle and \(h_K=\operatorname{diam}K\).
-The isoparametric Gmsh P3 geometry makes \(\widehat F_K\) a polynomial map of
-degree at most three. Assume the normalized maps belong to one fixed compact
-admissible class \(\mathfrak F\) of cubic maps, with
+where \(\widehat K\) is the fixed reference triangle. Fix a reference vertex
+\(\hat x_0\) and normalize \(\widehat F_K(\hat x_0)=0\), removing irrelevant
+translations. Each \(\widehat F_K\) is a polynomial map of degree at most
+three. The required hypothesis is that **all** normalized maps, for every
+cell, refinement level, and allowed seed, belong to one fixed compact set
+\(\mathfrak F\) in the coefficient space of cubic maps, and that every
+\(\widehat F\in\mathfrak F\) is admissible with
 \[
-\sup_{\widehat K}\|D\widehat F\|\le M_1,\qquad
-\sup_{\widehat K}\|(D\widehat F)^{-1}\|\le M_{-1},\qquad
-\sup_{\widehat K}\|D^2\widehat F\|\le M_2,
+\|D\widehat F\|_{L^\infty(\widehat K)}\le M_1,\qquad
+\|(D\widehat F)^{-1}\|_{L^\infty(\widehat K)}\le M_{-1},\qquad
+\|D^2\widehat F\|_{L^\infty(\widehat K)}\le M_2,
+\]
+\[
+0<j_0\le |\det D\widehat F(\hat x)|\le j_1
+\quad\text{for every }\hat x\in\widehat K.
+\tag{10.1}
+\]
+The constants and the compact set are independent of \(K,h\), and the seed.
+Also assume uniform facet and neighbor comparability:
+\[
+c_fh_K\le h_F\le C_fh_K,\qquad
+c_n\le h_{K'}/h_K\le C_n
+\]
+whenever \(F\subset\partial K\) and \(K,K'\) share \(F\), with constants
+independent of the mesh. These are hypotheses, not consequences of
+high-order optimization or of a finite set of sampled Jacobian values.
+
+### 10.2 Local trace estimate, including the inverse-map term
+
+Let \(v=\hat v\circ F_K^{-1}\), with \(\hat v\in\mathbb P_3(\widehat K)\), and
+put \(J=DF_K=h_KD\widehat F_K\). The chain rule is
+\[
+\nabla_xv=J^{-T}\nabla_{\hat x}\hat v,
+\]
+\[
+D_x^2v
+=J^{-T}D_{\hat x}^2\hat v\,J^{-1}
++\sum_{a=1}^2(\partial_{\hat x_a}\hat v)
+                 D_x^2(F_K^{-1})_a.
+\tag{10.2}
+\]
+Differentiating \(F_K\circ F_K^{-1}=I\) twice gives
+\[
+D^2(F_K^{-1})[\xi,\eta]
+=-J^{-1}D^2F_K[J^{-1}\xi,J^{-1}\eta],
+\]
+and hence
+\[
+\|D^2(F_K^{-1})\|
+\le C\|J^{-1}\|^3\|D^2F_K\|
+\le C h_K^{-2}M_{-1}^3M_2.
+\tag{10.3}
+\]
+Thus the gradient-dependent term in (10.2) is controlled explicitly:
+\[
+|D_x^2v(F_K(\hat x))|
+\le C h_K^{-2}
+\bigl(|D_{\hat x}^2\hat v(\hat x)|
+      +|\nabla_{\hat x}\hat v(\hat x)|\bigr),
+\tag{10.4}
+\]
+where \(C\) depends only on the fixed bounds in (10.1) and the dimension.
+In particular, that term is not discarded or assumed to vanish.
+
+The volume and boundary Jacobians satisfy
+\[
+c h_K^2\le |\det DF_K|\le C h_K^2,\qquad
+c h_K\le J_{\partial K}\le C h_K,
+\tag{10.5}
+\]
+with constants uniform over \(\mathfrak F\). Equations (10.4)--(10.5)
+show that both quadratic forms
+\[
+Q_{\widehat F}^{\rm vol}(\hat v)
+=\int_{\widehat K}|D_x^2(\hat v\circ F^{-1})|^2
+                         |\det DF|\,d\hat x
 \]
 and
 \[
-0<j_0\le |\det D\widehat F(\widehat x)|
-\le j_1<\infty
-\quad(\widehat x\in\widehat K).
-\tag{10.1}
+Q_{\widehat F}^{\rm bdry}(\hat v)
+=h_K\int_{\partial\widehat K}
+ |D_x^2(\hat v\circ F^{-1})|^2J_{\partial K}\,d\hat s
 \]
-Compactness here is in the finite-dimensional coefficient space of cubic
-maps; the lower determinant bound excludes degenerate maps. These constants
-must be independent of \(K\), \(h\), and the seed. Assume also the usual
-uniform shape-regularity/facet comparability: for every facet \(F\subset
-\partial K\), \(c_f h_K\le h_F\le C_f h_K\), and neighboring cell diameters
-are comparable by constants independent of the mesh.
+are continuous in the map coefficients and in \(\hat v\), uniformly
+bounded on bounded subsets of \(\mathbb P_3(\widehat K)\), and have the
+same physical scaling. Here \(F=x_K+h_K\widehat F\); translation \(x_K\)
+does not affect either Hessian.
 
-### 10.2 Local mapped-P3 trace inequality
+The kernel of the volume form is exactly
+\[
+N_{\widehat F}
+=\{\hat v:\hat v\circ F^{-1}\text{ is affine in physical }x\}
+=\operatorname{span}\{1,\widehat F_1,\widehat F_2\}.
+\]
+The volume form is positive definite on the quotient
+\(\mathbb P_3(\widehat K)/N_{\widehat F}\). Its smallest quotient
+eigenvalue has a positive lower bound uniform over \(\mathfrak F\).
+To see this rigorously, suppose otherwise. Choose a sequence
+\(\widehat F_m\in\mathfrak F\) and representatives \(\hat v_m\)
+orthogonal, in one fixed coefficient-space inner product, to
+\(N_{\widehat F_m}\), with coefficient norm one and
+\(Q_{\widehat F_m}^{\rm vol}(\hat v_m)\to0\).
+Compactness gives convergent subsequences
+\(\widehat F_m\to\widehat F\) and \(\hat v_m\to\hat v\).
+The subspaces \(N_{\widehat F_m}\) converge to \(N_{\widehat F}\);
+therefore \(\hat v\) has norm one and is orthogonal to
+\(N_{\widehat F}\). Continuity gives
+\(Q_{\widehat F}^{\rm vol}(\hat v)=0\), so
+\(\hat v\in N_{\widehat F}\), a contradiction.
+The boundary form is uniformly bounded above on coefficient-unit
+vectors by (10.4)--(10.5) and compactness. It need not have the same
+kernel as the volume form; no equality of those kernels is used.
 
-**Lemma.** Under (10.1), there is a constant \(C_{\rm loc}\), depending only
-on \(\widehat K\), the degree \(3\), and \(M_1,M_{-1},M_2,j_0,j_1\), such that
-for every mapped P3 function \(v=\widehat v\circ F_K^{-1}\),
+It follows that
 \[
 h_K\|D_x^2v\|_{L^2(\partial K)}^2
-\le C_{\rm loc}\|D_x^2v\|_{L^2(K)}^2.
-\tag{10.2}
+\le C_{\rm loc}\|D_x^2v\|_{L^2(K)}^2,
+\tag{10.6}
 \]
-In particular the same estimate holds with \(D_x^2v\) replaced on each
-facet by its scalar normal-normal component.
+where \(C_{\rm loc}\) depends only on the fixed class \(\mathfrak F\),
+the reference cell, and the stated uniform geometric constants, and is
+independent of \(K,h\), and the seed. Since
+\(|n^TD_x^2v\,n|\le |D_x^2v|\), (10.6) also holds for the
+normal-normal Hessian component. This proves the local estimate for
+families contained in the fixed compact admissible class; it does not
+establish that the actual generated family is contained in such a class.
 
-**Proof.** Write \(J=D F_K=h_KD\widehat F_K\). The chain rule gives
-\[
-\nabla_xv=J^{-T}\nabla_{\widehat x}\widehat v,
-\]
-and, componentwise,
-\[
-D_x^2v
-=J^{-T}D_{\widehat x}^2\widehat v\,J^{-1}
-+\sum_{a=1}^2
-(\partial_{\widehat x_a}\widehat v)\,
-D_x^2(F_K^{-1})_a.
-\tag{10.3}
-\]
-The standard second-derivative formula for the inverse map gives,
-in operator norm,
-\[
-\|D_x^2(F_K^{-1})\|
-\le C\,\|J^{-1}\|^3\,\|D_{\widehat x}^2F_K\|
-\le C h_K^{-2}M_{-1}^3M_2,
-\]
-where \(C\) depends only on the dimension and the chosen tensor norm.
-Thus the coefficients in (10.3) are uniformly bounded after extracting
-the expected factor \(h_K^{-2}\).
-The volume Jacobian is bounded above and below by fixed multiples of
-\(h_K^2\); the surface Jacobian is bounded above and below by fixed multiples
-of \(h_K\). Thus the left and right sides of (10.2), after pullback and
-cancellation of their common scaling, are quadratic forms on the fixed
-finite-dimensional space \(\mathbb P_3(\widehat K)\).
+### 10.3 Assembly and penalty scaling
 
-The kernel of the volume quadratic form is exactly
-\[
-\mathcal N_F=\{\widehat v:\widehat v\circ F_K^{-1}
-\text{ is affine in }x\}
-=\operatorname{span}\{1,F_{K,1},F_{K,2}\}.
-\]
-On the quotient \(\mathbb P_3(\widehat K)/\mathcal N_F\), the volume form is
-positive definite. Its smallest eigenvalue is bounded away from zero
-uniformly over the compact admissible map class: otherwise a convergent
-sequence of normalized maps and unit quotient vectors would produce a
-nonzero quotient vector with zero physical Hessian in the cell, hence an
-affine physical function, contradicting the quotient construction. The
-boundary quadratic form (using the full Hessian trace) has uniformly bounded
-largest eigenvalue by (10.3), compactness, and the surface-Jacobian bounds.
-No equality of the volume and boundary kernels is needed for this
-one-sided trace estimate. Their quotient is therefore uniformly bounded.
-This proves (10.2). Finally,
-\(|n^TD_x^2v\,n|\le |D_x^2v|\), so the normal-normal version follows.
-\(\square\)
-
-### 10.3 Assembly over facets
-
-For an interior facet \(F=K^+\cap K^-\),
+For an interior facet,
 \[
 |\{n^TD^2v\,n\}|^2
-\le \tfrac12\bigl(|D^2v^+|^2+|D^2v^-|^2\bigr).
+\le\tfrac12\bigl(|D^2v^+|^2+|D^2v^-|^2\bigr);
 \]
-For a boundary facet the same estimate holds with its sole adjacent cell.
-Using \(\ell_F\simeq h_F\simeq h_K\), applying (10.2) cell by cell, and
-noting that a triangle has three edges (uniformly bounded facet incidence),
-gives
+on a boundary facet there is only the adjacent-cell term. Since
+\(\ell_F\simeq h_F\simeq h_K\), (10.6), neighboring-cell comparability,
+and the uniformly bounded number of facets per triangle give
 \[
-\begin{aligned}
 H_{h,\ell}(v)^2
-&=\sum_{F\in\mathcal F_h^i}\ell_F
- \|\{n^TD^2v\,n\}\|_{L^2(F)}^2
- +\sum_{F\in\mathcal F_h^b}\ell_F
- \|n^TD^2v\,n\|_{L^2(F)}^2\\
-&\le C_{\rm tr}\sum_{K\in\mathcal T_h}
- \|D^2v\|_{L^2(K)}^2
-=C_{\rm tr}D_h(v)^2,
-\end{aligned}
+\le C_{\rm tr}\sum_K\|D^2v\|_{L^2(K)}^2
+=C_{\rm tr}D_h(v)^2.
 \]
-where \(C_{\rm tr}\) depends only on the uniform map-class and mesh
-comparability constants, not on \(h\), the cell, or the seed. This is
-(T134.1).
+The constant depends on the fixed map class and the comparability
+constants, not on \(h\), the cell, or the seed. Thus (T134.1) follows
+**conditionally** for every mesh family satisfying all the hypotheses
+of §10.1.
 
-### 10.4 Coercivity consequence
-
-For the implemented symmetric form,
+For the penalty scaling in this theorem, the source code uses
+\(\alpha/\operatorname{avg}(h_K)\) on interior facets and
+\(\alpha/h_K\) on boundary facets. With the definitions in §1 this is
+exactly \(\alpha/\ell_F\), so the jump term is
 \[
-a_{h,\ell}(v,v)=D_h(v)^2
--2\sum_F(q_F(v),j_F(v))_F
-+\alpha J_{h,\ell}(v)^2.
+J_{h,\ell}^2=\sum_F\ell_F^{-1}\|j_F\|_{L^2(F)}^2.
 \]
-Weighted Cauchy--Schwarz and the just-proved trace estimate imply
+In two dimensions, if \(v\) has physical units \(U\) and length has
+units \(L\), then
+\[
+[D_h^2]=U^2L^{-2},\qquad
+[H_{h,\ell}^2]=U^2L^{-2},\qquad
+[J_{h,\ell}^2]=U^2L^{-2}.
+\]
+Consequently \(\alpha\) and \(C_{\rm tr}\) are dimensionless and
+\(\alpha>2C_{\rm tr}\) is dimensionally consistent for this exact
+weighted form. If the penalty were instead unweighted, or used a
+different power of \(h_F\), this comparison and the coercivity
+condition would have to be re-derived; it cannot be transferred
+unchanged.
+
+### 10.4 Coercivity and exact scope
+
+For the form in §3, weighted Cauchy--Schwarz gives
 \[
 2\left|\sum_F(q_F(v),j_F(v))_F\right|
-\le 2H_{h,\ell}(v)J_{h,\ell}(v)
-\le 2\sqrt{C_{\rm tr}}D_h(v)J_{h,\ell}(v).
+\le2H_{h,\ell}(v)J_{h,\ell}(v)
+\le2\sqrt{C_{\rm tr}}D_h(v)J_{h,\ell}(v).
 \]
-The scalar inequality \(2\sqrt{C_{\rm tr}}\,D J
-\le \tfrac12D^2+2C_{\rm tr}J^2\) then gives
+Young's inequality yields
 \[
-\boxed{a_{h,\ell}(v,v)\ge
-\tfrac12D_h(v)^2+(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2.}
+2\sqrt{C_{\rm tr}}D_hJ_{h,\ell}
+\le\tfrac12D_h^2+2C_{\rm tr}J_{h,\ell}^2,
 \]
-Hence \(\alpha>2C_{\rm tr}\) proves coercivity in
-\(D_h^2+J_{h,\ell}^2\), uniformly in \(h\), provided the uniform geometry
-hypotheses above hold.
+and therefore
+\[
+a_{h,\ell}(v,v)\ge
+\tfrac12D_h(v)^2+(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2.
+\]
+Thus \(\alpha>2C_{\rm tr}\) proves coercivity in the stated weighted
+mesh-dependent seminorm, uniformly over **only those mesh families**
+satisfying the fixed compact map-class, Jacobian, facet, and neighbor
+comparability hypotheses above. It is not a theorem for arbitrary
+curved P3 mesh families.
 
-### 10.5 Exact logical status for the present Gmsh generator
+### 10.5 What remains open for the actual Gmsh generator
 
-The local lemma and its assembly are analytical proofs. They do **not** by
-themselves prove that the current generator satisfies (10.1) uniformly.
-The generator constructs OCC disks, asks Gmsh for cubic high-order optimized
-meshes, inserts six seed-dependent interior points, and then moves geometry
-nodes by the sampled Wendland displacement. The source currently checks
-positive signed corner areas and samples \(\det J\) on a finite barycentric
-grid. Neither check establishes a lower bound for \(\det D\widehat F_K\) at
-every reference point, nor uniform bounds on \(D\widehat F_K\),
-\((D\widehat F_K)^{-1}\), and \(D^2\widehat F_K\) over all refinement levels
-and seeds.
+The current generator requests Gmsh cubic high-order optimized meshes.
+The source-level inspection and finite diagnostics do not establish that
+all normalized maps produced for every refinement level and allowed seed
+belong to one fixed compact class \(\mathfrak F\). In particular:
 
-Accordingly, the result now proved is:
+1. finite sampling of \(\det D\widehat F_K\) does not certify its strict
+   positivity on the whole reference cell;
+2. no common, refinement-independent bounds \(M_1,M_{-1},M_2,j_0,j_1\)
+   have been proved for all generated cells;
+3. no all-level proof of facet and neighboring-cell comparability has
+   been supplied;
+4. the observed finite-mesh values of \(C_{\rm tr,h}\) do not bound
+   \(\sup_h C_{\rm tr,h}\), and do not certify that \(\alpha=40\)
+   exceeds \(2C_{\rm tr}\) for the whole generated family.
 
-* **Analytically proved:** the mesh-uniform mapped-P3 trace inequality and
-  T134 coercivity for every family in the explicitly defined compact
-  admissible geometry class (10.1), with uniform facet comparability.
-* **Not yet proved for the actual generated family:** that all Gmsh meshes
-  produced by the current algorithm, for every refinement level and allowed
-  seed, lie in one such class with explicit constants.
-* **Not certified:** that the numerical choice \(\alpha=40\) exceeds
-  \(2C_{\rm tr}\) for that entire generated family.
-
-To upgrade the second bullet, the generator needs a deterministic geometric
-regularity condition (or a certified rejection rule with fixed uniform
-bounds) on every normalized cubic map, including a global polynomial
-certificate for \(\det D\widehat F_K>0\). Sampling, AIC, bootstrap, and
-cross-validation cannot replace that condition.
+Accordingly, the valid result is a conditional analytical theorem for
+families in the fixed compact admissible geometry class. The corresponding
+unconditional statement for the present Gmsh generator remains open.
+A deterministic generator-level construction or rejection rule with
+fixed, certified bounds is needed to close that gap; finite sampling,
+AIC, bootstrap, and cross-validation cannot do so.
