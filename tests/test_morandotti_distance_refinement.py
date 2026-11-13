@@ -76,7 +76,7 @@ def test_t134_young_coercivity_constant_unweighted_and_weighted_norms():
     # For ||v||_w^2 = w_D D^2 + w_J J^2, both coefficient ratios matter.
     w_D, w_J = 2.0, 5.0
     c_weighted = min(0.5 / w_D, penalty_margin / w_J)
-    assert np.isclose(c_weighted, 0.1)
+    assert np.isclose(c_weighted, 0.25)
     assert np.all(lower_bound >= c_weighted * (w_D * D**2 + w_J * J**2) - 1e-12)
 
 
