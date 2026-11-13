@@ -688,7 +688,7 @@ def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
     if len(set(free)) != len(free) or any(i < 0 for i in free):
         raise ValueError("free_dofs must be unique nonnegative global indices")
     index = {global_dof: local for local, global_dof in enumerate(free)}
-    M = {}
+    M = {(i, i): (F(0), F(0)) for i in range(len(free))}
     keys = set(D_interval) | set(H_interval)
     for i, j in keys:
         if i not in index or j not in index:
@@ -704,5 +704,138 @@ def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
         "quotient_dimension": len(free),
         "matrix": "C*D-H",
         "integration_uncertainty_propagated": True,
+    })
+    return certificate
+
+
+def assemble_dolfinx_mesh_interval_forms(
+    mesh,
+    function_space,
+    *,
+    absolute_tolerance=F(1, 10**9),
+    max_depth=24,
+):
+    """Extract a serial DOLFINx equispaced-P3 mesh and assemble sparse intervals.
+
+    The coordinate and solution elements must have identical equispaced P3
+    reference-node ordering. Facet traces are matched by their shared global
+    vertex IDs and then checked as exact cubic physical polynomials.
+    Returns sparse D/H intervals and the homogeneous-boundary/C0-P1 quotient
+    representative used by the numerical audit.
+    """
+    import numpy as np
+    import basix
+    from dolfinx import fem
+    from dolfinx.mesh import exterior_facet_indices
+
+    if mesh.comm.size != 1:
+        raise RuntimeError("certified global interval assembly currently requires a serial mesh")
+    tdim = mesh.topology.dim
+    if tdim != 2 or mesh.geometry.dim < 2:
+        raise ValueError("T134 curved-P3 form assembly requires a planar triangular mesh")
+    cmap = mesh.geometry.cmaps[0]
+    if cmap.degree != 3 or cmap.dim != 10:
+        raise ValueError("geometry coordinate map must be triangular P3 with ten nodes")
+    coordinate_element = basix.create_element(
+        basix.ElementFamily.P, basix.CellType.triangle, 3,
+        basix.LagrangeVariant.equispaced,
+    )
+    points = np.asarray(coordinate_element.points, dtype=float)
+    try:
+        solution_points = np.asarray(function_space.element.basix_element.points, dtype=float)
+    except AttributeError as exc:
+        raise RuntimeError("cannot inspect the P3 solution element reference nodes") from exc
+    if solution_points.shape != points.shape or not np.array_equal(solution_points, points):
+        raise ValueError("solution and geometry P3 nodal orderings are not identical equispaced lattices")
+
+    nc = mesh.topology.index_map(tdim).size_local
+    geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
+    if geometry_dofmap.shape != (nc, 10):
+        raise ValueError("expected ten coordinate nodes per owned P3 triangle")
+    cell_nodes = [mesh.geometry.x[geometry_dofmap[c], :2].copy()
+                  for c in range(nc)]
+    cell_dofs = [np.asarray(function_space.dofmap.cell_dofs(c), dtype=np.int64)
+                 for c in range(nc)]
+    if any(len(dofs) != 10 for dofs in cell_dofs):
+        raise ValueError("solution space is not scalar P3 on every triangle")
+    cells = np.arange(nc, dtype=np.int32)
+    diameters = np.asarray(mesh.h(tdim, cells), dtype=float)
+
+    mesh.topology.create_connectivity(tdim, 0)
+    mesh.topology.create_connectivity(1, 0)
+    mesh.topology.create_connectivity(1, tdim)
+    cell_vertices = mesh.topology.connectivity(tdim, 0)
+    facet_vertices = mesh.topology.connectivity(1, 0)
+    facet_cells = mesh.topology.connectivity(1, tdim)
+    nfacets = mesh.topology.index_map(1).size_local
+    boundary_facets = []
+    interior_facets = []
+    for facet in range(nfacets):
+        adjacent = list(map(int, facet_cells.links(facet)))
+        if len(adjacent) not in (1, 2):
+            continue
+        fv = list(map(int, facet_vertices.links(facet)))
+        if len(fv) != 2:
+            raise RuntimeError("triangular facet does not have exactly two vertices")
+        ca = adjacent[0]
+        va = list(map(int, cell_vertices.links(ca)))
+        edge_a = tuple(va.index(vertex) for vertex in fv)
+        if len(adjacent) == 1:
+            boundary_facets.append((ca, edge_a))
+        else:
+            cb = adjacent[1]
+            vb = list(map(int, cell_vertices.links(cb)))
+            edge_b = tuple(vb.index(vertex) for vertex in fv)
+            interior_facets.append((ca, edge_a, cb, edge_b))
+
+    assembled = assemble_global_interval_forms(
+        cell_nodes, points, cell_dofs, diameters,
+        boundary_facets, interior_facets,
+        int(function_space.dofmap.index_map.size_local),
+        absolute_tolerance=absolute_tolerance, max_depth=max_depth,
+    )
+    exterior = exterior_facet_indices(mesh.topology)
+    boundary_dofs = fem.locate_dofs_topological(function_space, 1, exterior)
+    vertex_count = mesh.topology.index_map(0).size_local
+    vertices = np.arange(vertex_count, dtype=np.int32)
+    vertex_dofs = fem.locate_dofs_topological(function_space, 0, vertices)
+    constrained = np.union1d(boundary_dofs, vertex_dofs)
+    free = np.setdiff1d(
+        np.arange(function_space.dofmap.index_map.size_local, dtype=np.int64),
+        constrained,
+    )
+    assembled.update({
+        "free_dofs": free.tolist(),
+        "cell_count": nc,
+        "interior_facet_count": len(interior_facets),
+        "boundary_facet_count": len(boundary_facets),
+        "quotient_definition": "zero all boundary P3 dofs and all vertex dofs; canonical representative modulo global C0-P1",
+        "coordinate_nodes": "stored IEEE-754 binary64 interpreted as exact dyadic rationals",
+    })
+    return assembled
+
+
+def certify_dolfinx_mesh_trace_bound(
+    mesh,
+    function_space,
+    bound,
+    *,
+    absolute_tolerance=F(1, 10**9),
+    max_depth=24,
+):
+    """End-to-end finite-mesh assembly, interval propagation, and PSD test."""
+    assembled = assemble_dolfinx_mesh_interval_forms(
+        mesh, function_space, absolute_tolerance=absolute_tolerance,
+        max_depth=max_depth,
+    )
+    certificate = certify_global_trace_bound(
+        assembled["D_interval"], assembled["H_interval"],
+        assembled["free_dofs"], bound,
+    )
+    certificate.update({
+        "cell_count": assembled["cell_count"],
+        "interior_facet_count": assembled["interior_facet_count"],
+        "boundary_facet_count": assembled["boundary_facet_count"],
+        "assembly": "exact-rational local curved-P3 Hessian blocks with certified volume/facet integral enclosures",
     })
     return certificate
