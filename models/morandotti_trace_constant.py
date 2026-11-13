@@ -41,20 +41,36 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-9,
         result = float(values[-1])
         x = vectors[:, -1]
     else:
-        bmin_arr = eigsh(B, k=1, which="SA", tol=max(tol, 1e-8),
-                         return_eigenvectors=False, maxiter=max(5000, 5*n))
-        bmax_arr = eigsh(B, k=1, which="LA", tol=max(tol, 1e-8),
-                         return_eigenvectors=False, maxiter=max(5000, 5*n))
-        bmin, bmax = float(bmin_arr[0]), float(bmax_arr[0])
-        if not np.isfinite(bmin) or bmin <= 1e-12 * max(bmax, 1.0):
-            raise ValueError(
-                "denominator is not numerically positive definite: "
-                f"lambda_min={bmin:g}, lambda_max={bmax:g}"
-            )
-        values, vectors = eigsh(A, k=1, M=B, which="LA", tol=tol,
-                                return_eigenvectors=True, maxiter=max(5000, 5*n))
-        result = float(values[0])
-        x = vectors[:, 0]
+        # Do not estimate lambda_min(B) with a second ARPACK solve: for the
+        # strongly graded Hessian Gram matrices this extremal solve can fail
+        # before the actual generalized eigenproblem is attempted. Instead,
+        # solve the requested largest generalized eigenpair directly and
+        # increase the Krylov subspace/iteration budget on non-convergence.
+        ncv_values = sorted(set(min(n, value) for value in
+                                (40, 80, 160, 320) if min(n, value) > 2))
+        last_error = None
+        for ncv in ncv_values:
+            try:
+                values, vectors = eigsh(
+                    A, k=1, M=B, which="LA", tol=tol,
+                    return_eigenvectors=True, maxiter=max(20000, 20*n),
+                    ncv=ncv,
+                )
+                result = float(values[0])
+                x = vectors[:, 0]
+                break
+            except Exception as exc:
+                from scipy.sparse.linalg import ArpackNoConvergence
+                if not isinstance(exc, ArpackNoConvergence):
+                    raise
+                last_error = exc
+        else:
+            raise RuntimeError(
+                "largest generalized eigenpair did not converge after "
+                f"ARPACK retries (n={n}, ncv={ncv_values}); "
+                f"partial eigenvalues={getattr(last_error, 'eigenvalues', None)}"
+            ) from last_error
+        bmin, bmax = float("nan"), float("nan")
 
     Ax = A @ x
     Bx = B @ x
