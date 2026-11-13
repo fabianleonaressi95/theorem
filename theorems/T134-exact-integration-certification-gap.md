@@ -91,3 +91,12 @@ terms have not been translated into its rational-polynomial input, and no
 matrix interval/PSD propagation is yet wired to the finite-element quotient.
 In particular, it does not resolve square-root metric factors on general
 curved edges. The T134 status above therefore remains unchanged.
+
+
+## Completed 24-mesh diagnostic (2026-11-13)
+
+The extended finite-mesh run completed successfully on the merged implementation. It covers 24 meshes (four target sizes \(h=0.080,0.045,0.030,0.025\), two core separations \(d=0.48,0.56\), and seeds 11, 29, 47). The generalized-eigenvalue estimates range from 9.1545269506 to 15.8151565222; the largest observed sufficient threshold is 31.6303130444, so \(\alpha=40\) has an observed margin of 8.3696869556 on this finite sample.
+
+The archived 145,256 exact-rational per-cell certificates prove positive Jacobians for every represented cell map. The quadrature-degree 32/40 estimates agree to relative error at most \(1.71\times10^{-13}\), but this remains a numerical stability check.
+
+**The certification gap remains open:** the scalar rational integration primitive is not yet wired into the actual curved-P3 Hessian and facet forms; curved-edge square-root metric terms and interval matrix/PSD propagation remain unimplemented. Neither a certified finite-mesh \(C_{\rm tr,h}<20\) bound nor a mesh-uniform \(C_{\rm tr}<20\) bound has been established. The exact archive is finite and cannot prove the all-level compact-class and facet-comparability hypotheses.
