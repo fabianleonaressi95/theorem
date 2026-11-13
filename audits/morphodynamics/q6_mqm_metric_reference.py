@@ -48,10 +48,12 @@ def metric_reference():
 
 def metric_graph_energy_matrix():
     """Dimensionless weighted Q6 Laplacian from the declared 1D metric-edge action."""
-    from audits.morphodynamics.q6_mqm_symmetry import q6_incidence_matrix
     lengths=rgs_edge_lengths()
     ell_rms=float(np.sqrt(np.mean(lengths**2)))
-    B=q6_incidence_matrix()
+    B=np.zeros((64,192),dtype=float)
+    for k,(u,v,_) in enumerate(q6_edges()):
+        B[u,k]=-1.0
+        B[v,k]=1.0
     return B @ np.diag(ell_rms/lengths) @ B.T
 
 def a13_action_derivation_audit():
