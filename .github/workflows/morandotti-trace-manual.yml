@@ -1,4 +1,4 @@
-name: Morandotti exact curved-P3 profiling run
+name: Morandotti exact curved-P3 finite-mesh certificate
 
 on:
   workflow_dispatch:
@@ -7,6 +7,9 @@ on:
     paths:
       - 'scripts/certify_morandotti_curved_p3_mesh.py'
       - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'models/morandotti_certified_rational_integration.py'
+      - '.github/workflows/morandotti-trace-manual.yml'
 
 permissions:
   contents: read
@@ -16,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  exact-certificate-profile:
+  exact-finite-mesh-certificate:
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
@@ -27,17 +30,17 @@ jobs:
       - name: Verify numerical environment
         run: |
           python3 -c "import dolfinx, ufl, petsc4py, gmsh, scipy; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('PETSc', petsc4py.__version__); print('Gmsh', gmsh.__version__); print('SciPy', scipy.__version__)"
-      - name: Profile exact assembly and global interval PSD on reduced mesh
+      - name: Assemble and certify the curved-P3 finite mesh
         run: |
           python3 scripts/certify_morandotti_curved_p3_mesh.py \
-            --mesh-size 0.80 --distance 0.48 --seed 11 \
+            --mesh-size 0.24 --distance 0.48 --seed 11 \
             --bound 20 --tolerance 1/1000 --max-depth 24 \
-            --out artifacts/morandotti_trace_constant/profile_certificate.json
-      - name: Upload phase timings and certificate
+            --out artifacts/morandotti_trace_constant/exact_certificate.json
+      - name: Upload exact finite-mesh certificate and phase timings
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: morandotti-exact-curved-p3-profile
+          name: morandotti-exact-curved-p3-certificate
           path: artifacts/morandotti_trace_constant/
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 30
