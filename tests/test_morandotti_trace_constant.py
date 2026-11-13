@@ -50,3 +50,16 @@ def test_largest_generalized_eigenvalue_reports_small_residual():
     assert np.isclose(value, 4.0)
     assert np.isclose(diagnostics["rayleigh_quotient_check"], value)
     assert diagnostics["relative_generalized_eigenpair_residual"] < 1e-10
+
+
+def test_largest_generalized_eigenvalue_is_invariant_under_diagonal_scaling():
+    # Strongly graded coordinates mimic the coefficient scaling of curved
+    # finite-element Hessian Gram matrices. Congruence must preserve the EVP.
+    A = np.diag([2.0, 9.0, 8.0, 1.0, 5.0])
+    B = np.diag([1.0, 3.0, 2.0, 0.5, 2.5])
+    scale = np.diag([1e-5, 1e-2, 1.0, 1e2, 1e5])
+    expected = largest_generalized_eigenvalue(A, B)
+    observed = largest_generalized_eigenvalue(
+        scale @ A @ scale, scale @ B @ scale
+    )
+    assert np.isclose(observed, expected, rtol=1e-8, atol=1e-10)
