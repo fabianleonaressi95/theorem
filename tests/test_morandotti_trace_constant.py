@@ -34,3 +34,19 @@ def test_largest_generalized_eigenvalue_rejects_nonsymmetric_matrix():
 def test_largest_generalized_eigenvalue_rejects_shape_mismatch():
     with pytest.raises(ValueError, match="equal"):
         largest_generalized_eigenvalue(np.eye(2), np.eye(3))
+
+
+def test_largest_generalized_eigenvalue_rejects_singular_denominator():
+    with pytest.raises(ValueError, match="positive definite"):
+        largest_generalized_eigenvalue(np.eye(4), np.diag([1.0, 1.0, 1.0, 0.0]))
+
+
+def test_largest_generalized_eigenvalue_reports_small_residual():
+    value, diagnostics = largest_generalized_eigenvalue(
+        np.diag([2.0, 9.0, 8.0, 1.0]),
+        np.diag([1.0, 3.0, 2.0, 0.5]),
+        return_diagnostics=True,
+    )
+    assert np.isclose(value, 4.0)
+    assert np.isclose(diagnostics["rayleigh_quotient_check"], value)
+    assert diagnostics["relative_generalized_eigenpair_residual"] < 1e-10
