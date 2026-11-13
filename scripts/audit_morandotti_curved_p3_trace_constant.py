@@ -52,6 +52,8 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     # one such representative in every equivalence class modulo C0-P1.
     # This removes only the common affine kernel; edge and cell P3 modes stay.
     mesh.topology.create_entities(0)
+    # locate_dofs_topological needs the vertex-to-cell adjacency explicitly.
+    mesh.topology.create_connectivity(0, tdim)
     vertex_count = mesh.topology.index_map(0).size_local
     vertices = np.arange(vertex_count, dtype=np.int32)
     vertex_dofs = fem.locate_dofs_topological(V, 0, vertices)
