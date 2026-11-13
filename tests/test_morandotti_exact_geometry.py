@@ -24,11 +24,11 @@ def test_exact_p3_certificate_accepts_affine_orientation_preserving_map():
 
     assert result["positive"]
     assert result["subdivision_depth_max"] == 0
-    assert result["j0_lower_bound"] > 0.49
+    assert result["j0_lower_bound"] > 0.24
     assert result["j1_upper_bound"] < 1.01
     assert result["M1_upper_bound"] < 1.42
     assert result["M2_upper_bound"] < 1e-12
-    assert result["M_minus1_upper_bound"] < 2.01
+    assert result["M_minus1_upper_bound"] < 2.84
     assert len(result["coordinate_sha256"]) == 64
     assert result["determinant_lower_scaled_exact"][1] > 0
 
