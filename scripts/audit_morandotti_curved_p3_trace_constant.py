@@ -49,10 +49,10 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     Hsp = _petsc_to_scipy(H, n)[free][:, free]
     D.destroy()
     H.destroy()
-    return largest_generalized_eigenvalue(Hsp, Dsp), int(free.size)
+    value, spectral = largest_generalized_eigenvalue(\n        Hsp, Dsp, return_diagnostics=True\n    )\n    return value, spectral, int(free.size)
 
 
-def trace_constant_for_mesh(mesh, quadrature_degrees=(16, 20, 24)):
+def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     """Assemble T134's H and D quadratic forms and solve their generalized EVP."""
     mesh.topology.create_connectivity(mesh.topology.dim - 1, mesh.topology.dim)
     V = fem.functionspace(mesh, ("Lagrange", 3))
@@ -185,7 +185,7 @@ def main():
     payload = {
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
         "status": "finite-mesh generalized-eigenvalue estimates; not a mesh-uniform proof",
-        "quadrature_acceptance_threshold": 5e-3,
+        "quadrature_acceptance_threshold": 5e-3,\n        "generalized_eigenpair_checks": "denominator positive-definiteness estimate, condition estimate, Rayleigh quotient agreement, and relative residual are recorded at each quadrature degree",
         "quadrature_stability_is_diagnostic_not_a_claim_of_exactness": True,
         "definition": "C_tr,h = sup_{v_h in V_h^0} H_{h,l}(v_h)^2 / D_h(v_h)^2",
         "boundary_space": "globally continuous mapped P3 functions with zero value trace on outer and both core boundaries",
@@ -193,7 +193,7 @@ def main():
             "D": "integral_Omega D^2u:D^2v",
             "H": "sum_interior avg(h_K) integral_F avg(n^T D^2u n) avg(n^T D^2v n) + sum_boundary h_K integral_F (n^T D^2u n)(n^T D^2v n)",
         },
-        "quadrature_degrees": [16, 20, 24],
+        "quadrature_degrees": [24, 32, 40],
         "mesh_sizes": args.mesh_sizes,
         "distances": args.distances,
         "seeds": args.seeds,
@@ -204,7 +204,7 @@ def main():
             "positive Jacobians are checked only at sampled reference points, not certified at every point",
             "uniform mapped-element derivative and inverse-Jacobian bounds remain an analytic obligation",
             "the estimate uses the generated two-core P3 mesh family and the T134 facet weights; it is not a universal P3 constant",
-            "quadrature stability is assessed from the last two estimates (degrees 20 and 24); instability is reported rather than aborting the sweep",
+            "quadrature stability is assessed from the last two estimates (degrees 32 and 40); instability is reported rather than aborting the sweep",
             "even a stable finite quadrature sequence is numerical evidence, not an exact integration certificate",
         ],
     }
