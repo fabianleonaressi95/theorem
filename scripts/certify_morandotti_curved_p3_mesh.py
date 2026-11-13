@@ -8,6 +8,8 @@ from fractions import Fraction
 from pathlib import Path
 
 from mpi4py import MPI
+import basix
+import basix.ufl
 from dolfinx import fem
 
 from models.morandotti_certified_curved_p3_forms import (
@@ -49,7 +51,11 @@ def main():
     centers = ((-0.5*args.distance, 0.0), (0.5*args.distance, 0.0))
     mesh, _ = make_mesh(1.0, 0.12, centers, args.mesh_size,
                         MPI.COMM_WORLD, random_seed=args.seed)
-    V = fem.functionspace(mesh, ("Lagrange", 3))
+    element = basix.ufl.element(
+        "Lagrange", "triangle", 3,
+        lagrange_variant=basix.LagrangeVariant.equispaced,
+    )
+    V = fem.functionspace(mesh, element)
     certificate = certify_dolfinx_mesh_trace_bound(
         mesh, V, bound, absolute_tolerance=tolerance,
         max_depth=args.max_depth,
