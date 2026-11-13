@@ -83,7 +83,6 @@ a_{h,\ell}(u,v)={}&
 On boundary facets this is exactly the 'ds' consistency and penalty structure; on interior facets it is the 'dS' structure. The code's 'alpha/avg(cell_h)' and 'alpha/cell_h('+')' are represented by \(\alpha/\ell_F\).
 
 **Theorem.** If (T134.1) holds with a mesh-independent constant \(C_{\rm tr}>0\), then for
-**Theorem.** If (T134.1) holds with a mesh-independent constant \(C_{\rm tr}\), then for
 \[
 \boxed{\alpha>2C_{\rm tr}}
 \]
@@ -102,12 +101,6 @@ a_{h,\ell}(v,v)\ge c_{\rm coer}\,
 c_{\rm coer}=\min\left\{\frac12,\alpha-2C_{\rm tr}\right\}>0,
 \]
 where \(\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2\). This is coercivity in the stated mesh-dependent seminorm. If the homogeneous value boundary conditions eliminate the affine kernel, the corresponding discrete Poincare/Friedrichs inequality upgrades this seminorm to control the full discrete \(H^2\)-type norm.
-Thus the form is coercive in the mesh-dependent seminorm
-\[
-\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2.
-\]
-If the homogeneous value boundary conditions eliminate the affine kernel, the corresponding discrete Poincare/Friedrichs inequality upgrades this seminorm to control the full discrete \(H^2\)-type norm.
-
 ## 4. Proof
 
 For each facet, use the weighted Cauchy-Schwarz inequality and then sum over all interior and boundary facets:
