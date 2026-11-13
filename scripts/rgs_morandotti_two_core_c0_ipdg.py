@@ -100,7 +100,7 @@ def assemble(expr, mesh):
     return mesh.comm.allreduce(fem.assemble_scalar(fem.form(expr)), op=MPI.SUM)
 
 
-def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
+def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
                 centers=((-0.28, 0.0), (0.28, 0.0)), orientation_angle_deg=0.0,
                 rotate_defect_data=True, core_separation=None,
                 args_artifact_path="cell_fields.npz", mesh_bundle=None,
@@ -513,7 +513,7 @@ def solve_level(h, alpha=10.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--mesh-sizes",nargs="+",type=float,default=[0.24,0.16,0.11])
-    p.add_argument("--alpha",type=float,default=10.0)
+    p.add_argument("--alpha",type=float,default=40.0)
     p.add_argument("--young-modulus",type=float,default=1.0)
     p.add_argument("--poisson-ratio",type=float,default=0.0)
     p.add_argument("--orientation-angles-deg",nargs="+",type=float,default=[0.0,30.0,60.0])
