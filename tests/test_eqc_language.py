@@ -55,6 +55,25 @@ class TestEQCLanguage(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     compile_source(source)
 
+    def test_hexagram_line_reversal_is_involution(self):
+        state = run(compile_source("X q0\nX q1\nREV\nREV"))
+        expected_index = 3**5 + 3**4
+        self.assertAlmostEqual(abs(state[expected_index] - 1), 0.0, places=12)
+        self.assertAlmostEqual(norm_squared(state), 1.0, places=12)
+
+    def test_hexagram_line_rotation_has_order_six(self):
+        source = "X q0\n" + "\n".join(["ROT"] * 6)
+        state = run(compile_source(source))
+        self.assertAlmostEqual(abs(state[3**5] - 1), 0.0, places=12)
+
+    def test_polarity_inversion_is_involution(self):
+        state = run(compile_source("X q0\nINV q0\nINV q0"))
+        self.assertAlmostEqual(abs(state[3**5] - 1), 0.0, places=12)
+
+    def test_register_swap_is_involution(self):
+        state = run(compile_source("X q0\nSWAP q0 q5\nSWAP q0 q5"))
+        self.assertAlmostEqual(abs(state[3**5] - 1), 0.0, places=12)
+
     def test_initial_state_must_be_normalized(self):
         with self.assertRaises(ValueError):
             run((), [0j] * DIM)
