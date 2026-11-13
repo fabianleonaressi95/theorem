@@ -62,3 +62,43 @@ def test_interval_psd_propagates_entrywise_integration_error():
     assert result["certified"]
     assert result["entrywise_radius"] == 0
     assert result["spectral_error_bound"] == 0
+
+
+
+def test_exact_two_sided_interior_facet_matches_and_encloses():
+    from models.morandotti_certified_curved_p3_forms import (
+        assemble_interior_facet_interval,
+    )
+
+    points = [
+        (F(i, 3), F(j, 3))
+        for i in range(4)
+        for j in range(4-i)
+    ]
+    nodes_a = points
+    # The second affine triangle has vertices (1,0), (1,1), (0,1).
+    nodes_b = [(1-y, x+y) for x, y in points]
+    result = assemble_interior_facet_interval(
+        nodes_a, nodes_b, points, (1, 2), (0, 2), F(1),
+        absolute_tolerance=F(1, 10**4),
+    )
+    for key in ("block_AA", "block_AB", "block_BB"):
+        block = result[key]
+        assert len(block) == 10
+        assert all(len(row) == 10 for row in block)
+        assert all(block[i][j][0] <= block[i][j][1]
+                   for i in range(10) for j in range(10))
+
+
+def test_sparse_interval_psd_certificate_includes_perturbation():
+    from models.morandotti_certified_curved_p3_forms import certify_interval_psd
+
+    matrix = {
+        (0, 0): (F(2)-F(1, 1000), F(2)+F(1, 1000)),
+        (1, 1): (F(3)-F(1, 1000), F(3)+F(1, 1000)),
+        (0, 1): (F(0), F(0)),
+        (1, 0): (F(0), F(0)),
+    }
+    result = certify_interval_psd(matrix)
+    assert result["certified"]
+    assert result["spectral_error_bound"] == F(1, 1000)
