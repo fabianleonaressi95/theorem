@@ -122,8 +122,8 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     # Sample the actual cubic geometry map on a triangular reference grid.
     from dolfinx import fem as _fem
     points = np.asarray([
-        (i / 8.0, j / 8.0)
-        for i in range(9) for j in range(9 - i)
+        (i / 16.0, j / 16.0)
+        for i in range(17) for j in range(17 - i)
     ], dtype=np.float64)
     jac_expr = _fem.Expression(ufl.Jacobian(mesh), points, comm=mesh.comm)
     local_cells = np.arange(nc, dtype=np.int32)
@@ -134,7 +134,7 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     scaled_min = singular[..., -1] / h_cells[:, None]
     scaled_max = singular[..., 0] / h_cells[:, None]
     geometry = {
-        "sampled_reference_points_per_cell": int(points.shape[0]),
+        "sampled_reference_points_per_cell": int(points.shape[0]),\n        "sampling_subdivisions_per_reference_edge": 16,
         "minimum_sampled_det_J": float(np.min(det_j)),
         "minimum_sigma_min_over_cell_diameter": float(np.min(scaled_min)),
         "maximum_sigma_max_over_cell_diameter": float(np.max(scaled_max)),
