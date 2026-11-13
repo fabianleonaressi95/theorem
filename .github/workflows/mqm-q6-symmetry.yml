@@ -1,0 +1,28 @@
+name: MQM Q6 symmetry stabilizer audit
+
+on:
+  push:
+    branches: [research/mqm-q6-symmetry-stabilizer-v1]
+    paths:
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_q6_mqm_symmetry.py"
+      - "theorems/MQM-Q6-symmetry-stabilizer.md"
+      - ".github/workflows/mqm-q6-symmetry.yml"
+  pull_request:
+    paths:
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_q6_mqm_symmetry.py"
+      - "theorems/MQM-Q6-symmetry-stabilizer.md"
+      - ".github/workflows/mqm-q6-symmetry.yml"
+
+jobs:
+  finite-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run exact Q6/MQM symmetry tests
+        run: python -m unittest discover -s tests -p "test_q6_mqm_symmetry.py" -v
