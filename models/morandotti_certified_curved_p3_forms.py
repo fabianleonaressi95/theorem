@@ -135,6 +135,18 @@ def integrate_rational_sqrt_segment(
     s = {int(k): _as_fraction(v) for k, v in radicand.items() if v}
     if not q or not s:
         raise ZeroDivisionError("denominator and square-root radicand must be nonzero")
+    if len(q) == 1 and len(s) == 1:
+        q0, s0 = next(iter(q.values())), next(iter(s.values()))
+        if q0 == 0 or s0 <= 0:
+            raise ArithmeticError("constant facet denominator or metric is not positive")
+        integral_p = sum((coefficient/F(degree+1)
+                          for degree, coefficient in p.items()), F(0))
+        root_lo, root_hi = _sqrt_lower(s0), _sqrt_upper(s0)
+        factor_lo = F(1)/(q0*root_hi**3)
+        factor_hi = F(1)/(q0*root_lo**3)
+        if integral_p >= 0:
+            return integral_p*factor_lo, integral_p*factor_hi, 1, 0
+        return integral_p*factor_hi, integral_p*factor_lo, 1, 0
     stack = [(p, q, s, F(1), 0)]
     lower = upper = F(0)
     leaves = 0
