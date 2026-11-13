@@ -84,8 +84,9 @@ def main():
         "mesh_size_target": args.mesh_size,
         "core_distance": args.distance,
         "seed": args.seed,
+        "profiling_mesh": args.mesh_size,
         "integration_absolute_tolerance": str(tolerance),
-        "timings_seconds": {"assembly_and_interval_integration": assembly_seconds, "global_interval_PSD": psd_seconds, "total": assembly_seconds + psd_seconds},
+        "timings_seconds": {"assembly_and_interval_integration": assembly_seconds, "volume_cells": assembled.get("assembly_timings_seconds", {}).get("volume_cells"), "boundary_facets": assembled.get("assembly_timings_seconds", {}).get("boundary_facets"), "interior_facets": assembled.get("assembly_timings_seconds", {}).get("interior_facets"), "global_interval_PSD": psd_seconds, "LDL_exact_arithmetic": certificate.get("ldl_seconds"), "LDL_fill_updates": certificate.get("ldl_fill_updates"), "LDL_max_active_degree": certificate.get("ldl_max_active_degree"), "total": assembly_seconds + psd_seconds},
         **certificate,
         "scope": "one finite generated mesh; no mesh-uniform conclusion",
     }
