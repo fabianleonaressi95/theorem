@@ -14,7 +14,7 @@ on:
       - '.github/workflows/morandotti-trace-constant.yml'
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [main, t134-exact-integration-foundation]
     paths:
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
