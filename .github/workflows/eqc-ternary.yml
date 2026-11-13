@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - "models/eqc_ternary.py"
+      - "models/eqc_language.py"
       - "tests/test_eqc_ternary.py"
+      - "tests/test_eqc_language.py"
       - "theorems/EQC-1-ternary-hexagram-qutrit-register.md"
       - ".github/workflows/eqc-ternary.yml"
 
@@ -18,4 +20,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run focused EQC tests
-        run: python -m unittest discover -s tests -p "test_eqc_ternary.py" -v
+        run: |
+          python -m unittest discover -s tests -p "test_eqc_ternary.py" -v
+          python -m unittest discover -s tests -p "test_eqc_language.py" -v
