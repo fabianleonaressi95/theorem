@@ -15,8 +15,10 @@ on:
     branches: [main]
     paths:
       - 'models/morandotti_trace_constant.py'
+      - 'models/morandotti_exact_geometry.py'
       - 'scripts/audit_morandotti_curved_p3_trace_constant.py'
       - 'tests/test_morandotti_trace_constant.py'
+      - 'tests/test_morandotti_exact_geometry.py'
       - '.github/workflows/morandotti-trace-constant.yml'
 
 permissions:
@@ -42,11 +44,12 @@ jobs:
             --mesh-sizes 0.08 0.045 0.03 0.025 \
             --distances 0.48 0.56 \
             --seeds 11 29 47 \
-            --out artifacts/morandotti_trace_constant/report.json
+            --out artifacts/morandotti_trace_constant/report.json \\
+            --certificate-out artifacts/morandotti_trace_constant/cell-certificates.jsonl.gz
       - name: Upload finite-mesh trace-constant report
         uses: actions/upload-artifact@v4
         with:
           name: morandotti-curved-p3-trace-constant
-          path: artifacts/morandotti_trace_constant/report.json
+          path: artifacts/morandotti_trace_constant/
           if-no-files-found: error
           retention-days: 14
