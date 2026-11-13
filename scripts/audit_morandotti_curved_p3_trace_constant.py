@@ -146,7 +146,10 @@ def certify_curved_p3_geometry(mesh):
             "M1": as_fraction(cert["M1_upper_scaled_exact"]),
             "M2": as_fraction(cert["M2_upper_scaled_exact"]),
             "M_minus1": as_fraction(cert["M_minus1_upper_scaled_exact"]),
-            "j0": as_fraction(cert["determinant_lower_scaled_exact"]) / 2,
+            "j0": (
+                as_fraction(cert["determinant_lower_scaled_exact"])
+                / (2 * as_fraction(cert["M1_upper_scaled_exact"]) ** 2)
+            ),
             "j1": as_fraction(cert["determinant_upper_scaled_exact"]),
         }
         for name, value in values.items():
