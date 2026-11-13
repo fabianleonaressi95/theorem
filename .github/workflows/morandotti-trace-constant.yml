@@ -1,6 +1,13 @@
 name: Morandotti curved-P3 trace-constant audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'models/morandotti_trace_constant.py'
+      - 'scripts/audit_morandotti_curved_p3_trace_constant.py'
+      - 'tests/test_morandotti_trace_constant.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
   workflow_dispatch:
   pull_request:
     branches: [main]
