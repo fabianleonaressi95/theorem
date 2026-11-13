@@ -199,7 +199,11 @@ def integrate_rational_triangle(
         series = Fraction(0)
         remainder = abs(integral_poly) / midpoint_q
         certified = False
-        for order in range(13):
+        # Keep the exact polynomial expansion short: high powers inflate
+        # Fraction numerators/denominators dramatically. The geometric
+        # remainder remains rigorous; if three terms are insufficient, the
+        # triangle is subdivided and the same bound is recomputed locally.
+        for order in range(3):
             term_ref = sum(
                 (coefficient * Fraction(factorial(i)*factorial(j),
                                         factorial(i+j+2))
