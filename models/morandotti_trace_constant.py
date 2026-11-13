@@ -64,7 +64,7 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-9,
                 if isinstance(exc, RuntimeError) and "Factor is exactly singular" in str(exc):
                     raise ValueError(
                         "denominator is singular; generalized eigenproblem "
-                        "requires a positive-definite denominator"
+                        "requires a positive definite denominator"
                     ) from exc
                 if not isinstance(exc, ArpackNoConvergence):
                     raise
