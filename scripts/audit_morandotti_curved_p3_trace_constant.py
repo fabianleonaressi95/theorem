@@ -49,7 +49,10 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     Hsp = _petsc_to_scipy(H, n)[free][:, free]
     D.destroy()
     H.destroy()
-    value, spectral = largest_generalized_eigenvalue(\n        Hsp, Dsp, return_diagnostics=True\n    )\n    return value, spectral, int(free.size)
+    value, spectral = largest_generalized_eigenvalue(
+        Hsp, Dsp, return_diagnostics=True
+    )
+    return value, spectral, int(free.size)
 
 
 def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
@@ -87,8 +90,12 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
         D_form = ufl.inner(Hu, Hv) * dx
         H_form = (ufl.avg(cell_h) * q_u_int * q_v_int * dS
                   + cell_h * q_u_bnd * q_v_bnd * ds)
-        value, count = _assemble_pair(D_form, H_form, V, mesh, int(degree))
-        estimates.append({"quadrature_degree": int(degree), "C_tr_h": value})
+        value, spectral, count = _assemble_pair(D_form, H_form, V, mesh, int(degree))
+        estimates.append({
+            "quadrature_degree": int(degree),
+            "C_tr_h": value,
+            "spectral_diagnostics": spectral,
+        })
         free_dofs = count
 
     # Sample the actual cubic geometry map on a triangular reference grid.
@@ -185,7 +192,8 @@ def main():
     payload = {
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
         "status": "finite-mesh generalized-eigenvalue estimates; not a mesh-uniform proof",
-        "quadrature_acceptance_threshold": 5e-3,\n        "generalized_eigenpair_checks": "denominator positive-definiteness estimate, condition estimate, Rayleigh quotient agreement, and relative residual are recorded at each quadrature degree",
+        "quadrature_acceptance_threshold": 5e-3,
+        "generalized_eigenpair_checks": "denominator positive-definiteness estimate, condition estimate, Rayleigh quotient agreement, and relative residual are recorded at each quadrature degree",
         "quadrature_stability_is_diagnostic_not_a_claim_of_exactness": True,
         "definition": "C_tr,h = sup_{v_h in V_h^0} H_{h,l}(v_h)^2 / D_h(v_h)^2",
         "boundary_space": "globally continuous mapped P3 functions with zero value trace on outer and both core boundaries",
