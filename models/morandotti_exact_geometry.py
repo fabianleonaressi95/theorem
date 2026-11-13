@@ -167,7 +167,8 @@ def certify_p3_cell_geometry(node_coordinates, interpolation_points, max_depth: 
 
     Coordinates must be in coordinate-element basis/dof order. The scale s is
     the maximum coordinate-component span of the three physical vertices;
-    for the cell diameter h measured over all geometry nodes, s <= h <= sqrt(2)*s*M1,\n    where M1 is the certified Frobenius bound for J/s.
+    for the cell diameter h measured over all geometry nodes, s <= h <= sqrt(2)*s*M1,
+    where M1 is the certified Frobenius bound for J/s.
     """
     if len(node_coordinates) != 10 or len(interpolation_points) != 10:
         raise ValueError("a cubic triangular coordinate map must have 10 nodes")
@@ -262,7 +263,9 @@ def certify_p3_cell_geometry(node_coordinates, interpolation_points, max_depth: 
     j_upper = det_cert["upper"] / (scale * scale)
     m1_upper = _sqrt_upper_fraction(m1_squared)
     m2_upper = _sqrt_upper_fraction(m2_squared)
-    # The curved-cell diameter may include all high-order geometry nodes.\n    # Since diam(reference triangle)=sqrt(2), h <= sqrt(2)*s*M1.\n    # Also h >= s from the physical vertices.\n    mminus1_upper = _sqrt_upper_fraction(Fraction(2)) * m1_upper * m1_upper / j_lower
+    # The curved-cell diameter may include all high-order geometry nodes.
+    # Since diam(reference triangle)=sqrt(2), h <= sqrt(2)*s*M1.
+    # Also h >= s from the physical vertices.\n    mminus1_upper = _sqrt_upper_fraction(Fraction(2)) * m1_upper * m1_upper / j_lower
 
     return {
         "positive": True,
