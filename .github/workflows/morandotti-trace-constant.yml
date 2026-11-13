@@ -30,7 +30,7 @@ jobs:
       - name: Estimate C_tr,h on independently generated curved P3 meshes
         run: |
           python3 scripts/audit_morandotti_curved_p3_trace_constant.py \
-            --mesh-sizes 0.08 0.045 \
+            --mesh-sizes 0.08 0.045 0.03 0.025 \
             --distances 0.48 0.56 \
             --seeds 11 29 47 \
             --out artifacts/morandotti_trace_constant/report.json
