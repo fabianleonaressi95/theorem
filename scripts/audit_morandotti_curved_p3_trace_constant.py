@@ -76,6 +76,175 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     return value, spectral, int(free.size)
 
 
+def _bernstein_indices(degree):
+    return [(degree-i-j, i, j)
+            for i in range(degree+1) for j in range(degree+1-i)]
+
+
+def _bernstein_matrix(degree):
+    from math import factorial
+    indices = _bernstein_indices(degree)
+    points = np.asarray([(j/degree, k/degree) if degree else (0.0, 0.0)
+                         for i, j, k in indices], dtype=float)
+    matrix = np.empty((len(indices), len(indices)), dtype=float)
+    for row, (x, y) in enumerate(points):
+        lam = (1.0-x-y, x, y)
+        for col, (a, b, d) in enumerate(indices):
+            multinomial = factorial(degree) / (
+                factorial(a)*factorial(b)*factorial(d))
+            matrix[row, col] = multinomial * lam[0]**a * lam[1]**b * lam[2]**d
+    return indices, points, matrix
+
+
+def _bernstein_coefficients(samples, degree):
+    indices, points, matrix = _bernstein_matrix(degree)
+    values = np.asarray(samples)
+    if values.shape[1] != len(points):
+        raise ValueError("sample count does not match triangular Bernstein degree")
+    coeff = np.linalg.solve(matrix, values.reshape(values.shape[0], values.shape[1], -1))
+    return coeff.reshape((values.shape[0], len(indices)) + values.shape[2:])
+
+
+def _evaluate_bernstein(coeff, degree, point):
+    from math import factorial
+    x, y = point
+    lam = (1.0-x-y, x, y)
+    value = np.zeros(coeff.shape[1:], dtype=float)
+    for q, (a, b, d) in enumerate(_bernstein_indices(degree)):
+        multinomial = factorial(degree) / (
+            factorial(a)*factorial(b)*factorial(d))
+        value += coeff[q] * multinomial * lam[0]**a * lam[1]**b * lam[2]**d
+    return value
+
+
+def _certify_positive_bernstein(coeff, degree, *, max_depth=8):
+    """Subdivide a triangular Bernstein polynomial until every coefficient is positive.
+
+    The guard accounts conservatively for floating-point interpolation/evaluation
+    error. This is a guarded floating-point certificate, not interval arithmetic.
+    """
+    eps = np.finfo(float).eps
+    scale = max(1.0, float(np.max(np.abs(coeff))))
+    _, _, basis = _bernstein_matrix(degree)
+    guard = 512.0 * eps * max(1.0, float(np.linalg.cond(basis))) * scale
+    vertices = np.asarray([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0]])
+    leaves = []
+
+    def visit(local_coeff, tri, depth):
+        lower = float(np.min(local_coeff))
+        upper = float(np.max(local_coeff))
+        if lower > guard:
+            leaves.append((lower, upper, depth))
+            return True
+        if depth >= max_depth:
+            return False
+        v0, v1, v2 = tri
+        m01, m12, m20 = 0.5*(v0+v1), 0.5*(v1+v2), 0.5*(v2+v0)
+        children = (
+            np.asarray([v0, m01, m20]),
+            np.asarray([m01, v1, m12]),
+            np.asarray([m20, m12, v2]),
+            np.asarray([m01, m12, m20]),
+        )
+        indices, local_points, matrix = _bernstein_matrix(degree)
+        for child in children:
+            global_points = np.asarray([
+                (1.0-p[0]-p[1])*child[0] + p[0]*child[1] + p[1]*child[2]
+                for p in local_points
+            ])
+            samples = np.asarray([
+                _evaluate_bernstein(coeff, degree, p) for p in global_points
+            ])
+            child_coeff = np.linalg.solve(matrix, samples)
+            if not visit(child_coeff, child, depth+1):
+                return False
+        return True
+
+    success = visit(np.asarray(coeff), vertices, 0)
+    return {
+        "positive_on_reference_triangle": bool(success),
+        "certified_lower_bound": float(min(q[0] for q in leaves)) if success else None,
+        "bernstein_upper_bound": float(max(q[1] for q in leaves)) if success else None,
+        "subdivision_depth_max": int(max((q[2] for q in leaves), default=0)),
+        "floating_point_guard": float(guard),
+        "method": "triangular Bernstein coefficients with recursive four-way subdivision",
+        "formal_interval_arithmetic": False,
+    }
+
+
+def certify_curved_p3_geometry(mesh):
+    """Bound scaled map derivatives and certify det(J/h^2)>0 cellwise."""
+    tdim = mesh.topology.dim
+    nc = mesh.topology.index_map(tdim).size_local
+    cells = np.arange(nc, dtype=np.int32)
+    h = np.asarray(mesh.h(tdim, cells), dtype=float)
+    if np.any(~np.isfinite(h)) or np.any(h <= 0.0):
+        raise RuntimeError("invalid cell diameter in geometry certificate")
+
+    # For a cubic triangular map, J is degree 2, det(J) degree at most 4,
+    # and the second map derivative is degree 1.
+    _, points2, _ = _bernstein_matrix(2)
+    _, points4, _ = _bernstein_matrix(4)
+    _, points1, _ = _bernstein_matrix(1)
+    J_expr = fem.Expression(ufl.Jacobian(mesh), points2, comm=mesh.comm)
+    H_expr = fem.Expression(ufl.grad(ufl.Jacobian(mesh)), points1, comm=mesh.comm)
+    J2 = J_expr.eval(mesh, cells)
+    H1 = H_expr.eval(mesh, cells)
+
+    J_scaled = J2 / h[:, None, None, None]
+    J_coeff = _bernstein_coefficients(J_scaled, 2)
+    H_scaled = H1 / h[:, None, None, None, None]
+    H_coeff = _bernstein_coefficients(H_scaled, 1)
+    component_bounds_J = np.max(np.abs(J_coeff), axis=1)
+    component_bounds_H = np.max(np.abs(H_coeff), axis=1)
+    M1_cells = np.sqrt(np.sum(component_bounds_J**2, axis=(1, 2)))
+    M2_cells = np.sqrt(np.sum(component_bounds_H**2, axis=(1, 2, 3)))
+
+    J4_expr = fem.Expression(ufl.Jacobian(mesh), points4, comm=mesh.comm)
+    J4 = J4_expr.eval(mesh, cells) / h[:, None, None, None]
+    det_samples = np.linalg.det(J4)
+    det_coeff = _bernstein_coefficients(det_samples, 4)
+
+    rows = []
+    for cell in range(nc):
+        cert = _certify_positive_bernstein(det_coeff[cell], 4)
+        j0 = cert["certified_lower_bound"]
+        if j0 is not None:
+            # For a 2x2 matrix, ||J^{-1}||_F = ||J||_F / |det J|.
+            mminus1 = float(M1_cells[cell] / j0)
+        else:
+            mminus1 = None
+        rows.append({
+            "cell": int(cell),
+            "determinant_certificate": cert,
+            "M1_upper_bound": float(M1_cells[cell]),
+            "M2_upper_bound": float(M2_cells[cell]),
+            "M_minus1_upper_bound": mminus1,
+        })
+    certified = all(q["determinant_certificate"]["positive_on_reference_triangle"]
+                    for q in rows)
+    return {
+        "method": "cubic-map polynomial bounds via triangular Bernstein convex-hull property",
+        "cells": int(nc),
+        "all_cell_jacobians_certified_positive": bool(certified),
+        "global_M1_upper_bound": float(np.max(M1_cells)),
+        "global_M2_upper_bound": float(np.max(M2_cells)),
+        "global_M_minus1_upper_bound": (
+            float(max(q["M_minus1_upper_bound"] for q in rows)) if certified else None
+        ),
+        "global_j0_lower_bound": (
+            float(min(q["determinant_certificate"]["certified_lower_bound"]
+                      for q in rows)) if certified else None
+        ),
+        "global_j1_upper_bound": (
+            float(max(q["determinant_certificate"]["bernstein_upper_bound"]
+                      for q in rows)) if certified else None
+        ),
+        "floating_point_not_interval_certification": True,
+        "cell_certificates": rows,
+    }
+
+
 def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     """Assemble T134's H and D quadratic forms and solve their generalized EVP."""
     mesh.topology.create_connectivity(mesh.topology.dim - 1, mesh.topology.dim)
@@ -142,9 +311,16 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
         "maximum_sampled_map_condition_number": float(np.max(singular[..., 0] / singular[..., -1])),
         "all_sampled_determinants_positive": bool(np.all(det_j > 0.0)),
     }
+    geometry_certificate = certify_curved_p3_geometry(mesh)
+    if not geometry_certificate["all_cell_jacobians_certified_positive"]:
+        raise RuntimeError(
+            "Bernstein subdivision could not certify positive Jacobians on every cell"
+        )
+
     return {
         "cells": int(nc),
         "free_dofs_after_zero_value_boundary_conditions": free_dofs,
+        "geometry_certificate": geometry_certificate,
         "quadrature_estimates": estimates,
         "quadrature_relative_difference_last_two": float(
             abs(estimates[-1]["C_tr_h"] - estimates[-2]["C_tr_h"])
