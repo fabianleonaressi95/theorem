@@ -455,7 +455,7 @@ def _map_trace_on_edge(maps, edge_vertices):
 
 def _integrate_facet_pair(numerator, det3_a, det3_b, radicand,
                           h_weight, tolerance, max_depth):
-    denominator = _mul1(_pow1(det3_a, 2), _pow1(det3_b, 2))
+    denominator = _mul1(det3_a, det3_b)
     return integrate_rational_sqrt_segment(
         _scale1(numerator, _as_fraction(h_weight)/4),
         denominator, radicand,
