@@ -215,7 +215,7 @@ This specification closes the algebraic formulation of the finite-dimensional co
 
 The next implementation should align the finite-core convention with the reference paper and establish mesh-refinement curves for isolated D1 and D2 defects. Only then should the D3 dipole limit and Airy/CIP-DG comparison be attempted.
 
-**Classification (11 November 2026):** weak finite-dimensional formulation derived; generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly implemented; regression tests added for BFS matrix dimensions, full row rank, positive strain-energy matrix and feasible KKT solve. Repository pytest/CI execution remains unconfirmed; reference-matched core regularization, D3 dipole case, h/epsilon-separated refinement, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
+**Classification (12 November 2026):** the abstract finite-dimensional KKT theorem is now proved in T133. The weak finite-dimensional formulation, generic elastic strain-energy assembly/KKT kernel and first rectangular BFS assembly are implemented; the corresponding regression tests are present. The Morandotti post-processing test suite has passed in the local run (10 tests) and the dedicated GitHub Actions workflow has also passed. These checks do not establish the hypotheses of T133 uniformly for the curved P3 C0-IPDG family. Reference-matched core regularization, D3 energy limit, h/epsilon-separated refinement, Airy/CIP-DG comparison, continuum convergence and physical validation remain open.
 
 **FLN**
 
@@ -223,3 +223,24 @@ The next implementation should align the finite-core convention with the referen
 ## D3 follow-up — dipole source limit
 
 The signed first-moment calculation and the corresponding BFS load regression are now recorded separately in [Morandotti D3 — limite debole del dipolo di disclinazioni verso la dislocazione](MORANDOTTI_D3_DIPOLE_TO_DISLOCATION_LIMIT.md). It fixes the orientation/sign convention and derives the distributional source limit with an \(O(d^2)\) symmetric-difference remainder. The new regression test checks only discrete load consistency; energy convergence and the reference-matched core limit remain open.
+
+
+## 7. Proven finite-dimensional variational result and conditional IPDG stability
+
+The abstract constrained minimization problem in Section 2 is no longer merely a proposed derivation. **T133** proves existence, uniqueness and the primal-dual energy identity for every symmetric positive-definite energy matrix and every full-row-rank constraint matrix. The proof constructs the feasible minimizer explicitly, so it does not assume existence through KKT conditions. Its multiplier sign is tied to the convention \(\mathcal L=\frac12e^TMe+\lambda^T(Ae-z)\).
+
+T133 applies to a concrete assembled pair \((M_h,A_h)\) only after positive definiteness of \(M_h\) and full row rank of \(A_h\) have been established. Finite numerical eigenvalue and singular-value checks are instance-level diagnostics, not a uniform theorem over mesh refinement.
+
+For the P3 C0-IPDG cell solver, **T134** now writes the form with the exact penalty lengths used by the implementation: \(\ell_F=\operatorname{avg}(h_K)\) on interior facets and \(\ell_F=h_K\) on boundary facets. It matches the Hessian volume term, symmetric normal-normal-Hessian/normal-derivative consistency terms, and weak normal-derivative penalties on both boundary components. Under the mesh-uniform mapped-P3 trace-inverse estimate (T134.1), the conditional bound is
+\[
+a_{h,\ell}(v,v)\ge\frac12D_h(v)^2
++(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2,
+\qquad \alpha>2C_{\rm tr}.
+\]
+This is a sufficient, not sharp, threshold.
+
+**Important limitation:** source inspection confirms the algebraic correspondence, but it is not an executed assembly-equivalence test. The current implementation uses \(\alpha=10\); no uniform value of \(C_{\rm tr}\), curved-map regularity bound, or uniform facet-scale comparability constant has yet been established. Therefore T134 does not certify that the production parameter 10 is coercive. The affine kernel must also be controlled by the homogeneous value boundary conditions.
+
+Even after these obligations are closed, convergence still requires consistency, approximation and mesh-uniform continuity estimates, together with sufficient regularity of the exact cell fields. Neither T133 nor T134 proves convergence of the multi-core interaction matrix or a continuum distance law.
+
+Records: [T133 — finite-dimensional KKT theorem](../theorems/T133-morandotti-finite-dimensional-kkt-existence-uniqueness.md); [T134 — conditional C0-IPDG coercivity](../theorems/T134-morandotti-c0-ipdg-conditional-coercivity.md).
