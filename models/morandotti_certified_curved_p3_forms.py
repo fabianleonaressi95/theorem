@@ -16,6 +16,7 @@ from typing import Mapping, Sequence
 
 from models.morandotti_exact_geometry import (
     _add, _derivative, _mul, _p3_lagrange_basis, _scale,
+    _certify_positive_exact,
 )
 from models.morandotti_certified_rational_integration import (
     integrate_rational_triangle,
@@ -237,6 +238,9 @@ def _geometry_data(node_coordinates, interpolation_points):
                _scale(_mul(j[0][1], j[1][0]), F(-1)))
     adj = ((j[1][1], _scale(j[0][1], F(-1))),
            (_scale(j[1][0], F(-1)), j[0][0]))
+    det_certificate = _certify_positive_exact(det, 4, max_depth=8)
+    if not det_certificate["positive"]:
+        raise ArithmeticError("cell Jacobian positivity is not certified exactly")
     return maps, basis, j, adj, det
 
 
@@ -427,3 +431,214 @@ def certify_interval_psd(matrix_interval):
         "exact_schur_pivots": pivots,
         "method": "rational midpoint plus n*entry-radius Weyl/Gershgorin perturbation bound",
     }
+
+
+def _edge_q_data(maps, det, hessians, edge_vertices, normal_numerator):
+    a, b = (_REF_VERTICES[k] for k in edge_vertices)
+    det_line = _compose_line(det, a, b)
+    q_numerators = []
+    for P in hessians:
+        value = {}
+        for r in range(2):
+            for s in range(2):
+                entry = _compose_line(P[r][s], a, b)
+                value = _add1(value, _mul1(
+                    _mul1(normal_numerator[r], normal_numerator[s]), entry))
+        q_numerators.append(value)
+    return q_numerators, _pow1(det_line, 3)
+
+
+def _map_trace_on_edge(maps, edge_vertices):
+    a, b = (_REF_VERTICES[k] for k in edge_vertices)
+    return tuple(_compose_line(component, a, b) for component in maps)
+
+
+def _integrate_facet_pair(numerator, det3_a, det3_b, radicand,
+                          h_weight, tolerance, max_depth):
+    denominator = _mul1(_pow1(det3_a, 2), _pow1(det3_b, 2))
+    return integrate_rational_sqrt_segment(
+        _scale1(numerator, _as_fraction(h_weight)/4),
+        denominator, radicand,
+        absolute_tolerance=tolerance, max_depth=max_depth,
+    )[:2]
+
+
+def assemble_interior_facet_interval(
+    node_coordinates_a,
+    node_coordinates_b,
+    interpolation_points,
+    edge_a: tuple[int, int],
+    edge_b_matched: tuple[int, int],
+    h_average,
+    *,
+    absolute_tolerance=F(1, 10**9),
+    max_depth=24,
+):
+    """Certified 20x20 two-sided interior-facet block.
+
+    edge_b_matched must list the B reference-edge endpoints in the same
+    physical endpoint order as edge_a. The two exact cubic edge traces are
+    compared coefficient-by-coefficient before any integration.
+    """
+    maps_a, basis_a, _, adj_a, det_a = _geometry_data(
+        node_coordinates_a, interpolation_points)
+    maps_b, basis_b, _, adj_b, det_b = _geometry_data(
+        node_coordinates_b, interpolation_points)
+    trace_a = _map_trace_on_edge(maps_a, edge_a)
+    trace_b = _map_trace_on_edge(maps_b, edge_b_matched)
+    if trace_a != trace_b:
+        raise ValueError("neighboring P3 maps do not define the same exact curved facet trace")
+
+    hess_a = [_physical_hessian_numerators(phi, maps_a, adj_a, det_a)
+              for phi in basis_a]
+    hess_b = [_physical_hessian_numerators(phi, maps_b, adj_b, det_b)
+              for phi in basis_b]
+
+    # The physical tangent and arclength metric are taken from side A.
+    a0, a1 = (_REF_VERTICES[k] for k in edge_a)
+    direction = (a1[0]-a0[0], a1[1]-a0[1])
+    tangent = []
+    for component in range(2):
+        deriv = _add(
+            _scale(_derivative(maps_a[component], 0), direction[0]),
+            _scale(_derivative(maps_a[component], 1), direction[1]),
+        )
+        tangent.append(_compose_line(deriv, a0, a1))
+    tx, ty = tangent
+    radicand = _add1(_mul1(tx, tx), _mul1(ty, ty))
+    normal_numerator = (ty, _scale1(tx, F(-1)))
+    qa, da3 = _edge_q_data(maps_a, det_a, hess_a, edge_a, normal_numerator)
+    qb, db3 = _edge_q_data(maps_b, det_b, hess_b, edge_b_matched, normal_numerator)
+
+    AA = [[None]*10 for _ in range(10)]
+    AB = [[None]*10 for _ in range(10)]
+    BB = [[None]*10 for _ in range(10)]
+    tol = _as_fraction(absolute_tolerance)
+    for i in range(10):
+        for j in range(10):
+            if j >= i:
+                lo, hi = _integrate_facet_pair(
+                    _mul1(qa[i], qa[j]), da3, da3, radicand,
+                    h_average, tol, max_depth)
+                AA[i][j] = AA[j][i] = (lo, hi)
+                lo, hi = _integrate_facet_pair(
+                    _mul1(qb[i], qb[j]), db3, db3, radicand,
+                    h_average, tol, max_depth)
+                BB[i][j] = BB[j][i] = (lo, hi)
+            lo, hi = _integrate_facet_pair(
+                _mul1(qa[i], qb[j]), da3, db3, radicand,
+                h_average, tol, max_depth)
+            AB[i][j] = (lo, hi)
+    return {
+        "block_AA": AA,
+        "block_AB": AB,
+        "block_BB": BB,
+        "edge_a": tuple(edge_a),
+        "edge_b_matched": tuple(edge_b_matched),
+        "integration": "exact-rational two-sided curved-facet enclosure with shared certified metric",
+    }
+
+
+def _zero_interval_matrix(n):
+    return [[(F(0), F(0)) for _ in range(n)] for _ in range(n)]
+
+
+def _add_block(global_matrix, block, dofs):
+    for i, gi in enumerate(dofs):
+        for j, gj in enumerate(dofs):
+            lo, hi = block[i][j]
+            old_lo, old_hi = global_matrix[gi][gj]
+            global_matrix[gi][gj] = (old_lo+lo, old_hi+hi)
+
+
+def assemble_global_interval_forms(
+    cell_node_coordinates,
+    interpolation_points,
+    cell_dofs,
+    cell_diameters,
+    boundary_facets,
+    interior_facets,
+    number_of_dofs,
+    *,
+    absolute_tolerance=F(1, 10**9),
+    max_depth=24,
+):
+    """Assemble global D and H interval matrices from exact local blocks.
+
+    boundary_facets entries: (cell, (local_vertex_0, local_vertex_1)).
+    interior_facets entries: (cell_a, edge_a, cell_b, edge_b_matched).
+    The edge_b_matched ordering must correspond to edge_a's physical endpoints.
+    """
+    nc = len(cell_node_coordinates)
+    if not (len(cell_dofs) == len(cell_diameters) == nc):
+        raise ValueError("cell geometry, dof maps, and diameters must have equal lengths")
+    if any(len(dofs) != 10 for dofs in cell_dofs):
+        raise ValueError("each P3 cell must provide ten scalar dofs")
+    D = _zero_interval_matrix(number_of_dofs)
+    H = _zero_interval_matrix(number_of_dofs)
+    tol = _as_fraction(absolute_tolerance)
+    for cell in range(nc):
+        local = assemble_cell_volume_interval(
+            cell_node_coordinates[cell], interpolation_points,
+            absolute_tolerance=tol, max_depth=12,
+        )["matrix_interval"]
+        _add_block(D, local, cell_dofs[cell])
+    for cell, edge in boundary_facets:
+        local = assemble_boundary_edge_interval(
+            cell_node_coordinates[cell], interpolation_points, tuple(edge),
+            _as_fraction(cell_diameters[cell]),
+            absolute_tolerance=tol, max_depth=max_depth,
+        )["matrix_interval"]
+        _add_block(H, local, cell_dofs[cell])
+    for ca, ea, cb, eb in interior_facets:
+        local = assemble_interior_facet_interval(
+            cell_node_coordinates[ca], cell_node_coordinates[cb],
+            interpolation_points, tuple(ea), tuple(eb),
+            (_as_fraction(cell_diameters[ca])+_as_fraction(cell_diameters[cb]))/2,
+            absolute_tolerance=tol, max_depth=max_depth,
+        )
+        _add_block(H, local["block_AA"], cell_dofs[ca])
+        _add_block(H, local["block_BB"], cell_dofs[cb])
+        for i, gi in enumerate(cell_dofs[ca]):
+            for j, gj in enumerate(cell_dofs[cb]):
+                lo, hi = local["block_AB"][i][j]
+                old_lo, old_hi = H[gi][gj]
+                H[gi][gj] = (old_lo+lo, old_hi+hi)
+                old_lo, old_hi = H[gj][gi]
+                H[gj][gi] = (old_lo+lo, old_hi+hi)
+    return {"D_interval": D, "H_interval": H, "dofs": number_of_dofs}
+
+
+def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
+    """Propagate entrywise integration intervals to a rigorous quotient PSD test.
+
+    The matrices are restricted to the caller-supplied quotient/boundary
+    representative. For positive rational C, the interval for C*D-H is
+    [C*D_lo-H_hi, C*D_hi-H_lo]. The final sufficient PSD test includes
+    the full entrywise integration uncertainty.
+    """
+    c = _as_fraction(bound)
+    if c <= 0:
+        raise ValueError("trace bound must be positive")
+    free = list(map(int, free_dofs))
+    nfull = len(D_interval)
+    if len(H_interval) != nfull:
+        raise ValueError("D and H interval dimensions differ")
+    if len(set(free)) != len(free) or any(i < 0 or i >= nfull for i in free):
+        raise ValueError("free_dofs must be unique valid global indices")
+    M = []
+    for i in free:
+        row = []
+        for j in free:
+            dlo, dhi = D_interval[i][j]
+            hlo, hhi = H_interval[i][j]
+            row.append((c*dlo-hhi, c*dhi-hlo))
+        M.append(row)
+    certificate = certify_interval_psd(M)
+    certificate.update({
+        "trace_bound": c,
+        "quotient_dimension": len(free),
+        "matrix": "C*D-H",
+        "integration_uncertainty_propagated": True,
+    })
+    return certificate
