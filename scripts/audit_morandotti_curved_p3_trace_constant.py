@@ -41,10 +41,29 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     from dolfinx.mesh import exterior_facet_indices
     boundary_facets = exterior_facet_indices(mesh.topology)
     boundary_dofs = fem.locate_dofs_topological(V, tdim - 1, boundary_facets)
+
+    # The elementwise Hessian seminorm has the entire continuous P1 space
+    # in its kernel: every globally continuous piecewise-affine function has
+    # D^2 v = 0 inside each cell. The facet Hessian form vanishes on the same
+    # kernel. A generalized EVP on the full C0-P3 space therefore has a
+    # singular denominator and an undefined 0/0 quotient on these modes.
+    # Choose the canonical quotient representative with all vertex values
+    # set to zero: subtracting the global P1 nodal interpolant gives exactly
+    # one such representative in every equivalence class modulo C0-P1.
+    # This removes only the common affine kernel; edge and cell P3 modes stay.
+    mesh.topology.create_entities(0)
+    vertex_count = mesh.topology.index_map(0).size_local
+    vertices = np.arange(vertex_count, dtype=np.int32)
+    vertex_dofs = fem.locate_dofs_topological(V, 0, vertices)
+
     n = V.dofmap.index_map.size_local
-    free = np.setdiff1d(np.arange(n, dtype=np.int32), boundary_dofs)
+    constrained = np.union1d(boundary_dofs, vertex_dofs)
+    free = np.setdiff1d(np.arange(n, dtype=np.int32), constrained)
     if free.size < 3:
-        raise RuntimeError(f"too few free P3 degrees of freedom after homogeneous boundary constraints: {free.size}")
+        raise RuntimeError(
+            "too few quotient P3 degrees of freedom after homogeneous boundary "
+            f"and continuous-P1-kernel constraints: {free.size}"
+        )
     Dsp = _petsc_to_scipy(D, n)[free][:, free]
     Hsp = _petsc_to_scipy(H, n)[free][:, free]
     D.destroy()
