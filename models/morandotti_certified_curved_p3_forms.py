@@ -252,7 +252,7 @@ def _physical_hessian_numerators(basis_poly, maps, adj, det):
     grad = [_derivative(basis_poly, a) for a in range(2)]
     hess = [[_derivative(_derivative(basis_poly, a), b)
              for b in range(2)] for a in range(2)]
-    corrected = [[_scale(hess[a][b], det) for b in range(2)]
+    corrected = [[_mul(hess[a][b], det) for b in range(2)]
                  for a in range(2)]
     for a in range(2):
         for b in range(2):
