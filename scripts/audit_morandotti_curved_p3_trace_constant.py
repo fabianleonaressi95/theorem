@@ -39,24 +39,13 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     boundary_facets = exterior_facet_indices(mesh.topology)
     boundary_dofs = fem.locate_dofs_topological(V, tdim - 1, boundary_facets)
 
-    # The elementwise Hessian seminorm has the entire continuous P1 space
-    # in its kernel: every globally continuous piecewise-affine function has
-    # D^2 v = 0 inside each cell. The facet Hessian form vanishes on the same
-    # kernel. A generalized EVP on the full C0-P3 space therefore has a
-    # singular denominator and an undefined 0/0 quotient on these modes.
-    # Choose the canonical quotient representative with all vertex values
-    # set to zero: subtracting the global P1 nodal interpolant gives exactly
-    # one such representative in every equivalence class modulo C0-P1.
-    # This removes only the common affine kernel; edge and cell P3 modes stay.
-    mesh.topology.create_entities(0)
-    # locate_dofs_topological needs the vertex-to-cell adjacency explicitly.
-    mesh.topology.create_connectivity(0, tdim)
-    vertex_count = mesh.topology.index_map(0).size_local
-    vertices = np.arange(vertex_count, dtype=np.int32)
-    vertex_dofs = fem.locate_dofs_topological(V, 0, vertices)
-
+    # On a curved isoparametric mesh, reference C0-P1 functions are not
+    # generally affine in physical coordinates and are not in ker(D^2_x).
+    # The common zero-Hessian modes are global physical affine functions;
+    # homogeneous trace on the full nondegenerate boundary removes them.
+    # Constrain boundary dofs only: interior vertex values are genuine modes.
     n = V.dofmap.index_map.size_local
-    constrained = np.union1d(boundary_dofs, vertex_dofs)
+    constrained = boundary_dofs
     free = np.setdiff1d(np.arange(n, dtype=np.int32), constrained)
     if free.size < 3:
         raise RuntimeError(
