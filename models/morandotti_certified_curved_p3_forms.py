@@ -438,8 +438,8 @@ def interval_matrix_add(target, source):
 def certify_interval_psd(matrix_interval):
     """Sufficient exact PSD certificate for every symmetric interval matrix.
 
-    The midpoint matrix is shifted by n times the largest entry radius.
-    This bounds the spectral norm of every entrywise perturbation. A sparse
+    The midpoint matrix is shifted by the maximum row sum of entry radii.
+    For symmetric perturbations this bounds the spectral norm. A sparse
     exact-rational LDL^T elimination then certifies the shifted midpoint PSD.
     Input may be a dense list-of-lists or a sparse {(i,j): (lo,hi)} mapping.
     """
@@ -462,17 +462,25 @@ def certify_interval_psd(matrix_interval):
                     raise ValueError("interval matrix must be exactly symmetric")
 
     radius = F(0)
+    row_radii = [F(0) for _ in range(n)]
     midpoint = {}
     for i in range(n):
         for j in range(i, n):
             lo, hi = get_interval(i, j)
             if lo > hi:
                 raise ValueError("invalid interval endpoint order")
-            radius = max(radius, (hi-lo)/2)
+            entry_radius = (hi-lo)/2
+            radius = max(radius, entry_radius)
+            row_radii[i] += entry_radius
+            if j != i:
+                row_radii[j] += entry_radius
             mid = (lo+hi)/2
             if mid:
                 midpoint[(i, j)] = mid
-    perturbation = n*radius
+    # For symmetric E with entry bounds eps_ij, ||E||_2 <= ||E||_infinity
+    # <= max_i sum_j eps_ij. This sparse row-sum bound is much sharper than
+    # n*max(eps_ij), while remaining a rigorous spectral perturbation bound.
+    perturbation = max(row_radii, default=F(0))
     for i in range(n):
         key = (i, i)
         midpoint[key] = midpoint.get(key, F(0)) - perturbation
@@ -491,7 +499,7 @@ def certify_interval_psd(matrix_interval):
                 "spectral_error_bound": perturbation,
                 "failed_pivot_index": k, "failed_pivot": pivot,
                 "exact_schur_pivots": tuple(pivots),
-                "method": "sparse exact-rational LDL^T with interval perturbation shift",
+                "method": "sparse exact-rational LDL^T with symmetric row-sum interval perturbation shift",
             }
         neighbors = [
             i for i in range(k+1, n)
