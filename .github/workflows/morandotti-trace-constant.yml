@@ -28,7 +28,6 @@ jobs:
       - name: Run generalized-eigenvalue unit tests
         run: python3 -m pytest -q tests/test_morandotti_trace_constant.py
       - name: Estimate C_tr,h on independently generated curved P3 meshes
-        if: github.event_name == 'workflow_dispatch'
         run: |
           python3 scripts/audit_morandotti_curved_p3_trace_constant.py \
             --mesh-sizes 0.08 0.045 \
@@ -36,7 +35,6 @@ jobs:
             --seeds 11 29 47 \
             --out artifacts/morandotti_trace_constant/report.json
       - name: Upload finite-mesh trace-constant report
-        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: morandotti-curved-p3-trace-constant
