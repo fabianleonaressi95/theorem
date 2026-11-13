@@ -8,7 +8,7 @@ This record separates three claims:
 2. a finite-mesh rational certificate of \(C_\star D_h-H_{h,\ell}\succeq0\);
 3. a mesh-uniform estimate over every refinement and every admissible mesh in the Gmsh family.
 
-Only the first is currently implemented at source level. The second still requires a successful end-to-end execution on a specified mesh and a stored certificate. The third requires an independent analytic proof of the all-level geometric hypotheses.
+The local integral enclosures, global interval assembly, and interval-PSD machinery are implemented at source level. The second claim still requires a successful end-to-end execution on a specified mesh and a stored certificate. The third requires an independent analytic proof of the all-level geometric hypotheses.
 
 ## 1. Target inequality and admissible space
 
