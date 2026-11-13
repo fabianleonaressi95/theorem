@@ -1,0 +1,35 @@
+name: MQM RGS metric reference
+on:
+  push:
+    paths:
+      - "audits/morphodynamics/q6_mqm_metric_reference.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "audits/morphodynamics/q6_mqm_anisotropic_stabilizer.py"
+      - "src/rgs_seed_64_reconstruction.py"
+      - "models/eqc_rgs_gates.py"
+      - "tests/test_mqm_rgs_metric_reference.py"
+      - "theorems/MQM1-rgs-metric-reference.md"
+      - ".github/workflows/mqm-rgs-metric-reference.yml"
+  pull_request:
+    paths:
+      - "audits/morphodynamics/q6_mqm_metric_reference.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "audits/morphodynamics/q6_mqm_anisotropic_stabilizer.py"
+      - "src/rgs_seed_64_reconstruction.py"
+      - "models/eqc_rgs_gates.py"
+      - "tests/test_mqm_rgs_metric_reference.py"
+      - "theorems/MQM1-rgs-metric-reference.md"
+      - ".github/workflows/mqm-rgs-metric-reference.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy
+      - run: python -m unittest discover -s tests -p test_mqm_rgs_metric_reference.py -v
