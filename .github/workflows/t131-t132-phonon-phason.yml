@@ -9,6 +9,9 @@ on:
       - "tests/test_t131_phonon_phason_kubo.py"
       - "tests/test_t132_coupled_ou_green_kubo.py"
       - ".github/workflows/t131-t132-phonon-phason.yml"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_q6_mqm_symmetry.py"
+      - "theorems/MQM-Q6-symmetry-stabilizer.md"
   pull_request:
     paths:
       - "theorems/T131-q6-phonon-phason-green-kubo-transport.md"
@@ -17,6 +20,9 @@ on:
       - "tests/test_t131_phonon_phason_kubo.py"
       - "tests/test_t132_coupled_ou_green_kubo.py"
       - ".github/workflows/t131-t132-phonon-phason.yml"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_q6_mqm_symmetry.py"
+      - "theorems/MQM-Q6-symmetry-stabilizer.md"
 
 permissions:
   contents: read
@@ -34,6 +40,8 @@ jobs:
       - name: Compile phonon-phason audit modules
         run: |
           python -m compileall -q audits/phonon_phason
+      - name: Run MQM-Q6 symmetry stabilizer tests
+        run: python -m unittest discover -s tests -p "test_q6_mqm_symmetry.py" -v
       - name: Run T131 and T132 tests
         run: |
           python -m pytest -q \
