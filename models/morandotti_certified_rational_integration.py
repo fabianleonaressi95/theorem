@@ -212,7 +212,7 @@ def integrate_rational_triangle(
                 abs(integral_poly) * relative_radius**(order+1)
                 / (midpoint_q*(1-relative_radius))
             )
-            if remainder <= 2*tol*area:
+            if remainder <= tol*area:
                 certified = True
                 break
             term_poly = _mul(term_poly, delta_q)
