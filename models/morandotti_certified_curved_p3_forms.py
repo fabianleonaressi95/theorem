@@ -711,7 +711,7 @@ def assemble_global_interval_forms(
     for cell in range(nc):
         local = assemble_cell_volume_interval(
             cell_node_coordinates[cell], interpolation_points,
-            absolute_tolerance=tol, max_depth=12,
+            absolute_tolerance=tol, max_depth=max_depth,
         )["matrix_interval"]
         _add_block(D, local, cell_dofs[cell])
     for cell, edge in boundary_facets:
@@ -790,20 +790,39 @@ def assemble_dolfinx_mesh_interval_forms(
     if mesh.comm.size != 1:
         raise RuntimeError("certified global interval assembly currently requires a serial mesh")
     tdim = mesh.topology.dim
-    if tdim != 2 or mesh.geometry.dim < 2:
-        raise ValueError("T134 curved-P3 form assembly requires a planar triangular mesh")
+    if tdim != 2 or mesh.geometry.dim != 2:
+        raise ValueError("T134 certified form assembly requires a planar triangular mesh in R^2")
     cmap = mesh.geometry.cmaps[0]
     if cmap.degree != 3 or cmap.dim != 10:
         raise ValueError("geometry coordinate map must be triangular P3 with ten nodes")
+    try:
+        coordinate_basix = cmap.basix_element
+        coordinate_variant = coordinate_basix.variant
+        coordinate_interpolation_identity = coordinate_basix.interpolation_is_identity
+    except AttributeError as exc:
+        raise RuntimeError(
+            "cannot verify coordinate-element variant and interpolation identity"
+        ) from exc
+    if coordinate_variant != basix.LagrangeVariant.equispaced:
+        raise ValueError("geometry coordinate map must use equispaced P3 nodes")
+    if not coordinate_interpolation_identity:
+        raise ValueError("geometry coordinate element must have identity interpolation")
     coordinate_element = basix.create_element(
         basix.ElementFamily.P, basix.CellType.triangle, 3,
         basix.LagrangeVariant.equispaced,
     )
     points = np.asarray(coordinate_element.points, dtype=float)
     try:
-        solution_points = np.asarray(function_space.element.basix_element.points, dtype=float)
+        solution_basix = function_space.element.basix_element
+        solution_points = np.asarray(solution_basix.points, dtype=float)
+        solution_variant = solution_basix.variant
+        solution_interpolation_identity = solution_basix.interpolation_is_identity
     except AttributeError as exc:
-        raise RuntimeError("cannot inspect the P3 solution element reference nodes") from exc
+        raise RuntimeError("cannot inspect the P3 solution element reference nodes and variant") from exc
+    if solution_basix.degree != 3 or solution_variant != basix.LagrangeVariant.equispaced:
+        raise ValueError("solution element must be equispaced P3")
+    if not solution_interpolation_identity:
+        raise ValueError("solution P3 element must have identity interpolation")
     if solution_points.shape != points.shape:
         raise ValueError("solution and geometry P3 elements have different node counts")
     solution_order = []
