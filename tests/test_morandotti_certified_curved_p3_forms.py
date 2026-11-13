@@ -102,3 +102,23 @@ def test_sparse_interval_psd_certificate_includes_perturbation():
     result = certify_interval_psd(matrix)
     assert result["certified"]
     assert result["spectral_error_bound"] == F(1, 500)
+
+
+
+def test_global_trace_bound_propagates_sparse_D_and_H_intervals():
+    from models.morandotti_certified_curved_p3_forms import (
+        certify_global_trace_bound,
+    )
+
+    D = {
+        (0, 0): (F(2), F(2)), (0, 1): (F(0), F(0)),
+        (1, 0): (F(0), F(0)), (1, 1): (F(3), F(3)),
+    }
+    H = {
+        (0, 0): (F(1), F(1)), (0, 1): (F(0), F(0)),
+        (1, 0): (F(0), F(0)), (1, 1): (F(2), F(2)),
+    }
+    result = certify_global_trace_bound(D, H, [1, 0], F(2))
+    assert result["certified"]
+    assert result["integration_uncertainty_propagated"]
+    assert result["quotient_dimension"] == 2
