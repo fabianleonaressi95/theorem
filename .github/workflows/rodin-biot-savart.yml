@@ -7,6 +7,8 @@ on:
     paths:
       - "scripts/audit_rodin_biot_savart.py"
       - "tests/test_rodin_biot_savart.py"
+      - "scripts/audit_rodin_paper_geometry.py"
+      - "tests/test_rodin_paper_geometry.py"
       - ".github/workflows/rodin-biot-savart.yml"
   pull_request:
     paths:
