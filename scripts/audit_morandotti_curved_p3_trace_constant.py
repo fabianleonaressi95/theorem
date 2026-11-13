@@ -190,6 +190,10 @@ def main():
                     "alpha_10_exceeds_twice_C_tr_h": bool(
                         10.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
                     ),
+                    "alpha_40_margin": float(40.0 - 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]),
+                    "alpha_40_exceeds_twice_C_tr_h": bool(
+                        40.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
+                    ),
                 }
                 if not row["geometry_map_diagnostics"]["all_sampled_determinants_positive"]:
                     raise RuntimeError(f"non-positive sampled cubic Jacobian for {row}")
@@ -208,11 +212,14 @@ def main():
                 "C_tr_h_mean_over_seeds": float(np.mean(values)),
                 "C_tr_h_sample_std_over_seeds": float(np.std(values, ddof=1)),
                 "alpha_10_exceeds_twice_max_C_tr_h": bool(10.0 > 2.0 * max(values)),
+                "alpha_40_margin_over_max_C_tr_h": float(40.0 - 2.0 * max(values)),
+                "alpha_40_exceeds_twice_max_C_tr_h": bool(40.0 > 2.0 * max(values)),
             }
 
     payload = {
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
         "status": "finite-mesh generalized-eigenvalue estimates; not a mesh-uniform proof",
+        "provisional_penalty_diagnostic": "alpha=40 clears twice the largest C_tr,h in this finite sweep if all cases pass; this is a numerical tuning margin, not a mesh-uniform coercivity certificate",
         "quadrature_acceptance_threshold": 5e-3,
         "generalized_eigenpair_checks": "equilibrated denominator smallest/largest algebraic eigenvalue estimates and their residuals certify numerical positive definiteness; generalized eigenpair Rayleigh agreement and relative residual are also recorded at each quadrature degree",
         "quadrature_stability_is_diagnostic_not_a_claim_of_exactness": True,
