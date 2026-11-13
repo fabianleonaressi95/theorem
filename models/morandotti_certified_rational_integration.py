@@ -157,9 +157,17 @@ def integrate_rational_triangle(
         plo, phi = _bernstein_bounds(pp)
         area = _area(tri)
         if plo < 0 < phi:
-            if depth >= max_depth:
-                raise ArithmeticError("numerator sign not resolved by Bernstein subdivision")
-            stack.extend((child, depth+1) for child in _split4(tri))
+            candidates = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
+            rlo, rhi = min(candidates), max(candidates)
+            local_width = area*(rhi-rlo)
+            if local_width > 2*tol*area and depth < max_depth:
+                stack.extend((child, depth+1) for child in _split4(tri))
+                continue
+            if local_width > 2*tol*area:
+                raise ArithmeticError("requested integral enclosure width not reached on sign-changing numerator")
+            lower += area*rlo
+            upper += area*rhi
+            leaves += 1
             continue
         # The polynomial numerator is integrated exactly on the subtriangle;
         # only the strictly positive denominator is enclosed. This avoids
