@@ -148,8 +148,8 @@ def integrate_rational_triangle(
         candidates = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
         rlo, rhi = min(candidates), max(candidates)
         area = _area(tri)
-        local_width = area * (rhi-rlo)
-        if local_width > tol and depth < max_depth:
+        local_width = area * (rhi-rlo)  # global widths sum to at most tolerance
+        if local_width > 2 * tol * area and depth < max_depth:
             stack.extend((child, depth+1) for child in _split4(tri))
             continue
         if local_width > tol:
