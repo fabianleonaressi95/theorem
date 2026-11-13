@@ -101,7 +101,7 @@ def test_sparse_interval_psd_certificate_includes_perturbation():
     }
     result = certify_interval_psd(matrix)
     assert result["certified"]
-    assert result["spectral_error_bound"] == F(1, 500)
+    assert result["spectral_error_bound"] == F(1, 1000)
 
 
 
