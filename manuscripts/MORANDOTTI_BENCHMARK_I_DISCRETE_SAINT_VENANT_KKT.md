@@ -238,6 +238,7 @@ a_{h,\ell}(v,v)\ge\frac12D_h(v)^2
 \qquad \alpha>2C_{\rm tr}.
 \]
 This is a sufficient, not sharp, threshold. The Young step is made explicit by taking \(2HJ\le\eta H^2+\eta^{-1}J^2\) with \(\eta=(2C_{\\rm tr})^{-1}\). The resulting coercivity constant in the seminorm \(D_h^2+J_{h,\\ell}^2\) is \(c_{\\rm coer}=\\min\\{1/2,\\alpha-2C_{\\rm tr}\\}>0\). For this fixed P3 family, \(C_{\\rm tr}\) may depend on degree, shape regularity, mapped-element regularity and facet-scale comparability, but must be independent of mesh level; variable-degree extensions require explicit tracking of the degree dependence.
+This is a sufficient, not sharp, threshold.
 
 **Important limitation:** source inspection confirms the algebraic correspondence, but it is not an executed assembly-equivalence test. The current implementation uses \(\alpha=10\); no uniform value of \(C_{\rm tr}\), curved-map regularity bound, or uniform facet-scale comparability constant has yet been established. Therefore T134 does not certify that the production parameter 10 is coercive. The affine kernel must also be controlled by the homogeneous value boundary conditions.
 
