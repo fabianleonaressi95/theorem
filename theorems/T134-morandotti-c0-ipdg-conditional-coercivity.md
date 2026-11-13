@@ -173,3 +173,26 @@ The finite audit comprises 12 generated meshes (two core separations, two target
 ## 6. Relation to T133
 
 T133 concerns the finite-dimensional constrained quadratic minimization problem and applies only after the assembled energy matrix is SPD and the constraint matrix has full row rank. T134 is a separate coercivity argument for the biharmonic C0-IPDG cell form. Neither theorem supplies the hypotheses of the other automatically.
+
+
+## 7. Extended refinement audit (2026-11-13)
+
+A follow-up finite-mesh study is configured in
+`.github/workflows/morandotti-trace-constant.yml`. In addition to the
+previous target sizes (h=0.08,0.045), it now includes (h=0.03,0.025),
+with the same two core separations and three independent mesh seeds. The
+curved-map Jacobian diagnostic samples a 16-subdivision triangular reference
+grid (153 points per cell), rather than the previous 8-subdivision grid.
+
+This extension is a **diagnostic refinement**, not an all-points geometry
+certificate. Positivity at finitely many reference points does not prove
+(det J_K>0) throughout each curved cell, and a finite sequence of
+generalized eigenvalues does not prove
+(sup_h C_{\rm tr,h}<\infty). The new run must complete before its
+numerical values are recorded here. The analytical mapped-element derivative,
+inverse-Jacobian, nondegeneracy, and facet-weight comparability bounds remain
+open obligations.
+
+**Current status:** conditional coercivity proof; initial 12-case finite-mesh
+audit completed; extended 24-case refinement audit configured and pending.
+No uniform trace constant or unconditional coercivity claim is made.
