@@ -63,3 +63,35 @@ def test_largest_generalized_eigenvalue_is_invariant_under_diagonal_scaling():
         scale @ A @ scale, scale @ B @ scale
     )
     assert np.isclose(observed, expected, rtol=1e-8, atol=1e-10)
+
+
+def test_largest_generalized_eigenvalue_certifies_denominator_spd():
+    A = np.diag([2.0, 9.0, 8.0, 1.0, 5.0])
+    B = np.array([
+        [2.0, 0.2, 0.0, 0.0, 0.0],
+        [0.2, 2.0, 0.1, 0.0, 0.0],
+        [0.0, 0.1, 3.0, 0.1, 0.0],
+        [0.0, 0.0, 0.1, 2.0, 0.1],
+        [0.0, 0.0, 0.0, 0.1, 2.5],
+    ])
+    value, diagnostics = largest_generalized_eigenvalue(
+        A, B, return_diagnostics=True
+    )
+    assert np.isfinite(value)
+    assert diagnostics["denominator_numerically_positive_definite"]
+    assert diagnostics["denominator_lambda_min_estimate"] > 0.0
+    assert diagnostics["denominator_lambda_max_estimate"] >= diagnostics["denominator_lambda_min_estimate"]
+    assert diagnostics["denominator_lambda_min_relative_residual"] < 1e-7
+    assert diagnostics["denominator_lambda_max_relative_residual"] < 1e-7
+
+
+def test_largest_generalized_eigenvalue_rejects_indefinite_positive_diagonal_denominator():
+    A = np.eye(4)
+    B = np.array([
+        [1.0, 1.5, 0.0, 0.0],
+        [1.5, 1.0, 0.0, 0.0],
+        [0.0, 0.0, 1.0, 0.0],
+        [0.0, 0.0, 0.0, 1.0],
+    ])
+    with pytest.raises(ValueError, match="positive definite"):
+        largest_generalized_eigenvalue(A, B)
