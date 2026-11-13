@@ -515,16 +515,17 @@ def assemble_boundary_edge_interval(
         maps, det, hessians, edge_vertices)
     h = _as_fraction(h_weight)
     matrix = [[None for _ in range(10)] for _ in range(10)]
-    for i in range(10):
-        for j in range(i, 10):
-            numerator = _scale1(_mul1(qnums[i], qnums[j]), h)
-            denominator = _pow1(det3, 2)
-            lo, hi, leaves, depth = integrate_rational_sqrt_segment(
-                numerator, denominator, radicand,
-                absolute_tolerance=absolute_tolerance,
-                max_depth=max_depth,
-            )
-            matrix[i][j] = matrix[j][i] = (lo, hi)
+    pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    denominator = _pow1(det3, 2)
+    numerators = [
+        _scale1(_mul1(qnums[i], qnums[j]), h) for i, j in pairs
+    ]
+    enclosed = integrate_rational_sqrt_segments_many(
+        numerators, denominator, radicand,
+        absolute_tolerance=absolute_tolerance, max_depth=max_depth,
+    )
+    for (i, j), (lo, hi, leaves, depth) in zip(pairs, enclosed):
+        matrix[i][j] = matrix[j][i] = (lo, hi)
     return {
         "matrix_interval": matrix,
         "edge_vertices": tuple(edge_vertices),
