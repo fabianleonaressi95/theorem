@@ -52,7 +52,7 @@ class TestLocalDeterminantCoupling(unittest.TestCase):
         self.assertAlmostEqual(local,float(expected),places=12)
 
     def test_invalid_domains_are_rejected(self):
-        singular=LocalDeterminantCoupling(np.zeros((8,8)),self.KB0,self.tau,self.spin)
+        singular=LocalDeterminantCoupling(np.zeros((8,8)),self.KB0,self.tau,self.spin,mF=0.0,gF=0.0)
         with self.assertRaises(ValueError):
             singular.effective_action(np.zeros(self.n))
         bad=LocalDeterminantCoupling(self.Dkin,-10*np.eye(8),self.tau,self.spin)
