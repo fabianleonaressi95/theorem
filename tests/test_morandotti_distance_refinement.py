@@ -49,3 +49,39 @@ def test_rejects_nonsymmetric_interaction_matrix():
         summarize_distance_refinement([
             {"h": 0.08, "distance": 0.48, "M_laplacian": matrix},
         ])
+
+
+def test_t134_young_coercivity_constant_unweighted_and_weighted_norms():
+    """Regression for the explicit Young step and norm-dependent constant."""
+    rng = np.random.default_rng(134)
+    c_tr = 3.7
+    alpha = 10.0
+    eta = 1.0 / (2.0 * c_tr)
+
+    # Synthetic nonnegative seminorm values satisfying H^2 <= C_tr D^2.
+    D = rng.uniform(0.1, 4.0, size=100_000)
+    J = rng.uniform(0.1, 4.0, size=100_000)
+    H = np.sqrt(c_tr) * D * rng.uniform(0.0, 1.0, size=100_000)
+
+    young_rhs = eta * c_tr * D**2 + (1.0 / eta) * J**2
+    assert np.all(2.0 * H * J <= young_rhs + 1e-12)
+    assert np.all(eta * c_tr * D**2 <= 0.5 * D**2 + 1e-12)
+    assert np.all(young_rhs <= 0.5 * D**2 + 2.0 * c_tr * J**2 + 1e-12)
+
+    penalty_margin = alpha - 2.0 * c_tr
+    assert penalty_margin > 0.0
+    lower_bound = 0.5 * D**2 + penalty_margin * J**2
+    assert np.all(D**2 - 2.0 * H * J + alpha * J**2 >= lower_bound - 1e-12)
+
+    # For ||v||_w^2 = w_D D^2 + w_J J^2, both coefficient ratios matter.
+    w_D, w_J = 2.0, 5.0
+    c_weighted = min(0.5 / w_D, penalty_margin / w_J)
+    assert np.isclose(c_weighted, 0.25)
+    assert np.all(lower_bound >= c_weighted * (w_D * D**2 + w_J * J**2) - 1e-12)
+
+
+def test_t134_rejects_noncoercive_penalty_threshold():
+    c_tr = 3.7
+    alpha = 2.0 * c_tr
+    assert alpha - 2.0 * c_tr == 0.0
+    assert min(0.5, alpha - 2.0 * c_tr) == 0.0

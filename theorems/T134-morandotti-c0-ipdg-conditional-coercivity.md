@@ -61,6 +61,9 @@ Assume there is a constant \(C_{\rm tr}\), independent of the mesh level, such t
 \boxed{H_{h,\ell}(v)^2\le C_{\rm tr}D_h(v)^2
 \qquad\forall v\in V_h^0.}\tag{T134.1}
 \]
+This is the precise trace estimate needed by the coercivity proof, and it includes both interior and boundary facets. Its constant depends on the polynomial degree, the shape-regularity bounds, the mapped-element regularity bounds, and the uniform facet-weight comparability constants. For a fixed-degree family (here P3), these dependencies are fixed and the required assertion is that the resulting constant is independent of the mesh level h. For a variable-degree method, the degree dependence must be tracked explicitly and the penalty must satisfy \(\alpha(p)>2C_{\rm tr}(p)\); no universal p-scaling is asserted here. For straight affine triangles and fixed polynomial degree it follows from the polynomial inverse-trace inequality and shape regularity, after scaling. For curved P3 cells the physical Hessian of a mapped polynomial is generally not a polynomial in physical coordinates. Therefore one must additionally assume a uniformly regular family of element maps: uniformly bounded scaled derivatives of the maps through the order entering the physical Hessian, uniformly bounded inverse Jacobians after scaling, and uniform nondegeneracy of the Jacobian determinant. Together with the weight comparability above, these conditions give a uniformly bounded family of pullback trace operators on the finite-dimensional mapped P3 reference space and hence (T134.1).
+
+The trace quantity here is the normal-normal Hessian trace \(n^TD^2v,n\), not the distinct quantity \(\partial_n\Delta v\). This paragraph explains a sufficient route to (T134.1); it does **not** claim that the current Gmsh meshes have already been shown to satisfy those uniform map bounds. An alternative direct proof or verified bound of (T134.1) for the generated mesh family is acceptable.
 This is the precise trace estimate needed by the coercivity proof. For straight affine triangles and fixed polynomial degree it follows from the polynomial inverse-trace inequality and shape regularity, after scaling. For curved P3 cells the physical Hessian of a mapped polynomial is generally not a polynomial in physical coordinates. Therefore one must additionally assume a uniformly regular family of element maps: uniformly bounded scaled derivatives of the maps through the order entering the physical Hessian, uniformly bounded inverse Jacobians after scaling, and uniform nondegeneracy of the Jacobian determinant. Together with the weight comparability above, these conditions give a uniformly bounded family of pullback trace operators on the finite-dimensional mapped P3 reference space and hence (T134.1).
 
 This paragraph explains a sufficient route to (T134.1); it does **not** claim that the current Gmsh meshes have already been shown to satisfy those uniform map bounds. An alternative direct proof or verified bound of (T134.1) for the generated mesh family is acceptable.
@@ -82,6 +85,7 @@ a_{h,\ell}(u,v)={}&
 \]
 On boundary facets this is exactly the 'ds' consistency and penalty structure; on interior facets it is the 'dS' structure. The code's 'alpha/avg(cell_h)' and 'alpha/cell_h('+')' are represented by \(\alpha/\ell_F\).
 
+**Theorem.** If (T134.1) holds with a mesh-independent constant \(C_{\rm tr}>0\), then for
 **Theorem.** If (T134.1) holds with a mesh-independent constant \(C_{\rm tr}\), then for
 \[
 \boxed{\alpha>2C_{\rm tr}}
@@ -93,6 +97,14 @@ a_{h,\ell}(v,v)\ge
 \frac12D_h(v)^2+(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2
 \qquad\forall v\in V_h^0.}
 \]
+Consequently,
+\[
+a_{h,\ell}(v,v)\ge c_{\rm coer}\,
+\|v\|_{2,h,\ell}^2,
+\qquad
+c_{\rm coer}=\min\left\{\frac12,\alpha-2C_{\rm tr}\right\}>0,
+\]
+where \(\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2\). This is coercivity in the stated mesh-dependent seminorm. If the homogeneous value boundary conditions eliminate the affine kernel, the corresponding discrete Poincare/Friedrichs inequality upgrades this seminorm to control the full discrete \(H^2\)-type norm.
 Thus the form is coercive in the mesh-dependent seminorm
 \[
 \|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2.
@@ -112,6 +124,12 @@ For each facet, use the weighted Cauchy-Schwarz inequality and then sum over all
 \end{aligned}
 \]
 The two symmetric consistency contributions in \(a_{h,\ell}(v,v)\) therefore have absolute value at most \(2H_{h,\ell}(v)J_{h,\ell}(v)\). By (T134.1) and Young's inequality,
+\[
+2H_{h,\ell}(v)J_{h,\ell}(v)
+\le \eta H_{h,\ell}(v)^2+\eta^{-1}J_{h,\ell}(v)^2
+\le \eta C_{\rm tr}D_h(v)^2+\eta^{-1}J_{h,\ell}(v)^2.
+\]
+Choose \(\eta=(2C_{\rm tr})^{-1}\). Then
 \[
 2H_{h,\ell}(v)J_{h,\ell}(v)
 \le2\sqrt{C_{\rm tr}}D_h(v)J_{h,\ell}(v)
