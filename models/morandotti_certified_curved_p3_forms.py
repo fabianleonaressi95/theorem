@@ -398,40 +398,101 @@ def interval_matrix_add(target, source):
 
 
 def certify_interval_psd(matrix_interval):
-    """Sufficient exact PSD certificate for every symmetric matrix in an interval.
+    """Sufficient exact PSD certificate for every symmetric interval matrix.
 
-    Let M0 be the rational midpoint matrix and eps the largest entrywise
-    radius. Then ||M-M0||_2 <= n*eps. If M0-n*eps*I is exactly PSD,
-    every matrix in the interval is PSD. This is conservative but rigorous.
+    The midpoint matrix is shifted by n times the largest entry radius.
+    This bounds the spectral norm of every entrywise perturbation. A sparse
+    exact-rational LDL^T elimination then certifies the shifted midpoint PSD.
+    Input may be a dense list-of-lists or a sparse {(i,j): (lo,hi)} mapping.
     """
-    from models.morandotti_exact_integration import certify_rational_psd
-    n = len(matrix_interval)
-    if any(len(row) != n for row in matrix_interval):
-        raise ValueError("interval matrix must be square")
-    midpoint = [[None]*n for _ in range(n)]
+    if isinstance(matrix_interval, Mapping):
+        entries = dict(matrix_interval)
+        indices = [i for key in entries for i in key]
+        n = max(indices, default=-1) + 1
+        get_interval = lambda i, j: entries.get((i, j), (F(0), F(0)))
+        for (i, j), value in entries.items():
+            if entries.get((j, i), (F(0), F(0))) != value:
+                raise ValueError("interval matrix must be exactly symmetric")
+    else:
+        n = len(matrix_interval)
+        if any(len(row) != n for row in matrix_interval):
+            raise ValueError("interval matrix must be square")
+        get_interval = lambda i, j: matrix_interval[i][j]
+        for i in range(n):
+            for j in range(n):
+                if matrix_interval[j][i] != matrix_interval[i][j]:
+                    raise ValueError("interval matrix must be exactly symmetric")
+
     radius = F(0)
+    midpoint = {}
     for i in range(n):
-        for j in range(n):
-            lo, hi = matrix_interval[i][j]
+        for j in range(i, n):
+            lo, hi = get_interval(i, j)
             if lo > hi:
                 raise ValueError("invalid interval endpoint order")
-            if matrix_interval[j][i] != matrix_interval[i][j]:
-                raise ValueError("interval matrix must be exactly symmetric")
-            midpoint[i][j] = (lo+hi)/2
             radius = max(radius, (hi-lo)/2)
-    shifted = [[midpoint[i][j] - (n*radius if i == j else 0)
-                for j in range(n)] for i in range(n)]
-    positive, pivots = certify_rational_psd(shifted)
+            mid = (lo+hi)/2
+            if mid:
+                midpoint[(i, j)] = mid
+    perturbation = n*radius
+    for i in range(n):
+        key = (i, i)
+        midpoint[key] = midpoint.get(key, F(0)) - perturbation
+        if midpoint[key] == 0:
+            midpoint.pop(key, None)
+
+    # Sparse symmetric Schur-complement elimination. Positive pivots prove
+    # positive definiteness; zero pivots are allowed only for zero rows.
+    pivots = []
+    for k in range(n):
+        pivot = midpoint.get((k, k), F(0))
+        if pivot < 0:
+            return {
+                "certified": False, "dimension": n,
+                "entrywise_radius": radius,
+                "spectral_error_bound": perturbation,
+                "failed_pivot_index": k, "failed_pivot": pivot,
+                "exact_schur_pivots": tuple(pivots),
+                "method": "sparse exact-rational LDL^T with interval perturbation shift",
+            }
+        neighbors = [
+            i for i in range(k+1, n)
+            if midpoint.get((k, i), F(0)) != 0
+        ]
+        if pivot == 0:
+            if neighbors:
+                return {
+                    "certified": False, "dimension": n,
+                    "entrywise_radius": radius,
+                    "spectral_error_bound": perturbation,
+                    "failed_pivot_index": k, "failed_pivot": pivot,
+                    "exact_schur_pivots": tuple(pivots),
+                    "method": "sparse exact-rational LDL^T with interval perturbation shift",
+                }
+            continue
+        pivots.append(pivot)
+        column = {i: midpoint[(k, i)] for i in neighbors}
+        for ii, i in enumerate(neighbors):
+            for j in neighbors[ii:]:
+                key = (i, j)
+                updated = midpoint.get(key, F(0)) - column[i]*column[j]/pivot
+                if updated:
+                    midpoint[key] = updated
+                else:
+                    midpoint.pop(key, None)
+        for i in neighbors:
+            midpoint.pop((k, i), None)
+        midpoint.pop((k, k), None)
+
     return {
-        "certified": bool(positive),
+        "certified": True,
         "dimension": n,
         "entrywise_radius": radius,
-        "spectral_error_bound": n*radius,
-        "midpoint_shifted_psd": bool(positive),
-        "exact_schur_pivots": pivots,
-        "method": "rational midpoint plus n*entry-radius Weyl/Gershgorin perturbation bound",
+        "spectral_error_bound": perturbation,
+        "midpoint_shifted_psd": True,
+        "exact_schur_pivots": tuple(pivots),
+        "method": "sparse exact-rational LDL^T with interval perturbation shift",
     }
-
 
 def _edge_q_data(maps, det, hessians, edge_vertices, normal_numerator):
     a, b = (_REF_VERTICES[k] for k in edge_vertices)
@@ -540,15 +601,26 @@ def assemble_interior_facet_interval(
 
 
 def _zero_interval_matrix(n):
-    return [[(F(0), F(0)) for _ in range(n)] for _ in range(n)]
+    # Sparse dictionary: (global_i, global_j) -> rational interval.
+    return {}
+
+
+def _accumulate(global_matrix, i, j, interval):
+    lo, hi = interval
+    if lo == 0 and hi == 0:
+        return
+    old = global_matrix.get((i, j), (F(0), F(0)))
+    value = (old[0]+lo, old[1]+hi)
+    if value == (F(0), F(0)):
+        global_matrix.pop((i, j), None)
+    else:
+        global_matrix[(i, j)] = value
 
 
 def _add_block(global_matrix, block, dofs):
     for i, gi in enumerate(dofs):
         for j, gj in enumerate(dofs):
-            lo, hi = block[i][j]
-            old_lo, old_hi = global_matrix[gi][gj]
-            global_matrix[gi][gj] = (old_lo+lo, old_hi+hi)
+            _accumulate(global_matrix, gi, gj, block[i][j])
 
 
 def assemble_global_interval_forms(
@@ -602,38 +674,30 @@ def assemble_global_interval_forms(
         for i, gi in enumerate(cell_dofs[ca]):
             for j, gj in enumerate(cell_dofs[cb]):
                 lo, hi = local["block_AB"][i][j]
-                old_lo, old_hi = H[gi][gj]
-                H[gi][gj] = (old_lo+lo, old_hi+hi)
-                old_lo, old_hi = H[gj][gi]
-                H[gj][gi] = (old_lo+lo, old_hi+hi)
+                _accumulate(H, gi, gj, (lo, hi))
+                _accumulate(H, gj, gi, (lo, hi))
     return {"D_interval": D, "H_interval": H, "dofs": number_of_dofs}
 
 
 def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
-    """Propagate entrywise integration intervals to a rigorous quotient PSD test.
-
-    The matrices are restricted to the caller-supplied quotient/boundary
-    representative. For positive rational C, the interval for C*D-H is
-    [C*D_lo-H_hi, C*D_hi-H_lo]. The final sufficient PSD test includes
-    the full entrywise integration uncertainty.
-    """
+    """Propagate sparse form intervals to an exact quotient PSD certificate."""
     c = _as_fraction(bound)
     if c <= 0:
         raise ValueError("trace bound must be positive")
     free = list(map(int, free_dofs))
-    nfull = len(D_interval)
-    if len(H_interval) != nfull:
-        raise ValueError("D and H interval dimensions differ")
-    if len(set(free)) != len(free) or any(i < 0 or i >= nfull for i in free):
-        raise ValueError("free_dofs must be unique valid global indices")
-    M = []
-    for i in free:
-        row = []
-        for j in free:
-            dlo, dhi = D_interval[i][j]
-            hlo, hhi = H_interval[i][j]
-            row.append((c*dlo-hhi, c*dhi-hlo))
-        M.append(row)
+    if len(set(free)) != len(free) or any(i < 0 for i in free):
+        raise ValueError("free_dofs must be unique nonnegative global indices")
+    index = {global_dof: local for local, global_dof in enumerate(free)}
+    M = {}
+    keys = set(D_interval) | set(H_interval)
+    for i, j in keys:
+        if i not in index or j not in index:
+            continue
+        dlo, dhi = D_interval.get((i, j), (F(0), F(0)))
+        hlo, hhi = H_interval.get((i, j), (F(0), F(0)))
+        lo, hi = c*dlo-hhi, c*dhi-hlo
+        if lo or hi:
+            M[(index[i], index[j])] = (lo, hi)
     certificate = certify_interval_psd(M)
     certificate.update({
         "trace_bound": c,
