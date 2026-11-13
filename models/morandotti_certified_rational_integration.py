@@ -78,7 +78,6 @@ def _bernstein_bounds(poly):
     n = max(i+j for i, j in poly)
     coeffs = []
     falling = lambda x, k: (factorial(x)//factorial(x-k)) if x >= k else 0
-    den = factorial(n)//factorial(n-(i+j)) if n >= i+j else 1
     for k in range(n+1):
         for l in range(n-k+1):
             value = Fraction(0)
@@ -152,7 +151,7 @@ def integrate_rational_triangle(
         if local_width > 2 * tol * area and depth < max_depth:
             stack.extend((child, depth+1) for child in _split4(tri))
             continue
-        if local_width > tol:
+        if local_width > 2 * tol * area:
             raise ArithmeticError("requested integral enclosure width not reached")
         lower += area*rlo
         upper += area*rhi
