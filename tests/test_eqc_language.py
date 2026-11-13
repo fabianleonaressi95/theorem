@@ -67,8 +67,8 @@ class TestEQCLanguage(unittest.TestCase):
         self.assertAlmostEqual(abs(state[3**5] - 1), 0.0, places=12)
 
     def test_polarity_inversion_is_involution(self):
-        state = run(compile_source("X q0\nINV q0\nINV q0"))
-        self.assertAlmostEqual(abs(state[3**5] - 1), 0.0, places=12)
+        state = run(compile_source("X q0\nX q0\nINV q0\nINV q0"))
+        self.assertAlmostEqual(abs(state[2 * 3**5] - 1), 0.0, places=12)
 
     def test_register_swap_is_involution(self):
         state = run(compile_source("X q0\nSWAP q0 q5\nSWAP q0 q5"))
