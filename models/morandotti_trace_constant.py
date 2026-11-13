@@ -52,7 +52,7 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
         diagonal = np.asarray(B.diagonal(), dtype=float)
         if not np.isfinite(diagonal).all() or np.any(diagonal <= 0.0):
             raise ValueError(
-                "denominator has a non-positive or non-finite diagonal; "
+                "denominator is not numerically positive definite: it has a non-positive or non-finite diagonal; "
                 "the Hessian energy may contain unconstrained null modes"
             )
 
