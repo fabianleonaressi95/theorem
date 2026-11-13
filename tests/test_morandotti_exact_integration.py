@@ -18,7 +18,7 @@ def test_triangle_monomials_are_integrated_exactly():
 
 
 def test_segment_polynomial_is_integrated_exactly():
-    assert integrate_reference_segment({0: 2, 1: 3, 3: -4}) == F(1, 1)
+    assert integrate_reference_segment({0: 2, 1: 3, 3: -4}) == F(5, 2)
 
 
 def test_exact_integrator_rejects_floating_coefficients():
