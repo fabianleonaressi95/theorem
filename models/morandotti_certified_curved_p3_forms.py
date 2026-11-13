@@ -813,14 +813,23 @@ def assemble_dolfinx_mesh_interval_forms(
     try:
         solution_basix = function_space.element.basix_element
         solution_points = np.asarray(solution_basix.points, dtype=float)
-        solution_variant = solution_basix.variant
-        solution_interpolation_identity = solution_basix.interpolation_is_identity
+        solution_interpolation = np.asarray(
+            solution_basix.interpolation_matrix, dtype=float
+        )
+        solution_family = solution_basix.family
+        solution_degree = solution_basix.degree
     except AttributeError as exc:
-        raise RuntimeError("cannot inspect the P3 solution element reference nodes and variant") from exc
-    if solution_basix.degree != 3 or solution_variant != basix.LagrangeVariant.equispaced:
-        raise ValueError("solution element must be equispaced P3")
-    if not solution_interpolation_identity:
-        raise ValueError("solution P3 element must have identity interpolation")
+        raise RuntimeError(
+            "cannot inspect the P3 solution element family, degree, nodes, and interpolation matrix"
+        ) from exc
+    if solution_family != basix.ElementFamily.P or solution_degree != 3:
+        raise ValueError("solution element must be scalar Lagrange P3")
+    if solution_points.shape != points.shape:
+        raise ValueError("solution element must have the ten P3 reference nodes")
+    if solution_interpolation.shape != (10, 10) or not np.allclose(
+        solution_interpolation, np.eye(10), rtol=0.0, atol=1e-12
+    ):
+        raise ValueError("solution P3 element must have identity nodal interpolation")
     if solution_points.shape != points.shape:
         raise ValueError("solution and geometry P3 elements have different node counts")
     solution_order = []
