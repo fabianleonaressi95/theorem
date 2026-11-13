@@ -160,14 +160,27 @@ def integrate_rational_sqrt_segment(
         integral_p = sum((coefficient/F(degree+1)
                           for degree, coefficient in pp.items()), F(0))
         if plo < 0 < phi:
-            if depth >= max_depth:
-                raise ArithmeticError("facet numerator sign not resolved by subdivision")
-            stack.extend((
-                (_restrict_half(pp, True), _restrict_half(qq, True),
-                 _restrict_half(ss, True), length/2, depth+1),
-                (_restrict_half(pp, False), _restrict_half(qq, False),
-                 _restrict_half(ss, False), length/2, depth+1),
-            ))
+            quotients = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
+            rlo, rhi = min(quotients), max(quotients)
+            sqrt_lo = _sqrt_lower(slo)
+            sqrt_hi = _sqrt_upper(shi)
+            factors = (F(1)/(sqrt_hi**3), F(1)/(sqrt_lo**3))
+            vals = (rlo*factors[0], rlo*factors[1],
+                    rhi*factors[0], rhi*factors[1])
+            flo, fhi = min(vals), max(vals)
+            if fhi-flo > 2*tol:
+                if depth >= max_depth:
+                    raise ArithmeticError("facet integral enclosure width not reached on sign-changing numerator")
+                stack.extend((
+                    (_restrict_half(pp, True), _restrict_half(qq, True),
+                     _restrict_half(ss, True), length/2, depth+1),
+                    (_restrict_half(pp, False), _restrict_half(qq, False),
+                     _restrict_half(ss, False), length/2, depth+1),
+                ))
+                continue
+            lower += length*flo
+            upper += length*fhi
+            leaves += 1
             continue
         sqrt_lo = _sqrt_lower(slo)
         sqrt_hi = _sqrt_upper(shi)
