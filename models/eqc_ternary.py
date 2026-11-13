@@ -4,7 +4,7 @@ The symbols -1, 0, +1 are labels, not quantum amplitudes.
 No external dependencies are required.
 """
 from itertools import product
-from math import comb, isclose
+from math import comb
 import cmath
 
 ALPHABET = (-1, 0, 1)
@@ -93,7 +93,7 @@ def conjugate_transpose(a):
 
 
 def is_identity(a, tol=1e-12):
-    return all(isclose(a[i][j], 1 if i == j else 0, abs_tol=tol)
+    return all(abs(a[i][j] - (1 if i == j else 0)) <= tol
                for i in range(len(a)) for j in range(len(a[0])))
 
 
