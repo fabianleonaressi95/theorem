@@ -25,6 +25,9 @@ class TestQ6MQMSymmetry(unittest.TestCase):
         xstar = directional_reference_weights((0., 1., 2., 3., 4., 5.))
         self.assertEqual(count_reference_stabilizer(xstar), 64)
 
+    def test_generic_edgewise_reference_has_trivial_stabilizer(self):
+        self.assertEqual(count_reference_stabilizer(tuple(range(192))), 1)
+
     def test_rgs_induced_oh_stabilizer_is_order_16(self):
         report = rgs_q6_stabilizer_report()
         self.assertEqual(report["induced_Oh_order"], 48)
