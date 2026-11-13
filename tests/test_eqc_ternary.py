@@ -28,14 +28,16 @@ class TestEsagrammaticQuantumComputing(unittest.TestCase):
     def test_q6_is_induced_binary_subgraph(self):
         words = list(q6_binary_words())
         self.assertEqual(len(words), 64)
-        self.assertTrue(all(len(list(neighbors(w))) == 6 for w in words))
-        self.assertEqual(64 * 6 // 2, 192)
-        self.assertTrue(all(set(neighbors(w)).issuperset(
-            {tuple((1 if i == j else w[i]) for i in range(6))
-             for j in range(6) if w[j] == 0}
-            | {tuple((0 if i == j else w[i]) for i in range(6))
-               for j in range(6) if w[j] == 1})
-            for w in words))
+        binary_set = set(words)
+        induced_edges = sum(
+            1 for w in words for n in neighbors(w) if n in binary_set
+        )
+        self.assertTrue(all(
+            sum(1 for n in neighbors(w) if n in binary_set) == 6
+            for w in words
+        ))
+        self.assertEqual(induced_edges, 384)  # oriented edge count
+        self.assertEqual(induced_edges // 2, 192)
 
     def test_spectrum_multiplicities(self):
         spectrum = ternary_hamming_spectrum()
