@@ -265,7 +265,8 @@ def certify_p3_cell_geometry(node_coordinates, interpolation_points, max_depth: 
     m2_upper = _sqrt_upper_fraction(m2_squared)
     # The curved-cell diameter may include all high-order geometry nodes.
     # Since diam(reference triangle)=sqrt(2), h <= sqrt(2)*s*M1.
-    # Also h >= s from the physical vertices.\n    mminus1_upper = _sqrt_upper_fraction(Fraction(2)) * m1_upper * m1_upper / j_lower
+    # Also h >= s from the physical vertices.
+    mminus1_upper = _sqrt_upper_fraction(Fraction(2)) * m1_upper * m1_upper / j_lower
 
     return {
         "positive": True,
