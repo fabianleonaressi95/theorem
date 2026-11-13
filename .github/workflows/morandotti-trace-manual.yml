@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/certify_morandotti_curved_p3_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
 
 permissions:
   contents: read
