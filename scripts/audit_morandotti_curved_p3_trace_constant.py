@@ -539,7 +539,7 @@ def main():
                                 "mesh_seed": int(seed),
                                 **cell_record,
                             }
-                            certificate_stream.write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\\n")
+                            certificate_stream.write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n")
                         row = {
                             "distance": float(distance),
                             "h_target": float(h),
