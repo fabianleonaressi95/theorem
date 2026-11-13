@@ -14,6 +14,7 @@ from fractions import Fraction as F
 from functools import lru_cache
 from math import factorial
 from typing import Mapping, Sequence
+from time import perf_counter
 
 from models.morandotti_exact_geometry import (
     _add, _derivative, _mul, _p3_lagrange_basis, _scale,
@@ -597,9 +598,20 @@ def certify_interval_psd(matrix_interval):
         if midpoint[key] == 0:
             midpoint.pop(key, None)
 
+    # Maintain an explicit upper-triangular adjacency index. The former
+    # implementation searched every remaining row at every pivot (O(n^2)
+    # Python dictionary probes even for a sparse matrix).
+    adjacency = [set() for _ in range(n)]
+    for i, j in midpoint:
+        if i != j and midpoint[(i, j)]:
+            adjacency[i].add(j)
+
     # Sparse symmetric Schur-complement elimination. Positive pivots prove
     # positive definiteness; zero pivots are allowed only for zero rows.
     pivots = []
+    fill_updates = 0
+    max_active_degree = 0
+    ldl_started = perf_counter()
     for k in range(n):
         pivot = midpoint.get((k, k), F(0))
         if pivot < 0:
@@ -611,10 +623,8 @@ def certify_interval_psd(matrix_interval):
                 "exact_schur_pivots": tuple(pivots),
                 "method": "sparse exact-rational LDL^T with symmetric row-sum interval perturbation shift",
             }
-        neighbors = [
-            i for i in range(k+1, n)
-            if midpoint.get((k, i), F(0)) != 0
-        ]
+        neighbors = sorted(adjacency[k])
+        max_active_degree = max(max_active_degree, len(neighbors))
         if pivot == 0:
             if neighbors:
                 return {
@@ -622,6 +632,9 @@ def certify_interval_psd(matrix_interval):
                     "entrywise_radius": radius,
                     "spectral_error_bound": perturbation,
                     "failed_pivot_index": k, "failed_pivot": pivot,
+                    "ldl_seconds": perf_counter() - ldl_started,
+                    "ldl_fill_updates": fill_updates,
+                    "ldl_max_active_degree": max_active_degree,
                     "exact_schur_pivots": tuple(pivots),
                     "method": "sparse exact-rational LDL^T with interval perturbation shift",
                 }
@@ -634,11 +647,18 @@ def certify_interval_psd(matrix_interval):
                 updated = midpoint.get(key, F(0)) - column[i]*column[j]/pivot
                 if updated:
                     midpoint[key] = updated
+                    if i != j:
+                        adjacency[i].add(j)
                 else:
                     midpoint.pop(key, None)
+                    if i != j:
+                        adjacency[i].discard(j)
+                fill_updates += 1
         for i in neighbors:
             midpoint.pop((k, i), None)
+        adjacency[k].clear()
         midpoint.pop((k, k), None)
+    ldl_seconds = perf_counter() - ldl_started
 
     return {
         "certified": True,
@@ -646,6 +666,9 @@ def certify_interval_psd(matrix_interval):
         "entrywise_radius": radius,
         "spectral_error_bound": perturbation,
         "midpoint_shifted_psd": True,
+        "ldl_seconds": ldl_seconds,
+        "ldl_fill_updates": fill_updates,
+        "ldl_max_active_degree": max_active_degree,
         "exact_schur_pivots": tuple(pivots),
         "method": "sparse exact-rational LDL^T with interval perturbation shift",
     }
@@ -800,12 +823,15 @@ def assemble_global_interval_forms(
     D = _zero_interval_matrix(number_of_dofs)
     H = _zero_interval_matrix(number_of_dofs)
     tol = _as_fraction(absolute_tolerance)
+    volume_started = perf_counter()
     for cell in range(nc):
         local = assemble_cell_volume_interval(
             cell_node_coordinates[cell], interpolation_points,
             absolute_tolerance=tol, max_depth=max_depth,
         )["matrix_interval"]
         _add_block(D, local, cell_dofs[cell])
+    volume_seconds = perf_counter() - volume_started
+    boundary_started = perf_counter()
     for cell, edge in boundary_facets:
         local = assemble_boundary_edge_interval(
             cell_node_coordinates[cell], interpolation_points, tuple(edge),
@@ -813,6 +839,8 @@ def assemble_global_interval_forms(
             absolute_tolerance=tol, max_depth=max_depth,
         )["matrix_interval"]
         _add_block(H, local, cell_dofs[cell])
+    boundary_seconds = perf_counter() - boundary_started
+    interior_started = perf_counter()
     for ca, ea, cb, eb in interior_facets:
         local = assemble_interior_facet_interval(
             cell_node_coordinates[ca], cell_node_coordinates[cb],
@@ -827,7 +855,20 @@ def assemble_global_interval_forms(
                 lo, hi = local["block_AB"][i][j]
                 _accumulate(H, gi, gj, (lo, hi))
                 _accumulate(H, gj, gi, (lo, hi))
-    return {"D_interval": D, "H_interval": H, "dofs": number_of_dofs}
+    interior_seconds = perf_counter() - interior_started
+    return {
+        "D_interval": D, "H_interval": H, "dofs": number_of_dofs,
+        "assembly_timings_seconds": {
+            "volume_cells": volume_seconds,
+            "boundary_facets": boundary_seconds,
+            "interior_facets": interior_seconds,
+            "total_local_assembly": volume_seconds + boundary_seconds + interior_seconds,
+        },
+        "assembly_counts": {
+            "cells": nc, "boundary_facets": len(boundary_facets),
+            "interior_facets": len(interior_facets),
+        },
+    }
 
 
 def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
