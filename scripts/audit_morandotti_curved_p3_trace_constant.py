@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import gzip
+import hashlib
+import io
 import json
 from pathlib import Path
 
@@ -122,6 +125,7 @@ def certify_curved_p3_geometry(mesh):
     certificate_digest = hashlib.sha256()
     coordinate_digest = hashlib.sha256()
     failed_cells = []
+    cell_certificates = []
     max_depth = 0
     max_nodes = 0
 
@@ -140,6 +144,14 @@ def certify_curved_p3_geometry(mesh):
             })
             certificate_digest.update(b"FAIL:")
             certificate_digest.update(cert["coordinate_sha256"].encode("ascii"))
+            cell_certificates.append({
+                "cell": int(cell),
+                "positive": False,
+                "failure": cert["failure"],
+                "coordinate_sha256": cert["coordinate_sha256"],
+                "subdivision_depth_max": int(cert["subdivision_depth_max"]),
+                "subdivision_nodes": int(cert["subdivision_nodes"]),
+            })
             continue
 
         values = {
@@ -166,6 +178,20 @@ def certify_curved_p3_geometry(mesh):
                        for name in sorted(values))).encode("ascii")
         )
         certificate_digest.update(cert["coordinate_sha256"].encode("ascii"))
+        cell_certificates.append({
+            "cell": int(cell),
+            "positive": True,
+            "coordinate_sha256": cert["coordinate_sha256"],
+            "determinant_lower_scaled_exact": cert["determinant_lower_scaled_exact"],
+            "determinant_upper_scaled_exact": cert["determinant_upper_scaled_exact"],
+            "M1_upper_scaled_exact": cert["M1_upper_scaled_exact"],
+            "M2_upper_scaled_exact": cert["M2_upper_scaled_exact"],
+            "M_minus1_upper_scaled_exact": cert["M_minus1_upper_scaled_exact"],
+            "j0_lower_scaled_exact": [values["j0"].numerator, values["j0"].denominator],
+            "j1_upper_scaled_exact": [values["j1"].numerator, values["j1"].denominator],
+            "subdivision_depth_max": int(cert["subdivision_depth_max"]),
+            "subdivision_nodes": int(cert["subdivision_nodes"]),
+        })
 
     certified = not failed_cells and nc > 0
     return {
@@ -212,6 +238,7 @@ def certify_curved_p3_geometry(mesh):
         "maximum_subdivision_nodes_per_cell": max_nodes,
         "coordinate_data_sha256": coordinate_digest.hexdigest(),
         "cell_certificate_sha256": certificate_digest.hexdigest(),
+        "cell_certificates": cell_certificates,
         "formal_exact_rational_certificate": bool(certified),
     }
 
@@ -480,6 +507,7 @@ def main():
     parser.add_argument("--seeds", nargs="+", type=int, default=[11, 29, 47])
     parser.add_argument("--bootstrap-replicates", type=int, default=2000)
     parser.add_argument("--out", default="artifacts/morandotti_trace_constant/report.json")
+    parser.add_argument("--certificate-out", default="artifacts/morandotti_trace_constant/cell-certificates.jsonl.gz")
     args = parser.parse_args()
 
     if MPI.COMM_WORLD.size != 1:
@@ -492,30 +520,50 @@ def main():
         raise ValueError("at least two distinct mesh seeds are required")
 
     runs = []
-    for distance in args.distances:
-        centers = ((-0.5 * distance, 0.0), (0.5 * distance, 0.0))
-        for h in args.mesh_sizes:
-            for seed in args.seeds:
-                mesh, _ = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
-                result = trace_constant_for_mesh(mesh)
-                row = {
-                    "distance": float(distance),
-                    "h_target": float(h),
-                    "mesh_seed": int(seed),
-                    **result,
-                    "alpha_10_margin": float(10.0 - 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]),
-                    "alpha_10_exceeds_twice_C_tr_h": bool(
-                        10.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
-                    ),
-                    "alpha_40_margin": float(40.0 - 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]),
-                    "alpha_40_exceeds_twice_C_tr_h": bool(
-                        40.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
-                    ),
-                }
-                if not row["geometry_map_diagnostics"]["all_sampled_determinants_positive"]:
-                    raise RuntimeError(f"non-positive sampled cubic Jacobian for {row}")
-                runs.append(row)
-                print(json.dumps(row), flush=True)
+    certificate_path = Path(args.certificate_out)
+    certificate_path.parent.mkdir(parents=True, exist_ok=True)
+    with certificate_path.open("wb") as certificate_file:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=certificate_file, mtime=0) as compressed:
+            certificate_stream = io.TextIOWrapper(compressed, encoding="utf-8")
+            for distance in args.distances:
+                centers = ((-0.5 * distance, 0.0), (0.5 * distance, 0.0))
+                for h in args.mesh_sizes:
+                    for seed in args.seeds:
+                        mesh, _ = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
+                        result = trace_constant_for_mesh(mesh)
+                        cell_records = result["geometry_certificate"].pop("cell_certificates")
+                        for cell_record in cell_records:
+                            record = {
+                                "distance": float(distance),
+                                "h_target": float(h),
+                                "mesh_seed": int(seed),
+                                **cell_record,
+                            }
+                            certificate_stream.write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n")
+                        row = {
+                            "distance": float(distance),
+                            "h_target": float(h),
+                            "mesh_seed": int(seed),
+                            **result,
+                            "alpha_10_margin": float(10.0 - 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]),
+                            "alpha_10_exceeds_twice_C_tr_h": bool(
+                                10.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
+                            ),
+                            "alpha_40_margin": float(40.0 - 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]),
+                            "alpha_40_exceeds_twice_C_tr_h": bool(
+                                40.0 > 2.0 * result["quadrature_estimates"][-1]["C_tr_h"]
+                            ),
+                        }
+                        if not row["geometry_map_diagnostics"]["all_sampled_determinants_positive"]:
+                            raise RuntimeError(f"non-positive sampled cubic Jacobian for {row}")
+                        runs.append(row)
+                        print(json.dumps(row), flush=True)
+            certificate_stream.flush()
+            certificate_stream.detach()
+    certificate_hash = hashlib.sha256()
+    with certificate_path.open("rb") as certificate_file:
+        for chunk in iter(lambda: certificate_file.read(1024 * 1024), b""):
+            certificate_hash.update(chunk)
 
     grouped = {}
     for distance in args.distances:
@@ -555,6 +603,13 @@ def main():
         "group_summary": grouped,
         "statistical_model_audit": statistical,
         "runs": runs,
+        "cell_certificate_archive": {
+            "path": str(certificate_path),
+            "format": "gzip-compressed JSON Lines; one exact-rational record per local cell and generated mesh",
+            "sha256": certificate_hash.hexdigest(),
+            "records": sum(r["geometry_certificate"]["cells"] for r in runs),
+            "fields": ["distance", "h_target", "mesh_seed", "cell", "positive", "coordinate_sha256", "determinant_lower_scaled_exact", "determinant_upper_scaled_exact", "M1_upper_scaled_exact", "M2_upper_scaled_exact", "M_minus1_upper_scaled_exact", "j0_lower_scaled_exact", "j1_upper_scaled_exact", "subdivision_depth_max", "subdivision_nodes"],
+        },
         "limitations": [
             "a finite set of generalized eigenvalues does not prove sup_h C_tr,h is bounded",
             "exact geometry certificates cover every cell in each generated mesh, but the finite seed/resolution sweep does not certify every possible mesh generated by the parameterized family",
