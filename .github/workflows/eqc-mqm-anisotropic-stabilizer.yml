@@ -1,0 +1,30 @@
+name: EQC MQM anisotropic stabilizer
+on:
+  push:
+    paths:
+      - "audits/morphodynamics/q6_mqm_anisotropic_stabilizer.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "models/eqc_rgs_gates.py"
+      - "tests/test_eqc_mqm_anisotropic_stabilizer.py"
+      - "theorems/EQC-MQM1-anisotropic-stabilizer.md"
+      - ".github/workflows/eqc-mqm-anisotropic-stabilizer.yml"
+  pull_request:
+    paths:
+      - "audits/morphodynamics/q6_mqm_anisotropic_stabilizer.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "models/eqc_rgs_gates.py"
+      - "tests/test_eqc_mqm_anisotropic_stabilizer.py"
+      - "theorems/EQC-MQM1-anisotropic-stabilizer.md"
+      - ".github/workflows/eqc-mqm-anisotropic-stabilizer.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m unittest discover -s tests -p test_eqc_mqm_anisotropic_stabilizer.py -v
