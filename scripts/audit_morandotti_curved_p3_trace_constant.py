@@ -79,11 +79,12 @@ def certify_curved_p3_geometry(mesh):
     tdim = mesh.topology.dim
     nc = mesh.topology.index_map(tdim).size_local
     cmap = mesh.geometry.cmaps[0]
-    if cmap.degree != 3 or cmap.dim != 10 or not cmap.interpolation_ident:
+    interpolation_is_identity = bool(cmap.basix_element.interpolation_is_identity)
+    if cmap.degree != 3 or cmap.dim != 10 or not interpolation_is_identity:
         raise RuntimeError(
             "exact geometry certificate requires a nodal equispaced triangular P3 "
             f"coordinate element; got degree={cmap.degree}, dim={cmap.dim}, "
-            f"interpolation_ident={cmap.interpolation_ident}"
+            f"interpolation_is_identity={interpolation_is_identity}"
         )
     points = np.asarray(cmap.interpolation_points, dtype=np.float64)
     geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
@@ -162,7 +163,7 @@ def certify_curved_p3_geometry(mesh):
         "coordinate_element": {
             "degree": int(cmap.degree),
             "dimension": int(cmap.dim),
-            "interpolation_ident": bool(cmap.interpolation_ident),
+            "interpolation_is_identity": interpolation_is_identity,
             "reference_nodes": int(points.shape[0]),
             "node_set": "equispaced triangular P3 lattice, checked against interpolation points to 1e-12 before exact rational reconstruction",
         },
