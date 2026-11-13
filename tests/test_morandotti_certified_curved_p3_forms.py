@@ -159,3 +159,28 @@ def test_global_assembly_forwards_requested_volume_depth(monkeypatch):
         max_depth=3,
     )
     assert observed["max_depth"] == 3
+
+
+def test_shared_facet_integrator_encloses_scalar_integrals():
+    from models.morandotti_certified_curved_p3_forms import (
+        integrate_rational_sqrt_segments_many,
+    )
+
+    numerators = [
+        {0: F(1), 1: F(1, 3)},
+        {0: F(-1), 1: F(2)},
+        {0: F(1), 1: F(-2), 2: F(1)},
+    ]
+    denominator = {0: F(2), 1: F(1, 4)}
+    radicand = {0: F(1), 1: F(1, 5)}
+    kwargs = {"absolute_tolerance": F(1, 1000), "max_depth": 16}
+    shared = integrate_rational_sqrt_segments_many(
+        numerators, denominator, radicand, **kwargs
+    )
+    scalar = [
+        integrate_rational_sqrt_segment(p, denominator, radicand, **kwargs)
+        for p in numerators
+    ]
+    for (lo, hi, _, _), (slo, shi, _, _) in zip(shared, scalar):
+        assert lo <= shi and slo <= hi
+        assert hi - lo <= F(1, 500)
