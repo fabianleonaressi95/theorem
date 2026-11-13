@@ -134,8 +134,13 @@ def test_nonaffine_p3_geometry_has_variable_positive_jacobian():
     nodes = list(nodes)
     nodes[5] = (nodes[5][0] + F(1, 40), nodes[5][1] - F(1, 50))
     maps, basis, jac, adj, det = _geometry_data(nodes, points)
-    assert len(det) > 1
-    assert all(value.denominator > 0 for value in det.values())
+    from models.morandotti_exact_geometry import _certify_positive_exact
+
+    assert any(sum(exponent) > 0 for exponent in det)
+    certificate = _certify_positive_exact(det, 4, max_depth=8)
+    assert certificate["positive"]
+    assert certificate["lower"] is not None
+    assert certificate["lower"] > 0
 
 
 def test_global_assembly_forwards_requested_volume_depth(monkeypatch):
