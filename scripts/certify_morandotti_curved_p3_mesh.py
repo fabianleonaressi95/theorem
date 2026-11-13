@@ -74,6 +74,8 @@ def main():
         "cell_count": assembled["cell_count"],
         "interior_facet_count": assembled["interior_facet_count"],
         "boundary_facet_count": assembled["boundary_facet_count"],
+        "assembly_timings_seconds": assembled.get("assembly_timings_seconds", {}),
+        "assembly_counts": assembled.get("assembly_counts", {}),
         "assembly": "exact-rational local curved-P3 Hessian blocks with certified volume/facet integral enclosures",
     })
     payload = {
