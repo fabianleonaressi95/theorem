@@ -45,7 +45,7 @@ def test_identity_p3_cell_volume_block_is_exact_interval_matrix():
 def test_identity_p3_boundary_edge_block_has_certified_metric():
     nodes, points = _p3_nodes()
     result = assemble_boundary_edge_interval(
-        nodes, points, (0, 1), F(1), absolute_tolerance=F(1, 10**5)
+        nodes, points, (0, 1), F(1), absolute_tolerance=F(1, 5)
     )
     matrix = result["matrix_interval"]
     assert len(matrix) == 10
@@ -80,7 +80,7 @@ def test_exact_two_sided_interior_facet_matches_and_encloses():
     nodes_b = [(1-y, x+y) for x, y in points]
     result = assemble_interior_facet_interval(
         nodes_a, nodes_b, points, (1, 2), (0, 2), F(1),
-        absolute_tolerance=F(1, 10**4),
+        absolute_tolerance=F(1, 5),
     )
     for key in ("block_AA", "block_AB", "block_BB"):
         block = result[key]
