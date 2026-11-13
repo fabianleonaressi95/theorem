@@ -187,7 +187,7 @@ def certify_curved_p3_geometry(mesh):
     _, points4, _ = _bernstein_matrix(4)
     _, points1, _ = _bernstein_matrix(1)
     J_expr = fem.Expression(ufl.Jacobian(mesh), points2, comm=mesh.comm)
-    H_expr = fem.Expression(ufl.grad(ufl.Jacobian(mesh)), points1, comm=mesh.comm)
+    H_expr = fem.Expression(ufl.reference_grad(ufl.Jacobian(mesh)), points1, comm=mesh.comm)
     J2 = J_expr.eval(mesh, cells)
     H1 = H_expr.eval(mesh, cells)
 
