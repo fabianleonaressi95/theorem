@@ -1,0 +1,28 @@
+name: EQC RGS native gates
+on:
+  push:
+    paths:
+      - "models/eqc_rgs_gates.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_eqc_rgs_gates.py"
+      - "theorems/EQC-3-rgs-native-symmetry-gates.md"
+      - ".github/workflows/eqc-rgs-native-gates.yml"
+  pull_request:
+    paths:
+      - "models/eqc_rgs_gates.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_eqc_rgs_gates.py"
+      - "theorems/EQC-3-rgs-native-symmetry-gates.md"
+      - ".github/workflows/eqc-rgs-native-gates.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m unittest discover -s tests -p test_eqc_rgs_gates.py -v
