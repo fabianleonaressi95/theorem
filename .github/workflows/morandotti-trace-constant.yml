@@ -7,6 +7,8 @@ on:
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
       - 'models/morandotti_exact_integration.py'
+      - 'models/morandotti_certified_rational_integration.py'
+      - 'tests/test_morandotti_certified_rational_integration.py'
       - 'scripts/audit_morandotti_curved_p3_trace_constant.py'
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
@@ -18,6 +20,8 @@ on:
     paths:
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
+      - 'models/morandotti_certified_rational_integration.py'
+      - 'tests/test_morandotti_certified_rational_integration.py'
       - 'scripts/audit_morandotti_curved_p3_trace_constant.py'
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
