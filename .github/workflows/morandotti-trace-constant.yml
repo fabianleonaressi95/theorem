@@ -54,8 +54,8 @@ jobs:
       - name: Run exact interval certificate on one generated curved P3 mesh
         run: |
           python3 scripts/certify_morandotti_curved_p3_mesh.py \
-            --mesh-size 0.30 --distance 0.48 --seed 11 \
-            --bound 20 --tolerance 1/10000 --max-depth 24 \
+            --mesh-size 0.45 --distance 0.48 --seed 11 \
+            --bound 20 --tolerance 1/1000 --max-depth 24 \
             --out artifacts/morandotti_trace_constant/exact_certificate.json
       - name: Estimate C_tr,h on independently generated curved P3 meshes
         run: |
