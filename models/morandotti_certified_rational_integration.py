@@ -115,6 +115,115 @@ def _area(t):
                (b[1]-a[1])*(c[0]-a[0])) / 2
 
 
+
+def integrate_rational_triangle_many(
+    numerators, denominator, *, absolute_tolerance=Fraction(1, 10**8),
+    max_depth=12,
+):
+    """Enclose many rational integrals with one shared triangle subdivision.
+
+    Each numerator keeps its own exact enclosure; a leaf is subdivided for
+    every entry together whenever any entry fails its requested width.
+    """
+    tol = _f(absolute_tolerance)
+    if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
+        raise ValueError("positive tolerance and nonnegative integer max_depth required")
+    ps = [{k: _f(v) for k, v in p.items()} for p in numerators]
+    q = {k: _f(v) for k, v in denominator.items()}
+    if not q:
+        raise ZeroDivisionError("zero denominator polynomial")
+    if len(q) == 1 and (0, 0) in q:
+        return [integrate_rational_triangle(
+            p, q, absolute_tolerance=tol, max_depth=max_depth
+        ) for p in ps]
+
+    root = ((Fraction(0), Fraction(0)),
+            (Fraction(1), Fraction(0)),
+            (Fraction(0), Fraction(1)))
+    lower = [Fraction(0) for _ in ps]
+    upper = [Fraction(0) for _ in ps]
+    leaves = [0 for _ in ps]
+    used = 0
+    stack = [(root, 0)]
+    while stack:
+        tri, depth = stack.pop()
+        used = max(used, depth)
+        qq = _compose_on_triangle(q, tri)
+        qlo, qhi = _bernstein_bounds(qq)
+        if qhi < 0:
+            qq = _scale(qq, -1)
+            qlo, qhi = -qhi, -qlo
+            pset = [_scale(_compose_on_triangle(p, tri), -1) for p in ps]
+        else:
+            pset = [_compose_on_triangle(p, tri) for p in ps]
+        if qlo <= 0:
+            if depth >= max_depth:
+                raise ArithmeticError("denominator positivity not certified by shared Bernstein subdivision")
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+
+        area = _area(tri)
+        midpoint_q = (qlo+qhi)/2
+        relative_radius = (qhi-qlo)/(qhi+qlo)
+        delta_q = _add(qq, {(0, 0): -midpoint_q})
+        leaf_values = []
+        split = False
+        for pp in pset:
+            plo, phi = _bernstein_bounds(pp)
+            if plo < 0 < phi:
+                candidates = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
+                lo_ratio, hi_ratio = min(candidates), max(candidates)
+                width = area*(hi_ratio-lo_ratio)
+                if width > 2*tol*area:
+                    split = True
+                    break
+                leaf_values.append((area*lo_ratio, area*hi_ratio))
+                continue
+
+            integral_ref = sum(
+                (coefficient * Fraction(factorial(i)*factorial(j),
+                                        factorial(i+j+2))
+                 for (i, j), coefficient in pp.items()),
+                Fraction(0),
+            )
+            integral_poly = 2*area*integral_ref
+            term_poly = pp
+            series = Fraction(0)
+            remainder = abs(integral_poly) / midpoint_q
+            certified = False
+            for order in range(3):
+                term_ref = sum(
+                    (coefficient * Fraction(factorial(i)*factorial(j),
+                                            factorial(i+j+2))
+                     for (i, j), coefficient in term_poly.items()),
+                    Fraction(0),
+                )
+                term_integral = 2*area*term_ref
+                series += ((-1)**order)*term_integral/(midpoint_q**(order+1))
+                remainder = (
+                    abs(integral_poly)*relative_radius**(order+1)
+                    /(midpoint_q*(1-relative_radius))
+                )
+                if remainder <= tol*area:
+                    certified = True
+                    break
+                term_poly = _mul(term_poly, delta_q)
+            if not certified:
+                split = True
+                break
+            leaf_values.append((series-remainder, series+remainder))
+
+        if split:
+            if depth >= max_depth:
+                raise ArithmeticError("shared rational Neumann enclosure width not reached")
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+        for i, (lo, hi) in enumerate(leaf_values):
+            lower[i] += lo
+            upper[i] += hi
+            leaves[i] += 1
+    return [(lower[i], upper[i], leaves[i], used) for i in range(len(ps))]
+
 def integrate_rational_triangle(
     numerator: Poly,
     denominator: Poly,
