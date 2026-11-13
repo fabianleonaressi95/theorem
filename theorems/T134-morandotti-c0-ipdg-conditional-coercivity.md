@@ -311,15 +311,16 @@ D_x^2v
 D_x^2(F_K^{-1})_a.
 \tag{10.3}
 \]
-The inverse-function identity yields
+The standard second-derivative formula for the inverse map gives,
+in operator norm,
 \[
-D_x^2(F_K^{-1})_a
-=-J^{-T}\left(\sum_{b=1}^2
-(\partial_{x_b}F_{K,a})\,D_{\widehat x}^2F_{K,b}\right)J^{-1},
+\|D_x^2(F_K^{-1})\|
+\le C\,\|J^{-1}\|^3\,\|D_{\widehat x}^2F_K\|
+\le C h_K^{-2}M_{-1}^3M_2,
 \]
-equivalently the standard second-derivative formula for the inverse map.
-The scaled bounds in (10.1) therefore bound the coefficients in (10.3)
-uniformly after extracting the expected factor \(h_K^{-2}\).
+where \(C\) depends only on the dimension and the chosen tensor norm.
+Thus the coefficients in (10.3) are uniformly bounded after extracting
+the expected factor \(h_K^{-2}\).
 The volume Jacobian is bounded above and below by fixed multiples of
 \(h_K^2\); the surface Jacobian is bounded above and below by fixed multiples
 of \(h_K\). Thus the left and right sides of (10.2), after pullback and
