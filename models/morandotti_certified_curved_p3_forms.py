@@ -155,15 +155,28 @@ def integrate_rational_sqrt_segment(
             ))
             continue
         plo, phi = _bernstein_bounds_1d(pp)
-        quotients = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
-        rlo, rhi = min(quotients), max(quotients)
+        # Integrate the polynomial numerator exactly on the leaf. Only the
+        # positive denominator and square-root metric are interval-bounded.
+        integral_p = sum((coefficient/F(degree+1)
+                          for degree, coefficient in pp.items()), F(0))
+        if plo < 0 < phi:
+            if depth >= max_depth:
+                raise ArithmeticError("facet numerator sign not resolved by subdivision")
+            stack.extend((
+                (_restrict_half(pp, True), _restrict_half(qq, True),
+                 _restrict_half(ss, True), length/2, depth+1),
+                (_restrict_half(pp, False), _restrict_half(qq, False),
+                 _restrict_half(ss, False), length/2, depth+1),
+            ))
+            continue
         sqrt_lo = _sqrt_lower(slo)
         sqrt_hi = _sqrt_upper(shi)
-        # Reciprocal of s^(3/2) is positive and decreasing in s.
-        factors = (F(1)/(sqrt_hi**3), F(1)/(sqrt_lo**3))
-        vals = (rlo*factors[0], rlo*factors[1],
-                rhi*factors[0], rhi*factors[1])
-        flo, fhi = min(vals), max(vals)
+        factor_lo = F(1)/(qhi*sqrt_hi**3)
+        factor_hi = F(1)/(qlo*sqrt_lo**3)
+        if integral_p >= 0:
+            flo, fhi = integral_p*factor_lo, integral_p*factor_hi
+        else:
+            flo, fhi = integral_p*factor_hi, integral_p*factor_lo
         if length*(fhi-flo) > 2*tol*length:
             if depth >= max_depth:
                 raise ArithmeticError("facet integral enclosure width not reached")
