@@ -11,6 +11,7 @@ interval assembly and quotient PSD propagation consume these blocks.
 from __future__ import annotations
 
 from fractions import Fraction as F
+from functools import lru_cache
 from math import factorial
 from typing import Mapping, Sequence
 
@@ -72,8 +73,9 @@ def _pow1(a, n):
     return out
 
 
-def _compose_line(p: BPoly, a: Point, b: Point) -> dict[int, F]:
-    """Substitute (x,y)=a+t(b-a) into a bivariate polynomial."""
+@lru_cache(maxsize=131072)
+def _compose_line_cached(poly_items, a: Point, b: Point):
+    p = dict(poly_items)
     x = {0: a[0], 1: b[0]-a[0]}
     y = {0: a[1], 1: b[1]-a[1]}
     out = {}
@@ -83,7 +85,14 @@ def _compose_line(p: BPoly, a: Point, b: Point) -> dict[int, F]:
     return out
 
 
-def _bernstein_bounds_1d(p: SPoly):
+def _compose_line(p: BPoly, a: Point, b: Point) -> dict[int, F]:
+    """Substitute (x,y)=a+t(b-a) into a bivariate polynomial."""
+    return _compose_line_cached(tuple(sorted(p.items())), a, b)
+
+
+@lru_cache(maxsize=131072)
+def _bernstein_bounds_1d_cached(poly_items):
+    p = dict(poly_items)
     if not p:
         return F(0), F(0)
     n = max(p)
@@ -97,6 +106,10 @@ def _bernstein_bounds_1d(p: SPoly):
                 value += c * F(falling_k, falling_n)
         coeffs.append(value)
     return min(coeffs), max(coeffs)
+
+
+def _bernstein_bounds_1d(p: SPoly):
+    return _bernstein_bounds_1d_cached(tuple(sorted(p.items())))
 
 
 def _restrict_half(p: SPoly, left: bool):
