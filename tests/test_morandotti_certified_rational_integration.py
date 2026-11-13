@@ -14,7 +14,7 @@ def test_exact_constant_and_linear_integrals_are_enclosed():
     assert lo == hi == 1
     assert leaves == 1
 
-    lo, hi, leaves, depth = integrate_rational_triangle(
+    lo, hi, _, _ = integrate_rational_triangle(
         {(1, 0): 1}, {(0, 0): 1}, absolute_tolerance=F(1, 10**5), max_depth=18
     )
     assert lo <= F(1, 6) <= hi
@@ -22,8 +22,9 @@ def test_exact_constant_and_linear_integrals_are_enclosed():
 
 
 def test_rational_integral_with_positive_denominator():
-    # Integral 1/(1+x) over the reference triangle; enclosure is rigorous.
-    lo, hi, _, _ = integrate_rational_triangle(
+    # One exact midpoint subdivision suffices; this exercises the rational
+    # enclosure path without turning a unit test into a deep-refinement stress test.
+    lo, hi, leaves, depth = integrate_rational_triangle(
         {(0, 0): 1}, {(0, 0): 1, (1, 0): 1},
         absolute_tolerance=F(1, 5), max_depth=2,
     )
