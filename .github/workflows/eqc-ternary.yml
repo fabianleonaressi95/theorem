@@ -1,0 +1,21 @@
+name: EQC ternary hexagram audit
+
+on:
+  pull_request:
+    paths:
+      - "models/eqc_ternary.py"
+      - "tests/test_eqc_ternary.py"
+      - "theorems/EQC-1-ternary-hexagram-qutrit-register.md"
+      - ".github/workflows/eqc-ternary.yml"
+
+jobs:
+  finite-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run focused EQC tests
+        run: python -m unittest discover -s tests -p "test_eqc_ternary.py" -v
