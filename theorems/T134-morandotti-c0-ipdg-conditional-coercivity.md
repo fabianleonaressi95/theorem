@@ -6,11 +6,11 @@
 
 ## 1. Discrete space, boundary conditions, and geometric weights
 
-Let \(\Omega\subset\mathbb R^2\) be the annular computational domain and \(\mathcal T_h\) a conforming triangulation by straight or curved triangular cells. Let \(V_h\) be the globally continuous, elementwise mapped P3 Lagrange space. For the homogeneous variation space use
+Let \(\Omega\subset\mathbb R^2\) be the two-core annular computational domain and \(\mathcal T_h\) a conforming triangulation by straight or curved triangular cells. Its boundary consists of the outer component \(\Gamma_{\rm out}\) and the two core components \(\Gamma_{c,1},\Gamma_{c,2}\). Let \(V_h\) be the globally continuous, elementwise mapped P3 Lagrange space, and set
 \[
-V_h^0=\{v_h\in V_h:\ v_h=0\text{ on both boundary components}\}.
+V_h^0=\{v_h\in V_h: v_h|_{\Gamma_{\rm out}}=v_h|_{\Gamma_{c,1}}=v_h|_{\Gamma_{c,2}}=0\}.
 \]
-The code prescribes the value trace strongly on both the outer and core boundaries; the normal derivative is imposed weakly. Thus the coercivity estimate is for homogeneous variations, not for the nonhomogeneous lifted cell solutions themselves.
+These homogeneous Dirichlet traces are imposed strongly by zero boundary trace degrees of freedom on all three components. The normal derivative is imposed weakly through symmetric consistency and penalty terms on every boundary facet. The estimate is for homogeneous variations, not the nonhomogeneous lifted cell solutions.
 
 For each cell let \(h_K=\operatorname{diam}(K)\), as represented by the DG0 coefficient 'cell_h' in the implementation. Define the penalty length on an interior facet and on a boundary facet by
 \[
@@ -20,11 +20,13 @@ For each cell let \(h_K=\operatorname{diam}(K)\), as represented by the DG0 coef
 h_K,&F\subset\partial K\text{ boundary}.
 \end{cases}
 \]
-These are precisely the scales represented by 'avg(cell_h)' on 'dS' and 'cell_h('+')' on 'ds' in the code. Assume uniform comparability
+These are precisely the scales represented by 'avg(cell_h)' on 'dS' and 'cell_h('+')' on 'ds' in the code. Assume there are constants \(c_0,c_1>0\), independent of cell, level, and seed, such that
 \[
-c_g h_F\le \ell_F\le C_g h_F
+c_0h_K\le\ell_F\le c_1h_K
+\qquad(F\subset\partial K).
+\tag{1.1}
 \]
-with constants independent of the mesh level. Here \(h_F\) is the facet diameter. For curved cells this comparability is an additional geometric condition; it must not be inferred from the target mesh size alone.
+For an interior facet this is required with respect to both incident cells; it therefore implies a uniform neighboring-cell size ratio. This is the explicit facet/element comparability used below, not an inference from nominal target mesh size.
 
 Let \(n_F\) be a consistently oriented unit normal on an interior facet. The scalar gradient jump used by UFL 'jump(grad(v), n)' is the sum of the two outward normal derivatives. Set
 \[
@@ -54,16 +56,43 @@ H_{h,\ell}(v)^2=\sum_{F\in\mathcal F_h^i\cup\mathcal F_h^b}
 \]
 Here \(\mathcal F_h^b\) includes both the outer and core boundary facets.
 
-## 2. Uniform mapped-P3 trace-inverse hypothesis
+## 2. Uniform mapped-P3 trace lemma
 
-Assume there is a constant \(C_{\rm tr}\), independent of the mesh level, such that
-\[
-\boxed{H_{h,\ell}(v)^2\le C_{\rm tr}D_h(v)^2
-\qquad\forall v\in V_h^0.}\tag{T134.1}
-\]
-This is the precise trace estimate needed by the coercivity proof, and it includes both interior and boundary facets. Its constant depends on the polynomial degree, the shape-regularity bounds, the mapped-element regularity bounds, and the uniform facet-weight comparability constants. For a fixed-degree family (here P3), these dependencies are fixed and the required assertion is that the resulting constant is independent of the mesh level h. For a variable-degree method, the degree dependence must be tracked explicitly and the penalty must satisfy \(\alpha(p)>2C_{\rm tr}(p)\); no universal p-scaling is asserted here. For straight affine triangles and fixed polynomial degree it follows from the polynomial inverse-trace inequality and shape regularity, after scaling. For curved P3 cells the physical Hessian of a mapped polynomial is generally not a polynomial in physical coordinates. Therefore one must additionally assume a uniformly regular family of element maps: uniformly bounded scaled derivatives of the maps through the order entering the physical Hessian, uniformly bounded inverse Jacobians after scaling, and uniform nondegeneracy of the Jacobian determinant. Together with the weight comparability above, these conditions give a uniformly bounded family of pullback trace operators on the finite-dimensional mapped P3 reference space and hence (T134.1).
+Let \\(\\widehat K\\) be the fixed reference triangle. Fix a vertex \\(\\hat x_0\\), and write each normalized cubic map in the ten-monomial basis of \\(\\mathbb P_3(\\widehat K)\\):
+\\[
+\\widehat F_a(\\hat x)=
+\\left(\\sum_{|\\beta|\\le3}a_{1,\\beta}\\hat x^\\beta,
+      \\sum_{|\\beta|\\le3}a_{2,\\beta}\\hat x^\\beta\\right),
+\\qquad \\widehat F_a(\\hat x_0)=0.
+\\]
+The coefficient vector belongs to \\(\\mathbb R^{20}\\) and satisfies the two normalization constraints. Assume that all normalized maps from every cell, level, and allowed seed belong to one fixed compact coefficient set \\(K_0\\subset\\mathbb R^{20}\\), and that
+\\[
+\\inf_{a\\in K_0}\\inf_{\\hat x\\in\\widehat K}
+\\det D\\widehat F_a(\\hat x)\\ge j_0>0.
+\\tag{2.1}
+\\]
+Compactness and (2.1) imply uniform finite bounds \\(M_1,M_{-1},M_2,j_1\\) for the scaled Jacobian, its inverse, second derivatives, and determinant upper bound. These are consequences of the single compact-class hypothesis, not separate independent assumptions.
 
-The trace quantity here is the normal-normal Hessian trace \(n^TD^2v,n\), not the distinct quantity \(\partial_n\Delta v\). This paragraph explains a sufficient route to (T134.1); it does **not** claim that the current Gmsh meshes have already been shown to satisfy those uniform map bounds. An alternative direct proof or verified bound of (T134.1) for the generated mesh family is acceptable.
+**Lemma (uniform mapped-P3 trace estimate).** Under (2.1), the quantified scale condition (1.1), and the fixed P3 reference-element structure, there is
+\\[
+C_{\\rm tr}=C_{\\rm tr}(K_0,c_0,c_1,\\widehat K)
+\\]
+independent of level and seed such that
+\\[
+\\boxed{H_{h,\\ell}(v_h)^2\\le C_{\\rm tr}D_h(v_h)^2
+\\qquad\\forall v_h\\in V_h^0.}\\tag{T134.1}
+\\]
+The estimate includes every interior facet and every boundary facet (outer and both cores).
+
+**Proof.** On each cell the inverse-map chain rule in §10.2 bounds the physical Hessian pullback by a uniform multiple of
+\\(h_K^{-2}(|D_{\\hat x}^2\\hat v|+|\\nabla_{\\hat x}\\hat v|)\\).
+The volume and boundary Jacobians scale as \\(h_K^2\\) and \\(h_K\\). The volume Hessian form has kernel exactly the pullbacks of physical affine functions,
+\\[
+N_{\\widehat F}=\\operatorname{span}\\{1,\\widehat F_1,\\widehat F_2\\},
+\\]
+and is positive definite on \\(\\mathbb P_3(\\widehat K)/N_{\\widehat F}\\). Compactness of \\(K_0\\) gives a uniform positive lower quotient eigenvalue; the boundary Hessian form is uniformly bounded above on coefficient-unit vectors. This yields the local estimate (10.6). Summing it over the three facets of each triangle, using (1.1) and the arithmetic-average bound on interior facets, proves (T134.1). The full quotient compactness argument and derivative calculation are in §10.2–§10.3. \\(\\square\\)
+
+For affine triangles this is the usual fixed-degree polynomial inverse-trace estimate. For curved P3 cells, (2.1) is an additional all-level geometric hypothesis; finite sampling and high-order optimization do not establish it.
 
 ## 3. Bilinear form and theorem
 
@@ -82,7 +111,7 @@ a_{h,\ell}(u,v)={}&
 \]
 On boundary facets this is exactly the 'ds' consistency and penalty structure; on interior facets it is the 'dS' structure. The code's 'alpha/avg(cell_h)' and 'alpha/cell_h('+')' are represented by \(\alpha/\ell_F\).
 
-**Theorem.** If (T134.1) holds with a mesh-independent constant \(C_{\rm tr}>0\), then for
+**Theorem (conditional C⁰-IPDG coercivity).** Suppose the mesh family satisfies the compact normalized-map condition (2.1) and the quantified scale condition (1.1). Impose homogeneous value traces strongly on \(\Gamma_{\rm out},\Gamma_{c,1},\Gamma_{c,2}\), and include the symmetric consistency and \(\alpha/\ell_F\) penalty terms on every interior and boundary facet as displayed above. Then the lemma yields \(C_{\rm tr}=C_{\rm tr}(K_0,c_0,c_1,\widehat K)\), independent of mesh level and seed. For every
 \[
 \boxed{\alpha>2C_{\rm tr}}
 \]
@@ -100,7 +129,7 @@ a_{h,\ell}(v,v)\ge c_{\rm coer}\,
 \qquad
 c_{\rm coer}=\min\left\{\frac12,\alpha-2C_{\rm tr}\right\}>0,
 \]
-where \(\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2\). This is coercivity in the stated mesh-dependent seminorm. If the homogeneous value boundary conditions eliminate the affine kernel, the corresponding discrete Poincare/Friedrichs inequality upgrades this seminorm to control the full discrete \(H^2\)-type norm.
+where \(\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2\). This is coercivity in the stated mesh-dependent seminorm. The homogeneous trace on the outer boundary eliminates the physical affine kernel, since an affine function vanishing at three non-collinear points is zero; the corresponding discrete Poincare/Friedrichs inequality therefore upgrades the seminorm to control the full discrete \(H^2\)-type norm.
 ## 4. Proof
 
 For each facet, use the weighted Cauchy-Schwarz inequality and then sum over all interior and boundary facets:
@@ -113,7 +142,7 @@ For each facet, use the weighted Cauchy-Schwarz inequality and then sum over all
 &=H_{h,\ell}(v)J_{h,\ell}(v).
 \end{aligned}
 \]
-The two symmetric consistency contributions in \(a_{h,\ell}(v,v)\) therefore have absolute value at most \(2H_{h,\ell}(v)J_{h,\ell}(v)\). By (T134.1) and Young's inequality,
+The two symmetric consistency contributions in \(a_{h,\ell}(v,v)\) therefore have absolute value at most \(2H_{h,\ell}(v)J_{h,\ell}(v)\). By the lemma (T134.1) and Young's inequality,
 \[
 2H_{h,\ell}(v)J_{h,\ell}(v)
 \le \eta H_{h,\ell}(v)^2+\eta^{-1}J_{h,\ell}(v)^2
@@ -250,37 +279,25 @@ family has been explicitly assumed.
 
 ### 10.1 Fixed admissible class of normalized maps
 
-For every cell \(K\), write
-\[
-F_K(\hat x)=x_K+h_K\widehat F_K(\hat x),\qquad
-h_K=\operatorname{diam}(K),
-\]
-where \(\widehat K\) is the fixed reference triangle. Fix a reference vertex
-\(\hat x_0\) and normalize \(\widehat F_K(\hat x_0)=0\), removing irrelevant
-translations. Each \(\widehat F_K\) is a polynomial map of degree at most
-three. The required hypothesis is that **all** normalized maps, for every
-cell, refinement level, and allowed seed, belong to one fixed compact set
-\(\mathfrak F\) in the coefficient space of cubic maps, and that every
-\(\widehat F\in\mathfrak F\) is admissible with
-\[
-\|D\widehat F\|_{L^\infty(\widehat K)}\le M_1,\qquad
-\|(D\widehat F)^{-1}\|_{L^\infty(\widehat K)}\le M_{-1},\qquad
-\|D^2\widehat F\|_{L^\infty(\widehat K)}\le M_2,
-\]
-\[
-0<j_0\le |\det D\widehat F(\hat x)|\le j_1
-\quad\text{for every }\hat x\in\widehat K.
-\tag{10.1}
-\]
-The constants and the compact set are independent of \(K,h\), and the seed.
-Also assume uniform facet and neighbor comparability:
-\[
-c_fh_K\le h_F\le C_fh_K,\qquad
-c_n\le h_{K'}/h_K\le C_n
-\]
-whenever \(F\subset\partial K\) and \(K,K'\) share \(F\), with constants
-independent of the mesh. These are hypotheses, not consequences of
-high-order optimization or of a finite set of sampled Jacobian values.
+For each cell write
+\\[
+F_K(\\hat x)=x_K+h_K\\widehat F_K(\\hat x),\\qquad h_K=\\operatorname{diam}(K),
+\\]
+and normalize \\(\\widehat F_K(\\hat x_0)=0\\). In the ten-monomial basis, the two components of each cubic map have a coefficient vector in \\(\\mathbb R^{20}\\), subject to the two normalization constraints. The all-level geometric hypothesis is that every such vector, over all cells, levels, and allowed seeds, lies in one fixed compact set \\(K_0\\), with
+\\[
+\\inf_{a\\in K_0}\\inf_{\\hat x\\in\\widehat K}
+\\det D\\widehat F_a(\\hat x)\\ge j_0>0.
+\\tag{10.1}
+\\]
+Compactness and strict determinant positivity imply the finite uniform bounds \\(M_1,M_{-1},M_2,j_1\\); these are consequences, not independent hypotheses. In principle, the condition is certifiable by coefficient bounds and a global polynomial positivity certificate.
+
+The independent mesh-family condition is the quantified scale bound
+\\[
+c_0h_K\\le\\ell_F\\le c_1h_K
+\\qquad(F\\subset\\partial K),
+\\tag{10.2}
+\\]
+with fixed constants for both incident cells of an interior facet. It implies neighboring-cell size comparability. Neither condition follows merely from Gmsh high-order optimization or finitely many sampled Jacobian values.
 
 ### 10.2 Local trace estimate, including the inverse-map term
 
@@ -390,7 +407,7 @@ For an interior facet,
 \le\tfrac12\bigl(|D^2v^+|^2+|D^2v^-|^2\bigr);
 \]
 on a boundary facet there is only the adjacent-cell term. Since
-\(\ell_F\simeq h_F\simeq h_K\), (10.6), neighboring-cell comparability,
+(10.2), (10.6), and the resulting neighboring-cell comparability,
 and the uniformly bounded number of facets per triangle give
 \[
 H_{h,\ell}(v)^2
@@ -442,10 +459,7 @@ a_{h,\ell}(v,v)\ge
 \tfrac12D_h(v)^2+(\alpha-2C_{\rm tr})J_{h,\ell}(v)^2.
 \]
 Thus \(\alpha>2C_{\rm tr}\) proves coercivity in the stated weighted
-mesh-dependent seminorm, uniformly over **only those mesh families**
-satisfying the fixed compact map-class, Jacobian, facet, and neighbor
-comparability hypotheses above. It is not a theorem for arbitrary
-curved P3 mesh families.
+mesh-dependent seminorm, uniformly over mesh families satisfying the fixed compact map-class and quantified facet/element comparability hypotheses above. This is a sufficient condition; no necessity statement is claimed, and arbitrary curved P3 mesh families are not covered.
 
 ### 10.5 What remains open for the actual Gmsh generator
 
