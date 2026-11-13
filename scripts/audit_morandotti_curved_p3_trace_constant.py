@@ -134,7 +134,8 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     scaled_min = singular[..., -1] / h_cells[:, None]
     scaled_max = singular[..., 0] / h_cells[:, None]
     geometry = {
-        "sampled_reference_points_per_cell": int(points.shape[0]),\n        "sampling_subdivisions_per_reference_edge": 16,
+        "sampled_reference_points_per_cell": int(points.shape[0]),
+        "sampling_subdivisions_per_reference_edge": 16,
         "minimum_sampled_det_J": float(np.min(det_j)),
         "minimum_sigma_min_over_cell_diameter": float(np.min(scaled_min)),
         "maximum_sigma_max_over_cell_diameter": float(np.max(scaled_max)),
