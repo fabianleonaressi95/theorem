@@ -40,7 +40,7 @@ jobs:
       - name: Compile phonon-phason audit modules
         run: |
           python -m compileall -q audits/phonon_phason
-      - name: Run MQM-Q6 symmetry stabilizer tests
+      - name: Run MQM-Q6 symmetry stabilizer tests (including generic-reference case)
         run: python -m unittest discover -s tests -p "test_q6_mqm_symmetry.py" -v
       - name: Run T131 and T132 tests
         run: |
