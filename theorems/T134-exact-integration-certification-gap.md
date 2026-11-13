@@ -1,102 +1,122 @@
-# T134 exact-integration and trace-constant certification gap
+# T134 — Exact integration and finite-mesh trace certification
 
-**Status: implementation foundation only; no new (C_{\\rm tr}) certificate.**
+**Status: exact curved-P3 interval assembly is implemented; end-to-end finite-mesh certification is not yet demonstrated. The mesh-uniform trace bound remains open.**
 
-The current curved-P3 audit assembles (D_h) and (H_{h,\\ell}) with UFL
-quadrature (degrees 24, 32, 40) and computes a floating-point generalized
-eigenvalue. Agreement between the last two quadrature degrees is a numerical
-stability diagnostic. It is not exact integration, a rigorous interval
-enclosure, or a proof that (C_{\mathrm{tr},h}\) lies below a specified
-rational number.
+This record separates three claims:
 
-## Exact polynomial integration primitives
+1. exact-rational enclosure of each local curved-cell/facet integral;
+2. a finite-mesh rational certificate of \(C_\star D_h-H_{h,\ell}\succeq0\);
+3. a mesh-uniform estimate over every refinement and every admissible mesh in the Gmsh family.
 
-`models/morandotti_exact_integration.py` now provides:
+Only the first is currently implemented at source level. The second still requires a successful end-to-end execution on a specified mesh and a stored certificate. The third requires an independent analytic proof of the all-level geometric hypotheses.
 
-- exact integration of rational-coefficient polynomials on the reference
-  triangle, using
-  [
-  \int_{\widehat K}x^iy^j\,dx\,dy=\frac{i!j!}{(i+j+2)!};
-  ]
-- exact integration of rational-coefficient polynomials on a reference edge;
-- exact positive-semidefinite testing of rational symmetric matrices;
-- an exact check of (H\preceq C D), provided the caller supplies the
-  already assembled exact rational matrices on a correctly reduced quotient
-  space.
+## 1. Target inequality and admissible space
 
-These are reusable building blocks, not an implementation of curved-P3
-form assembly.
-
-## Why this does not yet certify curved P3 cells
-
-For a general curved isoparametric map, the physical Hessian contains
-(J^{-1}), derivatives of (J^{-1}), and powers of ((\det J)^{-1}).
-Consequently the pulled-back volume integrand is generally rational rather
-than polynomial. On a curved edge, the physical unit normal and arclength
-Jacobian introduce additional metric factors; a square root can occur.
-The polynomial simplex moment formula therefore cannot be applied directly
-to these integrands.
-
-A valid exact/certified curved-cell route must do one of the following:
-
-1. derive rational polynomial identities after a suitable algebraic
-   reformulation and certify all positive denominators; or
-2. use outward-rounded interval integration with a proved remainder bound,
-   then propagate the resulting matrix-entry intervals into a rigorous
-   lower bound for (C D-H).
-
-For a finite mesh, the final certificate must include the exact quotient
-construction and prove
-[
+For the globally continuous mapped-P3 space with homogeneous physical Dirichlet trace on every boundary component, define
+\[
+D_h(v)^2=\sum_K\int_K |D_x^2v|^2\,dx,
+\qquad
+H_{h,\ell}(v)^2=\sum_{F\in\mathcal F_h^i}\ell_F
+\int_F\left|\{n_F^TD_x^2v\,n_F\}\right|^2ds
++\sum_{F\in\mathcal F_h^b}\ell_F
+\int_F|n^TD_x^2v\,n|^2ds.
+\]
+The finite-mesh objective is to certify, for a rational \(C_\star<20\),
+\[
 C_\star D_h-H_{h,\ell}\succeq0
-]
-on that quotient, with a rational (C_\star<20) if the goal is to justify
-(α=40) for that mesh. This is a per-mesh result only.
+\]
+on the full homogeneous-Dirichlet P3 space. Such a certificate implies \(C_{\mathrm{tr},h}\le C_\star<20\), and hence the sufficient C⁰-IPDG condition \(\alpha=40>2C_\star\) for that mesh.
 
-For a mesh-uniform theorem, one additionally needs a single analytic
-(C_\star<20) valid for the complete certified geometric class and every
-refinement level. A finite collection of per-mesh certificates cannot
-establish that uniform statement.
+**Kernel correction (2026-11-13).** On a curved isoparametric mesh, reference C⁰-P1 functions are not generally affine in physical coordinates and are not the kernel of the physical Hessian. The common zero-Hessian modes are global physical affine functions. Homogeneous trace on the full nondegenerate boundary eliminates those modes. Therefore the admissible matrix space constrains boundary P3 degrees of freedom only; interior vertex degrees of freedom must remain free. Both the exact assembler and the floating-point diagnostic have been corrected accordingly. No C⁰-P1 quotient or interior-vertex elimination is used.
 
-## Explicit T134 status
+## 2. Exact local volume integration
 
-- Exact per-cell positivity of the represented P3 Jacobians: certified for
-  the archived finite meshes.
-- Exact polynomial integration utility: implemented and unit-tested.
-- Exact assembly of the curved-P3 (D_h,H_{h,\ell}) forms: **not implemented**.
-- Certified finite-mesh bound (C_{\mathrm{tr},h}<20): **not established**.
-- Uniform bound (C_{\mathrm{tr}}<20) for the Gmsh family: **open**.
-- Uniform coercivity with (α=40): **not certified**.
+For a cubic map \(F_K:\widehat K\to K\), the physical Hessian of a mapped basis function is represented as
+\[
+D_x^2\phi_i=\frac{P_i}{(\det J_K)^3},
+\]
+where \(P_i\) is a matrix of rational-coefficient polynomials when the stored binary64 geometry coordinates are interpreted as exact dyadic rationals. Since \(dx=(\det J_K)d\hat x\), the volume Gram entry is
+\[
+(D_K)_{ij}=\int_{\widehat K}
+\frac{P_i:P_j}{(\det J_K)^5}\,d\hat x.
+\]
+The module models/morandotti_certified_curved_p3_forms.py reconstructs the P3 map and basis over Fraction, differentiates the polynomials exactly, and calls integrate_rational_triangle for every symmetric local matrix entry.
 
-Do not label quadrature-degree convergence as exact integration. Do not
-promote (α=40) from provisional numerical tuning to a proved
-coercivity threshold until the matrix inequality above has a rigorous
-certificate and the geometric family hypotheses have been established.
+The rational triangle integrator:
+- composes numerator and denominator onto rational subtriangles;
+- obtains exact Bernstein coefficient bounds;
+- certifies strict denominator positivity before division;
+- uses exact polynomial moments in a rational Neumann expansion when the numerator has a certified sign;
+- bounds the geometric-series remainder rationally, subdividing when needed;
+- returns rational lower/upper endpoints or raises if positivity or the requested width is not certified.
 
+No floating-point quadrature value is used as an integration certificate.
 
-## Certified rational-integral enclosure primitive (follow-up implementation)
+## 3. Exact curved-facet integration
 
-`models/morandotti_certified_rational_integration.py` adds an exact-rational
-Bernstein enclosure for integrals of (p/q) on the reference triangle. On
-each rational subtriangle it composes (p,q) with the affine map, bounds
-each polynomial by its simplex Bernstein coefficients, certifies a strictly
-positive denominator (subdividing when needed), and encloses the integral
-by area times the quotient range. The accumulated enclosure width is bounded
-by the requested global tolerance. It rejects floating-point coefficients,
-uncertified denominator positivity, and unmet tolerances.
+For a reference edge parameter \(t\), let
+\[
+s(t)=|F'_K(t)|^2.
+\]
+The unnormalised physical normal is polynomial and the unit normal introduces \(s^{-1/2}\). Combining two normal-normal Hessian traces with the arclength element \(ds=\sqrt{s(t)}dt\) yields an integrand of the form
+\[
+\frac{p(t)}{q(t)\,s(t)^{3/2}},
+\]
+with rational polynomial \(p,q,s\). The implementation integrate_rational_sqrt_segment encloses this expression by exact-rational Bernstein bounds and a certified positive arclength radicand.
 
-This is a rigorous scalar integration primitive, not yet the T134 assembly:
-the curved-cell Hessian tensor contractions and curved-facet normal/metric
-terms have not been translated into its rational-polynomial input, and no
-matrix interval/PSD propagation is yet wired to the finite-element quotient.
-In particular, it does not resolve square-root metric factors on general
-curved edges. The T134 status above therefore remains unchanged.
+For interior facets, the two adjacent cubic maps must have exactly matching physical edge traces. The assembler checks this coefficient-by-coefficient, uses the common edge metric, and forms the two-sided average blocks \(AA,AB,BB\) with the factor \(1/4\) from the arithmetic average. Boundary and interior facet blocks are then accumulated into sparse global interval matrices.
 
+## 4. Interval propagation to a matrix certificate
 
-## Completed 24-mesh diagnostic (2026-11-13)
+The global assembler produces symmetric rational intervals for every nonzero entry of \(D_h\) and \(H_{h,\ell}\). For a proposed rational \(C_\star\), it forms entrywise intervals for \(M=C_\star D_h-H_{h,\ell}\).
 
-The extended finite-mesh run completed successfully on the merged implementation. It covers 24 meshes (four target sizes \(h=0.080,0.045,0.030,0.025\), two core separations \(d=0.48,0.56\), and seeds 11, 29, 47). The generalized-eigenvalue estimates range from 9.1545269506 to 15.8151565222; the largest observed sufficient threshold is 31.6303130444, so \(\alpha=40\) has an observed margin of 8.3696869556 on this finite sample.
+certify_interval_psd computes the exact rational midpoint matrix and an upper bound on the spectral norm of the symmetric interval perturbation using the maximum row sum of entry radii. It subtracts this perturbation bound from the midpoint diagonal and applies sparse exact-rational Schur/LDL elimination. Successful nonnegative pivots certify that every symmetric matrix in the input interval enclosure is positive semidefinite.
 
-The archived 145,256 exact-rational per-cell certificates prove positive Jacobians for every represented cell map. The quadrature-degree 32/40 estimates agree to relative error at most \(1.71\times10^{-13}\), but this remains a numerical stability check.
+This is a sufficient certificate and may fail when the integration intervals are too wide or the chosen \(C_\star\) is too small. Such a failure is not evidence that the target inequality is false; it means this enclosure did not prove it.
 
-**The certification gap remains open:** the scalar rational integration primitive is not yet wired into the actual curved-P3 Hessian and facet forms; curved-edge square-root metric terms and interval matrix/PSD propagation remain unimplemented. Neither a certified finite-mesh \(C_{\rm tr,h}<20\) bound nor a mesh-uniform \(C_{\rm tr}<20\) bound has been established. The exact archive is finite and cannot prove the all-level compact-class and facet-comparability hypotheses.
+## 5. DOLFINx adapter and remaining execution gate
+
+assemble_dolfinx_mesh_interval_forms extracts the serial planar triangular P3 geometry, solution dofs, cell diameters, boundary facets, and paired interior facets. It checks the equispaced coordinate map, the scalar P3 solution family/degree, nodal interpolation identity, and correspondence of reference nodes. It then invokes the exact local/global assemblers.
+
+The DOLFINx adapter has recently been corrected to use the public CoordinateElement.variant property rather than a nonexistent cmap.basix_element, and to inspect the solution element's interpolation matrix rather than a nonexistent FiniteElement.variant. These API corrections have **not** yet been validated by a successful end-to-end CI run. Do not mark the finite-mesh certificate complete until the adapter executes on the supported DOLFINx/Basix versions and writes a reproducible certificate.
+
+The next execution gate is:
+1. run the focused exact-integration and curved-form unit tests;
+2. run scripts/certify_morandotti_curved_p3_mesh.py on one small, fixed curved-P3 mesh;
+3. require all cell Jacobians to be certified positive;
+4. certify \(C_\star D_h-H_{h,\ell}\succeq0\) for a stated rational \(C_\star<20\);
+5. store the mesh identity, coordinate hash, integration tolerance, subdivision limits, interval/LDL diagnostics, and final certificate in the report.
+
+A failed or inconclusive run must be reported as such; it must not be replaced by the floating-point generalized eigenvalue estimate.
+
+## 6. What the existing finite-mesh audit establishes
+
+The 24-mesh diagnostic reported generalized-eigenvalue estimates in the range 9.1545269506–15.8151565222, with the largest observed sufficient threshold \(2C_{\mathrm{tr},h}=31.6303130444\). Thus \(\alpha=40\) cleared the observed floating-point thresholds in those 24 cases. Exact-rational Bernstein subdivision also certified positive Jacobians for all 145,256 archived cell maps.
+
+The quadrature-degree 32/40 agreement (relative difference at most \(1.71\times10^{-13}\)) is a numerical stability diagnostic only. It is not an interval integration certificate and does not establish the matrix inequality.
+
+## 7. Explicit theorem status
+
+| Claim | Status |
+|---|---|
+| Exact P3 map reconstruction and Jacobian positivity for archived finite cells | Certified for the archived meshes |
+| Rational interval integration of curved-P3 volume entries | Implemented; unit tests exist; end-to-end execution pending |
+| Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
+| Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
+| Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) | Primitive implemented; no successful mesh certificate yet |
+| Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
+| Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
+| Uniform coercivity with \(\alpha=40\) for the actual Gmsh family | Not established |
+
+A finite-mesh certificate, once obtained, is specific to that mesh. A mesh-uniform theorem additionally requires a single compact admissible class of normalized element maps, uniform positive Jacobian and derivative/inverse-derivative bounds, and uniform facet/neighboring-cell comparability for every refinement and allowed seed. The finite archive cannot prove those all-level hypotheses.
+
+## 8. Scope discipline
+
+Do not:
+- call quadrature convergence exact integration;
+- infer a rigorous upper bound from a floating-point generalized eigenvalue;
+- constrain interior vertices as a proxy for quotienting by physical affine functions;
+- infer a mesh-uniform estimate from finitely many mesh certificates;
+- promote \(\alpha=40\) to a theorem-level threshold before the required rational matrix certificate and all-level geometric hypotheses are proved.
+
+**Classification:** T134 remains a conditional coercivity theorem. Exact-rational local form certification is an implemented verification method, not yet a completed finite-mesh certificate. The unconditional statement for the actual Gmsh family remains open.
