@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Run the exact interval T134 certificate on one generated curved-P3 mesh."""
+"""Run the exact interval T134 certificate on one generated curved-P3 mesh.
+
+The profiling workflow deliberately uses a coarse mesh to isolate runtime phases.
+"""
 from __future__ import annotations
 
 import argparse
