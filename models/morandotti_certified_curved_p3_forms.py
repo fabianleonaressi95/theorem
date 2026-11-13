@@ -779,8 +779,11 @@ def assemble_dolfinx_mesh_interval_forms(
     The coordinate and solution elements must have identical equispaced P3
     reference-node ordering. Facet traces are matched by their shared global
     vertex IDs and then checked as exact cubic physical polynomials.
-    Returns sparse D/H intervals and the homogeneous-boundary/C0-P1 quotient
-    representative used by the numerical audit.
+    Returns sparse D/H intervals and the homogeneous-Dirichlet subspace.
+    The physical Hessian kernel consists of global physical affine functions,
+    not the reference C0-P1 space on a curved isoparametric mesh. Homogeneous
+    boundary values eliminate that affine kernel on a nondegenerate domain;
+    interior vertex degrees of freedom must therefore remain unconstrained.
     """
     import numpy as np
     import basix
@@ -895,20 +898,20 @@ def assemble_dolfinx_mesh_interval_forms(
     )
     exterior = exterior_facet_indices(mesh.topology)
     boundary_dofs = fem.locate_dofs_topological(function_space, 1, exterior)
-    vertex_count = mesh.topology.index_map(0).size_local
-    vertices = np.arange(vertex_count, dtype=np.int32)
-    vertex_dofs = fem.locate_dofs_topological(function_space, 0, vertices)
-    constrained = np.union1d(boundary_dofs, vertex_dofs)
     free = np.setdiff1d(
         np.arange(function_space.dofmap.index_map.size_local, dtype=np.int64),
-        constrained,
+        boundary_dofs,
     )
     assembled.update({
         "free_dofs": free.tolist(),
         "cell_count": nc,
         "interior_facet_count": len(interior_facets),
         "boundary_facet_count": len(boundary_facets),
-        "quotient_definition": "zero all boundary P3 dofs and all vertex dofs; canonical representative modulo global C0-P1",
+        "quotient_definition": (
+            "homogeneous physical Dirichlet trace; no interior vertex constraints; "
+            "the only zero-Hessian modes are global physical affine functions, "
+            "which are eliminated by zero trace on the full nondegenerate boundary"
+        ),
         "coordinate_nodes": "stored IEEE-754 binary64 interpreted as exact dyadic rationals",
     })
     return assembled
