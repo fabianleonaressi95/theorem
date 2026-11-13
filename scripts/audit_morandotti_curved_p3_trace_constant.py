@@ -31,8 +31,8 @@ def _petsc_to_scipy(matrix, size):
 
 
 def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
-    D = assemble_matrix(fem.form(form_d, form_compiler_options={"quadrature_degree": quadrature_degree}))
-    H = assemble_matrix(fem.form(form_h, form_compiler_options={"quadrature_degree": quadrature_degree}))
+    D = assemble_matrix(fem.form(form_d))
+    H = assemble_matrix(fem.form(form_h))
     D.assemble()
     H.assemble()
 
@@ -78,16 +78,15 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(12, 16)):
     q_u_bnd = ufl.dot(ufl.dot(Hu, n), n)
     q_v_bnd = ufl.dot(ufl.dot(Hv, n), n)
 
-    dx = ufl.Measure("dx", domain=mesh)
-    dS = ufl.Measure("dS", domain=mesh)
-    ds = ufl.Measure("ds", domain=mesh)
-    D_form = ufl.inner(Hu, Hv) * dx
-    H_form = (ufl.avg(cell_h) * q_u_int * q_v_int * dS
-              + cell_h * q_u_bnd * q_v_bnd * ds)
-
     estimates = []
     free_dofs = None
     for degree in quadrature_degrees:
+        dx = ufl.Measure("dx", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        dS = ufl.Measure("dS", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        ds = ufl.Measure("ds", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        D_form = ufl.inner(Hu, Hv) * dx
+        H_form = (ufl.avg(cell_h) * q_u_int * q_v_int * dS
+                  + cell_h * q_u_bnd * q_v_bnd * ds)
         value, count = _assemble_pair(D_form, H_form, V, mesh, int(degree))
         estimates.append({"quadrature_degree": int(degree), "C_tr_h": value})
         free_dofs = count
