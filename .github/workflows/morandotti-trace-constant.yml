@@ -24,6 +24,8 @@ on:
       - 'models/morandotti_exact_geometry.py'
       - 'models/morandotti_certified_rational_integration.py'
       - 'tests/test_morandotti_certified_rational_integration.py'
+      - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'tests/test_morandotti_certified_curved_p3_forms.py'
       - 'scripts/audit_morandotti_curved_p3_trace_constant.py'
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
