@@ -1,6 +1,6 @@
 # T134 — Conditional coercivity of the curved-P3 C0-IPDG Airy cell form
 
-**Classification:** [P] coercivity is proved conditionally on a mesh-uniform mapped-element trace-inverse estimate and explicit geometric comparability assumptions. **Not certified for the current run:** the code parameter \(\alpha=10\) is not shown to exceed the resulting threshold because no numerical or analytic upper bound for the uniform trace constant has yet been established.
+**Classification:** [P] coercivity is proved conditionally on a mesh-uniform mapped-element trace-inverse estimate and explicit geometric comparability assumptions. The 12-case finite-mesh audit found \(C_{\rm tr,h}\in[9.1545,15.8152]\): \(\alpha=10\) fails the sufficient condition \(\alpha>2C_{\rm tr,h}\) in every case. The two-core solver default is therefore provisionally raised to \(\alpha=40\), which clears the largest observed finite-mesh threshold by about \(8.37\). **This is numerical tuning only:** neither \(\alpha=40\) nor a mesh-uniform trace bound is certified by the finite sweep.
 
 **Implementation audited:** 'scripts/rgs_morandotti_c0_ipdg.py' (P3 Lagrange space on Gmsh order-3 annulus meshes; Hessian volume form; symmetric interior and boundary consistency terms; normal-gradient penalties). The theorem below is stated with the actual code's penalty length scales.
 
@@ -165,10 +165,10 @@ The following remain open:
 1. establish (T134.1) uniformly for the actual Gmsh curved P3 mesh family, including bounds on scaled element-map derivatives and inverse Jacobians;
 2. verify the geometric comparability constants between \(\ell_F\) and facet diameters;
 3. prove the boundary constraints eliminate the affine kernel on the annulus in the exact discrete space;
-4. bound \(C_{\rm tr}\) and show that the production value \(\alpha=10\) exceeds \(2C_{\rm tr}\);
+4. establish a mesh-uniform upper bound for \(C_{\rm tr}\); the finite sweep rejects \(\alpha=10\), while the provisional two-core value \(\alpha=40\) has not been proved to exceed \(2C_{\rm tr}\) uniformly;
 5. add an assembly-level regression comparing the UFL form with the displayed bilinear form, including facet orientation and boundary contributions.
 
-No claim that \(\alpha=10\) is certified is made here. Nor does T134 prove consistency error estimates, approximation estimates, convergence of cell solutions, convergence of the multi-core interaction matrix, or a continuum distance law. Those require separate analysis.
+The finite audit comprises 12 generated meshes (two core separations, two target sizes, three seeds). Its largest observed value is \(C_{\rm tr,h}=15.8151566\), so the sufficient finite-mesh threshold is \(2C_{\rm tr,h}=31.6303132\) for that case. Thus \(\alpha=10\) fails on the entire tested set, while \(\alpha=40\) exceeds every observed finite-mesh threshold. The two-core solver default was changed to 40 as a provisional numerical safeguard. This does not bound \(\sup_h C_{\rm tr,h}\), certify the curved-map hypotheses, or prove coercivity uniformly; \(\alpha=40\) remains uncertified at theorem level. Nor does T134 prove consistency error estimates, approximation estimates, convergence of cell solutions, convergence of the multi-core interaction matrix, or a continuum distance law. Those require separate analysis.
 
 ## 6. Relation to T133
 
