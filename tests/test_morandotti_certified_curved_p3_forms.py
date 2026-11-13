@@ -122,3 +122,35 @@ def test_global_trace_bound_propagates_sparse_D_and_H_intervals():
     assert result["certified"]
     assert result["integration_uncertainty_propagated"]
     assert result["quotient_dimension"] == 2
+
+
+
+def test_nonaffine_p3_geometry_has_variable_positive_jacobian():
+    from models.morandotti_certified_curved_p3_forms import _geometry_data
+
+    nodes, points = _p3_nodes()
+    # Perturb the strictly interior P3 node; the resulting map is genuinely
+    # cubic/non-affine while remaining a small perturbation of the identity.
+    nodes = list(nodes)
+    nodes[5] = (nodes[5][0] + F(1, 40), nodes[5][1] - F(1, 50))
+    maps, basis, jac, adj, det = _geometry_data(nodes, points)
+    assert len(det) > 1
+    assert all(value.denominator > 0 for value in det.values())
+
+
+def test_global_assembly_forwards_requested_volume_depth(monkeypatch):
+    import models.morandotti_certified_curved_p3_forms as forms
+
+    observed = {}
+
+    def fake_volume(nodes, points, *, absolute_tolerance, max_depth):
+        observed["max_depth"] = max_depth
+        zero = (F(0), F(0))
+        return {"matrix_interval": [[zero for _ in range(10)] for _ in range(10)]}
+
+    monkeypatch.setattr(forms, "assemble_cell_volume_interval", fake_volume)
+    forms.assemble_global_interval_forms(
+        [None], [], [list(range(10))], [F(1)], [], [], 10,
+        max_depth=3,
+    )
+    assert observed["max_depth"] == 3
