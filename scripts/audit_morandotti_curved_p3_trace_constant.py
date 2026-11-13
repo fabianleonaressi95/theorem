@@ -159,48 +159,79 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
 
 
 
-def _aic_bic(y, fitted, k):
-    """Gaussian least-squares AIC/BIC; small-sample AICc is reported too."""
+def _information_criteria(y, fitted, mean_parameter_count):
+    """Gaussian information criteria, counting the estimated residual variance."""
     n = len(y)
     rss = max(float(np.sum((y - fitted) ** 2)), 1e-300)
-    aic = n * np.log(rss / n) + 2 * k
-    bic = n * np.log(rss / n) + k * np.log(n)
+    k = int(mean_parameter_count) + 1  # include sigma^2 in the Gaussian likelihood
+    base = n * np.log(rss / n)
+    aic = base + 2 * k
+    bic = base + k * np.log(n)
+    hqic = base + 2 * k * np.log(np.log(n)) if n > 1 else float("inf")
     aicc = aic + (2 * k * (k + 1) / (n - k - 1)) if n > k + 1 else float("inf")
-    return {"AIC": float(aic), "AICc": float(aicc), "BIC": float(bic), "RSS": rss, "n": n, "k": k}
+    return {
+        "AIC": float(aic), "AICc": float(aicc), "BIC": float(bic),
+        "HQIC": float(hqic), "RSS": rss, "n": n,
+        "mean_parameters": int(mean_parameter_count),
+        "variance_parameter_included": True, "k_total": k,
+    }
 
 
 def statistical_model_audit(runs, distances, mesh_sizes, bootstrap_replicates=2000):
-    """Exploratory scaling-model comparison and seed-stratified bootstrap.
+    """Exploratory model comparison with seed-block resampling and validation.
 
-    Models are fitted to all seed-level C_tr,h observations at each distance:
-    constant; power law a*h^p; and asymptotic C_inf+a*h^p. The bootstrap
-    resamples independent mesh seeds within each h level, not FEM DOFs.
+    The same mesh seed is followed across all h-levels. Bootstrap and
+    leave-one-seed-out validation therefore operate on whole seed blocks,
+    preserving cross-resolution dependence induced by reusing seed labels.
     """
     from scipy.optimize import curve_fit
     rng = np.random.default_rng(20261113)
     output = {}
+    model_specs = {
+        "constant": (lambda x, c: np.full_like(x, c, dtype=float),
+                     lambda y: [float(np.mean(y))], (-np.inf, np.inf)),
+        "power_law": (lambda x, a, p: a * np.power(x, p),
+                      lambda y: [max(float(np.mean(y)), 1e-8), 0.5],
+                      ([0.0, -4.0], [np.inf, 4.0])),
+        "finite_limit_power_law": (lambda x, c, a, p: c + a * np.power(x, p),
+                      lambda y: [max(0.0, float(np.min(y))*0.8), 1.0, 0.5],
+                      ([-np.inf, -np.inf, -4.0], [np.inf, np.inf, 4.0])),
+    }
+
+    def fit_model(name, x, y):
+        fn, p0_fn, bounds = model_specs[name]
+        pars, _ = curve_fit(fn, x, y, p0=p0_fn(y), bounds=bounds, maxfev=50000)
+        return pars, fn(x, *pars), fn
+
     for distance in distances:
         rows = [r for r in runs if r["distance"] == float(distance)]
-        h = np.asarray([r["h_target"] for r in rows], dtype=float)
-        y = np.asarray([r["quadrature_estimates"][-1]["C_tr_h"] for r in rows], dtype=float)
-        def constant(x, c): return np.full_like(x, c, dtype=float)
-        def power(x, a, p): return a * np.power(x, p)
-        def asymptotic(x, c, a, p): return c + a * np.power(x, p)
+        seeds = sorted({int(r["mesh_seed"]) for r in rows})
+        levels = [float(v) for v in mesh_sizes]
+        # Rectangular seed x h matrix: reject missing or duplicated seed-level cells.
+        matrix = np.empty((len(seeds), len(levels)), dtype=float)
+        for i, seed in enumerate(seeds):
+            for j, level in enumerate(levels):
+                vals = [r["quadrature_estimates"][-1]["C_tr_h"] for r in rows
+                        if int(r["mesh_seed"]) == seed and r["h_target"] == level]
+                if len(vals) != 1:
+                    raise RuntimeError(
+                        f"expected one C_tr,h for distance={distance}, seed={seed}, h={level}; got {len(vals)}"
+                    )
+                matrix[i, j] = float(vals[0])
+        h = np.tile(np.asarray(levels, dtype=float), len(seeds))
+        y = matrix.reshape(-1)
         candidates = {}
-        for name, fn, p0, bounds in (
-            ("constant", constant, [float(np.mean(y))], (-np.inf, np.inf)),
-            ("power_law", power, [float(np.mean(y)), 0.5], ([0.0, -4.0], [np.inf, 4.0])),
-            ("finite_limit_power_law", asymptotic, [max(0.0, float(np.min(y))*0.8), 1.0, 0.5],
-             ([-np.inf, -np.inf, -4.0], [np.inf, np.inf, 4.0])),
-        ):
+        for name in model_specs:
             try:
-                params, _ = curve_fit(fn, h, y, p0=p0, bounds=bounds, maxfev=50000)
-                fitted = fn(h, *params)
-                score = _aic_bic(y, fitted, len(params))
-                candidates[name] = {"parameters": [float(v) for v in params], **score}
+                pars, fitted, _ = fit_model(name, h, y)
+                candidates[name] = {
+                    "parameters": [float(v) for v in pars],
+                    **_information_criteria(y, fitted, len(pars)),
+                }
             except Exception as exc:
                 candidates[name] = {"fit_error": str(exc)}
-        valid = {k:v for k,v in candidates.items() if "AICc" in v}
+
+        valid = {k: v for k, v in candidates.items() if "AICc" in v and np.isfinite(v["AICc"])}
         if valid:
             best = min(valid, key=lambda k: valid[k]["AICc"])
             min_aicc = valid[best]["AICc"]
@@ -209,43 +240,89 @@ def statistical_model_audit(runs, distances, mesh_sizes, bootstrap_replicates=20
         else:
             best = None
 
-        # Resample the seed realizations independently within each mesh level.
-        by_h = []
-        for level in mesh_sizes:
-            vals = np.asarray([r["quadrature_estimates"][-1]["C_tr_h"]
-                               for r in rows if r["h_target"] == float(level)], dtype=float)
-            if vals.size < 2:
-                raise RuntimeError("Monte Carlo bootstrap requires at least two seeds at every mesh size")
-            by_h.append(vals)
+        # Leave-one-independent-seed-out CV: all resolutions of a seed stay together.
+        cv = {}
+        for name in model_specs:
+            errors = []
+            fold_failures = []
+            for held in range(len(seeds)):
+                train_mask = np.repeat(np.arange(len(seeds)) != held, len(levels))
+                test_mask = ~train_mask
+                try:
+                    pars, _, fn = fit_model(name, h[train_mask], y[train_mask])
+                    prediction = fn(h[test_mask], *pars)
+                    errors.extend((y[test_mask] - prediction).tolist())
+                except Exception as exc:
+                    fold_failures.append(f"seed={seeds[held]}: {exc}")
+            cv[name] = {
+                "method": "leave-one-mesh-seed-out cross-validation; complete seed block held out",
+                "folds_requested": len(seeds),
+                "folds_successful": len(seeds) - len(fold_failures),
+                "PRESS": float(np.sum(np.square(errors))) if errors else None,
+                "RMSE": float(np.sqrt(np.mean(np.square(errors)))) if errors else None,
+                "fold_failures": fold_failures,
+            }
+
+        # Cluster jackknife for the asymptotic-limit parameter C_infinity.
+        jackknife_values = []
+        jackknife_failures = []
+        for held in range(len(seeds)):
+            keep = np.repeat(np.arange(len(seeds)) != held, len(levels))
+            try:
+                pars, _, _ = fit_model("finite_limit_power_law", h[keep], y[keep])
+                jackknife_values.append(float(pars[0]))
+            except Exception as exc:
+                jackknife_failures.append(f"seed={seeds[held]}: {exc}")
+        jackknife = {"method": "delete-one-seed-block jackknife on C_infinity",
+                     "successful_fits": len(jackknife_values),
+                     "failed_fits": jackknife_failures}
+        if len(jackknife_values) == len(seeds) and len(seeds) >= 2:
+            jk = np.asarray(jackknife_values)
+            jk_mean = float(np.mean(jk))
+            full_c = candidates.get("finite_limit_power_law", {}).get("parameters", [None])[0]
+            jackknife.update({
+                "leave_one_seed_out_C_infinity": jackknife_values,
+                "jackknife_mean": jk_mean,
+                "bias_corrected_C_infinity": float(len(seeds) * full_c - (len(seeds)-1) * jk_mean),
+                "standard_error": float(np.sqrt((len(seeds)-1)/len(seeds) * np.sum((jk-jk_mean)**2))),
+            })
+
+        # Paired cluster bootstrap: resample seed trajectories, not each h independently.
         limits = []
         for _ in range(int(bootstrap_replicates)):
-            hb, yb = [], []
-            for level, vals in zip(mesh_sizes, by_h):
-                draw = rng.choice(vals, size=vals.size, replace=True)
-                hb.extend([float(level)] * draw.size)
-                yb.extend(draw.tolist())
+            selected = rng.integers(0, len(seeds), size=len(seeds))
+            boot_matrix = matrix[selected, :]
+            hb = np.tile(np.asarray(levels, dtype=float), len(seeds))
+            yb = boot_matrix.reshape(-1)
             try:
-                pars, _ = curve_fit(asymptotic, np.asarray(hb), np.asarray(yb),
-                                    p0=[max(0.0, min(yb)*0.8), 1.0, 0.5],
-                                    bounds=([-np.inf, -np.inf, -4.0], [np.inf, np.inf, 4.0]),
-                                    maxfev=10000)
-                if np.isfinite(pars[0]): limits.append(float(pars[0]))
+                pars, _, _ = fit_model("finite_limit_power_law", hb, yb)
+                if np.isfinite(pars[0]):
+                    limits.append(float(pars[0]))
             except Exception:
                 pass
         output[f"d{float(distance):.4f}"] = {
             "observations": int(y.size),
-            "mesh_levels": [float(v) for v in mesh_sizes],
+            "independent_seed_blocks": len(seeds),
+            "mesh_levels": levels,
             "models": candidates,
             "preferred_model_by_AICc": best,
+            "cross_validation": cv,
+            "jackknife": jackknife,
             "bootstrap": {
-                "method": "seed-stratified nonparametric bootstrap; resample seed-level C_tr,h values independently within each h",
+                "method": "paired nonparametric cluster bootstrap; resample complete seed trajectories across all h-levels",
                 "requested_replicates": int(bootstrap_replicates),
                 "successful_fits": len(limits),
-                "C_infinity_percentile_95_interval": ([float(v) for v in np.quantile(limits, [0.025, 0.975])]
-                                                       if limits else None),
+                "C_infinity_percentile_95_interval": (
+                    [float(v) for v in np.quantile(limits, [0.025, 0.975])] if limits else None
+                ),
                 "C_infinity_median": float(np.median(limits)) if limits else None,
-                "warning": "Exploratory uncertainty conditional on the sampled mesh generator and only the supplied seeds; not a mesh-uniform bound or proof."
-            }
+                "warning": "Exploratory uncertainty conditional on the mesh generator and supplied seed blocks; not a mesh-uniform bound or proof."
+            },
+            "interpretation_warning": (
+                "AIC/AICc/BIC/HQIC are conditional Gaussian-likelihood criteria; "
+                "CV and resampling have only three independent seed blocks in the configured run. "
+                "These diagnostics do not establish a uniform trace inequality."
+            ),
         }
     return output
 
