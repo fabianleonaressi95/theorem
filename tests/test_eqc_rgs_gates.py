@@ -6,6 +6,7 @@ class TestEQCRGSGates(unittest.TestCase):
     def test_four_generators(self):
         self.assertEqual(len(rgs_generators()),4)
         self.assertEqual({g[1] for g in rgs_generators() if g[0]=="P"},{3,4,5})
+        self.assertEqual(rgs_generators()[-1],("PAIRSWAP",1,2,4,5))
     def test_each_gate_is_unitary_basis_permutation(self):
         for gate in rgs_generators():
             image=[apply_gate(i,gate) for i in range(DIM)]
