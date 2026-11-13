@@ -231,6 +231,76 @@ def integrate_rational_sqrt_segment(
     return lower, upper, leaves, used
 
 
+
+def integrate_rational_sqrt_segments_many(
+    numerators: Sequence[SPoly], denominator: SPoly, radicand: SPoly,
+    *, absolute_tolerance=F(1, 10**8), max_depth=24,
+):
+    """Certified matrix integration with one shared adaptive subdivision tree."""
+    tol = _as_fraction(absolute_tolerance)
+    if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
+        raise ValueError("positive tolerance and nonnegative max_depth required")
+    ps = [{int(k): _as_fraction(v) for k, v in p.items() if v}
+          for p in numerators]
+    q = {int(k): _as_fraction(v) for k, v in denominator.items() if v}
+    s = {int(k): _as_fraction(v) for k, v in radicand.items() if v}
+    if not q or not s:
+        raise ZeroDivisionError("denominator and radicand must be nonzero")
+    if len(q) == 1 and len(s) == 1:
+        return [integrate_rational_sqrt_segment(
+            p, q, s, absolute_tolerance=tol, max_depth=max_depth
+        ) for p in ps]
+    lower, upper = [F(0) for _ in ps], [F(0) for _ in ps]
+    leaves = [0 for _ in ps]
+    used = 0
+    stack = [(ps, q, s, F(1), 0)]
+    while stack:
+        pset, qq, ss, length, depth = stack.pop()
+        used = max(used, depth)
+        qlo, qhi = _bernstein_bounds_1d(qq)
+        slo, shi = _bernstein_bounds_1d(ss)
+        if qlo <= 0 or slo <= 0:
+            split = True
+        else:
+            split = False
+            sqrt_lo, sqrt_hi = _sqrt_lower(slo), _sqrt_upper(shi)
+            factor_lo = F(1)/(qhi*sqrt_hi**3)
+            factor_hi = F(1)/(qlo*sqrt_lo**3)
+            leaf_values = []
+            for p in pset:
+                plo, phi = _bernstein_bounds_1d(p)
+                integral_p = sum((c/F(k+1) for k, c in p.items()), F(0))
+                if plo < 0 < phi:
+                    quotients = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
+                    rlo, rhi = min(quotients), max(quotients)
+                    vals = (rlo/(sqrt_hi**3), rlo/(sqrt_lo**3),
+                            rhi/(sqrt_hi**3), rhi/(sqrt_lo**3))
+                    flo, fhi = min(vals), max(vals)
+                elif integral_p >= 0:
+                    flo, fhi = integral_p*factor_lo, integral_p*factor_hi
+                else:
+                    flo, fhi = integral_p*factor_hi, integral_p*factor_lo
+                if fhi-flo > 2*tol:
+                    split = True
+                    break
+                leaf_values.append((length*flo, length*fhi))
+        if split:
+            if depth >= max_depth:
+                raise ArithmeticError("shared facet integral enclosure width/positivity not reached")
+            left = [_restrict_half(p, True) for p in pset]
+            right = [_restrict_half(p, False) for p in pset]
+            stack.extend((
+                (left, _restrict_half(qq, True), _restrict_half(ss, True), length/2, depth+1),
+                (right, _restrict_half(qq, False), _restrict_half(ss, False), length/2, depth+1),
+            ))
+            continue
+        for i, (lo, hi) in enumerate(leaf_values):
+            lower[i] += lo
+            upper[i] += hi
+            leaves[i] += 1
+    return [(lower[i], upper[i], leaves[i], used) for i in range(len(ps))]
+
+
 def _sqrt_upper(x: F, digits=40) -> F:
     from math import isqrt
     if x < 0:
@@ -649,32 +719,32 @@ def assemble_interior_facet_interval(
     qa, da3 = _edge_q_data(maps_a, det_a, hess_a, edge_a, normal_numerator)
     qb, db3 = _edge_q_data(maps_b, det_b, hess_b, edge_b_matched, normal_numerator)
 
-    AA = [[None]*10 for _ in range(10)]
-    AB = [[None]*10 for _ in range(10)]
-    BB = [[None]*10 for _ in range(10)]
     tol = _as_fraction(absolute_tolerance)
-    for i in range(10):
-        for j in range(10):
-            if j >= i:
-                lo, hi = _integrate_facet_pair(
-                    _mul1(qa[i], qa[j]), da3, da3, radicand,
-                    h_average, tol, max_depth)
-                AA[i][j] = AA[j][i] = (lo, hi)
-                lo, hi = _integrate_facet_pair(
-                    _mul1(qb[i], qb[j]), db3, db3, radicand,
-                    h_average, tol, max_depth)
-                BB[i][j] = BB[j][i] = (lo, hi)
-            lo, hi = _integrate_facet_pair(
-                _mul1(qa[i], qb[j]), da3, db3, radicand,
-                h_average, tol, max_depth)
-            AB[i][j] = (lo, hi)
+    pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    aa = integrate_rational_sqrt_segments_many(
+        [_mul1(qa[i], qa[j]) for i, j in pairs],
+        _mul1(da3, da3), radicand, absolute_tolerance=tol, max_depth=max_depth)
+    bb = integrate_rational_sqrt_segments_many(
+        [_mul1(qb[i], qb[j]) for i, j in pairs],
+        _mul1(db3, db3), radicand, absolute_tolerance=tol, max_depth=max_depth)
+    cross_pairs = [(i, j) for i in range(10) for j in range(10)]
+    ab = integrate_rational_sqrt_segments_many(
+        [_mul1(qa[i], qb[j]) for i, j in cross_pairs],
+        _mul1(da3, db3), radicand, absolute_tolerance=tol, max_depth=max_depth)
+    AA, BB, AB = ([[None]*10 for _ in range(10)] for _ in range(3))
+    for (i, j), value in zip(pairs, aa):
+        AA[i][j] = AA[j][i] = value[:2]
+    for (i, j), value in zip(pairs, bb):
+        BB[i][j] = BB[j][i] = value[:2]
+    for (i, j), value in zip(cross_pairs, ab):
+        AB[i][j] = value[:2]
     return {
         "block_AA": AA,
         "block_AB": AB,
         "block_BB": BB,
         "edge_a": tuple(edge_a),
         "edge_b_matched": tuple(edge_b_matched),
-        "integration": "exact-rational two-sided curved-facet enclosure with shared certified metric",
+        "integration": "exact-rational two-sided curved-facet enclosure with shared metric and matrix-wide adaptive subdivision",
     }
 
 
