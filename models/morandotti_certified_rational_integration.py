@@ -122,6 +122,17 @@ def integrate_rational_triangle(
     q = {(k): _f(v) for k, v in denominator.items()}
     if not q:
         raise ZeroDivisionError("zero denominator polynomial")
+    if len(q) == 1 and (0, 0) in q:
+        constant = q[(0, 0)]
+        if constant == 0:
+            raise ZeroDivisionError("zero constant denominator")
+        exact = sum(
+            (coefficient * Fraction(factorial(i)*factorial(j),
+                                    factorial(i+j+2))
+             for (i, j), coefficient in p.items()),
+            Fraction(0),
+        ) / constant
+        return exact, exact, 1, 0
     root = ((Fraction(0), Fraction(0)),
             (Fraction(1), Fraction(0)),
             (Fraction(0), Fraction(1)))
