@@ -121,11 +121,11 @@ The residual gradient norm is \(1.25\times10^{-14}\). The Hessian spectrum is st
 \[
 \lambda_{\min}(\nabla^2\Gamma_{\rm MQM})=0.1418533417,
 \quad
-\lambda_{\max}=16.7189762067.
+\lambda_{\max}=16.7189762063.
 \]
-The bosonic minimum eigenvalue at this point is \(0.4558040913\), and the fermionic minimum singular value is \(0.9777829412\); hence the stationary point lies inside the operator domain.
+The bosonic minimum eigenvalue at this point is \(0.4558040911\), and the fermionic minimum singular value is \(0.9478604514\); hence the stationary point lies inside the operator domain.
 
-The field is strongly correlated with the recovered torsion proxy (\(\operatorname{corr}(\phi,\tau)=0.92698\)). This is a numerical property of the declared model and parameters, not evidence by itself for a universal torsion law or a physical condensate.
+The field is strongly correlated with the recovered torsion proxy (\(\operatorname{corr}(\phi,\tau)=0.9269816741\)). This is a numerical property of the declared model and parameters, not evidence by itself for a universal torsion law or a physical condensate.
 
 ### 6.3 Classification
 
