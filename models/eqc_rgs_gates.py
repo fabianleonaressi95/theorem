@@ -3,9 +3,10 @@ from itertools import product
 DIM = 3 ** 6
 
 def rgs_generators():
-    """Three sign flips and the exchange of spatial coordinates y,z."""
+    """Three coordinate sign flips and the coupled representative/sign y-z swap."""
     flip = (0, 2, 1)  # |1> <-> |2>, |0> fixed
-    return (("P", 3, flip), ("P", 4, flip), ("P", 5, flip), ("SWAP", 4, 5))
+    return (("P", 3, flip), ("P", 4, flip), ("P", 5, flip),
+            ("PAIRSWAP", 1, 2, 4, 5))
 
 def _digits(i):
     return tuple((i // (3 ** (5-q))) % 3 for q in range(6))
@@ -22,11 +23,13 @@ def apply_gate(i, gate):
         _, q, p = gate
         if not 0 <= q < 6 or sorted(p) != [0,1,2]: raise ValueError("invalid local permutation")
         ds[q] = p[ds[q]]
-    elif gate[0] == "SWAP":
-        _, a, b = gate
-        if not (0 <= a < 6 and 0 <= b < 6 and a != b): raise ValueError("invalid SWAP")
+    elif gate[0] == "PAIRSWAP":
+        _, a, b, c, d = gate
+        if len({a,b,c,d}) != 4 or any(not 0 <= q < 6 for q in (a,b,c,d)):
+            raise ValueError("PAIRSWAP requires four distinct valid registers")
         ds[a], ds[b] = ds[b], ds[a]
-    else: raise ValueError("unknown gate")
+        ds[c], ds[d] = ds[d], ds[c]
+    else: raise ValueError("unknown RGS gate")
     return _index(ds)
 
 def q6_subspace_indices():
@@ -40,7 +43,7 @@ def lifted_group_on_q6():
         for swap in (False, True):
             program = [("P", q, (0,2,1)) for axis,q in enumerate((3,4,5))
                        if mask & (1 << (2-axis))]
-            if swap: program.append(("SWAP",4,5))
+            if swap: program.append(("PAIRSWAP",1,2,4,5))
             image = []
             for state in sub:
                 j = state
@@ -51,6 +54,9 @@ def lifted_group_on_q6():
 
 def rgs_q6_group_on_labels():
     def swap_yz(v):
-        return v ^ (3 if ((v >> 1) & 1) != (v & 1) else 0)
+        # Big-endian labels: exchange representative bits b1,b2 and sign bits b4,b5.
+        v ^= 24 if ((v >> 3) & 1) != ((v >> 4) & 1) else 0
+        v ^= 3 if ((v >> 0) & 1) != ((v >> 1) & 1) else 0
+        return v
     return {tuple(((swap_yz(v) if swap else v) ^ mask) for v in range(64))
             for mask in range(8) for swap in (False,True)}
