@@ -9,6 +9,7 @@ conservative; failure to certify positivity or meet the requested width raises.
 from __future__ import annotations
 
 from fractions import Fraction
+from functools import lru_cache
 from math import factorial
 from typing import Mapping
 
@@ -56,7 +57,9 @@ def _pow(p, n):
     return out
 
 
-def _compose_on_triangle(poly: Poly, tri: Triangle):
+@lru_cache(maxsize=131072)
+def _compose_on_triangle_cached(poly_items, tri: Triangle):
+    poly = dict(poly_items)
     a, b, c = tri
     u = {(1, 0): Fraction(1)}
     v = {(0, 1): Fraction(1)}
@@ -71,8 +74,13 @@ def _compose_on_triangle(poly: Poly, tri: Triangle):
     return out
 
 
-def _bernstein_bounds(poly):
-    """Return min/max degree-n simplex Bernstein coefficients."""
+def _compose_on_triangle(poly: Poly, tri: Triangle):
+    return _compose_on_triangle_cached(tuple(sorted(poly.items())), tri)
+
+
+@lru_cache(maxsize=131072)
+def _bernstein_bounds_cached(poly_items):
+    poly = dict(poly_items)
     if not poly:
         return Fraction(0), Fraction(0)
     n = max(i+j for i, j in poly)
@@ -87,6 +95,10 @@ def _bernstein_bounds(poly):
                     value += c * Fraction(falling(k, i)*falling(l, j), d)
             coeffs.append(value)
     return min(coeffs), max(coeffs)
+
+
+def _bernstein_bounds(poly):
+    return _bernstein_bounds_cached(tuple(sorted(poly.items())))
 
 
 def _split4(t: Triangle):
