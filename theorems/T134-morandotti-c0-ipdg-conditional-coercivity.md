@@ -212,9 +212,7 @@ numerical values are recorded here. The analytical mapped-element derivative,
 inverse-Jacobian, nondegeneracy, and facet-weight comparability bounds remain
 open obligations.
 
-**Current status:** conditional coercivity proof; initial 12-case finite-mesh
-audit completed; extended 24-case refinement audit configured and pending.
-No uniform trace constant or unconditional coercivity claim is made.
+**Current status (24-case audit completed, 2026-11-13):** conditional coercivity proof; the extended finite-mesh diagnostic completed on 24 independently generated meshes (four target sizes, two core separations, three seeds). The observed generalized-eigenvalue estimates lie in [9.1545269506, 15.8151565222]. The exact per-cell geometry certificates cover 145,256 cells and certify positive Jacobians for every represented map. This remains finite-mesh numerical evidence: the forms are assembled by UFL quadrature, not certified integration, and no all-level compact map class or uniform facet-scale bound has been established. No uniform trace constant or unconditional coercivity claim is made.
 
 
 ## 8. Statistical diagnostics added to the refinement workflow
@@ -481,3 +479,48 @@ unconditional statement for the present Gmsh generator remains open.
 A deterministic generator-level construction or rejection rule with
 fixed, certified bounds is needed to close that gap; finite sampling,
 AIC, bootstrap, and cross-validation cannot do so.
+
+
+## 11. Completed 24-mesh refinement and exact geometry archive (2026-11-13)
+
+The merged workflow run [#43449991201](https://github.com/fabianleonaressi95/theorem/actions/runs/43449991201) completed successfully on the PR head that was subsequently merged to `main`. The unit-test step reported 29 passed in 0.39 s. The independent mesh audit covered
+\[
+h\in\{0.080,0.045,0.030,0.025\},\quad
+d\in\{0.48,0.56\},\quad
+s\in\{11,29,47\},
+\]
+for 24 generated meshes in total.
+
+| Core separation | Target h | Maximum observed \(C_{\rm tr,h}\) over 3 seeds | \(40-2\max C_{\rm tr,h}\) |
+|---:|---:|---:|---:|
+| 0.48 | 0.080 | 15.8151565222 | 8.3696869556 |
+| 0.48 | 0.045 | 9.2616294526 | 21.4767410949 |
+| 0.48 | 0.030 | 10.3864061538 | 19.2271876925 |
+| 0.48 | 0.025 | 10.5973624891 | 18.8052750219 |
+| 0.56 | 0.080 | 15.3472296147 | 9.3055407706 |
+| 0.56 | 0.045 | 9.7706219632 | 20.4587560736 |
+| 0.56 | 0.030 | 10.5930218645 | 18.8139562710 |
+| 0.56 | 0.025 | 10.5141634143 | 18.9716731714 |
+
+Across all 24 cases, the largest observed value is
+\[
+\max C_{\rm tr,h}=15.8151565222,\qquad
+40-2\max C_{\rm tr,h}=8.3696869556.
+\]
+Thus \(\alpha=40\) clears the **observed finite-mesh** sufficient threshold in all 24 cases. The smallest observed value is 9.1545269506. The last two quadrature estimates (degrees 32 and 40) agree to relative difference at most \(1.71\times10^{-13}\). This is strong numerical stability, not an exact integration or rounding-error certificate.
+
+The archive contains 145,256 per-cell records. Exact-rational Bernstein subdivision certified \(\det D F_K>0\) for every represented cell map; all cells were certified at subdivision depth zero. Across these finite records, the outward bounds have extrema
+\[
+M_1\le1.9235589783,\quad
+M_2\le2.1381557715,\quad
+M_{-1}\le11.6985885336,\quad
+j_0\ge0.0604437688,\quad
+j_1\le1.0254241202.
+\]
+These are extrema over the archived finite meshes, not universal constants for every level or seed. The compressed JSONL archive has SHA-256
+`e1191ac0fd711d7d97274422e12469f9fcda7e4bd11685e53c53f3d4184902ad`
+and was uploaded as the `morandotti-curved-p3-trace-constant` workflow artifact.
+
+**What this closes:** the pending 24-case diagnostic, and exact positivity certification for every cell map in those 24 meshes.
+
+**What it does not close:** exact/certified assembly of the curved-P3 volume and facet forms; interval propagation through the generalized eigenproblem; a rigorous finite-mesh matrix inequality \(C_\star D_h-H_{h,\ell}\succeq0\); or a mesh-uniform bound over all refinements and allowed seeds. Therefore \(\alpha=40\) remains a numerically supported choice, not a certified theorem-level threshold.
