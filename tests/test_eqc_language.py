@@ -57,7 +57,7 @@ class TestEQCLanguage(unittest.TestCase):
 
     def test_hexagram_line_reversal_is_involution(self):
         state = run(compile_source("X q0\nX q1\nREV\nREV"))
-        expected_index = 3 + 1
+        expected_index = 3**5 + 3**4
         self.assertAlmostEqual(abs(state[expected_index] - 1), 0.0, places=12)
         self.assertAlmostEqual(norm_squared(state), 1.0, places=12)
 
