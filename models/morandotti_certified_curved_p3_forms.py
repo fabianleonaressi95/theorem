@@ -337,6 +337,31 @@ def _det_power(det, exponent):
     return out
 
 
+@lru_cache(maxsize=512)
+def _cell_data_cached(node_items, point_items):
+    """Reuse exact geometry and physical Hessians for every cell-face block."""
+    nodes = tuple(tuple(row) for row in node_items)
+    points = tuple(tuple(point) for point in point_items)
+    maps, basis, jac, adj, det = _geometry_data(nodes, points)
+    hessians = tuple(
+        _physical_hessian_numerators(phi, maps, adj, det) for phi in basis
+    )
+    det5 = _det_power(det, 5)
+    return maps, basis, jac, adj, det, hessians, det5
+
+
+def _cell_data(node_coordinates, interpolation_points):
+    node_items = tuple(
+        tuple(_as_fraction(value) for value in row[:2])
+        for row in node_coordinates
+    )
+    point_items = tuple(
+        tuple(_as_fraction(value) for value in point[:2])
+        for point in interpolation_points
+    )
+    return _cell_data_cached(node_items, point_items)
+
+
 def assemble_cell_volume_interval(
     node_coordinates,
     interpolation_points,
@@ -349,10 +374,9 @@ def assemble_cell_volume_interval(
     Geometry coordinates are interpreted as exact binary64 dyadic rationals.
     Every returned matrix entry is a rigorous rational interval.
     """
-    maps, basis, jac, adj, det = _geometry_data(node_coordinates, interpolation_points)
-    det5 = _det_power(det, 5)
-    hessians = [_physical_hessian_numerators(phi, maps, adj, det)
-                for phi in basis]
+    maps, basis, jac, adj, det, hessians, det5 = _cell_data(
+        node_coordinates, interpolation_points
+    )
     result = [[None for _ in range(10)] for _ in range(10)]
     for i in range(10):
         for j in range(i, 10):
@@ -410,9 +434,9 @@ def assemble_boundary_edge_interval(
     max_depth=24,
 ):
     """Certified 10x10 boundary-facet block h*int_F(q_i*q_j) ds."""
-    maps, basis, _, adj, det = _geometry_data(node_coordinates, interpolation_points)
-    hessians = [_physical_hessian_numerators(phi, maps, adj, det)
-                for phi in basis]
+    maps, basis, _, adj, det, hessians, _ = _cell_data(
+        node_coordinates, interpolation_points
+    )
     qnums, det3, radicand = _edge_polynomial_data(
         maps, det, hessians, edge_vertices)
     h = _as_fraction(h_weight)
@@ -600,19 +624,14 @@ def assemble_interior_facet_interval(
     physical endpoint order as edge_a. The two exact cubic edge traces are
     compared coefficient-by-coefficient before any integration.
     """
-    maps_a, basis_a, _, adj_a, det_a = _geometry_data(
+    maps_a, basis_a, _, adj_a, det_a, hess_a, _ = _cell_data(
         node_coordinates_a, interpolation_points)
-    maps_b, basis_b, _, adj_b, det_b = _geometry_data(
+    maps_b, basis_b, _, adj_b, det_b, hess_b, _ = _cell_data(
         node_coordinates_b, interpolation_points)
     trace_a = _map_trace_on_edge(maps_a, edge_a)
     trace_b = _map_trace_on_edge(maps_b, edge_b_matched)
     if trace_a != trace_b:
         raise ValueError("neighboring P3 maps do not define the same exact curved facet trace")
-
-    hess_a = [_physical_hessian_numerators(phi, maps_a, adj_a, det_a)
-              for phi in basis_a]
-    hess_b = [_physical_hessian_numerators(phi, maps_b, adj_b, det_b)
-              for phi in basis_b]
 
     # The physical tangent and arclength metric are taken from side A.
     a0, a1 = (_REF_VERTICES[k] for k in edge_a)
