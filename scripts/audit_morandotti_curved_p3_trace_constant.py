@@ -214,7 +214,7 @@ def main():
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
         "status": "finite-mesh generalized-eigenvalue estimates; not a mesh-uniform proof",
         "quadrature_acceptance_threshold": 5e-3,
-        "generalized_eigenpair_checks": "denominator positive-definiteness estimate, condition estimate, Rayleigh quotient agreement, and relative residual are recorded at each quadrature degree",
+        "generalized_eigenpair_checks": "equilibrated denominator smallest/largest algebraic eigenvalue estimates and their residuals certify numerical positive definiteness; generalized eigenpair Rayleigh agreement and relative residual are also recorded at each quadrature degree",
         "quadrature_stability_is_diagnostic_not_a_claim_of_exactness": True,
         "definition": "C_tr,h = sup_{v_h in V_h^0} H_{h,l}(v_h)^2 / D_h(v_h)^2",
         "boundary_space": "globally continuous mapped P3 functions with zero value trace on outer and both core boundaries",
