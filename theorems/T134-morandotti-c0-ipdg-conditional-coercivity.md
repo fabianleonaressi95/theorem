@@ -215,3 +215,36 @@ mesh level, bootstrap intervals are necessarily coarse and conditional on
 the mesh generator. Neither a preferred finite-limit model nor a bounded
 bootstrap interval proves a uniform trace inequality. The analytic
 mesh-uniform mapped-element estimate remains open.
+
+
+## 9. Statistical audit corrections and grouped validation (2026-11-13)
+
+The Gaussian information-criterion calculation counts the residual-variance
+parameter in addition to the mean-model parameters. The report now includes
+AIC, AICc, BIC, and HQIC. AICc is undefined (reported as infinity) when
+\(n \leq k+1\), where \(k\) includes the estimated variance parameter.
+
+The resampling unit is the **mesh-seed trajectory**, not an individual
+seed-by-resolution observation. The paired cluster bootstrap resamples whole
+seed trajectories across all target mesh sizes, preserving dependence induced
+by reusing a seed across resolutions. The validation diagnostic is
+leave-one-seed-block-out cross-validation; the jackknife deletes one complete
+seed block at a time. Both are reported as exploratory because the current
+configuration has only three independent seed blocks.
+
+DIC, WAIC, Bayes factors, and INLA are not included: the current audit is a
+frequentist nonlinear least-squares analysis, with no posterior samples,
+pointwise posterior log-likelihood, explicit prior model, or latent-Gaussian
+Bayesian hierarchy. Mallows' \(C_p\) is not suitable for the current nonlinear
+scaling fits without a justified linear-regression formulation and common
+variance estimate. LASSO, Ridge, and Elastic Net are regularizers, not
+standalone model-comparison criteria, and there is no justified predictor
+matrix requiring them here.
+
+**Interpretation limits:** AIC-family scores compare only the specified
+candidate trends under the Gaussian residual model. Grouped cross-validation,
+jackknife, and bootstrap quantify sensitivity to the available seed
+realizations; with three seed blocks their uncertainty assessment is coarse.
+None of these statistical procedures proves
+\(\sup_h C_{\rm tr,h}<\infty\), certifies curved-cell Jacobian positivity at
+every point, or replaces the analytical mapped-element trace estimate.
