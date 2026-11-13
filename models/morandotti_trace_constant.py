@@ -68,6 +68,47 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
 
         ncv_values = sorted(set(min(n, value) for value in
                                 (40, 80, 160, 320) if min(n, value) > 2))
+
+        # A positive diagonal is necessary but not sufficient for B > 0.
+        # Certify the equilibrated denominator numerically by estimating both
+        # spectral extremes and checking their eigenpair residuals. Since Bs
+        # has unit diagonal, the threshold below is scale-aware and rejects
+        # numerically singular quotients rather than silently proceeding.
+        def denominator_extreme(which):
+            last_error = None
+            for ncv in ncv_values:
+                try:
+                    vals, vecs = eigsh(
+                        Bs, k=1, which=which, tol=min(tol, 1e-10),
+                        return_eigenvectors=True, maxiter=max(30000, 30*n),
+                        ncv=ncv,
+                    )
+                    lam = float(vals[0])
+                    vec = vecs[:, 0]
+                    Bv = Bs @ vec
+                    relres = float(np.linalg.norm(Bv - lam * vec) /
+                                   max(np.linalg.norm(Bv) + abs(lam)*np.linalg.norm(vec), 1e-300))
+                    if np.isfinite(lam) and np.isfinite(relres) and relres <= 1e-7:
+                        return lam, relres
+                except Exception as exc:
+                    from scipy.sparse.linalg import ArpackNoConvergence
+                    if not isinstance(exc, ArpackNoConvergence):
+                        raise
+                    last_error = exc
+            raise RuntimeError(
+                f"could not certify denominator {which} eigenvalue "
+                f"(n={n}, ncv={ncv_values}); "
+                f"partial eigenvalues={getattr(last_error, 'eigenvalues', None)}"
+            ) from last_error
+
+        bmin, bmin_residual = denominator_extreme("SA")
+        bmax, bmax_residual = denominator_extreme("LA")
+        if bmin <= 1e-12 * max(abs(bmax), 1.0):
+            raise ValueError(
+                "denominator is not numerically positive definite on the reduced space: "
+                f"lambda_min={bmin:g}, lambda_max={bmax:g}"
+            )
+
         best = None
         last_error = None
         for ncv in ncv_values:
@@ -107,7 +148,7 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
         # Map the equilibrated eigenvector back to the original coordinates.
         x = inv_sqrt_diagonal * y
         result = solver_eigenvalue
-        bmin, bmax = None, None
+        # bmin and bmax were estimated on the equilibrated denominator above.
 
     Ax = residual_matrix_a @ (x if n <= 3 else y)
     Bx = residual_matrix_b @ (x if n <= 3 else y)
@@ -122,6 +163,9 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
         "denominator_lambda_max_estimate": bmax,
         "denominator_condition_estimate": (float(bmax / bmin) if bmin is not None else None),
         "denominator_extreme_eigenvalues_estimated": bmin is not None,
+        "denominator_lambda_min_relative_residual": (bmin_residual if n > 3 else 0.0),
+        "denominator_lambda_max_relative_residual": (bmax_residual if n > 3 else 0.0),
+        "denominator_numerically_positive_definite": bool(bmin > 1e-12 * max(abs(bmax), 1.0)),
         "denominator_diagonal_min": float(np.min(B.diagonal())),
         "denominator_diagonal_max": float(np.max(B.diagonal())),
         "congruence_scaling_min": scaling_min,
