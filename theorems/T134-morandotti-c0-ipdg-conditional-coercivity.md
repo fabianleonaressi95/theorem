@@ -1,6 +1,6 @@
 # T134 — Conditional coercivity of the curved-P3 C0-IPDG Airy cell form
 
-**Classification:** [P] coercivity is proved conditionally on a mesh-uniform mapped-element trace-inverse estimate and explicit geometric comparability assumptions. The 12-case finite-mesh audit found \(C_{\rm tr,h}\in[9.1545,15.8152]\): \(\alpha=10\) fails the sufficient condition \(\alpha>2C_{\rm tr,h}\) in every case. The two-core solver default is therefore provisionally raised to \(\alpha=40\), which clears the largest observed finite-mesh threshold by about \(8.37\). **This is numerical tuning only:** neither \(\alpha=40\) nor a mesh-uniform trace bound is certified by the finite sweep.
+**Classification:** [P] coercivity is proved conditionally: the mesh-uniform mapped-P3 trace estimate is derived from an explicit compact coefficient class of admissible element maps and quantified facet/element comparability. The actual Gmsh family has not yet been proved to satisfy those all-level hypotheses. The 12-case finite-mesh audit found \(C_{\rm tr,h}\in[9.1545,15.8152]\): \(\alpha=10\) fails the sufficient condition \(\alpha>2C_{\rm tr,h}\) in every case. The two-core solver default is therefore provisionally raised to \(\alpha=40\), which clears the largest observed finite-mesh threshold by about \(8.37\). **This is numerical tuning only:** neither \(\alpha=40\) nor a mesh-uniform trace bound is certified by the finite sweep.
 
 **Implementation audited:** 'scripts/rgs_morandotti_c0_ipdg.py' (P3 Lagrange space on Gmsh order-3 annulus meshes; Hessian volume form; symmetric interior and boundary consistency terms; normal-gradient penalties). The theorem below is stated with the actual code's penalty length scales.
 
@@ -58,39 +58,39 @@ Here \(\mathcal F_h^b\) includes both the outer and core boundary facets.
 
 ## 2. Uniform mapped-P3 trace lemma
 
-Let \\(\\widehat K\\) be the fixed reference triangle. Fix a vertex \\(\\hat x_0\\), and write each normalized cubic map in the ten-monomial basis of \\(\\mathbb P_3(\\widehat K)\\):
-\\[
-\\widehat F_a(\\hat x)=
-\\left(\\sum_{|\\beta|\\le3}a_{1,\\beta}\\hat x^\\beta,
-      \\sum_{|\\beta|\\le3}a_{2,\\beta}\\hat x^\\beta\\right),
-\\qquad \\widehat F_a(\\hat x_0)=0.
-\\]
-The coefficient vector belongs to \\(\\mathbb R^{20}\\) and satisfies the two normalization constraints. Assume that all normalized maps from every cell, level, and allowed seed belong to one fixed compact coefficient set \\(K_0\\subset\\mathbb R^{20}\\), and that
-\\[
-\\inf_{a\\in K_0}\\inf_{\\hat x\\in\\widehat K}
-\\det D\\widehat F_a(\\hat x)\\ge j_0>0.
-\\tag{2.1}
-\\]
-Compactness and (2.1) imply uniform finite bounds \\(M_1,M_{-1},M_2,j_1\\) for the scaled Jacobian, its inverse, second derivatives, and determinant upper bound. These are consequences of the single compact-class hypothesis, not separate independent assumptions.
+Let \(\widehat K\) be the fixed reference triangle. Fix a vertex \(\hat x_0\), and write each normalized cubic map in the ten-monomial basis of \(\mathbb P_3(\widehat K)\):
+\[
+\widehat F_a(\hat x)=
+\left(\sum_{|\beta|\le3}a_{1,\beta}\hat x^\beta,
+      \sum_{|\beta|\le3}a_{2,\beta}\hat x^\beta\right),
+\qquad \widehat F_a(\hat x_0)=0.
+\]
+The coefficient vector belongs to \(\mathbb R^{20}\) and satisfies the two normalization constraints. Assume that all normalized maps from every cell, level, and allowed seed belong to one fixed compact coefficient set \(K_0\subset\mathbb R^{20}\), and that every map in this class is one-to-one on the reference triangle and
+\[
+\inf_{a\in K_0}\inf_{\hat x\in\widehat K}
+\det D\widehat F_a(\hat x)\ge j_0>0.
+\tag{2.1}
+\]
+Compactness and (2.1) imply uniform finite bounds \(M_1,M_{-1},M_2,j_1\) for the scaled Jacobian, its inverse, second derivatives, and determinant upper bound. These are consequences of the single compact-class hypothesis, not separate independent assumptions.
 
 **Lemma (uniform mapped-P3 trace estimate).** Under (2.1), the quantified scale condition (1.1), and the fixed P3 reference-element structure, there is
-\\[
-C_{\\rm tr}=C_{\\rm tr}(K_0,c_0,c_1,\\widehat K)
-\\]
+\[
+C_{\rm tr}=C_{\rm tr}(K_0,c_0,c_1,\widehat K)
+\]
 independent of level and seed such that
-\\[
-\\boxed{H_{h,\\ell}(v_h)^2\\le C_{\\rm tr}D_h(v_h)^2
-\\qquad\\forall v_h\\in V_h^0.}\\tag{T134.1}
-\\]
+\[
+\boxed{H_{h,\ell}(v_h)^2\le C_{\rm tr}D_h(v_h)^2
+\qquad\forall v_h\in V_h^0.}\tag{T134.1}
+\]
 The estimate includes every interior facet and every boundary facet (outer and both cores).
 
 **Proof.** On each cell the inverse-map chain rule in §10.2 bounds the physical Hessian pullback by a uniform multiple of
-\\(h_K^{-2}(|D_{\\hat x}^2\\hat v|+|\\nabla_{\\hat x}\\hat v|)\\).
-The volume and boundary Jacobians scale as \\(h_K^2\\) and \\(h_K\\). The volume Hessian form has kernel exactly the pullbacks of physical affine functions,
-\\[
-N_{\\widehat F}=\\operatorname{span}\\{1,\\widehat F_1,\\widehat F_2\\},
-\\]
-and is positive definite on \\(\\mathbb P_3(\\widehat K)/N_{\\widehat F}\\). Compactness of \\(K_0\\) gives a uniform positive lower quotient eigenvalue; the boundary Hessian form is uniformly bounded above on coefficient-unit vectors. This yields the local estimate (10.6). Summing it over the three facets of each triangle, using (1.1) and the arithmetic-average bound on interior facets, proves (T134.1). The full quotient compactness argument and derivative calculation are in §10.2–§10.3. \\(\\square\\)
+\(h_K^{-2}(|D_{\hat x}^2\hat v|+|\nabla_{\hat x}\hat v|)\).
+The volume and boundary Jacobians scale as \(h_K^2\) and \(h_K\). The volume Hessian form has kernel exactly the pullbacks of physical affine functions,
+\[
+N_{\widehat F}=\operatorname{span}\{1,\widehat F_1,\widehat F_2\},
+\]
+and is positive definite on \(\mathbb P_3(\widehat K)/N_{\widehat F}\). Compactness of \(K_0\) gives a uniform positive lower quotient eigenvalue; the boundary Hessian form is uniformly bounded above on coefficient-unit vectors. This yields the local estimate (10.6). Summing it over the three facets of each triangle, using (1.1) and the arithmetic-average bound on interior facets, proves (T134.1). The full quotient compactness argument and derivative calculation are in §10.2–§10.3. \(\square\)
 
 For affine triangles this is the usual fixed-degree polynomial inverse-trace estimate. For curved P3 cells, (2.1) is an additional all-level geometric hypothesis; finite sampling and high-order optimization do not establish it.
 
@@ -280,23 +280,23 @@ family has been explicitly assumed.
 ### 10.1 Fixed admissible class of normalized maps
 
 For each cell write
-\\[
-F_K(\\hat x)=x_K+h_K\\widehat F_K(\\hat x),\\qquad h_K=\\operatorname{diam}(K),
-\\]
-and normalize \\(\\widehat F_K(\\hat x_0)=0\\). In the ten-monomial basis, the two components of each cubic map have a coefficient vector in \\(\\mathbb R^{20}\\), subject to the two normalization constraints. The all-level geometric hypothesis is that every such vector, over all cells, levels, and allowed seeds, lies in one fixed compact set \\(K_0\\), with
-\\[
-\\inf_{a\\in K_0}\\inf_{\\hat x\\in\\widehat K}
-\\det D\\widehat F_a(\\hat x)\\ge j_0>0.
-\\tag{10.1}
-\\]
-Compactness and strict determinant positivity imply the finite uniform bounds \\(M_1,M_{-1},M_2,j_1\\); these are consequences, not independent hypotheses. In principle, the condition is certifiable by coefficient bounds and a global polynomial positivity certificate.
+\[
+F_K(\hat x)=x_K+h_K\widehat F_K(\hat x),\qquad h_K=\operatorname{diam}(K),
+\]
+and normalize \(\widehat F_K(\hat x_0)=0\). In the ten-monomial basis, the two components of each cubic map have a coefficient vector in \(\mathbb R^{20}\), subject to the two normalization constraints. The all-level geometric hypothesis is that every such vector, over all cells, levels, and allowed seeds, lies in one fixed compact set \(K_0\), with
+\[
+\inf_{a\in K_0}\inf_{\hat x\in\widehat K}
+\det D\widehat F_a(\hat x)\ge j_0>0.
+\tag{10.1}
+\]
+Compactness and strict determinant positivity imply the finite uniform bounds \(M_1,M_{-1},M_2,j_1\); these are consequences, not independent hypotheses. In principle, the condition is certifiable by coefficient bounds and a global polynomial positivity certificate.
 
 The independent mesh-family condition is the quantified scale bound
-\\[
-c_0h_K\\le\\ell_F\\le c_1h_K
-\\qquad(F\\subset\\partial K),
-\\tag{10.2}
-\\]
+\[
+c_0h_K\le\ell_F\le c_1h_K
+\qquad(F\subset\partial K),
+\tag{10.2}
+\]
 with fixed constants for both incident cells of an interior facet. It implies neighboring-cell size comparability. Neither condition follows merely from Gmsh high-order optimization or finitely many sampled Jacobian values.
 
 ### 10.2 Local trace estimate, including the inverse-map term
@@ -333,7 +333,7 @@ Thus the gradient-dependent term in (10.2) is controlled explicitly:
       +|\nabla_{\hat x}\hat v(\hat x)|\bigr),
 \tag{10.4}
 \]
-where \(C\) depends only on the fixed bounds in (10.1) and the dimension.
+where \(C\) depends only on the uniform bounds in (2.2) and the dimension.
 In particular, that term is not discarded or assumed to vanish.
 
 The volume and boundary Jacobians satisfy
@@ -342,7 +342,7 @@ c h_K^2\le |\det DF_K|\le C h_K^2,\qquad
 c h_K\le J_{\partial K}\le C h_K,
 \tag{10.5}
 \]
-with constants uniform over \(\mathfrak F\). Equations (10.4)--(10.5)
+with constants uniform over the compact coefficient class \(K_0\). Equations (10.4)--(10.5)
 show that both quadratic forms
 \[
 Q_{\widehat F}^{\rm vol}(\hat v)
@@ -406,16 +406,13 @@ For an interior facet,
 |\{n^TD^2v\,n\}|^2
 \le\tfrac12\bigl(|D^2v^+|^2+|D^2v^-|^2\bigr);
 \]
-on a boundary facet there is only the adjacent-cell term. Since
-(10.2), (10.6), and the resulting neighboring-cell comparability,
-and the uniformly bounded number of facets per triangle give
+on a boundary facet there is only the adjacent-cell term. By (10.2), (10.6), the resulting neighboring-cell comparability, and the fact that each triangle has three facets,
 \[
 H_{h,\ell}(v)^2
 \le C_{\rm tr}\sum_K\|D^2v\|_{L^2(K)}^2
 =C_{\rm tr}D_h(v)^2.
 \]
-The constant depends on the fixed map class and the comparability
-constants, not on \(h\), the cell, or the seed. Thus (T134.1) follows
+The constant depends only on \(K_0,c_0,c_1\), the reference triangle, and the fixed P3 degree; it is independent of level, cell, and seed. Thus (T134.1) follows
 **conditionally** for every mesh family satisfying all the hypotheses
 of §10.1.
 
@@ -466,7 +463,7 @@ mesh-dependent seminorm, uniformly over mesh families satisfying the fixed compa
 The current generator requests Gmsh cubic high-order optimized meshes.
 The source-level inspection and finite diagnostics do not establish that
 all normalized maps produced for every refinement level and allowed seed
-belong to one fixed compact class \(\mathfrak F\). In particular:
+belong to one fixed compact coefficient class \(K_0\). In particular:
 
 1. finite sampling of \(\det D\widehat F_K\) does not certify its strict
    positivity on the whole reference cell;
