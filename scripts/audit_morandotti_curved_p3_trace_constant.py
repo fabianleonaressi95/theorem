@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Direct finite-mesh T134 trace-constant audit on generated curved P3 meshes.
-
-For each mesh this computes the largest generalized eigenvalue
-  C_tr,h = sup_{v_h in V_h^0} H_{h,l}(v_h)^2 / D_h(v_h)^2
-from the assembled physical-coordinate FEM matrices. It also records sampled
-scaled geometry-Jacobian diagnostics. Finite samples do not prove a
-mesh-uniform bound or all-points Jacobian positivity.
-"""
+"""Finite-mesh T134 trace audit plus exact-rational curved-P3 geometry certificates."""
 from __future__ import annotations
 
 import argparse
@@ -22,6 +15,7 @@ from dolfinx.fem.petsc import assemble_matrix
 from scipy.sparse import csr_matrix
 
 from models.morandotti_trace_constant import largest_generalized_eigenvalue
+from models.morandotti_exact_geometry import certify_p3_cell_geometry
 from scripts.rgs_morandotti_two_core_c0_ipdg import make_mesh
 
 
@@ -76,176 +70,131 @@ def _assemble_pair(form_d, form_h, V, mesh, quadrature_degree):
     return value, spectral, int(free.size)
 
 
-def _bernstein_indices(degree):
-    return [(degree-i-j, i, j)
-            for i in range(degree+1) for j in range(degree+1-i)]
-
-
-def _bernstein_matrix(degree):
-    from math import factorial
-    indices = _bernstein_indices(degree)
-    points = np.asarray([(j/degree, k/degree) if degree else (0.0, 0.0)
-                         for i, j, k in indices], dtype=float)
-    matrix = np.empty((len(indices), len(indices)), dtype=float)
-    for row, (x, y) in enumerate(points):
-        lam = (1.0-x-y, x, y)
-        for col, (a, b, d) in enumerate(indices):
-            multinomial = factorial(degree) / (
-                factorial(a)*factorial(b)*factorial(d))
-            matrix[row, col] = multinomial * lam[0]**a * lam[1]**b * lam[2]**d
-    return indices, points, matrix
-
-
-def _bernstein_coefficients(samples, degree):
-    indices, points, matrix = _bernstein_matrix(degree)
-    values = np.asarray(samples)
-    if values.shape[1] != len(points):
-        raise ValueError("sample count does not match triangular Bernstein degree")
-    coeff = np.linalg.solve(matrix, values.reshape(values.shape[0], values.shape[1], -1))
-    return coeff.reshape((values.shape[0], len(indices)) + values.shape[2:])
-
-
-def _evaluate_bernstein(coeff, degree, point):
-    from math import factorial
-    x, y = point
-    lam = (1.0-x-y, x, y)
-    value = np.zeros(coeff.shape[1:], dtype=float)
-    for q, (a, b, d) in enumerate(_bernstein_indices(degree)):
-        multinomial = factorial(degree) / (
-            factorial(a)*factorial(b)*factorial(d))
-        value += coeff[q] * multinomial * lam[0]**a * lam[1]**b * lam[2]**d
-    return value
-
-
-def _certify_positive_bernstein(coeff, degree, *, max_depth=8):
-    """Subdivide a triangular Bernstein polynomial until every coefficient is positive.
-
-    The guard accounts conservatively for floating-point interpolation/evaluation
-    error. This is a guarded floating-point certificate, not interval arithmetic.
-    """
-    eps = np.finfo(float).eps
-    scale = max(1.0, float(np.max(np.abs(coeff))))
-    _, _, basis = _bernstein_matrix(degree)
-    guard = 512.0 * eps * max(1.0, float(np.linalg.cond(basis))) * scale
-    vertices = np.asarray([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0]])
-    leaves = []
-
-    def visit(local_coeff, tri, depth):
-        lower = float(np.min(local_coeff))
-        upper = float(np.max(local_coeff))
-        if lower > guard:
-            leaves.append((lower, upper, depth))
-            return True
-        if depth >= max_depth:
-            return False
-        v0, v1, v2 = tri
-        m01, m12, m20 = 0.5*(v0+v1), 0.5*(v1+v2), 0.5*(v2+v0)
-        children = (
-            np.asarray([v0, m01, m20]),
-            np.asarray([m01, v1, m12]),
-            np.asarray([m20, m12, v2]),
-            np.asarray([m01, m12, m20]),
-        )
-        indices, local_points, matrix = _bernstein_matrix(degree)
-        for child in children:
-            global_points = np.asarray([
-                (1.0-p[0]-p[1])*child[0] + p[0]*child[1] + p[1]*child[2]
-                for p in local_points
-            ])
-            samples = np.asarray([
-                _evaluate_bernstein(coeff, degree, p) for p in global_points
-            ])
-            child_coeff = np.linalg.solve(matrix, samples)
-            if not visit(child_coeff, child, depth+1):
-                return False
-        return True
-
-    success = visit(np.asarray(coeff), vertices, 0)
-    return {
-        "positive_on_reference_triangle": bool(success),
-        "certified_lower_bound": float(min(q[0] for q in leaves)) if success else None,
-        "bernstein_upper_bound": float(max(q[1] for q in leaves)) if success else None,
-        "subdivision_depth_max": int(max((q[2] for q in leaves), default=0)),
-        "floating_point_guard": float(guard),
-        "method": "triangular Bernstein coefficients with recursive four-way subdivision",
-        "formal_interval_arithmetic": False,
-    }
-
-
 def certify_curved_p3_geometry(mesh):
-    """Bound scaled map derivatives and certify det(J/h^2)>0 cellwise."""
+    """Certify every local cubic geometry map with exact rational arithmetic."""
+    from fractions import Fraction
+    import hashlib
+    import math
+
     tdim = mesh.topology.dim
     nc = mesh.topology.index_map(tdim).size_local
-    cells = np.arange(nc, dtype=np.int32)
-    h = np.asarray(mesh.h(tdim, cells), dtype=float)
-    if np.any(~np.isfinite(h)) or np.any(h <= 0.0):
-        raise RuntimeError("invalid cell diameter in geometry certificate")
+    cmap = mesh.geometry.cmaps[0]
+    if cmap.degree != 3 or cmap.dim != 10 or not cmap.interpolation_ident:
+        raise RuntimeError(
+            "exact geometry certificate requires a nodal equispaced triangular P3 "
+            f"coordinate element; got degree={cmap.degree}, dim={cmap.dim}, "
+            f"interpolation_ident={cmap.interpolation_ident}"
+        )
+    points = np.asarray(cmap.interpolation_points, dtype=np.float64)
+    geometry_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
+    if geometry_dofmap.shape != (nc, 10):
+        raise RuntimeError(
+            f"expected 10 geometry dofs per owned triangle, got {geometry_dofmap.shape}"
+        )
 
-    # For a cubic triangular map, J is degree 2, det(J) degree at most 4,
-    # and the second map derivative is degree 1.
-    _, points2, _ = _bernstein_matrix(2)
-    _, points4, _ = _bernstein_matrix(4)
-    _, points1, _ = _bernstein_matrix(1)
-    J_expr = fem.Expression(ufl.Jacobian(mesh), points2, comm=mesh.comm)
-        # UFL exposes grad in physical coordinates.  For J = dx/dX,
-    # the reference derivative is D_X J = (D_x J) J by the chain rule.
-    # This avoids reference_grad, which is not part of the installed UFL API.
-    J = ufl.Jacobian(mesh)
-    H_expr = fem.Expression(ufl.dot(ufl.grad(J), J), points1, comm=mesh.comm)
-    J2 = J_expr.eval(mesh, cells)
-    H1 = H_expr.eval(mesh, cells)
+    def as_fraction(pair):
+        return Fraction(int(pair[0]), int(pair[1]))
 
-    J_scaled = J2 / h[:, None, None, None]
-    J_coeff = _bernstein_coefficients(J_scaled, 2)
-    H_scaled = H1 / h[:, None, None, None, None]
-    H_coeff = _bernstein_coefficients(H_scaled, 1)
-    component_bounds_J = np.max(np.abs(J_coeff), axis=1)
-    component_bounds_H = np.max(np.abs(H_coeff), axis=1)
-    M1_cells = np.sqrt(np.sum(component_bounds_J**2, axis=(1, 2)))
-    M2_cells = np.sqrt(np.sum(component_bounds_H**2, axis=(1, 2, 3)))
+    def outward_upper(value):
+        return math.nextafter(float(value), math.inf)
 
-    J4_expr = fem.Expression(ufl.Jacobian(mesh), points4, comm=mesh.comm)
-    J4 = J4_expr.eval(mesh, cells) / h[:, None, None, None]
-    det_samples = np.linalg.det(J4)
-    det_coeff = _bernstein_coefficients(det_samples, 4)
+    def outward_lower(value):
+        return math.nextafter(float(value), -math.inf)
 
-    rows = []
+    extrema = {
+        "M1": None, "M2": None, "M_minus1": None,
+        "j0": None, "j1": None,
+    }
+    certificate_digest = hashlib.sha256()
+    coordinate_digest = hashlib.sha256()
+    failed_cells = []
+    max_depth = 0
+    max_nodes = 0
+
     for cell in range(nc):
-        cert = _certify_positive_bernstein(det_coeff[cell], 4)
-        j0 = cert["certified_lower_bound"]
-        if j0 is not None:
-            # For a 2x2 matrix, ||J^{-1}||_F = ||J||_F / |det J|.
-            mminus1 = float(M1_cells[cell] / j0)
-        else:
-            mminus1 = None
-        rows.append({
-            "cell": int(cell),
-            "determinant_certificate": cert,
-            "M1_upper_bound": float(M1_cells[cell]),
-            "M2_upper_bound": float(M2_cells[cell]),
-            "M_minus1_upper_bound": mminus1,
-        })
-    certified = all(q["determinant_certificate"]["positive_on_reference_triangle"]
-                    for q in rows)
+        dofs = geometry_dofmap[cell]
+        coordinates = mesh.geometry.x[dofs, :2]
+        cert = certify_p3_cell_geometry(coordinates, points)
+        coordinate_digest.update(cert["coordinate_sha256"].encode("ascii"))
+        certificate_digest.update(str(cell).encode("ascii"))
+        certificate_digest.update(b":")
+        if not cert["positive"]:
+            failed_cells.append({
+                "cell": int(cell),
+                "failure": cert["failure"],
+                "subdivision_depth_max": cert["subdivision_depth_max"],
+            })
+            certificate_digest.update(b"FAIL:")
+            certificate_digest.update(cert["coordinate_sha256"].encode("ascii"))
+            continue
+
+        values = {
+            "M1": as_fraction(cert["M1_upper_scaled_exact"]),
+            "M2": as_fraction(cert["M2_upper_scaled_exact"]),
+            "M_minus1": as_fraction(cert["M_minus1_upper_scaled_exact"]),
+            "j0": as_fraction(cert["determinant_lower_scaled_exact"]) / 2,
+            "j1": as_fraction(cert["determinant_upper_scaled_exact"]),
+        }
+        for name, value in values.items():
+            if extrema[name] is None:
+                extrema[name] = value
+            elif name == "j0":
+                extrema[name] = min(extrema[name], value)
+            else:
+                extrema[name] = max(extrema[name], value)
+        max_depth = max(max_depth, int(cert["subdivision_depth_max"]))
+        max_nodes = max(max_nodes, int(cert["subdivision_nodes"]))
+        certificate_digest.update(
+            repr(tuple((name, values[name].numerator, values[name].denominator)
+                       for name in sorted(values))).encode("ascii")
+        )
+        certificate_digest.update(cert["coordinate_sha256"].encode("ascii"))
+
+    certified = not failed_cells and nc > 0
     return {
-        "method": "cubic-map polynomial bounds via triangular Bernstein convex-hull property",
+        "method": (
+            "exact dyadic-rational P3 nodal reconstruction; exact polynomial "
+            "differentiation/determinant; exact triangular Bernstein coefficients "
+            "and rational four-way subdivision"
+        ),
+        "arithmetic": "Python fractions.Fraction; no floating-point polynomial reconstruction",
+        "input_coordinates": "stored IEEE-754 binary64 geometry coordinates interpreted as exact dyadic rationals",
+        "coordinate_element": {
+            "degree": int(cmap.degree),
+            "dimension": int(cmap.dim),
+            "interpolation_ident": bool(cmap.interpolation_ident),
+            "reference_nodes": int(points.shape[0]),
+            "node_set": "equispaced triangular P3 lattice, checked exactly by rational basis construction",
+        },
         "cells": int(nc),
         "all_cell_jacobians_certified_positive": bool(certified),
-        "global_M1_upper_bound": float(np.max(M1_cells)),
-        "global_M2_upper_bound": float(np.max(M2_cells)),
-        "global_M_minus1_upper_bound": (
-            float(max(q["M_minus1_upper_bound"] for q in rows)) if certified else None
+        "failed_cell_count": len(failed_cells),
+        "failed_cells": failed_cells[:20],
+        "global_M1_upper_bound": outward_upper(extrema["M1"]) if certified else None,
+        "global_M2_upper_bound": outward_upper(extrema["M2"]) if certified else None,
+        "global_M_minus1_upper_bound": outward_upper(extrema["M_minus1"]) if certified else None,
+        "global_j0_lower_bound": outward_lower(extrema["j0"]) if certified else None,
+        "global_j1_upper_bound": outward_upper(extrema["j1"]) if certified else None,
+        "global_M1_upper_bound_exact": (
+            [extrema["M1"].numerator, extrema["M1"].denominator] if certified else None
         ),
-        "global_j0_lower_bound": (
-            float(min(q["determinant_certificate"]["certified_lower_bound"]
-                      for q in rows)) if certified else None
+        "global_M2_upper_bound_exact": (
+            [extrema["M2"].numerator, extrema["M2"].denominator] if certified else None
         ),
-        "global_j1_upper_bound": (
-            float(max(q["determinant_certificate"]["bernstein_upper_bound"]
-                      for q in rows)) if certified else None
+        "global_M_minus1_upper_bound_exact": (
+            [extrema["M_minus1"].numerator, extrema["M_minus1"].denominator] if certified else None
         ),
-        "floating_point_not_interval_certification": True,
-        "cell_certificates": rows,
+        "global_j0_lower_bound_exact": (
+            [extrema["j0"].numerator, extrema["j0"].denominator] if certified else None
+        ),
+        "global_j1_upper_bound_exact": (
+            [extrema["j1"].numerator, extrema["j1"].denominator] if certified else None
+        ),
+        "maximum_subdivision_depth": max_depth,
+        "maximum_subdivision_nodes_per_cell": max_nodes,
+        "coordinate_data_sha256": coordinate_digest.hexdigest(),
+        "cell_certificate_sha256": certificate_digest.hexdigest(),
+        "formal_exact_rational_certificate": bool(certified),
     }
 
 
@@ -590,11 +539,12 @@ def main():
         "runs": runs,
         "limitations": [
             "a finite set of generalized eigenvalues does not prove sup_h C_tr,h is bounded",
-            "positive Jacobians are checked only at sampled reference points, not certified at every point",
-            "uniform mapped-element derivative and inverse-Jacobian bounds remain an analytic obligation",
+            "exact geometry certificates cover every cell in each generated mesh, but the finite seed/resolution sweep does not certify every possible mesh generated by the parameterized family",
+            "the geometry certificate proves positive Jacobians and scaled derivative/inverse-Jacobian bounds for the represented cell maps; it does not by itself prove a mesh-uniform trace-constant bound",
             "the estimate uses the generated two-core P3 mesh family and the T134 facet weights; it is not a universal P3 constant",
             "quadrature stability is assessed from the last two estimates (degrees 32 and 40); instability is reported rather than aborting the sweep",
             "even a stable finite quadrature sequence is numerical evidence, not an exact integration certificate",
+            "the exact-rational geometry certificate treats each stored binary64 geometry coordinate as its exact dyadic value; it certifies the represented polynomial map, not uncertainty in the upstream CAD/Gmsh construction",
         ],
     }
     output = Path(args.out)
