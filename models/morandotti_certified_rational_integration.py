@@ -181,9 +181,10 @@ def integrate_rational_triangle(
             upper += area*rhi
             leaves += 1
             continue
-        # The polynomial numerator is integrated exactly on the subtriangle;
-        # only the strictly positive denominator is enclosed. This avoids
-        # paying for numerator oscillation in the interval remainder.
+        # Integrate the polynomial numerator against a rational Neumann
+        # expansion of 1/q. The exact polynomial moments are summed, while
+        # the geometric-series remainder is bounded rationally. This avoids
+        # uniform 2-D subdivision merely to resolve a mildly varying Jacobian.
         integral_ref = sum(
             (coefficient * Fraction(factorial(i)*factorial(j),
                                     factorial(i+j+2))
@@ -191,19 +192,36 @@ def integrate_rational_triangle(
             Fraction(0),
         )
         integral_poly = 2*area*integral_ref
-        if integral_poly >= 0:
-            local_lower = integral_poly/qhi
-            local_upper = integral_poly/qlo
-        else:
-            local_lower = integral_poly/qlo
-            local_upper = integral_poly/qhi
-        local_width = local_upper-local_lower
-        if local_width > 2 * tol * area and depth < max_depth:
+        midpoint_q = (qlo+qhi)/2
+        relative_radius = (qhi-qlo)/(qhi+qlo)
+        delta_q = _add(qq, {(0, 0): -midpoint_q})
+        term_poly = pp
+        series = Fraction(0)
+        remainder = abs(integral_poly) / midpoint_q
+        certified = False
+        for order in range(13):
+            term_ref = sum(
+                (coefficient * Fraction(factorial(i)*factorial(j),
+                                        factorial(i+j+2))
+                 for (i, j), coefficient in term_poly.items()),
+                Fraction(0),
+            )
+            term_integral = 2*area*term_ref
+            series += ((-1)**order) * term_integral / (midpoint_q**(order+1))
+            remainder = (
+                abs(integral_poly) * relative_radius**(order+1)
+                / (midpoint_q*(1-relative_radius))
+            )
+            if remainder <= 2*tol*area:
+                certified = True
+                break
+            term_poly = _mul(term_poly, delta_q)
+        if not certified:
+            if depth >= max_depth:
+                raise ArithmeticError("rational Neumann enclosure width not reached")
             stack.extend((child, depth+1) for child in _split4(tri))
             continue
-        if local_width > 2 * tol * area:
-            raise ArithmeticError("requested integral enclosure width not reached")
-        lower += local_lower
-        upper += local_upper
+        lower += series-remainder
+        upper += series+remainder
         leaves += 1
     return lower, upper, leaves, used
