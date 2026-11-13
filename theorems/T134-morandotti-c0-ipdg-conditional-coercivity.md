@@ -283,7 +283,7 @@ For each cell write
 \[
 F_K(\hat x)=x_K+h_K\widehat F_K(\hat x),\qquad h_K=\operatorname{diam}(K),
 \]
-and normalize \(\widehat F_K(\hat x_0)=0\). In the ten-monomial basis, the two components of each cubic map have a coefficient vector in \(\mathbb R^{20}\), subject to the two normalization constraints. The all-level geometric hypothesis is that every such vector, over all cells, levels, and allowed seeds, lies in one fixed compact set \(K_0\), with
+and normalize \(\widehat F_K(\hat x_0)=0\). In the ten-monomial basis, the two components of each cubic map have a coefficient vector in \(\mathbb R^{20}\), subject to the two normalization constraints. The all-level geometric hypothesis is that every such vector, over all cells, levels, and allowed seeds, lies in one fixed compact set \(K_0\), every corresponding map is one-to-one on \(\widehat K\), and
 \[
 \inf_{a\in K_0}\inf_{\hat x\in\widehat K}
 \det D\widehat F_a(\hat x)\ge j_0>0.
