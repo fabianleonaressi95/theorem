@@ -183,7 +183,7 @@ This is a source inspection, not an executed assembly-equivalence test. In parti
 The following remain open:
 1. establish (T134.1) uniformly for the actual Gmsh curved P3 mesh family, including bounds on scaled element-map derivatives and inverse Jacobians;
 2. verify the geometric comparability constants between \(\ell_F\) and facet diameters;
-3. prove the boundary constraints eliminate the affine kernel on the annulus in the exact discrete space;
+3. verify by an executed DOLFINx regression that the adapter constrains every boundary P3 trace dof and leaves all interior vertex dofs free; the mathematical affine-kernel elimination follows from zero trace on three non-collinear outer-boundary points;
 4. establish a mesh-uniform upper bound for \(C_{\rm tr}\); the finite sweep rejects \(\alpha=10\), while the provisional two-core value \(\alpha=40\) has not been proved to exceed \(2C_{\rm tr}\) uniformly;
 5. add an assembly-level regression comparing the UFL form with the displayed bilinear form, including facet orientation and boundary contributions.
 
