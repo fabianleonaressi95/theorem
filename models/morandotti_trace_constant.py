@@ -61,6 +61,11 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-9,
                 break
             except Exception as exc:
                 from scipy.sparse.linalg import ArpackNoConvergence
+                if isinstance(exc, RuntimeError) and "Factor is exactly singular" in str(exc):
+                    raise ValueError(
+                        "denominator is singular; generalized eigenproblem "
+                        "requires a positive-definite denominator"
+                    ) from exc
                 if not isinstance(exc, ArpackNoConvergence):
                     raise
                 last_error = exc
