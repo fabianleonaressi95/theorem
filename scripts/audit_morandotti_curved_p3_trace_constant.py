@@ -164,7 +164,7 @@ def certify_curved_p3_geometry(mesh):
             "dimension": int(cmap.dim),
             "interpolation_ident": bool(cmap.interpolation_ident),
             "reference_nodes": int(points.shape[0]),
-            "node_set": "equispaced triangular P3 lattice, checked exactly by rational basis construction",
+            "node_set": "equispaced triangular P3 lattice, checked against interpolation points to 1e-12 before exact rational reconstruction",
         },
         "cells": int(nc),
         "all_cell_jacobians_certified_positive": bool(certified),
