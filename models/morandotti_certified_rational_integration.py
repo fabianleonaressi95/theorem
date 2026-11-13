@@ -155,16 +155,35 @@ def integrate_rational_triangle(
             stack.extend((child, depth+1) for child in _split4(tri))
             continue
         plo, phi = _bernstein_bounds(pp)
-        candidates = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
-        rlo, rhi = min(candidates), max(candidates)
         area = _area(tri)
-        local_width = area * (rhi-rlo)  # global widths sum to at most tolerance
+        if plo < 0 < phi:
+            if depth >= max_depth:
+                raise ArithmeticError("numerator sign not resolved by Bernstein subdivision")
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+        # The polynomial numerator is integrated exactly on the subtriangle;
+        # only the strictly positive denominator is enclosed. This avoids
+        # paying for numerator oscillation in the interval remainder.
+        integral_ref = sum(
+            (coefficient * Fraction(factorial(i)*factorial(j),
+                                    factorial(i+j+2))
+             for (i, j), coefficient in pp.items()),
+            Fraction(0),
+        )
+        integral_poly = 2*area*integral_ref
+        if integral_poly >= 0:
+            local_lower = integral_poly/qhi
+            local_upper = integral_poly/qlo
+        else:
+            local_lower = integral_poly/qlo
+            local_upper = integral_poly/qhi
+        local_width = local_upper-local_lower
         if local_width > 2 * tol * area and depth < max_depth:
             stack.extend((child, depth+1) for child in _split4(tri))
             continue
         if local_width > 2 * tol * area:
             raise ArithmeticError("requested integral enclosure width not reached")
-        lower += area*rlo
-        upper += area*rhi
+        lower += local_lower
+        upper += local_upper
         leaves += 1
     return lower, upper, leaves, used
