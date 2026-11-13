@@ -102,3 +102,14 @@ refinements.
 - The (phi)-(	au) correlation: finite-model numerical observation.
 - Causal interpretation, continuum behaviour, physical calibration and
   predictive power: open.
+
+
+## 8. Reproducible archived-data run
+
+Run the archived-data entry point with the original external bundle and the committed field report:
+
+```bash
+python audits/morphodynamics/mqm_multidimensional_a13.py --bundle A13_RGS_PSU_QLG_KAGGLE_BUNDLE.zip --field-report audits/morphodynamics/mqm_a13_local_backreaction.json --output audits/morphodynamics/mqm_multidimensional_a13_summary.json
+```
+
+The first exploratory numerical summary is recorded in `audits/morphodynamics/mqm_multidimensional_a13_summary.json`. The first two standardized components explain approximately 99.11% of variance in this particular feature table. This is sensitive to deterministic feature redundancy and is not a physical invariant.
