@@ -15,7 +15,7 @@ on:
       - 'tests/test_morandotti_exact_geometry.py'
       - 'tests/test_morandotti_exact_integration.py'
   pull_request:
-    branches: [main]
+    branches: [main, t134-exact-integration-foundation]
     paths:
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
