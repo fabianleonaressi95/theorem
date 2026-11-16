@@ -1,8 +1,9 @@
-name: Document A1 exact scalar spectrum
+name: Exact scalar spectrum and T035 group model
 
 on:
   push:
     branches:
+      - main
       - "document-a/exact-poincare-spectrum"
   pull_request:
     branches:
@@ -13,9 +14,9 @@ permissions:
   contents: read
 
 jobs:
-  a1-spectrum:
+  exact-mathematics:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,3 +26,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check sympy
       - name: Run A1 exact character/Molien regression
         run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Run T035 exact binary icosahedral group regression
+        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+      - name: Run T035 audit and print JSON report
+        run: python audits/t035_exact_binary_icosahedral_model.py
