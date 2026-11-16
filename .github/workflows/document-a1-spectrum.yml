@@ -1,0 +1,40 @@
+name: Pellis document 1 exact spectral and 2I audits
+name: Exact scalar spectrum and T035 group model
+
+on:
+  push:
+    branches:
+      - "collaboration/pellis-document-1-spectral-foundation"
+      - main
+      - "document-a/exact-poincare-spectrum"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-audits:
+  exact-mathematics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install exact-arithmetic dependencies
+        run: python -m pip install --disable-pip-version-check sympy
+      - name: Compile T035 source
+        run: python -m py_compile audits/t035_exact_binary_icosahedral_model.py
+      - name: Run A1 scalar spectrum regression
+        run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Run T035 exact group regression
+        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+      - name: Run T035 exact group audit
+      - name: Run T035 exact binary icosahedral group regression
+        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+      - name: Run T035 audit and print JSON report
+        run: python audits/t035_exact_binary_icosahedral_model.py

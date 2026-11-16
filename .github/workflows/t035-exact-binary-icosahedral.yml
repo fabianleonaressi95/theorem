@@ -1,0 +1,35 @@
+name: T035 exact binary icosahedral model
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "audits/t035_exact_binary_icosahedral_model.py"
+      - ".github/workflows/t035-exact-binary-icosahedral.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  t035-exact-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install exact-arithmetic dependency
+        run: python -m pip install --disable-pip-version-check sympy
+      - name: Compile T035 audit
+        run: python -m py_compile audits/t035_exact_binary_icosahedral_model.py
+      - name: Run exact T035 audit
+        run: python audits/t035_exact_binary_icosahedral_model.py --output t035-audit.json
+      - name: Upload exact audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: t035-exact-audit
+          path: t035-audit.json
+          if-no-files-found: error
