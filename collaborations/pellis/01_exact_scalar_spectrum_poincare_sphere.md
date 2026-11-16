@@ -38,7 +38,7 @@ M:=S^3/2I
 \]
 is a smooth compact spherical space form. We equip it with the quotient of the unit round metric on \(S^3\), so its sectional curvature is \(1\).
 
-The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\). Its source record is T035. The legacy audit file is retained as a project record, but it currently contains a duplicated `from __future__ import annotations` block and is not an executable reproduction command; see §8.
+The project contains an exact quaternion model of the 120 elements over \\(\\mathbb Q(\\sqrt5)\\), recorded in T035. On this collaboration branch the duplicated legacy implementation has been removed: the audit module now has one top-level `from __future__ import annotations`, and the regression test targets its current API. The branch workflow compiles the module, runs the A1 and T035 tests, and executes the T035 audit. A successful run must be reported only after the Actions result for the resulting branch commit is observed; see §8.
 
 ## 3. Scalar eigenvalues on the covering sphere
 
@@ -59,11 +59,11 @@ Here \(r\) is always the **polynomial degree**. Under the standard left-right ac
 \[
 \mathcal H_k(S^3)\cong W_k\otimes W_k^*.
 \]
-The quotient group \(2I\) acts through the left factor only. Therefore
-\[
-\mathcal H_k(S^3)^{2I}
-\cong W_k^{2I}\otimes W_k^*.
-\]
+Fix the induced action on functions by \\( (L_qf)(x)=f(q^{-1}x) \\). With the Peter–Weyl identification chosen so that this left-regular action is on the first factor, the quotient group \\(2I\\) acts through that factor only. Therefore
+\\[
+\\mathcal H_k(S^3)^{2I}
+\\cong W_k^{2I}\\otimes W_k^*.
+\\]
 Define
 \[
 a_k:=\dim W_k^{2I}.
@@ -175,7 +175,7 @@ The central element \(-I\in2I\) acts on \(W_k\) by \((-1)^k\). Since an invarian
 a_k=0\quad\text{for odd }k.
 \]
 
-The project audit compares this character average with the integer coefficient count in §4 for every degree \(0\leq k\leq120\). The two calculations agree exactly at all 121 degrees.
+The A1 audit compares this character average with the integer coefficient count in §4 for every degree \\(0\\leq k\\leq120\\). The arithmetic routes are distinct (Reynolds recurrence versus integer coefficient counting), but the class sizes and fundamental character are transcribed from T035. This is an independent spectral calculation conditional on shared group data, not an independent reconstruction of the group. The two calculations agree exactly at all 121 degrees.
 
 
 ### 5.1 Representation-theoretic cross-checks: McKay and covariant Molien series
@@ -232,7 +232,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 
 ### Exact computational verification
 
-The repository audit independently evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \(0\leq k\leq120\). The corresponding GitHub Actions run completed successfully with all three tests passing.
+The A1 source evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \\(0\\leq k\\leq120\\), using the T035 class data as fixed input. The historical GitHub Actions run 43879748053 is evidence for the A1 source/test versions whose blob identities were checked against the then-current main branch; it is not evidence that T035 ran in that workflow. The updated collaboration-branch workflow now explicitly compiles and runs T035, but its result must be read from the Actions run associated with the branch commit rather than inferred from the workflow definition.
 
 ### Explicitly outside the scope of this note
 
