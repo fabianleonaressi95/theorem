@@ -154,11 +154,11 @@ python -m audits.a1_poincare_scalar_spectrum --max-degree 120
 python -m unittest tests.test_a1_poincare_scalar_spectrum -v
 \`\`\`
 
-The audit imports the exact class convention and $\mathbb Q(\sqrt5)$ quaternionic data from T035, constructs symmetric-power characters by recurrence, and compares the Reynolds character average against the binary Molien coefficient count at every degree. The test source is included; a GitHub Actions pass is not claimed until a corresponding run is observed.
+The audit uses the nine class sizes and defining character in the T035 convention, constructs symmetric-power characters by recurrence, and compares the Reynolds character average against the binary Molien coefficient count at every degree. The class data are recorded explicitly in the audit so this check does not depend on importing the legacy T035 script. GitHub Actions run [43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053) completed successfully: all three tests passed.
 
 **Classification**
 - **Proved:** $d_k=(k+1)\dim(V_k^{2I})$, the Reynolds character-average formula, and the binary Molien coefficient formula under the stated action.
-- **Exact finite audit specified:** equality of the two calculations for $0\le k\le120$.
+- **Exact finite audit passed in CI:** equality of the two calculations for $0\le k\le120$ (121 degrees; three regression tests passed).
 - **Open in this record:** vector/tensor spectra, Rumin operators and analytic torsion, and any proposed relation to the Pellis Functions or McKay correspondence beyond established representation-theoretic facts.
 
 ## A.7 McKay correspondence and the GAP session archive
