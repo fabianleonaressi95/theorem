@@ -160,3 +160,11 @@ The audit imports the exact class convention and $\mathbb Q(\sqrt5)$ quaternioni
 - **Proved:** $d_k=(k+1)\dim(V_k^{2I})$, the Reynolds character-average formula, and the binary Molien coefficient formula under the stated action.
 - **Exact finite audit specified:** equality of the two calculations for $0\le k\le120$.
 - **Open in this record:** vector/tensor spectra, Rumin operators and analytic torsion, and any proposed relation to the Pellis Functions or McKay correspondence beyond established representation-theoretic facts.
+
+## A.7 McKay correspondence and the GAP session archive
+
+The binary icosahedral group $2I$ has nine irreducible representations. Tensoring with its defining two-dimensional representation gives the affine $E_8$ McKay graph. This is a representation-ring statement, distinct from the scalar spectral calculation above; it provides the representation-theoretic framework for extending the audit to all nine isotypic sectors.
+
+The repository contains the computational session record [GAP_sessione_2A5_McKay_2I.pdf](../GAP_sessione_2A5_McKay_2I.pdf). It is retained as a primary project artifact documenting the GAP calculations and can be cited directly from this document. The mathematical statement and its exact multiplicity recurrence are formalized separately in [T026 — McKay–$E_8$ recurrence for all nine $2I$ multiplicities](../theorems/T026-mckay-e8-2i-multiplicities.md); the relation to the Molien/Rumin sectors is treated in [T027 — Exact McKay–Molien bridge](../theorems/T027-mckay-molien-rumin-bridge.md).
+
+**Citation rule:** cite the GAP PDF as the computational record of the session, and cite T026 (together with the published McKay correspondence) for the mathematical affine-$E_8$ statement. The PDF is not, by itself, a substitute for the proof or the exact audit scripts.
