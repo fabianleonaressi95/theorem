@@ -452,7 +452,12 @@ class Representation:
 def build_representations(G):
     n = len(G.elements)
     M2 = [fundamental_matrix(q) for q in G.elements]
-    M2p = [mat_gal(m) for m in M2]
+    
+    def q_gal(q):
+        return tuple(x.gal() for x in q)
+    
+    M2p = [fundamental_matrix(q_gal(q)) for q in G.elements]
+
     reps = {}
     reps["1"] = Representation("1", 1, "trivial", [[[ONE]] for _ in range(n)])
     reps["2"] = Representation("2", 2, "defining SU(2)", M2, [Fraction(1)] * 2)
@@ -723,6 +728,28 @@ def verify_matrix_units_multiplicity_two(G, reps, table, classes):
     return r
 
 
+def analyze_galois_on_sym_powers(table, classes, max_m=13):
+    """Verifica esatta per ogni m se Sym^m(2) è Galois-stabile o coniugata."""
+    chars = [[ONE] * 9, list(FUNDAMENTAL_CHARACTER)]
+    for k in range(2, max_m + 1):
+        chars.append([FUNDAMENTAL_CHARACTER[j] * chars[k - 1][j] - chars[k - 2][j] for j in range(9)])
+
+    results = {}
+    for m in range(max_m + 1):
+        chi_m = chars[m]
+        chi_m_gal = tuple(val.gal() for val in chi_m)
+        matched_label = None
+        for l in LABELS:
+            if tuple(table[l]) == chi_m_gal:
+                matched_label = l
+                break
+        results[m] = {
+            "is_stable": (chi_m_gal == tuple(chi_m)),
+            "matched_irrep": matched_label
+        }
+    return results
+
+
 def poly_trim(p):
     p = list(p)
     while p and p[-1].is_zero():
@@ -858,6 +885,7 @@ def run_all(molien_sym_max=13):
     mu = [verify_matrix_units_on_sym(G, reps, table, classes, m) for m in range(8)]
     mu.append(verify_matrix_units_multiplicity_two(G, reps, table, classes))
     report["matrix_units"] = mu
+    report["galois_sym_analysis"] = analyze_galois_on_sym_powers(table, classes, molien_sym_max)
     return G, reps, table, classes, report
 
 
