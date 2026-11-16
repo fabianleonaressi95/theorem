@@ -1,40 +1,52 @@
-name: Pellis document 1 exact spectral and 2I audits
-name: Exact scalar spectrum and T035 group model
+name: Pellis document 1 — exact spectrum and 2I audits
 
 on:
   push:
     branches:
-      - "collaboration/pellis-document-1-spectral-foundation"
       - main
+      - "collaboration/pellis-document-1-spectral-foundation"
       - "document-a/exact-poincare-spectrum"
+    paths:
+      - ".github/workflows/document-a1-spectrum.yml"
+      - "audits/t035_exact_binary_icosahedral_model.py"
+      - "tests/test_a1_poincare_scalar_spectrum.py"
+      - "tests/test_t035_exact_binary_icosahedral_model.py"
+      - "theorems/T035-*"
   pull_request:
     branches:
       - main
+    paths:
+      - ".github/workflows/document-a1-spectrum.yml"
+      - "audits/t035_exact_binary_icosahedral_model.py"
+      - "tests/test_a1_poincare_scalar_spectrum.py"
+      - "tests/test_t035_exact_binary_icosahedral_model.py"
+      - "theorems/T035-*"
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: pellis-document-a1-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   exact-audits:
-  exact-mathematics:
+    name: A1 scalar spectrum and T035 exact group model
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install exact-arithmetic dependencies
-        run: python -m pip install --disable-pip-version-check sympy
-      - name: Compile T035 source
-        run: python -m py_compile audits/t035_exact_binary_icosahedral_model.py
       - name: Run A1 scalar spectrum regression
         run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Compile T035 source
+        run: python -m py_compile audits/t035_exact_binary_icosahedral_model.py
       - name: Run T035 exact group regression
         run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
       - name: Run T035 exact group audit
-      - name: Run T035 exact binary icosahedral group regression
-        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
-      - name: Run T035 audit and print JSON report
         run: python audits/t035_exact_binary_icosahedral_model.py
