@@ -44,3 +44,16 @@ M_{\mathbb R^4}(t)=\frac1{120}\sum_{q\in2I}
 Its coefficients through degree 60 are computed from the exact reciprocal-determinant recurrences. They agree degree by degree with the independently specified Klein coefficient count and the harmonic/Fischer formula recorded in S013. The complete rational-function simplification is also available as an optional exact SymPy check.
 
 **Status update:** the 120-element quaternionic group and its real \(4\)-dimensional left-action Molien computation now have an exact-arithmetic reproducibility path. This upgrades the former floating-point closure check; it does not change the boundary on physical interpretation or Q6 coupling.
+
+
+## Extended exact Molien verification (16 November 2026)
+
+The exact quaternionic real-Molien audit has been extended from degree 60 to degree 240. The direct finite sum is evaluated with rational arithmetic in \(\mathbb Q(\sqrt5)\); group closure, determinant expansion, and reciprocal-series coefficient averaging remain exact. All coefficients \(m_n\) for \(0\le n\le240\) agree with the Peter–Weyl/Fischer expression in S013.
+
+Selected real-polynomial Molien coefficients are
+\[
+m_{60}=677,\quad m_{120}=5073,\quad m_{144}=8708,
+\quad m_{180}=16789,\quad m_{200}=22943,
+\quad m_{216}=28829,\quad m_{240}=39425.
+\]
+These are not the spherical multiplicities themselves: those are \(d_n=(n+1)c_n\). The command-line audit and regression test now use degree 240. See [the audit record](../audits/2i_real_molien_exact/README.md).
