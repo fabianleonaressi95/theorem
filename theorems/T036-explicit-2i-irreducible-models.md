@@ -46,3 +46,40 @@ python -m src.t036_2i_irreducible_models --output data/t036_2i_irreducible_model
 T036 constructs explicit exact matrix models and invariant metrics. Together with T033, this makes the finite-group matrix-unit construction executable. The next step is to apply those matrix units to the Rumin harmonic eigenspaces and compute the Rumin-specific multiplicity bases and reduced geometric differential matrices.
 
 No new spectral theorem, analytic torsion value, or continuum-limit claim is made.
+
+
+## Eight models beyond the defining representation — explicit target
+
+The eight non-fundamental irreducibles are
+\[
+\mathbf1,\quad \mathbf2',\quad \mathbf3,\quad \mathbf3',
+\quad \mathbf4,\quad \mathbf4',\quad \mathbf5,\quad \mathbf6.
+\]
+Their dimensions are respectively \(1,2,3,3,4,4,5,6\), and
+\[
+1^2+2^2+3^2+3^2+4^2+4^2+5^2+6^2=116;
+\qquad 116+2^2=120.
+\]
+The first multiplicity-one symmetric-power degrees, as specified by the exact Molien series, are:
+
+| Irrep | Dimension | First multiplicity-one degree in \(\operatorname{Sym}^m(\mathbf2)\) |
+|---|---:|---:|
+| \(\mathbf1\) | 1 | 12 |
+| \(\mathbf2\) (fundamental, reference) | 2 | 1 |
+| \(\mathbf2'\) | 2 | 7 |
+| \(\mathbf3\) | 3 | 2 |
+| \(\mathbf3'\) | 3 | 6 |
+| \(\mathbf4\) | 4 | 6 |
+| \(\mathbf4'\) | 4 | 3 |
+| \(\mathbf5\) | 5 | 4 |
+| \(\mathbf6\) | 6 | 5 |
+
+T034 independently constructs all nine representation families over \(\mathbb Q(\sqrt5,i)\), including the Galois-conjugate \(\mathbf2'\) and \(\mathbf3'\). T036 supplies a second, projector-based extraction and is responsible for the full matrix export indexed by all 120 group elements. These are independent constructions and should be compared by characters and intertwining equivalence, not by demanding entrywise equality between different bases.
+
+## Reproducible build
+
+The dedicated workflow `.github/workflows/t036-explicit-2i-models.yml` now compiles the builder, runs the T036 regression tests, exports `data/t036_2i_irreducible_models_exact.json`, and uploads the exact model file as `t036-exact-2i-irreducible-models`.
+
+**Acceptance criteria:** nine models; 120 matrices per model; exact projector rank equal to the irrep dimension; all nine character rows recovered from traces on all nine conjugacy classes; invariant positive Hermitian Gram matrix preserved by every group matrix; and total squared dimension 120.
+
+**Execution status:** pending the dedicated T036 workflow run. The existence of the T034 construction and character table is not substituted for this independent T036 execution certificate. No T036 pass is claimed until its CI run and exported artifact are confirmed.
