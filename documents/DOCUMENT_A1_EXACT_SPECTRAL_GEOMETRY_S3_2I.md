@@ -161,10 +161,56 @@ The audit uses the nine class sizes and defining character in the T035 conventio
 - **Exact finite audit passed in CI:** equality of the two calculations for $0\le k\le120$ (121 degrees; three regression tests passed).
 - **Open in this record:** vector/tensor spectra, Rumin operators and analytic torsion, and any proposed relation to the Pellis Functions or McKay correspondence beyond established representation-theoretic facts.
 
-## A.7 McKay correspondence and the GAP session archive
+## A.7 McKay correspondence: exact citations and evidence map
 
-The binary icosahedral group $2I$ has nine irreducible representations. Tensoring with its defining two-dimensional representation gives the affine $E_8$ McKay graph. This is a representation-ring statement, distinct from the scalar spectral calculation above; it provides the representation-theoretic framework for extending the audit to all nine isotypic sectors.
+The McKay correspondence is used here as the representation-theoretic organization of the nine irreducible representations of $2I$ and their tensor products with the defining two-dimensional representation. For $2I$, its McKay graph is the affine Dynkin diagram $\widetilde E_8$.
 
-The repository contains the computational session record [GAP_sessione_2A5_McKay_2I.pdf](../GAP_sessione_2A5_McKay_2I.pdf). It is retained as a primary project artifact documenting the GAP calculations and can be cited directly from this document. The mathematical statement and its exact multiplicity recurrence are formalized separately in [T026 — McKay–$E_8$ recurrence for all nine $2I$ multiplicities](../theorems/T026-mckay-e8-2i-multiplicities.md); the relation to the Molien/Rumin sectors is treated in [T027 — Exact McKay–Molien bridge](../theorems/T027-mckay-molien-rumin-bridge.md).
+### A.7.1 Primary project record: GAP session
 
-**Citation rule:** cite the GAP PDF as the computational record of the session, and cite T026 (together with the published McKay correspondence) for the mathematical affine-$E_8$ statement. The PDF is not, by itself, a substitute for the proof or the exact audit scripts.
+The archived transcript is [GAP\_sessione\_2A5\_McKay\_2I.pdf](../GAP_sessione_2A5_McKay_2I.pdf) (GAP 4.11.1 session; 24 pages). The exact page references are:
+
+| PDF pages | Exact content | How it is cited here |
+|---|---|---|
+| **1** | GAP character table for $2.A5$; nine irreducible characters; degrees; orthogonality check; selection of the faithful degree-two character; power-map check distinguishing the $5a,5b,10a,10b$ classes | Computational record for the class/character-table convention and the chosen defining character |
+| **1–2** | McKay adjacency matrix obtained from character inner products; symmetry check; dimension vector $d=(1,2,3,4,5,6,4,2,3)$; check $Ad=2d$; eight edges | Computational record of the affine-$E_8$ graph |
+| **2–3** | Symmetric-power character recurrence; multiplicity decomposition; invariant coefficient comparison with $(1+t^{30})/((1-t^{12})(1-t^{20}))$; scalar spectrum through degree 60; sum of listed spectral multiplicities $677$ | Computational cross-check of the low-degree scalar spectrum and invariant multiplicities |
+| **15–16** | Character-class Molien average for the faithful two-dimensional character; rational function simplified and cross-multiplied against the Klein binary Molien expression; explicit Fischer/radial subtraction in four real variables | Computational record distinguishing the binary invariant series from the four-real-variable polynomial-to-harmonic subtraction |
+| **16–18** | Coefficient comparison between the four-variable harmonic dimensions and $(k+1)c_k$ through degree 30 | Finite comparison recorded in the transcript; it is not the all-degree proof |
+| **19** | Repeated exact class-character recurrence and coefficient output through degree 30 | Additional transcript evidence for the binary Molien coefficients |
+| **20–24** | Quaternion-list construction attempts, matrix-action experiments and group identification as $SL(2,5)$ | Historical working transcript only; several commands fail or return **false**, so these pages are **not cited as a successful certificate** of quaternion closure or of the polynomial matrix action |
+
+**Important evidence qualification.** The PDF is a raw computational session transcript, not a polished proof. It contains successful outputs as well as syntax errors, failed commands and false tests. In particular, pages 5–11 contain unsuccessful polynomial-action implementations; pages 22–24 contain a failed closure check for one quaternion list, followed by a successful abstract identification of $SL(2,5)$ of order 120 with center of order 2 and nine conjugacy classes. We cite only the successful outputs identified in the table above. We do not cite the failed experiments as evidence.
+
+### A.7.2 Exact theorem and code references in this repository
+
+1. **T026 — [McKay–$E_8$ recurrence for all nine $2I$ multiplicities](../theorems/T026-mckay-e8-2i-multiplicities.md).** The exact node order is $(\mathbf1,2_s,3,4_s,5,6_s,4,2'_s,3')$, with dimension vector $(1,2,3,4,5,6,4,2,3)$ and edges
+   $$
+   \mathbf1-2_s-3-4_s-5-6_s-4-2'_s,\qquad 6_s-3'.
+   $$
+   The recurrence is $n(0)=e_{\mathbf1}$, $n(1)=e_{2_s}$, $n(m+1)=An(m)-n(m-1)$. The script is [audits/t026_mckay_e8_multiplicities.py](../audits/t026_mckay_e8_multiplicities.py); its documented reproduction command is: python audits/t026_mckay_e8_multiplicities.py --max-degree 120 --json.
+
+2. **T027 — [Exact McKay–Molien bridge for the nine Rumin twists](../theorems/T027-mckay-molien-rumin-bridge.md).** This fixes the label correspondence from T026 to T021–T023, notably $4_s\leftrightarrow4'$ (not $4$), and checks all nine covariant coefficient sequences against the McKay recurrence. The script is [audits/t027_mckay_molien_bridge.py](../audits/t027_mckay_molien_bridge.py); its documented command is: python audits/t027_mckay_molien_bridge.py --max-degree 240 --json.
+
+3. **Standalone mathematical overview — [McKay correspondence for the binary icosahedral group](../theorems/spectral/mckay_affine_e8_binary_icosahedral.md).** This records the graph, tensor products, recurrence and its precise use in the scalar spectrum. It explicitly distinguishes the all-degree representation-theoretic identities from finite script checks.
+
+### A.7.3 Published references
+
+- J. McKay, “Graphs, singularities, and finite groups,” *Proceedings of Symposia in Pure Mathematics* **37** (1980), 183–186. This is the original source for the McKay graph correspondence.
+- P.-P. Dechant, “The birth of $E_8$ out of the spinors of the icosahedron,” *Proceedings of the Royal Society A* **472** (2016), 20150504. DOI: [10.1098/rspa.2015.0504](https://doi.org/10.1098/rspa.2015.0504). See §5 and Figure 1 for the binary-icosahedral spinor construction and the affine-$E_8$ McKay graph.
+- F. Klein, *Vorlesungen über das Ikosaeder und die Auflösung der Gleichungen vom fünften Grade*, B. G. Teubner, Leipzig, 1884. Classical source for the icosahedral invariant theory; the binary invariant Hilbert series used in A.2 is the Klein invariant-theory input.
+- A. Ikeda, “On the spectrum of a Riemannian manifold of positive constant curvature,” *Osaka Journal of Mathematics* **17** (1980), 75–93. [Original article (Osaka University repository)](https://ir.library.osaka-u.ac.jp/repo/ouka/all/5171/ojm17_01_08.pdf). Reference for spectral analysis of spherical space forms.
+- A. Kitaoka, “Analytic torsions associated with the Rumin complex on contact spheres,” *International Journal of Mathematics* **31** (2020), 2050112. [arXiv:1911.03092](https://arxiv.org/abs/1911.03092). Reference for the Rumin spectral blocks used later in the document.
+- M. Rumin and N. Seshadri, “Analytic torsions on contact manifolds,” *Annales de l’Institut Fourier* **62** (2012), 727–782. DOI: [10.5802/aif.2693](https://doi.org/10.5802/aif.2693).
+
+### A.7.4 Citation protocol for the joint manuscript
+
+Use the following citation granularity:
+
+- For the **computed McKay adjacency matrix and GAP character-table convention**: cite *GAP session, pp. 1–2*.
+- For the **initial symmetric-power decompositions and scalar eigenvalue/multiplicity list through $k=60$**: cite *GAP session, pp. 2–3*.
+- For the **binary Molien class average and the radial Fischer distinction**: cite *GAP session, pp. 15–16*.
+- For the **finite harmonic-coefficient comparison through degree 30**: cite *GAP session, pp. 16–18*.
+- For the **mathematical affine-$E_8$ correspondence and exact all-degree recurrence**: cite McKay (1980), Dechant (2016, §5 and Fig. 1), and repository theorem T026. The GAP transcript is supporting computational evidence, not the source of the general theorem.
+- For the **nine Molien covariant sectors and their Rumin multiplicity bridge**: cite T027 and its audit script, together with T021–T025 for the underlying spectral blocks. Do not cite the GAP PDF as proof of the analytic torsion formula.
+
+**Classification.** The affine-$E_8$ correspondence and Clebsch–Gordan recurrence are established representation theory; the repository scripts provide exact finite integer audits at their stated cutoffs; the GAP PDF is a mixed transcript whose successful and failed portions must be distinguished page by page. No new McKay correspondence or completed analytic torsion theorem is claimed here.
