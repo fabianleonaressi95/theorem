@@ -15,7 +15,6 @@ on:
     paths:
       - ".github/workflows/document-a1-spectrum.yml"
       - "tests/test_a1_poincare_scalar_spectrum.py"
-      - "theorems/T035-*"
   workflow_dispatch:
 
 permissions:
