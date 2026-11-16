@@ -19,6 +19,8 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 ## Fonti citate online
 - [Autori, articoli e pagine online citati nelle conversazioni](online-citations/README.md): registro separato dai documenti caricati nella Library, con fonti verificate e lacune esplicite.
 
+- [Morfodinamica Quantistica](morphodynamics-quantum/README.md): letteratura ibrida quantistico-classica, grafi quantistici a geometria variabile, retroazione semiclassica, FEEC/DEC e repository software; include mappa delle dipendenze con MQM-1, T113-D/F/A e T102.
+
 ## Settori bibliografici
 - [Vetri di spin](spin-glasses/README.md)
 - [Wyler, Hua e domini simmetrici](wyler-hua/README.md)
