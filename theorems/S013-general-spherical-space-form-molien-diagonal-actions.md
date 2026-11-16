@@ -479,3 +479,59 @@ No full CMB recalculation is claimed. No physical or cosmological conclusion is 
 - **Open:** exact enumeration, general parameter formulas, primary provenance of the \(J\)-notation, complete \(S^3\) representation classification comparison, full CMB rerun, and remaining analytic checks of the 2026 preprint.
 
 The record is deliberately not a claim that all spherical space-form spectral theory is solved. It establishes a general exact framework, documents the Ikeda correction chain, and separates the proved finite examples from the still-open parameter-family and computational work.
+
+
+## 12. Exact real four-dimensional Molien audit for the left (2I)-action (16 November 2026)
+
+This section specializes §§2.1 and 4 to the standard quaternionic embedding (2I\subset S^3\subset\mathbb H\), acting on (mathbb H\cong\mathbb R^4) by left multiplication. The finite vertex set and all computations are documented in [the exact audit record](../audits/2i_real_molien_exact/README.md), implemented by [the audit script](../scripts/audit_2i_real_molien_exact.py) and [regression tests](../tests/test_2i_real_molien_exact.py).
+
+The audit uses exact pairs (r+s\sqrt5\), (r,s\in\mathbb Q\). It constructs the 8 coordinate units, the 16 half-sign vertices, and the 96 even permutations of ((0,1,\varphi^{-1},\varphi)/2\), applying signs independently to all three nonzero coordinates after permutation. It verifies 120 distinct unit elements and all 14,400 products for closure.
+
+For (q=(a,b,c,d)\), the real matrix of left multiplication is
+\[
+L_q=\begin{pmatrix}
+a&-b&-c&-d\\
+b&a&-d&c\\
+c&d&a&-b\\
+d&-c&b&a
+\end{pmatrix}.
+\]
+The determinant is expanded exactly for each of the 120 matrices and satisfies
+\[
+\det(I-tL_q)=(1-2at+t^2)^2.
+\]
+Consequently the direct four-dimensional Molien sum is
+\[
+M_{2I,\mathbb R^4}(t)=\frac1{120}\sum_{q\in2I}
+\frac1{(1-2\operatorname{Re}(q)t+t^2)^2}.
+\]
+
+For the complex defining (SU(2)\)-representation, let
+\[
+A_{2I}(t)=\sum_{\ell\ge0}c_\ell t^\ell
+=\frac{1+t^{30}}{(1-t^{12})(1-t^{20})},
+\quad
+c_\ell=\#\{(p,q,\epsilon)\in\mathbb Z_{\ge0}^2\times\{0,1\}:
+12p+20q+30\epsilon=\ell\}.
+\]
+Peter–Weyl gives (d_\ell=(\ell+1)c_\ell\) for the left action on degree-(\ell\) spherical harmonics. Thus the harmonic series is
+\[
+D_{2I}(t)=\sum_{\ell\ge0}(\ell+1)c_\ell t^\ell
+=A_{2I}(t)+tA'_{2I}(t).
+\]
+Because the action is orthogonal, the equivariant Fischer decomposition
+\[
+P_\ell(\mathbb R^4)=\mathcal H_\ell(\mathbb R^4)
+\oplus |x|^2P_{\ell-2}(\mathbb R^4)
+\]
+gives (M_{2I,\mathbb R^4}(t)=D_{2I}(t)/(1-t^2)\). The exact finite Molien sum is therefore checked against
+\[
+\boxed{
+M_{2I,\mathbb R^4}(t)=
+\frac{A_{2I}(t)+tA'_{2I}(t)}{1-t^2}.
+}
+\]
+
+The determinant-based coefficient recurrence agrees with this formula at every degree (0\le n\le60\). This is a finite exact-arithmetic confirmation, not the proof of the general identity: the proof is the Peter–Weyl decomposition and the orthogonal Fischer decomposition already stated above. The optional SymPy path also simplifies the complete rational sum and checks the rational-function identity exactly.
+
+**Status:** exact group closure, exact real (4\times4\) determinant computation, and exact coefficient comparison through degree 60. The earlier floating-point enumeration is no longer the sole computational evidence for this (2I\) action.
