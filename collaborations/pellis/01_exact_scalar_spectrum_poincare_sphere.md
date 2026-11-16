@@ -26,10 +26,11 @@ Let
 \[
 2I\subset SU(2)
 \]
-be the binary icosahedral group, of order \(120\). Identify \(SU(2)\) with the unit sphere \(S^3\) by the standard unit-quaternion realization. The group acts on \(S^3\) by left multiplication:
+be the binary icosahedral group, of order \(120\). Identify \(SU(2)\) with the unit sphere \(S^3\) by the standard unit-quaternion realization. The group acts on \(S^3\) by **left multiplication**:
 \[
 q\cdot x=qx,\qquad q\in2I,\quad x\in S^3.
 \]
+Throughout this note, \(S^3/2I\) means the orbit space for this left action. The induced action on scalar harmonics is on the left Peter–Weyl factor. The right-action convention gives an isometric quotient and the same scalar spectrum, but it is not the convention used below.
 
 This action is free. Indeed, if \(qx=x\), then multiplication on the right by \(x^{-1}\) gives \(q=1\). Thus
 \[
@@ -37,41 +38,48 @@ M:=S^3/2I
 \]
 is a smooth compact spherical space form. We equip it with the quotient of the unit round metric on \(S^3\), so its sectional curvature is \(1\).
 
-The group model used in the project is exact: the 120 elements are represented as unit quaternions with coordinates in \(\mathbb Q(\sqrt5)\), and the multiplication table, unit norms, inverses, and defining two-dimensional representation are checked using exact arithmetic. See project record **T035**, §2–§5, and the corresponding audit script cited in §8 below.
+The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\). Its source record is T035. The legacy audit file is retained as a project record, but it currently contains a duplicated `from __future__ import annotations` block and is not an executable reproduction command; see §8.
 
 ## 3. Scalar eigenvalues on the covering sphere
 
-For the unit round three-sphere, scalar spherical harmonics of degree \(k\geq0\) have Laplace eigenvalue
+For the unit round three-sphere, use the **positive Laplacian convention**
+\[
+\Delta=-\operatorname{div}\nabla,
+\]
+so scalar spherical harmonics of degree \(k\geq0\) have eigenvalue
 \[
 \lambda_k=k(k+2).
 \]
 
-Let
+Let \(U=\mathbb C^2\) be the defining representation of \(SU(2)\), and set
 \[
-V_k=\operatorname{Sym}^k(\mathbb C^2),
-\qquad \dim_{\mathbb C}V_k=k+1,
+W_r:=\operatorname{Sym}^{r}(U),\qquad \dim_{\mathbb C}W_r=r+1.
 \]
-be the irreducible \(SU(2)\)-representation of highest weight \(k\). Under the standard left-right action of \(SU(2)_L\times SU(2)_R\), the degree-\(k\) scalar harmonic space is
+Here \(r\) is always the **polynomial degree**. Under the standard left-right action of \(SU(2)_L\times SU(2)_R\), the degree-\(k\) scalar harmonic space is
 \[
-\mathcal H_k(S^3)\cong V_k\otimes V_k^*.
+\mathcal H_k(S^3)\cong W_k\otimes W_k^*.
 \]
 The quotient group \(2I\) acts through the left factor only. Therefore
 \[
 \mathcal H_k(S^3)^{2I}
-\cong V_k^{2I}\otimes V_k^*.
+\cong W_k^{2I}\otimes W_k^*.
 \]
-Writing
+Define
 \[
-n_k:=\dim V_k^{2I},
+a_k:=\dim W_k^{2I}.
 \]
-the multiplicity of \(\lambda_k\) on \(M=S^3/2I\) is
+For even degree \(k=2j\), one may also write \(W_{2j}=V_j\), where \(V_j\) denotes the spin-\(j\) irreducible representation and has dimension \(2j+1\). Define separately
 \[
-\boxed{d_k=(k+1)n_k.}
+n_j:=a_{2j}=\dim V_j^{2I}.
 \]
+Thus the invariant-series coefficient is indexed by polynomial degree \(k\), whereas \(n_j\) is indexed by spin \(j\). The multiplicity of \(\lambda_k\) on \(M=S^3/2I\) is
+\[
+\boxed{d_k=(k+1)a_k,\qquad d_{2j}=(2j+1)n_j.}
+]
 
 This is the key representation-theoretic reduction: the invariant multiplicity \(n_k\) is computed on the left \(SU(2)\) representation, while the right factor contributes the independent dimension \(k+1\).
 
-The general spherical-space-form framework behind the invariant-eigenspace identification is given by Ikeda, Proposition 1.5, pp. 79–80. In particular, the eigenspaces downstairs are exactly the invariant parts of the spherical eigenspaces upstairs.
+The general spherical-space-form framework behind the invariant-eigenspace identification is treated by Ikeda [1]. The exact proposition and page locator should be checked directly against the version of record before external submission.
 
 ## 4. Binary icosahedral invariant series
 
@@ -92,7 +100,7 @@ where
 \[
 c_k=\dim\bigl(\operatorname{Sym}^k(\mathbb C^2)^{2I}\bigr).
 \]
-Thus \(n_k=c_k\), and the scalar multiplicity formula becomes
+Thus (a_k=c_k), and the scalar multiplicity formula becomes
 \[
 \boxed{
 d_k=(k+1)[t^k]\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}.
@@ -107,17 +115,17 @@ c_k=
 \]
 This form is useful because it computes every coefficient by finite integer counting, without floating-point arithmetic.
 
-The invariant-ring presentation and the degree-12, degree-20, degree-30 generators are treated explicitly in Klein's classical work and in Nash's modern exposition, §2, especially equations (2.8)–(2.11). The Hilbert series above follows from the graded complete-intersection presentation: three generators in degrees \(12,20,30\), one relation in degree \(60\).
+The invariant-ring presentation and the degree-12, degree-20, degree-30 generators are treated in Klein's classical work and in Nash's modern exposition [2, 3]. The precise equation locators in Nash are left for direct page-level verification before external submission. The Hilbert series above follows from the graded complete-intersection presentation: three generators in degrees \(12,20,30\), one relation in degree \(60\).
 
 ### 4.1 Why there is no extra radial subtraction in this coefficient formula
 
-The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient \(c_k\) is already \(\dim V_k^{2I}\). The full scalar harmonic multiplicity on \(S^3/2I\) is then \((k+1)c_k\), because of the untouched right \(SU(2)\) factor.
+The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient (c_k=a_k) is already (dim W_k^{2I}). The full scalar harmonic multiplicity on (S^3/2I) is then ((k+1)a_k=(k+1)c_k), because of the untouched right \(SU(2)\) factor.
 
 This must not be confused with the distinct real four-variable polynomial calculation. For a finite group acting linearly on \(\mathbb R^4\), the Fischer decomposition separates homogeneous polynomials into harmonic polynomials and multiples of \(r^2\). Ikeda writes this as
 \[
 P^k=H^k\oplus r^2P^{k-2}
 \]
-in equation (1.1), p. 78, and derives the spherical-space-form generating function in Theorem 2.2, pp. 80–81:
+in its discussion of Fischer decomposition and the spherical-space-form generating function [1]. The precise equation, theorem, and page locators are intentionally not asserted here pending a direct page-level check:
 \[
 F_G(t)=\frac1{|G|}\sum_{g\in G}
 \frac{1-t^2}{\det(I_4-tg)}.
@@ -126,7 +134,7 @@ That real four-dimensional Molien/Fischer expression is a valid independent rout
 
 The two generating functions are related by the coefficient identity
 \[
-F_{2I}(t)=\sum_{k\geq0}(k+1)c_k t^k
+F_{2I}(t)=sum_{kgeq0}(k+1)a_k t^k
 =A_{2I}(t)+tA_{2I}'(t).
 \]
 This relation follows by differentiating the power series term by term. It is a useful consistency check and prevents the two Molien calculations from being mixed.
@@ -135,7 +143,7 @@ This relation follows by differentiating the power series term by term. It is a 
 
 The invariant dimension can also be computed by the Reynolds projector:
 \[
-n_k=\frac1{120}\sum_{g\in2I}\chi_k(g),
+a_k=rac1{120}sum_{gin2I}chi_k(g),
 \]
 where \(\chi_k\) is the character of \(V_k=\operatorname{Sym}^k(\mathbb C^2)\).
 
@@ -158,22 +166,22 @@ The class sizes sum to \(120\). The symmetric-power characters are generated exa
 \]
 Hence
 \[
-n_k=\frac1{120}\sum_{j=1}^{9}|C_j|\chi_k(C_j).
+a_k=rac1{120}sum_{j=1}^{9}|C_j|chi_k(C_j).
 \]
 All character values lie in \(\mathbb Q(\sqrt5)\); the average is evaluated exactly, not numerically.
 
 The central element \(-I\in2I\) acts on \(V_k\) by \((-1)^k\). Since an invariant vector must be fixed by every group element, it follows immediately that
 \[
-n_k=0\quad\text{for odd }k.
+a_k=0quad	ext{for odd }k.
 \]
 
 The project audit compares this character average with the integer coefficient count in §4 for every degree \(0\leq k\leq120\). The two calculations agree exactly at all 121 degrees.
 
 ## 6. Verified initial scalar spectrum
 
-For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is \(d_k=(k+1)c_k\). The first nonzero entries are:
+For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is (d_k=(k+1)a_k). The first nonzero entries are:
 
-| \(k\) | \(\lambda_k\) | \(c_k=n_k\) | \(d_k\) |
+| \(k\) | \(\lambda_k\) | (a_k=c_k) | \(d_k\) |
 |---:|---:|---:|---:|
 | 0 | 0 | 1 | 1 |
 | 12 | 168 | 1 | 13 |
@@ -205,7 +213,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 ### Established mathematical statements
 
 1. The left multiplication action of \(2I\) on \(S^3\) is free, so the quotient is a smooth spherical space form.
-2. The scalar eigenvalues on the unit-radius quotient are among \(k(k+2)\), with multiplicity \((k+1)\dim V_k^{2I}\).
+2. The scalar eigenvalues on the unit-radius quotient are among \(k(k+2)\), with multiplicity ((k+1)a_k); equivalently, for even (k=2j), this is ((2j+1)n_j).
 3. The binary invariant Hilbert series is \((1+t^{30})/((1-t^{12})(1-t^{20}))\).
 4. The exact scalar multiplicity formula is therefore the coefficient formula in §4.
 5. Odd degrees vanish because the central element \(-I\) acts by \((-1)^k\).
@@ -238,22 +246,21 @@ Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/t
 
 Reproduce from the repository root:
 \`\`\`bash
-python -m audits.t035_exact_binary_icosahedral_model
 python -m audits.a1_poincare_scalar_spectrum --max-degree 120
 python -m unittest tests.test_a1_poincare_scalar_spectrum -v
 \`\`\`
 
-The first command checks the exact 120-element quaternion model and defining representation. The second compares the exact character average with the binary Molien coefficient count through degree 120. The third runs the three regression tests. These commands are the reproducibility protocol; a reader should run them locally rather than infer a new test result from the text of this note.
+The two commands below reproduce the scalar-spectrum audit and its regression tests. They do **not** execute the legacy T035 script or independently rebuild the quaternion group. The A1 audit keeps the exact class-size and character input local, avoiding import of the currently broken legacy T035 module. The recorded GitHub Actions run is separate evidence: it completed with three tests passing and 121 exact degree comparisons. No new test execution is claimed by this document update.
 
 ## 9. References
 
-**[1]** A. Ikeda, “On the spectrum of a Riemannian manifold of positive constant curvature,” *Osaka Journal of Mathematics* **17** (1980), no. 1, 75–93. DOI: [10.18910/5171](https://doi.org/10.18910/5171). Open version of record: [Osaka University Institutional Knowledge Archive](https://ir.library.osaka-u.ac.jp/repo/ouka/all/5171/ojm17_01_08.pdf). Relevant locations: Lemma 1.3 and Lemma 1.4, pp. 78–79; Proposition 1.5, p. 79; Theorem 2.2 and equations (2.1)–(2.2), pp. 80–81.
+**[1]** A. Ikeda, “On the spectrum of a Riemannian manifold of positive constant curvature,” *Osaka Journal of Mathematics* **17** (1980), no. 1, 75–93. DOI: [10.18910/5171](https://doi.org/10.18910/5171). Open version of record: [Osaka University Institutional Knowledge Archive](https://ir.library.osaka-u.ac.jp/repo/ouka/all/5171/ojm17_01_08.pdf). Used as the general spherical-space-form spectral reference. Pinpoint page, proposition, theorem, and equation locators are withheld until rechecked directly against the PDF.
 
 **[2]** F. Klein, *Vorlesungen über das Ikosaeder und die Auflösung der Gleichungen vom fünften Grade*. Leipzig: B. G. Teubner, 1884. Classical source for the icosahedral invariant forms and their syzygy.
 
-**[3]** O. Nash, “On Klein’s Icosahedral Solution of the Quintic,” *Expositiones Mathematicae* **32** (2014), no. 2, 99–120. DOI: [10.1016/j.exmath.2013.09.003](https://doi.org/10.1016/j.exmath.2013.09.003). Preprint: [arXiv:1308.0955](https://arxiv.org/abs/1308.0955). Relevant location: §2, especially the invariant forms (2.8)–(2.9), the degree-60 syzygy (2.11), and the invariant-ring argument immediately following it.
+**[3]** O. Nash, “On Klein’s Icosahedral Solution of the Quintic,” *Expositiones Mathematicae* **32** (2014), no. 2, 99–120. DOI: [10.1016/j.exmath.2013.09.003](https://doi.org/10.1016/j.exmath.2013.09.003). Preprint: [arXiv:1308.0955](https://arxiv.org/abs/1308.0955). Used for the modern discussion of the icosahedral invariant forms and syzygy; pinpoint equation locators are pending direct recheck.
 
-**[4]** A. Ikeda and Y. Yamamoto, “On the spectra of 3-dimensional lens spaces,” *Osaka Journal of Mathematics* **16** (1979), no. 2, 447–469. DOI: [10.18910/4811](https://doi.org/10.18910/4811). This is background for the spherical-space-form spectral method; the specific general spherical-space-form statements used above are cited to Ikeda [1].
+**[4]** A. Ikeda and Y. Yamamoto, “On the spectra of 3-dimensional lens spaces,” *Osaka Journal of Mathematics* **16** (1979), no. 2, 447–469. DOI: [10.18910/4811](https://doi.org/10.18910/4811). Background reference only; no specific proposition, page, or equation from this paper is used as a premise here.
 
 ---
 
