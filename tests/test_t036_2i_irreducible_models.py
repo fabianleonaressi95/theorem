@@ -4,7 +4,10 @@ from src.t032_2i_molien import IRREP_DIMENSIONS
 from src.t036_2i_irreducible_models import (
     build_all_models, verify_models, symmetric_power_matrix
 )
-from audits.t035_exact_binary_icosahedral_model import elements_2i, rho2
+from audits.t035_exact_binary_icosahedral_model import (
+    binary_icosahedral_elements as elements_2i,
+    fundamental_su2_matrix as rho2,
+)
 
 class TestT036ExplicitIrreducibleModels(unittest.TestCase):
     @classmethod
