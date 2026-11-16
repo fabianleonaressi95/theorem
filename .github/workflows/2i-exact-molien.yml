@@ -25,8 +25,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run exact scalar Molien regression
-        run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
       - name: Run T026 McKay E8 recurrence through degree 120
         run: python audits/t026_mckay_e8_multiplicities.py --max-degree 120 --json
       - name: Run T027 nine-series McKay–Molien bridge through degree 240
