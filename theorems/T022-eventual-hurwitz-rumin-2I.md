@@ -1,6 +1,6 @@
 # T022 — Eventual-period Hurwitz audit for all Rumin twists on S³/2I
 
-**Status:** corrected finite Hurwitz decomposition established algebraically from the Molien numerators; all nine resulting torsion values independently reproduced at high precision and agree with the Dowker–Chang algebraic benchmark. The standalone script is committed with this note. Symbolic reduction of all nine Gamma products and operator-level convention matching remain open.
+**Status:** corrected finite Hurwitz decomposition established algebraically from the Molien numerators; all nine torsion values reproduced at 70-digit precision and matched against the Dowker–Chang algebraic benchmarks in CI run [43909122496](https://github.com/fabianleonaressi95/theorem/actions/runs/43909122496). Exact Gamma-product reduction is closed by T023 (same run); the operator-level convention matching is treated in T024.
 
 ## 1. Purpose
 
@@ -109,3 +109,6 @@ Requires SymPy. The script:
 - A. Kitaoka, *Analytic Torsions associated with the Rumin Complex on Contact Spheres*, arXiv:1911.03092.
 - M. Rumin and N. Seshadri, *Analytic torsions on contact manifolds*, Ann. Inst. Fourier 62 (2012), 727–782.
 - J. S. Dowker and P. Chang, *Analytic torsion on spherical factors and tessellations*, arXiv:0904.0744.
+
+
+**Execution certificate (2026-11-16):** GitHub Actions run `43909122496` completed successfully. The script executed `audit(70)` for all nine irreducibles and uploaded the complete JSON report in artifact `rumin-exact-audit-results` (ID `14246139326`).
