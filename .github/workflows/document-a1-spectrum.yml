@@ -1,9 +1,11 @@
 name: Pellis document 1 exact spectral and 2I audits
+name: Exact scalar spectrum and T035 group model
 
 on:
   push:
     branches:
       - "collaboration/pellis-document-1-spectral-foundation"
+      - main
       - "document-a/exact-poincare-spectrum"
   pull_request:
     branches:
@@ -15,6 +17,7 @@ permissions:
 
 jobs:
   exact-audits:
+  exact-mathematics:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -31,4 +34,7 @@ jobs:
       - name: Run T035 exact group regression
         run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
       - name: Run T035 exact group audit
+      - name: Run T035 exact binary icosahedral group regression
+        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+      - name: Run T035 audit and print JSON report
         run: python audits/t035_exact_binary_icosahedral_model.py
