@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Exact-integer McKay E8 / Molien consistency check for the binary icosahedral group.
 
-No third-party dependencies. This verifies the stated affine E8 graph data and
-compares the SU(2) restriction recurrence with the Molien coefficient formula
-through degree 120. It is a finite computational check, not a proof of McKay's
-correspondence or Molien's theorem.
+No third-party dependencies. The vector m_r contains the multiplicities of all
+nine irreducible 2I representations in Sym^r(C^2)|_{2I}. The script checks the
+McKay recurrence against the Molien coefficient formula through degree 120.
+This finite check is not a proof of McKay's correspondence or Molien's theorem.
 """
 
 from __future__ import annotations
 
 MAX_DEGREE = 120
+TABLE_MAX_DEGREE = 60
 
 # Vertex order: trivial, defining 2D, then along the long arm, then the
 # length-two arm, then the length-one arm.
@@ -46,81 +47,94 @@ def molien_coefficient(degree: int) -> int:
         remainder = degree - 30 * epsilon
         if remainder < 0:
             continue
-        for r in range(remainder // 12 + 1):
-            if (remainder - 12 * r) % 20 == 0:
+        for p in range(remainder // 12 + 1):
+            if (remainder - 12 * p) % 20 == 0:
                 count += 1
     return count
 
 
-def mckay_invariant_coefficients(max_degree: int) -> list[int]:
-    """Return a_n = multiplicity of the trivial irrep in Sym^n(C^2)."""
-    # m_0 = e_0, m_1 = e_1 (the defining two-dimensional representation).
+def mckay_multiplicity_vectors(max_degree: int) -> list[list[int]]:
+    """Return m_r, with (m_r)_i = mult(rho_i, Sym^r(C^2)|_{2I})."""
+    # m_0=e_0 (trivial); m_1=e_1 (the defining two-dimensional irrep).
     previous = [1] + [0] * 8
     current = [0, 1] + [0] * 7
-    coefficients = [previous[0], current[0]]
-
+    vectors = [previous, current]
     matrix = adjacency_matrix()
-    for _n in range(1, max_degree):
+
+    for _r in range(1, max_degree):
         product = mat_vec(matrix, current)
         following = [product[i] - previous[i] for i in range(9)]
         if any(value < 0 for value in following):
             raise AssertionError("Negative irreducible multiplicity in recurrence")
-        coefficients.append(following[0])
+        vectors.append(following)
         previous, current = current, following
 
-    return coefficients[: max_degree + 1]
+    return vectors[: max_degree + 1]
 
 
 def main() -> None:
     matrix = adjacency_matrix()
 
-    # Dimension vector is the positive null vector of 2I - A.
-    twice_dimensions = [2 * value for value in DIMENSIONS]
+    # The affine E8 dimension vector is the positive null vector of 2I - A.
     adjacency_dimensions = mat_vec(matrix, list(DIMENSIONS))
-    assert adjacency_dimensions == twice_dimensions
+    assert adjacency_dimensions == [2 * value for value in DIMENSIONS]
 
     # Sum of squared irreducible dimensions equals the group order.
     assert sum(value * value for value in DIMENSIONS) == 120
 
-    # The graph is connected and has 9 vertices / 8 edges: affine E8 is a tree.
+    # Connected graph with 9 vertices and 8 edges is a tree.
     assert len(EDGES) == 8
     reached = {0}
-    while True:
-        expanded = reached | {
-            j for i, j in EDGES if i in reached
-        } | {
-            i for i, j in EDGES if j in reached
-        }
-        if expanded == reached:
-            break
-        reached = expanded
+    frontier = [0]
+    while frontier:
+        vertex = frontier.pop()
+        for i, j in EDGES:
+            neighbour = j if i == vertex else i if j == vertex else None
+            if neighbour is not None and neighbour not in reached:
+                reached.add(neighbour)
+                frontier.append(neighbour)
     assert len(reached) == 9
 
-    mckay = mckay_invariant_coefficients(MAX_DEGREE)
-    molien = [molien_coefficient(n) for n in range(MAX_DEGREE + 1)]
-    mismatches = [
-        (n, mckay[n], molien[n])
-        for n in range(MAX_DEGREE + 1)
-        if mckay[n] != molien[n]
+    vectors = mckay_multiplicity_vectors(MAX_DEGREE)
+    mckay = [vector[0] for vector in vectors]
+    molien = [molien_coefficient(r) for r in range(MAX_DEGREE + 1)]
+
+    even_mismatches = [
+        (r, mckay[r], molien[r])
+        for r in range(0, MAX_DEGREE + 1, 2)
+        if mckay[r] != molien[r]
     ]
-    assert not mismatches, mismatches
+    odd_nonzero = [
+        (r, mckay[r], molien[r])
+        for r in range(1, MAX_DEGREE + 1, 2)
+        if mckay[r] != 0 or molien[r] != 0
+    ]
+    assert not even_mismatches, even_mismatches
+    assert not odd_nonzero, odd_nonzero
 
-    # Central element -1 acts by (-1)^n on Sym^n(C^2).
-    assert all(mckay[n] == 0 for n in range(1, MAX_DEGREE + 1, 2))
-
-    first_positive = next(n for n in range(1, MAX_DEGREE + 1) if mckay[n])
+    first_positive = next(r for r in range(1, MAX_DEGREE + 1) if mckay[r])
     assert first_positive == 12
-    eigenvalue = first_positive * (first_positive + 2)
-    multiplicity = (first_positive + 1) * mckay[first_positive]
-    assert (eigenvalue, multiplicity) == (168, 13)
+    assert mckay[60] == 2
+    assert mckay[120] == 3
+    assert (first_positive * (first_positive + 2),
+            (first_positive + 1) * mckay[first_positive]) == (168, 13)
 
-    print(f"PASS: affine E8 dimension-vector checks")
-    print(f"PASS: sum(dim rho_i^2) = {sum(x*x for x in DIMENSIONS)} = |2I|")
-    print(f"PASS: McKay recurrence agrees with Molien coefficients: "
-          f"{MAX_DEGREE + 1}/{MAX_DEGREE + 1}")
-    print(f"First positive invariant degree: n={first_positive}")
-    print(f"First positive scalar eigenvalue: {eigenvalue}")
-    print(f"Quotient multiplicity at that eigenvalue: {multiplicity}")
+    print("PASS: affine E8 dimension-vector and graph checks")
+    print("PASS: sum(dim rho_i^2) = 120 = |2I|")
+    print(f"PASS: even-degree McKay/Molien comparisons: "
+          f"{MAX_DEGREE // 2 + 1}/{MAX_DEGREE // 2 + 1}")
+    print(f"PASS: odd-degree central-parity checks: "
+          f"{MAX_DEGREE // 2}/{MAX_DEGREE // 2}")
+    print(f"PASS: total degree checks 0..{MAX_DEGREE}: {MAX_DEGREE + 1}")
+    print()
+    print("k  spin  a_k  lambda_k  d_k")
+    for k in range(0, TABLE_MAX_DEGREE + 1, 2):
+        a_k = mckay[k]
+        print(f"{k:2d} {k // 2:5d} {a_k:4d} "
+              f"{k * (k + 2):9d} {(k + 1) * a_k:4d}")
+    print()
+    print(f"At k=60: a_60={mckay[60]}, d_60={61 * mckay[60]}")
+    print(f"At k=120: a_120={mckay[120]}, d_120={121 * mckay[120]}")
 
 
 if __name__ == "__main__":
