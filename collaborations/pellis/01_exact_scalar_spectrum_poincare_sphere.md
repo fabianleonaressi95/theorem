@@ -38,7 +38,7 @@ M:=S^3/2I
 \]
 is a smooth compact spherical space form. We equip it with the quotient of the unit round metric on \(S^3\), so its sectional curvature is \(1\).
 
-The project contains an exact quaternion model of the 120 elements over \\(\\mathbb Q(\\sqrt5)\\), recorded in T035. On this collaboration branch the duplicated legacy implementation has been removed: the audit module now has one top-level `from __future__ import annotations`, and the regression test targets its current API. The branch workflow compiles the module, runs the A1 and T035 tests, and executes the T035 audit. A successful run must be reported only after the Actions result for the resulting branch commit is observed; see §8.
+The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\), recorded in T035. On this collaboration branch the duplicated legacy implementation has been removed: the audit module now has one top-level `from __future__ import annotations`, and the regression test targets its current API. The branch workflow compiles the module, runs the A1 and T035 tests, and executes the T035 audit. A successful run must be reported only after the Actions result for the resulting branch commit is observed; see §8.
 
 ## 3. Scalar eigenvalues on the covering sphere
 
@@ -59,11 +59,11 @@ Here \(r\) is always the **polynomial degree**. Under the standard left-right ac
 \[
 \mathcal H_k(S^3)\cong W_k\otimes W_k^*.
 \]
-Fix the induced action on functions by \\( (L_qf)(x)=f(q^{-1}x) \\). With the Peter–Weyl identification chosen so that this left-regular action is on the first factor, the quotient group \\(2I\\) acts through that factor only. Therefore
-\\[
-\\mathcal H_k(S^3)^{2I}
-\\cong W_k^{2I}\\otimes W_k^*.
-\\]
+Fix the induced action on functions by \( (L_qf)(x)=f(q^{-1}x) \). With the Peter–Weyl identification chosen so that this left-regular action is on the first factor, the quotient group \(2I\) acts through that factor only. Therefore
+\[
+\mathcal H_k(S^3)^{2I}
+\cong W_k^{2I}\otimes W_k^*.
+\]
 Define
 \[
 a_k:=\dim W_k^{2I}.
