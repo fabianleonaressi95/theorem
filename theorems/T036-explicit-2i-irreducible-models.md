@@ -78,7 +78,7 @@ T034 independently constructs all nine representation families over \(\mathbb Q(
 
 ## Reproducible build
 
-The dedicated workflow `.github/workflows/t036-explicit-2i-models.yml` now compiles the builder, runs the T036 regression tests, exports `data/t036_2i_irreducible_models_exact.json`, and uploads the exact model file as `t036-exact-2i-irreducible-models`.
+The dedicated workflow `.github/workflows/t036-explicit-2i-models.yml` compiles the builder, runs its full exact `build_all_models()` and `verify_models()` acceptance path once, exports `data/t036_2i_irreducible_models_exact.json`, and uploads the exact model file as `t036-exact-2i-irreducible-models`. This avoids computing the same expensive exact models twice in a single CI job; the standalone unittest remains available for local/deeper regression.
 
 **Acceptance criteria:** nine models; 120 matrices per model; exact projector rank equal to the irrep dimension; all nine character rows recovered from traces on all nine conjugacy classes; invariant positive Hermitian Gram matrix preserved by every group matrix; and total squared dimension 120.
 
