@@ -175,7 +175,7 @@ The central element \(-I\in2I\) acts on \(W_k\) by \((-1)^k\). Since an invarian
 a_k=0\quad\text{for odd }k.
 \]
 
-The A1 audit compares this character average with the integer coefficient count in §4 for every degree \\(0\\leq k\\leq120\\). The arithmetic routes are distinct (Reynolds recurrence versus integer coefficient counting), but the class sizes and fundamental character are transcribed from T035. This is an independent spectral calculation conditional on shared group data, not an independent reconstruction of the group. The two calculations agree exactly at all 121 degrees.
+The A1 audit compares this character average with the integer coefficient count in §4 for every degree \(0\\leq k\\leq120\). The arithmetic routes are distinct (Reynolds recurrence versus integer coefficient counting), but the class sizes and fundamental character are transcribed from T035. This is an independent spectral calculation conditional on shared group data, not an independent reconstruction of the group. The two calculations agree exactly at all 121 degrees.
 
 
 ### 5.1 Representation-theoretic cross-checks: McKay and covariant Molien series
@@ -232,7 +232,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 
 ### Exact computational verification
 
-The A1 source evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \\(0\\leq k\\leq120\\), using the T035 class data as fixed input. The historical GitHub Actions run 43879748053 is evidence for the A1 source/test versions whose blob identities were checked against the then-current main branch; it is not evidence that T035 ran in that workflow. The updated collaboration-branch workflow now explicitly compiles and runs T035, but its result must be read from the Actions run associated with the branch commit rather than inferred from the workflow definition.
+The A1 source evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \(0\\leq k\\leq120\), using the T035 class data as fixed input. The historical GitHub Actions run 43879748053 is evidence for the A1 source/test versions whose blob identities were checked against the then-current main branch; it is not evidence that T035 ran in that workflow. The updated collaboration-branch workflow now explicitly compiles and runs T035. The successful run [43891483378](https://github.com/fabianleonaressi95/theorem/actions/runs/43891483378), on commit `006516d32d534a000ee66c302eb53a3586a2ce2a`, completed `py_compile`, all three A1 regression tests, the T035 regression test, and the direct T035 audit.
 
 ### Explicitly outside the scope of this note
 
@@ -256,7 +256,7 @@ Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/t
 - **Scalar spectral formula and complete table:** [Document A1 — Exact scalar spectrum](../../documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md).
 - **Independent scalar spectral audit:** [audits/a1_poincare_scalar_spectrum.py](../../audits/a1_poincare_scalar_spectrum.py).
 - **Regression tests:** [tests/test_a1_poincare_scalar_spectrum.py](../../tests/test_a1_poincare_scalar_spectrum.py).
-- **Historical A1 CI evidence:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053). It must not be cited as a T035 run. The collaboration-branch workflow now includes `py_compile`, the A1 regression, the T035 regression, and direct T035 execution.
+- **Historical A1 CI evidence:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053). It must not be cited as a T035 run. **Combined A1/T035 verification:** [GitHub Actions run 43891483378](https://github.com/fabianleonaressi95/theorem/actions/runs/43891483378), commit `006516d32d534a000ee66c302eb53a3586a2ce2a`.
 
 Reproduce from the repository root:
 ```bash
@@ -267,7 +267,7 @@ python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
 python audits/t035_exact_binary_icosahedral_model.py
 ```
 
-The first two commands reproduce the scalar-spectrum audit and its regression tests. The third and fourth commands compile and execute the exact T035 group model and its regression test. A1 keeps its class-size and character input local so that its calculation is reproducible without importing T035; the two audits therefore share group-theoretic input but exercise different exact constructions. No test result is implied by these instructions: record the actual output and commit SHA from the branch workflow after it completes.
+The first two commands reproduce the scalar-spectrum audit and its regression tests. The third and fourth commands compile and execute the exact T035 group model and its regression test. A1 keeps its class-size and character input local so that its calculation is reproducible without importing T035; the two audits therefore share group-theoretic input but exercise different exact constructions. The successful combined run above is recorded for commit `006516d32d534a000ee66c302eb53a3586a2ce2a`; later documentation-only commits do not alter the audited T035 source or test.
 
 ## 9. References
 
