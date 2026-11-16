@@ -1,38 +1,37 @@
 # Document A1 — Exact scalar spectrum of the Poincaré spherical space
 
-**Object:** the unit round spherical space form (S^3/2I), where (2Isubset SU(2)) is the binary icosahedral group of order (120), acting by left multiplication.
+**Object:** the unit round spherical space form $S^3/2I$, where $2I\subset SU(2)$ is the binary icosahedral group of order $120$, acting by left multiplication.
 
-**Status:** representation-theoretic formula proved under the stated action; exact character-average/Molien comparison independently implemented for degrees (0\le k\le120). The repository test must be executed in CI before the computational audit is labelled CI-verified.
+**Status:** the representation-theoretic formula is proved under the stated action. An exact character-average/Molien comparison is implemented for degrees $0\le k\le120$. CI execution is tracked separately and is not presumed from the presence of the test source.
 
 ## A.1 Conventions and the action
 
-Identify the unit sphere (S^3) with (SU(2)). The group (2I) acts by
+Identify the unit sphere $S^3$ with $SU(2)$. The group $2I$ acts by
 \[
-q\cdot x=qx,\qquad q\in2I,\ x\in SU(2).
+q\cdot x=qx,\qquad q\in2I,\quad x\in SU(2).
 \]
-This action is free: if (qx=x), right multiplication by (x^{-1}) gives (q=1). The quotient is therefore a smooth spherical space form.
+This action is free: if $qx=x$, right multiplication by $x^{-1}$ gives $q=1$. The quotient is therefore a smooth spherical space form.
 
-Let (V_k=\operatorname{Sym}^k(\mathbb C^2)), the ((k+1))-dimensional irreducible representation of (SU(2)). The degree-(k) scalar spherical harmonics on (S^3\simeq SU(2)), under (SU(2)_L\times SU(2)_R), form
+Let $V_k=\operatorname{Sym}^k(\mathbb C^2)$, the $(k+1)$-dimensional irreducible representation of $SU(2)$. Under $SU(2)_L\times SU(2)_R$, the degree-$k$ scalar spherical harmonics form
 \[
 \mathcal H_k(S^3)\simeq V_k\otimes V_k^*.
 \]
-The left (2I) action is on the first factor only. Consequently
+The left $2I$ action is on the first factor only. Consequently
 \[
 \mathcal H_k(S^3)^{2I}\simeq V_k^{2I}\otimes V_k^*,
-\qquad
-d_k=(k+1)n_k,
+\qquad d_k=(k+1)n_k,
 \]
-where (n_k=\dim V_k^{2I}).
+where $n_k=\dim V_k^{2I}$.
 
-The unit-radius scalar Laplacian has eigenvalue
+For the unit-radius metric, the scalar Laplacian eigenvalue is
 \[
 \lambda_k=k(k+2),\qquad k=0,1,2,\ldots.
 \]
-Thus its multiplicity on the quotient is exactly (d_k).
+Thus the multiplicity on the quotient is exactly $d_k$.
 
 ## A.2 Binary Molien coefficient
 
-For the defining two-dimensional complex representation of (2I\subset SU(2)), Klein's binary-icosahedral invariant Hilbert series is
+For the defining two-dimensional complex representation of $2I\subset SU(2)$, Klein's binary-icosahedral invariant Hilbert series is
 \[
 A_{2I}(t)=\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}
 =\sum_{k\ge0}c_k t^k.
@@ -42,19 +41,15 @@ Equivalently,
 c_k=\#\{(a,b,\epsilon)\in\mathbb Z_{\ge0}^2\times\{0,1\}:
 12a+20b+30\epsilon=k\}.
 \]
-Since (V_k=\operatorname{Sym}^k(\mathbb C^2)), the invariant dimension is
-\[
-n_k=c_k.
-\]
-The central element (-1\in2I) acts on (V_k) as ((-1)^k). Hence (c_k=0) for odd (k).
+Since $V_k=\operatorname{Sym}^k(\mathbb C^2)$, its invariant dimension is $n_k=c_k$. The central element $-1\in2I$ acts on $V_k$ as $(-1)^k$, so $c_k=0$ for odd $k$.
 
-Combining the representation decomposition with the binary Molien coefficient gives the scalar spectral multiplicity:
+Combining the representation decomposition with the binary Molien coefficient gives
 \[
 \boxed{
 d_k=(k+1)[t^k]\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}.
 }
 \]
-There is no additional radial subtraction in this formula: it is already the invariant dimension of the irreducible harmonic representation (V_k\) on the left factor, multiplied by the untouched right-factor dimension (k+1). The radial Fischer subtraction belongs to the distinct four-real-variable polynomial Molien series, not to this two-dimensional binary Molien series.
+There is no additional radial subtraction in this formula: $c_k$ is already the invariant dimension of the irreducible harmonic representation $V_k$ on the left factor, multiplied by the untouched right-factor dimension $k+1$. The radial Fischer subtraction belongs to the distinct four-real-variable polynomial Molien series, not to this two-dimensional binary Molien series.
 
 ## A.3 Independent character-average derivation
 
@@ -67,7 +62,7 @@ and the defining character values
 \chi_1=(2,-2,-1,0,\varphi-1,-\varphi,1,\varphi,1-\varphi),
 \qquad \varphi=\frac{1+\sqrt5}{2}.
 \]
-The character of (V_k=\operatorname{Sym}^k(\mathbb C^2)) obeys the exact recurrence
+The character of $V_k=\operatorname{Sym}^k(\mathbb C^2)$ obeys the exact recurrence
 \[
 \chi_0(g)=1,\quad \chi_1(g)\text{ as above},\quad
 \chi_k(g)=\chi_1(g)\chi_{k-1}(g)-\chi_{k-2}(g).
@@ -76,19 +71,19 @@ The Reynolds projector
 \[
 P_k=\frac1{120}\sum_{g\in2I}D^k(g)
 \]
-is idempotent with image (V_k^{2I}). Taking its trace and grouping by conjugacy classes yields
+has image $V_k^{2I}$. Taking its trace and grouping by conjugacy classes yields
 \[
 \boxed{
 n_k=\frac1{120}\sum_{j=1}^{9}|C_j|\chi_k(C_j).
 }
 \]
-The exact audit evaluates this expression in \(\mathbb Q(\sqrt5)\) and compares it, degree by degree, with the integer coefficient count (c_k). The comparison passes for all (121) degrees (0\le k\le120). This is an independent coefficient-level check: it uses the class sizes and fundamental quaternionic character, not the real four-dimensional Molien determinant expansion.
+The exact audit evaluates this expression in $\mathbb Q(\sqrt5)$ and compares it, degree by degree, with the integer coefficient count $c_k$. The comparison passes for all $121$ degrees $0\le k\le120$. It uses the class sizes and fundamental quaternionic character, not the real four-dimensional Molien determinant expansion.
 
 ## A.4 Verified initial spectrum
 
-For (0\le k\le120), the nonzero degrees and multiplicities are listed below. The eigenvalue is (k(k+2)).
+For $0\le k\le120$, the nonzero degrees and multiplicities are listed below. The eigenvalue is $\lambda_k=k(k+2)$.
 
-| (k) | (\lambda_k) | (n_k=c_k) | (d_k=(k+1)n_k) |
+| $k$ | $\lambda_k$ | $n_k=c_k$ | $d_k=(k+1)n_k$ |
 |---:|---:|---:|---:|
 | 0 | 0 | 1 | 1 |
 | 12 | 168 | 1 | 13 |
@@ -141,28 +136,27 @@ All odd degrees have zero multiplicity. In particular,
 \[
 \boxed{\lambda_1^+=168,\qquad d(168)=13.}
 \]
-The degree-(120) check gives (c_{120}=3) and (d_{120}=121\cdot3=363).
+At degree $120$, $c_{120}=3$ and $d_{120}=121\cdot3=363$.
 
 ## A.5 Scope and exclusions
 
-This record proves the scalar multiplicity formula for the specified left action and records an exact finite comparison through degree (120). It does not infer a new physical mechanism from the eigenvalue sequence.
+This record proves the scalar multiplicity formula for the specified left action and records an exact finite comparison through degree $120$. It does not infer a new physical mechanism from the eigenvalue sequence.
 
-The following are deliberately not used as steps in this proof: a separate (A_5\)-invariant three-dimensional Hilbert series; a variable substitution between that series and the binary series; a proposed (2\!:\!3\!:\!5) interpretation; or unverified secondary web references. The quotient (2I/\{\pm1\}\cong A_5) is a standard group-theoretic fact, but no separate (S^2) invariant problem is needed for this scalar spectrum on (S^3/2I).
+The following are deliberately not used as steps in this proof: a separate $A_5$-invariant three-dimensional Hilbert series; a variable substitution between that series and the binary series; a proposed $2:3:5$ interpretation; or unverified secondary web references. The quotient $2I/\{\pm1\}\cong A_5$ is a standard group-theoretic fact, but no separate $S^2$ invariant problem is needed for this scalar spectrum on $S^3/2I$.
 
 The radial Fischer decomposition remains relevant only to the real polynomial Molien audit in [the exact real Molien record](../audits/2i_real_molien_exact/README.md). It must not be mixed with the two-dimensional binary Molien calculation above.
 
 ## A.6 Reproduction and evidence boundary
 
 From the repository root:
-
-```bash
+\`\`\`bash
 python -m audits.a1_poincare_scalar_spectrum --max-degree 120
 python -m unittest tests.test_a1_poincare_scalar_spectrum -v
-```
+\`\`\`
 
-The audit imports the exact class convention and \(\mathbb Q(\sqrt5)\) quaternionic data from T035, constructs all symmetric-power characters by recurrence, and compares the Reynolds character average against the binary Molien coefficient count at every degree. The test source is included; a GitHub Actions pass is not claimed until a corresponding run is observed.
+The audit imports the exact class convention and $\mathbb Q(\sqrt5)$ quaternionic data from T035, constructs symmetric-power characters by recurrence, and compares the Reynolds character average against the binary Molien coefficient count at every degree. The test source is included; a GitHub Actions pass is not claimed until a corresponding run is observed.
 
 **Classification**
-- **Proved:** (d_k=(k+1)\dim(V_k^{2I})), the Reynolds character-average formula, and the binary Molien coefficient formula under the stated action.
-- **Exact finite audit specified:** equality of the two calculations for (0\le k\le120).
-- **Open in this record:** CI execution of the new test, vector/tensor spectra, Rumin operators and analytic torsion, and any proposed relation to the Pellis Functions or McKay correspondence beyond established representation-theoretic facts.
+- **Proved:** $d_k=(k+1)\dim(V_k^{2I})$, the Reynolds character-average formula, and the binary Molien coefficient formula under the stated action.
+- **Exact finite audit specified:** equality of the two calculations for $0\le k\le120$.
+- **Open in this record:** vector/tensor spectra, Rumin operators and analytic torsion, and any proposed relation to the Pellis Functions or McKay correspondence beyond established representation-theoretic facts.
