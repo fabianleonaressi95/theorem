@@ -1,8 +1,9 @@
-name: Document A1 exact scalar spectrum
+name: Pellis document 1 exact spectral and 2I audits
 
 on:
   push:
     branches:
+      - "collaboration/pellis-document-1-spectral-foundation"
       - "document-a/exact-poincare-spectrum"
   pull_request:
     branches:
@@ -13,9 +14,9 @@ permissions:
   contents: read
 
 jobs:
-  a1-spectrum:
+  exact-audits:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,5 +24,11 @@ jobs:
           python-version: "3.12"
       - name: Install exact-arithmetic dependencies
         run: python -m pip install --disable-pip-version-check sympy
-      - name: Run A1 exact character/Molien regression
+      - name: Compile T035 source
+        run: python -m py_compile audits/t035_exact_binary_icosahedral_model.py
+      - name: Run A1 scalar spectrum regression
         run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Run T035 exact group regression
+        run: python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+      - name: Run T035 exact group audit
+        run: python audits/t035_exact_binary_icosahedral_model.py
