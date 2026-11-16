@@ -98,7 +98,7 @@ A_{2I}(t)
 \]
 where
 \[
-c_k=\dim\bigl(\operatorname{Sym}^k(\mathbb C^2)^{2I}\bigr).
+c_k=\dim\bigl(W_k^{2I}\bigr).
 \]
 Thus \(a_k=c_k\), and the scalar multiplicity formula becomes
 \[
@@ -145,7 +145,7 @@ The invariant dimension can also be computed by the Reynolds projector:
 \[
 a_k=\frac1{120}\sum_{g\in2I}\chi_k(g),
 \]
-where \(\chi_k\) is the character of \(V_k=\operatorname{Sym}^k(\mathbb C^2)\).
+where \(\chi_k\) is the character of \(W_k=\operatorname{Sym}^k(\mathbb C^2)\).
 
 For the exact conjugacy-class convention fixed in T035, the class sizes are
 \[
@@ -213,7 +213,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 ### Established mathematical statements
 
 1. The left multiplication action of \(2I\) on \(S^3\) is free, so the quotient is a smooth spherical space form.
-2. The scalar eigenvalues on the unit-radius quotient are among \(k(k+2)\), with multiplicity ((k+1)a_k); equivalently, for even (k=2j), this is \((2j+1)n_j\).
+2. The scalar eigenvalues on the unit-radius quotient are \(k(k+2)\), with multiplicity \((k+1)a_k\); equivalently, for even \(k=2j\), this is \((2j+1)n_j\).
 3. The binary invariant Hilbert series is \((1+t^{30})/((1-t^{12})(1-t^{20}))\).
 4. The exact scalar multiplicity formula is therefore the coefficient formula in §4.
 5. Odd degrees vanish because the central element \(-I\) acts by \((-1)^k\).
