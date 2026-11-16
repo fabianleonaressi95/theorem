@@ -1,4 +1,4 @@
-name: 2I exact Molien audit
+name: 2I exact Molien and McKay audit
 
 on:
   push:
@@ -14,10 +14,10 @@ permissions:
   contents: read
 
 jobs:
-  exact-molien:
-    name: Exact Q(sqrt(5)) Molien audit (degrees 0-240)
+  exact-molien-mckay:
+    name: Exact 2I representations, McKay and Molien audit
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -25,7 +25,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install test runner
-        run: python -m pip install --disable-pip-version-check pytest
-      - name: Run exact group and Molien regression tests
+      - name: Run exact scalar Molien regression
+        run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+      - name: Run T026 McKay E8 recurrence through degree 120
+        run: python audits/t026_mckay_e8_multiplicities.py --max-degree 120 --json
+      - name: Run T027 nine-series McKay–Molien bridge through degree 240
+        run: python audits/t027_mckay_molien_bridge.py --max-degree 240 --json
+      - name: Run T032 exact Molien covariants
+        run: python -m unittest tests.test_t032_2i_molien -v
+      - name: Run T034 explicit nine-representation and projector audit
+        run: python -m unittest tests.test_t034_binary_icosahedral_representations -v
+      - name: Run independent exact 2I Molien regression
         run: python -m pytest -q tests/test_2i_real_molien_exact.py
