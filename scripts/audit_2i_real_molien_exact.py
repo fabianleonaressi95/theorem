@@ -292,7 +292,7 @@ def symbolic_rational_check() -> str:
 
 
 def main() -> None:
-    result = audit(60)
+    result = audit(240)
     print("2I exact quaternionic real-Molien audit: PASS")
     for key in (
         "group_order", "closure_products_checked", "unit_norms_checked",
@@ -302,7 +302,7 @@ def main() -> None:
     print("scalar_part_multiplicities:")
     for scalar, count in sorted(result["scalar_part_multiplicities"].items()):
         print(f"  {scalar}: {count}")
-    print("Molien coefficients (degrees 0..60):")
+    print("Molien coefficients (degrees 0..240):")
     print(result["coefficients"])
     try:
         print("Exact simplified rational Molien function:")
