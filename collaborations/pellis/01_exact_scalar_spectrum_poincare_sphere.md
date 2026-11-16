@@ -177,6 +177,18 @@ a_k=0\quad\text{for odd }k.
 
 The project audit compares this character average with the integer coefficient count in §4 for every degree \(0\leq k\leq120\). The two calculations agree exactly at all 121 degrees.
 
+
+### 5.1 Representation-theoretic cross-checks: McKay and covariant Molien series
+
+The scalar invariant multiplicity is the trivial-isotypic coefficient in the decomposition of each \(W_k\). The repository contains two separate representation-theoretic records that extend this calculation beyond the trivial representation:
+
+- **T026 (affine \(\widetilde E_8\) McKay recurrence):** tensoring an irreducible \(2I\)-module with the defining two-dimensional module gives the adjacency recurrence on the nine irreducibles. The graph dimensions satisfy \(\sum_i d_i^2=120\), \(\sum_i d_i=30\), and \(Ad=2d\). The weighted dimension identity \(\sum_i d_i n_i(k)=k+1\) and the central parity rule provide internal checks on the recurrence. The recurrence is an algebraic consequence of the Clebsch–Gordan rule once the McKay graph and its irreducible labels are established; the graph's identification from the exact quaternion model is a separate representation-theory input.
+- **T027 (nine covariant Molien series):** its nine coefficient sequences are compared with the T026 recurrence, with the two four-dimensional irreducibles kept distinct. The comparison is a coefficient-consistency check for the supplied Molien numerators; it does not independently derive the covariant modules or prove their module presentations.
+
+The current recorded mapping is \(1\leftrightarrow1\), \(2_s\leftrightarrow2\), \(3\leftrightarrow3\), \(4_s\leftrightarrow4'\), \(5\leftrightarrow5\), \(6_s\leftrightarrow6\), \(4\leftrightarrow4\), \(2'_s\leftrightarrow2'\), and \(3'\leftrightarrow3'\). The distinction \(4_s\ne4\) is essential: their first occurrences are at degrees 3 and 6, respectively.
+
+**Evidence status:** the recurrence identities and the displayed low-degree decompositions have been independently reproduced from the recorded data; this is not a claim that the repository T026/T027 scripts were directly executed in the present audit. T027's nine Molien numerator sequences remain input data pending derivation from explicit covariant-module constructions. These extensions are supplementary and are not needed for the scalar spectrum formula in §§3–6.
+
 ## 6. Verified initial scalar spectrum
 
 For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is \(d_k=(k+1)a_k\). The first nonzero entries are:
@@ -238,19 +250,22 @@ These questions belong to later documents and require their own definitions, evi
 Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/theorem)
 
 - **Exact group model:** [T035 — Exact quaternion realization of the binary icosahedral group](../../theorems/T035-exact-binary-icosahedral-model.md).
-- **Legacy T035 audit source (not currently executable):** [audits/t035_exact_binary_icosahedral_model.py](../../audits/t035_exact_binary_icosahedral_model.py).
+- **Exact T035 audit source:** [audits/t035_exact_binary_icosahedral_model.py](../../audits/t035_exact_binary_icosahedral_model.py). The branch source is aligned byte-for-byte with the repaired implementation from commit `9a60d887e434ef3b0c4a954942e228587fdc4052`; its blob SHA is `20968cf5426de6a579d2eec7755469c69b080a74`.
 - **Scalar spectral formula and complete table:** [Document A1 — Exact scalar spectrum](../../documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md).
 - **Independent scalar spectral audit:** [audits/a1_poincare_scalar_spectrum.py](../../audits/a1_poincare_scalar_spectrum.py).
 - **Regression tests:** [tests/test_a1_poincare_scalar_spectrum.py](../../tests/test_a1_poincare_scalar_spectrum.py).
-- **Recorded CI run:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053).
+- **Historical A1 CI evidence:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053). It must not be cited as a T035 run. The collaboration-branch workflow now includes `py_compile`, the A1 regression, the T035 regression, and direct T035 execution.
 
 Reproduce from the repository root:
 ```bash
 python -m audits.a1_poincare_scalar_spectrum --max-degree 120
 python -m unittest tests.test_a1_poincare_scalar_spectrum -v
+python -m py_compile audits/t035_exact_binary_icosahedral_model.py
+python -m unittest tests.test_t035_exact_binary_icosahedral_model -v
+python audits/t035_exact_binary_icosahedral_model.py
 ```
 
-The two commands below reproduce the scalar-spectrum audit and its regression tests. They do **not** execute the legacy T035 script or independently rebuild the quaternion group. The A1 audit keeps the exact class-size and character input local, avoiding import of the currently broken legacy T035 module. The recorded GitHub Actions run is separate evidence: it completed with three tests passing and 121 exact degree comparisons. No new test execution is claimed by this document update.
+The first two commands reproduce the scalar-spectrum audit and its regression tests. The third and fourth commands compile and execute the exact T035 group model and its regression test. A1 keeps its class-size and character input local so that its calculation is reproducible without importing T035; the two audits therefore share group-theoretic input but exercise different exact constructions. No test result is implied by these instructions: record the actual output and commit SHA from the branch workflow after it completes.
 
 ## 9. References
 
