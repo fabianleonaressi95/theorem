@@ -535,4 +535,25 @@ M_{2I,\mathbb R^4}(t)=
 
 The determinant-based coefficient recurrence agrees with this formula at every degree \(0\le n\le60\). This is a finite exact-arithmetic confirmation, not the proof of the general identity: the proof is the Peter–Weyl decomposition and the orthogonal Fischer decomposition already stated above. The optional SymPy path also simplifies the complete rational sum and checks the rational-function identity exactly.
 
-**Status:** exact group closure, exact real \(4\times4\) determinant computation, and exact coefficient comparison through degree 60. The earlier floating-point enumeration is no longer the sole computational evidence for this \(2I\) action.
+**Status:** exact group closure, exact real \(4\times4\) determinant computation, and exact coefficient comparison through degree 240. The earlier floating-point enumeration is no longer the sole computational evidence for this \(2I\) action.
+
+
+### 12.1 Extended exact coefficient audit through degree 240
+
+The exact-arithmetic implementation and regression test have been extended from degree 60 to degree 240. The direct sum over the 120 quaternionic elements is still evaluated using rational pairs in \(\mathbb Q(\sqrt5)\), exact Hamilton multiplication, exact \(4\times4\) determinant expansion, and exact reciprocal-series recurrences. No floating-point approximation is used in this computation.
+
+For every \(0\le n\le240\), the direct real Molien coefficient equals
+\[
+m_n=\sum_{j=0}^{\lfloor n/2\rfloor}(n-2j+1)c_{n-2j}.
+\]
+Selected checkpoints are
+\[
+m_{60}=677,\quad m_{120}=5073,\quad m_{144}=8708,
+\quad m_{180}=16789,
+\]
+\[
+m_{200}=22943,\quad m_{216}=28829,\quad m_{240}=39425.
+\]
+These \(m_n\) are coefficients of the ordinary real four-variable Molien series. The spherical multiplicity remains \(d_n=(n+1)c_n\), so the two sequences must not be conflated.
+
+**Updated computational status:** exact coefficient agreement for all 241 degrees \(0,1,\ldots,240\). This extends the finite computational confirmation; the all-degree identity itself remains proved by Peter–Weyl and the equivariant Fischer decomposition, not by finite truncation.
