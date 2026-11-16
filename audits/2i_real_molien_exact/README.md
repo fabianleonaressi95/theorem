@@ -95,3 +95,25 @@ Files:
 - [S013 general Molien framework](../../theorems/S013-general-spherical-space-form-molien-diagonal-actions.md)
 
 **Evidence boundary:** this certifies the specified finite quaternionic group, its left real four-dimensional representation, and the stated Molien coefficients/rational identity. It does not by itself establish any additional physical interpretation or a new Q6 coupling.
+
+
+## Extended exact range: degrees 61–240
+
+The same exact-arithmetic audit has been extended to degree 240. No floating-point arithmetic is introduced: the group elements, Hamilton products, determinant polynomials, reciprocal-series recurrences, and the 120-term Molien average remain in \(\mathbb Q(\sqrt5)\) using rational pairs.
+
+The implementation now compares all 241 coefficients, from degree 0 through degree 240 inclusive, against
+\[
+[t^n]\frac{A(t)+tA'(t)}{1-t^2}
+=\sum_{j=0}^{\lfloor n/2\rfloor}(n-2j+1)c_{n-2j}.
+\]
+Selected exact integer coefficients are
+\[
+m_{60}=677,\quad m_{120}=5073,\quad m_{144}=8708,
+\]
+\[
+m_{180}=16789,\quad m_{200}=22943,\quad
+m_{216}=28829,\quad m_{240}=39425.
+\]
+These are coefficients of the **real four-variable polynomial Molien series**, not spherical-harmonic multiplicities. The latter are \(d_n=(n+1)c_n\); for example \(d_{60}=122\), whereas \(m_{60}=677\).
+
+The regression test now executes the exact audit through degree 240 and checks the listed checkpoints. The command-line script also defaults to degree 240. The optional SymPy calculation still checks the complete rational-function identity, not just the truncation.
