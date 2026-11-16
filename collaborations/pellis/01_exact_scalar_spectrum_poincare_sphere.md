@@ -175,7 +175,7 @@ The central element \(-I\in2I\) acts on \(W_k\) by \((-1)^k\). Since an invarian
 a_k=0\quad\text{for odd }k.
 \]
 
-The A1 audit compares this character average with the integer coefficient count in §4 for every degree \(0\\leq k\\leq120\). The arithmetic routes are distinct (Reynolds recurrence versus integer coefficient counting), but the class sizes and fundamental character are transcribed from T035. This is an independent spectral calculation conditional on shared group data, not an independent reconstruction of the group. The two calculations agree exactly at all 121 degrees.
+The A1 audit compares this character average with the integer coefficient count in §4 for every degree \(0\leq k\leq120\). The arithmetic routes are distinct (Reynolds recurrence versus integer coefficient counting), but the class sizes and fundamental character are transcribed from T035. This is an independent spectral calculation conditional on shared group data, not an independent reconstruction of the group. The two calculations agree exactly at all 121 degrees.
 
 
 ### 5.1 Representation-theoretic cross-checks: McKay and covariant Molien series
@@ -232,7 +232,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 
 ### Exact computational verification
 
-The A1 source evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \(0\\leq k\\leq120\), using the T035 class data as fixed input. The historical GitHub Actions run 43879748053 is evidence for the A1 source/test versions whose blob identities were checked against the then-current main branch; it is not evidence that T035 ran in that workflow. The updated collaboration-branch workflow now explicitly compiles and runs T035. The successful run [43891483378](https://github.com/fabianleonaressi95/theorem/actions/runs/43891483378), on commit `006516d32d534a000ee66c302eb53a3586a2ce2a`, completed `py_compile`, all three A1 regression tests, the T035 regression test, and the direct T035 audit.
+The A1 source evaluates the Reynolds character average and the binary Molien coefficient count in exact arithmetic for \(0\leq k\leq120\), using the T035 class data as fixed input. The historical GitHub Actions run 43879748053 is evidence for the A1 source/test versions whose blob identities were checked against the then-current main branch; it is not evidence that T035 ran in that workflow. The updated collaboration-branch workflow now explicitly compiles and runs T035. The successful run [43891483378](https://github.com/fabianleonaressi95/theorem/actions/runs/43891483378), on commit `006516d32d534a000ee66c302eb53a3586a2ce2a`, completed `py_compile`, all three A1 regression tests, the T035 regression test, and the direct T035 audit.
 
 ### Explicitly outside the scope of this note
 
