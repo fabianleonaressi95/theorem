@@ -139,7 +139,7 @@ F_{2I}(t)=\sum_{k\geq0}(k+1)a_k t^k
 \]
 This relation follows by differentiating the power series term by term. It is a useful consistency check and prevents the two Molien calculations from being mixed.
 
-## 5. Independent exact character calculation
+## 5. Exact character calculation and Reynolds cross-check
 
 The invariant dimension can also be computed by the Reynolds projector:
 \[
