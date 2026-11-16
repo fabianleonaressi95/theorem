@@ -1,6 +1,6 @@
 # T023 — Exact Gamma reflection identities for the Rumin torsion on S³/2I
 
-**Status:** all nine finite Gamma products reduce exactly to the algebraic torsion table by Euler's reflection formula, one Gamma recurrence in the trivial representation, and exact rational-angle sine identities. The reductions are implemented in a SymPy audit over exact algebraic numbers. This closes the Gamma-product simplification obligation left open in T021/T022, conditional on the Kitaoka spectral input and the nine Molien numerators established there.
+**Status:** all nine finite Gamma products reduce exactly to the algebraic torsion table by Euler's reflection formula, one Gamma recurrence in the trivial representation, and exact rational-angle sine identities. The exact SymPy audit passed in GitHub Actions run [43909122496](https://github.com/fabianleonaressi95/theorem/actions/runs/43909122496). This closes the Gamma-product simplification obligation left open in T021/T022, conditional on the Kitaoka spectral input and the nine Molien numerators established there.
 
 ## 1. Input from T022
 
@@ -109,3 +109,6 @@ No floating-point approximation is used in this proof certificate.
 - A. Kitaoka, *Analytic Torsions associated with the Rumin Complex on Contact Spheres*, arXiv:1911.03092.
 - M. Rumin and N. Seshadri, *Analytic torsions on contact manifolds*, Ann. Inst. Fourier 62 (2012), 727–782.
 - J. S. Dowker and P. Chang, *Analytic torsion on spherical factors and tessellations*, arXiv:0904.0744.
+
+
+**Execution certificate (2026-11-16):** the exact script completed successfully in CI run `43909122496`; its JSON certificate is included in artifact `rumin-exact-audit-results` (ID `14246139326`). Assertions covered all nine exact sine products, complementary-tail pairing, the exceptional `Γ(31/30)` recurrence, scale cancellation, reconstructed torsions, and `Σ(dim ρ)^2=120`.
