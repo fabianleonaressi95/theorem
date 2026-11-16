@@ -100,7 +100,7 @@ where
 \[
 c_k=\dim\bigl(\operatorname{Sym}^k(\mathbb C^2)^{2I}\bigr).
 \]
-Thus (a_k=c_k), and the scalar multiplicity formula becomes
+Thus \(a_k=c_k\), and the scalar multiplicity formula becomes
 \[
 \boxed{
 d_k=(k+1)[t^k]\frac{1+t^{30}}{(1-t^{12})(1-t^{20})}.
@@ -119,7 +119,7 @@ The invariant-ring presentation and the degree-12, degree-20, degree-30 generato
 
 ### 4.1 Why there is no extra radial subtraction in this coefficient formula
 
-The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient (c_k=a_k) is already (dim W_k^{2I}). The full scalar harmonic multiplicity on (S^3/2I) is then ((k+1)a_k=(k+1)c_k), because of the untouched right \(SU(2)\) factor.
+The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient \(c_k=a_k\) is already \(dim W_k^{2I}\). The full scalar harmonic multiplicity on \(S^3/2I\) is then \((k+1)a_k=(k+1)c_k\), because of the untouched right \(SU(2)\) factor.
 
 This must not be confused with the distinct real four-variable polynomial calculation. For a finite group acting linearly on \(\mathbb R^4\), the Fischer decomposition separates homogeneous polynomials into harmonic polynomials and multiples of \(r^2\). Ikeda writes this as
 \[
@@ -134,7 +134,7 @@ That real four-dimensional Molien/Fischer expression is a valid independent rout
 
 The two generating functions are related by the coefficient identity
 \[
-F_{2I}(t)=sum_{kgeq0}(k+1)a_k t^k
+F_{2I}(t)=\sum_{k\geq0}(k+1)a_k t^k
 =A_{2I}(t)+tA_{2I}'(t).
 \]
 This relation follows by differentiating the power series term by term. It is a useful consistency check and prevents the two Molien calculations from being mixed.
@@ -143,7 +143,7 @@ This relation follows by differentiating the power series term by term. It is a 
 
 The invariant dimension can also be computed by the Reynolds projector:
 \[
-a_k=rac1{120}sum_{gin2I}chi_k(g),
+a_k=\frac1{120}\sum_{g\in2I}\chi_k(g),
 \]
 where \(\chi_k\) is the character of \(V_k=\operatorname{Sym}^k(\mathbb C^2)\).
 
@@ -158,7 +158,7 @@ and the character of the defining two-dimensional representation is
 \qquad
 \varphi=\frac{1+\sqrt5}{2}.
 \]
-The class sizes sum to \(120\). The symmetric-power characters are generated exactly by
+The class sizes sum to \(120\). The characters of the polynomial-degree representations \(W_k\) are generated exactly by
 \[
 \chi_0(g)=1,\qquad
 \chi_1(g)\text{ as above},\qquad
@@ -166,13 +166,13 @@ The class sizes sum to \(120\). The symmetric-power characters are generated exa
 \]
 Hence
 \[
-a_k=rac1{120}sum_{j=1}^{9}|C_j|chi_k(C_j).
+a_k=\frac1{120}\sum_{j=1}^{9}|C_j|\chi_k(C_j).
 \]
 All character values lie in \(\mathbb Q(\sqrt5)\); the average is evaluated exactly, not numerically.
 
 The central element \(-I\in2I\) acts on \(V_k\) by \((-1)^k\). Since an invariant vector must be fixed by every group element, it follows immediately that
 \[
-a_k=0quad	ext{for odd }k.
+a_k=0\quad\text{for odd }k.
 \]
 
 The project audit compares this character average with the integer coefficient count in §4 for every degree \(0\leq k\leq120\). The two calculations agree exactly at all 121 degrees.
@@ -181,7 +181,7 @@ The project audit compares this character average with the integer coefficient c
 
 For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is (d_k=(k+1)a_k). The first nonzero entries are:
 
-| \(k\) | \(\lambda_k\) | (a_k=c_k) | \(d_k\) |
+| \(k\) | \(\lambda_k\) | \(a_k=c_k\) | \(d_k\) |
 |---:|---:|---:|---:|
 | 0 | 0 | 1 | 1 |
 | 12 | 168 | 1 | 13 |
@@ -213,7 +213,7 @@ The complete nonzero list through degree \(120\), including the exact multiplici
 ### Established mathematical statements
 
 1. The left multiplication action of \(2I\) on \(S^3\) is free, so the quotient is a smooth spherical space form.
-2. The scalar eigenvalues on the unit-radius quotient are among \(k(k+2)\), with multiplicity ((k+1)a_k); equivalently, for even (k=2j), this is ((2j+1)n_j).
+2. The scalar eigenvalues on the unit-radius quotient are among \(k(k+2)\), with multiplicity ((k+1)a_k); equivalently, for even (k=2j), this is \((2j+1)n_j\).
 3. The binary invariant Hilbert series is \((1+t^{30})/((1-t^{12})(1-t^{20}))\).
 4. The exact scalar multiplicity formula is therefore the coefficient formula in §4.
 5. Odd degrees vanish because the central element \(-I\) acts by \((-1)^k\).
