@@ -179,6 +179,22 @@ The archived transcript is [GAP\_sessione\_2A5\_McKay\_2I.pdf](../GAP_sessione_2
 | **19** | Repeated exact class-character recurrence and coefficient output through degree 30 | Additional transcript evidence for the binary Molien coefficients |
 | **20–24** | Quaternion-list construction attempts, matrix-action experiments and group identification as $SL(2,5)$ | Historical working transcript only; several commands fail or return **false**, so these pages are **not cited as a successful certificate** of quaternion closure or of the polynomial matrix action |
 
+**Class-order convention (do not silently mix columns).** The GAP table on PDF p. 1 uses the order
+\[
+(1a,2a,4a,3a,6a,5a,10a,5b,10b),
+\]
+whereas A.3 and the T035-based character audit use
+\[
+(1,2,3,4,5a,5b,6,10a,10b).
+\]
+The conversion of class labels is therefore
+\[
+(1,2,3,4,5a,5b,6,10a,10b)_{\rm A.3}
+\longleftrightarrow
+(1a,2a,3a,4a,5a,5b,6a,10a,10b)_{\rm GAP}.
+\]
+In particular, the third and fourth columns, and the positions of the order-six and order-ten classes, are not in the same order. The class-size and character tuples must always be permuted together. The GAP PDF is cited for its own displayed ordering; A.3 retains the T035 ordering.
+
 **Important evidence qualification.** The PDF is a raw computational session transcript, not a polished proof. It contains successful outputs as well as syntax errors, failed commands and false tests. In particular, pages 5–11 contain unsuccessful polynomial-action implementations; pages 22–24 contain a failed closure check for one quaternion list, followed by a successful abstract identification of $SL(2,5)$ of order 120 with center of order 2 and nine conjugacy classes. We cite only the successful outputs identified in the table above. We do not cite the failed experiments as evidence.
 
 ### A.7.2 Exact theorem and code references in this repository
