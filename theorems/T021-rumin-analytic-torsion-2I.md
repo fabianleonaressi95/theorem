@@ -1,6 +1,6 @@
 # T021 — Character-twisted Rumin analytic torsion on the Poincaré sphere
 
-**Status:** exact finite-group/Molien reduction established. T022 supplies the corrected eventual Hurwitz decomposition; T023 supplies exact Gamma-to-sine reductions (currently under review in PR #20); T024 proves the three-dimensional Kitaoka/Rumin–Seshadri operator and torsion-convention matching. The determinant-line volume normalization for the trivial local system is treated below. This remains an audit theorem with explicit hypotheses and does not imply any Q6/PRISM continuum result.
+**Status:** the finite-group/Molien reduction, corrected eventual Hurwitz decomposition, exact Gamma-to-sine reductions, and three-dimensional Kitaoka/Rumin–Seshadri operator/torsion-convention bridge are verified. T022, T023 and T032 were executed successfully in GitHub Actions run [43909122496](https://github.com/fabianleonaressi95/theorem/actions/runs/43909122496); T022 passed at 70-digit precision, T023 passed all exact symbolic assertions, and T032 passed its exact 20×20 parameter audit. The determinant-line volume normalization for the trivial local system is treated below. This remains an audit theorem with explicit hypotheses and does not imply any Q6/PRISM continuum result.
 
 **Object:** the quotient (M=S^3/2I), where (2I\subset SU(2)) is the binary icosahedral group of order 120.
 
@@ -185,7 +185,7 @@ Dowker–Chang independently report the same algebraic torsion values for the sp
 5. High-precision Gamma-product evaluations agree with the independent Dowker–Chang torsion table, with the label and metric conventions stated above.
 
 **Remaining qualifications**
-1. The exact Gamma-to-sine proof is recorded in T023 and awaits review/merge of PR #20.
+1. The exact Gamma-to-sine proof is recorded in T023 and passed the exact symbolic CI audit (run 43909122496).
 2. The operator and sign-convention identification is proved separately in [T024](T024-rumin-kitaoka-operator-matching-3d.md); it uses the special fact that all Kitaoka rescaling factors equal one when the contact dimension is three.
 3. No theorem about PRISM/Q6 continuum limits, Yang–Mills, or physical matter follows from this finite-group torsion calculation.
 
@@ -295,3 +295,8 @@ The finite initial segment is unchanged; only the scale in the eventual tail is 
 The new standalone audit
 `bibliography/spin-geometry-quaternionic/RUMIN_2I_T022_EVENTUAL_HURWITZ_AUDIT.py`
 implements the nine Molien numerators, constructs each polynomial \(P_\rho=(1-t^{60})D_\rho\), checks every finite preperiod and eventual tail coefficient, and compares the resulting 70-digit torsions with the independent algebraic benchmark. This is a **high-precision numerical verification** of the corrected finite decomposition; it is not a symbolic proof of all nine Gamma-product identities, nor does it settle the operator-convention matching described in §6.
+
+
+## 10. Verification record (2026-11-16)
+
+The corrected T022 eventual-Hurwitz script, T023 exact Gamma/sine script, and T032 fixed-basis matrix script all passed in GitHub Actions run [43909122496](https://github.com/fabianleonaressi95/theorem/actions/runs/43909122496), commit `e6f9bbb0ca13fa3c839c3b3f7d66e9704bdb9201`. The run produced artifact `rumin-exact-audit-results` (artifact ID `14246139326`, SHA-256 `b2ddb335a6af5aa2b5c56d5d6e92491f88d3236abf7ca4a8f31e86824f1c30ef`). T022 passed at 70-digit precision for all nine twists; T023 passed exact rational-angle sine/Gamma reductions and the dimension-square sum; T032 passed exact SymPy identities on the full grid `1≤p,q≤20` (400 blocks). The run validates the scripts and their encoded assertions; it does not replace the stated mathematical hypotheses or extend the theorem beyond dimension three.
