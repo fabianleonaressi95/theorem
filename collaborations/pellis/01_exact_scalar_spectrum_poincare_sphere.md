@@ -245,6 +245,8 @@ The A1 source evaluates the Reynolds character average and the binary Molien coe
 
 These questions belong to later documents and require their own definitions, evidence, and proofs.
 
+The PRISM cycle cover, Krist-All operator, Kathara chain maps, and multidimensional finite-data analysis requested for the broader collaboration are treated separately in [Document 2 — PRISM cycles, Krist-All, Kathara, and multidimensional analysis](02_prism_kathara_kristall_multidimensional.md). They are not premises of the scalar spectral theorem.
+
 ## 8. Reproducibility and project records
 
 Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/theorem)
