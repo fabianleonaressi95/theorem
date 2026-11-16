@@ -77,7 +77,7 @@ Thus the invariant-series coefficient is indexed by polynomial degree \(k\), whe
 \boxed{d_k=(k+1)a_k,\qquad d_{2j}=(2j+1)n_j.}
 ]
 
-This is the key representation-theoretic reduction: the invariant multiplicity \(n_k\) is computed on the left \(SU(2)\) representation, while the right factor contributes the independent dimension \(k+1\).
+This is the key representation-theoretic reduction: the invariant dimension \(a_k\) is computed on the left \(SU(2)\) representation, while the right factor contributes the independent dimension \(k+1\).
 
 The general spherical-space-form framework behind the invariant-eigenspace identification is treated by Ikeda [1]. The exact proposition and page locator should be checked directly against the version of record before external submission.
 
@@ -245,10 +245,10 @@ Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/t
 - **Recorded CI run:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053).
 
 Reproduce from the repository root:
-\`\`\`bash
+```bash
 python -m audits.a1_poincare_scalar_spectrum --max-degree 120
 python -m unittest tests.test_a1_poincare_scalar_spectrum -v
-\`\`\`
+```
 
 The two commands below reproduce the scalar-spectrum audit and its regression tests. They do **not** execute the legacy T035 script or independently rebuild the quaternion group. The A1 audit keeps the exact class-size and character input local, avoiding import of the currently broken legacy T035 module. The recorded GitHub Actions run is separate evidence: it completed with three tests passing and 121 exact degree comparisons. No new test execution is claimed by this document update.
 
