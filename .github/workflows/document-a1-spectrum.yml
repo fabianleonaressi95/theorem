@@ -1,0 +1,27 @@
+name: Document A1 exact scalar spectrum
+
+on:
+  push:
+    branches:
+      - "document-a/exact-poincare-spectrum"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  a1-spectrum:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install exact-arithmetic dependencies
+        run: python -m pip install --disable-pip-version-check sympy
+      - name: Run A1 exact character/Molien regression
+        run: python -m unittest tests.test_a1_poincare_scalar_spectrum -v
