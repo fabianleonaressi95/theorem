@@ -47,6 +47,8 @@ theorem/
 - **[Integrated 27-chapter monograph](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md)** — consolidated reference for Q6, Q6-D5/Wilson, 2I/Rumin, RGS 188D, PRISM/Krist-All, FEEC/Mosco, QLG, Einstein–Cartan/teleparallelism, QAT, XCont and hysteresis. Includes explicit epistemic status and recovery caveats.
 - [Canonical synthesis and closure programme](manuscripts/SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — short strategic overview.
 
+- **[Document A1 — Exact scalar spectrum of the Poincaré spherical space](documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md)** — exact (2I)-invariant harmonic multiplicities on (S^3/2I), derived from the binary Molien series and independently checked by the nine-class Reynolds character average through degree 120.
+- [A1 exact character/Molien audit](audits/a1_poincare_scalar_spectrum.py) and [regression tests](tests/test_a1_poincare_scalar_spectrum.py).
 - [Bibliography and source catalogue](bibliography/README.md)
 - [Special functions and Morandotti bibliography](bibliography/special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Repository PDF inventory and source audit (13 PDFs)](audits/2026-11-10_pdf_repository_audit.md)
