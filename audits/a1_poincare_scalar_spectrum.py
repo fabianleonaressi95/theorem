@@ -1,21 +1,24 @@
 """Independent exact character-average audit for the scalar spectrum of S^3/2I.
 
-The class data are imported from the exact 600-cell quaternion audit.  The
-character average is evaluated by the SU(2) symmetric-power recurrence and
-compared degree-by-degree with the coefficient count in the binary Molien
-series.  All arithmetic is exact in Q(sqrt(5)).
+The exact class sizes and fundamental character are transcribed from the
+T035 exact quaternion class convention. The character average is evaluated
+by the SU(2) symmetric-power recurrence and compared degree-by-degree with
+the binary Molien coefficient count. All arithmetic is exact in Q(sqrt(5)).
 """
 from __future__ import annotations
 import json
 from pathlib import Path
 import argparse
 import sympy as sp
-from audits.t035_exact_binary_icosahedral_model import (
-    CLASS_SCALARS, CLASS_SIZES, expr,
-)
-
 PHI = (1 + sp.sqrt(5)) / 2
-CHI_FUND = tuple(sp.simplify(2 * expr(x)) for x in CLASS_SCALARS)
+# Exact class data in the T035 conjugacy-class convention.  Keeping this
+# small input table local avoids importing the legacy T035 audit module,
+# whose current file has a duplicated future-import block and cannot import.
+CLASS_SIZES = (1, 1, 20, 30, 12, 12, 20, 12, 12)
+CHI_FUND = (
+    sp.Integer(2), sp.Integer(-2), sp.Integer(-1), sp.Integer(0),
+    PHI - 1, -PHI, sp.Integer(1), PHI, 1 - PHI,
+)
 
 
 def binary_molien_coefficient(k: int) -> int:
@@ -81,6 +84,7 @@ def audit(max_degree: int = 120) -> dict:
         "group_order": 120,
         "field": "Q(sqrt(5))",
         "class_sizes": list(CLASS_SIZES),
+        "class_sizes_sum_to_group_order": sum(CLASS_SIZES) == 120,
         "degrees_checked": max_degree + 1,
         "character_average_vs_binary_molien": "exact equality at every degree",
         "odd_degree_vanishing": True,
