@@ -119,7 +119,7 @@ The invariant-ring presentation and the degree-12, degree-20, degree-30 generato
 
 ### 4.1 Why there is no extra radial subtraction in this coefficient formula
 
-The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient \(c_k=a_k\) is already \(dim W_k^{2I}\). The full scalar harmonic multiplicity on \(S^3/2I\) is then \((k+1)a_k=(k+1)c_k\), because of the untouched right \(SU(2)\) factor.
+The series \(A_{2I}(t)\) is the invariant series for the defining **complex two-dimensional** representation of \(2I\). Its coefficient \(c_k=a_k\) is already \(\dim W_k^{2I}\). The full scalar harmonic multiplicity on \(S^3/2I\) is then \((k+1)a_k=(k+1)c_k\), because of the untouched right \(SU(2)\) factor.
 
 This must not be confused with the distinct real four-variable polynomial calculation. For a finite group acting linearly on \(\mathbb R^4\), the Fischer decomposition separates homogeneous polynomials into harmonic polynomials and multiples of \(r^2\). Ikeda writes this as
 \[
@@ -179,7 +179,7 @@ The project audit compares this character average with the integer coefficient c
 
 ## 6. Verified initial scalar spectrum
 
-For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is (d_k=(k+1)a_k). The first nonzero entries are:
+For every degree \(k\), the eigenvalue is \(\lambda_k=k(k+2)\) and its multiplicity is \(d_k=(k+1)a_k\). The first nonzero entries are:
 
 | \(k\) | \(\lambda_k\) | \(a_k=c_k\) | \(d_k\) |
 |---:|---:|---:|---:|
