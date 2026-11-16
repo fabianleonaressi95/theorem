@@ -19,3 +19,27 @@ The three selected representations are irreducible and pairwise inequivalent ove
 **Source:** `src/binary_icosahedral.py`, `src/representations_2i.py`. **Tests:** `tests/test_binary_icosahedral.py`, `tests/test_representations_2i.py`. The audit checks all 14,400 quaternion products numerically, inverses, norms, the 60-element SO(3) quotient, representation homomorphisms/unitarity, central action and selected intertwiner dimensions. The implementation uses floating-point coordinates and tolerances, so these checks are numerical certificates rather than exact-arithmetic formal verification.
 
 **Boundary:** \(\rho_2\) does not automatically identify the Möbius orientation cocycle with \(-1\in2I\), construct a Pin structure, or show that a Q6 connection has holonomy group \(2I\).
+
+## Exact quaternionic closure and real Molien audit (16 November 2026)
+
+The earlier floating-point product audit cited above is superseded for the quaternionic vertex set by the exact-arithmetic audit in [`audits/2i_real_molien_exact/README.md`](../audits/2i_real_molien_exact/README.md). The corrected 96-point construction applies independent signs to the three nonzero coordinates **after** each even permutation, wherever those coordinates occur. Applying signs only to fixed coordinate positions 2–4 is incorrect when the zero coordinate moves.
+
+The new implementation represents each coordinate as (r+s\sqrt5), with (r,s\in\mathbb Q). It checks:
+- 120 distinct elements and unit norm for every quaternion;
+- all 14,400 Hamilton products for exact closure;
+- all 120 quaternionic inverses;
+- all 120 real left-multiplication matrices (L_q\);
+- the exact determinant identity
+  \[
+  \det(I-tL_q)=(1-2\operatorname{Re}(q)t+t^2)^2
+  \]
+  by a (4\times4) Leibniz determinant expansion over \(\mathbb Q(\sqrt5)\).
+
+The direct real Molien sum is
+\[
+M_{\mathbb R^4}(t)=\frac1{120}\sum_{q\in2I}
+\frac1{(1-2\operatorname{Re}(q)t+t^2)^2}.
+\]
+Its coefficients through degree 60 are computed from the exact reciprocal-determinant recurrences. They agree degree by degree with the independently specified Klein coefficient count and the harmonic/Fischer formula recorded in S013. The complete rational-function simplification is also available as an optional exact SymPy check.
+
+**Status update:** the 120-element quaternionic group and its real (4\)-dimensional left-action Molien computation now have an exact-arithmetic reproducibility path. This upgrades the former floating-point closure check; it does not change the boundary on physical interpretation or Q6 coupling.
