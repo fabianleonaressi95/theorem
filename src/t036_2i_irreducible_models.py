@@ -13,7 +13,9 @@ import sympy as sp
 from src.t032_2i_molien import IRREP_DIMENSIONS, molien_coefficients
 from src.t034_exact_2i_character_table import reconstruct_character_table
 from audits.t035_exact_binary_icosahedral_model import (
-    elements_2i, CLASS_SCALARS, expr, rho2
+    binary_icosahedral_elements as elements_2i,
+    CLASS_SCALARS,
+    fundamental_su2_matrix as rho2,
 )
 
 X, Y = sp.symbols("X Y")
