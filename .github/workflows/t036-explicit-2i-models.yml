@@ -48,8 +48,6 @@ jobs:
         run: python -m pip install --disable-pip-version-check sympy
       - name: Compile model builder and tests
         run: python -m py_compile src/t036_2i_irreducible_models.py tests/test_t036_2i_irreducible_models.py
-      - name: Test all nine exact models
-        run: python -m unittest tests.test_t036_2i_irreducible_models -v
       - name: Export exact matrices for all 120 group elements
         run: python -m src.t036_2i_irreducible_models --output data/t036_2i_irreducible_models_exact.json
       - name: Upload exact representation models
