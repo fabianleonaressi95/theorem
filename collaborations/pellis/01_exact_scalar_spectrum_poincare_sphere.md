@@ -238,7 +238,7 @@ These questions belong to later documents and require their own definitions, evi
 Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/theorem)
 
 - **Exact group model:** [T035 — Exact quaternion realization of the binary icosahedral group](../../theorems/T035-exact-binary-icosahedral-model.md).
-- **Exact group construction and audit:** [audits/t035_exact_binary_icosahedral_model.py](../../audits/t035_exact_binary_icosahedral_model.py).
+- **Legacy T035 audit source (not currently executable):** [audits/t035_exact_binary_icosahedral_model.py](../../audits/t035_exact_binary_icosahedral_model.py).
 - **Scalar spectral formula and complete table:** [Document A1 — Exact scalar spectrum](../../documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md).
 - **Independent scalar spectral audit:** [audits/a1_poincare_scalar_spectrum.py](../../audits/a1_poincare_scalar_spectrum.py).
 - **Regression tests:** [tests/test_a1_poincare_scalar_spectrum.py](../../tests/test_a1_poincare_scalar_spectrum.py).
