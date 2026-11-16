@@ -75,7 +75,7 @@ n_j:=a_{2j}=\dim V_j^{2I}.
 Thus the invariant-series coefficient is indexed by polynomial degree \(k\), whereas \(n_j\) is indexed by spin \(j\). The multiplicity of \(\lambda_k\) on \(M=S^3/2I\) is
 \[
 \boxed{d_k=(k+1)a_k,\qquad d_{2j}=(2j+1)n_j.}
-]
+\]
 
 This is the key representation-theoretic reduction: the invariant dimension \(a_k\) is computed on the left \(SU(2)\) representation, while the right factor contributes the independent dimension \(k+1\).
 
@@ -170,7 +170,7 @@ a_k=\frac1{120}\sum_{j=1}^{9}|C_j|\chi_k(C_j).
 \]
 All character values lie in \(\mathbb Q(\sqrt5)\); the average is evaluated exactly, not numerically.
 
-The central element \(-I\in2I\) acts on \(V_k\) by \((-1)^k\). Since an invariant vector must be fixed by every group element, it follows immediately that
+The central element \(-I\in2I\) acts on \(W_k\) by \((-1)^k\). Since an invariant vector must be fixed by every group element, it follows immediately that
 \[
 a_k=0\quad\text{for odd }k.
 \]
