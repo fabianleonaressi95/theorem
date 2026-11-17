@@ -35,7 +35,7 @@ Let \(\Omega\) and \(\mathcal T_0\) be as in Section 2. Define \(\mathcal T_{n+1
 2. every descendant of a seed triangle is equilateral;
 3. if \(h_n=\max_{K\in\mathcal T_n}\operatorname{diam}K\), then \(h_n=2^{-n}h_0\);
 4. the family is shape-regular, with the same maximum shape-regularity constant as \(\mathcal T_0\);
-5. the quasi-uniformity ratio \\(h_{\\max,n}/h_{\\min,n}\\) is exactly the same as at level zero.
+5. the quasi-uniformity ratio \(h_{\max,n}/h_{\min,n}\) is exactly the same as at level zero.
 
 **Proof.** Each edge is bisected once on each side because the same midpoint is used by both incident elements; hence no hanging nodes are introduced and conformity is preserved. Each child is similar to its parent with scale factor \(1/2\). The central child is the image of the parent under the homothety of ratio \(-1/2\) about its centroid. In two dimensions this map has determinant \(1/4>0\), so it preserves orientation; only the vertex correspondence is permuted. Therefore all angles and the shape-regularity ratio are preserved. Diameters are halved at every level, giving \(h_n=2^{-n}h_0\). An equilateral parent produces four equilateral children. Every child diameter is exactly half its parent diameter, so \(h_{\max,n}=2^{-n}h_{\max,0}\) and \(h_{\min,n}=2^{-n}h_{\min,0}\); their ratio is exactly invariant. \(\square\)
 
