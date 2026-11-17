@@ -138,6 +138,7 @@ def assemble_global_direct_ipdg_forms(
     cell_node_coordinates, interpolation_points, cell_dofs, cell_diameters,
     boundary_facets, interior_facets, number_of_dofs, *,
     absolute_tolerance=F(1, 10**8), max_depth=24, progress_callback=None,
+    integration_method="neumann", residual_expansion_order=2,
 ):
     """Assemble sparse interval matrices D, P and nonsymmetric C.
 
@@ -159,6 +160,8 @@ def assemble_global_direct_ipdg_forms(
         block = assemble_cell_volume_interval(
             cell_node_coordinates[cell], interpolation_points,
             absolute_tolerance=tol, max_depth=max_depth,
+            integration_method=integration_method,
+            residual_expansion_order=residual_expansion_order,
             progress_callback=(
                 (lambda detail, cell_number=cell + 1: progress_callback({
                     "phase": "volume_cell_integration", "cell": cell_number,
@@ -354,7 +357,9 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
 
 def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
                                        absolute_tolerance=F(1, 10**8),
-                                       max_depth=24, progress_callback=None):
+                                       max_depth=24, progress_callback=None,
+                                       integration_method="neumann",
+                                       residual_expansion_order=2):
     """Extract a serial equispaced P3 mesh and assemble D, P, C.
 
     Boundary reference edges are oriented as (0,1), (1,2), (2,0), which
@@ -452,7 +457,9 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
         cell_nodes, points, cell_dofs, diameters, boundary, interior,
         int(function_space.dofmap.index_map.size_local),
         absolute_tolerance=absolute_tolerance, max_depth=max_depth,
-        progress_callback=progress_callback
+        progress_callback=progress_callback,
+        integration_method=integration_method,
+        residual_expansion_order=residual_expansion_order,
     )
     exterior = exterior_facet_indices(mesh.topology)
     boundary_dofs = fem.locate_dofs_topological(function_space, 1, exterior)

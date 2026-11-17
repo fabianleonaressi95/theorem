@@ -52,6 +52,17 @@ on:
         required: true
         default: "1/10000"
         type: string
+      integration_method:
+        description: "Certified rational volume integrator"
+        required: true
+        type: choice
+        options: [bernstein_residual, neumann]
+        default: bernstein_residual
+      residual_expansion_order:
+        description: "T135 finite Neumann polynomial order"
+        required: true
+        default: "2"
+        type: string
   pull_request:
     branches: [main, t134-exact-integration-foundation]
     paths:
@@ -101,7 +112,9 @@ jobs:
       - name: "05 — Curved-P3 local form assembly tests"
         run: python3 -m pytest -vv -ra tests/test_morandotti_certified_curved_p3_forms.py
       - name: "06 — Compile direct IPDG certificate module and runner"
-        run: python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
+        run: |
+          python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
+          python3 scripts/certify_morandotti_direct_ipdg.py --help
       - name: "07 — Direct IPDG boundary-facet assembly"
         run: python3 -m pytest -vv -ra tests/test_morandotti_direct_ipdg_certificate.py::test_direct_boundary_assembly_builds_D_P_C_with_exact_intervals
       - name: "08 — Direct IPDG strict coercivity / LDL certificate"
@@ -117,6 +130,8 @@ jobs:
           ALPHA: ${{ inputs.alpha }}
           KAPPA: ${{ inputs.kappa }}
           TOLERANCE: ${{ inputs.tolerance }}
+          INTEGRATION_METHOD: ${{ inputs.integration_method }}
+          RESIDUAL_EXPANSION_ORDER: ${{ inputs.residual_expansion_order }}
         run: >-
           python3 scripts/certify_morandotti_direct_ipdg.py
           --mesh-size "$MESH_SIZE"
@@ -125,12 +140,14 @@ jobs:
           --alpha "$ALPHA"
           --kappa "$KAPPA"
           --tolerance "$TOLERANCE"
+          --integration-method "$INTEGRATION_METHOD"
+          --residual-expansion-order "$RESIDUAL_EXPANSION_ORDER"
           --max-depth 24
       - name: Upload fixed-mesh certificate and diagnostics
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: t134-direct-ipdg-certificate
+          name: t135-direct-ipdg-certificate
           path: |
             artifacts/morandotti_direct_ipdg/direct_coercivity.json
             artifacts/morandotti_direct_ipdg/progress.json
