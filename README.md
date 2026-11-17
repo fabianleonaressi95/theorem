@@ -45,6 +45,7 @@ theorem/
 
 - [Morandotti benchmark I — discrete Saint-Venant KKT specification](manuscripts/MORANDOTTI_BENCHMARK_I_DISCRETE_SAINT_VENANT_KKT.md) — finite-dimensional constrained energy, implemented generic KKT solver and energy assembly, D1–D3 defect tests and Airy/CIP-DG comparison gates; CI execution, continuum convergence and physical validation remain open.
 - **[Integrated 27-chapter monograph](monographs/RGS_PSU_PRISM_Q6_QLG_MONOGRAPH_27_CHAPTERS.md)** — consolidated reference for Q6, Q6-D5/Wilson, 2I/Rumin, RGS 188D, PRISM/Krist-All, FEEC/Mosco, QLG, Einstein–Cartan/teleparallelism, QAT, XCont and hysteresis. Includes explicit epistemic status and recovery caveats.
+- **[Rubino–QAT–quaternionic SU(2) bridge](docs/RUBINO_QAT_QUATERNIONIC_SU2_BRIDGE.md)** — source audit of Rubino's tensorial parallel-transport discussion, quaternionic QAT-current covariance, the coframe/spin-connection reduction, and the exact finite-graph result already proved in T118; the Q6 continuum limit and unified field equations remain open.
 - [Canonical synthesis and closure programme](manuscripts/SINTESI_CANONICA_RGS_PSU_PRISM_Q6_QLG.md) — short strategic overview.
 
 - **[Document A1 — Exact scalar spectrum of the Poincaré spherical space](documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md)** — exact (2I)-invariant harmonic multiplicities on (S^3/2I), derived from the binary Molien series and independently checked by the nine-class Reynolds character average through degree 120.
