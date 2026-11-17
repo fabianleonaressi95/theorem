@@ -184,3 +184,29 @@ def test_shared_facet_integrator_encloses_scalar_integrals():
     for (lo, hi, _, _), (slo, shi, _, _) in zip(shared, scalar):
         assert lo <= shi and slo <= hi
         assert hi - lo <= F(1, 500)
+
+
+
+def test_interior_facet_blocks_include_average_square_and_penalty_length():
+    from models.morandotti_certified_curved_p3_forms import (
+        assemble_interior_facet_interval,
+    )
+
+    nodes, points = _p3_nodes()
+    # Use the same exact affine trace on both sides. For h_F=2,
+    # h_F * ((q_A+q_B)/2)^2 gives h_F/4 = 1/2 times
+    # the unweighted single-side Gram matrix in each AA/AB/BB block.
+    boundary = assemble_boundary_edge_interval(
+        nodes, points, (0, 1), F(1), absolute_tolerance=F(1, 5)
+    )["matrix_interval"]
+    interior = assemble_interior_facet_interval(
+        nodes, nodes, points, (0, 1), (0, 1), F(2),
+        absolute_tolerance=F(1, 5),
+    )
+    for i in range(10):
+        for j in range(10):
+            expected = (boundary[i][j][0] / 2,
+                        boundary[i][j][1] / 2)
+            assert interior["block_AA"][i][j] == expected
+            assert interior["block_BB"][i][j] == expected
+            assert interior["block_AB"][i][j] == expected
