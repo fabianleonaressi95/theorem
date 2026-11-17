@@ -30,7 +30,7 @@ Then
 \[
 |c_1-c_2|=|c_1-p_\pm|=|c_2-p_\pm|=r.
 \]
-Thus the two radius-\(r\) circles centred at \(c_1,c_2\) intersect at \(p_+\) and \(p_-\), and each triple \((c_1,c_2,p_\pm)\) is an equilateral triangle of side \(r\). The triangle vertices lie in \(B(x,r)\subset U\). Moreover, every point of either circle lies within distance \(2r<\rho\) of \(x\), so both complete circles lie in \(B(x,\rho)\subset U\). The triangle diameter is \(r<\epsilon\).
+The triangle vertices lie in \(B(x,2r)\subset B(x,\rho)\subset U); this avoids treating points at distance exactly \(r\) as elements of the open ball \(B(x,r)\). Moreover, every point of either complete circle lies within distance \(2r<\rho\) of \(x\), so both circles lie in \(B(x,\rho)\subset U). The triangle diameter is \(r<\epsilon\).
 
 **Theorem 92.1 (arbitrarily small local two-circle cells).** For every \(x\) in every open set \(U\subset\mathbb R^2\) and every \(\epsilon>0\), there exist two equal circles with centre separation equal to their radius, contained locally in \(U\), whose intersection produces an equilateral triangle of diameter smaller than \(\epsilon\). In fact the construction gives two triangles, one on each side of the line of centres.
 
@@ -89,7 +89,7 @@ in the oriented planar sector (with the appropriate representation and sign conv
 \[
 b_\gamma^a \simeq \int_S T^a,
 \]
-provided the coframe and connection are used consistently and the integrand is parallel-transported to a common reference frame. For finite loops, path ordering and connection-dependent transport terms must be retained; the displayed surface integrals are not asserted as unrestricted exact identities.
+provided the coframe and connection are used consistently and the integrand is parallel-transported to a common reference frame. For finite loops, path ordering and connection-dependent transport terms must be retained; the displayed surface integrals are not asserted as unrestricted exact identities. The signs in these leading-order formulas correspond to the positive-closure convention (equivalently, the inverse of the T093 holonomy defined by \(\dot U=-\mathcal A(\dot\gamma)U\)). If the T092 edge product \(H_\gamma\) is identified directly with the same oriented T093 face transport \(H_K\), then \(H_K=I-\mathcal F|K|+O(h_K^3)\): both raw closure components \(\operatorname{Arg}(R_K)\) and \(t_K\) have the opposite leading sign from the positive surface-integral convention written here. Reverse the loop/product or invert the holonomy before identifying the two records.
 
 This gives the geometric identification:
 \[
@@ -118,7 +118,7 @@ The relevant published benchmark is:
 
 P. Cesana, L. De Luca, M. Morandotti, “Semidiscrete Modeling of Systems of Wedge Disclinations and Edge Dislocations via the Airy Stress Function Method,” *SIAM Journal on Mathematical Analysis* 56 (2024), 79–136, DOI: 10.1137/22M1523443.
 
-The Two-Circle construction supplies a possible local geometric cell language for discretising the domain and transporting local frames. The cited work supplies a rigorous elasticity framework for specified disclination/dislocation systems. This record does not claim that the paper uses the Two-Circle construction, nor that its hypotheses follow automatically from local triangulability.
+The Two-Circle construction supplies a local geometric cell language for discretising the domain and transporting local frames. T093 turns finitely many such seeds into a conforming polygonal mesh and supplies a smooth-connection holonomy consistency result. The Cesana–De Luca–Morandotti work supplies the rigorous elasticity/Airy framework for specified disclination/dislocation systems. This is a genuine modular connection: T092/T093 provide candidate geometry and defect kinematics; the Morandotti model provides the constitutive/equilibrium layer. It is not an identification of the papers' meshes with the Two-Circle mesh, and it does not show that the T093 mesh automatically satisfies the curved-P3 compact-map hypotheses in T134.
 
 ## 6. Relation to T091 and the existing two-core computation
 

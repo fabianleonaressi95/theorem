@@ -27,7 +27,7 @@ C_\star D_h-H_{h,\ell}\succeq0
 \]
 on the full homogeneous-Dirichlet P3 space. Such a certificate implies \(C_{\mathrm{tr},h}\le C_\star<20\), and hence the sufficient C⁰-IPDG condition \(\alpha=40>2C_\star\) for that mesh.
 
-**Kernel correction (2026-11-13).** On a curved isoparametric mesh, reference C⁰-P1 functions are not generally affine in physical coordinates and are not the kernel of the physical Hessian. The common zero-Hessian modes are global physical affine functions. Homogeneous trace on the full nondegenerate boundary eliminates those modes. Therefore the admissible matrix space constrains boundary P3 degrees of freedom only; interior vertex degrees of freedom must remain free. Both the exact assembler and the floating-point diagnostic have been corrected accordingly. No C⁰-P1 quotient or interior-vertex elimination is used.
+**Kernel correction (2026-11-17).** The cellwise kernel of the physical Hessian on a mapped P3 cell is \(\operatorname{span}\{1,F_{K,1},F_{K,2}\}\), i.e. physical-affine functions on that cell. This does **not** imply that the kernel of the assembled \(D_h\) consists only of global physical affine functions. Globally, \(\ker D_h\) consists of C0 functions that are physical-affine cell by cell and whose traces agree across shared facets. On straight-sided facets, nonzero piecewise-affine hat functions can satisfy homogeneous boundary values, so \(D_h\) and \(H_{h,\ell}\) both have a common nontrivial kernel. Boundary P3 degrees of freedom are constrained to impose the stated homogeneous trace; interior vertex degrees of freedom remain free. The old statement that boundary conditions remove the global kernel of \(D_h\) was incorrect and is withdrawn. No C0-P1 quotient or interior-vertex elimination is used. The combined quantity \(D_h^2+J_{h,\ell}^2\), not \(D_h^2\) alone, has trivial kernel on a connected conforming mesh with the stated nondegenerate homogeneous boundary: zero normal-gradient jumps plus C0 continuity force matching full gradients, hence one global affine function, then zero.
 
 ## 2. Exact local volume integration
 
@@ -74,6 +74,37 @@ certify_interval_psd computes the exact rational midpoint matrix and an upper bo
 
 This is a sufficient certificate and may fail when the integration intervals are too wide or the chosen \(C_\star\) is too small. Such a failure is not evidence that the target inequality is false; it means this enclosure did not prove it.
 
+## 5A. Preferred alternative: direct finite-mesh certificate for the IPDG form
+
+For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \(\{\phi_i\}_{i=1}^N\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for three global blocks (two symmetric and one generally nonsymmetric):
+
+- \(D_{ij}=\sum_K\int_K D^2\phi_i:D^2\phi_j\,dx\) (already implemented);
+- \(P_{ij}=\sum_F\ell_F^{-1}\int_F j_F(\phi_i)j_F(\phi_j)\,ds\) (normal-gradient penalty block; to implement);
+- \(C_{ij}=\sum_F\int_F q_F(\phi_i)j_F(\phi_j)\,ds\) (consistency coupling block; to implement, with the same arithmetic average and orientation conventions as the UFL form).
+
+The boundary and interior contributions are assembled separately. On an interior facet, \(q_F\) is the arithmetic average of the two normal-normal Hessian traces and \(j_F\) is the sum of outward normal derivatives. On a boundary facet, use the one-sided traces. The global symmetric matrix of the stated form is
+\[
+A_{h,\ell}=D-C-C^T+\alpha P.
+\]
+All local entries must be enclosed rigorously; use exact rational Bernstein integration when the metric factors cancel to rational functions and the certified square-root segment integrator otherwise. Shared curved-facet traces, endpoint ordering, outward normals, and the exact \(\ell_F\) weights must be checked before accumulation.
+
+For a stronger and scale-aware certificate, also assemble
+\[
+W_{h,\ell}=D+P,
+\]
+and seek a positive rational \(\kappa\) such that
+\[
+A_{h,\ell}-\kappa W_{h,\ell}\succ0.
+\]
+A successful interval certificate with a strict positive LDL factor after subtracting the full interval perturbation bound proves
+\[
+a_{h,\ell}(v,v)\ge\kappa\bigl(D_h(v)^2+J_{h,\ell}(v)^2\bigr)
+\quad\forall v\in V_h^0
+\]
+on that **one fixed mesh**. It simultaneously avoids quotienting the common kernel of \(D_h\) and \(H_{h,\ell}\), and directly certifies coercivity in the natural mesh-dependent norm. A weaker alternative is strict positive definiteness of \(A_{h,\ell}\) in the chosen coefficient basis, but that only gives a basis- and mesh-dependent finite-dimensional lower bound.
+
+The implementation should not reuse the current semidefinite LDL acceptance rule unchanged: require strictly positive pivots for the shifted matrix, and store \(\kappa\), the basis/DOF ordering, mesh and coordinate hashes, all interval radii, the perturbation bound, and the exact pivot diagnostics. A failed \(\kappa\) trial is inconclusive; decrease \(\kappa\) or tighten integration intervals. This finite-mesh result does not imply an all-level lower bound or prove that the T093 midpoint-refined family satisfies the curved-P3 Gmsh hypotheses.
+
 ## 5. DOLFINx adapter and remaining execution gate
 
 assemble_dolfinx_mesh_interval_forms extracts the serial planar triangular P3 geometry, solution dofs, cell diameters, boundary facets, and paired interior facets. It checks the equispaced coordinate map, the scalar P3 solution family/degree, nodal interpolation identity, and correspondence of reference nodes. It then invokes the exact local/global assemblers.
@@ -95,6 +126,26 @@ The 24-mesh diagnostic reported generalized-eigenvalue estimates in the range 9.
 
 The quadrature-degree 32/40 agreement (relative difference at most \(1.71\times10^{-13}\)) is a numerical stability diagnostic only. It is not an interval integration certificate and does not establish the matrix inequality.
 
+## 6A. Interior-facet scaling correction (2026-11-17)
+
+A source audit found that the first implementation of
+`assemble_interior_facet_interval` formed the two-sided blocks from
+\(q_A q_A\), \(q_A q_B\), and \(q_B q_B\), but omitted both the
+penalty length \(h_F\) and the factor \(1/4\) coming from the arithmetic
+average \(\{q\}=(q_A+q_B)/2\). Consequently, the assembled interior-facet
+matrix was not the stated \(H_{h,\ell}\), and a PSD result from that version
+would not certify the T134 trace inequality.
+
+The implementation is corrected on branch
+`t134-interior-facet-weight-fix`: all three blocks now include
+\(h_F/4\), with \(h_F=(h_{K_A}+h_{K_B})/2\). A regression test compares
+AA, AB, and BB against the corresponding single-side boundary Gram matrix
+on an identical affine trace and checks the exact scaling. This is a
+The source correction and its exact affine-trace regression passed the focused CI run at commit `a057385355cb13650a966c447f0e8d21c78e86fe` (30 tests and 11 tests passed in the two test groups). Later kernel/documentation/metadata changes in this PR still require a fresh successful run; this historical pass does not validate those later edits.
+Any prior finite-mesh PSD artifact produced by the uncorrected interior
+facet assembly must be treated as invalid for T134 and must not be cited as
+evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
+
 ## 7. Explicit theorem status
 
 | Claim | Status |
@@ -103,7 +154,9 @@ The quadrature-degree 32/40 agreement (relative difference at most \(1.71\times1
 | Rational interval integration of curved-P3 volume entries | Implemented; unit tests exist; end-to-end execution pending |
 | Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
 | Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
-| Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) | Primitive implemented; no successful mesh certificate yet |
+| Direct interval assembly of \(A_{h,\ell}=D-C-C^T+\alpha P\) and \(W=D+P\) | Proposed in §5A; not implemented |
+| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Proposed in §5A; not implemented |
+| Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) on the full space | Obstructed when the common piecewise-affine kernel is present; an exact kernel complement is not implemented |
 | Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
 | Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
 | Uniform coercivity with \(\alpha=40\) for the actual Gmsh family | Not established |

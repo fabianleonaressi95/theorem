@@ -35,9 +35,9 @@ Let \(\Omega\) and \(\mathcal T_0\) be as in Section 2. Define \(\mathcal T_{n+1
 2. every descendant of a seed triangle is equilateral;
 3. if \(h_n=\max_{K\in\mathcal T_n}\operatorname{diam}K\), then \(h_n=2^{-n}h_0\);
 4. the family is shape-regular, with the same maximum shape-regularity constant as \(\mathcal T_0\);
-5. the family is quasi-uniform if and only if \(\mathcal T_0\) is quasi-uniform.
+5. the quasi-uniformity ratio \(h_{\max,n}/h_{\min,n}\) is exactly the same as at level zero.
 
-**Proof.** Each edge is bisected once on each side because the same midpoint is used by both incident elements; hence no hanging nodes are introduced and conformity is preserved. The four midpoint subtriangles are similar to the parent triangle, each with scale factor \(1/2\); the central one is also similar (with reversed orientation). Therefore all angles and the shape-regularity ratio are preserved. Diameters are halved at every level, giving \(h_n=2^{-n}h_0\). An equilateral parent produces four equilateral children. Since the initial mesh is finite, its minimum element diameter is positive; uniform scaling preserves the ratio of largest to smallest diameters, proving the quasi-uniformity statement. \(\square\)
+**Proof.** Each edge is bisected once on each side because the same midpoint is used by both incident elements; hence no hanging nodes are introduced and conformity is preserved. Each child is similar to its parent with scale factor \(1/2\). The central child is the image of the parent under the homothety of ratio \(-1/2\) about its centroid. In two dimensions this map has determinant \(1/4>0\), so it preserves orientation; only the vertex correspondence is permuted. Therefore all angles and the shape-regularity ratio are preserved. Diameters are halved at every level, giving \(h_n=2^{-n}h_0\). An equilateral parent produces four equilateral children. Every child diameter is exactly half its parent diameter, so \(h_{\max,n}=2^{-n}h_{\max,0}\) and \(h_{\min,n}=2^{-n}h_{\min,0}\); their ratio is exactly invariant. \(\square\)
 
 **Consequence.** The two-circle construction can be inserted as an exact local subcomplex in a global conforming mesh. Global completion uses ordinary polygonal triangulation; it does not force every complementary element to be equilateral. The theorem therefore separates the universal local seed from the domain-dependent global completion.
 
@@ -119,6 +119,14 @@ Write
 \qquad
 J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
 \]
+The sign convention here is tied to the transport equation \(\dot U=-\mathcal A(\dot\gamma)U\). In particular, if the rotational block of \(H_K\) is \(e^{\Theta_KJ}\), then T093 uses \(\Omega_K=-\Theta_K\), whereas Definition 92.2 uses \(\Omega_\gamma=\operatorname{Arg}(R_\gamma)\). When the T092 edge product is identified with this same \(H_K\) and loop orientation, the two angles therefore differ by a minus sign; identifying the conventions requires reversing the loop/product or changing one definition. Do not silently identify them.
+
+For the translational block, write \(H_K=\exp\begin{psmallmatrix}\Theta_KJ&q_K\\0&0\end{psmallmatrix}=(R_K,t_K)\). The semidirect-product exponential gives
+\[
+t_K=V(\Theta_K)q_K,\qquad V(\Theta)=\int_0^1e^{s\Theta J}\,ds=I+\frac{\Theta}{2}J+O(\Theta^2).
+\]
+Thus the group translation and logarithmic translation agree to first order only after the loop orientation and sign convention have been aligned. With the definitions as currently written, T092's \(b_\gamma=t_\gamma\) and T093's \(b_K=-q_K\) are not literally equal for the same oriented product; the conversion is \(b_K=-V(\Theta_K)^{-1}t_K\). If the inverse holonomy is used, the corresponding signs change. The continuum comparison must use one convention consistently.
+
 For sufficiently small faces, the principal logarithm is well-defined. The discrete Frank angle and Burgers closure vector are
 \[
 \Omega_K=-\Theta_K,\qquad b_K=-q_K
@@ -156,7 +164,7 @@ The resulting chain is now:
 \end{aligned}
 \]
 
-The global mesh theorem supplies a conforming geometric carrier. The holonomy theorem supplies a consistent discrete measurement of smooth curvature and torsion. The Morandotti constitutive and equilibrium problem remains a separate variational layer: it requires the elasticity tensor, source/core prescription, boundary conditions, and stability/coercivity assumptions. T091 then analyzes the finite-dimensional interaction of the reconstructed Frank and Burgers responses.
+The global mesh theorem supplies a conforming geometric carrier for the local seeds of T092. Together they provide candidate mesh topology and discrete defect kinematics for a Morandotti problem. T134 then studies stability of a particular curved-P3 C0-IPDG Airy discretisation on its own admissible mapped-mesh class. The T093 midpoint-refined meshes are straight-sided; they are not automatically the cubic Gmsh meshes of T134, and no transfer of T134's compact-map constants is claimed. The Morandotti constitutive and equilibrium problem remains a separate variational layer: it requires the elasticity tensor, source/core prescription, boundary conditions, and stability/coercivity assumptions. T091 then analyzes the finite-dimensional interaction of the reconstructed Frank and Burgers responses.
 
 ## 8. Classification and remaining obligations
 
