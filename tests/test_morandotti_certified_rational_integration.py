@@ -182,6 +182,7 @@ def test_bernstein_residual_integrator_rejects_uncertified_denominator():
 
 def test_bernstein_residual_batch_matches_scalar_enclosures():
     from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
         integrate_rational_triangle_bernstein_residual_many,
     )
 
