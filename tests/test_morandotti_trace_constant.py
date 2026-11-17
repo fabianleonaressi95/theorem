@@ -95,3 +95,35 @@ def test_largest_generalized_eigenvalue_rejects_indefinite_positive_diagonal_den
     ])
     with pytest.raises(ValueError, match="positive definite"):
         largest_generalized_eigenvalue(A, B)
+
+
+def test_sparse_generalized_eigensolver_bad_pair_uses_dense_verified_fallback(monkeypatch):
+    import models.morandotti_trace_constant as trace_module
+    from scipy.linalg import eigh as dense_eigh
+
+    rng = np.random.default_rng(20261117)
+    R = rng.normal(size=(8, 8))
+    B = R.T @ R + np.eye(8)
+    S = rng.normal(size=(8, 8))
+    A = S.T @ S
+    expected = float(dense_eigh(A, B, eigvals_only=True)[-1])
+
+    original_eigsh = trace_module.eigsh
+    calls = {"count": 0}
+
+    def deliberately_bad_largest_pair(matrix, *args, **kwargs):
+        calls["count"] += 1
+        # The first two calls certify the denominator's spectral extremes.
+        if calls["count"] <= 2:
+            return original_eigsh(matrix, *args, **kwargs)
+        # Simulate ARPACK's failure mode: a plausible scalar with a vector
+        # that is not its generalized eigenvector.
+        return np.array([1234.0]), np.eye(8)[:, :1]
+
+    monkeypatch.setattr(trace_module, "eigsh", deliberately_bad_largest_pair)
+    value, diagnostics = trace_module.largest_generalized_eigenvalue(
+        A, B, return_diagnostics=True
+    )
+    assert np.isclose(value, expected, rtol=1e-9, atol=1e-10)
+    assert diagnostics["eigensolver_dense_fallback_used"]
+    assert diagnostics["relative_generalized_eigenpair_residual"] < 1e-7
