@@ -21,6 +21,7 @@ on:
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
       - '.github/workflows/morandotti-independent-remeshing.yml'
       - 'scripts/audit_runtime.py'
+      - 'scripts/render_audit_summary.py'
   push:
     branches: [main]
     paths:
@@ -96,6 +97,9 @@ jobs:
           python3 scripts/morandotti_mesh_realization_diagnostics.py \
             --report artifacts/morandotti_independent_remeshing/report.json \
             --out artifacts/morandotti_independent_remeshing/mesh_diagnostics.json
+      - name: Render phase timing and realization summary
+        if: always() && github.event_name == 'workflow_dispatch'
+        run: python3 scripts/render_audit_summary.py artifacts/morandotti_independent_remeshing/progress.jsonl
       - name: Upload report, checkpoint, progress, decompositions, diagnostics, and finite-element fields
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
