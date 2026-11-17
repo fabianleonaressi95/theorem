@@ -53,3 +53,21 @@ def test_direct_coercivity_certificate_rejects_nonpositive_shift():
     result = certify_direct_ipdg_coercivity(D, P, {}, [0], F(1), F(1))
     assert not result["certified"]
     assert result["failed_pivot"] == 0
+
+
+def test_direct_interior_facet_assembly_uses_two_sided_jump_and_average():
+    points, nodes_a = _identity_p3()
+    nodes_b = [(1-y, x+y) for x, y in points]
+    result = assemble_global_direct_ipdg_forms(
+        [nodes_a, nodes_b], points,
+        [list(range(10)), list(range(10, 20))],
+        [F(1), F(1)], [],
+        [(0, (1, 2), 1, (0, 2))], 20,
+        absolute_tolerance=F(1, 2), max_depth=8,
+    )
+    P, C = result["P_interval"], result["C_interval"]
+    assert P and C
+    for i in range(10):
+        for j in range(10):
+            assert P[(i, 10+j)] == P[(10+j, i)]
+    assert result["assembly_counts"]["interior_facets"] == 1
