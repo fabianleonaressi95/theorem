@@ -6,7 +6,9 @@ contains |F'|. It is enclosed with rational Bernstein bounds for
 p/(q*sqrt(s)**3), never by floating-point quadrature.
 
 This module deliberately exposes local certified blocks first. Global
-interval assembly and quotient PSD propagation consume these blocks.
+interval assembly consumes these blocks. The trace-matrix PSD route may
+have a nontrivial piecewise-affine kernel; it is not a quotient certificate
+unless an exact kernel complement is constructed.
 """
 from __future__ import annotations
 
@@ -918,10 +920,11 @@ def assemble_dolfinx_mesh_interval_forms(
     reference-node ordering. Facet traces are matched by their shared global
     vertex IDs and then checked as exact cubic physical polynomials.
     Returns sparse D/H intervals and the homogeneous-Dirichlet subspace.
-    The physical Hessian kernel consists of global physical affine functions,
-    not the reference C0-P1 space on a curved isoparametric mesh. Homogeneous
-    boundary values eliminate that affine kernel on a nondegenerate domain;
-    interior vertex degrees of freedom must therefore remain unconstrained.
+    The assembled D_h kernel consists of C0 functions that are physical
+    affine on each cell and match in value across facets; it can contain
+    nonzero piecewise-affine modes on straight-sided meshes. Do not interpret
+    the free-DOF space as a quotient by global affine functions. Boundary
+    trace DOFs are eliminated, while all interior DOFs remain free.
     """
     import numpy as np
     import basix
@@ -1045,10 +1048,9 @@ def assemble_dolfinx_mesh_interval_forms(
         "cell_count": nc,
         "interior_facet_count": len(interior_facets),
         "boundary_facet_count": len(boundary_facets),
-        "quotient_definition": (
-            "homogeneous physical Dirichlet trace; no interior vertex constraints; "
-            "the only zero-Hessian modes are global physical affine functions, "
-            "which are eliminated by zero trace on the full nondegenerate boundary"
+        "subspace_definition": (
+            "full homogeneous physical Dirichlet P3 space; boundary trace DOFs eliminated; "
+            "all interior DOFs retained; D_h may have nonzero C0 piecewise-physical-affine kernel modes"
         ),
         "coordinate_nodes": "stored IEEE-754 binary64 interpreted as exact dyadic rationals",
     })
