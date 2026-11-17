@@ -89,7 +89,7 @@ in the oriented planar sector (with the appropriate representation and sign conv
 \[
 b_\gamma^a \simeq \int_S T^a,
 \]
-provided the coframe and connection are used consistently and the integrand is parallel-transported to a common reference frame. For finite loops, path ordering and connection-dependent transport terms must be retained; the displayed surface integrals are not asserted as unrestricted exact identities.
+provided the coframe and connection are used consistently and the integrand is parallel-transported to a common reference frame. For finite loops, path ordering and connection-dependent transport terms must be retained; the displayed surface integrals are not asserted as unrestricted exact identities. The signs in these leading-order formulas correspond to the positive-closure convention (equivalently, the inverse of the T093 holonomy defined by \(\dot U=-\mathcal A(\dot\gamma)U\)). If the T092 edge product \(H_\gamma\) is identified directly with the same oriented T093 face transport \(H_K\), then \(H_K=I-\mathcal F|K|+O(h_K^3)\): both raw closure components \(\operatorname{Arg}(R_K)\) and \(t_K\) have the opposite leading sign from the positive surface-integral convention written here. Reverse the loop/product or invert the holonomy before identifying the two records.
 
 This gives the geometric identification:
 \[
