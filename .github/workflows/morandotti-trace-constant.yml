@@ -57,7 +57,7 @@ on:
         required: true
         type: choice
         options: [bernstein_residual, neumann]
-        default: bernstein_residual
+        default: neumann
       residual_expansion_order:
         description: "T135 finite Neumann polynomial order"
         required: true
@@ -81,6 +81,7 @@ on:
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
       - 'tests/test_morandotti_exact_integration.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
 
 concurrency:
   group: morandotti-trace-constant-${{ github.ref }}
