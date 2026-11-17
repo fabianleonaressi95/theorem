@@ -20,7 +20,6 @@ from scipy.sparse import csr_matrix
 from models.morandotti_trace_constant import largest_generalized_eigenvalue
 from models.morandotti_exact_geometry import certify_p3_cell_geometry
 from scripts.rgs_morandotti_two_core_c0_ipdg import make_mesh
-from scripts.audit_runtime import emit, phase
 
 
 def _petsc_to_scipy(matrix, size):
@@ -262,22 +261,19 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
     estimates = []
     free_dofs = None
     for degree in quadrature_degrees:
-        with phase("assemble_and_solve_generalized_eigenproblem",
-                   quadrature_degree=int(degree), cells=int(nc),
-                   local_dofs=int(V.dofmap.index_map.size_local)):
-            dx = ufl.Measure("dx", domain=mesh, metadata={"quadrature_degree": int(degree)})
-            dS = ufl.Measure("dS", domain=mesh, metadata={"quadrature_degree": int(degree)})
-            ds = ufl.Measure("ds", domain=mesh, metadata={"quadrature_degree": int(degree)})
-            D_form = ufl.inner(Hu, Hv) * dx
-            H_form = (ufl.avg(cell_h) * q_u_int * q_v_int * dS
-                      + cell_h * q_u_bnd * q_v_bnd * ds)
-            value, spectral, count = _assemble_pair(D_form, H_form, V, mesh, int(degree))
-            estimates.append({
-                "quadrature_degree": int(degree),
-                "C_tr_h": value,
-                "spectral_diagnostics": spectral,
-            })
-            free_dofs = count
+        dx = ufl.Measure("dx", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        dS = ufl.Measure("dS", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        ds = ufl.Measure("ds", domain=mesh, metadata={"quadrature_degree": int(degree)})
+        D_form = ufl.inner(Hu, Hv) * dx
+        H_form = (ufl.avg(cell_h) * q_u_int * q_v_int * dS
+                  + cell_h * q_u_bnd * q_v_bnd * ds)
+        value, spectral, count = _assemble_pair(D_form, H_form, V, mesh, int(degree))
+        estimates.append({
+            "quadrature_degree": int(degree),
+            "C_tr_h": value,
+            "spectral_diagnostics": spectral,
+        })
+        free_dofs = count
 
     # Sample the actual cubic geometry map on a triangular reference grid.
     from dolfinx import fem as _fem
@@ -302,8 +298,7 @@ def trace_constant_for_mesh(mesh, quadrature_degrees=(24, 32, 40)):
         "maximum_sampled_map_condition_number": float(np.max(singular[..., 0] / singular[..., -1])),
         "all_sampled_determinants_positive": bool(np.all(det_j > 0.0)),
     }
-    with phase("exact_rational_curved_p3_geometry_certificate", cells=int(nc)):
-        geometry_certificate = certify_curved_p3_geometry(mesh)
+    geometry_certificate = certify_curved_p3_geometry(mesh)
     if not geometry_certificate["all_cell_jacobians_certified_positive"]:
         raise RuntimeError(
             "Bernstein subdivision could not certify positive Jacobians on every cell"
@@ -457,10 +452,7 @@ def statistical_model_audit(runs, distances, mesh_sizes, bootstrap_replicates=20
 
         # Paired cluster bootstrap: resample seed trajectories, not each h independently.
         limits = []
-        emit("bootstrap_started", distance=float(distance),
-             requested_replicates=int(bootstrap_replicates),
-             independent_seed_blocks=len(seeds))
-        for replicate in range(int(bootstrap_replicates)):
+        for _ in range(int(bootstrap_replicates)):
             selected = rng.integers(0, len(seeds), size=len(seeds))
             boot_matrix = matrix[selected, :]
             hb = np.tile(np.asarray(levels, dtype=float), len(seeds))
@@ -471,10 +463,6 @@ def statistical_model_audit(runs, distances, mesh_sizes, bootstrap_replicates=20
                     limits.append(float(pars[0]))
             except Exception:
                 pass
-            if (replicate + 1) % 100 == 0 or replicate + 1 == int(bootstrap_replicates):
-                emit("bootstrap_progress", distance=float(distance),
-                     completed=replicate + 1, total=int(bootstrap_replicates),
-                     successful_fits=len(limits))
         output[f"d{float(distance):.4f}"] = {
             "observations": int(y.size),
             "independent_seed_blocks": len(seeds),
@@ -520,12 +508,7 @@ def main():
     if len(set(args.seeds)) != len(args.seeds) or len(args.seeds) < 2:
         raise ValueError("at least two distinct mesh seeds are required")
 
-    emit("audit_configuration", mesh_sizes=args.mesh_sizes, distances=args.distances,
-         seeds=args.seeds, quadrature_degrees=[24, 32, 40],
-         expected_mesh_cases=len(args.mesh_sizes) * len(args.distances) * len(args.seeds),
-         bootstrap_replicates=args.bootstrap_replicates)
     runs = []
-    completed_cases = 0
     certificate_path = Path(args.certificate_out)
     certificate_path.parent.mkdir(parents=True, exist_ok=True)
     with certificate_path.open("wb") as certificate_file:
@@ -535,22 +518,8 @@ def main():
                 centers = ((-0.5 * distance, 0.0), (0.5 * distance, 0.0))
                 for h in args.mesh_sizes:
                     for seed in args.seeds:
-                        case_id = f"d={distance:.4f}|h={h:.4f}|seed={seed}"
-                        with phase("mesh_case", case_id=case_id,
-                                   case_index=completed_cases + 1,
-                                   total_cases=len(args.mesh_sizes) * len(args.distances) * len(args.seeds)):
-                            with phase("generate_curved_mesh", case_id=case_id):
-                                mesh, _ = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
-                            result = trace_constant_for_mesh(mesh)
-                        completed_cases += 1
-                        emit("mesh_case_summary", case_id=case_id,
-                             completed_cases=completed_cases,
-                             total_cases=len(args.mesh_sizes) * len(args.distances) * len(args.seeds),
-                             cells=result["cells"], free_dofs=result["free_dofs_after_zero_value_boundary_conditions"],
-                             C_tr_h=[x["C_tr_h"] for x in result["quadrature_estimates"]],
-                             quadrature_stable=result["quadrature_stable_last_two"],
-                             alpha10_pass=result["quadrature_estimates"][-1]["C_tr_h"] * 2 < 10,
-                             alpha40_pass=result["quadrature_estimates"][-1]["C_tr_h"] * 2 < 40)
+                        mesh, _ = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
+                        result = trace_constant_for_mesh(mesh)
                         cell_records = result["geometry_certificate"].pop("cell_certificates")
                         for cell_record in cell_records:
                             record = {
@@ -601,9 +570,7 @@ def main():
                 "alpha_40_exceeds_twice_max_C_tr_h": bool(40.0 > 2.0 * max(values)),
             }
 
-    with phase("statistical_model_selection_and_cluster_resampling",
-               mesh_cases=len(runs), bootstrap_replicates=args.bootstrap_replicates):
-        statistical = statistical_model_audit(runs, args.distances, args.mesh_sizes, args.bootstrap_replicates)
+    statistical = statistical_model_audit(runs, args.distances, args.mesh_sizes, args.bootstrap_replicates)
 
     payload = {
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
