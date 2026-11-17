@@ -154,7 +154,9 @@ evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
 | Rational interval integration of curved-P3 volume entries | Implemented; unit tests exist; end-to-end execution pending |
 | Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
 | Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
-| Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) | Primitive implemented; no successful mesh certificate yet |
+| Direct interval assembly of \\(A_{h,\\ell}=D-C-C^T+\\alpha P\\) and \\(W=D+P\\) | Proposed in §5A; not implemented |
+| Fixed-mesh direct coercivity certificate \\(A_{h,\\ell}-\\kappa W\\succ0\\) | Proposed in §5A; not implemented |
+| Exact interval PSD certificate for \\(C_\\star D_h-H_{h,\\ell}\\) on the full space | Obstructed when the common piecewise-affine kernel is present; an exact kernel complement is not implemented |
 | Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
 | Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
 | Uniform coercivity with \(\alpha=40\) for the actual Gmsh family | Not established |
