@@ -879,7 +879,7 @@ def assemble_global_interval_forms(
 
 
 def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
-    """Propagate sparse form intervals to an exact quotient PSD certificate."""
+    """Propagate sparse form intervals on the supplied free-DOF space."""
     c = _as_fraction(bound)
     if c <= 0:
         raise ValueError("trace bound must be positive")
@@ -900,7 +900,7 @@ def certify_global_trace_bound(D_interval, H_interval, free_dofs, bound):
     certificate = certify_interval_psd(M)
     certificate.update({
         "trace_bound": c,
-        "quotient_dimension": len(free),
+        "free_dimension": len(free),
         "matrix": "C*D-H",
         "integration_uncertainty_propagated": True,
     })
