@@ -112,7 +112,8 @@ def _assemble_interior_facet(nodes_a, nodes_b, points, edge_a, edge_b,
     Paa = _integrate_penalty_matrix(ga, ga, da, da, s, inv_h, tolerance, max_depth)
     Pbb = _integrate_penalty_matrix(gb, gb, db, db, s, inv_h, tolerance, max_depth)
     Pab = _integrate_penalty_matrix(ga, gb, da, db, s, inv_h, tolerance, max_depth)
-    Pab = [[tuple(-x for x in interval) for interval in row] for row in Pab]
+    Pab = [[(-interval[1], -interval[0]) for interval in row]
+           for row in Pab]
     Caa = _integrate_consistency_matrix(qa, ga, da3, da, s, F(1, 2), tolerance, max_depth)
     Cab = _integrate_consistency_matrix(qa, gb, da3, db, s, F(-1, 2), tolerance, max_depth)
     Cba = _integrate_consistency_matrix(qb, ga, db3, da, s, F(1, 2), tolerance, max_depth)
