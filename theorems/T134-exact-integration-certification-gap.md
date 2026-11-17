@@ -141,7 +141,7 @@ The implementation is corrected on branch
 \(h_F/4\), with \(h_F=(h_{K_A}+h_{K_B})/2\). A regression test compares
 AA, AB, and BB against the corresponding single-side boundary Gram matrix
 on an identical affine trace and checks the exact scaling. This is a
-**source correction awaiting CI execution**, not a completed certificate.
+The source correction and its exact affine-trace regression passed the focused CI run at commit `a057385355cb13650a966c447f0e8d21c78e86fe` (30 tests and 11 tests passed in the two test groups). Later kernel/documentation/metadata changes in this PR still require a fresh successful run; this historical pass does not validate those later edits.
 Any prior finite-mesh PSD artifact produced by the uncorrected interior
 facet assembly must be treated as invalid for T134 and must not be cited as
 evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
@@ -154,8 +154,8 @@ evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
 | Rational interval integration of curved-P3 volume entries | Implemented; unit tests exist; end-to-end execution pending |
 | Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
 | Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
-| Direct interval assembly of \\(A_{h,\\ell}=D-C-C^T+\\alpha P\\) and \\(W=D+P\\) | Proposed in §5A; not implemented |
-| Fixed-mesh direct coercivity certificate \\(A_{h,\\ell}-\\kappa W\\succ0\\) | Proposed in §5A; not implemented |
+| Direct interval assembly of \(A_{h,\ell}=D-C-C^T+\alpha P\) and \(W=D+P\) | Proposed in §5A; not implemented |
+| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Proposed in §5A; not implemented |
 | Exact interval PSD certificate for \\(C_\\star D_h-H_{h,\\ell}\\) on the full space | Obstructed when the common piecewise-affine kernel is present; an exact kernel complement is not implemented |
 | Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
 | Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
