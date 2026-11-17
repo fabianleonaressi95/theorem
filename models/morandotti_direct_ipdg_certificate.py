@@ -75,16 +75,21 @@ def _integrate_consistency_matrix(q_left, g_right, det3_left, det_right,
     """Integrate a 10x10 consistency block with a shared tree per row."""
     denominator = _mul1(_mul1(det3_left, det_right), radicand)
     scale = _as_fraction(sign)
-    result = _zero_block()
-    for i, q_i in enumerate(q_left):
-        numerators = [_scale1(_mul1(q_i, g_j), scale) for g_j in g_right]
-        enclosed = integrate_rational_sqrt_segments_many(
-            numerators, denominator, {0: F(1)},
-            absolute_tolerance=tolerance, max_depth=max_depth
-        )
-        for j, interval in enumerate(enclosed):
-            result[i][j] = interval[:2]
-    return result
+    # Certify the complete 10x10 block on one adaptive tree.  The former
+    # row-at-a-time loop rebuilt the same denominator/radicand bounds and
+    # subdivision tree ten times for every consistency block.
+    numerators = [
+        _scale1(_mul1(q_i, g_j), scale)
+        for q_i in q_left for g_j in g_right
+    ]
+    enclosed = integrate_rational_sqrt_segments_many(
+        numerators, denominator, {0: F(1)},
+        absolute_tolerance=tolerance, max_depth=max_depth
+    )
+    return [
+        [enclosed[10*i+j][:2] for j in range(10)]
+        for i in range(10)
+    ]
 
 
 def _zero_block(rows=10, cols=10):
