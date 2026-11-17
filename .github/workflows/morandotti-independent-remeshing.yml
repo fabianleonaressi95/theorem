@@ -42,6 +42,11 @@ permissions:
 
 jobs:
   independent-remeshing:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[{"shard":"h0080","mesh_size":0.08},{"shard":"h0060","mesh_size":0.06},{"shard":"h0045","mesh_size":0.045},{"shard":"h0035","mesh_size":0.035}]') || fromJSON('[{"shard":"pr","mesh_size":0.08}]') }}
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
@@ -61,7 +66,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.resume_from_run_id != ''
         uses: actions/download-artifact@v4
         with:
-          name: morandotti-independent-remeshing
+          name: morandotti-independent-remeshing-${{ matrix.shard }}
           run-id: ${{ inputs.resume_from_run_id }}
           github-token: ${{ github.token }}
           path: artifacts/morandotti_independent_remeshing
@@ -77,7 +82,7 @@ jobs:
             RESUME_FLAG="--resume"
           fi
           python3 scripts/rgs_morandotti_independent_remeshing.py \
-            --mesh-sizes 0.08 0.06 0.045 0.035 \
+            --mesh-sizes ${{ matrix.mesh_size }} \
             --distance-values 0.48 0.56 \
             --mesh-seeds 11 17 23 29 37 47 59 \
             --alpha 10 \
@@ -104,7 +109,7 @@ jobs:
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: morandotti-independent-remeshing
+          name: morandotti-independent-remeshing-${{ matrix.mesh_seed }}
           path: artifacts/morandotti_independent_remeshing/
           if-no-files-found: error
           retention-days: 14

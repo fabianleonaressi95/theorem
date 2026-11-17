@@ -24,46 +24,101 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  exact-t034:
-    name: Execute the complete exact-arithmetic T034 suite
+  exact-t034-shards:
+    name: T034 exact audit degrees ${{ matrix.start }}-${{ matrix.end }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - { start: 0, end: 3 }
+          - { start: 4, end: 7 }
+          - { start: 8, end: 10 }
+          - { start: 11, end: 13 }
     env:
-      AUDIT_PROGRESS_FILE: artifacts/audit_progress/t034.jsonl
+      AUDIT_PROGRESS_FILE: artifacts/audit_progress/t034-${{ matrix.start }}-${{ matrix.end }}.jsonl
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Compile the actual T034 module
+      - name: Compile the T034 module and audit helpers
         run: python -m py_compile scripts/audit_runtime.py scripts/render_audit_summary.py src/t034_binary_icosahedral_representations.py
-      - name: Execute the complete T034 Kaggle suite
-        run: python -m src.t034_binary_icosahedral_representations --output t034_2i_character_table.json
-      - name: Validate exported JSON structure
+      - name: Execute bounded exact T034 degree shard
+        run: |
+          python -m src.t034_binary_icosahedral_representations \
+            --output "t034-${{ matrix.start }}-${{ matrix.end }}.json" \
+            --projector-start "${{ matrix.start }}" --projector-end "${{ matrix.end }}"
+      - name: Render shard timing summary
+        if: always()
+        run: python scripts/render_audit_summary.py "$AUDIT_PROGRESS_FILE"
+      - name: Upload T034 degree shard and progress
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t034-degree-shard-${{ matrix.start }}-${{ matrix.end }}
+          path: |
+            t034-${{ matrix.start }}-${{ matrix.end }}.json
+            artifacts/audit_progress/t034-${{ matrix.start }}-${{ matrix.end }}.jsonl
+          if-no-files-found: warn
+          retention-days: 30
+
+  assemble-t034-certificate:
+    name: Assemble complete T034 certificate (degrees 0-13)
+    needs: exact-t034-shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download all degree shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: t034-degree-shard-*
+          path: shards
+          merge-multiple: true
+      - name: Validate complete degree coverage and assemble JSON
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          p = Path("t034_2i_character_table.json")
-          data = json.loads(p.read_text(encoding="utf-8"))
-          assert data["group"] == "binary_icosahedral_group_2I"
-          assert data["order"] == 120
-          assert set(data["irreps"]) == {"1", "2", "2'", "3", "3'", "4", "4'", "5", "6"}
-          assert data["verification"]
-          print("T034 JSON export validated: nine irreducibles, order 120.")
+          expected = {(0,3), (4,7), (8,10), (11,13)}
+          payloads = [json.loads(p.read_text()) for p in sorted(Path("shards").glob("t034-*.json"))]
+          assert len(payloads) == 4, f"expected four shards, got {len(payloads)}"
+          ranges = {tuple(p["verification"]["projector_degree_shard"]) for p in payloads}
+          assert ranges == expected, ranges
+          base = payloads[0]
+          for p in payloads[1:]:
+              assert p["group"] == base["group"] and p["order"] == base["order"] == 120
+              assert p["irreps"] == base["irreps"]
+          report = dict(base["verification"])
+          report["projector_degree_shards"] = [list(x) for x in sorted(ranges)]
+          report["projectors_on_sym"] = [item for p in payloads for item in p["verification"]["projectors_on_sym"]]
+          report["matrix_units"] = [item for p in payloads for item in p["verification"]["matrix_units"]]
+          assert len(report["projectors_on_sym"]) == 14
+          assert {item["m"] for item in report["projectors_on_sym"]} == set(range(14))
+          # T034 emits matrix-unit records with an integer "m" for Sym^m,
+          # while the multiplicity-two direct-sum record uses
+          # "ambient_representation" and has no "m" field.
+          matrix_degrees = {item["m"] for item in report["matrix_units"] if "m" in item}
+          assert matrix_degrees == set(range(8)), matrix_degrees
+          assert any(
+              item.get("ambient_representation") == "Sym^2(2) direct_sum Sym^10(2)"
+              for item in report["matrix_units"]
+          ), "missing Sym^2(2) direct_sum Sym^10(2) matrix-unit certificate"
+          report["status"] = "PASS"
+          base["verification"] = report
+          Path("t034_2i_character_table.json").write_text(json.dumps(base, indent=2)+"\\n")
+          print("T034 shards assembled: exact base checks plus all 14 projector degrees.")
           PY
-      - name: Render phase timing summary
-        if: always()
-        run: python scripts/render_audit_summary.py artifacts/audit_progress/t034.jsonl
-      - name: Upload exact T034 verification JSON and phase timings
-        if: always()
+      - name: Upload assembled T034 certificate
         uses: actions/upload-artifact@v4
         with:
           name: t034-exact-representation-suite
-          path: |
-            t034_2i_character_table.json
-            artifacts/audit_progress/t034.jsonl
-          if-no-files-found: warn
+          path: t034_2i_character_table.json
+          if-no-files-found: error
           retention-days: 90

@@ -899,7 +899,10 @@ def export_json(G, reps, table, classes, report):
     }
 
 
-def run_all(molien_sym_max=13):
+def run_all(molien_sym_max=13, projector_start=0, projector_end=None):
+    projector_end = molien_sym_max if projector_end is None else projector_end
+    if projector_start < 0 or projector_end > molien_sym_max or projector_start > projector_end:
+        raise ValueError("invalid projector degree shard")
     report = {}
     G = timed("group_construction_and_exact_group_checks", build_group)
     report["group"] = timed("group_axioms_and_conjugacy_classes", verify_group, G)
@@ -936,7 +939,7 @@ def run_all(molien_sym_max=13):
 
     projector_results = []
     symmetric_power_cache = {}
-    for m in range(molien_sym_max + 1):
+    for m in range(projector_start, projector_end + 1):
         symmetric_power_cache[m] = timed(
             "construct_symmetric_power_matrices", symmetric_power_rep, G, m
         )
@@ -950,18 +953,19 @@ def run_all(molien_sym_max=13):
     report["projectors_on_sym"] = projector_results
 
     matrix_units = []
-    for m in range(8):
+    for m in range(max(0, projector_start), min(8, projector_end + 1)):
         with phase("matrix_units_on_symmetric_power", degree=m):
             matrix_units.append(
                 verify_matrix_units_on_sym(
                     G, reps, table, classes, m, U=symmetric_power_cache[m]
                 )
             )
-    matrix_units.append(timed(
-        "matrix_units_multiplicity_two_model",
-        verify_matrix_units_multiplicity_two, G, reps, table, classes,
-        U=block_diagonal([symmetric_power_cache[2], symmetric_power_cache[10]]),
-    ))
+    if projector_start <= 10 <= projector_end:
+        matrix_units.append(timed(
+            "matrix_units_multiplicity_two_model",
+            verify_matrix_units_multiplicity_two, G, reps, table, classes,
+            U=block_diagonal([symmetric_power_cache.get(2) or symmetric_power_rep(G, 2), symmetric_power_cache[10]]),
+        ))
     report["matrix_units"] = matrix_units
     report["galois_sym_analysis"] = timed(
         "galois_symmetric_power_analysis",
@@ -973,10 +977,13 @@ def run_all(molien_sym_max=13):
 def main():
     parser = argparse.ArgumentParser(description="T034 Kaggle Verification Suite")
     parser.add_argument("--output", default="/kaggle/working/t034_2i_character_table.json")
+    parser.add_argument("--projector-start", type=int, default=0)
+    parser.add_argument("--projector-end", type=int, default=13)
     args, _ = parser.parse_known_args()
 
     print("Esecuzione della suite T034 su Kaggle...")
-    G, reps, table, classes, report = run_all()
+    G, reps, table, classes, report = run_all(projector_start=args.projector_start, projector_end=args.projector_end)
+    report["projector_degree_shard"] = [args.projector_start, args.projector_end]
     
     out_data = export_json(G, reps, table, classes, report)
     out_path = Path(args.output)

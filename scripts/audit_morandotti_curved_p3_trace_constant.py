@@ -495,6 +495,7 @@ def main():
     parser.add_argument("--distances", nargs="+", type=float, default=[0.48, 0.56])
     parser.add_argument("--seeds", nargs="+", type=int, default=[11, 29, 47])
     parser.add_argument("--bootstrap-replicates", type=int, default=2000)
+    parser.add_argument("--skip-statistical", action="store_true", help="emit one independent FEM case for later aggregation")
     parser.add_argument("--out", default="artifacts/morandotti_trace_constant/report.json")
     parser.add_argument("--certificate-out", default="artifacts/morandotti_trace_constant/cell-certificates.jsonl.gz")
     args = parser.parse_args()
@@ -570,7 +571,8 @@ def main():
                 "alpha_40_exceeds_twice_max_C_tr_h": bool(40.0 > 2.0 * max(values)),
             }
 
-    statistical = statistical_model_audit(runs, args.distances, args.mesh_sizes, args.bootstrap_replicates)
+    statistical = (None if args.skip_statistical else
+                   statistical_model_audit(runs, args.distances, args.mesh_sizes, args.bootstrap_replicates))
 
     payload = {
         "title": "Morandotti curved-P3 finite-mesh T134 trace-constant audit",
@@ -591,6 +593,7 @@ def main():
         "seeds": args.seeds,
         "group_summary": grouped,
         "statistical_model_audit": statistical,
+        "partial_shard": bool(args.skip_statistical),
         "runs": runs,
         "cell_certificate_archive": {
             "path": str(certificate_path),

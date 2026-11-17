@@ -105,18 +105,22 @@ def exact_matrix_model(label: str, group, chars, degree: int):
     }
 
 
-def build_all_models():
+def build_all_models(labels=None):
     group=elements_2i()
     chars,_=reconstruct_character_table()
     degrees=first_multiplicity_one_degrees()
+    selected=tuple(labels) if labels is not None else tuple(IRREP_DIMENSIONS)
+    unknown=set(selected)-set(IRREP_DIMENSIONS)
+    if unknown:
+        raise ValueError(f"unknown irreducible labels: {sorted(unknown)}")
     models={}
-    for label in IRREP_DIMENSIONS:
+    for label in selected:
         models[label]=exact_matrix_model(label,group,chars,degrees[label])
     return group,chars,degrees,models
 
 
 def verify_models(group, chars, degrees, models):
-    labels=tuple(IRREP_DIMENSIONS)
+    labels=tuple(models)
     character_checks=0
     metric_checks=0
     for label in labels:
@@ -142,13 +146,14 @@ def verify_models(group, chars, degrees, models):
             if sp.simplify(R.conjugate().T*G*R-G)!=sp.zeros(d):
                 raise AssertionError(f"unitarity in invariant metric failed: {label}")
             metric_checks+=1
-    if sum(IRREP_DIMENSIONS[x]**2 for x in labels)!=120:
+    full_coverage=(set(labels)==set(IRREP_DIMENSIONS))
+    if full_coverage and sum(IRREP_DIMENSIONS[x]**2 for x in labels)!=120:
         raise AssertionError("sum of squares is not 120")
-    return {"passed":True,"irreducibles":len(labels),
+    return {"passed":True,"shard_complete":True,"full_irrep_coverage":full_coverage,"irreducibles":len(labels),
             "matrix_models":sum(len(models[x]["matrices"]) for x in labels),
             "character_values_recovered":character_checks,
             "invariant_metric_checks":metric_checks,
-            "sum_dimension_squares":120,
+            "sum_dimension_squares":sum(IRREP_DIMENSIONS[k]**2 for k in labels),
             "first_multiplicity_one_degrees":degrees}
 
 
@@ -175,8 +180,10 @@ def json_payload(group,degrees,models,report):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--output",default="data/t036_2i_irreducible_models_exact.json")
+    parser.add_argument("--labels",nargs="+",choices=tuple(IRREP_DIMENSIONS),default=None,
+                        help="build only the requested irreducible models (for parallel audit shards)")
     args=parser.parse_args()
-    group,chars,degrees,models=build_all_models()
+    group,chars,degrees,models=build_all_models(args.labels)
     report=verify_models(group,chars,degrees,models)
     payload=json_payload(group,degrees,models,report)
     path=Path(args.output); path.parent.mkdir(parents=True,exist_ok=True)
