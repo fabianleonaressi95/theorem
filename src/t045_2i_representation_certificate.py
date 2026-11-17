@@ -41,8 +41,9 @@ def exhaustive_matrix_units(G, reps, U, multiplicities):
         block = T.mat_zero(dim)
         for i in range(d):
             block = T.mat_add(block, E[i, i])
-        chi = T.characters_from_matrices(G, reps)[0][label]
-        P = T.central_projector(G, chi, T.ordered_classes(G), d, U)
+        classes = T.ordered_classes(G)
+        table = T.mat_trace_class(reps, G, classes)
+        P = T.central_projector(G, table[label], classes, d, U)
         if not T.mat_eq(block, P):
             raise AssertionError(("matrix units do not sum to central projector", label))
         per_irrep[label] = {"dimension": d, "multiplicity": mult,
@@ -64,7 +65,8 @@ def run_certificate(max_projector_degree: int = 13):
             if not weighted[label]:
                 raise AssertionError(("weighted unitarity", label))
 
-    table, classes = T.characters_from_matrices(G, reps)
+    classes = T.ordered_classes(G)
+    table = T.mat_trace_class(reps, G, classes)
     character_report = T.verify_character_table(table)
     schur_entries = T.verify_schur_orthogonality(G, reps)
     if schur_entries != 120 * 120:
