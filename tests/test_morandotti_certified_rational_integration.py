@@ -206,3 +206,47 @@ def test_bernstein_residual_batch_matches_scalar_enclosures():
         )
         assert blo <= shi and slo <= bhi
         assert bhi-blo <= F(1, 10000)
+
+
+
+def test_bernstein_residual_batch_uses_one_tree_and_reports_progress():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual_many,
+    )
+
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(1, 0): F(1), (0, 0): -F(1, 3)},
+        {},
+    ]
+    events = []
+    results = integrate_rational_triangle_bernstein_residual_many(
+        numerators,
+        denominator,
+        absolute_tolerance=F(1, 1000),
+        max_depth=12,
+        expansion_order=1,
+        progress_callback=events.append,
+    )
+
+    assert len(results) == len(numerators)
+    # A shared partition gives every entry the same accepted-leaf count and
+    # maximum depth, including the identically-zero numerator.
+    assert len({item[2] for item in results}) == 1
+    assert len({item[3] for item in results}) == 1
+    for lo, hi, _, _ in results:
+        assert lo <= hi
+        assert hi-lo <= F(1, 1000)
+
+    stages = [event["integration_stage"] for event in events]
+    assert "bernstein_residual_batch_start" in stages
+    assert "bernstein_residual_batch_triangle_start" in stages
+    assert "bernstein_residual_batch_leaf_accepted" in stages
+    assert stages.count("bernstein_residual_entry_complete") == len(numerators)
+    completions = [
+        event for event in events
+        if event["integration_stage"] == "bernstein_residual_entry_complete"
+    ]
+    assert all(event["integration_tree_mode"] == "shared" for event in completions)
