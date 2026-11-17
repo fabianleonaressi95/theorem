@@ -66,7 +66,8 @@ def _integrate_penalty_matrix(g_left, g_right, det_left, det_right,
         numerators, _mul1(det_left, det_right), radicand,
         absolute_tolerance=tolerance, max_depth=max_depth
     )
-    return [enclosed[10*i:10*(i+1)] for i in range(10)]
+    intervals = [entry[:2] for entry in enclosed]
+    return [intervals[10*i:10*(i+1)] for i in range(10)]
 
 
 def _integrate_consistency_matrix(q_left, g_right, det3_left, det_right,
