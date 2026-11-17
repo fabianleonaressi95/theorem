@@ -441,6 +441,7 @@ def assemble_cell_volume_interval(
     *,
     absolute_tolerance=F(1, 10**9),
     max_depth=12,
+    progress_callback=None,
 ):
     """Certified 10x10 local D_K matrix for integral_K D²phi_i:D²phi_j.
 
@@ -462,7 +463,7 @@ def assemble_cell_volume_interval(
         numerators.append(numerator)
     enclosed = integrate_rational_triangle_many(
         numerators, det5, absolute_tolerance=absolute_tolerance,
-        max_depth=max_depth,
+        max_depth=max_depth, progress_callback=progress_callback,
     )
     for (i, j), (lo, hi, leaves, depth) in zip(pairs, enclosed):
         result[i][j] = result[j][i] = (lo, hi)
