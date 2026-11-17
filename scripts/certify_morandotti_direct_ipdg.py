@@ -40,6 +40,12 @@ def main():
     parser.add_argument("--kappa", default="1/1000")
     parser.add_argument("--tolerance", default="1/10000")
     parser.add_argument("--max-depth", type=int, default=24)
+    parser.add_argument(
+        "--integration-method", choices=("neumann", "bernstein_residual"),
+        default="neumann",
+        help="certified rational volume integrator (T135 Bernstein residual is opt-in)",
+    )
+    parser.add_argument("--residual-expansion-order", type=int, default=2)
     parser.add_argument("--out", default="artifacts/morandotti_direct_ipdg/direct_coercivity.json")
     args = parser.parse_args()
 
@@ -86,7 +92,9 @@ def main():
         checkpoint({"phase": "assembly_start"})
         assembled = assemble_dolfinx_direct_ipdg_forms(
             mesh, V, absolute_tolerance=tolerance, max_depth=args.max_depth,
-            progress_callback=checkpoint
+            progress_callback=checkpoint,
+            integration_method=args.integration_method,
+            residual_expansion_order=args.residual_expansion_order,
         )
         assembly_seconds = perf_counter() - start
         checkpoint({"phase": "assembly_complete", "assembly_seconds": assembly_seconds,
@@ -111,6 +119,8 @@ def main():
         "coordinate_hash": assembled["coordinate_hash"],
         "cell_dof_connectivity_hash": assembled["cell_dof_connectivity_hash"],
         "integration_absolute_tolerance": str(tolerance),
+        "integration_method": args.integration_method,
+        "residual_expansion_order": args.residual_expansion_order,
         "max_subdivision_depth": args.max_depth,
         "mesh_parameters": {
             "mesh_size_target": args.mesh_size,
