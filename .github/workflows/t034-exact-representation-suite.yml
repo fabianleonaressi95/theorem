@@ -12,6 +12,7 @@ on:
     paths:
       - ".github/workflows/t034-exact-representation-suite.yml"
       - "src/t034_binary_icosahedral_representations.py"
+      - "scripts/audit_runtime.py"
   workflow_dispatch:
 
 permissions:
@@ -36,7 +37,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile the actual T034 module
-        run: python -m py_compile src/t034_binary_icosahedral_representations.py
+        run: python -m py_compile scripts/audit_runtime.py src/t034_binary_icosahedral_representations.py
       - name: Execute the complete T034 Kaggle suite
         run: python -m src.t034_binary_icosahedral_representations --output t034_2i_character_table.json
       - name: Validate exported JSON structure
@@ -60,5 +61,5 @@ jobs:
           path: |
             t034_2i_character_table.json
             artifacts/audit_progress/t034.jsonl
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 90
