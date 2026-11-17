@@ -71,7 +71,7 @@ def main():
         phase.update(update)
         payload = {**phase, "elapsed_seconds": perf_counter() - run_started}
         with progress_lock:
-            progress_path.write_text(json.dumps(payload, indent=2) + "\\n", encoding="utf-8")
+            progress_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
         print("PROGRESS " + json.dumps(payload), flush=True)
     run_started = perf_counter()
     checkpoint(phase)
