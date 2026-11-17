@@ -12,7 +12,7 @@ from src import t034_binary_icosahedral_representations as T
 from src.t032_2i_molien import IRREP_DIMENSIONS, molien_coefficients
 
 
-def exhaustive_matrix_units(G, reps, U, multiplicities):
+def exhaustive_matrix_units(G, reps, U, multiplicities, table, classes):
     """Check E_ij E_kl = delta_jk E_il for every index quadruple."""
     dim = len(U[0])
     checked = 0
@@ -41,8 +41,7 @@ def exhaustive_matrix_units(G, reps, U, multiplicities):
         block = T.mat_zero(dim)
         for i in range(d):
             block = T.mat_add(block, E[i, i])
-        chi = T.characters_from_matrices(G, reps)[0][label]
-        P = T.central_projector(G, chi, T.ordered_classes(G), d, U)
+        P = T.central_projector(G, table[label], classes, d, U)
         if not T.mat_eq(block, P):
             raise AssertionError(("matrix units do not sum to central projector", label))
         per_irrep[label] = {"dimension": d, "multiplicity": mult,
@@ -64,34 +63,39 @@ def run_certificate(max_projector_degree: int = 13):
             if not weighted[label]:
                 raise AssertionError(("weighted unitarity", label))
 
-    table, classes = T.characters_from_matrices(G, reps)
+    classes = T.ordered_classes(G)
+    table = T.mat_trace_class(reps, G, classes)
     character_report = T.verify_character_table(table)
     schur_entries = T.verify_schur_orthogonality(G, reps)
     if schur_entries != 120 * 120:
         raise AssertionError("incomplete Schur coefficient audit")
 
     projector_reports = []
+    symmetric_power_cache = {}
     for m in range(max_projector_degree + 1):
+        U = T.symmetric_power_rep(G, m)
+        symmetric_power_cache[m] = U
         projector_reports.append(T.verify_projectors_on_sym(
-            G, table, classes, m, full_orthogonality=True))
+            G, table, classes, m, full_orthogonality=True, U=U))
 
-    # Exhaustive matrix-unit multiplication, not seeded sampling.
+    # Exhaustive matrix-unit multiplication, not seeded sampling. Reuse the
+    # exact same Sym^m matrices already built for the projector audit.
     matrix_unit_reports = []
     for m in range(8):
-        U = T.symmetric_power_rep(G, m)
+        U = symmetric_power_cache[m]
         mult = {label: molien_coefficients(label, m)[m]
                 for label in T.LABELS
                 if molien_coefficients(label, m)[m] > 0}
         matrix_unit_reports.append({
             "representation": f"Sym^{m}",
-            **exhaustive_matrix_units(G, reps, U, mult),
+            **exhaustive_matrix_units(G, reps, U, mult, table, classes),
         })
 
     U2 = T.block_diagonal([T.symmetric_power_rep(G, 2),
                            T.symmetric_power_rep(G, 10)])
     matrix_unit_reports.append({
         "representation": "Sym^2 direct-sum Sym^10",
-        **exhaustive_matrix_units(G, reps, U2, {"3": 2}),
+        **exhaustive_matrix_units(G, reps, U2, {"3": 2}, table, classes),
     })
 
     # Molien is explicitly the multiplicity of rho in Sym^m(V), where

@@ -15,6 +15,35 @@ from fractions import Fraction
 from math import comb
 from pathlib import Path
 
+try:
+    from scripts.audit_runtime import phase, timed
+except ModuleNotFoundError:  # Preserve the single-file Kaggle execution mode.
+    from contextlib import contextmanager
+    import sys
+    import time
+
+    @contextmanager
+    def phase(name, **metadata):
+        started = time.monotonic()
+        print(json.dumps({"event": "phase_started", "phase": name, **metadata}),
+              file=sys.stderr, flush=True)
+        try:
+            yield
+        except BaseException as exc:
+            print(json.dumps({"event": "phase_failed", "phase": name,
+                              "elapsed_seconds": round(time.monotonic() - started, 6),
+                              "error_type": type(exc).__name__, "error": str(exc),
+                              **metadata}), file=sys.stderr, flush=True)
+            raise
+        else:
+            print(json.dumps({"event": "phase_completed", "phase": name,
+                              "elapsed_seconds": round(time.monotonic() - started, 6),
+                              **metadata}), file=sys.stderr, flush=True)
+
+    def timed(name, function, *args, **kwargs):
+        with phase(name):
+            return function(*args, **kwargs)
+
 # ==========================================================================
 # T032 incorporato: numeratori di Molien dei covarianti di 2I
 # ==========================================================================
@@ -640,8 +669,9 @@ def matrix_unit(G, rep, i, j, U):
     return mat_scale(acc, Fraction(rep.dim, 120))
 
 
-def verify_projectors_on_sym(G, table, classes, m, full_orthogonality):
-    U = symmetric_power_rep(G, m)
+def verify_projectors_on_sym(G, table, classes, m, full_orthogonality, U=None):
+    if U is None:
+        U = symmetric_power_rep(G, m)
     dim = m + 1
     P = {l: central_projector(G, table[l], classes, IRREP_DIMENSIONS[l], U) for l in LABELS}
     expected = verify_projector_rank_on_sym(table, classes, m)
@@ -705,15 +735,16 @@ def verify_matrix_units(G, reps, U, multiplicity, sample=30, seed=7):
     return {"multiplicities": dict(multiplicity), "identities_checked": checked}
 
 
-def verify_matrix_units_on_sym(G, reps, table, classes, m, sample=30, seed=7):
-    U = symmetric_power_rep(G, m)
+def verify_matrix_units_on_sym(G, reps, table, classes, m, sample=30, seed=7, U=None):
+    if U is None:
+        U = symmetric_power_rep(G, m)
     mult = {l: v for l, v in multiplicity_in_sym(table, classes, m).items() if v > 0}
     r = verify_matrix_units(G, reps, U, mult, sample, seed)
     r["m"] = m
     return r
 
 
-def verify_matrix_units_multiplicity_two(G, reps, table, classes):
+def verify_matrix_units_multiplicity_two(G, reps, table, classes, U=None):
     m1, m2 = 2, 10
     mult = {}
     a = multiplicity_in_sym(table, classes, m1)
@@ -722,7 +753,8 @@ def verify_matrix_units_multiplicity_two(G, reps, table, classes):
         tot = a[l] + b[l]
         if tot > 0:
             mult[l] = tot
-    U = block_diagonal([symmetric_power_rep(G, m1), symmetric_power_rep(G, m2)])
+    if U is None:
+        U = block_diagonal([symmetric_power_rep(G, m1), symmetric_power_rep(G, m2)])
     r = verify_matrix_units(G, reps, U, mult)
     r["expected_multiplicities"] = mult
     r["ambient_representation"] = "Sym^2(2) direct_sum Sym^10(2)"
@@ -868,29 +900,73 @@ def export_json(G, reps, table, classes, report):
 
 
 def run_all(molien_sym_max=13):
-    G = build_group()
-    report = {"group": verify_group(G)}
-    reps = build_representations(G)
-    report["homomorphism"] = {l: verify_homomorphism(G, reps[l].matrices) for l in LABELS}
-    report["homomorphism_sensitivity"] = verify_homomorphism_detects_error(G, reps["2"].matrices)
-    report["weighted_unitarity"] = {l: verify_weighted_unitarity(reps[l]) for l in LABELS if reps[l].weights}
+    report = {}
+    G = timed("group_construction_and_exact_group_checks", build_group)
+    report["group"] = timed("group_axioms_and_conjugacy_classes", verify_group, G)
+    reps = timed("construct_nine_irreducible_representations", build_representations, G)
+
+    with phase("homomorphism_checks", representations=len(LABELS)):
+        report["homomorphism"] = {
+            l: timed(f"homomorphism_{l}", verify_homomorphism, G, reps[l].matrices)
+            for l in LABELS
+        }
+    report["homomorphism_sensitivity"] = timed(
+        "homomorphism_negative_control", verify_homomorphism_detects_error,
+        G, reps["2"].matrices,
+    )
+    with phase("weighted_unitarity_checks"):
+        report["weighted_unitarity"] = {
+            l: timed(f"weighted_unitarity_{l}", verify_weighted_unitarity, reps[l])
+            for l in LABELS if reps[l].weights
+        }
     assert all(report["weighted_unitarity"].values())
-    report["galois"] = galois_compatibility(G, reps)
-    classes = ordered_classes(G)
-    table = mat_trace_class({l: reps[l] for l in LABELS}, G, classes)
-    report["character_table"] = verify_character_table(table)
-    report["molien_all_degrees"] = verify_molien_exact(table)
-    report["multiplicities_vs_molien"] = verify_multiplicities_vs_molien(table, classes, 60)
-    report["peter_weyl_sum"] = verify_peter_weyl()
+    report["galois"] = timed("galois_compatibility", galois_compatibility, G, reps)
+    classes = timed("order_conjugacy_classes", ordered_classes, G)
+    table = timed("construct_character_table", mat_trace_class,
+                  {l: reps[l] for l in LABELS}, G, classes)
+    report["character_table"] = timed("character_orthogonality", verify_character_table, table)
+    report["molien_all_degrees"] = timed("exact_molien_identities", verify_molien_exact, table)
+    report["multiplicities_vs_molien"] = timed(
+        "symmetric_power_multiplicities_vs_molien",
+        verify_multiplicities_vs_molien, table, classes, 60,
+    )
+    report["peter_weyl_sum"] = timed("peter_weyl_dimension_identity", verify_peter_weyl)
     assert report["peter_weyl_sum"]
-    report["schur_entries"] = verify_schur_orthogonality(G, reps)
-    report["projectors_on_sym"] = [
-        verify_projectors_on_sym(G, table, classes, m, full_orthogonality=True)
-        for m in range(molien_sym_max + 1)]
-    mu = [verify_matrix_units_on_sym(G, reps, table, classes, m) for m in range(8)]
-    mu.append(verify_matrix_units_multiplicity_two(G, reps, table, classes))
-    report["matrix_units"] = mu
-    report["galois_sym_analysis"] = analyze_galois_on_sym_powers(table, classes, molien_sym_max)
+    report["schur_entries"] = timed("full_schur_orthogonality", verify_schur_orthogonality, G, reps)
+
+    projector_results = []
+    symmetric_power_cache = {}
+    for m in range(molien_sym_max + 1):
+        symmetric_power_cache[m] = timed(
+            "construct_symmetric_power_matrices", symmetric_power_rep, G, m
+        )
+        with phase("central_projectors_on_symmetric_power", degree=m):
+            projector_results.append(
+                verify_projectors_on_sym(
+                    G, table, classes, m, full_orthogonality=True,
+                    U=symmetric_power_cache[m],
+                )
+            )
+    report["projectors_on_sym"] = projector_results
+
+    matrix_units = []
+    for m in range(8):
+        with phase("matrix_units_on_symmetric_power", degree=m):
+            matrix_units.append(
+                verify_matrix_units_on_sym(
+                    G, reps, table, classes, m, U=symmetric_power_cache[m]
+                )
+            )
+    matrix_units.append(timed(
+        "matrix_units_multiplicity_two_model",
+        verify_matrix_units_multiplicity_two, G, reps, table, classes,
+        U=block_diagonal([symmetric_power_cache[2], symmetric_power_cache[10]]),
+    ))
+    report["matrix_units"] = matrix_units
+    report["galois_sym_analysis"] = timed(
+        "galois_symmetric_power_analysis",
+        analyze_galois_on_sym_powers, table, classes, molien_sym_max,
+    )
     return G, reps, table, classes, report
 
 
