@@ -121,3 +121,60 @@ def test_batch_refinement_is_local_to_the_numerator_that_needs_it():
     assert easy_lo == easy_hi == 0
     assert easy_leaves == 1
     assert easy_depth == 0
+
+
+
+def test_bernstein_residual_integrator_certifies_nonconstant_rational_integral():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    lo, hi, leaves, depth = integrate_rational_triangle_bernstein_residual(
+        {(0, 0): F(1)},
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(1, 100000),
+        max_depth=12,
+        expansion_order=2,
+    )
+    # Integral = 2*log(2)-1; these rational bounds are deliberately wider
+    # than the requested enclosure to avoid floating-point test oracles.
+    assert lo <= F(3862, 10000)
+    assert hi >= F(3862, 10000)
+    assert hi-lo <= F(1, 100000)
+    assert leaves >= 1
+    assert depth <= 12
+
+
+def test_bernstein_residual_integrator_handles_sign_changing_numerator():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    numerator = {(1, 0): F(1), (0, 0): -F(1, 3)}
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    lo, hi, leaves, depth = integrate_rational_triangle_bernstein_residual(
+        numerator, denominator,
+        absolute_tolerance=F(1, 10000),
+        max_depth=12,
+        expansion_order=2,
+    )
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerator, denominator,
+        absolute_tolerance=F(1, 10000),
+        max_depth=12,
+    )
+    assert lo <= scalar_hi and scalar_lo <= hi
+    assert hi-lo <= F(1, 10000)
+    assert leaves >= 1
+    assert depth <= 12
+
+
+def test_bernstein_residual_integrator_rejects_uncertified_denominator():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    with pytest.raises(ArithmeticError):
+        integrate_rational_triangle_bernstein_residual(
+            {(0, 0): F(1)}, {(1, 0): F(1)}, max_depth=0
+        )
