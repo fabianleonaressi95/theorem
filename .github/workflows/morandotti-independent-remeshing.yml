@@ -46,7 +46,7 @@ jobs:
       fail-fast: false
       max-parallel: 7
       matrix:
-        mesh_seed: [11, 17, 23, 29, 37, 47, 59]
+        mesh_seed: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[11,17,23,29,37,47,59]') || fromJSON('[11]') }}
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
