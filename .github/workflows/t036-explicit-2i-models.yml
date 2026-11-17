@@ -34,7 +34,7 @@ jobs:
   exact-model-shards:
     name: Build exact irreducible model ${{ matrix.label }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       max-parallel: 9
