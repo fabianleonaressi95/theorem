@@ -744,7 +744,7 @@ def verify_matrix_units_on_sym(G, reps, table, classes, m, sample=30, seed=7, U=
     return r
 
 
-def verify_matrix_units_multiplicity_two(G, reps, table, classes):
+def verify_matrix_units_multiplicity_two(G, reps, table, classes, U=None):
     m1, m2 = 2, 10
     mult = {}
     a = multiplicity_in_sym(table, classes, m1)
@@ -753,7 +753,8 @@ def verify_matrix_units_multiplicity_two(G, reps, table, classes):
         tot = a[l] + b[l]
         if tot > 0:
             mult[l] = tot
-    U = block_diagonal([symmetric_power_rep(G, m1), symmetric_power_rep(G, m2)])
+    if U is None:
+        U = block_diagonal([symmetric_power_rep(G, m1), symmetric_power_rep(G, m2)])
     r = verify_matrix_units(G, reps, U, mult)
     r["expected_multiplicities"] = mult
     r["ambient_representation"] = "Sym^2(2) direct_sum Sym^10(2)"
@@ -959,6 +960,7 @@ def run_all(molien_sym_max=13):
     matrix_units.append(timed(
         "matrix_units_multiplicity_two_model",
         verify_matrix_units_multiplicity_two, G, reps, table, classes,
+        U=block_diagonal([symmetric_power_cache[2], symmetric_power_cache[10]]),
     ))
     report["matrix_units"] = matrix_units
     report["galois_sym_analysis"] = timed(

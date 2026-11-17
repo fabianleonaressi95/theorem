@@ -71,14 +71,18 @@ def run_certificate(max_projector_degree: int = 13):
         raise AssertionError("incomplete Schur coefficient audit")
 
     projector_reports = []
+    symmetric_power_cache = {}
     for m in range(max_projector_degree + 1):
+        U = T.symmetric_power_rep(G, m)
+        symmetric_power_cache[m] = U
         projector_reports.append(T.verify_projectors_on_sym(
-            G, table, classes, m, full_orthogonality=True))
+            G, table, classes, m, full_orthogonality=True, U=U))
 
-    # Exhaustive matrix-unit multiplication, not seeded sampling.
+    # Exhaustive matrix-unit multiplication, not seeded sampling. Reuse the
+    # exact same Sym^m matrices already built for the projector audit.
     matrix_unit_reports = []
     for m in range(8):
-        U = T.symmetric_power_rep(G, m)
+        U = symmetric_power_cache[m]
         mult = {label: molien_coefficients(label, m)[m]
                 for label in T.LABELS
                 if molien_coefficients(label, m)[m] > 0}
