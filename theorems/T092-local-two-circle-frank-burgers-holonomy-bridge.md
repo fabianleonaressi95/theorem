@@ -30,7 +30,7 @@ Then
 \[
 |c_1-c_2|=|c_1-p_\pm|=|c_2-p_\pm|=r.
 \]
-The triangle vertices lie in \\(B(x,2r)\\subset B(x,\\rho)\\subset U); this avoids treating points at distance exactly \\(r\\) as elements of the open ball \\(B(x,r)\\). Moreover, every point of either complete circle lies within distance \\(2r<\\rho\\) of \\(x\\), so both circles lie in \\(B(x,\\rho)\\subset U). The triangle diameter is \\(r<\\epsilon\\).
+The triangle vertices lie in \(B(x,2r)\subset B(x,\rho)\subset U); this avoids treating points at distance exactly \(r\) as elements of the open ball \(B(x,r)\). Moreover, every point of either complete circle lies within distance \(2r<\rho\) of \(x\), so both circles lie in \(B(x,\rho)\subset U). The triangle diameter is \(r<\epsilon\).
 
 **Theorem 92.1 (arbitrarily small local two-circle cells).** For every \(x\) in every open set \(U\subset\mathbb R^2\) and every \(\epsilon>0\), there exist two equal circles with centre separation equal to their radius, contained locally in \(U\), whose intersection produces an equilateral triangle of diameter smaller than \(\epsilon\). In fact the construction gives two triangles, one on each side of the line of centres.
 
