@@ -46,11 +46,7 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        include:
-          - { shard: h0080, mesh_size: 0.08 }
-          - { shard: h0060, mesh_size: 0.06 }
-          - { shard: h0045, mesh_size: 0.045 }
-          - { shard: h0035, mesh_size: 0.035 }
+        include: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[{"shard":"h0080","mesh_size":0.08},{"shard":"h0060","mesh_size":0.06},{"shard":"h0045","mesh_size":0.045},{"shard":"h0035","mesh_size":0.035}]') || fromJSON('[{"shard":"pr","mesh_size":0.08}]') }}
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
