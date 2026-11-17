@@ -326,6 +326,10 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
     A = _interval_linear_combination(((D, 1), (C, -1), (CT, -1), (P, alpha)))
     W = _interval_linear_combination(((D, 1), (P, 1)))
     shifted = _interval_linear_combination(((A, 1), (W, -kappa)))
+    # Preserve the full requested dimension even if an assembled row is empty;
+    # an empty row must fail the strict pivot test, never disappear silently.
+    for i in range(len(free)):
+        shifted.setdefault((i, i), (F(0), F(0)))
     certificate = certify_interval_spd(shifted)
     certificate.update({
         "alpha": alpha, "kappa": kappa,
