@@ -107,15 +107,15 @@ jobs:
           ALPHA: ${{ inputs.alpha }}
           KAPPA: ${{ inputs.kappa }}
           TOLERANCE: ${{ inputs.tolerance }}
-        run: |
-          python3 scripts/certify_morandotti_direct_ipdg.py \\
-            --mesh-size "$MESH_SIZE" \\
-            --distance "$DISTANCE" \\
-            --seed "$SEED" \\
-            --alpha "$ALPHA" \\
-            --kappa "$KAPPA" \\
-            --tolerance "$TOLERANCE" \\
-            --max-depth 24
+        run: >-
+          python3 scripts/certify_morandotti_direct_ipdg.py
+          --mesh-size "$MESH_SIZE"
+          --distance "$DISTANCE"
+          --seed "$SEED"
+          --alpha "$ALPHA"
+          --kappa "$KAPPA"
+          --tolerance "$TOLERANCE"
+          --max-depth 24
       - name: Upload fixed-mesh certificate and diagnostics
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
