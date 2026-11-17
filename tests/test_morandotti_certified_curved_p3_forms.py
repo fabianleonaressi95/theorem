@@ -121,7 +121,7 @@ def test_global_trace_bound_propagates_sparse_D_and_H_intervals():
     result = certify_global_trace_bound(D, H, [1, 0], F(2))
     assert result["certified"]
     assert result["integration_uncertainty_propagated"]
-    assert result["quotient_dimension"] == 2
+    assert result["free_dimension"] == 2
 
 
 
