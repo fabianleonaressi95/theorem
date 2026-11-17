@@ -200,26 +200,16 @@ def integrate_rational_triangle_many(
         split = False
         for pp in pset:
             plo, phi = _bernstein_bounds(pp)
-            if plo < 0 < phi:
-                candidates = (plo/qlo, plo/qhi, phi/qlo, phi/qhi)
-                lo_ratio, hi_ratio = min(candidates), max(candidates)
-                width = area*(hi_ratio-lo_ratio)
-                if width > 2*tol*area:
-                    split = True
-                    break
-                leaf_values.append((area*lo_ratio, area*hi_ratio))
-                continue
-
-            integral_ref = sum(
-                (coefficient * Fraction(factorial(i)*factorial(j),
-                                        factorial(i+j+2))
-                 for (i, j), coefficient in pp.items()),
-                Fraction(0),
-            )
-            integral_poly = 2*area*integral_ref
+            # Do not force geometric subdivision merely because pp changes
+            # sign.  The Neumann expansion is valid for signed numerators too.
+            # Bound its remainder with integral(|pp|), using the Bernstein
+            # range: |pp| <= max(|plo|, |phi|) on this subtriangle.  This avoids
+            # the cancellation-prone (and invalid for signed pp) shortcut
+            # based on abs(integral(pp)).
+            max_abs_numerator = max(abs(plo), abs(phi))
             term_poly = pp
             series = Fraction(0)
-            remainder = abs(integral_poly) / midpoint_q
+            remainder = Fraction(0)
             certified = False
             for order in range(3):
                 term_ref = sum(
@@ -231,7 +221,7 @@ def integrate_rational_triangle_many(
                 term_integral = 2*area*term_ref
                 series += ((-1)**order)*term_integral/(midpoint_q**(order+1))
                 remainder = (
-                    abs(integral_poly)*relative_radius**(order+1)
+                    area * max_abs_numerator * relative_radius**(order+1)
                     /(midpoint_q*(1-relative_radius))
                 )
                 if remainder <= tol*area:
