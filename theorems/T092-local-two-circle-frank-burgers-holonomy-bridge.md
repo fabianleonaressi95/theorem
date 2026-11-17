@@ -118,7 +118,7 @@ The relevant published benchmark is:
 
 P. Cesana, L. De Luca, M. Morandotti, “Semidiscrete Modeling of Systems of Wedge Disclinations and Edge Dislocations via the Airy Stress Function Method,” *SIAM Journal on Mathematical Analysis* 56 (2024), 79–136, DOI: 10.1137/22M1523443.
 
-The Two-Circle construction supplies a possible local geometric cell language for discretising the domain and transporting local frames. The cited work supplies a rigorous elasticity framework for specified disclination/dislocation systems. This record does not claim that the paper uses the Two-Circle construction, nor that its hypotheses follow automatically from local triangulability.
+The Two-Circle construction supplies a local geometric cell language for discretising the domain and transporting local frames. T093 turns finitely many such seeds into a conforming polygonal mesh and supplies a smooth-connection holonomy consistency result. The Cesana–De Luca–Morandotti work supplies the rigorous elasticity/Airy framework for specified disclination/dislocation systems. This is a genuine modular connection: T092/T093 provide candidate geometry and defect kinematics; the Morandotti model provides the constitutive/equilibrium layer. It is not an identification of the papers' meshes with the Two-Circle mesh, and it does not show that the T093 mesh automatically satisfies the curved-P3 compact-map hypotheses in T134.
 
 ## 6. Relation to T091 and the existing two-core computation
 
