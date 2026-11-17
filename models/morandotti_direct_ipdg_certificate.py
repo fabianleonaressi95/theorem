@@ -154,9 +154,17 @@ def assemble_global_direct_ipdg_forms(
     D, P, C = (_zero_interval_matrix(number_of_dofs) for _ in range(3))
     t0 = perf_counter()
     for cell in range(nc):
+        if progress_callback:
+            progress_callback({"phase": "volume_cell_start", "cell": cell + 1, "total_cells": nc})
         block = assemble_cell_volume_interval(
             cell_node_coordinates[cell], interpolation_points,
-            absolute_tolerance=tol, max_depth=max_depth
+            absolute_tolerance=tol, max_depth=max_depth,
+            progress_callback=(
+                (lambda detail, cell_number=cell + 1: progress_callback({
+                    "phase": "volume_cell_integration", "cell": cell_number,
+                    "total_cells": nc, **detail
+                })) if progress_callback else None
+            )
         )["matrix_interval"]
         _add_block(D, block, cell_dofs[cell])
         if progress_callback:
@@ -395,6 +403,8 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
         order.append(idx)
         used.add(idx)
     nc = mesh.topology.index_map(2).size_local
+    if progress_callback:
+        progress_callback({"phase": "mesh_extraction", "stage": "geometry_dofs", "total_cells": nc})
     geometry_dofs = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
     if geometry_dofs.shape != (nc, 10):
         raise ValueError("expected ten geometry nodes per owned triangle")
@@ -405,6 +415,8 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
     ]
     diameters = np.asarray(mesh.h(2, np.arange(nc, dtype=np.int32)), dtype=float)
 
+    if progress_callback:
+        progress_callback({"phase": "mesh_extraction", "stage": "topology_connectivity"})
     mesh.topology.create_connectivity(2, 0)
     mesh.topology.create_connectivity(1, 0)
     mesh.topology.create_connectivity(1, 2)
