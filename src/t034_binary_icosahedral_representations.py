@@ -15,7 +15,34 @@ from fractions import Fraction
 from math import comb
 from pathlib import Path
 
-from scripts.audit_runtime import phase, timed
+try:
+    from scripts.audit_runtime import phase, timed
+except ModuleNotFoundError:  # Preserve the single-file Kaggle execution mode.
+    from contextlib import contextmanager
+    import sys
+    import time
+
+    @contextmanager
+    def phase(name, **metadata):
+        started = time.monotonic()
+        print(json.dumps({"event": "phase_started", "phase": name, **metadata}),
+              file=sys.stderr, flush=True)
+        try:
+            yield
+        except BaseException as exc:
+            print(json.dumps({"event": "phase_failed", "phase": name,
+                              "elapsed_seconds": round(time.monotonic() - started, 6),
+                              "error_type": type(exc).__name__, "error": str(exc),
+                              **metadata}), file=sys.stderr, flush=True)
+            raise
+        else:
+            print(json.dumps({"event": "phase_completed", "phase": name,
+                              "elapsed_seconds": round(time.monotonic() - started, 6),
+                              **metadata}), file=sys.stderr, flush=True)
+
+    def timed(name, function, *args, **kwargs):
+        with phase(name):
+            return function(*args, **kwargs)
 
 # ==========================================================================
 # T032 incorporato: numeratori di Molien dei covarianti di 2I
