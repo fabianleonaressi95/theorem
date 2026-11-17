@@ -24,6 +24,7 @@ from models.morandotti_exact_geometry import (
 )
 from models.morandotti_certified_rational_integration import (
     integrate_rational_triangle, integrate_rational_triangle_many,
+    integrate_rational_triangle_bernstein_residual_many,
 )
 
 BPoly = Mapping[tuple[int, int], F]
@@ -442,6 +443,8 @@ def assemble_cell_volume_interval(
     absolute_tolerance=F(1, 10**9),
     max_depth=12,
     progress_callback=None,
+    integration_method="neumann",
+    residual_expansion_order=2,
 ):
     """Certified 10x10 local D_K matrix for integral_K D²phi_i:D²phi_j.
 
@@ -465,17 +468,28 @@ def assemble_cell_volume_interval(
                 numerator = _add(numerator, _mul(
                     hessians[i][a][b], hessians[j][a][b]))
         numerators.append(numerator)
-    enclosed = integrate_rational_triangle_many(
-        numerators, det5, absolute_tolerance=absolute_tolerance,
-        max_depth=max_depth, progress_callback=progress_callback,
-    )
+    if integration_method == "neumann":
+        enclosed = integrate_rational_triangle_many(
+            numerators, det5, absolute_tolerance=absolute_tolerance,
+            max_depth=max_depth, progress_callback=progress_callback,
+        )
+    elif integration_method == "bernstein_residual":
+        enclosed = integrate_rational_triangle_bernstein_residual_many(
+            numerators, det5, absolute_tolerance=absolute_tolerance,
+            max_depth=max_depth, expansion_order=residual_expansion_order,
+            progress_callback=progress_callback,
+        )
+    else:
+        raise ValueError(
+            "integration_method must be 'neumann' or 'bernstein_residual'"
+        )
     for (i, j), (lo, hi, leaves, depth) in zip(pairs, enclosed):
         result[i][j] = result[j][i] = (lo, hi)
     return {
         "matrix_interval": result,
         "determinant_polynomial": det,
         "basis_count": 10,
-        "integration": "exact-rational Bernstein enclosure of rational physical Hessian products",
+        "integration": "exact-rational " + integration_method + " enclosure of rational physical Hessian products",
     }
 
 
