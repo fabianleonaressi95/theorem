@@ -76,7 +76,7 @@ This is a sufficient certificate and may fail when the integration intervals are
 
 ## 5A. Preferred alternative: direct finite-mesh certificate for the IPDG form
 
-For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \(\{\phi_i\}_{i=1}^N\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for four symmetric/global blocks:
+For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \(\{\phi_i\}_{i=1}^N\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for three global blocks (two symmetric and one generally nonsymmetric):
 
 - \(D_{ij}=\sum_K\int_K D^2\phi_i:D^2\phi_j\,dx\) (already implemented);
 - \(P_{ij}=\sum_F\ell_F^{-1}\int_F j_F(\phi_i)j_F(\phi_j)\,ds\) (normal-gradient penalty block; to implement);
