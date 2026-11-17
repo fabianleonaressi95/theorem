@@ -79,8 +79,8 @@ This is a sufficient certificate and may fail when the integration intervals are
 For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \(\{\phi_i\}_{i=1}^N\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for three global blocks (two symmetric and one generally nonsymmetric):
 
 - \(D_{ij}=\sum_K\int_K D^2\phi_i:D^2\phi_j\,dx\) (already implemented);
-- \(P_{ij}=\sum_F\ell_F^{-1}\int_F j_F(\phi_i)j_F(\phi_j)\,ds\) (normal-gradient penalty block; to implement);
-- \(C_{ij}=\sum_F\int_F q_F(\phi_i)j_F(\phi_j)\,ds\) (consistency coupling block; to implement, with the same arithmetic average and orientation conventions as the UFL form).
+- \(P_{ij}=\sum_F\ell_F^{-1}\int_F j_F(\phi_i)j_F(\phi_j)\,ds\) (normal-gradient penalty block; implemented in the direct assembler);
+- \(C_{ij}=\sum_F\int_F q_F(\phi_i)j_F(\phi_j)\,ds\) (consistency coupling block; implemented with the UFL arithmetic-average and orientation conventions).
 
 The boundary and interior contributions are assembled separately. On an interior facet, \(q_F\) is the arithmetic average of the two normal-normal Hessian traces and \(j_F\) is the sum of outward normal derivatives. On a boundary facet, use the one-sided traces. The global symmetric matrix of the stated form is
 \[
@@ -120,6 +120,15 @@ The next execution gate is:
 
 A failed or inconclusive run must be reported as such; it must not be replaced by the floating-point generalized eigenvalue estimate.
 
+
+## 5B. Direct (a_{h,\ell}) implementation (2026-11-17)
+
+The implementation now lives in `models/morandotti_direct_ipdg_certificate.py`. It assembles the interval blocks (D,P,C), including boundary one-sided and interior two-sided terms. The normal-gradient penalty integrals are reduced to the supported (p/(q s^{3/2})) integrator by multiplying the numerator by the exact edge metric polynomial (s); the consistency integrals become rational after arclength cancellation. Interior curved traces are checked coefficient-by-coefficient. The DOLFINx adapter fixes boundary edge orientation to the outward reference-cell convention and matches interior endpoint order.
+
+The module constructs (A=D-C-C^T+\alpha P) and (W=D+P). Its separate strict interval-SPD routine subtracts the symmetric row-sum perturbation bound and requires every exact rational LDL pivot to be strictly positive. It records the rational (kappa), free-DOF ordering, coordinate/connectivity hashes, row-wise interval radii, perturbation bound, and pivot diagnostics. The one-mesh runner is `scripts/certify_morandotti_direct_ipdg.py`.
+
+**Validation status (2026-11-17):** the focused GitHub Actions run 44073159346 passed the 30-test exact-integration group, the 11-test curved-P3 form group, all 4 direct-IPDG regression tests, and `py_compile` for the module and runner in the DOLFINx 0.11.0 environment. The generated one-mesh runner has not yet been executed, so no finite-mesh coercivity certificate is established. This implementation remains fixed-mesh only.
+
 ## 6. What the existing finite-mesh audit establishes
 
 The 24-mesh diagnostic reported generalized-eigenvalue estimates in the range 9.1545269506–15.8151565222, with the largest observed sufficient threshold \(2C_{\mathrm{tr},h}=31.6303130444\). Thus \(\alpha=40\) cleared the observed floating-point thresholds in those 24 cases. Exact-rational Bernstein subdivision also certified positive Jacobians for all 145,256 archived cell maps.
@@ -154,8 +163,8 @@ evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
 | Rational interval integration of curved-P3 volume entries | Implemented; unit tests exist; end-to-end execution pending |
 | Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
 | Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
-| Direct interval assembly of \(A_{h,\ell}=D-C-C^T+\alpha P\) and \(W=D+P\) | Proposed in §5A; not implemented |
-| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Proposed in §5A; not implemented |
+| Direct interval assembly of \(A_{h,\ell}=D-C-C^T+\alpha P\) and \(W=D+P\) | Implemented in the direct interval assembler; focused execution pending |
+| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Strict interval LDL and focused tests passed; one-mesh run pending |
 | Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) on the full space | Obstructed when the common piecewise-affine kernel is present; an exact kernel complement is not implemented |
 | Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
 | Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
