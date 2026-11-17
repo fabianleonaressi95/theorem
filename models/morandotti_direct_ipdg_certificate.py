@@ -291,6 +291,7 @@ def certify_interval_spd(matrix_interval):
     return {
         "certified": True, "dimension": n,
         "spectral_error_bound": perturbation,
+        "row_interval_radius_bounds": tuple(row_radii),
         "minimum_exact_schur_pivot": min(pivots, default=None),
         "exact_schur_pivots": tuple(pivots),
         "ldl_fill_updates": fill_updates,
@@ -306,6 +307,8 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
     if alpha <= 0 or kappa <= 0:
         raise ValueError("alpha and kappa must be positive rationals")
     free = list(map(int, free_dofs))
+    if not free:
+        raise ValueError("the certified free-DOF space must be nonempty")
     if len(set(free)) != len(free) or any(i < 0 for i in free):
         raise ValueError("free_dofs must be unique nonnegative global indices")
     index = {dof: i for i, dof in enumerate(free)}
@@ -322,6 +325,7 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
     certificate.update({
         "alpha": alpha, "kappa": kappa,
         "free_dimension": len(free),
+        "free_dofs": tuple(free),
         "matrix": "A_h,ell - kappa*(D+P)",
         "form": "A=D-C-C^T+alpha*P; W=D+P",
         "integration_uncertainty_propagated": True,
@@ -342,6 +346,8 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
     """
     import numpy as np
     import basix
+    import hashlib
+    import json
     from dolfinx import fem
     from dolfinx.mesh import exterior_facet_indices
 
@@ -432,7 +438,11 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
         np.arange(function_space.dofmap.index_map.size_local, dtype=np.int64),
         boundary_dofs
     )
+    coordinate_payload = [[float(x).hex() for x in row] for cell in cell_nodes for row in cell]
+    connectivity_payload = [list(map(int, dofs)) for dofs in cell_dofs]
     assembled.update({
+        "coordinate_hash": hashlib.sha256(json.dumps(coordinate_payload, separators=(",", ":")).encode()).hexdigest(),
+        "cell_dof_connectivity_hash": hashlib.sha256(json.dumps(connectivity_payload, separators=(",", ":")).encode()).hexdigest(),
         "free_dofs": free.tolist(),
         "cell_count": nc,
         "coordinate_nodes": "IEEE-754 binary64 interpreted as exact dyadic rationals",
