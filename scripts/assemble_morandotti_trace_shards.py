@@ -12,7 +12,7 @@ def main():
     p.add_argument("--bootstrap-replicates",type=int,default=2000)
     a=p.parse_args()
     root,out=Path(a.shards),Path(a.out); out.mkdir(parents=True,exist_ok=True)
-    reports=sorted(root.glob("case-*/report.json"))
+    reports=sorted(root.glob("morandotti-t134-case-*/report.json"))
     expected={(d,h,s) for d in (0.48,0.56) for h in (0.08,0.045) for s in (11,29,47)}
     if len(reports)!=len(expected): raise SystemExit(f"expected {len(expected)} reports, found {len(reports)}")
     runs=[]; seen=set(); cert_paths=[]
