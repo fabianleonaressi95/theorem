@@ -964,7 +964,7 @@ def run_all(molien_sym_max=13, projector_start=0, projector_end=None):
         matrix_units.append(timed(
             "matrix_units_multiplicity_two_model",
             verify_matrix_units_multiplicity_two, G, reps, table, classes,
-            U=block_diagonal([symmetric_power_cache[2], symmetric_power_cache[10]]),
+            U=block_diagonal([symmetric_power_cache.get(2) or symmetric_power_rep(G, 2), symmetric_power_cache[10]]),
         ))
     report["matrix_units"] = matrix_units
     report["galois_sym_analysis"] = timed(
