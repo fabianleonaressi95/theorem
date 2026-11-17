@@ -154,14 +154,38 @@ def integrate_rational_triangle_many(
             progress_callback({"integration_triangles_processed": processed,
                                "integration_pending_triangles": len(stack),
                                "integration_max_depth": used})
+        if progress_callback:
+            progress_callback({"integration_stage": "denominator_compose_start",
+                               "integration_triangles_processed": processed,
+                               "integration_pending_triangles": len(stack)})
         qq = _compose_on_triangle(q, tri)
+        if progress_callback:
+            progress_callback({"integration_stage": "denominator_compose_complete",
+                               "integration_denominator_terms": len(qq)})
+            progress_callback({"integration_stage": "denominator_bernstein_start"})
         qlo, qhi = _bernstein_bounds(qq)
-        if qhi < 0:
+        if progress_callback:
+            progress_callback({"integration_stage": "denominator_bernstein_complete",
+                               "integration_denominator_lower": str(qlo),
+                               "integration_denominator_upper": str(qhi)})
+        pset = []
+        negate = qhi < 0
+        for numerator_index, p in enumerate(ps, start=1):
+            if progress_callback:
+                progress_callback({"integration_stage": "numerator_compose_start",
+                                   "integration_numerator_index": numerator_index,
+                                   "integration_numerator_total": len(ps),
+                                   "integration_numerator_terms": len(p)})
+            composed = _compose_on_triangle(p, tri)
+            pset.append(_scale(composed, -1) if negate else composed)
+            if progress_callback:
+                progress_callback({"integration_stage": "numerator_compose_complete",
+                                   "integration_numerator_index": numerator_index,
+                                   "integration_numerator_total": len(ps),
+                                   "integration_composed_terms": len(composed)})
+        if negate:
             qq = _scale(qq, -1)
             qlo, qhi = -qhi, -qlo
-            pset = [_scale(_compose_on_triangle(p, tri), -1) for p in ps]
-        else:
-            pset = [_compose_on_triangle(p, tri) for p in ps]
         if qlo <= 0:
             if depth >= max_depth:
                 raise ArithmeticError("denominator positivity not certified by shared Bernstein subdivision")
