@@ -95,3 +95,25 @@ def test_shared_tree_uses_signed_neumann_enclosure_without_forced_refinement():
     )
     assert lo <= scalar_hi
     assert scalar_lo <= hi
+
+
+def test_batch_refinement_is_local_to_the_numerator_that_needs_it():
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    numerators = [
+        {(0, 0): F(1)},  # Needs subdivision to meet this tight tolerance.
+        {},              # Identically zero: certified exactly on the root.
+    ]
+    result = integrate_rational_triangle_many(
+        numerators, denominator,
+        absolute_tolerance=F(1, 1000), max_depth=8,
+    )
+    hard_lo, hard_hi, hard_leaves, hard_depth = result[0]
+    easy_lo, easy_hi, easy_leaves, easy_depth = result[1]
+    assert hard_lo <= F(1, 2) * (2*F(1)-F(2)*F(2).ln() if False else F(1, 1))
+    assert hard_lo < hard_hi
+    assert hard_hi-hard_lo <= F(1, 1000)
+    assert hard_leaves > 1
+    assert hard_depth > 0
+    assert easy_lo == easy_hi == 0
+    assert easy_leaves == 1
+    assert easy_depth == 0
