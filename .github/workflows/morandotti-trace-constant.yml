@@ -14,6 +14,7 @@ on:
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
       - 'tests/test_morandotti_exact_integration.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
   pull_request:
     branches: [main, t134-exact-integration-foundation]
     paths:
