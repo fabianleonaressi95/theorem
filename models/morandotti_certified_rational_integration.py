@@ -608,11 +608,15 @@ def integrate_rational_triangle_bernstein_residual_many(
                 _scale(delta_power, Fraction((-1)**k, 1) /
                        midpoint**(k+1)),
             )
-            if k < expansion_order:
+            if k < expansion_order + 1:
                 delta_power = _mul(delta_power, delta)
-        residual_factor = _add(
-            {(0, 0): Fraction(1)},
-            _scale(_mul(qq, reciprocal_polynomial), -1),
+        # Since q = m + delta, the finite geometric identity gives
+        # 1 - q*S_N = (-1)^(N+1) * delta^(N+1) / m^(N+1).
+        # This avoids a second high-degree multiplication q*S_N.
+        residual_factor = _scale(
+            delta_power,
+            Fraction((-1)**(expansion_order+1), 1) /
+            midpoint**(expansion_order+1),
         )
 
         leaf_values = []
