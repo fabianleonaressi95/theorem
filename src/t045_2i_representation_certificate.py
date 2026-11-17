@@ -60,7 +60,7 @@ def run_certificate(max_projector_degree: int = 13):
     for label in T.LABELS:
         hom[label] = T.verify_homomorphism(G, reps[label].matrices)
         if reps[label].weights:
-            weighted[label] = T.verify_weighted_unitarity(G, reps[label])
+            weighted[label] = T.verify_weighted_unitarity(reps[label])
             if not weighted[label]:
                 raise AssertionError(("weighted unitarity", label))
 
