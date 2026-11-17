@@ -448,9 +448,13 @@ def assemble_cell_volume_interval(
     Geometry coordinates are interpreted as exact binary64 dyadic rationals.
     Every returned matrix entry is a rigorous rational interval.
     """
+    if progress_callback:
+        progress_callback({"integration_stage": "exact_geometry_and_hessians_start"})
     maps, basis, jac, adj, det, hessians, det5 = _cell_data(
         node_coordinates, interpolation_points
     )
+    if progress_callback:
+        progress_callback({"integration_stage": "exact_geometry_and_hessians_complete"})
     result = [[None for _ in range(10)] for _ in range(10)]
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
     numerators = []
