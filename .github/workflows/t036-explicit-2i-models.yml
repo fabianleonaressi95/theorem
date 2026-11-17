@@ -88,6 +88,8 @@ jobs:
           group = None
           checks = []
           for payload in payloads:
+              assert payload["verification"]["passed"] and payload["verification"]["shard_complete"]
+              assert len(payload["irreps"]) == 1, "each T036 worker must export exactly one irrep"
               assert payload["group"] == "2I" and payload["order"] == 120
               if group is None:
                   group = payload["element_coordinates_Q_phi"]
@@ -100,6 +102,8 @@ jobs:
               checks.append(payload["verification"])
           assert set(models) == expected, (set(models), expected)
           assert sum(IRREP_DIMENSIONS[k]**2 for k in expected) == 120
+          assert sum(x["character_values_recovered"] for x in checks) == 81
+          assert sum(x["invariant_metric_checks"] for x in checks) == 1080
           report = {
               "passed": True, "shards_merged": len(payloads),
               "irreducibles": len(models),
