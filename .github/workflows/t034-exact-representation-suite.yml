@@ -100,7 +100,10 @@ jobs:
           report["projectors_on_sym"] = [item for p in payloads for item in p["verification"]["projectors_on_sym"]]
           report["matrix_units"] = [item for p in payloads for item in p["verification"]["matrix_units"]]
           assert len(report["projectors_on_sym"]) == 14
-          assert len({item.get("degree") for item in report["projectors_on_sym"]}) in (1, 14)
+          assert {item["m"] for item in report["projectors_on_sym"]} == set(range(14))
+          matrix_degrees = {int(item["representation"].replace("Sym^", "")) for item in report["matrix_units"] if item["representation"].startswith("Sym^") and "direct-sum" not in item["representation"]}
+          assert matrix_degrees == set(range(8)), matrix_degrees
+          assert any(item["representation"] == "Sym^2 direct-sum Sym^10" for item in report["matrix_units"])
           report["status"] = "PASS"
           base["verification"] = report
           Path("t034_2i_character_table.json").write_text(json.dumps(base, indent=2)+"\\n")
