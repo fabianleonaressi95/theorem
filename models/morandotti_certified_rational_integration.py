@@ -118,7 +118,7 @@ def _area(t):
 
 def integrate_rational_triangle_many(
     numerators, denominator, *, absolute_tolerance=Fraction(1, 10**8),
-    max_depth=12,
+    max_depth=12, progress_callback=None,
 ):
     """Enclose many rational integrals with one shared triangle subdivision.
 
@@ -145,9 +145,15 @@ def integrate_rational_triangle_many(
     leaves = [0 for _ in ps]
     used = 0
     stack = [(root, 0)]
+    processed = 0
     while stack:
         tri, depth = stack.pop()
+        processed += 1
         used = max(used, depth)
+        if progress_callback and (processed == 1 or processed % 10 == 0):
+            progress_callback({"integration_triangles_processed": processed,
+                               "integration_pending_triangles": len(stack),
+                               "integration_max_depth": used})
         qq = _compose_on_triangle(q, tri)
         qlo, qhi = _bernstein_bounds(qq)
         if qhi < 0:
