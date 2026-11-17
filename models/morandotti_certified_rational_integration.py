@@ -225,6 +225,7 @@ def integrate_rational_triangle_many(
                     f"{index + 1}"
                 )
             split_count[index] += 1
+            pending[index] += 4
             stack.extend((child, depth+1, index) for child in _split4(tri))
             continue
 
@@ -237,9 +238,7 @@ def integrate_rational_triangle_many(
                 "integration_numerator_index": index + 1,
                 "integration_numerator_total": len(ps),
                 "integration_triangles_processed": processed[index],
-                "integration_pending_triangles": sum(
-                    1 for _, _, item_index in stack if item_index == index
-                ),
+                "integration_pending_triangles": pending[index],
                 "integration_accepted_leaves": leaves[index],
                 "integration_split_triangles": split_count[index],
                 "integration_max_depth": used[index],
