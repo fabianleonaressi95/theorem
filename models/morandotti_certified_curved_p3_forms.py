@@ -748,15 +748,19 @@ def assemble_interior_facet_interval(
 
     tol = _as_fraction(absolute_tolerance)
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    # H_F = h_F * integral_F |(q_A + q_B)/2|^2 ds.
+    # The factor h_F/4 multiplies all AA, AB, and BB blocks. Omitting it
+    # changes the trace operator and invalidates the global C_* D - H test.
+    weight_quarter = _as_fraction(h_average) / 4
     aa = integrate_rational_sqrt_segments_many(
-        [_mul1(qa[i], qa[j]) for i, j in pairs],
+        [_scale1(_mul1(qa[i], qa[j]), weight_quarter) for i, j in pairs],
         _mul1(da3, da3), radicand, absolute_tolerance=tol, max_depth=max_depth)
     bb = integrate_rational_sqrt_segments_many(
-        [_mul1(qb[i], qb[j]) for i, j in pairs],
+        [_scale1(_mul1(qb[i], qb[j]), weight_quarter) for i, j in pairs],
         _mul1(db3, db3), radicand, absolute_tolerance=tol, max_depth=max_depth)
     cross_pairs = [(i, j) for i in range(10) for j in range(10)]
     ab = integrate_rational_sqrt_segments_many(
-        [_mul1(qa[i], qb[j]) for i, j in cross_pairs],
+        [_scale1(_mul1(qa[i], qb[j]), weight_quarter) for i, j in cross_pairs],
         _mul1(da3, db3), radicand, absolute_tolerance=tol, max_depth=max_depth)
     AA, BB, AB = ([[None]*10 for _ in range(10)] for _ in range(3))
     for (i, j), value in zip(pairs, aa):
