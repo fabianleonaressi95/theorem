@@ -493,6 +493,76 @@ def assemble_cell_volume_interval(
     }
 
 
+
+def benchmark_cell_volume_integrators(
+    node_coordinates,
+    interpolation_points,
+    *,
+    absolute_tolerance=F(1, 10**8),
+    max_depth=12,
+    residual_expansion_order=2,
+):
+    """Compare Neumann and Bernstein-residual methods on the same 55 entries.
+
+    Geometry and the 55 exact numerator polynomials are built once and shared
+    by both runs. Timings therefore isolate the integration methods. The
+    returned overlap flag checks that every pair of certified intervals
+    intersects; widths and leaf counts expose the accuracy/work trade-off.
+    This is a diagnostic benchmark, not a production certificate.
+    """
+    maps, basis, jac, adj, det, hessians, det5 = _cell_data(
+        node_coordinates, interpolation_points
+    )
+    pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    numerators = []
+    for i, j in pairs:
+        numerator = {}
+        for a in range(2):
+            for b in range(2):
+                numerator = _add(numerator, _mul(
+                    hessians[i][a][b], hessians[j][a][b]))
+        numerators.append(numerator)
+
+    runs = {}
+    methods = (
+        ("neumann", integrate_rational_triangle_many, {}),
+        ("bernstein_residual", integrate_rational_triangle_bernstein_residual_many,
+         {"expansion_order": residual_expansion_order}),
+    )
+    for name, integrator, extra in methods:
+        started = perf_counter()
+        intervals = integrator(
+            numerators, det5,
+            absolute_tolerance=absolute_tolerance,
+            max_depth=max_depth,
+            **extra,
+        )
+        elapsed = perf_counter() - started
+        widths = [hi-lo for lo, hi, _, _ in intervals]
+        runs[name] = {
+            "intervals": [(lo, hi) for lo, hi, _, _ in intervals],
+            "elapsed_seconds": elapsed,
+            "total_interval_width": sum(widths, F(0)),
+            "maximum_interval_width": max(widths, default=F(0)),
+            "total_accepted_leaves": sum(item[2] for item in intervals),
+            "maximum_depth": max((item[3] for item in intervals), default=0),
+        }
+
+    neumann_intervals = runs["neumann"]["intervals"]
+    residual_intervals = runs["bernstein_residual"]["intervals"]
+    overlap = all(
+        max(a[0], b[0]) <= min(a[1], b[1])
+        for a, b in zip(neumann_intervals, residual_intervals)
+    )
+    return {
+        "entry_count": len(pairs),
+        "pairs": pairs,
+        "certified_interval_overlap": overlap,
+        "methods": runs,
+        "scope": "one fixed curved-P3 cell; no global mesh or LDL conclusion",
+    }
+
+
 def _edge_polynomial_data(maps, det, hessian, edge_vertices):
     a, b = (_REF_VERTICES[k] for k in edge_vertices)
     tangent = []
