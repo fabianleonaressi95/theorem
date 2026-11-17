@@ -669,8 +669,9 @@ def matrix_unit(G, rep, i, j, U):
     return mat_scale(acc, Fraction(rep.dim, 120))
 
 
-def verify_projectors_on_sym(G, table, classes, m, full_orthogonality):
-    U = symmetric_power_rep(G, m)
+def verify_projectors_on_sym(G, table, classes, m, full_orthogonality, U=None):
+    if U is None:
+        U = symmetric_power_rep(G, m)
     dim = m + 1
     P = {l: central_projector(G, table[l], classes, IRREP_DIMENSIONS[l], U) for l in LABELS}
     expected = verify_projector_rank_on_sym(table, classes, m)
@@ -734,8 +735,9 @@ def verify_matrix_units(G, reps, U, multiplicity, sample=30, seed=7):
     return {"multiplicities": dict(multiplicity), "identities_checked": checked}
 
 
-def verify_matrix_units_on_sym(G, reps, table, classes, m, sample=30, seed=7):
-    U = symmetric_power_rep(G, m)
+def verify_matrix_units_on_sym(G, reps, table, classes, m, sample=30, seed=7, U=None):
+    if U is None:
+        U = symmetric_power_rep(G, m)
     mult = {l: v for l, v in multiplicity_in_sym(table, classes, m).items() if v > 0}
     r = verify_matrix_units(G, reps, U, mult, sample, seed)
     r["m"] = m
@@ -932,10 +934,17 @@ def run_all(molien_sym_max=13):
     report["schur_entries"] = timed("full_schur_orthogonality", verify_schur_orthogonality, G, reps)
 
     projector_results = []
+    symmetric_power_cache = {}
     for m in range(molien_sym_max + 1):
+        symmetric_power_cache[m] = timed(
+            "construct_symmetric_power_matrices", symmetric_power_rep, G, m
+        )
         with phase("central_projectors_on_symmetric_power", degree=m):
             projector_results.append(
-                verify_projectors_on_sym(G, table, classes, m, full_orthogonality=True)
+                verify_projectors_on_sym(
+                    G, table, classes, m, full_orthogonality=True,
+                    U=symmetric_power_cache[m],
+                )
             )
     report["projectors_on_sym"] = projector_results
 
@@ -943,7 +952,9 @@ def run_all(molien_sym_max=13):
     for m in range(8):
         with phase("matrix_units_on_symmetric_power", degree=m):
             matrix_units.append(
-                verify_matrix_units_on_sym(G, reps, table, classes, m)
+                verify_matrix_units_on_sym(
+                    G, reps, table, classes, m, U=symmetric_power_cache[m]
+                )
             )
     matrix_units.append(timed(
         "matrix_units_multiplicity_two_model",
