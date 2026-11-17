@@ -506,8 +506,11 @@ def main():
         raise ValueError("mesh sizes must be finite and positive")
     if not args.distances or any(not np.isfinite(d) or d <= 0.24 or d >= 1.76 for d in args.distances):
         raise ValueError("two-core distances must satisfy 0.24 < d < 1.76")
-    if len(set(args.seeds)) != len(args.seeds) or len(args.seeds) < 2:
-        raise ValueError("at least two distinct mesh seeds are required")
+    minimum_seeds = 1 if args.skip_statistical else 2
+    if len(set(args.seeds)) != len(args.seeds) or len(args.seeds) < minimum_seeds:
+        raise ValueError(
+            "a partial FEM shard requires one distinct seed; a full statistical audit requires at least two"
+        )
 
     runs = []
     certificate_path = Path(args.certificate_out)
@@ -556,20 +559,21 @@ def main():
             certificate_hash.update(chunk)
 
     grouped = {}
-    for distance in args.distances:
-        for h in args.mesh_sizes:
-            samples = [r for r in runs if r["distance"] == float(distance) and r["h_target"] == float(h)]
-            values = [r["quadrature_estimates"][-1]["C_tr_h"] for r in samples]
-            grouped[f"d{distance:.4f}_h{h:.4f}"] = {
-                "realizations": len(samples),
-                "seeds": sorted(r["mesh_seed"] for r in samples),
-                "C_tr_h_max_over_seeds": float(max(values)),
-                "C_tr_h_mean_over_seeds": float(np.mean(values)),
-                "C_tr_h_sample_std_over_seeds": float(np.std(values, ddof=1)),
-                "alpha_10_exceeds_twice_max_C_tr_h": bool(10.0 > 2.0 * max(values)),
-                "alpha_40_margin_over_max_C_tr_h": float(40.0 - 2.0 * max(values)),
-                "alpha_40_exceeds_twice_max_C_tr_h": bool(40.0 > 2.0 * max(values)),
-            }
+    if not args.skip_statistical:
+        for distance in args.distances:
+            for h in args.mesh_sizes:
+                samples = [r for r in runs if r["distance"] == float(distance) and r["h_target"] == float(h)]
+                values = [r["quadrature_estimates"][-1]["C_tr_h"] for r in samples]
+                grouped[f"d{distance:.4f}_h{h:.4f}"] = {
+                    "realizations": len(samples),
+                    "seeds": sorted(r["mesh_seed"] for r in samples),
+                    "C_tr_h_max_over_seeds": float(max(values)),
+                    "C_tr_h_mean_over_seeds": float(np.mean(values)),
+                    "C_tr_h_sample_std_over_seeds": float(np.std(values, ddof=1)),
+                    "alpha_10_exceeds_twice_max_C_tr_h": bool(10.0 > 2.0 * max(values)),
+                    "alpha_40_margin_over_max_C_tr_h": float(40.0 - 2.0 * max(values)),
+                    "alpha_40_exceeds_twice_max_C_tr_h": bool(40.0 > 2.0 * max(values)),
+                }
 
     statistical = (None if args.skip_statistical else
                    statistical_model_audit(runs, args.distances, args.mesh_sizes, args.bootstrap_replicates))
