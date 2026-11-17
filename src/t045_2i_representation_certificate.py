@@ -49,7 +49,10 @@ def exhaustive_matrix_units(G, reps, U, multiplicities, table, classes):
     return {"quadruples_checked": checked, "irreps": per_irrep}
 
 
-def run_certificate(max_projector_degree: int = 13):
+def run_certificate(max_projector_degree: int = 13, degree_start: int = 0, degree_end: int | None = None):
+    degree_end = max_projector_degree if degree_end is None else degree_end
+    if degree_start < 0 or degree_end > max_projector_degree or degree_start > degree_end:
+        raise ValueError("invalid projector degree shard")
     G = T.build_group()
     group_report = T.verify_group(G)
     reps = T.build_representations(G)
@@ -72,7 +75,7 @@ def run_certificate(max_projector_degree: int = 13):
 
     projector_reports = []
     symmetric_power_cache = {}
-    for m in range(max_projector_degree + 1):
+    for m in range(degree_start, degree_end + 1):
         U = T.symmetric_power_rep(G, m)
         symmetric_power_cache[m] = U
         projector_reports.append(T.verify_projectors_on_sym(
@@ -81,7 +84,7 @@ def run_certificate(max_projector_degree: int = 13):
     # Exhaustive matrix-unit multiplication, not seeded sampling. Reuse the
     # exact same Sym^m matrices already built for the projector audit.
     matrix_unit_reports = []
-    for m in range(8):
+    for m in range(max(0, degree_start), min(8, degree_end + 1)):
         U = symmetric_power_cache[m]
         mult = {label: molien_coefficients(label, m)[m]
                 for label in T.LABELS
@@ -91,12 +94,13 @@ def run_certificate(max_projector_degree: int = 13):
             **exhaustive_matrix_units(G, reps, U, mult, table, classes),
         })
 
-    U2 = T.block_diagonal([T.symmetric_power_rep(G, 2),
-                           T.symmetric_power_rep(G, 10)])
-    matrix_unit_reports.append({
-        "representation": "Sym^2 direct-sum Sym^10",
-        **exhaustive_matrix_units(G, reps, U2, {"3": 2}, table, classes),
-    })
+    if degree_start <= 10 <= degree_end:
+        U2 = T.block_diagonal([T.symmetric_power_rep(G, 2),
+                               symmetric_power_cache[10]])
+        matrix_unit_reports.append({
+            "representation": "Sym^2 direct-sum Sym^10",
+            **exhaustive_matrix_units(G, reps, U2, {"3": 2}, table, classes),
+        })
 
     # Molien is explicitly the multiplicity of rho in Sym^m(V), where
     # V is the defining two-dimensional SU(2) representation.
@@ -110,7 +114,8 @@ def run_certificate(max_projector_degree: int = 13):
         "weighted_unitarity_all_120_elements": weighted,
         "character_orthogonality": character_report,
         "matrix_coefficient_schur_entries": schur_entries,
-        "projectors_all_pairs_degrees_0_to_max": projector_reports,
+        "projector_degree_shard": [degree_start, degree_end],
+        "projectors_all_pairs_degrees_in_shard": projector_reports,
         "matrix_units_exhaustive": matrix_unit_reports,
         "molien_representation": "V = defining 2-dimensional representation; Sym^m(V)",
         "molien_exact_numerator_identity": molien,
@@ -122,5 +127,7 @@ if __name__ == "__main__":
     import argparse, json
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-projector-degree", type=int, default=13)
+    parser.add_argument("--degree-start", type=int, default=0)
+    parser.add_argument("--degree-end", type=int, default=13)
     args = parser.parse_args()
-    print(json.dumps(run_certificate(args.max_projector_degree), indent=2))
+    print(json.dumps(run_certificate(args.max_projector_degree, args.degree_start, args.degree_end), indent=2))
