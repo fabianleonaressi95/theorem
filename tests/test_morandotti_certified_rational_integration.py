@@ -109,7 +109,11 @@ def test_batch_refinement_is_local_to_the_numerator_that_needs_it():
     )
     hard_lo, hard_hi, hard_leaves, hard_depth = result[0]
     easy_lo, easy_hi, easy_leaves, easy_depth = result[1]
-    assert hard_lo <= F(1, 2) * (2*F(1)-F(2)*F(2).ln() if False else F(1, 1))
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerators[0], denominator,
+        absolute_tolerance=F(1, 1000), max_depth=8,
+    )
+    assert hard_lo <= scalar_hi and scalar_lo <= hard_hi
     assert hard_lo < hard_hi
     assert hard_hi-hard_lo <= F(1, 1000)
     assert hard_leaves > 1
