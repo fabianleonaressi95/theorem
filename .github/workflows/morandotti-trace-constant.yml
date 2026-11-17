@@ -131,7 +131,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: t134-direct-ipdg-certificate
-          path: artifacts/morandotti_direct_ipdg/direct_coercivity.json
+          path: |
+            artifacts/morandotti_direct_ipdg/direct_coercivity.json
+            artifacts/morandotti_direct_ipdg/progress.json
           if-no-files-found: warn
 
 
