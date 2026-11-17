@@ -112,7 +112,9 @@ jobs:
       - name: "05 — Curved-P3 local form assembly tests"
         run: python3 -m pytest -vv -ra tests/test_morandotti_certified_curved_p3_forms.py
       - name: "06 — Compile direct IPDG certificate module and runner"
-        run: python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
+        run: |
+          python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
+          python3 scripts/certify_morandotti_direct_ipdg.py --help
       - name: "07 — Direct IPDG boundary-facet assembly"
         run: python3 -m pytest -vv -ra tests/test_morandotti_direct_ipdg_certificate.py::test_direct_boundary_assembly_builds_D_P_C_with_exact_intervals
       - name: "08 — Direct IPDG strict coercivity / LDL certificate"
