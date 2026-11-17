@@ -11,6 +11,9 @@ on:
       - 'models/morandotti_exact_integration.py'
       - 'models/morandotti_certified_rational_integration.py'
       - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'models/morandotti_direct_ipdg_certificate.py'
+      - 'scripts/certify_morandotti_direct_ipdg.py'
+      - 'tests/test_morandotti_direct_ipdg_certificate.py'
       - 'tests/test_morandotti_certified_curved_p3_forms.py'
       - 'tests/test_morandotti_certified_rational_integration.py'
       - 'tests/test_morandotti_trace_constant.py'
@@ -27,6 +30,9 @@ on:
       - 'models/morandotti_exact_integration.py'
       - 'models/morandotti_certified_rational_integration.py'
       - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'models/morandotti_direct_ipdg_certificate.py'
+      - 'scripts/certify_morandotti_direct_ipdg.py'
+      - 'tests/test_morandotti_direct_ipdg_certificate.py'
       - 'tests/test_morandotti_certified_curved_p3_forms.py'
       - 'tests/test_morandotti_certified_rational_integration.py'
       - 'tests/test_morandotti_trace_constant.py'
@@ -56,7 +62,9 @@ jobs:
         run: python3 -m pytest -q tests/test_morandotti_trace_constant.py tests/test_morandotti_exact_geometry.py tests/test_morandotti_exact_integration.py tests/test_morandotti_certified_rational_integration.py
       - name: Run certified curved-P3 local form assembly tests
         run: python3 -m pytest -q tests/test_morandotti_certified_curved_p3_forms.py
+      - name: Run direct interval IPDG assembly and strict coercivity tests
+        run: python3 -m pytest -q tests/test_morandotti_direct_ipdg_certificate.py
       - name: Stop after fast unit tests
-        run: echo "Legacy C_star*D-H certificate is disabled: its full-space matrix can have an exact piecewise-affine kernel. Implement the direct a_h certificate before re-enabling finite-mesh certification."
+        run: echo "Direct a_h certificate implementation is tested at unit level; run scripts/certify_morandotti_direct_ipdg.py separately for one fixed mesh. No all-level claim is made."
 
 
