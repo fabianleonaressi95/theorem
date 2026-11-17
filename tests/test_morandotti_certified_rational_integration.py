@@ -138,7 +138,7 @@ def test_bernstein_residual_integrator_certifies_nonconstant_rational_integral()
     )
     # Integral = 2*log(2)-1; these rational bounds are deliberately wider
     # than the requested enclosure to avoid floating-point test oracles.
-    assert lo <= F(3862, 10000)
+    assert lo <= F(3863, 10000)
     assert hi >= F(3862, 10000)
     assert hi-lo <= F(1, 100000)
     assert leaves >= 1
