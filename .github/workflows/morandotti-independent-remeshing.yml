@@ -67,9 +67,14 @@ jobs:
       - name: Run independent-remeshing sweep
         if: github.event_name == 'workflow_dispatch'
         shell: bash
+        env:
+          RESUME_FROM_RUN_ID: ${{ inputs.resume_from_run_id }}
         run: |
           RESUME_FLAG=""
-          if [ -n "${{ inputs.resume_from_run_id }}" ]; then RESUME_FLAG="--resume"; fi
+          if [ -n "$RESUME_FROM_RUN_ID" ]; then
+            [[ "$RESUME_FROM_RUN_ID" =~ ^[0-9]+$ ]] || { echo "resume_from_run_id must be numeric"; exit 2; }
+            RESUME_FLAG="--resume"
+          fi
           python3 scripts/rgs_morandotti_independent_remeshing.py \
             --mesh-sizes 0.08 0.06 0.045 0.035 \
             --distance-values 0.48 0.56 \
