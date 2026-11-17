@@ -102,7 +102,7 @@ def main():
     output = Path(args.out)
     output.parent.mkdir(parents=True, exist_ok=True)
     checkpoint_path = output.with_name(output.stem + ".checkpoint.json")
-    progress_path = output.with_name(output.stem + ".progress.jsonl")
+    progress_path = output.parent / "progress.jsonl"
     configuration = {
         "mesh_sizes": args.mesh_sizes,
         "distance_values": args.distance_values,
@@ -112,7 +112,9 @@ def main():
         "poisson_ratio": args.poisson_ratio,
     }
     runs = []
-    if args.resume and checkpoint_path.is_file():
+    if args.resume and not checkpoint_path.is_file():
+        raise RuntimeError(f"--resume requested but checkpoint is missing: {checkpoint_path}")
+    if args.resume:
         checkpoint = json.loads(checkpoint_path.read_text(encoding="utf-8"))
         if checkpoint.get("configuration") != configuration:
             raise RuntimeError("checkpoint configuration differs from this run; refusing unsafe resume")
