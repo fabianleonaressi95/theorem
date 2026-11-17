@@ -12,7 +12,7 @@ from src import t034_binary_icosahedral_representations as T
 from src.t032_2i_molien import IRREP_DIMENSIONS, molien_coefficients
 
 
-def exhaustive_matrix_units(G, reps, U, multiplicities):
+def exhaustive_matrix_units(G, reps, U, multiplicities, table, classes):
     """Check E_ij E_kl = delta_jk E_il for every index quadruple."""
     dim = len(U[0])
     checked = 0
@@ -41,8 +41,6 @@ def exhaustive_matrix_units(G, reps, U, multiplicities):
         block = T.mat_zero(dim)
         for i in range(d):
             block = T.mat_add(block, E[i, i])
-        classes = T.ordered_classes(G)
-        table = T.mat_trace_class(reps, G, classes)
         P = T.central_projector(G, table[label], classes, d, U)
         if not T.mat_eq(block, P):
             raise AssertionError(("matrix units do not sum to central projector", label))
@@ -86,14 +84,14 @@ def run_certificate(max_projector_degree: int = 13):
                 if molien_coefficients(label, m)[m] > 0}
         matrix_unit_reports.append({
             "representation": f"Sym^{m}",
-            **exhaustive_matrix_units(G, reps, U, mult),
+            **exhaustive_matrix_units(G, reps, U, mult, table, classes),
         })
 
     U2 = T.block_diagonal([T.symmetric_power_rep(G, 2),
                            T.symmetric_power_rep(G, 10)])
     matrix_unit_reports.append({
         "representation": "Sym^2 direct-sum Sym^10",
-        **exhaustive_matrix_units(G, reps, U2, {"3": 2}),
+        **exhaustive_matrix_units(G, reps, U2, {"3": 2}, table, classes),
     })
 
     # Molien is explicitly the multiplicity of rho in Sym^m(V), where
