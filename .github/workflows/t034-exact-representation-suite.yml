@@ -101,9 +101,15 @@ jobs:
           report["matrix_units"] = [item for p in payloads for item in p["verification"]["matrix_units"]]
           assert len(report["projectors_on_sym"]) == 14
           assert {item["m"] for item in report["projectors_on_sym"]} == set(range(14))
-          matrix_degrees = {int(item["representation"].replace("Sym^", "")) for item in report["matrix_units"] if item["representation"].startswith("Sym^") and "direct-sum" not in item["representation"]}
+          # T034 emits matrix-unit records with an integer "m" for Sym^m,
+          # while the multiplicity-two direct-sum record uses
+          # "ambient_representation" and has no "m" field.
+          matrix_degrees = {item["m"] for item in report["matrix_units"] if "m" in item}
           assert matrix_degrees == set(range(8)), matrix_degrees
-          assert any(item["representation"] == "Sym^2 direct-sum Sym^10" for item in report["matrix_units"])
+          assert any(
+              item.get("ambient_representation") == "Sym^2(2) direct_sum Sym^10(2)"
+              for item in report["matrix_units"]
+          ), "missing Sym^2(2) direct_sum Sym^10(2) matrix-unit certificate"
           report["status"] = "PASS"
           base["verification"] = report
           Path("t034_2i_character_table.json").write_text(json.dumps(base, indent=2)+"\\n")
