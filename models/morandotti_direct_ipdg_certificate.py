@@ -137,7 +137,7 @@ def _assemble_interior_facet(nodes_a, nodes_b, points, edge_a, edge_b,
 def assemble_global_direct_ipdg_forms(
     cell_node_coordinates, interpolation_points, cell_dofs, cell_diameters,
     boundary_facets, interior_facets, number_of_dofs, *,
-    absolute_tolerance=F(1, 10**8), max_depth=24,
+    absolute_tolerance=F(1, 10**8), max_depth=24, progress_callback=None,
 ):
     """Assemble sparse interval matrices D, P and nonsymmetric C.
 
@@ -159,18 +159,22 @@ def assemble_global_direct_ipdg_forms(
             absolute_tolerance=tol, max_depth=max_depth
         )["matrix_interval"]
         _add_block(D, block, cell_dofs[cell])
+        if progress_callback:
+            progress_callback({"phase": "volume", "completed": cell + 1, "total": nc})
     volume_seconds = perf_counter() - t0
     t1 = perf_counter()
-    for cell, edge in boundary_facets:
+    for facet_index, (cell, edge) in enumerate(boundary_facets):
         pb, cb = _assemble_boundary_facet(
             cell_node_coordinates[cell], interpolation_points, tuple(edge),
             cell_diameters[cell], tol, max_depth
         )
         _add_block(P, pb, cell_dofs[cell])
         _add_block(C, cb, cell_dofs[cell])
+        if progress_callback:
+            progress_callback({"phase": "boundary_facets", "completed": facet_index + 1, "total": len(boundary_facets)})
     boundary_seconds = perf_counter() - t1
     t2 = perf_counter()
-    for ca, ea, cb, eb in interior_facets:
+    for facet_index, (ca, ea, cb, eb) in enumerate(interior_facets):
         blocks = _assemble_interior_facet(
             cell_node_coordinates[ca], cell_node_coordinates[cb],
             interpolation_points, tuple(ea), tuple(eb),
@@ -188,6 +192,8 @@ def assemble_global_direct_ipdg_forms(
                 _accumulate(P, gj, gi, blocks["P_BA"][j][i])
                 _accumulate(C, gi, gj, blocks["C_AB"][i][j])
                 _accumulate(C, gj, gi, blocks["C_BA"][j][i])
+        if progress_callback:
+            progress_callback({"phase": "interior_facets", "completed": facet_index + 1, "total": len(interior_facets)})
     interior_seconds = perf_counter() - t2
     return {
         "D_interval": D, "P_interval": P, "C_interval": C,
@@ -223,7 +229,7 @@ def _interval_linear_combination(terms):
     return out
 
 
-def certify_interval_spd(matrix_interval):
+def certify_interval_spd(matrix_interval, progress_callback=None):
     """Strict interval SPD certificate using exact rational sparse LDL^T."""
     entries = dict(matrix_interval)
     indices = [i for ij in entries for i in ij]
@@ -256,6 +262,8 @@ def certify_interval_spd(matrix_interval):
     fill_updates = 0
     started = perf_counter()
     for k in range(n):
+        if progress_callback and (k % 10 == 0):
+            progress_callback({"phase": "ldl", "completed": k, "total": n})
         pivot = midpoint.get((k, k), F(0))
         if pivot <= 0:
             return {
@@ -298,7 +306,7 @@ def certify_interval_spd(matrix_interval):
 
 
 def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
-                                   free_dofs, alpha, kappa):
+                                   free_dofs, alpha, kappa, progress_callback=None):
     """Certify A - kappa W > 0 on the supplied fixed-mesh free-DOF space."""
     alpha, kappa = _as_fraction(alpha), _as_fraction(kappa)
     if alpha <= 0 or kappa <= 0:
@@ -322,7 +330,7 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
     # an empty row must fail the strict pivot test, never disappear silently.
     for i in range(len(free)):
         shifted.setdefault((i, i), (F(0), F(0)))
-    certificate = certify_interval_spd(shifted)
+    certificate = certify_interval_spd(shifted, progress_callback=progress_callback)
     certificate.update({
         "alpha": alpha, "kappa": kappa,
         "free_dimension": len(free),
@@ -338,7 +346,7 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
 
 def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
                                        absolute_tolerance=F(1, 10**8),
-                                       max_depth=24):
+                                       max_depth=24, progress_callback=None):
     """Extract a serial equispaced P3 mesh and assemble D, P, C.
 
     Boundary reference edges are oriented as (0,1), (1,2), (2,0), which
@@ -431,7 +439,8 @@ def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
     assembled = assemble_global_direct_ipdg_forms(
         cell_nodes, points, cell_dofs, diameters, boundary, interior,
         int(function_space.dofmap.index_map.size_local),
-        absolute_tolerance=absolute_tolerance, max_depth=max_depth
+        absolute_tolerance=absolute_tolerance, max_depth=max_depth,
+        progress_callback=progress_callback
     )
     exterior = exterior_facet_indices(mesh.topology)
     boundary_dofs = fem.locate_dofs_topological(function_space, 1, exterior)
