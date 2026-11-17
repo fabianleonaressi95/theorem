@@ -725,6 +725,11 @@ def verify_matrix_units_multiplicity_two(G, reps, table, classes):
     U = block_diagonal([symmetric_power_rep(G, m1), symmetric_power_rep(G, m2)])
     r = verify_matrix_units(G, reps, U, mult)
     r["expected_multiplicities"] = mult
+    r["ambient_representation"] = "Sym^2(2) direct_sum Sym^10(2)"
+    r["source_symmetric_powers"] = [m1, m2]
+    r["ambient_dimension"] = sum(m + 1 for m in (m1, m2))
+    assert r["ambient_dimension"] == 14
+    assert mult == {"3": 2, "3'": 1, "5": 1}
     return r
 
 
@@ -880,7 +885,7 @@ def run_all(molien_sym_max=13):
     assert report["peter_weyl_sum"]
     report["schur_entries"] = verify_schur_orthogonality(G, reps)
     report["projectors_on_sym"] = [
-        verify_projectors_on_sym(G, table, classes, m, full_orthogonality=(m <= 7))
+        verify_projectors_on_sym(G, table, classes, m, full_orthogonality=True)
         for m in range(molien_sym_max + 1)]
     mu = [verify_matrix_units_on_sym(G, reps, table, classes, m) for m in range(8)]
     mu.append(verify_matrix_units_multiplicity_two(G, reps, table, classes))
