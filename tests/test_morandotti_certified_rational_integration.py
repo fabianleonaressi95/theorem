@@ -206,3 +206,17 @@ def test_bernstein_residual_batch_matches_scalar_enclosures():
         )
         assert blo <= shi and slo <= bhi
         assert bhi-blo <= F(1, 10000)
+
+
+
+def test_neumann_batch_uses_a_hard_triangle_budget():
+    # A nonconstant denominator with a tight tolerance forces refinement.
+    # The budget must fail explicitly instead of allowing an unbounded tree.
+    with pytest.raises(ArithmeticError, match="max_triangles=4"):
+        integrate_rational_triangle_many(
+            [{(0, 0): F(1)}],
+            {(0, 0): F(1), (1, 0): F(1)},
+            absolute_tolerance=F(1, 10**12),
+            max_depth=20,
+            max_triangles=4,
+        )
