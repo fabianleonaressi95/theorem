@@ -42,14 +42,17 @@ def _edge_ipdg_data(node_coordinates, interpolation_points, edge):
     from models.morandotti_certified_curved_p3_forms import _compose_line as compose
     n0, n1 = normal
     adj_line = [[compose(adj[r][c], a, b) for c in range(2)] for r in range(2)]
+    # J^{-1} n is geometry-only: compute it once per facet, not once
+    # for each of the ten basis functions.  Rebuilding these exact Fraction
+    # polynomials inside the basis loop multiplied the dominant edge work by 10.
+    jn_x = _add1(_mul1(adj_line[0][0], n0),
+                 _mul1(adj_line[0][1], n1))
+    jn_y = _add1(_mul1(adj_line[1][0], n0),
+                 _mul1(adj_line[1][1], n1))
     gnums = []
     for phi in basis:
         gx = compose(_derivative(phi, 0), a, b)
         gy = compose(_derivative(phi, 1), a, b)
-        jn_x = _add1(_mul1(adj_line[0][0], n0),
-                     _mul1(adj_line[0][1], n1))
-        jn_y = _add1(_mul1(adj_line[1][0], n0),
-                     _mul1(adj_line[1][1], n1))
         gnums.append(_add1(_mul1(jn_x, gx), _mul1(jn_y, gy)))
     return qnums, gnums, det3, _pow1(_compose_line(det, a, b), 1), radicand
 
