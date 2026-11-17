@@ -906,18 +906,18 @@ def run_all(molien_sym_max=13):
 
     projector_results = []
     for m in range(molien_sym_max + 1):
-        projector_results.append(timed(
-            "central_projectors_on_symmetric_power",
-            verify_projectors_on_sym, G, table, classes, m, True, degree=m,
-        ))
+        with phase("central_projectors_on_symmetric_power", degree=m):
+            projector_results.append(
+                verify_projectors_on_sym(G, table, classes, m, full_orthogonality=True)
+            )
     report["projectors_on_sym"] = projector_results
 
     matrix_units = []
     for m in range(8):
-        matrix_units.append(timed(
-            "matrix_units_on_symmetric_power",
-            verify_matrix_units_on_sym, G, reps, table, classes, m, degree=m,
-        ))
+        with phase("matrix_units_on_symmetric_power", degree=m):
+            matrix_units.append(
+                verify_matrix_units_on_sym(G, reps, table, classes, m)
+            )
     matrix_units.append(timed(
         "matrix_units_multiplicity_two_model",
         verify_matrix_units_multiplicity_two, G, reps, table, classes,
