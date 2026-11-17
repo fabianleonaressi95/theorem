@@ -127,7 +127,7 @@ The implementation now lives in `models/morandotti_direct_ipdg_certificate.py`. 
 
 The module constructs (A=D-C-C^T+\alpha P) and (W=D+P). Its separate strict interval-SPD routine subtracts the symmetric row-sum perturbation bound and requires every exact rational LDL pivot to be strictly positive. It records the rational (kappa), free-DOF ordering, coordinate/connectivity hashes, row-wise interval radii, perturbation bound, and pivot diagnostics. The one-mesh runner is `scripts/certify_morandotti_direct_ipdg.py`.
 
-**Validation status:** source implementation and focused regression tests have been added, but no successful execution on the supported DOLFINx environment or fixed generated mesh is yet claimed. Until the focused CI and one-mesh runner pass, no finite-mesh coercivity certificate is established. This implementation remains fixed-mesh only.
+**Validation status (2026-11-17):** the focused GitHub Actions run 44073159346 passed the 30-test exact-integration group, the 11-test curved-P3 form group, all 4 direct-IPDG regression tests, and `py_compile` for the module and runner in the DOLFINx 0.11.0 environment. The generated one-mesh runner has not yet been executed, so no finite-mesh coercivity certificate is established. This implementation remains fixed-mesh only.
 
 ## 6. What the existing finite-mesh audit establishes
 
@@ -164,7 +164,7 @@ evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
 | Rational interval integration of curved boundary/interior facet entries | Implemented; unit tests exist; end-to-end execution pending |
 | Sparse global interval assembly of \(D_h,H_{h,\ell}\) | Implemented at source level; end-to-end execution pending |
 | Direct interval assembly of \(A_{h,\ell}=D-C-C^T+\alpha P\) and \(W=D+P\) | Implemented in the direct interval assembler; focused execution pending |
-| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Strict interval LDL implementation present; tests and one-mesh run pending |
+| Fixed-mesh direct coercivity certificate \(A_{h,\ell}-\kappa W\succ0\) | Strict interval LDL and focused tests passed; one-mesh run pending |
 | Exact interval PSD certificate for \(C_\star D_h-H_{h,\ell}\) on the full space | Obstructed when the common piecewise-affine kernel is present; an exact kernel complement is not implemented |
 | Finite-mesh \(C_{\mathrm{tr},h}<20\) | Not established |
 | Uniform \(C_{\mathrm{tr}}<20\) over all Gmsh refinements/seeds | Open |
