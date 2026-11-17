@@ -95,7 +95,7 @@ def run_certificate(max_projector_degree: int = 13, degree_start: int = 0, degre
         })
 
     if degree_start <= 10 <= degree_end:
-        U2 = T.block_diagonal([T.symmetric_power_rep(G, 2),
+        U2 = T.block_diagonal([symmetric_power_cache.get(2) or T.symmetric_power_rep(G, 2),
                                symmetric_power_cache[10]])
         matrix_unit_reports.append({
             "representation": "Sym^2 direct-sum Sym^10",
