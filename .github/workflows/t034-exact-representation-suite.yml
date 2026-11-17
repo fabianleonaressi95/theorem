@@ -1,0 +1,58 @@
+name: T034 exact binary icosahedral representation suite
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/t034-exact-representation-suite.yml"
+      - "src/t034_binary_icosahedral_representations.py"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/t034-exact-representation-suite.yml"
+      - "src/t034_binary_icosahedral_representations.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: t034-exact-representation-suite-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exact-t034:
+    name: Execute the complete exact-arithmetic T034 suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile the actual T034 module
+        run: python -m py_compile src/t034_binary_icosahedral_representations.py
+      - name: Execute the complete T034 Kaggle suite
+        run: python -m src.t034_binary_icosahedral_representations --output t034_2i_character_table.json
+      - name: Validate exported JSON structure
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("t034_2i_character_table.json")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          assert data["group"] == "binary_icosahedral_group_2I"
+          assert data["order"] == 120
+          assert set(data["irreps"]) == {"1", "2", "2'", "3", "3'", "4", "4'", "5", "6"}
+          assert data["verification"]
+          print("T034 JSON export validated: nine irreducibles, order 120.")
+          PY
+      - name: Upload exact T034 verification JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: t034-exact-representation-suite
+          path: t034_2i_character_table.json
+          if-no-files-found: error
+          retention-days: 90
