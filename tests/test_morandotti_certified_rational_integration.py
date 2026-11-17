@@ -178,3 +178,30 @@ def test_bernstein_residual_integrator_rejects_uncertified_denominator():
         integrate_rational_triangle_bernstein_residual(
             {(0, 0): F(1)}, {(1, 0): F(1)}, max_depth=0
         )
+
+
+def test_bernstein_residual_batch_matches_scalar_enclosures():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual_many,
+    )
+
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(1, 0): F(1), (0, 0): -F(1, 3)},
+    ]
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    kwargs = {
+        "absolute_tolerance": F(1, 10000),
+        "max_depth": 12,
+        "expansion_order": 2,
+    }
+    batch = integrate_rational_triangle_bernstein_residual_many(
+        numerators, denominator, **kwargs
+    )
+    for numerator, (blo, bhi, _, _ ) in zip(numerators, batch):
+        slo, shi, _, _ = integrate_rational_triangle_bernstein_residual(
+            numerator, denominator, **kwargs
+        )
+        assert blo <= shi and slo <= bhi
+        assert bhi-blo <= F(1, 10000)
