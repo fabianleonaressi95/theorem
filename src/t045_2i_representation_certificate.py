@@ -116,6 +116,8 @@ def run_certificate(max_projector_degree: int = 13, degree_start: int = 0, degre
         "matrix_coefficient_schur_entries": schur_entries,
         "projector_degree_shard": [degree_start, degree_end],
         "projectors_all_pairs_degrees_in_shard": projector_reports,
+        **({"projectors_all_pairs_degrees_0_to_max": projector_reports}
+           if degree_start == 0 and degree_end == max_projector_degree else {}),
         "matrix_units_exhaustive": matrix_unit_reports,
         "molien_representation": "V = defining 2-dimensional representation; Sym^m(V)",
         "molien_exact_numerator_identity": molien,
