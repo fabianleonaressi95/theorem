@@ -489,7 +489,8 @@ def assemble_cell_volume_interval(
         "matrix_interval": result,
         "determinant_polynomial": det,
         "basis_count": 10,
-        "integration": "exact-rational " + integration_method + " enclosure of rational physical Hessian products",
+        "integration": "exact-rational Bernstein enclosure of rational physical Hessian products",
+        "integration_method": integration_method,
     }
 
 
