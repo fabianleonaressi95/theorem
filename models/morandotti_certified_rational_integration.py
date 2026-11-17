@@ -363,3 +363,154 @@ def integrate_rational_triangle(
         upper += series+remainder
         leaves += 1
     return lower, upper, leaves, used
+
+
+
+def integrate_rational_triangle_bernstein_residual(
+    numerator: Poly,
+    denominator: Poly,
+    *,
+    absolute_tolerance=Fraction(1, 10**8),
+    max_depth=12,
+    expansion_order=2,
+):
+    """Enclose integral(p/q) by integrating a polynomial approximation exactly.
+
+    On each leaf, let m be the midpoint of the positive Bernstein range of q
+    and form s = p * sum_{k=0}^N (-(q-m))^k / m^(k+1).  The polynomial
+    integral of s is evaluated exactly.  The remaining rational function
+    (p-q*s)/q is enclosed by Bernstein bounds for its numerator and q.
+    Unlike a pointwise Neumann remainder, this uses the actual residual
+    polynomial and can exploit cancellation.  All operations are Fraction.
+
+    Returns (lower, upper, leaves, max_depth_used).  The requested tolerance
+    bounds the total interval width (the local test is width <= 2*tol*area).
+    """
+    tol = _f(absolute_tolerance)
+    if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
+        raise ValueError("positive tolerance and nonnegative integer max_depth required")
+    if not isinstance(expansion_order, int) or expansion_order < 0:
+        raise ValueError("expansion_order must be a nonnegative integer")
+    p = {k: _f(v) for k, v in numerator.items()}
+    q = {k: _f(v) for k, v in denominator.items()}
+    if not q:
+        raise ZeroDivisionError("zero denominator polynomial")
+    if len(q) == 1 and (0, 0) in q:
+        return integrate_rational_triangle(
+            p, q, absolute_tolerance=tol, max_depth=max_depth
+        )
+
+    root = ((Fraction(0), Fraction(0)),
+            (Fraction(1), Fraction(0)),
+            (Fraction(0), Fraction(1)))
+    stack = [(root, 0)]
+    lower = upper = Fraction(0)
+    leaves = 0
+    used = 0
+    while stack:
+        tri, depth = stack.pop()
+        used = max(used, depth)
+        pp = _compose_on_triangle(p, tri)
+        qq = _compose_on_triangle(q, tri)
+        qlo, qhi = _bernstein_bounds(qq)
+        negate = qhi < 0
+        if negate:
+            pp, qq = _scale(pp, -1), _scale(qq, -1)
+            qlo, qhi = -qhi, -qlo
+        if qlo <= 0:
+            if depth >= max_depth:
+                raise ArithmeticError(
+                    "denominator positivity not certified by Bernstein subdivision"
+                )
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+
+        area = _area(tri)
+        midpoint = (qlo + qhi) / 2
+        delta = _add(qq, {(0, 0): -midpoint})
+        term = pp
+        polynomial_approximation = {}
+        for k in range(expansion_order + 1):
+            polynomial_approximation = _add(
+                polynomial_approximation,
+                _scale(term, Fraction((-1)**k, 1) / midpoint**(k+1)),
+            )
+            term = _mul(term, delta)
+
+        # Exact integral of the polynomial approximation on this physical
+        # subtriangle, using exact reference-triangle monomial moments.
+        polynomial_moment = sum(
+            (coefficient * Fraction(factorial(i)*factorial(j),
+                                    factorial(i+j+2))
+             for (i, j), coefficient in polynomial_approximation.items()),
+            Fraction(0),
+        )
+        polynomial_integral = 2 * area * polynomial_moment
+
+        residual_numerator = _add(
+            pp, _scale(_mul(qq, polynomial_approximation), -1)
+        )
+        rlo, rhi = _bernstein_bounds(residual_numerator)
+        quotient_candidates = (rlo/qlo, rlo/qhi, rhi/qlo, rhi/qhi)
+        residual_lo = min(quotient_candidates)
+        residual_hi = max(quotient_candidates)
+        local_lo = polynomial_integral + area * residual_lo
+        local_hi = polynomial_integral + area * residual_hi
+
+        if local_hi - local_lo > 2 * tol * area:
+            if depth >= max_depth:
+                raise ArithmeticError(
+                    "Bernstein residual enclosure width not reached"
+                )
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+
+        lower += local_lo
+        upper += local_hi
+        leaves += 1
+
+    return lower, upper, leaves, used
+
+
+
+def integrate_rational_triangle_bernstein_residual_many(
+    numerators,
+    denominator,
+    *,
+    absolute_tolerance=Fraction(1, 10**8),
+    max_depth=12,
+    expansion_order=2,
+    progress_callback=None,
+):
+    """Apply the residual integrator to a matrix batch with one denominator.
+
+    Each entry retains its own adaptive cover, matching the current volume
+    batch semantics. The denominator polynomial is shared as input; no
+    unsupported common-tree assumption is made.
+    """
+    results = []
+    total = len(numerators)
+    for index, numerator in enumerate(numerators):
+        if progress_callback:
+            progress_callback({
+                "integration_stage": "bernstein_residual_entry_start",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": total,
+            })
+        result = integrate_rational_triangle_bernstein_residual(
+            numerator, denominator,
+            absolute_tolerance=absolute_tolerance,
+            max_depth=max_depth,
+            expansion_order=expansion_order,
+        )
+        results.append(result)
+        if progress_callback:
+            progress_callback({
+                "integration_stage": "bernstein_residual_entry_complete",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": total,
+                "integration_accepted_leaves": result[2],
+                "integration_max_depth": result[3],
+                "integration_interval_width": str(result[1]-result[0]),
+            })
+    return results

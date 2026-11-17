@@ -605,3 +605,12 @@ The following theorem-associated GitHub Actions runs completed successfully:
 - T131/T132 phonon-phason benchmark: module compilation and 11 tests passed. [Run #43245274034](https://github.com/fabianleonaressi95/theorem/actions/runs/43245274034).
 
 These are finite mathematical/software checks. They do not establish physical calibration, material transport coefficients, or experimental validation.
+
+### T135 — Bernstein–Neumann certified rational integration
+
+- [T135](theorems/T135-morandotti-bernstein-neumann-certified-rational-integration.md) formalizes rational integration on triangles by integrating a finite Neumann polynomial exactly and enclosing its rational residual with Bernstein coefficient ratios. It proves local and global inclusion, the geometric width bound
+  \\[
+  \\operatorname{wid}(\\mathbf I_{T,N})\\leq
+  \\frac{2|T|A_T}{\\gamma_T}\\rho_T^{N+1},
+  \\]
+  exact width additivity for the usual sum of intervals, and finite-order termination on an already certified finite partition. Degree-elevation conventions for both numerator and denominator are explicit. The Bernstein quotient enclosure is attributed to the pre-existing 2022 paper; novelty and complexity claims remain open. The 55 actual curved-P3 entries, complete IPDG assembly and LDL propagation are separate validation gates.
