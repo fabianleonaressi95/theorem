@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import threading
 from fractions import Fraction
 from pathlib import Path
 from time import perf_counter
@@ -61,16 +62,47 @@ def main():
     )
     V = fem.functionspace(mesh, element)
 
-    start = perf_counter()
-    assembled = assemble_dolfinx_direct_ipdg_forms(
-        mesh, V, absolute_tolerance=tolerance, max_depth=args.max_depth
-    )
-    assembly_seconds = perf_counter() - start
-    certify_start = perf_counter()
-    certificate = certify_direct_ipdg_coercivity(
-        assembled["D_interval"], assembled["P_interval"],
-        assembled["C_interval"], assembled["free_dofs"], alpha, kappa
-    )
+    output = Path(args.out)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    progress_path = output.with_name("progress.json")
+    phase = {"phase": "mesh_ready", "completed": 0, "total": 1}
+    progress_lock = threading.Lock()
+    def checkpoint(update):
+        phase.update(update)
+        payload = {**phase, "elapsed_seconds": perf_counter() - run_started}
+        with progress_lock:
+            progress_path.write_text(json.dumps(payload, indent=2) + "\\n", encoding="utf-8")
+        print("PROGRESS " + json.dumps(payload), flush=True)
+    run_started = perf_counter()
+    checkpoint(phase)
+    stop_heartbeat = threading.Event()
+    def heartbeat():
+        while not stop_heartbeat.wait(15):
+            checkpoint({"heartbeat": True})
+    heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
+    heartbeat_thread.start()
+    try:
+        start = perf_counter()
+        checkpoint({"phase": "assembly_start"})
+        assembled = assemble_dolfinx_direct_ipdg_forms(
+            mesh, V, absolute_tolerance=tolerance, max_depth=args.max_depth,
+            progress_callback=checkpoint
+        )
+        assembly_seconds = perf_counter() - start
+        checkpoint({"phase": "assembly_complete", "assembly_seconds": assembly_seconds,
+                    "assembly_timings_seconds": assembled["assembly_timings_seconds"],
+                    "assembly_counts": assembled["assembly_counts"]})
+        certify_start = perf_counter()
+        checkpoint({"phase": "ldl_start"})
+        certificate = certify_direct_ipdg_coercivity(
+            assembled["D_interval"], assembled["P_interval"],
+            assembled["C_interval"], assembled["free_dofs"], alpha, kappa,
+            progress_callback=checkpoint
+        )
+        certify_seconds = perf_counter() - certify_start
+    finally:
+        stop_heartbeat.set()
+        heartbeat_thread.join(timeout=2)
     certify_seconds = perf_counter() - certify_start
     certificate.update({
         "cell_count": assembled["cell_count"],
@@ -92,8 +124,6 @@ def main():
         },
         "scope": "one fixed generated curved-P3 mesh; no mesh-uniform conclusion",
     })
-    output = Path(args.out)
-    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(_jsonable(certificate), indent=2) + "\n",
                       encoding="utf-8")
     print(json.dumps(_jsonable(certificate), indent=2), flush=True)
