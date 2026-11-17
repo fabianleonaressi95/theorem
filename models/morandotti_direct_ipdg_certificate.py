@@ -328,3 +328,116 @@ def certify_direct_ipdg_coercivity(D_interval, P_interval, C_interval,
         "scope": "one fixed mesh and the supplied free-DOF ordering",
     })
     return certificate
+
+
+
+def assemble_dolfinx_direct_ipdg_forms(mesh, function_space, *,
+                                       absolute_tolerance=F(1, 10**8),
+                                       max_depth=24):
+    """Extract a serial equispaced P3 mesh and assemble D, P, C.
+
+    Boundary reference edges are oriented as (0,1), (1,2), (2,0), which
+    gives the outward normal for the positively oriented reference triangle.
+    Interior B-side endpoints are matched to A-side physical endpoint order.
+    """
+    import numpy as np
+    import basix
+    from dolfinx import fem
+    from dolfinx.mesh import exterior_facet_indices
+
+    if mesh.comm.size != 1:
+        raise RuntimeError("direct interval assembly currently requires a serial mesh")
+    if mesh.topology.dim != 2 or mesh.geometry.dim != 2:
+        raise ValueError("requires a planar triangular mesh")
+    cmap = mesh.geometry.cmaps[0]
+    if cmap.degree != 3 or cmap.dim != 10:
+        raise ValueError("coordinate map must be triangular P3")
+    if basix.LagrangeVariant(cmap.variant) != basix.LagrangeVariant.equispaced:
+        raise ValueError("coordinate map must use equispaced P3 nodes")
+    coordinate_element = basix.create_element(
+        basix.ElementFamily.P, basix.CellType.triangle, 3,
+        basix.LagrangeVariant.equispaced
+    )
+    points = np.asarray(coordinate_element.points, dtype=float)
+    try:
+        solution = function_space.element.basix_element
+        solution_points = np.asarray(solution.points, dtype=float)
+        interpolation = np.asarray(solution.interpolation_matrix, dtype=float)
+    except AttributeError as exc:
+        raise RuntimeError("cannot inspect the scalar P3 solution element") from exc
+    if (solution.family != basix.ElementFamily.P or solution.degree != 3
+            or solution_points.shape != points.shape
+            or interpolation.shape != (10, 10)
+            or not np.allclose(interpolation, np.eye(10), rtol=0, atol=1e-12)):
+        raise ValueError("solution space must be nodal scalar equispaced P3")
+    order = []
+    used = set()
+    for point in points:
+        distances = np.linalg.norm(solution_points-point, axis=1)
+        idx = int(np.argmin(distances))
+        if distances[idx] > 1e-12 or idx in used:
+            raise ValueError("solution and geometry P3 reference nodes do not match")
+        order.append(idx)
+        used.add(idx)
+    nc = mesh.topology.index_map(2).size_local
+    geometry_dofs = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
+    if geometry_dofs.shape != (nc, 10):
+        raise ValueError("expected ten geometry nodes per owned triangle")
+    cell_nodes = [mesh.geometry.x[geometry_dofs[c], :2].copy() for c in range(nc)]
+    cell_dofs = [
+        np.asarray(function_space.dofmap.cell_dofs(c), dtype=np.int64)[order]
+        for c in range(nc)
+    ]
+    diameters = np.asarray(mesh.h(2, np.arange(nc, dtype=np.int32)), dtype=float)
+
+    mesh.topology.create_connectivity(2, 0)
+    mesh.topology.create_connectivity(1, 0)
+    mesh.topology.create_connectivity(1, 2)
+    cell_vertices = mesh.topology.connectivity(2, 0)
+    facet_vertices = mesh.topology.connectivity(1, 0)
+    facet_cells = mesh.topology.connectivity(1, 2)
+    nfacets = mesh.topology.index_map(1).size_local
+    boundary, interior = [], []
+    canonical = {frozenset((0, 1)): (0, 1),
+                 frozenset((1, 2)): (1, 2),
+                 frozenset((0, 2)): (2, 0)}
+    for facet in range(nfacets):
+        adjacent = list(map(int, facet_cells.links(facet)))
+        if len(adjacent) not in (1, 2):
+            continue
+        fv = list(map(int, facet_vertices.links(facet)))
+        if len(fv) != 2:
+            raise RuntimeError("facet must have two vertices")
+        ca = adjacent[0]
+        va = list(map(int, cell_vertices.links(ca)))
+        unordered_a = tuple(va.index(vertex) for vertex in fv)
+        edge_a = canonical[frozenset(unordered_a)]
+        physical_order = (va[edge_a[0]], va[edge_a[1]])
+        if len(adjacent) == 1:
+            boundary.append((ca, edge_a))
+        else:
+            cb = adjacent[1]
+            vb = list(map(int, cell_vertices.links(cb)))
+            edge_b = (vb.index(physical_order[0]), vb.index(physical_order[1]))
+            interior.append((ca, edge_a, cb, edge_b))
+
+    assembled = assemble_global_direct_ipdg_forms(
+        cell_nodes, points, cell_dofs, diameters, boundary, interior,
+        int(function_space.dofmap.index_map.size_local),
+        absolute_tolerance=absolute_tolerance, max_depth=max_depth
+    )
+    exterior = exterior_facet_indices(mesh.topology)
+    boundary_dofs = fem.locate_dofs_topological(function_space, 1, exterior)
+    free = np.setdiff1d(
+        np.arange(function_space.dofmap.index_map.size_local, dtype=np.int64),
+        boundary_dofs
+    )
+    assembled.update({
+        "free_dofs": free.tolist(),
+        "cell_count": nc,
+        "coordinate_nodes": "IEEE-754 binary64 interpreted as exact dyadic rationals",
+        "boundary_orientation": "reference edges (0,1),(1,2),(2,0), outward on positive reference triangle",
+        "interior_jump": "outward-normal sum, represented as j_A-j_B in the common A-side normal",
+        "free_space": "homogeneous Dirichlet trace; boundary trace DOFs eliminated, interior DOFs retained",
+    })
+    return assembled
