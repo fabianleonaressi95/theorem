@@ -153,7 +153,7 @@ def verify_models(group, chars, degrees, models):
             "matrix_models":sum(len(models[x]["matrices"]) for x in labels),
             "character_values_recovered":character_checks,
             "invariant_metric_checks":metric_checks,
-            "sum_dimension_squares":120,
+            "sum_dimension_squares":sum(IRREP_DIMENSIONS[k]**2 for k in labels),
             "first_multiplicity_one_degrees":degrees}
 
 
