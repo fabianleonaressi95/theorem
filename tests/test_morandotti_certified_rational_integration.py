@@ -73,9 +73,11 @@ def test_shared_tree_uses_signed_neumann_enclosure_without_forced_refinement():
     # on the root using an L-infinity/Bernstein remainder bound.
     numerator = {(1, 0): F(1), (0, 0): -F(1, 3)}
     denominator = {(0, 0): F(1), (1, 0): F(1)}
+    # Keep the remaining entries small enough that they do not force
+    # unrelated refinement of the shared tree.
     numerators = [numerator] + [
-        {(0, 0): F(k, 7), (1, 0): F(1, 5)}
-        for k in range(1, 55)
+        {(0, 0): F(1, 100), (1, 0): F(1, 100)}
+        for _ in range(54)
     ]
     result = integrate_rational_triangle_many(
         numerators, denominator,
