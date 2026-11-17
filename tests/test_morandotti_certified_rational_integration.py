@@ -65,3 +65,31 @@ def test_shared_triangle_integrator_overlaps_scalar_enclosures():
     for (blo, bhi, _, _), (slo, shi, _, _) in zip(batch, scalar):
         assert blo <= shi
         assert slo <= bhi
+
+
+def test_shared_tree_uses_signed_neumann_enclosure_without_forced_refinement():
+    # The numerator changes sign on the root triangle.  A direct quotient
+    # range forces subdivision; the signed Neumann expansion certifies it
+    # on the root using an L-infinity/Bernstein remainder bound.
+    numerator = {(1, 0): F(1), (0, 0): -F(1, 3)}
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    numerators = [numerator] + [
+        {(0, 0): F(k, 7), (1, 0): F(1, 5)}
+        for k in range(1, 55)
+    ]
+    result = integrate_rational_triangle_many(
+        numerators, denominator,
+        absolute_tolerance=F(1, 5), max_depth=8,
+    )
+    lo, hi, leaves, depth = result[0]
+    assert lo < hi
+    assert hi-lo <= F(1, 5)
+    assert leaves == 1
+    assert depth == 0
+
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerator, denominator,
+        absolute_tolerance=F(1, 5), max_depth=8,
+    )
+    assert lo <= scalar_hi
+    assert scalar_lo <= hi
