@@ -2,6 +2,11 @@ name: Morandotti independent-remeshing audit
 
 on:
   workflow_dispatch:
+    inputs:
+      resume_from_run_id:
+        description: "Optional previous run ID whose checkpoint artifact should be resumed"
+        required: false
+        type: string
   pull_request:
     branches: [main]
     paths:
@@ -15,6 +20,7 @@ on:
       - 'tests/test_morandotti_resolution_decomposition.py'
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
       - '.github/workflows/morandotti-independent-remeshing.yml'
+      - 'scripts/audit_runtime.py'
   push:
     branches: [main]
     paths:
@@ -31,6 +37,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   independent-remeshing:
@@ -39,6 +46,8 @@ jobs:
       image: dolfinx/dolfinx:v0.11.0
       options: --user root
     timeout-minutes: 120
+    env:
+      AUDIT_PROGRESS_FILE: artifacts/morandotti_independent_remeshing/progress.jsonl
     steps:
       - uses: actions/checkout@v4
       - name: Verify numerical environment
@@ -47,9 +56,20 @@ jobs:
       - name: Run pure post-processing tests
         run: |
           python3 -m pytest -q tests/test_morandotti_distance_refinement.py tests/test_morandotti_independent_remeshing.py tests/test_morandotti_resolution_decomposition.py tests/test_morandotti_mesh_realization_diagnostics.py
+      - name: Restore a previous checkpoint when requested
+        if: github.event_name == 'workflow_dispatch' && inputs.resume_from_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: morandotti-independent-remeshing
+          run-id: ${{ inputs.resume_from_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts/morandotti_independent_remeshing
       - name: Run independent-remeshing sweep
         if: github.event_name == 'workflow_dispatch'
+        shell: bash
         run: |
+          RESUME_FLAG=""
+          if [ -n "${{ inputs.resume_from_run_id }}" ]; then RESUME_FLAG="--resume"; fi
           python3 scripts/rgs_morandotti_independent_remeshing.py \
             --mesh-sizes 0.08 0.06 0.045 0.035 \
             --distance-values 0.48 0.56 \
@@ -57,7 +77,8 @@ jobs:
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
-            --out artifacts/morandotti_independent_remeshing/report.json
+            --out artifacts/morandotti_independent_remeshing/report.json \
+            $RESUME_FLAG
       - name: Decompose resolution and remeshing variability
         if: github.event_name == 'workflow_dispatch'
         run: |
@@ -70,8 +91,8 @@ jobs:
           python3 scripts/morandotti_mesh_realization_diagnostics.py \
             --report artifacts/morandotti_independent_remeshing/report.json \
             --out artifacts/morandotti_independent_remeshing/mesh_diagnostics.json
-      - name: Upload report, decompositions, diagnostics, and finite-element fields
-        if: github.event_name == 'workflow_dispatch'
+      - name: Upload report, checkpoint, progress, decompositions, diagnostics, and finite-element fields
+        if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: morandotti-independent-remeshing
