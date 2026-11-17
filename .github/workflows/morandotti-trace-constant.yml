@@ -81,6 +81,7 @@ on:
       - 'tests/test_morandotti_trace_constant.py'
       - 'tests/test_morandotti_exact_geometry.py'
       - 'tests/test_morandotti_exact_integration.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
 
 concurrency:
   group: morandotti-trace-constant-${{ github.ref }}
