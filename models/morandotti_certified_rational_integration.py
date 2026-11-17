@@ -118,7 +118,7 @@ def _area(t):
 
 def integrate_rational_triangle_many(
     numerators, denominator, *, absolute_tolerance=Fraction(1, 10**8),
-    max_depth=12, progress_callback=None,
+    max_depth=12, progress_callback=None, max_triangles=512,
 ):
     """Enclose many rational integrals with numerator-specific subdivisions.
 
@@ -129,6 +129,8 @@ def integrate_rational_triangle_many(
     tol = _f(absolute_tolerance)
     if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
         raise ValueError("positive tolerance and nonnegative integer max_depth required")
+    if not isinstance(max_triangles, int) or max_triangles < 1:
+        raise ValueError("max_triangles must be a positive integer")
     ps = [{k: _f(v) for k, v in p.items()} for p in numerators]
     q = {k: _f(v) for k, v in denominator.items()}
     if not q:
@@ -156,6 +158,12 @@ def integrate_rational_triangle_many(
     pending = [1 for _ in ps]
     while stack:
         tri, depth, index = stack.pop()
+        if processed[index] >= max_triangles:
+            raise ArithmeticError(
+                "rational Neumann integration exceeded max_triangles="
+                f"{max_triangles} for numerator {index + 1}; "
+                "increase the budget only after inspecting the enclosure behavior"
+            )
         pending[index] -= 1
         processed[index] += 1
         used[index] = max(used[index], depth)
@@ -216,7 +224,22 @@ def integrate_rational_triangle_many(
             if remainder <= tol*area:
                 certified = True
                 break
-            term_poly = _mul(term_poly, delta_q)
+
+            # Sharpen the geometric tail using the actual polynomial
+            # p*(q-midpoint)^(order+1), rather than two independent sup norms.
+            # Bernstein coefficients enclose this polynomial exactly.
+            next_term_poly = _mul(term_poly, delta_q)
+            rlo, rhi = _bernstein_bounds(next_term_poly)
+            residual_sup = max(abs(rlo), abs(rhi))
+            polynomial_remainder = (
+                area * residual_sup
+                /(midpoint_q**(order+2)*(1-relative_radius))
+            )
+            remainder = min(remainder, polynomial_remainder)
+            if remainder <= tol*area:
+                certified = True
+                break
+            term_poly = next_term_poly
 
         if not certified:
             if depth >= max_depth:

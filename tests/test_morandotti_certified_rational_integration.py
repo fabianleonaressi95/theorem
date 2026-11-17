@@ -250,3 +250,33 @@ def test_bernstein_residual_batch_uses_one_tree_and_reports_progress():
         if event["integration_stage"] == "bernstein_residual_entry_complete"
     ]
     assert all(event["integration_tree_mode"] == "shared" for event in completions)
+
+
+
+def test_neumann_batch_uses_a_hard_triangle_budget():
+    # A nonconstant denominator with a tight tolerance forces refinement.
+    # The budget must fail explicitly instead of allowing an unbounded tree.
+    with pytest.raises(ArithmeticError, match="max_triangles=4"):
+        integrate_rational_triangle_many(
+            [{(0, 0): F(1)}],
+            {(0, 0): F(1), (1, 0): F(1)},
+            absolute_tolerance=F(1, 10**12),
+            max_depth=20,
+            max_triangles=4,
+        )
+
+
+
+def test_neumann_batch_uses_polynomial_tail_bound_before_subdivision():
+    # For p=x(1-x), q=1+x, the Bernstein enclosure of p*(q-3/2)
+    # is tighter than the product of the separate sup-norm bounds.
+    lo, hi, leaves, depth = integrate_rational_triangle_many(
+        [{(1, 0): F(1), (2, 0): F(-1)}],
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(14, 100),
+        max_depth=4,
+    )[0]
+    assert lo <= hi
+    assert hi-lo <= F(14, 100)
+    assert leaves == 1
+    assert depth == 0
