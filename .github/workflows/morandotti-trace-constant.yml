@@ -4,6 +4,8 @@ on:
   push:
     branches: [main, t134-interior-facet-weight-fix]
     paths:
+      - 'scripts/certify_morandotti_curved_p3_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
       - 'models/morandotti_exact_integration.py'
@@ -18,6 +20,8 @@ on:
   pull_request:
     branches: [main, t134-exact-integration-foundation]
     paths:
+      - 'scripts/certify_morandotti_curved_p3_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
       - 'models/morandotti_trace_constant.py'
       - 'models/morandotti_exact_geometry.py'
       - 'models/morandotti_exact_integration.py'
