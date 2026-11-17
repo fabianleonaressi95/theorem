@@ -71,3 +71,22 @@ def test_direct_interior_facet_assembly_uses_two_sided_jump_and_average():
         for j in range(10):
             assert P[(i, 10+j)] == P[(10+j, i)]
     assert result["assembly_counts"]["interior_facets"] == 1
+
+
+def test_direct_volume_assembly_forwards_t135_integrator_options(monkeypatch):
+    import models.morandotti_direct_ipdg_certificate as direct
+
+    captured = {}
+
+    def fake_volume(*args, **kwargs):
+        captured.update(kwargs)
+        return {"matrix_interval": {}}
+
+    monkeypatch.setattr(direct, "assemble_cell_volume_interval", fake_volume)
+    direct.assemble_global_direct_ipdg_forms(
+        [object()], [], [list(range(10))], [F(1)], [], [], 10,
+        integration_method="bernstein_residual",
+        residual_expansion_order=4,
+    )
+    assert captured["integration_method"] == "bernstein_residual"
+    assert captured["residual_expansion_order"] == 4
