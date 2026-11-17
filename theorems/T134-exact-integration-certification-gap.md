@@ -95,6 +95,26 @@ The 24-mesh diagnostic reported generalized-eigenvalue estimates in the range 9.
 
 The quadrature-degree 32/40 agreement (relative difference at most \(1.71\times10^{-13}\)) is a numerical stability diagnostic only. It is not an interval integration certificate and does not establish the matrix inequality.
 
+## 6A. Interior-facet scaling correction (2026-11-17)
+
+A source audit found that the first implementation of
+`assemble_interior_facet_interval` formed the two-sided blocks from
+\(q_A q_A\), \(q_A q_B\), and \(q_B q_B\), but omitted both the
+penalty length \(h_F\) and the factor \(1/4\) coming from the arithmetic
+average \(\{q\}=(q_A+q_B)/2\). Consequently, the assembled interior-facet
+matrix was not the stated \(H_{h,\ell}\), and a PSD result from that version
+would not certify the T134 trace inequality.
+
+The implementation is corrected on branch
+`t134-interior-facet-weight-fix`: all three blocks now include
+\(h_F/4\), with \(h_F=(h_{K_A}+h_{K_B})/2\). A regression test compares
+AA, AB, and BB against the corresponding single-side boundary Gram matrix
+on an identical affine trace and checks the exact scaling. This is a
+**source correction awaiting CI execution**, not a completed certificate.
+Any prior finite-mesh PSD artifact produced by the uncorrected interior
+facet assembly must be treated as invalid for T134 and must not be cited as
+evidence for \(C_\star D_h-H_{h,\ell}\succeq0\).
+
 ## 7. Explicit theorem status
 
 | Claim | Status |
