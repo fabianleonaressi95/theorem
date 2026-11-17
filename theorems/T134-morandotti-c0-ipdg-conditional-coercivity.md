@@ -2,6 +2,8 @@
 
 **Classification:** [P] coercivity is proved conditionally: the mesh-uniform mapped-P3 trace estimate is derived from an explicit compact coefficient class of admissible element maps and quantified facet/element comparability. The actual Gmsh family has not yet been proved to satisfy those all-level hypotheses. The completed 24-mesh finite-mesh audit found \(C_{\rm tr,h}\in[9.1545,15.8152]\): \(\alpha=10\) fails the sufficient condition \(\alpha>2C_{\rm tr,h}\) in every case. The two-core solver default is therefore provisionally raised to \(\alpha=40\), which clears the largest observed finite-mesh threshold by about \(8.37\). **This is numerical tuning only:** neither \(\alpha=40\) nor a mesh-uniform trace bound is certified by the finite sweep.
 
+**Geometric connection:** T092 supplies local two-circle equilateral seed cells; T093 proves finite conforming insertion and midpoint refinement and gives a smooth Cartan-holonomy consistency result. These records provide a candidate geometric/kinematic front end for the Morandotti defect-elasticity problem. T134 is the separate stability analysis of the curved-P3 C0-IPDG Airy discretisation: T093's straight-sided midpoint meshes do not automatically satisfy the curved-Gmsh compact-map hypotheses used here.
+
 **Implementation audited:** 'scripts/rgs_morandotti_c0_ipdg.py' (P3 Lagrange space on Gmsh order-3 annulus meshes; Hessian volume form; symmetric interior and boundary consistency terms; normal-gradient penalties). The theorem below is stated with the actual code's penalty length scales.
 
 ## 1. Discrete space, boundary conditions, and geometric weights
@@ -129,7 +131,7 @@ a_{h,\ell}(v,v)\ge c_{\rm coer}\,
 \qquad
 c_{\rm coer}=\min\left\{\frac12,\alpha-2C_{\rm tr}\right\}>0,
 \]
-where \(\|v\|_{2,h,\ell}^2=D_h(v)^2+J_{h,\ell}(v)^2\). This is coercivity in the stated mesh-dependent seminorm. The homogeneous trace on the outer boundary eliminates the physical affine kernel, since an affine function vanishing at three non-collinear points is zero; the corresponding discrete Poincare/Friedrichs inequality therefore upgrades the seminorm to control the full discrete \(H^2\)-type norm.
+This is coercivity in the mesh-dependent quantity \\(D_h^2+J_{h,\\ell}^2\\). An important distinction is that \\(D_h\\) alone does not have only global-affine zero modes: its global kernel consists of globally continuous functions that are physical-affine on each cell, with the cellwise affine pieces matching in value across facets. On meshes with straight interior facets this kernel can contain nonzero P1-type hat functions with zero boundary trace. For such functions both \\(D_h\\) and \\(H_{h,\\ell}\\) vanish. By contrast, if \\(D_h(v)=J_{h,\\ell}(v)=0\\), continuity gives matching tangential derivatives across every facet and the zero normal-derivative jump gives matching normal derivatives; hence the gradient is continuous across the connected mesh and \\(v\\) is one global physical affine function. Its homogeneous trace on the nondegenerate outer boundary forces it to vanish. Thus \\(D_h^2+J_{h,\\ell}^2\\) is a norm on a connected conforming mesh under these boundary hypotheses. A mesh-uniform discrete Poincare/Friedrichs bound controlling a chosen full \\(H^2\\)-type norm is a separate estimate and is not inferred merely from this kernel argument.
 ## 4. Proof
 
 For each facet, use the weighted Cauchy-Schwarz inequality and then sum over all interior and boundary facets:
