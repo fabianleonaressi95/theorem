@@ -20,6 +20,38 @@ on:
       - 'tests/test_morandotti_exact_geometry.py'
       - 'tests/test_morandotti_exact_integration.py'
       - '.github/workflows/morandotti-trace-constant.yml'
+  workflow_dispatch:
+    inputs:
+      mesh_size:
+        description: "Target mesh size (single mesh only)"
+        required: true
+        default: "0.30"
+        type: string
+      distance:
+        description: "Distance between the two cores"
+        required: true
+        default: "0.48"
+        type: string
+      seed:
+        description: "Mesh random seed"
+        required: true
+        default: "11"
+        type: string
+      alpha:
+        description: "IPDG penalty parameter"
+        required: true
+        default: "40"
+        type: string
+      kappa:
+        description: "Coercivity margin"
+        required: true
+        default: "1/1000"
+        type: string
+      tolerance:
+        description: "Absolute integration tolerance"
+        required: true
+        default: "1/10000"
+        type: string
   pull_request:
     branches: [main, t134-exact-integration-foundation]
     paths:
@@ -66,7 +98,30 @@ jobs:
         run: python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
       - name: Run direct interval IPDG assembly and strict coercivity tests
         run: python3 -m pytest -q tests/test_morandotti_direct_ipdg_certificate.py
-      - name: Stop after fast unit tests
-        run: echo "Direct a_h certificate implementation is tested at unit level; run scripts/certify_morandotti_direct_ipdg.py separately for one fixed mesh. No all-level claim is made."
+      - name: Run one-mesh direct interval IPDG certificate
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          MESH_SIZE: ${{ inputs.mesh_size }}
+          DISTANCE: ${{ inputs.distance }}
+          SEED: ${{ inputs.seed }}
+          ALPHA: ${{ inputs.alpha }}
+          KAPPA: ${{ inputs.kappa }}
+          TOLERANCE: ${{ inputs.tolerance }}
+        run: |
+          python3 scripts/certify_morandotti_direct_ipdg.py \\
+            --mesh-size "$MESH_SIZE" \\
+            --distance "$DISTANCE" \\
+            --seed "$SEED" \\
+            --alpha "$ALPHA" \\
+            --kappa "$KAPPA" \\
+            --tolerance "$TOLERANCE" \\
+            --max-depth 24
+      - name: Upload fixed-mesh certificate and diagnostics
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: t134-direct-ipdg-certificate
+          path: artifacts/morandotti_direct_ipdg/direct_coercivity.json
+          if-no-files-found: warn
 
 
