@@ -153,8 +153,10 @@ def integrate_rational_triangle_many(
     stack = [(root, 0, i) for i in range(len(ps))]
     processed = [0 for _ in ps]
     split_count = [0 for _ in ps]
+    pending = [1 for _ in ps]
     while stack:
         tri, depth, index = stack.pop()
+        pending[index] -= 1
         processed[index] += 1
         used[index] = max(used[index], depth)
         if progress_callback:
@@ -163,9 +165,7 @@ def integrate_rational_triangle_many(
                 "integration_numerator_index": index + 1,
                 "integration_numerator_total": len(ps),
                 "integration_triangles_processed": processed[index],
-                "integration_pending_triangles": sum(
-                    1 for _, _, item_index in stack if item_index == index
-                ),
+                "integration_pending_triangles": pending[index],
                 "integration_accepted_leaves": leaves[index],
                 "integration_split_triangles": split_count[index],
                 "integration_max_depth": used[index],
@@ -183,10 +183,13 @@ def integrate_rational_triangle_many(
                     "denominator positivity not certified by numerator-specific Bernstein subdivision"
                 )
             split_count[index] += 1
+            pending[index] += 4
             stack.extend((child, depth+1, index) for child in _split4(tri))
             continue
 
         pp = _compose_on_triangle(ps[index], tri)
+        if negate:
+            pp = _scale(pp, -1)
         area = _area(tri)
         midpoint_q = (qlo+qhi)/2
         relative_radius = (qhi-qlo)/(qhi+qlo)
