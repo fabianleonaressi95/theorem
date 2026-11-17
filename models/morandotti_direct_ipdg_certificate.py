@@ -37,20 +37,11 @@ def _edge_ipdg_data(node_coordinates, interpolation_points, edge):
     qnums, det3 = _edge_q_data(maps, det, hessians, edge, normal)
     # n . grad_x(phi) = gnum / (det(J)*sqrt(|F'|^2)).
     # J^{-1} normal is polynomial; dot it with the reference gradient.
-    jnormal = (
-        _add(_scale(adj[0][0], normal[0][0] if False else F(1)),
-             _scale(adj[0][1], F(0))),
-        {},
-    )
-    # Expand J^{-1} N using the exact adjugate.
-    jn0 = _add(_scale(adj[0][0], F(1)), _scale(adj[0][1], F(0)))
-    jn1 = _add(_scale(adj[1][0], F(1)), _scale(adj[1][1], F(0)))
     # N is a pair of univariate polynomials, so compose adjugate entries first.
     from models.morandotti_certified_curved_p3_forms import _compose_line as compose
     n0, n1 = normal
     adj_line = [[compose(adj[r][c], a, b) for c in range(2)] for r in range(2)]
     gnums = []
-    from models.morandotti_certified_curved_p3_forms import _p3_lagrange_basis
     for phi in basis:
         gx = compose(_derivative(phi, 0), a, b)
         gy = compose(_derivative(phi, 1), a, b)
