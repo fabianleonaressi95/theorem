@@ -30,7 +30,7 @@ permissions:
 
 concurrency:
   group: t036-explicit-2i-models-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   exact-models:
