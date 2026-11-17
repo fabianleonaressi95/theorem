@@ -482,35 +482,227 @@ def integrate_rational_triangle_bernstein_residual_many(
     expansion_order=2,
     progress_callback=None,
 ):
-    """Apply the residual integrator to a matrix batch with one denominator.
+    """Enclose a batch of rational integrals on one shared adaptive tree.
 
-    Each entry retains its own adaptive cover, matching the current volume
-    batch semantics. The denominator polynomial is shared as input; no
-    unsupported common-tree assumption is made.
+    The denominator expansion is built once per leaf:
+        S_N = sum_{k=0}^N (-(q-m))^k / m^(k+1),
+        R_N = 1 - q*S_N.
+    For every numerator p_i, the exact identity p_i/q = p_i*S_N +
+    (p_i*R_N)/q gives a polynomial moment plus a Bernstein residual bound.
+    A leaf is accepted only when every entry meets its local width budget;
+    otherwise all entries are refined on the same four children.  Thus the
+    returned intervals are rigorous and share a common geometric cover.
+
+    Returns one (lower, upper, leaves, max_depth) tuple per numerator.
+    progress_callback receives tree/leaf events and per-entry completion data.
     """
-    results = []
-    total = len(numerators)
-    for index, numerator in enumerate(numerators):
+    tol = _f(absolute_tolerance)
+    if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
+        raise ValueError("positive tolerance and nonnegative integer max_depth required")
+    if not isinstance(expansion_order, int) or expansion_order < 0:
+        raise ValueError("expansion_order must be a nonnegative integer")
+    ps = [{k: _f(v) for k, v in p.items() if v} for p in numerators]
+    q = {k: _f(v) for k, v in denominator.items() if v}
+    if not q:
+        raise ZeroDivisionError("zero denominator polynomial")
+    if not ps:
+        return []
+
+    total = len(ps)
+    lower = [Fraction(0) for _ in ps]
+    upper = [Fraction(0) for _ in ps]
+    leaves = [0 for _ in ps]
+    used = [0 for _ in ps]
+    if progress_callback:
+        progress_callback({
+            "integration_stage": "bernstein_residual_batch_start",
+            "integration_numerator_total": total,
+            "integration_expansion_order": expansion_order,
+            "integration_tree_mode": "shared",
+        })
+
+    # A constant denominator needs no subdivision or residual enclosure.
+    if len(q) == 1 and (0, 0) in q:
+        q0 = q[(0, 0)]
+        if q0 == 0:
+            raise ZeroDivisionError("zero constant denominator")
+        for index, p in enumerate(ps):
+            exact = sum(
+                (c * Fraction(factorial(i)*factorial(j),
+                              factorial(i+j+2))
+                 for (i, j), c in p.items()),
+                Fraction(0),
+            ) / q0
+            lower[index] = upper[index] = exact
+            leaves[index] = 1
+        if progress_callback:
+            for index in range(total):
+                progress_callback({
+                    "integration_stage": "bernstein_residual_entry_complete",
+                    "integration_numerator_index": index + 1,
+                    "integration_numerator_total": total,
+                    "integration_accepted_leaves": 1,
+                    "integration_max_depth": 0,
+                    "integration_interval_width": "0",
+                })
+        return [(lower[i], upper[i], leaves[i], 0) for i in range(total)]
+
+    root = ((Fraction(0), Fraction(0)),
+            (Fraction(1), Fraction(0)),
+            (Fraction(0), Fraction(1)))
+    stack = [(root, 0)]
+    processed = 0
+    split_count = 0
+    accepted_tree_leaves = 0
+    while stack:
+        tri, depth = stack.pop()
+        processed += 1
+        for i in range(total):
+            used[i] = max(used[i], depth)
         if progress_callback:
             progress_callback({
-                "integration_stage": "bernstein_residual_entry_start",
-                "integration_numerator_index": index + 1,
+                "integration_stage": "bernstein_residual_batch_triangle_start",
                 "integration_numerator_total": total,
+                "integration_triangles_processed": processed,
+                "integration_pending_triangles": len(stack),
+                "integration_accepted_leaves": accepted_tree_leaves,
+                "integration_split_triangles": split_count,
+                "integration_max_depth": depth,
             })
-        result = integrate_rational_triangle_bernstein_residual(
-            numerator, denominator,
-            absolute_tolerance=absolute_tolerance,
-            max_depth=max_depth,
-            expansion_order=expansion_order,
+
+        qq = _compose_on_triangle(q, tri)
+        qlo, qhi = _bernstein_bounds(qq)
+        negate = qhi < 0
+        if negate:
+            qq = _scale(qq, -1)
+            qlo, qhi = -qhi, -qlo
+        if qlo <= 0:
+            if depth >= max_depth:
+                raise ArithmeticError(
+                    "denominator positivity not certified by shared Bernstein subdivision"
+                )
+            split_count += 1
+            if progress_callback:
+                progress_callback({
+                    "integration_stage": "bernstein_residual_batch_split",
+                    "integration_split_reason": "denominator_positivity",
+                    "integration_triangles_processed": processed,
+                    "integration_pending_triangles": len(stack) + 4,
+                    "integration_split_triangles": split_count,
+                    "integration_depth": depth,
+                })
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+
+        area = _area(tri)
+        midpoint = (qlo + qhi) / 2
+        delta = _add(qq, {(0, 0): -midpoint})
+
+        # Build the truncated reciprocal and its exact residual factor once
+        # for this leaf, rather than once for each of the 55 numerators.
+        reciprocal_polynomial = {}
+        delta_power = {(0, 0): Fraction(1)}
+        for k in range(expansion_order + 1):
+            reciprocal_polynomial = _add(
+                reciprocal_polynomial,
+                _scale(delta_power, Fraction((-1)**k, 1) /
+                       midpoint**(k+1)),
+            )
+            if k < expansion_order + 1:
+                delta_power = _mul(delta_power, delta)
+        # Since q = m + delta, the finite geometric identity gives
+        # 1 - q*S_N = (-1)^(N+1) * delta^(N+1) / m^(N+1).
+        # This avoids a second high-degree multiplication q*S_N.
+        residual_factor = _scale(
+            delta_power,
+            Fraction((-1)**(expansion_order+1), 1) /
+            midpoint**(expansion_order+1),
         )
-        results.append(result)
+
+        leaf_values = []
+        must_split = False
+        max_entry_width = Fraction(0)
+        for index, original_p in enumerate(ps):
+            pp = _compose_on_triangle(original_p, tri)
+            if negate:
+                pp = _scale(pp, -1)
+
+            polynomial_approximation = _mul(pp, reciprocal_polynomial)
+            polynomial_moment = sum(
+                (coefficient * Fraction(factorial(i)*factorial(j),
+                                        factorial(i+j+2))
+                 for (i, j), coefficient in polynomial_approximation.items()),
+                Fraction(0),
+            )
+            polynomial_integral = 2 * area * polynomial_moment
+
+            residual_numerator = _mul(pp, residual_factor)
+            rlo, rhi = _bernstein_bounds(residual_numerator)
+            quotient_candidates = (
+                rlo/qlo, rlo/qhi, rhi/qlo, rhi/qhi
+            )
+            residual_lo = min(quotient_candidates)
+            residual_hi = max(quotient_candidates)
+            local_lo = polynomial_integral + area * residual_lo
+            local_hi = polynomial_integral + area * residual_hi
+            width = local_hi - local_lo
+            max_entry_width = max(max_entry_width, width)
+            if width > 2 * tol * area:
+                must_split = True
+                break
+            leaf_values.append((local_lo, local_hi))
+
+        if must_split:
+            if depth >= max_depth:
+                raise ArithmeticError(
+                    "shared Bernstein residual enclosure width not reached "
+                    f"at depth {depth}; processed {processed} triangles"
+                )
+            split_count += 1
+            if progress_callback:
+                progress_callback({
+                    "integration_stage": "bernstein_residual_batch_split",
+                    "integration_split_reason": "entry_width",
+                    "integration_triangles_processed": processed,
+                    "integration_pending_triangles": len(stack) + 4,
+                    "integration_split_triangles": split_count,
+                    "integration_depth": depth,
+                    "integration_max_local_width": str(max_entry_width),
+                })
+            stack.extend((child, depth+1) for child in _split4(tri))
+            continue
+
+        for index, (local_lo, local_hi) in enumerate(leaf_values):
+            lower[index] += local_lo
+            upper[index] += local_hi
+            leaves[index] += 1
+        accepted_tree_leaves += 1
         if progress_callback:
+            progress_callback({
+                "integration_stage": "bernstein_residual_batch_leaf_accepted",
+                "integration_numerator_total": total,
+                "integration_triangles_processed": processed,
+                "integration_pending_triangles": len(stack),
+                "integration_accepted_leaves": accepted_tree_leaves,
+                "integration_split_triangles": split_count,
+                "integration_depth": depth,
+                "integration_max_local_width": str(max_entry_width),
+            })
+
+    results = [
+        (lower[i], upper[i], leaves[i], used[i])
+        for i in range(total)
+    ]
+    if progress_callback:
+        for index, (lo, hi, entry_leaves, entry_depth) in enumerate(results):
             progress_callback({
                 "integration_stage": "bernstein_residual_entry_complete",
                 "integration_numerator_index": index + 1,
                 "integration_numerator_total": total,
-                "integration_accepted_leaves": result[2],
-                "integration_max_depth": result[3],
-                "integration_interval_width": str(result[1]-result[0]),
+                "integration_accepted_leaves": entry_leaves,
+                "integration_max_depth": entry_depth,
+                "integration_interval_width": str(hi-lo),
+                "integration_tree_mode": "shared",
+                "integration_tree_triangles_processed": processed,
             })
     return results
