@@ -138,16 +138,51 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
                 if not isinstance(exc, ArpackNoConvergence):
                     raise
                 last_error = exc
-        if best is None:
-            raise RuntimeError(
-                f"largest generalized eigenpair did not converge (n={n}, ncv={ncv_values}); "
-                f"partial eigenvalues={getattr(last_error, 'eigenvalues', None)}"
-            ) from last_error
+        # ARPACK can report a nominal eigenvalue while returning a vector
+        # that is not a generalized eigenvector when the equilibrated Gram
+        # matrix is strongly ill-conditioned. Never accept that pair. For
+        # moderate reduced spaces, fall back to a symmetric dense generalized
+        # solve and independently recheck its Rayleigh residual.
+        sparse_pair_valid = False
+        if best is not None:
+            sparse_residual, sparse_value, _, sparse_y = best
+            sparse_ay, sparse_by = As @ sparse_y, Bs @ sparse_y
+            sparse_rq = float(np.dot(sparse_y, sparse_ay) /
+                              np.dot(sparse_y, sparse_by))
+            sparse_disagreement = float(
+                abs(sparse_value - sparse_rq) /
+                max(abs(sparse_value), abs(sparse_rq), 1.0)
+            )
+            sparse_pair_valid = (
+                np.isfinite(sparse_residual)
+                and sparse_residual <= 1e-7
+                and sparse_disagreement <= 1e-7
+            )
 
-        residual, solver_eigenvalue, rayleigh_scaled, y = best
-        # Map the equilibrated eigenvector back to the original coordinates.
+        dense_fallback_used = False
+        if not sparse_pair_valid:
+            if n > 3000:
+                raise RuntimeError(
+                    "sparse generalized eigensolver did not produce a certified "
+                    f"eigenpair (n={n}, ncv={ncv_values}, "
+                    f"best_relative_residual={None if best is None else best[0]}, "
+                    f"best_solver_eigenvalue={None if best is None else best[1]}, "
+                    f"best_rayleigh_quotient={None if best is None else best[2]}); "
+                    "dense verification fallback is limited to n<=3000"
+                ) from last_error
+            dense_values, dense_vectors = eigh(
+                As.toarray(), Bs.toarray(), check_finite=True,
+                subset_by_index=[n-1, n-1], driver="gvx",
+            )
+            result = float(dense_values[-1])
+            y = dense_vectors[:, -1]
+            dense_fallback_used = True
+        else:
+            _, result, _, y = best
+
+        # Independently recompute the quotient; the common residual check
+        # below remains authoritative for both sparse and dense paths.
         x = inv_sqrt_diagonal * y
-        result = solver_eigenvalue
         # bmin and bmax were estimated on the equilibrated denominator above.
 
     Ax = residual_matrix_a @ (x if n <= 3 else y)
@@ -172,6 +207,7 @@ def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
         "congruence_scaling_max": scaling_max,
         "generalized_eigenvalue": rayleigh,
         "solver_reported_eigenvalue": float(result),
+        "eigensolver_dense_fallback_used": bool(dense_fallback_used) if n > 3 else False,
         "solver_rayleigh_relative_disagreement": eigenvalue_disagreement,
         "rayleigh_quotient_check": rayleigh,
         "relative_generalized_eigenpair_residual": residual,
