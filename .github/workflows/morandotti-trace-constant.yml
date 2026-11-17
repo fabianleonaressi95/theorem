@@ -57,7 +57,7 @@ on:
         required: true
         type: choice
         options: [bernstein_residual, neumann]
-        default: bernstein_residual
+        default: neumann
       residual_expansion_order:
         description: "T135 finite Neumann polynomial order"
         required: true
