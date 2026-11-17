@@ -470,3 +470,47 @@ def integrate_rational_triangle_bernstein_residual(
         leaves += 1
 
     return lower, upper, leaves, used
+
+
+
+def integrate_rational_triangle_bernstein_residual_many(
+    numerators,
+    denominator,
+    *,
+    absolute_tolerance=Fraction(1, 10**8),
+    max_depth=12,
+    expansion_order=2,
+    progress_callback=None,
+):
+    """Apply the residual integrator to a matrix batch with one denominator.
+
+    Each entry retains its own adaptive cover, matching the current volume
+    batch semantics. The denominator polynomial is shared as input; no
+    unsupported common-tree assumption is made.
+    """
+    results = []
+    total = len(numerators)
+    for index, numerator in enumerate(numerators):
+        if progress_callback:
+            progress_callback({
+                "integration_stage": "bernstein_residual_entry_start",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": total,
+            })
+        result = integrate_rational_triangle_bernstein_residual(
+            numerator, denominator,
+            absolute_tolerance=absolute_tolerance,
+            max_depth=max_depth,
+            expansion_order=expansion_order,
+        )
+        results.append(result)
+        if progress_callback:
+            progress_callback({
+                "integration_stage": "bernstein_residual_entry_complete",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": total,
+                "integration_accepted_leaves": result[2],
+                "integration_max_depth": result[3],
+                "integration_interval_width": str(result[1]-result[0]),
+            })
+    return results
