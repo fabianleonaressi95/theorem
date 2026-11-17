@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/t034-exact-representation-suite.yml"
       - "src/t034_binary_icosahedral_representations.py"
+      - "scripts/audit_runtime.py"
   pull_request:
     branches: [main]
     paths:
@@ -25,6 +26,8 @@ jobs:
     name: Execute the complete exact-arithmetic T034 suite
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      AUDIT_PROGRESS_FILE: artifacts/audit_progress/t034.jsonl
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -49,10 +52,13 @@ jobs:
           assert data["verification"]
           print("T034 JSON export validated: nine irreducibles, order 120.")
           PY
-      - name: Upload exact T034 verification JSON
+      - name: Upload exact T034 verification JSON and phase timings
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: t034-exact-representation-suite
-          path: t034_2i_character_table.json
+          path: |
+            t034_2i_character_table.json
+            artifacts/audit_progress/t034.jsonl
           if-no-files-found: error
           retention-days: 90
