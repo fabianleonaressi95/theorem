@@ -120,10 +120,11 @@ def integrate_rational_triangle_many(
     numerators, denominator, *, absolute_tolerance=Fraction(1, 10**8),
     max_depth=12, progress_callback=None,
 ):
-    """Enclose many rational integrals with one shared triangle subdivision.
+    """Enclose many rational integrals with numerator-specific subdivisions.
 
-    Each numerator keeps its own exact enclosure; a leaf is subdivided for
-    every entry together whenever any entry fails its requested width.
+    Denominator composition/Bernstein bounds are shared through the exact
+    composition cache, but a numerator that needs refinement cannot force
+    already-certified numerators to subdivide their triangles.
     """
     tol = _f(absolute_tolerance)
     if tol <= 0 or not isinstance(max_depth, int) or max_depth < 0:
@@ -136,6 +137,8 @@ def integrate_rational_triangle_many(
         return [integrate_rational_triangle(
             p, q, absolute_tolerance=tol, max_depth=max_depth
         ) for p in ps]
+    if not ps:
+        return []
 
     root = ((Fraction(0), Fraction(0)),
             (Fraction(1), Fraction(0)),
@@ -143,106 +146,106 @@ def integrate_rational_triangle_many(
     lower = [Fraction(0) for _ in ps]
     upper = [Fraction(0) for _ in ps]
     leaves = [0 for _ in ps]
-    used = 0
-    stack = [(root, 0)]
-    processed = 0
+    used = [0 for _ in ps]
+    # Each work item belongs to exactly one numerator.  This is the key
+    # distinction from the former shared tree: refinement is local to the
+    # numerator whose Neumann remainder fails.
+    stack = [(root, 0, i) for i in range(len(ps))]
+    processed = [0 for _ in ps]
+    split_count = [0 for _ in ps]
     while stack:
-        tri, depth = stack.pop()
-        processed += 1
-        used = max(used, depth)
-        if progress_callback and (processed == 1 or processed % 10 == 0):
-            progress_callback({"integration_triangles_processed": processed,
-                               "integration_pending_triangles": len(stack),
-                               "integration_max_depth": used})
+        tri, depth, index = stack.pop()
+        processed[index] += 1
+        used[index] = max(used[index], depth)
         if progress_callback:
-            progress_callback({"integration_stage": "denominator_compose_start",
-                               "integration_triangles_processed": processed,
-                               "integration_pending_triangles": len(stack)})
+            progress_callback({
+                "integration_stage": "triangle_start",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": len(ps),
+                "integration_triangles_processed": processed[index],
+                "integration_pending_triangles": sum(
+                    1 for _, _, item_index in stack if item_index == index
+                ),
+                "integration_accepted_leaves": leaves[index],
+                "integration_split_triangles": split_count[index],
+                "integration_max_depth": used[index],
+            })
+
         qq = _compose_on_triangle(q, tri)
-        if progress_callback:
-            progress_callback({"integration_stage": "denominator_compose_complete",
-                               "integration_denominator_terms": len(qq)})
-            progress_callback({"integration_stage": "denominator_bernstein_start"})
         qlo, qhi = _bernstein_bounds(qq)
-        if progress_callback:
-            progress_callback({"integration_stage": "denominator_bernstein_complete",
-                               "integration_denominator_lower": str(qlo),
-                               "integration_denominator_upper": str(qhi)})
-        pset = []
         negate = qhi < 0
-        for numerator_index, p in enumerate(ps, start=1):
-            if progress_callback:
-                progress_callback({"integration_stage": "numerator_compose_start",
-                                   "integration_numerator_index": numerator_index,
-                                   "integration_numerator_total": len(ps),
-                                   "integration_numerator_terms": len(p)})
-            composed = _compose_on_triangle(p, tri)
-            pset.append(_scale(composed, -1) if negate else composed)
-            if progress_callback:
-                progress_callback({"integration_stage": "numerator_compose_complete",
-                                   "integration_numerator_index": numerator_index,
-                                   "integration_numerator_total": len(ps),
-                                   "integration_composed_terms": len(composed)})
         if negate:
             qq = _scale(qq, -1)
             qlo, qhi = -qhi, -qlo
         if qlo <= 0:
             if depth >= max_depth:
-                raise ArithmeticError("denominator positivity not certified by shared Bernstein subdivision")
-            stack.extend((child, depth+1) for child in _split4(tri))
+                raise ArithmeticError(
+                    "denominator positivity not certified by numerator-specific Bernstein subdivision"
+                )
+            split_count[index] += 1
+            stack.extend((child, depth+1, index) for child in _split4(tri))
             continue
 
+        pp = _compose_on_triangle(ps[index], tri)
         area = _area(tri)
         midpoint_q = (qlo+qhi)/2
         relative_radius = (qhi-qlo)/(qhi+qlo)
         delta_q = _add(qq, {(0, 0): -midpoint_q})
-        leaf_values = []
-        split = False
-        for pp in pset:
-            plo, phi = _bernstein_bounds(pp)
-            # Do not force geometric subdivision merely because pp changes
-            # sign.  The Neumann expansion is valid for signed numerators too.
-            # Bound its remainder with integral(|pp|), using the Bernstein
-            # range: |pp| <= max(|plo|, |phi|) on this subtriangle.  This avoids
-            # the cancellation-prone (and invalid for signed pp) shortcut
-            # based on abs(integral(pp)).
-            max_abs_numerator = max(abs(plo), abs(phi))
-            term_poly = pp
-            series = Fraction(0)
-            remainder = Fraction(0)
-            certified = False
-            for order in range(3):
-                term_ref = sum(
-                    (coefficient * Fraction(factorial(i)*factorial(j),
-                                            factorial(i+j+2))
-                     for (i, j), coefficient in term_poly.items()),
-                    Fraction(0),
-                )
-                term_integral = 2*area*term_ref
-                series += ((-1)**order)*term_integral/(midpoint_q**(order+1))
-                remainder = (
-                    area * max_abs_numerator * relative_radius**(order+1)
-                    /(midpoint_q*(1-relative_radius))
-                )
-                if remainder <= tol*area:
-                    certified = True
-                    break
-                term_poly = _mul(term_poly, delta_q)
-            if not certified:
-                split = True
+        plo, phi = _bernstein_bounds(pp)
+        # The Bernstein sup norm bounds |p| even when p changes sign.
+        max_abs_numerator = max(abs(plo), abs(phi))
+        term_poly = pp
+        series = Fraction(0)
+        certified = False
+        for order in range(3):
+            term_ref = sum(
+                (coefficient * Fraction(factorial(i)*factorial(j),
+                                        factorial(i+j+2))
+                 for (i, j), coefficient in term_poly.items()),
+                Fraction(0),
+            )
+            term_integral = 2*area*term_ref
+            series += ((-1)**order)*term_integral/(midpoint_q**(order+1))
+            remainder = (
+                area * max_abs_numerator * relative_radius**(order+1)
+                /(midpoint_q*(1-relative_radius))
+            )
+            if remainder <= tol*area:
+                certified = True
                 break
-            leaf_values.append((series-remainder, series+remainder))
+            term_poly = _mul(term_poly, delta_q)
 
-        if split:
+        if not certified:
             if depth >= max_depth:
-                raise ArithmeticError("shared rational Neumann enclosure width not reached")
-            stack.extend((child, depth+1) for child in _split4(tri))
+                raise ArithmeticError(
+                    "rational Neumann enclosure width not reached for numerator "
+                    f"{index + 1}"
+                )
+            split_count[index] += 1
+            stack.extend((child, depth+1, index) for child in _split4(tri))
             continue
-        for i, (lo, hi) in enumerate(leaf_values):
-            lower[i] += lo
-            upper[i] += hi
-            leaves[i] += 1
-    return [(lower[i], upper[i], leaves[i], used) for i in range(len(ps))]
+
+        lower[index] += series-remainder
+        upper[index] += series+remainder
+        leaves[index] += 1
+        if progress_callback:
+            progress_callback({
+                "integration_stage": "triangle_leaf_accepted",
+                "integration_numerator_index": index + 1,
+                "integration_numerator_total": len(ps),
+                "integration_triangles_processed": processed[index],
+                "integration_pending_triangles": sum(
+                    1 for _, _, item_index in stack if item_index == index
+                ),
+                "integration_accepted_leaves": leaves[index],
+                "integration_split_triangles": split_count[index],
+                "integration_max_depth": used[index],
+                "integration_remainder": str(remainder),
+            })
+    return [
+        (lower[i], upper[i], leaves[i], used[i])
+        for i in range(len(ps))
+    ]
 
 def integrate_rational_triangle(
     numerator: Poly,
