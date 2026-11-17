@@ -11,6 +11,7 @@ from time import perf_counter
 from models.morandotti_certified_curved_p3_forms import (
     _as_fraction, _cell_data, _edge_q_data, _compose_line, _add, _scale,
     _derivative, _REF_VERTICES, _add1, _mul1, _scale1, _pow1,
+    _map_trace_on_edge,
     integrate_rational_sqrt_segments_many, assemble_cell_volume_interval,
     _zero_interval_matrix, _accumulate, _add_block,
 )
@@ -97,6 +98,10 @@ def _assemble_boundary_facet(nodes, points, edge, h, tolerance, max_depth):
 
 def _assemble_interior_facet(nodes_a, nodes_b, points, edge_a, edge_b,
                              h_average, tolerance, max_depth):
+    maps_a = _cell_data(nodes_a, points)[0]
+    maps_b = _cell_data(nodes_b, points)[0]
+    if _map_trace_on_edge(maps_a, edge_a) != _map_trace_on_edge(maps_b, edge_b):
+        raise ValueError("neighboring P3 maps do not define the same exact curved facet trace")
     qa, ga, da3, da, s = _edge_ipdg_data(nodes_a, points, edge_a)
     qb, gb, db3, db, sb = _edge_ipdg_data(nodes_b, points, edge_b)
     if s != sb:
