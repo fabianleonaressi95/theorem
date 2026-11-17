@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.rgs_morandotti_two_core_c0_ipdg import make_mesh, solve_level
+from scripts.audit_runtime import emit, phase
 
 
 def mesh_fingerprint(mesh):
@@ -79,6 +80,8 @@ def main():
     parser.add_argument("--young-modulus", type=float, default=1.0)
     parser.add_argument("--poisson-ratio", type=float, default=0.0)
     parser.add_argument("--out", default="artifacts/morandotti_independent_remeshing/report.json")
+    parser.add_argument("--resume", action="store_true",
+                        help="resume completed realizations from the adjacent checkpoint JSON")
     args = parser.parse_args()
 
     if MPI.COMM_WORLD.size != 1:
@@ -98,30 +101,73 @@ def main():
 
     output = Path(args.out)
     output.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint_path = output.with_name(output.stem + ".checkpoint.json")
+    progress_path = output.with_name(output.stem + ".progress.jsonl")
+    configuration = {
+        "mesh_sizes": args.mesh_sizes,
+        "distance_values": args.distance_values,
+        "mesh_seeds": args.mesh_seeds,
+        "alpha": args.alpha,
+        "young_modulus": args.young_modulus,
+        "poisson_ratio": args.poisson_ratio,
+    }
     runs = []
+    if args.resume and checkpoint_path.is_file():
+        checkpoint = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+        if checkpoint.get("configuration") != configuration:
+            raise RuntimeError("checkpoint configuration differs from this run; refusing unsafe resume")
+        runs = checkpoint.get("completed_runs", [])
+        missing_fields = [row["field_export"] for row in runs if not Path(row["field_export"]).is_file()]
+        if missing_fields:
+            raise RuntimeError(f"checkpoint references missing field exports: {missing_fields[:5]}")
+    completed = {
+        (round(float(row["h_target"]), 8), round(float(row["distance"]), 8), int(row["mesh_seed"]))
+        for row in runs
+    }
+    total_cases = len(args.mesh_sizes) * len(args.distance_values) * len(args.mesh_seeds)
+    emit("audit_configuration", configuration=configuration, total_cases=total_cases,
+         completed_cases=len(runs), resume=bool(args.resume),
+         checkpoint=str(checkpoint_path), progress_log=str(progress_path))
 
-    # A new Gmsh model and mesh are constructed for every (h, d) pair.
+    def save_checkpoint():
+        payload = {"schema_version": 1, "configuration": configuration,
+                   "completed_cases": len(runs), "total_cases": total_cases,
+                   "completed_runs": runs}
+        temporary = checkpoint_path.with_suffix(checkpoint_path.suffix + ".tmp")
+        temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        temporary.replace(checkpoint_path)
+
+    # A new Gmsh model and mesh are constructed for every (h, d, seed) triple.
     for distance in args.distance_values:
         centers = ((-0.5 * distance, 0.0), (0.5 * distance, 0.0))
         for h in args.mesh_sizes:
             for seed in args.mesh_seeds:
-                bundle = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
-                mesh = bundle[0]
-                reference_geometry = mesh.geometry.x.copy()
-                fingerprint = mesh_fingerprint(mesh)
+                case_key = (round(float(h), 8), round(float(distance), 8), int(seed))
+                if case_key in completed:
+                    emit("mesh_realization_reused_from_checkpoint", h=h, distance=distance,
+                         seed=seed, completed_cases=len(completed), total_cases=total_cases)
+                    continue
                 field_path = output.with_name(f"fields_h{h:.4f}_d{distance:.4f}_seed{seed}.npz")
-
-                result = solve_level(
-                    h,
-                    alpha=args.alpha,
-                    young_modulus=args.young_modulus,
-                    poisson_ratio=args.poisson_ratio,
-                    centers=centers,
-                    core_separation=None,
-                    mesh_bundle=bundle,
-                    reference_geometry=reference_geometry,
-                    args_artifact_path=str(field_path),
-                )
+                case_id = f"h={h:.4f}|d={distance:.4f}|seed={seed}"
+                with phase("independent_mesh_realization", case_id=case_id,
+                           case_index=len(completed) + 1, total_cases=total_cases):
+                    with phase("fresh_gmsh_mesh_generation", case_id=case_id):
+                        bundle = make_mesh(1.0, 0.12, centers, h, MPI.COMM_WORLD, random_seed=seed)
+                        mesh = bundle[0]
+                        reference_geometry = mesh.geometry.x.copy()
+                        fingerprint = mesh_fingerprint(mesh)
+                    with phase("finite_element_solve_and_field_export", case_id=case_id):
+                        result = solve_level(
+                            h,
+                            alpha=args.alpha,
+                            young_modulus=args.young_modulus,
+                            poisson_ratio=args.poisson_ratio,
+                            centers=centers,
+                            core_separation=None,
+                            mesh_bundle=bundle,
+                            reference_geometry=reference_geometry,
+                            args_artifact_path=str(field_path),
+                        )
                 matrix = np.asarray(result["M_laplacian"], dtype=float)
                 key = f"d{distance:.4f}_h{h:.4f}"
                 cross = matrix[1:3, 4:6]
@@ -153,16 +199,25 @@ def main():
                     raise RuntimeError(f"non-positive mesh Jacobian at h={h}, d={distance}")
                 if result["laplacian_symmetry_relative"] > 1e-8:
                     raise RuntimeError(f"interaction matrix lost symmetry at h={h}, d={distance}")
+                completed.add(case_key)
+                save_checkpoint()
+                emit("mesh_realization_checkpointed", case_id=case_id,
+                     completed_cases=len(completed), total_cases=total_cases,
+                     field_export=str(field_path), cells=result["cells"], dofs=result["dofs"])
 
-    groups = validate_realization_grid(runs, args.mesh_sizes, args.distance_values, args.mesh_seeds)
-    for row in runs:
-        if not Path(row["field_export"]).is_file():
-            raise RuntimeError(f"missing finite-element field export: {row['field_export']}")
+    with phase("validate_complete_realization_grid", expected_cases=total_cases,
+               actual_cases=len(runs)):
+        groups = validate_realization_grid(runs, args.mesh_sizes, args.distance_values, args.mesh_seeds)
+    with phase("validate_all_field_exports", exports=len(runs)):
+        for row in runs:
+            if not Path(row["field_export"]).is_file():
+                raise RuntimeError(f"missing finite-element field export: {row['field_export']}")
 
     # Re-read matrices from the exported fields so the ensemble statistics are
     # tied to the exact per-realization artifacts that are uploaded.
     ensemble_summary = {}
     for key, samples in groups.items():
+        emit("ensemble_group_started", realization_group=key, samples=len(samples))
         matrices = []
         for sample in sorted(samples, key=lambda row: int(row["mesh_seed"])):
             with np.load(sample["field_export"]) as field_data:
@@ -197,6 +252,9 @@ def main():
             "relative_frobenius_deviation_max": max(deviations),
             "relative_frobenius_deviation_rms": float(np.sqrt(np.mean(np.square(deviations)))),
         }
+        emit("ensemble_group_completed", realization_group=key,
+             realization_count=len(samples),
+             relative_frobenius_deviation_max=ensemble_summary[key]["relative_frobenius_deviation_max"])
 
     report = {
         "title": "Morandotti two-core interaction: independent remeshing audit",
@@ -239,7 +297,10 @@ def main():
             "no force-balance, Frank-Burgers constitutive, or material-validation claim is made",
         ],
     }
-    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    with phase("write_final_report", output=str(output)):
+        output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    emit("audit_completed", completed_cases=len(runs), total_cases=total_cases,
+         report=str(output), checkpoint=str(checkpoint_path))
     print(json.dumps(report, indent=2))
 
 
