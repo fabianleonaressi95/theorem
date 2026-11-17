@@ -27,7 +27,7 @@ C_\star D_h-H_{h,\ell}\succeq0
 \]
 on the full homogeneous-Dirichlet P3 space. Such a certificate implies \(C_{\mathrm{tr},h}\le C_\star<20\), and hence the sufficient C⁰-IPDG condition \(\alpha=40>2C_\star\) for that mesh.
 
-**Kernel correction (2026-11-17).** The cellwise kernel of the physical Hessian on a mapped P3 cell is \\(\\operatorname{span}\\{1,F_{K,1},F_{K,2}\\}\\), i.e. physical-affine functions on that cell. This does **not** imply that the kernel of the assembled \\(D_h\\) consists only of global physical affine functions. Globally, \\(\\ker D_h\\) consists of C0 functions that are physical-affine cell by cell and whose traces agree across shared facets. On straight-sided facets, nonzero piecewise-affine hat functions can satisfy homogeneous boundary values, so \\(D_h\\) and \\(H_{h,\\ell}\\) both have a common nontrivial kernel. Boundary P3 degrees of freedom are constrained to impose the stated homogeneous trace; interior vertex degrees of freedom remain free. The old statement that boundary conditions remove the global kernel of \\(D_h\\) was incorrect and is withdrawn. No C0-P1 quotient or interior-vertex elimination is used. The combined quantity \\(D_h^2+J_{h,\\ell}^2\\), not \\(D_h^2\\) alone, has trivial kernel on a connected conforming mesh with the stated nondegenerate homogeneous boundary: zero normal-gradient jumps plus C0 continuity force matching full gradients, hence one global affine function, then zero.
+**Kernel correction (2026-11-17).** The cellwise kernel of the physical Hessian on a mapped P3 cell is \(\operatorname{span}\{1,F_{K,1},F_{K,2}\}\), i.e. physical-affine functions on that cell. This does **not** imply that the kernel of the assembled \(D_h\) consists only of global physical affine functions. Globally, \(\ker D_h\) consists of C0 functions that are physical-affine cell by cell and whose traces agree across shared facets. On straight-sided facets, nonzero piecewise-affine hat functions can satisfy homogeneous boundary values, so \(D_h\) and \(H_{h,\ell}\) both have a common nontrivial kernel. Boundary P3 degrees of freedom are constrained to impose the stated homogeneous trace; interior vertex degrees of freedom remain free. The old statement that boundary conditions remove the global kernel of \(D_h\) was incorrect and is withdrawn. No C0-P1 quotient or interior-vertex elimination is used. The combined quantity \(D_h^2+J_{h,\ell}^2\), not \(D_h^2\) alone, has trivial kernel on a connected conforming mesh with the stated nondegenerate homogeneous boundary: zero normal-gradient jumps plus C0 continuity force matching full gradients, hence one global affine function, then zero.
 
 ## 2. Exact local volume integration
 
@@ -76,34 +76,34 @@ This is a sufficient certificate and may fail when the integration intervals are
 
 ## 5A. Preferred alternative: direct finite-mesh certificate for the IPDG form
 
-For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \\(\\{\\phi_i\\}_{i=1}^N\\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for four symmetric/global blocks:
+For a fixed mesh, avoid the singular trace matrix and certify the assembled bilinear form itself. Let the global homogeneous-Dirichlet P3 basis be \(\{\phi_i\}_{i=1}^N\), after eliminating only boundary trace degrees of freedom. Assemble rational interval enclosures for four symmetric/global blocks:
 
-- \\(D_{ij}=\\sum_K\\int_K D^2\\phi_i:D^2\\phi_j\\,dx\\) (already implemented);
-- \\(P_{ij}=\\sum_F\\ell_F^{-1}\\int_F j_F(\\phi_i)j_F(\\phi_j)\\,ds\\) (normal-gradient penalty block; to implement);
-- \\(C_{ij}=\\sum_F\\int_F q_F(\\phi_i)j_F(\\phi_j)\\,ds\\) (consistency coupling block; to implement, with the same arithmetic average and orientation conventions as the UFL form).
+- \(D_{ij}=\sum_K\int_K D^2\phi_i:D^2\phi_j\,dx\) (already implemented);
+- \(P_{ij}=\sum_F\ell_F^{-1}\int_F j_F(\phi_i)j_F(\phi_j)\,ds\) (normal-gradient penalty block; to implement);
+- \(C_{ij}=\sum_F\int_F q_F(\phi_i)j_F(\phi_j)\,ds\) (consistency coupling block; to implement, with the same arithmetic average and orientation conventions as the UFL form).
 
-The boundary and interior contributions are assembled separately. On an interior facet, \\(q_F\\) is the arithmetic average of the two normal-normal Hessian traces and \\(j_F\\) is the sum of outward normal derivatives. On a boundary facet, use the one-sided traces. The global symmetric matrix of the stated form is
-\\[
-A_{h,\\ell}=D-C-C^T+\\alpha P.
-\\]
-All local entries must be enclosed rigorously; use exact rational Bernstein integration when the metric factors cancel to rational functions and the certified square-root segment integrator otherwise. Shared curved-facet traces, endpoint ordering, outward normals, and the exact \\(\\ell_F\\) weights must be checked before accumulation.
+The boundary and interior contributions are assembled separately. On an interior facet, \(q_F\) is the arithmetic average of the two normal-normal Hessian traces and \(j_F\) is the sum of outward normal derivatives. On a boundary facet, use the one-sided traces. The global symmetric matrix of the stated form is
+\[
+A_{h,\ell}=D-C-C^T+\alpha P.
+\]
+All local entries must be enclosed rigorously; use exact rational Bernstein integration when the metric factors cancel to rational functions and the certified square-root segment integrator otherwise. Shared curved-facet traces, endpoint ordering, outward normals, and the exact \(\ell_F\) weights must be checked before accumulation.
 
 For a stronger and scale-aware certificate, also assemble
-\\[
-W_{h,\\ell}=D+P,
-\\]
-and seek a positive rational \\(\\kappa\\) such that
-\\[
-A_{h,\\ell}-\\kappa W_{h,\\ell}\\succ0.
-\\]
+\[
+W_{h,\ell}=D+P,
+\]
+and seek a positive rational \(\kappa\) such that
+\[
+A_{h,\ell}-\kappa W_{h,\ell}\succ0.
+\]
 A successful interval certificate with a strict positive LDL factor after subtracting the full interval perturbation bound proves
-\\[
-a_{h,\\ell}(v,v)\\ge\\kappa\\bigl(D_h(v)^2+J_{h,\\ell}(v)^2\\bigr)
-\\quad\\forall v\\in V_h^0
-\\]
-on that **one fixed mesh**. It simultaneously avoids quotienting the common kernel of \\(D_h\\) and \\(H_{h,\\ell}\\), and directly certifies coercivity in the natural mesh-dependent norm. A weaker alternative is strict positive definiteness of \\(A_{h,\\ell}\\) in the chosen coefficient basis, but that only gives a basis- and mesh-dependent finite-dimensional lower bound.
+\[
+a_{h,\ell}(v,v)\ge\kappa\bigl(D_h(v)^2+J_{h,\ell}(v)^2\bigr)
+\quad\forall v\in V_h^0
+\]
+on that **one fixed mesh**. It simultaneously avoids quotienting the common kernel of \(D_h\) and \(H_{h,\ell}\), and directly certifies coercivity in the natural mesh-dependent norm. A weaker alternative is strict positive definiteness of \(A_{h,\ell}\) in the chosen coefficient basis, but that only gives a basis- and mesh-dependent finite-dimensional lower bound.
 
-The implementation should not reuse the current semidefinite LDL acceptance rule unchanged: require strictly positive pivots for the shifted matrix, and store \\(\\kappa\\), the basis/DOF ordering, mesh and coordinate hashes, all interval radii, the perturbation bound, and the exact pivot diagnostics. A failed \\(\\kappa\\) trial is inconclusive; decrease \\(\\kappa\\) or tighten integration intervals. This finite-mesh result does not imply an all-level lower bound or prove that the T093 midpoint-refined family satisfies the curved-P3 Gmsh hypotheses.
+The implementation should not reuse the current semidefinite LDL acceptance rule unchanged: require strictly positive pivots for the shifted matrix, and store \(\kappa\), the basis/DOF ordering, mesh and coordinate hashes, all interval radii, the perturbation bound, and the exact pivot diagnostics. A failed \(\kappa\) trial is inconclusive; decrease \(\kappa\) or tighten integration intervals. This finite-mesh result does not imply an all-level lower bound or prove that the T093 midpoint-refined family satisfies the curved-P3 Gmsh hypotheses.
 
 ## 5. DOLFINx adapter and remaining execution gate
 
