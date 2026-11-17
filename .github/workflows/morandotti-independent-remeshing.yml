@@ -44,9 +44,13 @@ jobs:
   independent-remeshing:
     strategy:
       fail-fast: false
-      max-parallel: 7
+      max-parallel: 4
       matrix:
-        mesh_seed: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[11,17,23,29,37,47,59]') || fromJSON('[11]') }}
+        include:
+          - { shard: h0080, mesh_size: 0.08 }
+          - { shard: h0060, mesh_size: 0.06 }
+          - { shard: h0045, mesh_size: 0.045 }
+          - { shard: h0035, mesh_size: 0.035 }
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
@@ -66,7 +70,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.resume_from_run_id != ''
         uses: actions/download-artifact@v4
         with:
-          name: morandotti-independent-remeshing-${{ matrix.mesh_seed }}
+          name: morandotti-independent-remeshing-${{ matrix.shard }}
           run-id: ${{ inputs.resume_from_run_id }}
           github-token: ${{ github.token }}
           path: artifacts/morandotti_independent_remeshing
@@ -82,9 +86,9 @@ jobs:
             RESUME_FLAG="--resume"
           fi
           python3 scripts/rgs_morandotti_independent_remeshing.py \
-            --mesh-sizes 0.08 0.06 0.045 0.035 \
+            --mesh-sizes ${{ matrix.mesh_size }} \
             --distance-values 0.48 0.56 \
-            --mesh-seeds ${{ matrix.mesh_seed }} \
+            --mesh-seeds 11 17 23 29 37 47 59 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
