@@ -54,27 +54,36 @@ def _edge_ipdg_data(node_coordinates, interpolation_points, edge):
     return qnums, gnums, det3, _pow1(_compose_line(det, a, b), 1), radicand
 
 
-def _integrate_penalty(g_i, g_j, det_i, det_j, radicand, inverse_length,
-                       tolerance, max_depth):
-    # (g_i/det_i/sqrt(s)) (g_j/det_j/sqrt(s)) ds
-    # = g_i*g_j/(det_i*det_j*sqrt(s)) dt.
-    numerator = _scale1(_mul1(_mul1(g_i, g_j), radicand),
-                        _as_fraction(inverse_length))
-    return integrate_rational_sqrt_segments_many(
-        [numerator], _mul1(det_i, det_j), radicand,
+def _integrate_penalty_matrix(g_left, g_right, det_left, det_right,
+                               radicand, inverse_length, tolerance, max_depth):
+    """Integrate a whole 10x10 penalty block on one shared certified tree."""
+    scale = _as_fraction(inverse_length)
+    numerators = [
+        _scale1(_mul1(_mul1(g_i, g_j), radicand), scale)
+        for g_i in g_left for g_j in g_right
+    ]
+    enclosed = integrate_rational_sqrt_segments_many(
+        numerators, _mul1(det_left, det_right), radicand,
         absolute_tolerance=tolerance, max_depth=max_depth
-    )[0][:2]
+    )
+    return [enclosed[10*i:10*(i+1)] for i in range(10)]
 
 
-def _integrate_consistency(q_i, g_j, det3_i, det_j, radicand,
-                           sign, tolerance, max_depth):
-    # q_i*j_j ds = qnum_i*gnum_j/(det_i^3*det_j*s) dt.
-    denominator = _mul1(_mul1(det3_i, det_j), radicand)
-    numerator = _scale1(_mul1(q_i, g_j), _as_fraction(sign))
-    return integrate_rational_sqrt_segments_many(
-        [numerator], denominator, {0: F(1)},
-        absolute_tolerance=tolerance, max_depth=max_depth
-    )[0][:2]
+def _integrate_consistency_matrix(q_left, g_right, det3_left, det_right,
+                                  radicand, sign, tolerance, max_depth):
+    """Integrate a 10x10 consistency block with a shared tree per row."""
+    denominator = _mul1(_mul1(det3_left, det_right), radicand)
+    scale = _as_fraction(sign)
+    result = _zero_block()
+    for i, q_i in enumerate(q_left):
+        numerators = [_scale1(_mul1(q_i, g_j), scale) for g_j in g_right]
+        enclosed = integrate_rational_sqrt_segments_many(
+            numerators, denominator, {0: F(1)},
+            absolute_tolerance=tolerance, max_depth=max_depth
+        )
+        for j, interval in enumerate(enclosed):
+            result[i][j] = interval[:2]
+    return result
 
 
 def _zero_block(rows=10, cols=10):
@@ -83,18 +92,10 @@ def _zero_block(rows=10, cols=10):
 
 def _assemble_boundary_facet(nodes, points, edge, h, tolerance, max_depth):
     q, g, det3, det, s = _edge_ipdg_data(nodes, points, edge)
-    P, C = _zero_block(), _zero_block()
     inv_h = F(1) / _as_fraction(h)
-    for i in range(10):
-        for j in range(10):
-            P[i][j] = _integrate_penalty(
-                g[i], g[j], det, det, s, inv_h, tolerance, max_depth
-            )
-            C[i][j] = _integrate_consistency(
-                q[i], g[j], det3, det, s, 1, tolerance, max_depth
-            )
+    P = _integrate_penalty_matrix(g, g, det, det, s, inv_h, tolerance, max_depth)
+    C = _integrate_consistency_matrix(q, g, det3, det, s, 1, tolerance, max_depth)
     return P, C
-
 
 def _assemble_interior_facet(nodes_a, nodes_b, points, edge_a, edge_b,
                              h_average, tolerance, max_depth):
@@ -106,34 +107,15 @@ def _assemble_interior_facet(nodes_a, nodes_b, points, edge_a, edge_b,
     qb, gb, db3, db, sb = _edge_ipdg_data(nodes_b, points, edge_b)
     if s != sb:
         raise ValueError("paired cells do not have the same exact facet metric")
-    Paa, Pab, Pbb = _zero_block(), _zero_block(), _zero_block()
-    Caa, Cab, Cba, Cbb = (_zero_block() for _ in range(4))
     inv_h = F(1) / _as_fraction(h_average)
-    half = F(1, 2)
-    for i in range(10):
-        for j in range(10):
-            Paa[i][j] = _integrate_penalty(
-                ga[i], ga[j], da, da, s, inv_h, tolerance, max_depth
-            )
-            Pbb[i][j] = _integrate_penalty(
-                gb[i], gb[j], db, db, s, inv_h, tolerance, max_depth
-            )
-            # The jump is j_A - j_B with the common A-side normal.
-            Pab[i][j] = tuple(-x for x in _integrate_penalty(
-                ga[i], gb[j], da, db, s, inv_h, tolerance, max_depth
-            ))
-            Caa[i][j] = _integrate_consistency(
-                qa[i], ga[j], da3, da, s, half, tolerance, max_depth
-            )
-            Cab[i][j] = _integrate_consistency(
-                qa[i], gb[j], da3, db, s, -half, tolerance, max_depth
-            )
-            Cba[i][j] = _integrate_consistency(
-                qb[i], ga[j], db3, da, s, half, tolerance, max_depth
-            )
-            Cbb[i][j] = _integrate_consistency(
-                qb[i], gb[j], db3, db, s, -half, tolerance, max_depth
-            )
+    Paa = _integrate_penalty_matrix(ga, ga, da, da, s, inv_h, tolerance, max_depth)
+    Pbb = _integrate_penalty_matrix(gb, gb, db, db, s, inv_h, tolerance, max_depth)
+    Pab = _integrate_penalty_matrix(ga, gb, da, db, s, inv_h, tolerance, max_depth)
+    Pab = [[tuple(-x for x in interval) for interval in row] for row in Pab]
+    Caa = _integrate_consistency_matrix(qa, ga, da3, da, s, F(1, 2), tolerance, max_depth)
+    Cab = _integrate_consistency_matrix(qa, gb, da3, db, s, F(-1, 2), tolerance, max_depth)
+    Cba = _integrate_consistency_matrix(qb, ga, db3, da, s, F(1, 2), tolerance, max_depth)
+    Cbb = _integrate_consistency_matrix(qb, gb, db3, db, s, F(-1, 2), tolerance, max_depth)
     return {
         "P_AA": Paa, "P_AB": Pab,
         "P_BA": [[Pab[j][i] for j in range(10)] for i in range(10)],
