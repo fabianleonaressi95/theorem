@@ -280,3 +280,21 @@ def test_neumann_batch_uses_polynomial_tail_bound_before_subdivision():
     assert hi-lo <= F(14, 100)
     assert leaves == 1
     assert depth == 0
+
+
+
+def test_neumann_diagnostic_callback_reports_bounds_and_tail_decisions():
+    events = []
+    result = integrate_rational_triangle_many(
+        [{(1, 0): F(1), (2, 0): F(-1)}],
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(14, 100),
+        max_depth=4,
+        diagnostic_callback=events.append,
+    )
+    assert result[0][2] == 1
+    assert events[0]["stage"] == "triangle_bounds"
+    assert events[0]["numerator_index"] == 1
+    bounds = [event for event in events if event["stage"] == "order_bound"]
+    assert bounds
+    assert all("selected_remainder" in event for event in bounds)

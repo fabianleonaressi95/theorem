@@ -119,6 +119,7 @@ def _area(t):
 def integrate_rational_triangle_many(
     numerators, denominator, *, absolute_tolerance=Fraction(1, 10**8),
     max_depth=12, progress_callback=None, max_triangles=512,
+    diagnostic_callback=None,
 ):
     """Enclose many rational integrals with numerator-specific subdivisions.
 
@@ -205,6 +206,23 @@ def integrate_rational_triangle_many(
         plo, phi = _bernstein_bounds(pp)
         # The Bernstein sup norm bounds |p| even when p changes sign.
         max_abs_numerator = max(abs(plo), abs(phi))
+        if diagnostic_callback:
+            diagnostic_callback({
+                "stage": "triangle_bounds",
+                "numerator_index": index + 1,
+                "depth": depth,
+                "triangle": [[str(v) for v in point] for point in tri],
+                "area": str(area),
+                "q_bernstein_lower": str(qlo),
+                "q_bernstein_upper": str(qhi),
+                "relative_radius": str(relative_radius),
+                "p_bernstein_lower": str(plo),
+                "p_bernstein_upper": str(phi),
+                "p_degree": max((i+j for i, j in pp), default=0),
+                "p_terms": len(pp),
+                "q_degree": max((i+j for i, j in qq), default=0),
+                "q_terms": len(qq),
+            })
         term_poly = pp
         series = Fraction(0)
         certified = False
@@ -223,8 +241,21 @@ def integrate_rational_triangle_many(
             )
             if remainder <= tol*area:
                 certified = True
+                if diagnostic_callback:
+                    diagnostic_callback({
+                        "stage": "order_bound",
+                        "numerator_index": index + 1,
+                        "depth": depth,
+                        "order": order,
+                        "geometric_remainder": str(remainder),
+                        "polynomial_remainder": None,
+                        "selected_remainder": str(remainder),
+                        "accepted": True,
+                        "reason": "geometric_bound",
+                    })
                 break
 
+            geometric_remainder = remainder
             # Sharpen the geometric tail using the actual polynomial
             # p*(q-midpoint)^(order+1), rather than two independent sup norms.
             # Bernstein coefficients enclose this polynomial exactly.
@@ -236,12 +267,36 @@ def integrate_rational_triangle_many(
                 /(midpoint_q**(order+2)*(1-relative_radius))
             )
             remainder = min(remainder, polynomial_remainder)
+            if diagnostic_callback:
+                diagnostic_callback({
+                    "stage": "order_bound",
+                    "numerator_index": index + 1,
+                    "depth": depth,
+                    "order": order,
+                    "geometric_remainder": str(geometric_remainder),
+                    "polynomial_remainder": str(polynomial_remainder),
+                    "selected_remainder": str(remainder),
+                    "residual_polynomial_degree": max((i+j for i, j in next_term_poly), default=0),
+                    "residual_polynomial_terms": len(next_term_poly),
+                    "residual_bernstein_lower": str(rlo),
+                    "residual_bernstein_upper": str(rhi),
+                    "accepted": remainder <= tol*area,
+                    "reason": "polynomial_tail_bound",
+                })
             if remainder <= tol*area:
                 certified = True
                 break
             term_poly = next_term_poly
 
         if not certified:
+            if diagnostic_callback:
+                diagnostic_callback({
+                    "stage": "triangle_split",
+                    "numerator_index": index + 1,
+                    "depth": depth,
+                    "reason": "remainder_exceeds_local_budget",
+                    "local_budget": str(tol*area),
+                })
             if depth >= max_depth:
                 raise ArithmeticError(
                     "rational Neumann enclosure width not reached for numerator "
