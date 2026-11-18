@@ -1,0 +1,118 @@
+# Vesica Piscis, \u221a3, Needham, and the pentagon–hexagon construction
+
+**Record type:** source-and-geometry dossier  
+**Date:** 18 November 2026  
+**Status:** exact Euclidean identities proved; source comparison established; historical/interpretive links kept separate from theorem claims.
+
+## 1. Scope and correction of the Needham reference
+
+The relevant Needham is **Tristan Needham, _Visual Complex Analysis_** (Oxford: Clarendon Press/Oxford University Press, 1997), in the discussion of fractional powers and the geometry of roots of unity (Chapter 2, §VI, pp. 91–95 in the edition previously identified in this research thread). The relevant mathematical object is the equilateral-triangle geometry of the cube roots of a complex number / unity, where the factor \(\sqrt3\) is the height-to-side geometry of a 120-degree configuration.
+
+Do **not** cite Needham's later Möbius/cross-ratio exercises about mapping families of circles to concentric circles as the source of the Vesica Piscis result. That was a mistaken identification in an earlier discussion.
+
+The present dossier makes a precise comparison: Needham's cube-root geometry and the Vesica Piscis share the same equilateral-triangle / third-root-of-unity geometry. It does **not** claim that Needham proves a theorem specifically named “Vesica Piscis”, nor that the construction in Bonilla is taken from Needham.
+
+## 2. Vesica Piscis and the exact \(\sqrt3\) ratio
+
+Let two circles have common radius \(r\), with their centres separated by \(r\). Put the centres at
+\[
+A=(0,0),\qquad B=(r,0).
+\]
+Their intersection points are
+\[
+C=\left(\frac r2,\frac{\sqrt3 r}{2}\right),\qquad
+D=\left(\frac r2,-\frac{\sqrt3 r}{2}\right).
+\]
+Thus the common chord has length
+\[
+CD=\sqrt3\,r,
+\]
+and the centre-axis segment has length \(AB=r\). Therefore
+\[
+\boxed{CD/AB=\sqrt3.}
+\]
+
+The two axes of the lens have lengths \(2r\) (centre-axis direction) and \(\sqrt3r\) (common chord direction). Consequently the long-axis/short-axis ratio is \(2/\sqrt3\), not \(\sqrt3\). These are two distinct ratios and must not be conflated.
+
+A stronger converse is studied by Mauro Maria Baldi: for two intersecting circles, the condition that the cross-shaped pair of segments described in his paper has ratio \(\sqrt3\) characterizes the Vesica Piscis configuration. Baldi gives both a Euclidean and an analytic-geometry proof. The accessible record is a 2020 working-paper/preprint, not to be silently upgraded to a peer-reviewed publication.
+
+## 3. The common equilateral-triangle structure and Needham
+
+Set \(r=1\) and identify the plane with \(\mathbb C\). The Vesica intersection points are
+\[
+C=\frac12+i\frac{\sqrt3}{2}=e^{i\pi/3}=-\omega^2,
+\qquad
+D=\frac12-i\frac{\sqrt3}{2}=e^{-i\pi/3}=-\omega,
+\]
+where
+\[
+\omega=e^{2\pi i/3},\qquad 1+\omega+\omega^2=0.
+\]
+The three points
+\[
+-1,\quad -\omega,\quad -\omega^2
+\]
+are the vertices of an equilateral triangle on the unit circle. The side length is \(\sqrt3\), since
+\[
+|\omega-\omega^2|=\sqrt3.
+\]
+
+This is the exact bridge to Needham's treatment of cube roots: the three cube roots of a nonzero complex number differ by multiplication by \(1,\omega,\omega^2\), hence are equally spaced in argument by \(2\pi/3\). For unit modulus they form an equilateral triangle; its chord length is \(\sqrt3\). The Vesica construction realizes the same triangle in the complex plane, up to an overall sign/rotation.
+
+**Interpretation boundary.** This is a shared geometric realization of the third roots of unity, not evidence that the Vesica itself is a monodromy computation. For the analytic continuation of \(w^3=z\) around the origin, the three branches cycle by multiplication by \(\omega\); that is the monodromy statement. The static Vesica picture alone does not establish analytic continuation or monodromy.
+
+The natural arithmetic setting is the Eisenstein lattice \(\mathbb Z[\omega]\) and the quadratic field \(\mathbb Q(\sqrt{-3})\). This is the triangular/hexagonal side of the dossier.
+
+## 4. Bonilla: Vesica, pentagon, hexagon, and \(\Phi\)
+
+Ibo Bonilla Oconitrillo's web essay, _Relación áurea entre pentágono y hexágono_ (2023 version as indexed on the author's site), explicitly asks whether the regular pentagon and hexagon can be constructed from one another, whether their relation to the golden ratio can be demonstrated, and whether the Vesica Piscis is involved. The essay proposes constructions from the Vesica and extends the discussion to the truncated icosahedron (12 pentagons and 20 hexagons).
+
+The source is useful as a **construction proposal and research lead**, but its broad claims must be checked construction by construction. In particular:
+- the regular pentagon identity \(d/s=\Phi\) is standard and exact;
+- the truncated icosahedron's golden-ratio coordinates are standard once a coordinate model and scale are fixed;
+- the existence of pentagons and hexagons on the same polyhedral surface does not by itself prove a unique planar pentagon–hexagon construction;
+- the claimed “perfect Fibonacci sequence” and universal statements in the essay are not established by the elementary construction alone.
+
+A rigorous, independently documented intermediate construction is given by Sparavigna and Baldi, _A Study of the Regular Pentagon with a Classic Geometric Approach_ (2016), §6, which constructs a regular pentagon from the Vesica Piscis using straightedge and compass. The sixfold circle arrangement / Flower of Life supplies adjacent equal circles whose centres are one radius apart; that adjacent pair is precisely the Vesica starting configuration. This yields the composition:
+\[
+\text{sixfold circle arrangement}
+\longrightarrow \text{adjacent-circle Vesica}
+\longrightarrow \text{regular pentagon}.
+\]
+This is a composition of Euclidean constructions; it does not mean that the cyclic groups \(C_6\) and \(C_5\) are nested or that the pentagon inherits sixfold symmetry.
+
+## 5. Algebraic comparison: triangular and pentagonal fields
+
+The two sides have different arithmetic:
+- Vesica / equilateral triangle / hexagonal lattice: \(\omega^3=1\), \(\omega\ne1\), \(\mathbb Q(\sqrt{-3})\), Eisenstein integers.
+- Regular pentagon / golden ratio: \(\Phi^2-\Phi-1=0\), \(\mathbb Q(\sqrt5)\), fifth roots of unity and their real subfield.
+
+The link is therefore not an equality between \(\sqrt3\) and \(\Phi\), nor a direct field identification. It is a geometric construction chain that begins in the triangular/hexagonal setting and constructs a pentagonal object whose metric introduces \(\Phi\). The two quadratic fields remain distinct:
+\[
+\mathbb Q(\sqrt{-3})\ne\mathbb Q(\sqrt5).
+\]
+
+## 6. Status register
+
+| Item | Statement | Status |
+|---|---|---|
+| V1 | For equal circles with centre separation \(r\), the common chord is \(\sqrt3r\). | Proved |
+| V2 | The Vesica intersection points and the third roots of unity form the same equilateral-triangle configuration up to rotation/sign. | Proved |
+| N1 | Needham's cube-root discussion supplies the roots-of-unity geometry used in the comparison. | Source identified; page-level citation should be checked against the user's edition before quoting |
+| B1 | The Vesica can be used in a straightedge-and-compass construction of a regular pentagon. | Published construction; independently checkable |
+| B2 | A sixfold circle arrangement contains adjacent-circle pairs defining a Vesica. | Proved from the arrangement's defining geometry |
+| B3 | The chain sixfold arrangement → Vesica → pentagon is a composition of constructions. | Proved as a composition |
+| B4 | Every broader claim in Bonilla's essay (including the “perfect Fibonacci sequence” and universal natural-law conclusions) follows from these constructions. | Not established |
+| H1 | A deeper unified arithmetic/dynamical structure between \(\mathbb Q(\sqrt{-3})\) and \(\mathbb Q(\sqrt5)\) is present. | Open question; no field equivalence asserted |
+
+## 7. Bibliography and primary links
+
+1. Tristan Needham, _Visual Complex Analysis_, Oxford: Clarendon Press, 1997, Chapter 2, §VI, discussion of fractional powers / cube roots and roots of unity (pp. 91–95 in the edition previously identified). Verify pagination against the edition used before a verbatim quotation.
+2. Mauro Maria Baldi, “On a property of the Vesica Piscis” (working paper, 2020), DOI: [10.5281/zenodo.4273133](https://doi.org/10.5281/zenodo.4273133); institutional record: [University of Milano-Bicocca repository](https://u-pad.unimc.it/handle/11393/324790).
+3. Ibo Bonilla Oconitrillo, “Relación áurea entre pentágono y hexágono”, [author's page](https://iboenweb.com/ibo/docs/relacion_aurea_pentagono_hexagono_phi.html).
+4. A. C. Sparavigna and M. M. Baldi, “A Study of the Regular Pentagon with a Classic Geometric Approach” (2016), §6, straightedge-and-compass construction from the Vesica Piscis.
+5. A. C. Sparavigna and M. M. Baldi, “Flower of Life, Six-Fold Symmetry and Honeycomb Packing of Circles in the Mycenaean Geometry” (2016), for the sixfold circle arrangement and its relation to adjacent-circle geometry.
+
+## 8. Editorial rule for future use
+
+When citing this chain, cite Needham for the complex roots-of-unity / cube-root geometry; cite Baldi for the converse characterization of the Vesica via the \(\sqrt3\) cross-ratio; cite Bonilla for the proposed pentagon–hexagon synthesis; and cite Sparavigna–Baldi for the independently documented geometric constructions. Do not attribute Baldi's theorem to Needham, and do not state that Needham directly proves the Vesica Piscis theorem.
