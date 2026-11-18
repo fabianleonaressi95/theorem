@@ -97,6 +97,43 @@ def multiscale_objective(vertices, scales, kind, sigma_rel, order, steps):
     return float(np.mean(values))
 
 
+def precompute_selection_q(pool_vertices):
+    """Compute low-fidelity volume ratios once per candidate and scale."""
+    q_table = np.empty((len(pool_vertices), len(SELECTION_SCALES)))
+    for i, vertices in enumerate(pool_vertices):
+        volume0 = abs(np.linalg.det(vertices[1:] - vertices[0])) / 6.0
+        for j, scale in enumerate(SELECTION_SCALES):
+            volume = geodesic_tetrahedron_volume(
+                vertices, scale, order=SELECTION_QUADRATURE_ORDER,
+                steps=SELECTION_RK4_STEPS
+            )
+            q_table[i, j] = volume / (scale**3 * volume0)
+    return q_table
+
+
+def cached_subset_objective(indices, kind, pool_matrix, q_table):
+    """Exact-subset objective evaluated from cached per-probe observations."""
+    A = pool_matrix[np.asarray(indices)]
+    if np.linalg.matrix_rank(A) < 6:
+        return float("inf")
+    L = reconstruction_map(A)
+    total = []
+    for j, scale in enumerate(SELECTION_SCALES):
+        q = q_table[np.asarray(indices), j]
+        y = -6.0 * (q - 1.0) / scale**2
+        cov_y_diag = (6.0 * SIGMA_REL * q / scale**2)**2
+        covariance_R = (L * cov_y_diag[None, :]) @ L.T
+        variance = float(np.trace(TENSOR_METRIC @ covariance_R))
+        if kind == "A":
+            total.append(variance)
+        elif kind == "risk":
+            bias = L @ y - target_ricci_vector()
+            total.append(float(bias @ TENSOR_METRIC @ bias) + variance)
+        else:
+            raise ValueError(f"unknown objective: {kind}")
+    return float(np.mean(total))
+
+
 def greedy_exact_augmentation(pool_vertices, initial_indices, count, objective):
     """Greedily augment a full-rank seed to an exact count of physical probes."""
     selected = list(initial_indices)
@@ -104,11 +141,8 @@ def greedy_exact_augmentation(pool_vertices, initial_indices, count, objective):
     while len(selected) < count:
         best_index, best_value = None, float("inf")
         for index in sorted(available):
-            trial = pool_vertices[selected + [index]]
-            A = np.asarray([moment_row(v) for v in trial])
-            if np.linalg.matrix_rank(A) < 6:
-                continue
-            value = objective(trial)
+            trial_indices = selected + [index]
+            value = objective(trial_indices)
             if value < best_value:
                 best_index, best_value = index, value
         if best_index is None:
@@ -184,30 +218,19 @@ def run_audit():
     d12 = greedy_d_optimal_design(pool_matrix, count=PROBE_COUNT)
     d6 = d12[:6]
 
-    # Cache low-fidelity q indirectly through a local objective cache. This
-    # fidelity is used only for design selection; all reported risks are
-    # recomputed with the higher evaluation resolution below.
-    q_cache = {}
-    def cached_objective(vertices, kind):
-        key = tuple(sorted(
-            next(i for i, candidate in enumerate(pool_vertices)
-                 if np.array_equal(candidate, v))
-            for v in vertices
-        ))
-        if key not in q_cache:
-            q_cache[key] = multiscale_objective(
-                vertices, SELECTION_SCALES, kind, SIGMA_REL,
-                SELECTION_QUADRATURE_ORDER, SELECTION_RK4_STEPS
-            )
-        return q_cache[key]
-
+    # Selection uses a fixed low-fidelity table, computed once per candidate.
+    # Final reported risks are recomputed at the higher evaluation resolution.
+    q_table = precompute_selection_q(pool_vertices)
+    objective = lambda ids, kind: cached_subset_objective(
+        ids, kind, pool_matrix, q_table
+    )
     a12 = greedy_exact_augmentation(
         pool_vertices, d6, PROBE_COUNT,
-        lambda v: cached_objective(v, "A"),
+        lambda ids: objective(ids, "A"),
     )
     r12 = greedy_exact_augmentation(
         pool_vertices, d6, PROBE_COUNT,
-        lambda v: cached_objective(v, "risk"),
+        lambda ids: objective(ids, "risk"),
     )
 
     designs = {
