@@ -11,6 +11,7 @@ from __future__ import annotations
 from fractions import Fraction
 from functools import lru_cache
 from math import factorial
+from time import perf_counter
 from typing import Mapping
 
 Poly = Mapping[tuple[int, int], Fraction]
@@ -180,8 +181,29 @@ def integrate_rational_triangle_many(
                 "integration_max_depth": used[index],
             })
 
+        stage_started = perf_counter()
         qq = _compose_on_triangle(q, tri)
+        compose_q_seconds = perf_counter() - stage_started
+        if diagnostic_callback:
+            diagnostic_callback({
+                "stage": "timing", "operation": "compose_denominator",
+                "numerator_index": index + 1, "depth": depth,
+                "elapsed_seconds": compose_q_seconds,
+                "polynomial_degree": max((i+j for i, j in qq), default=0),
+                "polynomial_terms": len(qq),
+            })
+        stage_started = perf_counter()
         qlo, qhi = _bernstein_bounds(qq)
+        if diagnostic_callback:
+            diagnostic_callback({
+                "stage": "timing", "operation": "bernstein_denominator_bounds",
+                "numerator_index": index + 1, "depth": depth,
+                "elapsed_seconds": perf_counter() - stage_started,
+                "lower_numerator_bits": abs(qlo.numerator).bit_length(),
+                "lower_denominator_bits": qlo.denominator.bit_length(),
+                "upper_numerator_bits": abs(qhi.numerator).bit_length(),
+                "upper_denominator_bits": qhi.denominator.bit_length(),
+            })
         negate = qhi < 0
         if negate:
             qq = _scale(qq, -1)
@@ -196,14 +218,34 @@ def integrate_rational_triangle_many(
             stack.extend((child, depth+1, index) for child in _split4(tri))
             continue
 
+        stage_started = perf_counter()
         pp = _compose_on_triangle(ps[index], tri)
         if negate:
             pp = _scale(pp, -1)
+        if diagnostic_callback:
+            diagnostic_callback({
+                "stage": "timing", "operation": "compose_numerator",
+                "numerator_index": index + 1, "depth": depth,
+                "elapsed_seconds": perf_counter() - stage_started,
+                "polynomial_degree": max((i+j for i, j in pp), default=0),
+                "polynomial_terms": len(pp),
+            })
         area = _area(tri)
         midpoint_q = (qlo+qhi)/2
         relative_radius = (qhi-qlo)/(qhi+qlo)
         delta_q = _add(qq, {(0, 0): -midpoint_q})
+        stage_started = perf_counter()
         plo, phi = _bernstein_bounds(pp)
+        if diagnostic_callback:
+            diagnostic_callback({
+                "stage": "timing", "operation": "bernstein_numerator_bounds",
+                "numerator_index": index + 1, "depth": depth,
+                "elapsed_seconds": perf_counter() - stage_started,
+                "lower_numerator_bits": abs(plo.numerator).bit_length(),
+                "lower_denominator_bits": plo.denominator.bit_length(),
+                "upper_numerator_bits": abs(phi.numerator).bit_length(),
+                "upper_denominator_bits": phi.denominator.bit_length(),
+            })
         # The Bernstein sup norm bounds |p| even when p changes sign.
         max_abs_numerator = max(abs(plo), abs(phi))
         if diagnostic_callback:
@@ -227,12 +269,14 @@ def integrate_rational_triangle_many(
         series = Fraction(0)
         certified = False
         for order in range(3):
+            stage_started = perf_counter()
             term_ref = sum(
                 (coefficient * Fraction(factorial(i)*factorial(j),
                                         factorial(i+j+2))
                  for (i, j), coefficient in term_poly.items()),
                 Fraction(0),
             )
+            moment_seconds = perf_counter() - stage_started
             term_integral = 2*area*term_ref
             series += ((-1)**order)*term_integral/(midpoint_q**(order+1))
             remainder = (
@@ -259,8 +303,12 @@ def integrate_rational_triangle_many(
             # Sharpen the geometric tail using the actual polynomial
             # p*(q-midpoint)^(order+1), rather than two independent sup norms.
             # Bernstein coefficients enclose this polynomial exactly.
+            stage_started = perf_counter()
             next_term_poly = _mul(term_poly, delta_q)
+            residual_multiply_seconds = perf_counter() - stage_started
+            stage_started = perf_counter()
             rlo, rhi = _bernstein_bounds(next_term_poly)
+            residual_bernstein_seconds = perf_counter() - stage_started
             residual_sup = max(abs(rlo), abs(rhi))
             polynomial_remainder = (
                 area * residual_sup
@@ -282,6 +330,9 @@ def integrate_rational_triangle_many(
                     "residual_bernstein_upper": str(rhi),
                     "accepted": remainder <= tol*area,
                     "reason": "polynomial_tail_bound",
+                    "moment_seconds": moment_seconds,
+                    "residual_multiply_seconds": residual_multiply_seconds,
+                    "residual_bernstein_seconds": residual_bernstein_seconds,
                 })
             if remainder <= tol*area:
                 certified = True
