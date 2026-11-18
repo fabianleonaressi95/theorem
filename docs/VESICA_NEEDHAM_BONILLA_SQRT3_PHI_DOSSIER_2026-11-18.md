@@ -206,3 +206,142 @@ The full fifteenth cyclotomic field is \(\mathbb Q(\zeta_3,\zeta_5)\); \(K\) is 
 ## 9. Editorial rule for future use
 
 When citing this chain, cite Needham for the complex roots-of-unity / cube-root geometry; cite Baldi for the converse characterization of the Vesica via the \(\sqrt3\) cross-ratio; cite Williams and Lemmermeyer for cubic reciprocity and its supplementary law; cite Bonilla for the proposed pentagon–hexagon synthesis; and cite Sparavigna–Baldi for the independently documented geometric constructions. Cite the cyclotomic identity for \(\Phi\) separately from the geometric construction. Do not attribute Baldi's theorem to Needham, do not state that Needham directly proves the Vesica Piscis theorem, and do not present the compositum field as a new reciprocity theorem.
+
+
+## 10. Integral Galois action and its trace metric
+
+This section makes the biquadratic field in §6.3 explicit as a rank-four integral Galois module. It also records the invariance of the natural trace form. In this particular extension the trace form is already invariant under the full Galois group; averaging over the group is unnecessary.
+
+Let
+\[
+K=\mathbb Q(\alpha,\beta),\qquad \alpha=\sqrt{-3},\quad \beta=\sqrt5,
+\]
+and put
+\[
+e_1=1,\quad e_2=\frac{1+\beta}{2},\quad
+e_3=\frac{1+\alpha}{2},\quad e_4=e_2e_3.
+\]
+Since the fundamental discriminants \(-3\) and \(5\) are coprime, these elements form an integral basis:
+\[
+\mathcal O_K=\mathbb Z[e_2,e_3]
+=\mathbb Z e_1\oplus\mathbb Z e_2\oplus\mathbb Z e_3\oplus\mathbb Z e_4.
+\]
+The absolute field discriminant is
+\[
+|\operatorname{disc}(K)|=(-3)\cdot5\cdot(-15)=225.
+\]
+
+Write \(G=\operatorname{Gal}(K/\mathbb Q)=\langle\sigma_\alpha,\sigma_\beta\rangle\cong C_2\times C_2\), where \(\sigma_\alpha\) changes the sign of \(\alpha\) and fixes \(\beta\), while \(\sigma_\beta\) changes the sign of \(\beta\) and fixes \(\alpha\). Their actions on the integral basis are
+\[
+\begin{aligned}
+&\sigma_\alpha(e_1)=e_1,\quad \sigma_\alpha(e_2)=e_2,\quad
+\sigma_\alpha(e_3)=e_1-e_3,\quad
+\sigma_\alpha(e_4)=e_2-e_4,\\
+&\sigma_\beta(e_1)=e_1,\quad \sigma_\beta(e_2)=e_1-e_2,\quad
+\sigma_\beta(e_3)=e_3,\quad
+\sigma_\beta(e_4)=e_3-e_4.
+\end{aligned}
+\]
+With column-coordinate vectors in the ordered basis \((e_1,e_2,e_3,e_4)\), the corresponding integral matrices are
+\[
+S_\alpha=
+\begin{pmatrix}
+1&0&1&0\\0&1&0&1\\0&0&-1&0\\0&0&0&-1
+\end{pmatrix},\qquad
+S_\beta=
+\begin{pmatrix}
+1&1&0&0\\0&-1&0&0\\0&0&1&1\\0&0&0&-1
+\end{pmatrix}.
+\]
+They satisfy
+\[
+S_\alpha^2=S_\beta^2=I,\qquad
+S_\alpha S_\beta=S_\beta S_\alpha.
+\]
+
+### 10.1 The trace form is invariant under all of \(G\)
+
+Complex conjugation on this field is precisely \(c=\sigma_\alpha\). Since \(G\) is abelian, every \(\sigma\in G\) commutes with \(c\). Define
+\[
+\langle x,y\rangle_K
+=\operatorname{Tr}_{K/\mathbb Q}(x\overline y).
+\]
+Then, for every \(\sigma\in G\),
+\[
+\begin{aligned}
+\langle\sigma x,\sigma y\rangle_K
+&=\operatorname{Tr}_{K/\mathbb Q}
+  (\sigma(x)\overline{\sigma(y)})\\
+&=\operatorname{Tr}_{K/\mathbb Q}
+  (\sigma(x)\sigma(\overline y))\\
+&=\operatorname{Tr}_{K/\mathbb Q}(\sigma(x\overline y))\\
+&=\operatorname{Tr}_{K/\mathbb Q}(x\overline y)
+=\langle x,y\rangle_K.
+\end{aligned}
+\]
+The last equality is invariance of the field trace under Galois automorphisms. Thus the original trace form—not merely a group-averaged replacement—is positive definite and \(G\)-invariant in this biquadratic, abelian case.
+
+In the chosen integral basis its Gram matrix is
+\[
+H=(\operatorname{Tr}(e_i\overline{e_j}))_{i,j}
+=
+\begin{pmatrix}
+4&2&2&1\\
+2&6&1&3\\
+2&1&4&2\\
+1&3&2&6
+\end{pmatrix},
+\qquad \det H=225.
+\]
+In particular,
+\[
+S_\alpha^{\mathsf T}HS_\alpha=H,
+\qquad
+S_\beta^{\mathsf T}HS_\beta=H.
+\]
+The matrices need not be symmetric in the chosen coordinate basis: they are orthogonal, and hence self-adjoint as involutions, with respect to the inner product represented by \(H\).
+
+**Scope warning.** The argument uses the fact that complex conjugation is central in \(G\), here because \(G\) is abelian. For a general non-abelian Galois extension, the same trace form need not be invariant under the whole Galois group. Group averaging can produce an invariant positive-definite form in a finite-group representation, but it is not needed here and is not the original trace form.
+
+### 10.2 The Galois operator and its spectrum
+
+Define the sum operator and the associated Cayley-graph Laplacian on the four-dimensional rational representation:
+\[
+A_G=S_\alpha+S_\beta
+=
+\begin{pmatrix}
+2&1&1&0\\
+0&0&0&1\\
+0&0&0&1\\
+0&0&0&-2
+\end{pmatrix},
+\qquad
+L_G=2I-S_\alpha-S_\beta.
+\]
+The eigenvalues are
+\[
+\operatorname{Spec}(A_G)=\{-2,0,0,2\},\qquad
+\operatorname{Spec}(L_G)=\{0,2,2,4\},
+\]
+with multiplicities \(1,2,1\) for the Laplacian. This follows directly from the four characters of \(C_2\times C_2\): on a character with values \((\varepsilon,\delta)\in\{\pm1\}^2\), the operators act by \(\varepsilon+\delta\) and \(2-\varepsilon-\delta\), respectively.
+
+The character projectors are
+\[
+P_{\varepsilon,\delta}
+=\frac14(I+\varepsilon S_\alpha)(I+\delta S_\beta),
+\qquad \varepsilon,\delta\in\{\pm1\}.
+\]
+Each has rank one over \(\mathbb Q\).
+
+**Interpretation boundary.** The spectrum \(\{0,2,2,4\}\) is exact, but is forced by the Cayley graph / regular representation of \(C_2\times C_2\). It is not, by itself, a new spectral law or a derived physical spectrum. The operator acts on the rank-four lattice module (equivalently, the regular representation), not on the set of all points of the infinite lattice \(\mathcal O_K\).
+
+### 10.3 Status
+
+| Item | Statement | Status |
+|---|---|---|
+| G1 | The displayed four elements form an integral basis of \(\mathcal O_K\); \(|\operatorname{disc}(K)|=225\). | Exact algebraic-number-theory result |
+| G2 | The two displayed matrices give the integral action of \(C_2\times C_2\) on \(\mathcal O_K\). | Exact; directly checkable |
+| G3 | The form \(\operatorname{Tr}(x\overline y)\) is positive definite and invariant under all of \(G\). | Proved; uses centrality of complex conjugation |
+| G4 | The Gram matrix is \(H\) as displayed, with determinant 225. | Exact computation |
+| G5 | The Cayley Laplacian has spectrum \(0,2,2,4\). | Exact; representation-theoretic |
+| G6 | A nontrivial new spectral relation linking this Galois module to Vesica/pentagon geometry or to a physical operator exists. | Open; not established by G1–G5 |
