@@ -49,7 +49,7 @@ def run_audit():
     selected = greedy_d_optimal_design(pool, count=12)
     design = pool[selected]
     singular = np.linalg.svd(design, compute_uv=False)
-    baseline = np.linalg.cond(pool[:6])
+    baseline_rng = np.random.default_rng(136)\n    baseline_rows = []\n    while len(baseline_rows) < 6:\n        vertices = baseline_rng.normal(size=(4, 3))\n        volume = abs(np.linalg.det(vertices[1:] - vertices[0])) / 6.0\n        if volume >= 0.02:\n            baseline_rows.append(moment_row(vertices))\n    baseline = np.linalg.cond(np.asarray(baseline_rows))
     condition = float(singular[0] / singular[-1])
     return {
         "audit": "T136 deterministic D-optimal tetrahedral moment design",
