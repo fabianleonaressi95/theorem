@@ -125,10 +125,15 @@ def main():
                 stream.write(line + "\n")
             print("DIAGNOSTIC " + line, flush=True)
         def progress(event):
-            if event.get("integration_numerator_index") in (None, args.diagnostic_entry):
+            if event.get("integration_numerator_index") in (None, 1):
+                if event.get("integration_numerator_index") == 1:
+                    event = {**event, "integration_numerator_index": args.diagnostic_entry,
+                             "integration_numerator_total": 55}
                 emit({"stage": "progress", **event})
         def timing(event):
-            if event.get("numerator_index") in (None, args.diagnostic_entry):
+            if event.get("numerator_index") in (None, 1):
+                if event.get("numerator_index") == 1:
+                    event = {**event, "numerator_index": args.diagnostic_entry}
                 emit(event)
         metadata = {
             "mesh_parameters": {"radius": 1.0, "core_radius": 0.12,
@@ -152,7 +157,8 @@ def main():
             local = assemble_cell_volume_interval(
                 cell_nodes, points, absolute_tolerance=tolerance,
                 max_depth=args.max_depth, progress_callback=progress,
-                diagnostic_callback=timing, integration_method="neumann",
+                diagnostic_callback=timing, diagnostic_entry=args.diagnostic_entry,
+                integration_method="neumann",
             )
             pairs = [(i, j) for i in range(10) for j in range(i, 10)]
             i, j = pairs[args.diagnostic_entry - 1]
