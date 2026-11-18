@@ -195,6 +195,11 @@ def monte_carlo_check(designs, scales, pool_size, sigma_rel, replicas, seed):
             noise_y = (-6.0 * q / scale**2)[:, None] * eps[np.asarray(indices)]
             estimates = L @ (clean_y[:, None] + noise_y)
             errors = estimates - target_ricci_vector()[:, None]
+            noise_errors = estimates - (L @ clean_y)[:, None]
+            centered_noise = noise_errors - np.mean(noise_errors, axis=1, keepdims=True)
+            outer = np.einsum("ir,jr->rij", centered_noise, centered_noise)
+            covariance_mc = np.mean(outer, axis=0)
+            covariance_mc_se = np.std(outer, axis=0, ddof=1) / np.sqrt(replicas)
             squared = np.einsum(
                 "ir,ij,jr->r", errors, TENSOR_METRIC, errors
             )
@@ -204,6 +209,8 @@ def monte_carlo_check(designs, scales, pool_size, sigma_rel, replicas, seed):
                 "monte_carlo_standard_error": float(
                     np.std(squared, ddof=1) / np.sqrt(replicas)
                 ),
+                "monte_carlo_covariance_R": covariance_mc.tolist(),
+                "monte_carlo_covariance_entry_standard_errors": covariance_mc_se.tolist(),
             })
         output[name] = per_scale
     return output
