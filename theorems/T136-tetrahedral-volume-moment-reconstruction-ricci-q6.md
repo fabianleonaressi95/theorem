@@ -209,3 +209,95 @@ At the smallest scale the recovered components $(xx,yy,zz,xy,xz,yz)$ are approxi
 0.11990109,\;-0.08030948,\;0.09034038).
 \]
 All three off-diagonal entries are nonzero and are recovered with decreasing error. The normalized errors exhibit the expected special quadratic scaling for this even quadratic local metric. This closes the finite manufactured anisotropic check, but does not prove stability for arbitrary metrics, arbitrary tetrahedral families, or noisy nonlinear measurements.
+
+
+## 11. Non-quadratic smooth-metric audit through the exponential map
+
+A third audit removes the special quadratic-density simplification. The physical-coordinate metric is the smooth conformal metric
+\[
+g=e^{2f(x)}\delta,\qquad
+f(x)=\frac12x^THx+\frac16C_{ijk}x^ix^jx^k,
+\]
+where $C$ is a nonzero fully symmetric cubic tensor. At the origin $df(0)=0$, and in dimension three
+\[
+\operatorname{Ric}(0)=-H-(\operatorname{tr}H)I.
+\]
+The Hessian $H$ is chosen so that the exact Ricci tensor is the same non-diagonal tensor used in Section 10. Since the cubic jet is nonzero, $\nabla\operatorname{Ric}(0)$ is generically nonzero.
+
+Unlike the previous local quadratic model, the tetrahedra are mapped by the numerical Riemannian exponential map of this smooth metric. The code integrates the geodesic equation together with its variational equation for $D\exp_p$, then integrates the pulled-back density
+\[
+e^{3f(\exp_p(v))}\det(D\exp_p(v)).
+\]
+Thus the test includes the actual exponential-map Jacobian, rather than assuming the quadratic normal-coordinate density.
+
+For the same six-tetrahedron design (moment rank 6, condition number $18.6872362$), the reconstruction errors at $r=(0.06,0.045,0.03375,0.0253125)$ are approximately
+\[
+(1.14047\times10^{-1},\;8.56246\times10^{-2},\;
+6.42684\times10^{-2},\;4.82292\times10^{-2}).
+\]
+Successive ratios are approximately $(0.7508,0.7506,0.7504)$, consistent with the generic first-order $O(r)$ normalized truncation error. At the smallest scale the recovered components $(xx,yy,zz,xy,xz,yz)$ are approximately
+\[
+(0.791948,\;0.529949,\;0.270948,\;0.102696,\;-0.092190,\;0.098500).
+\]
+The error is larger than in the quadratic tests because the cubic jet contributes at first order to the normalized measurement; this is expected and is not evidence of a failed expansion.
+
+**Noise/scale trade-off.** A fixed deterministic relative perturbation of $10^{-9}$ in each of the six volume measurements changes the reconstructed Ricci tensor by approximately
+\[
+(2.7251\times10^{-5},\;4.8452\times10^{-5},\;
+8.6142\times10^{-5},\;1.5315\times10^{-4})
+\]
+over the same decreasing scales. The successive amplification factors are approximately $1.778$, consistent with the $r^{-2}$ factor in the normalized observable. This exposes the expected bias/noise trade-off: reducing $r$ decreases truncation bias but amplifies fixed relative volume noise.
+
+A quadrature/integrator cross-check at $r=0.06$ changes the reconstructed six-vector by less than $2.1\times10^{-11}$ when increasing the Duffy quadrature order from 7 to 9 and the RK4 geodesic integration from 80 to 120 steps, respectively. This is a numerical resolution check for this example, not a rigorous error bound.
+
+**Classification:** finite manufactured smooth-metric numerical verification, including nonzero cubic jet, off-diagonal Ricci, exponential-map Jacobian, and deterministic noise propagation. It is not a general stability theorem, an optimal scale-selection rule, a Regge convergence result, or a Q6 continuum limit.
+
+
+## 12. D-optimal design of the tetrahedral probes
+
+The noise study makes the conditioning of the moment matrix an operational issue, not merely a formal rank condition. A deterministic sequential D-optimal search was therefore added. It generates 4,000 candidate tetrahedra (fixed seed 1362026) and selects 12 probes by maximizing the incremental information determinant using the matrix determinant lemma.
+
+For the selected 12-probe design:
+- rank is 6;
+- singular values are approximately
+\[
+(8.77639,7.64796,6.41882,6.15753,4.75081,4.03306);
+\]
+- the 2-norm condition number is approximately $2.17611$.
+
+The original six-probe design used in Sections 9–11 has condition number $18.68724$. The selected overdetermined design therefore reduces the condition number by a factor of approximately $8.59$ in this deterministic candidate pool.
+
+This is a design-of-experiments result for one fixed candidate distribution and seed. It does not prove global optimality over all tetrahedra, and it does not eliminate the $r^{-2}$ amplification of fixed relative volume noise in the normalized observable. It does improve the linear inverse problem's conditioning and supplies redundancy for residual diagnostics.
+
+**Next mathematical gate:** test the optimized 12-probe family on the non-quadratic conformal metric, comparing six-probe and twelve-probe reconstructions under identical volume perturbations. Only after that comparison should a scale-selection rule be proposed.
+
+
+## 13. Six-probe versus twelve-probe reconstruction on the non-quadratic metric
+
+The D-optimal design was tested on the same smooth non-quadratic conformal metric of Section 11, using the same geodesic-volume integration and the same scale sequence. The comparison uses the original six tetrahedra and the selected 12-probe family. Both designs have rank 6; their condition numbers are $18.68724$ and $2.17611$, respectively.
+
+At $r=(0.06,0.045,0.03375,0.0253125)$, the six-probe versus twelve-probe truncation errors are approximately
+\[
+\begin{array}{c|cc}
+r&6\text{ probes}&12\text{ probes}\\
+0.06&0.114047&0.017525\\
+0.045&0.085625&0.013100\\
+0.03375&0.064268&0.009802\\
+0.0253125&0.048229&0.007339
+\end{array}
+\]
+The 12-probe design reduces the reconstruction bias by factors between $6.51$ and $6.57$ in this test.
+
+With deterministic relative volume perturbations of amplitude $10^{-9}$, the change in the reconstructed Ricci tensor is:
+\[
+\begin{array}{c|cc}
+r&6\text{ probes}&12\text{ probes}\\
+0.06&2.7251\times10^{-5}&5.2502\times10^{-7}\\
+0.045&4.8452\times10^{-5}&9.3390\times10^{-7}\\
+0.03375&8.6142\times10^{-5}&1.6608\times10^{-6}\\
+0.0253125&1.5315\times10^{-4}&2.9531\times10^{-6}
+\end{array}
+\]
+The noise-induced change is smaller by a factor of approximately $51.9$ for the 12-probe design. The first six noise variates are held fixed between designs; the overdetermined design has six additional independent perturbations.
+
+This finite test shows that an overdetermined, well-conditioned moment design can substantially reduce both reconstruction bias and sensitivity to this particular noise realization. It does not remove the scale-dependent $r^{-2}$ amplification, establish a uniform statistical bound, or prove that this D-optimal design is optimal for other metrics or measurement distributions.
