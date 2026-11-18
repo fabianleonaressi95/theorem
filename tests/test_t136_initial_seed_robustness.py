@@ -3,6 +3,11 @@ import unittest
 import numpy as np
 
 from audits.t136_initial_seed_robustness import (\n    a_optimal_six_seed, random_full_rank_seeds,\n)\nfrom audits import t136_exact_design_comparison as base
+from audits import t136_exact_design_comparison as base
+from audits.t136_initial_seed_robustness import (
+    a_optimal_six_seed,
+    random_full_rank_seeds,
+)
 
 
 class T136InitialSeedRobustnessTests(unittest.TestCase):
@@ -35,6 +40,11 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
         self.assertLessEqual(
             objective(selected),
             min(objective(ids) for ids in [d_seed] + random_seeds) + 1e-25,
+        selected_objective = objective(selected)
+        tolerance = 1.0e-12 * max(abs(selected_objective), 1.0e-30)
+        self.assertLessEqual(
+            selected_objective,
+            min(objective(ids) for ids in [d_seed] + random_seeds) + tolerance,
         )
         selected_set = set(selected)
         for slot in range(6):
@@ -46,6 +56,7 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
                 if np.linalg.matrix_rank(pool[trial]) == 6:
                     self.assertGreaterEqual(
                         objective(trial), objective(selected) - 1e-25
+                        objective(trial), selected_objective - tolerance
                     )
 
     def test_seed_generation_is_reproducible(self):

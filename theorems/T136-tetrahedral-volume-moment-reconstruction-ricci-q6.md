@@ -450,7 +450,8 @@ The focused GitHub Actions run completed successfully (4 focused tests passed; 2
 
 All three exact 12-probe designs attained their validation-grid minimum at (r=0.0028664703):
 
-| Exact 12-probe design | Moment condition number | Bias squared | Weighted covariance trace | Total risk squared | (ho=|B|_W/|N|_{L^2(W)}) | RMSE |
+| Exact 12-probe design | Moment condition number | Bias squared | Weighted covariance trace | Total risk squared | (
+ho=|B|_W/|N|_{L^2(W)}) | RMSE |
 |---|---:|---:|---:|---:|---:|---:|
 | D-optimal | 2.8854 | (1.37998\times10^{-6}) | (4.09511\times10^{-7}) | (1.78949\times10^{-6}) | 1.8357 | (1.33772\times10^{-3}) |
 | A-optimal | 2.9804 | (1.28852\times10^{-6}) | (4.01871\times10^{-7}) | (1.69040\times10^{-6}) | 1.7906 | (1.30015\times10^{-3}) |
@@ -512,3 +513,64 @@ The audit reports, separately for A and risk augmentation, the D-seed result, th
 **Evidence boundary:** this is a finite sensitivity experiment with three fixed pools and four random full-rank starts per pool. The random starts are not optimized A-seeds, and the experiment does not establish a distribution-free robustness guarantee or global combinatorial optimality. Numerical results are intentionally not stated until the focused workflow has completed and its artifact has been inspected.
 
 Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py); tests: [tests/test_t136_initial_seed_robustness.py](../tests/test_t136_initial_seed_robustness.py); workflow: [.github/workflows/t136-initial-seed-robustness.yml](../.github/workflows/t136-initial-seed-robustness.yml).
+### 17.1. Executed initial-seed sensitivity results
+
+The focused workflow completed successfully: [run 44334797224](https://github.com/fabianleonaressi95/theorem/actions/runs/44334797224). Both focused regression tests passed, the full numerical audit completed, and the JSON artifact `t136-initial-seed-robustness` was uploaded (artifact ID 14442120122). The experiment evaluated 30 completed designs: three pools, five initializations per pool (one D-optimal and four random), and two augmentation criteria (A and tensor-risk), with 2,000 Monte Carlo replicas per design.
+
+The following values are validation-grid total squared Frobenius risks, in units of (10^{-6}). “Random min / median / max” summarizes the four random starts, not the D-optimal start.
+
+| Candidate pool (128) | Criterion | D-seed risk | Random min | Random median | Random max | Random starts beating D |
+|---|---|---:|---:|---:|---:|---:|
+| A | A | 1.6904 | 3.5863 | 4.1093 | 6.4861 | 0/4 |
+| A | Risk | 1.3495 | 2.6147 | 2.6880 | 2.8920 | 0/4 |
+| B | A | 2.3793 | 2.8422 | 4.3320 | 5.5390 | 0/4 |
+| B | Risk | 1.4251 | 1.3585 | 1.7297 | 2.7170 | 1/4 |
+| C | A | 1.7506 | 1.5089 | 2.4385 | 2.8772 | 1/4 |
+| C | Risk | 1.0216 | 1.4578 | 2.3543 | 3.5279 | 0/4 |
+
+Across all 12 random starts per criterion, one random initialization beat the D-seed result for A-augmentation (1/12) and one for risk-augmentation (1/12). For A, the random/D-seed risk ratio ranged from 0.862 to 3.837 (median 1.821); for risk, it ranged from 0.953 to 3.453 (median 1.922). Thus the D-optimal seed was usually advantageous in this finite experiment, but it was not uniformly best. In particular, pool B contains a random risk-start with a slightly lower validation risk than the D-seed (1.3585 versus 1.4251, in units of (10^{-6})); pool C contains a random A-start with lower risk than the D-seed (1.5089 versus 1.7506).
+
+All 30 completed designs had moment rank 6. The selected validation-grid minimizing scale varied among the tested grid values (0.002403, 0.002866, 0.003419, and 0.004078); this reinforces that the minimizing scale is design-dependent in this manufactured example. The Monte Carlo mean squared errors tracked the analytic risk: the absolute relative discrepancy was at most 2.65% across the 30 cases (mean absolute discrepancy 0.81%). This is a consistency check for the declared Gaussian relative-volume noise model, not a general probabilistic guarantee.
+
+### Interpretation and limits
+
+The initial-seed experiment qualifies, rather than overturns, Section 16. Section 16 supports the risk-selected design's advantage across five candidate-pool configurations **when A/risk greedy augmentation starts from the D-optimal six-probe seed**. Section 17 shows that this advantage is sensitive to initialization: random full-rank seeds usually produced higher validation risk, but occasional random starts performed better. The evidence therefore supports the D-optimal seed as a useful and generally strong initialization in the tested setting, not as a theorem of optimal initialization or as a guarantee that greedy completion reaches the best 12-probe subset.
+
+The random starts are uniform random full-rank six-subsets, not A-optimal six-probe seeds. The experiment does not compare against an independently optimized A-optimal six-probe initialization, does not exhaust all rank-six starts, and does not establish global combinatorial optimality. Its conclusions remain restricted to three fixed pools of 128 candidates, one smooth nonquadratic manufactured metric, one relative-noise level, one finite validation grid, and the stated greedy augmentation procedures.
+
+Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py); tests: [tests/test_t136_initial_seed_robustness.py](../tests/test_t136_initial_seed_robustness.py); workflow: [.github/workflows/t136-initial-seed-robustness.yml](../.github/workflows/t136-initial-seed-robustness.yml). The successful workflow and numerical artifact are linked above.
+
+
+### 17.2. A-optimal six-probe seed versus D-optimal and random initializations
+
+The follow-up audit adds an independently optimized A-optimal six-probe initialization to the comparison in Section 17.1. It uses the same three fixed candidate pools (128 probes each), smooth nonquadratic manufactured metric, exact Ricci target, relative-volume noise level \(\sigma_{\rm rel}=10^{-9}\), 12-probe budget, selection and validation grids, and numerical resolutions. For each pool, the A seed is obtained by multi-start best-improvement one-exchange local search minimizing the mean selection-grid objective
+\[
+\Phi_A(S)=\frac{1}{|\mathcal G_{\rm sel}|}\sum_{r\in\mathcal G_{\rm sel}}
+\operatorname{tr}\left(W\operatorname{Cov}(\widehat R_S(r))\right).
+\]
+The search uses nine starts: the D-optimal six-probe seed and eight objective-blind random full-rank seeds. The resulting seed is a one-swap local optimum among the tested endpoints, not a global optimum over all six-subsets. Four independent objective-blind random full-rank seeds are also retained as controls. Each of the six initializations per pool is independently augmented to 12 probes under both the A and tensor-risk greedy criteria. All 36 completed designs are evaluated on the same independent 18-scale validation grid; Monte Carlo checks use 2,000 replicas per design.
+
+The table reports validation-grid total squared Frobenius risk in units of \(10^{-6}\). Random min/median/max refer to the four independent random starts.
+
+| Pool | Augmentation | D-seed | A-local seed | Random min | Random median | Random max | Random starts beating D |
+|---|---|---:|---:|---:|---:|---:|---:|
+| A | A | 1.6904 | 1.6904 | 3.5863 | 4.1093 | 6.4861 | 0/4 |
+| A | Risk | 1.3495 | 1.3791 | 2.6147 | 2.6880 | 2.8920 | 0/4 |
+| B | A | 2.3793 | 2.6380 | 2.8422 | 4.3320 | 5.5390 | 0/4 |
+| B | Risk | 1.4251 | 1.1714 | 1.3585 | 1.7297 | 2.7170 | 1/4 |
+| C | A | 1.7506 | 1.6077 | 1.5089 | 2.4385 | 2.8772 | 1/4 |
+| C | Risk | 1.0216 | 0.7858 | 1.4578 | 2.3543 | 3.5279 | 0/4 |
+
+The A-seed search reduced the declared selection-grid A objective relative to the D seed by approximately 0.14%, 18.65%, and 40.00% in pools A, B, and C, respectively. This optimization of the selection objective does not guarantee a lower independent validation risk. Under A-criterion augmentation, the A-local seed produced essentially the same risk as the D seed in pool A, a 10.87% higher risk in pool B, and an 8.16% lower risk in pool C. Under tensor-risk augmentation, it produced a 2.19% higher risk in pool A, a 17.80% lower risk in pool B, and a 23.08% lower risk in pool C.
+
+Across the 12 random starts per augmentation criterion, one random start beat the D-seed result for A augmentation (1/12) and one did so for tensor-risk augmentation (1/12). In pool C, one random A-augmentation start also beat the A-local-seed result (risk 1.5089 versus 1.6077, in units of \(10^{-6}\)). Thus neither the D seed nor the A-local seed is uniformly best on the independent validation grid. The A-local seed is particularly helpful for risk augmentation in two of the three tested pools, but the result depends on the candidate pool and the augmentation objective.
+
+Across all 36 completed designs, the largest absolute relative discrepancy between Monte Carlo mean squared error and analytic risk was approximately 1.64%; the mean absolute relative discrepancy was approximately 0.67%. This is a numerical consistency check for the declared independent Gaussian relative-volume-noise model, not a general probabilistic guarantee.
+
+### Interpretation and limits
+
+The follow-up refines Section 17.1. The D-optimal six-probe seed remains a strong baseline: random starts beat it only twice among the 24 random-start/criterion comparisons (one per criterion). However, an independently A-optimized local seed can improve the final tensor-risk design materially for some pools. The evidence does not support a universal preference for D or A initialization. A practical finite-pool procedure should compare both seeds under the predeclared validation objective rather than assume either seed is optimal.
+
+The experiment covers three fixed pools, one manufactured metric, one relative-noise level, four random control starts per pool, and a finite validation grid. The A-seed search is multi-start one-exchange local search; greedy completion is not globally optimal; validation-grid minima are not continuous-scale minima. No global six-subset or 12-subset optimality, probability guarantee, or general geometric stability theorem is established.
+
+Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py); regression tests: [tests/test_t136_initial_seed_robustness.py](../tests/test_t136_initial_seed_robustness.py); workflow: [.github/workflows/t136-pool-seed-robustness.yml](../.github/workflows/t136-pool-seed-robustness.yml). The combined workflow completed successfully: [run 44340176100](https://github.com/fabianleonaressi95/theorem/actions/runs/44340176100). The uploaded artifact is `t136-pool-and-initial-seed-robustness` (artifact ID 14443148778).
