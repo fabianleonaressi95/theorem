@@ -33,6 +33,8 @@ SELECTION_QUADRATURE_ORDER = 3
 SELECTION_RK4_STEPS = 20
 EVALUATION_QUADRATURE_ORDER = 5
 EVALUATION_RK4_STEPS = 40
+CROSSCHECK_QUADRATURE_ORDER = 7
+CROSSCHECK_RK4_STEPS = 80
 
 
 def observation_and_covariance(vertices, scale, sigma_rel, order, steps):
@@ -281,6 +283,36 @@ def run_audit():
     monte_carlo = monte_carlo_check(
         designs, VALIDATION_SCALES, POOL_SIZE, SIGMA_REL, REPLICAS, SEED + 1
     )
+    resolution_crosscheck = {}
+    for name, (vertices, _) in designs.items():
+        scale = validation[name]["minimum_risk_scale"]
+        low = next(
+            row for row in validation[name]["scale_records"]
+            if row["scale"] == scale
+        )
+        high = evaluate_at_scale(
+            vertices, scale, SIGMA_REL,
+            CROSSCHECK_QUADRATURE_ORDER, CROSSCHECK_RK4_STEPS
+        )
+        resolution_crosscheck[name] = {
+            "scale": scale,
+            "evaluation_order_5_steps_40": {
+                key: low[key] for key in (
+                    "bias_squared_frobenius", "weighted_covariance_trace",
+                    "risk_squared_frobenius"
+                )
+            },
+            "crosscheck_order_7_steps_80": {
+                key: high[key] for key in (
+                    "bias_squared_frobenius", "weighted_covariance_trace",
+                    "risk_squared_frobenius"
+                )
+            },
+            "relative_risk_change": (
+                high["risk_squared_frobenius"] /
+                low["risk_squared_frobenius"] - 1.0
+            ),
+        }
     return {
         "audit": "T136 exact matched-budget design comparison",
         "observation_model": (
@@ -296,6 +328,8 @@ def run_audit():
         "validation_scales": VALIDATION_SCALES.tolist(),
         "evaluation_quadrature_order": EVALUATION_QUADRATURE_ORDER,
         "evaluation_rk4_steps": EVALUATION_RK4_STEPS,
+        "resolution_crosscheck_order": CROSSCHECK_QUADRATURE_ORDER,
+        "resolution_crosscheck_rk4_steps": CROSSCHECK_RK4_STEPS,
         "monte_carlo_replicas": REPLICAS,
         "common_random_numbers": (
             "relative-volume errors are generated once per candidate and "
@@ -303,6 +337,7 @@ def run_audit():
         ),
         "selection": selection_results,
         "validation": validation,
+        "resolution_crosscheck": resolution_crosscheck,
         "legacy_six_probe_reference": legacy,
         "monte_carlo": monte_carlo,
         "decision_rule": (
