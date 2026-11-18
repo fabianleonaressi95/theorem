@@ -327,22 +327,27 @@ Consequently, for the linear least-squares estimator $\widehat R=P b^{\rm obs}$,
 \frac{36\sigma_{\rm rel}^2q_i(r)^2}{r^4}
 \right)P^T.
 \]
-This expression retains the measured volume ratios $q_i(r)$; replacing them by 1 is only a small-scale approximation. For zero-mean noise, the expected squared Euclidean reconstruction error is exactly
+This expression retains the measured volume ratios $q_i(r)$; replacing them by 1 is only a small-scale approximation. The six-component coordinate vector is ordered as $(xx,yy,zz,xy,xz,yz)$. To measure the error as a symmetric tensor rather than as an unweighted coordinate vector, use the Frobenius metric
 \[
-\mathbb E\|\widehat R-R(0)\|_2^2
-=\|P b(r)-R(0)\|_2^2
-+\operatorname{tr}\operatorname{Cov}(\widehat R).
+W=\operatorname{diag}(1,1,1,2,2,2).
 \]
-The finite-grid scale selector therefore minimizes the sum of the squared clean reconstruction bias and the propagated covariance trace. It does not select a scale independently of the metric, probe family, noise amplitude, or noise covariance.
+For zero-mean noise, the expected squared Frobenius reconstruction error is exactly
+\[
+\mathbb E\|\widehat R-R(0)\|_F^2
+=\|P b(r)-R(0)\|_W^2
++\operatorname{tr}\!\left(W\operatorname{Cov}(\widehat R)\right),
+\qquad \|v\|_W^2=v^TWv.
+\]
+The finite-grid scale selector therefore minimizes the squared clean tensor bias plus the Frobenius-weighted covariance trace. This choice weights off-diagonal components twice in the squared tensor norm; it is not the same as an unweighted Euclidean norm on the six listed coordinates. The selected scale still depends on the metric, probe family, noise amplitude, and noise covariance.
 
-If the asymptotic laws are $\|P b(r)-R(0)\|\sim a r$ and
-$\sqrt{\operatorname{tr}\operatorname{Cov}}\sim b\sigma_{\rm rel}r^{-2}$, minimizing the leading squared error gives
+If the asymptotic laws are $\|P b(r)-R(0)\|_F\sim a r$ and
+$\sqrt{\operatorname{tr}(W\operatorname{Cov})}\sim b\sigma_{\rm rel}r^{-2}$, minimizing the leading squared error gives
 \[
 r_{\rm asym}=
 \left(\frac{\sqrt2\,b\sigma_{\rm rel}}{a}\right)^{1/3}.
 \]
 The coefficients $a$ and $b$ are design- and metric-dependent. This cube-root estimate is an asymptotic guide, not a universal scale law.
 
-The implementation is [audits/t136_scale_selection.py](../audits/t136_scale_selection.py), with regression checks in [tests/test_t136_scale_selection.py](../tests/test_t136_scale_selection.py). It compares the original six-probe design with the 12-probe D-optimal design, computes geodesic volumes on the same smooth non-quadratic conformal metric, propagates the independent relative-volume-noise covariance, and reports both a grid minimizer and the asymptotic estimate.
+The implementation is [audits/t136_scale_selection.py](../audits/t136_scale_selection.py), with regression checks in [tests/test_t136_scale_selection.py](../tests/test_t136_scale_selection.py). It compares the original six-probe design with the 12-probe D-optimal design, computes geodesic volumes on the same smooth non-quadratic conformal metric, propagates the independent relative-volume-noise covariance, uses the Frobenius norm of the symmetric Ricci tensor (including the factor 2 on off-diagonal components), and reports both a grid minimizer and the asymptotic estimate.
 
 **Classification and evidence boundary:** the covariance identity is an exact finite-dimensional consequence of the stated linear estimator and independent relative-noise model. The numerical scale minimizing the resulting risk is model-, design-, grid-, and noise-specific. It is not a universal optimal scale, a general stability theorem, a Regge convergence result, or a Q6 continuum limit. The new audit and tests are committed for execution; no test or CI pass is claimed here.
