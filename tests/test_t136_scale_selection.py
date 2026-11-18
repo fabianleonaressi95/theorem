@@ -16,6 +16,12 @@ class T136ScaleSelectionTests(unittest.TestCase):
         self.assertEqual(self.result["six_probe"]["moment_rank"], 6)
         self.assertEqual(self.result["twelve_probe_d_optimal"]["moment_rank"], 6)
 
+    def test_deterministic_grid_minima_are_reproduced(self):
+        self.assertEqual(self.result["six_probe"]["grid_optimal_scale"], 0.00375)
+        self.assertEqual(
+            self.result["twelve_probe_d_optimal"]["grid_optimal_scale"], 0.0021
+        )
+
     def test_scale_optimum_is_inside_the_tested_grid(self):
         for key in ("six_probe", "twelve_probe_d_optimal"):
             design = self.result[key]
