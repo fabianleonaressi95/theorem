@@ -2,6 +2,7 @@ import unittest
 
 import numpy as np
 
+from audits.t136_initial_seed_robustness import (\n    a_optimal_six_seed, random_full_rank_seeds,\n)\nfrom audits import t136_exact_design_comparison as base
 from audits import t136_exact_design_comparison as base
 from audits.t136_initial_seed_robustness import (
     a_optimal_six_seed,
@@ -20,6 +21,7 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
             self.assertEqual(len(set(seed)), 6)
             self.assertEqual(np.linalg.matrix_rank(pool[seed]), 6)
 
+
     def test_a_seed_is_full_rank_and_no_worse_than_its_starts(self):
         rng = np.random.default_rng(41)
         pool = rng.normal(size=(24, 6))
@@ -35,6 +37,9 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
         objective = lambda ids: base.cached_subset_objective(
             ids, "A", pool, q_table
         )
+        self.assertLessEqual(
+            objective(selected),
+            min(objective(ids) for ids in [d_seed] + random_seeds) + 1e-25,
         selected_objective = objective(selected)
         tolerance = 1.0e-12 * max(abs(selected_objective), 1.0e-30)
         self.assertLessEqual(
@@ -50,6 +55,7 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
                 trial[slot] = candidate
                 if np.linalg.matrix_rank(pool[trial]) == 6:
                     self.assertGreaterEqual(
+                        objective(trial), objective(selected) - 1e-25
                         objective(trial), selected_objective - tolerance
                     )
 

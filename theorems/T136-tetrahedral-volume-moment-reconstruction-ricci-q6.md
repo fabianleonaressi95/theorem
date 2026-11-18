@@ -450,7 +450,8 @@ The focused GitHub Actions run completed successfully (4 focused tests passed; 2
 
 All three exact 12-probe designs attained their validation-grid minimum at (r=0.0028664703):
 
-| Exact 12-probe design | Moment condition number | Bias squared | Weighted covariance trace | Total risk squared | (ho=|B|_W/|N|_{L^2(W)}) | RMSE |
+| Exact 12-probe design | Moment condition number | Bias squared | Weighted covariance trace | Total risk squared | (
+ho=|B|_W/|N|_{L^2(W)}) | RMSE |
 |---|---:|---:|---:|---:|---:|---:|
 | D-optimal | 2.8854 | (1.37998\times10^{-6}) | (4.09511\times10^{-7}) | (1.78949\times10^{-6}) | 1.8357 | (1.33772\times10^{-3}) |
 | A-optimal | 2.9804 | (1.28852\times10^{-6}) | (4.01871\times10^{-7}) | (1.69040\times10^{-6}) | 1.7906 | (1.30015\times10^{-3}) |
@@ -499,6 +500,19 @@ The A- and risk-selected subsets remain greedy augmentations from a D-optimal si
 Implementation: [audits/t136_pool_seed_robustness.py](../audits/t136_pool_seed_robustness.py); tests: [tests/test_t136_pool_seed_robustness.py](../tests/test_t136_pool_seed_robustness.py). The focused workflow completed successfully: [run 44330581457](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457). Its JSON artifact is [t136-pool-seed-robustness](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457).
 
 
+## 17. Sensitivity to the initial six-probe seed
+
+Section 16 varied candidate-pool seeds and sizes but retained the D-optimal six-probe subset as the starting seed for both A- and risk-greedy augmentation. That experiment therefore did not isolate sensitivity to the initial six probes.
+
+The follow-up audit [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py) fixes each candidate pool and compares five initializations: the existing D-optimal six-probe seed and four independently generated, uniformly sampled full-rank six-subsets. Random seeds are generated without evaluating either the A or risk objective. For every initialization, A- and tensor-risk greedy augmentation are run separately to the same exact budget of 12 probes.
+
+The experiment uses three fixed candidate pools (the first three pool-generation seeds from Section 16), the same nonquadratic conformal metric, relative-volume noise level, selection grid, independent validation grid, and numerical integration resolutions. Each completed design is evaluated on the common validation grid; 2,000-replica Monte Carlo checks are reported at its own validation-grid risk minimum.
+
+The audit reports, separately for A and risk augmentation, the D-seed result, the range and median across random initializations, and the number of random starts that improve on the D-seed result. This makes seed dependence visible without selecting the best initialization after seeing validation results.
+
+**Evidence boundary:** this is a finite sensitivity experiment with three fixed pools and four random full-rank starts per pool. The random starts are not optimized A-seeds, and the experiment does not establish a distribution-free robustness guarantee or global combinatorial optimality. Numerical results are intentionally not stated until the focused workflow has completed and its artifact has been inspected.
+
+Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py); tests: [tests/test_t136_initial_seed_robustness.py](../tests/test_t136_initial_seed_robustness.py); workflow: [.github/workflows/t136-initial-seed-robustness.yml](../.github/workflows/t136-initial-seed-robustness.yml).
 ### 17.1. Executed initial-seed sensitivity results
 
 The focused workflow completed successfully: [run 44334797224](https://github.com/fabianleonaressi95/theorem/actions/runs/44334797224). Both focused regression tests passed, the full numerical audit completed, and the JSON artifact `t136-initial-seed-robustness` was uploaded (artifact ID 14442120122). The experiment evaluated 30 completed designs: three pools, five initializations per pool (one D-optimal and four random), and two augmentation criteria (A and tensor-risk), with 2,000 Monte Carlo replicas per design.
