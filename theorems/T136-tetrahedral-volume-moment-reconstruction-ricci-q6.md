@@ -442,3 +442,24 @@ The audit reports the analytic covariance propagated through (L_D), Monte Carlo 
 Implementation: [audits/t136_exact_design_comparison.py](../audits/t136_exact_design_comparison.py); regression checks: [tests/test_t136_exact_design_comparison.py](../tests/test_t136_exact_design_comparison.py).
 
 **No numerical winner is asserted by this protocol.** A- and risk-optimal designs are optimized for different declared objectives, and neither is presumed to dominate the other. A winner can be named only relative to a primary objective specified before inspecting the validation results. The exact subsets are greedy, the candidate pool is finite, and design selection uses lower numerical resolution than final evaluation. Global optimality, continuous-design optimality, and general geometric convergence are not claimed. Test execution and numerical audit output must be recorded separately from code being committed.
+
+
+### 15.1. First executed matched-budget results
+
+The focused GitHub Actions run completed successfully for the first version of the audit (2,000 Monte Carlo replicas; run [44328318376](https://github.com/fabianleonaressi95/theorem/actions/runs/44328318376)). The four regression tests passed and the JSON artifact was produced. The comparison used a shared candidate pool of 128 tetrahedra, 12 probes per exact design, \(\sigma_{\rm rel}=10^{-9}\), a ten-scale equal-weight selection grid, and an independent 18-scale validation grid. Selection used Duffy order 3 / RK4 20 steps; validation used order 5 / RK4 40 steps.
+
+All three 12-probe designs attained their minimum on the validation grid at (r=0.0028664703). The results were:
+
+| Exact 12-probe design | Moment condition number | Bias squared | Weighted covariance trace | Total risk squared | (ho=|B|_W/|N|_{L^2(W)}) | RMSE |
+|---|---:|---:|---:|---:|---:|---:|
+| D-optimal | 2.8854 | (1.37998\times10^{-6}) | (4.09511\times10^{-7}) | (1.78949\times10^{-6}) | 1.8357 | (1.33772\times10^{-3}) |
+| A-optimal | 2.9804 | (1.28852\times10^{-6}) | (4.01871\times10^{-7}) | (1.69040\times10^{-6}) | 1.7906 | (1.30015\times10^{-3}) |
+| Risk-optimal | 2.8267 | (9.13509\times10^{-7}) | (4.36029\times10^{-7}) | (1.34954\times10^{-6}) | 1.4474 | (1.16170\times10^{-3}) |
+
+On this validation grid and this manufactured metric, the greedy risk-selected design reduced the total squared risk by about 24.59% relative to the D-optimal design and by about 20.16% relative to the A-optimal design. The A-optimal design reduced it by about 5.54% relative to D-optimal. This is an empirical comparison of three finite exact subsets, not proof that any is globally optimal. The common grid minimizer does not establish that their continuous minimizers coincide.
+
+At the common grid minimizer, Monte Carlo mean squared errors were (1.77658\times10^{-6}), (1.67950\times10^{-6}), and (1.34863\times10^{-6}), respectively, with estimated standard errors (1.61\times10^{-8}), (1.45\times10^{-8}), and (1.24\times10^{-8}). The Monte Carlo Frobenius-weighted covariance traces were within approximately 4.8–5.3% of the analytic traces. This is consistent at the reported scale with the finite-replica covariance estimates; it is not a proof of exact distributional agreement.
+
+The legacy six-probe reference had condition number 18.6872 and validation-grid minimum RMSE (1.06774\times10^{-2}) at (r=0.00407765). It is a different-budget benchmark and is not part of the matched 12-probe ranking.
+
+**Resolution qualification:** a subsequent audit revision adds an order-7 / RK4-80 cross-check at each 12-probe design's selected validation scale. Those higher-resolution values are reported separately when that run completes. The values above are the order-5 / RK4-40 validation results and must not be confused with the higher-resolution cross-check.
