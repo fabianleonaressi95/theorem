@@ -89,12 +89,32 @@ def main():
             raise ValueError("entry timing diagnostic currently profiles the production Neumann method")
         coordinate_dofmap = np.asarray(mesh.geometry.dofmaps[0], dtype=np.int32)
         cell_nodes = mesh.geometry.x[coordinate_dofmap[args.diagnostic_cell - 1], :2].copy()
-        coordinate_hash = hashlib.sha256(
-            np.ascontiguousarray(mesh.geometry.x).view(np.uint8)
-        ).hexdigest()
-        connectivity_hash = hashlib.sha256(
-            np.ascontiguousarray(coordinate_dofmap).view(np.uint8)
-        ).hexdigest()
+        coordinate_payload = [
+            [float(x).hex() for x in row]
+            for c in range(nc) for row in mesh.geometry.x[coordinate_dofmap[c], :2]
+        ]
+        solution_basix = V.element.basix_element
+        solution_points = np.asarray(solution_basix.points, dtype=float)
+        coordinate_points = np.asarray(basix.create_element(
+            basix.ElementFamily.P, basix.CellType.triangle, 3,
+            basix.LagrangeVariant.equispaced,
+        ).points, dtype=float)
+        solution_order = []
+        for point in coordinate_points:
+            distances = np.linalg.norm(solution_points-point, axis=1)
+            index = int(np.argmin(distances))
+            if float(distances[index]) > 1e-12 or index in solution_order:
+                raise RuntimeError("production P3 solution/geometry node ordering mismatch")
+            solution_order.append(index)
+        cell_dofs = [
+            np.asarray(V.dofmap.cell_dofs(c), dtype=np.int64)[solution_order]
+            for c in range(nc)
+        ]
+        connectivity_payload = [list(map(int, dofs)) for dofs in cell_dofs]
+        coordinate_hash = hashlib.sha256(json.dumps(
+            coordinate_payload, separators=(",", ":")).encode()).hexdigest()
+        connectivity_hash = hashlib.sha256(json.dumps(
+            connectivity_payload, separators=(",", ":")).encode()).hexdigest()
         diagnostic_dir = Path(args.diagnostic_out)
         diagnostic_dir.mkdir(parents=True, exist_ok=True)
         events_path = diagnostic_dir / "events.jsonl"
@@ -135,17 +155,13 @@ def main():
                 max_depth=args.max_depth, progress_callback=progress,
                 diagnostic_callback=timing, integration_method="neumann",
             )
+            pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+            i, j = pairs[args.diagnostic_entry - 1]
+            interval = local["matrix_interval"][i][j]
             result = {
                 **metadata, "status": "completed",
-                "entry_interval": [str(local["matrix_interval"][
-                    [(i, j) for i in range(10) for j in range(i, 10)][args.diagnostic_entry-1][0]
-                ][
-                    [(i, j) for i in range(10) for j in range(i, 10)][args.diagnostic_entry-1][1]
-                ][0]), str(local["matrix_interval"][
-                    [(i, j) for i in range(10) for j in range(i, 10)][args.diagnostic_entry-1][0]
-                ][
-                    [(i, j) for i in range(10) for j in range(i, 10)][args.diagnostic_entry-1][1]
-                ][1])],
+                "basis_pair_one_based": [i + 1, j + 1],
+                "entry_interval": [str(interval[0]), str(interval[1])],
             }
         except Exception as exc:
             result = {**metadata, "status": "error",
