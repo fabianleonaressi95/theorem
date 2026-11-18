@@ -462,4 +462,9 @@ At the common grid minimizer, Monte Carlo mean squared errors were (1.77658\time
 
 The legacy six-probe reference had condition number 18.6872 and validation-grid minimum RMSE (1.06774\times10^{-2}) at (r=0.00407765). It has a different budget and is not part of the matched 12-probe ranking.
 
-**Resolution qualification:** these values use order-5 / RK4-40 evaluation. A follow-up audit adds an order-7 / RK4-80 cross-check at each 12-probe design's selected validation scale. Its results are recorded separately; the resolution change is a sensitivity check, not a rigorous integration-error bound.
+**Resolution cross-check:** at each design's validation-grid minimizer, the audit was repeated with Duffy order 7 / RK4-80 (run [44329248687](https://github.com/fabianleonaressi95/theorem/actions/runs/44329248687); all four tests and the full audit passed). The relative changes in total squared risk from order-5 / RK4-40 to order-7 / RK4-80 were:
+- D-optimal: (+3.06\times10^{-8}) relative;
+- A-optimal: (+2.85\times10^{-8}) relative;
+- risk-optimal: (+2.43\times10^{-8}) relative.
+
+The weighted covariance traces are unchanged to the reported floating-point precision; the tiny changes arise in the clean volume-derived bias. This is a strong numerical resolution-sensitivity check at the selected scales, but it is not a rigorous integration-error bound and does not establish convergence of the estimator as the tetrahedral scale tends to zero.
