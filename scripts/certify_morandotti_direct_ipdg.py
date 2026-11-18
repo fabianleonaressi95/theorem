@@ -123,7 +123,7 @@ def main():
             payload = {"cell": args.diagnostic_cell, **_jsonable(event)}
             line = json.dumps(payload, sort_keys=True)
             with events_path.open("a", encoding="utf-8") as stream:
-                stream.write(line + "\\n")
+                stream.write(line + "\n")
             print("DIAGNOSTIC " + line, flush=True)
         def progress(event):
             if event.get("integration_numerator_index") in (None, args.diagnostic_entry):
@@ -143,7 +143,7 @@ def main():
             "scope": "one cell of the production-generated mesh; no global certificate",
         }
         (diagnostic_dir / "metadata.json").write_text(
-            json.dumps(metadata, indent=2) + "\\n", encoding="utf-8")
+            json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
         points = basix.create_element(
             basix.ElementFamily.P, basix.CellType.triangle, 3,
             basix.LagrangeVariant.equispaced,
@@ -168,7 +168,7 @@ def main():
                       "error_type": type(exc).__name__, "error": str(exc)}
         result["elapsed_seconds"] = perf_counter() - started
         (diagnostic_dir / "result.json").write_text(
-            json.dumps(result, indent=2) + "\\n", encoding="utf-8")
+            json.dumps(result, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(result, indent=2), flush=True)
         return
 
