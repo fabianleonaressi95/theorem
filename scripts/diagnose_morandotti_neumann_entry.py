@@ -10,10 +10,9 @@ from time import perf_counter
 
 from mpi4py import MPI
 import basix
-from dolfinx import fem
 
 from models.morandotti_certified_curved_p3_forms import (
-    _cell_data, _add, _mul, _det_power,
+    _cell_data, _add, _mul,
 )
 from models.morandotti_certified_rational_integration import (
     integrate_rational_triangle_many,
@@ -63,7 +62,7 @@ def main():
         raise ValueError(f"cell must lie in 1..{nc}")
     if not 1 <= args.entry <= 55:
         raise ValueError("entry must lie in 1..55")
-    dofmaps = mesh.geometry.dofmaps[0]
+    dofmaps = mesh.geometry.dofmap
     nodes = mesh.geometry.x[dofmaps[args.cell - 1], :2].copy()
     maps, basis, jac, adj, det, hessians, det5 = _cell_data(nodes, points)
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
@@ -91,38 +90,67 @@ def main():
     }
     (outdir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
 
-    def diagnostic(event):
+    def emit(event):
+        line = json.dumps(encode(event), sort_keys=True)
         with events_path.open("a", encoding="utf-8") as stream:
-            stream.write(json.dumps(encode(event), sort_keys=True) + "\n")
+            stream.write(line + "\n")
+        # Keep the live console concise: progress plus operation timings.
+        if event.get("stage") == "progress" or event.get("stage") == "timing":
+            print(line, flush=True)
 
+    def diagnostic(event):
+        emit(event)
+
+    def progress(event):
+        emit({"stage": "progress", **event})
+
+    neumann = None
+    neumann_error = None
     started = perf_counter()
-    neumann = integrate_rational_triangle_many(
-        [numerator], det5, absolute_tolerance=tol,
-        max_depth=args.max_depth, max_triangles=args.max_triangles,
-        diagnostic_callback=diagnostic,
-    )[0]
+    try:
+        neumann = integrate_rational_triangle_many(
+            [numerator], det5, absolute_tolerance=tol,
+            max_depth=args.max_depth, max_triangles=args.max_triangles,
+            progress_callback=progress, diagnostic_callback=diagnostic,
+        )[0]
+    except Exception as exc:
+        neumann_error = {"type": type(exc).__name__, "message": str(exc)}
+        emit({"stage": "method_error", "method": "neumann", **neumann_error})
     neumann_seconds = perf_counter() - started
 
+    bernstein = None
+    bernstein_error = None
     started = perf_counter()
-    bernstein = integrate_rational_triangle_bernstein_residual_many(
-        [numerator], det5, absolute_tolerance=tol,
-        max_depth=args.max_depth,
-    )[0]
+    try:
+        bernstein = integrate_rational_triangle_bernstein_residual_many(
+            [numerator], det5, absolute_tolerance=tol,
+            max_depth=args.max_depth,
+        )[0]
+    except Exception as exc:
+        bernstein_error = {"type": type(exc).__name__, "message": str(exc)}
+        emit({"stage": "method_error", "method": "bernstein_residual", **bernstein_error})
     bernstein_seconds = perf_counter() - started
 
     result = {
         **metadata,
-        "neumann": {
+        "neumann": ({
             "interval": [str(neumann[0]), str(neumann[1])],
             "accepted_leaves": neumann[2], "max_depth_used": neumann[3],
             "elapsed_seconds": neumann_seconds,
-        },
-        "bernstein_residual": {
+        } if neumann is not None else {
+            "error": neumann_error, "elapsed_seconds": neumann_seconds,
+        }),
+        "bernstein_residual": ({
             "interval": [str(bernstein[0]), str(bernstein[1])],
             "accepted_leaves": bernstein[2], "max_depth_used": bernstein[3],
             "elapsed_seconds": bernstein_seconds,
-        },
-        "intervals_overlap": max(neumann[0], bernstein[0]) <= min(neumann[1], bernstein[1]),
+        } if bernstein is not None else {
+            "error": bernstein_error, "elapsed_seconds": bernstein_seconds,
+        }),
+        "intervals_overlap": (
+            max(neumann[0], bernstein[0]) <= min(neumann[1], bernstein[1])
+            if neumann is not None and bernstein is not None else None
+        ),
         "scope": "one cell and one local matrix entry only; no global IPDG certificate",
     }
     (outdir / "result.json").write_text(json.dumps(encode(result), indent=2) + "\n")
