@@ -168,3 +168,13 @@ La bibliografia ora individua tre famiglie di strumenti effettivamente pertinent
 3. **Spazio delle metriche, geometria spinoriale e operatori di Dirac:** Clarke, Bär, Moroianu, Witt, Atiyah–Singer.
 
 Per la dimostrazione RGS rimane il vero collo di bottiglia: specificare gli spazi di Hilbert, le forme quadratiche discrete, le identificazioni/interpolazioni, la coercività uniforme e la liminf/recovery sequence. Queste pubblicazioni forniscono strumenti e precedenti geometrici, ma nessuna dimostra da sola il limite Mosco-2 del grafo PRISM o la sua identificazione con l'operatore Laplace–Beltrami–Yang–Mills.
+
+## Geometria del cerchio, Vesica Piscis e fonti di Marco Polloni
+
+- Marco Polloni, [“Il Primo Angolo”](https://argonauti.blog/il-primo-angolo-di-marco-polloni/), Argonauti, 24 agosto 2020. Fonte primaria per l'argomentazione dell'autore su angolo retto, angolo al centro/alla circonferenza, teorema di Talete, Blake e Dante; le letture simboliche non sono prove geometriche.
+- Marco Polloni, [“Il Pentagono ed il Pentagramma”](https://argonauti.blog/il-pentagono-ed-il-pentagramma-di-marco-polloni/), Argonauti. Fonte online da confrontare con le costruzioni auree; data editoriale da verificare sulla pagina.
+- Marco Polloni, [“Il poligono divino e gli azimut dei solstizi”](https://argonauti.blog/il-poligono-divino-e-gli-azimut-dei-solstizi-di-marco-polloni/), Argonauti. Fonte online su decagono, triangoli aurei e orientamento astronomico; le affermazioni astronomiche richiedono verifica separata per latitudine e declinazione.
+- Tristan Needham, *Visual Complex Analysis*, Oxford University Press, 1997. Riferimento metodologico/geometrico già presente nel filone di studio; **non è ancora stata verificata una pagina specifica che attribuisca a Needham la costruzione della Vesica Piscis**.
+- Mauro Maria Baldi, [*On a property of the Vesica Piscis*](https://zenodo.org/records/4273133). Record online pertinente; completare il controllo dei metadati bibliografici direttamente sul documento depositato prima di citare rivista, volume o DOI.
+
+Per il confronto matematico e lo stato epistemico si veda [Polloni, Needham, Vesica Piscis e teorema di Talete](../../research/POLLONI_NEEDHAM_VESICA_THALES_GEOMETRY.md). Le identità euclidee sono dimostrate nella nota; l'attribuzione puntuale a Needham e il ponte necessario tra \(\\sqrt3\) e \(\\varphi\) restano aperti.
