@@ -497,3 +497,31 @@ This is **positive finite-sample robustness evidence** for the risk-based select
 The A- and risk-selected subsets remain greedy augmentations from a D-optimal six-probe seed, not globally optimal combinatorial designs. The test covers five deterministic candidate pools, one manufactured metric, one noise level, and one finite validation grid. It does not establish robustness over arbitrary metrics, noise laws, tetrahedral distributions, or continuous design spaces.
 
 Implementation: [audits/t136_pool_seed_robustness.py](../audits/t136_pool_seed_robustness.py); tests: [tests/test_t136_pool_seed_robustness.py](../tests/test_t136_pool_seed_robustness.py). The focused workflow completed successfully: [run 44330581457](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457). Its JSON artifact is [t136-pool-seed-robustness](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457).
+
+
+### 17.1. Executed initial-seed sensitivity results
+
+The focused workflow completed successfully: [run 44334797224](https://github.com/fabianleonaressi95/theorem/actions/runs/44334797224). Both focused regression tests passed, the full numerical audit completed, and the JSON artifact `t136-initial-seed-robustness` was uploaded (artifact ID 14442120122). The experiment evaluated 30 completed designs: three pools, five initializations per pool (one D-optimal and four random), and two augmentation criteria (A and tensor-risk), with 2,000 Monte Carlo replicas per design.
+
+The following values are validation-grid total squared Frobenius risks, in units of (10^{-6}). “Random min / median / max” summarizes the four random starts, not the D-optimal start.
+
+| Candidate pool (128) | Criterion | D-seed risk | Random min | Random median | Random max | Random starts beating D |
+|---|---|---:|---:|---:|---:|---:|
+| A | A | 1.6904 | 3.5863 | 4.1093 | 6.4861 | 0/4 |
+| A | Risk | 1.3495 | 2.6147 | 2.6880 | 2.8920 | 0/4 |
+| B | A | 2.3793 | 2.8422 | 4.3320 | 5.5390 | 0/4 |
+| B | Risk | 1.4251 | 1.3585 | 1.7297 | 2.7170 | 1/4 |
+| C | A | 1.7506 | 1.5089 | 2.4385 | 2.8772 | 1/4 |
+| C | Risk | 1.0216 | 1.4578 | 2.3543 | 3.5279 | 0/4 |
+
+Across all 12 random starts per criterion, one random initialization beat the D-seed result for A-augmentation (1/12) and one for risk-augmentation (1/12). For A, the random/D-seed risk ratio ranged from 0.862 to 3.837 (median 1.821); for risk, it ranged from 0.953 to 3.453 (median 1.922). Thus the D-optimal seed was usually advantageous in this finite experiment, but it was not uniformly best. In particular, pool B contains a random risk-start with a slightly lower validation risk than the D-seed (1.3585 versus 1.4251, in units of (10^{-6})); pool C contains a random A-start with lower risk than the D-seed (1.5089 versus 1.7506).
+
+All 30 completed designs had moment rank 6. The selected validation-grid minimizing scale varied among the tested grid values (0.002403, 0.002866, 0.003419, and 0.004078); this reinforces that the minimizing scale is design-dependent in this manufactured example. The Monte Carlo mean squared errors tracked the analytic risk: the absolute relative discrepancy was at most 2.65% across the 30 cases (mean absolute discrepancy 0.81%). This is a consistency check for the declared Gaussian relative-volume noise model, not a general probabilistic guarantee.
+
+### Interpretation and limits
+
+The initial-seed experiment qualifies, rather than overturns, Section 16. Section 16 supports the risk-selected design's advantage across five candidate-pool configurations **when A/risk greedy augmentation starts from the D-optimal six-probe seed**. Section 17 shows that this advantage is sensitive to initialization: random full-rank seeds usually produced higher validation risk, but occasional random starts performed better. The evidence therefore supports the D-optimal seed as a useful and generally strong initialization in the tested setting, not as a theorem of optimal initialization or as a guarantee that greedy completion reaches the best 12-probe subset.
+
+The random starts are uniform random full-rank six-subsets, not A-optimal six-probe seeds. The experiment does not compare against an independently optimized A-optimal six-probe initialization, does not exhaust all rank-six starts, and does not establish global combinatorial optimality. Its conclusions remain restricted to three fixed pools of 128 candidates, one smooth nonquadratic manufactured metric, one relative-noise level, one finite validation grid, and the stated greedy augmentation procedures.
+
+Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_seed_robustness.py); tests: [tests/test_t136_initial_seed_robustness.py](../tests/test_t136_initial_seed_robustness.py); workflow: [.github/workflows/t136-initial-seed-robustness.yml](../.github/workflows/t136-initial-seed-robustness.yml). The successful workflow and numerical artifact are linked above.
