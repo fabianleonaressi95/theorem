@@ -15,16 +15,22 @@ def moment_row(vertices):
                      2*moment[0, 1], 2*moment[0, 2], 2*moment[1, 2]])
 
 
-def candidate_pool(seed=1362026, size=4000):
+def candidate_pool(seed=1362026, size=4000, include_vertices=False):
+    """Return moment rows; optionally return the matching tetrahedron vertices."""
     rng = np.random.default_rng(seed)
-    rows = []
+    rows, vertices_pool = [], []
     while len(rows) < size:
         vertices = rng.normal(size=(4, 3))
         volume = abs(np.linalg.det(vertices[1:] - vertices[0])) / 6.0
         if volume < 0.02:
             continue
         rows.append(moment_row(vertices))
-    return np.asarray(rows)
+        if include_vertices:
+            vertices_pool.append(vertices)
+    rows = np.asarray(rows)
+    if include_vertices:
+        return rows, np.asarray(vertices_pool)
+    return rows
 
 
 def greedy_d_optimal_design(pool, count=12, regularization=1e-6):
@@ -49,7 +55,15 @@ def run_audit():
     selected = greedy_d_optimal_design(pool, count=12)
     design = pool[selected]
     singular = np.linalg.svd(design, compute_uv=False)
-    baseline_rng = np.random.default_rng(136)\n    baseline_rows = []\n    while len(baseline_rows) < 6:\n        vertices = baseline_rng.normal(size=(4, 3))\n        volume = abs(np.linalg.det(vertices[1:] - vertices[0])) / 6.0\n        if volume >= 0.02:\n            baseline_rows.append(moment_row(vertices))\n    baseline = np.linalg.cond(np.asarray(baseline_rows))
+
+    baseline_rng = np.random.default_rng(136)
+    baseline_rows = []
+    while len(baseline_rows) < 6:
+        vertices = baseline_rng.normal(size=(4, 3))
+        volume = abs(np.linalg.det(vertices[1:] - vertices[0])) / 6.0
+        if volume >= 0.02:
+            baseline_rows.append(moment_row(vertices))
+    baseline = np.linalg.cond(np.asarray(baseline_rows))
     condition = float(singular[0] / singular[-1])
     return {
         "audit": "T136 deterministic D-optimal tetrahedral moment design",
