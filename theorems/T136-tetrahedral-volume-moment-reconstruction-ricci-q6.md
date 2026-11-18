@@ -162,3 +162,50 @@ For RGS, the concrete interface is a proposed measurement protocol: oriented tet
 - A. Gray, *Tubes*, 2nd ed., Birkhäuser, 2004.
 
 **Repository rule:** this record is a mathematical specification and verification plan. No numerical audit, code implementation, continuum convergence, or physical validation is claimed until separately supplied and checked.
+
+
+## 9. First manufactured numerical audit (T136-A/B)
+
+A deterministic NumPy audit is provided in [audits/t136_tetrahedral_ricci.py](../audits/t136_tetrahedral_ricci.py), with regression tests in [tests/test_t136_tetrahedral_ricci.py](../tests/test_t136_tetrahedral_ricci.py). It uses a three-dimensional constant-sectional-curvature space form with $K=0.4$, for which $\operatorname{Ric}=2K I=0.8I$, and integrates the exact normal-coordinate density $(\sin(\sqrt K\,|x|)/(\sqrt K\,|x|))^2$ over six fixed tetrahedra by Duffy-transformed Gauss–Legendre quadrature.
+
+The deterministic six-tetrahedron moment matrix has rank 6, singular values approximately
+\[
+(1.68989446,1.33500349,0.82677003,0.57782569,0.11501344,0.09043041),
+\]
+and condition number $18.6872362$. The reconstructed Ricci errors at scales $r=(0.16,0.12,0.09,0.0675)$ are approximately
+\[
+(1.2489\times10^{-2},7.0358\times10^{-3},3.9610\times10^{-3},2.2291\times10^{-3}).
+\]
+The error decreases at every refinement step. In this constant-curvature space-form control the radial density is even, so the normalized remainder exhibits the special $O(r^2)$ behaviour (successive error ratios approximately $0.563$, $0.563$, $0.563$), stronger than the generic $O(r)$ estimate. A deterministic observation perturbation of amplitude $10^{-7}$ gives Ricci reconstruction error approximately $2.23\times10^{-6}$.
+
+**Evidence boundary:** this is a finite manufactured benchmark and a deterministic conditioning/noise check. It is not a general-metric convergence theorem, a Regge refinement result, a Q6 correspondence, or a physical validation. The regression tests are committed but have not been run in GitHub Actions in this PR.
+
+
+## 10. Anisotropic manufactured control with nonzero off-diagonal Ricci
+
+The audit now includes a second, independent manufactured local metric. Prescribe at the origin
+\[
+\operatorname{Ric}(0)=
+\begin{pmatrix}
+0.80&0.12&-0.08\\
+0.12&0.50&0.09\\
+-0.08&0.09&0.30
+\end{pmatrix}.
+\]
+In three dimensions the algebraic Riemann tensor is determined by Ricci. The code constructs that tensor and the quadratic normal-coordinate metric
+\[
+g_{ij}(x)=\delta_{ij}-\frac13R_{ikjl}(0)x^kx^l.
+\]
+It integrates $\sqrt{\det g}$ over the same six fixed tetrahedra. This is a local manufactured normal-coordinate model, not a global spacetime or material model.
+
+The moment matrix again has rank 6 and condition number $18.6872362$. The six-component reconstruction errors for $r=(0.16,0.12,0.09,0.0675)$ are
+\[
+(5.11596\times10^{-3},\;2.86315\times10^{-3},\;
+1.60595\times10^{-3},\;9.01910\times10^{-4}).
+\]
+At the smallest scale the recovered components $(xx,yy,zz,xy,xz,yz)$ are approximately
+\[
+(0.79986219,\;0.50064474,\;0.29960334,\;
+0.11990109,\;-0.08030948,\;0.09034038).
+\]
+All three off-diagonal entries are nonzero and are recovered with decreasing error. The normalized errors exhibit the expected special quadratic scaling for this even quadratic local metric. This closes the finite manufactured anisotropic check, but does not prove stability for arbitrary metrics, arbitrary tetrahedral families, or noisy nonlinear measurements.
