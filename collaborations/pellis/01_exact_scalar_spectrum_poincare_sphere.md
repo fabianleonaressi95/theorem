@@ -38,8 +38,7 @@ M:=S^3/2I
 \]
 is a smooth compact spherical space form. We equip it with the quotient of the unit round metric on \(S^3\), so its sectional curvature is \(1\).
 
-The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\), recorded in T035. On this collaboration branch the duplicated legacy implementation has been removed: the audit module now has one top-level `from __future__ import annotations`, and the regression test targets its current API. The branch workflow compiles the module, runs the A1 and T035 tests, and executes the T035 audit. A successful run must be reported only after the Actions result for the resulting branch commit is observed; see §8.
-The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\). Its source record is T035. The legacy audit file is retained as a project record, but it currently contains a duplicated `from __future__ import annotations` block and is not an executable reproduction command; see §8.
+The project contains an exact quaternion model of the 120 elements over \(\mathbb Q(\sqrt5)\), recorded in T035. Its current audit implementation is executable and has a single top-level `from __future__ import annotations`; the reproduction commands and recorded combined A1/T035 workflow run are listed in §8.
 
 ## 3. Scalar eigenvalues on the covering sphere
 
@@ -142,7 +141,6 @@ F_{2I}(t)=\sum_{k\geq0}(k+1)a_k t^k
 This relation follows by differentiating the power series term by term. It is a useful consistency check and prevents the two Molien calculations from being mixed.
 
 ## 5. Exact character calculation and Reynolds cross-check
-## 5. Independent exact character calculation
 
 The invariant dimension can also be computed by the Reynolds projector:
 \[
@@ -262,7 +260,6 @@ Repository: [fabianleonaressi95/theorem](https://github.com/fabianleonaressi95/t
 - **Independent scalar spectral audit:** [audits/a1_poincare_scalar_spectrum.py](../../audits/a1_poincare_scalar_spectrum.py).
 - **Regression tests:** [tests/test_a1_poincare_scalar_spectrum.py](../../tests/test_a1_poincare_scalar_spectrum.py).
 - **Historical A1 CI evidence:** [GitHub Actions run 43879748053](https://github.com/fabianleonaressi95/theorem/actions/runs/43879748053). It must not be cited as a T035 run. **Combined A1/T035 verification:** [GitHub Actions run 43891483378](https://github.com/fabianleonaressi95/theorem/actions/runs/43891483378), commit `006516d32d534a000ee66c302eb53a3586a2ce2a`.
-- **Legacy T035 audit source (not currently executable):** [audits/t035_exact_binary_icosahedral_model.py](../../audits/t035_exact_binary_icosahedral_model.py).
 - **Scalar spectral formula and complete table:** [Document A1 — Exact scalar spectrum](../../documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md).
 - **Independent scalar spectral audit:** [audits/a1_poincare_scalar_spectrum.py](../../audits/a1_poincare_scalar_spectrum.py).
 - **Regression tests:** [tests/test_a1_poincare_scalar_spectrum.py](../../tests/test_a1_poincare_scalar_spectrum.py).
@@ -280,7 +277,6 @@ python audits/t035_exact_binary_icosahedral_model.py
 The first two commands reproduce the scalar-spectrum audit and its regression tests. The third and fourth commands compile and execute the exact T035 group model and its regression test. A1 keeps its class-size and character input local so that its calculation is reproducible without importing T035; the two audits therefore share group-theoretic input but exercise different exact constructions. The successful combined run above is recorded for commit `006516d32d534a000ee66c302eb53a3586a2ce2a`; later documentation-only commits do not alter the audited T035 source or test.
 ```
 
-The two commands below reproduce the scalar-spectrum audit and its regression tests. They do **not** execute the legacy T035 script or independently rebuild the quaternion group. The A1 audit keeps the exact class-size and character input local, avoiding import of the currently broken legacy T035 module. The recorded GitHub Actions run is separate evidence: it completed with three tests passing and 121 exact degree comparisons. No new test execution is claimed by this document update.
 
 ## 9. References
 
