@@ -48,7 +48,7 @@ def monte_carlo_at_scale(vertices, indices, pool_size, scale, sigma_rel, seed, r
     centered_noise = noise_R - noise_R.mean(axis=1, keepdims=True)
     covariance = centered_noise @ centered_noise.T / (replicas - 1)
     noise_squared = np.einsum(
-        "ir,ij,jr->r", noise_R, base.TENSOR_METRIC, noise_R
+        "ir,ij,jr->r", centered_noise, base.TENSOR_METRIC, centered_noise
     )
     return {
         "replicas": int(replicas),
