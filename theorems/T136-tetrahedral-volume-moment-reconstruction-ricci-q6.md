@@ -529,14 +529,14 @@ Implementation: [audits/t136_initial_seed_robustness.py](../audits/t136_initial_
 
 ### 17.2. A-optimal six-probe seed versus D-optimal and random initializations
 
-The follow-up audit adds an independently optimized A-optimal six-probe initialization to the comparison in Section 17.1. It uses the same three fixed candidate pools (128 probes each), smooth nonquadratic manufactured metric, exact Ricci target, relative-volume noise level \\(\\sigma_{\\rm rel}=10^{-9}\\), 12-probe budget, selection and validation grids, and numerical resolutions. For each pool, the A seed is obtained by multi-start best-improvement one-exchange local search minimizing the mean selection-grid objective
-\\[
-\\Phi_A(S)=\\frac{1}{|\\mathcal G_{\\rm sel}|}\\sum_{r\\in\\mathcal G_{\\rm sel}}
-\\operatorname{tr}\\left(W\\operatorname{Cov}(\\widehat R_S(r))\\right).
-\\]
+The follow-up audit adds an independently optimized A-optimal six-probe initialization to the comparison in Section 17.1. It uses the same three fixed candidate pools (128 probes each), smooth nonquadratic manufactured metric, exact Ricci target, relative-volume noise level \(\sigma_{\rm rel}=10^{-9}\), 12-probe budget, selection and validation grids, and numerical resolutions. For each pool, the A seed is obtained by multi-start best-improvement one-exchange local search minimizing the mean selection-grid objective
+\[
+\Phi_A(S)=\frac{1}{|\mathcal G_{\rm sel}|}\sum_{r\in\mathcal G_{\rm sel}}
+\operatorname{tr}\left(W\operatorname{Cov}(\widehat R_S(r))\right).
+\]
 The search uses nine starts: the D-optimal six-probe seed and eight objective-blind random full-rank seeds. The resulting seed is a one-swap local optimum among the tested endpoints, not a global optimum over all six-subsets. Four independent objective-blind random full-rank seeds are also retained as controls. Each of the six initializations per pool is independently augmented to 12 probes under both the A and tensor-risk greedy criteria. All 36 completed designs are evaluated on the same independent 18-scale validation grid; Monte Carlo checks use 2,000 replicas per design.
 
-The table reports validation-grid total squared Frobenius risk in units of \\(10^{-6}\\). Random min/median/max refer to the four independent random starts.
+The table reports validation-grid total squared Frobenius risk in units of \(10^{-6}\). Random min/median/max refer to the four independent random starts.
 
 | Pool | Augmentation | D-seed | A-local seed | Random min | Random median | Random max | Random starts beating D |
 |---|---|---:|---:|---:|---:|---:|---:|
@@ -549,7 +549,7 @@ The table reports validation-grid total squared Frobenius risk in units of \\(10
 
 The A-seed search reduced the declared selection-grid A objective relative to the D seed by approximately 0.14%, 18.65%, and 40.00% in pools A, B, and C, respectively. This optimization of the selection objective does not guarantee a lower independent validation risk. Under A-criterion augmentation, the A-local seed produced essentially the same risk as the D seed in pool A, a 10.87% higher risk in pool B, and an 8.16% lower risk in pool C. Under tensor-risk augmentation, it produced a 2.19% higher risk in pool A, a 17.80% lower risk in pool B, and a 23.08% lower risk in pool C.
 
-Across the 12 random starts per augmentation criterion, one random start beat the D-seed result for A augmentation (1/12) and one did so for tensor-risk augmentation (1/12). In pool C, one random A-augmentation start also beat the A-local-seed result (risk 1.5089 versus 1.6077, in units of \\(10^{-6}\\)). Thus neither the D seed nor the A-local seed is uniformly best on the independent validation grid. The A-local seed is particularly helpful for risk augmentation in two of the three tested pools, but the result depends on the candidate pool and the augmentation objective.
+Across the 12 random starts per augmentation criterion, one random start beat the D-seed result for A augmentation (1/12) and one did so for tensor-risk augmentation (1/12). In pool C, one random A-augmentation start also beat the A-local-seed result (risk 1.5089 versus 1.6077, in units of \(10^{-6}\)). Thus neither the D seed nor the A-local seed is uniformly best on the independent validation grid. The A-local seed is particularly helpful for risk augmentation in two of the three tested pools, but the result depends on the candidate pool and the augmentation objective.
 
 Across all 36 completed designs, the largest absolute relative discrepancy between Monte Carlo mean squared error and analytic risk was approximately 1.64%; the mean absolute relative discrepancy was approximately 0.67%. This is a numerical consistency check for the declared independent Gaussian relative-volume-noise model, not a general probabilistic guarantee.
 
