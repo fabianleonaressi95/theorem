@@ -162,3 +162,20 @@ For RGS, the concrete interface is a proposed measurement protocol: oriented tet
 - A. Gray, *Tubes*, 2nd ed., Birkhäuser, 2004.
 
 **Repository rule:** this record is a mathematical specification and verification plan. No numerical audit, code implementation, continuum convergence, or physical validation is claimed until separately supplied and checked.
+
+
+## 9. First manufactured numerical audit (T136-A/B)
+
+A deterministic NumPy audit is provided in [audits/t136_tetrahedral_ricci.py](../audits/t136_tetrahedral_ricci.py), with regression tests in [tests/test_t136_tetrahedral_ricci.py](../tests/test_t136_tetrahedral_ricci.py). It uses a three-dimensional constant-sectional-curvature space form with $K=0.4$, for which $\operatorname{Ric}=2K I=0.8I$, and integrates the exact normal-coordinate density $(\sin(\sqrt K\,|x|)/(\sqrt K\,|x|))^2$ over six fixed tetrahedra by Duffy-transformed Gauss–Legendre quadrature.
+
+The deterministic six-tetrahedron moment matrix has rank 6, singular values approximately
+\[
+(1.68989446,1.33500349,0.82677003,0.57782569,0.11501344,0.09043041),
+\]
+and condition number $18.6872362$. The reconstructed Ricci errors at scales $r=(0.16,0.12,0.09,0.0675)$ are approximately
+\[
+(1.2489\times10^{-2},7.0358\times10^{-3},3.9610\times10^{-3},2.2291\times10^{-3}).
+\]
+The error decreases at every refinement step. In this constant-curvature space-form control the radial density is even, so the normalized remainder exhibits the special $O(r^2)$ behaviour (successive error ratios approximately $0.563$, $0.563$, $0.563$), stronger than the generic $O(r)$ estimate. A deterministic observation perturbation of amplitude $10^{-7}$ gives Ricci reconstruction error approximately $2.23\times10^{-6}$.
+
+**Evidence boundary:** this is a finite manufactured benchmark and a deterministic conditioning/noise check. It is not a general-metric convergence theorem, a Regge refinement result, a Q6 correspondence, or a physical validation. The regression tests are committed but have not been run in GitHub Actions in this PR.
