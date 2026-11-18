@@ -274,3 +274,110 @@ not exactly \(\varphi\). The Vesica supplies the exact \(\sqrt3\) scale and the 
 | Bonilla's nested pentagons and the separately drawn second pentagon | **Still open** until every vertex and auxiliary circle in those diagrams is reconstructed |
 
 **Source diagrams:** Bonilla, “Relación áurea entre pentágono y hexágono”, especially the construction plates [1](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/construccion-pentagono-a-partir-de-hexagono-ibo-1.jpg) and [2](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/construccion-pentagono-a-partir-de-hexagono-ibo-2.jpg); and “Vesica Piscis y Proporción Divina”, especially the opening/envergadura plates [3](https://www.iboenweb.com/ibo/images/fotos_pag/vesica_phi/vesica-pentagono-pentaculo-fibonacci-%20ibo.jpg) and [4](https://www.iboenweb.com/ibo/images/fotos_pag/vesica_phi/envergadura-vesica-pentagono-phi-%20IBO.jpg). The equations above are our independent coordinate derivation, not statements attributed to Bonilla.
+
+
+## 13. Full audit of Bonilla's two Vesica–pentagon constructions
+
+### 13.1 Two distinct claims in the source
+
+Bonilla's *Vesica Piscis y Proporción Divina* distinguishes opening/height (A) from span/width (E). *Relación áurea entre pentágono y hexágono* then makes two separate claims: (i) (A=1) generates a regular pentagon with side (L=A=1), and (ii) (E=1), with a circle circumscribing the Vesica, generates a regular pentagon with side (L=E=1), followed by a golden pentagon. These are distinct constructions, not one construction. See [the Vesica article](https://iboenweb.com/ibo/docs/vesica_piscis_y_phi.html), [the pentagon–hexagon article](https://iboenweb.com/ibo/docs/relacion_aurea_pentagono_hexagono_phi.html), and the [opening-based plate](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/pentagonos-vesica-piscis-razon-aurea-phi.jpg) and [span-based plate](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/pentagono-aureo-vesica-piscis-razon-aurea-phi.jpg).
+
+### 13.2 Coordinate model and the exact hexagon relation
+
+Let the generating circles have radius (r>0) and centres
+\[
+O_1=(-r/2,0),\qquad O_2=(r/2,0).
+\]
+Their common chord endpoints are (P=(0,\sqrt3r/2)) and (Q=(0,-\sqrt3r/2)). Thus
+\[
+E=|O_1O_2|=r,\qquad A=|PQ|=\sqrt3r,\qquad A/E=\sqrt3.
+\]
+
+A regular hexagon of side (s=E=r) has apothem (a_6=\sqrt3r/2), hence across-flats width
+\[
+\boxed{w_6=2a_6=\sqrt3r=A.}
+\]
+This is the exact relation shown by a side-(E) hexagon: (A) is its across-flats width, **not** its side. A different valid construction circumscribes a regular hexagon about the smallest circle containing both full generating disks (radius (3r/2)); that different hexagon has side (A). Do not conflate these two hexagons.
+
+### 13.3 Opening-based pentagon claim
+
+The smallest circle containing both complete generating disks has radius
+\[
+R_A=r+E/2=3r/2.
+\]
+A regular pentagon inscribed in it has side
+\[
+L_A=2R_A\sin(\pi/5)=3r\sin36^\circ.
+\]
+Since (A=\sqrt3r),
+\[
+\boxed{\frac{L_A}{A}=\sqrt3\sin(\pi/5)
+=\frac12\sqrt{9-3\varphi}
+=\sqrt{\frac{3(5-\sqrt5)}8}
+\approx1.018073920910.}
+\]
+Therefore, under the stated incidence “pentagon inscribed in the circle circumscribing the two generating circles”, (L_A=A) is **not exact**: the pentagon side is about 1.8074% longer. If (A=1), then (L_A\approx1.018073921), not 1.
+
+### 13.4 Span-based pentagon claim
+
+The Vesica lens (the intersection of the two disks) has diameter (A=\sqrt3r); its smallest enclosing circle is centred at the midpoint of the centres and has radius
+\[
+R_E=A/2=\sqrt3r/2.
+\]
+A regular pentagon inscribed in this circle has
+\[
+L_E=2R_E\sin(\pi/5)=\sqrt3r\sin36^\circ,
+\]
+so, because (E=r),
+\[
+\boxed{\frac{L_E}{E}=\sqrt3\sin(\pi/5)
+=\frac12\sqrt{9-3\varphi}
+\approx1.018073920910.}
+\]
+Thus, if “circle circumscribing the Vesica” means its natural smallest enclosing circle, (L_E=E) also fails by the same relative amount. If the plate intends another circle, its centre, radius and vertex incidences must be specified; the phrase alone does not define a unique construction.
+
+### 13.5 Unified invariant: an exact π–φ–√3 relation
+
+The two natural circles satisfy
+\[
+\frac{R_A}{A}=\frac{R_E}{E}=\frac{\sqrt3}{2}.
+\]
+Thus both pentagon constructions have the same scale factor
+\[
+\boxed{k=\frac{L}{u}=\sqrt3\sin(\pi/5)
+=\frac12\sqrt{9-3\varphi}
+\approx1.018073920910,}
+\]
+where (u=A) for the opening construction and (u=E) for the span construction. The identity follows from
+\[
+\cos(\pi/5)=\varphi/2,\qquad
+\sin^2(\pi/5)=(3-\varphi)/4.
+\]
+This is a genuine exact algebraic bridge between the Vesica scale, (pi), and (arphi); it does **not** imply (L=u).
+
+The correction factor needed to make the pentagon side equal to the chosen Vesica unit is
+\[
+k^{-1}=\frac{2}{\sqrt{9-3\varphi}}\approx0.982246946.
+\]
+For either pentagon, its diagonal (D=\varphi L), so
+\[
+\boxed{\frac{D}{u}=\varphi k
+=\sqrt{\frac{3(5+\sqrt5)}8}
+\approx1.647278207093.}
+\]
+
+### 13.6 Classification
+
+| Claim | Status |
+|---|---|
+| (A/E=\sqrt3) | **Proved** |
+| Side-(E) regular hexagon has across-flats width (A) | **Proved** |
+| Hexagon circumscribed about radius-(3r/2) circle has side (A) | **Proved; distinct construction** |
+| (L_A=A) for a pentagon inscribed in the circle containing both generating disks | **Disproved** under that incidence; (L_A/A=k\ne1) |
+| (L_E=E) for a pentagon inscribed in the smallest circle enclosing the Vesica lens | **Disproved** under that incidence; (L_E/E=k\ne1) |
+| (D/L=\varphi) for a regular pentagon | **Proved (classical)** |
+| (k=\sqrt3\sin(\pi/5)=\frac12\sqrt{9-3\varphi}) | **Proved** |
+| Alternative compass constructions in the plates produce a different exact unit pentagon | **Open** until all points, circles and incidences are specified and checked |
+| The nested-pentagon sequence is exactly Fibonacci-scaled in the stated construction | **Open** pending derivation of the actual similarity ratio |
+
+**Correction to the previous repository discussion:** the hexagon relation in the construction plate is an across-flats identity; the two pentagon claims must be audited separately. The earlier common-circle calculation remains valid for its own configuration, but it is not a complete reconstruction of both source constructions. No new numbered theorem is claimed.
