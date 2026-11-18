@@ -890,3 +890,14 @@ La somma dei nove blocchi coincide con la correlazione dello stress totale; a ca
 ## Audit execution register — 12 November 2026
 
 The repository's 27-chapter monograph now points to the reproducible finite audit record for T103/T104, T105, T107 and T131/T132. The associated CI runs and exact test counts are recorded in audits/reports/actions-validation-2026-11-12.md. These checks remain finite-model/software evidence and are not promoted to physical validation.
+
+
+## Addendum — T138: six-dimensional icosahedral matrix and its two sheets
+
+The record [T138](../theorems/T138-c6-exact-two-sheet-spin3-decomposition.md) isolates the exact finite-dimensional algebra associated with the signed symmetric matrix \(C_6\). Its block decomposition \(C_6=\left(\begin{smallmatrix}U&S\\S^T&-U\end{smallmatrix}\right)\) gives \(C_6^2=5I_6\) from \(U^2=I_3+J_3\), \(SS^T=S^TS=4I_3-J_3\), and \(US=SU\). Thus the eigenspaces \(V_\pm=\ker(C_6\mp\sqrt5I_6)\) are orthogonal real three-spaces, with projectors \(P_\pm=\frac12(I_6\pm C_6/\sqrt5)\) and an explicit graph parametrization.
+
+The geometric language is deliberately restricted: each sheet has an \(SO(3)\) rotation group, whose standard spin double cover is \(\operatorname{Spin}(3)\simeq SU(2)\simeq Sp(1)\). Unit quaternions realize that cover on imaginary quaternions, but this does not equip either three-dimensional sheet with intrinsic quaternionic endomorphisms \(I,J,K\).
+
+The exterior-square splitting has dimensions \(3+9+3\), with \(\Lambda^2C_6\) eigenvalues \(+5\) (multiplicity 6) and \(-5\) (multiplicity 9). The exact integer audit and regression tests are linked from the T138 record.
+
+**Open representation-theory gate:** the six-dimensional matrices \(R_6(g)\) for generators of a specified \(2I^*\) action are not yet available in this construction. The required test is \([C_6,R_6(g)]=0\). Until it is passed, invariance and representation type of the two sheets under \(2I^*\) are not claimed. No physical or De Aquino identification follows from the matrix identity alone.
