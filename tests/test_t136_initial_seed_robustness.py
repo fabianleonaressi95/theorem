@@ -2,7 +2,11 @@ import unittest
 
 import numpy as np
 
-from audits.t136_initial_seed_robustness import (\n    a_optimal_six_seed, random_full_rank_seeds,\n)\nfrom audits import t136_exact_design_comparison as base
+from audits import t136_exact_design_comparison as base
+from audits.t136_initial_seed_robustness import (
+    a_optimal_six_seed,
+    random_full_rank_seeds,
+)
 
 
 class T136InitialSeedRobustnessTests(unittest.TestCase):
@@ -15,7 +19,6 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
             self.assertEqual(len(seed), 6)
             self.assertEqual(len(set(seed)), 6)
             self.assertEqual(np.linalg.matrix_rank(pool[seed]), 6)
-
 
     def test_a_seed_is_full_rank_and_no_worse_than_its_starts(self):
         rng = np.random.default_rng(41)
