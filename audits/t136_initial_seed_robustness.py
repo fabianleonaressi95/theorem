@@ -79,9 +79,9 @@ def a_optimal_six_seed(pool_matrix, q_table, pool_seed, d_seed, random_starts):
                     if np.linalg.matrix_rank(pool_matrix[trial]) < 6:
                         continue
                     value = objective(trial)
-                    if value < best_trial_value - 1.0e-14 * max(1.0, abs(best_trial_value)):
+                    if value < best_trial_value - 1.0e-12 * max(abs(best_trial_value), 1.0e-30):
                         best_trial, best_trial_value = trial, value
-            if best_trial_value >= current_value - 1.0e-14 * max(1.0, abs(current_value)):
+            if best_trial_value >= current_value - 1.0e-12 * max(abs(current_value), 1.0e-30):
                 break
             current, current_value = best_trial, best_trial_value
             swaps += 1
