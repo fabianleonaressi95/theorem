@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""T136 scale selection from truncation bias and propagated volume-noise covariance.
+"""T136 scale selection from tensor bias and propagated volume-noise covariance.
 
-The noise model is independent, zero-mean relative volume error:
-    V_i^obs = V_i (1 + eps_i),  eps_i ~ N(0, sigma_rel^2).
-For each scale the script computes clean geodesic volumes on the manufactured
-smooth non-quadratic metric, then evaluates the exact linearized covariance
-of the least-squares Ricci estimator under that measurement-noise model.
+The risk uses the Frobenius norm of the reconstructed symmetric Ricci tensor.
+For the component vector (xx, yy, zz, xy, xz, yz), its metric is
+W = diag(1, 1, 1, 2, 2, 2).
 """
 from __future__ import annotations
 
@@ -19,10 +17,11 @@ from audits.t136_moment_design_optimization import (
     candidate_pool, greedy_d_optimal_design,
 )
 
-
 RELATIVE_VOLUME_NOISE = 1.0e-9
 SCALES = (0.012, 0.009, 0.00675, 0.0050, 0.00375,
           0.00280, 0.00210, 0.00160, 0.00120, 0.00090)
+# Frobenius metric for a symmetric 3x3 tensor in (xx, yy, zz, xy, xz, yz).
+TENSOR_METRIC = np.diag([1.0, 1.0, 1.0, 2.0, 2.0, 2.0])
 
 
 def moment_row(vertices):
@@ -44,6 +43,10 @@ def target_ricci_vector():
                      RICCI_EXACT[0, 2], RICCI_EXACT[1, 2]])
 
 
+def tensor_norm(vector):
+    return float(np.sqrt(max(0.0, vector @ TENSOR_METRIC @ vector)))
+
+
 def evaluate_design(vertices, matrix, scale, sigma_rel):
     ratios = []
     for tetra in vertices:
@@ -57,33 +60,35 @@ def evaluate_design(vertices, matrix, scale, sigma_rel):
     estimate = pseudoinverse @ observations
     bias = estimate - target_ricci_vector()
 
-    # Independent relative volume noise gives Var(b_i)=36 sigma^2 q_i^2/r^4.
+    # Independent, zero-mean relative volume errors with common variance.
     variances = (6.0 * sigma_rel * ratios / scale**2)**2
     covariance = (pseudoinverse * variances[None, :]) @ pseudoinverse.T
     covariance = 0.5 * (covariance + covariance.T)
-    noise_rms = float(np.sqrt(max(0.0, np.trace(covariance))))
-    bias_norm = float(np.linalg.norm(bias))
-    rmse = float(np.sqrt(bias_norm**2 + noise_rms**2))
+    weighted_covariance_trace = float(np.trace(TENSOR_METRIC @ covariance))
+    noise_rms = float(np.sqrt(max(0.0, weighted_covariance_trace)))
+    bias_norm = tensor_norm(bias)
+    rmse = float(np.sqrt(bias_norm**2 + weighted_covariance_trace))
     return {
         "scale": float(scale),
-        "bias_l2": bias_norm,
-        "noise_rms_l2": noise_rms,
-        "expected_total_rmse_l2": rmse,
-        "covariance_trace": float(np.trace(covariance)),
+        "bias_frobenius": bias_norm,
+        "noise_rms_frobenius": noise_rms,
+        "expected_total_rmse_frobenius": rmse,
+        "weighted_covariance_trace": weighted_covariance_trace,
         "max_volume_ratio_deviation": float(np.max(np.abs(ratios - 1.0))),
     }
 
 
 def summarize_design(vertices, matrix, sigma_rel):
     rows = [evaluate_design(vertices, matrix, r, sigma_rel) for r in SCALES]
-    optimum = min(rows, key=lambda row: row["expected_total_rmse_l2"])
+    optimum = min(rows, key=lambda row: row["expected_total_rmse_frobenius"])
 
-    # Estimate asymptotic coefficients from the four finest scales:
-    # ||bias|| ~ a r and RMS(noise) ~ b sigma_rel/r^2.
+    # Estimate asymptotic coefficients in the Frobenius tensor norm.
     tail = rows[-4:]
-    a = float(np.mean([row["bias_l2"] / row["scale"] for row in tail]))
+    a = float(np.mean([
+        row["bias_frobenius"] / row["scale"] for row in tail
+    ]))
     b = float(np.mean([
-        row["noise_rms_l2"] * row["scale"]**2 / sigma_rel
+        row["noise_rms_frobenius"] * row["scale"]**2 / sigma_rel
         for row in tail
     ]))
     asymptotic_optimum = (
@@ -96,7 +101,7 @@ def summarize_design(vertices, matrix, sigma_rel):
         "moment_condition_number": float(np.linalg.cond(matrix)),
         "scale_records": rows,
         "grid_optimal_scale": optimum["scale"],
-        "grid_minimum_expected_rmse_l2": optimum["expected_total_rmse_l2"],
+        "grid_minimum_expected_rmse_frobenius": optimum["expected_total_rmse_frobenius"],
         "asymptotic_bias_coefficient_a": a,
         "asymptotic_noise_coefficient_b": b,
         "asymptotic_optimal_scale": asymptotic_optimum,
@@ -119,21 +124,23 @@ def run_audit():
         RELATIVE_VOLUME_NOISE,
     )
     return {
-        "audit": "T136 scale selection by bias-covariance balance",
+        "audit": "T136 scale selection by tensor-bias/covariance balance",
         "metric": "same smooth non-quadratic conformal metric with numerical exp map",
-        "relative_volume_noise_model": "independent zero-mean Gaussian relative errors",
+        "tensor_norm": "Frobenius norm of symmetric Ricci tensor",
+        "relative_volume_noise_model": "independent zero-mean errors with common relative variance",
         "relative_volume_noise_sigma": RELATIVE_VOLUME_NOISE,
         "scales": list(SCALES),
         "six_probe": baseline,
         "twelve_probe_d_optimal": optimized,
         "interpretation": (
-            "At each scale the clean reconstruction bias is computed from "
-            "geodesic volumes and the covariance is propagated analytically "
-            "through the least-squares map. The reported grid optimum minimizes "
-            "bias^2 + trace(covariance) for this metric, design, scale grid and "
-            "noise model only. The cube-root asymptotic estimate assumes bias "
-            "proportional to r and relative-volume noise proportional to "
-            "sigma/r^2; neither coefficient is universal."
+            "At each scale the clean tensor reconstruction bias is computed "
+            "from geodesic volumes and the covariance is propagated analytically "
+            "through the least-squares map. The finite-grid optimum minimizes "
+            "Frobenius-bias squared plus the Frobenius-weighted covariance trace "
+            "for this metric, design, scale grid and noise model. The cube-root "
+            "asymptotic estimate assumes bias proportional to r and relative-"
+            "volume noise proportional to sigma/r^2; its coefficients are not "
+            "universal."
         ),
     }
 
