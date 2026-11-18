@@ -468,3 +468,32 @@ The legacy six-probe reference had condition number 18.6872 and validation-grid 
 - risk-optimal: (+2.43\times10^{-8}) relative.
 
 The weighted covariance traces are unchanged to the reported floating-point precision; the tiny changes arise in the clean volume-derived bias. This is a strong numerical resolution-sensitivity check at the selected scales, but it is not a rigorous integration-error bound and does not establish convergence of the estimator as the tetrahedral scale tends to zero.
+
+
+## 16. Candidate-pool and seed robustness audit
+
+The matched-budget comparison was repeated over five deterministic candidate-pool configurations while holding fixed the nonquadratic conformal metric, exact Ricci target, observation model, relative-noise level \(10^{-9}\), exact probe budget 12, selection grid, validation grid, and numerical integration resolutions. Three independent pool-generation seeds were tested at pool size 128; two of those seeds were also tested at size 256. For each repeated seed, the 128-candidate pool is a prefix of the 256-candidate pool, so the size comparison isolates the effect of adding candidates while preserving the original pool.
+
+For each pool, the D-optimal exact 12-subset was rebuilt; the A- and risk-selected exact 12-subsets were then greedily augmented from that pool's common D-optimal six-probe seed. All designs were reevaluated on the same independent 18-scale validation grid. Monte Carlo checks used 2,000 candidate-indexed Gaussian-noise replicas per design and common random numbers among the three designs within each trial.
+
+| Pool configuration | Pool size | D risk squared (×10⁻⁶) | A risk squared (×10⁻⁶) | Risk-selected (×10⁻⁶) | Risk scale | Reduction vs D | Reduction vs A |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Seed A | 128 | 1.7895 | 1.6904 | **1.3495** | 0.002866 | 24.59% | 20.16% |
+| Seed B | 128 | 2.3996 | 2.3793 | **1.4251** | 0.002866 | 40.61% | 40.11% |
+| Seed C | 128 | 1.4374 | 1.7506 | **1.0216** | 0.003419 | 28.93% | 41.65% |
+| Seed A | 256 | 1.5068 | 1.3893 | **0.9922** | 0.002866 | 34.15% | 28.59% |
+| Seed B | 256 | 1.5411 | 1.4222 | **1.0516** | 0.002866 | 31.76% | 26.06% |
+
+The risk-selected exact design had lower validation-grid risk than both D- and A-selected designs in **all five configurations**. Across the five trials, its mean relative risk reduction was 32.01% versus D-optimal (descriptive across-trial standard deviation 5.98 percentage points; range 24.59–40.61%) and 31.31% versus A-optimal (standard deviation 9.27 percentage points; range 20.16–41.65%). These standard deviations describe only these five deterministic trials; they are not confidence intervals for the population of all candidate pools.
+
+All selected designs had moment rank 6. Risk-selected condition numbers ranged from approximately 2.50 to 3.15. The risk-selected design did not always have the best condition number, and its weighted covariance trace was sometimes higher than those of D- or A-optimal designs. Its lower total risk is therefore driven by a reduction in squared tensor bias that compensates for the variance trade-off, not by a uniform improvement in conditioning or variance alone.
+
+The Monte Carlo mean squared errors at the respective grid minima tracked the analytic risk values: over the 15 design/trial cases, the relative discrepancy was at most about 1.8%, with Monte Carlo standard errors approximately 0.9–1.2% of the analytic risk. This supports the covariance propagation under the declared noise model at the tested scales; it does not establish a general probabilistic theorem.
+
+### Interpretation and limits
+
+This is **positive finite-sample robustness evidence** for the risk-based selection rule across the five tested pools and two pool sizes. Increasing the pool from 128 to 256 lowered the absolute minimum risk for all three criteria in both nested-seed comparisons, but the relative advantage of risk-selection did not increase monotonically. The selected minimizing scale also changed in one of the five trials, so a single universal optimal scale is not supported.
+
+The A- and risk-selected subsets remain greedy augmentations from a D-optimal six-probe seed, not globally optimal combinatorial designs. The test covers five deterministic candidate pools, one manufactured metric, one noise level, and one finite validation grid. It does not establish robustness over arbitrary metrics, noise laws, tetrahedral distributions, or continuous design spaces.
+
+Implementation: [audits/t136_pool_seed_robustness.py](../audits/t136_pool_seed_robustness.py); tests: [tests/test_t136_pool_seed_robustness.py](../tests/test_t136_pool_seed_robustness.py). The focused workflow completed successfully: [run 44330581457](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457). Its JSON artifact is [t136-pool-seed-robustness](https://github.com/fabianleonaressi95/theorem/actions/runs/44330581457).
