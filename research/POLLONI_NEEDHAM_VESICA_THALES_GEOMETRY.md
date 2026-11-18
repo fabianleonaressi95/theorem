@@ -381,3 +381,159 @@ For either pentagon, its diagonal (D=\varphi L), so
 | The nested-pentagon sequence is exactly Fibonacci-scaled in the stated construction | **Open** pending derivation of the actual similarity ratio |
 
 **Correction to the previous repository discussion:** the hexagon relation in the construction plate is an across-flats identity; the two pentagon claims must be audited separately. The earlier common-circle calculation remains valid for its own configuration, but it is not a complete reconstruction of both source constructions. No new numbered theorem is claimed.
+
+
+## 14. Reconstruction audit of the span-based two-pentagon plate
+
+The original span-based plate is more informative than the article's prose. It gives the following sequence (translated and condensed):
+
+1. Draw the Vesica from two unit circles and mark the span (E=1).
+2. Draw the vertical axis through the centre.
+3. With centre (O) and radius (E=1), mark the two missing vertices of the blue pentagon.
+4. Draw the blue pentagon.
+5. Extend the blue pentagon's diagonals until they meet the Vesica circles.
+6. Use the resulting intersections to draw the first side of the green pentagon.
+7. With radius equal to that side and centre (O), mark the two remaining vertices; Bonilla labels the resulting green side as (arphi\approx1.618).
+
+Source: Bonilla, [span-based construction plate](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/pentagono-aureo-vesica-piscis-razon-aurea-phi.jpg), read together with the text at [lines 28–30 of the article](https://iboenweb.com/ibo/docs/relacion_aurea_pentagono_hexagono_phi.html).
+
+### 14.1 What the plate establishes, and what it does not
+
+The plate establishes the *intended construction sequence* and the author's claimed target length. It does not uniquely specify, in analytic terms, all of the following:
+
+- which of the several possible intersections of the extended diagonals with the two generating circles are selected;
+- the exact location meant by the centre (O) in each compass step;
+- whether the two marked vertices are chosen on the upper or lower arcs;
+- the ordered list of five vertices of the green polygon.
+
+Those choices are essential: a compass-and-straightedge instruction such as “take the intersections” is not a complete construction until the intended pair is specified. The image is a raster diagram and cannot itself certify exact incidence or equality.
+
+### 14.2 Exact pentagram benchmark
+
+There is nevertheless a precise classical benchmark against which the proposed second pentagon must be tested. Let a regular pentagon have side (s), vertices
+[
+v_j=R e^{2pi i j/5},qquad
+R=\frac{s}{2\sin(\pi/5)}.
+]
+Its diagonals have length
+[
+d=2R\sin(2\pi/5)=\varphi s.
+]
+The five diagonals form a pentagram. Their five pairwise inner intersections form a smaller regular pentagon whose side is
+[
+s_{\mathrm{inner}}=\frac{s}{\varphi^2}.
+]
+This follows from the similarity of the isosceles triangles cut out by the pentagram (equivalently, from the diagonal/side ratio (\varphi)). Thus the standard pentagram produces an inner pentagon scaled by (\varphi^{-2}), not an outer pentagon of side (\varphi s).
+
+The value (\varphi s) is the *diagonal length of the original pentagon*. It becomes the side of a second pentagon only if the new pentagon's five sides are explicitly shown to be congruent to those diagonals or to other segments of the same length. The source plate's extension-to-circle step may define a different, larger construction, but that requires the exact intersection choices listed above.
+
+### 14.3 Coordinate test still required
+
+For a complete reconstruction, fix the unit Vesica
+[
+C_-=(-1/2,0),\quad C_+=(1/2,0),\quad
+\mathcal C_\pm:(x\pm1/2)^2+y^2=1,
+]
+and write each selected diagonal-line/circle intersection as the solution of
+[
+(x-x_0)^2+(y-y_0)^2=1
+]
+together with the relevant diagonal-line equation. The five proposed green vertices must then be listed explicitly as (G_0,\ldots,G_4), in cyclic order, and checked by exact algebra:
+[
+|G_{j+1}-G_j|^2=\varphi^2
+\quad(j\bmod 5),
+\qquad
+\angle(G_{j-1}-G_j,G_{j+1}-G_j)=108^\circ.
+]
+Only after these ten metric/angular conditions (or an equivalent regularity proof) are established can the green polygon be certified as a regular pentagon of side (\varphi).
+
+**Status:** the source's intended second-pentagon construction is now identified, but its exact coordinate reconstruction remains **open** because the raster plate does not uniquely encode the selected intersections and compass centres. The standard pentagram benchmark is proved; it must not be substituted for Bonilla's distinct extended-diagonal construction.
+
+## 15. Eisenstein integers: the Vesica as a triangular-lattice configuration
+
+The appearance of (\sqrt3) in the Vesica has a particularly clean arithmetic description in the Eisenstein integers. Let
+[
+\omega=e^{2\pi i/3}=-\frac12+\frac{\sqrt3}{2}i,
+\qquad \omega^2+\omega+1=0,
+]
+and let
+[
+\mathbb Z[\omega]=\{a+b\omega:a,b\in\mathbb Z\}.
+]
+This is the triangular (hexagonal) lattice in the complex plane.
+
+### 15.1 Exact coordinates of the unit Vesica
+
+Translate and rotate the unit Vesica so that its generating-circle centres are
+[
+O_1=0,\qquad O_2=1.
+]
+The two circle intersections are
+[
+P=\frac12+\frac{\sqrt3}{2}i
+=e^{i\pi/3}=-\omega^2,
+\qquad
+Q=\frac12-\frac{\sqrt3}{2}i
+=e^{-i\pi/3}=-\omega.
+]
+All four points (O_1,O_2,P,Q) belong to (\mathbb Z[\omega]). In particular, the common-chord vector is
+[
+P-Q=\omega-\omega^2=1+2\omega=i\sqrt3.
+]
+For (a,b\in\mathbb Z), the Eisenstein norm is
+[
+N(a+b\omega)=(a+b\omega)(a+b\bar\omega)
+=a^2-ab+b^2.
+]
+Consequently,
+[
+N(P-Q)=N(1+2\omega)=1-2+4=3,
+\qquad |P-Q|=\sqrt3.
+]
+This recovers the Vesica chord exactly as the norm-(3) vector (1+2\omega) of the triangular lattice. The factor (\sqrt3) is therefore not merely a trigonometric coincidence: it is the Euclidean length associated with an Eisenstein integer of norm (3).
+
+### 15.2 The exact scope of the Eisenstein connection
+
+The Vesica and its equilateral-triangle construction are naturally represented in the Eisenstein lattice. The regular pentagon is arithmetically different. If (\zeta_5=e^{2\pi i/5}), then
+[
+[\mathbb Q(\zeta_5):\mathbb Q]=4,
+\qquad
+[\mathbb Q(\omega):\mathbb Q]=2.
+]
+Since these degrees are coprime, the intersection of the two fields is (\mathbb Q), and (\zeta_5\notin\mathbb Q(\omega)). In particular, a regular pentagon cannot have all its vertices in a single translated, rotated and scaled Eisenstein lattice: the ratio of two consecutive edge vectors would have to be (\zeta_5), while the quotient of two nonzero Eisenstein integers lies in (\mathbb Q(\omega)).
+
+The pentagonal geometry requires an extension by fifth roots of unity. The joint cyclotomic field is
+[
+\mathbb Q(\omega,\zeta_5)=\mathbb Q(\zeta_{15}),
+\qquad [\mathbb Q(\zeta_{15}):\mathbb Q]=8.
+]
+The golden ratio appears in the real subfield of the pentagonal cyclotomic data:
+[
+\varphi=2\cos(\pi/5)
+=\zeta_{10}+\zeta_{10}^{-1},
+\qquad
+\varphi^2=\varphi+1.
+]
+Thus the Vesica's triangular symmetry and the pentagon's fivefold symmetry meet naturally in a larger cyclotomic setting, not inside the Eisenstein integers alone.
+
+### 15.3 What this means for the proposed Vesica–pentagon bridge
+
+There are three distinct levels:
+
+1. **Eisenstein level — proved:** the Vesica's centres and intersection points are Eisenstein-lattice points after normalisation; its common chord is the norm-(3) vector (1+2\omega).
+2. **Pentagonal level — classical and proved:** a regular pentagon introduces fifth roots of unity and the golden ratio; its diagonal/side ratio is (\varphi).
+3. **Construction bridge — open:** Bonilla's compass construction would have to specify how the Vesica/Eisenstein data select the required fifth-root-of-unity extension and the five green vertices. The field-theoretic compatibility does not by itself prove that the proposed compass steps produce a regular pentagon of side (\varphi).
+
+This is the clean algebraic synthesis: (\sqrt3) belongs to the triangular/Eisenstein geometry, while (\varphi) belongs to the pentagonal/cyclotomic geometry. Their coexistence in a construction is possible, but it must be demonstrated by explicit incidences and lengths; neither constant follows from the other.
+
+### 15.4 Classification update
+
+| Statement | Status |
+|---|---|
+| Unit Vesica coordinates (0,1,-\omega,-\omega^2) | **Proved** |
+| Common chord (1+2\omega) has Eisenstein norm (3) and length (\sqrt3) | **Proved** |
+| Vesica's equilateral-triangle geometry lies in the triangular lattice | **Proved** |
+| A regular pentagon lies in a scaled Eisenstein lattice | **Impossible** (field-degree argument) |
+| Pentagon requires fifth-root/cyclotomic data beyond (\mathbb Q(\omega)) | **Proved** |
+| The combined triangular/pentagonal cyclotomic field is (\mathbb Q(\zeta_{15})) | **Proved** |
+| Bonilla's second green pentagon has exactly side (\varphi) | **Open** pending exact vertex reconstruction |
