@@ -298,3 +298,7 @@ def test_neumann_diagnostic_callback_reports_bounds_and_tail_decisions():
     bounds = [event for event in events if event["stage"] == "order_bound"]
     assert bounds
     assert all("selected_remainder" in event for event in bounds)
+    timings = [event for event in events if event["stage"] == "timing"]
+    operations = {event["operation"] for event in timings}
+    assert "compose_denominator" in operations
+    assert "bernstein_denominator_bounds" in operations
