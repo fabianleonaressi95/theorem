@@ -10,10 +10,9 @@ from time import perf_counter
 
 from mpi4py import MPI
 import basix
-from dolfinx import fem
 
 from models.morandotti_certified_curved_p3_forms import (
-    _cell_data, _add, _mul, _det_power,
+    _cell_data, _add, _mul,
 )
 from models.morandotti_certified_rational_integration import (
     integrate_rational_triangle_many,
@@ -63,7 +62,7 @@ def main():
         raise ValueError(f"cell must lie in 1..{nc}")
     if not 1 <= args.entry <= 55:
         raise ValueError("entry must lie in 1..55")
-    dofmaps = mesh.geometry.dofmaps[0]
+    dofmaps = mesh.geometry.dofmap
     nodes = mesh.geometry.x[dofmaps[args.cell - 1], :2].copy()
     maps, basis, jac, adj, det, hessians, det5 = _cell_data(nodes, points)
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
@@ -84,6 +83,7 @@ def main():
         "tolerance": str(tol), "max_depth": args.max_depth,
         "max_triangles": args.max_triangles,
         "coordinate_nodes_hex": [[float(x).hex() for x in row] for row in nodes],
+        "geometry_dofmap_api": "mesh.geometry.dofmap",
         "numerator_degree": max((a + b for a, b in numerator), default=0),
         "numerator_terms": len(numerator),
         "denominator_degree": max((a + b for a, b in det5), default=0),
