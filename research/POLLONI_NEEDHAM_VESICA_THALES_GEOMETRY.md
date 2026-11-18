@@ -182,3 +182,95 @@ Accordingly, the sequence “Vesica / hexagonal geometry → pentagon / golden r
 Polloni's “Il Primo Angolo” and the Vesica Piscis can be connected rigorously through the central-angle/inscribed-angle theorem. Thales' theorem is its diametral case; the Vesica gives a different exact case with central angle (120^\circ), inscribed angle (60^\circ), and aspect ratio \(\sqrt3:1\). The appearance of \(\varphi\) belongs to the separate pentagonal construction until a further theorem is supplied.
 
 **Repository classification:** research note. Classical Euclidean results and the roots-of-unity distance calculation are proved; Needham is cited for the complex-analytic cube-root framework, not as author of the Vesica theorem. Bonilla's Vesica–pentagon–hexagon construction remains a candidate requiring independent verification. No new numbered theorem is claimed.
+
+
+## 12. Coordinate audit of Bonilla's shared-circle pentagon–hexagon construction
+
+This addendum reconstructs the configuration shown in Bonilla's diagrams for the Vesica, the pentagon and the hexagon. It supersedes the earlier statement that the whole construction was still awaiting any quantitative check. The exact shared-circle comparison is now derived; the broader sequence of nested polygons and the second pentagon construction still require a point-by-point construction audit.
+
+### 12.1 Coordinates of the Vesica and its outer circle
+
+Set the common radius to (r>0), and choose
+\[
+O_1=(-r/2,0),\qquad O_2=(r/2,0).
+\]
+The two generating circles are
+\[
+(x+r/2)^2+y^2=r^2,\qquad (x-r/2)^2+y^2=r^2.
+\]
+Their intersections are
+\[
+P=(0,\sqrt3r/2),\qquad Q=(0,-\sqrt3r/2).
+\]
+Thus the span (distance between centres) and opening (common chord) are
+\[
+E=r,\qquad A=|PQ|=\sqrt3r.
+\]
+
+The smallest circle centred at the midpoint (O=(0,0)) that contains both generating circles has radius
+\[
+R=r+E/2=3r/2.
+\]
+This is the natural “circumscribed circle of the two generating circles” referred to in Bonilla's opening-based claim.
+
+### 12.2 Inscribed regular pentagon and circumscribed regular hexagon
+
+Use this same circle of radius (R=3r/2) as the circumcircle of a regular pentagon and as the incircle of a regular hexagon.
+
+For the inscribed regular pentagon, the side is the chord subtending (72^\circ):
+\[
+p=2R\sin(\pi/5)=3r\sin36^\circ
+=\frac{3r}{4}\sqrt{10-2\sqrt5}.
+\]
+
+For the regular hexagon circumscribed about that circle, (R) is its apothem. Half a side and the apothem form a right triangle with angle (30^\circ), so
+\[
+h=2R\tan(\pi/6)=\frac{2R}{\sqrt3}=\sqrt3r=A.
+\]
+This is the exact Vesica–hexagon identity:
+\[
+\boxed{h=A=\sqrt3r.}
+\]
+
+The pentagon side is close to, but not equal to, the same length:
+\[
+\boxed{\frac{p}{h}=\sqrt3\sin36^\circ
+=\frac{\sqrt{30-6\sqrt5}}4
+\approx1.018073921.}
+\]
+The relative excess is approximately (1.8073921\%\). Therefore the diagram's “about 1.5/100” description is qualitatively close but is not the exact value for this standard shared-circle interpretation. In particular, the claim that the Vesica opening equals the side of the pentagon inscribed in the circle circumscribing the two generating circles is **false as an exact equality** under this natural reading: the opening equals the side of the circumscribed hexagon, while the inscribed-pentagon side is about 1.8% longer.
+
+Two normalisations make the result transparent:
+
+- If (E=r=1), then (A=h=\sqrt3), (R=3/2), and (p=3\sin36^\circ\approx1.763355757).
+- If (A=1), then (r=1/\sqrt3), (R=\sqrt3/2), (h=1), and (p=\sqrt3\sin36^\circ\approx1.018073921).
+
+The ratio (p/h) is independent of scale.
+
+### 12.3 Where the golden ratio actually enters
+
+For every regular pentagon, independently of the Vesica construction, its diagonal (d) and side (p) satisfy
+\[
+\boxed{d/p=\varphi=(1+\sqrt5)/2.}
+\]
+Consequently, in the shared-circle configuration,
+\[
+\frac d h=\varphi\sqrt3\sin36^\circ
+=\varphi\frac{\sqrt{30-6\sqrt5}}4,
+\]
+not exactly \(\varphi\). The Vesica supplies the exact \(\sqrt3\) scale and the shared circle; the pentagon supplies \(\varphi\) through its diagonal/side ratio. Their numerical near-equality of side lengths does not collapse these two independent facts into a new identity.
+
+### 12.4 Classification after the audit
+
+| Statement | Status |
+|---|---|
+| Vesica opening (A=\sqrt3r), span (E=r) | **Proved** |
+| Smallest concentric circle containing both generating circles has radius (3r/2) | **Proved** |
+| Circumscribed hexagon side (h=A) on that circle | **Proved** |
+| Inscribed pentagon side (p=3r\sin36^\circ) | **Proved** |
+| (p=A) for the inscribed pentagon in that same circle | **Disproved**; (p/A\approx1.018073921) |
+| Pentagon diagonal/side (=\varphi) | **Proved (classical)** |
+| A new exact identity directly equating the Vesica opening and the pentagon side | **Not established** |
+| Bonilla's nested pentagons and the separately drawn second pentagon | **Still open** until every vertex and auxiliary circle in those diagrams is reconstructed |
+
+**Source diagrams:** Bonilla, “Relación áurea entre pentágono y hexágono”, especially the construction plates [1](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/construccion-pentagono-a-partir-de-hexagono-ibo-1.jpg) and [2](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/construccion-pentagono-a-partir-de-hexagono-ibo-2.jpg); and “Vesica Piscis y Proporción Divina”, especially the opening/envergadura plates [3](https://www.iboenweb.com/ibo/images/fotos_pag/vesica_phi/vesica-pentagono-pentaculo-fibonacci-%20ibo.jpg) and [4](https://www.iboenweb.com/ibo/images/fotos_pag/vesica_phi/envergadura-vesica-pentagono-phi-%20IBO.jpg). The equations above are our independent coordinate derivation, not statements attributed to Bonilla.
