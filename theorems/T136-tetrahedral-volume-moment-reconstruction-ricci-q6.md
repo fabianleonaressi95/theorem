@@ -351,3 +351,32 @@ The coefficients $a$ and $b$ are design- and metric-dependent. This cube-root es
 The implementation is [audits/t136_scale_selection.py](../audits/t136_scale_selection.py), with regression checks in [tests/test_t136_scale_selection.py](../tests/test_t136_scale_selection.py). It compares the original six-probe design with the 12-probe D-optimal design, computes geodesic volumes on the same smooth non-quadratic conformal metric, propagates the independent relative-volume-noise covariance, uses the Frobenius norm of the symmetric Ricci tensor (including the factor 2 on off-diagonal components), and reports both a grid minimizer and the asymptotic estimate.
 
 **Classification and evidence boundary:** the covariance identity is an exact finite-dimensional consequence of the stated linear estimator and independent relative-noise model. The numerical scale minimizing the resulting risk is model-, design-, grid-, and noise-specific. It is not a universal optimal scale, a general stability theorem, a Regge convergence result, or a Q6 continuum limit. The new audit and tests are committed for execution; no test or CI pass is claimed here.
+
+
+### 14.1. Numerical scale-selection result for the manufactured metric
+
+The scale audit was executed on the smooth non-quadratic conformal metric of Section 11, with independent relative-volume noise variance $\sigma_{\rm rel}^2$ and $\sigma_{\rm rel}=10^{-9}$. The risk uses the Frobenius norm of the symmetric Ricci tensor. On the declared geometric grid
+\[
+r\in(0.012,0.009,0.00675,0.005,0.00375,0.0028,
+0.0021,0.0016,0.0012,0.0009),
+\]
+the finite-grid minimizers are:
+
+\[
+\begin{array}{c|ccccc}
+\text{design}&r_{\rm grid}&\|\text{bias}\|_F&
+\text{noise RMS}_F&\text{total RMSE}_F&r_{\rm asym}\
+\hline
+6\text{ probes}&0.00375&7.9168\times10^{-3}&
+7.4690\times10^{-3}&1.0884\times10^{-2}&0.0041281\\
+12\text{ probes}&0.00210&8.1326\times10^{-4}&
+6.8942\times10^{-4}&1.0662\times10^{-3}&0.0022310
+\end{array}
+\]
+Here $r_{\rm asym}$ is obtained by estimating $a$ and $b$ from the four finest grid points, not by fitting the entire risk curve. The corresponding coefficients are approximately $(a,b)=(2.1115,105.0324)$ for six probes and $(0.38718,3.04033)$ for twelve probes. The asymptotic estimate is close to, but distinct from, the finite-grid minimizer, as expected.
+
+At their respective grid minimizers, the twelve-probe design has a total Frobenius RMSE approximately $10.2$ times smaller than the six-probe design. This comparison is specific to this manufactured metric, the fixed D-optimal candidate pool, the relative-noise level, and the tested scale grid; it is not a uniform improvement theorem.
+
+A resolution cross-check at the two selected scales changed both the Duffy quadrature order from 7 to 9 and the geodesic RK4 step count from 80 to 120. The reconstructed Ricci vector changed by Frobenius norm approximately $1.01\times10^{-9}$ for the six-probe case and $2.44\times10^{-10}$ for the twelve-probe case. These are observed discretization changes under this cross-check, not rigorous integration-error bounds.
+
+**Evidence status:** the numerical audit has been executed independently using the committed algorithm and matching deterministic seeds. The repository regression tests remain a separate check; no GitHub Actions pass is claimed unless a workflow run reports it.
