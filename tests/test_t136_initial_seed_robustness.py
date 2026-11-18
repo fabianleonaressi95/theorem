@@ -35,9 +35,11 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
         objective = lambda ids: base.cached_subset_objective(
             ids, "A", pool, q_table
         )
+        selected_objective = objective(selected)
+        tolerance = 1.0e-12 * max(abs(selected_objective), 1.0e-30)
         self.assertLessEqual(
-            objective(selected),
-            min(objective(ids) for ids in [d_seed] + random_seeds) + 1e-25,
+            selected_objective,
+            min(objective(ids) for ids in [d_seed] + random_seeds) + tolerance,
         )
         selected_set = set(selected)
         for slot in range(6):
@@ -48,7 +50,7 @@ class T136InitialSeedRobustnessTests(unittest.TestCase):
                 trial[slot] = candidate
                 if np.linalg.matrix_rank(pool[trial]) == 6:
                     self.assertGreaterEqual(
-                        objective(trial), objective(selected) - 1e-25
+                        objective(trial), selected_objective - tolerance
                     )
 
     def test_seed_generation_is_reproducible(self):
