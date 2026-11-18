@@ -53,7 +53,7 @@ Consequently, for every v in R²,
 \]
 Taking the quadratic form on v and the nonnegative square root proves the norm identity. \(\square\)
 
-The theorem says more than the familiar chord formula: the chord operator is an isotropic similarity up to a rotation. Indeed,
+The theorem says more than the familiar chord formula: when \\(\\sin(\\theta/2)\\ne0\\), the chord operator is a similarity (a uniform scaling followed by a rotation). At \\(\\theta\\in2\\pi\\mathbb Z\\), it is the zero operator. Indeed,
 \[
 \Delta_\theta
 =2\sin(\theta/2)R_{\theta/2+\pi/2},
