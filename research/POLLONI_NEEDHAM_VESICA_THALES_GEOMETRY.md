@@ -500,7 +500,7 @@ The Vesica and its equilateral-triangle construction are naturally represented i
 \qquad
 [\mathbb Q(\omega):\mathbb Q]=2.
 ]
-Since these degrees are coprime, the intersection of the two fields is (\mathbb Q), and (\zeta_5\notin\mathbb Q(\omega)). In particular, a regular pentagon cannot have all its vertices in a single translated, rotated and scaled Eisenstein lattice: the ratio of two consecutive edge vectors would have to be (\zeta_5), while the quotient of two nonzero Eisenstein integers lies in (\mathbb Q(\omega)).
+The degrees 4 and 2 are **not** coprime, so coprimality of degrees cannot be used here. Instead, since the conductors 5 and 3 are coprime, the cyclotomic compositum is \\(\\mathbb Q(\\zeta_{15})\\), of degree \\(\\varphi_{\\rm E}(15)=8=4\\cdot2\\). The compositum therefore has the product degree, which gives \\(\\mathbb Q(\\zeta_5)\\cap\\mathbb Q(\\omega)=\\mathbb Q\\); in particular, \\(\\zeta_5\\notin\\mathbb Q(\\omega)\\). In particular, a regular pentagon cannot have all its vertices in a single translated, rotated and scaled Eisenstein lattice: the ratio of two consecutive edge vectors would have to be (\zeta_5), while the quotient of two nonzero Eisenstein integers lies in (\mathbb Q(\omega)).
 
 The pentagonal geometry requires an extension by fifth roots of unity. The joint cyclotomic field is
 [
