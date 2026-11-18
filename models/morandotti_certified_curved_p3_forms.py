@@ -444,6 +444,7 @@ def assemble_cell_volume_interval(
     max_depth=12,
     progress_callback=None,
     diagnostic_callback=None,
+    diagnostic_entry=None,
     integration_method="neumann",
     residual_expansion_order=2,
 ):
@@ -461,6 +462,10 @@ def assemble_cell_volume_interval(
         progress_callback({"integration_stage": "exact_geometry_and_hessians_complete"})
     result = [[None for _ in range(10)] for _ in range(10)]
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    if diagnostic_entry is not None:
+        if not isinstance(diagnostic_entry, int) or not 1 <= diagnostic_entry <= len(pairs):
+            raise ValueError("diagnostic_entry must be a 1-based index in 1..55")
+        pairs = [pairs[diagnostic_entry - 1]]
     numerators = []
     for i, j in pairs:
         numerator = {}
