@@ -614,3 +614,8 @@ These are finite mathematical/software checks. They do not establish physical ca
   \\frac{2|T|A_T}{\\gamma_T}\\rho_T^{N+1},
   \\]
   exact width additivity for the usual sum of intervals, and finite-order termination on an already certified finite partition. Degree-elevation conventions for both numerator and denominator are explicit. The Bernstein quotient enclosure is attributed to the pre-existing 2022 paper; novelty and complexity claims remain open. The 55 actual curved-P3 entries, complete IPDG assembly and LDL propagation are separate validation gates.
+
+### T136 — Tetrahedral volume moments and conditional Ricci reconstruction
+
+- [T136 — Tetrahedral volume moments, local Ricci reconstruction, and the Q6 curvature gate](theorems/T136-tetrahedral-volume-moment-reconstruction-ricci-q6.md) records the normal-coordinate expansion of geodesic tetrahedral volumes, the six-component Ricci inverse problem, and the rank/conditioning requirements for a usable measurement family. It separates the edge-based Regge deficit/action from the quadratic Q6 plaquette functional and specifies a staged manufactured-metric, noise, refinement, and Q6-mapping programme. The local expansion is established under stated regularity; reconstruction is conditional on full moment rank; Regge/Q6 convergence and the RGS correspondence remain open. No numerical audit or implementation is claimed.
+
