@@ -7,11 +7,10 @@
 
 ## Result of the reorganization
 
-- **8** established bibliographic/source PDFs grouped by subject (including the structured-deformation preprint).
+- **10** identified bibliographic/source PDFs grouped by subject (including the structured-deformation preprint).
 - **1** exact-computation report grouped with its corresponding 2I audit.
-- **8** internal or author-supplied research documents grouped separately from the peer-reviewed bibliography.
+- **12** internal or author-associated research documents grouped separately from the external bibliography.
 - **6** unidentified PDFs moved to `archive/unclassified/`; the already quarantined `zps (1).pdf` remains there.
-- **7** files already classified in the prior audit were retained as bibliographic items; this inventory supersedes its old 13-file count for the current tree.
 - **No PDF was deleted or altered.** Moves preserve the original Git blob SHA.
 
 ## A. Bibliography and source literature
