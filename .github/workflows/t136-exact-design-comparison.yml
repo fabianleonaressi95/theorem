@@ -24,7 +24,7 @@ jobs:
       - name: Run focused regression tests
         run: python -m unittest discover -s tests -p "test_t136_exact_design_comparison.py" -v
       - name: Run matched-budget numerical audit
-        run: python audits/t136_exact_design_comparison.py > t136_exact_design_comparison.json
+        run: python -m audits.t136_exact_design_comparison > t136_exact_design_comparison.json
       - name: Upload numerical results
         uses: actions/upload-artifact@v4
         with:
