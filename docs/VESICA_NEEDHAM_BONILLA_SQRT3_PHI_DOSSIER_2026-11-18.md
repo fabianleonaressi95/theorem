@@ -345,3 +345,138 @@ Each has rank one over \(\mathbb Q\).
 | G4 | The Gram matrix is \(H\) as displayed, with determinant 225. | Exact computation |
 | G5 | The Cayley Laplacian has spectrum \(0,2,2,4\). | Exact; representation-theoretic |
 | G6 | A nontrivial new spectral relation linking this Galois module to Vesica/pentagon geometry or to a physical operator exists. | Open; not established by G1–G5 |
+
+## 11. Golden-ratio cotangent expansion and Bernoulli representation
+
+This section records the exact analytic identity obtained by evaluating Euler's partial-fraction expansion of the cotangent at the golden-ratio parameter. It is an analytic consequence of periodicity and the zeta expansion; it is **not** a geometric consequence of the truncated icosahedron, and it does not validate any physical threshold formula used to motivate the parameter.
+
+### 11.1 Exact parameter reduction
+
+Let
+\[
+\varphi=\frac{1+\sqrt5}{2},\qquad
+\varphi^3=2+\sqrt5,
+\]
+and define
+\[
+\varepsilon=\frac{\sqrt5-2}{2}.
+\]
+Rationalization gives
+\[
+\varepsilon=\frac{1}{4+2\sqrt5}
+=\frac{1}{2\varphi^3},\qquad 0<\varepsilon<1.
+\]
+Since \(\sqrt5/2=1+\varepsilon\) and cotangent has period \(\pi\),
+\[
+\boxed{
+\pi\cot\left(\frac{\pi\sqrt5}{2}\right)
+=\pi\cot(\pi\varepsilon)
+=\pi\cot\left(\frac{\pi}{2\varphi^3}\right).
+}
+\]
+
+### 11.2 Euler–zeta expansion
+
+For \(|x|<1\), Euler's partial-fraction expansion yields
+\[
+\pi\cot(\pi x)
+=\frac1x-2\sum_{n=1}^{\infty}\zeta(2n)x^{2n-1}.
+\]
+Substituting \(x=\varepsilon=1/(2\varphi^3)\) gives the absolutely convergent identity
+\[
+\boxed{
+\pi\cot\left(\frac{\pi}{2\varphi^3}\right)
+=2\varphi^3-
+2\sum_{n=1}^{\infty}
+\zeta(2n)\left(\frac{1}{2\varphi^3}\right)^{2n-1}.
+}
+\]
+All terms in the subtracted series are positive. Thus the partial sums
+\[
+S_N=\frac1\varepsilon-
+2\sum_{n=1}^{N}\zeta(2n)\varepsilon^{2n-1}
+\]
+decrease to the limit from above.
+
+### 11.3 Bernoulli-number form
+
+With the convention
+\[
+\frac{x}{e^x-1}=\sum_{m=0}^{\infty}B_m\frac{x^m}{m!},
+\]
+the even zeta values satisfy
+\[
+\zeta(2n)=(-1)^{n+1}
+\frac{B_{2n}(2\pi)^{2n}}{2(2n)!}.
+\]
+Therefore the same identity can be written
+\[
+\boxed{
+\pi\cot(\pi\varepsilon)
+=\frac1\varepsilon-
+\sum_{n=1}^{\infty}
+(-1)^{n+1}\frac{B_{2n}(2\pi)^{2n}}{(2n)!}
+\varepsilon^{2n-1}.
+}
+\]
+This is a change of representation of the same cotangent series, not a new independent identity. It connects the present evaluation to the Bernoulli-number material through the standard even-zeta formula.
+
+### 11.4 Certified truncation bound
+
+After retaining terms through \(\zeta(2N)\), the omitted tail has negative sign relative to the partial sum:
+\[
+S_N-\pi\cot(\pi\varepsilon)
+=2\sum_{n=N+1}^{\infty}\zeta(2n)\varepsilon^{2n-1}>0.
+\]
+Since \(\zeta(2n)\leq\zeta(2N+2)\) for \(n\geq N+1\),
+\[
+0<S_N-\pi\cot(\pi\varepsilon)
+\leq
+\frac{2\zeta(2N+2)\varepsilon^{2N+1}}{1-\varepsilon^2}.
+\]
+This supplies an explicit error bound for numerical evaluation.
+
+### 11.5 Numerical check
+
+Using \(\varepsilon=0.1180339887498948482045868343656\ldots\), direct evaluation of the cotangent and the zeta partial sums gives:
+
+| Truncation | Partial sum |
+|---|---:|
+| \(1/\varepsilon\) (no zeta terms) | 8.472135954999579 |
+| through \(\zeta(2)\) | 8.083819696718215 |
+| through \(\zeta(4)\) | 8.080260039100665 |
+| through \(\zeta(6)\) | 8.080213423332925 |
+| through \(\zeta(8)\) | 8.080212782349567 |
+| through \(\zeta(10)\) | 8.080212773446790 |
+| limit | **8.080212773321099** |
+
+The independently evaluated limit is
+\[
+\boxed{
+\pi\cot(\pi\varepsilon)
+=8.0802127733210986785886243049\ldots
+}
+\]
+The value \(8.080620081\) that appeared in an earlier exchange is erroneous and must not be reused. The table above is consistent with the defining cotangent and with the convergent series.
+
+### 11.6 Interpretation and status
+
+The exact results are:
+- the algebraic identity \(\varepsilon=1/(2\varphi^3)\);
+- the periodic reduction of the cotangent argument;
+- the Euler–zeta expansion and its equivalent Bernoulli representation;
+- the explicit tail bound and the numerical value above.
+
+If this parameter is motivated by a proposed threshold equation (for example, a zero of a model-dependent quantity \(m_g\)), that motivation is conditional on the validity and assumptions of that external equation. The cotangent calculation does not prove the physical model or the threshold.
+
+No derivation has been established from the face geometry, edge lengths, dihedral angles, seams, or aerodynamics of the truncated icosahedron to this cotangent value. The relationship to the soccer-ball geometry therefore remains **open / not established**; no geometric or physical law is claimed here.
+
+| Item | Statement | Status |
+|---|---|---|
+| Z1 | \(\varepsilon=(\sqrt5-2)/2=1/(2\varphi^3)\). | Exact algebraic identity |
+| Z2 | \(\pi\cot(\pi\sqrt5/2)=\pi\cot(\pi/(2\varphi^3))\). | Exact, by periodicity |
+| Z3 | The value has the stated absolutely convergent expansion in \(\zeta(2n)\). | Proved, for \(|\varepsilon|<1\) |
+| Z4 | The Bernoulli-number expression is equivalent via the even-zeta formula. | Classical identity |
+| Z5 | The truncation error obeys the displayed explicit bound. | Proved |
+| Z6 | The cotangent value is derived from truncated-icosahedron geometry or soccer-ball aerodynamics. | Not established; open |
+| Z7 | The parameter is a physically justified threshold. | Not established by this analytic calculation; requires independent validation of the model |
