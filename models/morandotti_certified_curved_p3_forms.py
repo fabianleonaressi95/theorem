@@ -443,6 +443,8 @@ def assemble_cell_volume_interval(
     absolute_tolerance=F(1, 10**9),
     max_depth=12,
     progress_callback=None,
+    diagnostic_callback=None,
+    diagnostic_entry=None,
     integration_method="neumann",
     residual_expansion_order=2,
 ):
@@ -460,6 +462,10 @@ def assemble_cell_volume_interval(
         progress_callback({"integration_stage": "exact_geometry_and_hessians_complete"})
     result = [[None for _ in range(10)] for _ in range(10)]
     pairs = [(i, j) for i in range(10) for j in range(i, 10)]
+    if diagnostic_entry is not None:
+        if not isinstance(diagnostic_entry, int) or not 1 <= diagnostic_entry <= len(pairs):
+            raise ValueError("diagnostic_entry must be a 1-based index in 1..55")
+        pairs = [pairs[diagnostic_entry - 1]]
     numerators = []
     for i, j in pairs:
         numerator = {}
@@ -472,6 +478,7 @@ def assemble_cell_volume_interval(
         enclosed = integrate_rational_triangle_many(
             numerators, det5, absolute_tolerance=absolute_tolerance,
             max_depth=max_depth, progress_callback=progress_callback,
+            diagnostic_callback=diagnostic_callback,
         )
     elif integration_method == "bernstein_residual":
         enclosed = integrate_rational_triangle_bernstein_residual_many(
