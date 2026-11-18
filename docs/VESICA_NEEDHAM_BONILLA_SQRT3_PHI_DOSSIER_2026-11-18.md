@@ -63,6 +63,44 @@ This is the exact bridge to Needham's treatment of cube roots: the three cube ro
 
 The natural arithmetic setting is the Eisenstein lattice \(\mathbb Z[\omega]\) and the quadratic field \(\mathbb Q(\sqrt{-3})\). This is the triangular/hexagonal side of the dossier.
 
+## 4. Eisenstein integers: the arithmetic form of the triangular geometry
+
+The Eisenstein integers give an exact arithmetic model for the equilateral-triangle/hexagonal lattice underlying the \(\sqrt3\) geometry.
+
+Let
+\[
+\omega=e^{2\pi i/3}=\frac{-1+i\sqrt3}{2},\qquad
+\mathbb Z[\omega]=\{a+b\omega:a,b\in\mathbb Z\}.
+\]
+This is the triangular lattice. Its six units
+\[
+\{\pm1,\pm\omega,\pm\omega^2\}
+\]
+encode the six directions separated by multiples of \(60^\circ\), the algebraic counterpart of hexagonal symmetry.
+
+For the normalized Vesica in §3,
+\[
+C=-\omega^2,\qquad D=-\omega,
+\]
+and its common chord is
+\[
+C-D=\omega-\omega^2=1+2\omega=i\sqrt3.
+\]
+The chord is therefore an Eisenstein integer, with norm
+\[
+N(1+2\omega)=(1+2\omega)(1+2\omega^2)=3,
+\qquad |C-D|=\sqrt3.
+\]
+The Eisenstein prime \(1-\omega\) also has norm 3, and the rational prime 3 ramifies in \(\mathbb Q(\sqrt{-3})\):
+\[
+(1-\omega)^2=-3\omega,
+\qquad 3=-\omega^2(1-\omega)^2.
+\]
+
+**Meaning.** Needham's cube roots of unity give the complex-analytic picture; Eisenstein integers give its integral lattice and norm structure; the Vesica realizes a chord of Eisenstein norm 3. These are compatible descriptions of the same triangular geometry.
+
+**Boundary.** This does not create an arithmetic identification between \(\mathbb Q(\sqrt{-3})\) and \(\mathbb Q(\sqrt5)\). The pentagonal/golden-ratio side belongs to a different quadratic field. Any deeper arithmetic bridge requires a separately defined object and proof; it cannot be inferred from the geometric construction alone.
+
 ## 4. Bonilla: Vesica, pentagon, hexagon, and \(\Phi\)
 
 Ibo Bonilla Oconitrillo's web essay, _Relación áurea entre pentágono y hexágono_ (2023 version as indexed on the author's site), explicitly asks whether the regular pentagon and hexagon can be constructed from one another, whether their relation to the golden ratio can be demonstrated, and whether the Vesica Piscis is involved. The essay proposes constructions from the Vesica and extends the discussion to the truncated icosahedron (12 pentagons and 20 hexagons).
@@ -81,7 +119,7 @@ A rigorous, independently documented intermediate construction is given by Spara
 \]
 This is a composition of Euclidean constructions; it does not mean that the cyclic groups \(C_6\) and \(C_5\) are nested or that the pentagon inherits sixfold symmetry.
 
-## 5. Algebraic comparison: triangular and pentagonal fields
+## 6. Algebraic comparison: triangular and pentagonal fields
 
 The two sides have different arithmetic:
 - Vesica / equilateral triangle / hexagonal lattice: \(\omega^3=1\), \(\omega\ne1\), \(\mathbb Q(\sqrt{-3})\), Eisenstein integers.
@@ -92,20 +130,20 @@ The link is therefore not an equality between \(\sqrt3\) and \(\Phi\), nor a dir
 \mathbb Q(\sqrt{-3})\ne\mathbb Q(\sqrt5).
 \]
 
-## 6. Status register
+## 7. Status register
 
 | Item | Statement | Status |
 |---|---|---|
 | V1 | For equal circles with centre separation \(r\), the common chord is \(\sqrt3r\). | Proved |
 | V2 | The Vesica intersection points and the third roots of unity form the same equilateral-triangle configuration up to rotation/sign. | Proved |
-| N1 | Needham's cube-root discussion supplies the roots-of-unity geometry used in the comparison. | Source identified; page-level citation should be checked against the user's edition before quoting |
+| N1 | Needham's cube-root discussion supplies the roots-of-unity geometry used in the comparison. | Source identified; page-level citation should be checked against the user's edition before quoting |\n| E1 | The normalized Vesica chord is the Eisenstein integer \\(1+2\\omega\\) with norm 3; 3 ramifies in \\(\\mathbb Q(\\sqrt{-3})\\). | Proved exactly |
 | B1 | The Vesica can be used in a straightedge-and-compass construction of a regular pentagon. | Published construction; independently checkable |
 | B2 | A sixfold circle arrangement contains adjacent-circle pairs defining a Vesica. | Proved from the arrangement's defining geometry |
 | B3 | The chain sixfold arrangement → Vesica → pentagon is a composition of constructions. | Proved as a composition |
 | B4 | Every broader claim in Bonilla's essay (including the “perfect Fibonacci sequence” and universal natural-law conclusions) follows from these constructions. | Not established |
 | H1 | A deeper unified arithmetic/dynamical structure between \(\mathbb Q(\sqrt{-3})\) and \(\mathbb Q(\sqrt5)\) is present. | Open question; no field equivalence asserted |
 
-## 7. Bibliography and primary links
+## 8. Bibliography and primary links
 
 1. Tristan Needham, _Visual Complex Analysis_, Oxford: Clarendon Press, 1997, Chapter 2, §VI, discussion of fractional powers / cube roots and roots of unity (pp. 91–95 in the edition previously identified). Verify pagination against the edition used before a verbatim quotation.
 2. Mauro Maria Baldi, “On a property of the Vesica Piscis” (working paper, 2020), DOI: [10.5281/zenodo.4273133](https://doi.org/10.5281/zenodo.4273133); institutional record: [University of Milano-Bicocca repository](https://u-pad.unimc.it/handle/11393/324790).
@@ -113,6 +151,6 @@ The link is therefore not an equality between \(\sqrt3\) and \(\Phi\), nor a dir
 4. A. C. Sparavigna and M. M. Baldi, “A Study of the Regular Pentagon with a Classic Geometric Approach” (2016), §6, straightedge-and-compass construction from the Vesica Piscis.
 5. A. C. Sparavigna and M. M. Baldi, “Flower of Life, Six-Fold Symmetry and Honeycomb Packing of Circles in the Mycenaean Geometry” (2016), for the sixfold circle arrangement and its relation to adjacent-circle geometry.
 
-## 8. Editorial rule for future use
+## 9. Editorial rule for future use
 
 When citing this chain, cite Needham for the complex roots-of-unity / cube-root geometry; cite Baldi for the converse characterization of the Vesica via the \(\sqrt3\) cross-ratio; cite Bonilla for the proposed pentagon–hexagon synthesis; and cite Sparavigna–Baldi for the independently documented geometric constructions. Do not attribute Baldi's theorem to Needham, and do not state that Needham directly proves the Vesica Piscis theorem.
