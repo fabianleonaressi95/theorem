@@ -380,3 +380,65 @@ At their respective grid minimizers, the twelve-probe design has a total Frobeni
 A resolution cross-check at the two selected scales changed both the Duffy quadrature order from 7 to 9 and the geodesic RK4 step count from 80 to 120. The reconstructed Ricci vector changed by Frobenius norm approximately $1.01\times10^{-9}$ for the six-probe case and $2.44\times10^{-10}$ for the twelve-probe case. These are observed discretization changes under this cross-check, not rigorous integration-error bounds.
 
 **Evidence status:** the numerical audit has been executed independently using the committed algorithm and matching deterministic seeds. The repository regression tests remain a separate check; no GitHub Actions pass is claimed unless a workflow run reports it.
+
+
+## 15. Matched-budget exact design comparison protocol
+
+The next audit fixes the observation model and the reconstruction map before comparing design criteria. For a physical tetrahedral probe (T_j), define
+[
+q_j(r)=\frac{V_g((T_j)_r)}{r^3|T_j|},\qquad
+y_j(r)=-\frac{6}{r^2}(q_j(r)-1).
+]
+For a design (D=(T_1,\ldots,T_m)), let (A_D\in\mathbb R^{m\times6}) be the matrix whose rows are the normalized second-moment vectors in the component order ((xx,yy,zz,xy,xz,yz)), with doubled off-diagonal moments as in Section 4. The declared reconstruction is ordinary least squares:
+[
+\widehat R_D(r)=L_Dy_D(r),\qquad L_D=A_D^+.
+]
+The relative-volume observation model is
+[
+V_{j,\mathrm{obs}}=V_j(1+\epsilon_j),\qquad
+\mathbb E\epsilon_j=0,\quad
+\operatorname{Cov}(\epsilon)=\sigma_{\rm rel}^2I.
+]
+It follows that
+[
+\operatorname{Cov}(y_D(r))=
+\operatorname{diag}\left(
+\frac{36\sigma_{\rm rel}^2q_j(r)^2}{r^4}
+\right),\qquad
+\operatorname{Cov}(\widehat R_D)=
+L_D\operatorname{Cov}(y_D)L_D^T.
+]
+Thus the A-criterion is applied to the covariance of the reconstructed estimator, not to an intermediate information matrix:
+[
+\Phi_A(D)=\frac1{|\mathcal G_{\rm sel}|}
+\sum_{r\in\mathcal G_{\rm sel}}
+\operatorname{tr}\left(W\operatorname{Cov}(\widehat R_D(r))\right).
+]
+The risk criterion uses the same fixed selection grid and equal scale weights:
+[
+\Phi_{\rm risk}(D)=\frac1{|\mathcal G_{\rm sel}|}
+\sum_{r\in\mathcal G_{\rm sel}}
+\left[
+B_D(r)^TWB_D(r)+
+\operatorname{tr}\left(W\operatorname{Cov}(\widehat R_D(r))\right)
+\right].
+]
+The D-criterion remains the determinant criterion on (A_D^TA_D). These objectives are not interchangeable.
+
+### Exact designs and validation
+
+The A- and risk-based procedures select **exact subsets of 12 physical probes** from one shared finite candidate pool. They are not approximate designs with fractional weights. The implementation uses greedy augmentation from a common full-rank six-probe D-optimal seed; it therefore produces deterministic feasible exact designs, not globally optimal combinatorial subsets. The D-optimal 12-probe design is selected from the same pool and budget.
+
+The selection grid is fixed in advance. Final risks and scale minimizers are recomputed on a separate, finer validation grid, with a higher quadrature/integration resolution than the lower-fidelity values used during subset selection. The six-probe legacy design is retained only as a separate benchmark because its budget differs.
+
+### Monte Carlo coupling
+
+For each candidate-probe index and replica, one relative-volume noise variate is generated and reused whenever that candidate appears in multiple designs. This common-random-number coupling makes paired comparisons reproducible even when two designs contain different probes. The same candidate-indexed variates are also reused across scales; this is an explicit coupling convention for the simulation, not a claim that measurements at different scales are physically identical random events.
+
+The audit reports the analytic covariance propagated through (L_D), Monte Carlo covariance estimates, entrywise standard errors for those covariance estimates, and the Monte Carlo standard error of the squared Frobenius error. The number of replicas and all random seeds are fixed in the script.
+
+### Implementation and epistemic status
+
+Implementation: [audits/t136_exact_design_comparison.py](../audits/t136_exact_design_comparison.py); regression checks: [tests/test_t136_exact_design_comparison.py](../tests/test_t136_exact_design_comparison.py).
+
+**No numerical winner is asserted by this protocol.** A- and risk-optimal designs are optimized for different declared objectives, and neither is presumed to dominate the other. A winner can be named only relative to a primary objective specified before inspecting the validation results. The exact subsets are greedy, the candidate pool is finite, and design selection uses lower numerical resolution than final evaluation. Global optimality, continuous-design optimality, and general geometric convergence are not claimed. Test execution and numerical audit output must be recorded separately from code being committed.
