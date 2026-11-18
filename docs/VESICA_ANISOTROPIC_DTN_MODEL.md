@@ -44,6 +44,15 @@ D_{mn}=\int\phi_{m,X}\phi_{n,y}\,dX.
 \]
 The integrals are over \((-w(y),w(y))\). Orthonormality and the vanishing lateral trace imply \(C^T=-C\) and \(B^T=-B\); \(G\) is symmetric.
 
+In the coordinate \(t\), the first two matrices also have the explicit integral representations
+\[
+C_{mn}=-\frac{w'}w\left[\frac12\delta_{mn}+2n\pi\int_0^1\sin(m\pi t)(t-\tfrac12)\cos(n\pi t)\,dt\right],
+\]
+\[
+B_{mn}=\frac{m\pi}{w}\int_0^1\cos(m\pi t)\sin(n\pi t)\,dt.
+\]
+The factor 2 and the diagonal \(\delta_{mn}/2\) term in the formula for \(C\) are both required; omitting either fails the identity \(C^T=-C\).
+
 An important index check: differentiating \(u_N\) and contracting indices gives
 \[
 \int |u_y|^2\,dX
