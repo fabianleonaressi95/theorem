@@ -104,34 +104,53 @@ def main():
     def progress(event):
         emit({"stage": "progress", **event})
 
+    neumann = None
+    neumann_error = None
     started = perf_counter()
-    neumann = integrate_rational_triangle_many(
-        [numerator], det5, absolute_tolerance=tol,
-        max_depth=args.max_depth, max_triangles=args.max_triangles,
-        progress_callback=progress, diagnostic_callback=diagnostic,
-    )[0]
+    try:
+        neumann = integrate_rational_triangle_many(
+            [numerator], det5, absolute_tolerance=tol,
+            max_depth=args.max_depth, max_triangles=args.max_triangles,
+            progress_callback=progress, diagnostic_callback=diagnostic,
+        )[0]
+    except Exception as exc:
+        neumann_error = {"type": type(exc).__name__, "message": str(exc)}
+        emit({"stage": "method_error", "method": "neumann", **neumann_error})
     neumann_seconds = perf_counter() - started
 
+    bernstein = None
+    bernstein_error = None
     started = perf_counter()
-    bernstein = integrate_rational_triangle_bernstein_residual_many(
-        [numerator], det5, absolute_tolerance=tol,
-        max_depth=args.max_depth,
-    )[0]
+    try:
+        bernstein = integrate_rational_triangle_bernstein_residual_many(
+            [numerator], det5, absolute_tolerance=tol,
+            max_depth=args.max_depth,
+        )[0]
+    except Exception as exc:
+        bernstein_error = {"type": type(exc).__name__, "message": str(exc)}
+        emit({"stage": "method_error", "method": "bernstein_residual", **bernstein_error})
     bernstein_seconds = perf_counter() - started
 
     result = {
         **metadata,
-        "neumann": {
+        "neumann": ({
             "interval": [str(neumann[0]), str(neumann[1])],
             "accepted_leaves": neumann[2], "max_depth_used": neumann[3],
             "elapsed_seconds": neumann_seconds,
-        },
-        "bernstein_residual": {
+        } if neumann is not None else {
+            "error": neumann_error, "elapsed_seconds": neumann_seconds,
+        }),
+        "bernstein_residual": ({
             "interval": [str(bernstein[0]), str(bernstein[1])],
             "accepted_leaves": bernstein[2], "max_depth_used": bernstein[3],
             "elapsed_seconds": bernstein_seconds,
-        },
-        "intervals_overlap": max(neumann[0], bernstein[0]) <= min(neumann[1], bernstein[1]),
+        } if bernstein is not None else {
+            "error": bernstein_error, "elapsed_seconds": bernstein_seconds,
+        }),
+        "intervals_overlap": (
+            max(neumann[0], bernstein[0]) <= min(neumann[1], bernstein[1])
+            if neumann is not None and bernstein is not None else None
+        ),
         "scope": "one cell and one local matrix entry only; no global IPDG certificate",
     }
     (outdir / "result.json").write_text(json.dumps(encode(result), indent=2) + "\n")
