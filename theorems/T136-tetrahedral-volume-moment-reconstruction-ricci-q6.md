@@ -251,3 +251,22 @@ over the same decreasing scales. The successive amplification factors are approx
 A quadrature/integrator cross-check at $r=0.06$ changes the reconstructed six-vector by less than $2.1\times10^{-11}$ when increasing the Duffy quadrature order from 7 to 9 and the RK4 geodesic integration from 80 to 120 steps, respectively. This is a numerical resolution check for this example, not a rigorous error bound.
 
 **Classification:** finite manufactured smooth-metric numerical verification, including nonzero cubic jet, off-diagonal Ricci, exponential-map Jacobian, and deterministic noise propagation. It is not a general stability theorem, an optimal scale-selection rule, a Regge convergence result, or a Q6 continuum limit.
+
+
+## 12. D-optimal design of the tetrahedral probes
+
+The noise study makes the conditioning of the moment matrix an operational issue, not merely a formal rank condition. A deterministic sequential D-optimal search was therefore added. It generates 4,000 candidate tetrahedra (fixed seed 1362026) and selects 12 probes by maximizing the incremental information determinant using the matrix determinant lemma.
+
+For the selected 12-probe design:
+- rank is 6;
+- singular values are approximately
+\[
+(8.77639,7.64796,6.41882,6.15753,4.75081,4.03306);
+\]
+- the 2-norm condition number is approximately $2.17611$.
+
+The original six-probe design used in Sections 9–11 has condition number $18.68724$. The selected overdetermined design therefore reduces the condition number by a factor of approximately $8.59$ in this deterministic candidate pool.
+
+This is a design-of-experiments result for one fixed candidate distribution and seed. It does not prove global optimality over all tetrahedra, and it does not eliminate the $r^{-2}$ amplification of fixed relative volume noise in the normalized observable. It does improve the linear inverse problem's conditioning and supplies redundancy for residual diagnostics.
+
+**Next mathematical gate:** test the optimized 12-probe family on the non-quadratic conformal metric, comparing six-probe and twelve-probe reconstructions under identical volume perturbations. Only after that comparison should a scale-selection rule be proposed.
