@@ -443,6 +443,7 @@ def assemble_cell_volume_interval(
     absolute_tolerance=F(1, 10**9),
     max_depth=12,
     progress_callback=None,
+    diagnostic_callback=None,
     integration_method="neumann",
     residual_expansion_order=2,
 ):
@@ -472,6 +473,7 @@ def assemble_cell_volume_interval(
         enclosed = integrate_rational_triangle_many(
             numerators, det5, absolute_tolerance=absolute_tolerance,
             max_depth=max_depth, progress_callback=progress_callback,
+            diagnostic_callback=diagnostic_callback,
         )
     elif integration_method == "bernstein_residual":
         enclosed = integrate_rational_triangle_bernstein_residual_many(
