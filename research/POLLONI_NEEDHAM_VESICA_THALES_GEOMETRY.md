@@ -1,7 +1,7 @@
 # Polloni, Thales and the Vesica Piscis: a geometric comparison
 
 **Research note — 18 November 2026**  
-**Status:** the Euclidean identities and the complex-number calculation below are proved. Needham's treatment of cube roots and their three branches is a verified conceptual/mathematical connection to the equilateral-triangle geometry underlying the Vesica, **not** a claim that Needham states the Vesica theorem. Bonilla's Vesica-to-pentagon construction is recorded as a claim requiring independent reconstruction. Polloni's symbolic reading remains interpretive. This note is not a new theorem about RGS, PRISM or Q6.
+**Status:** the Euclidean identities and the complex-number calculation below are proved. Needham's treatment of cube roots and their three branches is a verified conceptual/mathematical connection to the equilateral-triangle geometry underlying the Vesica, **not** a claim that Needham states the Vesica theorem. A coordinate reconstruction of the span-based Bonilla plate now gives an exact golden pentagon under the explicitly stated incidence choice in §16; the distinction between that construction and the separate circumscribed-circle constructions in §§12–13 is essential. Polloni's symbolic reading remains interpretive. This note is not a new theorem about RGS, PRISM or Q6.
 
 ## 1. Scope and source record
 
@@ -447,7 +447,7 @@ together with the relevant diagonal-line equation. The five proposed green verti
 ]
 Only after these ten metric/angular conditions (or an equivalent regularity proof) are established can the green polygon be certified as a regular pentagon of side (\varphi).
 
-**Status:** the source's intended second-pentagon construction is now identified, but its exact coordinate reconstruction remains **open** because the raster plate does not uniquely encode the selected intersections and compass centres. The standard pentagram benchmark is proved; it must not be substituted for Bonilla's distinct extended-diagonal construction.
+**Status (superseded in part by §16):** the extended-diagonal construction has an exact coordinate realization when the blue pentagon is placed with two adjacent vertices at the Vesica circle centres and the two diagonals are extended through those centres to the corresponding generating circles. This realization proves the claimed golden side. The raster plate does not label every point, so the identification of this incidence choice with Bonilla's intended compass marks remains a diagram-reading assumption, not a theorem about every possible reading of the plate. The standard pentagram benchmark must not be substituted for the extended-diagonal construction.
 
 ## 15. Eisenstein integers: the Vesica as a triangular-lattice configuration
 
@@ -537,3 +537,152 @@ This is the clean algebraic synthesis: (\sqrt3) belongs to the triangular/Eisens
 | Pentagon requires fifth-root/cyclotomic data beyond (\mathbb Q(\omega)) | **Proved** |
 | The combined triangular/pentagonal cyclotomic field is (\mathbb Q(\zeta_{15})) | **Proved** |
 | Bonilla's second green pentagon has exactly side (\varphi) | **Open** pending exact vertex reconstruction |
+
+
+## 16. Exact coordinate reconstruction of the span-based extended-diagonal construction
+
+This section gives an exact Euclidean realization of the construction sequence in Bonilla's span-based plate: a unit blue pentagon, its two diagonals extended through the two Vesica-circle centres, their intersections with the generating circles, and the resulting green pentagon. It resolves the metric question for the incidence configuration specified below. The source plate is [Bonilla's span-based construction](https://iboenweb.com/ibo/images/fotos_pag/relacion%20pentagono%20hexagono%20phi/pentagono-aureo-vesica-piscis-razon-aurea-phi.jpg).
+
+### 16.1 Normalised Vesica
+
+Take the two unit circles with centres
+\[
+A=(-1/2,0),\qquad B=(1/2,0),
+\]
+and equations
+\[
+\mathcal C_A:(x+1/2)^2+y^2=1,\qquad
+\mathcal C_B:(x-1/2)^2+y^2=1.
+\]
+Their common chord endpoints are
+\[
+(0,\pm\sqrt3/2).
+\]
+The span is \(E=|AB|=1\), and the opening is \(\sqrt3\).
+
+Set
+\[
+\varphi=\frac{1+\sqrt5}{2},\qquad
+c=\cos(\pi/10)=\frac14\sqrt{10+2\sqrt5},\qquad
+h=\varphi c.
+\]
+
+### 16.2 The blue regular pentagon
+
+Consider the five points, in cyclic order,
+\[
+T=(0,h),\quad
+C_+=(\varphi/2,c),\quad
+B=(1/2,0),\quad
+A=(-1/2,0),\quad
+C_-=(-\varphi/2,c).
+\]
+They form a regular pentagon of side 1. The required exact identities are
+\[
+c^2=\frac{5+\sqrt5}{8},\qquad
+\frac1{4\varphi^2}=\frac{3-\sqrt5}{8},\qquad
+\varphi-1=\frac1\varphi.
+\]
+For example,
+\[
+|C_+-B|^2=\frac1{4\varphi^2}+c^2=1,
+\]
+and
+\[
+|T-C_+|^2=\frac{\varphi^2}{4}
++\frac{c^2}{\varphi^2}=1.
+\]
+The other three sides follow by reflection symmetry and \(|A-B|=1\). The diagonals from \(T\) to \(A\) and \(B\) have length
+\[
+|T-A|=|T-B|
+=\sqrt{\frac14+h^2}=\varphi.
+\]
+
+### 16.3 Intersections of the extended diagonals with the Vesica circles
+
+Extend the line \(TB\) beyond \(B\). Since \(|TB|=\varphi\), the point one unit beyond \(B\) on this ray is
+\[
+P=B+\frac{B-T}{\varphi}
+=\left(\frac{\varphi}{2},-c\right).
+\]
+Here we used \(1+1/\varphi=\varphi\) and \(h/\varphi=c\). It lies on the generating circle centred at \(B\), because
+\[
+|P-B|^2
+=\frac1{4\varphi^2}+c^2=1.
+\]
+Likewise, extending \(TA\) beyond \(A\) gives
+\[
+Q=A+\frac{A-T}{\varphi}
+=\left(-\frac{\varphi}{2},-c\right),
+\qquad |Q-A|=1.
+\]
+Thus these are exact line-circle intersections on the corresponding generating circles, not numerical approximations. Their separation is
+\[
+\boxed{|P-Q|=\varphi.}
+\]
+This is the first green side.
+
+### 16.4 The remaining green vertices and regularity
+
+Define the homothety of centre \(T\) and ratio \(\varphi\):
+\[
+H(X)=T+\varphi(X-T).
+\]
+It maps the blue vertices as follows:
+\[
+\begin{aligned}
+H(T)&=T,\\
+H(C_+)&=G_+=(\varphi^2/2,c/\varphi),\\
+H(B)&=P,\\
+H(A)&=Q,\\
+H(C_-)&=G_-=(-\varphi^2/2,c/\varphi).
+\end{aligned}
+\]
+The equality \(H(B)=P\) and its reflected counterpart \(H(A)=Q\) are exactly the extended-diagonal/circle intersections above. The five green vertices, in cyclic order, are therefore
+\[
+T,\ G_+,\ P,\ Q,\ G_-.
+\]
+A homothety multiplies every distance by its ratio and preserves angles. Since the blue pentagon is regular with side 1, the green pentagon is regular with side
+\[
+\boxed{L_{\rm green}=\varphi E=\varphi.}
+\]
+Equivalently, the mechanism is the exact identity
+\[
+\varphi+1=\varphi^2:
+\]
+the blue diagonal has length \(\varphi\), the continuation to the circle adds one unit, and the resulting radial ratio from \(T\) is \(\varphi^2/\varphi=\varphi\). This is why the green figure is a homothetic copy of the blue pentagon.
+
+### 16.5 What is proved, and the source-reading qualification
+
+**Proved:** for the explicit incidence configuration in §§16.1–16.4, both extended diagonals meet their corresponding unit generating circles at \(P,Q\), the segment \(PQ\) has length \(\varphi\), and the five homothetic images form a regular pentagon of side \(\varphi\).
+
+**Diagram-reading qualification:** the plate is a raster image and does not name its points. The reconstruction identifies its intended mechanism by taking the two adjacent lower vertices of the blue pentagon to be the two generating-circle centres, and by extending the two diagonals from the opposite vertex through those centres. If a different pair of circle intersections or a different compass centre is intended, that alternative is a different construction and must be audited separately. The proof above is exact for the stated incidence choice; it does not rely on measuring pixels.
+
+### 16.6 Algebraic field of the construction
+
+All coordinates in §§16.1–16.4 lie in
+\[
+K=\mathbb Q(\sqrt3,\cos(\pi/10))
+=\mathbb Q(\zeta_{60})^+.
+\]
+Indeed, \(\cos(\pi/10)\) generates the real quartic subfield associated with the 20th roots of unity, while adjoining \(\sqrt3\) gives the real cyclotomic field of conductor 60. Its degree is
+\[
+[K:\mathbb Q]=\frac{\phi_{\rm E}(60)}2=8,
+\]
+where \(\phi_{\rm E}\) denotes Euler's totient function. This field contains both the triangular metric \(\sqrt3\) and the pentagonal metric \(\varphi\), as well as the exact coordinates of the two polygons and the selected intersections.
+
+This field statement describes the arithmetic closure of the coordinates; it does not mean that the pentagon can be constructed using only Eisenstein integers. The triangular lattice and the fifth-root-of-unity geometry remain distinct substructures inside the larger cyclotomic field.
+
+### 16.7 Classification update
+
+| Statement | Status |
+|---|---|
+| The five blue vertices in §16.2 form a regular unit pentagon | **Proved** |
+| The two extended diagonals meet the corresponding Vesica circles at the displayed points | **Proved** |
+| The selected intersections are separated by exactly \(\varphi\) | **Proved** |
+| The green pentagon is the homothetic image of the blue pentagon with ratio \(\varphi\) | **Proved** |
+| The green pentagon has exact side \(\varphi E\) | **Proved** |
+| The displayed incidence choice is the intended reading of Bonilla's raster plate | **Strong geometric reconstruction; source-label ambiguity remains** |
+| The unrelated circumscribed-circle pentagon claims in §§12–13 | **Remain separately audited; their factor \(\sqrt3\sin36^\circ\) is not contradicted by this construction** |
+
+**Status correction:** the exact golden-pentagon result belongs to the extended-diagonal construction in this section. It must not be conflated with the two distinct inscribed-pentagon constructions audited in §§12–13, which have a different incidence definition and the factor \(k=\sqrt3\sin36^\circ\ne1\). No new numbered theorem is claimed.
