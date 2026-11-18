@@ -54,7 +54,7 @@ def enrich_design(design):
 
 
 def run_audit():
-    base = run_audit_base = run_audit_original()
+    base = run_audit_original()
     return {
         "audit": "T136 finite-grid bias/noise ratio",
         "relative_volume_noise_sigma": RELATIVE_VOLUME_NOISE,
