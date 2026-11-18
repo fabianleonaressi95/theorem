@@ -622,3 +622,10 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 - [T136 — Tetrahedral volume moments, local Ricci reconstruction, and the Q6 curvature gate](theorems/T136-tetrahedral-volume-moment-reconstruction-ricci-q6.md) records the normal-coordinate expansion, conditional six-component Ricci inverse problem, and separation of Regge from Q6 curvature functionals. Finite audits cover constant-curvature, anisotropic, and smooth non-quadratic metrics; the 12-probe D-optimal design improves conditioning and finite-test bias/noise sensitivity. A Frobenius-weighted covariance audit selects grid scales 0.00375 (six probes) and 0.00210 (twelve probes) for one manufactured metric and relative-volume noise level $10^{-9}$; these are not universal scales. General-metric stability, universal scale selection, Regge convergence, and the Q6 continuum correspondence remain open.
 
+
+
+### T138 — Exact C6 two-sheet decomposition and the Spin(3) distinction
+
+- [T138 — Exact two-sheet decomposition of the six-dimensional icosahedral matrix](theorems/T138-c6-exact-two-sheet-spin3-decomposition.md) proves over the integers that the displayed symmetric matrix satisfies \(C_6^2=5I_6\), establishes its \(3+3\) orthogonal eigenspace splitting, gives the graph parametrization of both sheets and records the induced \(\Lambda^2\) spectrum. It distinguishes a real Euclidean 3-space and its \(SO(3)\)/Spin(3) frame symmetry from an intrinsic quaternionic module.
+- Reproducibility: [exact integer audit](scripts/audit_t138_c6_two_sheet_spin3.py) and [regression tests](tests/test_t138_c6_two_sheet_spin3.py).
+- **Open gate:** no six-index \(2I^*\) generator action has yet been supplied or shown to commute with \(C_6\). The representation types of the sheets, a specific \(2I^*\) lift, and any physical/De Aquino interpretation remain open.
