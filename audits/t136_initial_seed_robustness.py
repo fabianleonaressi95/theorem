@@ -47,6 +47,63 @@ def random_full_rank_seeds(pool_matrix, pool_seed, count=RANDOM_SEEDS_PER_POOL):
     return found
 
 
+def a_optimal_six_seed(pool_matrix, q_table, pool_seed, d_seed, random_starts):
+    """Multi-start one-swap A-optimal rank-six seed search.
+
+    The objective is the existing mean validation-independent selection-grid
+    trace(W Cov(Rhat)) for an exact six-probe design. Starts include the D seed
+    and objective-blind random full-rank seeds. Each run terminates at a
+    one-exchange local minimum; the best endpoint is retained.
+    """
+    def objective(ids):
+        return base.cached_subset_objective(
+            ids, "A", pool_matrix, q_table
+        )
+
+    starts = [list(d_seed)] + [list(x) for x in random_starts]
+    best_ids, best_value = None, float("inf")
+    start_records = []
+    for start in starts:
+        current = list(start)
+        current_value = objective(current)
+        swaps = 0
+        while True:
+            selected_set = set(current)
+            best_trial, best_trial_value = current, current_value
+            for slot in range(6):
+                for candidate in range(len(pool_matrix)):
+                    if candidate in selected_set:
+                        continue
+                    trial = current.copy()
+                    trial[slot] = candidate
+                    if np.linalg.matrix_rank(pool_matrix[trial]) < 6:
+                        continue
+                    value = objective(trial)
+                    if value < best_trial_value - 1.0e-14 * max(1.0, abs(best_trial_value)):
+                        best_trial, best_trial_value = trial, value
+            if best_trial_value >= current_value - 1.0e-14 * max(1.0, abs(current_value)):
+                break
+            current, current_value = best_trial, best_trial_value
+            swaps += 1
+        start_records.append({
+            "start_indices": start,
+            "local_minimum_indices": current,
+            "selection_A_objective": float(current_value),
+            "accepted_one_swaps": swaps,
+        })
+        if current_value < best_value:
+            best_ids, best_value = current, current_value
+
+    return best_ids, {
+        "method": "multi-start best-improvement one-exchange local search",
+        "objective": "mean selection-grid trace(W Cov(Rhat))",
+        "number_of_starts": len(starts),
+        "best_selection_A_objective": float(best_value),
+        "starts": start_records,
+        "local_optimum_scope": "one-swap neighbourhood only",
+    }
+
+
 def monte_carlo_at_minimum(vertices, indices, pool_size, scale, seed):
     rng = np.random.default_rng(seed)
     eps = rng.normal(size=(pool_size, MC_REPLICAS)) * base.SIGMA_REL
@@ -75,10 +132,17 @@ def run_pool(config):
     pool_matrix = np.asarray(pool_matrix, dtype=float)
     q_table = base.precompute_selection_q(vertices)
     d12 = greedy_d_optimal_design(pool_matrix, count=base.PROBE_COUNT)
-    initializations = [{"kind": "D-optimal", "seed_indices": d12[:6]}]
+    random_seeds = random_full_rank_seeds(pool_matrix, pool_seed, count=8)
+    a_seed, a_seed_search = a_optimal_six_seed(
+        pool_matrix, q_table, pool_seed, d12[:6], random_seeds
+    )
+    initializations = [
+        {"kind": "D-optimal", "seed_indices": d12[:6]},
+        {"kind": "A-optimal-local", "seed_indices": a_seed},
+    ]
     initializations += [
         {"kind": f"random-{i+1}", "seed_indices": ids}
-        for i, ids in enumerate(random_full_rank_seeds(pool_matrix, pool_seed))
+        for i, ids in enumerate(random_seeds[:4])
     ]
 
     def objective(ids, criterion):
@@ -155,6 +219,9 @@ def run_pool(config):
         "selection_rk4_steps": base.SELECTION_RK4_STEPS,
         "evaluation_quadrature_order": base.EVALUATION_QUADRATURE_ORDER,
         "evaluation_rk4_steps": base.EVALUATION_RK4_STEPS,
+        "A_optimal_seed_search": a_seed_search,
+        "D_seed_A_selection_objective": float(objective(d12[:6], "A")),
+        "A_seed_A_selection_objective": float(objective(a_seed, "A")),
         "initialization_results": records,
         "criterion_summary": by_criterion,
     }
@@ -168,9 +235,11 @@ def run_audit():
         "fixed_noise_sigma_relative": base.SIGMA_REL,
         "fixed_exact_probe_budget": base.PROBE_COUNT,
         "initialization_protocol": (
-            "One D-optimal six-probe seed plus four independently generated "
-            "uniform random full-rank six-subsets per fixed candidate pool. "
-            "Random seeds are selected without evaluating A or risk objectives."
+            "One D-optimal six-probe seed, one multi-start one-swap A-optimal local "
+            "seed, and four independently generated uniform random full-rank "
+            "six-subsets per fixed candidate pool. Random starts are generated "
+            "without evaluating A or risk objectives; A-seed search minimizes "
+            "the declared A objective over one-swap local-search endpoints."
         ),
         "augmentation_protocol": (
             "For every seed, independently augment to 12 probes using the same "
@@ -182,9 +251,10 @@ def run_audit():
         ),
         "pool_results": pools,
         "limitations": (
-            "Three fixed pools and four random initializations per pool are a "
-            "finite sensitivity experiment, not a probability guarantee. "
-            "Random full-rank seeds are not optimized A-seeds. Greedy completion "
+            "Three fixed pools, one D seed, one A-optimal one-swap local seed, and four "
+            "random initializations per pool are a finite sensitivity experiment, "
+            "not a probability guarantee. The A seed is only a multi-start "
+            "one-exchange local optimum, not a global six-subset optimum. Greedy completion "
             "is not globally optimal; validation-grid minima are not continuous "
             "scale minima. Monte Carlo checks use 2000 replicas per completed design."
         ),
