@@ -301,3 +301,48 @@ r&6\text{ probes}&12\text{ probes}\\
 The noise-induced change is smaller by a factor of approximately $51.9$ for the 12-probe design. The first six noise variates are held fixed between designs; the overdetermined design has six additional independent perturbations.
 
 This finite test shows that an overdetermined, well-conditioned moment design can substantially reduce both reconstruction bias and sensitivity to this particular noise realization. It does not remove the scale-dependent $r^{-2}$ amplification, establish a uniform statistical bound, or prove that this D-optimal design is optimal for other metrics or measurement distributions.
+
+
+## 14. Covariance-based scale selection
+
+The bias/noise trade-off in Sections 11–13 can be made quantitative for a specified measurement-noise model. Let $A\in\mathbb R^{m\times6}$ be the moment matrix, let
+\[
+q_i(r)=\frac{V_i(r)}{r^3|T_i|},\qquad
+b_i(r)=-\frac6{r^2}(q_i(r)-1),
+\]
+and let $P=A^+$ be the Moore–Penrose inverse. Assume independent, zero-mean relative volume errors
+\[
+V_i^{\rm obs}=V_i(1+\epsilon_i),\qquad
+\mathbb E[\epsilon_i]=0,\quad
+\mathbb E[\epsilon_i\epsilon_j]=\sigma_{\rm rel}^2\delta_{ij}.
+\]
+The noisy normalized observation is
+\[
+b_i^{\rm obs}=b_i-\frac6{r^2}q_i(r)\epsilon_i.
+\]
+Consequently, for the linear least-squares estimator $\widehat R=P b^{\rm obs}$, the covariance is
+\[
+\operatorname{Cov}(\widehat R)
+=P\,\operatorname{diag}\!\left(
+\frac{36\sigma_{\rm rel}^2q_i(r)^2}{r^4}
+\right)P^T.
+\]
+This expression retains the measured volume ratios $q_i(r)$; replacing them by 1 is only a small-scale approximation. For zero-mean noise, the expected squared Euclidean reconstruction error is exactly
+\[
+\mathbb E\|\widehat R-R(0)\|_2^2
+=\|P b(r)-R(0)\|_2^2
++\operatorname{tr}\operatorname{Cov}(\widehat R).
+\]
+The finite-grid scale selector therefore minimizes the sum of the squared clean reconstruction bias and the propagated covariance trace. It does not select a scale independently of the metric, probe family, noise amplitude, or noise covariance.
+
+If the asymptotic laws are $\|P b(r)-R(0)\|\sim a r$ and
+$\sqrt{\operatorname{tr}\operatorname{Cov}}\sim b\sigma_{\rm rel}r^{-2}$, minimizing the leading squared error gives
+\[
+r_{\rm asym}=
+\left(\frac{\sqrt2\,b\sigma_{\rm rel}}{a}\right)^{1/3}.
+\]
+The coefficients $a$ and $b$ are design- and metric-dependent. This cube-root estimate is an asymptotic guide, not a universal scale law.
+
+The implementation is [audits/t136_scale_selection.py](../audits/t136_scale_selection.py), with regression checks in [tests/test_t136_scale_selection.py](../tests/test_t136_scale_selection.py). It compares the original six-probe design with the 12-probe D-optimal design, computes geodesic volumes on the same smooth non-quadratic conformal metric, propagates the independent relative-volume-noise covariance, and reports both a grid minimizer and the asymptotic estimate.
+
+**Classification and evidence boundary:** the covariance identity is an exact finite-dimensional consequence of the stated linear estimator and independent relative-noise model. The numerical scale minimizing the resulting risk is model-, design-, grid-, and noise-specific. It is not a universal optimal scale, a general stability theorem, a Regge convergence result, or a Q6 continuum limit. The new audit and tests are committed for execution; no test or CI pass is claimed here.
