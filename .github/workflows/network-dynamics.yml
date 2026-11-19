@@ -51,6 +51,14 @@ jobs:
             --seed 20261119 \
             --output /tmp/network-dynamics-results/monte-carlo
 
+      - name: Run factorial sensitivity audit
+        run: |
+          python applications/network-dynamics/src/sensitivity.py \
+            --replicates 20 \
+            --seed 20261119 \
+            --removal-repetitions 20 \
+            --output /tmp/network-dynamics-results/sensitivity
+
       - name: Upload synthetic results
         if: always()
         uses: actions/upload-artifact@v4
