@@ -137,6 +137,48 @@ def main():
               expected=list(shape) if shape else None)
         return v if ok else None
 
+    # Prefer archived incidence matrices. If absent, derive only the combinatorial
+    # incidence from archived Q6_states/Q6_adjacency (no geometric reconstruction).
+    edges=arrays.get("edges")
+    B1=arrays.get("B1"); B2=arrays.get("B2")
+    if edges is None and "Q6_states" in arrays and "Q6_adjacency" in arrays:
+        states=np.asarray(arrays["Q6_states"],int); adj=np.asarray(arrays["Q6_adjacency"],int)
+        if states.shape==(64,6) and adj.shape==(64,64):
+            derived=[]
+            for g in range(64):
+                for h in range(g+1,64):
+                    if adj[g,h]:
+                        diff=np.flatnonzero(states[g]!=states[h])
+                        derived.append((g,h,int(diff[0]) if len(diff)==1 else -1))
+            edges=np.asarray(derived,int)
+            # Canonical oriented incidence from lower vertex index to higher.
+            B1=np.zeros((64,len(edges)),int)
+            for k,(g,h,b) in enumerate(edges): B1[g,k]=-1; B1[h,k]=1
+            faces=[]
+            for b1 in range(6):
+                for b2 in range(b1+1,6):
+                    for basev in range(64):
+                        if basev&(1<<b1) or basev&(1<<b2): continue
+                        faces.append([basev,basev|(1<<b1),basev|(1<<b1)|(1<<b2),basev|(1<<b2)])
+            B2=np.zeros((len(edges),len(faces)),int)
+            lookup={tuple(sorted((int(g),int(h)))):k for k,(g,h,*_) in enumerate(edges)}
+            for j,vs in enumerate(faces):
+                for g,h in zip(vs,vs[1:]+vs[:1]):
+                    k=lookup[tuple(sorted((g,h)))]
+                    B2[k,j]=1 if edges[k,0]==g else -1
+            a.add("Q6 incidence derived from archived states","PASS",
+                  "Combinatorial incidence only; no geometry reconstructed",
+                  edges=int(len(edges)),faces=int(len(faces)))
+        else:
+            a.add("Q6 incidence derived from archived states","FAIL",
+                  "Q6_states/Q6_adjacency have incompatible dimensions")
+    if edges is not None:
+        edges=np.asarray(edges)
+        a.add("edge dimensions","PASS" if edges.shape==(192,3) else "FAIL",
+              "Oriented edge table",shape=list(edges.shape))
+    else: a.add("edge dimensions","NOT TESTED","No edges or archived Q6 state/adjacency pair")
+    if B1 is not None and B2 is not None:
+        r=int(np.max(np.abs(np.asarray(B1,dtype=np.int64)@np.asarray(B2,dtype=np.int64))))
     edges=get("edges",(192,3)); B1=get("B1",(64,192)); B2=get("B2",(192,240))
     if B1 is not None and B2 is not None:
         r=int(np.max(np.abs(B1.astype(np.int64)@B2.astype(np.int64))))
