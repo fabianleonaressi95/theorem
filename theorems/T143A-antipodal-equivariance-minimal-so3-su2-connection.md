@@ -42,7 +42,7 @@ U_{gh}(x\cdot\sigma)U_{gh}^{\dagger}
 \qquad(x\in\mathbb R^3).
 \tag{3}
 \]
-Equivalently, (2) is
+If \(c_{gh}=1\), then \(v_{gh}=0\) and (1)–(2) give \(R_{gh}=I\), \(U_{gh}=I_2\). If \(-1<c_{gh}<1\), (2) is equivalently
 \(\exp[-i(\theta_{gh}/2)\widehat v_{gh}\cdot\sigma]\), with
 \(\cos\theta_{gh}=c_{gh}\) and
 \(\sin\theta_{gh}\widehat v_{gh}=v_{gh}\).
