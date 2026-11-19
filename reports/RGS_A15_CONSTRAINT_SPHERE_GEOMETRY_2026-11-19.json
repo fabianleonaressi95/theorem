@@ -20,9 +20,9 @@
     "dimension": 188,
     "radius_squared": 240.00000000000006,
     "radius": 15.49193338482967,
-    "sectional_curvature": 0.004166666666666667,
-    "ricci_eigenvalue": 0.7791666666666667,
-    "scalar_curvature": 146.48333333333332
+    "sectional_curvature": 0.004166666666666666,
+    "ricci_eigenvalue": 0.7791666666666665,
+    "scalar_curvature": 146.4833333333333
   },
   "residuals": {
     "centroid_max_abs": 2.220446049250313e-16,
@@ -34,7 +34,7 @@
     "tangent_projector_idempotence_fro": 2.2041309253327976e-14,
     "canonical_normal_frame_orthonormality_fro": 2.4532694666933987e-18,
     "normal_tangent_orthogonality_fro": 1.054707846224981e-15,
-    "canonical_projector_vs_archived_Q_fro": 8.977581190588823e-15
+    "canonical_projector_vs_archived_Q_fro": 9.033015339120408e-15
   },
   "classification": {
     "constraint_manifold_identification": "PASS",
