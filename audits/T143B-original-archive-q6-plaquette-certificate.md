@@ -128,7 +128,14 @@ This gives an algebraic explanation for the Anti-Twin commutation: \(P_{\rm fibr
 
 It also yields a conditional degeneracy theorem. On either \(P_{\rm fibre}=\pm1\) sector, the three generators give one of the two irreducible two-dimensional complex representations of the three-generator Clifford algebra. Since \(K_{\rm fibre}\) commutes with this algebra, each eigenspace in either parity sector has even complex dimension. The archived spectrum confirms 32 distinct eigenvalues, each of multiplicity two, in each 64-dimensional sector.
 
-**Additional numerical observation:** the sorted spectra of the \(P=+1\) and \(P=-1\) blocks agree to maximum difference \(1.2435\times10^{-14}\). This equality between the two sectors is stronger than the Clifford degeneracy theorem and is not explained by it; it remains a separate structural question.
+The cross-sector equality is explained by [T143-D — Anti-Twin isospectrality from the covariantly constant normal operator](../theorems/T143D-antitwin-isospectrality-normal-operator.md). The archive's normal operator \(\mathcal N=\bigoplus_g n_g\cdot\sigma\) has
+\[
+\|\mathcal N^2-I\|_F=2.3626\times10^{-15},\quad
+\|\mathcal N P+P\mathcal N\|_F=0,\quad
+\frac{\|[K_{\rm fibre},\mathcal N]\|_F}{\|K_{\rm fibre}\|_F}
+=1.1914\times10^{-16}.
+\]
+The maximum blockwise intertwining residual in (7) is \(1.7804\times10^{-15}\), and the induced map from the \(+\) to the \(-\) sector is unitary to residual \(3.8827\times10^{-15}\). Thus the observed sorted-spectrum difference \(1.2435\times10^{-14}\) is the numerical realization of the explicit unitary equivalence in T143-D, not an unexplained coincidence.
 
 This operator-level statement is specific to \(K_{\rm fibre}\) and the stated deck action. It is not automatically transferable to \(K_{\rm fibre,biverso}\), \(K_0\), or the tangent operators.
 
