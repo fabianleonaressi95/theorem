@@ -179,6 +179,9 @@ def main():
     else: a.add("edge dimensions","NOT TESTED","No edges or archived Q6 state/adjacency pair")
     if B1 is not None and B2 is not None:
         r=int(np.max(np.abs(np.asarray(B1,dtype=np.int64)@np.asarray(B2,dtype=np.int64))))
+    edges=get("edges",(192,3)); B1=get("B1",(64,192)); B2=get("B2",(192,240))
+    if B1 is not None and B2 is not None:
+        r=int(np.max(np.abs(B1.astype(np.int64)@B2.astype(np.int64))))
         a.add("Kirchhoff B1 B2=0","PASS" if r==0 else "FAIL",
               "Exact integer chain identity",max_abs_entry=r)
     else: a.add("Kirchhoff B1 B2=0","NOT TESTED","B1 and B2 both required")
