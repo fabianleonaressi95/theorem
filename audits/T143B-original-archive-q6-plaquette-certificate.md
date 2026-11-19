@@ -106,6 +106,8 @@ Consequently the archived \(K_{\rm fibre}\) decouples into the two 64-dimensiona
 
 ### Hidden three-generator Clifford symmetry
 
+The exact algebraic implication is isolated in [T143-C — Clifford symmetry and even spectral multiplicity](../theorems/T143C-clifford-symmetry-fibre-operator.md).
+
 The archive exhibits three further commuting symmetries on \(\mathbb C^{64}\otimes\mathbb C^2\):
 \[
 G_1=T_{\oplus1}\otimes\sigma_3,\qquad
