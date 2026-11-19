@@ -138,6 +138,12 @@ def audit(fibre_path, embedding_path):
     r_formula, u_formula, min_denominator = canonical_links(normals, edges)
     r_formula_res = np.linalg.norm(r_stored - r_formula, axis=(1, 2))
     u_formula_res = np.linalg.norm(u_stored - u_formula, axis=(1, 2))
+    matrix_integrity = {
+        "SO3_orthogonality_max": float(max(fro(r.T @ r - I3) for r in r_stored)),
+        "SO3_determinant_max_residual": float(max(abs(np.linalg.det(r)-1.0) for r in r_stored)),
+        "SU2_unitarity_max": float(max(fro(u.conj().T @ u - I2) for u in u_stored)),
+        "SU2_determinant_max_residual": float(max(abs(np.linalg.det(u)-1.0) for u in u_stored)),
+    }
 
     lookup = build_edge_lookup(edges)
     link_r, link_udirect, link_uproj, signs, reversed_count = [], [], [], [], 0
@@ -208,6 +214,7 @@ def audit(fibre_path, embedding_path):
             "SU2_direct_rms_frobenius_residual": float(np.sqrt(np.mean(u_formula_res**2))),
             "minimum_1_plus_dot": float(min_denominator),
         },
+        "matrix_integrity": matrix_integrity,
         "archived_link_antipodal_replay": {
             "count": len(link_r),
             "orientation_reversed_count": reversed_count,
@@ -241,11 +248,24 @@ def audit(fibre_path, embedding_path):
             for s in range(2):
                 p_fibre[2*(g ^ 7)+s, 2*g+s] = 1.0
         comm = k_fibre @ p_fibre - p_fibre @ k_fibre
+        block_norms = np.array([
+            [fro(k_fibre[2*g:2*g+2, 2*h:2*h+2]) for h in range(64)]
+            for g in range(64)
+        ])
+        q6_adjacency = np.zeros((64, 64), dtype=bool)
+        for g, h, _d in edges:
+            q6_adjacency[int(g), int(h)] = True
+            q6_adjacency[int(h), int(g)] = True
+        nonedge_mask = ~q6_adjacency
+        np.fill_diagonal(nonedge_mask, False)
         kdata = {
             "action": "P_fibre e_(g,s)=e_(g xor 7,s), interleaved vertex-spin indexing",
             "commutator_frobenius": fro(comm),
             "commutator_relative_frobenius": fro(comm) / max(fro(k_fibre), 1e-300),
             "hermiticity_residual": fro(k_fibre-k_fibre.conj().T),
+            "nonadjacent_vertex_block_max_frobenius": float(block_norms[nonedge_mask].max()),
+            "adjacent_vertex_block_frobenius_min": float(block_norms[q6_adjacency].min()),
+            "adjacent_vertex_block_frobenius_max": float(block_norms[q6_adjacency].max()),
         }
         if d_fibre is not None:
             kdata["DdagD_vs_K_fibre_residual"] = fro(d_fibre.conj().T @ d_fibre-k_fibre)
@@ -296,6 +316,12 @@ def audit(fibre_path, embedding_path):
         checks["K_fibre_parity_blocks_decouple"] = (
             report["K_fibre_operator_level_check"]["off_diagonal_sector_block_frobenius"] < tol
         )
+        checks["K_fibre_Q6_block_ordering"] = (
+            report["K_fibre_operator_level_check"]["nonadjacent_vertex_block_max_frobenius"] < tol
+            and abs(report["K_fibre_operator_level_check"]["adjacent_vertex_block_frobenius_min"] - np.sqrt(2)) < tol
+            and abs(report["K_fibre_operator_level_check"]["adjacent_vertex_block_frobenius_max"] - np.sqrt(2)) < tol
+        )
+        checks["archived_link_matrix_integrity"] = max(matrix_integrity.values()) < tol
     report["checks"] = checks
     report["checks_pass"] = bool(all(checks.values()))
     report["tolerance"] = tol
