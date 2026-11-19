@@ -7,6 +7,7 @@ It brings together source literature, manuscript records, reproducible computati
 > **Scientific-status policy.** A symbolic proof, a numerical verification, a model-dependent conclusion, and a research hypothesis are different kinds of evidence. This repository labels them separately and does not treat computational agreement as a substitute for proof or physical validation.
 
 ## Research scope
+- [T143 follow-up — antipodal connection and holonomy audit](audits/T143-antipodal-connection-holonomy.md) — reconstructs the minimal SO(3) connection from the archived embedding, checks antipodal link/plaquette equivariance, and tests whether the Spin(3) holonomies admit a common invariant complex line. Direct replay of archived U_SU2 remains open.
 - [T143 follow-up — antipodal connection and holonomy audit](audits/T143-antipodal-connection-holonomy.md) — separates the exact conditional connection theorem from reconstructed-embedding results; see the original-archive certificate below for direct archived-link and all-240-plaquette replay.
 
 The main research strands include:
