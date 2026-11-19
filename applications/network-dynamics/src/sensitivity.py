@@ -135,7 +135,7 @@ def main() -> None:
                            args.removal_repetitions)
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "sensitivity.json").write_text(
-        json.dumps(rows, indent=2) + "\\n", encoding="utf-8"
+        json.dumps(rows, indent=2) + "\n", encoding="utf-8"
     )
     with (args.output / "sensitivity.csv").open(
         "w", newline="", encoding="utf-8"
