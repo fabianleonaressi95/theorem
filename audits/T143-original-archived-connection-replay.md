@@ -1,6 +1,6 @@
 # T143 — direct replay of the original archived fibre connection
 
-<badge>Numerical replay completed</badge>
+**Status: numerical replay completed.**
 
 The original NPZ arrays have now been checked directly. The full certificate,
 including formula fit, all 192 links, all 240 coordinate-square holonomies,
