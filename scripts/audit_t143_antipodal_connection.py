@@ -106,7 +106,7 @@ def build_audit(X, adjacency):
         "canonical_Spin3_lift_projective_max_residual":float(max(spinerr))},
       "plaquette_holonomy":{"faces":len(faces),
         "angle_mean":float(np.mean([f[6] for f in faces])),
-        "angle_rms":float(np.sqrt(np.mean([f[6]**2 for f in faces])),
+        "angle_rms":float(np.sqrt(np.mean([f[6]**2 for f in faces]))),
         "angle_max":float(max(f[6] for f in faces)),
         "antipodal_SO3_max_residual":float(max(herr)),
         "antipodal_Spin3_projective_max_residual":float(max(qherr)),
