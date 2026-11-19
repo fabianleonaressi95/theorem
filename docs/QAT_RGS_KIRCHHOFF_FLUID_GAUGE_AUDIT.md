@@ -108,7 +108,7 @@ The script scripts/audit_qat_rgs_kirchhoff_fluid_gauge.py accepts --bundle PATH.
 | mirror_spin_identity | scalar bool | explicit declaration that the mirror acts trivially on spin |
 | mirror_antiunitary | scalar bool | explicit conjugation flag; never inferred |
 
-The source inventory says original A13/A14 and Q6 NPZ bundles were recovered in the user's source archive but are not all present as tracked binary files in this repository snapshot. Therefore the default run reports bundle-dependent checks as NOT TESTED; it does not fabricate replacement arrays.
+The recovered Library archive `RGS_PSU_all_matrices(1).npz` was located and independently audited on 2026-11-19. It contains Q6 states, adjacency and Laplacian, but no SU(2) link arrays or full two-sheet polariton blocks. The exact Kirchhoff/incidence results are recorded in `reports/Q6_KIRCHHOFF_RECOVERED_SOURCE_AUDIT_2026-11-19.md`. The script can derive the combinatorial edge/face incidence from those archived states and adjacency without reconstructing the RGS geometry. The A13/A14 archives remain only partially recovered for this audit; missing physical-sector arrays stay NOT TESTED.
 
 ## 5. Audit logic
 
