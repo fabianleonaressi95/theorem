@@ -104,7 +104,29 @@ with relative residual \(8.2314\times10^{-17}\). Also,
 
 Consequently the archived \(K_{\rm fibre}\) decouples into the two 64-dimensional eigenspaces of \(P_{\rm fibre}\). The off-diagonal parity block has Frobenius norm \(2.8139\times10^{-15}\).
 
-**Additional numerical observation:** the sorted spectra of the \(P=+1\) and \(P=-1\) blocks agree to maximum difference \(1.2435\times10^{-14}\). This is stronger than block decoupling, but its structural explanation is not asserted here; it is recorded as an observation for a separate theorem investigation.
+### Hidden three-generator Clifford symmetry
+
+The archive exhibits three further commuting symmetries on \(\mathbb C^{64}\otimes\mathbb C^2\):
+\[
+G_1=T_{\oplus1}\otimes\sigma_3,\qquad
+G_2=T_{\oplus2}\otimes\sigma_2,\qquad
+G_3=T_{\oplus4}\otimes\sigma_1,
+\]
+where \(T_{\oplus a}|g\rangle=|g\oplus a\rangle\). Numerically, each \(G_j\) commutes with \(K_{\rm fibre}\) to Frobenius residuals
+\[
+(6.7704,\ 5.4892,\ 6.5383)\times10^{-15}.
+\]
+Their squares and Hermiticity residuals are zero, their pairwise anticommutator residuals are zero, and
+\[
+G_1G_2G_3=-iP_{\rm fibre}
+\]
+has zero matrix residual.
+
+This gives an algebraic explanation for the Anti-Twin commutation: \(P_{\rm fibre}=iG_1G_2G_3\), so commutation with all three generators implies commutation with \(P_{\rm fibre}\).
+
+It also yields a conditional degeneracy theorem. On either \(P_{\rm fibre}=\pm1\) sector, the three generators give one of the two irreducible two-dimensional complex representations of the three-generator Clifford algebra. Since \(K_{\rm fibre}\) commutes with this algebra, each eigenspace in either parity sector has even complex dimension. The archived spectrum confirms 32 distinct eigenvalues, each of multiplicity two, in each 64-dimensional sector.
+
+**Additional numerical observation:** the sorted spectra of the \(P=+1\) and \(P=-1\) blocks agree to maximum difference \(1.2435\times10^{-14}\). This equality between the two sectors is stronger than the Clifford degeneracy theorem and is not explained by it; it remains a separate structural question.
 
 This operator-level statement is specific to \(K_{\rm fibre}\) and the stated deck action. It is not automatically transferable to \(K_{\rm fibre,biverso}\), \(K_0\), or the tangent operators.
 
