@@ -7,6 +7,7 @@ from scipy.spatial import ConvexHull
 
 # Fixed vertex order from T139.
 Q6_CODES = (0, 3, 33, 5, 34, 39, 10, 45, 36, 6, 40, 9)
+ANTIPODES = (3, 2, 1, 0, 7, 6, 5, 4, 11, 10, 9, 8)
 
 
 def hull_edges(t: float = 1.465571231876768):
@@ -24,13 +25,18 @@ def hull_edges(t: float = 1.465571231876768):
     return x, sorted(edges)
 
 
+def oriented_link(a: int, b: int):
+    """Return canonical undirected link and coefficient for traversal a -> b."""
+    return (min(a, b), max(a, b)), (1 if a < b else -1)
+
+
 def lift():
     x, edges = hull_edges()
     assert len(x) == 12 and len(edges) == 30
     assert len(set(Q6_CODES)) == 12
     assert all(c.bit_count() % 2 == 0 for c in Q6_CODES)
-    paths = {}
-    directed_links = Counter()
+    paths, path_chains = {}, {}
+    link_multiplicity = Counter()
     for u, v in edges:
         a, b = Q6_CODES[u], Q6_CODES[v]
         if (a ^ b).bit_count() != 2:
@@ -43,21 +49,30 @@ def lift():
             raise AssertionError(f"no Q6 two-step path for edge {(u, v)}")
         z = min(mids)
         paths[(u, v)] = (a, z, b)
-        directed_links[tuple(sorted((a, z)))] += 1
-        directed_links[tuple(sorted((z, b)))] += 1
+        chain = Counter()
+        for s, t in ((a, z), (z, b)):
+            link, sign = oriented_link(s, t)
+            chain[link] += sign
+            link_multiplicity[link] += 1
+        path_chains[(u, v)] = dict(chain)
 
-    # Boundary of each lifted path is [b]-[a].
-    for (u, v), (a, z, b) in paths.items():
-        boundary = {a: -1, z: 0, b: 1}
+        # Compute the boundary of the signed Q6 1-chain.
+        boundary = Counter()
+        for (lo, hi), coeff in chain.items():
+            boundary[lo] -= coeff
+            boundary[hi] += coeff
+        boundary = {k: val for k, val in boundary.items() if val}
         assert boundary == {a: -1, b: 1}
+
     return {
         "vertices": len(x), "edges": len(edges), "paths": paths,
-        "unique_q6_links": len(directed_links),
-        "reused_q6_links": sum(n > 1 for n in directed_links.values()),
-        "max_link_multiplicity": max(directed_links.values()),
+        "path_chains": path_chains,
+        "unique_q6_links": len(link_multiplicity),
+        "reused_q6_links": sum(n > 1 for n in link_multiplicity.values()),
+        "max_link_multiplicity": max(link_multiplicity.values()),
         "antipodal_equivariance": all(
-            Q6_CODES[j] == (Q6_CODES[i] ^ 63)
-            for i, j in enumerate((3, 2, 1, 0, 7, 6, 5, 4, 11, 10, 9, 8))
+            Q6_CODES[ANTIPODES[i]] == (Q6_CODES[i] ^ 63)
+            for i in range(12)
         ),
     }
 
