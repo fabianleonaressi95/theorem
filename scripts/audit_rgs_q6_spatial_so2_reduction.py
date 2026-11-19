@@ -37,7 +37,7 @@ def audit(path: Path) -> dict:
     if np.any(radii <= 1e-14):
         raise ValueError("A zero vertex vector prevents defining n_g=X_g/|X_g|")
     n = X / radii[:, None]
-    I3, I2 = np.eye(3), np.eye(2)
+    I3 = np.eye(3)
     sigma = np.array([
         [[0, 1], [1, 0]],
         [[0, -1j], [1j, 0]],
@@ -51,7 +51,6 @@ def audit(path: Path) -> dict:
     plane_transport = []
     adjoint = []
     edge_lengths = []
-    augmented_edges = []
     edge_map = {}
     for k, (g, h, axis) in enumerate(edges):
         Rk, Uk = R[k], U[k]
@@ -69,7 +68,6 @@ def audit(path: Path) -> dict:
         dx = X[h] - X[g]
         dr = radii[h] - radii[g]
         edge_lengths.append(float(np.linalg.norm(dx)))
-        augmented_edges.append(np.r_[dx, dr])
         edge_map[(int(g), int(h))] = (Rk, Uk)
         edge_map[(int(h), int(g))] = (Rk.T, Uk.conj().T)
 
@@ -102,7 +100,6 @@ def audit(path: Path) -> dict:
     # Its differential has rank exactly 3 for X != 0:
     # DF^T DF = I_3 + n n^T, with eigenvalues (1,1,2).
     metric_eigs = np.array([1.0, 1.0, 2.0])
-    edge_rank = int(np.linalg.matrix_rank(np.asarray(augmented_edges)))
     spatial_edge_rank = int(np.linalg.matrix_rank(X[edges[:, 1]] - X[edges[:, 0]]))
     centered_rank = int(np.linalg.matrix_rank(X - X.mean(axis=0)))
 
@@ -119,7 +116,6 @@ def audit(path: Path) -> dict:
     residuals = {
         "centered_embedding_rank": centered_rank,
         "spatial_edge_displacement_rank": spatial_edge_rank,
-        "augmented_edge_coframe_rank": edge_rank,
         "SO3_orthogonality_max_fro": max(orth),
         "SO3_determinant_max_abs": max(det),
         "SO3_normal_section_transport_max": max(normal_transport),
