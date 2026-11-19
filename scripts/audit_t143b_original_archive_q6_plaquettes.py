@@ -298,12 +298,6 @@ def audit(fibre_path, embedding_path):
                 "commutator_relative_frobenius": fro(normal_commutator) / max(fro(k_fibre), 1e-300),
                 "anti_commutator_with_P_frobenius": fro(normal_anticommutator),
                 "maximum_block_intertwining_residual": float(max(block_intertwining)),
-                "plus_sector_self_block_residual": fro(bp.conj().T @ normal_operator @ bp),
-                "minus_sector_self_block_residual": fro(bm.conj().T @ normal_operator @ bm),
-                "plus_to_minus_map_unitarity_residual": fro(
-                    (bm.conj().T @ normal_operator @ bp).conj().T
-                    @ (bm.conj().T @ normal_operator @ bp) - np.eye(bp.shape[1])
-                ),
             },
             "clifford_symmetry": {
                 "generators": ["T_xor1 tensor sigma_3", "T_xor2 tensor sigma_2", "T_xor4 tensor sigma_1"],
@@ -339,6 +333,14 @@ def audit(fibre_path, embedding_path):
             "plus_minus_sorted_spectrum_max_difference": float(np.max(np.abs(np.sort(ep)-np.sort(em)))),
             "plus_sector_eigenvalue_range": [float(ep.min()), float(ep.max())],
             "minus_sector_eigenvalue_range": [float(em.min()), float(em.max())],
+        })
+        normal_map = bm.conj().T @ normal_operator @ bp
+        kdata["normal_operator"].update({
+            "plus_sector_self_block_residual": fro(bp.conj().T @ normal_operator @ bp),
+            "minus_sector_self_block_residual": fro(bm.conj().T @ normal_operator @ bm),
+            "plus_to_minus_map_unitarity_residual": fro(
+                normal_map.conj().T @ normal_map - np.eye(bp.shape[1])
+            ),
         })
         report["K_fibre_operator_level_check"] = kdata
 
