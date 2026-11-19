@@ -9,7 +9,7 @@ An isolated research application for comparing organizational network structures
 - `src/network_dynamics.py`: synthetic hierarchical, matrix and Practices-like graphs; bounded knowledge-state diffusion; connectivity metrics; random vertex-removal graph robustness.
 - `src/competence_model.py`: thresholded skill coverage, Herfindahl-style competence concentration and effective-agent count.
 - `src/knowledge_dynamics.py`: bounded diffusion/decay/external-input update for exploratory longitudinal models.
-- `src/resilience.py`: task-based capability coverage under agent unavailability and ordering by uniquely covered skills.
+- `src/resilience.py`: task-based capability coverage under agent unavailability and ordering by uniquely covered skills.\n- `src/monte_carlo.py`: paired-seed Monte Carlo summaries with sample dispersion and normal-approximation confidence intervals.
 - `tests/`: software checks for graph invariants and research metrics.
 
 Graph-connectivity robustness and task-based competence resilience are distinct metrics and must not be reported as interchangeable.
@@ -34,7 +34,7 @@ python applications/network-dynamics/src/network_dynamics.py \
 
 The command writes JSON and CSV summaries locally. Generated results are synthetic; record the command, environment, dependency versions and commit SHA before treating any output as reproducible evidence.
 
-## Evidence status
+## Paired-seed Monte Carlo audit\n\nRun 100 independent synthetic seeds while comparing all architectures under the same generated profiles and initial states within each replicate:\n\n```bash\npython applications/network-dynamics/src/monte_carlo.py \\\n  --replicates 100 \\\n  --seed 20261119 \\\n  --output applications/network-dynamics/results\n```\n\nThis writes `monte_carlo.json` and `monte_carlo.csv`. The reported 95% intervals use a normal approximation over synthetic seed replicates; they quantify model variability only, not uncertainty about real organizations. The graph-generation rules remain stylized assumptions, not validated representations of organizational forms.\n\n## Evidence status
 
 | Item | Status |
 |---|---|
