@@ -105,7 +105,53 @@ X_\perp^2+Y_\perp^2=I_{(\iota\mathscr H)^\perp}.
 \]
 There is no canonical choice supplied by the six-state Vesica data. Choosing one arbitrarily would add structure not derived from the geometry.
 
-## 6. Relation to T141 and evidence status
+
+## 6. A parameterized class of full diagonal extensions
+
+Although the six-state data do not select a canonical action on the orthogonal complement, they do determine the form of a simple **family** of full-space extensions under the additional ansatz that \(X_{Q6},Y_{Q6}\) are real diagonal multiplication operators in the Q6 vertex basis.
+
+Choose one representative \(r\) from each of the 32 antipodal pairs \(\{r,r\oplus63\}\). For the three selected representatives \(r=3,5,9\), fix
+\[
+(a_r,b_r)=
+(1,0),\quad
+\left(-\frac12,\frac{\sqrt3}{2}\right),\quad
+\left(-\frac12,-\frac{\sqrt3}{2}\right),
+\]
+respectively. For each of the other 29 pairs choose an arbitrary angle
+\(\theta_r\in\mathbb R/(2\pi\mathbb Z)\), and set
+\[
+(a_r,b_r)=(\cos\theta_r,\sin\theta_r).
+\]
+Define the multipliers on the partner by
+\[
+a_{r\oplus63}=-a_r,\qquad b_{r\oplus63}=-b_r.
+\]
+Then
+\[
+(X_{Q6}f)(c)=a_cf(c),\qquad
+(Y_{Q6}f)(c)=b_cf(c)
+\]
+are Hermitian, satisfy
+\[
+J_{Q6}X_{Q6}J_{Q6}=-X_{Q6},\qquad
+J_{Q6}Y_{Q6}J_{Q6}=-Y_{Q6},
+\]
+and obey the global identity
+\[
+\boxed{X_{Q6}^2+Y_{Q6}^2=I_{64}.}
+\]
+On the six selected states they agree exactly with the embedded Vesica coordinate operators. The 29 angles are free parameters: this is a 29-parameter family within the diagonal-multiplier ansatz, not a canonical extension and not a classification of all possible (possibly nondiagonal) extensions. A geometric or dynamical principle is still needed to determine these angles.
+
+## 7. Relation to T141 and evidence status
+
+The six code labels are reused from three of the six antipodal pairs in T141. This reuses the Q6 labels, not the icosahedron-to-Q6 edge-path construction. T143 does not claim that the six-state Vesica is the icosahedron, nor that the T141 path lift induces these coordinate operators.
+
+**Proved exactly:** isometry; antipodal intertwining; invariance of the image; zero-extension Hermiticity and oddness; \(\widetilde X_0^2+\widetilde Y_0^2=\Pi\); embedded block ranks 3 and 2; full zero-extension ranks 6 and 4; 29+29 dimensions of the orthogonal complement; and the 29-parameter diagonal full-extension family described above.
+
+**Numerically audited by the accompanying script:** the finite matrix identities and ranks for the isometric embedding and one representative member of the full diagonal-extension family, up to the declared floating-point tolerance.
+
+**Open:** a geometric or dynamical principle selecting the 29 complementary angles, or a justified nondiagonal extension; physical identification of the two parity sectors; a PSU-to-Anti-Twin current or Hamiltonian derived from this construction.
+
 
 The six code labels are reused from three of the six antipodal pairs in T141. This reuses the Q6 labels, not the icosahedron-to-Q6 edge-path construction. T143 does not claim that the six-state Vesica is the icosahedron, nor that the T141 path lift induces these coordinate operators.
 
