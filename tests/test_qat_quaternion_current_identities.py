@@ -37,8 +37,7 @@ def rotate_pure(q, v):
 def test_unit_quaternion_matrix_is_su2():
     rng = np.random.default_rng(63064)
     for _ in range(100):
-        q = rng.normal(size=4)
-        q /= np.linalg.norm(q)
+        q = rng.normal(size=4); q /= np.linalg.norm(q)
         U = q_to_su2(q)
         assert np.linalg.norm(U.conj().T @ U - np.eye(2)) < 1e-12
         assert abs(np.linalg.det(U) - 1) < 1e-12
@@ -47,10 +46,8 @@ def test_unit_quaternion_matrix_is_su2():
 def test_quaternion_conjugation_preserves_scalar_and_vector_norm():
     rng = np.random.default_rng(63065)
     for _ in range(100):
-        q = rng.normal(size=4)
-        q /= np.linalg.norm(q)
-        rho = rng.normal()
-        j = rng.normal(size=3)
+        q = rng.normal(size=4); q /= np.linalg.norm(q)
+        rho = rng.normal(); j = rng.normal(size=3)
         J = np.array([rho, *j])
         transformed = qmul(qmul(q, J), qconj(q))
         assert abs(transformed[0] - rho) < 1e-12
@@ -59,11 +56,9 @@ def test_quaternion_conjugation_preserves_scalar_and_vector_norm():
 
 def test_quaternion_rotation_is_orthogonal_and_orientation_preserving():
     rng = np.random.default_rng(63066)
-    basis = np.eye(3)
     for _ in range(30):
-        q = rng.normal(size=4)
-        q /= np.linalg.norm(q)
-        R = np.column_stack([rotate_pure(q, e) for e in basis])
+        q = rng.normal(size=4); q /= np.linalg.norm(q)
+        R = np.column_stack([rotate_pure(q, e) for e in np.eye(3)])
         assert np.linalg.norm(R.T @ R - np.eye(3)) < 1e-12
         assert abs(np.linalg.det(R) - 1) < 1e-12
 
@@ -71,8 +66,7 @@ def test_quaternion_rotation_is_orthogonal_and_orientation_preserving():
 def test_double_cover_q_and_minus_q_induce_same_rotation():
     rng = np.random.default_rng(63067)
     for _ in range(100):
-        q = rng.normal(size=4)
-        q /= np.linalg.norm(q)
+        q = rng.normal(size=4); q /= np.linalg.norm(q)
         v = rng.normal(size=3)
         assert np.linalg.norm(rotate_pure(q, v) - rotate_pure(-q, v)) < 1e-12
         assert np.linalg.norm(q_to_su2(-q) + q_to_su2(q)) < 1e-12
@@ -83,6 +77,5 @@ def test_su2_map_respects_quaternion_product():
     for _ in range(100):
         a = rng.normal(size=4); a /= np.linalg.norm(a)
         b = rng.normal(size=4); b /= np.linalg.norm(b)
-        lhs = q_to_su2(qmul(a, b))
-        rhs = q_to_su2(a) @ q_to_su2(b)
-        assert np.linalg.norm(lhs-rhs) < 1e-12
+        assert np.linalg.norm(q_to_su2(qmul(a, b)) -
+                             q_to_su2(a) @ q_to_su2(b)) < 1e-12
