@@ -111,12 +111,42 @@ def build():
     return points, x, y, iota, it, jq, j6, pi, x0, y0
 
 
+def build_full_diagonal_extension(angles):
+    """Build one member of the 29-angle full diagonal extension family."""
+    if len(angles) != 29:
+        raise ValueError("exactly 29 complementary-pair angles are required")
+    a = [0.0] * N_Q6
+    b = [0.0] * N_Q6
+    selected = {
+        3: (1.0, 0.0),
+        5: (-0.5, math.sqrt(3.0) / 2.0),
+        9: (-0.5, -math.sqrt(3.0) / 2.0),
+    }
+    angle_iter = iter(angles)
+    for representative in range(32):
+        if representative in selected:
+            ca, sb = selected[representative]
+        else:
+            theta = next(angle_iter)
+            ca, sb = math.cos(theta), math.sin(theta)
+        partner = representative ^ 63
+        a[representative], b[representative] = ca, sb
+        a[partner], b[partner] = -ca, -sb
+    xq = [[a[i] if i == j else 0.0 for j in range(N_Q6)]
+          for i in range(N_Q6)]
+    yq = [[b[i] if i == j else 0.0 for j in range(N_Q6)]
+          for i in range(N_Q6)]
+    return xq, yq
+
+
 def run_audit():
     points, x, y, iota, it, jq, j6, pi, x0, y0 = build()
     ident6 = eye(6)
     ident64 = eye(64)
     x2y2 = add(matmul(x, x), matmul(y, y))
     x0_2_y0_2 = add(matmul(x0, x0), matmul(y0, y0))
+    sample_angles = [0.137 * (k + 1) for k in range(29)]
+    xq, yq = build_full_diagonal_extension(sample_angles)
 
     errors = {
         "isometry_iota_star_iota": max_error(matmul(it, iota), ident6),
@@ -130,6 +160,18 @@ def run_audit():
         "projection_idempotence": max_error(matmul(pi, pi), pi),
         "projection_rank_six": abs(rank(pi) - 6),
         "T142_unit_circle_identity": max_error(x2y2, ident6),
+        "full_extension_X_hermitian": max_error(transpose(xq), xq),
+        "full_extension_Y_hermitian": max_error(transpose(yq), yq),
+        "full_extension_X_odd": max_error(matmul(matmul(jq, xq), jq), scale(-1.0, xq)),
+        "full_extension_Y_odd": max_error(matmul(matmul(jq, yq), jq), scale(-1.0, yq)),
+        "full_extension_unit_circle": max_error(
+            add(matmul(xq, xq), matmul(yq, yq)), ident64),
+        "extension_restricts_to_embedded_X": max_error(
+            [[xq[CODES[i]][CODES[i]] if i == j else 0.0 for j in range(6)]
+             for i in range(6)], x),
+        "extension_restricts_to_embedded_Y": max_error(
+            [[yq[CODES[i]][CODES[i]] if i == j else 0.0 for j in range(6)]
+             for i in range(6)], y),
     }
 
     # Pull the Q6 even/odd basis from each selected antipodal pair.
@@ -171,7 +213,9 @@ def run_audit():
         "errors": errors,
         "ranks": ranks,
         "parity_counts": parity_counts,
-        "status": "PASS" if status else "FAIL",
+        "full_extension_complementary_angles": len(sample_angles),
+        "full_extension_ranks": {"X": rank(xq), "Y": rank(yq)},
+        "status": "PASS" if status and max(errors.values()) < TOL else "FAIL",
     }
 
 
