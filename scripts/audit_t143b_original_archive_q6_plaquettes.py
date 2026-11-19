@@ -248,6 +248,18 @@ def audit(fibre_path, embedding_path):
             for s in range(2):
                 p_fibre[2*(g ^ 7)+s, 2*g+s] = 1.0
         comm = k_fibre @ p_fibre - p_fibre @ k_fibre
+        normal_operator = np.zeros((128, 128), dtype=complex)
+        for g in range(64):
+            normal_operator[2*g:2*g+2, 2*g:2*g+2] = sum(normals[g, j]*SIGMA[j] for j in range(3))
+        normal_commutator = k_fibre @ normal_operator - normal_operator @ k_fibre
+        normal_anticommutator = normal_operator @ p_fibre + p_fibre @ normal_operator
+        block_intertwining = []
+        for g in range(64):
+            ng = normal_operator[2*g:2*g+2, 2*g:2*g+2]
+            for h in range(64):
+                nh = normal_operator[2*h:2*h+2, 2*h:2*h+2]
+                block = k_fibre[2*g:2*g+2, 2*h:2*h+2]
+                block_intertwining.append(fro(block @ nh - ng @ block))
         gamma_specs = [(1, SIGMA[2]), (2, SIGMA[1]), (4, SIGMA[0])]
         gammas = []
         gamma_commutators = []
@@ -279,6 +291,20 @@ def audit(fibre_path, embedding_path):
             "commutator_frobenius": fro(comm),
             "commutator_relative_frobenius": fro(comm) / max(fro(k_fibre), 1e-300),
             "hermiticity_residual": fro(k_fibre-k_fibre.conj().T),
+            "normal_operator": {
+                "definition": "N=direct_sum_g(n_g dot sigma)",
+                "square_residual": fro(normal_operator @ normal_operator - np.eye(128)),
+                "commutator_frobenius": fro(normal_commutator),
+                "commutator_relative_frobenius": fro(normal_commutator) / max(fro(k_fibre), 1e-300),
+                "anti_commutator_with_P_frobenius": fro(normal_anticommutator),
+                "maximum_block_intertwining_residual": float(max(block_intertwining)),
+                "plus_sector_self_block_residual": fro(bp.conj().T @ normal_operator @ bp),
+                "minus_sector_self_block_residual": fro(bm.conj().T @ normal_operator @ bm),
+                "plus_to_minus_map_unitarity_residual": fro(
+                    (bm.conj().T @ normal_operator @ bp).conj().T
+                    @ (bm.conj().T @ normal_operator @ bp) - np.eye(bp.shape[1])
+                ),
+            },
             "clifford_symmetry": {
                 "generators": ["T_xor1 tensor sigma_3", "T_xor2 tensor sigma_2", "T_xor4 tensor sigma_1"],
                 "commutator_frobenius": gamma_commutators,
@@ -347,6 +373,14 @@ def audit(fibre_path, embedding_path):
             and abs(report["K_fibre_operator_level_check"]["adjacent_vertex_block_frobenius_max"] - np.sqrt(2)) < tol
         )
         cliff = report["K_fibre_operator_level_check"]["clifford_symmetry"]
+        normal_data = report["K_fibre_operator_level_check"]["normal_operator"]
+        checks["K_fibre_normal_operator_commutes"] = normal_data["commutator_relative_frobenius"] < tol
+        checks["K_fibre_normal_operator_swaps_parity"] = (
+            normal_data["anti_commutator_with_P_frobenius"] < tol
+            and normal_data["plus_sector_self_block_residual"] < tol
+            and normal_data["minus_sector_self_block_residual"] < tol
+            and normal_data["plus_to_minus_map_unitarity_residual"] < tol
+        )
         checks["K_fibre_three_Clifford_generators_commute"] = max(cliff["commutator_frobenius"]) < tol
         checks["K_fibre_Clifford_relations"] = (
             max(cliff["square_residuals"] + cliff["hermiticity_residuals"]
