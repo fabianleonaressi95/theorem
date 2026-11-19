@@ -248,6 +248,22 @@ def audit(fibre_path, embedding_path):
             for s in range(2):
                 p_fibre[2*(g ^ 7)+s, 2*g+s] = 1.0
         comm = k_fibre @ p_fibre - p_fibre @ k_fibre
+        gamma_specs = [(1, SIGMA[2]), (2, SIGMA[1]), (4, SIGMA[0])]
+        gammas = []
+        gamma_commutators = []
+        for shift, pauli in gamma_specs:
+            gamma = np.zeros((128, 128), dtype=complex)
+            for g in range(64):
+                gamma[2*(g ^ shift):2*(g ^ shift)+2, 2*g:2*g+2] = pauli
+            gammas.append(gamma)
+            gamma_commutators.append(fro(k_fibre @ gamma - gamma @ k_fibre))
+        gamma_anticommutators = [
+            fro(gammas[i] @ gammas[j] + gammas[j] @ gammas[i])
+            for i in range(3) for j in range(i+1, 3)
+        ]
+        gamma_square_residuals = [fro(g @ g - np.eye(128)) for g in gammas]
+        gamma_hermiticity_residuals = [fro(g - g.conj().T) for g in gammas]
+        gamma_volume_residual = fro(gammas[0] @ gammas[1] @ gammas[2] + 1j*p_fibre)
         block_norms = np.array([
             [fro(k_fibre[2*g:2*g+2, 2*h:2*h+2]) for h in range(64)]
             for g in range(64)
@@ -263,6 +279,15 @@ def audit(fibre_path, embedding_path):
             "commutator_frobenius": fro(comm),
             "commutator_relative_frobenius": fro(comm) / max(fro(k_fibre), 1e-300),
             "hermiticity_residual": fro(k_fibre-k_fibre.conj().T),
+            "clifford_symmetry": {
+                "generators": ["T_xor1 tensor sigma_3", "T_xor2 tensor sigma_2", "T_xor4 tensor sigma_1"],
+                "commutator_frobenius": gamma_commutators,
+                "commutator_relative_frobenius": [v/max(fro(k_fibre), 1e-300) for v in gamma_commutators],
+                "square_residuals": gamma_square_residuals,
+                "hermiticity_residuals": gamma_hermiticity_residuals,
+                "pairwise_anticommutator_residuals": gamma_anticommutators,
+                "volume_relation_residual_G1G2G3_plus_iP": gamma_volume_residual,
+            },
             "nonadjacent_vertex_block_max_frobenius": float(block_norms[nonedge_mask].max()),
             "adjacent_vertex_block_frobenius_min": float(block_norms[q6_adjacency].min()),
             "adjacent_vertex_block_frobenius_max": float(block_norms[q6_adjacency].max()),
@@ -320,6 +345,12 @@ def audit(fibre_path, embedding_path):
             report["K_fibre_operator_level_check"]["nonadjacent_vertex_block_max_frobenius"] < tol
             and abs(report["K_fibre_operator_level_check"]["adjacent_vertex_block_frobenius_min"] - np.sqrt(2)) < tol
             and abs(report["K_fibre_operator_level_check"]["adjacent_vertex_block_frobenius_max"] - np.sqrt(2)) < tol
+        )
+        cliff = report["K_fibre_operator_level_check"]["clifford_symmetry"]
+        checks["K_fibre_three_Clifford_generators_commute"] = max(cliff["commutator_frobenius"]) < tol
+        checks["K_fibre_Clifford_relations"] = (
+            max(cliff["square_residuals"] + cliff["hermiticity_residuals"]
+                + cliff["pairwise_anticommutator_residuals"] + [cliff["volume_relation_residual_G1G2G3_plus_iP"]]) < tol
         )
         checks["archived_link_matrix_integrity"] = max(matrix_integrity.values()) < tol
     report["checks"] = checks
