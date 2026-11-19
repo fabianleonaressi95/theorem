@@ -137,7 +137,7 @@ The cross-sector equality is explained by [T143-D — Anti-Twin isospectrality f
 \]
 The maximum blockwise intertwining residual in (7) is \(1.7804\times10^{-15}\), and the induced map from the \(+\) to the \(-\) sector is unitary to residual \(3.8827\times10^{-15}\). Thus the observed sorted-spectrum difference \(1.2435\times10^{-14}\) is the numerical realization of the explicit unitary equivalence in T143-D, not an unexplained coincidence.
 
-This operator-level statement is specific to \(K_{\rm fibre}\) and the stated deck action. It is not automatically transferable to \(K_{\rm fibre,biverso}\), \(K_0\), or the tangent operators.
+This operator-level statement is specific to \(K_{\rm fibre}\) and the stated deck action. It is not automatically transferable to \(K_{\rm fibre,biverso}\), \(K_0\), or the tangent operators. A preliminary test of the naive interleaved action \(P\otimes I_4\) on the 256-dimensional \(K_{\rm fibre,biverso}\) gives relative commutator residual \(0.28465\); that action is therefore not assumed. The correct biverso deck representation remains to be identified.
 
 ## 7. Reproduction
 
