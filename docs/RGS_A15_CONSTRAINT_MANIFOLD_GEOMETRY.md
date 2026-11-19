@@ -104,6 +104,29 @@ Its Ricci tensor and scalar curvature are
 
 These are intrinsic curvature invariants of the finite-dimensional constraint manifold.
 
+## 4.1 Explicit local coordinates and Christoffel symbols
+
+Fix a base point \(x_0\in\mathcal M\), let \(n_0=x_0/r\), and let the columns of \(Q_0\in\mathbb R^{192\times188}\) be an orthonormal tangent basis at \(x_0\). A local graph chart is
+
+\[
+x(y)=Q_0y+\sqrt{r^2-|y|^2}\,n_0,
+\qquad |y|<r.
+\]
+
+The metric in this chart is
+
+\[
+g_{ij}(y)=\delta_{ij}+\frac{y_i y_j}{r^2-|y|^2}.
+\]
+
+Its inverse is \(g^{ij}=\delta^{ij}-y^iy^j/r^2\), and direct differentiation gives the Christoffel symbols
+
+\[
+\boxed{\Gamma^k{}_{ij}(y)=\frac{y^k}{r^2}g_{ij}(y).}
+\]
+
+At the base point \(y=0\), all \(\Gamma^k{}_{ij}(0)=0\), as expected in geodesic-normal coordinates. Their derivatives are nonzero and encode the constant curvature \(1/r^2\). This supplies an explicit coordinate expression for the induced Levi-Civita connection without pretending that the 188 coordinates are four spacetime coordinates.
+
 ## 5. Numerical verification
 
 Run:
