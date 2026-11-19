@@ -77,10 +77,12 @@ T143-A, the canonical SO(3) and SU(2) link transports descend to the
 quotient graph. This is a discrete graph quotient; no manifold,
 flatness, or continuum assertion follows.
 
-The theorem concerns the connection. Commutation of a separately
-assembled operator \(K\) with the Anti-Twin permutation \(P\), and
-therefore a \(P=\pm1\) spectral decomposition, requires a separate
-operator-level proof.
+The connection theorem does not by itself imply commutation of an arbitrary
+assembled operator. For the archived \(K_{\rm fibre}\), the operator-level
+checks are now recorded in T143-B: a three-generator Clifford symmetry
+(T143-C) and a covariantly constant normal operator giving parity-sector
+isospectrality (T143-D). No such conclusion is transferred to other
+operators without their own deck action and intertwiner audit.
 
 ## 6. Remaining archive/provenance checks
 
