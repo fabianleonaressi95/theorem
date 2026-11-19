@@ -83,7 +83,7 @@ def run_sensitivity(replicates: int = 20, seed: int = DEFAULT_SEED,
                 )
                 masks = removal_masks(
                     adjacency, fraction, mode,
-                    np.random.default_rng(run_seed + 5000 + architecture_index),
+                    np.random.default_rng(run_seed + 5000),
                     removal_repetitions,
                 )
                 robustness = float(np.mean([
