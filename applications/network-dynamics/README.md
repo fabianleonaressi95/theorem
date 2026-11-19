@@ -39,7 +39,7 @@ The command writes JSON and CSV summaries locally. Generated results are synthet
 | Item | Status |
 |---|---|
 | Model definitions and source code | Specified |
-| Software invariants | Tests present; CI not run |
+| Software invariants | GitHub Actions CI passed (run 44568313472; pytest step successful) |
 | Numerical outputs | Synthetic only |
 | Practices rollout / profit claims | Unverified testimonial claims |
 | Comparative organizational effects | Open empirical hypotheses |
