@@ -21,6 +21,11 @@ class T143VesicaQ6EmbeddingTests(unittest.TestCase):
         self.assertEqual(result["ranks"]["full_zero_extension_Y"], 4)
         self.assertEqual(result["ranks"]["orthogonal_complement_dimension"], 58)
 
+    def test_parameterized_full_diagonal_extension(self):
+        result = run_audit()
+        self.assertEqual(result["full_extension_complementary_angles"], 29)
+        self.assertLess(max(result["errors"].values()), 1e-10)
+
 
 if __name__ == "__main__":
     unittest.main()
