@@ -12,7 +12,7 @@ def qmul(a, b):
     W, X, Y, Z = b
     return np.array([
         w*W - x*X - y*Y - z*Z,
-        w*X + x*W + y*W - z*Z,
+        w*X + x*W + y*Z - z*Y,
         w*Y - x*Z + y*W + z*X,
         w*Z + x*Y - y*X + z*W,
     ], dtype=float)
