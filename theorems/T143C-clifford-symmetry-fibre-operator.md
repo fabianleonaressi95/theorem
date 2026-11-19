@@ -93,7 +93,7 @@ The observed commutator Frobenius residuals are
 \]
 The generator square, Hermiticity, pairwise anticommutator, and volume-relation residuals are zero in the stored floating-point computation.
 
-The two parity blocks each have 64 dimensions. Numerically, each block has 32 distinct eigenvalues, each of multiplicity two. The sorted spectra of the two different parity blocks also agree to \(1.2435\times10^{-14}\), but that cross-sector isospectrality is an additional observation and is not a consequence of the theorem above.
+The two parity blocks each have 64 dimensions. Numerically, each block has 32 distinct eigenvalues, each of multiplicity two. The sorted spectra of the two different parity blocks also agree to \(1.2435\times10^{-14}\), this cross-sector isospectrality is not a consequence of T143-C alone; it is explained by the independent normal-operator intertwiner in [T143-D](T143D-antitwin-isospectrality-normal-operator.md).
 
 ## 5. Evidence boundary and open question
 
