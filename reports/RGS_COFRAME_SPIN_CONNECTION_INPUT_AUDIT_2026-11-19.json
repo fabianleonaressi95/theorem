@@ -1,0 +1,63 @@
+{
+  "archive": "A13_RGS_PSU_QLG_KAGGLE/RGS_PSU_fiber_connection_audit/psu_fibre_connection_matrices.npz",
+  "archive_sha256": "d1adc675126af3c9f850adfaf70cebedf80020c67c5bfccd669c2a65e0592015",
+  "classification": {
+    "3d_discrete_embedding": "PASS",
+    "archived_SO3_edge_transports": "PASS",
+    "archived_SU2_edge_transports": "PASS",
+    "SU2_to_SO3_adjoint_compatibility": "PASS",
+    "coordinate_dependent_4d_coframe": "NOT_PRESENT_IN_ARCHIVE",
+    "Levi_Civita_spin_connection_from_coframe": "NOT_COMPUTABLE",
+    "continuum_to_Q6_holonomy_convergence": "NOT_TESTED"
+  },
+  "shapes": {
+    "X": [
+      64,
+      3
+    ],
+    "Q": [
+      192,
+      188
+    ],
+    "K0": [
+      188,
+      188
+    ],
+    "normals": [
+      64,
+      3
+    ],
+    "edges": [
+      192,
+      3
+    ],
+    "R_SO3": [
+      192,
+      3,
+      3
+    ],
+    "U_SU2": [
+      192,
+      2,
+      2
+    ]
+  },
+  "numerical_residuals": {
+    "centered_embedding_rank": 3,
+    "unit_normal_max_abs_residual": 2.220446049250313e-16,
+    "SO3_orthogonality_max_fro_residual": 1.1716202886178321e-15,
+    "SO3_determinant_max_abs_residual": 7.771561172376096e-16,
+    "SU2_unitarity_max_fro_residual": 3.209595081131869e-16,
+    "SU2_determinant_max_abs_residual": 2.2887833992611187e-16,
+    "SU2_adjoint_to_SO3_max_abs_residual": 4.440892098500626e-16,
+    "K0_symmetry_fro_residual": 0
+  },
+  "interpretation": "The archive supports a 3D discrete embedding and mutually compatible edgewise SO(3)/SU(2) transports. It does not provide a coordinate-dependent 4D coframe or establish that the archived links are holonomies of a continuum Levi-Civita spin connection.",
+  "missing_inputs": [
+    "coordinate domain/chart and coordinate-dependent invertible coframe e^a_mu(x)",
+    "signature and internal metric convention",
+    "derivative data or a specified discrete differential calculus for e^a_mu",
+    "unit timelike field / 3+1 split and spatial triad for SU(2) reduction",
+    "edge paths or documented map from continuum connection to Q6 links"
+  ]
+}
