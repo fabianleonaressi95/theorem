@@ -1,0 +1,70 @@
+name: T143 original archived connection audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      fibre_archive:
+        description: Repository-relative path to psu_fibre_connection_matrices.npz
+        required: true
+        default: data/psu_fibre_connection_matrices.npz
+        type: string
+      embedding_archive:
+        description: Repository-relative path to RGS_PSU_all_matrices.npz
+        required: true
+        default: data/RGS_PSU_all_matrices.npz
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  archived-link-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install numerical dependency
+        run: python -m pip install --upgrade numpy
+
+      - name: Verify input archives exist
+        env:
+          FIBRE_ARCHIVE: ${{ inputs.fibre_archive }}
+          EMBEDDING_ARCHIVE: ${{ inputs.embedding_archive }}
+        run: |
+          test -f "$FIBRE_ARCHIVE" || {
+            echo "::error::Fibre archive not found: $FIBRE_ARCHIVE"
+            echo "Add the original NPZ to the repository or set the workflow input to its tracked path."
+            exit 2
+          }
+          test -f "$EMBEDDING_ARCHIVE" || {
+            echo "::error::Embedding archive not found: $EMBEDDING_ARCHIVE"
+            echo "Add the original NPZ to the repository or set the workflow input to its tracked path."
+            exit 2
+          }
+
+      - name: Run direct archived SO(3)/SU(2) replay
+        env:
+          FIBRE_ARCHIVE: ${{ inputs.fibre_archive }}
+          EMBEDDING_ARCHIVE: ${{ inputs.embedding_archive }}
+        run: |
+          python scripts/audit_t143_original_archived_connection.py \
+            --fibre "$FIBRE_ARCHIVE" \
+            --embedding "$EMBEDDING_ARCHIVE" \
+            --out T143_original_connection_antipodal_replay.json
+
+      - name: Publish numerical report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: T143-original-connection-audit
+          path: T143_original_connection_antipodal_replay.json
+          if-no-files-found: warn
+          retention-days: 30
