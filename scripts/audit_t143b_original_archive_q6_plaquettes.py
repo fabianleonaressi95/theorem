@@ -115,6 +115,7 @@ def audit(fibre_path, embedding_path):
         states = np.asarray(ez["Q6_states"], dtype=int)
         k_fibre = np.asarray(fz["K_fibre"], dtype=complex) if "K_fibre" in fz.files else None
         d_fibre = np.asarray(fz["D_fibre"], dtype=complex) if "D_fibre" in fz.files else None
+        k_fibre_biverso = np.asarray(fz["K_fibre_biverso"], dtype=complex) if "K_fibre_biverso" in fz.files else None
 
     if edges.shape != (192, 3) or normals.shape != (64, 3):
         raise ValueError("unexpected Q6 archive shapes")
@@ -343,6 +344,21 @@ def audit(fibre_path, embedding_path):
             ),
         })
         report["K_fibre_operator_level_check"] = kdata
+
+    if k_fibre_biverso is not None:
+        if k_fibre_biverso.shape != (256, 256):
+            raise ValueError("K_fibre_biverso does not have expected 256x256 shape")
+        p4 = np.zeros((256, 256), dtype=complex)
+        for g in range(64):
+            for a in range(4):
+                p4[4*(g ^ 7)+a, 4*g+a] = 1.0
+        naive_comm = k_fibre_biverso @ p4 - p4 @ k_fibre_biverso
+        report["K_fibre_biverso_preliminary_action_check"] = {
+            "assumed_indexing": "interleaved 4-component fibre index 4*g+a",
+            "tested_action": "P tensor I_4",
+            "relative_commutator_frobenius": fro(naive_comm) / max(fro(k_fibre_biverso), 1e-300),
+            "interpretation": "negative diagnostic only; this trivial internal action is not an established biverso deck representation",
+        }
 
     # All checks use tolerances because archive entries are floating point.
     tol = 1e-10
