@@ -43,7 +43,7 @@ U_e\mapsto g_{s(e)}U_eg_{t(e)}^{-1}
 
 ## 4. Graph/Q6 step
 
-Q6 supplies a finite graph with 64 vertices and 192 oriented-edge pairs (degree 6). Its combinatorial data alone do **not** determine:
+Q6 supplies a finite graph with 64 vertices and 192 edges (degree 6). Its combinatorial data alone do **not** determine:
 - a manifold or embedding;
 - edge paths \(\gamma_e\);
 - a coframe or spin connection;
@@ -72,3 +72,50 @@ A graph-to-continuum assignment (or a separately specified discrete connection) 
 **Open:** the map from the project's RGS coframe to a continuum spin connection, the justified SU(2) reduction, the map to Q6 links, and any convergence/refinement statement.
 
 No physical gauge field, torsion, wormhole, polariton dynamics, or viscosity follows from this specification alone.
+
+
+## 7. Inspection of the recovered A13 archive (2026-11-19)
+
+The recovered `psu_fibre_connection_matrices.npz` contains:
+- `X`: 64×3 point coordinates;
+- `Q`: 192×188 tangent/constraint matrix;
+- `normals`: 64×3;
+- `edges`: 192×3 edge records;
+- `R_SO3`: 192 edgewise 3×3 transports;
+- `U_SU2`: 192 edgewise 2×2 transports;
+- `K0`: 188×188 symmetric operator.
+
+Reproducible checks on this archive give:
+| Check | Result | Status |
+|---|---:|---|
+| Rank of centered 3D point cloud | 3 | PASS |
+| Unit-normal max residual | 2.22×10⁻¹⁶ | PASS |
+| SO(3) orthogonality max Frobenius residual | 1.18×10⁻¹⁵ | PASS |
+| SO(3) determinant max absolute residual from +1 | 8×10⁻¹⁶ | PASS |
+| SU(2) unitarity max Frobenius residual | 3.21×10⁻¹⁶ | PASS |
+| SU(2) determinant max absolute residual from +1 | 2.29×10⁻¹⁶ | PASS |
+| SU(2) adjoint action vs archived SO(3) max entry residual | 4.45×10⁻¹⁶ | PASS |
+| K0 symmetry Frobenius residual | 0 | PASS |
+
+**Critical limitation:** the recovered A13 archive does not contain a coordinate-dependent 4×4 coframe, an inverse coframe, a spacetime metric with declared signature, derivatives of a coframe, or a chart/coordinate domain. The other recovered 188-dimensional matrices likewise do not provide these missing geometric data. The named `RGS_PRISM_FINAL_vierbein_E.npy` and `RGS_PRISM_tetrad_4d.npy` inputs were not found in the inspected Library archive or in the A13 bundle.
+
+Consequently:
+- the archived `U_SU2` and `R_SO3` are internally compatible **discrete edge transports**;
+- their SU(2)↔SO(3) relation is numerically verified;
+- their origin as path-ordered exponentials of a continuum Levi-Civita-derived connection is **not established**;
+- no Cartan torsion residual or continuum spin connection can be computed from these inputs.
+
+The executable audit is `scripts/audit_rgs_coframe_spin_connection_inputs.py`. It accepts the recovered `psu_fibre_connection_matrices.npz` as input and emits a JSON report. The correct next input is the actual coordinate-dependent coframe (with conventions and derivatives), not another 188×188 operator.
+
+## 8. Updated gate status
+
+| Gate | Status after archive inspection |
+|---|---|
+| C1: coordinate-dependent coframe rank and metric/signature | NOT POSSIBLE — input absent |
+| C2: torsion-free spin connection / Cartan residual | NOT COMPUTABLE — input absent |
+| C3: Clifford compatibility | NOT TESTED |
+| C4: timelike field / 3+1 split | NOT PROVIDED |
+| C5: induced SU(2) continuum connection | NOT COMPUTABLE |
+| C6: Q6 edge-path assignment | NOT PROVIDED |
+| Discrete archived SU(2)/SO(3) consistency | PASS |
+| Continuum-to-discrete holonomy identification | OPEN |
