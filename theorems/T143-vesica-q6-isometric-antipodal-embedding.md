@@ -153,17 +153,9 @@ The six code labels are reused from three of the six antipodal pairs in T141. Th
 **Open:** a geometric or dynamical principle selecting the 29 complementary angles, or a justified nondiagonal extension; physical identification of the two parity sectors; a PSU-to-Anti-Twin current or Hamiltonian derived from this construction.
 
 
-The six code labels are reused from three of the six antipodal pairs in T141. This reuses the Q6 labels, not the icosahedron-to-Q6 edge-path construction. T143 does not claim that the six-state Vesica is the icosahedron, nor that the T141 path lift induces these coordinate operators.
+## 8. Reproduction
 
-**Proved exactly:** isometry; antipodal intertwining; invariance of the image; zero-extension Hermiticity and oddness; \(\widetilde X_0^2+\widetilde Y_0^2=\Pi\); embedded block ranks 3 and 2; full-space ranks 6 and 4; 29+29 dimensions of the orthogonal complement.
-
-**Numerically audited by the accompanying script:** the same finite matrix identities and ranks, up to the declared floating-point tolerance.
-
-**Open:** a geometrically or dynamically justified nonzero extension on the 58-dimensional complement; physical identification of the two parity sectors; a PSU-to-Anti-Twin current or Hamiltonian derived from this construction.
-
-## 7. Reproduction
-
-\`\`\`bash
+```bash
 python scripts/audit_t143_vesica_q6_embedding.py
 python -m unittest tests.test_t143_vesica_q6_embedding
-\`\`\`
+```
