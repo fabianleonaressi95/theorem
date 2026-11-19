@@ -1,161 +1,129 @@
-# T143 — Isometric antipodal embedding of the Vesica six-state model into Q6
+# T143 — Vesica embedding with the geometric RGS AntiTwin
 
-**Record type:** exact finite-dimensional embedding and zero-extension theorem.  
-**Status:** exact construction proved. The numerical script is a reproducibility check; its execution status is reported separately. A nonzero extension on the orthogonal complement and any physical PSU–Anti-Twin interpretation remain open.
+**Record type:** exact finite-dimensional embedding and diagonal-extension theorem.  
+**Status:** algebraic identities are proved under the stated involution \(p(g)=g\oplus7\). The archive reports this geometric labelling, but this PR does not claim an independent binary replay of the RGS matrices. Transport-based phase selection remains open.
 
-## 1. Six Q6 states selected from the existing T141 assignment
+## 1. Geometric antipodal involution and canonical representatives
 
-Write \(Q_6=\mathbb F_2^6\), identify a bit string with its integer in \(\{0,\ldots,63\}\), and let
+For \(g\in\{0,\ldots,63\}\), take
 \[
-J_{Q6}e_c=e_{c\oplus63}.
+p(g)=g\oplus7,\qquad J_{\rm RGS}e_g=e_{p(g)}.
 \]
-Use the three antipodal pairs already present in the T141 icosahedral assignment:
-\[
-(3,60),\qquad(5,58),\qquad(9,54),
-\]
-where
-\[
-60=3\oplus63,\quad58=5\oplus63,\quad54=9\oplus63.
-\]
-All six labels have even Hamming weight. They are distinct.
+This is the geometric AntiTwin convention documented by the archived RGS audit through the minimizer of \(\|X_h+X_g\|\). It is adopted here as an archive-documented convention, not newly recomputed from the binary matrices.
 
-In T142, order the six Vesica points as
+Choose the canonical representative
 \[
-( z_0,z_1,z_2,-z_0,-z_1,-z_2)
-=(1,\omega,\omega^2,-1,-\omega,-\omega^2),
-\quad\omega=e^{2\pi i/3}.
+r=\min(g,g\oplus7),\qquad r<r\oplus7.
 \]
-Define \(\iota:\ell^2(\mathcal H)\to\mathbb C^{64}\) on the point basis by
+The complete set is
 \[
-\boxed{
+R=\{0,1,2,3,8,9,10,11,16,17,18,19,24,25,26,27,
+32,33,34,35,40,41,42,43,48,49,50,51,56,57,58,59\}.
+\]
+The three Vesica pairs are
+\[
+(2,5),\qquad(3,4),\qquad(9,14),
+\]
+with representatives \(2,3,9\). The remaining 29 representatives are exactly
+\[
 \begin{aligned}
-\iota\delta_{1}&=e_3,&
-\iota\delta_{\omega}&=e_5,&
+R_{\rm free}=\{&0,1,8,10,11,16,17,18,19,24,25,26,27,\\
+&32,33,34,35,40,41,42,43,48,49,50,51,56,57,58,59\}.
+\end{aligned}
+\]
+Each element labels one distinct pair; there is no overlap with the three fixed pairs.
+
+## 2. Six-state Vesica embedding
+
+Order the six Vesica points as
+\[
+(1,\omega,\omega^2,-1,-\omega,-\omega^2),\qquad \omega=e^{2\pi i/3}.
+\]
+Define
+\[
+\begin{aligned}
+\iota\delta_1&=e_3,& \iota\delta_\omega&=e_5,&
 \iota\delta_{\omega^2}&=e_9,\\
-\iota\delta_{-1}&=e_{60},&
-\iota\delta_{-\omega}&=e_{58},&
-\iota\delta_{-\omega^2}&=e_{54}.
-\end{aligned}}
+\iota\delta_{-1}&=e_4,& \iota\delta_{-\omega}&=e_2,&
+\iota\delta_{-\omega^2}&=e_{14}.
+\end{aligned}
 \]
-Equivalently, the \(64\times6\) matrix of \(\iota\) has one unit entry in each column, in rows \((3,5,9,60,58,54)\), and zero elsewhere.
-
-## 2. Isometry and antipodal intertwining
-
-The six image basis vectors are distinct standard basis vectors, hence orthonormal. Therefore
+The six labels are distinct, hence \(\iota^\dagger\iota=I_6\). Let \(J_6\) exchange the first and last three basis vectors. Since \(3\leftrightarrow4\), \(5\leftrightarrow2\), and \(9\leftrightarrow14\) under \(p\),
 \[
-\boxed{\iota^\dagger\iota=I_6.}
+\boxed{J_{\rm RGS}\iota=\iota J_6.}
 \]
-By the pair assignments,
-\[
-J_{Q6}\iota\delta_{z_k}
-=e_{c_k\oplus63}
-=\iota\delta_{-z_k}
-=\iota J\delta_{z_k}
-\]
-for \(c=(3,5,9)\). The same identity holds on the antipodal basis vectors, so
-\[
-\boxed{J_{Q6}\iota=\iota J.}
-\]
-Thus \(\iota\mathscr H\) is a six-dimensional \(J_{Q6}\)-invariant subspace. Its even and odd parts each have dimension three.
+The image is invariant and has three states of each Hamming-parity.
 
-## 3. Exact zero extensions of the coordinate operators
+## 3. Coordinate operators and zero extension
 
-Let \(X,Y\) be the T142 coordinate multiplication operators. Define
+On the six-state basis set
 \[
-\widetilde X_0=\iota X\iota^\dagger,\qquad
-\widetilde Y_0=\iota Y\iota^\dagger,\qquad
+X=\operatorname{diag}(\Re z_k),\qquad
+Y=\operatorname{diag}(\Im z_k).
+\]
+Then \(X,Y\) are Hermitian, odd under \(J_6\), and \(X^2+Y^2=I_6\). Define
+\[
+\widetilde X_0=\iota X\iota^\dagger,\quad
+\widetilde Y_0=\iota Y\iota^\dagger,\quad
 \Pi=\iota\iota^\dagger.
 \]
-These are Hermitian operators on \(\mathbb C^{64}\), supported on the six selected states, and vanish on \((\iota\mathscr H)^\perp\). Since \(\iota^\dagger\iota=I_6\),
+Exactly,
 \[
-\widetilde X_0^2+\widetilde Y_0^2
-=\iota(X^2+Y^2)\iota^\dagger
-=\boxed{\Pi},
+\widetilde X_0^2+\widetilde Y_0^2=\Pi
 \]
-not \(I_{64}\). This is the exact identity for the zero extension.
-
-The intertwining relation gives
+(not \(I_{64}\)), and
 \[
-\boxed{
-J_{Q6}\widetilde X_0J_{Q6}=-\widetilde X_0,\qquad
-J_{Q6}\widetilde Y_0J_{Q6}=-\widetilde Y_0.
-}
+J_{\rm RGS}\widetilde X_0J_{\rm RGS}=-\widetilde X_0,\qquad
+J_{\rm RGS}\widetilde Y_0J_{\rm RGS}=-\widetilde Y_0.
 \]
-Consequently both zero-extended operators exchange the global even and odd Q6 sectors. Their nonzero action is confined to the embedded six-dimensional subspace.
+The zero extensions have ranks 6 and 4; \(\Pi\) has rank 6. The orthogonal complement has dimension 58, split 29+29 under \(J_{\rm RGS}\). The embedded even-to-odd block ranks are 3 for \(X\) and 2 for \(Y\).
 
-## 4. Embedded block ranks and full-space ranks
+## 4. Full diagonal extension and the 29 angles
 
-The restriction of the embedded operators to \(\iota\mathscr H\) is unitarily equivalent (via the isometry \(\iota\)) to T142. Therefore the embedded even-to-odd blocks have
+Assume additionally that the full operators are real diagonal multipliers in the Q6 vertex basis. Fix values at the **canonical representatives**:
 \[
-\boxed{\operatorname{rank}(P_{Q6,-}\widetilde X_0P_{Q6,+})=3,\qquad
-\operatorname{rank}(P_{Q6,-}\widetilde Y_0P_{Q6,+})=2.}
+(a_2,b_2)=\left(\frac12,-\frac{\sqrt3}{2}\right),\quad
+(a_3,b_3)=(1,0),\quad
+(a_9,b_9)=\left(-\frac12,-\frac{\sqrt3}{2}\right).
 \]
-As operators on the full 64-dimensional space, their ranks are respectively
+The value at representative 2 is the coordinate of label 2, namely \(-\omega\), not \(\omega\). On partners 5, 4, 14 the values are the negatives, so the six embedded entries agree with T142.
+
+For each \(r\in R_{\rm free}\), choose \(\theta_r\in\mathbb R/(2\pi\mathbb Z)\) and put
 \[
-\operatorname{rank}\widetilde X_0=6,\qquad
-\operatorname{rank}\widetilde Y_0=4.
+(a_r,b_r)=(\cos\theta_r,\sin\theta_r),\qquad
+(a_{r\oplus7},b_{r\oplus7})=-(a_r,b_r).
 \]
-The orthogonal complement has dimension 58, with 29 even and 29 odd dimensions, and both zero extensions vanish there.
-
-## 5. Why this does not yet define a full Q6 coordinate pair
-
-The identity \(\widetilde X_0^2+\widetilde Y_0^2=\Pi\) is a projection identity. It is not the global coordinate identity \(I_{64}\). A full-space extension would require additional operators \(X_\perp,Y_\perp\) on \((\iota\mathscr H)^\perp\), with a separately justified construction. To preserve the antipodal grading they must be Hermitian and odd under the restricted antipodal involution; if one also wants the unit-circle relation, they must satisfy
+With \(X_{\rm RGS}=\operatorname{diag}(a_g)\) and \(Y_{\rm RGS}=\operatorname{diag}(b_g)\), one obtains
 \[
-X_\perp^2+Y_\perp^2=I_{(\iota\mathscr H)^\perp}.
+J_{\rm RGS}X_{\rm RGS}J_{\rm RGS}=-X_{\rm RGS},\quad
+J_{\rm RGS}Y_{\rm RGS}J_{\rm RGS}=-Y_{\rm RGS},\quad
+\boxed{X_{\rm RGS}^2+Y_{\rm RGS}^2=I_{64}.}
 \]
-There is no canonical choice supplied by the six-state Vesica data. Choosing one arbitrarily would add structure not derived from the geometry.
+This is a 29-parameter family only within the diagonal real-multiplier ansatz; it is neither a canonical extension nor a classification of general nondiagonal extensions.
 
+## 5. Transport and phase-selection gate
 
-## 6. A parameterized class of full diagonal extensions
+The archived A13 package identifies SO(3) edge transports, SU(2) lifts and 240 plaquette holonomies. Aggregate curvature-angle statistics do not determine a vertex phase \(u_g=a_g+ib_g\), nor prove path independence.
 
-Although the six-state data do not select a canonical action on the orthogonal complement, they do determine the form of a simple **family** of full-space extensions under the additional ansatz that \(X_{Q6},Y_{Q6}\) are real diagonal multiplication operators in the Q6 vertex basis.
+A geometric phase assignment must specify an edge transport law relating \(u_h\) to \(u_g\) and satisfy its loop-consistency conditions. The audit gates are separate:
+1. compare \(p(g)=g\oplus7\) with \(\arg\min_h\|X_h+X_g\|\);
+2. check \(p(p(g))=g\);
+3. check \(J_{\rm RGS}\iota=\iota J_6\);
+4. check the proposed phase law against archived \(R_{\rm SO(3)}\), \(U_{\rm SU(2)}\), and plaquette holonomies.
 
-Choose one representative \(r\) from each of the 32 antipodal pairs \(\{r,r\oplus63\}\). For the three selected representatives \(r=3,5,9\), fix
-\[
-(a_r,b_r)=
-(1,0),\quad
-\left(-\frac12,\frac{\sqrt3}{2}\right),\quad
-\left(-\frac12,-\frac{\sqrt3}{2}\right),
-\]
-respectively. For each of the other 29 pairs choose an arbitrary angle
-\(\theta_r\in\mathbb R/(2\pi\mathbb Z)\), and set
-\[
-(a_r,b_r)=(\cos\theta_r,\sin\theta_r).
-\]
-Define the multipliers on the partner by
-\[
-a_{r\oplus63}=-a_r,\qquad b_{r\oplus63}=-b_r.
-\]
-Then
-\[
-(X_{Q6}f)(c)=a_cf(c),\qquad
-(Y_{Q6}f)(c)=b_cf(c)
-\]
-are Hermitian, satisfy
-\[
-J_{Q6}X_{Q6}J_{Q6}=-X_{Q6},\qquad
-J_{Q6}Y_{Q6}J_{Q6}=-Y_{Q6},
-\]
-and obey the global identity
-\[
-\boxed{X_{Q6}^2+Y_{Q6}^2=I_{64}.}
-\]
-On the six selected states they agree exactly with the embedded Vesica coordinate operators. The 29 angles are free parameters: this is a 29-parameter family within the diagonal-multiplier ansatz, not a canonical extension and not a classification of all possible (possibly nondiagonal) extensions. A geometric or dynamical principle is still needed to determine these angles.
+Nontrivial holonomy may obstruct a path-independent global phase or make it gauge-dependent. No flatness, unique phase law, or selection of the 29 angles is claimed. Replaying the binary archives and specifying the phase action remain open.
 
-## 7. Relation to T141 and evidence status
+## 6. Evidence and limitations
 
-The six code labels are reused from three of the six antipodal pairs in T141. This reuses the Q6 labels, not the icosahedron-to-Q6 edge-path construction. T143 does not claim that the six-state Vesica is the icosahedron, nor that the T141 path lift induces these coordinate operators.
+**Exact algebraic results:** canonical pair enumeration; the 29/3 partition; isometry; intertwining conditional on the archive-documented \(p\); zero-extension identities and ranks; and the 29-angle diagonal family.
 
-**Proved exactly:** isometry; antipodal intertwining; invariance of the image; zero-extension Hermiticity and oddness; \(\widetilde X_0^2+\widetilde Y_0^2=\Pi\); embedded block ranks 3 and 2; full zero-extension ranks 6 and 4; 29+29 dimensions of the orthogonal complement; and the 29-parameter diagonal full-extension family described above.
+**Documented but not independently replayed here:** extraction of \(p(g)=g\oplus7\) from the archived embedding.
 
-**Numerically audited by the accompanying script:** the finite matrix identities and ranks for the isometric embedding and one representative member of the full diagonal-extension family, up to the declared floating-point tolerance.
+**Open:** independent binary reproduction of the antipodal argmin; transport/holonomy replay; a gauge-covariant phase law; geometric selection of the 29 angles; a justified nondiagonal extension; and physical PSU–AntiTwin dynamics.
 
-**Open:** a geometric or dynamical principle selecting the 29 complementary angles, or a justified nondiagonal extension; physical identification of the two parity sectors; a PSU-to-Anti-Twin current or Hamiltonian derived from this construction.
+## 7. Reproduction
 
-
-## 8. Reproduction
-
-```bash
+\`\`\`bash
 python scripts/audit_t143_vesica_q6_embedding.py
 python -m unittest tests.test_t143_vesica_q6_embedding
-```
+\`\`\`
