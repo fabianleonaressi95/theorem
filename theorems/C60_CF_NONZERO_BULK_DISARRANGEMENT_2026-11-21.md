@@ -6,7 +6,7 @@ Ambito: superficie poliedrale finita C60, mappe macroscopiche affini faccia-per-
 
 ## 1. Problema
 
-Sia `Σ` il complesso poliedrale C60. Su ogni faccia `f), si usino coordinate ortonormali `ξ=(ξ₁,ξ₂)` nel piano tangente e si scriva
+Sia `Σ` il complesso poliedrale C60. Su ogni faccia `f`, si usino coordinate ortonormali `ξ=(ξ₁,ξ₂)` nel piano tangente e si scriva
 
 ```
 g_f(ξ) = A_f ξ + b_f,       A_f ∈ R^{3×2}.
@@ -127,7 +127,7 @@ In particolare `u_h` è una determining sequence per `(g,G̃)` nel modello intri
 
 ## 5. Conseguenze energetiche e limiti
 
-Per ogni bulk continuo `W), il termine bulk della successione è esattamente
+Per ogni bulk continuo `W`, il termine bulk della successione è esattamente
 
 ```
 ∫_Σ W(∇_Σu_h) d𝓗² = ∫_Σ W(G̃) d𝓗².
