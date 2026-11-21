@@ -407,6 +407,7 @@ tracce G4a già enunciate. Non è una prova di un lemma generale di
 riempimento con traccia assegnata: quel problema separato resta
 aperto e non è necessario per questa costruzione.
 
+### 5.5 Stato
 ### 5.5 Audit riga-per-riga di §5.4
 
 Verifica dei quattro punti delicati:

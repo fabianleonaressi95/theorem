@@ -1,6 +1,12 @@
 # C60 — lemma di raccordo e recovery per gradiente variabile
 
 Data: 2026-11-21
+Classificazione: **prova candidata del recovery isotropo per
+`c ∈ W^{1,1}`** — lemma di raccordo richiesto in
+`C60_CF_PARTITION_RECOVERY_AND_CELL_FORMULA_2026-11-21.md` §3.
+In attesa di audit indipendente; l'estensione a `g` con salti
+macroscopici (SBV) e l'applicazione CF su superfici **non** sono
+coperte da questo documento (v. sezione finale).
 Classificazione: **dimostrazione completa del recovery isotropo per
 `c ∈ W^{1,1}`** — il lemma di raccordo richiesto in
 `C60_CF_PARTITION_RECOVERY_AND_CELL_FORMULA_2026-11-21.md` §3.
@@ -177,6 +183,19 @@ Nessun'altra interfaccia artificiale esiste: dentro `S_j` il costo è
 quello laminato; su `∂S_j` quello di (4); il bordo esterno `∂Q` non
 contribuisce (nessun vincolo di traccia imposto).
 
+**Conteggio dei salti — precisazione.** La stima (3) è intesa sulle
+tracce unilaterali dei valori costruiti: il salto effettivo della
+funzione globale su `E` è `v_h^+|_E − v_h^-|_E` (valori di cella
+adiacenti, non di linee di laminazione), e (3) lo limita punto per
+punto. Le intersezioni fra le righe di laminazione e le interfacce
+macro sono `𝓗¹`-nulle nelle celle aperte; se una riga di laminazione
+coincide con un segmento di `∂S_j`, quel segmento appartiene al
+bordo condiviso ed è conteggiato una sola volta in `F(v_h)` —
+nella stima superiore può comparire sia nel costo interno della
+cella sia nel raccordo, il che è un sovraconteggio ammissibile e
+dichiarato (ogni salto effettivo è contato almeno una volta e il
+costo aggiunto è dominato dal termine di raccordo).
+
 ### Passo 4 — convergenza e diagonalizzazione esplicita
 
 Per `δ→0` con `h=δ³`:
@@ -231,6 +250,11 @@ Lemma R:
 inf_{v_h→c in L¹} liminf F(v_h) = ∫_Q ‖∇c(x)‖_* dx .   ∎
 ```
 
+## Applicazione CF — APERTA (non coperta da questo documento)
+
+Il Lemma R vale per `c ∈ W^{1,1}`. L'applicazione CF richiede
+`c = g − G̃ξ − b` con `g` che può avere **salti macroscopici**: in quel
+caso `c ∉ W^{1,1}` e il lemma non si applica. La formula
 ## Applicazione CF
 
 Con `u_h(ξ)=G̃ξ+b+v_h(ξ)` su una faccia (`v_h→c=g−G̃ξ−b` dal Lemma R):
@@ -245,6 +269,27 @@ Per `W` qualunque e `ψ(a,ν)=|a|`, nel modello intrinseco:
 I(g,G̃) = ∫_Σ W(G̃)dA + ∫_Σ‖∇_Σg−G̃‖_*dA + ∫_{J_g}|[g]|dH¹ ,
 ```
 
+per `G̃` variabile e `g` con `J_g ≠ ∅`, **non è dimostrata qui**: serve
+un'estensione del lemma a `c ∈ SBV` (o `BV` con salto) che controlli
+la parte singolare `D^sc`, più un argomento di raccordo delle tracce
+sui bordi di faccia e fra facce adiacenti della superficie.
+
+Ciò che resta dimostrato al di fuori di questo lemma:
+
+- **`G̃` costante per faccia, `M_f = ∇_Σg|_f − G̃` costante**: vale il
+  teorema del cell problem nucleare (sezione 2 del documento
+  principale), senza invocare il Lemma R.
+- **`G̃ = ∇_Σg`** (disarrangement nullo): `u_n = g` è già una
+  successione determinante CF, senza costruzione.
+- **Lower bound** `∫‖∇_Σg−G̃‖_*` per `G̃` misurabile: provato nel
+  documento principale per via di dualità, senza recovery.
+
+La successione `u_h = G̃ξ + b + v_h` con `∇v_h = 0` mantiene
+`∇_Σu_h = G̃` a.e. e `u_h → g` in `L¹` quando `v_h → c` in `L¹`;
+resta da dimostrare che la parte di salto `D^su_h` converga alla
+misura corretta senza concentrazioni spurie sui bordi di faccia —
+questo è precisamente il contenuto mancante, non un dettaglio
+tecnico.
 dimostrato per `G̃` misurabile con `∇_Σg−G̃∈L¹`.
 
 **Ipotesi e caveat dell'applicazione.** Il passaggio da faccia a
