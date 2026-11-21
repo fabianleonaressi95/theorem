@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-21",
+  "input": "RGS_PSU_all_matrices.npz",
+  "dimensions": {
+    "points": 64,
+    "ambient": 192,
+    "tangent": 188,
+    "codimension": 4
+  },
+  "geometry_and_constraints": {
+    "centroid_residual": "approximately 0",
+    "Q_orthogonality_fro": 1.3145467710370518e-14,
+    "Q_annihilates_three_translations": true,
+    "Q_annihilates_global_scale_vector_X": true,
+    "interpretation_of_codimension_4": "3 translations + 1 global dilation/scale normal direction"
+  },
+  "group_action": {
+    "signed_permutation_point_actions": 48,
+    "adjacency_preserving_actions": 16,
+    "adjacency_preserving_group": "D8 x C2 (as previously identified)",
+    "condition_tested": "A[np.ix_(p,p)] == A, equivalent to permutation conjugacy P_g A P_g^T = A",
+    "max_tangent_subspace_residual_Oh": 1.459649841887034e-15,
+    "max_representation_orthogonality_residual_Oh": 4.141861010837903e-14,
+    "max_relative_commutator_KC_Oh": 1.6431859813531403e-15,
+    "max_relative_commutator_KC_Q6_graph_subgroup": 1.6431859813531403e-15
+  },
+  "coulomb": {
+    "energy": 897.0080867574258,
+    "gradient_norm": 57.90162302374842,
+    "radial_alignment_cosine": 1,
+    "lambda_global_sphere": 3.7375336948226257,
+    "stationarity_residual_norm": "4.390364961334125e-08",
+    "constrained_operator": "K_C = Q^T (H_Coulomb + lambda I_192) Q",
+    "spectrum": {
+      "min": -2.776862326194053,
+      "max": 15.575302442737986,
+      "negative": 29,
+      "near_zero": 3,
+      "positive": 156
+    },
+    "zero_modes": {
+      "eigenvalues_approx": [
+        -2.80317809e-15,
+        -2.30377033e-15,
+        7.032486e-16
+      ],
+      "identified_as": "3 rigid rotations",
+      "rotation_rank": 3,
+      "rotation_tangent_residuals": [
+        3.490925947221747e-15,
+        3.5274951410004633e-15,
+        4.7643078880837865e-15
+      ]
+    },
+    "distinction_from_K0": {
+      "frobenius_norm": 79.56974154,
+      "identity_claim": false
+    }
+  },
+  "irreducible_multiplicities": {
+    "O_h": {
+      "A1g": 5,
+      "A2g": 2,
+      "Eg": 8,
+      "T1g": 10,
+      "T2g": 14,
+      "A1u": 2,
+      "A2u": 6,
+      "Eu": 8,
+      "T1u": 13,
+      "T2u": 10
+    },
+    "T_h": {
+      "1g": 7,
+      "1p_g": 8,
+      "1pp_g": 8,
+      "3g": 24,
+      "1u": 8,
+      "1p_u": 8,
+      "1pp_u": 8,
+      "3u": 23
+    },
+    "dimension_checks": {
+      "O_h": 188,
+      "T_h": 188
+    },
+    "convention": "T_h is the order-24 subgroup preserving the selected xyz>0 tetrahedron, together with central inversion; 1p and 1pp are complex-conjugate one-dimensional irreps and occur with equal multiplicity."
+  },
+  "classification": {
+    "O_h_point_set_action": "verified numerically",
+    "O_h_Q6_graph_automorphism": "false; only 16/48 elements preserve Q6 adjacency",
+    "Coulomb_KC_Oh_equivariance": "verified numerically to relative commutator 1.64e-15",
+    "Coulomb_KC_Th_decomposition": "computed",
+    "K0_provenance": "still open",
+    "K_C_is_K0": "explicitly false"
+  }
+}
