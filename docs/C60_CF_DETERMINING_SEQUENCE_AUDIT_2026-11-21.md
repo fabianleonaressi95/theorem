@@ -107,6 +107,13 @@ Per un campo alternativo `G̃` costante su ciascuna faccia, si pone
 `∇_Σu_h=G̃` esattamente a.e. per ogni scala e
 `D^s_Σu_h⇀*M𝓗²+[g]⊗ν_g𝓗¹`. La variazione totale è uniformemente limitata.
 Questo chiude l'esistenza di una determining sequence per `M≠0` nel caso
+faccia-per-faccia costante. Il costo della griglia cartesiana scala come
+`h^{p−1}` per `ψ=|a|^p`. Per `p=1`, il cell problem isotropo è ora
+identificato esattamente: `C(M_f)=||M_f||_*`, con limite inferiore duale
+e recupero SVD. Il caso rango uno è un corollario, poiché
+`||M_f||_*=||M_f||_F` per matrici di rango uno.
+Prove: `theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md` e
+`theorems/C60_CF_NUCLEAR_NORM_CELL_AND_BULK_OPTIMIZATION_2026-11-21.md`.
 faccia-per-faccia costante. Il costo micro-interfaciale scala come
 `h^{p−1}` per `ψ=|a|^p`. Per `p=1` il cell problem è risolto: la griglia
 cartesiana non è ottimale, ma la costruzione SVD lo è e il costo minimo è
@@ -154,6 +161,8 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
+- **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|`; il costo ottimale
+  per faccia è `|f| ||M_f||_*`. Restano da studiare densità anisotrope o
 - **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|` — la densità di
   cella è la norma nucleare `‖M_f‖_*`; restano le densità anisotrope o
   dipendenti dalla normale.
@@ -170,6 +179,21 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 | Valori numerici TV/quadratico dello schema strip | Archiviati; quadratura strip campionaria |
 | `g_h` continuo determina la coppia CF `(g,G)` | **Falso in generale** se `[g]≠0` e si richiede il limite CF `G𝓗²` |
 | Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
+| Costruzione CF per campi bulk alternativi con `M≠0` | **Provata** per campi costanti faccia-per-faccia |
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Cell problem isotropo lineare per `M_f` | **Provato:** costo nucleare, recupero SVD |
+| Ottimizzazione `|G|_F² + λ||A−G||_*` | **Formula dimostrata**; script committato, test automatico non ancora eseguito |
+| Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | **Provata:** `Σ_f |f| ||M_f||_*` |
+| Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
+
+**Classificazione complessiva:** la coppia C60 corrente ha una determining
+sequence esplicita `u_n=g`. Per `M≠0` e `ψ=|a|`, il costo micro-interfaciale
+ottimale è la norma nucleare. Il problema penalizzato con bulk quadratico è
+risolto per faccia mediante soft-thresholding. Restano aperti il rilassamento
+per densità interfaciali anisotrope o dipendenti dalla normale e la
+generalizzazione integrale CF alla classe generale delle superfici poliedrali.
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
