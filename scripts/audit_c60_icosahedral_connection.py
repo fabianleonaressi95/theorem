@@ -94,6 +94,20 @@ def edge_face_incidence(faces):
     return incidence
 
 
+def normals_for_faces(x, faces):
+    """Best-fit outward normals for fixed face cycles on a possibly relaxed cage."""
+    out = []
+    for face in faces:
+        pts = x[np.asarray(face, int)]
+        center = pts.mean(axis=0)
+        _, _, vh = np.linalg.svd(pts - center, full_matrices=False)
+        n = unit(vh[-1])
+        if n @ center < 0:
+            n = -n
+        out.append(n)
+    return np.asarray(out)
+
+
 def face_frames(normals):
     frames = []
     for n in normals:
@@ -298,22 +312,34 @@ def main():
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    x_ideal, _ = c60_ideal()
+    faces, _ = reconstruct_faces(x_ideal)
     if args.mmff_npz:
         data = np.load(args.mmff_npz)
         x = np.asarray(data["X_relaxed"], float)
-        source = "MMFF94s-relaxed coordinates from supplied first-stage NPZ"
+        source = "MMFF94s-relaxed coordinates; face cycles inherited by atom index from ideal C60"
     else:
-        x, _ = c60_ideal()
+        x = x_ideal
         source = "ideal truncated icosahedron reconstructed from icosahedron"
-
-    faces, normals = reconstruct_faces(x)
+    if x.shape != (60, 3):
+        raise RuntimeError(f"Expected coordinate array (60,3), got {x.shape}.")
+    normals = normals_for_faces(x, faces)
     face_sizes = sorted(len(f) for f in faces)
     if len(faces) != 32 or face_sizes.count(5) != 12 or face_sizes.count(6) != 20:
         raise RuntimeError(f"Expected 12 pentagons and 20 hexagons; got {face_sizes}.")
     incidence, frames, transports, L = connection_data(x, faces, normals)
     centroids = np.asarray([x[list(f)].mean(axis=0) for f in faces])
     group = icosahedral_orthogonal_group()
-    decomp = representation_decomposition(group, faces, centroids, frames, L)
+    decomp = None
+    symmetry_note = None
+    if args.mmff_npz:
+        symmetry_note = (
+            "I_h decomposition intentionally not imposed on relaxed coordinates. "
+            "The connection spectrum is computed on the relaxed geometry, while "
+            "the ideal-geometry run supplies the exact I_h representation audit."
+        )
+    else:
+        decomp = representation_decomposition(group, faces, centroids, frames, L)
 
     # Scalar dual graph Laplacian, built from the same face-edge incidence.
     A = np.zeros((len(faces), len(faces)))
@@ -348,6 +374,7 @@ def main():
             "eigenvalues": np.linalg.eigvalsh(Ls).tolist(),
         },
         "icosahedral_representation": decomp,
+        "symmetry_note": symmetry_note,
         "limitations": [
             "The MMFF-relaxed option tests coordinate preservation only if the same ideal I_h group maps the relaxed cage onto itself; generic relaxation may break that symmetry.",
             "If relaxed coordinates break I_h, face reconstruction remains meaningful but the ideal-group action is expected to fail its face-set preservation check; this is reported as a symmetry obstruction, not silently repaired.",
@@ -357,7 +384,8 @@ def main():
     }
     np.savez_compressed(
         out / "C60_icosahedral_connection_spectrum.npz",
-        X=x, faces=np.asarray([np.asarray(f, int) for f in faces], dtype=object),
+        X=x, face_vertices=np.concatenate([np.asarray(f, int) for f in faces]),
+        face_offsets=np.cumsum([0] + [len(f) for f in faces]),
         normals=normals, L_connection=L, L_scalar=Ls,
     )
     (out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
