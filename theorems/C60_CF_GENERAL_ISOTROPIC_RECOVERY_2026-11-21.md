@@ -93,6 +93,23 @@ limsup_k E_W(u_{j,k}) ≤ ℱ(g_j,G_j) .
 (Nella costruzione SVD esplicita si ha anzi `∇u_{j,k}=G_j` a.e.,
 ma la formulazione corretta e generale è la debole-*.)
 
+
+**G4b — RECOVERY MICROSCOPICA SU CELLE CON SALTI INTERNI (CHIUSO).**
+Il teorema poliedrale è stato esteso esplicitamente alla partizione
+poliedrale finita fornita dalla densità CFI: su ogni cella T, g_j è
+affine e G_j è costante, ma non si impone continuità tra celle.
+La stima uniforme fino a T̄ è
+||v_{h,T}−g_j|T||_{L∞(T̄)}≤h||A_T−G_T||_*.
+Su ogni interfaccia e=T⁻∩T⁺ ciò implica
+||[v_h]−[g_j]||_{L¹(e)}
+≤h H¹(e)(||A_{T⁻}−G_{T⁻}||_*+||A_{T⁺}−G_{T⁺}||_*).
+Per la partizione fissata la somma degli errori è h C_j, con C_j
+finita e indipendente da h. Non si assume C_j uniformemente limitata
+al variare di j: nella diagonale si sceglie h_j in modo che
+h_j C_j≤1/j. Questo controlla anche i salti macroscopici interni,
+senza raccordi e senza cancellarli. Si veda §2bis di
+C60_CF_POLYHEDRAL_AFFINE_THEOREM_2026-11-21.md.
+
 ### 2.6 Diagonale (formulazione esplicita)
 
 Per ogni `j`, sia `(u_{j,k})_{k∈ℕ}` la successione di recovery del
