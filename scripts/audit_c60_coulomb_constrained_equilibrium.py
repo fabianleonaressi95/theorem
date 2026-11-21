@@ -25,7 +25,7 @@ from audit_c60_mmff94s_relaxed_coulomb import (
 def symmetry_matrices_icosahedron(tol=1e-8):
     """Recover all orthogonal symmetries of the ideal icosahedron from triples."""
     v = ico_vertices()
-    src = v[[0, 1, 2]]
+    src = v[[0, 1, 4]]
     gram = src @ src.T
     mats = []
     for idx in permutations(range(len(v)), 3):
@@ -38,6 +38,8 @@ def symmetry_matrices_icosahedron(tol=1e-8):
             continue
         if not any(np.linalg.norm(O-M, ord="fro") < 1e-7 for M in mats):
             mats.append(O)
+    if len(mats) != 120:
+        raise RuntimeError(f\"Expected 120 icosahedral orthogonal symmetries, recovered {len(mats)}.\")
     return mats
 
 def symmetry_audit(x, matrices):
