@@ -108,6 +108,15 @@ su ciascuna, troncata a `S_j`. `∇v_h=0` a.e.
 `{x·v_i+φ_{j,i}∈hℤ}∩S_j`, a meno dei punti isolati di incrocio con
 l'altra famiglia (`𝓗¹`-nulli), solo il termine `i` salta:
 `[v_h]=±σ_i h a_i`, `|[v_h]|=σ_i h`. Per la famiglia `i`, sia `L_i`
+la lunghezza totale delle sue linee in `S_j`. La formula di slicing
+applicata alla funzione `t↦𝓗¹(S_j∩{x·v_i=t})` — lineare a pezzi con
+`≤4` punti di svolta e variazione totale `O(Per(S_j))=O(δ)`, per cui
+la regola del punto medio a passo `h` dà errore `O(hδ)` indipendente
+dalla fase `φ_{j,i}` — fornisce
+
+```
+|hL_i − |S_j|| ≤ C h δ ,     costo famiglia i in S_j = σ_i h·L_i
+                            = σ_i |S_j| + O(σ_i h δ) .
 la lunghezza totale delle sue linee in `S_j`. Sia
 `A(t) := 𝓗¹(S_j ∩ {x·v_i = t})`. Poiché `|∇(x·v_i)|=1`, la formula di
 coarea dà `∫_ℝ A(t)dt = |S_j|`, e `L_i = Σ_k A(kh−φ_{j,i})` (le linee
