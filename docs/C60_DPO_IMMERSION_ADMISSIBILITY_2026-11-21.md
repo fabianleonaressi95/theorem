@@ -24,10 +24,10 @@ limitata. La tripletta `(Σ, g, G)` è **DPO-ammissibile per immersioni** se:
   `GᵀG` deve essere riemanniana (nessun collasso di rango).
 - **(A3) Struttura distribuzionale**: `Dg = G dA + S dH¹⌞Γ` dove `Γ` è un
   complesso 1-dimensionale localmente finito e `S` la densità di salto.
-- **(A4) Determining sequence immersa**: esiste `h_n → 0` e mappe
-  `g_n ∈ W^{1,1}_{loc}` continue con
-  `g_n → g` in `L¹`, `∇g_n ⇀* Dg` come misure, e `rank ∇g_n = 2` a.e.
-  (ogni `g_n` immersione locale) con `sup_n ∫|∇g_n| < ∞`.
+- **(A4) Determining sequence CF immersa**: esiste `u_n ∈ SBV(Σ;R³)` con
+  `u_n → g` in `L¹` e `∇_Σu_n 𝓗² ⇀* G 𝓗²` come misure; se il modello
+  DPO scelto richiede immersione locale, va inoltre provato `rank∇_Σu_n=2`
+  a.e. La convergenza `∇u_n 𝓗² ⇀* D_Σg` non è la condizione CF.
 
 **Osservazione.** (A2) è la corretta generalizzazione: per `d×d`,
 `GᵀG` definita positiva ⇔ `det G ≠ 0`; la condizione di orientazione
@@ -38,16 +38,18 @@ interamente concentrata sugli spigoli.
 
 ## 3. Teorema di verifica per la candidata C60
 
-**Teorema.** La g pezzo per pezzo con `D_f` dall'albero BFS soddisfa (A1)–(A3)
-in modo provato e (A4) con immersione certificata numericamente.
+**Proposizione parziale.** La g pezzo per pezzo con `D_f` dall'albero BFS
+soddisfa la regolarità SBV e l'identità metrica faccia-per-faccia. La
+successione continua strip+cap non verifica la condizione CF (A4); la
+costruzione di una vera determining sequence SBV resta aperta.
 
 | Assema | Status | Evidenza |
 |---|---|---|
 | (A1) `g ∈ BV` | **Provato** | Prop. 1 di `C60_DPO_FORMAL_PROOF` |
 | (A2) `GᵀG = I₂` | **Provato** | Prop. 2, residuo 2,9·10⁻¹⁵ |
 | (A3) `Dg = GdA + SdH¹` | **Provato** | struttura esatta, massa salto 38,93 |
-| (A4) strip+cap, `g_h→g` L¹, `∇g_h⇀*Dg` | **Provato** | Lemma 1–2 + Teorema (vertici O(h)) |
-| (A4) `rank ∇g_h = 2` | **Certificato numerico esatto** | vedi sotto |
+| Regolarizzazione continua strip+cap, `g_h→g` L¹ | Candidata; non è una determining sequence CF se `[g]≠0` |
+| Rango locale della regolarizzazione su strip/cap | Evidenza numerica/analitica parziale; non implica (A4) CF |
 
 ## 4. Certificato di immersione esatto
 
@@ -120,8 +122,8 @@ deformations come **coppie (g,G)** con
 g ∈ SBV(Ω; R^d),   G ∈ L^1(Ω; R^{d×N})
 ```
 
-e la determining sequence u_n ∈ SBV con u_n → g in L¹ e
-∇u_n ⇀* G come misure. **N e d sono indipendenti**: la loro formulazione
+e la determining sequence `u_n ∈ SBV` con `u_n → g` in `L¹` e
+`∇u_n 𝓗² ⇀* G 𝓗²` come misure. **N e d sono indipendenti**: la loro formulazione
 copre gia' mappe da R^N a R^d — il nostro caso e' N=2 (o la superficie
 Σ), d=3. La condizione det G > 0 diventa, nel nostro setting, la
 condizione metrica GᵀG definita positiva (A2).
