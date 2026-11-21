@@ -40,7 +40,7 @@ def solve_face(A: np.ndarray, lam: float) -> dict[str, Any]:
     bulk = float(np.sum(G * G))
     micro = float(lam * np.sum(np.linalg.svd(M, compute_uv=False)))
     objective = bulk + micro
-    predicted = float(np.sum(shrunk**2 + lam * residual))
+    predicted = float(np.sum(bulk_sv**2 + lam * residual))
 
     return {
         "singular_values_A": s.tolist(),
