@@ -20,20 +20,16 @@ Calcolo:
   Verifica corretta: E(u) = ∫ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH^1.
   Per g_h continua: S_{g_h}=vuoto, il "salto" e' regolarizzato negli
   strip -> il termine di superficie di g_h diventa bulk-extra.
-  Limite: bulk W -> ∫W(G), strip-extra -> densita' di rilassamento.
+  Attenzione: g_h e' costruita continua. Se g_h ∈ W^{1,1}, allora
+  Dg_h = ∇g_h dA e, da g_h -> g in L1, il limite distribuzionale e' Dg,
+  non il solo G dA richiesto dalla determining sequence CF.
+  Il test qui sotto misura il costo della regolarizzazione continua;
+  NON verifica una determining sequence CF per (g,G).
 
-  Scelgo W(F) = |F|^2 (policonvessa, coerciva): ∫|∇g_h|^2 sulle strip
-  ~ jump^2/h -> diverge => la determining sequence non ha energia
-  limitata in W^{1,2}! La scelta coerente e' W con crescita subquadratica
-  oppure il funzionale deve pesare diversamente. In CF l'energia bulk
-  W(∇u) deve essere tale che le determining sequences abbiano energia
-  limitata: serve W a crescita lineare (o il salto come termine
-  separato che non si "sparpaglia").
-
-  Test numerico: ∫strip |∇S| dA (variazione) gia' limitata (=38.93);
-  ∫strip |∇S|^2 dA ~ C/h -> diverge. CONCLUSIONE: per questo g la
-  energy rilevante e' di tipo "total variation" (crescita lineare),
-  non quadratica. Lo verifico esplicitamente.
+  Il confronto quadratico/lineare e' quindi un audit della regolarizzazione
+  costruita, non una scelta dimostrata per il funzionale rilassato CF.
+  Per una vera determining sequence servono approssimanti SBV con
+  micro-salti e ∇u_n dA ⇀* G dA.
 
 Output: audits/c60_dpo_energy_<data>.json
 """
@@ -167,14 +163,13 @@ rep = {
 for h1, h2 in [(0.2, 0.1), (0.1, 0.05)]:
     rep[f"L2_ratio_{h1}_vs_{h2}"] = strip_L2_by_h[h1] / strip_L2_by_h[h2]
 rep["interpretation"] = (
-    "∫strip |∇g_h|^2 ~ C/h diverge => W quadratica non consona: "
-    "l'energia rilevante per questa g e' di tipo variazione totale "
-    "(crescita lineare). Il funzionale CF coerente: "
-    "E(u) = ∫_Σ |∇u| dA + ∫_{S_u} |[u]| dH^1 (o W.linalg con W~|.|). "
-    "Il limite della determining sequence: bulk sqrt(2)*Area + "
-    "jump_mass = 84.57 (gia' verificato)."
+    "Audit numerico della regolarizzazione continua strip+cap. Poiche' "
+    "g_h e' continua, ∇g_h dA = Dg_h e, se g_h -> g in L1, il limite "
+    "distribuzionale e' Dg, non il solo G dA richiesto da CF. Questi "
+    "numeri non verificano una determining sequence CF e non identificano "
+    "I(g,G). La stima quadratica e' campionaria su 20/90 spigoli."
 )
-rep["relaxed_energy_candidate"] = {
+rep["regularization_TV_candidate"] = {
     "bulk": bulk_W1,
     "surface": jump_mass_psi1,
     "total_TV": bulk_W1 + jump_mass_psi1,
