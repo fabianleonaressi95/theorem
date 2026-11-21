@@ -124,16 +124,25 @@ def connection_data(x, faces, normals):
         raise RuntimeError("C60 must have 90 edges, each incident to exactly two faces.")
     frames = face_frames(normals)
     transports = {}
+    max_projected_edge_mismatch = 0.0
     for edge, fs in incidence.items():
         f, g = sorted(fs)
         a, b = edge
-        t = unit(x[b] - x[a])
-        mf = unit(np.cross(normals[f], t))
-        mg = unit(np.cross(normals[g], t))
-        T = np.outer(t, t) + np.outer(mg, mf)
-        # Ambient partial-isometry identities.
+        edge_vector = x[b] - x[a]
+        # For an ideal planar cage both projections coincide with the edge
+        # tangent. On a relaxed, slightly non-planar face, project the same
+        # physical edge direction into each best-fit face plane separately.
         Pf = np.eye(3) - np.outer(normals[f], normals[f])
         Pg = np.eye(3) - np.outer(normals[g], normals[g])
+        tf = unit(Pf @ edge_vector)
+        tg = unit(Pg @ edge_vector)
+        max_projected_edge_mismatch = max(
+            max_projected_edge_mismatch, float(np.linalg.norm(tf - tg))
+        )
+        mf = unit(np.cross(normals[f], tf))
+        mg = unit(np.cross(normals[g], tg))
+        T = np.outer(tg, tf) + np.outer(mg, mf)
+        # Ambient partial-isometry identities.
         if np.linalg.norm(T.T @ T - Pf) > 2.0e-7:
             raise RuntimeError("Source-fibre isometry identity failed.")
         if np.linalg.norm(T @ T.T - Pg) > 2.0e-7:
@@ -154,7 +163,7 @@ def connection_data(x, faces, normals):
         L[sg, sg] += np.eye(2)
         L[sf, sg] -= A.T
         L[sg, sf] -= A
-    return incidence, frames, transports, L
+    return incidence, frames, transports, L, max_projected_edge_mismatch
 
 
 def icosahedral_orthogonal_group():
@@ -323,7 +332,7 @@ def main():
     face_sizes = sorted(len(f) for f in faces)
     if len(faces) != 32 or face_sizes.count(5) != 12 or face_sizes.count(6) != 20:
         raise RuntimeError(f"Expected 12 pentagons and 20 hexagons; got {face_sizes}.")
-    incidence, frames, transports, L = connection_data(x, faces, normals)
+    incidence, frames, transports, L, edge_mismatch = connection_data(x, faces, normals)
     centroids = np.asarray([x[list(f)].mean(axis=0) for f in faces])
     group = icosahedral_orthogonal_group()
     decomp = None
@@ -360,6 +369,7 @@ def main():
             "fibre_rank": 2,
             "total_dimension": int(L.shape[0]),
             "transport_edges": int(len(incidence)),
+            "max_projected_edge_direction_mismatch": edge_mismatch,
             "max_laplacian_asymmetry": float(np.linalg.norm(L - L.T)),
             "min_eigenvalue": float(np.linalg.eigvalsh((L + L.T)/2)[0]),
             "max_eigenvalue": float(np.linalg.eigvalsh((L + L.T)/2)[-1]),
