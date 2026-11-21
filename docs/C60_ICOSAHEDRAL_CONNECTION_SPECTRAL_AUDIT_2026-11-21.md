@@ -35,6 +35,15 @@ m_f=n_f\times t, \qquad m_g=n_g\times t,
 \qquad T_{fg}=tt^T+m_gm_f^T.
 ```
 
+For the ideal cage, the shared edge direction lies in both face planes and
+the transport fixes that common tangent. For the relaxed cage, best-fit face
+planes need not contain the physical edge direction exactly. The script
+therefore projects the edge vector separately:
+t_f=P_f e/||P_f e|| and t_g=P_g e/||P_g e||, then uses
+T_fg=t_g t_f^T+m_g m_f^T, with m_f=n_f x t_f and m_g=n_g x t_g.
+This reduces to the hinge transport on the ideal planar cage and remains an
+isometry between the two fitted rank-two fibres on a relaxed cage. The report
+records the maximum mismatch between the two projected edge directions.
 The 2 by 2 transport matrix is A_fg=B_g^T T_fg B_f. The script checks the
 ambient partial-isometry identities and A_fg^T A_fg=I_2.
 
