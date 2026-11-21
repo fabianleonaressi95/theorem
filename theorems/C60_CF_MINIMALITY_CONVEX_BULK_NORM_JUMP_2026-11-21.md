@@ -81,7 +81,7 @@ liminf_n ∫_Σ |∇_Σu_n|_F d𝓗²
 
 ### 3.2 Crescita quadratica
 
-Per `W_2(F)=|F|_F²`, se il liminf è finito, `∇_Σu_n` è limitata in `L²). Esiste quindi una sottosuccessione debolmente convergente in `L²`, diciamo a `H`. La convergenza debole-* delle misure identifica necessariamente `H=G` quasi ovunque. Per semicontinuità debole della norma `L²`,
+Per `W_2(F)=|F|_F²`, se il liminf è finito, `∇_Σu_n` è limitata in `L²`. Esiste quindi una sottosuccessione debolmente convergente in `L²`, diciamo a `H`. La convergenza debole-* delle misure identifica necessariamente `H=G` quasi ovunque. Per semicontinuità debole della norma `L²`,
 
 ```
 liminf_n ∫_Σ |∇_Σu_n|_F² d𝓗²
@@ -95,7 +95,7 @@ liminf_n ∫_Σ |∇_Σu_n|_F² d𝓗²
 2. `∇_Σg=G` quasi ovunque;
 3. `Σ` ha area finita e le convergenze determinanti sono quelle del §1.
 
-Allora, per ciascuno dei due integrandi bulk `W_1(F)=|F|_F` e `W_2(F)=|F|_F²), con densità interfaciale `ψ(a,ν)=|a|`,
+Allora, per ciascuno dei due integrandi bulk `W_1(F)=|F|_F` e `W_2(F)=|F|_F²`, con densità interfaciale `ψ(a,ν)=|a|`,
 
 ```
 I_W(g,G) = ∫_Σ W(G) d𝓗² + ∫_{J_g}|[g]| d𝓗¹.
