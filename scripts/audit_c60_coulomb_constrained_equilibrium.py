@@ -53,12 +53,16 @@ def symmetry_audit(x, matrices):
                      float(np.max(matched))))
     rms = np.array([a for a, _ in rows])
     mx = np.array([b for _, b in rows])
+    identity = np.array([np.linalg.norm(O-np.eye(3),ord="fro")<1e-7 for O in matrices])
+    nonidentity_rms = rms[~identity]
     return {
         "candidate_icosahedral_orthogonal_operations": len(matrices),
         "operations_preserved_rms_le_1e-6": int(np.sum(rms <= 1e-6)),
         "operations_preserved_max_le_1e-6": int(np.sum(mx <= 1e-6)),
         "operations_preserved_max_le_1e-4": int(np.sum(mx <= 1e-4)),
-        "best_nonidentity_or_any_operation_rms": float(np.min(rms)),
+        "identity_operations_detected": int(np.sum(identity)),
+        "best_nonidentity_operation_rms": float(np.min(nonidentity_rms)),
+        "best_nonidentity_operation_max_residual": float(np.min(mx[~identity])),
         "worst_operation_rms": float(np.max(rms)),
         "max_assignment_residual_over_group": float(np.max(mx)),
         "interpretation": "Each ideal I_h operation is tested by an optimal point assignment; counts are coordinate-preservation diagnostics, not an assumed symmetry decomposition."
@@ -184,6 +188,10 @@ def main():
     eig=np.linalg.eigvalsh((K+K.T)/2)
     hessian_check=hessian_consistency_audit(x,lam)
     sym=symmetry_audit(x,symmetry_matrices_icosahedron())
+    bond_lengths=np.linalg.norm(x[bonds[:,0]]-x[bonds[:,1]],axis=1)
+    bond_report={"count":int(len(bond_lengths)),"min":float(np.min(bond_lengths)),
+      "max":float(np.max(bond_lengths)),"mean":float(np.mean(bond_lengths)),
+      "std":float(np.std(bond_lengths)),"coefficient_of_variation":float(np.std(bond_lengths)/np.mean(bond_lengths))}
     report={
       "status":"computed_by_script_when_run",
       "optimization":{
@@ -210,6 +218,7 @@ def main():
         "hessian_eigenvalue_threshold":1e-7
       },
       "symmetry":sym,
+      "bond_geometry":bond_report,
       "independent_hessian_check":hessian_check,
       "model":model,
       "limitations":[
