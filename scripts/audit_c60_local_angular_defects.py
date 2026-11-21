@@ -54,7 +54,9 @@ def main():
       'interpretation':'The intrinsic 12-degree vertex defect is distinct from the conventional 60-degree pentagonal disclination charge relative to a planar hexagonal lattice.',
       'frank_vector_status':'Not constructed: no canonical vertex normal exists; a vector convention must be explicitly declared.',
       'vertices_detail':vertex_records,'faces_detail':face_records,
-      'checks':{'topology_60_90_32':bool(len(X)==60 and len(edge_set)==90 and len(faces)==32),\n      'face_counts_12_pentagons_20_hexagons':bool(sum(len(f)==5 for f in faces)==12 and sum(len(f)==6 for f in faces)==20),\n      'all_vertex_valences_three':all(len(a)==3 for a in angles_by_vertex),
+      'checks':{'topology_60_90_32':bool(len(X)==60 and len(edge_set)==90 and len(faces)==32),
+      'face_counts_12_pentagons_20_hexagons':bool(sum(len(f)==5 for f in faces)==12 and sum(len(f)==6 for f in faces)==20),
+      'all_vertex_valences_three':all(len(a)==3 for a in angles_by_vertex),
       'all_defects_12deg':bool(np.max(np.abs(np.degrees(defects)-12))<1e-8),
       'gauss_bonnet_4pi':bool(abs(total-expected)<1e-10)}}
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
