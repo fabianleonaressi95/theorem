@@ -6,7 +6,6 @@ on:
     paths:
       - "scripts/audit_c60_icosahedral_connection.py"
       - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
-      - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
       - ".github/workflows/c60-icosahedral-connection.yml"
 
 jobs:
