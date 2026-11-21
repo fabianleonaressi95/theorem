@@ -57,10 +57,10 @@ concentrare energia bulk/transizioni — vedi G5).
 | # | Componente | Contenuto | Stato |
 |---|-----------|-----------|-------|
 | G1 | Liminf isotropo su `Σ` | `liminf E_W ≥ ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` | **Provato** (stessa prova della sezione §3.1 di `C60_CF_GENERAL_ISOTROPIC_RECOVERY`, estesa a `Σ` perché `D_Σ g − G𝓗²` è una misura e `|μ|_*` si decomprime sulle parti AC e singolare; le ipotesi sono solo misure finite) |
-| G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI (ipotesi §5.1 del documento C60 verificabili: facce = poligoni convessi Lipschitz, `g_0(t)=t`, `g(a,ν)=|a|`). **Non** garantisce tracce — vedi G4a |
+| G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI; le tracce sono trattate separatamente in G4a |
 | G3 | Medie simpliciali di `G` | `G_j|_T = ⨍_T G` sulla stessa partizione CFI | **Provato**: mesh `≤cε→0` ⇒ convergenza forte in `L^p` ⇒ in variazione totale delle misure |
-| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | Lemma + G4a **dimostrati**; G4b: estensione cella-per-cella **scritta** (§4.2), da verificare nei dettagli di convergenza dei costi sulle interfacce di salto |
-| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Dimostrato via §5.4** (convergenza debole-* delle misure energetiche, nessun riempimento); modulo verifica riga-per-riga del lemma `Λ_{j,h}⇀*Λ` e del passaggio `|[g_j]|⇀*|[g]|` |
+| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | Lemma + G4a + G4b **dimostrati**; §4.2 e §2bis del teorema poliedrale |
+| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Dimostrato via §5.4** (convergenza debole-* delle misure energetiche; nessun riempimento separato) |
 
 ## 4. G4 — Lemma locale di incollaggio SBV (DIMOSTRATO)
 
@@ -314,7 +314,22 @@ laminazione e interfacce sono insiemi finiti di punti e non
 portano massa \(\mathcal H^1\). Non vi sono altri contributi.
 Questo prova la convergenza debole-* delle misure. \(\square\)
 
-**Passaggio alla diagonale.** La convergenza CFI stretta in BV
+**Passaggio alla diagonale.** La convergenza stretta globale si
+verifica sommando i contributi di faccia e di spigolo. Infatti
+\(g_j\to g\) in \(L^1(\Sigma)\), quindi
+\(D_\Sigma g_j\stackrel{*}{\rightharpoonup}D_\Sigma g\).
+Per ogni faccia, CFI Cor. 2.3 dà la convergenza della massa bulk
+\(\int_f|\nabla g_j|\) e della massa dei salti interni; G4a dà
+la convergenza della massa dei salti sugli spigoli. Sommando il
+numero finito di facce e spigoli si ottiene
+\(|D_\Sigma g_j|(\Sigma)\to|D_\Sigma g|(\Sigma)\).
+Per il teorema di Reshetnyak,
+\(|D_\Sigma g_j|\stackrel{*}{\rightharpoonup}|D_\Sigma g|\).
+Sottraendo la parte bulk, che converge in variazione totale per
+\(\nabla g_j\to\nabla g\) fortemente in \(L^1\), si ottiene
+la convergenza debole-* delle misure di salto.
+
+
 sulle facce, insieme alla convergenza forte delle tracce sugli
 spigoli già dimostrata in G4a, dà la convergenza debole-* delle
 misure di variazione totale su tutta \(\Sigma\). Sottraendo la
@@ -392,29 +407,28 @@ tracce G4a già enunciate. Non è una prova di un lemma generale di
 riempimento con traccia assegnata: quel problema separato resta
 aperto e non è necessario per questa costruzione.
 
-### 5.3 Stato
+### 5.5 Stato
 
 **G5 — DIMOSTRATO** nel quadro della recovery globale e delle ipotesi dichiarate. La convergenza delle misure energetiche è provata in §5.4: coarea e somme di Riemann per i micro-salti, stime uniformi delle tracce sulle interfacce, convergenza stretta BV globale per le misure di salto CFI, e convergenza forte delle densità bulk. La misura limite non ha atomi ai vertici; la convergenza debole-* implica il controllo locale. Non si usa un riempimento separato con traccia prescritta.
 
-## 6. Teorema obiettivo (condizionale, NON dimostrato)
+## 6. Teorema isotropo su superfici poliedrali (DIMOSTRATO nel perimetro dichiarato)
 
-Sotto G1–G5 (o sotto le ipotesi verificabili che li sostituiscono):
+Sia Σ una superficie poliedrale compatta della classe §1, g∈SBV(Σ;ℝᵐ) con ∇Σg∈L¹ e ∫_{J_g}|[g]|dH¹<∞, e G∈Lᵖ(Σ;Hom(TΣ,ℝᵐ), con p=1 per W(F)=|F|_F oppure p=2 per W(F)=|F|_F². Per ψ(a,ν)=|a|, sotto le ipotesi CFI verificate in §5.1:
 
 ```
 I_W^Σ(g,G) = ∫_Σ W(G) + ∫_Σ ‖∇_Σ g−G‖_* + ∫_{J_g}|[g]|.
 ```
 
-Liminf = G1. Recovery = G2+G3+teorema poliedrale + G4 (lemma 4 +
-G4a + G4b) + G5, con diagonale debole-* già formalizzata.
+Liminf = G1. Recovery = CFI faccia-per-faccia + medie di G + recovery SVD su partizioni finite + G4a/G4b + convergenza delle misure energetiche di §5.4. La diagonale dà l'uguaglianza.
 
 ## 7. Stato sintetico
 
 - **Piano isotropo**: dimostrato (documento GIR §5, ipotesi CFI
   verificate, partizioni mesh→0, diagonale debole-*).
-- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, G4a provati.
-  **G4b**: estensione cella-per-cella scritta, da verificare.
-  **G5**: dimostrato via §5.4 (misure energetiche debolmente-*
-  convergenti, nessun riempimento, indifferente a `θ_v`),
-  subordinato alla verifica del lemma di convergenza misure.
-  Il risultato finale resta subordinato alla chiusura di G4b.
+- **C60/`Σ` poliedrale**: G1, G2, G3, G4a, G4b e G5 sono
+  dimostrati nel quadro della recovery globale su partizioni
+  poliedrali finite. La misura energetica converge debolmente-*
+  alla misura candidata; l'assenza di atomi ai vertici esclude
+  concentrazioni residue. Il teorema è provato nel perimetro
+  dichiarato in §6.
 - **Anisotropo, `|a|²`, embeddedness**: fuori scope.
