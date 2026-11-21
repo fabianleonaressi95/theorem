@@ -33,9 +33,9 @@ diagonalizzare in `ε`. Indicheremo `C_c` costanti dipendenti da `c`.
 
 ### Passo 1 — griglia grossa e affine di cella
 
-Partizione di `Q` in quadrati `S_j` di lato `δ` (celle di bordo
-troncate a `∂Q`; la forma resta uniformemente bi-Lipschitz, la
-costante di Poincaré è uniforme). Su `S_j`:
+Partizione di `Q` in `N^2` sotto-quadrati di lato `δ=L/N` (essendo
+`Q` un quadrato, tutte le celle sono quadrati genuini — nessuna
+troncatura su `∂Q`, forma e costante di Poincaré uniformi). Su `S_j`:
 
 ```
 M_j := ⨍_{S_j} ∇c dx,    x_j := centro di S_j,
@@ -101,12 +101,26 @@ interno).
 (`v_1⊥v_2`) determinano celle poligonali convesse; `v_h` è costante
 su ciascuna, troncata a `S_j`. `∇v_h=0` a.e.
 
-**Costo interno.** Sulle linee `{x·v_i+φ_{j,i}∈hℤ}∩S_j`, a meno dei
-punti isolati di incrocio con l'altra famiglia (`𝓗¹`-nulli sulla
-linea), solo il termine `i` salta: `[v_h]=±σ_i h a_i`,
-`|[v_h]|=σ_i h`. Le linee hanno densità `1/h` per unità area, quindi
-il costo per unità area in `S_j` tende a `σ_1+σ_2=‖M_j‖_*` (la
-correzione di bordo delle strisce troncate è `O(h)` per cella).
+**Costo interno — conto esplicito.** Sulle linee
+`{x·v_i+φ_{j,i}∈hℤ}∩S_j`, a meno dei punti isolati di incrocio con
+l'altra famiglia (`𝓗¹`-nulli), solo il termine `i` salta:
+`[v_h]=±σ_i h a_i`, `|[v_h]|=σ_i h`. Per la famiglia `i`, sia `L_i`
+la lunghezza totale delle sue linee in `S_j`. Poiché le linee sono
+equidistanti `h` in direzione `v_i` e `S_j` è un quadrato di lato
+`δ`, il numero di linee è `≤ Cδ/h + 2` e ciascuna ha lunghezza
+`≤ Cδ`; inoltre la somma esatta soddisfa la stima di Riemann
+`|hL_i − |S_j|| ≤ C h δ` (errore di campionamento delle linee di
+livello della funzione lineare `x·v_i`, il cui profilo di lunghezza è
+lineare a pezzi con `≤4` punti di svolta). Quindi
+
+```
+costo famiglia i in S_j = σ_i h · L_i = σ_i |S_j| + O(σ_i h δ) ,
+```
+
+e il costo interno totale per cella è `|S_j|‖M_j‖_* + O(hδ‖M_j‖_*)`.
+Sommato sulle `O(δ^{-2})` celle l'errore è `O(h/δ)`: con la scelta
+`h=δ³` diventa `O(δ²)→0`. (Con `h=δ²` darebbe `O(δ)→0` anch'esso, ma
+`h=δ³` rende il margine esplicito.)
 
 ### Passo 3 — raccordo sui bordi di cella (il lemma mancante)
 
@@ -129,19 +143,20 @@ finale perché `v_h^j−ℓ_j=r_{j,h}` è già `O(h)`.
 
 Lunghezza totale delle interfacce interne per unità di area:
 `≈ 4/δ` (perimetro `4δ` per cella, area `δ²`, ogni spigolo contato
-una volta). Con `h=δ²`, il contributo di bordo per unità area:
+una volta). Con `h=δ³` (allora `h/δ=δ²→0`), il contributo di bordo
+per unità area:
 
 ```
-≤ (4/δ)·C_c(δ² + δ²) = 8 C_c δ → 0 .              (4)
+≤ (4/δ)·C_c(δ² + δ³) = 4C_cδ + O(δ²) → 0 .          (4)
 ```
 
 Nessun'altra interfaccia artificiale esiste: dentro `S_j` il costo è
 quello laminato; su `∂S_j` quello di (4); il bordo esterno `∂Q` non
 contribuisce (nessun vincolo di traccia imposto).
 
-### Passo 4 — convergenza e diagonale
+### Passo 4 — convergenza e diagonalizzazione esplicita
 
-Per `δ→0` con `h=δ²`:
+Per `δ→0` con `h=δ³`:
 
 ```
 ‖v_h−c‖_{L¹(Q)} ≤ Σ_j (|S_j|·h‖M_j‖_* + ‖ℓ_j−c‖_{L¹(S_j)})
@@ -150,16 +165,31 @@ Per `δ→0` con `h=δ²`:
 
 quindi `v_h→c` in `L¹` (per `c` smooth; la maggiorazione
 `|v_h−ℓ_j|≤h‖M_j‖_*` usa (2), e `Σ‖ℓ_j−c‖_{L¹}→0` dal Passo 1).
-Il costo interno per cella `→|S_j|‖M_j‖_*`; sommato,
-`Σ_j‖M_j‖_*|S_j| = ∫_Q‖M_δ(x)‖_*dx → ∫_Q‖∇c‖_*dx` perché
-`M_δ→∇c` uniformemente per `c` smooth. Pertanto, per `c` smooth:
+Il costo interno per cella è `|S_j|‖M_j‖_* + O(hδ‖M_j‖_*)`; sommato
+dà `∫_Q‖M_δ(x)‖_*dx + O(h/δ) → ∫_Q‖∇c‖_*dx` per `c` smooth
+(`M_δ→∇c` uniformemente). Pertanto, per `c` smooth e `h=δ³`:
 
 ```
 limsup_{δ→0} ∫_{J_{v_h}} |[v_h]| ≤ ∫_Q ‖∇c‖_* dx .
 ```
 
-La diagonalizzazione in `ε` (Passo 0) estende a `c∈W^{1,1}`:
-`v_{h(ε)}→c` in `L¹` e `limsup F ≤ ∫‖∇c‖_*`. ∎
+**Diagonalizzazione esplicita.** Sia `c_ε = c*ρ_ε → c` in `W^{1,1}`
+(Passo 0), `ε_n ↓ 0`. Per ogni `n`, `c_{ε_n}` è smooth: esiste
+`δ_n > 0` tale che, posto `h_n = δ_n³`, la costruzione sopra dia
+`v_n` con
+
+```
+‖v_n − c_{ε_n}‖_{L¹} < 1/n,
+∫_{J_{v_n}}|[v_n]| < ∫_Q‖∇c_{ε_n}‖_* + 1/n .
+```
+
+Allora `‖v_n−c‖_{L¹} ≤ ‖v_n−c_{ε_n}‖ + ‖c_{ε_n}−c‖ → 0` e
+
+```
+limsup_n ∫_{J_{v_n}}|[v_n]| ≤ lim_n ∫_Q‖∇c_{ε_n}‖_* = ∫_Q‖∇c‖_* .
+```
+
+∎
 
 ## Lower bound (ricapitolazione)
 
@@ -189,3 +219,17 @@ I(g,G̃) = ∫_Σ W(G̃)dA + ∫_Σ‖∇_Σg−G̃‖_*dA + ∫_{J_g}|[g]|dH¹ 
 ```
 
 dimostrato per `G̃` misurabile con `∇_Σg−G̃∈L¹`.
+
+**Ipotesi e caveat dell'applicazione.** Il passaggio da faccia a
+superficie usa il modello intrinseco dichiarato: la costruzione è
+fatta su ogni faccia piana separatamente e il termine
+`∫_{J_g}|[g]|dH¹` conta i salti macroscopici di bordo, che la
+laminazione interna non tocca (le linee di salto della costruzione
+restano dentro la faccia; il bordo esterno `∂f` non ha vincoli di
+traccia). La convergenza `D^su_h ⇀* (∇_Σg−G̃)H² + [g]⊗νH¹⌞J_g`
+richiede inoltre che la parte di bordo della successione non crei
+concentrazione spurie: le stime del Lemma R controllano il costo
+interno e i raccordi di cella, mentre i bordi di faccia ereditano il
+trattamento del cell problem costante per faccia. Per `G̃` costante
+per faccia non serve nulla di tutto ciò: vale il teorema nucleare
+diretto.
