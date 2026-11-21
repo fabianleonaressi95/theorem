@@ -84,3 +84,37 @@ Crucially, (K_C\ne K_0): the previously measured Frobenius distance is approxima
 Completed: requested points 1–4, including the (O_h) and (T_h) representation multiplicities.
 
 Not done here: the 60-vertex C60 Hessian and sector-by-sector C60 comparison (points 5–6). No 64↔60 vertex identification is assumed.
+
+## Isotypic block spectra
+
+The character projectors were also constructed explicitly. Their idempotence residuals are at most (1.1\times10^{-14}) for the real (O_h) projectors and (1.1\times10^{-14}) for the (T_h) projectors; projector–(K_C) commutators are below (6.4\times10^{-14}). The following are spectra of (K_C) compressed to each isotypic subspace (rank = irrep dimension × multiplicity).
+
+### (O_h)
+
+| Isotypic sector | Rank | Eigenvalue min | Eigenvalue max | Negative / zero / positive |
+|---|---:|---:|---:|---:|
+| (A_{1g}) | 5 | 2.25993 | 15.57530 | 0 / 0 / 5 |
+| (A_{2g}) | 2 | 0.98553 | 8.11493 | 0 / 0 / 2 |
+| (E_g) | 16 | 0.34355 | 11.05418 | 0 / 0 / 16 |
+| (T_{1g}) | 30 | -2.24708 | 8.10274 | 9 / 3 / 18 |
+| (T_{2g}) | 42 | -1.16202 | 10.03860 | 6 / 0 / 36 |
+| (A_{1u}) | 2 | -0.75509 | 1.84541 | 1 / 0 / 1 |
+| (A_{2u}) | 6 | -1.00528 | 9.03671 | 1 / 0 / 5 |
+| (E_u) | 16 | -2.77686 | 7.47280 | 6 / 0 / 10 |
+| (T_{1u}) | 39 | -1.04818 | 11.74287 | 3 / 0 / 36 |
+| (T_{2u}) | 30 | -0.06995 | 9.61630 | 3 / 0 / 27 |
+
+### (T_h)
+
+| Isotypic sector | Rank | Eigenvalue min | Eigenvalue max | Negative / zero / positive |
+|---|---:|---:|---:|---:|
+| (1_g) | 7 | 0.98553 | 15.57530 | 0 / 0 / 7 |
+| (1'_g) | 8 | 0.34355 | 11.05418 | 0 / 0 / 8 |
+| (1''_g) | 8 | 0.34355 | 11.05418 | 0 / 0 / 8 |
+| (3_g) | 72 | -2.24708 | 10.03860 | 15 / 3 / 54 |
+| (1_u) | 8 | -1.00528 | 9.03671 | 2 / 0 / 6 |
+| (1'_u) | 8 | -2.77686 | 7.47280 | 3 / 0 / 5 |
+| (1''_u) | 8 | -2.77686 | 7.47280 | 3 / 0 / 5 |
+| (3_u) | 69 | -1.04818 | 11.74287 | 6 / 0 / 63 |
+
+The (T_h) conjugate sectors (1') and (1'') have identical spectra, as expected for the real symmetric operator (K_C). The three rotational zero modes lie in the (T_{1g}) sector of (O_h), hence in the (3_g) sector after restriction to this (T_h) subgroup.
