@@ -164,7 +164,7 @@ Those results are useful test fixtures for the rotational, 2D part of this progr
 
 ## 10. References and convention control
 
-The implementation should record the precise convention used for:
+The implementation must record the precise convention used for:
 - left/right group action and path-product order;
 - orientation and incidence signs;
 - face base points and comparison paths;
@@ -173,11 +173,10 @@ The implementation should record the precise convention used for:
 - continuum Curl/index convention in the Nye tensor;
 - primal/dual Hodge star and density units.
 
-Relevant foundational references to anchor the later bibliography include:
-- É. Cartan, *La théorie des groupes finis et continus et l'Analysis Situs* (Cartan structure equations and moving frames).
+Foundational sources to verify and complete in the formal bibliography:
+- É. Cartan, foundational work on moving frames and the structure equations.
 - J. F. Nye, “Some geometrical relations in dislocated crystals,” *Acta Metallurgica* 1 (1953), 153–162.
-- R. deWit, “Theory of disclinations,” *Journal of Research of the National Bureau of Standards A* 77A (1973), 607–658; and “Theory of dislocations: II. Continuous distributions of dislocations,” *Journal of Research of the National Bureau of Standards A* 77A (1973), 49–100.
-- M. Desbrun, A. N. Hirani, M. Leok, J. E. Marsden, “Discrete Exterior Calculus,” arXiv:math/050834 ಡ (preprint; verify final bibliographic form before formal citation).
-- M. G. Eastwood? **Do not cite without verification.** The discrete non-Abelian Bianchi and higher-gauge references must be added only after checking the exact theorem/convention used.
+- R. deWit, 1973 papers on the theory of disclinations and continuous distributions of dislocations in *Journal of Research of the National Bureau of Standards A*. Exact titles, volume, and page ranges must be checked against the primary records before formal citation.
+- Discrete Exterior Calculus and discrete gauge/Bianchi references: add only after checking the exact publication record and ensuring that the cited result uses compatible conventions.
 
-The reference list is intentionally provisional. In particular, verify the exact deWit article title/pages and replace the DEC preprint placeholder with the authoritative publication record before treating this document as a finished bibliography.
+This bibliography is deliberately conservative: it does not treat an unverified title, page range, or theorem attribution as established.
