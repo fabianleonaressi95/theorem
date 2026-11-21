@@ -146,45 +146,29 @@ rettificabili (esiste letteratura), oppure (ii) lavorare faccia per
 faccia (ogni faccia e' un dominio piano) con condizioni di trasmissione
 sugli spigenti — piu' vicino alla nostra costruzione esplicita.
 
-## 7. Livello energetico — candidato calcolato
+## 7. Livello energetico — audit della regolarizzazione
 
-Funzionale CF: `E(u) = ∫_Σ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH¹`.
+Il codice `c60_dpo_energy.py` riporta una stima campionaria del costo
+TV della regolarizzazione continua e il test numerico quadratico. I valori
+`45,63651643 + 38,93478886 = 84,57130529` sono archiviati come
+**somma candidata bulk+salto per la regolarizzazione**, non come
+`I(g,G)` e non come energia di una determining sequence CF già verificata.
 
-**Test di coerenza eseguito** (`c60_dpo_energy.py`):
+Le stime `∫strip |∇g_h|²` sono 129,896; 229,772; 444,426 per
+`h=0,20;0,10;0,05`. Sono coerenti con crescita `C/h` per lo schema
+numerico testato, ma non costituiscono una dimostrazione asintotica.
+Inoltre il codice integra 20 spigoli e scala il risultato per `90/20`:
+è una stima campionaria, non un'integrazione esaustiva.
 
-- `W(F)=|F|²` (Dirichlet): `∫strip |∇g_h|² dA ~ C/h` **diverge**
-  (misurato: 129,9 → 229,8 → 444,4 per h=0,2/0,1/0,05, rapporti ~0,52
-  = raddoppio per dimezzamento). La determining sequence non ha
-  energia W^{1,2} limitata → **W quadratica non consona**.
-- `W(F)=|F|` (crescita lineare) + `ψ(s)=|[u]|`: la determinante
-  sequence ha energia limitata e
+La successione strip+cap è descritta come continua. Se è in `W^{1,1}`,
+la sua derivata distribuzionale coincide con la misura del gradiente e,
+sotto convergenza `L¹` a `g`, il limite è `Dg`, comprensivo del salto
+macroscopico. Non soddisfa quindi automaticamente la condizione CF
+`∇u_n 𝓗² ⇀* G 𝓗²`. La costruzione di una successione SBV con micro-salti
+che realizzi tale limite è ancora aperta.
 
-```
-I(g,G) = ∫_Σ |G| dA + Σ_e ∫_e |jump_e(σ)| dσ
-       = √2·Area + 38,93 = 45,64 + 38,93 = 84,57
-```
-
-che coincide **esattamente** col limite di variazione totale già
-verificato (errore <1,4% a h=0,0375). Il funzionale rilevante per
-questa g e' quindi di tipo **TV/linear-growth**, non elastico
-quadratico — coerente col fatto che la discontinuita' e' il
-disarrangiamento, non un difetto.
-
-**Stato delle ipotesi CF per (g,G)**:
-
-| Ipotesi | Esito |
-|---|---|
-| g ∈ SBV(Σ;R³) | Provato: g piecewise affine, jump su 1-complesso, Σ poliedro (unione finita di poligoni piani → SBV faccia-per-faccia con tracce ben definite sugli spigoli) |
-| G ∈ L∞(Σ;R^{3×2}) | Provato: G = B_fD_f costante a tratti |
-| GᵀG > 0 (condizione metrica) | Provato: = I₂ |
-| Determining sequence in SBV | Provato: strip+cap, g_h continue → SBV con jump set vuoto |
-| ∇g_h ⇀* Dg | Provato (misure) |
-| rank ∇g_h = 2 a.e. | Certificato: 6 zeri isolati |
-| Energia limitata lungo la seq. | Verificato per W~|·|; W quadratica esclusa |
-
-**Cosa resta**: la densita' rilassata esplicita (il nostro 84,57 è il
-valore per la PARTICULAR determining sequence; la formula CF
-I(g,G)=inf potrebbe dare un valore minore se esistono sequenze più
-sofisticate — calcolarla richiede la teoria di rilassamento, non solo
-la verifica), e l'estensione a energie anisotrope/dipendenti dalla
-normale del salto.
+**Stato CF aggiornato:** regolarità SBV di `g`, integrabilità di `G` e
+identità metrica sono verificate nel modello faccia-per-faccia; la
+determining sequence CF, la compattezza per il modello scelto, la formula
+di rilassamento e il valore dell'infimo restano aperti. Per la derivazione
+si veda `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md`.
