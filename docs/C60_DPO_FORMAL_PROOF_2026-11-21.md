@@ -87,11 +87,14 @@ formulazione intrinseca sul complesso poliedrale. La dimostrazione dettagliata
 e le conseguenze energetiche sono in
 `theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
 
-Questo risultato vale per la coppia corrente con `M=0`; non dimostra una
-costruzione per un diverso campo bulk con `M≠0`. L'estensione del quadro
-CF dal dominio euclideo alla superficie poliedrale è qui verificata
-direttamente mediante la decomposizione SBV sulle facce e le tracce sugli
-spigoli.
+Per un campo alternativo `G̃` costante faccia per faccia, anche con
+`M=∇_Σg−G̃≠0`, una successione determinante esplicita è costruita mediante
+quantizzazione a gradini: `u_{h,f}=G̃_fξ+b_f+M_fq_h(ξ)`. Il gradiente
+assolutamente continuo è esattamente `G̃_f`, mentre i salti della griglia
+generano `M_f𝓗²` nel limite. La costruzione e le stime sono in
+`theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md`.
+L'estensione resta specifica al modello intrinseco faccia-per-faccia e non
+è un teorema integrale generale per tutte le superfici poliedrali.
 
 ## 2B. Costo energetico della successione CF costante
 
@@ -162,6 +165,7 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | Embeddedness globale | Sonda numerica positiva, non esaustiva |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Esistenza di determining sequence per `G̃` costante faccia-per-faccia con `M≠0` | **Provata** mediante quantizzazione a gradini |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica

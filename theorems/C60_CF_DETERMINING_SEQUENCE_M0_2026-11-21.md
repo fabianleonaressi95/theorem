@@ -89,9 +89,9 @@ Il test `∫strip |∇g_h|² dA ~ C/h` riguarda invece la regolarizzazione conti
 | Rilassamento per densità interfaciali diverse da `|a|` | Aperto |
 | Estensione rigorosa del teorema CF da domini euclidei a superfici poliedrali | Da enunciare come adattamento intrinseco; la prova della successione costante usa direttamente la decomposizione SBV sulle facce |
 
-## 5. Generalizzazione se il campo bulk viene cambiato
+## 5. Generalizzazione per un campo bulk alternativo
 
-Se in una futura versione si sceglie un campo `G̃` con `M=∇_Σg−G̃≠0`, la successione costante non è più determinante. In tal caso occorre costruire micro-salti che diffondano nel bulk la misura `M𝓗²`. Il problema è diverso e non va confuso con la coppia C60 attualmente definita, per la quale `M=0`.
+Per un campo `G̃` costante su ciascuna faccia, anche con `M=∇_Σg−G̃≠0`, la successione costante non è determinante, ma una costruzione esplicita esiste: quantizzazione a gradini `q_h` e definizione `u_{h,f}=G̃_fξ+b_f+M_fq_h(ξ)`. Il gradiente assolutamente continuo è esattamente `G̃_f`; i salti interni della griglia generano nel limite `M_f𝓗²`. La costruzione globale e le stime sono dimostrate in `theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md`. L'ottimalità energetica, soprattutto per densità 1-omogenee, resta un problema separato.
 
 ## Riferimento teorico
 
