@@ -309,9 +309,12 @@ misura limite
 Sulle interfacce tra celle, la stima uniforme fino alla chiusura
 delle celle implica la convergenza uniforme dei salti; dunque le
 misure \(|[u_{j,h}]|\mathcal H^1\) sulle interfacce convergono
-a \(|[g_j]|\mathcal H^1\). Le intersezioni tra famiglie di
-laminazione e interfacce sono insiemi finiti di punti e non
-portano massa \(\mathcal H^1\). Non vi sono altri contributi.
+a \(|[g_j]|\mathcal H^1\). Le intersezioni tra famiglie di laminazione diverse sono punti
+isolati. Le tracce delle linee laminate sul bordo delle celle non
+sono incluse nei contributi interni (che sono calcolati su T°):
+qualsiasi coincidenza con un lato è quindi contabilizzata una sola
+volta nella misura di salto sull'interfaccia, già trattata tramite
+la convergenza uniforme delle tracce. Non vi sono altri contributi.
 Questo prova la convergenza debole-* delle misure. \(\square\)
 
 **Passaggio alla diagonale.** La convergenza stretta globale
