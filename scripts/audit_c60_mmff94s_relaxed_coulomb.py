@@ -11,7 +11,8 @@ import argparse, json
 from itertools import combinations, product
 from pathlib import Path
 import numpy as np
-from scipy.spatial import ConvexHull, cdist
+from scipy.spatial import ConvexHull
+from scipy.spatial.distance import cdist
 from scipy.linalg import null_space
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
