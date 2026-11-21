@@ -7,6 +7,9 @@ Classificazione: **prova candidata del recovery isotropo per
 In attesa di audit indipendente; l'estensione a `g` con salti
 macroscopici (SBV) e l'applicazione CF su superfici **non** sono
 coperte da questo documento (v. sezione finale).
+Classificazione: **dimostrazione completa del recovery isotropo per
+`c ∈ W^{1,1}`** — il lemma di raccordo richiesto in
+`C60_CF_PARTITION_RECOVERY_AND_CELL_FORMULA_2026-11-21.md` §3.
 Documento autonomo: non usa il documento principale oltre alle
 notazioni.
 
@@ -111,6 +114,15 @@ su ciascuna, troncata a `S_j`. `∇v_h=0` a.e.
 `{x·v_i+φ_{j,i}∈hℤ}∩S_j`, a meno dei punti isolati di incrocio con
 l'altra famiglia (`𝓗¹`-nulli), solo il termine `i` salta:
 `[v_h]=±σ_i h a_i`, `|[v_h]|=σ_i h`. Per la famiglia `i`, sia `L_i`
+la lunghezza totale delle sue linee in `S_j`. La formula di slicing
+applicata alla funzione `t↦𝓗¹(S_j∩{x·v_i=t})` — lineare a pezzi con
+`≤4` punti di svolta e variazione totale `O(Per(S_j))=O(δ)`, per cui
+la regola del punto medio a passo `h` dà errore `O(hδ)` indipendente
+dalla fase `φ_{j,i}` — fornisce
+
+```
+|hL_i − |S_j|| ≤ C h δ ,     costo famiglia i in S_j = σ_i h·L_i
+                            = σ_i |S_j| + O(σ_i h δ) .
 la lunghezza totale delle sue linee in `S_j`. Sia
 `A(t) := 𝓗¹(S_j ∩ {x·v_i = t})`. Poiché `|∇(x·v_i)|=1`, la formula di
 coarea dà `∫_ℝ A(t)dt = |S_j|`, e `L_i = Σ_k A(kh−φ_{j,i})` (le linee
@@ -243,6 +255,15 @@ inf_{v_h→c in L¹} liminf F(v_h) = ∫_Q ‖∇c(x)‖_* dx .   ∎
 Il Lemma R vale per `c ∈ W^{1,1}`. L'applicazione CF richiede
 `c = g − G̃ξ − b` con `g` che può avere **salti macroscopici**: in quel
 caso `c ∉ W^{1,1}` e il lemma non si applica. La formula
+## Applicazione CF
+
+Con `u_h(ξ)=G̃ξ+b+v_h(ξ)` su una faccia (`v_h→c=g−G̃ξ−b` dal Lemma R):
+
+- `∇_Σu_h = G̃` a.e. esattamente (`∇v_h=0`);
+- `u_h→g` in `L¹`;
+- `D^su_h ⇀* (∇_Σg−G̃)𝓗² + [g]⊗ν_g 𝓗¹⌞J_g`.
+
+Per `W` qualunque e `ψ(a,ν)=|a|`, nel modello intrinseco:
 
 ```
 I(g,G̃) = ∫_Σ W(G̃)dA + ∫_Σ‖∇_Σg−G̃‖_*dA + ∫_{J_g}|[g]|dH¹ ,
@@ -269,3 +290,18 @@ resta da dimostrare che la parte di salto `D^su_h` converga alla
 misura corretta senza concentrazioni spurie sui bordi di faccia —
 questo è precisamente il contenuto mancante, non un dettaglio
 tecnico.
+dimostrato per `G̃` misurabile con `∇_Σg−G̃∈L¹`.
+
+**Ipotesi e caveat dell'applicazione.** Il passaggio da faccia a
+superficie usa il modello intrinseco dichiarato: la costruzione è
+fatta su ogni faccia piana separatamente e il termine
+`∫_{J_g}|[g]|dH¹` conta i salti macroscopici di bordo, che la
+laminazione interna non tocca (le linee di salto della costruzione
+restano dentro la faccia; il bordo esterno `∂f` non ha vincoli di
+traccia). La convergenza `D^su_h ⇀* (∇_Σg−G̃)H² + [g]⊗νH¹⌞J_g`
+richiede inoltre che la parte di bordo della successione non crei
+concentrazione spurie: le stime del Lemma R controllano il costo
+interno e i raccordi di cella, mentre i bordi di faccia ereditano il
+trattamento del cell problem costante per faccia. Per `G̃` costante
+per faccia non serve nulla di tutto ciò: vale il teorema nucleare
+diretto.
