@@ -151,6 +151,15 @@ Per `ψ(a,ν)=|a|`, la griglia cartesiana dà il limite micro-interfaciale
 ∫_f (|M_f e₁| + |M_f e₂|) d𝓗²,
 ```
 
+a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia. Per la densità isotropa lineare `ψ(a,ν)=|a|`, il cell problem è ora risolto: il costo minimo per unità di area è la norma nucleare `||M_f||_*`, raggiunta da una costruzione SVD con rette orientate secondo i vettori singolari. La dimostrazione completa è in [`C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md`](C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md).
+Per `ψ(a,ν)=|a|`, la griglia cartesiana fornisce un upper bound, ma non è in generale ottimale. Il cell problem è ora risolto: il limite inferiore ottenuto dalla dualità della norma nucleare è raggiunto da una laminazione nelle direzioni della SVD,
+
+```
+C(M_f) = ||M_f||_* = Σ_j σ_j(M_f).
+```
+
+Il dettaglio del limite inferiore e del recupero è in
+`theorems/C60_CF_NUCLEAR_NORM_CELL_AND_BULK_OPTIMIZATION_2026-11-21.md`.
 a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia. Per la densità isotropa lineare `ψ(a,ν)=|a|`, il cell problem è risolto: il costo minimo per unità di area è la norma nucleare `‖M_f‖_*`, raggiunta dalla costruzione SVD con rette orientate secondo i vettori singolari di `M_f`. Dimostrazione in [`C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md`](C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md).
 
 Il salto macroscopico sugli spigoli resta presente nel limite e contribuisce secondo la densità `ψ([g],ν_g)`, se la densità è continua e la convergenza uniforme delle tracce viene usata nella corrispondente stima.
@@ -173,6 +182,9 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 
 - **Provato:** esistenza di una determining sequence intrinseca per ogni campo `G̃` costante faccia per faccia, incluso `M≠0`.
 - **Provato:** il gradiente assolutamente continuo è esattamente `G̃` a ogni scala.
+- **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con valore `||M_f||_*` per unità di area (cell problem SVD).\n- **Non provato:** ottimalità per densità 1-omogenee anisotrope o dipendenti dalla normale.
+- **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con costo nucleare `||M_f||_*`.
+- **Non provato:** ottimalità per densità anisotrope o dipendenti dalla normale.
 - **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con valore `‖M_f‖_*` per unità di area (cell problem SVD).
 - **Non provato:** ottimalità per densità 1-omogenee anisotrope o dipendenti dalla normale.
 - **Non provato:** formula di rilassamento per campi `G̃` variabili all'interno delle facce.
@@ -180,3 +192,4 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 - **Non provato:** eventuali vincoli aggiuntivi di immersione o embeddedness degli approssimanti; la classe CF SBV non li impone.
 
 La costruzione colma il gap di esistenza per `M≠0` nel caso faccia-per-faccia costante, ma non identifica automaticamente l'infimo energetico generale.
+La costruzione colma il gap di esistenza per `M≠0`; insieme al cell problem nucleare identifica il costo micro-interfaciale per la densità isotropa lineare. Non identifica l'infimo per densità generali o con ulteriori vincoli cinematici.
