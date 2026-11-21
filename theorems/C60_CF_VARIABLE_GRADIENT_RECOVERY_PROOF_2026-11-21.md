@@ -34,8 +34,11 @@ diagonalizzare in `ε`. Indicheremo `C_c` costanti dipendenti da `c`.
 ### Passo 1 — griglia grossa e affine di cella
 
 Partizione di `Q` in `N^2` sotto-quadrati di lato `δ=L/N` (essendo
-`Q` un quadrato, tutte le celle sono quadrati genuini — nessuna
-troncatura su `∂Q`, forma e costante di Poincaré uniformi). Su `S_j`:
+`Q` un quadrato, **tutte** le celle sono quadrati completi — non esiste
+alcuna cella troncata da `∂Q`, quindi la stima di slicing
+`|hL_h(S_j,ν)−|S_j||≤Ch·Per(S_j)=Chδ` e il conteggio globale
+`O(h/δ)` valgono senza eccezioni; forma e costante di Poincaré
+uniformi). Su `S_j`:
 
 ```
 M_j := ⨍_{S_j} ∇c dx,    x_j := centro di S_j,
@@ -105,19 +108,18 @@ su ciascuna, troncata a `S_j`. `∇v_h=0` a.e.
 `{x·v_i+φ_{j,i}∈hℤ}∩S_j`, a meno dei punti isolati di incrocio con
 l'altra famiglia (`𝓗¹`-nulli), solo il termine `i` salta:
 `[v_h]=±σ_i h a_i`, `|[v_h]|=σ_i h`. Per la famiglia `i`, sia `L_i`
-la lunghezza totale delle sue linee in `S_j`. Poiché le linee sono
-equidistanti `h` in direzione `v_i` e `S_j` è un quadrato di lato
-`δ`, il numero di linee è `≤ Cδ/h + 2` e ciascuna ha lunghezza
-`≤ Cδ`; inoltre la somma esatta soddisfa la stima di Riemann
-`|hL_i − |S_j|| ≤ C h δ` (errore di campionamento delle linee di
-livello della funzione lineare `x·v_i`, il cui profilo di lunghezza è
-lineare a pezzi con `≤4` punti di svolta). Quindi
+la lunghezza totale delle sue linee in `S_j`. La formula di slicing
+applicata alla funzione `t↦𝓗¹(S_j∩{x·v_i=t})` — lineare a pezzi con
+`≤4` punti di svolta e variazione totale `O(Per(S_j))=O(δ)`, per cui
+la regola del punto medio a passo `h` dà errore `O(hδ)` indipendente
+dalla fase `φ_{j,i}` — fornisce
 
 ```
-costo famiglia i in S_j = σ_i h · L_i = σ_i |S_j| + O(σ_i h δ) ,
+|hL_i − |S_j|| ≤ C h δ ,     costo famiglia i in S_j = σ_i h·L_i
+                            = σ_i |S_j| + O(σ_i h δ) .
 ```
 
-e il costo interno totale per cella è `|S_j|‖M_j‖_* + O(hδ‖M_j‖_*)`.
+Il costo interno totale per cella è `|S_j|‖M_j‖_* + O(hδ‖M_j‖_*)`.
 Sommato sulle `O(δ^{-2})` celle l'errore è `O(h/δ)`: con la scelta
 `h=δ³` diventa `O(δ²)→0`. (Con `h=δ²` darebbe `O(δ)→0` anch'esso, ma
 `h=δ³` rende il margine esplicito.)
@@ -174,14 +176,18 @@ limsup_{δ→0} ∫_{J_{v_h}} |[v_h]| ≤ ∫_Q ‖∇c‖_* dx .
 ```
 
 **Diagonalizzazione esplicita.** Sia `c_ε = c*ρ_ε → c` in `W^{1,1}`
-(Passo 0), `ε_n ↓ 0`. Per ogni `n`, `c_{ε_n}` è smooth: esiste
-`δ_n > 0` tale che, posto `h_n = δ_n³`, la costruzione sopra dia
-`v_n` con
+(Passo 0), `ε_n ↓ 0` con `‖c_{ε_n}−c‖_{W^{1,1}}<1/n`. Per ogni `n`,
+`c_{ε_n}` è smooth: esiste `δ_n > 0` tale che, posto `h_n = δ_n³`, la
+costruzione sopra dia `v_n` con **energia totale** (costo interno +
+raccordi) che soddisfa simultaneamente
 
 ```
 ‖v_n − c_{ε_n}‖_{L¹} < 1/n,
-∫_{J_{v_n}}|[v_n]| < ∫_Q‖∇c_{ε_n}‖_* + 1/n .
+F(v_n) := ∫_{J_{v_n}}|[v_n]|d𝓗¹ < ∫_Q‖∇c_{ε_n}‖_*dx + 1/n ,
 ```
+
+dove la seconda disuguaglianza include già i raccordi perché `F` è il
+costo di salto completo della funzione, non la sola parte interna.
 
 Allora `‖v_n−c‖_{L¹} ≤ ‖v_n−c_{ε_n}‖ + ‖c_{ε_n}−c‖ → 0` e
 
