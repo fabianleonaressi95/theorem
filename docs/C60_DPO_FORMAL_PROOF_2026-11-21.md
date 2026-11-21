@@ -90,6 +90,22 @@ CF dal dominio euclideo alla superficie poliedrale è qui verificata
 direttamente mediante la decomposizione SBV sulle facce e le tracce sugli
 spigoli.
 
+## 2B. Costo energetico della successione CF costante
+
+Per la successione `u_n=g`, il costo di una densità `W` bulk e `ψ`
+interfaciale è costante in `n`:
+`E(u_n)=∫_ΣW(G)dA+∫_{J_g}ψ([g],ν_g)dH¹`.
+Con `ψ(a,ν)=|a|`, il codice integra tutti i 90 spigoli con quadratura
+trapezoidale a 200 campioni per spigolo. I valori risultanti sono:
+- `W(F)=|F|_F`: `45.63651643+38.93478886=84.57130529`;
+- `W(F)=|F|_F²`: `64.53978047+38.93478886=103.47456933`.
+
+Sono costi di una successione determinante ammissibile e quindi limiti
+superiori per il funzionale rilassato, non identificazioni dell'infimo.
+La divergenza `C/h` misurata sugli strip riguarda soltanto la diversa
+regolarizzazione continua e non esclude la crescita quadratica nel problema
+CF.
+
 ## 3. Immersione e embeddedness degli approssimanti
 
 ### Proposizione 3 (immersione locale — condizionata).
