@@ -98,7 +98,19 @@ su tutti i 90 spigoli con 200 campioni per spigolo. È invece l'integrale
 quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 
 
-## 4. Correzioni necessarie ai documenti
+## 4. Estensione al costo interfaciale quadratico
+
+Per `ψ₂(a,ν)=|a|²`, la variazione totale non dà un limite inferiore positivo
+sul salto macroscopico. È stata costruita una recovery sequence globale per
+il complesso C60: su una striscia di larghezza `δ_m` interna a una faccia,
+ciascun salto viene ripartito in `m` salti paralleli di ampiezza `O(1/m)`;
+le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
+`O(1/m+δ_m+r_m)→0`, con convergenza CF e costo bulk convergente a
+`∫_ΣW(G)`. Pertanto, per `W=|F|_F` o `W=|F|_F²`, il rilassamento con
+`ψ₂=|a|²` è il solo costo bulk. La costruzione è in
+`theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
+
+## 5. Correzioni necessarie ai documenti
 
 1. Rimuovere la frase che afferma `∇g_h ⇀* Dg` come proprietà CF della
    determining sequence.
@@ -114,7 +126,7 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
    sia l'unica energia ammissibile. La scelta di `W,ψ` e le ipotesi di
    rilassamento devono essere dichiarate e verificate separatamente.
 
-## 5. Programma corretto
+## 6. Programma corretto
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
   `g`, il campo `G` e quindi `M=∇_Σg−G`.
@@ -126,11 +138,11 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
-- **E. Rilassazione generale:** resta da studiare il cell formula per
-  densità interfaciali non normate (in particolare `ψ=|a|²`) e per bulk
-  non convessi; non riaprire i due casi già identificati con `ψ=|a|`.
+- **E. Rilassazione generale:** restano da studiare densità interfaciali
+  anisotrope/non separabili e bulk non convessi; i casi `ψ=|a|` e `ψ=|a|²`
+  con i due bulk indicati sono identificati nei teoremi dedicati.
 
-## 6. Stato
+## 7. Stato
 
 | Affermazione | Stato aggiornato |
 |---|---|
@@ -141,10 +153,11 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 | Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
 | Costruzione CF per campi bulk alternativi con `M≠0` | Aperta |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
 
 **Classificazione complessiva:** la coppia C60 corrente ha una determining
 sequence esplicita `u_n=g`. I funzionali con `W=|F|_F` o `W=|F|_F²` e
 `ψ=|a|` sono identificati. Restano aperti il rilassamento per densità
-interfaciali non normate, il caso `M≠0` e la generalizzazione integrale CF
-alla classe generale delle superfici poliedrali.
+interfaciali anisotrope più generali, il caso `M≠0` e la generalizzazione
+integrale CF alla classe generale delle superfici poliedrali.
