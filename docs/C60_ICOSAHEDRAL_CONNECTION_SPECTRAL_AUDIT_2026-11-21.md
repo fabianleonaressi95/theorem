@@ -57,6 +57,12 @@ E(u)=\frac12\sum_{\{f,g\}}\|A_{fg}u_f-u_g\|^2,
 The scalar dual graph Laplacian is assembled from the same face-edge
 incidence, allowing a direct spectral comparison.
 
+Because each oriented face transport is in SO(2), it commutes with the
+canonical quarter-turn J on the oriented face fibre. The script additionally
+checks the global relation [L_T,J]=0. This predicts even real eigenvalue
+multiplicities (the realification of a complex-linear Hermitian operator);
+the determinant and commutator residuals are included in the report.
+
 ## I_h action and irreducible decomposition
 
 The 120 orthogonal symmetries are reconstructed from the icosahedron vertex
