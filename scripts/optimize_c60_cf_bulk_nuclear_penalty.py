@@ -32,9 +32,9 @@ def solve_face(A: np.ndarray, lam: float) -> dict[str, Any]:
         raise ValueError("lambda must be finite and nonnegative")
 
     U, s, Vt = np.linalg.svd(A, full_matrices=False)
-    shrunk = np.maximum(s - lam / 2.0, 0.0)
-    residual = np.minimum(s, lam / 2.0)
-    G = (U * shrunk) @ Vt
+    bulk_sv = np.minimum(s, lam / 2.0)
+    residual = np.maximum(s - lam / 2.0, 0.0)
+    G = (U * bulk_sv) @ Vt
     M = A - G
 
     bulk = float(np.sum(G * G))
@@ -44,7 +44,7 @@ def solve_face(A: np.ndarray, lam: float) -> dict[str, Any]:
 
     return {
         "singular_values_A": s.tolist(),
-        "singular_values_G": shrunk.tolist(),
+        "singular_values_G": bulk_sv.tolist(),
         "singular_values_M": residual.tolist(),
         "G_opt": G.tolist(),
         "M_opt": M.tolist(),
@@ -54,7 +54,7 @@ def solve_face(A: np.ndarray, lam: float) -> dict[str, Any]:
         "formula_objective_per_area": predicted,
         "objective_formula_residual": abs(objective - predicted),
         "rank_A": int(np.linalg.matrix_rank(A)),
-        "rank_G_opt": int(np.count_nonzero(shrunk > 1e-12)),
+        "rank_G_opt": int(np.count_nonzero(bulk_sv > 1e-12)),
         "rank_M_opt": int(np.count_nonzero(residual > 1e-12)),
     }
 
@@ -87,21 +87,21 @@ def solve_document(doc: dict[str, Any], lam: float) -> dict[str, Any]:
 
 
 def self_test() -> None:
-    # Singular values (3,1), lambda=2: G singular values (2,0),
-    # while the residual M still has singular values (1,1).
+    # Singular values (3,1), lambda=2: G singular values (1,1),
+    # while the residual M has singular values (2,0) (rank-one defect).
     A = np.diag([3.0, 1.0, 0.0])[:, :2]
     got = solve_face(A, 2.0)
-    np.testing.assert_allclose(got["singular_values_G"], [2.0, 0.0], atol=1e-12)
-    np.testing.assert_allclose(got["singular_values_M"], [1.0, 1.0], atol=1e-12)
-    assert got["rank_G_opt"] == 1
-    assert got["rank_M_opt"] == 2
-    np.testing.assert_allclose(got["objective_per_area"], 8.0, atol=1e-12)
+    np.testing.assert_allclose(got["singular_values_G"], [1.0, 1.0], atol=1e-12)
+    np.testing.assert_allclose(got["singular_values_M"], [2.0, 0.0], atol=1e-12)
+    assert got["rank_G_opt"] == 2
+    assert got["rank_M_opt"] == 1
+    np.testing.assert_allclose(got["objective_per_area"], 6.0, atol=1e-12)
 
     # Rank-one residual: A itself rank one.
     A1 = np.array([[2.0, 0.0], [0.0, 0.0], [0.0, 0.0]])
     got1 = solve_face(A1, 1.0)
     assert got1["rank_M_opt"] == 1
-    np.testing.assert_allclose(got1["singular_values_M"], [0.5, 0.0], atol=1e-12)
+    np.testing.assert_allclose(got1["singular_values_M"], [1.5, 0.0], atol=1e-12)
 
     # Orthogonal invariance of the solution and objective.
     theta = 0.37
