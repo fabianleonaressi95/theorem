@@ -138,7 +138,7 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 | `G^TG=I₂ ⇒ rank G=2` | Provata algebricamente |
 | Valori numerici TV/quadratico dello schema strip | Archiviati; quadratura strip campionaria |
 | `g_h` continuo determina la coppia CF `(g,G)` | **Falso in generale** se `[g]≠0` e si richiede il limite CF `G𝓗²` |
-| Esistenza di una vera determining sequence CF C60 | Aperta |
+| Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |\n| Costruzione CF per campi bulk alternativi con `M≠0` | Aperta |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |\n| Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
 
 **Classificazione complessiva:** la coppia C60 corrente ha una determining
