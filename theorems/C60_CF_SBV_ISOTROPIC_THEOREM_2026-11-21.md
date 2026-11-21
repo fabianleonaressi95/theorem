@@ -83,8 +83,9 @@ lower bound completo del funzionale rilassato, **provato** per
 | Livello | Stato |
 |---|---|
 | `M` costante per faccia, `ψ=|a|` | **Provato** (cell problem nucleare) |
+| `g` affine a tratti, `G̃` costante per faccia, poliedro finito | **Provato** — `C60_CF_POLYHEDRAL_AFFINE_THEOREM_2026-11-21.md` |
 | `c ∈ W^{1,1}`, `ψ=|a|` | **Prova candidata** (`C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF`), audit richiesto |
-| `g` con salti su `J` finito poliedrale | **Aperto** — richiede `C60_CF_LOCALIZATION_LEMMA` |
+| `g` con salti su `J` finito poliedrale, `M(x)` variabile | **Aperto** — richiede recovery `W^{1,1}` + tracce al bordo |
 | `g ∈ SBV` generale | **Aperto** — richiede teorema di densità con controllo di salto ed energia |
 | `G̃(x)` variabile misurabile | **Aperto** — dipende dal livello `W^{1,1}` |
 | Superficie C60 (carte, metriche, giunzioni) | **Aperto** — richiede controllo errori di carta |

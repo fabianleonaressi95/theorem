@@ -1,131 +1,127 @@
-# C60 — teorema CF isotropo per dati affini su poliedro finito
+# C60 — teorema CF isotropo: identificazione poliedrale finita
 
 Data: 2026-11-21
-Classificazione: **dimostrato** nel modello intrinseco dichiarato,
-per `ψ(a,ν)=|a|` e `W ∈ {|F|_F, |F|_F²}`. Non richiede il lemma di
-localizzazione: la classe SBV conserva i salti macroscopici e la
-convergenza uniforme controlla le tracce sugli spigoli.
+Classificazione: **dimostrato** nel modello intrinseco dichiarato —
+complesso poliedrale finito, `g` affine per faccia, `G̃` costante per
+faccia, ammissibili `SBV` senza vincoli di continuità ai lati,
+`ψ(a,ν)=|a|`, `W(F)=|F|_F` o `W(F)=|F|_F²` (caso quadratico con
+`G̃∈L²`). Non richiede il lemma di localizzazione né la recovery
+`W^{1,1}`: la costruzione SVD è esplicita e le tracce si controllano
+direttamente.
 
 ## 1. Enunciato
 
-Sia `Σ` una superficie poliedrale compatta con un numero finito di
-facce piane `f`. Siano
-
-- `g` affine su ogni faccia: `g|_f(ξ) = A_f ξ + b_f`;
-- `G̃` costante su ogni faccia: `G̃|_f = G̃_f`;
-- `M_f := ∇_Σg|_f − G̃_f = A_f − G̃_f` (matrice `3×2` tangente);
-- `ψ(a,ν) = |a|` la densità di salto isotropa.
-
-Allora, per `W(F)=|F|_F` o `W(F)=|F|_F²`,
+Sia `Σ` un complesso poliedrale compatto di facce piane finite. Su
+ogni faccia `f`, `g_f(ξ)=A_fξ+b_f` e `G̃|_f=G̃_f` costante. Allora
 
 ```
-I_W(g,G̃) = ∫_Σ W(G̃) d𝓗² + Σ_f |f|·‖M_f‖_* + ∫_{J_g} |[g]| d𝓗¹ ,
+I_W(g,G̃) = Σ_f |f|·W(G̃_f) + Σ_f |f|·‖A_f−G̃_f‖_*
+           + ∫_{J_g} |[g]| d𝓗¹ ,
 ```
 
-dove `‖·‖_*` è la norma nucleare (somma dei valori singolari) e
-`J_g` è l'insieme dei salti di `g` (inclusi i bordi di faccia dove
-`g` è discontinuo).
+con `‖·‖_*` la norma nucleare (somma dei valori singolari) e `J_g`
+l'insieme di salto di `g` (inclusi i bordi di faccia dove `g` è
+discontinuo).
 
-## 2. Dimostrazione
+## 2. Recovery — costruzione SVD esplicita
 
-### Lower bound
-
-Per ogni successione determinante `u_n→g` in `L¹` con
-`∇_Σu_n𝓗² ⇀* G̃𝓗²`, il lemma di liminf del costo di salto
-(`C60_CF_SBV_ISOTROPIC_THEOREM_2026-11-21.md` §3.1) dà
+Su ogni faccia, decomposizione SVD del difetto
 
 ```
-liminf_n ∫_{J_{u_n}}|[u_n]| ≥ |μ|_*(Σ)
-   = Σ_f |f|·‖M_f‖_* + ∫_{J_g}|[g]|d𝓗¹ ,
+M_f := A_f − G̃_f = Σ_{i=1}^{r_f} σ_{f,i} a_{f,i}⊗ν_{f,i},  r_f ≤ 2,
+|a_{f,i}|=|ν_{f,i}|=1.
 ```
 
-perché `μ = D_Σg − G̃𝓗² = (⊕_f M_f)𝓗² + [g]⊗ν_g𝓗¹⌞J_g` e le due
-parti sono mutuamente singolari. La semicontinuità convessa del bulk
-lungo la stessa sottosuccessione dà `liminf ∫W(∇u_n) ≥ ∫W(G̃)`.
-Sommando: `liminf E_W(u_n) ≥` formula candidata. ∎
-
-### Upper bound (recovery)
-
-Su ogni faccia `f`, sia `M_f = Σ_{i=1}^{r_f} σ_{f,i} a_{f,i}⊗ν_{f,i}`
-la decomposizione SVD (`r_f ≤ 2`) e `p_f := Σ_i σ_{f,i}a_{f,i}φ_{f,i}`
-la costante di fase. Definiamo la laminazione **con compensazione di
-fase esplicita**:
+Definiamo, **senza fasi** (`φ=0`):
 
 ```
-u_{h,f}(ξ) = G̃_f ξ + b_f + Σ_i σ_{f,i} a_{f,i}
-             · h⌊(ξ·ν_{f,i}+φ_{f,i})/h⌋ − p_f .
+v_{h,f}(ξ) = G̃_f ξ + b_f
+             + Σ_i σ_{f,i} a_{f,i} · h⌊ξ·ν_{f,i}/h⌋ .
 ```
 
-Poiché `h⌊t/h⌋ = t − h·frac(t)`, vale l'identità esatta
+Poiché `g_f(ξ) = G̃_fξ + b_f + Σ_i σ_{f,i}a_{f,i}(ξ·ν_{f,i})`:
 
 ```
-u_{h,f}(ξ) − g_f(ξ) = r_{h,f}(ξ),   |r_{h,f}(ξ)| ≤ h‖M_f‖_*
-   per ogni ξ ∈ ℝ² ,
+‖v_{h,f} − g_f‖_{L^∞(f)} ≤ h Σ_i σ_{f,i} = h‖M_f‖_* ,
 ```
 
-quindi `u_{h,f} → g_f` **uniformemente su `f̄`** (non solo in `L¹`).
-Tre proprietà (cell problem nucleare, già dimostrato):
+uniforme su tutta la faccia, **inclusi i lati**. Inoltre
+`∇_Σv_{h,f} = G̃_f` quasi ovunque.
 
-1. convergenza uniforme su `f̄` come sopra;
-2. `∇_Σu_{h,f} = G̃_f` a.e. (la parte laminata è costante a tratti);
-3. `∫_{J_{u_{h,f}}∩f}|[u_{h,f}]|d𝓗¹ → |f|·‖M_f‖_*` quando `h→0`
-   (le linee troncate al bordo danno errore `O(h·Per(f))`, e le
-   intersezioni delle due famiglie di linee sono `𝓗¹`-nulle).
-
-**Tracce sugli spigoli.** La convergenza uniforme su `f̄` implica la
-convergenza uniforme delle tracce su ogni lato `e ⊂ ∂f`:
-`u_{h,f}|_e → g_f|_e` uniformemente. Per un lato comune
-`e = f⁻∩f⁺`, il salto effettivo della funzione globale è
-`[u_h]|_e = u_{h,f⁻}|_e − u_{h,f⁺}|_e` e quindi
+**Costo interno.** Le linee di salto della famiglia `i` sono
+`{ξ·ν_{f,i}=kh}∩f`. Su ciascuna, salvo le intersezioni con le altre
+famiglie (`𝓗¹`-nulle: le normali SVD sono ortogonali, gli incroci
+sono punti isolati), il salto ha ampiezza `hσ_{f,i}`. Per la formula
+di coarea e la convergenza delle somme di Riemann,
 
 ```
-[u_h]|_e → [g]|_e   uniformemente su e  ⟹
-∫_e |[u_h]|d𝓗¹ → ∫_e |[g]|d𝓗¹ .
+h Σ_k 𝓗¹(f ∩ {ξ·ν_{f,i}=kh}) → |f| ,
 ```
 
-Le `u_{h,f}` si incollano in una funzione globale `u_h` su `Σ`:
-su ogni spigolo `e` la funzione ha il salto `[u_h]|_e`, che è
-**parte del funzionale** e non un artefatto da raccordare. Le linee
-di laminazione che terminano sul bordo contribuiscono solo tramite
-la traccia sopra (punti isolati di incrocio, `𝓗¹`-nulli); nessun
-altro costo di bordo esiste perché la cell formula è senza vincolo
-di traccia. I vertici sono fini e non generano termine energetico.
-La somma sugli spigoli (numero finito) dà
+quindi
 
 ```
-∫_{J_{u_h}}|[u_h]|d𝓗¹ → Σ_f |f|·‖M_f‖_* + ∫_{J_g}|[g]|d𝓗¹ ,
+lim_{h↓0} ∫_{J_{v_{h,f}}∩f} |[v_{h,f}]| d𝓗¹
+   = Σ_i σ_{f,i}|f| = |f|·‖M_f‖_* .
 ```
 
-e `∫_Σ W(∇_Σu_h) = ∫_Σ W(G̃)` esattamente. Quindi
-`limsup_h E_W(u_h) ≤` formula candidata. Con `h→0` lungo una
-sottosuccessione: uguaglianza. ∎
+**Tracce sugli spigoli.** Per ogni lato `e⊂∂f` la stessa stima
+uniforme dà `‖v_{h,f}−g_f‖_{L^∞(e)} ≤ h‖M_f‖_*`. Per un lato comune
+`e=f⁻∩f⁺`, il salto effettivo della funzione globale è
+`[v_h]|_e = v_{h,f⁻}|_e − v_{h,f⁺}|_e`, e
 
-## 3. Ipotesi usate e loro verifica
+```
+|[v_h]−[g]|_e ≤ h(‖M_{f⁻}‖_* + ‖M_{f⁺}‖_*)
+   ⟹  ∫_e|[v_h]|d𝓗¹ → ∫_e|[g]|d𝓗¹ .
+```
 
-| Ipotesi | Dove è verificata |
+Le `v_{h,f}` si incollano in un ammissibile `SBV` su `Σ` (i salti sui
+lati sono ammessi, nessun vincolo di continuità). La somma sugli
+spigoli (numero finito) e il bulk esatto `Σ_f|f|W(G̃_f)` (il gradiente
+coincide con `G̃_f` a.e.) danno `limsup_h E_W(v_h) ≤` formula
+candidata.
+
+## 3. Lower bound
+
+Per ogni successione determinante, il lemma di liminf del costo di
+salto (`C60_CF_SBV_ISOTROPIC_THEOREM_2026-11-21.md` §3.1, provato)
+dà
+
+```
+liminf_n ∫_{J_{u_n}}|[u_n]| ≥ Σ_f |f|·‖A_f−G̃_f‖_* + ∫_{J_g}|[g]| ,
+```
+
+perché `μ = D_Σg − G̃𝓗² = (⊕_f M_f)𝓗² + [g]⊗ν_g𝓗¹⌞J_g` con parti
+mutuamente singolari. La semicontinuità del bulk (immediata per
+`W=|F|_F`; per `|F|_F²` con `G̃∈L²` e controllo energetico)
+completa il lower bound. Uguaglianza dei due limiti. ∎
+
+## 4. Ipotesi e verifica
+
+| Componente | Stato |
 |---|---|
-| Cell formula `f_rel(M)=‖M‖_*` senza vincolo di bordo | `C60_CF_NUCLEAR_NORM_CELL_PROBLEM` — provato per `ψ=|a|` |
-| Liminf del costo di salto = `|μ|_*` | Lemma §3.1 del documento SBV — provato |
-| Semicontinuità di `W` | `W` convessa; `W=|F|_F` immediata, `|F|_F²` con `G̃∈L²` automatico (costante per faccia) |
-| Convergenza uniforme ⇒ tracce sugli spigoli | Elementare: errore `≤h‖M‖_*` uniforme su `f̄` |
-| Intersezioni di linee e vertici `𝓗¹`-nulli | Le due famiglie SVD hanno normali ortogonali; i vertici sono fini |
-| Nessun vincolo di traccia sul bordo di `Q`/faccia | La cell formula è senza dato al bordo — coerente |
+| Lower bound isotropo per `g∈SBV` | **Dimostrato** (lemma §3.1) |
+| Recovery SVD per `M_f` costante, convergenza uniforme | **Dimostrata** (formula esplicita, `φ=0`) |
+| Convergenza delle tracce sui lati | **Dimostrata** dalla stima `L^∞ ≤ h‖M‖_*` |
+| Costo interno → `|f|‖M_f‖_*` | **Dimostrato** (coarea + somme di Riemann) |
+| Costo sui lati → `∫_{J_g}|[g]|` | **Dimostrato** (stima uniforme finita) |
+| Identificazione dell'infimo poliedrale | **Dimostrata** (lower = upper) |
+| Recovery per `M(x)` variabile, `g∈SBV` generale | **Aperto** — problema distinto |
+| Superfici curve | **Aperto** — richiede controllo delle carte |
+| `ψ` anisotropo, `|a|²` | **Aperto** — cambiano cell formula e splitting |
 
-**Non usato**: il lemma di localizzazione, la recovery `W^{1,1}`,
-la regolarizzazione continua. La struttura SBV basta perché i salti
-di bordo sono parte del funzionale, non un difetto da raccordare.
+**Nota sulla fase.** La versione con fasi `φ_{f,i}` richiede la
+compensazione esplicita `−φ_{f,i}` dentro la parentesi quadra (o la
+costante `−p_f` fuori); senza di essa resta un termine costante non
+nullo. La scelta `φ=0` la evita del tutto ed è preferibile.
 
-## 4. Cosa questo NON copre
+## 5. Cosa resta
 
-- **`M(x)` variabile** su una faccia: servirebbe la recovery
-  `W^{1,1}` (prova candidata) più il controllo delle tracce al bordo
-  — la laminazione globale non ha più `M` costante.
-- **`g` non affine**: serve approssimazione SBV energetica.
-- **Superfici curve**: il modello è poliedrale; il trasferimento
-  richiede il controllo delle carte.
-- **`ψ` anisotropo o `|a|²`**: la cell formula e la preservazione
-  del salto cambiano (`|a|²` collassa sotto splitting).
-- **C60 specifico**: il teorema è per il modello poliedrale con
-  dati affini; per la coppia C60 originale `M=0` e vale il caso
-  già dimostrato (`u_n=g`). Il valore sta nell'estensione a
+- `M(x)` variabile su una faccia: richiede la recovery `W^{1,1}`
+  (prova candidata) **più** il controllo delle tracce al bordo —
+  la stima `L^∞` uniforme non è più disponibile cella per cella.
+- `g ∈ SBV` generale (non affine): approssimazione energetica.
+- Anisotropo: la cell formula `g_ψ` è provata senza vincolo di
+  bordo, ma eredita gli stessi gap di tracce per `M` variabile.
+- C60 con `M=0`: già coperto (`u_n=g`); questo teorema estende a
   `M_f≠0` costante per faccia.
