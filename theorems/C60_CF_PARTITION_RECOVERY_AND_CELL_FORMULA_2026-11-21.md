@@ -15,27 +15,27 @@ Questo documento separa tre questioni indipendenti. La costruzione SVD risolve i
 
 Sia M in R^{m x 2}, Q un quadrato e u(x)=Mx+b. Scriviamo una SVD
 $$
-M=\\sum_{i=1}^{r}\\sigma_i a_i\\otimes\\nu_i,\\qquad r\\le 2,
+M=\sum_{i=1}^{r}\sigma_i a_i\otimes\nu_i,\qquad r\le 2,
 $$
 con a_i e nu_i unitari e le nu_i ortonormali. Poniamo
 $$
-v_h(x)=b+\\sum_{i=1}^{r}\\sigma_i a_i\\,h\\left\\lfloor\\frac{x\\cdot\\nu_i}{h}\\right\\rfloor.
+v_h(x)=b+\sum_{i=1}^{r}\sigma_i a_i\,h\left\lfloor\frac{x\cdot\nu_i}{h}\right\rfloor.
 $$
 La funzione è costante sulle celle poligonali della disposizione delle famiglie di rette e ha gradiente nullo quasi ovunque. Inoltre
 $$
-\\|v_h-u\\|_{L^\\infty(Q)}\\le h\\sum_i\\sigma_i.
+\|v_h-u\|_{L^\infty(Q)}\le h\sum_i\sigma_i.
 $$
 Sulle rette della famiglia i, fuori dai punti d'intersezione con le altre famiglie, il salto ha ampiezza h sigma_i. La lunghezza totale delle rette di quella famiglia in Q, moltiplicata per h, tende a |Q|. Pertanto
 $$
-\\lim_{h\\downarrow0}\\int_{J_{v_h}}|[v_h]|\\,d\\mathcal H^1
-=|Q|\\sum_i\\sigma_i=|Q|\\,\\|M\\|_*.
+\lim_{h\downarrow0}\int_{J_{v_h}}|[v_h]|\,d\mathcal H^1
+=|Q|\sum_i\sigma_i=|Q|\,\|M\|_*.
 $$
 Le intersezioni sono finite e hanno misura H^1 nulla. Non è imposto alcun dato al bordo; non si afferma una recovery con traccia prescritta.
 
 **Lower bound affine.** Se v_h converge a Mx+b in L^1(Q) e i costi isotropi sono limitati, la coercività controlla le variazioni su ogni sottoquadrato compatto. La convergenza distribuzionale delle derivate e la dualità tra norma nucleare e norma operatore, prima su sottoquadrati compatti e poi per esaurimento di Q, danno
 $$
-\\liminf_h\\int_{J_{v_h}}|[v_h]|\\,d\\mathcal H^1
-\\ge |Q|\\,\\|M\\|_*.
+\liminf_h\int_{J_{v_h}}|[v_h]|\,d\mathcal H^1
+\ge |Q|\,\|M\|_*.
 $$
 La densità affine isotropa è quindi esattamente la norma nucleare.
 
@@ -43,59 +43,59 @@ La densità affine isotropa è quindi esattamente la norma nucleare.
 
 Assumiamo che psi: R^m x S^1 -> [0,infty) soddisfi
 $$
-c|a|\\le\\psi(a,\\nu)\\le C|a|,\\qquad
-\\psi(ta,\\nu)=t\\psi(a,\\nu)\\ (t>0),\\qquad
-\\psi(-a,-\\nu)=\\psi(a,\\nu).
+c|a|\le\psi(a,\nu)\le C|a|,\qquad
+\psi(ta,\nu)=t\psi(a,\nu)\ (t>0),\qquad
+\psi(-a,-\nu)=\psi(a,\nu).
 $$
 La cell formula è **senza dato al bordo**. Per un quadrato Q di area uno definiamo
 $$
-f_{cell}(M)=\\inf\\left\\{\\liminf_{h\\downarrow0}
-\\int_{J_{w_h}\\cap Q}\\psi([w_h],\\nu_{w_h})\\,d\\mathcal H^1:
-w_h\\to Mx\\text{ in }L^1(Q),\\ w_h\\text{ piecewise constant}\\right\\}.
+f_{cell}(M)=\inf\left\{\liminf_{h\downarrow0}
+\int_{J_{w_h}\cap Q}\psi([w_h],\nu_{w_h})\,d\mathcal H^1:
+w_h\to Mx\text{ in }L^1(Q),\ w_h\text{ piecewise constant}\right\}.
 $$
 Definiamo
 $$
-\\Lambda_\\psi=\\{A\\in R^{m x 2}:
-A:(a\\otimes\\nu)\\le\\psi(a,\\nu)\\quad\\forall a,\\nu\\}
+\Lambda_\psi=\{A\in R^{m x 2}:
+A:(a\otimes\nu)\le\psi(a,\nu)\quad\forall a,\nu\}
 $$
 e
 $$
-g_\\psi(M)=\\inf\\left\\{\\sum_{i=1}^N\\psi(b_i,\\nu_i):
-N<\\infty,\\ M=\\sum_{i=1}^N b_i\\otimes\\nu_i\\right\\}.
+g_\psi(M)=\inf\left\{\sum_{i=1}^N\psi(b_i,\nu_i):
+N<\infty,\ M=\sum_{i=1}^N b_i\otimes\nu_i\right\}.
 $$
 
 **Le decomposizioni nell'infimo includono anche termini con normali parallele.** Non li fondiamo: senza subadditività di psi rispetto ad a, la fusione non è giustificata.
 
 **Dualità convessa.** g_psi è positivamente 1-omogenea e convessa, perché le decomposizioni si possono concatenare. È finita e coerciva grazie ai limiti c|a| <= psi <= C|a|. In dimensione finita è dunque continua e coincide con il supporto del suo polare:
 $$
-g_\\psi(M)=\\sup_{A\\in\\Lambda_\\psi} A:M.
+g_\psi(M)=\sup_{A\in\Lambda_\psi} A:M.
 $$
 Infatti A appartiene a Lambda_psi se e solo se A:M <= g_psi(M) per ogni M: una direzione segue testando sui tensori semplici, l'altra applicando la disuguaglianza a ogni decomposizione finita.
 
 **Lower bound della cell formula.** Per A in Lambda_psi, la disuguaglianza sui salti dà
 $$
-A:Dw_h\\le\\psi([w_h],\\nu_{w_h})\\,\\mathcal H^1\\!\\llcorner J_{w_h}.
+A:Dw_h\le\psi([w_h],\nu_{w_h})\,\mathcal H^1\!\llcorner J_{w_h}.
 $$
 La coercività controlla le variazioni. Passando al limite distribuzionale su sottoquadrati compatti e poi esaurendo Q,
 $$
-f_{cell}(M)\\ge\\sup_{A\\in\\Lambda_\\psi}A:M=g_\\psi(M).
+f_{cell}(M)\ge\sup_{A\in\Lambda_\psi}A:M=g_\psi(M).
 $$
 
 **Upper bound per ogni decomposizione finita.** Fissiamo una decomposizione arbitraria
 $$
-M=\\sum_{i=1}^N b_i\\otimes\\nu_i,
+M=\sum_{i=1}^N b_i\otimes\nu_i,
 $$
 senza restrizioni di non-parallelismo. Scegliamo fasi phi_i e poniamo
 $$
-w_h(x)=\\sum_{i=1}^N b_i h\\left\\lfloor\\frac{x\\cdot\\nu_i+\\phi_i}{h}\\right\\rfloor.
+w_h(x)=\sum_{i=1}^N b_i h\left\lfloor\frac{x\cdot\nu_i+\phi_i}{h}\right\rfloor.
 $$
 La funzione è costante sulle celle poligonali della disposizione delle rette e converge uniformemente a Mx, a meno di una costante additiva. Ogni famiglia di rette contribuisce al costo per unità di area con psi(b_i,nu_i), per 1-omogeneità. Se alcune normali sono parallele, si scelgono fasi distinte per separare le rette; le intersezioni tra famiglie non parallele sono finite e non contribuiscono all'integrale su J_w. Quindi
 $$
-f_{cell}(M)\\le\\sum_{i=1}^N\\psi(b_i,\\nu_i).
+f_{cell}(M)\le\sum_{i=1}^N\psi(b_i,\nu_i).
 $$
 Prendendo l'infimo su tutte le decomposizioni finite,
 $$
-\\boxed{f_{cell}(M)=g_\\psi(M)=\\sup_{A\\in\\Lambda_\\psi}A:M.}
+\boxed{f_{cell}(M)=g_\psi(M)=\sup_{A\in\Lambda_\psi}A:M.}
 $$
 La densità è la funzione di supporto di Lambda_psi, ossia l'inviluppo convesso positivamente 1-omogeneo generato dal costo sui tensori di rango uno. Questo risultato riguarda la cella senza dato al bordo; non dimostra la versione con traccia affine prescritta.
 
@@ -110,15 +110,15 @@ La densità è la funzione di supporto di Lambda_psi, ossia l'inviluppo convesso
 
 Per c in W^{1,1}(Q;R^m), il lower bound isotropo
 $$
-\\liminf_h\\int_{J_{v_h}}|[v_h]|\\,d\\mathcal H^1
-\\ge\\int_Q\\|\\nabla c\\|_*\\,dx
+\liminf_h\int_{J_{v_h}}|[v_h]|\,d\mathcal H^1
+\ge\int_Q\|\nabla c\|_*\,dx
 $$
 segue dalla dualità e dalla convergenza distribuzionale delle derivate, con localizzazione ed esaurimento del dominio.
 
 **Il recovery upper bound non è dimostrato qui.** La precedente costruzione cella-per-cella produce interfacce artificiali; la stima del loro costo non segue dalla sola affermazione che l'ampiezza del salto è O(delta^2+h). La proposta di una fascia di raccordo richiede un lemma autonomo che specifichi partizione, assegnazione dei valori, conteggio delle interfacce e stima dei salti. Fino alla dimostrazione di quel lemma, l'identità
 $$
-\\inf_{v_h\\to c\\text{ in }L^1}\\liminf_h F(v_h)
-=\\int_Q\\|\\nabla c\\|_*\\,dx
+\inf_{v_h\to c\text{ in }L^1}\liminf_h F(v_h)
+=\int_Q\|\nabla c\|_*\,dx
 $$
 resta **aperta quanto al recovery upper bound** e non viene classificata come teorema.
 
@@ -128,7 +128,7 @@ Di conseguenza, non si dichiara dimostrata l'applicazione per G-tilde(x) misurab
 
 Per u_h(xi)=c_0 A xi+b+v_h(xi), con c_0>0, A^T A=I_2 e v_h piecewise constant,
 $$
-\\nabla u_h=c_0A\\quad\\text{a.e.},\\qquad \\operatorname{rank}\\nabla u_h=2\\quad\\text{a.e.}
+\nabla u_h=c_0A\quad\text{a.e.},\qquad \operatorname{rank}\nabla u_h=2\quad\text{a.e.}
 $$
 Questo non implica continuità globale, iniettività o embeddedness attraverso i fronti di salto. L'embeddedness globale resta aperta.
 
