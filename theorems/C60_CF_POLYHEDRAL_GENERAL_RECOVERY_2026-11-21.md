@@ -300,7 +300,7 @@ dei micro-salti, testata contro \(\varphi\in C(\Sigma)\), è
  \int_{T\cap\{x\cdot\nu_i=kh\}}\varphi\,d\mathcal H^1
  \longrightarrow
  \sigma_i\int_T\varphi\,d\mathcal H^2.
-\\]
+\]
 È la formula di coarea seguita da una somma di Riemann; vale anche
 per celle poligonali tagliate dai lati della superficie. Sommando
 sugli indici singolari e sulle finitissime celle si ottiene la
@@ -387,7 +387,7 @@ Anche \(\mathcal F(g,G;B_r(v))\to0\), quindi
 \lim_{r\downarrow0}\limsup_j
 \left|E_W(u_{j,h_j};B_r(v))
 -\mathcal F(g,G;B_r(v))\right|=0.
-\\]
+\]
 Questa è più forte del controllo del solo residuo superiore
 richiesto da G5.
 
