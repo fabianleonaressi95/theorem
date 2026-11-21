@@ -85,9 +85,16 @@ Non è il valore dell'infimo CF, né una prova che la successione sia
 determining per la coppia strutturata.
 
 Il test quadratico è un'evidenza numerica coerente con crescita `C/h` per
-questa discretizzazione e questo schema; non prova da solo un limite
-asintotico. Il calcolo degli strip campiona 20 spigoli su 90 e moltiplica per
-`90/20`: i valori sono stime campionarie scalate, non integrazione esaustiva.
+la regolarizzazione continua; non prova da solo un limite asintotico e non
+esclude un bulk quadratico per il problema CF. La successione costante
+`u_n=g` ha energia finita anche per `W(F)=|F|²`: bulk `64.53978047`
+più interfaccia `38.93478886`, totale `103.47456933`. Per crescita
+lineare il costo della stessa successione è `84.57130529`.
+
+Precisazione sui campionamenti: il codice integra l'interfaccia `ψ(s)=s`
+su tutti i 90 spigoli con 200 campioni per spigolo. È invece l'integrale
+quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
+
 
 ## 4. Correzioni necessarie ai documenti
 
@@ -107,10 +114,12 @@ asintotico. Il calcolo degli strip campiona 20 spigoli su 90 e moltiplica per
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
   `g`, il campo `G` e quindi `M=∇_Σg−G`.
-- **B. Costruzione CF:** costruire `u_n∈SBV(Σ;R³)` con micro-salti e provare
-  `u_n→g` in `L¹`, `∇_Σu_n𝓗²⇀*G𝓗²`.
-- **C. Identità di bilancio:** provare che
-  `D^s_Σu_n⇀*(∇_Σg−G)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
+- **B. Caso C60 corrente:** `u_n=g` è determining sequence perché `M=0`;
+  verificare e mantenere la coerenza delle coordinate tangenziali usate per
+  `∇_Σg=G`.
+- **C. Generalizzazione:** se si sceglie un campo `G̃` con
+  `∇_Σg−G̃≠0`, costruire micro-salti e provare il bilancio
+  `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
 - **E. Rilassazione:** confrontare il costo della successione costruita con
