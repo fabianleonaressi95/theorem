@@ -201,7 +201,7 @@ A5_CHARACTERS = {
 def group_action(O, faces, centroids, frames):
     """Return the 64x64 orthogonal action in the chosen face frames."""
     # Face centroids identify the induced permutation unambiguously.
-    transformed = centroids @ O.T
+    transformed = centroids @ O
     d = cdist(transformed, centroids)
     rows, cols = linear_sum_assignment(d)
     perm = np.empty(len(faces), int)
@@ -211,7 +211,7 @@ def group_action(O, faces, centroids, frames):
         raise RuntimeError(f"I_h operation does not preserve face set: {max_res}.")
     U = np.zeros((2*len(faces), 2*len(faces)))
     for f, g in enumerate(perm):
-        U[2*g:2*g+2, 2*f:2*f+2] = frames[g].T @ O @ frames[f]
+        U[2*g:2*g+2, 2*f:2*f+2] = frames[g].T @ O.T @ frames[f]
     return U, perm, max_res
 
 
@@ -265,10 +265,6 @@ def representation_decomposition(group, faces, centroids, frames, L):
                 "projector_idempotence_residual": idem,
                 "restricted_eigenvalues": np.linalg.eigvalsh(Q.T @ L @ Q).tolist() if rank else [],
             }
-    projector_sum = sum(
-        (np.linalg.eigh((np.zeros((dim, dim))))[1] for _ in []),
-        np.zeros((dim, dim))
-    )
     # Independently verify completeness and pairwise orthogonality of central projectors.
     projectors = {}
     for label, info in sectors.items():
