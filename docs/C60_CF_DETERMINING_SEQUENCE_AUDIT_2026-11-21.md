@@ -1,6 +1,7 @@
 # C60 — audit della determining sequence Choksi–Fonseca
 
 Data: 2026-11-21  
+Classificazione: **correzione matematica necessaria; rilassazione C60 ancora aperta**  
 Classificazione: **successione determinante e due casi energetici identificati; rilassazione generale ancora aperta**  
 Ambito: successione continua strip+cap descritta in `scripts/c60_dpo_energy.py` e in `docs/C60_DPO_FORMAL_PROOF_2026-11-21.md`.
 
@@ -77,6 +78,12 @@ I numeri archiviati restano risultati numerici del codice:
 - somma: 84.5713052885;
 - stime scalate di `∫strip |∇g_h|²`: 129.8960, 229.7719, 444.4263.
 
+Ma la somma 84.5713 **non è stata dimostrata come energia CF di `(g,G)`**.
+Per la successione continua essa è interpretabile come candidato al costo TV
+della regolarizzazione che converte il salto in gradiente concentrato nello
+strip, a condizione che la quadratura e la costruzione siano validate.
+Non è il valore dell'infimo CF, né una prova che la successione sia
+determining per la coppia strutturata.
 La somma 84.5713 è il costo della successione costante `u_n=g` per
 `W(F)=|F|_F` e `ψ(a,ν)=|a|`; poiché `∇_Σg=G`, questa è una determining
 sequence CF. La semicontinuità inferiore della variazione totale del salto
@@ -98,6 +105,7 @@ su tutti i 90 spigoli con 200 campioni per spigolo. È invece l'integrale
 quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 
 
+## 4. Correzioni necessarie ai documenti
 ## 4. Disarrangiamento bulk non nullo
 
 Per un campo alternativo `G̃` costante su ciascuna faccia, si pone
@@ -139,6 +147,8 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
    determining sequence.
 2. Non classificare come provata la verifica CF (A4) per la successione
    continua.
+3. Non chiamare 84.5713052885 `I(g,G)`; denominarlo
+   `E_TV^{candidate}(g_h)` o costo TV candidato della regolarizzazione.
 3. Per `ψ=|a|`, i valori 84.5713052885 e 103.4745693333 identificano
    rispettivamente `I_{W_1}(g,G)` e `I_{W_2}(g,G)`, con interfaccia
    quadraturata numericamente. Non attribuire questa conclusione a densità
@@ -149,6 +159,7 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
    sia l'unica energia ammissibile. La scelta di `W,ψ` e le ipotesi di
    rilassamento devono essere dichiarate e verificate separatamente.
 
+## 5. Programma corretto
 ## 7. Programma corretto
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
@@ -161,6 +172,11 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
+- **E. Rilassazione:** confrontare il costo della successione costruita con
+  il cell formula CF; solo il limite inferiore universale e una recovery
+  sequence ottimale possono identificare l'infimo.
+
+## 6. Stato
 - **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|`; il costo ottimale
   per faccia è `|f| ||M_f||_*`. Restano da studiare densità anisotrope o
 - **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|` — la densità di
@@ -178,6 +194,12 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 | `G^TG=I₂ ⇒ rank G=2` | Provata algebricamente |
 | Valori numerici TV/quadratico dello schema strip | Archiviati; quadratura strip campionaria |
 | `g_h` continuo determina la coppia CF `(g,G)` | **Falso in generale** se `[g]≠0` e si richiede il limite CF `G𝓗²` |
+| Esistenza di una vera determining sequence CF C60 | Aperta |
+| Formula di rilassamento e valore `I(g,G)` | Aperta |
+
+**Classificazione complessiva:** il calcolo energetico è un audit numerico di
+una regolarizzazione continua; la costruzione CF per la coppia `(g,G)` e la
+sua rilassazione restano problemi aperti.
 | Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
 | Costruzione CF per campi bulk alternativi con `M≠0` | **Provata** per campi costanti faccia-per-faccia |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
