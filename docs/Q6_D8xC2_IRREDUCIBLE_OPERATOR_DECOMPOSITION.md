@@ -70,3 +70,28 @@ python scripts/audit_q6_irreducible_operator_decomposition.py \
 ```
 
 The script reconstructs the group, builds its character projectors, audits the operator blocks, writes the JSON report, and saves the ten projectors and four Reynolds averages in the NPZ output.
+
+
+## 6. Basis-provenance qualification (added after forensic audit)
+
+The representation decomposition above is valid for the geometrically reconstructed
+matrix (R_{geo,tangent}). However, the covariance table for (K_0), (P_G),
+and (T_{transport}) is only a calculation in the stored array coordinates.
+Its geometric interpretation is conditional on those three matrices sharing
+the exact (Q_{tangent}) basis. The available archive does not provide an
+independent basis-identification certificate.
+
+The forensic audit also identifies
+[
+T_{transport}=U_{polar}A_{geometry}^T,
+qquad
+U_{polar}=\operatorname{polar}(P_GA_{geometry}).
+]
+Thus (T_{transport}) is a post-projection polar partial isometry, not an
+independently derived connection. The feature map uses a fixed generic axis
+and is not equivariant under the full common order-16 group.
+
+Accordingly, do not promote the previous operator covariance table to an
+unconditional theorem about physical symmetry breaking. See
+`docs/RGS_188D_OPERATOR_PROVENANCE.md` and
+`audits/RGS_188D_OPERATOR_PROVENANCE.json`.
