@@ -1,0 +1,92 @@
+{
+  "classification": "forensic numerical provenance audit; source-generation chain partially unresolved",
+  "directly_recovered_constructions": {
+    "P_G": "spectral projector onto the 64D numerical kernel of K0",
+    "A_geometry_orthonormal": "polar-orthonormalized geometric feature frame in Q_tangent coordinates; normalized cross(X_i,fixed_axis) site modes",
+    "U_polar": "polar factor of P_G @ A_geometry_orthonormal",
+    "T_transport": "U_polar @ A_geometry_orthonormal.T"
+  },
+  "identity_residuals": {
+    "T_minus_U_Atranspose_fro": 0,
+    "TtT_minus_AAt_fro": 0,
+    "TTt_minus_UUt_fro": 1.0891844174954523e-11,
+    "U_orthonormality_fro": 1.0890750933660027e-11,
+    "PG_U_minus_U_fro": 6.4650540433165445e-15,
+    "PG_idempotence_fro": 5.076457496803951e-15
+  },
+  "ranks": {
+    "K0": 124,
+    "P_G": 64,
+    "A": 64,
+    "U_polar": 64,
+    "T_transport": 64
+  },
+  "K0_spectrum": {
+    "zero_modes_abs_lt_1e-8": 64,
+    "positive_min": 0.5000000000000001,
+    "positive_max": 12.799999999999994,
+    "positive_ladder_spacing_max_error": 1.0658141036401503e-14,
+    "warning": "Observed archive property; physical derivation unresolved."
+  },
+  "geometric_to_kernel_alignment": {
+    "relative_leakage_norm_PG_A_minus_A": 0.8171328677,
+    "principal_angle_cosine_min": 0.00858529464631197,
+    "principal_angle_cosine_max": 0.9350126518385842,
+    "interpretation": "The selected geometric feature frame is not the spectral kernel subspace; U_polar is obtained only after projection into that kernel and polar orthonormalization."
+  },
+  "group_covariance_conditional_on_shared_188D_basis": {
+    "common_group_order": 16,
+    "max_A_intertwining_defect": 1.9762882365836874,
+    "max_U_intertwining_defect": 1.5805893105642563,
+    "operators": {
+      "K0": {
+        "invariant_elements_tol_1e-10": 1,
+        "group_order": 16,
+        "max_relative_defect": 0.9968416840575127
+      },
+      "P_G": {
+        "invariant_elements_tol_1e-10": 1,
+        "group_order": 16,
+        "max_relative_defect": 1.1623204025954914
+      },
+      "T_transport": {
+        "invariant_elements_tol_1e-10": 1,
+        "group_order": 16,
+        "max_relative_defect": 1.3665225130845595
+      },
+      "R_geo_tangent": {
+        "invariant_elements_tol_1e-10": 16,
+        "group_order": 16,
+        "max_relative_defect": 2.903869960040969e-15
+      },
+      "A_projector": {
+        "invariant_elements_tol_1e-10": 2,
+        "group_order": 16,
+        "max_relative_defect": 1.197093860959869
+      },
+      "U_polar_projector": {
+        "invariant_elements_tol_1e-10": 1,
+        "group_order": 16,
+        "max_relative_defect": 1.1623204025954663
+      }
+    },
+    "warning": "Operator covariance comparison is geometrically meaningful only if K0/P_G share the Q_tangent coordinate basis; this is not independently certified."
+  },
+  "K0_PG_provenance": {
+    "verified": "P_G equals the spectral kernel projector of archived K0 to numerical precision; K0 P_G and P_G K0 are approximately zero.",
+    "not_verified": "Original source code that generated exact archived K0 and its coordinate basis was not recovered.",
+    "source_archive_evidence": "Recovered notebook PDF includes synthetic random-Gram K0 examples, mock kernel generation, and illustrative spectral-mask P_G construction; no proof these exact mock snippets generated the current archived arrays.",
+    "conclusion": "Do not classify K0 as a geometry-derived Hessian or P_G as an independently derived geometric projector until exact generating source and basis map are recovered."
+  },
+  "T_transport_provenance": {
+    "verified": "T_transport is U_polar A_geometry_orthonormal^T.",
+    "interpretation": "Post-projection polar partial isometry between geometric feature frame and K0 spectral kernel; not an independently derived Q6 connection.",
+    "symmetry_status": "Only identity passes the reconstructed order-16 covariance test in stored coordinates, subject to shared-basis caveat."
+  },
+  "classification_decisions": {
+    "K0": "archived symmetric PSD matrix; physical/geometric generation unresolved",
+    "P_G": "verified spectral kernel projector of K0; not independently geometric",
+    "T_transport": "verified derived partial isometry from A and P_G; frame-dependent",
+    "R_geo_tangent": "verified geometric tangent representation; invariant under all 16 common transformations"
+  }
+}
