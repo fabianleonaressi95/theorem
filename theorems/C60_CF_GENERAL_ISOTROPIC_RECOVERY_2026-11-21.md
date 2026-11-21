@@ -83,19 +83,33 @@ quadratica). Il salto converge per CFI. Quindi
 `g_j` è affine su ogni cella del complesso (restrizione di affine
 è affine), `G_j` è costante su ogni cella, i salti sono ammessi
 (senza continuità). Consegna una recovery `u_{j,k}` con
-`∇u_{j,k}=G_j` a.e. e
 
 ```
+u_{j,k} → g_j in L¹,
+∇u_{j,k} 𝓗² ⇀* G_j 𝓗²   (convergenza debole-* delle misure),
 limsup_k E_W(u_{j,k}) ≤ ℱ(g_j,G_j) .
 ```
 
+(Nella costruzione SVD esplicita si ha anzi `∇u_{j,k}=G_j` a.e.,
+ma la formulazione corretta e generale è la debole-*.)
+
 ### 2.6 Diagonale
 
-Scelto `k(j)` con `‖u_{j,k(j)}−g_j‖_{L¹}<1/j` e
-`E_W(u_{j,k(j)}) ≤ ℱ(g_j,G_j)+1/j`: `u_{j,k(j)}→g` in `L¹`, e
-`∇u_{j,k(j)} = G_j` a.e. con `G_j→G` in `L^p⊂L¹` ⇒
-`∇u_{j,k(j)}𝓗²→G𝓗²` in variazione ⇒ convergenza determinante.
-Quindi `limsup E_W ≤ ℱ(g,G)`; col liminf di §2.1, uguaglianza. ∎
+Per ogni `j` scegliamo `k(j)` abbastanza grande da controllare
+**simultaneamente**: l'errore `L¹` (`<1/j`), l'energia
+(`≤ℱ(g_j,G_j)+1/j`) e un numero crescente di funzioni test per la
+convergenza debole-* dei gradienti (famiglia densa in `C_c`). Allora
+
+```
+u_{j,k(j)} → g in L¹,
+∇u_{j,k(j)} 𝓗² ⇀* G 𝓗²
+```
+
+perché `∇u_{j,k(j)}𝓗² ⇀* G_j𝓗²` per `k→∞` e `G_j→G` fortemente in
+`L^p⊂L¹` ⇒ `G_j𝓗²→G𝓗²` in variazione. La successione diagonale è
+quindi determinante per `(g,G)` nella topologia richiesta
+(`L¹` + debole-* delle misure dei gradienti). Con `limsup E_W ≤
+ℱ(g,G)` e il liminf di §2.1: uguaglianza. ∎
 
 ## 3. Verifica tecnica dei tre punti richiesti
 
