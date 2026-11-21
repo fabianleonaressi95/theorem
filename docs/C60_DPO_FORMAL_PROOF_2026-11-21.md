@@ -113,6 +113,17 @@ La divergenza `C/h` misurata sugli strip riguarda soltanto la diversa
 regolarizzazione continua e non esclude la crescita quadratica nel problema
 CF.
 
+## 2C. Rilassamento della densità interfaciale quadratica
+
+Per `ψ₂(a,ν)=|a|²`, la successione costante non è ottimale. È stata però
+costruita una recovery sequence SBV che sostituisce ogni salto macroscopico
+lungo gli spigoli con `m` salti paralleli di ampiezza `O(1/m)` in una striscia
+di larghezza tendente a zero. Le stime danno costo interfaciale `O(1/m+δ_m+r_m)`
+che tende a zero, mentre `u_m→g` in `L¹`, `∇_Σu_m𝓗²⇀*G𝓗²` e il costo bulk
+converge a `∫_ΣW(G)`. Per `W=|F|_F` e `W=|F|_F²` il valore rilassato è quindi
+il solo integrale bulk. Dimostrazione in
+`theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
+
 ## 3. Immersione e embeddedness degli approssimanti
 
 ### Proposizione 3 (immersione locale — condizionata).
@@ -150,6 +161,7 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | Immersione locale degli `g_h` | Numerico (σ_min > 0, margine piccolo) |
 | Embeddedness globale | Sonda numerica positiva, non esaustiva |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica
