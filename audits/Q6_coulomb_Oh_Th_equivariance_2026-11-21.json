@@ -93,5 +93,163 @@
     "Coulomb_KC_Th_decomposition": "computed",
     "K0_provenance": "still open",
     "K_C_is_K0": "explicitly false"
+  },
+  "isotypic_block_spectra": {
+    "O_h": {
+      "A1g": {
+        "rank": 5,
+        "min": 2.2599310607,
+        "max": 15.5753024427,
+        "negative": 0,
+        "zero": 0,
+        "positive": 5
+      },
+      "A2g": {
+        "rank": 2,
+        "min": 0.9855315917,
+        "max": 8.1149343876,
+        "negative": 0,
+        "zero": 0,
+        "positive": 2
+      },
+      "Eg": {
+        "rank": 16,
+        "min": 0.3435486873,
+        "max": 11.0541778335,
+        "negative": 0,
+        "zero": 0,
+        "positive": 16
+      },
+      "T1g": {
+        "rank": 30,
+        "min": -2.247078783,
+        "max": 8.1027367187,
+        "negative": 9,
+        "zero": 3,
+        "positive": 18
+      },
+      "T2g": {
+        "rank": 42,
+        "min": -1.1620198989,
+        "max": 10.0386005426,
+        "negative": 6,
+        "zero": 0,
+        "positive": 36
+      },
+      "A1u": {
+        "rank": 2,
+        "min": -0.7550857812,
+        "max": 1.8454102299,
+        "negative": 1,
+        "zero": 0,
+        "positive": 1
+      },
+      "A2u": {
+        "rank": 6,
+        "min": -1.0052769415,
+        "max": 9.0367139216,
+        "negative": 1,
+        "zero": 0,
+        "positive": 5
+      },
+      "Eu": {
+        "rank": 16,
+        "min": -2.7768623262,
+        "max": 7.4728038933,
+        "negative": 6,
+        "zero": 0,
+        "positive": 10
+      },
+      "T1u": {
+        "rank": 39,
+        "min": -1.0481836817,
+        "max": 11.7428691951,
+        "negative": 3,
+        "zero": 0,
+        "positive": 36
+      },
+      "T2u": {
+        "rank": 30,
+        "min": -0.0699493301,
+        "max": 9.6163036996,
+        "negative": 3,
+        "zero": 0,
+        "positive": 27
+      }
+    },
+    "T_h": {
+      "1g": {
+        "rank": 7,
+        "min": 0.9855315917,
+        "max": 15.5753024427,
+        "negative": 0,
+        "zero": 0,
+        "positive": 7
+      },
+      "1p_g": {
+        "rank": 8,
+        "min": 0.3435486873,
+        "max": 11.0541778335,
+        "negative": 0,
+        "zero": 0,
+        "positive": 8
+      },
+      "1pp_g": {
+        "rank": 8,
+        "min": 0.3435486873,
+        "max": 11.0541778335,
+        "negative": 0,
+        "zero": 0,
+        "positive": 8
+      },
+      "3g": {
+        "rank": 72,
+        "min": -2.247078783,
+        "max": 10.0386005426,
+        "negative": 15,
+        "zero": 3,
+        "positive": 54
+      },
+      "1u": {
+        "rank": 8,
+        "min": -1.0052769415,
+        "max": 9.0367139216,
+        "negative": 2,
+        "zero": 0,
+        "positive": 6
+      },
+      "1p_u": {
+        "rank": 8,
+        "min": -2.7768623262,
+        "max": 7.4728038933,
+        "negative": 3,
+        "zero": 0,
+        "positive": 5
+      },
+      "1pp_u": {
+        "rank": 8,
+        "min": -2.7768623262,
+        "max": 7.4728038933,
+        "negative": 3,
+        "zero": 0,
+        "positive": 5
+      },
+      "3u": {
+        "rank": 69,
+        "min": -1.0481836817,
+        "max": 11.7428691951,
+        "negative": 6,
+        "zero": 0,
+        "positive": 63
+      }
+    },
+    "projector_idempotence_max_fro": {
+      "O_h": 7.97e-15,
+      "T_h": 1.04e-14
+    },
+    "projector_commutator_max_fro": {
+      "O_h": 5.38e-14,
+      "T_h": 6.32e-14
+    }
   }
 }
