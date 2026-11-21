@@ -1,7 +1,7 @@
 # C60 — audit della determining sequence Choksi–Fonseca
 
 Data: 2026-11-21  
-Classificazione: **correzione matematica necessaria; rilassazione C60 ancora aperta**  
+Classificazione: **successione determinante e due casi energetici identificati; rilassazione generale ancora aperta**  
 Ambito: successione continua strip+cap descritta in `scripts/c60_dpo_energy.py` e in `docs/C60_DPO_FORMAL_PROOF_2026-11-21.md`.
 
 ## 1. Definizione CF da usare
@@ -77,12 +77,14 @@ I numeri archiviati restano risultati numerici del codice:
 - somma: 84.5713052885;
 - stime scalate di `∫strip |∇g_h|²`: 129.8960, 229.7719, 444.4263.
 
-Ma la somma 84.5713 **non è stata dimostrata come energia CF di `(g,G)`**.
-Per la successione continua essa è interpretabile come candidato al costo TV
-della regolarizzazione che converte il salto in gradiente concentrato nello
-strip, a condizione che la quadratura e la costruzione siano validate.
-Non è il valore dell'infimo CF, né una prova che la successione sia
-determining per la coppia strutturata.
+La somma 84.5713 è il costo della successione costante `u_n=g` per
+`W(F)=|F|_F` e `ψ(a,ν)=|a|`; poiché `∇_Σg=G`, questa è una determining
+sequence CF. La semicontinuità inferiore della variazione totale del salto
+e del bulk prova che il costo coincide con l'infimo in questo caso.
+Analogamente, per `W(F)=|F|_F²` e la stessa densità interfaciale, il totale
+103.47456933 coincide con l'infimo. Le cifre interfaciali restano quadrature
+numeriche su tutti i 90 spigoli, non valori simbolici esatti. La prova è in
+`theorems/C60_CF_MINIMALITY_CONVEX_BULK_NORM_JUMP_2026-11-21.md`.
 
 Il test quadratico è un'evidenza numerica coerente con crescita `C/h` per
 la regolarizzazione continua; non prova da solo un limite asintotico e non
@@ -96,21 +98,35 @@ su tutti i 90 spigoli con 200 campioni per spigolo. È invece l'integrale
 quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 
 
-## 4. Correzioni necessarie ai documenti
+## 4. Estensione al costo interfaciale quadratico
+
+Per `ψ₂(a,ν)=|a|²`, la variazione totale non dà un limite inferiore positivo
+sul salto macroscopico. È stata costruita una recovery sequence globale per
+il complesso C60: su una striscia di larghezza `δ_m` interna a una faccia,
+ciascun salto viene ripartito in `m` salti paralleli di ampiezza `O(1/m)`;
+le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
+`O(1/m+δ_m+r_m)→0`, con convergenza CF e costo bulk convergente a
+`∫_ΣW(G)`. Pertanto, per `W=|F|_F` o `W=|F|_F²`, il rilassamento con
+`ψ₂=|a|²` è il solo costo bulk. La costruzione è in
+`theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
+
+## 5. Correzioni necessarie ai documenti
 
 1. Rimuovere la frase che afferma `∇g_h ⇀* Dg` come proprietà CF della
    determining sequence.
 2. Non classificare come provata la verifica CF (A4) per la successione
    continua.
-3. Non chiamare 84.5713052885 `I(g,G)`; denominarlo
-   `E_TV^{candidate}(g_h)` o costo TV candidato della regolarizzazione.
+3. Per `ψ=|a|`, i valori 84.5713052885 e 103.4745693333 identificano
+   rispettivamente `I_{W_1}(g,G)` e `I_{W_2}(g,G)`, con interfaccia
+   quadraturata numericamente. Non attribuire questa conclusione a densità
+   interfaciali diverse.
 4. Mantenere separati `Dg`, `G𝓗²`, `(∇g−G)𝓗²` e
    `[g]⊗ν_g 𝓗¹⌞J_g`.
 5. Non inferire dalla divergenza numerica quadratica che la crescita lineare
    sia l'unica energia ammissibile. La scelta di `W,ψ` e le ipotesi di
    rilassamento devono essere dichiarate e verificate separatamente.
 
-## 5. Programma corretto
+## 6. Programma corretto
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
   `g`, il campo `G` e quindi `M=∇_Σg−G`.
@@ -122,11 +138,11 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
-- **E. Rilassazione:** confrontare il costo della successione costruita con
-  il cell formula CF; solo il limite inferiore universale e una recovery
-  sequence ottimale possono identificare l'infimo.
+- **E. Rilassazione generale:** restano da studiare densità interfaciali
+  anisotrope/non separabili e bulk non convessi; i casi `ψ=|a|` e `ψ=|a|²`
+  con i due bulk indicati sono identificati nei teoremi dedicati.
 
-## 6. Stato
+## 7. Stato
 
 | Affermazione | Stato aggiornato |
 |---|---|
@@ -134,9 +150,14 @@ quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 | `G^TG=I₂ ⇒ rank G=2` | Provata algebricamente |
 | Valori numerici TV/quadratico dello schema strip | Archiviati; quadratura strip campionaria |
 | `g_h` continuo determina la coppia CF `(g,G)` | **Falso in generale** se `[g]≠0` e si richiede il limite CF `G𝓗²` |
-| Esistenza di una vera determining sequence CF C60 | Aperta |
-| Formula di rilassamento e valore `I(g,G)` | Aperta |
+| Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
+| Costruzione CF per campi bulk alternativi con `M≠0` | Aperta |
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
 
-**Classificazione complessiva:** il calcolo energetico è un audit numerico di
-una regolarizzazione continua; la costruzione CF per la coppia `(g,G)` e la
-sua rilassazione restano problemi aperti.
+**Classificazione complessiva:** la coppia C60 corrente ha una determining
+sequence esplicita `u_n=g`. I funzionali con `W=|F|_F` o `W=|F|_F²` e
+`ψ=|a|` sono identificati. Restano aperti il rilassamento per densità
+interfaciali anisotrope più generali, il caso `M≠0` e la generalizzazione
+integrale CF alla classe generale delle superfici poliedrali.

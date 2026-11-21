@@ -15,7 +15,8 @@ Sia `Σ` la superficie del icosaedro troncato (compatta, 32 facce piane,
 
 ```
 g(x) = g_f(x)  per x ∈ relint(f),   g_f(x) = Q_f x + t_f
-```\n
+```
+
 con `Q_f ∈ SO(3)` e `Q_f|_{T_f} = B_f D_f B_f^T` (rotazione che agente
 sul piano tangente realizza `D_f ∈ SO(2)`).
 
@@ -68,16 +69,18 @@ D^s_Σu_n ⇀* (∇_Σg−G)𝓗² + [g]⊗ν_g 𝓗¹⌞J_g.
 ```
 I micro-salti degli approssimanti sono dunque essenziali in generale.
 
-**Stato corretto.** Le stime geometriche strip/cap e i valori TV restano
-calcoli sulla regolarizzazione continua. L'esistenza e la costruzione di
-una vera determining sequence CF per la coppia C60 `(g,G)` restano aperte.
-Vedere `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md` per la
-derivazione, la riclassificazione energetica e il programma corretto.
+**Stato corretto.** Le stime geometriche strip/cap riguardano soltanto la
+regolarizzazione continua. Per la coppia C60 corrente, la successione
+costante `u_n=g` è una determining sequence perché `∇_Σg=G` faccia per
+faccia. Per `ψ(a,ν)=|a|` e `W(F)=|F|_F` oppure `|F|_F²`, il valore
+rilassato è inoltre identificato da un limite inferiore di variazione totale
+e dalla semicontinuità del bulk; vedi
+`theorems/C60_CF_MINIMALITY_CONVEX_BULK_NORM_JUMP_2026-11-21.md`.
 
 ## 2A. Determining sequence CF esplicita per la coppia corrente
 
 Le definizioni faccia-per-faccia danno `∇_Σg|_f=G_f=B_fD_f` nella carta
-ortonormale `B_f). Quindi `M=∇_Σg−G=0` a.e. La successione costante
+ortonormale `B_f`. Quindi `M=∇_Σg−G=0` a.e. La successione costante
 `u_n=g` appartiene a `SBV(Σ;R³)`, converge a `g` in `L¹` e soddisfa
 `∇_Σu_n𝓗²=G𝓗²` per ogni `n`. È pertanto una determining sequence nella
 formulazione intrinseca sul complesso poliedrale. La dimostrazione dettagliata
@@ -100,11 +103,26 @@ trapezoidale a 200 campioni per spigolo. I valori risultanti sono:
 - `W(F)=|F|_F`: `45.63651643+38.93478886=84.57130529`;
 - `W(F)=|F|_F²`: `64.53978047+38.93478886=103.47456933`.
 
-Sono costi di una successione determinante ammissibile e quindi limiti
-superiori per il funzionale rilassato, non identificazioni dell'infimo.
+Per `ψ(a,ν)=|a|`, questi valori identificano il funzionale rilassato per
+entrambi i bulk indicati, non soltanto un upper bound: la stima inferiore
+interfaciale segue dalla semicontinuità della variazione totale di
+`D^s_Σu_n`, quella bulk dalla semicontinuità debole-* in norma o dalla
+semicontinuità debole in `L²`. La dimostrazione completa è nel teorema
+`theorems/C60_CF_MINIMALITY_CONVEX_BULK_NORM_JUMP_2026-11-21.md`.
 La divergenza `C/h` misurata sugli strip riguarda soltanto la diversa
 regolarizzazione continua e non esclude la crescita quadratica nel problema
 CF.
+
+## 2C. Rilassamento della densità interfaciale quadratica
+
+Per `ψ₂(a,ν)=|a|²`, la successione costante non è ottimale. È stata però
+costruita una recovery sequence SBV che sostituisce ogni salto macroscopico
+lungo gli spigoli con `m` salti paralleli di ampiezza `O(1/m)` in una striscia
+di larghezza tendente a zero. Le stime danno costo interfaciale `O(1/m+δ_m+r_m)`
+che tende a zero, mentre `u_m→g` in `L¹`, `∇_Σu_m𝓗²⇀*G𝓗²` e il costo bulk
+converge a `∫_ΣW(G)`. Per `W=|F|_F` e `W=|F|_F²` il valore rilassato è quindi
+il solo integrale bulk. Dimostrazione in
+`theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
 
 ## 3. Immersione e embeddedness degli approssimanti
 
@@ -142,6 +160,8 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | Contributo strip TV | Stima numerica/candidata; quadratura non esaustiva |
 | Immersione locale degli `g_h` | Numerico (σ_min > 0, margine piccolo) |
 | Embeddedness globale | Sonda numerica positiva, non esaustiva |
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica
