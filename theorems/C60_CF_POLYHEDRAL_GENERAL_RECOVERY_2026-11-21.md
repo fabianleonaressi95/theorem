@@ -59,8 +59,8 @@ concentrare energia bulk/transizioni — vedi G5).
 | G1 | Liminf isotropo su `Σ` | `liminf E_W ≥ ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` | **Provato** (stessa prova della sezione §3.1 di `C60_CF_GENERAL_ISOTROPIC_RECOVERY`, estesa a `Σ` perché `D_Σ g − G𝓗²` è una misura e `|μ|_*` si decomprime sulle parti AC e singolare; le ipotesi sono solo misure finite) |
 | G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI (ipotesi §5.1 del documento C60 verificabili: facce = poligoni convessi Lipschitz, `g_0(t)=t`, `g(a,ν)=|a|`). **Non** garantisce tracce — vedi G4a |
 | G3 | Medie simpliciali di `G` | `G_j|_T = ⨍_T G` sulla stessa partizione CFI | **Provato**: mesh `≤cε→0` ⇒ convergenza forte in `L^p` ⇒ in variazione totale delle misure |
-| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | **Dimostrato**: lemma di incollaggio + G4a (CFI Cor. 2.3 + tracce BV) + G4b (teorema poliedrale esteso a piecewise-affine con salti, §4.2) |
-| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Chiudibile per `θ_v<2π`** (copre C60): `B_r(v)` è un settore conico piatto → stessa catena piana; residuo →0 per equi-integrabilità. Aperto solo per `θ_v≥2π` e per la verifica dettagliata delle tracce sugli archi `∂B_r(v)∩Γ` |
+| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | Lemma + G4a **dimostrati**; G4b: estensione cella-per-cella **scritta** (§4.2), da verificare nei dettagli di convergenza dei costi sulle interfacce di salto |
+| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Ridotto, non dimostrato**: `B_r(v)` è un settore conico piatto, ma servono stima uniforme della recovery locale, controllo dei raccordi sugli archi `∂B_r∩Γ` e ordine dei limiti esplicito (§5.3). `θ_v≥2π` resta aperto |
 
 ## 4. G4 — Lemma locale di incollaggio SBV (DIMOSTRATO)
 
@@ -190,7 +190,7 @@ Tr_Γ u_{j,k(j)} → Tr_Γ g   in L¹(Γ)   per ogni spigolo Γ,
 
 e il lemma §4 chiude il costo inter-faccia.
 
-**G4b — CHIUSO (estensione del teorema poliedrale).** La
+**G4b — estensione scritta, da verificare.** La
 costruzione SVD si applica a `g_j` piecewise-affine con jump set
 poliedrale senza modifiche, per restrizione:
 
@@ -286,21 +286,33 @@ Per la costruzione esplicita, su ogni cella `P` che incontra
 
 ### 5.3 Stato
 
-**G5 — chiudibile per `θ_v<2π`** (copre C60: `θ_v=138°`):
-la prova è la catena piana applicata al settore conico + la
-stima §5.2. Resta da scrivere in dettaglio la verifica che le
-partizioni CFI sul settore possano essere scelte compatibili con
-quelle delle facce adiacenti lungo gli archi `∂B_r(v)` — ma
-quelle interfacce sono interne alle facce (il bordo del disco
-non coincide con gli spigoli `Γ` tranne nei punti di intersezione
-`B_r(v)∩Γ`, insieme finito di archi): la convergenza delle
-tracce lì è la stessa di G4a applicata al dominio
-`f∖B_r(v)` con bordo formato da segmenti e archi.
+**G5 — RIDOTTO, non ancora dimostrato.** Per `θ_v<2π` (copre C60:
+`θ_v=138°`) la strategia è: settore conico piatto + stessa catena
+piana + stima §5.2. Ma la stima §5.2 da sola **non basta**:
+equi-integrabilità di `G_j` e finitezza della misura di salto
+controllano i termini del funzionale limite, non l'energia delle
+recovery `u_{j,k}` nei settori. Servono:
 
-Per `θ_v≥2π` (non richiesto da C60) serve una variante: parte
-`Σ` in carte coniche o usa la unfolding del rivestimento
-universale del settore — **aperto come estensione**, non come
-ostacolo per C60.
+1. una **stima uniforme della recovery locale** nei settori —
+   le stesse maggiorazioni per cella (bulk `|P∩B_r|W(G_j)`,
+   mismatch `|P∩B_r|‖M_P‖_*`, salti `∫_{J_{g_j}∩B_r}|[g_j]|`)
+   vanno sommanti e mostrate uniformi in `(j,k)`;
+2. il **controllo dei costi di interfaccia** introdotti dal
+   raccordo lungo gli archi `∂B_r(v)∩Γ` (non solo la convergenza
+   delle tracce di `g_j`, ma delle recovery `u_{j,k}`);
+3. un **ordine dei limiti esplicito**: prima `k→∞` (recovery
+   interna), poi `j→∞`, poi `r↓0` — oppure una diagonale che
+   renda il residuo nullo.
+
+La piattezza del settore garantisce che la *catena* si applichi
+in linea di principio, ma non sostituisce la stima energetica.
+Per `θ_v≥2π` serve inoltre una variante geometrica — **aperto**,
+non necessario per C60.
+
+**Conseguenza per la classificazione**: il risultato finale su
+C60 isotropo **non è dichiarato completo** finché G4b (dettagli
+delle interfacce di salto) e G5 (stima uniforme + ordine dei
+limiti) non sono dimostrati e incorporati nella diagonale.
 
 ## 6. Teorema obiettivo (condizionale, NON dimostrato)
 
@@ -317,12 +329,10 @@ G4a + G4b) + G5, con diagonale debole-* già formalizzata.
 
 - **Piano isotropo**: dimostrato (documento GIR §5, ipotesi CFI
   verificate, partizioni mesh→0, diagonale debole-*).
-- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, **G4a, G4b**
-  provati; **G5 chiudibile per `θ_v<2π`** (i 60 vertici C60
-  hanno `θ_v<2π`) — resta solo la verifica dettagliata delle
-  tracce sugli archi `∂B_r(v)∩Γ` e, per la classe generale,
-  il caso `θ_v≥2π`. **La catena G1–G5 è completa per C60
-  isotropo**: identità
-  `I_W^Σ = ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` nel perimetro dichiarato,
-  subordinata alla stesura finale dei dettagli G5.
+- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, G4a provati.
+  **G4b**: estensione cella-per-cella scritta, da verificare.
+  **G5**: ridotto alla stima uniforme sui settori conici +
+  compatibilità delle tracce sugli archi + ordine dei limiti —
+  **non ancora dimostrato**. Il risultato finale resta
+  subordinato alla chiusura di questi due punti.
 - **Anisotropo, `|a|²`, embeddedness**: fuori scope.
