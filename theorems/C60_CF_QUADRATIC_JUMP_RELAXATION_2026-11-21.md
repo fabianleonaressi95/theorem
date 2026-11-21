@@ -6,7 +6,7 @@ Prerequisito: `theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
 
 ## 1. Funzionale
 
-Per una densità bulk `W), si consideri il funzionale rilassato sulle successioni determinanti CF della coppia C60 corrente:
+Per una densità bulk `W, si consideri il funzionale rilassato sulle successioni determinanti CF della coppia C60 corrente:
 
 ```
 I_{W,2}(g,G) := inf liminf_m [
@@ -84,7 +84,7 @@ La successione è quindi determinante per la coppia C60.
 
 ### Costo interfaciale quadratico
 
-Per ogni spigolo, i `m` salti paralleli hanno ampiezza al più `C_e/m` e lunghezza al più `|e|). Il loro costo totale è limitato da
+Per ogni spigolo, i `m` salti paralleli hanno ampiezza al più `C_e/m` e lunghezza al più `|e|. Il loro costo totale è limitato da
 
 ```
 m |e| (C_e/m)² ≤ C_e² |e|/m.
@@ -101,7 +101,7 @@ Sommando sui finitissimi spigoli,
 
 ### Costo bulk
 
-I gradienti negli strati sono uniformemente limitati e l'area modificata è `O(δ_m)`. Per entrambi gli integrandi continui `W_1(F)=|F|_F` e `W_2(F)=|F|_F²),
+I gradienti negli strati sono uniformemente limitati e l'area modificata è `O(δ_m)`. Per entrambi gli integrandi continui `W_1(F)=|F|_F` e `W_2(F)=|F|_F²,
 
 ```
 ∫_Σ W_i(∇_Σu_m) d𝓗² → ∫_Σ W_i(G) d𝓗².
@@ -109,7 +109,7 @@ I gradienti negli strati sono uniformemente limitati e l'area modificata è `O(�
 
 ## 5. Teorema
 
-**Teorema.** Per la coppia C60 corrente con `∇_Σg=G`, per ciascuno dei bulk `W_1(F)=|F|_F` e `W_2(F)=|F|_F²`, e per la densità interfaciale quadratica `ψ_2(a,ν)=|a|²), vale
+**Teorema.** Per la coppia C60 corrente con `∇_Σg=G`, per ciascuno dei bulk `W_1(F)=|F|_F` e `W_2(F)=|F|_F²`, e per la densità interfaciale quadratica `ψ_2(a,ν)=|a|², vale
 
 ```
 I_{W_i,2}(g,G) = ∫_Σ W_i(G) d𝓗².
