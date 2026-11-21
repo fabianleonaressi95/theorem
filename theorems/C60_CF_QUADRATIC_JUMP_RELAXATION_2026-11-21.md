@@ -80,7 +80,17 @@ che è uniformemente limitato, poiché `g^-` e `h_e` sono affini e il complesso 
 ∇_Σu_m 𝓗² ⇀* G 𝓗².
 ```
 
-La successione è quindi determinante per la coppia C60.
+La differenza `∇_Σu_m−G` è uniformemente limitata e supportata nelle strisce
+che hanno area `O(δ_m)`. Ne segue anche la convergenza forte
+`∇_Σu_m→G` in `L^p(Σ)` per ogni `1≤p<∞`, in particolare in `L²`.
+
+La variazione totale dei salti è uniformemente limitata: le `m` interfacce
+principali contribuiscono al più `m·|e|·(C_e/m)=C_e|e|`, mentre le sezioni
+terminali e i tratti macroscopici residui hanno contributo `O(δ_m+r_m)`.
+Insieme al controllo uniforme del gradiente assolutamente continuo,
+`sup_m |D_Σu_m|(Σ)<∞` e `sup_m ||∇_Σu_m||_{L^p}<∞` per ogni `p<∞`.
+La successione è quindi determinante anche sotto questi controlli uniformi
+più forti.
 
 ### Costo interfaciale quadratico
 
