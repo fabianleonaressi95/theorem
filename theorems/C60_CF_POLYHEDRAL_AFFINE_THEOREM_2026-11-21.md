@@ -81,6 +81,56 @@ spigoli (numero finito) e il bulk esatto `Σ_f|f|W(G̃_f)` (il gradiente
 coincide con `G̃_f` a.e.) danno `limsup_h E_W(v_h) ≤` formula
 candidata.
 
+
+## 2bis. Estensione a dati piecewise-affine con salti interni — G4b
+
+L'enunciato e la costruzione della §2 valgono senza modifiche per una
+partizione poliedrale finita P={T} della superficie, quando
+
+- g|T(x)=A_T x+b_T su ogni cella T, senza imporre continuità
+  tra celle adiacenti (i salti su ∂T fanno parte di J_g);
+- G̃|T=G_T è costante su ogni cella;
+- ogni cella è un poligono limitato e la collezione delle interfacce
+  interne è finita.
+
+Su ogni cella si pone M_T=A_T−G_T e si applica la decomposizione
+SVD e la costruzione v_{h,T} della §2, con fase zero. Per ogni
+x∈T̄, inclusi tutti i lati,
+
+  ||v_{h,T}−g|T||_{L∞(T̄)} ≤ h ||M_T||_*.
+
+Sia e=T⁻∩T⁺ un'interfaccia interna. Le tracce sono definite
+lato per lato e non si richiede che coincidano. Pertanto
+
+  ||[v_h]−[g]||_{L¹(e)}
+  ≤ h H¹(e)(||M_{T⁻}||_*+||M_{T⁺}||_*).
+
+Sommando sulle interfacce (ognuna contata una sola volta),
+
+  Σ_e ||[v_h]−[g]||_{L¹(e)} ≤ h C(P,g,G̃),
+
+dove C=Σ_e H¹(e)(||M_{T⁻}||_*+||M_{T⁺}||_*)<∞ è indipendente
+da h. Ne segue la convergenza in L¹ dei salti su tutte le
+interfacce, e quindi la convergenza dei relativi costi ∫_e|[v_h]|
+per la continuità della norma in L¹. I salti interni della funzione
+macroscopica non vengono né cancellati né contati due volte.
+
+Il numero di celle e interfacce, e dunque C, può dipendere
+fortemente dall'indice di densità j. Non si afferma una costante
+uniforme in j. Nella diagonale si sceglie invece, per ogni j,
+il parametro h_j abbastanza piccolo da imporre h_j C_j≤1/j,
+insieme alle usuali condizioni su errore L¹, energia e test della
+convergenza debole-*. Questo è sufficiente: la costante è uniforme
+rispetto al parametro microscopico h a j fissato, non deve esserlo
+rispetto alla raffinazione esterna.
+
+**Conclusione G4b.** La recovery SVD e la convergenza delle tracce
+valgono per ogni dato piecewise-affine su una partizione poliedrale
+finita, anche con salti interni. La sola uniformità richiesta è
+quella in h per ogni partizione fissata, fornita dalla stima
+esplicita sopra. ∎
+
+
 ## 3. Lower bound
 
 Per ogni successione determinante, il lemma di liminf del costo di
