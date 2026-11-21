@@ -19,5 +19,13 @@
     "0.03072865": 48
   },
   "row_edge_correspondence": "NOT IDENTIFIED: no row_to_edge array or construction metadata is present.",
-  "required_missing_artifact": "192-entry row_to_edge mapping and row orientation/sign convention."
+  "required_missing_artifact": "192-entry row_to_edge mapping and row orientation/sign convention.",
+  "row_leverage_score_counts_rounded_1e8": {
+    "0.01657956": 24,
+    "0.01658672": 24,
+    "0.01659425": 48,
+    "0.01939999": 24,
+    "0.02509162": 48,
+    "0.03072865": 24
+  }
 }
