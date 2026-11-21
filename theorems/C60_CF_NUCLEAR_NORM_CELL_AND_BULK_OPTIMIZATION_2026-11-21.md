@@ -98,29 +98,29 @@ Sia \\(A=U\\operatorname{diag}(s_1,s_2)V^T\\) una SVD compatta, con \\(s_i\\ge0\
 \\]
 Ogni coordinata è minimizzata da
 \\[
-x_i^*=(s_i-\\lambda/2)_+.
+x_i^*=\\min(s_i,\\lambda/2).
 \\]
 Pertanto
 \\[
-\\boxed{G^*=U\\operatorname{diag}((s_i-\\lambda/2)_+)V^T,}
+\\boxed{G^*=U\\operatorname{diag}(\\min(s_i,\\lambda/2))V^T,}
 \\]
 e il difetto ottimo è
 \\[
 \\boxed{M^*=A-G^*
-=U\\operatorname{diag}(\\min(s_i,\\lambda/2))V^T.}
+=U\\operatorname{diag}((s_i-\\lambda/2)_+)V^T.}
 \\]
 Il valore minimo per faccia, prima del fattore area, è
 \\[
-\\sum_i\\left[(s_i-\\lambda/2)_+^2
-+\\lambda\\min(s_i,\\lambda/2)\\right].
+\\sum_i\\left[\\min(s_i,\\lambda/2)^2
++\\lambda(s_i-\\lambda/2)_+\\right].
 \\]
 
-**Precisazione sul rango.** Per \\(\\lambda>0\\), ogni valore singolare positivo di \\(A\\) produce un valore singolare positivo di \\(M^*\\). Quindi \\(\\operatorname{rank}M^*=\\operatorname{rank}A\\): non è corretto dire che il difetto ottimo diventa rango uno quando una sola singolarità supera la soglia. È invece il campo ottimo \\(G^*\\) ad avere rango pari al numero di singolarità di \\(A\\) che superano \\(\\lambda/2\\). Per \\(A\\) di rango due, il difetto ottimo resta di rango due per ogni \\(\\lambda>0\\), anche quando \\(G^*\\) ha rango uno o zero.
+**Precisazione sul rango.** Per \\(\\lambda>0\\), ogni valore singolare positivo di \\(A\\) produce un valore singolare positivo di \\(G^*\\), quindi \\(\\operatorname{rank}G^*=\\operatorname{rank}A\\). Il difetto \\(M^*\\) ha rango pari al numero di singolarità di \\(A\\) che superano strettamente \\(\\lambda/2\\). In particolare, se \\(s_1>\\lambda/2\\ge s_2>0\\), allora \\(M^*\\) ha rango uno: è precisamente il caso di rango uno del difetto ottimo. Se entrambe superano la soglia, il difetto ha rango due; se nessuna la supera, il difetto è nullo.
 
 Per il candidato C60 con \\(A_f^TA_f=I_2\\), le due singolarità sono entrambe 1; dunque
 \\[
-G_f^*=(1-\\lambda/2)_+A_f,\\qquad
-M_f^*=\\min(1,\\lambda/2)A_f.
+G_f^*=\\min(1,\\lambda/2)A_f,\\qquad
+M_f^*=(1-\\lambda/2)_+A_f.
 \\]
 Questa formula è una soluzione del problema penalizzato specificato, non un'affermazione che \\(G\\) sia libero in ogni modello cinematico DPO.
 
