@@ -284,6 +284,146 @@ Per la costruzione esplicita, su ogni cella `P` che incontra
   da integrali di funzioni equi-integrabili su insiemi di misura
   →0.
 
+
+### 5.4 G5 — chiusura tramite convergenza locale delle misure energetiche
+
+**Non occorre costruire un riempimento separato del disco conico.**
+Si usa un'unica recovery SVD globale, definita cella per cella su
+tutta la superficie, comprese le porzioni che contengono i vertici.
+In questo modo non esiste un'interfaccia artificiale
+\(\partial B_r(v)\) sulla quale imporre una nuova condizione di
+traccia: la stessa funzione recovery è già definita da entrambi i
+lati di ogni arco.
+
+La dimostrazione richiede la convergenza delle **misure energetiche**,
+non soltanto quella dei valori totali.
+
+Per una coppia poliedrale fissata \((g_j,G_j)\), sia
+\(\mathcal P_j\) la partizione finita, con
+\(g_j|_T(x)=A_Tx+b_T\), \(G_j|_T=G_T\), e
+\(M_T=A_T-G_T\). Definiamo la misura candidata
+\[
+\Lambda_j =
+ W(G_j)\,\mathcal H^2
+ +\|\nabla_\Sigma g_j-G_j\|_*\,\mathcal H^2
+ +|[g_j]|\,\mathcal H^1\!\llcorner J_{g_j}.
+\]
+Sia \(u_{j,h}\) la recovery SVD della §2bis del teorema
+poliedrale. La misura energetica è
+\[
+\Lambda_{j,h} =
+ W(\nabla_\Sigma u_{j,h})\,\mathcal H^2
+ +|[u_{j,h}]|\,\mathcal H^1\!\llcorner J_{u_{j,h}}.
+\]
+
+**Lemma (convergenza locale per partizione fissata).**
+Per ogni \(j\) fissato,
+\[
+\Lambda_{j,h}\stackrel{*}{\rightharpoonup}\Lambda_j
+\quad\text{in }\mathcal M(\Sigma),\qquad h\downarrow0.
+\]
+
+*Dimostrazione.* Il bulk è esattamente \(W(G_j)\) quasi ovunque
+su ogni cella. Per ogni singolo termine singolare
+\(\sigma_i a_i\otimes\nu_i\) della SVD su \(T\), la misura
+dei micro-salti, testata contro \(\varphi\in C(\Sigma)\), è
+[
+ h\sigma_i\sum_{k\in\mathbb Z}
+ \int_{T\cap\{x\cdot\nu_i=kh\}}\varphi\,d\mathcal H^1
+ \longrightarrow
+ \sigma_i\int_T\varphi\,d\mathcal H^2.
+]
+È la formula di coarea seguita da una somma di Riemann; vale anche
+per celle poligonali tagliate dai lati della superficie. Sommando
+sugli indici singolari e sulle finitissime celle si ottiene la
+misura limite
+\(\|M_T\|_*\mathcal H^2\llcorner T\).
+Sulle interfacce tra celle, la stima uniforme fino alla chiusura
+delle celle implica la convergenza uniforme dei salti; dunque le
+misure \(|[u_{j,h}]|\mathcal H^1\) sulle interfacce convergono
+a \(|[g_j]|\mathcal H^1\). Le intersezioni tra famiglie di
+laminazione e interfacce sono insiemi finiti di punti e non
+portano massa \(\mathcal H^1\). Non vi sono altri contributi.
+Questo prova la convergenza debole-* delle misure. \(\square\)
+
+**Passaggio alla diagonale.** La convergenza CFI stretta in BV
+sulle facce, insieme alla convergenza forte delle tracce sugli
+spigoli già dimostrata in G4a, dà la convergenza debole-* delle
+misure di variazione totale su tutta \(\Sigma\). Sottraendo la
+parte bulk, che converge fortemente in \(L^1\), si ottiene
+[
+ |[g_j]|\mathcal H^1\!\llcorner J_{g_j}
+ \stackrel{*}{\rightharpoonup}
+ |[g]|\mathcal H^1\!\llcorner J_g.
+]
+Inoltre \(G_j\to G\) e \(\nabla g_j\to\nabla g\)
+fortemente in \(L^p\), perciò le due densità assolutamente
+continue di \(\Lambda_j\) convergono in \(L^1\)
+(anche per \(W(F)=|F|_F^2\), usando \(p=2\)).
+Ne segue
+\[
+\Lambda_j\stackrel{*}{\rightharpoonup}
+\Lambda:=
+ W(G)\mathcal H^2
+ +\|\nabla_\Sigma g-G\|_*\mathcal H^2
+ +|[g]|\mathcal H^1\!\llcorner J_g.
+]
+Si sceglie ora \(h_j\downarrow0\) diagonalmente, imponendo
+simultaneamente la convergenza della successione determinante,
+dell'energia e di una famiglia densa di test continui per
+\(\Lambda_{j,h_j}-\Lambda_j\). Allora
+\[
+\Lambda_{j,h_j}\stackrel{*}{\rightharpoonup}\Lambda.
+\]
+
+**Conseguenza ai vertici.** La misura \(\Lambda\) non ha atomi:
+le sue prime due parti sono assolutamente continue rispetto a
+\(\mathcal H^2\), mentre la parte di salto è assolutamente
+continua rispetto a \(\mathcal H^1\) su un insieme rettificabile;
+in particolare \(\Lambda(\{v\})=0\). Per ogni raggio \(s\)
+tale che \(\Lambda(\partial B_s(v))=0\), la convergenza delle
+misure dà
+\[
+\Lambda_{j,h_j}(B_s(v))\longrightarrow\Lambda(B_s(v)).
+\]
+Poiché \(B_s(v)\downarrow\{v\}\), il membro destro tende a zero
+per \(s\downarrow0\). Per raggi eventualmente eccezionali si
+usa la monotonia: scelto un raggio di continuità
+\(s\in(r,2r)\),
+\[
+\limsup_j\Lambda_{j,h_j}(B_r(v))
+\le\Lambda(B_s(v)),
+]
+e il lato destro tende comunque a zero. Pertanto
+\[
+\lim_{r\downarrow0}\limsup_j
+ E_W(u_{j,h_j};B_r(v))=0.
+\]
+Anche \(\mathcal F(g,G;B_r(v))\to0\), quindi
+[
+\lim_{r\downarrow0}\limsup_j
+\left|E_W(u_{j,h_j};B_r(v))
+-\mathcal F(g,G;B_r(v))\right|=0.
+]
+Questa è più forte del controllo del solo residuo superiore
+richiesto da G5.
+
+**Precisazione sul riempimento.** Se si scegliesse invece di
+costruire separatamente la recovery fuori da \(B_r(v)\), allora
+sarebbe necessario un lemma di estensione con traccia prescritta
+sull'arco conico, uniforme nella successione. La dimostrazione
+precedente evita quel problema: non taglia la recovery e non
+incolla un riempimento; controlla direttamente la misura energetica
+della successione globale. Non usa la stima non dimostrata
+\(O(r)\) del solo perimetro né l'asserzione che l'area piccola
+impedisca da sé concentrazioni.
+
+**Stato G5: DIMOSTRATO** per la recovery globale SVD su partizioni
+poliedrali finite, subordinatamente alle convergenze CFI e alle
+tracce G4a già enunciate. Non è una prova di un lemma generale di
+riempimento con traccia assegnata: quel problema separato resta
+aperto e non è necessario per questa costruzione.
+
 ### 5.3 Stato
 
 **G5 — RIDOTTO, non ancora dimostrato.** Per `θ_v<2π` (copre C60:
