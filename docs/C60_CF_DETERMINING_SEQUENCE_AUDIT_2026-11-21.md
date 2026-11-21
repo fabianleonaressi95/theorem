@@ -206,6 +206,11 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 una regolarizzazione continua; la costruzione CF per la coppia `(g,G)` e la
 sua rilassazione restano problemi aperti.
 | Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | **Identificata:** norma nucleare `‖M_f‖_*` (cell problem SVD) |
+| Densità interfaciali non normate o anisotrope (`ψ=|a|²` per `M=0` è già identificata: rilassamento nullo) | Aperta |
 | Costruzione CF per campi bulk alternativi con `M≠0` | **Provata** per campi costanti faccia-per-faccia |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
