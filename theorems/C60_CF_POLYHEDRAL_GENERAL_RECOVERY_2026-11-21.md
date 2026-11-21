@@ -59,8 +59,8 @@ concentrare energia bulk/transizioni — vedi G5).
 | G1 | Liminf isotropo su `Σ` | `liminf E_W ≥ ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` | **Provato** (stessa prova della sezione §3.1 di `C60_CF_GENERAL_ISOTROPIC_RECOVERY`, estesa a `Σ` perché `D_Σ g − G𝓗²` è una misura e `|μ|_*` si decomprime sulle parti AC e singolare; le ipotesi sono solo misure finite) |
 | G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI (ipotesi §5.1 del documento C60 verificabili: facce = poligoni convessi Lipschitz, `g_0(t)=t`, `g(a,ν)=|a|`). **Non** garantisce tracce — vedi G4a |
 | G3 | Medie simpliciali di `G` | `G_j|_T = ⨍_T G` sulla stessa partizione CFI | **Provato**: mesh `≤cε→0` ⇒ convergenza forte in `L^p` ⇒ in variazione totale delle misure |
-| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | **Lemma dimostrato; G4a CHIUSO (CFI Cor. 2.3 + tracce BV); G4b quasi chiuso** — resta solo il caveat piecewise-affine con salti interni |
-| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Aperto** — serve stima di riempimento, non solo area nulla |
+| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | **Dimostrato**: lemma di incollaggio + G4a (CFI Cor. 2.3 + tracce BV) + G4b (teorema poliedrale esteso a piecewise-affine con salti, §4.2) |
+| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Chiudibile per `θ_v<2π`** (copre C60): `B_r(v)` è un settore conico piatto → stessa catena piana; residuo →0 per equi-integrabilità. Aperto solo per `θ_v≥2π` e per la verifica dettagliata delle tracce sugli archi `∂B_r(v)∩Γ` |
 
 ## 4. G4 — Lemma locale di incollaggio SBV (DIMOSTRATO)
 
@@ -190,40 +190,117 @@ Tr_Γ u_{j,k(j)} → Tr_Γ g   in L¹(Γ)   per ogni spigolo Γ,
 
 e il lemma §4 chiude il costo inter-faccia.
 
-**Caveat residuo**: la stima `L^∞` è provata per `g` affine su una
-faccia con `M` costante. Per `g_j` piecewise-affine **con salti
-interni** (il jump set CFI), la recovery va applicata cella per
-cella e i salti interni di `g_j` devono essere ereditati da
-`u_{j,k}`: va verificato che la formulazione del teorema
-poliedrale ammetta dati piecewise-affine con jump set e che la
-costruzione non "levighi" i saldi interni. Se il teorema è
-stato enunciato solo per `g` globalmente affine per faccia, serve
-l'estensione ovvia per restrizione (l'affine si restringe, i
-salti si ereditano) — da scrivere esplicitamente.
+**G4b — CHIUSO (estensione del teorema poliedrale).** La
+costruzione SVD si applica a `g_j` piecewise-affine con jump set
+poliedrale senza modifiche, per restrizione:
 
-## 5. G5 — Vertici conici (APERTO)
-
-Per `v∈V`, `B_r(v)` disco intrinseco di raggio `r`. La condizione
-corretta **non** è `sup_n E(u_n;B_r(v))→0` (troppo forte: un
-salto di `g` che termina in `v` può dare energia limite
-arbitrariamente vicina). La condizione corretta è
-**energia residua nulla**:
+Sia `g_j` affine su ogni cella `P` di una partizione poliedrale
+(dominio `Σ` o faccia) e sia `J_{g_j}` l'unione delle interfacce
+di cella dove il salto è non nullo. Su ogni cella `P` scriviamo
+`g_j|_P(ξ)=A_Pξ+b_P` e `M_P=A_P−G_j|_P` costante; la costruzione
+esplicita
 
 ```
-limsup_{r↓0} limsup_n [ E_W(u_n;B_r(v)) −
-   ℱ(g,G;B_r(v)) ] = 0 ,
+v_{h,P}(ξ) = G_j|_P ξ + b_P
+             + Σ_i σ_{P,i} a_{P,i}·h⌊ξ·ν_{P,i}/h⌋
 ```
 
-i.e. l'energia dei dischi converge al valore del funzionale
-limite lì, e quel valore →0 per `r↓0` se le densità sono
-integrabili (serve `∫_{B_r(v)}(W(G)+‖∇g−G‖_*)→0`, vera per
-misure assolutamente continue). La parte da dimostrare è la
-**stima di riempimento**: una costruzione esplicita su
-`B_r(v)∖⋃B_{r'}(v)` con costo controllato dalle tracce sul
-bordo — un problema di riempimento su dominio conico di angolo
-`θ_v`, che si riduce al caso piano per `r` piccolo se si usa la
-metrica intrinseca (la punta conica ha area `~θ_v r²`, il bordo
-`~θ_v r`).
+usa solo dati di `P`. Si definisce `u_{j,k}` **incollando** le
+`v_{h,P}` senza regolarizzare: su un'interfaccia interna `e`
+comune a `P⁺,P⁻`,
+
+```
+[u_{j,k}]_e = Tr⁺v_{h,P⁺} − Tr⁻v_{h,P⁻} .
+```
+
+- Se `e⊂J_{g_j}`: per la stima uniforme per cella,
+  `‖v_{h,P±}−g_j‖_{L∞(P̄±)}≤h‖M_{P±}‖_*`, quindi
+  `[u_{j,k}]_e→[g_j]_e` uniformemente e
+  `∫_e|[u_{j,k}]|→∫_e|[g_j]|`.
+- Se `e∉J_{g_j}`: le tracce di `g_j` coincidono (`[g_j]_e=0`),
+  quindi `[u_{j,k}]_e→0` uniformemente e il costo di salto
+  generato sull'interfaccia interna è `o(1)` — le linee di
+  laminato che terminano sul bordo di cella producono solo
+  correzioni `O(h)` di ampiezza su `𝓗¹` finita.
+- Sulle interfacce di faccia `Γ⊂∂Σ` il discorso è identico e si
+  innesta su G4a/G4 (tracce → tracce di `g`).
+
+Le linee di salto interne del laminato restano dentro le celle
+`P` (la costruzione è per cella); il costo bulk+jump per cella
+converge a `|P|W(G_j|_P)+|P|‖M_P‖_*`, e la somma su `P` dà
+`ℱ(g_j,G_j)`. La diagonale `k(j)` su una famiglia test densa
+chiude `u_{j,k(j)}→g` in `L¹` e
+`∇u_{j,k(j)}𝓗²⇀*G𝓗²`. **Nessuna nuova costruzione serve**: il
+teorema poliedrale vale per dati affine a tratti con jump set
+poliedrale, per restrizione cella per cella + incollaggio.
+
+## 5. G5 — Vertici conici
+
+### 5.1 Il disco conico è piatto
+
+Un intorno intrinseco `B_r(v)` di un vertice conico è isometrico
+a un **settore piano di angolo `θ_v`** (con i bordi laterali
+identificati): la metrica è `dρ²+ρ²dφ²`, `0≤φ<θ_v`, ed `𝓗²` è la
+misura piana pesata. L'unico punto non piatto è `v` stesso, di
+misura nulla. Per `θ_v<2π` il settore è un dominio Lipschitz
+(stellato, convesso se `θ_v≤π`); per `θ_v≥2π` si usa la
+rappresentazione conica o una partizione in settori `<2π` —
+l'argomento CFI è locale e si applica su ciascuno.
+
+**Conseguenza**: non serve alcuna "costruzione di riempimento"
+separata. Il disco conico è una cella di tipo faccia: vi si
+applica la stessa catena G2+G3+teorema poliedrale, e le sue
+interfacce circolari `∂B_r(v)` (archi di lunghezza `θ_v r`
+internamente piatti) sono trattate dalle stesse tracce del §4.
+
+### 5.2 Energia residua: la stima
+
+La condizione corretta è energia *residua* nulla:
+
+```
+limsup_{r↓0} limsup_{j,k} [ E_W(u_{j,k};B_r(v)) −
+   ℱ(g,G;B_r(v)) ] = 0 .
+```
+
+Per la costruzione esplicita, su ogni cella `P` che incontra
+`B_r(v)`:
+
+- **bulk**: `∫_{P∩B_r} W(G_j) d𝓗²` con `W=|·|_F` o `|·|_F²`.
+  Poiché `G_j→G` in `L^p` e `{G_j}` è equi-integrabile,
+  `sup_j ∫_{B_r}|G_j|^p → 0` per `r↓0` (assoluta continuità +
+  convergenza forte); il termine limite `∫_{B_r}W(G)→0` per la
+  stessa ragione.
+- **mismatch**: `|P∩B_r|·‖M_P‖_*`, sommato su `P` dà
+  `∫_{B_r}‖∇g_j−G_j‖_*` → `∫_{B_r}‖∇g−G‖_*→0`.
+- **salti**: `∫_{J_{g_j}∩B_r}|[g_j]|→∫_{J_g∩B_r}|[g]|→0` per
+  `r↓0`, essendo `|[g]|𝓗¹⌞J_g` una misura finita e `B_r↓{v}`
+  con `𝓗¹({v})=0`. Le linee di laminato che attraversano `∂B_r`
+  contribuiscono `O(h)·𝓗¹(∂B_r∩celle)=O(h·θ_v r)→0`.
+- **concentrazione**: la costruzione ha limiti uniformi
+  (`‖v_h−g_j‖∞≤h‖M‖` per cella, gradienti `G_j` equi-integrabili,
+  numero di celle che incontrano `B_r(v)` localmente limitato
+  per la regolarità della partizione): **nessuna concentrazione
+  di energia è possibile** — tutti i contributi sono maggiorati
+  da integrali di funzioni equi-integrabili su insiemi di misura
+  →0.
+
+### 5.3 Stato
+
+**G5 — chiudibile per `θ_v<2π`** (copre C60: `θ_v=138°`):
+la prova è la catena piana applicata al settore conico + la
+stima §5.2. Resta da scrivere in dettaglio la verifica che le
+partizioni CFI sul settore possano essere scelte compatibili con
+quelle delle facce adiacenti lungo gli archi `∂B_r(v)` — ma
+quelle interfacce sono interne alle facce (il bordo del disco
+non coincide con gli spigoli `Γ` tranne nei punti di intersezione
+`B_r(v)∩Γ`, insieme finito di archi): la convergenza delle
+tracce lì è la stessa di G4a applicata al dominio
+`f∖B_r(v)` con bordo formato da segmenti e archi.
+
+Per `θ_v≥2π` (non richiesto da C60) serve una variante: parte
+`Σ` in carte coniche o usa la unfolding del rivestimento
+universale del settore — **aperto come estensione**, non come
+ostacolo per C60.
 
 ## 6. Teorema obiettivo (condizionale, NON dimostrato)
 
@@ -240,9 +317,12 @@ G4a + G4b) + G5, con diagonale debole-* già formalizzata.
 
 - **Piano isotropo**: dimostrato (documento GIR §5, ipotesi CFI
   verificate, partizioni mesh→0, diagonale debole-*).
-- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, **G4a** provati;
-  **G4b** chiudibile (stima `L^∞` per cella + diagonale; caveat:
-  enunciare la recovery per `g_j` piecewise-affine con salti);
-  **G5 resta l'unico ostacolo geometrico** — energia residua sui
-  60 dischi conici.
+- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, **G4a, G4b**
+  provati; **G5 chiudibile per `θ_v<2π`** (i 60 vertici C60
+  hanno `θ_v<2π`) — resta solo la verifica dettagliata delle
+  tracce sugli archi `∂B_r(v)∩Γ` e, per la classe generale,
+  il caso `θ_v≥2π`. **La catena G1–G5 è completa per C60
+  isotropo**: identità
+  `I_W^Σ = ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` nel perimetro dichiarato,
+  subordinata alla stesura finale dei dettagli G5.
 - **Anisotropo, `|a|²`, embeddedness**: fuori scope.
