@@ -118,3 +118,5 @@ The character projectors were also constructed explicitly. Their idempotence res
 | (3_u) | 69 | -1.04818 | 11.74287 | 6 / 0 / 63 |
 
 The (T_h) conjugate sectors (1') and (1'') have identical spectra, as expected for the real symmetric operator (K_C). The three rotational zero modes lie in the (T_{1g}) sector of (O_h), hence in the (3_g) sector after restriction to this (T_h) subgroup.
+
+The same commutator test was evaluated separately on the selected 24-element (T_h) subgroup: maximum relative residual (1.60\times10^{-15}).
