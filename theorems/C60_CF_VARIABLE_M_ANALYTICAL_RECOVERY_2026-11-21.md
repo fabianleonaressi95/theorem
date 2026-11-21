@@ -1,20 +1,20 @@
 # C60 — Caccioppoli-partition recovery for the variable-field isotropic CF cost
 
-Status: **analytical recovery construction, interior formulation**  
+Status: **analytical recovery construction; interior/no-trace formulation**  
 Date: 2026-11-21
 
 ## 1. Setting and statement
 
-Let \(\Omega\subset\mathbb R^2\) be bounded Lipschitz and \(c\in W^{1,1}(\Omega;\mathbb R^m)\). Define
+Let \(\Omega\subset\mathbb R^2\) be bounded Lipschitz and \(c\in W^{1,1}(\Omega;\mathbb R^m)\). For finite piecewise-constant maps define
 \[
-F(v)=\int_{J_v}|[v]|\,d\mathcal H^1
+F(v)=\int_{J_v}|[v]|\,d\mathcal H^1.
 \]
-for finite piecewise-constant maps \(v\). Then
+Then
 \[
 \boxed{\inf_{v_n\to c\text{ in }L^1}\liminf_n F(v_n)
 =\int_\Omega\|\nabla c(x)\|_*\,dx.}
 \]
-No trace constraint is imposed. The result is interior; prescribed traces require a separate boundary-layer construction.
+No trace constraint is imposed. This is an interior result; prescribed traces require a boundary-layer analysis.
 
 ## 2. Lower bound
 
@@ -22,105 +22,133 @@ For \(Q\in C_c(\Omega;\mathbb R^{m\times2})\), \(\|Q(x)\|_{\rm op}\le1\), rank-o
 \[
 Q:([v]\otimes\nu)=[v]\cdot Q\nu\le|[v]|.
 \]
-If \(v_n\to c\) in \(L^1\) and \(F(v_n)\) is bounded, then \(Dv_n\stackrel{*}{\rightharpoonup}Dc\) as measures. Thus
+If \(v_n\to c\) in \(L^1\) and \(F(v_n)\) is bounded, then \(Dv_n\stackrel{*}{\rightharpoonup}Dc\). Hence
 \[
 \liminf_nF(v_n)\ge\int_\Omega Q:\nabla c\,dx.
 \]
-Taking the supremum over continuous operator-unit-ball fields, using the duality of nuclear and operator norms and approximation of the measurable polar field, yields
+Taking the supremum over continuous operator-unit-ball fields, by duality of nuclear and operator norms,
 \[
 \liminf_nF(v_n)\ge\int_\Omega\|\nabla c\|_*\,dx.
 \]
 
-## 3. Recovery by locally SVD-oriented Caccioppoli partitions
+## 3. Recovery construction for smooth maps
 
-The construction below supplies the upper bound; it does not infer recovery from the SVD alone.
+First assume \(c\) is \(C^1\) on a neighborhood of \(\overline\Omega\); use an extension if necessary. Let \(\omega\) be the modulus of continuity of \(\nabla c\).
 
-### Step 1 — smooth and freeze the gradient
+### 3.1 Macro-partition and frozen SVD
 
-Choose \(c^\varepsilon\in C^\infty\) with \(c^\varepsilon\to c\) in \(W^{1,1}\). Since the nuclear norm is continuous in finite dimensions,
+Choose a finite shape-regular polygonal partition \(\{P_j\}\) of an interior polygonal exhaustion, with \(\operatorname{diam}P_j\le\delta\). Choose \(x_j\in P_j\) and put \(M_j=\nabla c(x_j)\). Write
 \[
-\int_\Omega\|\nabla c^\varepsilon\|_*\,dx
-\to\int_\Omega\|\nabla c\|_*\,dx.
+M_j=\sum_{i=1}^2\sigma_i^{(j)}a_i^{(j)}\otimes v_i^{(j)},
 \]
-Fix \(\varepsilon\). Partition an interior polygonal exhaustion into macro-polygons \(P_j\) of diameter at most \(\delta\). Let \(M_j=\nabla c^\varepsilon(x_j)\) for \(x_j\in P_j\). Uniform continuity gives
+where \(v_1^{(j)},v_2^{(j)}\) are orthonormal. In macro-cell \(P_j\), use a square grid of side \(h\) oriented with tangents \(v_1^{(j)},v_2^{(j)}\). The finite partition consists of intersections of grid squares with macro-polygons.
+
+Assign to each intersected square the value \(c(x_C)\) at its grid center \(x_C\), using a smooth extension for centers outside \(\Omega\). This defines a piecewise-constant map \(c_{\delta,h}\).
+
+### 3.2 Cost on grid interfaces
+
+For neighboring squares whose centers differ by \(hv_i^{(j)}\), the jump satisfies
 \[
-\sup_{x\in P_j}\|\nabla c^\varepsilon(x)-M_j\|_F
-\le\omega_\varepsilon(\delta).
+c(x_C+hv_i)-c(x_C)
+=hM_jv_i+r_C,\qquad
+|r_C|\le h\,\omega(\delta+h).
 \]
-
-### Step 2 — local grid oriented by the right singular vectors
-
-For each macro-polygon, choose an SVD
+The shared interface length is at most \(h\). Thus its cost is bounded by
 \[
-M_j=\sum_{i=1}^{2}\sigma_i^{(j)}a_i^{(j)}\otimes v_i^{(j)},
+h^2\bigl(|M_jv_i|+\omega(\delta+h)\bigr).
 \]
-where \(v_1^{(j)},v_2^{(j)}\) are orthonormal. Tile the plane by squares of side \(h\) with sides parallel to these vectors, and intersect the grid with \(P_j\). This produces a finite Caccioppoli partition. On each full grid square \(C\), set the approximant equal to \(c^\varepsilon(x_C)\), where \(x_C\) is its center. Boundary cells are assigned values from points in the same macro-polygon at distance \(O(h)\).
-
-For the frozen affine map \(x\mapsto M_jx+b\), neighboring values across a side with normal \(v_i^{(j)}\) differ by exactly \(hM_jv_i^{(j)}\). The side has length \(h\). Per unit area, the two families of sides therefore cost
+The total length of grid interfaces in \(P_j\), for each orientation, is bounded by
 \[
-|M_jv_1^{(j)}|+|M_jv_2^{(j)}|
-=\sigma_1^{(j)}+\sigma_2^{(j)}
-=\|M_j\|_*.
+\frac{|P_j|}{h}+C\,\operatorname{Per}(P_j),
 \]
-This is the exact local cell cost for this oriented grid, not merely an algebraic SVD identity.
-
-### Step 3 — perturbation and macro-interface estimates
-
-For \(c^\varepsilon\) on a grid cell, the difference between the neighboring sampled values and the frozen-affine values is bounded by
-\(O(h\,\omega_\varepsilon(\delta))\). Summing over grid sides gives an interior cost error bounded by
-\(C|\Omega|\omega_\varepsilon(\delta)\), with \(C\) depending only on dimension and the norm equivalence constants.
-
-At macro-polygon interfaces, grid cells from the two orientations need not match. Assign boundary-cell values by sampling \(c^\varepsilon\) within distance \(O(h)\) of the interface. Because \(c^\varepsilon\) is Lipschitz, the mismatch across the macro-interface is \(O(h\|\nabla c^\varepsilon\|_\infty)\). The total interface length of a shape-regular macro-partition is \(O(|\Omega|/\delta)\); hence the added cost is
+where \(C\) is universal for a shape-regular polygonal partition. Summing the costs of the two orientations gives
 \[
-O\!\left(h\,\|\nabla c^\varepsilon\|_\infty\,|\Omega|/\delta\right).
+F_{\rm grid}(P_j)
+\le |P_j|\bigl(|M_jv_1|+|M_jv_2|
++2\omega(\delta+h)\bigr)
++C h\,\operatorname{Per}(P_j)\|M_j\|+C h\,\operatorname{Per}(P_j)\omega(\delta+h).
 \]
-Choose \(h/\delta\to0\). The outer-boundary cells are handled by an interior exhaustion; their contribution vanishes in the no-trace formulation.
-
-Consequently, for fixed \(\varepsilon,\delta\), sending \(h/\delta\to0\), then \(\delta\to0\), gives
+Because \(v_i\) are right singular vectors,
 \[
-\limsup F(v_{\varepsilon,\delta,h})
-\le\int_\Omega\|\nabla c^\varepsilon\|_*\,dx
-+C|\Omega|\omega_\varepsilon(\delta).
+|M_jv_1|+|M_jv_2|=\sigma_1(M_j)+\sigma_2(M_j)=\|M_j\|_*.
 \]
-The local grid values converge to \(c^\varepsilon\) in \(L^1\), with error \(O(h\|\nabla c^\varepsilon\|_\infty)\). Choose \(\delta\downarrow0\), then \(h/\delta\downarrow0\), and finally diagonalize \(\varepsilon\downarrow0\). This yields \(v_n\to c\) in \(L^1\) and
+
+### 3.3 Macro-interface cost
+
+At a macro-interface, the two grids have different orientations. The values assigned to cells adjacent to the interface are samples of the same smooth \(c\), at points whose distance is \(O(h)\) from the interface. Therefore the jump is at most \(C h\|\nabla c\|_\infty\). The total macro-interface length is \(\sum_j\operatorname{Per}(P_j)\), so
 \[
-\limsup_nF(v_n)\le\int_\Omega\|\nabla c\|_*\,dx.
+F_{\rm macro}\le C h\|\nabla c\|_\infty
+\sum_j\operatorname{Per}(P_j).
 \]
-Together with the lower bound, this proves the formula.
+For a shape-regular partition with mesh \(\delta\), the perimeter sum is \(O(|\Omega|/\delta)\). Hence the macro-interface cost is \(O(h|\Omega|/\delta)\), which vanishes when \(h/\delta\to0\).
 
-**Geometric scope:** the argument uses shape-regular macro-polygons and a finite Caccioppoli partition at each stage. The boundary and macro-interface estimates are essential; the SVD alone would not establish recovery.
+The boundary of the interior exhaustion is treated similarly; in the no-trace formulation its contribution is removed by exhaustion and diagonalization.
 
-## 4. Exact prescribed-gradient consequence
+### 3.4 Limit estimates
+
+Combining the estimates,
+\[
+F(c_{\delta,h})\le
+\sum_j|P_j|\|M_j\|_*+
+C|\Omega|\omega(\delta+h)+
+C h\|\nabla c\|_\infty\sum_j\operatorname{Per}(P_j).
+\]
+Also, since samples are at distance \(O(h)\) from points in their cells,
+\[
+\|c_{\delta,h}-c\|_{L^1}\le C h\|\nabla c\|_\infty|\Omega|
+\]
+up to the vanishing exhaustion remainder.
+
+First let \(h/\delta\to0\), then \(\delta\to0\). The Riemann sums converge:
+\[
+\sum_j|P_j|\|M_j\|_*\to\int_\Omega\|\nabla c\|_*dx.
+\]
+Thus for smooth \(c\) the construction gives the recovery upper bound.
+
+## 4. Extension to \(W^{1,1}\)
+
+Choose smooth \(c^\varepsilon\to c\) in \(W^{1,1}\). Since the nuclear norm is equivalent to the Frobenius norm in finite dimensions,
+\[
+\int_\Omega\|\nabla c^\varepsilon\|_*dx
+\to\int_\Omega\|\nabla c\|_*dx.
+\]
+For each \(\varepsilon\), use the smooth recovery construction and choose grid/macro scales so that both the \(L^1\) error and the excess energy are at most \(\varepsilon\). A diagonal sequence yields \(v_n\to c\) in \(L^1\) and
+\[
+\limsup_nF(v_n)\le\int_\Omega\|\nabla c\|_*dx.
+\]
+Combined with the lower bound, this proves the relaxation formula in the stated interior/no-trace setting.
+
+## 5. Exact prescribed-gradient consequence
 
 Set \(u_n(x)=Gx+v_n(x)\). Since each \(v_n\) is piecewise constant,
 \[
 \nabla u_n=G\quad\text{a.e. exactly}.
 \]
-The jump cost of \(u_n\) is \(F(v_n)\). Hence the variable-field isotropic correction is recovered without perturbing the prescribed bulk gradient.
+The jump cost is \(F(v_n)\); the recovery does not perturb the prescribed bulk gradient.
 
-## 5. Facewise functional and limitations
+## 6. Facewise functional and limitations
 
-For polygonal faces \(F_f\), fixed \(\widetilde G_f\), and an interior no-trace formulation, the face contribution relaxes to
+For polygonal faces \(F_f\), fixed \(\widetilde G_f\), and the interior no-trace formulation, the face contribution is
 \[
 \int_{F_f}\left[W(\widetilde G_f)+
 \|\nabla g_f-\widetilde G_f\|_*\right]\,d\mathcal H^2.
 \]
 The macro-jump term is separate. Compatibility across C60 edges and prescribed traces are not covered by this interior construction.
 
-## 6. Anisotropic bounds
+## 7. Anisotropic bounds
 
 For \(\psi(a,\nu)=\Phi(a)k(\nu)\), with \(\Phi\) a norm and \(k\) even, the dual lower bound is
 \[
 \mathcal C_{\Phi,k}(M)\ge
 \sup_{Q:\Phi^\circ(Q\nu)\le k(\nu)\ \forall\nu}Q:M.
 \]
-A two-direction orthogonal laminate gives the upper bound
+A two-direction orthogonal laminate gives
 \[
 \mathcal C_{\Phi,k}(M)\le
 \inf_{(v_1,v_2)\ {\rm ONB}}\sum_i k(v_i)\Phi(Mv_i).
 \]
 Equality for general \(\Phi,k\) is not claimed. For \(\Phi=|\cdot|\) and \(k=1\), both bounds equal \(\|M\|_*\).
 
-## 7. Rank statement
+## 8. Rank statement
 
 For \(u_h(\xi)=\widetilde G\xi+b+Mq_h(\xi)\), \(\nabla u_h=\widetilde G\) a.e. If \(\widetilde G=cA\), \(c>0\), \(A^TA=I_2\), then \(\operatorname{rank}\nabla u_h=2\) a.e. This does not imply classical immersion across jump interfaces or global embeddedness.
