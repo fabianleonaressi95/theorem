@@ -74,8 +74,10 @@ def tetra_class(R):
     tr = round(float(np.trace(R)))
     if np.allclose(R, np.eye(3)): return 'E'
     if tr == 0:
-        axial = np.array([R[2,1]-R[1,2], R[0,2]-R[2,0], R[1,0]-R[0,1]])
-        return 'C3a' if float(axial @ np.ones(3)) > 0 else 'C3b'
+        # The two A4 classes of 3-cycles are distinguished by the underlying
+        # coordinate 3-cycle (not by an arbitrary fixed-axis dot product).
+        perm = tuple(np.argmax(np.abs(R), axis=1).tolist())
+        return 'C3a' if perm == (1, 2, 0) else 'C3b'
     if tr == -1: return 'C2'
     raise ValueError(f'Unclassified tetrahedral element: {R}')
 
@@ -124,6 +126,72 @@ def decompositions(actions):
             if abs(m.imag)>1e-7: raise RuntimeError(f'Non-real multiplicity {ir}{parity}: {m}')
             out['T_h'][ir+parity] = int(round(m.real))
     return out, len(th)
+
+
+def isotypic_blocks(actions, Kc):
+    """Return ranks and compressed spectra of all O_h and T_h isotypic projectors."""
+    result = {'O_h': {}, 'T_h': {}}
+    oh_chars = {
+        'A1':[1,1,1,1,1], 'A2':[1,1,1,-1,-1],
+        'E':[2,-1,2,0,0], 'T1':[3,0,-1,1,-1], 'T2':[3,0,-1,-1,1]
+    }
+    oh_order = ['E','8C3','3C2','6C4','6C2p']
+    for parity in ('g','u'):
+        for ir, chars in oh_chars.items():
+            P = np.zeros_like(Kc)
+            for a in actions:
+                G=a['G']; c=int(round(np.linalg.det(G))); R=c*G
+                ch=chars[oh_order.index(oh_class(R))]
+                if parity=='u' and c==-1: ch=-ch
+                P += ch*a['U']
+            P *= chars[0]/48
+            P=(P+P.T)/2
+            ew,ev=np.linalg.eigh(P); keep=ew>0.5
+            B=ev[:,keep]; rank=int(np.sum(keep))
+            block=np.linalg.eigvalsh(B.T@Kc@B)
+            result['O_h'][ir+parity]={
+                'rank':rank,
+                'projector_idempotence_fro':float(np.linalg.norm(P@P-P,'fro')),
+                'projector_commutator_fro':float(np.linalg.norm(P@Kc-Kc@P,'fro')),
+                'eigenvalue_min':float(block.min()),
+                'eigenvalue_max':float(block.max()),
+                'negative':int(np.sum(block < -1e-8)),
+                'near_zero':int(np.sum(np.abs(block)<=1e-8)),
+                'positive':int(np.sum(block > 1e-8))
+            }
+    omega=np.exp(2j*np.pi/3)
+    th_chars={'1':[1,1,1,1], '1p':[1,omega,omega**2,1],
+              '1pp':[1,omega**2,omega,1], '3':[3,0,0,-1]}
+    th_order=['E','C3a','C3b','C2']
+    th=[]
+    for a in actions:
+        G=a['G']; det=int(round(np.linalg.det(G)))
+        sign_product=int(round(np.prod(G[np.abs(G)>0.5])))
+        if sign_product==det: th.append(a)
+    for parity in ('g','u'):
+        for ir, chars in th_chars.items():
+            P=np.zeros_like(Kc,dtype=complex)
+            for a in th:
+                G=a['G']; c=int(round(np.linalg.det(G))); R=c*G
+                ch=chars[th_order.index(tetra_class(R))]
+                if parity=='u' and c==-1: ch=-ch
+                P += np.conjugate(ch)*a['U']
+            P *= chars[0]/24
+            P=(P+P.conj().T)/2
+            ew,ev=np.linalg.eigh(P); keep=ew>0.5
+            B=ev[:,keep]; rank=int(np.sum(keep))
+            block=np.linalg.eigvalsh(B.conj().T@Kc@B)
+            result['T_h'][ir+parity]={
+                'rank':rank,
+                'projector_idempotence_fro':float(np.linalg.norm(P@P-P,'fro')),
+                'projector_commutator_fro':float(np.linalg.norm(P@Kc-Kc@P,'fro')),
+                'eigenvalue_min':float(block.min()),
+                'eigenvalue_max':float(block.max()),
+                'negative':int(np.sum(block < -1e-8)),
+                'near_zero':int(np.sum(np.abs(block)<=1e-8)),
+                'positive':int(np.sum(block > 1e-8))
+            }
+    return result
 
 def main():
     ap=argparse.ArgumentParser()
@@ -191,7 +259,7 @@ def main():
           'principal_overlap_singular_values':sv.tolist()
         }
       },
-      'irreducible_multiplicities':dec,
+      'irreducible_multiplicities':dec,\n      'isotypic_block_spectra':isotypic_blocks(actions,Kc),
       'T_h_subgroup_order':th_order,
       'classification':{
         'K_C':'constrained Coulomb Hessian, distinct from archived K0',
