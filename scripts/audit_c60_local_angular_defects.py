@@ -29,7 +29,7 @@ def main():
             a=angle(X[prev]-X[v], X[nxt]-X[v])
             angles_by_vertex[v].append(a); incident_faces[v].append(fi); aa.append(a)
         face_records.append({'face':fi,'size':len(face),'angles_rad':aa,'sum_rad':float(sum(aa))})
-    vertex_records=[]; defects=[]
+    edge_set=set()\n    for face in faces:\n        for a,b in zip(face,face[1:]+face[:1]): edge_set.add(tuple(sorted((int(a),int(b)))))\n    vertex_records=[]; defects=[]
     for v,aa in enumerate(angles_by_vertex):
         if len(aa)!=3: raise RuntimeError(f'Vertex {v}: expected 3 incident faces, got {len(aa)}')
         d=2*np.pi-sum(aa); defects.append(d)
@@ -38,9 +38,9 @@ def main():
           'angles_deg':[float(np.degrees(x)) for x in aa],
           'angle_sum_rad':float(sum(aa)),'defect_rad':float(d),'defect_deg':float(np.degrees(d))})
     total=float(sum(defects)); expected=4*np.pi
-    report={'topology':{'vertices':len(X),'edges':90,'faces':len(faces),
+    report={'topology':{'vertices':len(X),'edges':len(edge_set),'faces':len(faces),
       'pentagons':sum(len(f)==5 for f in faces),'hexagons':sum(len(f)==6 for f in faces),
-      'euler_characteristic':len(X)-90+len(faces)},
+      'euler_characteristic':len(X)-len(edge_set)+len(faces)},
       'angular_defects':{'count':len(defects),'unique_degrees':sorted(set(round(float(np.degrees(d)),10) for d in defects)),
       'mean_deg':float(np.mean(np.degrees(defects))),'min_deg':float(np.min(np.degrees(defects))),
       'max_deg':float(np.max(np.degrees(defects))),'sum_rad':total,'sum_deg':float(np.degrees(total)),
@@ -49,7 +49,7 @@ def main():
       'interpretation':'The intrinsic 12-degree vertex defect is distinct from the conventional 60-degree pentagonal disclination charge relative to a planar hexagonal lattice.',
       'frank_vector_status':'Not constructed: no canonical vertex normal exists; a vector convention must be explicitly declared.',
       'vertices_detail':vertex_records,'faces_detail':face_records,
-      'checks':{'all_vertex_valences_three':all(len(a)==3 for a in angles_by_vertex),
+      'checks':{'topology_60_90_32':bool(len(X)==60 and len(edge_set)==90 and len(faces)==32),\n      'face_counts_12_pentagons_20_hexagons':bool(sum(len(f)==5 for f in faces)==12 and sum(len(f)==6 for f in faces)==20),\n      'all_vertex_valences_three':all(len(a)==3 for a in angles_by_vertex),
       'all_defects_12deg':bool(np.max(np.abs(np.degrees(defects)-12))<1e-8),
       'gauss_bonnet_4pi':bool(abs(total-expected)<1e-10)}}
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
