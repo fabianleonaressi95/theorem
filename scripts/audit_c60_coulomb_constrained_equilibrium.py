@@ -39,7 +39,7 @@ def symmetry_matrices_icosahedron(tol=1e-8):
         if not any(np.linalg.norm(O-M, ord="fro") < 1e-7 for M in mats):
             mats.append(O)
     if len(mats) != 120:
-        raise RuntimeError(f\"Expected 120 icosahedral orthogonal symmetries, recovered {len(mats)}.\")
+        raise RuntimeError(f"Expected 120 icosahedral orthogonal symmetries, recovered {len(mats)}.")
     return mats
 
 def symmetry_audit(x, matrices):
