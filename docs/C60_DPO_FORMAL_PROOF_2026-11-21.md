@@ -74,6 +74,38 @@ una vera determining sequence CF per la coppia C60 `(g,G)` restano aperte.
 Vedere `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md` per la
 derivazione, la riclassificazione energetica e il programma corretto.
 
+## 2A. Determining sequence CF esplicita per la coppia corrente
+
+Le definizioni faccia-per-faccia danno `∇_Σg|_f=G_f=B_fD_f` nella carta
+ortonormale `B_f). Quindi `M=∇_Σg−G=0` a.e. La successione costante
+`u_n=g` appartiene a `SBV(Σ;R³)`, converge a `g` in `L¹` e soddisfa
+`∇_Σu_n𝓗²=G𝓗²` per ogni `n`. È pertanto una determining sequence nella
+formulazione intrinseca sul complesso poliedrale. La dimostrazione dettagliata
+e le conseguenze energetiche sono in
+`theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
+
+Questo risultato vale per la coppia corrente con `M=0`; non dimostra una
+costruzione per un diverso campo bulk con `M≠0`. L'estensione del quadro
+CF dal dominio euclideo alla superficie poliedrale è qui verificata
+direttamente mediante la decomposizione SBV sulle facce e le tracce sugli
+spigoli.
+
+## 2B. Costo energetico della successione CF costante
+
+Per la successione `u_n=g`, il costo di una densità `W` bulk e `ψ`
+interfaciale è costante in `n`:
+`E(u_n)=∫_ΣW(G)dA+∫_{J_g}ψ([g],ν_g)dH¹`.
+Con `ψ(a,ν)=|a|`, il codice integra tutti i 90 spigoli con quadratura
+trapezoidale a 200 campioni per spigolo. I valori risultanti sono:
+- `W(F)=|F|_F`: `45.63651643+38.93478886=84.57130529`;
+- `W(F)=|F|_F²`: `64.53978047+38.93478886=103.47456933`.
+
+Sono costi di una successione determinante ammissibile e quindi limiti
+superiori per il funzionale rilassato, non identificazioni dell'infimo.
+La divergenza `C/h` misurata sugli strip riguarda soltanto la diversa
+regolarizzazione continua e non esclude la crescita quadratica nel problema
+CF.
+
 ## 3. Immersione e embeddedness degli approssimanti
 
 ### Proposizione 3 (immersione locale — condizionata).
