@@ -84,9 +84,8 @@ scan `|a×b|`):
   alla direzione del salto.
 - `|a×b|` minimo: **8,5·10⁻⁴**, nessuno zero rilevato su griglia
   400×300 per lato × 90 spigoli. Poiché `rank ∇S = 2 ⇔ a×b ≠ 0` e il
-  rango serve solo **quasi ovunque** perche' `g_h ∈ W^{1,1}` immersa,
-  un eventuale zero isolato (se esistesse) sarebbe un insieme di misura
-  zero e non violerebbe (A4).
+  rango descrive soltanto l'immersione locale della regolarizzazione
+  continua campionata; non dimostra la condizione di convergenza CF (A4).
 - Il limite `u→0` (bordo dello strip) ha σ_min ≈ 5·10⁻³: la
   quasi-degenerazione e' interna, non al bordo.
 
@@ -97,9 +96,10 @@ chiuso, non un'obiezione concettuale.
 
 ## 5. Cosa resta
 
-- **Chiusura analitica di (A4)**: la disuguaglianza `a×b≠0` è verificata
-  densamente; una prova completa richiede bound di splitting o verifica
-  per celle (es. aritmetica a intervalli) — fattibile perché è polinomiale.
+- **Rango della regolarizzazione continua**: la disuguaglianza `a×b≠0`
+  riguarda il Jacobiano della mappa strip; una prova completa richiede
+  certificazione per celle. Anche un certificato completo non proverebbe
+  la condizione CF (A4), che richiede una successione SBV con limite bulk G.
 - **Embeddedness**: la sonda vertice→triangolo dà distanza minima
   1,0·10⁻³ tra facce non adiacenti; la definizione (A4) richiede solo
   immersione *locale*, non embedded — la sonda resta un check extra.
@@ -108,8 +108,9 @@ chiuso, non un'obiezione concettuale.
   minimo globale 2,7·10⁻⁴ (al bordo del cap, r≈0,92R — margine
   sottile ma positivo; check numerico, la stessa certificazione
   polinomiale e' applicabile).
-- **Stato (A4)**: immersione a.e. CERTIFICATA (6 zeri isolati di
-  misura zero); immersione ovunque = perturbazione residua.
+- **Stato della sonda di rango**: evidenza numerica per la regolarizzazione
+  continua; l'eventuale certificazione dei sei zeri isolati è un problema
+  geometrico distinto. **Lo stato CF (A4) resta aperto.**
 
 ## 6. Trapianto teorico: formulazione Choksi–Fonseca
 
