@@ -98,7 +98,20 @@ su tutti i 90 spigoli con 200 campioni per spigolo. È invece l'integrale
 quadratico degli strip continui che campiona 20 spigoli e scala per `90/20`.
 
 
-## 4. Estensione al costo interfaciale quadratico
+## 4. Disarrangiamento bulk non nullo
+
+Per un campo alternativo `G̃` costante su ciascuna faccia, si pone
+`M_f=∇_Σg|_f−G̃_f` e si usa il quantizzatore cartesiano
+`q_h(ξ)=h floor(ξ₁/h)e₁+h floor(ξ₂/h)e₂`. La mappa
+`u_{h,f}=G̃_fξ+b_f+M_fq_h(ξ)` soddisfa `u_h→g` uniformemente,
+`∇_Σu_h=G̃` esattamente a.e. per ogni scala e
+`D^s_Σu_h⇀*M𝓗²+[g]⊗ν_g𝓗¹`. La variazione totale è uniformemente limitata.
+Questo chiude l'esistenza di una determining sequence per `M≠0` nel caso
+faccia-per-faccia costante. Il costo micro-interfaciale scala come
+`h^{p−1}` per `ψ=|a|^p`; l'ottimalità per `p=1` non è identificata.
+Prova: `theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md`.
+
+## 5. Estensione al costo interfaciale quadratico
 
 Per `ψ₂(a,ν)=|a|²`, la variazione totale non dà un limite inferiore positivo
 sul salto macroscopico. È stata costruita una recovery sequence globale per
@@ -110,7 +123,7 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 `ψ₂=|a|²` è il solo costo bulk. La costruzione è in
 `theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
 
-## 5. Correzioni necessarie ai documenti
+## 6. Correzioni necessarie ai documenti
 
 1. Rimuovere la frase che afferma `∇g_h ⇀* Dg` come proprietà CF della
    determining sequence.
@@ -126,7 +139,7 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
    sia l'unica energia ammissibile. La scelta di `W,ψ` e le ipotesi di
    rilassamento devono essere dichiarate e verificate separatamente.
 
-## 6. Programma corretto
+## 7. Programma corretto
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
   `g`, il campo `G` e quindi `M=∇_Σg−G`.
@@ -138,11 +151,14 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
-- **E. Rilassazione generale:** restano da studiare densità interfaciali
-  anisotrope/non separabili e bulk non convessi; i casi `ψ=|a|` e `ψ=|a|²`
-  con i due bulk indicati sono identificati nei teoremi dedicati.
+- **E. Ottimalità per `M≠0`:** la successione esiste, ma il costo micro-
+  interfaciale per densità 1-omogenee non è ancora ottimizzato; serve un cell
+  problem per la matrice `M_f`.
+- **F. Rilassazione generale:** restano da studiare densità interfaciali
+  anisotrope/non separabili e bulk non convessi; i casi `M=0`, `ψ=|a|` e
+  `ψ=|a|²` con i due bulk indicati sono identificati nei teoremi dedicati.
 
-## 7. Stato
+## 8. Stato
 
 | Affermazione | Stato aggiornato |
 |---|---|
@@ -154,10 +170,12 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 | Costruzione CF per campi bulk alternativi con `M≠0` | Aperta |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | Aperta: cell problem |
 | Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
 
 **Classificazione complessiva:** la coppia C60 corrente ha una determining
 sequence esplicita `u_n=g`. I funzionali con `W=|F|_F` o `W=|F|_F²` e
-`ψ=|a|` sono identificati. Restano aperti il rilassamento per densità
-interfaciali anisotrope più generali, il caso `M≠0` e la generalizzazione
-integrale CF alla classe generale delle superfici poliedrali.
+`ψ=|a|` sono identificati. Restano aperti l'ottimalità energetica per `M≠0`, il rilassamento per
+ densità interfaciali anisotrope più generali e la generalizzazione integrale
+CF alla classe generale delle superfici poliedrali.
