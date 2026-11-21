@@ -24,10 +24,10 @@ limitata. La tripletta `(Σ, g, G)` è **DPO-ammissibile per immersioni** se:
   `GᵀG` deve essere riemanniana (nessun collasso di rango).
 - **(A3) Struttura distribuzionale**: `Dg = G dA + S dH¹⌞Γ` dove `Γ` è un
   complesso 1-dimensionale localmente finito e `S` la densità di salto.
-- **(A4) Determining sequence immersa**: esiste `h_n → 0` e mappe
-  `g_n ∈ W^{1,1}_{loc}` continue con
-  `g_n → g` in `L¹`, `∇g_n ⇀* Dg` come misure, e `rank ∇g_n = 2` a.e.
-  (ogni `g_n` immersione locale) con `sup_n ∫|∇g_n| < ∞`.
+- **(A4) Determining sequence CF immersa**: esiste `u_n ∈ SBV(Σ;R³)` con
+  `u_n → g` in `L¹` e `∇_Σu_n 𝓗² ⇀* G 𝓗²` come misure; se il modello
+  DPO scelto richiede immersione locale, va inoltre provato `rank∇_Σu_n=2`
+  a.e. La convergenza `∇u_n 𝓗² ⇀* D_Σg` non è la condizione CF.
 
 **Osservazione.** (A2) è la corretta generalizzazione: per `d×d`,
 `GᵀG` definita positiva ⇔ `det G ≠ 0`; la condizione di orientazione
@@ -38,16 +38,18 @@ interamente concentrata sugli spigoli.
 
 ## 3. Teorema di verifica per la candidata C60
 
-**Teorema.** La g pezzo per pezzo con `D_f` dall'albero BFS soddisfa (A1)–(A3)
-in modo provato e (A4) con immersione certificata numericamente.
+**Proposizione parziale.** La g pezzo per pezzo con `D_f` dall'albero BFS
+soddisfa la regolarità SBV e l'identità metrica faccia-per-faccia. La
+successione continua strip+cap non verifica la condizione CF (A4); la
+costruzione di una vera determining sequence SBV resta aperta.
 
 | Assema | Status | Evidenza |
 |---|---|---|
 | (A1) `g ∈ BV` | **Provato** | Prop. 1 di `C60_DPO_FORMAL_PROOF` |
 | (A2) `GᵀG = I₂` | **Provato** | Prop. 2, residuo 2,9·10⁻¹⁵ |
 | (A3) `Dg = GdA + SdH¹` | **Provato** | struttura esatta, massa salto 38,93 |
-| (A4) strip+cap, `g_h→g` L¹, `∇g_h⇀*Dg` | **Provato** | Lemma 1–2 + Teorema (vertici O(h)) |
-| (A4) `rank ∇g_h = 2` | **Certificato numerico esatto** | vedi sotto |
+| Regolarizzazione continua strip+cap, `g_h→g` L¹ | Candidata; non è una determining sequence CF se `[g]≠0` |
+| Rango locale della regolarizzazione su strip/cap | Evidenza numerica/analitica parziale; non implica (A4) CF |
 
 ## 4. Certificato di immersione esatto
 
@@ -82,9 +84,8 @@ scan `|a×b|`):
   alla direzione del salto.
 - `|a×b|` minimo: **8,5·10⁻⁴**, nessuno zero rilevato su griglia
   400×300 per lato × 90 spigoli. Poiché `rank ∇S = 2 ⇔ a×b ≠ 0` e il
-  rango serve solo **quasi ovunque** perche' `g_h ∈ W^{1,1}` immersa,
-  un eventuale zero isolato (se esistesse) sarebbe un insieme di misura
-  zero e non violerebbe (A4).
+  rango descrive soltanto l'immersione locale della regolarizzazione
+  continua campionata; non dimostra la condizione di convergenza CF (A4).
 - Il limite `u→0` (bordo dello strip) ha σ_min ≈ 5·10⁻³: la
   quasi-degenerazione e' interna, non al bordo.
 
@@ -95,9 +96,10 @@ chiuso, non un'obiezione concettuale.
 
 ## 5. Cosa resta
 
-- **Chiusura analitica di (A4)**: la disuguaglianza `a×b≠0` è verificata
-  densamente; una prova completa richiede bound di splitting o verifica
-  per celle (es. aritmetica a intervalli) — fattibile perché è polinomiale.
+- **Rango della regolarizzazione continua**: la disuguaglianza `a×b≠0`
+  riguarda il Jacobiano della mappa strip; una prova completa richiede
+  certificazione per celle. Anche un certificato completo non proverebbe
+  la condizione CF (A4), che richiede una successione SBV con limite bulk G.
 - **Embeddedness**: la sonda vertice→triangolo dà distanza minima
   1,0·10⁻³ tra facce non adiacenti; la definizione (A4) richiede solo
   immersione *locale*, non embedded — la sonda resta un check extra.
@@ -106,8 +108,9 @@ chiuso, non un'obiezione concettuale.
   minimo globale 2,7·10⁻⁴ (al bordo del cap, r≈0,92R — margine
   sottile ma positivo; check numerico, la stessa certificazione
   polinomiale e' applicabile).
-- **Stato (A4)**: immersione a.e. CERTIFICATA (6 zeri isolati di
-  misura zero); immersione ovunque = perturbazione residua.
+- **Stato della sonda di rango**: evidenza numerica per la regolarizzazione
+  continua; l'eventuale certificazione dei sei zeri isolati è un problema
+  geometrico distinto. **Lo stato CF (A4) resta aperto.**
 
 ## 6. Trapianto teorico: formulazione Choksi–Fonseca
 
@@ -120,8 +123,8 @@ deformations come **coppie (g,G)** con
 g ∈ SBV(Ω; R^d),   G ∈ L^1(Ω; R^{d×N})
 ```
 
-e la determining sequence u_n ∈ SBV con u_n → g in L¹ e
-∇u_n ⇀* G come misure. **N e d sono indipendenti**: la loro formulazione
+e la determining sequence `u_n ∈ SBV` con `u_n → g` in `L¹` e
+`∇u_n 𝓗² ⇀* G 𝓗²` come misure. **N e d sono indipendenti**: la loro formulazione
 copre gia' mappe da R^N a R^d — il nostro caso e' N=2 (o la superficie
 Σ), d=3. La condizione det G > 0 diventa, nel nostro setting, la
 condizione metrica GᵀG definita positiva (A2).
@@ -146,45 +149,29 @@ rettificabili (esiste letteratura), oppure (ii) lavorare faccia per
 faccia (ogni faccia e' un dominio piano) con condizioni di trasmissione
 sugli spigenti — piu' vicino alla nostra costruzione esplicita.
 
-## 7. Livello energetico — candidato calcolato
+## 7. Livello energetico — audit della regolarizzazione
 
-Funzionale CF: `E(u) = ∫_Σ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH¹`.
+Il codice `c60_dpo_energy.py` riporta una stima campionaria del costo
+TV della regolarizzazione continua e il test numerico quadratico. I valori
+`45,63651643 + 38,93478886 = 84,57130529` sono archiviati come
+**somma candidata bulk+salto per la regolarizzazione**, non come
+`I(g,G)` e non come energia di una determining sequence CF già verificata.
 
-**Test di coerenza eseguito** (`c60_dpo_energy.py`):
+Le stime `∫strip |∇g_h|²` sono 129,896; 229,772; 444,426 per
+`h=0,20;0,10;0,05`. Sono coerenti con crescita `C/h` per lo schema
+numerico testato, ma non costituiscono una dimostrazione asintotica.
+Inoltre il codice integra 20 spigoli e scala il risultato per `90/20`:
+è una stima campionaria, non un'integrazione esaustiva.
 
-- `W(F)=|F|²` (Dirichlet): `∫strip |∇g_h|² dA ~ C/h` **diverge**
-  (misurato: 129,9 → 229,8 → 444,4 per h=0,2/0,1/0,05, rapporti ~0,52
-  = raddoppio per dimezzamento). La determining sequence non ha
-  energia W^{1,2} limitata → **W quadratica non consona**.
-- `W(F)=|F|` (crescita lineare) + `ψ(s)=|[u]|`: la determinante
-  sequence ha energia limitata e
+La successione strip+cap è descritta come continua. Se è in `W^{1,1}`,
+la sua derivata distribuzionale coincide con la misura del gradiente e,
+sotto convergenza `L¹` a `g`, il limite è `Dg`, comprensivo del salto
+macroscopico. Non soddisfa quindi automaticamente la condizione CF
+`∇u_n 𝓗² ⇀* G 𝓗²`. La costruzione di una successione SBV con micro-salti
+che realizzi tale limite è ancora aperta.
 
-```
-I(g,G) = ∫_Σ |G| dA + Σ_e ∫_e |jump_e(σ)| dσ
-       = √2·Area + 38,93 = 45,64 + 38,93 = 84,57
-```
-
-che coincide **esattamente** col limite di variazione totale già
-verificato (errore <1,4% a h=0,0375). Il funzionale rilevante per
-questa g e' quindi di tipo **TV/linear-growth**, non elastico
-quadratico — coerente col fatto che la discontinuita' e' il
-disarrangiamento, non un difetto.
-
-**Stato delle ipotesi CF per (g,G)**:
-
-| Ipotesi | Esito |
-|---|---|
-| g ∈ SBV(Σ;R³) | Provato: g piecewise affine, jump su 1-complesso, Σ poliedro (unione finita di poligoni piani → SBV faccia-per-faccia con tracce ben definite sugli spigoli) |
-| G ∈ L∞(Σ;R^{3×2}) | Provato: G = B_fD_f costante a tratti |
-| GᵀG > 0 (condizione metrica) | Provato: = I₂ |
-| Determining sequence in SBV | Provato: strip+cap, g_h continue → SBV con jump set vuoto |
-| ∇g_h ⇀* Dg | Provato (misure) |
-| rank ∇g_h = 2 a.e. | Certificato: 6 zeri isolati |
-| Energia limitata lungo la seq. | Verificato per W~|·|; W quadratica esclusa |
-
-**Cosa resta**: la densita' rilassata esplicita (il nostro 84,57 è il
-valore per la PARTICULAR determining sequence; la formula CF
-I(g,G)=inf potrebbe dare un valore minore se esistono sequenze più
-sofisticate — calcolarla richiede la teoria di rilassamento, non solo
-la verifica), e l'estensione a energie anisotrope/dipendenti dalla
-normale del salto.
+**Stato CF aggiornato:** regolarità SBV di `g`, integrabilità di `G` e
+identità metrica sono verificate nel modello faccia-per-faccia; la
+determining sequence CF, la compattezza per il modello scelto, la formula
+di rilassamento e il valore dell'infimo restano aperti. Per la derivazione
+si veda `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md`.

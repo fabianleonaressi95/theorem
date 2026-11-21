@@ -10,8 +10,8 @@
   },
   "L2_ratio_0.2_vs_0.1": 0.5653259585931467,
   "L2_ratio_0.1_vs_0.05": 0.5170078518864945,
-  "interpretation": "∫strip |∇g_h|^2 ~ C/h diverge => W quadratica non consona: l'energia rilevante per questa g e' di tipo variazione totale (crescita lineare). Il funzionale CF coerente: E(u) = ∫_Σ |∇u| dA + ∫_{S_u} |[u]| dH^1 (o W.linalg con W~|.|). Il limite della determining sequence: bulk sqrt(2)*Area + jump_mass = 84.57 (gia' verificato).",
-  "relaxed_energy_candidate": {
+  "interpretation": "Audit numerico della regolarizzazione continua strip+cap. Poiche' g_h e' continua, ∇g_h dA = Dg_h e, se g_h -> g in L1, il limite distribuzionale e' Dg, non il solo G dA richiesto da CF. Questi numeri non verificano una determining sequence CF e non identificano I(g,G). La stima quadratica e' campionaria su 20/90 spigoli.",
+  "regularization_TV_candidate": {
     "bulk": 45.636516430012115,
     "surface": 38.934788858521706,
     "total_TV": 84.57130528853382
