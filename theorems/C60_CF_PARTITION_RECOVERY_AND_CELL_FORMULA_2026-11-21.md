@@ -89,7 +89,7 @@ senza restrizioni di non-parallelismo. Scegliamo fasi phi_i e poniamo
 $$
 w_h(x)=\sum_{i=1}^N b_i h\left\lfloor\frac{x\cdot\nu_i+\phi_i}{h}\right\rfloor.
 $$
-La funzione è costante sulle celle poligonali della disposizione delle rette e converge uniformemente a Mx, a meno di una costante additiva. Ogni famiglia di rette contribuisce al costo per unità di area con psi(b_i,nu_i), per 1-omogeneità. Se alcune normali sono parallele, si scelgono fasi distinte per separare le rette; le intersezioni tra famiglie non parallele sono finite e non contribuiscono all'integrale su J_w. Quindi
+La funzione è costante sulle celle poligonali della disposizione delle rette e converge uniformemente a Mx, a meno di una costante additiva. Ogni famiglia di rette contribuisce al costo per unità di area con psi(b_i,nu_i), per 1-omogeneità. Per ogni gruppo di normali parallele, si orientano tutte nella stessa direzione; la sostituzione (b,nu) con (-b,-nu) non cambia il costo per la simmetria assunta. Si scelgono fasi dipendenti da h e distinte modulo h, ad esempio phi_i(h)=i h/(N+1) all'interno del gruppo: le rette parallele non coincidono e le fasi tendono a zero, quindi non alterano il limite affine. Le intersezioni tra famiglie non parallele sono finite e non contribuiscono all'integrale su J_w. Quindi
 $$
 f_{cell}(M)\le\sum_{i=1}^N\psi(b_i,\nu_i).
 $$
