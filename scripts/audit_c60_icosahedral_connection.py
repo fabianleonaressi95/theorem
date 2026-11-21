@@ -17,11 +17,10 @@ from __future__ import annotations
 import argparse
 import json
 from collections import defaultdict
-from itertools import combinations, permutations, product
+from itertools import permutations
 from pathlib import Path
 
 import numpy as np
-from scipy.linalg import null_space
 from scipy.optimize import linear_sum_assignment
 from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
@@ -30,7 +29,6 @@ from audit_c60_mmff94s_relaxed_coulomb import ico_vertices, c60_ideal
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 PHI_BAR = (1.0 - np.sqrt(5.0)) / 2.0
-TOL = 1.0e-7
 
 
 def unit(x):
@@ -245,7 +243,8 @@ def representation_decomposition(group, faces, centroids, frames, L):
             R = -O
             parity = -1
             improper_count += 1
-        class_counts[classify_proper_rotation(R)] += 1
+        if parity == 1:
+            class_counts[classify_proper_rotation(R)] += 1
 
     for name, (d, chi) in A5_CHARACTERS.items():
         for parity_label, parity_sign in (("g", 1), ("u", -1)):
