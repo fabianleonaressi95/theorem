@@ -17,7 +17,7 @@ laminato hanno ampiezza `hσ`, lunghezza `~|P|/h`, costo
 quadratico totale `~hσ²|P|→0` senza bisogno di ulteriore
 suddivisione.
 
-### 1.2 Teorema candidato (estensione)
+### 1.2 Teorema (dimostrato, vedi `C60_CF_QUADRATIC_JUMP_GENERAL_2026-11-21.md`)
 
 Sia `ψ(a,ν)=φ(|a|)` con `φ:[0,∞)→[0,∞)` continua,
 `φ(0)=0`, `φ(t)/t→0` per `t→0` (es. `φ(t)=t^q`, `q>1`; include
