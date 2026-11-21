@@ -1,0 +1,32 @@
+name: C60 facewise Df and structured-field matrix construction
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/audit_c60_facewise_Df.py"
+      - "scripts/audit_c60_icosahedral_connection.py"
+      - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
+      - "docs/C60_FACEWISE_DF_STRUCTURED_FIELD_AUDIT.md"
+      - ".github/workflows/c60-facewise-df.yml"
+
+jobs:
+  construct-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy rdkit
+      - name: Construct facewise Df, Gf and Mf
+        run: |
+          python scripts/audit_c60_facewise_Df.py --out-dir c60_facewise_Df
+      - name: Upload matrices and numerical report
+        uses: actions/upload-artifact@v4
+        with:
+          name: c60-facewise-df-matrices
+          path: c60_facewise_Df/
