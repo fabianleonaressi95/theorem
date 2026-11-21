@@ -20,8 +20,8 @@ Calcolo:
   Verifica corretta: E(u) = ∫ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH^1.
   Per g_h continua: S_{g_h}=vuoto, il "salto" e' regolarizzato negli
   strip -> il termine di superficie di g_h diventa bulk-extra.
-  Attenzione: g_h e' costruita continua. Il test strip misura il costo di
-  questa regolarizzazione e non quello della determining sequence CF.
+  Attenzione: g_h e' la regolarizzazione continua e il test strip misura
+  il suo costo, non quello della determining sequence CF.
 
   Per la coppia C60 nel documento formale, ∇_Σg = G_f = B_f D_f su ogni
   faccia. Quindi M=∇_Σg-G=0 e la successione costante u_n=g e' gia'
@@ -29,10 +29,10 @@ Calcolo:
   non sono necessari nel bulk per questa coppia.
 
   Conseguenza: la divergenza quadratica degli strip continui NON esclude
-  W(F)=|F|^2 nel problema CF. Lungo u_n=g il bulk quadratico e' finito
-  e vale 2*Area; il termine di interfaccia e' valutato sui salti macroscopici.
-  Il valore rilassato resta un infimo e non e' identificato dal costo di
-  questa sola successione.
+  W(F)=|F|^2 nel problema CF. Lungo u_n=g il bulk quadratico vale 2*Area;
+  il bulk lineare vale sqrt(2)*Area. Entrambi hanno costo finito. Il termine
+  interfaciale qui calcolato usa tutti i 90 spigoli (200 campioni per spigolo).
+  I costi sono upper bound per I(g,G), non l'infimo.
 
 Output: audits/c60_dpo_energy_<data>.json
 """
@@ -165,12 +165,19 @@ rep = {
 # verifica divergenza ~1/h: rapporto
 for h1, h2 in [(0.2, 0.1), (0.1, 0.05)]:
     rep[f"L2_ratio_{h1}_vs_{h2}"] = strip_L2_by_h[h1] / strip_L2_by_h[h2]
+rep["CF_constant_sequence_energy_W1_plus_psi1"] = bulk_W1 + jump_mass_psi1
+rep["CF_constant_sequence_energy_W2_plus_psi1"] = bulk_W2 + jump_mass_psi1
+rep["CF_constant_sequence_status"] = (
+    "u_n=g e' una determining sequence per la coppia C60 corrente poiche' "
+    "∇_Σg=G faccia per faccia (M=0). Le energie W1/W2 sono upper bound "
+    "numerici per I(g,G), non il valore dell'infimo."
+)
 rep["interpretation"] = (
-    "Audit numerico della regolarizzazione continua strip+cap. Poiche' "
-    "g_h e' continua, ∇g_h dA = Dg_h e, se g_h -> g in L1, il limite "
-    "distribuzionale e' Dg, non il solo G dA richiesto da CF. Questi "
-    "numeri non verificano una determining sequence CF e non identificano "
-    "I(g,G). La stima quadratica e' campionaria su 20/90 spigoli."
+    "I valori strip L2 sono un audit della regolarizzazione continua e "
+    "campionano 20/90 spigoli con scaling. Non escludono W quadratica per "
+    "CF: la successione costante u_n=g e' determinante per la coppia "
+    "corrente (M=0), ha energia finita W1 e W2. L'interfaccia psi=s e' "
+    "integrata su tutti i 90 spigoli con quadratura trapezoidale."
 )
 rep["regularization_TV_candidate"] = {
     "bulk": bulk_W1,
