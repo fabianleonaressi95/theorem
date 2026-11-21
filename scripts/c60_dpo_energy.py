@@ -20,16 +20,19 @@ Calcolo:
   Verifica corretta: E(u) = ∫ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH^1.
   Per g_h continua: S_{g_h}=vuoto, il "salto" e' regolarizzato negli
   strip -> il termine di superficie di g_h diventa bulk-extra.
-  Attenzione: g_h e' costruita continua. Se g_h ∈ W^{1,1}, allora
-  Dg_h = ∇g_h dA e, da g_h -> g in L1, il limite distribuzionale e' Dg,
-  non il solo G dA richiesto dalla determining sequence CF.
-  Il test qui sotto misura il costo della regolarizzazione continua;
-  NON verifica una determining sequence CF per (g,G).
+  Attenzione: g_h e' costruita continua. Il test strip misura il costo di
+  questa regolarizzazione e non quello della determining sequence CF.
 
-  Il confronto quadratico/lineare e' quindi un audit della regolarizzazione
-  costruita, non una scelta dimostrata per il funzionale rilassato CF.
-  Per una vera determining sequence servono approssimanti SBV con
-  micro-salti e ∇u_n dA ⇀* G dA.
+  Per la coppia C60 nel documento formale, ∇_Σg = G_f = B_f D_f su ogni
+  faccia. Quindi M=∇_Σg-G=0 e la successione costante u_n=g e' gia'
+  determinante: u_n->g in L1 e ∇_Σu_n dA=G dA esattamente. I micro-salti
+  non sono necessari nel bulk per questa coppia.
+
+  Conseguenza: la divergenza quadratica degli strip continui NON esclude
+  W(F)=|F|^2 nel problema CF. Lungo u_n=g il bulk quadratico e' finito
+  e vale 2*Area; il termine di interfaccia e' valutato sui salti macroscopici.
+  Il valore rilassato resta un infimo e non e' identificato dal costo di
+  questa sola successione.
 
 Output: audits/c60_dpo_energy_<data>.json
 """
