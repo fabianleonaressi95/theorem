@@ -22,7 +22,9 @@
     "max_tangent_subspace_residual_Oh": 1.459649841887034e-15,
     "max_representation_orthogonality_residual_Oh": 4.141861010837903e-14,
     "max_relative_commutator_KC_Oh": 1.6431859813531403e-15,
-    "max_relative_commutator_KC_Q6_graph_subgroup": 1.6431859813531403e-15
+    "max_relative_commutator_KC_Q6_graph_subgroup": 1.6431859813531403e-15,
+    "T_h_order": 24,
+    "max_relative_commutator_KC_T_h": 1.6017863630512603e-15
   },
   "coulomb": {
     "energy": 897.0080867574258,
