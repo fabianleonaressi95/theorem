@@ -29,7 +29,12 @@ def main():
             a=angle(X[prev]-X[v], X[nxt]-X[v])
             angles_by_vertex[v].append(a); incident_faces[v].append(fi); aa.append(a)
         face_records.append({'face':fi,'size':len(face),'angles_rad':aa,'sum_rad':float(sum(aa))})
-    edge_set = set()\n    for face in faces:\n        face = [int(v) for v in face]\n        for a, b in zip(face, face[1:] + face[:1]):\n            edge_set.add(tuple(sorted((a, b))))\n    vertex_records = []; defects = []
+    edge_set = set()
+    for face in faces:
+        face = [int(v) for v in face]
+        for a, b in zip(face, face[1:] + face[:1]):
+            edge_set.add(tuple(sorted((a, b))))
+    vertex_records = []; defects = []
     for v,aa in enumerate(angles_by_vertex):
         if len(aa)!=3: raise RuntimeError(f'Vertex {v}: expected 3 incident faces, got {len(aa)}')
         d=2*np.pi-sum(aa); defects.append(d)
