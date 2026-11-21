@@ -1,0 +1,27 @@
+{
+  "classification": "numerical audit",
+  "coordinate_signed_permutation_group_order": 48,
+  "Q6_graph_automorphism_count": 16,
+  "Q6_graph_nonautomorphism_count": 32,
+  "residual_symmetry_group_order": 16,
+  "operator_invariance_counts_188D": {
+    "K0": 1,
+    "R_geo_tangent": 16,
+    "T_transport": 1,
+    "P_G": 1
+  },
+  "operator_invariance_counts_compressed_64D": {
+    "K0": 1,
+    "R_geo_tangent": 16,
+    "T_transport": 1,
+    "P_G": 1
+  },
+  "threshold": 1e-10,
+  "extension": "U = B P B^T + (I - B B^T)",
+  "extension_warning": "Identity on range(B)^perp; a declared convention, not uniquely induced by the 64D action.",
+  "verdict": "The 16 coordinate actions preserving Q6 adjacency preserve R_geo_tangent, but only the identity preserves K0, T_transport and P_G under the declared extension and on their 64D compressions.",
+  "limitations": [
+    "Only the reconstructed coordinate signed-permutation group is tested.",
+    "No independent 188D representation of I_h is constructed."
+  ]
+}
