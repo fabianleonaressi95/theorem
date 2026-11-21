@@ -145,6 +145,13 @@ Infatti ciascun salto ha ampiezza `O(h)`, mentre la lunghezza totale delle linee
 - `p>1`: costo micro-interfaciale tende a zero.
 - `0<p<1`: la stima scala come `h^{p−1}` e non dà un limite finito.
 
+Per `ψ(a,ν)=|a|`, la griglia cartesiana dà il limite micro-interfaciale
+
+```
+∫_f (|M_f e₁| + |M_f e₂|) d𝓗²,
+```
+
+a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia. Per la densità isotropa lineare `ψ(a,ν)=|a|`, il cell problem è ora risolto: il costo minimo per unità di area è la norma nucleare `||M_f||_*`, raggiunta da una costruzione SVD con rette orientate secondo i vettori singolari. La dimostrazione completa è in [`C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md`](C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md).
 Per `ψ(a,ν)=|a|`, la griglia cartesiana fornisce un upper bound, ma non è in generale ottimale. Il cell problem è ora risolto: il limite inferiore ottenuto dalla dualità della norma nucleare è raggiunto da una laminazione nelle direzioni della SVD,
 
 ```
@@ -175,6 +182,7 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 
 - **Provato:** esistenza di una determining sequence intrinseca per ogni campo `G̃` costante faccia per faccia, incluso `M≠0`.
 - **Provato:** il gradiente assolutamente continuo è esattamente `G̃` a ogni scala.
+- **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con valore `||M_f||_*` per unità di area (cell problem SVD).\n- **Non provato:** ottimalità per densità 1-omogenee anisotrope o dipendenti dalla normale.
 - **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con costo nucleare `||M_f||_*`.
 - **Non provato:** ottimalità per densità anisotrope o dipendenti dalla normale.
 - **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con valore `‖M_f‖_*` per unità di area (cell problem SVD).
@@ -183,4 +191,5 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 - **Non provato:** teorema integrale CF generale per tutte le superfici poliedrali.
 - **Non provato:** eventuali vincoli aggiuntivi di immersione o embeddedness degli approssimanti; la classe CF SBV non li impone.
 
+La costruzione colma il gap di esistenza per `M≠0` nel caso faccia-per-faccia costante, ma non identifica automaticamente l'infimo energetico generale.
 La costruzione colma il gap di esistenza per `M≠0`; insieme al cell problem nucleare identifica il costo micro-interfaciale per la densità isotropa lineare. Non identifica l'infimo per densità generali o con ulteriori vincoli cinematici.

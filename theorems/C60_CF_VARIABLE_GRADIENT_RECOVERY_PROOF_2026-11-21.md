@@ -117,6 +117,27 @@ dalla fase `φ_{j,i}` — fornisce
 ```
 |hL_i − |S_j|| ≤ C h δ ,     costo famiglia i in S_j = σ_i h·L_i
                             = σ_i |S_j| + O(σ_i h δ) .
+la lunghezza totale delle sue linee in `S_j`. Sia
+`A(t) := 𝓗¹(S_j ∩ {x·v_i = t})`. Poiché `|∇(x·v_i)|=1`, la formula di
+coarea dà `∫_ℝ A(t)dt = |S_j|`, e `L_i = Σ_k A(kh−φ_{j,i})` (le linee
+sono i livelli `t ∈ hℤ−φ_{j,i}`). La stima di quadratura per funzioni
+a variazione limitata su una griglia traslata è
+
+```
+|h Σ_k A(kh−φ) − ∫_ℝ A(t)dt| ≤ C h · TV(A) ,
+```
+
+con `C` universale e **indipendente dalla traslazione `φ`** (la
+stima per regola di rettangoli di una funzione BV controlla
+l'errore per ogni scelta di nodi). Per `S_j` quadrato, `A` è continua,
+piecewise lineare e **unimodale** (cresce linearmente da 0 al valore
+massimo e decresce): `TV(A) = 2 max_t A(t) ≤ 2 diam(S_j) ≤ C Per(S_j)`
+uniformemente in `ν` (la maggiorazione usa solo diametro e perimetro,
+non la direzione). Quindi
+
+```
+|hL_i − |S_j|| ≤ C h · Per(S_j) = C h δ ,
+costo famiglia i in S_j = σ_i h·L_i = σ_i |S_j| + O(σ_i h δ) .
 ```
 
 Il costo interno totale per cella è `|S_j|‖M_j‖_* + O(hδ‖M_j‖_*)`.
