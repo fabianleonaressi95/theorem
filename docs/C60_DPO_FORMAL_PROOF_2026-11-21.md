@@ -15,7 +15,8 @@ Sia `Σ` la superficie del icosaedro troncato (compatta, 32 facce piane,
 
 ```
 g(x) = g_f(x)  per x ∈ relint(f),   g_f(x) = Q_f x + t_f
-```\n
+```
+
 con `Q_f ∈ SO(3)` e `Q_f|_{T_f} = B_f D_f B_f^T` (rotazione che agente
 sul piano tangente realizza `D_f ∈ SO(2)`).
 
@@ -147,7 +148,8 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | Contributo vertici `O(h)` | Stima candidata; le ipotesi sui pesi/carte vanno rese esplicite |
 | Contributo strip TV | Stima numerica/candidata; quadratura non esaustiva |
 | Immersione locale degli `g_h` | Numerico (σ_min > 0, margine piccolo) |
-| Embeddedness globale | Sonda numerica positiva, non esaustiva |\n| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
+| Embeddedness globale | Sonda numerica positiva, non esaustiva |
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica
