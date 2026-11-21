@@ -297,7 +297,7 @@ su ogni cella. Per ogni singolo termine singolare
 dei micro-salti, testata contro \(\varphi\in C(\Sigma)\), è
 \[
  h\sigma_i\sum_{k\in\mathbb Z}
- \int_{T\cap\{x\cdot\nu_i=kh\}}\varphi\,d\mathcal H^1
+ \int_{T^\circ\cap\{x\cdot\nu_i=kh\}}\varphi\,d\mathcal H^1
  \longrightarrow
  \sigma_i\int_T\varphi\,d\mathcal H^2.
 \]
