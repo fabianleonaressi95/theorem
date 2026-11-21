@@ -9,7 +9,7 @@ un passo separato (carte, metricha, salti inter-faccia).
 ## 1. Enunciato
 
 Sia `Ω⊂ℝ²` aperto limitato con bordo Lipschitz, `g∈SBV(Ω;ℝ^m)` con
-`∇g∈L¹` e `∫_{J_g}|[g]|d𝓗¹<∞`, e `G∈L^p(Ω;ℝ^{m×2})` con `p` tale
+`∇g∈L^p` e `∫_{J_g}|[g]|d𝓗¹<∞`, e `G∈L^p(Ω;ℝ^{m×2})` con `p` tale
 che il bulk sia definito (`p=1` per `W=|F|_F`; `p=2` per
 `W=|F|_F²`). Allora, per `ψ(a,ν)=|a|` e `W` come sopra,
 
@@ -208,7 +208,7 @@ aggiuntiva serve.
 | Ipotesi | Uso |
 |---|---|
 | `Ω` limitato Lipschitz | CFI + proiezioni di `G` |
-| `g∈SBV`, `∇g∈L¹`, `∫_{J_g}|[g]|<∞` | CFI con `g_0(t)=t` |
+| `g∈SBV`, `∇g∈L^p`, `∫_{J_g}|[g]|<∞` | CFI con `g_0(t)=t` |
 | `G∈L^p`, `p=1` (`W=|F|`) o `p=2` (`W=|F|²`) | convergenza bulk |
 | `ψ=|a|`, `W` convessa con la crescita dichiarata | cell formula + semicontinuità |
 | celle troncate a `∂Ω` | poligoni, affine preservata; i salti su `∂Ω` sono termine di bordo separato |
