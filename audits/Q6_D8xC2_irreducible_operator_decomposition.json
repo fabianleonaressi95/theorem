@@ -149,5 +149,13 @@
     "R_geo_tangent is in the commutant to numerical precision.",
     "K0, P_G and T_transport have large off-isotypic couplings and large non-invariant components.",
     "Group averaging is the Frobenius-orthogonal projection onto the invariant operator subspace, but substantially changes K0, P_G and T_transport."
-  ]
+  ],
+  "basis_provenance_qualification": {
+    "representation_decomposition": "Valid for R_geo_tangent reconstructed in Q_tangent coordinates.",
+    "operator_covariance_table": "Conditional stored-coordinate calculation only; geometric interpretation requires proof that K0, P_G and T_transport use the exact same 188D basis.",
+    "basis_identification_certificate_available": false,
+    "T_transport_reconstruction": "T_transport = U_polar @ A_geometry_orthonormal.T; U_polar = polar(P_G @ A_geometry_orthonormal).",
+    "reference": "docs/RGS_188D_OPERATOR_PROVENANCE.md",
+    "status": "Do not interpret as unconditional theorem of physical symmetry breaking."
+  }
 }
