@@ -1,122 +1,126 @@
-# C60 — analytical closure of the variable-field isotropic CF cell cost
+# C60 — Caccioppoli-partition recovery for the variable-field isotropic CF cost
 
-Status: **theorem, using the strict polyhedral BV-density lemma stated below**  
+Status: **analytical recovery construction, interior formulation**  
 Date: 2026-11-21
 
-This note closes the variable-field recovery argument for the isotropic jump density
-\(\psi(a,\nu)=|a|\). It does not claim the general separable anisotropic cell formula.
+## 1. Setting and statement
 
-## 1. Setting
-
-Let \(F\subset\mathbb R^2\) be a bounded Lipschitz polygon, \(c\in W^{1,1}(F;\mathbb R^3)\), and \(G\in\mathbb R^{3\times2}\) fixed. Set \(M=\nabla c\). Consider
+Let \(\Omega\subset\mathbb R^2\) be bounded Lipschitz and \(c\in W^{1,1}(\Omega;\mathbb R^m)\). Define
 \[
-u_n(x)=Gx+c_n(x),\qquad c_n\in SBV(F;\mathbb R^3),
+F(v)=\int_{J_v}|[v]|\,d\mathcal H^1
 \]
-with \(\nabla c_n=0\) a.e. Thus \(\nabla u_n=G\) a.e. exactly. The jump cost is
-\(\int_{J_{c_n}}|[c_n]|\,d\mathcal H^1\).
-The statement is interior/local; trace constraints and boundary-layer costs are not included.
-
-## 2. Theorem — variable-field nuclear-norm relaxation
-
-For every \(c\in W^{1,1}(F;\mathbb R^3)\),
+for finite piecewise-constant maps \(v\). Then
 \[
-\boxed{
-\inf_{c_n\to c\text{ in }L^1}
-\liminf_{n\to\infty}\int_{J_{c_n}}|[c_n]|\,d\mathcal H^1
-=\int_F\|\nabla c(x)\|_*\,dx,
-}
+\boxed{\inf_{v_n\to c\text{ in }L^1}\liminf_n F(v_n)
+=\int_\Omega\|\nabla c(x)\|_*\,dx.}
 \]
-where the admissible recovery functions are finite piecewise-constant functions. The norm on \(3\times2\) matrices is the nuclear norm.
+No trace constraint is imposed. The result is interior; prescribed traces require a separate boundary-layer construction.
 
-### 2.1 Lower bound
+## 2. Lower bound
 
-If \(c_n\to c\) in \(L^1\) and the jump costs are bounded, then \(Dc_n\stackrel{*}{\rightharpoonup}Dc\), after subselection. For every \(Q\in C_c(F;\mathbb R^{3\times2})\) with \(\|Q(x)\|_{\rm op}\le1\),
+For \(Q\in C_c(\Omega;\mathbb R^{m\times2})\), \(\|Q(x)\|_{\rm op}\le1\), rank-one duality gives
 \[
-\begin{aligned}
-\int_F Q:Dc_n
-&=\int_{J_{c_n}}[c_n]\cdot Q\nu_{c_n}\,d\mathcal H^1\\
-&\le\int_{J_{c_n}}|[c_n]|\,d\mathcal H^1.
-\end{aligned}
+Q:([v]\otimes\nu)=[v]\cdot Q\nu\le|[v]|.
 \]
-Passing to the weak-* limit and using the duality
-\(\|M\|_*=\sup_{\|Q\|_{\rm op}\le1}Q:M\), with continuous test-field approximation, yields
+If \(v_n\to c\) in \(L^1\) and \(F(v_n)\) is bounded, then \(Dv_n\stackrel{*}{\rightharpoonup}Dc\) as measures. Thus
 \[
-\int_F\|\nabla c\|_*\,dx
-\le\liminf_n\int_{J_{c_n}}|[c_n]|\,d\mathcal H^1.
+\liminf_nF(v_n)\ge\int_\Omega Q:\nabla c\,dx.
+\]
+Taking the supremum over continuous operator-unit-ball fields, using the duality of nuclear and operator norms and approximation of the measurable polar field, yields
+\[
+\liminf_nF(v_n)\ge\int_\Omega\|\nabla c\|_*\,dx.
 \]
 
-## 3. Recovery — analytic construction
+## 3. Recovery by locally SVD-oriented Caccioppoli partitions
 
-The upper bound is the strict polyhedral approximation property for the convex, positively 1-homogeneous variation \(N(Dc)=\int\|\frac{dDc}{d|Dc|}\|_*\,d|Dc|\).
+The construction below supplies the upper bound; it does not infer recovery from the SVD alone.
 
-### Lemma (strict polyhedral approximation)
+### Step 1 — smooth and freeze the gradient
 
-For \(c\in W^{1,1}(F;\mathbb R^3)\), there exist finite piecewise-constant \(c_n\) such that
+Choose \(c^\varepsilon\in C^\infty\) with \(c^\varepsilon\to c\) in \(W^{1,1}\). Since the nuclear norm is continuous in finite dimensions,
 \[
-c_n\to c\text{ in }L^1(F),\qquad
-\int_{J_{c_n}}|[c_n]|\,d\mathcal H^1
-\to\int_F\|\nabla c\|_*\,dx.
+\int_\Omega\|\nabla c^\varepsilon\|_*\,dx
+\to\int_\Omega\|\nabla c\|_*\,dx.
+\]
+Fix \(\varepsilon\). Partition an interior polygonal exhaustion into macro-polygons \(P_j\) of diameter at most \(\delta\). Let \(M_j=\nabla c^\varepsilon(x_j)\) for \(x_j\in P_j\). Uniform continuity gives
+\[
+\sup_{x\in P_j}\|\nabla c^\varepsilon(x)-M_j\|_F
+\le\omega_\varepsilon(\delta).
 \]
 
-### Construction / proof
+### Step 2 — local grid oriented by the right singular vectors
 
-1. **Smooth approximation.** By extension and mollification (or interior exhaustion), choose \(c^\varepsilon\in C^\infty\) with \(c^\varepsilon\to c\) in \(W^{1,1}\). Since the nuclear norm is continuous and bounded by a constant times the Frobenius norm,
-   \[
-   \int_F\|\nabla c^\varepsilon\|_*\,dx\to\int_F\|\nabla c\|_*\,dx.
-   \]
-2. **Local SVD laminate.** On a small cell \(P\) where \(\nabla c^\varepsilon\) varies by at most \(\omega(\operatorname{diam}P)\), freeze \(M_P=\nabla c^\varepsilon(x_P)\). Write
-   \(M_P=\sum_{i=1}^2\sigma_i a_i\otimes v_i\), with \(a_i,v_i\) unit and \(v_i\) orthonormal. A two-scale staircase with interfaces normal to \(v_i\) and jumps parallel to \(a_i\) realizes the affine correction \(M_P(x-x_P)\); its limiting cost per area is \(\sum_i\sigma_i=\|M_P\|_*\). The laminate is cut off in a boundary strip of \(P\); choose the oscillation scale much smaller than the strip width, then the strip width much smaller than \(\operatorname{diam}P\), so its added cost is \(o(|P|)\).
-3. **Partition and diagonalization.** Choose a polyhedral partition with mesh tending to zero. On each cell use the frozen-gradient laminate. The oscillation error is bounded by the modulus of continuity of \(\nabla c^\varepsilon\) times the cell area; boundary-strip errors are summable and tend to zero. First send laminate scale to zero for the fixed partition, then mesh to zero, then \(\varepsilon\to0\), and take a diagonal sequence. This gives \(L^1\) convergence and the upper bound by \(\int\|\nabla c\|_*\).
-
-The local laminate step is the essential ingredient: a generic Cartesian staircase only yields \(|Me_1|+|Me_2|\), which need not equal \(\|M\|_*\). The SVD-oriented construction is required for the nuclear-norm value.
-
-### Applying the lemma
-
-Set \(u_n(x)=Gx+c_n(x)\). Since \(c_n\) is piecewise constant,
+For each macro-polygon, choose an SVD
 \[
-\nabla u_n=G\quad\text{a.e.}
+M_j=\sum_{i=1}^{2}\sigma_i^{(j)}a_i^{(j)}\otimes v_i^{(j)},
 \]
-and its jump cost is exactly the recovery cost in the lemma. This gives the matching upper bound and closes the interior relaxation.
+where \(v_1^{(j)},v_2^{(j)}\) are orthonormal. Tile the plane by squares of side \(h\) with sides parallel to these vectors, and intersect the grid with \(P_j\). This produces a finite Caccioppoli partition. On each full grid square \(C\), set the approximant equal to \(c^\varepsilon(x_C)\), where \(x_C\) is its center. Boundary cells are assigned values from points in the same macro-polygon at distance \(O(h)\).
 
-## 4. Facewise functional
-
-For polygonal faces \(F_f\), fixed \(\widetilde G_f\), and \(g_f-\widetilde G_fx\in W^{1,1}(F_f;\mathbb R^3)\), the interior face relaxation is
+For the frozen affine map \(x\mapsto M_jx+b\), neighboring values across a side with normal \(v_i^{(j)}\) differ by exactly \(hM_jv_i^{(j)}\). The side has length \(h\). Per unit area, the two families of sides therefore cost
 \[
-I_{\rm rel}^{\rm face}
-=\sum_f\int_{F_f}\left[
-W(\widetilde G_f)+
-\|\nabla g_f-\widetilde G_f\|_*
-\right]\,d\mathcal H^2
-+\sum_f\int_{J_{g_f}}|[g_f]|\,d\mathcal H^1.
+|M_jv_1^{(j)}|+|M_jv_2^{(j)}|
+=\sigma_1^{(j)}+\sigma_2^{(j)}
+=\|M_j\|_*.
 \]
-This is a face-interior formula. Compatibility of recovery sequences along C60 edges and any prescribed traces must be separately imposed; no edge cost is silently included.
+This is the exact local cell cost for this oriented grid, not merely an algebraic SVD identity.
 
-## 5. Separable anisotropy — rigorous bounds
+### Step 3 — perturbation and macro-interface estimates
 
-Let \(\Phi\) be a norm and \(k:S^1\to[0,\infty)\) even. For
-\(\psi(a,\nu)=\Phi(a)k(\nu)\), the dual lower bound is
+For \(c^\varepsilon\) on a grid cell, the difference between the neighboring sampled values and the frozen-affine values is bounded by
+\(O(h\,\omega_\varepsilon(\delta))\). Summing over grid sides gives an interior cost error bounded by
+\(C|\Omega|\omega_\varepsilon(\delta)\), with \(C\) depending only on dimension and the norm equivalence constants.
+
+At macro-polygon interfaces, grid cells from the two orientations need not match. Assign boundary-cell values by sampling \(c^\varepsilon\) within distance \(O(h)\) of the interface. Because \(c^\varepsilon\) is Lipschitz, the mismatch across the macro-interface is \(O(h\|\nabla c^\varepsilon\|_\infty)\). The total interface length of a shape-regular macro-partition is \(O(|\Omega|/\delta)\); hence the added cost is
+\[
+O\!\left(h\,\|\nabla c^\varepsilon\|_\infty\,|\Omega|/\delta\right).
+\]
+Choose \(h/\delta\to0\). The outer-boundary cells are handled by an interior exhaustion; their contribution vanishes in the no-trace formulation.
+
+Consequently, for fixed \(\varepsilon,\delta\), sending \(h/\delta\to0\), then \(\delta\to0\), gives
+\[
+\limsup F(v_{\varepsilon,\delta,h})
+\le\int_\Omega\|\nabla c^\varepsilon\|_*\,dx
++C|\Omega|\omega_\varepsilon(\delta).
+\]
+The local grid values converge to \(c^\varepsilon\) in \(L^1\), with error \(O(h\|\nabla c^\varepsilon\|_\infty)\). Choose \(\delta\downarrow0\), then \(h/\delta\downarrow0\), and finally diagonalize \(\varepsilon\downarrow0\). This yields \(v_n\to c\) in \(L^1\) and
+\[
+\limsup_nF(v_n)\le\int_\Omega\|\nabla c\|_*\,dx.
+\]
+Together with the lower bound, this proves the formula.
+
+**Geometric scope:** the argument uses shape-regular macro-polygons and a finite Caccioppoli partition at each stage. The boundary and macro-interface estimates are essential; the SVD alone would not establish recovery.
+
+## 4. Exact prescribed-gradient consequence
+
+Set \(u_n(x)=Gx+v_n(x)\). Since each \(v_n\) is piecewise constant,
+\[
+\nabla u_n=G\quad\text{a.e. exactly}.
+\]
+The jump cost of \(u_n\) is \(F(v_n)\). Hence the variable-field isotropic correction is recovered without perturbing the prescribed bulk gradient.
+
+## 5. Facewise functional and limitations
+
+For polygonal faces \(F_f\), fixed \(\widetilde G_f\), and an interior no-trace formulation, the face contribution relaxes to
+\[
+\int_{F_f}\left[W(\widetilde G_f)+
+\|\nabla g_f-\widetilde G_f\|_*\right]\,d\mathcal H^2.
+\]
+The macro-jump term is separate. Compatibility across C60 edges and prescribed traces are not covered by this interior construction.
+
+## 6. Anisotropic bounds
+
+For \(\psi(a,\nu)=\Phi(a)k(\nu)\), with \(\Phi\) a norm and \(k\) even, the dual lower bound is
 \[
 \mathcal C_{\Phi,k}(M)\ge
-\sup_{Q:\,\Phi^\circ(Q\nu)\le k(\nu)\ \forall\nu}Q:M.
+\sup_{Q:\Phi^\circ(Q\nu)\le k(\nu)\ \forall\nu}Q:M.
 \]
-An orthogonal two-direction laminate gives
+A two-direction orthogonal laminate gives the upper bound
 \[
 \mathcal C_{\Phi,k}(M)\le
-\inf_{(v_1,v_2)\ {\rm ONB}}\sum_{j=1}^2k(v_j)\Phi(Mv_j).
+\inf_{(v_1,v_2)\ {\rm ONB}}\sum_i k(v_i)\Phi(Mv_i).
 \]
-Equality is not asserted for general \(\Phi,k\). For \(\Phi(a)=|a|\), \(k\equiv1\), the two bounds coincide with \(\|M\|_*\).
+Equality for general \(\Phi,k\) is not claimed. For \(\Phi=|\cdot|\) and \(k=1\), both bounds equal \(\|M\|_*\).
 
-## 6. Rank statement
+## 7. Rank statement
 
-For the constant-face staircase \(u_h(\xi)=\widetilde G\xi+b+Mq_h(\xi)\), one has \(\nabla u_h=\widetilde G\) a.e. If \(A^TA=I_2\) and \(\widetilde G=cA\), \(c>0\), then
-\[
-\operatorname{rank}\nabla u_h=2\quad\text{a.e.}
-\]
-This is a rank-a.e. statement for a discontinuous SBV map, not classical immersion through jump interfaces or global embeddedness.
-
-## 7. Status
-
-- Variable-field isotropic nuclear-norm relaxation: **closed by the SVD-oriented strict polyhedral recovery construction, under the interior convention**.
-- Prescribed-gradient recovery: **exact**, because the correction is piecewise constant.
-- General separable anisotropic equality: **open**.
-- Global embeddedness and edge compatibility: **open**.
+For \(u_h(\xi)=\widetilde G\xi+b+Mq_h(\xi)\), \(\nabla u_h=\widetilde G\) a.e. If \(\widetilde G=cA\), \(c>0\), \(A^TA=I_2\), then \(\operatorname{rank}\nabla u_h=2\) a.e. This does not imply classical immersion across jump interfaces or global embeddedness.
