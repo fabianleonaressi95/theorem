@@ -133,7 +133,7 @@ La conclusione usa `ψ(a,ν)=|a|`. Non va sostituita con l'affermazione più amp
 m |a/m|² = |a|²/m → 0.
 ```
 
-Questo mostra che la stima di variazione totale usata sopra non è disponibile per la densità quadratica; il suo rilassamento richiede un cell problem e una recovery construction globale compatibile con la geometria C60. Non si dichiara qui il valore globale dell'infimo per `ψ=|a|²`.
+Questo mostra che la stima di variazione totale usata sopra non è disponibile per la densità quadratica. Il caso C60 è tuttavia risolto con una costruzione distinta: una recovery sequence a strati paralleli annulla il costo interfaciale nel limite. Si veda `theorems/C60_CF_QUADRATIC_JUMP_RELAXATION_2026-11-21.md`.
 
 Più in generale, la convessità da sola non sostituisce subadditività e omogeneità positiva di grado uno, ipotesi usate nei risultati classici sulle densità interfaciali di structured deformations.
 
