@@ -5,7 +5,7 @@ Data: 2026-11-21
 Classificazione:
 - Recovery per gradiente costante: **dimostrato**.
 - Cell formula anisotropa senza dato al bordo: **dimostrata** sotto le ipotesi della sezione 2.
-- Recovery per gradiente variabile in W^{1,1}: **aperto in questo documento**; il raccordo tra celle non è dimostrato.
+- Recovery per gradiente variabile in W^{1,1}: **dimostrato in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`** (lemma di raccordo con stime esplicitate; in revisione).
 
 Questo documento separa tre questioni indipendenti. La costruzione SVD risolve il caso affine. La cell formula anisotropa è trattata senza usare il lemma di raccordo. Il passaggio a un gradiente variabile richiede invece una stima di raccordo che qui non viene presentata come provata.
 
@@ -122,7 +122,9 @@ $$
 $$
 resta **aperta quanto al recovery upper bound** e non viene classificata come teorema.
 
-Di conseguenza, non si dichiara dimostrata l'applicazione per G-tilde(x) misurabile ottenuta invocando un Lemma R variabile. Restano validi i risultati per gradiente costante per faccia, quando il difetto M_f è costante e si applica direttamente la costruzione affine.
+**Aggiornamento.** Il lemma di raccordo richiesto è dimostrato nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`. La costante di fase non è libera: con `v_h|_{S_j} = β_j + w_{j,h} − p_j` si ha `v_h = ℓ_j + r_{j,h}` esattamente sulle celle chiuse, e la stima di bordo `|v_h^j−v_h^k| ≤ C_c(δ²+h)` su `E=∂S_j∩∂S_k` usa il fatto che entrambe le approssimazioni affini sono uniformi — rispetto alla stessa `c` — sulle celle chiuse, senza richiedere `ℓ_j=ℓ_k` sul bordo. La lunghezza interna dei bordi è `O(1/δ)` e l'ampiezza `O(δ²+h)` dà un contributo `O(δ)+O(h/δ)→0` per `h=δ²`.
+
+Con quel lemma, l'applicazione per G-tilde(x) misurabile segue per `\nabla_\Sigma g-\widetilde G\in L^1` nel modello intrinseco. Restano validi i risultati per gradiente costante per faccia, quando il difetto M_f è costante e si applica direttamente la costruzione affine.
 
 ## 4. Immersione — rank 2 quasi ovunque
 
@@ -140,7 +142,7 @@ Questo non implica continuità globale, iniettività o embeddedness attraverso i
 | Cell formula anisotropa senza dato al bordo, inf su tutte le decomposizioni finite | **Provato** sotto le ipotesi dichiarate |
 | Fusione di termini con normali parallele | **Non consentita in generale**; non viene usata |
 | Lower bound nucleare per gradiente variabile, psi=|a| | **Provato** |
-| Recovery per c in W^{1,1} | **Aperto**: raccordo non dimostrato |
+| Recovery per c in W^{1,1} | **Dimostrato** in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (lemma di raccordo esplicitato); in revisione |
 | Formula ONB anisotropa | **Solo upper bound** |
 | Rank 2 a.e. per gradiente c_0 A | **Provato** come proprietà del gradiente a.e. |
 | Embeddedness globale | **Aperta** |
