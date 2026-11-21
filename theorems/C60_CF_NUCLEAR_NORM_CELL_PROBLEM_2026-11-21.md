@@ -129,6 +129,18 @@ Per \(\psi(a,\nu)=|a|^p\), la stessa costruzione SVD ha costo di ordine \(h^{p-1
 
 La conclusione di ottimalità tramite norma nucleare riguarda esclusivamente \(p=1\) e la densità isotropa indipendente dalla normale.
 
+## 5bis. Corollario: difetto di rango uno
+
+Se \(\operatorname{rank}M\le1\), la SVD ha un solo valore singolare e
+\[
+\|M\|_*=\sigma_1(M)=\|M\|_F.
+\]
+In questo caso il lower bound nucleare coincide con la variazione totale
+della misura matriciale \(M\,\mathcal L^2\) (densità di Frobenius), e una
+sola famiglia di linee laminate orientata lungo \(v_1\) realizza il minimo.
+Il caso rango uno non è un problema a parte: è il caso particolare
+\(\sigma_2=0\) del teorema generale.
+
 ## 6. Stato logico
 
 - **Dimostrato:** limite inferiore nucleare per ogni successione SBV con convergenza distribuzionale del difetto bulk e costo \(\int|[u_h]|\).

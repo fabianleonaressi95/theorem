@@ -69,6 +69,11 @@ D^s_Σu_n ⇀* (∇_Σg−G)𝓗² + [g]⊗ν_g 𝓗¹⌞J_g.
 ```
 I micro-salti degli approssimanti sono dunque essenziali in generale.
 
+**Stato corretto.** Le stime geometriche strip/cap e i valori TV restano
+calcoli sulla regolarizzazione continua. L'esistenza e la costruzione di
+una vera determining sequence CF per la coppia C60 `(g,G)` restano aperte.
+Vedere `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md` per la
+derivazione, la riclassificazione energetica e il programma corretto.
 **Stato corretto.** Le stime geometriche strip/cap riguardano soltanto la
 regolarizzazione continua. Per la coppia C60 corrente, la successione
 costante `u_n=g` è una determining sequence perché `∇_Σg=G` faccia per
@@ -80,6 +85,7 @@ e dalla semicontinuità del bulk; vedi
 ## 2A. Determining sequence CF esplicita per la coppia corrente
 
 Le definizioni faccia-per-faccia danno `∇_Σg|_f=G_f=B_fD_f` nella carta
+ortonormale `B_f). Quindi `M=∇_Σg−G=0` a.e. La successione costante
 ortonormale `B_f`. Quindi `M=∇_Σg−G=0` a.e. La successione costante
 `u_n=g` appartiene a `SBV(Σ;R³)`, converge a `g` in `L¹` e soddisfa
 `∇_Σu_n𝓗²=G𝓗²` per ogni `n`. È pertanto una determining sequence nella
@@ -87,6 +93,11 @@ formulazione intrinseca sul complesso poliedrale. La dimostrazione dettagliata
 e le conseguenze energetiche sono in
 `theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
 
+Questo risultato vale per la coppia corrente con `M=0`; non dimostra una
+costruzione per un diverso campo bulk con `M≠0`. L'estensione del quadro
+CF dal dominio euclideo alla superficie poliedrale è qui verificata
+direttamente mediante la decomposizione SBV sulle facce e le tracce sugli
+spigoli.
 Per un campo alternativo `G̃` costante faccia per faccia, anche con
 `M=∇_Σg−G̃≠0`, una successione determinante esplicita è costruita mediante
 quantizzazione a gradini: `u_{h,f}=G̃_fξ+b_f+M_fq_h(ξ)`. Il gradiente
@@ -106,6 +117,11 @@ trapezoidale a 200 campioni per spigolo. I valori risultanti sono:
 - `W(F)=|F|_F`: `45.63651643+38.93478886=84.57130529`;
 - `W(F)=|F|_F²`: `64.53978047+38.93478886=103.47456933`.
 
+Sono costi di una successione determinante ammissibile e quindi limiti
+superiori per il funzionale rilassato, non identificazioni dell'infimo.
+La divergenza `C/h` misurata sugli strip riguarda soltanto la diversa
+regolarizzazione continua e non esclude la crescita quadratica nel problema
+CF.
 Per `ψ(a,ν)=|a|`, questi valori identificano il funzionale rilassato per
 entrambi i bulk indicati, non soltanto un upper bound: la stima inferiore
 interfaciale segue dalla semicontinuità della variazione totale di
@@ -166,6 +182,7 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Esistenza di determining sequence per `G̃` costante faccia-per-faccia con `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Costo micro-interfaciale ottimale per `M≠0`, `ψ=|a|` | **Identificato:** norma nucleare `‖M_f‖_*` per unità di area (cell problem SVD) |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica
