@@ -5,7 +5,7 @@ Data: 2026-11-21
 Classificazione:
 - Recovery per gradiente costante: **dimostrato**.
 - Cell formula anisotropa senza dato al bordo: **dimostrata** sotto le ipotesi della sezione 2.
-- Recovery per gradiente variabile in W^{1,1}: **aperto in questo documento**; il raccordo tra celle non è dimostrato.
+- Recovery per gradiente variabile in W^{1,1}: **in revisione**; una dimostrazione del raccordo è proposta in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`, in attesa di audit indipendente delle stime geometriche.
 
 Questo documento separa tre questioni indipendenti. La costruzione SVD risolve il caso affine. La cell formula anisotropa è trattata senza usare il lemma di raccordo. Il passaggio a un gradiente variabile richiede invece una stima di raccordo che qui non viene presentata come provata.
 
@@ -121,6 +121,8 @@ $$
 =\int_Q\|\nabla c\|_*\,dx
 $$
 resta **aperta quanto al recovery upper bound** e non viene classificata come teorema.
+
+**Aggiornamento.** Una dimostrazione completa del raccordo è proposta nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (griglia `N×N` di quadrati completi, scala `h=δ³`, stima di slicing BV esplicita, diagonalizzazione con energia totale). **In revisione**: l'audit indipendente delle stime geometriche è richiesto prima della classificazione definitiva; nel frattempo qui resta aperta.
 
 Di conseguenza, non si dichiara dimostrata l'applicazione per G-tilde(x) misurabile ottenuta invocando un Lemma R variabile. Restano validi i risultati per gradiente costante per faccia, quando il difetto M_f è costante e si applica direttamente la costruzione affine.
 
@@ -414,7 +416,7 @@ resta aperta.
 | Cell formula anisotropa senza dato al bordo, inf su tutte le decomposizioni finite | **Provato** sotto le ipotesi dichiarate |
 | Fusione di termini con normali parallele | **Non consentita in generale**; non viene usata |
 | Lower bound nucleare per gradiente variabile, psi=|a| | **Provato** |
-| Recovery per c in W^{1,1} | **Aperto**: raccordo non dimostrato |
+| Recovery per c in W^{1,1} | **In revisione**: dimostrazione proposta in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`; audit geometrico indipendente richiesto |
 | Formula ONB anisotropa | **Solo upper bound** |
 | Rank 2 a.e. per gradiente c_0 A | **Provato** come proprietà del gradiente a.e. |
 | Embeddedness globale | **Aperta** |
