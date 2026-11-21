@@ -32,7 +32,7 @@ def build():
     for i,f in enumerate(faces):
         if i in used: continue
         n=np.asarray(f["normal"]); d=f["offset"]
-        j=min((j for j in range(len(faces)) if j!=i),key=lambda j:np.linalg.norm(n+faces[j]["normal"])+abs(d+faces[j]["offset"]))
+        j=min((j for j in range(len(faces)) if j!=i),key=lambda j:np.linalg.norm(n+faces[j]["normal"])+abs(d-faces[j]["offset"]))
         r=float(np.linalg.norm(n+faces[j]["normal"])+abs(d+faces[j]["offset"]))
         if r>1e-6: raise AssertionError("opposite supporting face not found")
         residual=max(residual,r); used.update((i,j)); pairs.append([i,j])
