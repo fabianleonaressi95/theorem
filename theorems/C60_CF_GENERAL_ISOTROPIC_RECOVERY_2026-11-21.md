@@ -97,7 +97,42 @@ Scelto `k(j)` con `‖u_{j,k(j)}−g_j‖_{L¹}<1/j` e
 `∇u_{j,k(j)}𝓗²→G𝓗²` in variazione ⇒ convergenza determinante.
 Quindi `limsup E_W ≤ ℱ(g,G)`; col liminf di §2.1, uguaglianza. ∎
 
-## 3. Il punto contestato e la sua risoluzione
+## 3. Verifica tecnica dei tre punti richiesti
+
+**Punto 1 — il teorema poliedrale accetta le coppie `(g_j,G_j)`.**
+Il teorema poliedrale (`C60_CF_POLYHEDRAL_AFFINE_THEOREM`) richiede:
+`g` **affine su ogni cella** di un complesso poliedrale finito,
+`G̃` **costante su ogni cella**, ammissibili `SBV` senza vincoli di
+continuità. CFI fornisce `g_j` affine nell'interno di ogni
+simplesso di una decomposizione localmente finita; su `Ω` limitato
+le celle che intersecano `Ω` sono finite in numero, e le celle
+troncate da `∂Ω` sono poligoni (l'affinità si preserva). I salti di
+`g_j` sono concentrati sulle facce del complesso — la classe è
+esattamente quella del teorema. `G_j` definito come media su ogni
+cella è costante per cella. **Verificato.**
+
+**Punto 2 — convergenza forte di `G_j` in `L^p`.** La proiezione
+`G↦G_j` (media su cella) converge fortemente in `L^p` per ogni
+`G∈L^p` purché il mesh tenda a zero: per funzioni continue vale
+per stima uniforme, e per `G∈L^p` per densità + disuguaglianza di
+Jensen (`⨍_C|G_j|^p ≤ ⨍_C|G|^p`). Il mesh delle partizioni CFI
+tende a zero perché la scala di costruzione è `δ→0`, `ε→0` con
+`ε≪δ` (Proposizione 4.1–4.3 del lavoro). La regolarità di forma
+dei simplessi (diametro `<cε`, volume `>cεⁿ`) garantisce che le
+celle troncate non degenerino. **Verificato** per `p=1,2`.
+
+**Punto 3 — salti sulle giunzioni di faccia (solo per `Σ`).**
+Sul dominio piano `Ω` non esistono giunzioni interne: `J_{g_j}` è
+già il salto completo e CFI ne dà la convergenza. Su una superficie
+poliedrale `Σ`, applicare CFI **singolarmente su ogni faccia**
+non basta: i salti di `g` localizzati su `∂f` non sono interni a
+nessuna faccia e la loro convergenza non è coperta dal teorema
+euclideo applicato a `f`. Serve o una formulazione intrinseca di
+CFI su `Σ`, o un argomento separato che includa i bordi di faccia
+come dati al contorno con convergenza del costo — **questo resta
+l'unico passo non dimostrato** per il caso C60.
+
+## 3bis. Il punto contestato e la sua risoluzione
 
 **Obiezione**: la raffinazione della mesh per `G_j` potrebbe
 rompere la compatibilità richiesta dal teorema poliedrale.
