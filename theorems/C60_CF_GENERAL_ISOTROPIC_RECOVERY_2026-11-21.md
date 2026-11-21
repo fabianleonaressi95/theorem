@@ -230,6 +230,43 @@ aggiuntiva serve.
 Tutti i requisiti sono soddisfatti sotto le ipotesi dichiarate
 dell'enunciato: **il caso piano è chiuso**.
 
+
+### G4b e G5 — aggiornamento della recovery globale (2026-11-21)
+
+**G4b è chiuso** per dati piecewise-affine su partizione poliedrale
+finita, inclusi i salti interni. Per ogni partizione fissata, la
+somma degli errori di traccia sulle interfacce è al più h C_j,
+con C_j finita e indipendente dal parametro microscopico h. La
+diagonale sceglie h_j C_j≤1/j; non è richiesta uniformità di C_j
+rispetto all'indice esterno j. La dimostrazione è in §2bis di
+C60_CF_POLYHEDRAL_AFFINE_THEOREM_2026-11-21.md.
+
+**G5 è chiuso per la recovery globale su partizioni poliedrali
+finite**, senza riempimento separato dei dischi conici. Per j
+fissato, la misura energetica della recovery SVD converge
+debolmente-* alla misura candidata Λ_j: il bulk è esatto; i
+micro-salti convergono localmente alla densità nucleare per coarea
+e somme di Riemann; i salti sulle interfacce convergono per la
+stima uniforme delle tracce. La convergenza CFI stretta in BV
+sulle facce, insieme alla convergenza delle tracce sugli spigoli,
+dà la convergenza debole-* delle misure di salto macroscopiche.
+Le densità bulk e mismatch convergono in L¹ (in L² per il bulk
+quadratico). La diagonale produce quindi Λ_j,h_j ⇀* Λ.
+
+La misura limite Λ non ha atomi nei vertici: le parti bulk sono
+assolutamente continue rispetto a H² e la parte di salto è
+assolutamente continua rispetto a H¹. Perciò
+Λ(B_r(v))→0. La convergenza delle misure energetiche, prima sui
+raggi di continuità e poi per monotonia sui raggi arbitrari,
+implica che l'energia della recovery nei dischi tende a zero.
+La stima è più forte del solo controllo del residuo richiesto da
+G5. Dettagli, lemma locale e ordine dei limiti sono in §5.4 di
+C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md.
+
+**Limite della conclusione:** non è dimostrato un lemma astratto
+di riempimento con traccia assegnata sul bordo di un disco conico.
+Non serve per la recovery globale qui costruita.
+
 ### 5.2 Superficie `Σ` — il lemma di giunzione residuo
 
 **Osservazione geometrica.** Sulla superficie poliedrale intrinseca,
@@ -260,11 +297,10 @@ ostacolo**:
 - **(J2) Strisce di raccordo — NON NECESSARIE** in questa
   costruzione faccia-per-faccia (erano previste solo per la via
   alternativa).
-- **(J3) Intorni dei vertici — APERTO.** È l'unica ostruzione
-  residua: stimare l'energia residua sui dischi intrinseci
-  `B_r(v)` con la condizione corretta (energia residua →0, non
-  `sup E→0`; vedi §5 del documento
-  `C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md`).
+- **(J3) Intorni dei vertici — CHIUSO per la recovery globale.**
+  La convergenza debole-* delle misure energetiche e l'assenza di
+  atomi nella misura limite escludono concentrazioni residue; vedi
+  §5.4 di `C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md`.
 
 **Nota su Kristensen–Rindler** (arXiv:1211.1792): il Teorema 1
 completo è più forte dell'abstract — la somma degli errori di
