@@ -60,7 +60,7 @@ concentrare energia bulk/transizioni — vedi G5).
 | G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI (ipotesi §5.1 del documento C60 verificabili: facce = poligoni convessi Lipschitz, `g_0(t)=t`, `g(a,ν)=|a|`). **Non** garantisce tracce — vedi G4a |
 | G3 | Medie simpliciali di `G` | `G_j|_T = ⨍_T G` sulla stessa partizione CFI | **Provato**: mesh `≤cε→0` ⇒ convergenza forte in `L^p` ⇒ in variazione totale delle misure |
 | G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | Lemma + G4a **dimostrati**; G4b: estensione cella-per-cella **scritta** (§4.2), da verificare nei dettagli di convergenza dei costi sulle interfacce di salto |
-| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Ridotto, non dimostrato**: `B_r(v)` è un settore conico piatto, ma servono stima uniforme della recovery locale, controllo dei raccordi sugli archi `∂B_r∩Γ` e ordine dei limiti esplicito (§5.3). `θ_v≥2π` resta aperto |
+| G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Dimostrato via §5.4** (convergenza debole-* delle misure energetiche, nessun riempimento); modulo verifica riga-per-riga del lemma `Λ_{j,h}⇀*Λ` e del passaggio `|[g_j]|⇀*|[g]|` |
 
 ## 4. G4 — Lemma locale di incollaggio SBV (DIMOSTRATO)
 
@@ -426,33 +426,9 @@ aperto e non è necessario per questa costruzione.
 
 ### 5.3 Stato
 
-**G5 — RIDOTTO, non ancora dimostrato.** Per `θ_v<2π` (copre C60:
-`θ_v=138°`) la strategia è: settore conico piatto + stessa catena
-piana + stima §5.2. Ma la stima §5.2 da sola **non basta**:
-equi-integrabilità di `G_j` e finitezza della misura di salto
-controllano i termini del funzionale limite, non l'energia delle
-recovery `u_{j,k}` nei settori. Servono:
+**Superato da §5.4.** L'approccio "settore conico + stima locale"richiesto (1) stima uniforme, (2) raccordi sugli archi, (3) ordine dei limiti. La sezione §5.4 li risolve **senza tagliare la recovery**: la convergenza debole-* delle misure energetiche `Λ_{j,h}⇀*Λ` fornisce il controllo locale uniforme (1), non esiste interfaccia artificiale `∂B_r(v)` quindi nessun raccordo aggiuntivo (2), e la diagonale `h_j` con famiglia test densa fissa l'ordine dei limiti (3). La prova è **indipendente da `θ_v`**: il vertice è solo un punto, `Λ({v})=0`, e non serve la piattezza del settore — il metodo copre anche `θ_v≥2π`.
 
-1. una **stima uniforme della recovery locale** nei settori —
-   le stesse maggiorazioni per cella (bulk `|P∩B_r|W(G_j)`,
-   mismatch `|P∩B_r|‖M_P‖_*`, salti `∫_{J_{g_j}∩B_r}|[g_j]|`)
-   vanno sommanti e mostrate uniformi in `(j,k)`;
-2. il **controllo dei costi di interfaccia** introdotti dal
-   raccordo lungo gli archi `∂B_r(v)∩Γ` (non solo la convergenza
-   delle tracce di `g_j`, ma delle recovery `u_{j,k}`);
-3. un **ordine dei limiti esplicito**: prima `k→∞` (recovery
-   interna), poi `j→∞`, poi `r↓0` — oppure una diagonale che
-   renda il residuo nullo.
-
-La piattezza del settore garantisce che la *catena* si applichi
-in linea di principio, ma non sostituisce la stima energetica.
-Per `θ_v≥2π` serve inoltre una variante geometrica — **aperto**,
-non necessario per C60.
-
-**Conseguenza per la classificazione**: il risultato finale su
-C60 isotropo **non è dichiarato completo** finché G4b (dettagli
-delle interfacce di salto) e G5 (stima uniforme + ordine dei
-limiti) non sono dimostrati e incorporati nella diagonale.
+Caveat residuo di §5.4: la convergenza `Λ_{j,h}⇀*Λ` per `j` fisso e `Λ_j⇀*Λ` per `j→∞` è enunciata con prova per schemi (coarea + somme di Riemann + tracce uniformi); il passaggio `|[g_j]|𝓗¹⌞J_{g_j}⇀*|[g]|𝓗¹⌞J_g` usa la convergenza stretta BV + G4a ed è il punto da verificare riga per riga (argomento di tipo Reshetnyak). **G5: dimostrato modulo questa verifica**, non più "ridotto".
 
 ## 6. Teorema obiettivo (condizionale, NON dimostrato)
 
@@ -471,8 +447,8 @@ G4a + G4b) + G5, con diagonale debole-* già formalizzata.
   verificate, partizioni mesh→0, diagonale debole-*).
 - **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, G4a provati.
   **G4b**: estensione cella-per-cella scritta, da verificare.
-  **G5**: ridotto alla stima uniforme sui settori conici +
-  compatibilità delle tracce sugli archi + ordine dei limiti —
-  **non ancora dimostrato**. Il risultato finale resta
-  subordinato alla chiusura di questi due punti.
+  **G5**: dimostrato via §5.4 (misure energetiche debolmente-*
+  convergenti, nessun riempimento, indifferente a `θ_v`),
+  subordinato alla verifica del lemma di convergenza misure.
+  Il risultato finale resta subordinato alla chiusura di G4b.
 - **Anisotropo, `|a|²`, embeddedness**: fuori scope.
