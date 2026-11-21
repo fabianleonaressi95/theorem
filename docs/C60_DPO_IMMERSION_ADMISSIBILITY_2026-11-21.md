@@ -39,17 +39,19 @@ interamente concentrata sugli spigoli.
 ## 3. Teorema di verifica per la candidata C60
 
 **Proposizione parziale.** La g pezzo per pezzo con `D_f` dall'albero BFS
-soddisfa la regolarità SBV e l'identità metrica faccia-per-faccia. La
-successione continua strip+cap non verifica la condizione CF (A4); la
-costruzione di una vera determining sequence SBV resta aperta.
+soddisfa la regolarità SBV e l'identità metrica faccia-per-faccia. La successione continua strip+cap non verifica la condizione CF (A4).
+Per la coppia corrente, tuttavia, `∇_Σg=G` e la successione costante
+`u_n=g` è una determining sequence CF intrinseca; vedi
+`theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
 
 | Assema | Status | Evidenza |
 |---|---|---|
 | (A1) `g ∈ BV` | **Provato** | Prop. 1 di `C60_DPO_FORMAL_PROOF` |
 | (A2) `GᵀG = I₂` | **Provato** | Prop. 2, residuo 2,9·10⁻¹⁵ |
 | (A3) `Dg = GdA + SdH¹` | **Provato** | struttura esatta, massa salto 38,93 |
-| Regolarizzazione continua strip+cap, `g_h→g` L¹ | Candidata; non è una determining sequence CF se `[g]≠0` |
-| Rango locale della regolarizzazione su strip/cap | Evidenza numerica/analitica parziale; non implica (A4) CF |
+| Regolarizzazione continua strip+cap, `g_h→g` L¹ | Non è una determining sequence CF quando `[g]≠0` |
+| Determining sequence CF per la coppia corrente | **Provata:** `u_n=g`, poiché `∇_Σg=G` faccia per faccia |
+| Rango tangenziale della successione `u_n=g` | **Provato a.e.:** `G_fᵀG_f=I₂` |
 
 ## 4. Certificato di immersione esatto
 
@@ -167,8 +169,9 @@ La successione strip+cap è descritta come continua. Se è in `W^{1,1}`,
 la sua derivata distribuzionale coincide con la misura del gradiente e,
 sotto convergenza `L¹` a `g`, il limite è `Dg`, comprensivo del salto
 macroscopico. Non soddisfa quindi automaticamente la condizione CF
-`∇u_n 𝓗² ⇀* G 𝓗²`. La costruzione di una successione SBV con micro-salti
-che realizzi tale limite è ancora aperta.
+`∇u_n 𝓗² ⇀* G 𝓗²`. Per la coppia C60 corrente questa condizione è
+realizzata esattamente da `u_n=g`, perché `∇_Σg=G`; micro-salti sono
+necessari solo per una futura coppia con `M≠0`.
 
 **Stato CF aggiornato:** regolarità SBV di `g`, integrabilità di `G` e
 identità metrica sono verificate nel modello faccia-per-faccia; la
