@@ -166,6 +166,7 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema di minimalità dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Esistenza di determining sequence per `G̃` costante faccia-per-faccia con `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Costo micro-interfaciale ottimale per `M≠0`, `ψ=|a|` | **Identificato:** norma nucleare `‖M_f‖_*` per unità di area (cell problem SVD) |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
 
 Il gap residuo rispetto a una prova DPO completa: la formulazione classica

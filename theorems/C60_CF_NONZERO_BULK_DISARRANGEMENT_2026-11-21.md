@@ -151,7 +151,7 @@ Per `ψ(a,ν)=|a|`, la griglia cartesiana dà il limite micro-interfaciale
 ∫_f (|M_f e₁| + |M_f e₂|) d𝓗²,
 ```
 
-a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia, non è dichiarato ottimale rispetto a tutte le possibili microstrutture. Una decomposizione SVD di `M_f` e griglie orientate può migliorare il costo, ma l'ottimalità richiede un cell problem.
+a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia. Per la densità isotropa lineare `ψ(a,ν)=|a|`, il cell problem è risolto: il costo minimo per unità di area è la norma nucleare `‖M_f‖_*`, raggiunta dalla costruzione SVD con rette orientate secondo i vettori singolari di `M_f`. Dimostrazione in [`C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md`](C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md).
 
 Il salto macroscopico sugli spigoli resta presente nel limite e contribuisce secondo la densità `ψ([g],ν_g)`, se la densità è continua e la convergenza uniforme delle tracce viene usata nella corrispondente stima.
 
@@ -173,7 +173,8 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 
 - **Provato:** esistenza di una determining sequence intrinseca per ogni campo `G̃` costante faccia per faccia, incluso `M≠0`.
 - **Provato:** il gradiente assolutamente continuo è esattamente `G̃` a ogni scala.
-- **Non provato:** ottimalità del costo micro-interfaciale per densità 1-omogenee.
+- **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con valore `‖M_f‖_*` per unità di area (cell problem SVD).
+- **Non provato:** ottimalità per densità 1-omogenee anisotrope o dipendenti dalla normale.
 - **Non provato:** formula di rilassamento per campi `G̃` variabili all'interno delle facce.
 - **Non provato:** teorema integrale CF generale per tutte le superfici poliedrali.
 - **Non provato:** eventuali vincoli aggiuntivi di immersione o embeddedness degli approssimanti; la classe CF SBV non li impone.
