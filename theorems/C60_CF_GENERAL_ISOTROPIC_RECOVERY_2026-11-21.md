@@ -222,77 +222,44 @@ spigoli**. Gli unici punti singolari sono i **60 vertici**
 (defect `12°` ciascuno). Quindi `Σ∖⋃_v B_r(v)` è una superficie
 piatta compatta con bordo, localmente isometrica a domini piani.
 
-**Lemma di giunzione (APERTO).** Sia `Σ` la superficie poliedrale
-intrinseca, `Γ` l'unione degli spigoli (interfacce di faccia), `V`
-l'insieme dei 60 vertici. Sia `g∈SBV(Σ)` con `∫_{J_g}|[g]|<∞`.
-Occorre una successione `g_j` di approssimanti (affini a tratti
-sulle celle di un complesso che raffina le facce) tale che:
+**Lemma di giunzione — STATO AGGIORNATO (2026-11-21).**
+Sulla superficie poliedrale intrinseca `Σ`, `Γ` = unione degli
+spigoli, `V` = 60 vertici. La giunzione si è ridotta a **un solo
+ostacolo**:
 
-- `g_j→g` in `L¹(Σ)`, `∇g_j→∇g` in `L^p`;
-- `∫_{J_{g_j}}|[g_j]|d𝓗¹ → ∫_{J_g}|[g]|d𝓗¹` **sull'intera
-  superficie**, inclusi i contributi localizzati su `Γ` e `V`.
+- **(J1) Tracce sugli spigoli — DIMOSTRATO.** CFI Corollario 2.3
+  fornisce approssimanti `g_{j,f}` su ogni faccia con convergenza
+  stretta in `BV(f)` (energia bulk + salto). Su poligoni Lipschitz
+  la convergenza stretta implica `Tr g_{j,f}→Tr g_f` in
+  `L¹(∂f)`. Per ogni spigolo `e=f⁺∩f⁻`:
 
-Il lemma si scompone in tre stime, da dimostrare insieme:
+  ```
+  ∫_e |[g_j]| d𝓗¹ → ∫_e |[g]| d𝓗¹ ,
+  ```
 
-**(J1) Tracce sulle interfacce.** Per ogni spigolo `e⊂Γ` e ogni
-`ρ>0`, le tracce dei valori costruiti sulle due facce adiacenti
-devono convergere alle tracce di `g` in modo che il salto
-`[g_j]|_e` soddisfi
+  e la somma sui 90 spigoli converge. Nessuna striscia di
+  raccordo è necessaria: il salto fra le tracce dei due lati *è*
+  il salto globale.
+- **(J2) Strisce di raccordo — NON NECESSARIE** in questa
+  costruzione faccia-per-faccia (erano previste solo per la via
+  alternativa).
+- **(J3) Intorni dei vertici — APERTO.** È l'unica ostruzione
+  residua: stimare l'energia residua sui dischi intrinseci
+  `B_r(v)` con la condizione corretta (energia residua →0, non
+  `sup E→0`; vedi §5 del documento
+  `C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md`).
 
-```
-limsup_{j→∞} ∫_e |[g_j]| d𝓗¹ = ∫_e |[g]| d𝓗¹ + o(ρ) ,
-```
+**Nota su Kristensen–Rindler** (arXiv:1211.1792): il Teorema 1
+completo è più forte dell'abstract — la somma degli errori di
+traccia su **tutti** i bordi del mesh è `<ε` e la traccia sul
+bordo del dominio coincide esattamente. Tuttavia KR produce
+approssimanti globali in `W^{1,1}` senza separazione bulk/salto:
+non sostituisce CFI per la nostra energia, ma resta un riferimento
+per il controllo delle interfacce.
 
-o equivalentemente la convergenza delle tracce in `L¹(e)` con
-controllo del peso `|·|`.
-
-**(J2) Strisce di raccordo.** Intorno a `Γ` si estrae una striscia
-intrinsecamente piana `S_ρ = {x∈Σ : dist(x,Γ)<ρ}` (dopo aver
-escluso gli intorni dei vertici). La costruzione su `S_ρ` deve
-produrre un costo aggiuntivo `E_j(S_ρ)` con
-
-```
-limsup_{j→∞} E_j(S_ρ) ≤ ∫_{J_g∩S_ρ}|[g]|d𝓗¹ + q(ρ),   q(ρ)→0 ,
-```
-
-uniformemente nella posizione delle strisce e nel parametro di
-microstruttura.
-
-**(J3) Intorni dei vertici.** Per ogni `r>0`, gli intorni
-`N_r(v)`, `v∈V` (60 dischi intrinseci di raggio `r`), devono
-soddisfare una stima uniforme
-
-```
-limsup_{j→∞} E_j(N_r(v)) ≤ ω(r),   ω(r)→0 ,
-```
-
-**uniformemente in `v`, `r` e nel parametro di microstruttura**,
-con `r` mandato a zero dopo (o in diagonale con) `j→∞`.
-
-**Ordine dei limiti.** Fissati `ρ,r`: mandare `j→∞` (o il
-parametro di microstruttura), poi `ρ↓0`, `r↓0`, con una diagonale
-finale. La convergenza energetica totale è
-
-```
-limsup_j ∫_{J_{g_j}}|[g_j]| ≤ ∫_{J_g}|[g]| ,
-```
-
-e il liminf già provato esclude perdite: l'uguaglianza segue.
-
-**Stato**: nessuna delle tre stime è dimostrata. La piattezza
-intrinseca degli spigoli (angolo `2π`, curvatura solo nei
-vertici) elimina la curvatura distribuzionale lungo `Γ`, ma
-**non** risolve (J1)–(J3): le tracce, le strisce e i dischi
-vanno controllati esplicitamente. Le due vie candidate:
-
-1. **CFI intrinseco** su `Σ∖V_r` (superficie piatta con bordo,
-   localmente isometrica al piano): richiede riformulare CFI su
-   varietà Lipschitz piatte e un argomento di esaurimento dei
-   bordi;
-2. **Scomposizione faccia+striscia**: CFI su ogni faccia +
-   costruzione esplicita sulle strisce `S_ρ` + stima sui dischi
-   `N_r(v)` — modulare, ma (J1)–(J3) vanno dimostrate con le
-   stime del `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md`.
+**Stato**: la densità energetica su `Σ` è ridotta al controllo
+locale dei 60 vertici (G5), una volta chiusi i contributi di
+faccia (CFI) e di spigolo (tracce BV).
 
 ### 5.3 Fuori scope
 

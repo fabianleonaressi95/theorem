@@ -59,7 +59,7 @@ concentrare energia bulk/transizioni — vedi G5).
 | G1 | Liminf isotropo su `Σ` | `liminf E_W ≥ ∫W(G)+∫‖∇g−G‖_*+∫|[g]|` | **Provato** (stessa prova della sezione §3.1 di `C60_CF_GENERAL_ISOTROPIC_RECOVERY`, estesa a `Σ` perché `D_Σ g − G𝓗²` è una misura e `|μ|_*` si decomprime sulle parti AC e singolare; le ipotesi sono solo misure finite) |
 | G2 | Densità SBV faccia-per-faccia | `g_j` affine per simplesso su partizione che raffina le facce; `∇g_j→∇g` in `L^p`; `∫_{J_{g_j}∩f°}|[g_j]|→∫_{J_g∩f°}|[g]|` per ogni `f` | **Provato per faccia** via CFI (ipotesi §5.1 del documento C60 verificabili: facce = poligoni convessi Lipschitz, `g_0(t)=t`, `g(a,ν)=|a|`). **Non** garantisce tracce — vedi G4a |
 | G3 | Medie simpliciali di `G` | `G_j|_T = ⨍_T G` sulla stessa partizione CFI | **Provato**: mesh `≤cε→0` ⇒ convergenza forte in `L^p` ⇒ in variazione totale delle misure |
-| G4 | Giunzione lungo spigoli | Lemma locale sotto; serve convergenza tracce | **Lemma elementare dimostrato**; **G4a (tracce) aperta** |
+| G4 | Giunzione lungo spigoli | Lemma §4 + G4a (tracce) + G4b (tracce recovery) | **Lemma dimostrato; G4a CHIUSO (CFI Cor. 2.3 + tracce BV); G4b quasi chiuso** — resta solo il caveat piecewise-affine con salti interni |
 | G5 | Vertici conici | energia residua nei dischi `B_r(v)` | **Aperto** — serve stima di riempimento, non solo area nulla |
 
 ## 4. G4 — Lemma locale di incollaggio SBV (DIMOSTRATO)
@@ -134,25 +134,72 @@ w_j→w in L¹(S),   Tr w_j→Tr w in L¹(∂S),
   metrico/`BV` (rimozione di Cantor), non la densità energetica
   `|[·]|` richiesta.
 
-**Conclusione G4a**: nessun teorema verificato dà direttamente
-`L¹(∂S)`-convergenza delle tracce con controllo energetico.
-Le due vie restano: (a) adattare KR/CFI per includere `∂S` nel
-mesh controllato, o riformulare la giunzione come interfacce
-interne di un'unica approssimazione globale su `Σ∖V_r`;
-(b) costruzione boundary-preserving con striscia di bordo e
-stima del costo — da isolare nel localization lemma.
+**G4a — CHIUSO (2026-11-21).** La via decisiva è il **Corollario
+2.3 di CFI** (JFA 288, 110686): per `g_0(t)=2t` (o `t`),
+`g(a,ν)=|a|` — entrambe le ipotesi H1–H3 verificate — gli
+approssimanti possono essere scelti con convergenza di energia
+**sia** bulk (`∇u_j→∇u` in `L^p`, `∫|∇u_j|→∫|∇u|`) **sia** salto
+(`∫_{J_{u_j}}|[u_j]|→∫_{J_u}|[u]|`). Poiché `u∈SBV` non ha parte
+di Cantor,
+
+```
+|Du_j|(S) = ∫_S|∇u_j| + ∫_{J_{u_j}}|[u_j]|
+         → ∫_S|∇u| + ∫_{J_u}|[u]| = |Du|(S) ,
+```
+
+i.e. **convergenza stretta in BV**. Su dominio Lipschitz (ogni
+faccia poliedrale lo è) la convergenza stretta BV implica
+convergenza forte delle tracce:
+
+```
+Tr w_j → Tr w   in L¹(∂S)
+```
+
+(risultato classico: l'operatore traccia è continuo per la
+convergenza stretta; vedi AFP, *Functions of Bounded Variation and
+Free Discontinuity Problems*, o Giusti, Prop. 1.2.3). La topologia
+richiesta sopra è quindi soddisfatta **senza** alcuna
+modifica boundary-preserving: G4a è un corollario di CFI Cor. 2.3
++ il teorema sulle tracce BV.
+
+**Nota di cautela**: la convergenza stretta richiede che il salto
+di `Du` sia solo la parte jump (verificato: `u∈SBV`) e che il
+dominio sia Lipschitz (verificato: poligono convesso). L'ipotesi
+`g_0(|[w]|)∈L¹` per `g_0(t)=2t` equivale a `∫_{J_w}|[w]|<∞`,
+già richiesta.
 
 ### 4.2 G4b — recovery locale dopo incollaggio
 
-La recovery poliedrale su ogni faccia produce `u_{j,k}→g_j` con
-`∇u_{j,k}𝓗²⇀*G_j𝓗²` **all'interno della faccia**. Dopo
-incollaggio piecewise, le tracce sui bordi delle facce sono
-quelle dei `u_{j,k}|_f`; l'identità del lemma 4 vale se le tracce
-di `u_{j,k}|_f` convergono a quelle di `g_j|_f` — ma la recovery
-poliedrale produce microstruttura che può oscillare vicino al
-bordo. Va verificato che la costruzione staircase/laminate sia
-uniforme fino al bordo, o che una striscia di raccordo assorba
-l'errore. **Aperto.**
+La recovery poliedrale su ogni cella produce `u_{j,k}→g_j` con
+`∇u_{j,k}𝓗²⇀*G_j𝓗²` **all'interno della cella**. Per le tracce:
+la costruzione SVD esplicita (`C60_CF_POLYHEDRAL_AFFINE_THEOREM`)
+soddisfa la stima uniforme
+
+```
+‖v_{h,T} − g_j‖_{L^∞(T̄)} ≤ h·‖M_T‖_*
+```
+
+su ogni cella `T` **chiusa**, quindi in particolare sulle sue
+facce: per `k→∞` (h→0) le tracce di `u_{j,k}` convergono a quelle
+di `g_j` su ogni lato di cella. Il diamante diagonale `j,k(j)`
+combinato con G4a (`Tr g_j→Tr g` in `L¹(∂f)`) dà
+
+```
+Tr_Γ u_{j,k(j)} → Tr_Γ g   in L¹(Γ)   per ogni spigolo Γ,
+```
+
+e il lemma §4 chiude il costo inter-faccia.
+
+**Caveat residuo**: la stima `L^∞` è provata per `g` affine su una
+faccia con `M` costante. Per `g_j` piecewise-affine **con salti
+interni** (il jump set CFI), la recovery va applicata cella per
+cella e i salti interni di `g_j` devono essere ereditati da
+`u_{j,k}`: va verificato che la formulazione del teorema
+poliedrale ammetta dati piecewise-affine con jump set e che la
+costruzione non "levighi" i saldi interni. Se il teorema è
+stato enunciato solo per `g` globalmente affine per faccia, serve
+l'estensione ovvia per restrizione (l'affine si restringe, i
+salti si ereditano) — da scrivere esplicitamente.
 
 ## 5. G5 — Vertici conici (APERTO)
 
@@ -193,6 +240,9 @@ G4a + G4b) + G5, con diagonale debole-* già formalizzata.
 
 - **Piano isotropo**: dimostrato (documento GIR §5, ipotesi CFI
   verificate, partizioni mesh→0, diagonale debole-*).
-- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3 provati; **G4a,
-  G4b, G5 aperti** — sono i soli ostacoli residui.
+- **C60/`Σ` poliedrale**: G1, G2 (faccia), G3, **G4a** provati;
+  **G4b** chiudibile (stima `L^∞` per cella + diagonale; caveat:
+  enunciare la recovery per `g_j` piecewise-affine con salti);
+  **G5 resta l'unico ostacolo geometrico** — energia residua sui
+  60 dischi conici.
 - **Anisotropo, `|a|²`, embeddedness**: fuori scope.
