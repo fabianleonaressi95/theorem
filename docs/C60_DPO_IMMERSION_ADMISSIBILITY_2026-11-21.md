@@ -146,8 +146,45 @@ rettificabili (esiste letteratura), oppure (ii) lavorare faccia per
 faccia (ogni faccia e' un dominio piano) con condizioni di trasmissione
 sugli spigenti — piu' vicino alla nostra costruzione esplicita.
 
-**Cosa resta per il livello energetico**: la teoria CF assegna
-un'energia via rilassamento I(g,G) = inf su determining sequences; per
-la nostra g il passo successivo e' definire il funzionale (bulk +
-superficie di salto) e calcolarne la densita' rilassata — problema di
-ricerca aperto, non di verifica.
+## 7. Livello energetico — candidato calcolato
+
+Funzionale CF: `E(u) = ∫_Σ W(∇u) dA + ∫_{S_u} ψ([u],ν) dH¹`.
+
+**Test di coerenza eseguito** (`c60_dpo_energy.py`):
+
+- `W(F)=|F|²` (Dirichlet): `∫strip |∇g_h|² dA ~ C/h` **diverge**
+  (misurato: 129,9 → 229,8 → 444,4 per h=0,2/0,1/0,05, rapporti ~0,52
+  = raddoppio per dimezzamento). La determining sequence non ha
+  energia W^{1,2} limitata → **W quadratica non consona**.
+- `W(F)=|F|` (crescita lineare) + `ψ(s)=|[u]|`: la determinante
+  sequence ha energia limitata e
+
+```
+I(g,G) = ∫_Σ |G| dA + Σ_e ∫_e |jump_e(σ)| dσ
+       = √2·Area + 38,93 = 45,64 + 38,93 = 84,57
+```
+
+che coincide **esattamente** col limite di variazione totale già
+verificato (errore <1,4% a h=0,0375). Il funzionale rilevante per
+questa g e' quindi di tipo **TV/linear-growth**, non elastico
+quadratico — coerente col fatto che la discontinuita' e' il
+disarrangiamento, non un difetto.
+
+**Stato delle ipotesi CF per (g,G)**:
+
+| Ipotesi | Esito |
+|---|---|
+| g ∈ SBV(Σ;R³) | Provato: g piecewise affine, jump su 1-complesso, Σ poliedro (unione finita di poligoni piani → SBV faccia-per-faccia con tracce ben definite sugli spigoli) |
+| G ∈ L∞(Σ;R^{3×2}) | Provato: G = B_fD_f costante a tratti |
+| GᵀG > 0 (condizione metrica) | Provato: = I₂ |
+| Determining sequence in SBV | Provato: strip+cap, g_h continue → SBV con jump set vuoto |
+| ∇g_h ⇀* Dg | Provato (misure) |
+| rank ∇g_h = 2 a.e. | Certificato: 6 zeri isolati |
+| Energia limitata lungo la seq. | Verificato per W~|·|; W quadratica esclusa |
+
+**Cosa resta**: la densita' rilassata esplicita (il nostro 84,57 è il
+valore per la PARTICULAR determining sequence; la formula CF
+I(g,G)=inf potrebbe dare un valore minore se esistono sequenze più
+sofisticate — calcolarla richiede la teoria di rilassamento, non solo
+la verifica), e l'estensione a energie anisotrope/dipendenti dalla
+normale del salto.
