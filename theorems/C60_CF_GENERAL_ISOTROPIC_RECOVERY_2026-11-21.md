@@ -198,16 +198,61 @@ aggiuntiva serve.
 | `ψ=|a|`, `W` convessa con la crescita dichiarata | cell formula + semicontinuità |
 | celle troncate a `∂Ω` | poligoni, affine preservata; i salti su `∂Ω` sono termine di bordo separato |
 
-## 5. Cosa resta aperto
+## 5. Ipotesi CFI — verifica per il caso piano e per C60
 
-- **Superficie curva `Σ`**: CFI è euclideo. Su `Σ` serve
-  applicazione faccia-per-faccia (ogni faccia è un poligono
-  piano) più controllo dei salti sulle interfacce di faccia —
-  la definizione intrinseca `SBV(Σ)` include quei salti e va
-  mostrato che la decomposizione non li perde. **Questo è il
-  passo residuo per C60.**
-- **`ψ` anisotropo**: la densità CFI richiede `g` che verifichi
-  (H1)–(H3); per `ψ` anisotropo la cell formula `g_ψ` è provata
-  ma la recovery poliedrale eredita il teorema solo se la
-  costruzione a strisce realises `ψ` — da verificare.
-- **`|a|²`**: collassa sotto splitting, non rientra in `ψ=|a|`.
+### 5.1 Caso piano `Ω` — verificato
+
+| Ipotesi CFI (Thm 1.1) | Verifica |
+|---|---|
+| `Ω` aperto limitato, bordo Lipschitz | **ok** per poligoni (facce C60: esagoni/pentagoni convessi) |
+| `g∈SBV(Ω;ℝ^m)` | ipotesi del teorema |
+| `∇g∈L^p`, `p∈[1,∞)` | `p=1` per `W=|F|_F`; `p=2` per `W=|F|_F²` con `G∈L²` |
+| `g_0(|[g]|)∈L¹(J_g)`, `g_0(t)=t` | equivalente a `∫_{J_g}|[g]|d𝓗¹<∞` — ipotesi del teorema |
+| `g(a,ν)=|a|` verifica (H1)–(H3) | simmetria `|-a|=|a|`; `|s+s'|≤|s|+|s'|` con `g_0(t)=t`; `g(0,ν)=0` |
+
+Tutti i requisiti sono soddisfatti sotto le ipotesi dichiarate
+dell'enunciato: **il caso piano è chiuso**.
+
+### 5.2 Superficie `Σ` — il lemma di giunzione residuo
+
+**Osservazione geometrica.** Sulla superficie poliedrale intrinseca,
+ogni punto di un interno di spigolo ha angolo totale `2π`
+(due semi-piani giunti): la metrica è **piatta attraverso gli
+spigoli**. Gli unici punti singolari sono i **60 vertici**
+(defect `12°` ciascuno). Quindi `Σ∖⋃_v B_r(v)` è una superficie
+piatta compatta con bordo, localmente isometrica a domini piani.
+
+**Lemma di giunzione (APERTO).** Sia `Σ` la superficie poliedrale
+intrinseca e `g∈SBV(Σ)`. Occorre una successione `g_j` con:
+
+- `g_j→g` in `L¹(Σ)`, `∇g_j→∇g` in `L^p`;
+- `∫_{J_{g_j}}|[g_j]|d𝓗¹ → ∫_{J_g}|[g]|d𝓗¹` **sul complesso
+  intero**, inclusi i salti localizzati sulle interfacce di faccia
+  (spigoli) e il contributo dei vertici.
+
+**Stato**: CFI è euclideo. Due vie possibili, entrambe da
+formalizzare:
+
+1. **CFI intrinseco**: la prova CFI è multiscala e locale;
+   verosimilmente si estende a varietà Lipschitz piatte (la parte
+   `Σ∖vertici` lo è), ma l'enunciato va riformulato e riverificato.
+2. **Scomposizione faccia+striscia**: su ogni faccia si applica il
+   teorema piano; intorno a ogni spigolo (striscia intrinsecamente
+   piana di larghezza `ρ`) si costruisce la transizione che
+   preserva il salto inter-faccia; gli intorni dei vertici di
+   raggio `r` danno contributo `𝓗¹(J_g∩N_r(v))→0` per
+   `𝓗¹(J_g)<∞`. Richiede la stima di raccordo già isolata in
+   `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md`.
+
+Le due vie non sono state dimostrate: **il trasferimento a C60
+resta aperto** e si riduce a questo lemma.
+
+### 5.3 Fuori scope
+
+- `ψ` anisotropo: la cell formula `g_ψ` è provata senza vincolo di
+  bordo, ma la recovery poliedrale con `ψ` richiede la
+  realizzazione a strisce della densità — non verificata.
+- `ψ(a,ν)=|a|²`: collassa sotto splitting; non rientra in (H1)–(H3)
+  con `g_0` subadditiva (serve `g_0(t)~t²`, non subadditiva) —
+  il teorema CFI **non** si applica.
+- Embeddedness/DPO: indipendente, resta aperto.
