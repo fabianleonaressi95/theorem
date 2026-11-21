@@ -42,28 +42,41 @@ ogni addendo va giustificato separatamente (v. sotto).
 
 ## 3. Stato delle componenti
 
-### 3.1 Limite inferiore — parzialmente provato
+### 3.1 Limite inferiore — lemma provato
 
-- **Bulk**: la dualità `‖M‖_* = sup_{‖Q‖_op≤1} Q:M` e la semicontinuità
-  delle misure danno `liminf ∫_{J_{u_n}}|[u_n]| ≥ ∫‖∇_Σg−G‖_*` nel
-  modello intrinseco — **provato** per `G̃` misurabile
-  (documento principale, sezione lower bound).
-- **Bulk `W(G)`**: semicontinuità di `∫W(∇u_n)` sotto convergenza
-  `L¹`-debole dei gradienti vale per `W` convessa con crescita
-  appropriata; per `W=|F|_F²` serve il controllo `L²` (disponibile,
-  v. minimality doc). **Provato nei casi esaminati.**
-- **Superficie `∫_{J_g}|[g]|`**: la densità `ψ(a,ν)=|a|` è convessa e
-  1-omogenea in `a`; lo splitting di un salto in `m` pezzi di
-  ampiezza `a/m` costa `m·|a|/m = |a|` — **la densità di salto è
-  preservata sotto microstruttura** (a differenza di `|a|²`, che
-  collassa). La semicontinuità `∫_{J_{u_n}}|[u_n]| ≥ ∫_{J_g}|[g]|`
-  per `u_n→g` in `SBV` è il teorema di lower semicontinuity di
-  Ambrosio per funzionali BV-ellittici — **provato**, purché il
-  funzionale sia BV-ellittico (da verificare per `|a|` esplicitamente).
-- **Accoppiamento**: il lower bound con entrambi i termini
-  `W(G)` e `‖M‖_*` simultaneamente richiede che le misure non
-  "rubino" massa l'una all'altra — verificato per le successioni
-  determinanti perché `∇u_n ⇀* G` fissa la parte AC.
+**Lemma (liminf del costo di salto).** Sia `Σ` poliedro compatto,
+`g ∈ SBV(Σ;ℝ³)`, `G ∈ L¹(Σ;ℝ^{3×2})`, `(u_n) ⊂ SBV(Σ;ℝ³)` con
+`u_n→g` in `L¹` e `∇_Σu_n 𝓗² ⇀* G 𝓗²`, e
+`sup_n ∫_{J_{u_n}}|[u_n]|d𝓗¹ < ∞`. Allora, con
+`μ := D_Σg − G𝓗²`,
+
+```
+liminf_n ∫_{J_{u_n}}|[u_n]|d𝓗¹ ≥ |μ|_*(Σ)
+   = ∫_Σ ‖∇_Σg−G‖_* d𝓗² + ∫_{J_g} |[g]| d𝓗¹ .
+```
+
+Dimostrazione: `D_Σu_n → D_Σg` in distribuzioni e
+`∇_Σu_n𝓗² ⇀* G𝓗²` implicano `D^s_Σu_n := D_Σu_n − ∇_Σu_n𝓗² → μ` in
+distribuzioni; la limitatezza dei costi di salto dà
+`|D^s_Σu_n|_* = ∫_{J_{u_n}}|[u_n]⊗ν_{u_n}|_* = ∫_{J_{u_n}}|[u_n]|`
+(`|a⊗ν|_* = |a|` per `ν` unitaria), estrazione debole-* e
+semicontinuità della variazione totale; l'ultima uguaglianza usa la
+mutua singolarità di `M𝓗²` e `[g]⊗ν_g𝓗¹⌞J_g`. **Provato.**
+
+- **Bulk `W(G)`**: per `W` convessa, semicontinuità di
+  `∫W(∇u_n)` lungo la sottosuccessione che realizza il liminf
+  dell'energia totale — `W=|F|_F` immediata; `W=|F|_F²` richiede
+  `G∈L²` e energia quadratica limitata. **Provato nei casi
+  esaminati**, con la precisazione che `liminf(A_n+B_n) ≥
+  liminf A_n + liminf B_n` non vale in generale: si usa la stessa
+  sottosuccessione per entrambi i liminf.
+- **Accoppiamento**: le due stime si applicano simultaneamente
+  lungo la sottosuccessione che realizza `liminf E_W(u_n)`; non c'è
+  sottrazione di liminf separati non validi.
+
+**Conseguenza**: `I_W(g,G) ≥ ∫W(G) + ∫‖∇_Σg−G‖_* + ∫_{J_g}|[g]|` —
+lower bound completo del funzionale rilassato, **provato** per
+`u_n ∈ SBV` con costo di salto uniformemente limitato.
 
 ### 3.2 Limite superiore (recovery) — per livelli
 
