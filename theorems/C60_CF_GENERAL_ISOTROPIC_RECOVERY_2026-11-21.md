@@ -93,23 +93,47 @@ limsup_k E_W(u_{j,k}) ≤ ℱ(g_j,G_j) .
 (Nella costruzione SVD esplicita si ha anzi `∇u_{j,k}=G_j` a.e.,
 ma la formulazione corretta e generale è la debole-*.)
 
-### 2.6 Diagonale
+### 2.6 Diagonale (formulazione esplicita)
 
-Per ogni `j` scegliamo `k(j)` abbastanza grande da controllare
-**simultaneamente**: l'errore `L¹` (`<1/j`), l'energia
-(`≤ℱ(g_j,G_j)+1/j`) e un numero crescente di funzioni test per la
-convergenza debole-* dei gradienti (famiglia densa in `C_c`). Allora
+Per ogni `j`, sia `(u_{j,k})_{k∈ℕ}` la successione di recovery del
+teorema poliedrale per `(g_j,G_j)`. La convergenza garantita è
 
 ```
-u_{j,k(j)} → g in L¹,
-∇u_{j,k(j)} 𝓗² ⇀* G 𝓗²
+u_{j,k} → g_j in L¹(Ω),
+∇u_{j,k} 𝓗² ⇀* G_j 𝓗²   in M(Ω;ℝ^{m×2})  (k→∞),
+limsup_k E_W(u_{j,k}) ≤ ℱ(g_j,G_j) .
 ```
 
-perché `∇u_{j,k(j)}𝓗² ⇀* G_j𝓗²` per `k→∞` e `G_j→G` fortemente in
-`L^p⊂L¹` ⇒ `G_j𝓗²→G𝓗²` in variazione. La successione diagonale è
-quindi determinante per `(g,G)` nella topologia richiesta
-(`L¹` + debole-* delle misure dei gradienti). Con `limsup E_W ≤
-ℱ(g,G)` e il liminf di §2.1: uguaglianza. ∎
+Le misure `∇u_{j,k}𝓗²` vivono in `M(Ω;ℝ^{m×2})`, il duale di
+`C_0(Ω;ℝ^{m×2})` — o `C(Ω̄)` se si preferisce topologia debole
+contro test continue. Sia `(φ_m)_{m≥1}` una famiglia densa
+numerabile di funzioni test in quella topologia (esistono per la
+separabilità di `C_0`). Per ogni `j` scegliamo `k(j)` abbastanza
+grande da imporre **simultaneamente**:
+
+```
+‖u_{j,k(j)} − g_j‖_{L¹} < 1/j,
+E_W(u_{j,k(j)}) ≤ ℱ(g_j,G_j) + 1/j,
+|∫_Ω φ_m : d(∇u_{j,k(j)}𝓗² − G_j𝓗²)| < 1/j   per m = 1,…,j .
+```
+
+Se la nozione di convergenza o il teorema richiedono ulteriori
+test o vincoli (ad es. vincoli al bordo), vanno inclusi nella stessa
+scelta.
+
+**Convergenza della diagonale.** Poiché `g_j→g` in `L¹`:
+`u_{j,k(j)}→g` in `L¹`. Per la debole-*:
+
+- per `k→∞` a `j` fisso, `∇u_{j,k}𝓗² ⇀* G_j𝓗²`;
+- per `j→∞`, `G_j→G` fortemente in `L^p ⊂ L¹` ⇒
+  `G_j𝓗² → G𝓗²` in variazione ⇒ `G_j𝓗² ⇀* G𝓗²`.
+
+La stima diagonale sugli `m≤j` test, unita alla densità di
+`(φ_m)` e alla limitatezza uniforme delle misure, dà
+`∇u_{j,k(j)}𝓗² ⇀* G𝓗²`. La successione è quindi determinante per
+`(g,G)` nella topologia `L¹` + debole-* delle misure dei
+gradienti. Con `limsup E_W(u_{j,k(j)}) ≤ lim_j ℱ(g_j,G_j) =
+ℱ(g,G)` e il liminf di §2.1: **uguaglianza**. ∎
 
 ## 3. Verifica tecnica dei tre punti richiesti
 
