@@ -171,12 +171,12 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
 | Valori numerici TV/quadratico dello schema strip | Archiviati; quadratura strip campionaria |
 | `g_h` continuo determina la coppia CF `(g,G)` | **Falso in generale** se `[g]≠0` e si richiede il limite CF `G𝓗²` |
 | Determining sequence CF per la coppia C60 corrente (`M=0`) | **Provata:** `u_n=g` |
-| Costruzione CF per campi bulk alternativi con `M≠0` | Aperta |
+| Costruzione CF per campi bulk alternativi con `M≠0` | **Provata** per campi costanti faccia-per-faccia |
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
 | Cell problem isotropo lineare per `M_f` | **Provato:** costo nucleare, recupero SVD |
-| Ottimizzazione `|G|_F² + λ||A−G||_*` | **Provata:** soluzione soft-thresholding; script riproducibile |
+| Ottimizzazione `|G|_F² + λ||A−G||_*` | **Formula dimostrata**; script committato, test automatico non ancora eseguito |
 | Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | **Provata:** `Σ_f |f| ||M_f||_*` |
 | Densità interfaciali non normate, ad es. `ψ=|a|²` | Aperta |
 
