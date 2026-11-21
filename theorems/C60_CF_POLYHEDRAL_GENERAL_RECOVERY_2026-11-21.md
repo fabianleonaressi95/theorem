@@ -295,7 +295,7 @@ Per ogni \(j\) fissato,
 su ogni cella. Per ogni singolo termine singolare
 \(\sigma_i a_i\otimes\nu_i\) della SVD su \(T\), la misura
 dei micro-salti, testata contro \(\varphi\in C(\Sigma)\), è
-[
+\[
  h\sigma_i\sum_{k\in\mathbb Z}
  \int_{T\cap\{x\cdot\nu_i=kh\}}\varphi\,d\mathcal H^1
  \longrightarrow
@@ -314,31 +314,28 @@ laminazione e interfacce sono insiemi finiti di punti e non
 portano massa \(\mathcal H^1\). Non vi sono altri contributi.
 Questo prova la convergenza debole-* delle misure. \(\square\)
 
-**Passaggio alla diagonale.** La convergenza stretta globale si
-verifica sommando i contributi di faccia e di spigolo. Infatti
+**Passaggio alla diagonale.** La convergenza stretta globale
+si verifica sommando i contributi di faccia e di spigolo. Infatti
 \(g_j\to g\) in \(L^1(\Sigma)\), quindi
 \(D_\Sigma g_j\stackrel{*}{\rightharpoonup}D_\Sigma g\).
 Per ogni faccia, CFI Cor. 2.3 dà la convergenza della massa bulk
 \(\int_f|\nabla g_j|\) e della massa dei salti interni; G4a dà
 la convergenza della massa dei salti sugli spigoli. Sommando il
 numero finito di facce e spigoli si ottiene
-\(|D_\Sigma g_j|(\Sigma)\to|D_\Sigma g|(\Sigma)\).
+\[
+|D_\Sigma g_j|(\Sigma)\to|D_\Sigma g|(\Sigma).
+\]
 Per il teorema di Reshetnyak,
-\(|D_\Sigma g_j|\stackrel{*}{\rightharpoonup}|D_\Sigma g|\).
+\[
+|D_\Sigma g_j|\stackrel{*}{\rightharpoonup}|D_\Sigma g|.
+\]
 Sottraendo la parte bulk, che converge in variazione totale per
 \(\nabla g_j\to\nabla g\) fortemente in \(L^1\), si ottiene
-la convergenza debole-* delle misure di salto.
-
-
-sulle facce, insieme alla convergenza forte delle tracce sugli
-spigoli già dimostrata in G4a, dà la convergenza debole-* delle
-misure di variazione totale su tutta \(\Sigma\). Sottraendo la
-parte bulk, che converge fortemente in \(L^1\), si ottiene
-\\[
- |[g_j]|\mathcal H^1\!\llcorner J_{g_j}
- \stackrel{*}{\rightharpoonup}
- |[g]|\mathcal H^1\!\llcorner J_g.
-]
+\[
+|[g_j]|\mathcal H^1\!\llcorner J_{g_j}
+\stackrel{*}{\rightharpoonup}
+|[g]|\mathcal H^1\!\llcorner J_g.
+\]
 Inoltre \(G_j\to G\) e \(\nabla g_j\to\nabla g\)
 fortemente in \(L^p\), perciò le due densità assolutamente
 continue di \(\Lambda_j\) convergono in \(L^1\)
@@ -350,7 +347,7 @@ Ne segue
  W(G)\mathcal H^2
  +\|\nabla_\Sigma g-G\|_*\mathcal H^2
  +|[g]|\mathcal H^1\!\llcorner J_g.
-]
+\]
 Si sceglie ora \(h_j\downarrow0\) diagonalmente, imponendo
 simultaneamente la convergenza della successione determinante,
 dell'energia e di una famiglia densa di test continui per
@@ -376,7 +373,7 @@ usa la monotonia: scelto un raggio di continuità
 \[
 \limsup_j\Lambda_{j,h_j}(B_r(v))
 \le\Lambda(B_s(v)),
-]
+\]
 e il lato destro tende comunque a zero. Pertanto
 \[
 \lim_{r\downarrow0}\limsup_j
@@ -413,13 +410,25 @@ aperto e non è necessario per questa costruzione.
 
 ## 6. Teorema isotropo su superfici poliedrali (DIMOSTRATO nel perimetro dichiarato)
 
-Sia Σ una superficie poliedrale compatta della classe §1, g∈SBV(Σ;ℝᵐ) con ∇Σg∈L¹ e ∫_{J_g}|[g]|dH¹<∞, e G∈Lᵖ(Σ;Hom(TΣ,ℝᵐ), con p=1 per W(F)=|F|_F oppure p=2 per W(F)=|F|_F². Per ψ(a,ν)=|a|, sotto le ipotesi CFI verificate in §5.1:
+Sia \(\Sigma\) una superficie poliedrale compatta della classe §1,
+\(g\in SBV(\Sigma;\mathbb R^m)\) con
+\(\nabla_\Sigma g\in L^1\) e
+\(\int_{J_g}|[g]|\,d\mathcal H^1<\infty\), e
+\(G\in L^p(\Sigma;\operatorname{Hom}(T\Sigma,\mathbb R^m))\),
+con \(p=1\) per \(W(F)=|F|_F\) oppure \(p=2\) per
+\(W(F)=|F|_F^2\). Per \(\psi(a,\nu)=|a|\), sotto le ipotesi CFI
+verificate in §5.1,
 
-```
-I_W^Σ(g,G) = ∫_Σ W(G) + ∫_Σ ‖∇_Σ g−G‖_* + ∫_{J_g}|[g]|.
-```
+\[
+I_W^\Sigma(g,G)=
+\int_\Sigma W(G)\,d\mathcal H^2+
+\int_\Sigma\|\nabla_\Sigma g-G\|_*\,d\mathcal H^2+
+\int_{J_g}|[g]|\,d\mathcal H^1.
+\]
 
-Liminf = G1. Recovery = CFI faccia-per-faccia + medie di G + recovery SVD su partizioni finite + G4a/G4b + convergenza delle misure energetiche di §5.4. La diagonale dà l'uguaglianza.
+Liminf = G1. Recovery = CFI faccia-per-faccia + medie di \(G\)
++ recovery SVD su partizioni finite + G4a/G4b + convergenza
+delle misure energetiche di §5.4. La diagonale dà l'uguaglianza.
 
 ## 7. Stato sintetico
 
