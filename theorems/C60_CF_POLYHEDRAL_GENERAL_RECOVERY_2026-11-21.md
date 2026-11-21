@@ -102,15 +102,45 @@ L'ipotesi mancante è **solo** la convergenza delle tracce.
 Il teorema CFI (densità SBV) garantisce `u_j→g` in `L¹` e
 `∫_{J_{u_j}}|[u_j]|→∫_{J_g}|[g]|`, ma **non** la convergenza
 delle tracce su un bordo fissato. La convergenza `L¹` bulk non
-implica tracce. Due vie:
+implica tracce. Topologia richiesta per chiudere G4a:
 
-- **(a)** citare un teorema di densità SBV *con controllo del
-  bordo* (es. tracce che convergono in `L¹(∂Ω)`) — da verificare
-  in letteratura;
-- **(b)** modifica CFI in una striscia `dist(x,∂f)<δ` che forza
-  la convergenza delle tracce, con costo controllato da
-  `𝓗¹(J_g∩striscia)→0` — il lemma di localizzazione isola
-  esattamente questa stima.
+```
+w_j→w in L¹(S),   Tr w_j→Tr w in L¹(∂S),
+∇w_j→∇w in L¹(S),  ∫_{J_{w_j}}|[w_j]|→∫_{J_w}|[w]|.
+```
+
+**Risultati candidati in letteratura (verifica parziale):**
+
+- **Kristensen–Rindler**, *Piecewise affine approximations for
+  functions of bounded variation* (arXiv:1211.1792): approssimanti
+  piecewise affine, area-strict, con **differenza delle tracce
+  sulle interfacce del mesh resa arbitrariamente piccola**.
+  Attenzione: il controllo è sulle interfacce *interne* del mesh,
+  non automaticamente su `∂S`. Se però si applica la densità
+  **globalmente** su `Σ∖V_r` (superficie piatta con bordo
+  poligonale), gli spigoli `Γ` diventano interfacce interne del
+  mesh e il controllo di traccia di KR potrebbe bastare —
+  questa è la via "CFI intrinseco" del §5.2 e andrebbe verificata
+  nel testo.
+- **De Philippis–Fusco–Pratelli**, *On the approximation of SBV
+  functions* (arXiv:2303.00933, Memoirs AMS): Teoremi A–C;
+  convergenza BV strict + convergenza della misura del jump set
+  + `u_j∈C^∞` fuori da `J_{u_j}`; se `ℋ^{n−1}(J_u)<∞` anche
+  `ℋ^{n−1}(J_{u_j})→ℋ^{n−1}(J_u)`. Non dichiara controllo delle
+  tracce sul bordo.
+- **Ambrosio et al.** (approssimazione BV→SBV in spazi metrici,
+  arXiv:1806.04647, Cor. 5.15): gli approssimanti possono essere
+  scelti con **gli stessi valori al bordo** — ma in contesto
+  metrico/`BV` (rimozione di Cantor), non la densità energetica
+  `|[·]|` richiesta.
+
+**Conclusione G4a**: nessun teorema verificato dà direttamente
+`L¹(∂S)`-convergenza delle tracce con controllo energetico.
+Le due vie restano: (a) adattare KR/CFI per includere `∂S` nel
+mesh controllato, o riformulare la giunzione come interfacce
+interne di un'unica approssimazione globale su `Σ∖V_r`;
+(b) costruzione boundary-preserving con striscia di bordo e
+stima del costo — da isolare nel localization lemma.
 
 ### 4.2 G4b — recovery locale dopo incollaggio
 
