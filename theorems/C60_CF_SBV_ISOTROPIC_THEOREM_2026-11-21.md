@@ -120,12 +120,35 @@ bound.
    non solo la convergenza `L¹`.
 5. L'ordine dei limiti `ε→0, r↓0, ρ↓0` con diagonalizzazione.
 
-## 5. Prossimo passo dimostrabile
+## 5. Sintesi degli enunciati (stato corretto)
 
-Il primo risultato chiudibile senza nuovi ingredienti esterni è il
-**caso poliedrale finito con `W=|F|_F`**: recovery bulk (Lemma R
-candidato) + lemma di localizzazione (da dimostrare, `q=1` copre il
-punto 4) + salti preservati (`|a|` additiva). La parte ancora
-mancante è la **costruzione esplicita del raccordo sugli spigoli**
-con la sua stima quantitativa — è il contenuto del lemma di
-localizzazione, da dimostrare con le stime già disponibili.
+1. **Teorema poliedrale finito — DIMOSTRATO.** Per `g` affine per
+   faccia e `G̃` costante per faccia su un complesso poliedrale
+   finito, con `ψ=|a|` e `W=|F|_F` o `|F|_F²`, l'infimo è
+   `Σ_f|f|W(G̃_f) + Σ_f|f|‖A_f−G̃_f‖_* + ∫_{J_g}|[g]|`
+   (`C60_CF_POLYHEDRAL_AFFINE_THEOREM_2026-11-21.md`). La recovery
+   SVD è esplicita e le tracce si controllano senza raccordo.
+2. **Teorema generale di limite inferiore — DIMOSTRATO.** Per
+   `g∈SBV`, `G∈L¹`, successioni determinanti con costo di salto
+   limitato: `liminf E_W ≥ ∫W(G) + ∫‖∇g−G‖_* + ∫_{J_g}|[g]|`
+   (lemma §3.1 + semicontinuità del bulk).
+3. **Identità generale — APERTA.** Richiede **uno** dei due:
+   - una recovery per `M(x)=∇g−G` variabile compatibile con il
+     salto (la prova candidata `W^{1,1}` non controlla le tracce al
+     bordo delle celle), **oppure**
+   - un teorema di densità energetica `SBV` che preservi
+     `∫_{J_{g_j}}|[g_j]|d𝓗¹ → ∫_{J_g}|[g]|d𝓗¹` **e** la convergenza
+     di `∇g_j−G_j` in `L¹` (e `L²` nel caso quadratico), cosicché la
+     diagonale poliedrale produca la recovery.
+
+   La sola densità `L¹` o `H¹(J)` non basta: serve il peso
+   `|[g]|` e il controllo del difetto bulk. La strategia
+   `densità energetica → linearizzazione affine → proiezione a
+   tratti di G → diagonale` è quella corretta, ma il teorema di
+   densità pesato non è ancora dimostrato.
+
+Il lemma di localizzazione (`C60_CF_LOCALIZATION_LEMMA`) resta
+rilevante **solo** per il percorso alternativo "estensione diretta
+della recovery `W^{1,1}` alle facce di salto"; il percorso densità
++ diagonale lo aggira per il caso poliedrale e lo sostituisce per
+il caso generale.
