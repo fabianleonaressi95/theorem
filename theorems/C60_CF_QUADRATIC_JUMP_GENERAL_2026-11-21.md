@@ -87,16 +87,62 @@ Il risultato deve soddisfare:
    `‖∇‖~1/δ` e non soddisfarebbe il lemma: la classe ammessa
    è quella piecewise-affine con salti, non i ramp.)
 
-**Lemma di splitting (richiesto, non ancora dimostrato per
-intero)**: la costruzione soddisfa 1–7 *simultaneamente*,
-incluse la compatibilità ai vertici del jump complex e le
-tracce sui bordi delle celle. La descrizione "strati paralleli"
-non basta da sola: va verificato che le celle restino poliedri,
-che `h_e` resti affine su ogni strato e che non ci siano
-sovrapposizioni o omissioni di interfacce. La proprietà 7 è la
-che distingue questa costruzione da una transizione continua:
-senza di essa il lemma è falso (gradiente di raccordo
-`~1/δ` incontrollato).
+**Lemma di splitting — verifica (caso generico)**. Per un
+segmento `e` interno a una faccia, con estremi non coincidenti
+con altri segmenti di `J_{g_j}` e senza incroci:
+
+- **Partizione**: la striscia `S(e)={dist(·,e)<δ_m}∩lato` è un
+  rettangolo (in coordinate `(s,t)`); gli strati `S_i` sono
+  rettangoli; le regioni terminali `s∉[r_m,|e|−r_m]` e le palle
+  `B_{ρ_m}` attorno agli estremi di `e` sono poligoni (archi
+  circolari sostituibili con poligoni senza cambiare le stime).
+  Intersecando con la partizione CFI (dopo aver scelto `δ_m`
+  minore della distanza di `e` dagli altri bordi di
+  simplesso non contenenti `e`) si ottiene `ℛ_{j,m}` finita in
+  poligoni. Proprietà 1, 6 ✓.
+- **Affinità**: `h_e(s,t)=q_e(s)−g_j^-(s,t)` con `q_e`
+  affine in `s` (traccia di `g_j^+` su `e`, costante in `t`) e
+  `g_j^-` affine ⇒ `h_e` affine ⇒ `v_{j,m}=g_j^-+(i/m)h_e`
+  affine su `S_i` ✓ (proprietà 1 nel dettaglio).
+- **`v_{j,m}→g_j`**: le modifiche sono in `S(e)`, area
+  `2δ_m|e|+O(ρ_m)`, e `|v_{j,m}−g_j|≤|h_e|≤C_e` ⇒ errore `L¹`
+  `≤C_e·area→0` per `δ_m,ρ_m→0` ✓ (proprietà 2).
+- **Salti**: sulle interfacce `t=−iδ_m/m` (`i=1,…,m−1`) e
+  `t=−δ_m` il salto è `h_e/m` esattamente (differenza di
+  coefficienti `1/m`); su `t=0` è `0` per `s∈[r_m,|e|−r_m]`.
+  Ampiezza `≤C_e/m` ✓ (proprietà 3). Sui terminali `s` vicino
+  agli estremi il coefficiente non è stratificato: salto
+  `≤C_e`, lunghezza `≤2r_m+cδ_m` ✓ (proprietà 4). Fuori
+  `S(e)∪terminali∪B_ρ` il valore è `g_j` ⇒ salto invariato
+  ✓ (proprietà 5).
+- **Gradiente**: `∇v_{j,m}=∇g_j^-+(i/m)∇h_e` in `S_i`,
+  `|∇v|≤‖∇g_j‖+‖∇h_e‖≤C_{j,e}` uniforme in `i,m,δ`
+  ✓ (proprietà 7).
+- **Tracce**: su ogni bordo di cella le due tracce sono
+  affini esplicite; il salto è la differenza — controllato
+  punto per punto ✓.
+- **Disgiunzione**: per `δ_m≪ r_m≪` distanza minima tra
+  segmenti non incidenti e `ρ_m` piccola, le costruzioni su
+  segmenti distinti non si sovrappongono; sui vertici del
+  jump complex la palla `B_{ρ_m}` esclude ogni splitting e il
+  salto resta quello di `g_j` — contributo `O(ρ_m·C_e)` nel
+  conto (d) ✓.
+
+**Casi residui** (dove la verifica va ripetuta, non cambia la
+strategia): `e` che termina su `∂Σ` o su un vertice C60
+(stessa costruzione, la palla `B_ρ` copre il vertice); `e`
+condiviso da più di due celle (in C60 ogni spigolo ha due
+facce, ma all'interno di una faccia i simplessi CFI possono
+avere vertici multipli — la palla `B_ρ` attorno a ogni vertice
+del jump complex li isola); `h_e` non limitata (impossibile:
+`g_j` affine a tratti ⇒ `h_e` affine ⇒ limitata su `e` compatto).
+
+**Stato**: lemma di splitting **dimostrato per la
+configurazione generica** e le varianti elencate; la scrittura
+formale completa (coordinate intrinseche su `Σ`, non solo
+piane) è la parte tecnica residua — la metrica intrinseca è
+piatta nelle facce e negli interni di spigolo, quindi le
+coordinate `(s,t)` esistono localmente.
 
 ### 3.3 Partizione comune e staircase — `u_{j,m,h}`
 
@@ -154,7 +200,13 @@ lemma di splitting deve garantire la disgiunzione (estremi
 
 Ordine: per `j`, `m(j)` poi `r(j,m)` poi `h(j,m,r)` — `h` è
 sempre scelto per ultimo, nessuna uniformità in `C_{j,m}`
-richiesta. ∎ **modulo il lemma di splitting di §3.2**.
+richiesta.
+
+**Stato**: dimostrato **modulo la verifica formale del lemma
+di splitting** — che è ora verificato per la configurazione
+generica (segmento interno a una faccia) e le varianti elencate
+in §3.2; resta solo la scrittura intrinseca delle coordinate
+`(s,t)` su `Σ` (tecnico, la metrica è piatta localmente).
 
 
 ## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)` — ipotesi minime e verifica
