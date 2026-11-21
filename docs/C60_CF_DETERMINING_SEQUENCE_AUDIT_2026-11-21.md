@@ -115,6 +115,8 @@ Per un campo alternativo `G̃` costante su ciascuna faccia, si pone
 `∇_Σu_h=G̃` esattamente a.e. per ogni scala e
 `D^s_Σu_h⇀*M𝓗²+[g]⊗ν_g𝓗¹`. La variazione totale è uniformemente limitata.
 Questo chiude l'esistenza di una determining sequence per `M≠0` nel caso
+faccia-per-faccia costante. Il costo micro-interfaciale scala come
+`h^{p−1}` per `ψ=|a|^p`; l'ottimalità per `p=1` non è identificata.
 faccia-per-faccia costante. Il costo della griglia cartesiana scala come
 `h^{p−1}` per `ψ=|a|^p`. Per `p=1`, il cell problem isotropo è ora
 identificato esattamente: `C(M_f)=||M_f||_*`, con limite inferiore duale
@@ -172,6 +174,9 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
   `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
+- **E. Ottimalità per `M≠0`:** la successione esiste, ma il costo micro-
+  interfaciale per densità 1-omogenee non è ancora ottimizzato; serve un cell
+  problem per la matrice `M_f`.
 - **E. Rilassazione:** confrontare il costo della successione costruita con
   il cell formula CF; solo il limite inferiore universale e una recovery
   sequence ottimale possono identificare l'infimo.
@@ -205,6 +210,7 @@ sua rilassazione restano problemi aperti.
 | `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
 | `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
 | Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | Aperta: cell problem |
 | Cell problem isotropo lineare per `M_f` | **Provato:** costo nucleare, recupero SVD |
 | Ottimizzazione `|G|_F² + λ||A−G||_*` | **Formula dimostrata**; script committato, test automatico non ancora eseguito |
 | Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | **Provata:** `Σ_f |f| ||M_f||_*` |
@@ -224,6 +230,9 @@ generalizzazione integrale CF alla classe generale delle superfici poliedrali.
 
 **Classificazione complessiva:** la coppia C60 corrente ha una determining
 sequence esplicita `u_n=g`. I funzionali con `W=|F|_F` o `W=|F|_F²` e
+`ψ=|a|` sono identificati. Restano aperti l'ottimalità energetica per `M≠0`, il rilassamento per
+ densità interfaciali anisotrope più generali e la generalizzazione integrale
+CF alla classe generale delle superfici poliedrali.
 `ψ=|a|` sono identificati. Per `M≠0` con `G̃` costante faccia per faccia,
 l'esistenza della determining sequence è provata e, per `ψ=|a|`, il costo
 micro-interfaciale ottimale è la norma nucleare `‖M_f‖_*`. Restano aperti

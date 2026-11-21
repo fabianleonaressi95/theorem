@@ -93,7 +93,7 @@ Il test `∫strip |∇g_h|² dA ~ C/h` riguarda invece la regolarizzazione conti
 | Formula di rilassamento `I(g,G)` e suo valore minimo | Aperta |
 | Estensione rigorosa del teorema CF da domini euclidei a superfici poliedrali | Da enunciare come adattamento intrinseco; la prova della successione costante usa direttamente la decomposizione SBV sulle facce |
 
-## 5. Generalizzazione se il campo bulk viene cambiato
+## 5. Generalizzazione per un campo bulk alternativo
 
 Se in una futura versione si sceglie un campo `G̃` con `M=∇_Σg−G̃≠0`, la successione costante non è più determinante. In tal caso occorre costruire micro-salti che diffondano nel bulk la misura `M𝓗²`. Il problema è diverso e non va confuso con la coppia C60 attualmente definita, per la quale `M=0`.
 | `I_W(g,G)` per `W(F)=|F|_F` o `|F|_F²`, `ψ(a,ν)=|a|` | Identificato dal teorema di minimalità dedicato |
