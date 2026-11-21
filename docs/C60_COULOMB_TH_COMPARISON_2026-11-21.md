@@ -80,3 +80,15 @@ All eight sector labels occur in both systems. Multiplicities agree in \(1_g,1'_
 - C60 Coulomb stationarity: fails.
 - C60 projected Hessian: diagnostic only, not a constrained-equilibrium Hessian.
 - Equality with Q6-64 or archived \(K_0\): not claimed.
+
+## Reproduction
+
+From the repository root, with NumPy and SciPy installed:
+
+```bash
+python scripts/audit_c60_coulomb_th_comparison.py \
+  --npz data/RGS_PSU_all_matrices.npz \
+  --out-dir c60_coulomb_th_audit
+```
+
+The script writes `C60_Coulomb_T_h.npz` and `report.json`. The sector comparison deliberately uses the raw projected ambient Hessians on both tangent spaces. It is not the constrained second variation at an equilibrium for C60, because the C60 tangent gradient is nonzero.
