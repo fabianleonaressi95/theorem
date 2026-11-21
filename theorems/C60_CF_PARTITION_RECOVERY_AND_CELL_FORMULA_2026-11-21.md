@@ -49,7 +49,7 @@ c|a|\\le\\psi(a,\\nu)\\le C|a|,\\qquad
 $$
 La cell formula è **senza dato al bordo**. Per un quadrato Q di area uno definiamo
 $$
-f_{cell}(M)=\\inf\\left\\{\\liminf_{h\\to\\infty}
+f_{cell}(M)=\\inf\\left\\{\\liminf_{h\\downarrow0}
 \\int_{J_{w_h}\\cap Q}\\psi([w_h],\\nu_{w_h})\\,d\\mathcal H^1:
 w_h\\to Mx\\text{ in }L^1(Q),\\ w_h\\text{ piecewise constant}\\right\\}.
 $$
