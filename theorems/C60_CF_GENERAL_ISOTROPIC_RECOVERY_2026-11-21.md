@@ -154,10 +154,14 @@ cella è costante per cella. **Verificato.**
 `G∈L^p` purché il mesh tenda a zero: per funzioni continue vale
 per stima uniforme, e per `G∈L^p` per densità + disuguaglianza di
 Jensen (`⨍_C|G_j|^p ≤ ⨍_C|G|^p`). Il mesh delle partizioni CFI
-tende a zero perché la scala di costruzione è `δ→0`, `ε→0` con
-`ε≪δ` (Proposizione 4.1–4.3 del lavoro). La regolarità di forma
-dei simplessi (diametro `<cε`, volume `>cεⁿ`) garantisce che le
-celle troncate non degenerino. **Verificato** per `p=1,2`.
+tende a zero: la costruzione ha due scale `δ` (regolarità di `u`)
+e `ε≪δ` (triangolazione fine), e i simplessi hanno diametro
+`≤ cε` con `ε↓0` lungo la successione (Prop. 4.1–4.3, §4.3 del
+lavoro). La regolarità di forma (diametro `<cε`, volume
+`>cεⁿ`) impedisce il degenerare delle celle troncate. **Verificato**
+per `p=1,2`. Conseguenza ulteriore: `‖G_j𝓗²−G𝓗²‖_M =
+‖G_j−G‖_{L¹}→0` — convergenza in variazione totale, più forte
+della debole-* richiesta.
 
 **Punto 3 — salti sulle giunzioni di faccia (solo per `Σ`).**
 Sul dominio piano `Ω` non esistono giunzioni interne: `J_{g_j}` è
