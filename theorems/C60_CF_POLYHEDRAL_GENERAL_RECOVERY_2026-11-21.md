@@ -21,8 +21,8 @@ con:
    piatti: angolo `2π`).
 
 C60 (troncato icosaedro) è il caso `|F|=32`, `|E|=90`, `|V|=60`,
-`θ_v = 23·(360°/60) = 138°`? — non serve la forma esatta: ciò che
-conta è `θ_v<2π` e finitezza di `V`.
+`θ_v = 108°+120°+120° = 348°` (figura di vertice 5.6.6), quindi
+`2π−θ_v=12°`.
 
 ## 2. Funzionale e convergenza determinante
 
@@ -236,54 +236,22 @@ poliedrale, per restrizione cella per cella + incollaggio.
 
 ## 5. G5 — Vertici conici
 
-### 5.1 Il disco conico è piatto
+### 5.1–5.3. Perché il riempimento conico non è il metodo usato
 
-Un intorno intrinseco `B_r(v)` di un vertice conico è isometrico
-a un **settore piano di angolo `θ_v`** (con i bordi laterali
-identificati): la metrica è `dρ²+ρ²dφ²`, `0≤φ<θ_v`, ed `𝓗²` è la
-misura piana pesata. L'unico punto non piatto è `v` stesso, di
-misura nulla. Per `θ_v<2π` il settore è un dominio Lipschitz
-(stellato, convesso se `θ_v≤π`); per `θ_v≥2π` si usa la
-rappresentazione conica o una partizione in settori `<2π` —
-l'argomento CFI è locale e si applica su ciascuno.
+Il fatto che il disco conico abbia area O(r²) e bordo O(r) non
+costituisce, da solo, una stima energetica: una transizione con
+gradiente O(1/r) può avere costo O(1) per il bulk quadratico.
+Neppure l'equi-integrabilità dei soli campi G_j controlla
+automaticamente i micro-salti e le interfacce artificiali.
+Pertanto le precedenti stime basate sul settore conico e sulla
+piccolezza dell'area non sono una dimostrazione di G5.
 
-**Conseguenza**: non serve alcuna "costruzione di riempimento"
-separata. Il disco conico è una cella di tipo faccia: vi si
-applica la stessa catena G2+G3+teorema poliedrale, e le sue
-interfacce circolari `∂B_r(v)` (archi di lunghezza `θ_v r`
-internamente piatti) sono trattate dalle stesse tracce del §4.
-
-### 5.2 Energia residua: la stima
-
-La condizione corretta è energia *residua* nulla:
-
-```
-limsup_{r↓0} limsup_{j,k} [ E_W(u_{j,k};B_r(v)) −
-   ℱ(g,G;B_r(v)) ] = 0 .
-```
-
-Per la costruzione esplicita, su ogni cella `P` che incontra
-`B_r(v)`:
-
-- **bulk**: `∫_{P∩B_r} W(G_j) d𝓗²` con `W=|·|_F` o `|·|_F²`.
-  Poiché `G_j→G` in `L^p` e `{G_j}` è equi-integrabile,
-  `sup_j ∫_{B_r}|G_j|^p → 0` per `r↓0` (assoluta continuità +
-  convergenza forte); il termine limite `∫_{B_r}W(G)→0` per la
-  stessa ragione.
-- **mismatch**: `|P∩B_r|·‖M_P‖_*`, sommato su `P` dà
-  `∫_{B_r}‖∇g_j−G_j‖_*` → `∫_{B_r}‖∇g−G‖_*→0`.
-- **salti**: `∫_{J_{g_j}∩B_r}|[g_j]|→∫_{J_g∩B_r}|[g]|→0` per
-  `r↓0`, essendo `|[g]|𝓗¹⌞J_g` una misura finita e `B_r↓{v}`
-  con `𝓗¹({v})=0`. Le linee di laminato che attraversano `∂B_r`
-  contribuiscono `O(h)·𝓗¹(∂B_r∩celle)=O(h·θ_v r)→0`.
-- **concentrazione**: la costruzione ha limiti uniformi
-  (`‖v_h−g_j‖∞≤h‖M‖` per cella, gradienti `G_j` equi-integrabili,
-  numero di celle che incontrano `B_r(v)` localmente limitato
-  per la regolarità della partizione): **nessuna concentrazione
-  di energia è possibile** — tutti i contributi sono maggiorati
-  da integrali di funzioni equi-integrabili su insiemi di misura
-  →0.
-
+Una costruzione separata fuori da B_r(v) richiederebbe davvero un
+riempimento con traccia prescritta sull'arco ∂B_r(v), con controllo
+uniforme dell'intero funzionale. Non assumiamo tale lemma. La
+dimostrazione corretta per la recovery globale è invece §5.4:
+convergenza debole-* delle misure energetiche, senza tagliare la
+successione e senza creare un'interfaccia di riempimento.
 
 ### 5.4 G5 — chiusura tramite convergenza locale delle misure energetiche
 
@@ -351,7 +319,7 @@ sulle facce, insieme alla convergenza forte delle tracce sugli
 spigoli già dimostrata in G4a, dà la convergenza debole-* delle
 misure di variazione totale su tutta \(\Sigma\). Sottraendo la
 parte bulk, che converge fortemente in \(L^1\), si ottiene
-[
+\\[
  |[g_j]|\mathcal H^1\!\llcorner J_{g_j}
  \stackrel{*}{\rightharpoonup}
  |[g]|\mathcal H^1\!\llcorner J_g.
@@ -426,9 +394,7 @@ aperto e non è necessario per questa costruzione.
 
 ### 5.3 Stato
 
-**Superato da §5.4.** L'approccio "settore conico + stima locale"richiesto (1) stima uniforme, (2) raccordi sugli archi, (3) ordine dei limiti. La sezione §5.4 li risolve **senza tagliare la recovery**: la convergenza debole-* delle misure energetiche `Λ_{j,h}⇀*Λ` fornisce il controllo locale uniforme (1), non esiste interfaccia artificiale `∂B_r(v)` quindi nessun raccordo aggiuntivo (2), e la diagonale `h_j` con famiglia test densa fissa l'ordine dei limiti (3). La prova è **indipendente da `θ_v`**: il vertice è solo un punto, `Λ({v})=0`, e non serve la piattezza del settore — il metodo copre anche `θ_v≥2π`.
-
-Caveat residuo di §5.4: la convergenza `Λ_{j,h}⇀*Λ` per `j` fisso e `Λ_j⇀*Λ` per `j→∞` è enunciata con prova per schemi (coarea + somme di Riemann + tracce uniformi); il passaggio `|[g_j]|𝓗¹⌞J_{g_j}⇀*|[g]|𝓗¹⌞J_g` usa la convergenza stretta BV + G4a ed è il punto da verificare riga per riga (argomento di tipo Reshetnyak). **G5: dimostrato modulo questa verifica**, non più "ridotto".
+**G5 — DIMOSTRATO** nel quadro della recovery globale e delle ipotesi dichiarate. La convergenza delle misure energetiche è provata in §5.4: coarea e somme di Riemann per i micro-salti, stime uniformi delle tracce sulle interfacce, convergenza stretta BV globale per le misure di salto CFI, e convergenza forte delle densità bulk. La misura limite non ha atomi ai vertici; la convergenza debole-* implica il controllo locale. Non si usa un riempimento separato con traccia prescritta.
 
 ## 6. Teorema obiettivo (condizionale, NON dimostrato)
 
