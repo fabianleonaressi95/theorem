@@ -1,0 +1,30 @@
+{
+  "classification": "numerical structural audit",
+  "embedding": "A_geometry_orthonormal (188 x 64), 64 orthonormal columns",
+  "orthogonality_residual": 1.02626766692435e-14,
+  "complement_dimension": 124,
+  "operators": {
+    "K0": {
+      "relative_offdiagonal_B_to_complement": 0.331413518642858,
+      "relative_offdiagonal_complement_to_B": 0.331413518642858,
+      "B_subspace_invariant": false
+    },
+    "R_geo_tangent": {
+      "relative_offdiagonal_B_to_complement": 9.267033058368454e-16,
+      "relative_offdiagonal_complement_to_B": 9.141136295089859e-16,
+      "B_subspace_invariant": true
+    },
+    "T_transport": {
+      "relative_offdiagonal_B_to_complement": 7.731420429014858e-16,
+      "relative_offdiagonal_complement_to_B": 0.8171328676687867,
+      "B_subspace_invariant": false
+    },
+    "P_G": {
+      "relative_offdiagonal_B_to_complement": 0.38505322338209524,
+      "relative_offdiagonal_complement_to_B": 0.38505322338209524,
+      "B_subspace_invariant": false
+    }
+  },
+  "conclusion": "Only R_geo_tangent reduces the embedded 64D sector and its 124D complement. K0 and P_G couple both ways; T_transport has one-way coupling. The 64D state action alone cannot determine a canonical 188D lift.",
+  "limitation": "No explicit row-to-edge index map for Q_tangent is supplied in the archive."
+}
