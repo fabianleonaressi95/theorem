@@ -40,127 +40,122 @@ rilassato contiene **solo** il bulk.
 
 Quindi `liminf E(u_n) ≥ ∫W(G)`. Nessuna ipotesi aggiuntiva.
 
-## 3. Recovery — costruzione a tre parametri
+## 3. Recovery: costruzione su una partizione affine comune
 
-Parametri: `j` (densità CFI di `g`), `m` (micro-splitting dei
-salti), `h` (passo staircase). Scelta diagonale finale.
+### 3.1 Prima approssimazione
 
-### 3.1 Approssimazione di `g` — `g_j`
-
-CFI (Teorema 1.1 + Cor. 2.3) su ogni faccia: `g_j` affine per
-simplesso, `g_j→g` in `L¹`, `∇g_j→∇g` in `L^p`,
-`∫_{J_{g_j}}|[g_j]|²→∫_{J_g}|[g]|²` (la convergenza di salto non
-serve per il risultato finale — i salti verranno distrutti — ma
-non fa male). `G_j|_T=⨍_T G` sulle stesse celle (G3): `G_j→G`
-in `L^p`.
-
-### 3.2 Micro-splitting — `g_j^{(m)}`
-
-Su ogni segmento `e` di `J_{g_j}` (interfaccia di simplessi con
-salto non nullo, interno a una faccia o su uno spigolo `Γ`) il
-dato di salto è `h_e(s)=[g_j](s)` (affine a tratti in `s`).
-Come in §2 del documento quadratico: striscia di larghezza
-`δ_m` nel lato adiacente, `m` strati paralleli, nell'`i`-esimo
-`g_j^{(m)}=g_j^-+(i/m)h_e`. Risultato:
-
-- `g_j^{(m)}→g_j` in `L¹` (modifiche in area `O(δ_m)`);
-- `∇g_j^{(m)}→∇g_j` in `L^p` (gradiente modificato
-  `∇g_j+(i/m)∇h_e` uniformemente limitato su area `→0`);
-- **ogni salto di `g_j^{(m)}` ha ampiezza `≤C_e/m`**, dove
-  `C_e=max_e|h_e|`;
-- nuovo bordo: segmenti terminali di lunghezza `O(r_m)` con
-  salto macroscopico residuo (scegliere `r_m→0`).
-
-Il numero di strati `m` è finito per `(j,e)`; la partizione
-resta poliedrale finita.
-
-### 3.3 Staircase di mismatch — `u_{j,m,h}`
-
-**Partizione (precisata)**: `𝒫_{j,m}` = l'insieme delle
-**parti affine di `g_j^{(m)}`** — cioè i simplessi CFI
-ulteriormente suddivisi dagli strati di splitting. Ogni cella
-`P∈𝒫_{j,m}` è un poligono su cui `g_j^{(m)}` è affine,
-`g_j^{(m)}|_P(ξ)=A_Pξ+b_P`, e `P` è contenuta in un simplesso
-CFI dove `G_j` è costante: quindi `G_j|_P=G_P` costante e
+Scegliamo `g_j` piecewise affine su una partizione poliedrale
+finita (simplessi CFI) di `Σ`, con
 
 ```
-M_P = A_P − G_P   costante su P .
+g_j→g in L¹(Σ),   ∇g_j→∇g in L^p(Σ),
 ```
 
-Attenzione: sugli strati dentro le strisce di splitting
-`A_P=∇g_j+(i/m)∇h_e` **non** coincide con `∇g_j` — è una
-costante diversa per strato, ma costante: `M_P` resta costante
-e la staircase si applica senza modifiche. La formula:
+e `J_{g_j}` contenuto in un'unione finita di segmenti su cui
+`[g_j]` è affine a tratti (proprietà di CFI). `G_j|_T=⨍_T G`
+sulle stesse celle (G3): `G_j→G` in `L^p`. Raffiniamo a una
+partizione poliedrale comune.
+
+### 3.2 Splitting affine dei salti — `v_{j,m}` e lemma richiesto
+
+Fissati `j,m`, applichiamo a ogni segmento di salto `e` la
+costruzione a strati paralleli: striscia di larghezza `δ` nel
+lato adiacente, `m` strati, nell'`i`-esimo
+`v_{j,m}=g_j^-+(i/m)h_e` con `h_e` affine (v. §3.2 precedente
+per i dettagli di coordinate, estremi `r`, palle `ρ` attorno ai
+vertici del jump complex e disgiunzione delle strisce).
+
+Il risultato deve soddisfare:
+
+1. `v_{j,m}` affine su ogni cella di una partizione poliedrale
+   finita `ℛ_{j,m}`;
+2. `v_{j,m}→g_j` in `L¹` per `δ→0`;
+3. salti sugli strati `≤C_e/m`, `C_e=‖[g_j]‖_{L∞(e)}`, a meno
+   dei tratti terminali;
+4. tratti terminali di lunghezza totale `≤c_e r`, salto `≤C_e`;
+5. fuori dagli strati il salto è quello originario;
+6. `∇v_{j,m}` costante per cella;
+7. **controllo del gradiente nelle strisce**:
+   `‖∇v_{j,m}‖_{L∞(strisce)} ≤ C_{j,e}` con `C_{j,e}`
+   indipendente da `δ` e da `m` — nella costruzione a strati
+   il valore cambia per **salti** fra strati adiacenti, non per
+   transizioni continue, quindi
+   `∇v_{j,m}=∇g_j^-+(i/m)∇h_e` resta limitato da
+   `‖∇g_j‖+‖∇h_e‖`; di conseguenza
+   `∫_{strisce}W(∇v_{j,m}) ≤ C·area(strisce)·sup W →0` per
+   `δ→0`. (Una versione a transizione continua avrebbe
+   `‖∇‖~1/δ` e non soddisfarebbe il lemma: la classe ammessa
+   è quella piecewise-affine con salti, non i ramp.)
+
+**Lemma di splitting (richiesto, non ancora dimostrato per
+intero)**: la costruzione soddisfa 1–7 *simultaneamente*,
+incluse la compatibilità ai vertici del jump complex e le
+tracce sui bordi delle celle. La descrizione "strati paralleli"
+non basta da sola: va verificato che le celle restino poliedri,
+che `h_e` resti affine su ogni strato e che non ci siano
+sovrapposizioni o omissioni di interfacce. La proprietà 7 è la
+che distingue questa costruzione da una transizione continua:
+senza di essa il lemma è falso (gradiente di raccordo
+`~1/δ` incontrollato).
+
+### 3.3 Partizione comune e staircase — `u_{j,m,h}`
+
+Raffinando `ℛ_{j,m}` con la partizione di `G_j`, partizione
+comune finita poliedrale `𝒫_{j,m}`. Su `P∈𝒫_{j,m}`:
+`A_P=∇v_{j,m}|_P`, `G_P=G_j|_P`, `M_P=A_P−G_P` costanti;
+SVD `M_P=Σ_iσ_{P,i}a_{P,i}⊗ν_{P,i}` e
 
 ```
-u_{j,m,h}|_P = G_P ξ + b_P + Σ_i σ_{P,i} a_{P,i} h⌊ξ·ν_{P,i}/h⌋ ,
-M_P = Σ_i σ_{P,i} a_{P,i}⊗ν_{P,i}  (SVD).
+u_{j,m,h}(x)=G_P x+b_P+Σ_iσ_{P,i}a_{P,i}h⌊x·ν_{P,i}/h⌋,
 ```
 
-Proprietà (teorema poliedrale, esteso a piecewise-affine —
-G4b): `∇u_{j,m,h}=G_P` **a.e. su ogni cella, strati inclusi**;
-`‖u_{j,m,h}−g_j^{(m)}‖_{L∞(P̄)}≤h·‖M_P‖_*`; per `h→0` con
-`(j,m)` fisso, `u_{j,m,h}→g_j^{(m)}` uniformemente su ogni
-cella chiusa.
-
-### 3.4 Stima del costo di salto — tutti i contributi
-
-Sia `J_{j,m,h}` il jump set di `u_{j,m,h}`. Le famiglie di
-salti, enumerate senza sovrapposizioni:
-
-**(a) Interfacce tra strati di splitting** (`m` per segmento
-`e` di `J_{g_j}`, più i bordi esterni delle strisce): salto
-effettivo `= [g_j^{(m)}] + O(h·max‖M‖)`, ampiezza
-`≤C_e/m+2hC_{j,m}`, lunghezza `≤|e|` ciascuna. Costo per `e`:
+con `b_P` scelto per approssimare `v_{j,m}` (uguaglianza in un
+punto di riferimento). Allora `∇u=G_P` a.e. in `P` e
 
 ```
-≤ m·|e|·(C_e/m+2hC_{j,m})²
- = |e|·(C_e²/m + 4hC_{j,m}C_e + 4mh²C_{j,m}²)
-   →0 per m→∞ poi h→0 con mh²→0 (j fisso; h è scelto dopo m).
+‖u_{j,m,h}−v_{j,m}‖_{L∞(P)} ≤ c·h·max_P‖M_P‖_* =: c·h·C_{j,m}.
 ```
 
-**(b) Linee laminato SVD** dentro ogni cella `P` (inclusi gli
-strati): ampiezza `hσ_{P,i}`, lunghezza totale per direzione
-`~|P|/h` (coarea). Costo:
+### 3.4 Stima dei salti per `φ=t²`
 
-```
-Σ_P Σ_i (hσ_{P,i})²·c_i|P|/h = h·Σ_P c_i|P|‖M_P‖_F² ≤
-   h·C'_{j,m}·|Σ| →0 per h→0, (j,m) fisso.
-```
+**(a) Interfacce degli strati**: salto `≤C_e/m+2chC_{j,m}`,
+`m` segmenti di lunghezza `~|e|`:
+`|e|m(C_e/m+2chC_{j,m})² = |e|(C_e²/m + O(hC_{j,m}) + O(mh²C²))`
+→ per `m` fisso tutti i termini in `h` →0 (in particolare
+`mh²→0` automaticamente); il termine `C_e²/m→0` per `m→∞`.
 
-`C_{j,m}=max_P‖M_P‖_*<∞` perché `𝒫_{j,m}` è finita.
+**(b) Lamine SVD**: salto `hσ_{P,i}`, lunghezza totale
+`~|P|/h` ⇒ costo `~h·Σ_P|P|‖M_P‖_F² →0` per `h→0`, `(j,m)`
+fisso.
 
-**(c) Interfacce di cella senza salto macroscopico**
-(`[g_j^{(m)}]=0`): il salto effettivo è solo il residuo
-`O(h·max‖M‖)`; costo `≤Σ_e|e|·(2hC_{j,m})²→0`.
+**(c) Interfacce senza salto di `v_{j,m}`**: salto residuo
+`≤2chC_{j,m}` ⇒ costo `→0` per `h→0`.
 
-**(d) Segmenti terminali delle strisce** (esclusione `r_m`):
-salto `≤C_e`, lunghezza `O(r_m)`; costo `≤C_e²·O(r_m)→0`.
+**(d) Tratti terminali e zone esclusae**: lunghezza `O(r+ρ)`,
+salto `≤C_e` ⇒ costo `O((r+ρ)C_e²)→0`.
 
-**(e) Vertici**: nessun contributo — gli spigoli si contano
-una volta (G4), i vertici sono `𝓗¹`-nulli e la costruzione è
-per cella.
+Le famiglie (a)–(d) vanno contate **senza sovrapposizioni**: il
+lemma di splitting deve garantire la disgiunzione (estremi
+`𝓗¹`-nulli).
 
-### 3.5 Convergenze
+### 3.5 Convergenze e diagonale
 
-- `u_{j,m,h}→g` in `L¹`: `‖u−g_j^{(m)}‖∞≤hC_{j,m}→0` per `h→0`
-  a `(j,m)` fisso, e `g_j^{(m)}→g_j→g`.
-- **`∇u_{j,m,h}=G_j` a.e. su tutta `Σ`** — la staircase fissa
-  il gradiente a `G_P` su ogni cella, *anche dentro le strisce*
-  dove `∇g_j^{(m)}≠∇g_j`: il termine `(i/m)∇h_e` è assorbito in
-  `M_P` e cancellato dai micro-salti. Quindi
-  `∇u_{j,m,h}𝓗²=G_j𝓗²` esattamente, e `G_j→G` in variazione
-  totale ⇒ `∇u_{j,m,h(j,m(j))}𝓗²⇀*G𝓗²`.
-- **Bulk**: `∫W(∇u)=∫W(G_j)` esatto (gradiente = `G_j` a.e.)
-  → `∫W(G)` per convergenza forte `L^p` + crescita `p` di `W`.
-- **Salto**: §§3.4(a)–(d) →0 per la diagonale.
+- `u_{j,m,h}→g` in `L¹`: `‖u−v_{j,m}‖∞≤chC_{j,m}→0` e
+  `v_{j,m}→g_j→g`.
+- `∇u_{j,m,h}=G_j` a.e. su ogni cella (la proprietà 7 del
+  lemma garantisce che le strisce non creino gradienti
+  non controllati: il bulk nelle strisce è `O(area)→0`);
+  `G_j→G` in variazione totale ⇒
+  `∇u_{j,m,h(j,m(j),r(j,m))}𝓗²⇀*G𝓗²`.
+- **Bulk**: `∫W(∇u)=∫W(G_j)` a.e. + strisce
+  `O(area·sup W)→0` per la proprietà 7 ⇒ `→∫W(G)` per
+  `W=|·|_F` (`p=1`) o `|·|_F²` (`p=2`, `G∈L²`).
+- **Salto**: (a)–(d) →0.
 
-### 3.6 Diagonale
+Ordine: per `j`, `m(j)` poi `r(j,m)` poi `h(j,m,r)` — `h` è
+sempre scelto per ultimo, nessuna uniformità in `C_{j,m}`
+richiesta. ∎ **modulo il lemma di splitting di §3.2**.
 
-Per ogni `j`: `m=m(j)` con i costi (a),(d) `<1/j`; poi
-`h=h(j,m(j))` con `h·C_{j,m(j)}≤1/j`, `mh²C²→0` e (b),(c)
-`<1/j`. La costante `C_{j,m}` è finita per ogni `(j,m)` — non
-serve uniformità in `j`. ∎
 
 ## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)` — ipotesi minime e verifica
 
