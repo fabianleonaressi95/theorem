@@ -1,0 +1,19 @@
+{
+  "bulk_W2_Dirichlet": 64.53978047478572,
+  "bulk_W1_TV": 45.636516430012115,
+  "surface_psi_s": 38.934788858521706,
+  "surface_psi_s2": 29.37424181231886,
+  "strip_integral_L2_by_h_scaled": {
+    "0.2": 129.8960020491379,
+    "0.1": 229.77186890974053,
+    "0.05": 444.42626561924124
+  },
+  "L2_ratio_0.2_vs_0.1": 0.5653259585931467,
+  "L2_ratio_0.1_vs_0.05": 0.5170078518864945,
+  "interpretation": "∫strip |∇g_h|^2 ~ C/h diverge => W quadratica non consona: l'energia rilevante per questa g e' di tipo variazione totale (crescita lineare). Il funzionale CF coerente: E(u) = ∫_Σ |∇u| dA + ∫_{S_u} |[u]| dH^1 (o W.linalg con W~|.|). Il limite della determining sequence: bulk sqrt(2)*Area + jump_mass = 84.57 (gia' verificato).",
+  "relaxed_energy_candidate": {
+    "bulk": 45.636516430012115,
+    "surface": 38.934788858521706,
+    "total_TV": 84.57130528853382
+  }
+}

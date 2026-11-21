@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-21",
+  "construction": "Q_f = B_f D_f B_f^T + n_f n_f^T in SO(3); g_f(x) = Q_f x + b_f, b_f da LS minima sui salti",
+  "interpretation": "olonomia 12deg/vertice => g non saldata; i salti sugli spigoli sono il candidato disarrangiamento DPO",
+  "counts": {
+    "vertices": 60,
+    "edges": 90,
+    "faces": 32
+  },
+  "checks": {
+    "edge_jump_norm_max": 1.4971388165151338,
+    "edge_jump_norm_mean": 0.7450804683676514,
+    "edge_jump_norm_min": 0.19183641431462745,
+    "n_edges": 90,
+    "edge_jump_tree_mean": 0.7046388153543984,
+    "edge_jump_tree_max": 0.9435555230224494,
+    "edge_jump_nontree_mean": 0.766329472493259,
+    "edge_jump_nontree_max": 1.151973287469143,
+    "n_tree_edges": 31,
+    "edge_mid_jump_norm_max": 1.1414109221785977,
+    "edge_mid_jump_norm_mean": 0.5967141394084333,
+    "vertex_image_spread_max": 0.9171025915628651,
+    "vertex_image_spread_mean": 0.5566980569774154,
+    "vertex_holonomy_deg_min": 11.999999999999961,
+    "vertex_holonomy_deg_max": 12.000000000000037,
+    "M_f_residual_max": 0.0,
+    "jump_BFS_mean": 0.7450804683676514,
+    "jump_BFS_max": 1.4971388165151338,
+    "jump_DFS_mean": 0.754764135251032,
+    "jump_DFS_max": 1.5275396472018714,
+    "jump_gauge_dependent": true
+  }
+}
