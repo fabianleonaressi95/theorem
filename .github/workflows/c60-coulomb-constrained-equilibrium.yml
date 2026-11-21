@@ -21,7 +21,6 @@ jobs:
       - name: Run constrained Coulomb equilibrium and symmetry audit
         run: |
           python scripts/audit_c60_coulomb_constrained_equilibrium.py \
-            --input-npz C60_MMFF94s_relaxed_coulomb.npz \
             --max-iterations "${{ inputs.max_iterations }}" \
             --out-dir c60_coulomb_equilibrium_audit
       - name: Upload numerical artifacts
