@@ -223,29 +223,76 @@ spigoli**. Gli unici punti singolari sono i **60 vertici**
 piatta compatta con bordo, localmente isometrica a domini piani.
 
 **Lemma di giunzione (APERTO).** Sia `Σ` la superficie poliedrale
-intrinseca e `g∈SBV(Σ)`. Occorre una successione `g_j` con:
+intrinseca, `Γ` l'unione degli spigoli (interfacce di faccia), `V`
+l'insieme dei 60 vertici. Sia `g∈SBV(Σ)` con `∫_{J_g}|[g]|<∞`.
+Occorre una successione `g_j` di approssimanti (affini a tratti
+sulle celle di un complesso che raffina le facce) tale che:
 
 - `g_j→g` in `L¹(Σ)`, `∇g_j→∇g` in `L^p`;
-- `∫_{J_{g_j}}|[g_j]|d𝓗¹ → ∫_{J_g}|[g]|d𝓗¹` **sul complesso
-  intero**, inclusi i salti localizzati sulle interfacce di faccia
-  (spigoli) e il contributo dei vertici.
+- `∫_{J_{g_j}}|[g_j]|d𝓗¹ → ∫_{J_g}|[g]|d𝓗¹` **sull'intera
+  superficie**, inclusi i contributi localizzati su `Γ` e `V`.
 
-**Stato**: CFI è euclideo. Due vie possibili, entrambe da
-formalizzare:
+Il lemma si scompone in tre stime, da dimostrare insieme:
 
-1. **CFI intrinseco**: la prova CFI è multiscala e locale;
-   verosimilmente si estende a varietà Lipschitz piatte (la parte
-   `Σ∖vertici` lo è), ma l'enunciato va riformulato e riverificato.
-2. **Scomposizione faccia+striscia**: su ogni faccia si applica il
-   teorema piano; intorno a ogni spigolo (striscia intrinsecamente
-   piana di larghezza `ρ`) si costruisce la transizione che
-   preserva il salto inter-faccia; gli intorni dei vertici di
-   raggio `r` danno contributo `𝓗¹(J_g∩N_r(v))→0` per
-   `𝓗¹(J_g)<∞`. Richiede la stima di raccordo già isolata in
-   `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md`.
+**(J1) Tracce sulle interfacce.** Per ogni spigolo `e⊂Γ` e ogni
+`ρ>0`, le tracce dei valori costruiti sulle due facce adiacenti
+devono convergere alle tracce di `g` in modo che il salto
+`[g_j]|_e` soddisfi
 
-Le due vie non sono state dimostrate: **il trasferimento a C60
-resta aperto** e si riduce a questo lemma.
+```
+limsup_{j→∞} ∫_e |[g_j]| d𝓗¹ = ∫_e |[g]| d𝓗¹ + o(ρ) ,
+```
+
+o equivalentemente la convergenza delle tracce in `L¹(e)` con
+controllo del peso `|·|`.
+
+**(J2) Strisce di raccordo.** Intorno a `Γ` si estrae una striscia
+intrinsecamente piana `S_ρ = {x∈Σ : dist(x,Γ)<ρ}` (dopo aver
+escluso gli intorni dei vertici). La costruzione su `S_ρ` deve
+produrre un costo aggiuntivo `E_j(S_ρ)` con
+
+```
+limsup_{j→∞} E_j(S_ρ) ≤ ∫_{J_g∩S_ρ}|[g]|d𝓗¹ + q(ρ),   q(ρ)→0 ,
+```
+
+uniformemente nella posizione delle strisce e nel parametro di
+microstruttura.
+
+**(J3) Intorni dei vertici.** Per ogni `r>0`, gli intorni
+`N_r(v)`, `v∈V` (60 dischi intrinseci di raggio `r`), devono
+soddisfare una stima uniforme
+
+```
+limsup_{j→∞} E_j(N_r(v)) ≤ ω(r),   ω(r)→0 ,
+```
+
+**uniformemente in `v`, `r` e nel parametro di microstruttura**,
+con `r` mandato a zero dopo (o in diagonale con) `j→∞`.
+
+**Ordine dei limiti.** Fissati `ρ,r`: mandare `j→∞` (o il
+parametro di microstruttura), poi `ρ↓0`, `r↓0`, con una diagonale
+finale. La convergenza energetica totale è
+
+```
+limsup_j ∫_{J_{g_j}}|[g_j]| ≤ ∫_{J_g}|[g]| ,
+```
+
+e il liminf già provato esclude perdite: l'uguaglianza segue.
+
+**Stato**: nessuna delle tre stime è dimostrata. La piattezza
+intrinseca degli spigoli (angolo `2π`, curvatura solo nei
+vertici) elimina la curvatura distribuzionale lungo `Γ`, ma
+**non** risolve (J1)–(J3): le tracce, le strisce e i dischi
+vanno controllati esplicitamente. Le due vie candidate:
+
+1. **CFI intrinseco** su `Σ∖V_r` (superficie piatta con bordo,
+   localmente isometrica al piano): richiede riformulare CFI su
+   varietà Lipschitz piatte e un argomento di esaurimento dei
+   bordi;
+2. **Scomposizione faccia+striscia**: CFI su ogni faccia +
+   costruzione esplicita sulle strisce `S_ρ` + stima sui dischi
+   `N_r(v)` — modulare, ma (J1)–(J3) vanno dimostrate con le
+   stime del `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md`.
 
 ### 5.3 Fuori scope
 
