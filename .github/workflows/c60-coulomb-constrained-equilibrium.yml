@@ -6,6 +6,11 @@ on:
         description: "Maximum SLSQP iterations"
         required: false
         default: "20000"
+  pull_request:
+    paths:
+      - "scripts/audit_c60_coulomb_constrained_equilibrium.py"
+      - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
+      - ".github/workflows/c60-coulomb-constrained-equilibrium.yml"
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -21,7 +26,7 @@ jobs:
       - name: Run constrained Coulomb equilibrium and symmetry audit
         run: |
           python scripts/audit_c60_coulomb_constrained_equilibrium.py \
-            --max-iterations "${{ inputs.max_iterations }}" \
+            --max-iterations "${{ inputs.max_iterations || '20000' }}" \
             --out-dir c60_coulomb_equilibrium_audit
       - name: Upload numerical artifacts
         uses: actions/upload-artifact@v4
