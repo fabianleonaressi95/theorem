@@ -115,7 +115,7 @@ I gradienti negli strati sono uniformemente limitati e l'area modificata è `O(�
 I_{W_i,2}(g,G) = ∫_Σ W_i(G) d𝓗².
 ```
 
-**Dimostrazione.** Il termine interfaciale è non negativo. La semicontinuità inferiore del bulk dà il limite inferiore `∫W_i(G)`, con lo stesso argomento in norma di misura per `W_1` e in `L²) per `W_2`. La costruzione delle sezioni 2–4 è una recovery sequence determinante con costo interfaciale tendente a zero e costo bulk convergente a `∫W_i(G)`. I due limiti coincidono. ∎
+**Dimostrazione.** Il termine interfaciale è non negativo. La semicontinuità inferiore del bulk dà il limite inferiore `∫W_i(G)`, con lo stesso argomento in norma di misura per `W_1` e in `L²` per `W_2`. La costruzione delle sezioni 2–4 è una recovery sequence determinante con costo interfaciale tendente a zero e costo bulk convergente a `∫W_i(G)`. I due limiti coincidono. ∎
 
 ## 6. Valori C60
 
