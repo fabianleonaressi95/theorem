@@ -48,21 +48,36 @@ Le correzioni bilipschitz `Φ_j` del teorema sono assorbite dalle
 loro stesse stime (Cor. 2.3): la convergenza energetica è enunciata
 per `g_j` su `Ω`.
 
-### 2.3 Approssimazione di `G` — costruzione standard
+### 2.3 Approssimazione di G — medie sulle simplici CFI
 
-Sia `𝒯_j` la partizione in simplessi di `g_j`, ristretta a `Ω`:
-finitamente molte celle (decomposizione localmente finita + `Ω`
-limitato). Le celle che toccano `∂Ω` sono troncate — restano
-poligoni, e l'affinità di `g_j` si preserva. Definiamo `G_j` come
-**media di `G` su ogni cella** (proiezione a tratti costante):
+Sia \(\mathcal T_j\) la decomposizione localmente finita di
+\(\mathbb R^2\) in simplessi fornita da CFI. Poiché
+\(\overline\Omega\) è compatta e la decomposizione è localmente
+finita in tutto \(\mathbb R^2\), solo un numero finito di
+simplessi interseca \(\overline\Omega\). Le celle del complesso
+su \(\Omega\) sono le intersezioni \(T\cap\Omega\), poligonali;
+la restrizione di \(g_j\) resta affine.
+
+Per evitare problemi di celle tagliate molto sottili sul bordo,
+non si calcolano le medie sulle intersezioni \(T\cap\Omega\).
+Si estende invece \(G\) con zero a \(\widetilde G\) su
+\(\mathbb R^2\) e si definisce, per ogni simplesso completo T,
 
 ```
-G_j|_C := ⨍_C G dx .
+G_j|_{T∩Ω} := (1/|T|) ∫_T G̃ dx .
 ```
 
-Allora `G_j→G` fortemente in `L^p` (proprietà standard delle
-proiezioni locali). La prova che la coppia `(g_j,G_j)` resta
-ammissibile per il teorema poliedrale è nel §3.
+Le simplici CFI hanno diametro \(\le c\varepsilon_j\),
+volume \(\ge c\varepsilon_j^2\), e sovrapposizione uniformemente
+limitata. Le medie sulle celle complete sono quindi stabili in
+\(L^p\); per densità delle funzioni continue e diametro tendente
+a zero, \(G_j\to G\) fortemente in \(L^p(\Omega)\), per
+\(p=1,2\). Le intersezioni con il bordo non alterano la stima,
+perché il valore assegnato è la media sulla simplex completa e
+la restrizione cambia soltanto il dominio su cui il campo costante
+è letto. Ne segue anche
+\(\|G_j\mathcal H^2-G\mathcal H^2\|_{\mathcal M}
+=\|G_j-G\|_{L^1}\to0\).
 
 ### 2.4 Convergenza del funzionale candidato
 
