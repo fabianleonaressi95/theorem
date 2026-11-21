@@ -122,7 +122,7 @@ $$
 $$
 resta **aperta quanto al recovery upper bound** e non viene classificata come teorema.
 
-**Aggiornamento.** Una dimostrazione completa del raccordo è proposta nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (griglia `N×N` di quadrati completi, scala `h=δ³`, stima di slicing BV esplicita, diagonalizzazione con energia totale). **In revisione**: l'audit indipendente delle stime geometriche è richiesto prima della classificazione definitiva; nel frattempo qui resta aperta.
+**Aggiornamento.** Una prova candidata del raccordo è proposta nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (griglia `N×N` di quadrati completi, scala `h=δ³`, stima di quadratura BV su griglia traslata, diagonalizzazione con energia totale). Copre `c ∈ W^{1,1}`; **non** copre l'estensione a `g` con salti macroscopici né l'applicazione CF su superfici, che restano aperte. In attesa di audit indipendente.
 
 Di conseguenza, non si dichiara dimostrata l'applicazione per G-tilde(x) misurabile ottenuta invocando un Lemma R variabile. Restano validi i risultati per gradiente costante per faccia, quando il difetto M_f è costante e si applica direttamente la costruzione affine.
 
