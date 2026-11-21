@@ -150,34 +150,80 @@ poi `h=h(j,m(j))` tale che (b) e la convergenza `L¹`/`⇀*`
 `<1/j`. Il bound `C_j` dipende da `j` ma non serve uniformità:
 `h(j,m)·C_{j,m}≤1/j` è sempre realizzabile. ∎
 
-## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)`, `φ(t)/t→0` per `t→0`
+## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)` — ipotesi minime e verifica
 
-**Ipotesi su `φ`**: continua, `φ(0)=0`, `φ(t)/t→0` per `t→0`.
-(Per la semicontinuità inferiore del termine salto serve solo
-`φ≥0`; il bulk come sopra. La crescenza di `φ` non è richiesta
-per il lower bound poiché il termine è `≥0`.)
+**Ipotesi su `φ` (minime)**: `φ:[0,∞)→[0,∞)` **continua**,
+`φ(0)=0`, e
 
-Le stesse tre stime diventano:
+```
+φ(t)/t → 0   per t→0 .
+```
 
-- **(a)** `m` micro-salti di ampiezza `≤C_e/m`:
-  `m·φ(C_e/m)·|e| = C_e|e|·φ(C_e/m)/(C_e/m) →0`,
-  perché `φ(t)/t→0` per `t→0`.
-- **(b)** linee laminato ampiezza `hσ_i`: per la formula di
-  coarea la lunghezza totale delle linee `{ξ·ν_i=kh}` in `P` è
-  `~|P|/h`; costo per cella e direzione
-  `≈ φ(hσ_i)·|P|/h`. Poiché `hσ_i→0` per `h→0` (`σ_i` fissato
-  per cella, `max_P‖M_P‖<∞`) e `φ(t)/t→0`:
-  `φ(hσ_i)/h = σ_i·φ(hσ_i)/(hσ_i) →0`, uniformemente in `i,P`
-  perché `h·max_P‖M_P‖→0`.
-- **(c)** interfacce: ampiezza `≤C_e/m+O(h)`:
-  `Σ|e|·φ(C_e/m+Ch)→0` per `φ` continua con `φ(0)=0` e
-  `m→∞,h→0`.
+Bastano e sono necessarie per *questo* meccanismo:
 
-Quindi `I(g,G)=∫W(G)` per ogni `φ` superlineare-in-0. ∎
+- **Continuità**: serve per stimare i costi di interfaccia
+  residui `φ(C_e/m+O(h))→0` e per il limite superiore; la
+  semicontinuità inferiore del termine salto non serve perché
+  il termine è `≥0` e il lower bound usa solo il bulk.
+- **`φ(0)=0`**: coerente con `ψ(0,ν)=0`.
+- **`φ(t)/t→0`**: è esattamente la condizione perché lo
+  splitting in `m` strati guadagni: `m·φ(C/m)=C·φ(C/m)/(C/m)→0`.
+  Per `φ(t)=t` (crescita lineare) il meccanismo fallisce —
+  coerente col caso isotropo.
+- **Nessuna ipotesi di crescita né di convessità**: l'upper
+  bound usa solo la costruzione; il lower bound non tocca `φ`.
 
-**Nota**: `φ(t)=t` (il caso isotropo) darebbe `m·(C_e/m)=C_e`
-=cost — il meccanismo fallisce esattamente al limite lineare,
-coerente col risultato `‖M‖_*+|[g]|` non nullo.
+### 4.1 Le tre stime, con uniformità esplicita
+
+Fissati `(j,m)`: la partizione è **finita**, quindi
+
+```
+Σ_P := max_P max_i σ_{P,i} ≤ max_P ‖M_P‖_* =: C_{j,m} < ∞ .
+```
+
+La costante `C_{j,m}` dipende da `(j,m)` ma è finita; la
+uniformità in `σ` **non** richiede un controllo di coda globale
+perché la diagonale sceglie `h` *dopo* `(j,m)`: per ogni
+`(j,m)` si prende `h` tale che `h·C_{j,m}` cada nell'intervallo
+dove `φ(t)/t` è piccolo. Formalmente: data `ε>0`, esiste `η>0`
+con `φ(t)/t<ε` per `t<η`; si sceglie `h<η/C_{j,m}`. Il sup su
+celle e direzioni è così controllato — **non serve** ipotesi di
+crescita su `φ` né equi-integrabilità dei `σ_P`.
+
+- **(a) Micro-salti**: `m` interfacce per segmento `e`,
+  ampiezza `≤C_e/m`, lunghezza `≤|e|`:
+  `m·φ(C_e/m)·|e| = C_e|e|·[φ(C_e/m)/(C_e/m)]→0` per `m→∞`.
+- **(b) Laminato**: lunghezza totale linee `~|P|/h` (coarea),
+  ampiezza `hσ_i≤hC_{j,m}`:
+  `costo = φ(hσ_i)·|P|/h ≤ |P|·C_{j,m}·[φ(hσ_i)/(hσ_i)]→0`
+  per `h→0` con `(j,m)` fisso, uniformemente in `P,i`.
+- **(c) Interfacce di cella**: ampiezza `≤C_e/m+2hC_{j,m}`:
+  `Σ_e|e|·φ(C_e/m+2hC_{j,m})→0` per `m→∞` poi `h→0`,
+  usando solo continuità di `φ` in `0`.
+
+### 4.2 Convergenze (invarianti in `φ`)
+
+- `u_{j,m,h}→g` in `L¹`: modifiche in strisce di area
+  `O(δ_m)`, bound uniforme `hC_{j,m}` — ok.
+- `∇u_{j,m,h}𝓗²⇀*G𝓗²`: `∇u=G_j` a.e. fuori strati + strati
+  uniformemente limitati per `(j,m)` fisso + `G_j→G` in
+  variazione totale — **non dipende da `φ`**.
+- **Bulk**: `∫W(∇u)=∫W(G_j)` a.e. + correzione strati
+  `O(δ_m)·sup|W|` — **non dipende da `φ`**.
+- **Liminf**: `liminf E ≥ liminf∫W(∇u_n) + 0 ≥ ∫W(G)` —
+  **non dipende da `φ`** (la semicontinuità del bulk basta).
+
+### 4.3 Teorema finale
+
+Per `φ` come sopra:
+
+```
+I_{W,φ}(g,G) = ∫_Σ W(G) d𝓗² .
+```
+
+La diagonale è a **tre livelli**: `j→∞` (CFI), `m(j)→∞`
+(splitting), `h(j,m(j))→0` (staircase) — con `h` scelto dopo
+`(j,m)` per il punto 4.1. ∎
 
 ## 5. Portata e caveat
 
