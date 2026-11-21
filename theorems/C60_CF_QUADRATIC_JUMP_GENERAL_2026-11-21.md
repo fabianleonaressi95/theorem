@@ -177,36 +177,45 @@ fisso.
 **(c) Interfacce senza salto di `v_{j,m}`**: salto residuo
 `≤2chC_{j,m}` ⇒ costo `→0` per `h→0`.
 
-**(d) Tratti terminali e zone esclusae**: lunghezza `O(r+ρ)`,
-salto `≤C_e` ⇒ costo `O((r+ρ)C_e²)→0`.
-
-Le famiglie (a)–(d) vanno contate **senza sovrapposizioni**: il
-lemma di splitting deve garantire la disgiunzione (estremi
-`𝓗¹`-nulli).
+**(d) Tratti terminali, cappucci e zone escluse**: i cappucci
+laterali delle strisce (fine degli `m` strati, punto B
+dell'audit) hanno lunghezza totale `O(δ)` e salto `≤C_e`:
+costo `O(δC_e²)→0` per `δ→0` a `m` fisso — vedi la stima (K)
+di `C60_CF_SPLITTING_LEMMA_FRAMEWORK`. I dischi di vertice
+`B_ρ` e i terminali di lunghezza `O(r)` danno `O((r+ρ)C_e²)
+→0`. Le stime usano una **decomposizione disgiunta** degli archi
+(S)/(K)/(V) del framework: strisce, cappucci, vertici contati
+una volta sola.
 
 ### 3.5 Convergenze e diagonale
 
 - `u_{j,m,h}→g` in `L¹`: `‖u−v_{j,m}‖∞≤chC_{j,m}→0` e
   `v_{j,m}→g_j→g`.
-- `∇u_{j,m,h}=G_j` a.e. su ogni cella (la proprietà 7 del
-  lemma garantisce che le strisce non creino gradienti
-  non controllati: il bulk nelle strisce è `O(area)→0`);
-  `G_j→G` in variazione totale ⇒
-  `∇u_{j,m,h(j,m(j),r(j,m))}𝓗²⇀*G𝓗²`.
-- **Bulk**: `∫W(∇u)=∫W(G_j)` a.e. + strisce
-  `O(area·sup W)→0` per la proprietà 7 ⇒ `→∫W(G)` per
-  `W=|·|_F` (`p=1`) o `|·|_F²` (`p=2`, `G∈L²`).
+- `∇u_{j,m,h}=G_j` a.e. su **ogni** cella — strisce di splitting
+  incluse: il mismatch locale `A_P−G_P` (che contiene il termine
+  `(i/m)∇h_e`) è assorbito in `M_P` e rimosso dalla staircase.
+  Il bulk è quindi **esattamente** `∫_ΣW(G_j)` senza correzioni
+  di area; la proprietà 7 serve solo a `v_{j,m}` intermedio,
+  non all'energia finale. `G_j→G` in `L^p` ⇒
+  `∫W(∇u_{j,m,h})→∫W(G)`.
+- **Bulk**: identico al punto precedente — non serve stimare
+  l'area delle strisce perché `∇u` non vede `∇v_{j,m}`.
 - **Salto**: (a)–(d) →0.
 
 Ordine: per `j`, `m(j)` poi `r(j,m)` poi `h(j,m,r)` — `h` è
 sempre scelto per ultimo, nessuna uniformità in `C_{j,m}`
 richiesta.
 
-**Stato**: dimostrato **modulo la verifica formale del lemma
-di splitting** — che è ora verificato per la configurazione
-generica (segmento interno a una faccia) e le varianti elencate
-in §3.2; resta solo la scrittura intrinseca delle coordinate
-`(s,t)` su `Σ` (tecnico, la metrica è piatta localmente).
+**Stato**: il lemma di splitting è **dimostrato** in
+`C60_CF_SPLITTING_LEMMA_FRAMEWORK_2026-11-21.md` per un grafo di
+salto finito in un complesso poliedrale piatto, con stime
+separate (S) strisce / (K) cappucci / (V) vertici e il punto
+(A)–(D) dell'audit chiusi: `h_e` è affine globalmente, i
+cappucci costano `O(δ)`, `∇u=G_j` a.e. ovunque (bulk esatto),
+e nessuna convergenza CFI del salto quadratico è usata. Restano
+solo: l'ordine completo della diagonale a quattro parametri
+(`j,m,δ,ρ,h`) esplicitato, e la trascrizione intrinseca delle
+coordinate `(s,t)` su `Σ` (tecnico).
 
 
 ## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)` — ipotesi minime e verifica
@@ -257,16 +266,19 @@ con `φ(t)/t<ε` per `t<η`; si sceglie `h<η/C_{j,m}`. Il sup su
 celle e direzioni è così controllato — **non serve** ipotesi di
 crescita su `φ` né equi-integrabilità dei `σ_P`.
 
-- **(a) Micro-salti**: `m` interfacce per segmento `e`,
-  ampiezza `≤C_e/m`, lunghezza `≤|e|`:
-  `m·φ(C_e/m)·|e| = C_e|e|·[φ(C_e/m)/(C_e/m)]→0` per `m→∞`.
+- **(a) Micro-salti**: `m` interfacce per segmento `e`, salto
+  `s_e≤C_e/m`. Senza supporre monotonia di `φ`, si usa
+  direttamente `φ(s)≤ε_m·s` per `s≤C_e/m` con
+  `ε_m:=sup_{t≤C_e/m}φ(t)/t→0`:
+  `m·φ(s_e)·|e| ≤ ε_m·m·s_e·|e| ≤ ε_m·C_e·|e|→0` per `m→∞`.
 - **(b) Laminato**: lunghezza totale linee `~|P|/h` (coarea),
-  ampiezza `hσ_i≤hC_{j,m}`:
-  `costo = φ(hσ_i)·|P|/h ≤ |P|·C_{j,m}·[φ(hσ_i)/(hσ_i)]→0`
+  salto `s=hσ_i≤hC_{j,m}`:
+  `costo = φ(s)·|P|/h ≤ |P|·(s/h)·[φ(s)/s]
+        ≤ |P|·C_{j,m}·ε(hC_{j,m})→0`
   per `h→0` con `(j,m)` fisso, uniformemente in `P,i`.
-- **(c) Interfacce di cella**: ampiezza `≤C_e/m+2hC_{j,m}`:
-  `Σ_e|e|·φ(C_e/m+2hC_{j,m})→0` per `m→∞` poi `h→0`,
-  usando solo continuità di `φ` in `0`.
+- **(c) Interfacce di cella**: ampiezza `s_e≤C_e/m+2hC_{j,m}`:
+  `Σ_e|e|·φ(s_e)→0` per `m→∞` poi `h→0`,
+  usando solo continuità di `φ` in `0` (e `φ(0)=0`).
 
 ### 4.2 Convergenze (invarianti in `φ`)
 
