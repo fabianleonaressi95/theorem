@@ -180,16 +180,14 @@ per `p=1,2`. Conseguenza ulteriore: `‖G_j𝓗²−G𝓗²‖_M =
 ‖G_j−G‖_{L¹}→0` — convergenza in variazione totale, più forte
 della debole-* richiesta.
 
-**Punto 3 — salti sulle giunzioni di faccia (solo per `Σ`).**
-Sul dominio piano `Ω` non esistono giunzioni interne: `J_{g_j}` è
-già il salto completo e CFI ne dà la convergenza. Su una superficie
-poliedrale `Σ`, applicare CFI **singolarmente su ogni faccia**
-non basta: i salti di `g` localizzati su `∂f` non sono interni a
-nessuna faccia e la loro convergenza non è coperta dal teorema
-euclideo applicato a `f`. Serve o una formulazione intrinseca di
-CFI su `Σ`, o un argomento separato che includa i bordi di faccia
-come dati al contorno con convergenza del costo — **questo resta
-l'unico passo non dimostrato** per il caso C60.
+**Punto 3 — salti sulle giunzioni di faccia (per Σ).**
+CFI si applica separatamente all'interno di ciascuna faccia. Il
+Corollario 2.3 dà convergenza stretta BV; il teorema di continuità
+della traccia dà convergenza forte L¹ sulle frontiere delle facce.
+Quindi i salti tra facce convergono in L¹ sugli spigoli e il loro
+costo converge. Non occorre una versione intrinseca di CFI né
+strisce di raccordo. La recovery microscopica sulle celle, inclusi
+i salti interni, è trattata da G4b (§2bis del teorema poliedrale).
 
 ## 3bis. Il punto contestato e la sua risoluzione
 
@@ -267,52 +265,27 @@ C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md.
 di riempimento con traccia assegnata sul bordo di un disco conico.
 Non serve per la recovery globale qui costruita.
 
-### 5.2 Superficie `Σ` — il lemma di giunzione residuo
+### 5.2 Superficie Σ — giunzione e vertici
 
-**Osservazione geometrica.** Sulla superficie poliedrale intrinseca,
-ogni punto di un interno di spigolo ha angolo totale `2π`
-(due semi-piani giunti): la metrica è **piatta attraverso gli
-spigoli**. Gli unici punti singolari sono i **60 vertici**
-(defect `12°` ciascuno). Quindi `Σ∖⋃_v B_r(v)` è una superficie
-piatta compatta con bordo, localmente isometrica a domini piani.
+La giunzione sugli spigoli è chiusa: CFI Cor. 2.3 dà convergenza
+stretta BV su ogni faccia e la continuità della traccia dà
+convergenza L¹ sui lati; G4b estende la recovery SVD alle celle
+piecewise-affine con salti interni. Non sono necessarie strisce di
+raccordo.
 
-**Lemma di giunzione — STATO AGGIORNATO (2026-11-21).**
-Sulla superficie poliedrale intrinseca `Σ`, `Γ` = unione degli
-spigoli, `V` = 60 vertici. La giunzione si è ridotta a **un solo
-ostacolo**:
-
-- **(J1) Tracce sugli spigoli — DIMOSTRATO.** CFI Corollario 2.3
-  fornisce approssimanti `g_{j,f}` su ogni faccia con convergenza
-  stretta in `BV(f)` (energia bulk + salto). Su poligoni Lipschitz
-  la convergenza stretta implica `Tr g_{j,f}→Tr g_f` in
-  `L¹(∂f)`. Per ogni spigolo `e=f⁺∩f⁻`:
-
-  ```
-  ∫_e |[g_j]| d𝓗¹ → ∫_e |[g]| d𝓗¹ ,
-  ```
-
-  e la somma sui 90 spigoli converge. Nessuna striscia di
-  raccordo è necessaria: il salto fra le tracce dei due lati *è*
-  il salto globale.
-- **(J2) Strisce di raccordo — NON NECESSARIE** in questa
-  costruzione faccia-per-faccia (erano previste solo per la via
-  alternativa).
-- **(J3) Intorni dei vertici — CHIUSO per la recovery globale.**
-  La convergenza debole-* delle misure energetiche e l'assenza di
-  atomi nella misura limite escludono concentrazioni residue; vedi
-  §5.4 di `C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md`.
+Anche il controllo dei vertici è chiuso per la recovery globale:
+la misura energetica converge debolmente-* alla misura candidata,
+che non ha atomi nei vertici. Ne segue che l'energia nei dischi
+intrinseci B_r(v) tende a zero. La dimostrazione completa e la
+distinzione rispetto al problema separato di riempimento con
+traccia prescritta sono in §5.4 di
+C60_CF_POLYHEDRAL_GENERAL_RECOVERY_2026-11-21.md.
 
 **Nota su Kristensen–Rindler** (arXiv:1211.1792): il Teorema 1
-completo è più forte dell'abstract — la somma degli errori di
-traccia su **tutti** i bordi del mesh è `<ε` e la traccia sul
-bordo del dominio coincide esattamente. Tuttavia KR produce
-approssimanti globali in `W^{1,1}` senza separazione bulk/salto:
-non sostituisce CFI per la nostra energia, ma resta un riferimento
-per il controllo delle interfacce.
-
-**Stato**: la densità energetica su `Σ` è ridotta al controllo
-locale dei 60 vertici (G5), una volta chiusi i contributi di
-faccia (CFI) e di spigolo (tracce BV).
+controlla tutti i bordi del mesh e preserva esattamente la traccia
+sul bordo del dominio; è un riferimento per le interfacce, ma la
+costruzione globale in W¹,¹ non sostituisce la separazione
+bulk/salto fornita da CFI.
 
 ### 5.3 Fuori scope
 
