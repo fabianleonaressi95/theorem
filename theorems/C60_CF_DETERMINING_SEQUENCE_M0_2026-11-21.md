@@ -85,7 +85,8 @@ Il test `∫strip |∇g_h|² dA ~ C/h` riguarda invece la regolarizzazione conti
 | `u_n=g` è determining sequence per `(g,G)` | Provata, nella formulazione intrinseca SBV su `Σ` |
 | Immersione locale a.e. della successione | Segue da `G_f^TG_f=I₂` |
 | Embeddedness/iniettività globale | Non dimostrata e non richiesta dalla nozione CF SBV |
-| `I_W(g,G)` per `W(F)=|F|_F` o `|F|_F²`, `ψ(a,ν)=|a|` | Identificato dal teorema di minimalità dedicato |\n| Rilassamento per densità interfaciali diverse da `|a|` | Aperto |
+| `I_W(g,G)` per `W(F)=|F|_F` o `|F|_F²`, `ψ(a,ν)=|a|` | Identificato dal teorema di minimalità dedicato |
+| Rilassamento per densità interfaciali diverse da `|a|` | Aperto |
 | Estensione rigorosa del teorema CF da domini euclidei a superfici poliedrali | Da enunciare come adattamento intrinseco; la prova della successione costante usa direttamente la decomposizione SBV sulle facce |
 
 ## 5. Generalizzazione se il campo bulk viene cambiato
