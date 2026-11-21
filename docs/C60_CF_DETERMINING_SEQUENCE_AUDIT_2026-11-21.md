@@ -114,6 +114,12 @@ e recupero SVD. Il caso rango uno è un corollario, poiché
 `||M_f||_*=||M_f||_F` per matrici di rango uno.
 Prove: `theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md` e
 `theorems/C60_CF_NUCLEAR_NORM_CELL_AND_BULK_OPTIMIZATION_2026-11-21.md`.
+faccia-per-faccia costante. Il costo micro-interfaciale scala come
+`h^{p−1}` per `ψ=|a|^p`. Per `p=1` il cell problem è risolto: la griglia
+cartesiana non è ottimale, ma la costruzione SVD lo è e il costo minimo è
+la norma nucleare `‖M_f‖_*` per unità di area
+(`theorems/C60_CF_NUCLEAR_NORM_CELL_PROBLEM_2026-11-21.md`).
+Prova: `theorems/C60_CF_NONZERO_BULK_DISARRANGEMENT_2026-11-21.md`.
 
 ## 5. Estensione al costo interfaciale quadratico
 
@@ -157,6 +163,8 @@ le zone terminali hanno lunghezza `r_m→0`. Le stime danno costo
   sulla vera successione CF.
 - **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|`; il costo ottimale
   per faccia è `|f| ||M_f||_*`. Restano da studiare densità anisotrope o
+- **E. Ottimalità per `M≠0`:** risolta per `ψ(a,ν)=|a|` — la densità di
+  cella è la norma nucleare `‖M_f‖_*`; restano le densità anisotrope o
   dipendenti dalla normale.
 - **F. Rilassazione generale:** restano da studiare densità interfaciali
   anisotrope/non separabili e bulk non convessi; i casi `M=0`, `ψ=|a|` e
@@ -186,3 +194,17 @@ ottimale è la norma nucleare. Il problema penalizzato con bulk quadratico è
 risolto per faccia mediante soft-thresholding. Restano aperti il rilassamento
 per densità interfaciali anisotrope o dipendenti dalla normale e la
 generalizzazione integrale CF alla classe generale delle superfici poliedrali.
+| `I_W(g,G)` per `W=|F|_F` o `|F|_F²`, `ψ=|a|` | **Identificato** dal teorema dedicato |
+| `I_{W,2}(g,G)` per `ψ=|a|²` e i due bulk indicati | **Identificato:** costo interfaciale rilassato nullo |
+| Determining sequence per `G̃` costante faccia-per-faccia, `M≠0` | **Provata** mediante quantizzazione a gradini |
+| Ottimalità del costo interfaciale per `M≠0`, `ψ=|a|` | **Identificata:** norma nucleare `‖M_f‖_*` (cell problem SVD) |
+| Densità interfaciali non normate o anisotrope (`ψ=|a|²` per `M=0` è già identificata: rilassamento nullo) | Aperta |
+
+**Classificazione complessiva:** la coppia C60 corrente ha una determining
+sequence esplicita `u_n=g`. I funzionali con `W=|F|_F` o `W=|F|_F²` e
+`ψ=|a|` sono identificati. Per `M≠0` con `G̃` costante faccia per faccia,
+l'esistenza della determining sequence è provata e, per `ψ=|a|`, il costo
+micro-interfaciale ottimale è la norma nucleare `‖M_f‖_*`. Restano aperti
+il rilassamento per densità interfaciali anisotrope o dipendenti dalla
+normale, i campi bulk variabili dentro le facce e la generalizzazione
+integrale CF alla classe generale delle superfici poliedrali.
