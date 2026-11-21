@@ -145,13 +145,14 @@ Infatti ciascun salto ha ampiezza `O(h)`, mentre la lunghezza totale delle linee
 - `p>1`: costo micro-interfaciale tende a zero.
 - `0<p<1`: la stima scala come `h^{p−1}` e non dà un limite finito.
 
-Per `ψ(a,ν)=|a|`, la griglia cartesiana dà il limite micro-interfaciale
+Per `ψ(a,ν)=|a|`, la griglia cartesiana fornisce un upper bound, ma non è in generale ottimale. Il cell problem è ora risolto: il limite inferiore ottenuto dalla dualità della norma nucleare è raggiunto da una laminazione nelle direzioni della SVD,
 
 ```
-∫_f (|M_f e₁| + |M_f e₂|) d𝓗²,
+C(M_f) = ||M_f||_* = Σ_j σ_j(M_f).
 ```
 
-a meno dei contributi di bordo che scompaiono nel limite. È un upper bound associato a questa scelta di griglia, non è dichiarato ottimale rispetto a tutte le possibili microstrutture. Una decomposizione SVD di `M_f` e griglie orientate può migliorare il costo, ma l'ottimalità richiede un cell problem.
+Il dettaglio del limite inferiore e del recupero è in
+`theorems/C60_CF_NUCLEAR_NORM_CELL_AND_BULK_OPTIMIZATION_2026-11-21.md`.
 
 Il salto macroscopico sugli spigoli resta presente nel limite e contribuisce secondo la densità `ψ([g],ν_g)`, se la densità è continua e la convergenza uniforme delle tracce viene usata nella corrispondente stima.
 
@@ -173,9 +174,10 @@ Inoltre, la parte assolutamente continua del gradiente coincide con `G̃` esatta
 
 - **Provato:** esistenza di una determining sequence intrinseca per ogni campo `G̃` costante faccia per faccia, incluso `M≠0`.
 - **Provato:** il gradiente assolutamente continuo è esattamente `G̃` a ogni scala.
-- **Non provato:** ottimalità del costo micro-interfaciale per densità 1-omogenee.
+- **Provato:** ottimalità del costo micro-interfaciale per `ψ(a,ν)=|a|`, con costo nucleare `||M_f||_*`.
+- **Non provato:** ottimalità per densità anisotrope o dipendenti dalla normale.
 - **Non provato:** formula di rilassamento per campi `G̃` variabili all'interno delle facce.
 - **Non provato:** teorema integrale CF generale per tutte le superfici poliedrali.
 - **Non provato:** eventuali vincoli aggiuntivi di immersione o embeddedness degli approssimanti; la classe CF SBV non li impone.
 
-La costruzione colma il gap di esistenza per `M≠0` nel caso faccia-per-faccia costante, ma non identifica automaticamente l'infimo energetico generale.
+La costruzione colma il gap di esistenza per `M≠0`; insieme al cell problem nucleare identifica il costo micro-interfaciale per la densità isotropa lineare. Non identifica l'infimo per densità generali o con ulteriori vincoli cinematici.
