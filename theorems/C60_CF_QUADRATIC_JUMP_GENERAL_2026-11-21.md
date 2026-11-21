@@ -170,6 +170,14 @@ Bastano e sono necessarie per *questo* meccanismo:
   splitting in `m` strati guadagni: `m·φ(C/m)=C·φ(C/m)/(C/m)→0`.
   Per `φ(t)=t` (crescita lineare) il meccanismo fallisce —
   coerente col caso isotropo.
+- **Il verso conta**: `φ(t)=t^α` soddisfa l'ipotesi **solo per
+  `α>1`** (allora `φ(t)/t=t^{α−1}→0`, `m·(C/m)^α=C^αm^{1−α}→0`,
+  e il laminato dà `|P|h^{α−1}σ^α→0`). Per `0<α<1` si ha
+  `φ(t)/t→∞`: il splitting *aumenta* il costo
+  (`m^{1−α}→∞`) e il laminato diverge (`h^{α−1}→∞`) — ed `φ`
+  è subadditiva (concava, `φ(0)=0`), quindi lo splitting non
+  può comunque ridurre il costo: quel regime conserva il salto
+  macroscopico ed è un problema diverso, non coperto qui.
 - **Nessuna ipotesi di crescita né di convessità**: l'upper
   bound usa solo la costruzione; il lower bound non tocca `φ`.
 
