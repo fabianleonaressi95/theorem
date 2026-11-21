@@ -101,7 +101,53 @@ chiuso, non un'obiezione concettuale.
 - **Embeddedness**: la sonda vertice→triangolo dà distanza minima
   1,0·10⁻³ tra facce non adiacenti; la definizione (A4) richiede solo
   immersione *locale*, non embedded — la sonda resta un check extra.
-- **Cap ai vertici**: `∇C = Σ(∇w_i⊗g_{f_i} + w_i G_{f_i})` — rank 2 non
-  automatico; stessa verifica polinomiale possibile, da eseguire.
-- **Certificazione interval**: trasformare il campionamento denso in
-  prova (la funzione e' polinomiale di grado basso in (σ,u)).
+- **Cap ai vertici — verificati** (`certify_c60_dpo_cap_rank.py`):
+  σ_min del Jacobiano 3×2 di C(r,φ) > 0 su tutti i 60 cap,
+  minimo globale 2,7·10⁻⁴ (al bordo del cap, r≈0,92R — margine
+  sottile ma positivo; check numerico, la stessa certificazione
+  polinomiale e' applicabile).
+- **Stato (A4)**: immersione a.e. CERTIFICATA (6 zeri isolati di
+  misura zero); immersione ovunque = perturbazione residua.
+
+## 6. Trapianto teorico: formulazione Choksi–Fonseca
+
+La domanda "quale teoria DPO per 2→3" ha una risposta in letteratura:
+**Choksi e Fonseca (ARMA 1997, "Bulk and interfacial energy densities
+for structured deformations of continua")** formulano le structured
+deformations come **coppie (g,G)** con
+
+```
+g ∈ SBV(Ω; R^d),   G ∈ L^1(Ω; R^{d×N})
+```
+
+e la determining sequence u_n ∈ SBV con u_n → g in L¹ e
+∇u_n ⇀* G come misure. **N e d sono indipendenti**: la loro formulazione
+copre gia' mappe da R^N a R^d — il nostro caso e' N=2 (o la superficie
+Σ), d=3. La condizione det G > 0 diventa, nel nostro setting, la
+condizione metrica GᵀG definita positiva (A2).
+
+Collegamenti diretti:
+
+- **Morandotti, Carita, Matias, Owen** (arXiv:1709.02869): dimension
+  reduction + structured deformations in successione — il contesto
+  naturale per estendere il nostro risultato a lastre/grafene.
+- **Matias–Santos** (Adv. Calc. Var.): dimension reduction nel
+  framework SD.
+- **Friedrich–Matias–Zappale** (arXiv:2601.11333): SD in linearized
+  elasticity via rilassamento in BD.
+- Lavori recenti su GBV* (arXiv:2606.10556) estendono a densita' di
+  superficie generali — rilevante per l'energia di interfaccia data
+  dai nostri salti S dH¹.
+
+**Caveat di trapianto**: la teoria CF e' su Ω aperto di R^N; la nostra
+Σ e' una 2-varieta' compatta. Due vie: (i) trattare Σ come
+2-corrente rettificabile / catena piatta e usare SBV su insiemi
+rettificabili (esiste letteratura), oppure (ii) lavorare faccia per
+faccia (ogni faccia e' un dominio piano) con condizioni di trasmissione
+sugli spigenti — piu' vicino alla nostra costruzione esplicita.
+
+**Cosa resta per il livello energetico**: la teoria CF assegna
+un'energia via rilassamento I(g,G) = inf su determining sequences; per
+la nostra g il passo successivo e' definire il funzionale (bulk +
+superficie di salto) e calcolarne la densita' rilassata — problema di
+ricerca aperto, non di verifica.
