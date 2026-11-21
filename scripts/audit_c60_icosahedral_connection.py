@@ -161,7 +161,15 @@ def connection_data(x, faces, normals):
         L[sg, sg] += np.eye(2)
         L[sf, sg] -= A.T
         L[sg, sf] -= A
-    return incidence, frames, transports, L, max_projected_edge_mismatch
+    J2 = np.array([[0.0, -1.0], [1.0, 0.0]])
+    J = np.kron(np.eye(len(faces)), J2)
+    max_rotation_det_residual = max(
+        abs(float(np.linalg.det(A)) - 1.0)
+        for (f, g), A in transports.items() if f < g
+    )
+    complex_structure_residual = float(np.linalg.norm(L @ J - J @ L))
+    return (incidence, frames, transports, L, max_projected_edge_mismatch,
+            max_rotation_det_residual, complex_structure_residual)
 
 
 def icosahedral_orthogonal_group():
@@ -331,7 +339,8 @@ def main():
     face_sizes = sorted(len(f) for f in faces)
     if len(faces) != 32 or face_sizes.count(5) != 12 or face_sizes.count(6) != 20:
         raise RuntimeError(f"Expected 12 pentagons and 20 hexagons; got {face_sizes}.")
-    incidence, frames, transports, L, edge_mismatch = connection_data(x, faces, normals)
+    (incidence, frames, transports, L, edge_mismatch,
+     rotation_det_residual, complex_residual) = connection_data(x, faces, normals)
     centroids = np.asarray([x[list(f)].mean(axis=0) for f in faces])
     group = icosahedral_orthogonal_group()
     decomp = None
@@ -369,6 +378,8 @@ def main():
             "total_dimension": int(L.shape[0]),
             "transport_edges": int(len(incidence)),
             "max_projected_edge_direction_mismatch": edge_mismatch,
+            "max_transport_SO2_determinant_residual": rotation_det_residual,
+            "complex_structure_commutator_frobenius": complex_residual,
             "max_laplacian_asymmetry": float(np.linalg.norm(L - L.T)),
             "min_eigenvalue": float(np.linalg.eigvalsh((L + L.T)/2)[0]),
             "max_eigenvalue": float(np.linalg.eigvalsh((L + L.T)/2)[-1]),
