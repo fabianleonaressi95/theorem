@@ -105,9 +105,9 @@ non campionate) non sono escluse da questo test. L'embeddedness globale è
 | Affermazione | Status |
 |---|---|
 | `g ∈ BV`, `∇g = G dA + S dH¹`, `GᵀG = I` | **Provato** (Prop. 1–2) |
-| Determining sequence esiste, `g_h→g` in L¹, `∇g_h ⇀* ∇g` | **Provato** (Lemma 1–2 + Teorema) |
-| Contributo vertici `O(h)` | **Provato** + verificato (rapporto ~2) |
-| Contributo strip → massa di salto | **Provato** + verificato (84,57 predetto) |
+| Convergenza della regolarizzazione continua a `g` | **Da verificare integralmente**; non è una determining sequence CF per `(g,G)` |
+| Contributo vertici `O(h)` | Stima candidata; le ipotesi sui pesi/carte vanno rese esplicite |
+| Contributo strip TV | Stima numerica/candidata; quadratura non esaustiva |
 | Immersione locale degli `g_h` | Numerico (σ_min > 0, margine piccolo) |
 | Embeddedness globale | Sonda numerica positiva, non esaustiva |
 | Criterio DPO completo per immersioni 2→3 | **Aperto** — serve formulazione dedicata |
