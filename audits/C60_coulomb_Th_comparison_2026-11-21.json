@@ -1,0 +1,187 @@
+{
+  "date": "2026-11-21",
+  "geometry": {
+    "vertices": 60,
+    "icosahedron_edges": 30,
+    "C60_bonds": 90,
+    "degree": 3,
+    "bond_length": 0.6666666666666666,
+    "rms_radius": 1.6520124393784104,
+    "ideal_polyhedron_not_DFT_geometry": true
+  },
+  "tangent_space": {
+    "ambient_dimension": 180,
+    "dimension": 176,
+    "removed_normals": "3 translations + 1 global dilation"
+  },
+  "coulomb": {
+    "energy": 939.3989137315025,
+    "gradient_norm": 73.477465002217,
+    "gradient_tangent_norm": 3.124668981268269,
+    "radial_multiplier_least_squares": 5.736832593836504,
+    "residual_after_radial_multiplier": 3.124668981268269,
+    "radial_alignment_cosine": 0.9990953799948603,
+    "projected_raw_Hessian_spectrum": {
+      "min": -17.919433744418054,
+      "max": 23.451170011946846,
+      "negative": 87,
+      "near_zero": 0,
+      "positive": 89
+    }
+  },
+  "symmetry": {
+    "proper_icosahedral_rotations": 60,
+    "full_Ih_order": 120,
+    "T_h_order": 24,
+    "max_relative_commutator_full_Ih": 1.640475470939931e-15,
+    "max_relative_commutator_T_h_C60": 1.5836000798081419e-15,
+    "max_relative_commutator_T_h_Q6_64": 1.893775808992015e-15
+  },
+  "normalization": {
+    "rule": "multiply raw projected Hessian eigenvalues by RMS_radius^3",
+    "Q6_64_rms_radius": 1.9364916731037087,
+    "C60_rms_radius": 1.6520124393784104,
+    "both_raw_projected_Hessians_used": true,
+    "lagrange_shift_applied": false
+  },
+  "sectors": {
+    "1g": {
+      "Q6": {
+        "multiplicity": 7,
+        "min": -19.9846093391,
+        "max": 85.9640272817,
+        "mean": 22.8909430871,
+        "negative": 3
+      },
+      "C60": {
+        "multiplicity": 7,
+        "min": -75.4201053545,
+        "max": 105.7315148769,
+        "mean": 13.3085015816,
+        "negative": 3
+      }
+    },
+    "1p_g": {
+      "Q6": {
+        "multiplicity": 8,
+        "min": -24.6465888967,
+        "max": 53.1323266864,
+        "mean": 14.9690318775,
+        "negative": 2
+      },
+      "C60": {
+        "multiplicity": 8,
+        "min": -68.6127707373,
+        "max": 90.6933575984,
+        "mean": 13.6461059157,
+        "negative": 3
+      }
+    },
+    "1pp_g": {
+      "Q6": {
+        "multiplicity": 8,
+        "min": -24.6465888967,
+        "max": 53.1323266864,
+        "mean": 14.9690318775,
+        "negative": 2
+      },
+      "C60": {
+        "multiplicity": 8,
+        "min": -68.6127707373,
+        "max": 90.6933575984,
+        "mean": 13.6461059157,
+        "negative": 3
+      }
+    },
+    "3g": {
+      "Q6": {
+        "multiplicity": 24,
+        "min": -43.4593208627,
+        "max": 45.7573630586,
+        "mean": -6.3058872671,
+        "negative": 15
+      },
+      "C60": {
+        "multiplicity": 22,
+        "min": -80.7912302273,
+        "max": 90.6933575984,
+        "mean": -5.5034418498,
+        "negative": 12
+      }
+    },
+    "1u": {
+      "Q6": {
+        "multiplicity": 8,
+        "min": -34.4415498913,
+        "max": 38.4818189375,
+        "mean": -8.4984485162,
+        "negative": 6
+      },
+      "C60": {
+        "multiplicity": 7,
+        "min": -80.2960927551,
+        "max": 68.9557071509,
+        "mean": -8.0191289477,
+        "negative": 4
+      }
+    },
+    "1p_u": {
+      "Q6": {
+        "multiplicity": 8,
+        "min": -47.3065261875,
+        "max": 27.1249486355,
+        "mean": -18.9138289657,
+        "negative": 7
+      },
+      "C60": {
+        "multiplicity": 7,
+        "min": -72.0977190605,
+        "max": 47.7640780826,
+        "mean": -13.5741687269,
+        "negative": 4
+      }
+    },
+    "1pp_u": {
+      "Q6": {
+        "multiplicity": 8,
+        "min": -47.3065261875,
+        "max": 27.1249486355,
+        "mean": -18.9138289657,
+        "negative": 7
+      },
+      "C60": {
+        "multiplicity": 7,
+        "min": -72.0977190605,
+        "max": 47.7640780826,
+        "mean": -13.5741687269,
+        "negative": 4
+      }
+    },
+    "3u": {
+      "Q6": {
+        "multiplicity": 23,
+        "min": -34.7531319353,
+        "max": 58.1334957626,
+        "mean": 5.3711427765,
+        "negative": 12
+      },
+      "C60": {
+        "multiplicity": 22,
+        "min": -80.2960927551,
+        "max": 100.4403810808,
+        "mean": 3.7298828002,
+        "negative": 10
+      }
+    }
+  },
+  "classification": {
+    "C60_geometry": "ideal truncated icosahedron",
+    "Ih_Th_equivariance": "verified numerically",
+    "sector_decomposition": "verified numerically",
+    "C60_Coulomb_stationarity": "fails",
+    "C60_operator": "raw projected Hessian diagnostic only",
+    "mode_by_mode_correspondence": "not asserted",
+    "vertex_bijection_64_to_60": "not assumed",
+    "K0_identity": "not claimed"
+  }
+}
