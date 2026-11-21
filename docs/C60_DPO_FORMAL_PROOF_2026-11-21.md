@@ -74,6 +74,22 @@ una vera determining sequence CF per la coppia C60 `(g,G)` restano aperte.
 Vedere `docs/C60_CF_DETERMINING_SEQUENCE_AUDIT_2026-11-21.md` per la
 derivazione, la riclassificazione energetica e il programma corretto.
 
+## 2A. Determining sequence CF esplicita per la coppia corrente
+
+Le definizioni faccia-per-faccia danno `∇_Σg|_f=G_f=B_fD_f` nella carta
+ortonormale `B_f). Quindi `M=∇_Σg−G=0` a.e. La successione costante
+`u_n=g` appartiene a `SBV(Σ;R³)`, converge a `g` in `L¹` e soddisfa
+`∇_Σu_n𝓗²=G𝓗²` per ogni `n`. È pertanto una determining sequence nella
+formulazione intrinseca sul complesso poliedrale. La dimostrazione dettagliata
+e le conseguenze energetiche sono in
+`theorems/C60_CF_DETERMINING_SEQUENCE_M0_2026-11-21.md`.
+
+Questo risultato vale per la coppia corrente con `M=0`; non dimostra una
+costruzione per un diverso campo bulk con `M≠0`. L'estensione del quadro
+CF dal dominio euclideo alla superficie poliedrale è qui verificata
+direttamente mediante la decomposizione SBV sulle facce e le tracce sugli
+spigoli.
+
 ## 3. Immersione e embeddedness degli approssimanti
 
 ### Proposizione 3 (immersione locale — condizionata).
