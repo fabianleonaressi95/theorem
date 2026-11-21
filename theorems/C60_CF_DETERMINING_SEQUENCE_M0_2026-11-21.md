@@ -64,19 +64,17 @@ Tutte le condizioni della determining sequence sono quindi soddisfatte esattamen
 
 ## 3. Conseguenze energetiche — correzione importante
 
-La successione determinante `u_n=g` non contiene strip continui e non concentra il salto in un gradiente dell'ordine `1/h`. Il costo lungo questa successione, per un integrando bulk `W` e densità interfaciale `ψ`, è semplicemente
+La successione determinante `u_n=g` non contiene strip continui e non concentra il salto in un gradiente dell'ordine `1/h`. Il costo lungo questa successione, per un integrando bulk `W` e densità interfaciale `ψ`, è
 ```
 E(u_n) = ∫_Σ W(G) dA + ∫_{J_g} ψ([g],ν_g) dH¹,
 ```
-indipendentemente da `n`.
+indipendentemente da `n`. È quindi un concorrente ammissibile e fornisce un **limite superiore** per l'infimo rilassato.
 
-In particolare:
-- il test `∫strip |∇g_h|² dA ~ C/h` riguarda la regolarizzazione continua strip+cap, che non è la successione CF qui costruita;
-- esso **non esclude** un'energia bulk quadratica nel problema CF;
-- per `W(F)=|F|²_F`, `G_f^TG_f=I₂` dà `|G_f|²_F=2`, quindi il contributo bulk della successione costante è `2 Area(Σ)`;
-- per `ψ(a,ν)=|a|`, il termine di interfaccia è la massa dei salti macroscopici, se la quadratura su tutti gli spigoli è esatta.
+Per `ψ(a,ν)=|a|`, l'integrale sui salti macroscopici è stato calcolato numericamente su tutti i 90 spigoli con quadratura trapezoidale (200 campioni per spigolo). Ne seguono i valori:
+- `W(F)=|F|_F`: bulk `45.6365164300`; interfaccia `38.9347888585`; totale `84.5713052885`.
+- `W(F)=|F|_F²`: bulk `64.5397804748`; stessa interfaccia `38.9347888585`; totale `103.4745693333`.
 
-Il valore numerico `84.57130529` può dunque essere confrontato con l'energia della successione costante soltanto dopo aver allineato esattamente le densità `W,ψ`, la norma matriciale e l'integrazione degli spigoli. Non è ancora l'infimo rilassato.
+Il test `∫strip |∇g_h|² dA ~ C/h` riguarda invece la regolarizzazione continua strip+cap, che non è la successione CF qui costruita. Esso **non esclude** un'energia bulk quadratica nel problema CF. Per questa coppia e questa successione costante, entrambi i costi sono finiti. I valori sono energie di una successione ammissibile (con quadratura numerica per l'interfaccia), non l'infimo rilassato.
 
 ## 4. Cosa è dimostrato e cosa resta aperto
 
