@@ -107,10 +107,12 @@ asintotico. Il calcolo degli strip campiona 20 spigoli su 90 e moltiplica per
 
 - **A. Convenzione dei campi:** fissare in modo univoco la mappa macroscopica
   `g`, il campo `G` e quindi `M=∇_Σg−G`.
-- **B. Costruzione CF:** costruire `u_n∈SBV(Σ;R³)` con micro-salti e provare
-  `u_n→g` in `L¹`, `∇_Σu_n𝓗²⇀*G𝓗²`.
-- **C. Identità di bilancio:** provare che
-  `D^s_Σu_n⇀*(∇_Σg−G)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
+- **B. Caso C60 corrente:** `u_n=g` è determining sequence perché `M=0`;
+  verificare e mantenere la coerenza delle coordinate tangenziali usate per
+  `∇_Σg=G`.
+- **C. Generalizzazione:** se si sceglie un campo `G̃` con
+  `∇_Σg−G̃≠0`, costruire micro-salti e provare il bilancio
+  `D^s_Σu_n⇀*(∇_Σg−G̃)𝓗²+[g]⊗ν_g𝓗¹⌞J_g`.
 - **D. Energia:** valutare `E(u_n)=∫W(∇u_n)dA+∫_{J_{u_n}}ψ([u_n],ν)dH¹`
   sulla vera successione CF.
 - **E. Rilassazione:** confrontare il costo della successione costruita con
