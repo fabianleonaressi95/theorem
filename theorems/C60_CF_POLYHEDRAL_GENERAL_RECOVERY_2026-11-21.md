@@ -415,7 +415,7 @@ aperto e non è necessario per questa costruzione.
 
 Sia \(\Sigma\) una superficie poliedrale compatta della classe §1,
 \(g\in SBV(\Sigma;\mathbb R^m)\) con
-\(\nabla_\Sigma g\in L^1\) e
+\(\nabla_\Sigma g\in L^p\) e
 \(\int_{J_g}|[g]|\,d\mathcal H^1<\infty\), e
 \(G\in L^p(\Sigma;\operatorname{Hom}(T\Sigma,\mathbb R^m))\),
 con \(p=1\) per \(W(F)=|F|_F\) oppure \(p=2\) per
