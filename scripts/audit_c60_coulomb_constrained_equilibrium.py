@@ -173,7 +173,7 @@ def main():
     E,g=coulomb_energy_gradient(x)
     Q=tangent_basis(x)
     # KKT multipliers for the three COM constraints and fixed-radius constraint.
-    J=constraints_jac(opt.x)
+    J=constraints_jac(x.reshape(-1))
     multipliers=np.linalg.lstsq(J.T,-g.reshape(-1),rcond=None)[0]
     kkt_res=float(np.linalg.norm(g.reshape(-1)+J.T@multipliers))
     tangent_res=float(np.linalg.norm(Q.T@g.reshape(-1)))
@@ -187,7 +187,7 @@ def main():
     report={
       "status":"computed_by_script_when_run",
       "optimization":{
-        "method":"SLSQP with analytic gradient",
+        "method":"SLSQP with analytic gradient followed by projected Riemannian Newton refinement",
         "success":bool(opt.success),"status":int(opt.status),"message":str(opt.message),
         "iterations":int(opt.nit),"objective_evaluations":int(opt.nfev),
         "coulomb_energy":float(E),"fixed_rms_radius":radius,
@@ -206,7 +206,8 @@ def main():
         "negative_modes":int(np.sum(eig < -1e-7)),
         "near_zero_modes":int(np.sum(np.abs(eig)<=1e-7)),
         "positive_modes":int(np.sum(eig > 1e-7)),
-        "expected_rotational_zero_modes":3
+        "expected_rotational_zero_modes":3,
+        "hessian_eigenvalue_threshold":1e-7
       },
       "symmetry":sym,
       "independent_hessian_check":hessian_check,
@@ -217,7 +218,7 @@ def main():
         "The Hessian spectrum is local to the obtained stationary configuration; a local minimum claim additionally requires no negative modes after accounting for rotational zero modes.",
         "The symmetry test uses optimal point assignments for the 120 ideal icosahedral orthogonal operations; it does not infer irreducible-representation labels."
       ],
-      "classification":"numerically_verified_equilibrium" if opt.success and tangent_res<1e-7 and kkt_res<1e-7 else "stationarity_not_established"
+      "classification":"numerically_verified_equilibrium" if opt.success and tangent_res<1e-7 and kkt_res<1e-7 and hessian_check["hessian_vector_relative_error"]<1e-6 else "stationarity_not_established"
     }
     np.savez_compressed(out/"C60_Coulomb_constrained_equilibrium.npz",
       X_start=x_start,X_equilibrium=x,bonds=bonds,Q_tangent=Q,
