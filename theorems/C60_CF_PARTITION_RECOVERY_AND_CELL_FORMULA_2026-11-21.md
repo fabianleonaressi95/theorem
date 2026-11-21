@@ -421,8 +421,9 @@ resta aperta.
 | Rank 2 a.e. per gradiente c_0 A | **Provato** come proprietà del gradiente a.e. |
 | Embeddedness globale | **Aperta** |
 | Lower bound nucleare per `M(x)` misurabile | **Provato** |
-| Recovery `v_h→c`, costo `∫‖∇c‖_*`, `c∈W^{1,1}` | **Provato** (Lemma R, costruzione esplicita) |
-| Funzionale `I(g,G̃)` con `∫‖∇g−G̃‖_*` per `G̃` misurabile | **Provato** nel modello intrinseco |
+| Recovery `v_h→c`, costo `∫‖∇c‖_*`, `c∈W^{1,1}` | **Prova candidata** in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`; audit indipendente richiesto |
+| Estensione a `g` con salti (SBV) e applicazione CF su superfici | **Aperta**: richiede `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md` (specifica, non dimostrato) |
+| Funzionale `I(g,G̃)` con `∫‖∇g−G̃‖_*` per `G̃` misurabile | **Provato** solo nei casi senza recovery variabile (costante per faccia, `G̃=∇_Σg`, lower bound) |
 | Cell formula `ψ_rel` per `ψ` anisotropo | Definita; lower bound provato; upper bound laminati provato; **valore esatto aperto** |
 | ONB formula per `ψ=Φ(a)k(ν)` | **Solo upper bound** (controesempio numerico) |
 | `k≡1`, `Φ` anisotropa: ONB ottimale? | Evidenza numerica a favore, non dimostrato |
