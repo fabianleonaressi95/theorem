@@ -48,6 +48,11 @@ S_i = { (s,t) : s∈[0,|e|],  t∈(−iδ/m, −(i−1)δ/m) },  i=1,…,m,
 e poniamo
 
 ```
+v(x) = g⁻_aff(x) + ((m−i+1)/m)·h_e(x)    su S_i,
+```
+
+`v=g` fuori dalla striscia (eccetto le regioni terminali di §4).
+Lo strato `i=1`, adiacente a `e` (perché `t∈(−δ/m,0)`), ha coefficiente `1`, quindi la traccia su `e` coincide con `g⁺_aff` e il salto originale si annulla nell'interno del segmento. Lo strato più esterno `i=m` ha coefficiente `1/m`; sul bordo `t=−δ` resta quindi un salto di ampiezza `|h_e|/m`, che va conteggiato come interfaccia aggiuntiva.
 v(x) = g⁻_aff(x) + (i/m)·h_e(x)    su S_i,
 ```
 
@@ -74,6 +79,7 @@ del segmento.
 
 ## 3. Stima (S): interfacce fra strati
 
+Le interfacce interne `t=−iδ/m`, `i=1,…,m−1`, e il bordo esterno `t=−δ` sono segmenti di lunghezza al più `|e|` (tranne le parti assegnate ai dischi terminali, §4). Su ciascuna il salto è `h_e/m`, con `|h_e|≤C_e+cδ`. Per `φ(t)=t²`:
 Le interfacce `t=−iδ/m`, `i=1,…,m−1`, sono segmenti di lunghezza
 `|e|` (tranne le parti nei dischi terminali, §4). Su ciascuna il
 salto è `h_e/m` con `|h_e|≤C_e+cδ`. Per `φ(t)=t²`:
@@ -90,6 +96,7 @@ non entra nel denominatore perché ogni interfaccia ha salto
 
 ### 4.1 Cappucci laterali
 
+La striscia viene troncata fuori dai dischi terminali `B_ρ(A)∪B_ρ(B)`: i tratti laterali dentro i dischi sono assegnati esclusivamente a (V), non a (K). Sulle parti residue dei bordi laterali, il salto è la differenza tra la traccia affine dello strato e la traccia del campo esterno. Il bound `C_e+cδ` è valido solo quando il campo esterno è specificato e ha traccia compatibile; tale compatibilità è un'ipotesi della costruzione locale e va verificata sulla partizione comune. I `m` strati danno `m`
 La striscia termina agli estremi di `e`: su ogni interfaccia
 laterale `s=0` e `s=|e|` (lunghezza `δ` per strato) il valore
 interno `g⁻+(i/m)h_e` incontra il valore esterno `g` (o la
@@ -105,6 +112,7 @@ E_K = 2·Σ_{i=1}^m (δ/m)·((i/m)(C_e+cδ))²
     = O(δ)   per m fissato.
 ```
 
+Per `φ` continua, un bound robusto è `E_K≤2δ·sup_{0≤t≤C_e+cδ}φ(t)`, che tende a zero per `δ→0` a `C_e` fissato. Nel caso quadratico dà `O(δ(C_e+cδ)²)`; non si usa una somma con coefficiente di salto che non sia stato derivato dalle tracce effettive.
 Questa è la stima mancante del punto (B) dell'audit:
 `E_cap ≤ C·δ·sup_{[0,C_e]}φ` per `φ` continua con `φ(0)=0`;
 per `t²` vale `O(δC_e²)` e non richiede `mδ→0` — il fattore
@@ -127,6 +135,7 @@ universale sui vertici di un grafo finito).
 
 ### 4.3 Disgiunzione
 
+Definire la regione splittata come `S_δ(e)\setminus(B_ρ(A)∪B_ρ(B))`. Le parti di interfacce laterali e terminali dentro i dischi sono assegnate esclusivamente a (V), non a (K); le interfacce (S) sono troncate analogamente. Per segmenti non incidenti, scegliere le scale sotto metà delle distanze minime positive; per segmenti incidenti, la rimozione dei dischi disgiunti separa le costruzioni. La disgiunzione è dunque fra le regioni effettivamente conteggiate, non fra le strisce complete.
 Per `δ,ρ` minori delle metà delle distanze minime fra:
 
 - segmenti non incidenti di `J_g`;
@@ -151,6 +160,7 @@ E_jump ≤ Σ_e [ |e|(C_e+cδ)²/m  +  O(δC_e²)  +  O(ρC_e²) ]
 più i termini della staircase applicata dopo. Ordine:
 
 ```
+Per ogni `j`, scegliere `m_j→∞`, poi `ρ_j→0`, poi `δ_j→0` con `δ_j/ρ_j→0` e compatibilità con distanze geometriche; infine scegliere `h_j` dopo aver fissato la partizione.
 m → ∞   (uccide E_S),   poi  δ → 0  (uccide E_K),   poi  ρ → 0
 (uccide E_V);  infine h → 0  per la staircase.
 ```
