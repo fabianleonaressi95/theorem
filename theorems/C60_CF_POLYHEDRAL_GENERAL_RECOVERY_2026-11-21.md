@@ -408,6 +408,45 @@ riempimento con traccia assegnata: quel problema separato resta
 aperto e non è necessario per questa costruzione.
 
 ### 5.5 Stato
+### 5.5 Audit riga-per-riga di §5.4
+
+Verifica dei quattro punti delicati:
+
+1. **Micro-salti**: la formula del lemma è testata contro
+   `φ∈C(Σ)` generica, non solo contro la massa totale — è una
+   convergenza debole-* vera. La funzione
+   `F(t)=∫_{T°∩{x·ν_i=t}}φ dH¹` è continua a tratti con
+   discontinuità solo alle altezze dei vertici del poligono
+   (finite) ⇒ Riemann integrabile; la somma `hΣ_k` è una somma
+   di Riemann di passo `h`. Le celle non attraversano gli
+   spigoli di `Σ` (la partizione li raffina), quindi non servono
+   correzioni ai bordi; le intersezioni tra famiglie di
+   laminate sono punti in 2D e non contribuiscono a `H¹`.
+2. **Interfacce**: la stima `‖u_h−g_j‖_{L∞(P̄)}≤h‖M_P‖_*` è
+   puntuale su `P̄` (il difetto `h⌊t/h⌋−t` è `≤h` ovunque),
+   quindi le tracce convergono uniformemente su ogni lato di
+   cella e la misura di salto `|Tr⁺u−Tr⁻u|H¹⌞e` converge in
+   variazione — più forte del `L¹` richiesto. Il passaggio
+   Reshetnyak usa `|Dg_j|(Σ)→|Dg|(Σ)` (CFI per faccia + G4a per
+   spigoli, somma finita), `g_j→g` in `L¹`, e sottrae la parte
+   AC convergente fortemente in `L¹`.
+3. **Diagonale**: lemma standard a due indici
+   (`Λ_{j,h}⇀*Λ_j` per `h↓0`, `Λ_j⇀*Λ`); la convergenza di
+   **massa** (`φ≡1`) implica
+   `E_W(u_{j,h_j})=Λ_{j,h_j}(Σ)→Λ(Σ)`, cioè convergenza
+   dell'energia totale al funzionale candidato.
+4. **Palle**: per `s` raggio di continuità di `Λ` la
+   convergenza è diretta; per `r` eccezionale la monotonia dà
+   `limsup_j Λ_{j,h_j}(B_r)≤Λ(B_s)` con `s∈(r,2r)` di
+   continuità, e `Λ(B_s)→Λ({v})=0` per `s↓0`. La formula
+   iterata `lim_{r↓0}limsup_j|E_W−ℱ|=0` è corretta.
+
+**Caveat residuo**: la Riemann-integrabilità di `F(t)` e la
+decomposizione `|Dg_j|=|∇g_j|H²+|[g_j]|H¹⌞J_{g_j}` sono
+affermazioni standard non scritte riga per riga (SBV di `g_j`
+perché piecewise-affine; `F` limitata con discontinuità finite).
+
+### 5.6 Stato
 
 **G5 — DIMOSTRATO** nel quadro della recovery globale e delle ipotesi dichiarate. La convergenza delle misure energetiche è provata in §5.4: coarea e somme di Riemann per i micro-salti, stime uniformi delle tracce sulle interfacce, convergenza stretta BV globale per le misure di salto CFI, e convergenza forte delle densità bulk. La misura limite non ha atomi ai vertici; la convergenza debole-* implica il controllo locale. Non si usa un riempimento separato con traccia prescritta.
 

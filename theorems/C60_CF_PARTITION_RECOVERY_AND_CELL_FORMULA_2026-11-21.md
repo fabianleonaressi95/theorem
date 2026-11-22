@@ -187,6 +187,7 @@ Con quel lemma, l'applicazione per G-tilde(x) misurabile segue per `\nabla_\Sigm
 $$
 resta **aperta quanto al recovery upper bound** e non viene classificata come teorema.
 
+**Aggiornamento.** Una prova candidata del raccordo è proposta nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (griglia `N×N` di quadrati completi, scala `h=δ³`, stima di quadratura BV su griglia traslata, diagonalizzazione con energia totale). Copre `c ∈ W^{1,1}`; **non** copre l'estensione a `g` con salti macroscopici né l'applicazione CF su superfici, che restano aperte. In attesa di audit indipendente.
 **Aggiornamento.** Una dimostrazione completa del raccordo è proposta nel documento separato `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md` (griglia `N×N` di quadrati completi, scala `h=δ³`, stima di slicing BV esplicita, diagonalizzazione con energia totale). **In revisione**: l'audit indipendente delle stime geometriche è richiesto prima della classificazione definitiva; nel frattempo qui resta aperta.
 
 Di conseguenza, non si dichiara dimostrata l'applicazione per G-tilde(x) misurabile ottenuta invocando un Lemma R variabile. Restano validi i risultati per gradiente costante per faccia, quando il difetto M_f è costante e si applica direttamente la costruzione affine.
@@ -493,8 +494,9 @@ resta aperta.
 | Rank 2 a.e. per gradiente c_0 A | **Provato** come proprietà del gradiente a.e. |
 | Embeddedness globale | **Aperta** |
 | Lower bound nucleare per `M(x)` misurabile | **Provato** |
-| Recovery `v_h→c`, costo `∫‖∇c‖_*`, `c∈W^{1,1}` | **Provato** (Lemma R, costruzione esplicita) |
-| Funzionale `I(g,G̃)` con `∫‖∇g−G̃‖_*` per `G̃` misurabile | **Provato** nel modello intrinseco |
+| Recovery `v_h→c`, costo `∫‖∇c‖_*`, `c∈W^{1,1}` | **Prova candidata** in `C60_CF_VARIABLE_GRADIENT_RECOVERY_PROOF_2026-11-21.md`; audit indipendente richiesto |
+| Estensione a `g` con salti (SBV) e applicazione CF su superfici | **Aperta**: richiede `C60_CF_LOCALIZATION_LEMMA_2026-11-21.md` (specifica, non dimostrato) |
+| Funzionale `I(g,G̃)` con `∫‖∇g−G̃‖_*` per `G̃` misurabile | **Provato** solo nei casi senza recovery variabile (costante per faccia, `G̃=∇_Σg`, lower bound) |
 | Cell formula `ψ_rel` per `ψ` anisotropo | Definita; lower bound provato; upper bound laminati provato; **valore esatto aperto** |
 | ONB formula per `ψ=Φ(a)k(ν)` | **Solo upper bound** (controesempio numerico) |
 | `k≡1`, `Φ` anisotropa: ONB ottimale? | Evidenza numerica a favore, non dimostrato |

@@ -48,6 +48,21 @@ Le correzioni bilipschitz `Φ_j` del teorema sono assorbite dalle
 loro stesse stime (Cor. 2.3): la convergenza energetica è enunciata
 per `g_j` su `Ω`.
 
+### 2.3 Approssimazione di `G` — costruzione standard
+
+Sia `𝒯_j` la partizione in simplessi di `g_j`, ristretta a `Ω`:
+finitamente molte celle (decomposizione localmente finita + `Ω`
+limitato). Le celle che toccano `∂Ω` sono troncate — restano
+poligoni, e l'affinità di `g_j` si preserva. Definiamo `G_j` come
+**media di `G` su ogni cella** (proiezione a tratti costante):
+
+```
+G_j|_C := ⨍_C G dx .
+```
+
+Allora `G_j→G` fortemente in `L^p` (proprietà standard delle
+proiezioni locali). La prova che la coppia `(g_j,G_j)` resta
+ammissibile per il teorema poliedrale è nel §3.
 ### 2.3 Approssimazione di G — medie sulle simplici CFI
 
 Sia \(\mathcal T_j\) la decomposizione localmente finita di
