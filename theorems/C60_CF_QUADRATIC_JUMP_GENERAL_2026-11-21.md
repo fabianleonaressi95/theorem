@@ -61,7 +61,7 @@ partizione poliedrale comune.
 Fissati `j,m`, applichiamo a ogni segmento di salto `e` la
 costruzione a strati paralleli: striscia di larghezza `δ` nel
 lato adiacente, `m` strati, nell'`i`-esimo
-`v_{j,m}=g_j^-+(i/m)h_e` con `h_e` affine (v. §3.2 precedente
+`v_{j,m}=g_j^-+((m−i+1)/m)h_e` con `h_e` affine (v. §3.2 precedente
 per i dettagli di coordinate, estremi `r`, palle `ρ` attorno ai
 vertici del jump complex e disgiunzione delle strisce).
 
@@ -202,9 +202,7 @@ una volta sola.
   l'area delle strisce perché `∇u` non vede `∇v_{j,m}`.
 - **Salto**: (a)–(d) →0.
 
-Ordine: per `j`, `m(j)` poi `r(j,m)` poi `h(j,m,r)` — `h` è
-sempre scelto per ultimo, nessuna uniformità in `C_{j,m}`
-richiesta.
+Ordine diagonale: per ogni `j`, fissare `m_j→∞`, quindi `ρ_j→0`, poi `δ_j→0` con `δ_j/ρ_j→0` e compatibilità geometrica; scegliere `h_j` per ultimo, dopo la partizione finita. Nessuna uniformità in `C_{j,m}` è richiesta.
 
 **Stato**: il lemma di splitting è **dimostrato** in
 `C60_CF_SPLITTING_LEMMA_FRAMEWORK_2026-11-21.md` per un grafo di
@@ -287,8 +285,7 @@ crescita su `φ` né equi-integrabilità dei `σ_P`.
 - `∇u_{j,m,h}𝓗²⇀*G𝓗²`: `∇u=G_j` a.e. fuori strati + strati
   uniformemente limitati per `(j,m)` fisso + `G_j→G` in
   variazione totale — **non dipende da `φ`**.
-- **Bulk**: `∫W(∇u)=∫W(G_j)` a.e. + correzione strati
-  `O(δ_m)·sup|W|` — **non dipende da `φ`**.
+- **Bulk**: `∫W(∇u)=∫W(G_j)` esattamente, senza correzione di area — **non dipende da `φ`**.
 - **Liminf**: `liminf E ≥ liminf∫W(∇u_n) + 0 ≥ ∫W(G)` —
   **non dipende da `φ`** (la semicontinuità del bulk basta).
 
@@ -300,9 +297,7 @@ Per `φ` come sopra:
 I_{W,φ}(g,G) = ∫_Σ W(G) d𝓗² .
 ```
 
-La diagonale è a **tre livelli**: `j→∞` (CFI), `m(j)→∞`
-(splitting), `h(j,m(j))→0` (staircase) — con `h` scelto dopo
-`(j,m)` per il punto 4.1. ∎
+La diagonale è a **cinque parametri**: `j→∞` (CFI), `m_j→∞`, `ρ_j→0`, `δ_j→0` con `δ_j/ρ_j→0`, e `h_j→0` scelto per ultimo dopo tutti gli altri parametri. ∎
 
 ## 5. Portata e caveat
 
