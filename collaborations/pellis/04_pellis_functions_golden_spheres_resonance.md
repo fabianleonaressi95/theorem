@@ -1,6 +1,6 @@
 # Document C — Pellis Functions and Golden Spheres Resonance: an independent mathematical audit
 
-**Status: DRAFT — working document, not merged into `main`.**
+**Status: DRAFT — working audit version tracked in `main`; mathematical and physical claims retain the classifications stated below.**
 
 **Prepared for discussion with Stergios Pellis**
 
@@ -447,3 +447,102 @@ Until those checks and definitions exist, C.12.2 is an exact geometric result, C
 6. Document B — [Geometric self-adjoint operators and spectral weights](https://github.com/fabianleonaressi95/theorem/blob/collaboration/pellis-document-2-self-adjoint-operators/collaborations/pellis/03_geometric_self_adjoint_operators.md).
 
 **Classification:** exact algebraic core; exact convergence statements under stated hypotheses; conditional cavity scaling; operator realization and physical derivation remain open.
+
+
+## C.13 Golden rectangles and the 8×10, 10×12, 14×18 ray grids: structural audit of the proposed link
+
+### C.13.1 The rectangle construction on p. 2091
+
+Let the initial rectangle have short side $B_0=1$ and long side $A_0=\phi$, where \(\phi=(1+\sqrt5)/2\). Its aspect ratio is $A_0/B_0=\phi$.
+
+If the next rectangle is attached so that the previous long side becomes the new short side, then
+\[
+B_{n+1}=A_n,\qquad A_{n+1}=\phi B_{n+1}=\phi A_n.
+\]
+Consequently,
+\[
+B_n=\phi^n,\qquad A_n=\phi^{n+1}
+\]
+for this indexing convention. Every rectangle is similar to the first, and each step scales its linear dimensions by \(\phi\). A quarter-turn changes orientation but does not change this scale law.
+
+The phrase “80° perpendicolare” is internally inconsistent: perpendicular directions differ by 90°. Unless the source defines a non-Euclidean or otherwise specialized angle convention, 80° must be treated as a likely typographical error, not silently used as a right angle.
+
+**Important distinction:** iterating similar rectangles by attaching a new rectangle along the previous long side does not, by itself, define a spiral curve. A spiral requires an explicit curve, such as specified circular arcs, or a continuous law such as $r(\theta)=r_0e^{b\theta}$. The familiar golden-rectangle construction instead removes a square from a golden rectangle, leaving a smaller golden rectangle with side ratio \(\phi\); repeated square removal gives a sequence of squares whose quarter-circle arcs form the conventional golden-spiral approximation. That construction is not identical to an unspecified chain of whole golden rectangles rotated by 90°.
+
+Thus the exact conclusion from the stated side rule is **a self-similar sequence of golden rectangles with scale ratio \(\phi\)**. A “golden spiral” conclusion requires the additional arc/curve prescription.
+
+### C.13.2 The ray-count grids on p. 2103
+
+The supplied description identifies three pairs of ray counts:
+\[
+(8,10),\qquad (10,12),\qquad (14,18).
+\]
+Their ratios are
+\[
+\frac{10}{8}=\frac54=1.25,\qquad
+\frac{12}{10}=\frac65=1.2,\qquad
+\frac{18}{14}=\frac97\approx1.285714.
+\]
+None equals \(\phi\), and the three ratios are not equal to one another. Therefore the pairs cannot, on their own, be interpreted as successive exact samples of one fixed \(\phi\)-ratio.
+
+A golden-ratio relationship could still enter through the radii of the underlying circles, angular offsets, a projection, or a separate mapping from continuous geometry to integer counts. But that map must be stated. In particular, “circles are nested in ratio \(\phi\)” does not imply that their ray counts have ratio \(\phi\): ray counts are integers and require a rule specifying how directions are selected, counted, identified, or rounded.
+
+The phrase “8×10”, etc., must also be defined: it could denote an ordered pair of ray counts on two circles, a rectangular array with those dimensions, or a product. These are different mathematical objects. This audit uses the neutral notation “pair of ray counts” until the report's construction rule resolves the ambiguity.
+
+### C.13.3 What a Vesica-intersection rasterization would require
+
+The assertion that intersections of Vesica Piscis regions “directly generate” an 8×10 grid is a geometrical construction claim, not yet an algebraic derivation. To make it reproducible, the construction must specify at least:
+1. the centres and radii of every generating circle;
+2. the exact centre-distance rule for each Vesica;
+3. which circle pairs are intersected and which of their two intersection points or common-chord lines are retained;
+4. how those points or lines are converted into rays;
+5. the centre from which each ray is measured and the angular interval used;
+6. the rule that yields exactly 8 and 10 distinct rays, including treatment of coincident or symmetry-equivalent directions.
+
+Without these data, infinitely many circle arrangements can produce different intersection patterns. The exact two-circle formula in C.12.2 supplies a local chord length, but does not select an 8×10 incidence pattern.
+
+The proposed “continuous-to-discrete sampling” interpretation is therefore a plausible research program, not a proved consequence of the Vesica definition. A valid proof would define a map from a continuous configuration (circles, chords, or an embedded arrangement) to a finite incidence structure and establish that its image has the claimed cardinalities.
+
+### C.13.4 The proposed common matrix: Flower of Life and Metatron's Cube
+
+The report's description of the Flower of Life / Metatron's Cube as a common “matrix” for both constructions is a source-level interpretive claim. To turn it into a mathematical statement, one must define the underlying point set, graph, cell complex, or tiling and then exhibit:
+- an embedding of the golden-rectangle sequence into that object;
+- an embedding or incidence realization of each ray-count grid into the same object;
+- a specified action or transformation relating the two embeddings;
+- invariants preserved by that transformation (for example, incidence, distances, angles, or a group action).
+
+The visual fact that two diagrams can be drawn over the same background is not sufficient to show that one tiles the other, that they are generated by the same matrix, or that either is a substructure of the other. The phrase “universal matrix” is not used as a mathematical premise in this audit.
+
+### C.13.5 Why a right-angle rectangle is not a degenerate Vesica Piscis
+
+A golden rectangle with a 90° orientation change is not a degenerate case of two intersecting equal circles. The primitive data differ: a rectangle is defined by four line segments and right angles, while a Vesica is the lens intersection of two disks, defined by radii and centre separation. No continuous deformation or incidence-preserving map between these objects is supplied by the report excerpt.
+
+A bridge could be constructed—for example, by mapping selected circle-intersection chords to rectangle edges or by defining a common cell complex—but it would be a new theorem/model. It must state the map and prove which quantities it preserves. In particular, the Vesica chord ratio \(\sqrt3\) and the golden-rectangle aspect ratio \(\phi\) are distinct invariants of the two respective constructions.
+
+### C.13.6 “Levels of consciousness” and degrees of freedom
+
+The report associates the pairs 8×10, 10×12, and 14×18 with successive “levels of consciousness” and interprets added rays as added degrees of freedom. The integer counts can be recorded as source claims. Their interpretation as physical or cognitive degrees of freedom does not follow from the counts alone.
+
+A mathematical degrees-of-freedom claim requires a defined state space and a dimension or rank calculation. A consciousness claim additionally requires an operational definition, measurable variables, and a testable relation between the geometric count and those variables. No such derivation is supplied by the ray-count pairs themselves. The analogy between “one more rectangle per iteration” and “more rays per level” is therefore descriptive, not a proof that the two sequences encode the same hierarchy.
+
+### C.13.7 Evidence ledger and next exact checks
+
+| Statement | Classification |
+|---|---|
+| Initial rectangle has side ratio \(\phi\) | Exact definition |
+| Repeatedly using the previous long side as the next short side | Exact recurrence; produces similar rectangles scaled by \(\phi\) |
+| A 90° rotation changes orientation | Exact Euclidean fact |
+| “80° perpendicolare” | Source inconsistency; likely typo, not a valid perpendicular angle |
+| The rectangle chain alone is a golden spiral | Not established; a curve/arc rule is missing |
+| Square-removal recursion inside a golden rectangle | Standard construction; distinct from the whole-rectangle attachment rule above |
+| Ray-count pairs (8,10), (10,12), (14,18) | Source-reported integers |
+| Those pairs are in exact golden ratio | False for the displayed count ratios |
+| Underlying circle radii are in ratio \(\phi\) | Source-reported construction claim; requires exact centre/radius data |
+| Vesica intersections generate exactly 8×10 rays | Open; incidence and ray-selection rule missing |
+| Both constructions embed in a common Metatron/Flower-of-Life matrix | Open; common object and embeddings not defined |
+| A right-angle rectangle is a degenerate Vesica | Not established; no map or limiting construction supplied |
+| Ray increments are consciousness degrees of freedom | Interpretive claim; no state-space or measurement model supplied |
+
+The next computational audit should not fit \(\phi\) to the integer pairs. It should first transcribe the exact circle-centre/radius configuration from the source, construct the resulting intersection graph, deduplicate directions under the stated symmetries, and only then check whether the graph has the claimed ray counts. If the source does not provide those coordinates or a construction algorithm, the claim remains underdetermined rather than numerically verified.
+
+**Conclusion:** the two passages may be related by a common intended visual language, but the supplied definitions do not yet prove that they are two representations of one \(\phi\)-generated hierarchy. The exact rectangle recurrence is established; the ray-count construction, common-matrix claim, Vesica conversion, and consciousness interpretation remain separate claims with the statuses above.
