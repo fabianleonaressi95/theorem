@@ -546,3 +546,20 @@ A mathematical degrees-of-freedom claim requires a defined state space and a dim
 The next computational audit should not fit \(\phi\) to the integer pairs. It should first transcribe the exact circle-centre/radius configuration from the source, construct the resulting intersection graph, deduplicate directions under the stated symmetries, and only then check whether the graph has the claimed ray counts. If the source does not provide those coordinates or a construction algorithm, the claim remains underdetermined rather than numerically verified.
 
 **Conclusion:** the two passages may be related by a common intended visual language, but the supplied definitions do not yet prove that they are two representations of one \(\phi\)-generated hierarchy. The exact rectangle recurrence is established; the ray-count construction, common-matrix claim, Vesica conversion, and consciousness interpretation remain separate claims with the statuses above.
+
+
+## C.14 An explicit three-circle benchmark and the obstruction from pure golden scaling
+
+To avoid guessing the geometry of the report's missing illustration, a separate exact benchmark has been defined in [the three-circle / golden-homothety audit](../../audits/VESICA_THREE_CIRCLE_GOLDEN_HOMOTHETY_2026-11-23.md).
+
+The benchmark consists of three equal circles of radius (R), with centres at the vertices of an equilateral triangle of side (R). The six distinct pairwise intersection points, viewed from the triangle centroid, determine six equally spaced outward ray directions. The corresponding angular graph is (C_6), with combinatorial Laplacian spectrum
+[
+0,1,1,3,3,4.
+]
+These are exact statements for this explicitly defined model; they do not reconstruct the unspecified source diagram.
+
+Under the golden hierarchy (R_n=R_0phi^{-n}), each level is a homothetic copy. Homothety preserves angular directions and incidence, so the ray count remains six at every level. A metric graph Laplacian with inverse-square edge weights scales spectrally by (phi^{2n}) (with a fixed vertex-measure convention), but its number of vertices and directions does not change.
+
+**Consequence:** the reported sequence ((8,10),(10,12),(14,18)) cannot be obtained merely by applying golden homotheties to one fixed three-circle configuration. A level-dependent change of circle centres, incidence pattern, rotation, or ray-selection rule is necessary. The supplied report extract does not specify which one.
+
+**Classification:** exact geometric/operator benchmark for the chosen model; obstruction to count growth under pure homothety; reconstruction of the report's 8×10 / 10×12 / 14×18 grids remains open. No physical interpretation or equivalence with Pellis's resonance operator is claimed.
