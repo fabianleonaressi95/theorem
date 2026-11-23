@@ -77,7 +77,8 @@ P^\circ\cap\{x:x\cdot\nu_{P,k}=nh\},\qquad n\in\mathbb Z.
 \]
 If two SVD directions generate the same geometric family of lines (in particular \(\nu\) and \(-\nu\)), their contributions must be grouped before squaring. For each distinct unoriented direction class \(\alpha\), let \(I_\alpha\) be its index set and put
 \[
-A_\alpha:=\sum_{k\in I_\alpha}\sigma_{P,k}a_{P,k}.
+A_\alpha:=\sum_{k\in I_\alpha}\varepsilon_k\sigma_{P,k}a_{P,k},\qquad
+\varepsilon_k:=\nu_{P,k}\cdot\nu_\alpha\in\{-1,+1\}.
 \]
 On each line in that class, the total jump contribution is \(hA_\alpha\), not a list of independent jumps. Hence
 \[
