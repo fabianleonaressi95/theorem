@@ -28,9 +28,7 @@ At the quarter-turn samples \(\theta_n=n\pi/2\),
 \[
 K_n=K(\theta_n)=2^n=|V(Q_n)|.
 \]
-Thus the Krystallo radial scale and the hypercube vertex count are exactly identified at these sampling angles. The intermediate 45-degree step multiplies the radius by \(\sqrt2\), i.e. by the square root of the vertex-count growth factor.
-
-This is an equality of scale sequences, not yet an identification of the Krystallo spiral with the graph metric or with a dynamical trajectory on \(Q_n\).
+Thus the two sampled sequences agree exactly. This is only an identity between sampled sequences: it does not identify the spiral with the hypercube graph, its metric, incidence structure, or a dynamical trajectory on \\(Q_n\\). A structural bridge would require an independently defined map or refinement rule preserving specified graph/cell data.
 
 ## 3. Exact hypercube spectrum
 
@@ -97,19 +95,25 @@ For \(b\) uniformly distributed on the unit sphere of the 63-dimensional mean-ze
 \mathbb E\|P_kb\|^2=\frac{\binom6k}{63}.
 \]
 Since
-\[
-\sum_{k=1}^{6}\frac{\binom6k}{k}
-=\frac{1517}{60},
-\]
-the exact isotropic average is
-\[
-\boxed{
-\mathbb E\mathcal G_6(b)
-=\frac{\sigma^2}{2\gamma}\,
-\frac{1517}{3780}
-=\frac{1517\sigma^2}{7560\gamma}.
-}
-\]
+\\[
+\\sum_{k=1}^{6}\\frac{\\binom6k}{k}
+=\\frac{1517}{60},
+\\]
+the averaged dimensionless spectral sum, before the Green--Kubo prefactor, is
+\\[
+\\mathbb E\\left[\\sum_{k=1}^{6}\\frac{\\|P_kb\\|^2}{k}\\right]
+=\\frac1{63}\\sum_{k=1}^{6}\\frac{\\binom6k}{k}
+=\\frac{1517}{3780}.
+\\]
+The Green--Kubo integral includes the additional factor \\(\\sigma^2/(2\\gamma)\\), hence
+\\[
+\\boxed{
+\\mathbb E\\mathcal G_6(b)
+=\\frac{\\sigma^2}{2\\gamma}\\,\\frac{1517}{3780}
+=\\frac{1517\\sigma^2}{7560\\gamma}.
+\\]
+Here \\(b\\) is sampled uniformly from the unit sphere in the 63-dimensional mean-zero vertex space; the projectors are orthogonal in that space and the constant eigenspace is excluded. Thus \\(1517/3780\\) is the mean spectral sum, while \\(1517/7560\\) is the coefficient after the factor (1/2) in Green--Kubo.
+
 Consequently
 \[
 \mathbb E\eta_6=
@@ -136,7 +140,7 @@ Equivalently, this is \(\sigma^2/(2\gamma)\) times the mean of \(1/K\), conditio
 \sim\frac{\sigma^2}{\gamma n}
 \qquad(n\to\infty).
 \]
-Using \(n=2\theta/\pi\) at the Krystallo quarter-turn samples, the leading scale is proportional to \(1/\theta\). This is the first explicit bridge from the exponential radial/volume law to an inverse-scale transport response: exponential state-space growth is paired with a relaxation integral whose isotropic mean decays as the inverse dimension.
+At the Krystallo quarter-turn samples one may label \\(n=2\\theta/\\pi\\), so this particular model's isotropic mean scales as \\(1/\\theta\\) at large sampled dimension. This compares two independently defined formulae; it is not a transport law derived from the Krystallo spiral.
 
 The asymptotic statement concerns this specified reversible OU model and isotropic observable ensemble.
 
@@ -154,10 +158,10 @@ For the cubical 2-face variables \(\Omega_p\) and the normalization used in the 
 At \(w=2\), \(\Delta\mu_4=-128\mathcal F_{Q6}\). This is an exact finite-complex identity under the stated normalization.
 
 The cochain projector
-\[
-P_{\rm cl}=I-B_3(B_3^TB_3)^+B_3^T
-\]
-has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector (with the incidence-matrix convention fixed in the project). It must not be silently identified with the graph-vertex Laplacian \(L_{Q6}\), nor does the cosine curvature action automatically equal the Green–Kubo stress autocorrelation. A physical bridge requires an explicit map from plaquette/cochain variables to the stress observable \(b\), and a specified dynamics on that same state space.
+\\[
+P_{\\rm cl}=I-B_3(B_3^TB_3)^+B_3^T
+\\]
+has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector, when (B_3:C_3\\to C_2) is the cubical boundary matrix and standard Euclidean cell inner products are used. This projector is not the graph-vertex Laplacian \\(L_{Q6}\\). Nor does the cosine curvature action automatically equal a Green--Kubo stress autocorrelation. The companion face-cochain note defines a reversible OU model on this closed space; it is a specified model choice, not a physical identification.
 
 ## 6. What the supergolden sector can and cannot be
 
