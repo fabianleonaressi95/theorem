@@ -57,7 +57,8 @@ Thus the real positive class invariant \(\rho\) satisfies
 
 
 
-**Congruence correction (Yui–Zagier pp. 1647–1648).** The abbreviated phase/sign rule must retain the congruence condition modulo 48: use \\(b\\equiv-a\\pmod{48}\\), not merely modulo 24. The user-reported counterexample \\([1,23,140]\\) distinguishes the two: the primary formula gives \\(+\\rho\\), whereas the modulo-24 abbreviation would give \\(-\\rho\\). The principal-class calculation above is unaffected, but the general shorthand must not be recorded with modulus 24.
+**Congruence convention correction (checked against Yui–Zagier, pp. 1647–1649).** In the alternate representative used to compute the class invariant, the paper explicitly requires \\(b\\equiv-a\\pmod{24}\\), not modulo 48 (pp. 1648–1649, choice of representative with \\((a,6)=1\\)). The Weber multiplier is a 48th root of unity, and phase exponents must be tracked modulo 48; this does not change the stated congruence condition on \\(b\\). The earlier statement replacing the modulus 24 by 48 was incorrect and is withdrawn. The principal-form calculation is unaffected.
+
 
 ## 3. Exact identification with the supergolden number
 
