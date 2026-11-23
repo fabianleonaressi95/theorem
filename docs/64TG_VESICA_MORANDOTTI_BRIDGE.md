@@ -298,12 +298,13 @@ Bernoulli numbers/polynomials may enter after a discrete sampling rule has been 
 
 ## 10. Dynamic data still needed
 
-The static coordinate and incidence data are now explicit. The remaining inputs for a dynamic/phase audit are:
-1. a differentiable Jitterbug coordinate path (the PDF does not specify one);
-2. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
-3. a phase field or transport law on the moving geometry.
+The static coordinate and incidence data are now explicit. The standard 12-vertex Jitterbug path is independently reconstructed in `audits/jitterbug_gray_kinematics.py`, and the conditional one-panel coil attachment is implemented in `audits/jitterbug_coil_coupling.py`. This does not yet define a deformation of the 63-vertex FCC/D3 realization of the 64-TG. The remaining inputs for a genuinely moving 64-TG model are:
+1. an explicit embedding of the 64-TG/FCC-D3 cells or selected subframework into the standard Jitterbug mechanism, including which vertices/bars/panels correspond;
+2. a differentiable, closure-preserving motion of that embedded structure (the source PDF does not specify one);
+3. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
+4. a phase field or transport law on the moving geometry.
 
-The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
+The coordinates include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The static reconstruction and the standard Jitterbug model do **not** by themselves identify the 64-TG with a bimetric spacetime or a cosmological model.
 
 ## 11. Electromechanical coupling: from Jitterbug motion to coil emf
 
