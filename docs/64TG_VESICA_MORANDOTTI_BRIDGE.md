@@ -285,14 +285,7 @@ Bernoulli numbers/polynomials may enter after a discrete sampling rule has been 
 
 ## 9. Minimal data needed to close the bridge
 
-A rigorous computational follow-up needs:
-1. coordinates for the 64 tetrahedra (four vertices per tetrahedron), with a declared common scale and orientation;
-2. tetrahedron-to-tetrahedron face/edge incidence and identification of the 14 octahedra and 24 pyramids;
-3. a certificate of non-overlap/coverage for the claimed volume decomposition;
-4. circumsphere centres/radii and selected pairwise/triple intersections;
-5. a differentiable Jitterbug coordinate path if phase evolution or frequency is to be studied.
-
-From these data one can compute exact or certified volumes, centroids, covariance tensors, interface normals, Vesica/triveca sections, and discrete gradients. The result can then be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. Until then, the bridge is a **conditional mathematical programme**, not a proved identification of 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
+The static reconstruction now supplies the coordinate list, tetrahedral incidence data, the 14 octahedra, 24 pyramids, and an oriented cell-boundary/volume certificate for the stated cuboctahedral partition. The remaining work is no longer to invent static coordinates, but to test source correspondence and extend the model dynamically: a differentiable Jitterbug path, a declared active-overlap rule, and (if an electromagnetic model is intended) an explicit coil/field coupling. These data can be integrated with T130's Q6 gradient/barycentre/moment framework. The reconstruction is a reproducible realization matching the source counts; it does not prove uniqueness or that Galeffi intended precisely this FCC/D3 realization, and it does not identify 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
 
 ## 10. Status summary
 
@@ -316,14 +309,14 @@ The coordinates now include exact tetrahedral, octahedral and pyramidal centroid
 
 | Claim | Status |
 |---|---|
-| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
-| 56 tetrahedra + 14 octahedra + 24 pyramids inside cuboctahedron | Exact coordinate/incidence and volume certificate |
+| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |\n| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
+| 56 tetrahedra + 14 octahedra + 24 pyramids partitioning the cuboctahedron | Exact coordinate/incidence and oriented-boundary/volume certificate |
 | Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
 | 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
 | 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
 | Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
 | Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
-| Pairwise circumsphere overlap as Vesica lens | Exact definition; actual 64-TG instances await coordinates |
+| Pairwise circumsphere overlap as Vesica lens | Exact definition; 360 instances enumerated in the reconstructed FCC/D3 model |
 | Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
 | 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
 | 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
@@ -341,7 +334,7 @@ The coordinates now include exact tetrahedral, octahedral and pyramidal centroid
 - [Integrated moments/barycentres/Morandotti synthesis](SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
 
 
-## 11. Electromechanical coupling: from Jitterbug motion to coil emf
+## 12. Electromechanical coupling: from Jitterbug motion to coil emf
 
 The geometric parameter \(\gamma(t)\) and the radial face-centre distance
 \[
