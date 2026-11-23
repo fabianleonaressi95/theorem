@@ -293,6 +293,7 @@ A rigorous computational follow-up needs:
 5. a differentiable Jitterbug coordinate path if phase evolution or frequency is to be studied.
 
 From these data one can compute exact or certified volumes, centroids, covariance tensors, interface normals, Vesica/triveca sections, and discrete gradients. The result can then be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. Until then, the bridge is a **conditional mathematical programme**, not a proved identification of 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
+The static reconstruction now supplies the coordinate list, tetrahedral incidence data, the 14 octahedra, 24 pyramids, and an oriented cell-boundary/volume certificate for the stated cuboctahedral partition. The remaining work is no longer to invent static coordinates, but to test source correspondence and extend the model dynamically: a differentiable Jitterbug path, a declared active-overlap rule, and (if an electromagnetic model is intended) an explicit coil/field coupling. These data can be integrated with T130's Q6 gradient/barycentre/moment framework. The reconstruction is a reproducible realization matching the source counts; it does not prove uniqueness or that Galeffi intended precisely this FCC/D3 realization, and it does not identify 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
 
 ## 10. Status summary
 
@@ -305,30 +306,118 @@ Bernoulli numbers/polynomials may enter after a discrete sampling rule has been 
 
 ## 10. Dynamic data still needed
 
-The static coordinate and incidence data are now explicit. The remaining inputs for a dynamic/phase audit are:
-1. a differentiable Jitterbug coordinate path (the PDF does not specify one);
-2. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
-3. a phase field or transport law on the moving geometry.
+The static coordinate and incidence data are now explicit. The standard 12-vertex Jitterbug path is independently reconstructed in `audits/jitterbug_gray_kinematics.py`, and the conditional one-panel coil attachment is implemented in `audits/jitterbug_coil_coupling.py`. This does not yet define a deformation of the 63-vertex FCC/D3 realization of the 64-TG. The remaining inputs for a genuinely moving 64-TG model are:
+1. an explicit embedding of the 64-TG/FCC-D3 cells or selected subframework into the standard Jitterbug mechanism, including which vertices/bars/panels correspond;
+2. a differentiable, closure-preserving motion of that embedded structure (the source PDF does not specify one);
+3. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
+4. a phase field or transport law on the moving geometry.
 
-The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
+The coordinates include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The static reconstruction and the standard Jitterbug model do **not** by themselves identify the 64-TG with a bimetric spacetime or a cosmological model.
 
-## 11. Status summary
+## 11. Electromechanical coupling: from Jitterbug motion to coil emf
+
+The geometric parameter \(\gamma(t)\) and the radial face-centre distance
+\[
+V(t)=\sqrt{\frac{2}{3}}\,EL\cos\gamma(t)
+\]
+are kinematic quantities. They do not, by themselves, define a magnetic flux or an induced voltage. In particular, Gray's triangle-rotation angle \(\gamma\) is not automatically the angle between a coil normal and an applied magnetic field; the ellipse parameter \(\theta\) is a different angle, related by \(\tan\gamma=\sqrt3\tan\theta\).
+
+For any specified coil surface \(S(t)\), with \(N\) turns and imposed magnetic field \(\mathbf B(\mathbf x,t)\), the flux linkage and transformer/motional emf are determined by
+\[
+\lambda(t)=N\int_{S(t)}\mathbf B(\mathbf x,t)\cdot d\mathbf S,
+\qquad
+\mathcal E(t)=-\frac{d\lambda}{dt}.
+\]
+This is the starting point. The coil mounting, its shape, the field and the mechanical map from the Jitterbug coordinates to the coil must be specified before the emf is determined.
+
+### Model A: explicit coil attachment to one actual rigid Jitterbug panel
+
+We now fix the mechanical map instead of identifying \(\gamma\) with a coil angle by assumption.
+
+1. Choose the rigid triangular face labelled \(\varepsilon=(+1,+1,+1)\) in the standard Jitterbug. Its three labelled vertices in the reference configuration are \(p_0^0,p_1^0,p_2^0\), and their positions along the computed Jitterbug path are \(p_0(t),p_1(t),p_2(t)\).
+2. Attach a circular \(N\)-turn coil rigidly and concentrically to that panel: its centre is the panel centroid, its plane is the panel plane, and its normal is the oriented unit panel normal \(n_0\) transported by the panel rotation. The circle is wholly inside the triangular panel when
+   \[
+   0<r<r_{\rm in}=\frac{a_J}{2\sqrt3},
+   \]
+   where \(a_J\) is the Jitterbug strut length.
+3. Recover the panel's proper rotation \(R(t)\) from the three labelled vertex correspondences by the proper Kabsch fit. This determines the mechanical map without assuming a fixed rotation axis:
+   \[
+   p_j(t)-c(t)=R(t)(p_j^0-c^0),\qquad j=0,1,2.
+   \]
+   The coil normal is \(n(t)=R(t)n_0\). The panel-fit residual is also computed; it must be at numerical roundoff for a rigid panel.
+4. Declare a uniform static field \(B\), coil area \(A=\pi r^2\), and a time law. The continuation parameter is pseudo-arclength \(s\); the reproducible example sets \(t=s/v_s\) with a declared constant traversal speed \(v_s\). This is an external clock choice, not a frequency predicted by Gray.
+
+For this explicit attachment,
+\[
+\lambda(t)=NA\,\mathbf B\cdot R(t)n_0,
+\qquad
+\mathcal E(t)=-NA\,\mathbf B\cdot\bigl(\boldsymbol\omega(t)\times n(t)\bigr),
+\]
+where \(\boldsymbol\omega\) is the spatial angular velocity obtained from
+\(\dot R R^T\). The implementation evaluates the SO(3) logarithm between consecutive panel poses and uses the midpoint angular velocity and normal, so the discrete emf is the Faraday derivative of the flux linkage to the order of the time discretization. The circuit current is obtained by the exact interval update for a piecewise-constant midpoint emf in the series RL equation.
+
+The reproducible implementation is `audits/jitterbug_coil_coupling.py`; run it from the repository root with:
+
+```bash
+python3 audits/jitterbug_coil_coupling.py --output jitterbug_coil_report.json
+python3 -m unittest discover -s tests -p 'test_jitterbug_coil_coupling.py' -v
+```
+
+Default illustrative parameters are \(a_J=0.1\,\mathrm m\), \(v_s=0.01\,\mathrm{m/s}\), \(N=100\), \(r=0.8r_{\rm in}\), \(\mathbf B=(0,0,0.1)\,\mathrm T\), \(R_c=10\,\Omega\), and \(\mathscr L_c=0.01\,\mathrm H\). These are declared example inputs, not measured apparatus parameters. The script records the full time series of flux linkage, emf and current, plus the maximum rigid-panel fit residual. The tests cover rigid-pose recovery, zero emf for a static panel, agreement with the analytic rotating-panel Faraday derivative, and the geometric coil-fit constraint.
+
+The simpler formula \(\mathcal E=NBA\sin\gamma\,\dot\gamma\) remains only a special orientation/convention. It is not used as a substitute for the actual panel-pose reconstruction above.
+
+### Model B: a coil whose radius is mechanically driven by the radial coordinate
+
+As a separate illustrative coupling, suppose a circular coil remains normal to a uniform static field and a linkage imposes \(r(t)=kV(t)\), where \(k\) is a specified dimensionless mechanical scale factor. Then
+\[
+\lambda(t)=NB\pi k^2V(t)^2,
+\qquad
+\mathcal E(t)=-2\pi NBk^2V(t)\dot V(t).
+\]
+Using Gray's kinematic law,
+\[
+\dot V(t)=-\sqrt{\frac{2}{3}}\,EL\sin\gamma(t)\,\dot\gamma(t),
+\]
+so
+\[
+\mathcal E(t)=\frac{4\pi}{3}NBk^2(EL)^2
+\sin\gamma(t)\cos\gamma(t)\,\dot\gamma(t).
+\]
+This formula belongs to the stated radius-linkage model, not to the unmodified Jitterbug mechanism.
+
+For a lumped series circuit with resistance \(R_c\) and inductance \(\mathscr L_c\), the current then satisfies
+\[
+\mathscr L_c\frac{di}{dt}+R_ci=\mathcal E(t),
+\]
+with the sign fixed by the chosen loop orientation.
+
+### Status and required inputs
+
+Both models are conditional examples, not predictions of Gray's paper or of the 64-TG source. To turn either into a testable electromechanical model, specify: (i) the coil's attachment points and orientation on the mechanism; (ii) \(N,A\) or the complete moving surface; (iii) the imposed field and its spatial/time dependence; (iv) the map from the Jitterbug configuration to the coil pose/deformation; and (v) circuit resistance, inductance and measurement loading. A rigid translation of a closed coil in a spatially uniform static magnetic field does not, by itself, produce a net loop emf; deformation, rotation, field gradients or time dependence must be included.
+
+**Classification:** the Gray law for \(V(\gamma)\) is a kinematic relation; the coil formulas above are conditional Faraday-law consequences once a mechanical/electromagnetic coupling is declared. No coil voltage is derived from the geometry alone.
+
+## 12. Status summary
 
 | Claim | Status |
 |---|---|
+| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |
 | FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
-| 56 tetrahedra + 14 octahedra + 24 pyramids inside cuboctahedron | Exact coordinate/incidence and volume certificate |
+| 56 tetrahedra + 14 octahedra + 24 pyramids partitioning the cuboctahedron | Exact coordinate/incidence and oriented-boundary/volume certificate |
 | Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
 | 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
 | 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
 | Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
 | Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
 | Pairwise circumsphere overlap as Vesica lens | Exact definition; actual 64-TG instances await coordinates |
+| Pairwise circumsphere overlap as Vesica lens | Exact definition; 360 instances enumerated in the reconstructed FCC/D3 model |
 | Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
 | 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
 | 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
 | Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
-| Jitterbug phase/oscillation law | Open until a path and phase field are specified |
+| Jitterbug phase/oscillation law | Open until a phase field/transport law is specified |
+| One-panel coil coupling | Explicit conditional model; panel pose reconstructed from three vertices, Faraday emf and RL response implemented |
 | Cosmological/bimetric interpretation | Not established by this geometric audit |
 
 ## References and internal links
