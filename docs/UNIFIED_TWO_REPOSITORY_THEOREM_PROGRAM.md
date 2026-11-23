@@ -1,6 +1,6 @@
 # Unified theorem programme — cross-repository master index
 
-**Purpose.** This is the common scientific index for the two-repository programme. The repository containing this index is `fabianleonaressi95/theorem`. The second repository has been identified by the user as `qls-rgs-quaternion-bridge`; its contents could not be retrieved through the connected GitHub access during this pass (repository lookup returned not found). Therefore this document inventories the accessible repository and establishes the integration schema; it does **not** claim that the second repository has been inventoried or modified.
+**Purpose.** This is the common scientific index for the two-repository programme. The repository containing this index is `fabianleonaressi95/theorem`. The companion repository available in the connected GitHub installation is `fabianleonaressi95/rgs-qlg-quaternion-bridge` (README title: RGS–QLG Quaternion Bridge). It has been inspected and is linked through the directed cross-repository graph.
 
 **No repository is being merged or renamed.** Original theorem IDs, file paths, proofs, numerical audits, data provenance, and historical PR records must remain stable. The unification is a crosswalk and dependency graph, not a blind file copy.
 
@@ -354,12 +354,11 @@ These are programme-wide gates, not claims that the results already pass:
 
 ## 6. Immediate integration tasks
 
-1. Inventory every theorem, lemma, proposition, law and computational certificate in `qls-rgs-quaternion-bridge`, retaining its original IDs.
-2. Generate the combined registry (CSV/JSON plus this readable index) with one row per mathematical claim, not merely one row per file.
-3. Add bidirectional dependency links between the two repositories using exact source paths and commit hashes.
-4. Deduplicate only by mathematical equivalence; keep distinct formulations and proofs linked as variants.
-5. Create separate Pellis and Morandotti export dossiers from the same registry.
-6. Add a lightweight consistency audit that detects broken paths, duplicate canonical keys, missing status labels and unresolved dependency IDs. Do not introduce a large CI workflow.
+1. Replace the provisional filename-based classification edges with theorem-body-verified dependency edges.
+2. Add a claim-level registry with exact source paths, commit hashes, assumptions and proof status.
+3. Deduplicate only by mathematical equivalence; retain distinct formulations and proofs as linked variants.
+4. Generate Pellis and Morandotti dossiers from the same graph.
+5. Add a lightweight consistency audit for broken paths, duplicate canonical keys, missing status labels and unresolved dependency IDs.
 
 ## 7. Integrity note for this revision
 
