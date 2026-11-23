@@ -173,7 +173,7 @@ Integrating term by term (a finite sum),
 \frac{\|\Pi_\lambda b\|^2}{\lambda}.
 }
 ]
-This is the exact Green–Kubo functional for the declared OU process. The factor is (1/(\gamma\lambda)), not (1/(2\gamma\lambda)), because the relaxation eigenvalue here is denoted (\lambda) directly; in the vertex (Q_n) calculation the eigenvalues were (2k), giving (1/(2\gamma k)).
+This is the exact Green–Kubo functional for the declared OU process. With the drift written as (-\\gamma A), each mode decays as (e^{-\\gamma\\lambda t}), so its time integral is (1/(\\gamma\\lambda)), not (1/(2\\gamma\\lambda)). The factor 1/2 appears in the vertex formula only after writing the vertex Laplacian eigenvalue as (2k), so that (1/(\\gamma\\cdot2k))=(1/(2\\gamma k)). Do not insert an additional 1/2 while retaining the face eigenvalues (4,6,8,10,12) and the same drift convention.
 
 ### 6.1 Isotropic unit-vector average
 
@@ -192,11 +192,15 @@ Therefore
 ]
 Using the exact multiplicities above,
 \[
+\begin{aligned}
 \sum_{\lambda}\frac{m_\lambda}{\lambda}
-=\frac{15}{4}+\frac{40}{6}+\frac{45}{8}
-+\frac{24}{10}+\frac{5}{12}
-=\frac{2263}{120}.
+&=\frac{15}{4}+\frac{40}{6}+\frac{45}{8}
+  +\frac{24}{10}+\frac{5}{12}\\
+&=\frac{450+800+675+288+50}{120}
+=\boxed{\frac{2263}{120}}.
+\end{aligned}
 \]
+In particular, the numerator is 2263, not 859; the five contributions over denominator 120 are 450, 800, 675, 288, and 50.
 Therefore the exact isotropic Green--Kubo mean is
 \[
 \boxed{
