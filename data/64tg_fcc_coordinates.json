@@ -20453,6 +20453,9 @@
     "pairwise_circumsphere_lenses": 360,
     "common_triple_ball_intersections": 648,
     "cell_moment_records": 102,
+    "oriented_internal_triangles_cancelled": 200,
+    "outward_boundary_triangles": 32,
+    "outward_boundary_squares": 24,
     "cell_face_incidences": {
       "1": 56,
       "2": 200
