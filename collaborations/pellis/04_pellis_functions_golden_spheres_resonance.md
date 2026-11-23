@@ -580,7 +580,7 @@ With \(B\) the binary point-circle incidence matrix, the exact Gram operator \(G
 &\cdot(\lambda^4-38\lambda^3+375\lambda^2-1350\lambda+1584).
 \end{aligned}
 \]
-The 31 intersection points split into \(D_6\)-orbits of sizes \(1,6,6,6,12\).
+The 31 intersection points split into \(D_6\)-orbits of sizes \(1,6,6,6,12\). The singleton orbit has incidence multiplicity 6, the 12-element orbit has multiplicity 2, and the three six-element orbits have multiplicities 6, 4, and 3.
 
 This is not the same operator as the \(C_6\) angular Laplacian in C.14: the latter is a six-direction graph Laplacian, while \(B^\mathsf TB\) acts on the 19 circle labels and records shared intersection points. Their spectra must not be conflated. The 19-circle construction gives a global incidence model; an angular-ray graph still requires an explicit origin and ray-selection convention.
 
