@@ -19,8 +19,8 @@ EPSILON = 1.0 / (2.0 * PHI**3)
 
 def bernoulli_numbers(n: int) -> list[Fraction]:
     """Bernoulli numbers B_0,...,B_n with B_1=-1/2."""
-    values: list[Fraction] = []
-    for m in range(n + 1):
+    values: list[Fraction] = [Fraction(1)]
+    for m in range(1, n + 1):
         total = Fraction(0)
         for k in range(m):
             total += math.comb(m + 1, k) * values[k]
