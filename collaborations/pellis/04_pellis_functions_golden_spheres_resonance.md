@@ -1,5 +1,7 @@
 # Document C — Pellis Functions and Golden Spheres Resonance: an independent mathematical audit
 
+**Status: DRAFT — working document, not merged into `main`.**
+
 **Prepared for discussion with Stergios Pellis**
 
 **Primary source:** Stergios Pellis, *Fine-Structure Constant via the Golden Spheres Resonance*, dated 11 September 2025, DOI [10.13140/RG.2.2.35410.00968](https://doi.org/10.13140/RG.2.2.35410.00968); SSRN record [5473588](https://ssrn.com/abstract=5473588). The public record identifies this as a preprint. This note treats it as a research proposal, not an established derivation.
