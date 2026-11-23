@@ -453,7 +453,7 @@ Until those checks and definitions exist, C.12.2 is an exact geometric result, C
 
 ### C.13.1 The rectangle construction on p. 2091
 
-Let the initial rectangle have short side $B_0=1$ and long side (A_0=\phi), where \(\phi=(1+\sqrt5)/2\). Its aspect ratio is (A_0/B_0=\phi).
+Let the initial rectangle have short side $B_0=1$ and long side $A_0=\phi$, where \(\phi=(1+\sqrt5)/2\). Its aspect ratio is $A_0/B_0=\phi$.
 
 If the next rectangle is attached so that the previous long side becomes the new short side, then
 \[
@@ -467,7 +467,7 @@ for this indexing convention. Every rectangle is similar to the first, and each 
 
 The phrase “80° perpendicolare” is internally inconsistent: perpendicular directions differ by 90°. Unless the source defines a non-Euclidean or otherwise specialized angle convention, 80° must be treated as a likely typographical error, not silently used as a right angle.
 
-**Important distinction:** iterating similar rectangles by attaching a new rectangle along the previous long side does not, by itself, define a spiral curve. A spiral requires an explicit curve, such as specified circular arcs, or a continuous law such as (r(\theta)=r_0e^{b\theta}). The familiar golden-rectangle construction instead removes a square from a golden rectangle, leaving a smaller golden rectangle with side ratio \(\phi\); repeated square removal gives a sequence of squares whose quarter-circle arcs form the conventional golden-spiral approximation. That construction is not identical to an unspecified chain of whole golden rectangles rotated by 90°.
+**Important distinction:** iterating similar rectangles by attaching a new rectangle along the previous long side does not, by itself, define a spiral curve. A spiral requires an explicit curve, such as specified circular arcs, or a continuous law such as $r(\theta)=r_0e^{b\theta}$. The familiar golden-rectangle construction instead removes a square from a golden rectangle, leaving a smaller golden rectangle with side ratio \(\phi\); repeated square removal gives a sequence of squares whose quarter-circle arcs form the conventional golden-spiral approximation. That construction is not identical to an unspecified chain of whole golden rectangles rotated by 90°.
 
 Thus the exact conclusion from the stated side rule is **a self-similar sequence of golden rectangles with scale ratio \(\phi\)**. A “golden spiral” conclusion requires the additional arc/curve prescription.
 
