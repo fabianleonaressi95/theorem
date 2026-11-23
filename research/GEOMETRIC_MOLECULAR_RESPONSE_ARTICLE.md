@@ -415,4 +415,7 @@ The research sequence is:
 4. Green, M. S. (1954), “Markoff Random Processes and the Statistical Mechanics of Time-Dependent Phenomena. II. Irreversible Processes in Fluids,” *Journal of Chemical Physics* **22**, 398–413. DOI: [10.1063/1.1740082](https://doi.org/10.1063/1.1740082).
 5. Kubo, R. (1957), “Statistical-Mechanical Theory of Irreversible Processes. I. General Theory and Simple Applications to Magnetic and Conduction Problems,” *Journal of the Physical Society of Japan* **12**, 570–586. DOI: [10.1143/JPSJ.12.570].
 
+
+6. For the two-centre H₂⁺ problem, confocal prolate spheroidal coordinates and their use in separating the one-electron Schrödinger equation and evaluating orbital-overlap integrals are standard; see the molecular-orbital treatment in *Quantum Mechanics*, Chapter 39, “The Molecular Orbital Method, the Hydrogen Molecular Ion, and Overlap Integrals” (online text), https://mochizuki-tus.github.io/QM_Textbook_EN/ch39_molecular_orbital_h2plus.html. This supports the coordinate framework, not the proposed density-anisotropy law.
+
 **Publication note.** This manuscript is an integrated research record, not yet a journal-ready claim of a new physical law. Before external submission, attach the original 23 October 2026 PDF for the Naressi–Harrabi expression, archive the H₂⁺ numerical code/data, resolve the full H₂ reference list, and replace all “working-session result” labels only when the corresponding reproducibility package is committed.
