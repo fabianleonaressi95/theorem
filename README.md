@@ -44,6 +44,7 @@ theorem/
 ### Main indexes
 
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 236 theorem Markdown records in this repository; the second repository's exact GitHub endpoint remains to be resolved before its records can be imported into the combined registry.
+- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — 24 explicit typed arrows across both repositories, with machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 
 
 - **[Ricostruzione dalle fondamenta](monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md)** — luce e unità di Planck, cubo-sfera, derivazione π→φ, icosaedro/quaternioni/2I, PSU–Anti-Twin, Q-ball, QAT e interfaccia Calabi–Yau. È il punto di partenza della ricostruzione; Q6 e PRISM vengono dopo.
