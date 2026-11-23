@@ -158,16 +158,30 @@ which is close to, but not equal to, \(\varphi\simeq1.6180\). The radius in the 
 
 The paper explicitly describes radial projection of each tetrahedron onto its circumsphere and overlapping spherical analogues. This is the natural, source-faithful entry point for Vesica geometry.
 
-Let tetrahedron i have vertices \(p_{i,0},\ldots,p_{i,3}\in\mathbb R^3\), circumcentre \(q_i\), and circumradius \(\rho_i\). Define
+The reconstructed coordinates now provide these data for all 64 tetrahedra. For tetrahedron \(i\), with vertices \(p_{i,0},\ldots,p_{i,3}\), its circumcentre is its vertex average
+\[
+q_i=\frac14\sum_{r=0}^3p_{i,r},
+\]
+and its circumradius is
+\[
+\rho_i=\frac{\sqrt6}{8}a.
+\]
+The machine-readable file stores \(q_i\) exactly as a numerator over 4 in the integer \(n\)-coordinates. In units \(h=a/(2\sqrt2)\), the radius is \(\rho_i/h=\sqrt3/2\).
+
+Define the circumsphere and circumball
 \[
 S_i=\{x:\|x-q_i\|=\rho_i\},\qquad
 B_i=\{x:\|x-q_i\|\leq\rho_i\}.
 \]
-For two equal radii \(\rho\), with centre distance \(d<2\rho\), the intersection \(B_i\cap B_j\) is a three-dimensional lens. Its planar section by the plane through the two centres and perpendicular to their joining line is a two-circle Vesica Piscis. In the special case d=ρ, the section has the standard equal-circle Vesica geometry recorded in T137.
+The exact centre-distance audit gives **360 overlapping pairs**. Their squared centre distances in \(h\)-units are either 1 or 2, both strictly less than \((2\rho_i/h)^2=3\). Each pair therefore defines a nonempty three-dimensional lens \(B_i\cap B_j\). A plane containing the line through \(q_i,q_j\) cuts the two balls in equal disks; their intersection in that plane is the corresponding two-circle Vesica Piscis. (The perpendicular-bisector plane instead cuts the common lens in its central circular section; it is not the Vesica section.)
 
-For three balls, distinguish the union, the common intersection, the three pairwise lenses, and planar sections of each. Only a specified common intersection (or its specified planar section) is a natural three-body candidate for a triveca. The source does not specify a unique triple of sphere centres/radii or a canonical triveca section. No triveca area/volume formula is asserted until those data are fixed.
+There are also **648 triples** of circumballs with nonempty common intersection. The exact centre triangles have only two types:
+- 432 right-isosceles cases with squared side lengths \((1,1,2)\) in \(h\)-units and minimum enclosing-circle radius squared \(1/2\);
+- 216 equilateral cases with squared side lengths \((2,2,2)\) and minimum enclosing-circle radius squared \(2/3\).
 
-For the actual 64-TG, the required data are the 64 tetrahedron vertex quadruples, or equivalently a certified list of \((q_i,\rho_i)\), together with the chosen pair/triple incidence. Without them, the number and shape of distinct Vesica lenses cannot be inferred from the drawings.
+Both radii are strictly below the circumball radius squared \(3/4\) in \(h\)-units. Thus every listed triple has a common point and defines a genuine three-ball overlap, a precise three-dimensional triveca candidate. This fixes the combinatorial meaning of biveca/triveca for the reconstructed 64-TG. It does not yet compute their lens volumes, centroids or covariance tensors; those are the next geometric integrals.
+
+The full circumsphere centres, pair list and triple list are included in [the coordinate JSON](../data/64tg_fcc_coordinates.json), and regenerated/audited by the script and tests linked above.
 
 ## 7. Barycentres, covariance and gradient law
 
