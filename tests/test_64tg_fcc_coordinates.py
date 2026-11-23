@@ -25,6 +25,9 @@ class Test64TGCoordinateReconstruction(unittest.TestCase):
     def test_all_octahedral_faces_are_tetrahedron_faces(self):
         result = audit(self.model)
         self.assertEqual(result["cell_face_incidences"], {1: 56, 2: 200})
+        self.assertEqual(result["oriented_internal_triangles_cancelled"], 200)
+        self.assertEqual(result["outward_boundary_triangles"], 32)
+        self.assertEqual(result["outward_boundary_squares"], 24)
 
     def test_circumsphere_pair_and_triple_overlaps(self):
         result = audit(self.model)
