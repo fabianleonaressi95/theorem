@@ -321,24 +321,42 @@ For any specified coil surface \(S(t)\), with \(N\) turns and imposed magnetic f
 \]
 This is the starting point. The coil mounting, its shape, the field and the mechanical map from the Jitterbug coordinates to the coil must be specified before the emf is determined.
 
-### Model A: a coil rigidly attached to a rotating triangular panel
+### Model A: explicit coil attachment to one actual rigid Jitterbug panel
 
-Let the panel rotate about its own fixed radial axis \(\hat{\mathbf v}\), with rotation matrix \(R_{\hat{\mathbf v}}(\gamma(t))\). If the coil normal at the reference configuration is \(\mathbf n_0\), then
+We now fix the mechanical map instead of identifying \(\gamma\) with a coil angle by assumption.
+
+1. Choose the rigid triangular face labelled \(\varepsilon=(+1,+1,+1)\) in the standard Jitterbug. Its three labelled vertices in the reference configuration are \(p_0^0,p_1^0,p_2^0\), and their positions along the computed Jitterbug path are \(p_0(t),p_1(t),p_2(t)\).
+2. Attach a circular \(N\)-turn coil rigidly and concentrically to that panel: its centre is the panel centroid, its plane is the panel plane, and its normal is the oriented unit panel normal \(n_0\) transported by the panel rotation. The circle is wholly inside the triangular panel when
+   \[
+   0<r<r_{\rm in}=\frac{a_J}{2\sqrt3},
+   \]
+   where \(a_J\) is the Jitterbug strut length.
+3. Recover the panel's proper rotation \(R(t)\) from the three labelled vertex correspondences by the proper Kabsch fit. This determines the mechanical map without assuming a fixed rotation axis:
+   \[
+   p_j(t)-c(t)=R(t)(p_j^0-c^0),\qquad j=0,1,2.
+   \]
+   The coil normal is \(n(t)=R(t)n_0\). The panel-fit residual is also computed; it must be at numerical roundoff for a rigid panel.
+4. Declare a uniform static field \(B\), coil area \(A=\pi r^2\), and a time law. The continuation parameter is pseudo-arclength \(s\); the reproducible example sets \(t=s/v_s\) with a declared constant traversal speed \(v_s\). This is an external clock choice, not a frequency predicted by Gray.
+
+For this explicit attachment,
 \[
-\mathbf n(t)=R_{\hat{\mathbf v}}(\gamma(t))\mathbf n_0,
+\lambda(t)=NA\,\mathbf B\cdot R(t)n_0,
 \qquad
-\lambda(t)=NBA\,\hat{\mathbf B}\cdot\mathbf n(t)
+\mathcal E(t)=-NA\,\mathbf B\cdot\bigl(\boldsymbol\omega(t)\times n(t)\bigr),
 \]
-for a uniform, static field and a rigid planar coil of constant area \(A\). Differentiating gives
-\[
-\mathcal E(t)=-NBA\,\hat{\mathbf B}\cdot
-\bigl(\hat{\mathbf v}\times\mathbf n(t)\bigr)\,\dot\gamma(t).
-\]
-The often-used expression
-\[
-\mathcal E=NBA\sin\gamma\,\dot\gamma
-\]
-is only a special orientation/convention (up to the chosen emf sign): it requires the coil-normal/field geometry to give \(\hat{\mathbf B}\cdot\mathbf n(t)=\cos\gamma(t)\). It is not a universal consequence of the Jitterbug.
+where \(\boldsymbol\omega\) is the spatial angular velocity obtained from
+\(\dot R R^T\). The implementation evaluates the SO(3) logarithm between consecutive panel poses and uses the midpoint angular velocity and normal, so the discrete emf is the Faraday derivative of the flux linkage to the order of the time discretization. The circuit current is obtained by the exact interval update for a piecewise-constant midpoint emf in the series RL equation.
+
+The reproducible implementation is `audits/jitterbug_coil_coupling.py`; run it from the repository root with:
+
+```bash
+python3 audits/jitterbug_coil_coupling.py --output jitterbug_coil_report.json
+python3 -m unittest tests.test_jitterbug_coil_coupling -v
+```
+
+Default illustrative parameters are \(a_J=0.1\,\mathrm m\), \(v_s=0.01\,\mathrm{m/s}\), \(N=100\), \(r=0.8r_{\rm in}\), \(\mathbf B=(0,0,0.1)\,\mathrm T\), \(R_c=10\,\Omega\), and \(\mathscr L_c=0.01\,\mathrm H\). These are declared example inputs, not measured apparatus parameters. The script records the full time series of flux linkage, emf and current, plus the maximum rigid-panel fit residual. The tests cover rigid-pose recovery, zero emf for a static panel, agreement with the analytic rotating-panel Faraday derivative, and the geometric coil-fit constraint.
+
+The simpler formula \(\mathcal E=NBA\sin\gamma\,\dot\gamma\) remains only a special orientation/convention. It is not used as a substitute for the actual panel-pose reconstruction above.
 
 ### Model B: a coil whose radius is mechanically driven by the radial coordinate
 
@@ -388,7 +406,7 @@ Both models are conditional examples, not predictions of Gray's paper or of the 
 | 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
 | 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
 | Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
-| Jitterbug phase/oscillation law | Open until a path and phase field are specified |
+| Jitterbug phase/oscillation law | Open until a phase field/transport law is specified |\n| One-panel coil coupling | Explicit conditional model; panel pose reconstructed from three vertices, Faraday emf and RL response implemented |
 | Cosmological/bimetric interpretation | Not established by this geometric audit |
 
 ## References and internal links
