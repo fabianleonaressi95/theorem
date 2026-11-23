@@ -53,6 +53,28 @@ H=\frac{a}{2\sqrt2}=\frac{\sqrt2a}{4},
 \]
 and their volume is \(\sqrt2a^3/48\).
 
+### Exact barycentres and covariance tensors
+
+The coordinate construction also closes the static Morandotti moment layer. For uniform volume measure on each cell, the barycentres and covariance tensors are:
+
+- Regular tetrahedron \(T\), vertices \(p_0,\ldots,p_3\):
+  \[
+  c_T=\frac14\sum_{r=0}^3p_r,\qquad
+  \Sigma_T=\frac{a^2}{160}I_3.
+  \]
+- Edge-\(a/2\) octahedron with centre \(c_O\):
+  \[
+  c_O=c_O,\qquad \Sigma_O=\frac{a^2}{80}I_3.
+  \]
+- Square pyramid with base centroid \(b\), apex \(p\), and face-normal coordinate axis \(j\):
+  \[
+  c_P=\frac{3b+p}{4},\qquad
+  \Sigma_P=\frac{a^2}{80}(I_3-e_je_j^T)
+  +\frac{3a^2}{640}e_je_j^T.
+  \]
+
+These are exact uniform-volume moments, not point-mass approximations. The tetrahedral centroid coincides with its circumsphere centre. The JSON stores all 102 cell centroids as exact rational lattice coordinates and the covariance diagonal entries as exact rational multiples of \(a^2\). This gives the geometric input for Morandotti's gradient reconstruction without fitting centroids from images.
+
 ### Incidence and partition certificate
 
 Use the 56 tetrahedra inside the cuboctahedron, the 14 octahedra and the 24 square pyramids as the cells of its decomposition. The exact face-incidence audit gives:
@@ -246,7 +268,7 @@ The static coordinate and incidence data are now explicit. The remaining inputs 
 2. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
 3. a phase field or transport law on the moving geometry.
 
-The coordinates now permit exact computation of tetrahedral, octahedral and pyramidal centroids, covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
+The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
 
 ## 11. Status summary
 
