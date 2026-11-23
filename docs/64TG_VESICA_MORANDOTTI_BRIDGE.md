@@ -7,11 +7,95 @@
 
 The paper proposes a geometric decomposition of a 64-tetrahedron arrangement, including a cuboctahedral reference body, 14 octahedral cavities and 24 square-pyramidal cavities. It also proposes a Jitterbug-type deformation and discusses overlapping circumspheres. These are useful geometric inputs for a moment/phase analysis.
 
-The paper does **not** provide a coordinate list, an oriented incidence complex, a complete tetrahedralization, or a parametrized deformation map. Consequently, the source alone does not determine unique centroids, covariance tensors, interface normals, phase gradients, or a time period. Its bimetric field equations and cosmological interpretations are not derived from the finite geometry.
+The paper does **not** provide a coordinate list or a complete incidence complex. However, its exact combinatorial counts admit a remarkably economical reconstruction: a finite face-centred-cubic lattice patch (the D3 root lattice) with 63 vertices, 240 nearest-neighbour edges and exactly 64 regular tetrahedra. The same coordinates recover the cuboctahedron, its enclosing cube, all 14 edge-a/2 octahedra and all 24 square-pyramidal cavities. This is an explicit coordinate model, not a claim that Galeffi printed or uniquely specified these coordinates. Its exact agreement with the independent counts and nested-solid descriptions is strong structural evidence for the reconstruction.
 
-The bridge below is divided into exact scalar checks, conditional geometric constructions, and open physical interpretations.
+The paper still supplies no parametrized Jitterbug deformation map. Thus dynamic frequencies and phase evolution remain open. Its bimetric field equations and cosmological interpretations are not derived from the finite geometry.
 
-## 2. Exact volume audit
+The bridge below separates exact coordinate reconstruction, exact scalar checks, and open physical interpretations.
+
+## 2. Explicit coordinates: the 64-TG as a finite FCC/D3 patch
+
+Set
+\[
+h=\frac{a}{2\sqrt2},\qquad x(n)=h(n_1,n_2,n_3),
+\]
+with
+\[
+n\in\mathbb Z^3,\qquad -2\le n_i\le2,\qquad n_1+n_2+n_3\equiv0\pmod2.
+\]
+This gives the complete coordinate set: all 63 integer triples in the 5-by-5-by-5 box with even coordinate sum. The six vectors
+\[
+(\pm1,\pm1,0),\quad(\pm1,0,\pm1),\quad(0,\pm1,\pm1)
+\]
+are the nearest-neighbour differences. Their physical length is \(\sqrt2h=a/2\).
+
+Join two vertices exactly when their integer-coordinate difference has squared norm 2. The resulting graph has **63 vertices and 240 edges**. Its four-cliques are exactly **64 regular tetrahedra**, each with edge \(a/2\). This reconstructs all three headline counts in the source from one coordinate rule, with no fitted parameters.
+
+The 12 points whose absolute coordinate pattern is a permutation of \((2,2,0)\) form the embedded cuboctahedron of edge \(a\). The 8 points \((\pm2,\pm2,\pm2)\) are the vertices of the enclosing cube of edge \(\sqrt2a\). Of the 64 tetrahedra, exactly 56 lie in the cuboctahedron and 8 lie outside it, one at each cube corner.
+
+### The 14 octahedral cavities
+
+For every
+\[
+c\in\{-1,0,1\}^3,\qquad c_1+c_2+c_3\equiv1\pmod2,
+\]
+take the six vertices
+\[
+c\pm e_1,\quad c\pm e_2,\quad c\pm e_3.
+\]
+There are exactly 14 such centres: six axial centres \((\pm1,0,0)\) and permutations, and eight corner centres \((\pm1,\pm1,\pm1)\). Each six-vertex set is a regular octahedron of edge \(a/2\). The six axial octahedra have opposite vertices at the origin and at the six square-face centres of the cuboctahedron; the eight corner octahedra give the outer group described in the source. Each of the 112 triangular octahedron faces is also a face of one of the 64 tetrahedra.
+
+### The 24 square pyramids
+
+The cuboctahedron has six square faces, given in integer coordinates by \(n_i=\pm2\). On each such face, the lattice points determine exactly four square bases of side \(a/2\). Each base has one inward lattice apex at distance \(a/2\) from all four base vertices. This produces exactly \(6\cdot4=24\) regular square pyramids. Their height is
+\[
+H=\frac{a}{2\sqrt2}=\frac{\sqrt2a}{4},
+\]
+and their volume is \(\sqrt2a^3/48\).
+
+### Exact barycentres and covariance tensors
+
+The coordinate construction also closes the static Morandotti moment layer. For uniform volume measure on each cell, the barycentres and covariance tensors are:
+
+- Regular tetrahedron \(T\), vertices \(p_0,\ldots,p_3\):
+  \[
+  c_T=\frac14\sum_{r=0}^3p_r,\qquad
+  \Sigma_T=\frac{a^2}{160}I_3.
+  \]
+- Edge-\(a/2\) octahedron with centre \(c_O\):
+  \[
+  c_O=c,\qquad \Sigma_O=\frac{a^2}{80}I_3.
+  \]
+- Square pyramid with base centroid \(b\), apex \(p\), and face-normal coordinate axis \(j\):
+  \[
+  c_P=\frac{3b+p}{4},\qquad
+  \Sigma_P=\frac{a^2}{80}(I_3-e_je_j^T)
+  +\frac{3a^2}{640}e_je_j^T.
+  \]
+
+These are exact uniform-volume moments, not point-mass approximations. The tetrahedral centroid coincides with its circumsphere centre. The JSON stores all 102 cell centroids as exact rational lattice coordinates and the covariance diagonal entries as exact rational multiples of \(a^2\). This gives the geometric input for Morandotti's gradient reconstruction without fitting centroids from images.
+
+### Incidence and partition certificate
+
+Use the 56 tetrahedra inside the cuboctahedron, the 14 octahedra and the 24 square pyramids as the cells of its decomposition. The exact face-incidence audit gives:
+- 200 distinct internal triangular faces, each incident to exactly two cells;
+- 56 boundary facets, each incident to exactly one cell: 32 small triangles and 24 small squares;
+- no face with incidence greater than two.
+
+The signed orientation audit verifies that the two induced orientations on each of the 200 internal triangular faces are opposite and cancel. The 32 boundary triangles point outward and subdivide the cuboctahedron's eight triangular faces into four each. The 24 square-pyramid bases lie on the six square cuboctahedron faces, four per face, with each pyramid apex strictly inward. Thus the oriented sum of the 56 tetrahedra, 14 octahedra and 24 pyramids has precisely the cuboctahedron boundary.
+
+The cell volumes also sum exactly to the cuboctahedron volume:
+\[
+56\frac{\sqrt2a^3}{96}
++14\frac{\sqrt2a^3}{24}
++24\frac{\sqrt2a^3}{48}
+=\frac{5\sqrt2}{3}a^3.
+\]
+Because the cells are positively oriented convex polyhedra contained in the cuboctahedron and their internal oriented faces cancel to its boundary, this is a conforming polyhedral-chain partition, not merely a numerical volume coincidence. The signed incidence checks are implemented in the audit script and unit tests.
+
+The full machine-readable coordinate set, all 102 cell moments, all 64 circumspheres, 360 lens pairs and 648 triple intersections are in [data/64tg_fcc_coordinates.json](../data/64tg_fcc_coordinates.json). Regenerate and audit it with [scripts/audit_64tg_fcc_coordinates.py](../scripts/audit_64tg_fcc_coordinates.py); its checks are in [tests/test_64tg_fcc_coordinates.py](../tests/test_64tg_fcc_coordinates.py).
+
+## 3. Exact volume audit
 
 Use the paper's reference edge a for the embedded cuboctahedron. For a regular tetrahedron of edge a/2,
 \[
@@ -51,7 +135,7 @@ which equals \(V_{CO(a)}-56V_T\). Also,
 \]
 These are exact consequences of the stated counts and standard regular-solid formulae. They do not independently prove that the pictured cavities form a non-overlapping partition; that requires an incidence/coordinate certificate.
 
-## 3. Surface-area claim: correction required
+## 4. Surface-area claim: correction required
 
 For a regular tetrahedron with edge a/2, one face has area
 \[
@@ -80,7 +164,7 @@ A second logical gap is independent of that arithmetic issue: 144 planar faces d
 \]
 is valid only conditional on an equal-area spherical partition. Equal-area projection, coverage, non-overlap and the face-to-sphere map are not established by the face count alone.
 
-## 4. Golden-ratio comparison: approximate versus imposed equality
+## 5. Golden-ratio comparison: approximate versus imposed equality
 
 For a regular octahedron of edge a, the inradius is \(r_i=a/\sqrt6\), so its insphere volume is
 \[
@@ -94,22 +178,36 @@ Dividing by the stated stellated-octahedron volume \(\sqrt2a^3/8\) gives
 \]
 which is close to, but not equal to, \(\varphi\simeq1.6180\). The radius in the paper's subsequent equation is adjusted to force the ratio to equal \(\varphi\); it is not the standard octahedral inradius. These statements must remain separate.
 
-## 5. Where the Vesica enters the source geometry
+## 6. Where the Vesica enters the source geometry
 
 The paper explicitly describes radial projection of each tetrahedron onto its circumsphere and overlapping spherical analogues. This is the natural, source-faithful entry point for Vesica geometry.
 
-Let tetrahedron i have vertices \(p_{i,0},\ldots,p_{i,3}\in\mathbb R^3\), circumcentre \(q_i\), and circumradius \(\rho_i\). Define
+The reconstructed coordinates now provide these data for all 64 tetrahedra. For tetrahedron \(i\), with vertices \(p_{i,0},\ldots,p_{i,3}\), its circumcentre is its vertex average
+\[
+q_i=\frac14\sum_{r=0}^3p_{i,r},
+\]
+and its circumradius is
+\[
+\rho_i=\frac{\sqrt6}{8}a.
+\]
+The machine-readable file stores \(q_i\) exactly as a numerator over 4 in the integer \(n\)-coordinates. In units \(h=a/(2\sqrt2)\), the radius is \(\rho_i/h=\sqrt3/2\).
+
+Define the circumsphere and circumball
 \[
 S_i=\{x:\|x-q_i\|=\rho_i\},\qquad
 B_i=\{x:\|x-q_i\|\leq\rho_i\}.
 \]
-For two equal radii \(\rho\), with centre distance \(d<2\rho\), the intersection \(B_i\cap B_j\) is a three-dimensional lens. Its planar section by the plane through the two centres and perpendicular to their joining line is a two-circle Vesica Piscis. In the special case d=ρ, the section has the standard equal-circle Vesica geometry recorded in T137.
+The exact centre-distance audit gives **360 overlapping pairs**. Their squared centre distances in \(h\)-units are either 1 or 2, both strictly less than \((2\rho_i/h)^2=3\). Each pair therefore defines a nonempty three-dimensional lens \(B_i\cap B_j\). A plane containing the line through \(q_i,q_j\) cuts the two balls in equal disks; their intersection in that plane is the corresponding two-circle Vesica Piscis. (The perpendicular-bisector plane instead cuts the common lens in its central circular section; it is not the Vesica section.)
 
-For three balls, distinguish the union, the common intersection, the three pairwise lenses, and planar sections of each. Only a specified common intersection (or its specified planar section) is a natural three-body candidate for a triveca. The source does not specify a unique triple of sphere centres/radii or a canonical triveca section. No triveca area/volume formula is asserted until those data are fixed.
+There are also **648 triples** of circumballs with nonempty common intersection. The exact centre triangles have only two types:
+- 432 right-isosceles cases with squared side lengths \((1,1,2)\) in \(h\)-units and minimum enclosing-circle radius squared \(1/2\);
+- 216 equilateral cases with squared side lengths \((2,2,2)\) and minimum enclosing-circle radius squared \(2/3\).
 
-For the actual 64-TG, the required data are the 64 tetrahedron vertex quadruples, or equivalently a certified list of \((q_i,\rho_i)\), together with the chosen pair/triple incidence. Without them, the number and shape of distinct Vesica lenses cannot be inferred from the drawings.
+Both radii are strictly below the circumball radius squared \(3/4\) in \(h\)-units. Thus every listed triple has a common point and defines a genuine three-ball overlap, a precise three-dimensional triveca candidate. This fixes the combinatorial meaning of biveca/triveca for the reconstructed 64-TG. It does not yet compute their lens volumes, centroids or covariance tensors; those are the next geometric integrals.
 
-## 6. Barycentres, covariance and gradient law
+The full circumsphere centres, pair list and triple list are included in [the coordinate JSON](../data/64tg_fcc_coordinates.json), and regenerated/audited by the script and tests linked above.
+
+## 7. Barycentres, covariance and gradient law
 
 For any measurable region \(F\subset\mathbb R^3\) of positive volume, define
 \[
@@ -145,7 +243,7 @@ For cavity regions \(O_1,\ldots,O_{14}\), the covariance of the normalized sum m
 \]
 The first term measures each cavity's internal spread; the second measures the spatial arrangement of the cavity centres. This is an exact bridge from the 14-octahedron backbone to barycentric moments for the declared sum measure, not a claim about the union or physical mass.
 
-## 7. Phase, gradients and oscillations: a conditional dynamic bridge
+## 8. Phase, gradients and oscillations: a conditional dynamic bridge
 
 Once a Jitterbug path is supplied as an actual differentiable family of configurations \(q(t)\), each vertex and sphere centre becomes time-dependent. A phase field \(\theta(x,t)\) can then be defined on the chosen geometric carrier, with spatial gradient \(k=\nabla_x\theta\). For a fixed region F,
 \[
@@ -161,32 +259,32 @@ for an affine local phase and small phase variation; the cubic remainder is cont
 \]
 This is a precise route from geometry to phase response and oscillation if the motion and phase are specified. The paper itself says that the Jitterbug details and period remain unknown; it therefore supplies no derived frequency, angular momentum or cosmological oscillation law.
 
-## 8. Bernoulli layer: keep it downstream
+## 9. Bernoulli layer: keep it downstream
 
 Bernoulli numbers/polynomials may enter after a discrete sampling rule has been defined—for example, when sums over a one-parameter family of layers or time steps are compared with an integral by Euler–Maclaurin. The paper's tentative Fibonacci labels do not by themselves define such a sampling rule. No Bernoulli coefficient, period or dynamical recurrence is inferred from the PDF.
 
-## 9. Minimal data needed to close the bridge
+## 10. Dynamic data still needed
 
-A rigorous computational follow-up needs:
-1. coordinates for the 64 tetrahedra (four vertices per tetrahedron), with a declared common scale and orientation;
-2. tetrahedron-to-tetrahedron face/edge incidence and identification of the 14 octahedra and 24 pyramids;
-3. a certificate of non-overlap/coverage for the claimed volume decomposition;
-4. circumsphere centres/radii and selected pairwise/triple intersections;
-5. a differentiable Jitterbug coordinate path if phase evolution or frequency is to be studied.
+The static coordinate and incidence data are now explicit. The remaining inputs for a dynamic/phase audit are:
+1. a differentiable Jitterbug coordinate path (the PDF does not specify one);
+2. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
+3. a phase field or transport law on the moving geometry.
 
-From these data one can compute exact or certified volumes, centroids, covariance tensors, interface normals, Vesica/triveca sections, and discrete gradients. The result can then be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. Until then, the bridge is a **conditional mathematical programme**, not a proved identification of 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
+The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
 
-## 10. Status summary
+## 11. Status summary
 
 | Claim | Status |
 |---|---|
-| Regular-solid volume identities in §2 | Exact arithmetic, conditional on stated counts and standard solids |
+| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
+| 56 tetrahedra + 14 octahedra + 24 pyramids inside cuboctahedron | Exact coordinate/incidence and volume certificate |
+| Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
 | 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
 | 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
 | Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
 | Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
-| Pairwise circumsphere overlap as Vesica lens | Exact definition; actual 64-TG instances await coordinates |
-| Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
+| 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
+| 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
 | Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
 | Jitterbug phase/oscillation law | Open until a path and phase field are specified |
 | Cosmological/bimetric interpretation | Not established by this geometric audit |
@@ -194,6 +292,7 @@ From these data one can compute exact or certified volumes, centroids, covarianc
 ## References and internal links
 
 - Galeffi, *On the 14-Octahedron Backbone of the Bimetric 64-Tetrahedron Grid Universe*, viXra:2412.0104 (source PDF in repository root: 2412.0104v1.pdf).
+- Exact FCC/D3 coordinate dataset and audit script, linked above.
 - [T130 — Q6 discrete gradients, barycentres, traction moments and resistance assembly](../theorems/T130-q6-discrete-gradients-barycentres-resistance.md).
 - [T137 — Exact geometry of the Vesica Piscis and the sqrt(3) hexagonal chord](../theorems/T137-vesica-piscis-two-circle-hexagon-pi-sqrt3.md).
 - [Vesica–Needham–Bonilla dossier](VESICA_NEEDHAM_BONILLA_SQRT3_PHI_DOSSIER_2026-11-18.md).
