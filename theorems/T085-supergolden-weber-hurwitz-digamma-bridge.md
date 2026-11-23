@@ -126,7 +126,7 @@ Substitute the modular identity \(z=s=q_{31}\):
 \]
 This is an exact integral representation whose argument is specified by a singular modular value of discriminant \(-31\).
 
-Because \(s=1+r\), expanding \((1-t^r)/(1-t)\) as a nonnegative geometric series and applying monotone convergence gives
+Because \\(s=1+r\\), the integral has exponent \\(t^{s-1}=t^r\\). Expanding \\(1/(1-t)\\) as a nonnegative geometric series and applying monotone convergence gives the standard series for the digamma at \\(1+r=s\\) (not at \\(r\\) and not at \\(1-r\\)):
 \[
 \boxed{
 \psi_{\rm dig}(s)
@@ -163,3 +163,6 @@ T084 gives the accelerated odd-zeta and rational-series forms. T085 adds the exa
 2. NIST Digital Library of Mathematical Functions, §5.9(ii), equation 5.9.16 (digamma integral representation): https://dlmf.nist.gov/5.9.E16.
 3. NIST Digital Library of Mathematical Functions, §25.11, equation 25.11.18 (Hurwitz zeta derivative at zero): https://dlmf.nist.gov/25.11.E18.
 4. NIST Digital Library of Mathematical Functions, §5.2, equation 5.2.2 (definition of the digamma function): https://dlmf.nist.gov/5.2.E2.
+
+
+**Argument check (23 November 2026).** The positive series above is exactly the ordinary digamma value at \\(s=1+r\\): from DLMF 5.9.16, \\(\\psi(z)+\\gamma=\\int_0^1(1-t^{z-1})/(1-t)\\,dt\\), set \\(z=1+r=s\\). The distinct reflection-side expansion for \\(\\psi(1-r)\\) is not the formula being used here. No factor is missing. The termwise integral is \\(\\int_0^1 t^{n-1}(1-t^r)\\,dt=1/n-1/(n+r)\\), for \\(n\\ge1\\).
