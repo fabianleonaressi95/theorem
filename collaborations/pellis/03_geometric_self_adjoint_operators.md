@@ -1,5 +1,7 @@
 # Document B — Geometric self-adjoint operators and spectral weights
 
+**Status: DRAFT — working document, not merged into `main`.**
+
 **Prepared for discussion with Stergios Pellis**
 
 **Scope:** rigorous operator-theoretic framework on the compact spherical space form
