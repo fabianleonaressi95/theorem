@@ -140,21 +140,19 @@ Per una partizione poligonale comune, le regioni terminali circolari vanno sosti
 
 ## 5. Convergenza e ordine dei limiti
 
-Per `φ=t²`, fissato `g` (cioè `j` fissato nel linguaggio della
-recovery), l'energia di salto residua di `v_{m,δ,ρ}` è
+Per \(\phi(t)=t^2\), la sola stima già derivata senza ipotesi ulteriori è il contributo interno \(S\):
+\[
+E_S\le \sum_e |e|(C_e+c\delta)^2/m.
+\]
+Una stima complessiva del tipo
+\[
+E_{\rm jump}(v)\le E_{\rm outside}(g)
++\sum_e\bigl[|e|(C_e+c\delta)^2/m
++O(\delta M_e^2)+O(\rho M_P^2)\bigr]
+\]
+è **condizionale** alla scelta geometrica di §4, alla verifica delle tracce esterne \(M_e\), al controllo delle frontiere terminali \(M_P\) e alla disgiunzione dei supporti. Non va letta come una stima già dimostrata. I termini \(O(\delta M_e^2)\) e \(O(\rho M_P^2)\) non sono automaticamente \(O(\delta C_e^2)\) e \(O(\rho C_e^2)\).
 
-```
-E_jump ≤ Σ_e [ |e|(C_e+cδ)²/m  +  O(δC_e²)  +  O(ρC_e²) ]
-       +  (contributi invariati fuori striscia)
-```
-
-più i termini della staircase applicata dopo. Ordine:
-
-```
-Per ogni `j`, scegliere `m_j→∞`, poi `ρ_j→0`, poi `δ_j→0` con `δ_j/ρ_j→0` e compatibilità con distanze geometriche; infine scegliere `h_j` dopo aver fissato la partizione.
-m → ∞   (uccide E_S),   poi  δ → 0  (uccide E_K),   poi  ρ → 0
-(uccide E_V);  infine h → 0  per la staircase.
-```
+L'ordine dei limiti compatibile con la geometria A è: fissare il grafo e le regioni terminali disgiunte, scegliere \(\rho\downarrow0\), quindi \(\delta/\rho\downarrow0\) anche rispetto alle separazioni angolari dei rami incidenti, scegliere \(m\uparrow\infty\) per \(S\), e infine scegliere \(h\downarrow0\) dopo la partizione comune staircase. L'ordine va adattato se si adotta la geometria B per i cappucci; in quel caso il controllo delle tracce esterne precede la stima \(K\).
 
 `v_{m,δ,ρ}→g` in `L¹`: le modifiche sono sostenute in
 `⋃_e S_δ(e)∪B_ρ`, area `O(δ+ρ)`, e `|v−g|≤C` lì.
