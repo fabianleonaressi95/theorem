@@ -195,7 +195,7 @@ una volta sola.
   `v_{j,m}→g_j→g`.
 - `∇u_{j,m,h}=G_j` a.e. su **ogni** cella — strisce di splitting
   incluse: il mismatch locale `A_P−G_P` (che contiene il termine
-  `(i/m)∇h_e`) è assorbito in `M_P` e rimosso dalla staircase.
+  `((m−i+1)/m)∇h_e`) è assorbito in `M_P` e rimosso dalla staircase.
   Il bulk è quindi **esattamente** `∫_ΣW(G_j)` senza correzioni
   di area; la proprietà 7 serve solo a `v_{j,m}` intermedio,
   non all'energia finale. `G_j→G` in `L^p` ⇒
