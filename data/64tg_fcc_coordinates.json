@@ -7427,37 +7427,6 @@
       ]
     }
   ],
-  "audit": {
-    "vertices": 63,
-    "edges": 240,
-    "tetrahedra": 64,
-    "tetrahedra_inside_cuboctahedron": 56,
-    "tetrahedra_outside_cuboctahedron": 8,
-    "cuboctahedron_vertices": 12,
-    "cube_vertices": 8,
-    "octahedral_cavities": 14,
-    "square_pyramidal_cavities": 24,
-    "cell_face_incidences": {
-      "1": 56,
-      "2": 200
-    },
-    "boundary_facets_by_size": {
-      "3": 32,
-      "4": 24
-    },
-    "tetrahedron_circumspheres": 64,
-    "pairwise_circumsphere_lenses": 360,
-    "common_triple_ball_intersections": 648
-  },
-  "volume_identities": {
-    "tetrahedron_edge_a_over_2": "sqrt(2)*a^3/96",
-    "56_tetrahedra": "7*sqrt(2)*a^3/12",
-    "one_octahedron_edge_a_over_2": "sqrt(2)*a^3/24",
-    "14_octahedra": "7*sqrt(2)*a^3/12",
-    "one_square_pyramid_base_a_over_2_height_sqrt2a_over_4": "sqrt(2)*a^3/48",
-    "24_square_pyramids": "sqrt(2)*a^3/2",
-    "cuboctahedron": "5*sqrt(2)*a^3/3"
-  },
   "tetrahedron_circumspheres": [
     {
       "tetrahedron_index": 0,
@@ -19047,5 +19016,36 @@
       ],
       "common_intersection_certificate_radius_squared_n": "1/2"
     }
-  ]
+  ],
+  "audit": {
+    "vertices": 63,
+    "edges": 240,
+    "tetrahedra": 64,
+    "tetrahedra_inside_cuboctahedron": 56,
+    "tetrahedra_outside_cuboctahedron": 8,
+    "cuboctahedron_vertices": 12,
+    "cube_vertices": 8,
+    "octahedral_cavities": 14,
+    "square_pyramidal_cavities": 24,
+    "tetrahedron_circumspheres": 64,
+    "pairwise_circumsphere_lenses": 360,
+    "common_triple_ball_intersections": 648,
+    "cell_face_incidences": {
+      "1": 56,
+      "2": 200
+    },
+    "boundary_facets_by_size": {
+      "3": 32,
+      "4": 24
+    }
+  },
+  "volume_identities": {
+    "tetrahedron_edge_a_over_2": "sqrt(2)*a^3/96",
+    "56_tetrahedra": "7*sqrt(2)*a^3/12",
+    "one_octahedron_edge_a_over_2": "sqrt(2)*a^3/24",
+    "14_octahedra": "7*sqrt(2)*a^3/12",
+    "one_square_pyramid_base_a_over_2_height_sqrt2a_over_4": "sqrt(2)*a^3/48",
+    "24_square_pyramids": "sqrt(2)*a^3/2",
+    "cuboctahedron": "5*sqrt(2)*a^3/3"
+  }
 }
