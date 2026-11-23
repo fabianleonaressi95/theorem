@@ -75,12 +75,7 @@ For a cell \(P\), consider only staircase jump sections lying in the relative in
 \[
 P^\circ\cap\{x:x\cdot\nu_{P,k}=nh\},\qquad n\in\mathbb Z.
 \]
-If two SVD directions generate the same geometric family of lines (in particular \(\nu\) and \(-\nu\)), their contributions must be grouped before squaring. For each distinct unoriented direction class \(\alpha\), let \(I_\alpha\) be its index set and put
-\[
-A_\alpha:=\sum_{k\in I_\alpha}\varepsilon_k\sigma_{P,k}a_{P,k},\qquad
-\varepsilon_k:=\nu_{P,k}\cdot\nu_\alpha\in\{-1,+1\}.
-\]
-On each line in that class, the total jump contribution is \(hA_\alpha\), not a list of independent jumps. Hence
+Because the right singular vectors in an SVD are orthonormal, distinct indices \(k\) have nonparallel directions \(\nu_{P,k}\). Thus distinct SVD directions cannot generate coincident positive-length line sections. (If one replaces the SVD by a redundant rank-one decomposition, coincident directions must first be combined algebraically, with the orientation sign.) For each \(k\), the jump amplitude on its own family is exactly \(h\sigma_{P,k}a_{P,k}\). Hence
 \[
 \int_{\Lambda_{\alpha,P,h}}|[u_h]|^2\,d\mathcal H^1
 =h^2|A_\alpha|^2\,
@@ -166,7 +161,7 @@ with the exact supports and traces of the strip interfaces, outer strip edges, l
 - all physical face/chart seams must be included or proved to carry no jump;
 - the actual trace on each skeleton segment must be the one used in (2.2).
 
-The current splitting framework contains duplicate, incompatible layer formulas; this has to be corrected before (5.1) can be treated as a verified estimate. This note does not promote the complete fixed-stage estimate or the global recovery sequence to a theorem.
+The layer-indexing correction has been merged, but the geometric hypotheses in §1 and the disjoint skeleton-energy estimate (5.1) still require verification against the actual splitting construction. This note does not promote the complete fixed-stage estimate or the global recovery sequence to a theorem.
 
 ## 6. Status
 
