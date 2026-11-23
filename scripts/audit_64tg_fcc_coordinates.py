@@ -88,6 +88,66 @@ def build_model():
                 })
     pyramids.sort(key=lambda x: (x["face_axis"], x["face_sign"], x["base_n"]))
 
+    # Every regular tetrahedron has its circumcentre at its vertex average
+    # and circumradius a*sqrt(6)/8. Store centres in exact n/4 coordinates.
+    circumspheres = []
+    center_numerators = []
+    for index, tet in enumerate(tetrahedra):
+        numerator = tuple(sum(p[i] for p in tet) for i in range(3))
+        center_numerators.append(numerator)
+        circumspheres.append({
+            "tetrahedron_index": index,
+            "center_n_numerator": numerator,
+            "center_n_denominator": 4,
+            "radius_over_a": "sqrt(6)/8",
+        })
+
+    # Equal-radius circumsphere balls overlap iff squared centre distance
+    # in n-coordinates is < 3. The denominator 16 comes from centres n/4.
+    lens_pairs = []
+    center_adjacency = {i: set() for i in range(len(tetrahedra))}
+    for i, j in combinations(range(len(tetrahedra)), 2):
+        d2_num = sum(
+            (center_numerators[i][k] - center_numerators[j][k]) ** 2
+            for k in range(3)
+        )
+        if d2_num < 48:
+            d2_n = d2_num // 16
+            lens_pairs.append({
+                "tetrahedron_indices": [i, j],
+                "center_distance_squared_n": d2_n,
+            })
+            center_adjacency[i].add(j)
+            center_adjacency[j].add(i)
+
+    # A triple of equal balls has a common point for each 3-clique here.
+    # The only triangle types are right isosceles (R_min^2=1/2) and
+    # equilateral (R_min^2=2/3), both below the ball-radius square 3/4
+    # in n-units. These are the canonical triple-overlap/triveca candidates.
+    triple_overlaps = []
+    for i, j, k in combinations(range(len(tetrahedra)), 3):
+        if j not in center_adjacency[i] or k not in center_adjacency[i] or k not in center_adjacency[j]:
+            continue
+        d2s = []
+        for u, v in ((i, j), (i, k), (j, k)):
+            d2_num = sum(
+                (center_numerators[u][m] - center_numerators[v][m]) ** 2
+                for m in range(3)
+            )
+            d2s.append(d2_num // 16)
+        shape = tuple(sorted(d2s))
+        if shape == (1, 1, 2):
+            min_enclosing_radius_squared_n = "1/2"
+        elif shape == (2, 2, 2):
+            min_enclosing_radius_squared_n = "2/3"
+        else:
+            raise AssertionError(f"Unexpected triple-overlap shape: {shape}")
+        triple_overlaps.append({
+            "tetrahedron_indices": [i, j, k],
+            "pairwise_center_distances_squared_n": list(shape),
+            "common_intersection_certificate_radius_squared_n": min_enclosing_radius_squared_n,
+        })
+
     cuboctahedron_vertices = [
         p for p in points if sorted(abs(x) for x in p) == [0, 2, 2]
     ]
@@ -108,6 +168,9 @@ def build_model():
         "outside_tetrahedra": outside_tets,
         "octahedra": octahedra,
         "pyramids": pyramids,
+        "circumspheres": circumspheres,
+        "lens_pairs": lens_pairs,
+        "triple_overlaps": triple_overlaps,
         "cuboctahedron_vertices": sorted(cuboctahedron_vertices),
         "cube_vertices": sorted(cube_vertices),
     }
@@ -148,6 +211,10 @@ def audit(model):
     assert len(model["cube_vertices"]) == 8
     assert len(model["octahedra"]) == 14
     assert len(model["pyramids"]) == 24
+    assert len(model["circumspheres"]) == 64
+    assert len({tuple(x["center_n_numerator"]) for x in model["circumspheres"]}) == 64
+    assert len(model["lens_pairs"]) == 360
+    assert len(model["triple_overlaps"]) == 648
 
     for edge in model["edges"]:
         assert sqdist(*edge) == 2
@@ -199,6 +266,9 @@ def audit(model):
         "cube_vertices": len(model["cube_vertices"]),
         "octahedral_cavities": len(model["octahedra"]),
         "square_pyramidal_cavities": len(model["pyramids"]),
+        "tetrahedron_circumspheres": len(model["circumspheres"]),
+        "pairwise_circumsphere_lenses": len(model["lens_pairs"]),
+        "common_triple_ball_intersections": len(model["triple_overlaps"]),
         "cell_face_incidences": dict(sorted(Counter(incidence.values()).items())),
         "boundary_facets_by_size": dict(sorted(Counter(
             len(face) for face, count in incidence.items() if count == 1
@@ -226,6 +296,9 @@ def serialise(model, audit_result):
         "cube_vertices_n": model["cube_vertices"],
         "octahedra": model["octahedra"],
         "square_pyramids": model["pyramids"],
+        "tetrahedron_circumspheres": model["circumspheres"],
+        "pairwise_circumsphere_lenses": model["lens_pairs"],
+        "common_triple_ball_intersections": model["triple_overlaps"],
         "audit": audit_result,
         "volume_identities": {
             "tetrahedron_edge_a_over_2": "sqrt(2)*a^3/96",
