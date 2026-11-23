@@ -1,3 +1,5 @@
+from fractions import Fraction
+
 import unittest
 
 from audits.q6_face_cochain_green_kubo import build_report
@@ -29,6 +31,13 @@ class Q6FaceCochainAuditTests(unittest.TestCase):
         )
         self.assertEqual(report["green_kubo_trace_sum_m_over_lambda"], "2263/120")
         self.assertEqual(report["isotropic_green_kubo_coefficient"], "2263/15480")
+        # Independently recompute the displayed table's reciprocal sum.
+        table_sum = (
+            Fraction(15, 4) + Fraction(40, 6) + Fraction(45, 8)
+            + Fraction(24, 10) + Fraction(5, 12)
+        )
+        self.assertEqual(table_sum, Fraction(2263, 120))
+        self.assertEqual(table_sum / 129, Fraction(2263, 15480))
 
 
 if __name__ == "__main__":
