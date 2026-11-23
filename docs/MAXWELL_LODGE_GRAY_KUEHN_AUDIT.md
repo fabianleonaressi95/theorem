@@ -1,6 +1,6 @@
 # Audit: Gray–Kühn Maxwell–Lodge, elettrodinamica di Weber, olonomia e ponte RGS–QLG
 
-**Scope:** valutazione critica dei lavori di Robert W. Gray e Steffen Kühn sulla crittica a Maxwell, del problema Maxwell–Lodge, dell'elettrodinamica di Weber, dell'EED di Hively–Loebl e del possibile collegamento con olonomia quaternionica (RGS–QLG).
+**Scope:** valutazione critica dei lavori di Robert W. Gray e Steffen Kühn sulla critica alle equazioni di Maxwell, del problema Maxwell–Lodge, dell'elettrodinamica di Weber, dell'EED di Hively–Loebl e del possibile collegamento con olonomia quaternionica (RGS–QLG).
 **Status:** audit documentale e matematico; nessuna delle tesi alternative è assunta come dimostrata.
 
 ## 1. Il risultato centrale: la dimostrazione Gray–Kühn (2019) non regge nella forma originaria
