@@ -11,13 +11,6 @@ The paper does **not** provide a coordinate list, an oriented incidence complex,
 
 The bridge below is divided into exact scalar checks, conditional geometric constructions, and open physical interpretations.
 
-## 2. Exact volume audit
-The paper does **not** provide a coordinate list or a complete incidence complex. However, its exact combinatorial counts admit a remarkably economical reconstruction: a finite face-centred-cubic lattice patch (the D3 root lattice) with 63 vertices, 240 nearest-neighbour edges and exactly 64 regular tetrahedra. The same coordinates recover the cuboctahedron, its enclosing cube, all 14 edge-a/2 octahedra and all 24 square-pyramidal cavities. This is an explicit coordinate model, not a claim that Galeffi printed or uniquely specified these coordinates. Its exact agreement with the independent counts and nested-solid descriptions is strong structural evidence for the reconstruction.
-
-The paper still supplies no parametrized Jitterbug deformation map. Thus dynamic frequencies and phase evolution remain open. Its bimetric field equations and cosmological interpretations are not derived from the finite geometry.
-
-The bridge below separates exact coordinate reconstruction, exact scalar checks, and open physical interpretations.
-
 ## 2. Explicit coordinates: the 64-TG as a finite FCC/D3 patch
 
 Set
@@ -140,7 +133,6 @@ which equals \(V_{CO(a)}-56V_T\). Also,
 \]
 These are exact consequences of the stated counts and standard regular-solid formulae. They do not independently prove that the pictured cavities form a non-overlapping partition; that requires an incidence/coordinate certificate.
 
-## 3. Surface-area claim: correction required
 ## 4. Surface-area claim: correction required
 
 For a regular tetrahedron with edge a/2, one face has area
@@ -170,7 +162,6 @@ A second logical gap is independent of that arithmetic issue: 144 planar faces d
 \]
 is valid only conditional on an equal-area spherical partition. Equal-area projection, coverage, non-overlap and the face-to-sphere map are not established by the face count alone.
 
-## 4. Golden-ratio comparison: approximate versus imposed equality
 ## 5. Golden-ratio comparison: approximate versus imposed equality
 
 For a regular octahedron of edge a, the inradius is \(r_i=a/\sqrt6\), so its insphere volume is
@@ -185,16 +176,12 @@ Dividing by the stated stellated-octahedron volume \(\sqrt2a^3/8\) gives
 \]
 which is close to, but not equal to, \(\varphi\simeq1.6180\). The radius in the paper's subsequent equation is adjusted to force the ratio to equal \(\varphi\); it is not the standard octahedral inradius. These statements must remain separate.
 
-## 5. Where the Vesica enters the source geometry
-
 The paper explicitly describes radial projection of each tetrahedron onto its circumsphere and overlapping spherical analogues. This is the natural, source-faithful entry point for Vesica geometry.
 
 Let tetrahedron i have vertices \(p_{i,0},\ldots,p_{i,3}\in\mathbb R^3\), circumcentre \(q_i\), and circumradius \(\rho_i\). Define
 ## 6. Where the Vesica enters the source geometry
 
-The paper explicitly describes radial projection of each tetrahedron onto its circumsphere and overlapping spherical analogues. This is the natural, source-faithful entry point for Vesica geometry.
-
-The reconstructed coordinates now provide these data for all 64 tetrahedra. For tetrahedron \(i\), with vertices \(p_{i,0},\ldots,p_{i,3}\), its circumcentre is its vertex average
+The paper explicitly describes radial projection of each tetrahedron onto its circumsphere and overlapping spherical analogues. This is the natural, source-faithful entry point for Vesica geometry. The reconstructed coordinates now provide these data for all 64 tetrahedra. For tetrahedron \(i\), with vertices \(p_{i,0},\ldots,p_{i,3}\), its circumcentre is its vertex average
 \[
 q_i=\frac14\sum_{r=0}^3p_{i,r},
 \]
@@ -213,9 +200,8 @@ For two equal radii \(\rho\), with centre distance \(d<2\rho\), the intersection
 
 For three balls, distinguish the union, the common intersection, the three pairwise lenses, and planar sections of each. Only a specified common intersection (or its specified planar section) is a natural three-body candidate for a triveca. The source does not specify a unique triple of sphere centres/radii or a canonical triveca section. No triveca area/volume formula is asserted until those data are fixed.
 
-For the actual 64-TG, the required data are the 64 tetrahedron vertex quadruples, or equivalently a certified list of \((q_i,\rho_i)\), together with the chosen pair/triple incidence. Without them, the number and shape of distinct Vesica lenses cannot be inferred from the drawings.
+The FCC/D3 reconstruction now supplies all 64 tetrahedron vertex quadruples, their circumballs, and the 360 pair / 648 triple incidence lists. These counts and geometric predicates are exact for the reconstructed model; the physical interpretation and integral moments of each lens remain separate questions.
 
-## 6. Barycentres, covariance and gradient law
 The exact centre-distance audit gives **360 overlapping pairs**. Their squared centre distances in \(h\)-units are either 1 or 2, both strictly less than \((2\rho_i/h)^2=3\). Each pair therefore defines a nonempty three-dimensional lens \(B_i\cap B_j\). A plane containing the line through \(q_i,q_j\) cuts the two balls in equal disks; their intersection in that plane is the corresponding two-circle Vesica Piscis. (The perpendicular-bisector plane instead cuts the common lens in its central circular section; it is not the Vesica section.)
 
 There are also **648 triples** of circumballs with nonempty common intersection. The exact centre triangles have only two types:
@@ -262,7 +248,6 @@ For cavity regions \(O_1,\ldots,O_{14}\), the covariance of the normalized sum m
 \]
 The first term measures each cavity's internal spread; the second measures the spatial arrangement of the cavity centres. This is an exact bridge from the 14-octahedron backbone to barycentric moments for the declared sum measure, not a claim about the union or physical mass.
 
-## 7. Phase, gradients and oscillations: a conditional dynamic bridge
 ## 8. Phase, gradients and oscillations: a conditional dynamic bridge
 
 Once a Jitterbug path is supplied as an actual differentiable family of configurations \(q(t)\), each vertex and sphere centre becomes time-dependent. A phase field \(\theta(x,t)\) can then be defined on the chosen geometric carrier, with spatial gradient \(k=\nabla_x\theta\). For a fixed region F,
@@ -279,19 +264,6 @@ for an affine local phase and small phase variation; the cubic remainder is cont
 \]
 This is a precise route from geometry to phase response and oscillation if the motion and phase are specified. The paper itself says that the Jitterbug details and period remain unknown; it therefore supplies no derived frequency, angular momentum or cosmological oscillation law.
 
-## 8. Bernoulli layer: keep it downstream
-
-Bernoulli numbers/polynomials may enter after a discrete sampling rule has been defined—for example, when sums over a one-parameter family of layers or time steps are compared with an integral by Euler–Maclaurin. The paper's tentative Fibonacci labels do not by themselves define such a sampling rule. No Bernoulli coefficient, period or dynamical recurrence is inferred from the PDF.
-
-## 9. Minimal data needed to close the bridge
-
-The static reconstruction now supplies the coordinate list, tetrahedral incidence data, the 14 octahedra, 24 pyramids, and an oriented cell-boundary/volume certificate for the stated cuboctahedral partition. The remaining work is no longer to invent static coordinates, but to test source correspondence and extend the model dynamically: a differentiable Jitterbug path, a declared active-overlap rule, and (if an electromagnetic model is intended) an explicit coil/field coupling. These data can be integrated with T130's Q6 gradient/barycentre/moment framework. The reconstruction is a reproducible realization matching the source counts; it does not prove uniqueness or that Galeffi intended precisely this FCC/D3 realization, and it does not identify 64-TG with Q6, RGS, a bimetric spacetime or a cosmological model.
-
-## 10. Status summary
-
-| Claim | Status |
-|---|---|
-| Regular-solid volume identities in §2 | Exact arithmetic, conditional on stated counts and standard solids |
 ## 9. Bernoulli layer: keep it downstream
 
 Bernoulli numbers/polynomials may enter after a discrete sampling rule has been defined—for example, when sums over a one-parameter family of layers or time steps are compared with an integral by Euler–Maclaurin. The paper's tentative Fibonacci labels do not by themselves define such a sampling rule. No Bernoulli coefficient, period or dynamical recurrence is inferred from the PDF.
@@ -386,9 +358,9 @@ with the sign fixed by the chosen loop orientation.
 
 ### Status and required inputs
 
-Both models are conditional examples, not predictions of Gray's paper or of the 64-TG source. To turn either into a testable electromechanical model, specify: (i) the coil's attachment points and orientation on the mechanism; (ii) \(N,A\) or the complete moving surface; (iii) the imposed field and its spatial/time dependence; (iv) the map from the Jitterbug configuration to the coil pose/deformation; and (v) circuit resistance, inductance and measurement loading. A rigid translation of a closed coil in a spatially uniform static magnetic field does not, by itself, produce a net loop emf; deformation, rotation, field gradients or time dependence must be included.
+Model A is now a fully specified conditional attachment to one rigid face of the **standard 12-vertex Jitterbug**: its geometry, coil pose, field, time parametrization and RL load are declared in the script. Model B remains a separate hypothetical radius-linkage model and requires its own mechanical linkage. Neither model is a deformation law for the 63-vertex FCC/D3 64-TG. A rigid translation of a closed coil in a spatially uniform static magnetic field does not, by itself, produce a net loop emf; rotation, deformation, field gradients or time dependence must be included.
 
-**Classification:** the Gray law for \(V(\gamma)\) is a kinematic relation; the coil formulas above are conditional Faraday-law consequences once a mechanical/electromagnetic coupling is declared. No coil voltage is derived from the geometry alone.
+**Classification:** Gray's law for \(V(\gamma)\) is kinematic; Model A's voltage and current are conditional Faraday/RL consequences of the declared attachment and example inputs. No voltage is derived from geometry alone, and no coil is yet embedded in the 64-TG coordinate realization.
 
 ## 12. Status summary
 
