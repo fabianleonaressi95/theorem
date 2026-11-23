@@ -135,7 +135,7 @@ c_0\rho/2,\frac{c_0\rho}{4}
 
 ## 5. Consequence for the splitting jump budget
 
-Define the unmodified residual jump budget precisely by\n\\[\nE_{\\rm outside}(g):=\\int_{J_g\\setminus\\bigcup_{e\\in E(\\Gamma)}(e\\setminus(Q_\\rho(P_e)\\cup Q_\\rho(P'_e)))}|[g]|^2\\,d\\mathcal H^1,\n\\]\nwhere \\(P_e,P'_e\\) are the endpoints of \\(e\\). For the construction that splits every edge of \\(\\Gamma\\), this residual is zero up to endpoints (which are \\(\\mathcal H^1\\)-null); it is retained in the formula to make the accounting explicit if only a subfamily of edges is split.\n\nUnder the exact geometry A construction above, every positive-length jump segment belongs to exactly one of:
+By the preprocessing hypothesis, the full jump set is represented by the graph, \(J_g\subset\Gamma\) up to \(\mathcal H^1\)-null sets. Thus there is no additional unmodified jump family outside the graph; set \(E_{\rm outside}(g):=\int_{J_g\setminus\Gamma}|[g]|^2\,d\mathcal H^1=0\). The portions of graph edges inside terminal polygons are counted separately in \(E_V\), not in this residual term.\n\nUnder the exact geometry A construction above, every positive-length jump segment belongs to exactly one of:
 - an internal layer interface or the outer strip edge (the \(S\)-family);
 - the original jump set outside active strips and terminal polygons;
 - a terminal polygon boundary or the original jump inside a terminal polygon (the \(V\)-family).
