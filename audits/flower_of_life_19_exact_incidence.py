@@ -83,6 +83,31 @@ def d6_orbits(points):
     return sorted(sizes)
 
 
+def d6_orbit_multiplicity_data(points, centres):
+    remaining = set(points)
+    data = []
+    while remaining:
+        p = next(iter(remaining))
+        orbit = set()
+        q = p
+        for _ in range(6):
+            orbit.add(q)
+            orbit.add(reflect_x(q))
+            q = rotate60(q)
+        assert orbit <= points
+        multiplicities = {
+            sum(
+                1 for cx, cy, *_rest in centres
+                if sp.simplify((x-cx)**2 + (y-cy)**2 - 1) == 0
+            )
+            for x, y in orbit
+        }
+        assert len(multiplicities) == 1
+        data.append((len(orbit), multiplicities.pop()))
+        remaining -= orbit
+    return sorted(data)
+
+
 def main():
     centres = build_centres()
     assert len(centres) == 19
@@ -109,6 +134,7 @@ def main():
     assert point_degrees == Counter({2: 12, 3: 6, 4: 6, 6: 7})
     assert circle_degrees == Counter({6: 13, 5: 6})
     assert d6_orbits(points) == [1, 6, 6, 6, 12]
+    assert d6_orbit_multiplicity_data(points, centres) == [(1, 6), (6, 3), (6, 4), (6, 6), (12, 2)]
     assert B.rank() == gram.rank() == 19
     assert sp.expand(charpoly-expected) == 0
     assert sp.trace(gram) == 108
