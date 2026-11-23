@@ -419,3 +419,15 @@ The research sequence is:
 6. For the two-centre H₂⁺ problem, confocal prolate spheroidal coordinates and their use in separating the one-electron Schrödinger equation and evaluating orbital-overlap integrals are standard; see the molecular-orbital treatment in *Quantum Mechanics*, Chapter 39, “The Molecular Orbital Method, the Hydrogen Molecular Ion, and Overlap Integrals” (online text), https://mochizuki-tus.github.io/QM_Textbook_EN/ch39_molecular_orbital_h2plus.html. This supports the coordinate framework, not the proposed density-anisotropy law.
 
 **Publication note.** This manuscript is an integrated research record, not yet a journal-ready claim of a new physical law. Before external submission, attach the original 23 October 2026 PDF for the Naressi–Harrabi expression, archive the H₂⁺ numerical code/data, resolve the full H₂ reference list, and replace all “working-session result” labels only when the corresponding reproducibility package is committed.
+
+
+## 8. Fullerene 90° Stone–Wales operation: relation and non-equivalence
+
+The fullerene connection is now documented separately in [FULLERENE_STONE_WALES_90_DEGREE_VESICA_BRIDGE.md](FULLERENE_STONE_WALES_90_DEGREE_VESICA_BRIDGE.md). The distinction is essential:
+
+- A Stone–Wales event is a local 90° C–C bond rotation/reconnection at fixed carbon count and fixed edge count. The familiar 6/6 graphene case produces a 5–7–7–5 defect; the exact ring sequence in a fullerene depends on the local pyracylene patch.
+- C60 → C64 is a growth/insertion problem, not a Stone–Wales move. For a closed trivalent pentagon/hexagon cage, C60 has (V,E,F;p,h)=(60,90,32;12,20), whereas C64 has (64,96,34;12,22). The changes in V and E rule out a single SW rearrangement.
+- A proposed cellular bridge must satisfy the chain-map equations \(\partial'_1S_1=S_0\partial_1\) and \(\partial'_2S_2=S_1\partial_2\). The existing Kathara–Q6 maps and their recorded boundary identities do not, by themselves, establish a fullerene-to-Q6 intertwiner.
+- Under a rigid 90° planar rotation, a density covariance transforms as \(Q'=U_{90}QU_{90}^T\); its eigenvalues and scalar anisotropy are invariant, while its principal-axis direction rotates by 90°. A Stone–Wales move is not a rigid rotation of the entire density: its effect on \(Q\) must be computed from relaxed before/after electronic densities.
+
+Accordingly, the common programme now has three distinct operations—local Stone–Wales reconnection, cage growth, and density-defined vesica deformation—and a common tensor/chain-complex language for testing possible bridges. No universal physical equivalence is asserted.
