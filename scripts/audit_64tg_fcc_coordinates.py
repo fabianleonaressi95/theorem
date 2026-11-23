@@ -239,6 +239,75 @@ def face_incidence(model):
     return Counter(faces)
 
 
+def _cross(u, v):
+    return (
+        u[1] * v[2] - u[2] * v[1],
+        u[2] * v[0] - u[0] * v[2],
+        u[0] * v[1] - u[1] * v[0],
+    )
+
+
+def _dot(u, v):
+    return sum(u[i] * v[i] for i in range(3))
+
+
+def oriented_triangle_faces(model):
+    """Return outward-oriented triangular faces of all cells.
+
+    The orientation test is exact integer arithmetic: the face normal is
+    dotted with a scaled vector from face centroid toward cell vertex-average.
+    """
+    oriented = {}
+
+    def add_face(triangle, cell_vertices):
+        tri = list(triangle)
+        normal = _cross(
+            tuple(tri[1][i] - tri[0][i] for i in range(3)),
+            tuple(tri[2][i] - tri[0][i] for i in range(3)),
+        )
+        # Positive dot means the current normal points into the cell.
+        cell_sum = tuple(sum(p[i] for p in cell_vertices) for i in range(3))
+        face_sum = tuple(sum(p[i] for p in tri) for i in range(3))
+        inward_scaled = tuple(
+            3 * cell_sum[i] - len(cell_vertices) * face_sum[i]
+            for i in range(3)
+        )
+        if _dot(normal, inward_scaled) > 0:
+            tri[1], tri[2] = tri[2], tri[1]
+        inversions = sum(
+            1 for i in range(3) for j in range(i + 1, 3)
+            if tri[i] > tri[j]
+        )
+        sign = -1 if inversions % 2 else 1
+        oriented.setdefault(tuple(sorted(tri)), []).append({
+            "ordered_vertices": tuple(tri),
+            "orientation_sign": sign,
+        })
+
+    for tet in model["inside_tetrahedra"]:
+        for face in combinations(tet, 3):
+            add_face(face, tet)
+
+    for octa in model["octahedra"]:
+        c = octa["center_n"]
+        for signs in product((-1, 1), repeat=3):
+            tri = []
+            for axis, sign in enumerate(signs):
+                v = list(c)
+                v[axis] += sign
+                tri.append(tuple(v))
+            add_face(tri, octa["vertices_n"])
+
+    for pyr in model["pyramids"]:
+        base, apex = pyr["base_n"], pyr["apex_n"]
+        cell = base + [apex]
+        for u, v in combinations(base, 2):
+            if sqdist(u, v) == 2:
+                add_face((u, v, apex), cell)
+
+    return oriented
+
+
 def audit(model):
     assert len(model["points"]) == 63
     assert len(model["edges"]) == 240
@@ -280,6 +349,34 @@ def audit(model):
     assert Counter(incidence.values()) == Counter({1: 56, 2: 200})
     assert all(k in (1, 2) for k in incidence.values())
 
+    # Signed boundary-chain check: all 200 internal triangular faces cancel
+    # with opposite orientations; all 32 outer triangular facets point away
+    # from the origin. The 24 square pyramid bases lie on outward cuboctahedron
+    # planes and their apices lie strictly inward.
+    oriented = oriented_triangle_faces(model)
+    assert len(oriented) == 232
+    internal_cancelled = 0
+    boundary_outward = 0
+    for face, entries in oriented.items():
+        assert len(entries) == incidence[face]
+        if len(entries) == 2:
+            assert sum(x["orientation_sign"] for x in entries) == 0
+            internal_cancelled += 1
+        else:
+            tri = entries[0]["ordered_vertices"]
+            normal = _cross(
+                tuple(tri[1][i] - tri[0][i] for i in range(3)),
+                tuple(tri[2][i] - tri[0][i] for i in range(3)),
+            )
+            face_sum = tuple(sum(p[i] for p in tri) for i in range(3))
+            assert _dot(normal, face_sum) > 0
+            boundary_outward += 1
+    assert internal_cancelled == 200
+    assert boundary_outward == 32
+    for pyr in model["pyramids"]:
+        axis, sign = pyr["face_axis"], pyr["face_sign"]
+        assert (pyr["apex_n"][axis] - sign) * sign < 0
+
     # Each of the 14 octahedra has all eight triangular faces shared
     # with tetrahedron faces in the reconstructed tetrahedral complex.
     tet_faces = {
@@ -311,6 +408,9 @@ def audit(model):
         "pairwise_circumsphere_lenses": len(model["lens_pairs"]),
         "common_triple_ball_intersections": len(model["triple_overlaps"]),
         "cell_moment_records": sum(len(v) for v in model["cell_moments"].values()),
+        "oriented_internal_triangles_cancelled": internal_cancelled,
+        "outward_boundary_triangles": boundary_outward,
+        "outward_boundary_squares": len(model["pyramids"]),
         "cell_face_incidences": dict(sorted(Counter(incidence.values()).items())),
         "boundary_facets_by_size": dict(sorted(Counter(
             len(face) for face, count in incidence.items() if count == 1
