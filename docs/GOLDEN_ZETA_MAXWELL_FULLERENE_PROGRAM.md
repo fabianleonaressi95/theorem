@@ -231,3 +231,12 @@ Suggested deliverables:
 - only after chain groups and boundary maps are defined, a Krist-All/Kathara compatibility test.
 
 Do not merge a conjectural cross-domain identity into the theorem catalogue. Numerical verification can upgrade a claim only to computational result, never to theorem or physical law.
+
+
+## 11. Repository verification entry points
+
+- Claim ledger: [\u0060results/golden_zeta_maxwell/claim_ledger.csv\u0060](../results/golden_zeta_maxwell/claim_ledger.csv).
+- Standard-library regression tests: [\u0060tests/test_golden_zeta_maxwell.py\u0060](../tests/test_golden_zeta_maxwell.py).
+- Run: \u0060python -m unittest discover -s tests -p 'test_golden_zeta_maxwell.py' -v\u0060.
+
+These tests cover polygon identities, the two cotangent/zeta expansions, Fibonacci word counts and homogenized density, unit determinant of segment/total transfer matrices, and the normalized homogeneous boundary derivative. They do not test the Maxwell reduction, C64 enumeration, Stone--Wales catalogue or any physical cross-domain relation.
