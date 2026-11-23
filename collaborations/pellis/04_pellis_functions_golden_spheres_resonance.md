@@ -276,12 +276,174 @@ This preserves the mathematical content of Pellis's proposal while identifying e
 
 ---
 
+## C.12 Vesica Piscis: exact geometry, multi-circle constructions, and the boundary of physical interpretation
+
+### C.12.1 Source scope and evidence policy
+
+A supplementary source supplied for this audit is the *Rapporto Vesica* (reported in the supplied extract as a 2,566-page interdisciplinary report). Its extract groups material into: (i) logical and statistical tools; (ii) standard physics, including relativity and quantum mechanics; (iii) extended or non-mainstream proposals, including scalar/torsion waves, morphic fields, quaternionic reformulations of electromagnetism, zero-point energy and over-unity devices; and (iv) an integrated interpretive chain culminating in the thesis of an artificial holographic prison.
+
+The extract itself explicitly distinguishes standard physics from the extended claims and states that the holographic-prison thesis is interpretive rather than a verifiable derivation. This document adopts that distinction. The report is used here as a source of geometric constructions and research questions, not as evidence that its global ontological or conspiratorial thesis is true.
+
+In particular, the following are not consequences of the standard mathematical statements listed in the report:
+- that quantum entanglement establishes telepathy or a morphic information field;
+- that the Born rule or Hilbert-space formalism implies that spacetime is an artificial projection;
+- that zero-point energy permits a device to deliver net energy without an accounted input;
+- that scalar/torsion waves, over-unity devices, or the listed technological claims are experimentally established;
+- that the Vesica Piscis, golden ratio, or Platonic solids encode an intentional artificial control structure.
+
+These claims would require separate operational definitions, measurements, and falsifiable predictions. They are not used as premises in the Pellis analysis.
+
+### C.12.2 Definition and exact Euclidean geometry
+
+Let two Euclidean circles have equal radius \(R>0\), with centres \(O_1,O_2\) satisfying
+\[
+|O_1O_2|=R.
+\]
+Their intersection is the classical Vesica Piscis. The two intersection points are symmetric about the line \(O_1O_2\). The common chord is perpendicular to \(O_1O_2\) and bisects it. Its half-length is
+\[
+\sqrt{R^2-(R/2)^2}=\frac{\sqrt3}{2}R,
+\]
+so the full common-chord length is
+\[
+\boxed{L_{\mathrm{Vesica}}=\sqrt3\,R.}
+\]
+Each centre subtends an angle \(2\pi/3\) at the two intersection points. The lens is the union of two circular segments, each equal to a \(120^\circ\) sector minus the corresponding isosceles triangle. Hence
+\[
+\boxed{
+A_{\mathrm{Vesica}}
+=2\left(\frac{\pi R^2}{3}-\frac{\sqrt3}{4}R^2\right)
+=\left(\frac{2\pi}{3}-\frac{\sqrt3}{2}\right)R^2.
+}
+\]
+The overlap area fraction relative to one circle is
+\[
+\frac{A_{\mathrm{Vesica}}}{\pi R^2}
+=\frac23-\frac{\sqrt3}{2\pi}.
+\]
+These are exact Euclidean identities. They do not depend on a physical field theory.
+
+The equal-radius condition and centre separation are essential. For unequal radii or a different centre distance, the intersection chord and lens area change; the formulas above must not be carried over unchanged.
+
+### C.12.3 Multi-circle extensions: what must be fixed
+
+The terms *Bi-Veca* and *Tri-Veca* occur in the supplied report material, but a name alone does not specify a unique geometric object. To make a reproducible construction, one must state:
+1. the number and locations of circle centres;
+2. each radius (equal or unequal);
+3. which pairwise intersections are retained;
+4. whether the object is the union, intersection, nerve, or incidence graph of the disks;
+5. the orientation and scale conventions.
+
+A canonical three-circle model can be defined by placing three equal-radius circles of radius \(R\) at the vertices of an equilateral triangle of side \(R\). Each pair then forms a Vesica Piscis with the chord and lens area calculated in C.12.2. This defines three pairwise lenses, but it does not by itself define a unique “Tri-Veca region”: the triple intersection, union of pairwise lenses, and full union of disks are different sets with different areas and topology.
+
+Accordingly, no area, volume, field, or topological invariant is attributed to “Tri-Veca” until the intended set or cell complex is specified. The report's named construction is a prompt for formalization, not a substitute for that definition.
+
+### C.12.4 Relation to the golden ratio and to the Krystallo spiral
+
+The Vesica construction above has a direct \(\sqrt3\) chord ratio:
+\[
+L_{\mathrm{Vesica}}/R=\sqrt3.
+\]
+The appearance of \(\sqrt3\) is forced by the \(60^\circ\) equilateral-triangle geometry. It is not a derivation of the golden ratio
+\[
+\phi=(1+\sqrt5)/2.
+\]
+A further construction may introduce \(\phi\), for example by selecting a diagonal, a nested scale rule, or a fivefold symmetry, but that additional rule must be stated and proved. The mere presence of intersecting circles does not imply a golden-ratio scaling.
+
+Likewise, the Krystallo angular law already audited elsewhere in this project,
+\[
+K(\theta)=2^{2\theta/\pi},
+\]
+has \(K(\pi/4)=\sqrt2\) and \(K(\pi/2)=2\). It is a logarithmic-spiral scaling law and is mathematically distinct from both the Vesica chord ratio \(\sqrt3\) and the golden ratio \(\phi\). No identity among \(\sqrt2,\sqrt3,\phi\) is asserted here.
+
+The supplied report also places Fibonacci/golden-ratio material alongside the Krystallo construction. They must remain separate:
+- Fibonacci ratios converge to \(\phi\);
+- the Krystallo law has a constant multiplicative factor \(2\) per quarter-turn;
+- the equal-circle Vesica has chord-to-radius ratio \(\sqrt3\).
+
+A relation between these objects would require an explicit geometric map or a common variational/spectral construction. A visual overlay is not a proof.
+
+### C.12.5 Relation to the Pellis golden-sphere hierarchy
+
+The Pellis preprint proposes
+\[
+R_n=R_0\phi^{-n}.
+\]
+This is a scale hierarchy with ratio \(R_{n+1}/R_n=\phi^{-1}\). The Vesica construction supplies a possible local geometric cell at any chosen scale \(R_n\), but the combination is an additional model, not a consequence of either construction alone.
+
+For example, if at each level one places a pair of equal circles with radius \(R_n\) and centre separation \(R_n\), then
+\[
+L_n=\sqrt3\,R_0\phi^{-n},\qquad
+A_n=\left(\frac{2\pi}{3}-\frac{\sqrt3}{2}\right)R_0^2\phi^{-2n}.
+\]
+Consequently, the formal sums over levels converge:
+\[
+\sum_{n=0}^{\infty}L_n
+=\frac{\sqrt3 R_0}{1-\phi^{-1}},
+\qquad
+\sum_{n=0}^{\infty}A_n
+=\left(\frac{2\pi}{3}-\frac{\sqrt3}{2}\right)
+\frac{R_0^2}{1-\phi^{-2}}.
+\]
+These sums describe a prescribed collection of independent geometric cells. They are not automatically the length or area of a single embedded union: overlap between levels, placement, and multiplicity must be handled before interpreting them as geometric measure of a combined object.
+
+This construction gives a clean test case for a future Vesica–GSR model:
+- specify the placement and incidence of the circles at every level;
+- define the resulting domain or cell complex;
+- choose a metric and boundary conditions;
+- define the relevant Laplace, Hodge, or wave operator;
+- compute its spectrum and multiplicities;
+- only then compare its spectral data with the \(S^3/2I\) spectrum in Document A or the Pellis operator proposed in this document.
+
+No spectral equivalence, fine-structure derivation, or physical resonance follows from the scale sums alone.
+
+### C.12.6 Information theory, quantum mechanics, and the “holographic” interpretation
+
+The supplied report lists Shannon theory, Fourier analysis, Hilbert spaces, Born probabilities, decoherence, entanglement, and holographic/holonomic interpretations as parts of one proposed explanatory chain. The mathematical formalisms are not interchangeable:
+- Shannon entropy and channel capacity concern probability distributions and communication channels;
+- Fourier analysis decomposes functions or signals relative to a specified measure and domain;
+- a quantum state is a vector or density operator in a specified Hilbert space, and Born probabilities are defined relative to measurement operators;
+- entanglement is a property of a specified composite quantum state and tensor-product structure;
+- holographic principles in theoretical physics require a precise bulk/boundary model and a quantitative correspondence.
+
+None of these definitions, separately or together, proves that the brain is an artificial hologram reader or that spacetime is an artificial vector field. Those statements remain interpretive claims in the supplied report unless a concrete model supplies variables, dynamics, observables, and tests that could falsify them.
+
+For the Pellis collaboration, the useful mathematical bridge is narrower: a geometric configuration can define a metric space or cell complex; that space can support a self-adjoint operator once its Hilbert space, inner product, domain, and boundary conditions are fixed; its spectral projections can then define basis-independent weights as in Document B. Any proposed physical meaning for those weights must be added as a separate model and tested independently.
+
+### C.12.7 Evidence ledger for the Vesica material
+
+| Statement | Classification in this audit |
+|---|---|
+| Two equal circles of radius \(R\), centre distance \(R\) | Exact geometric definition |
+| Common chord length \(\sqrt3R\) | Exact Euclidean theorem |
+| Lens area \((2\pi/3-\sqrt3/2)R^2\) | Exact Euclidean theorem |
+| Three-circle construction with equilateral centres | Explicit model definition introduced here |
+| Pairwise Vesica areas in the three-circle model | Exact consequence of the model definition |
+| A unique “Tri-Veca” region | Underspecified until union/intersection/incidence is fixed |
+| Fibonacci limit \(\phi\) | Standard limit theorem; distinct from the Vesica \(\sqrt3\) ratio |
+| Krystallo law \(2^{2\theta/\pi}\) | Separate stipulated/project law; not derived from Vesica geometry |
+| Vesica cells placed at Pellis scales \(R_n=R_0\phi^{-n}\) | Conditional geometric construction |
+| Spectral correspondence with \(S^3/2I\) or Pellis resonance | Open; requires an operator and a proved spectral map |
+| Artificial holographic prison, morphic control, telepathy via entanglement, over-unity energy claims | Not established by the mathematical material reviewed; excluded as premises |
+
+### C.12.8 Reproducibility tasks
+
+The following exact checks should be added to the Pellis audit suite before the construction is promoted beyond a mathematical appendix:
+1. symbolic verification of the common-chord and lens-area formulas;
+2. exact or interval-certified checks of the three-circle incidence relations;
+3. for any nested-scale realization, separate verification of the scalar geometric series from the measure of the actual union;
+4. once a domain is fixed, independent matrix construction and spectral computation, with convergence and self-adjointness diagnostics.
+
+Until those checks and definitions exist, C.12.2 is an exact geometric result, C.12.3 is a model specification, and C.12.5 is a conditional scale construction. No physical interpretation is claimed.
+
+---
+
 ## References
 
 1. S. Pellis, *Fine-Structure Constant via the Golden Spheres Resonance*, 11 September 2025, DOI [10.13140/RG.2.2.35410.00968](https://doi.org/10.13140/RG.2.2.35410.00968), especially §§2–3, §§4–7, and §§10–11. The public full-text record identifies it as a preprint.
 2. S. Pellis, same work, SSRN record [5473588](https://ssrn.com/abstract=5473588), posted 2 October 2025.
 3. CODATA 2022 and electron-\(g\)-factor central values and uncertainties are quoted as printed in the Pellis preprint; the comparisons above are arithmetic checks of those printed inputs, not an independent metrology update.
 4. Document A — [Exact scalar spectral geometry of \(S^3/2I\)](01_exact_scalar_spectrum_poincare_sphere.md).
-5. Document B — [Geometric self-adjoint operators and spectral weights](https://github.com/fabianleonaressi95/theorem/blob/collaboration/pellis-document-2-self-adjoint-operators/collaborations/pellis/03_geometric_self_adjoint_operators.md).
+5. *Rapporto Vesica*, supplied structured extract (2,566-page report; author, publication date, and stable public identifier not supplied in the extract). Used only for the report's stated organization and claims summarized in C.12.1 and C.12.6.
+6. Document B — [Geometric self-adjoint operators and spectral weights](https://github.com/fabianleonaressi95/theorem/blob/collaboration/pellis-document-2-self-adjoint-operators/collaborations/pellis/03_geometric_self_adjoint_operators.md).
 
 **Classification:** exact algebraic core; exact convergence statements under stated hypotheses; conditional cavity scaling; operator realization and physical derivation remain open.
