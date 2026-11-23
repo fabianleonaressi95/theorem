@@ -243,7 +243,7 @@ Bernoulli numbers/polynomials may enter after a discrete sampling rule has been 
 
 The static coordinate and incidence data are now explicit. The remaining inputs for a dynamic/phase audit are:
 1. a differentiable Jitterbug coordinate path (the PDF does not specify one);
-2. a declared rule selecting which tetrahedron circumspheres are to be intersected, including the pair/triple incidence for each Vesica/triveca;
+2. if a physical/dynamical submodel is intended, a criterion selecting which of the 360 pairwise and 648 triple overlaps are physically active;
 3. a phase field or transport law on the moving geometry.
 
 The coordinates now permit exact computation of tetrahedral, octahedral and pyramidal centroids, covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
@@ -259,8 +259,8 @@ The coordinates now permit exact computation of tetrahedral, octahedral and pyra
 | 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
 | Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
 | Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
-| Pairwise circumsphere overlap as Vesica lens | Exact definition; actual 64-TG instances await coordinates |
-| Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
+| 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
+| 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
 | Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
 | Jitterbug phase/oscillation law | Open until a path and phase field are specified |
 | Cosmological/bimetric interpretation | Not established by this geometric audit |
