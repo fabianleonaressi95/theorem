@@ -187,3 +187,38 @@ abla v=
 abla g^-+((m-i+1)/m)
 abla h_e). Se la successiva staircase è costruita su una partizione comune finita e soddisfa le ipotesi del relativo lemma, allora (
 abla u_{j,m,h}=G_j) quasi ovunque sulle celle. Questo fatto non colma eventuali lacune nella contabilizzazione dei salti di (v). Il trasferimento intrinseco a (Sigma) richiede inoltre di trattare esplicitamente le giunzioni tra facce e i vertici conici.
+
+
+## 8. Audit addendum — geometry A terminal traces and angular separation
+
+The previously open geometric obligations in §4 are now resolved for a
+**finite planar polygonal jump complex with fixed affine data**, using
+geometry A (the complete lateral ends of each strip are contained in
+the terminal polygons). See the detailed proof in
+`C60_CF_GEOMETRY_A_TERMINAL_TRACE_AND_STRIP_SEPARATION_2026-11-23.md`.
+
+In particular:
+
+- the terminal trace is the difference between an exterior affine trace
+  and a convex combination `(1-θ)g_e^-+θg_e^+`; the finite-family
+  compact maximum `M_P` bounds it uniformly in the layer index,
+  `m`, `δ`, and `ρ);
+- the actual artificial terminal-boundary cost is at most
+  `L_0 ρ M_P²), and the original jump retained in the terminal polygon
+  is at most `2 C_0 N_P ρ M_P²);
+- after subdividing/merging the jump graph, the minimum positive angle
+  between distinct incident rays gives an explicit sufficient condition
+  `δ < c ρ min_P sin(α_P/2)` for disjoint active strips outside
+  terminal polygons; nonincident edges are handled by their positive
+  minimum separation;
+- there is no separate lateral-cap term `K) in geometry A.
+
+Thus the terminal trace bound and incident-strip disjointness are
+**proved in the stated planar finite-complex setting**. The transfer to
+the actual C60 CFI stages on the polyhedral surface still requires the
+finite-data checks listed in §6 of the new note: exact subdivision at
+face/chart transitions, local flat-chart or unfolding compatibility,
+complete inclusion of affine trace cells in `M_P), and containment of
+terminal polygons in the relevant charts. Until those checks are made,
+the global C60 splitting estimate and the recovery theorem remain
+**conditional/open**, not proved.
