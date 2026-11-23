@@ -199,7 +199,7 @@ Until steps 1–5 are supplied, the bridge is:
 
 ## References
 
-- J. E. D. (lecture notes), *Hypercube problems*, section “Spectrum”, for the Walsh-character diagonalization and Laplacian levels; see also the standard product decomposition of \(Q_n\). 
+- The hypercube spectrum follows directly by diagonalizing the Kronecker-sum Laplacian in the Walsh-character basis; compare *The Kirchhoff Index of Hypercubes and Related Complex Networks*, DOI: [10.1155/2013/543189](https://doi.org/10.1155/2013/543189).
 - *The Kirchhoff Index of Hypercubes and Related Complex Networks*, DOI: [10.1155/2013/543189](https://doi.org/10.1155/2013/543189), for the \(2k\), \(\binom nk\) Laplacian spectrum and spectral graph invariants.
 - *Statistical Mechanics of Nonequilibrium Liquids*, Chapter 4, “The Green–Kubo Relations”, for stress autocorrelation and the zero-frequency transport limit.
 - R. Kubo, “Statistical-Mechanical Theory of Irreversible Processes. I. General Theory and Simple Applications to Magnetic and Conduction Problems,” *J. Phys. Soc. Japan* 12 (1957), 570–586.
