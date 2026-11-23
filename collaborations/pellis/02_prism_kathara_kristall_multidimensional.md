@@ -108,10 +108,10 @@ There are \(6\cdot6\cdot3=108\) such cycles. Different choices of \((\ell,t)\) o
 ### 3.2 Reproducible certificate and provenance boundary
 
 The implementation is [scripts/audit_prism_108_cycles.py](../../scripts/audit_prism_108_cycles.py), with regression tests in [tests/test_prism_108_cycles.py](../../tests/test_prism_108_cycles.py). Run:
-\`\`\`bash
+```bash
 python scripts/audit_prism_108_cycles.py
 python -m pytest tests/test_prism_108_cycles.py -q
-\`\`\`
+```
 
 The audit checks the mixed-radix indexing, simplicity of each cycle, all 640 closing and interior edges per cycle, pairwise vertex-disjointness, and exact coverage of the complete index set \(\{0,\ldots,69\,119\}\). The optional flag `--include-cycles --output reports/prism_108_cycles_certificate.json` writes the full ordered list of 69,120 mixed-radix indices. The deterministic flattened ordering is SHA-256 fingerprinted by the script.
 
@@ -332,7 +332,9 @@ Central repository:
 - theorems/MQM-multidimensional-structure.md
 - reports/KRISTALL_RECOVERY_STATUS.md
 - reports/prism_69120_audit.json
-- scripts/audit_prism_69120.py\n- scripts/audit_prism_108_cycles.py and tests/test_prism_108_cycles.py
+- scripts/audit_prism_69120.py
+- scripts/audit_prism_108_cycles.py
+- tests/test_prism_108_cycles.py
 
 Companion bridge repository:
 - docs/KATHARA_Q6_NONDEGENERATE_GATE_D.md
@@ -359,4 +361,4 @@ python audits/morphodynamics/mqm_multidimensional_a13.py \
   --output audits/morphodynamics/mqm_multidimensional_a13_summary.json
 ~~~
 
-**Final scope statement:** this note gives Pellis a coherent route into the PRISM/Kathara/multidimensional programme while preserving the central distinction between exact finite constructions, reported numerical results, and missing source data. It does not claim that the 108-cycle cover or the Krist-All residual has now been reproduced.
+**Final scope statement:** this note gives Pellis a coherent route into the PRISM/Kathara/multidimensional programme while preserving the central distinction between exact finite constructions, reported numerical results, and missing source data. The 108-cycle cover is now constructively certified for the declared PRISM graph; its identity with the historical Pellis family remains unverified. The Krist-All class count, operator identity, and residual remain historical claims pending the missing definitions and source data.
