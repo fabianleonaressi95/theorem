@@ -107,6 +107,30 @@ is positive definite. If (A\Omega=0) and (\Omega\in Z^2), then (B_2\Omega=0) and
 
 Thus (A) is a finite-dimensional, self-adjoint, strictly positive operator on a 129-dimensional Hilbert space.
 
+### 4.1 Exact spectrum on the closed 2-cochain sector
+
+The cubical cochain complex of (I^6) is the tensor product of six copies of the interval complex. On one factor, the degree-0 Hodge Laplacian has eigenvalues 0 and 2, each simple, while the degree-1 Hodge Laplacian is the scalar 2. The product Hodge Laplacian is the sum of the six factor Laplacians.
+
+For degree p, choose the p coordinates carrying 1-cochains. The remaining 6-p coordinates contribute either the degree-0 eigenvalue 0 or 2. Therefore the full degree-p Hodge spectrum is
+\[
+m_p(2(p+j))=\binom 6p\binom{6-p}{j},\qquad j=0,\ldots,6-p.
+\]
+For p=1, this gives multiplicities 6, 30, 60, 60, 30, 6 at eigenvalues 2, 4, 6, 8, 10, 12. For p=0, the multiplicities at 2, 4, 6, 8, 10, 12 are 6, 15, 20, 15, 6, 1.
+
+Because the cube is contractible, there are no harmonic cochains in positive degree. At each positive eigenvalue, the differential identifies the coexact degree-1 eigenspace with the exact degree-2 eigenspace. Hence the multiplicity of the exact degree-2 sector is
+\[
+m_{2,\mathrm{exact}}(\lambda)=m_1(\lambda)-m_0(\lambda).
+\]
+Since Z^2=ker B_3^T=im B_2^T, this is precisely the spectrum of A=Delta_2 restricted to Z^2:
+\[
+\boxed{
+\begin{array}{c|rrrrr}
+\lambda&4&6&8&10&12\\
+\operatorname{mult}_{Z^2}(\lambda)&15&40&45&24&5
+\end{array}}
+\]
+The multiplicities sum to 129, as required. This is an exact tensor-product derivation, not a floating-point diagonalization.
+
 ## 5. A declared reversible OU dynamics on closed face cochains
 
 This section makes a model choice. Let (\gamma>0), (\sigma^2>0), and let (W_t) be standard Brownian motion on (Z^2). Define
@@ -166,7 +190,21 @@ Therefore
 \frac{m_\lambda}{\lambda}.
 }
 ]
-This is an exact spectral formula, but no numerical value is asserted here: the eigenvalue/multiplicity table of the 129-dimensional restricted face operator has not been computed in this note. It can be obtained from exact incidence matrices followed by a certified algebraic or interval spectral calculation.
+Using the exact multiplicities above,
+\[
+\sum_{\lambda}\frac{m_\lambda}{\lambda}
+=\frac{15}{4}+\frac{40}{6}+\frac{45}{8}
++\frac{24}{10}+\frac{5}{12}
+=\frac{2263}{120}.
+\]
+Therefore the exact isotropic Green--Kubo mean is
+\[
+\boxed{
+\mathbb E\mathcal G_{\rm face}
+=\frac{\sigma^2}{129\gamma}\,\frac{2263}{120}
+=\frac{2263\sigma^2}{15480\gamma}.
+\]
+This value belongs to the declared OU model and the unit-sphere ensemble on Z^2; it is not yet a physical viscosity.
 
 ## 7. Relation to the Q6 cosine-curvature functional
 
@@ -239,7 +277,7 @@ No numerical eigenspectrum or test execution is claimed by this document.
 | (A>0) on (Z^2) | Exact, since (H^2(I^6)=0) |
 | OU covariance and Green–Kubo spectral formula | Exact for the declared reversible OU model |
 | Face stress/viscosity interpretation | Open; requires metric-dependent stress and physical units |
-| Numerical spectrum of (A) and numerical Green–Kubo value | Not computed here |
+| Spectrum of (A) and isotropic Green–Kubo coefficient | Exact tensor-product derivation: eigenvalues 4, 6, 8, 10, 12 with multiplicities 15, 40, 45, 24, 5; coefficient 2263/15480 |
 | Three-component supergolden transfer map from Q6 faces | Open |
 
 **Conclusion.** This construction provides the requested rigorous face-level starting point: state space, incidence, inner product, closed projector, invariant positive Hodge operator, reversible dynamics, and Green–Kubo formula are all explicitly defined. It stops exactly where the physical stress observable and its metric dependence must be supplied.
