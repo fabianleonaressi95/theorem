@@ -98,7 +98,7 @@ Reference:
 
 ## 5. The phase variables already present in the repository
 
-There are three relevant phase constructions, with different roles.
+There are four relevant phase constructions, with different roles.
 
 ### 5.1 Two-circle trigram phases (T101)
 
@@ -131,7 +131,7 @@ The angle is tracked continuously chart by chart. Its winding supplies the rotat
 
 This is a principled source of a continuous frame angle when the kinematic gradient \(G\) is actually available. It is not an arbitrary \(R(\theta(x))\) inserted by hand.
 
-### 5.4 Boundary phase candidate from the conformal-coordinate calculation
+### 5.3 Boundary phase candidate from the conformal-coordinate calculation
 
 The earlier *gradienti e baricentri* calculation also records a scalar phase candidate on the two boundary arcs. Keep it separate from the discrete pentagonal phases, the eight trigram phases and the gradient polar angle.
 
@@ -204,7 +204,7 @@ is negative, so the leading minus in \(q\) makes \(\arg q=-\pi/3\) on the stated
 
 The parameter \(t\) and the identification \(\rho=|t|^{2/3}\) must remain explicit conventions until the original parameterization is independently replayed. Do not identify \(g(t)\) with \(\alpha_k\), \(\theta_t^\pm\), \(\theta_G\), or the Jitterbug angles without a proved transition map.
 
-### 5.3 Non-affine Vesica continuation (T099)
+### 5.4 Non-affine Vesica continuation (T099)
 
 T099 defines a differentiable family of two-ellipse lenses and exact shape derivatives of area, first moment and covariance under transversality and fixed-topology assumptions. Its Koopman generator is with respect to a continuation parameter \(p\), not physical time. It can supply a parameter-dependent geometric state once the ellipse centres and shape matrices are specified.
 
