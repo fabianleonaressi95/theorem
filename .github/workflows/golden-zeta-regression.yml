@@ -1,0 +1,24 @@
+name: Golden-zeta regression tests
+
+on:
+  pull_request:
+    paths:
+      - "docs/GOLDEN_ZETA_MAXWELL_FULLERENE_PROGRAM.md"
+      - "results/golden_zeta_maxwell/**"
+      - "tests/test_golden_zeta_maxwell.py"
+      - ".github/workflows/golden-zeta-regression.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run golden-zeta and Fibonacci regressions
+        run: python -m unittest discover -s tests -p 'test_golden_zeta_maxwell.py' -v
