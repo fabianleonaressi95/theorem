@@ -34,6 +34,16 @@ La circonferenza `C` che avvolge il solenoide **non** delimita una superficie in
 
 La legge integrale di Faraday `∮E·dl = −dΦ_B/dt` è già contenuta in Maxwell: l'effetto non richiede potenziali come entità extra-field. L'interpretazione "solo i potenziali sono fisici" è una tesi interpretativa degli autori, non una dimostrazione.
 
+### 2.1 Faraday integrale vs Kirchhoff concentrato
+
+La forma `v_term = Ri + L di/dt` è valida solo nel modello a parametri concentrati (dimensioni ≪ scala elettromagnetica, campi quasi-statici). Con flusso magnetico variabile concatenato la forma fondamentale è la legge integrale
+
+```
+∮_C E·dl = −dΦ_B/dt = −d(NΦ_B)/dt = −L di/dt     (λ = Li, L costante)
+```
+
+che è un'EMF con circolazione non nulla: `E_indotto` non è globalmente `−∇φ`. La distinzione fra somma di cadute di potenziale (KVL circuitale) e circolazione di campo (Faraday) è esattamente il punto topologico della §2: nel dominio esterno moltiplemente connesso la circolazione sopravvive anche quando `∇×E = 0` localmente.
+
 **Distinzione operativa obbligatoria:** solenoide infinito ideale ≠ solenoide finito sperimentale (B esterno non nullo vicino alle estremità, condizioni al contorno reali). Non trasferire proprietà topologiche ideali al dispositivo reale senza verifica.
 
 ## 3. La tesi sperimentale generale di Gray
