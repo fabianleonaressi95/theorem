@@ -82,32 +82,42 @@ The historical research record reports 108 disjoint cycles, each of length 640, 
 \]
 If “disjoint” means vertex-disjoint and every state occurs exactly once, the claim is a cycle-cover (a spanning 2-factor) of the PRISM vertex set. It is not an edge decomposition of the degree-10 product graph: the 108 cycles would use 69,120 cycle-edges, whereas the full graph has 345,600 edges.
 
-### 3.1 What is currently available
+### 3.1 Constructive exact cycle cover
 
-The repository contains the exact product-state convention, graph/cell incidence construction, and product-graph spectral audit. The earlier research record also reports an exhaustive enumeration and full state coverage. However, the inspected current repository sources do not expose the complete cycle generator, the ordered vertex list of each of the 108 cycles, or a machine-readable certificate from which the cycle cover can be reconstructed independently.
+A deterministic cycle cover can now be constructed directly from the stated Cartesian-product graph; it does not require the missing historical generator.
 
-Accordingly, the count and coverage are retained as a **reported historical computational result**, not as a presently reproducible theorem in this document. The equation \(108\cdot640=N\) checks consistency of the reported sizes; it does not prove that the cycles exist or are disjoint.
+First construct a Hamiltonian cycle \(H\) of \(C_{64}\square C_5\), of length 320, by the column snake
+\[
+(g,b)=(0,0),(0,1),\ldots,(0,4),(1,4),\ldots,(1,0),(2,0),\ldots,(63,0),
+\]
+where the order in each even column is \(b=0,\ldots,4\), and in each odd column is \(b=4,\ldots,0\). Since 64 is even, the final vertex \((63,0)\) is adjacent to \((0,0)\) through the cyclic \(C_{64}\) coordinate. Thus this is a simple 320-cycle.
 
-### 3.2 Exact data needed to certify the construction
+For each fixed pair \((\ell,t)\in\mathbb Z_6^2\), partition the third coordinate into the three adjacent pairs
+\[
+(c_0,c_1)=(0,1),(2,3),(4,5).
+\]
+Take one copy of \(H\) in each of the two layers \(c=c_0,c_1\). Delete the same base edge \(h_0h_1\) in both copies and cross-connect the two resulting paths at their endpoints by the two vertical edges
+\[
+(h_0,\ell,c_0,t)\sim(h_0,\ell,c_1,t),\qquad
+(h_1,\ell,c_0,t)\sim(h_1,\ell,c_1,t).
+\]
+The result is one simple cycle of length \(2\cdot320=640\).
 
-The cycle audit should provide one of the following equivalent data formats:
+There are \(6\cdot6\cdot3=108\) such cycles. Different choices of \((\ell,t)\) or of the disjoint \(c\)-pair have disjoint vertex sets, and every PRISM vertex belongs to exactly one choice. Every edge used is an edge of the declared Cartesian-product graph. Hence this construction proves the existence of a 108-cycle vertex-disjoint cover of all 69,120 states.
 
-1. an ordered list \(C_r=(v_{r,0},\ldots,v_{r,639})\) for every \(r=0,\ldots,107\), with the closing edge \(v_{r,639}\sim v_{r,0}\); or
-2. a deterministic successor permutation \(\sigma\) on the 69,120 states whose cycle decomposition consists of exactly 108 orbits, each of length 640.
+### 3.2 Reproducible certificate and provenance boundary
 
-The audit must then verify, using the fixed mixed-radix indexing:
+The implementation is [scripts/audit_prism_108_cycles.py](../../scripts/audit_prism_108_cycles.py), with regression tests in [tests/test_prism_108_cycles.py](../../tests/test_prism_108_cycles.py). Run:
+\`\`\`bash
+python scripts/audit_prism_108_cycles.py
+python -m pytest tests/test_prism_108_cycles.py -q
+\`\`\`
 
-- every listed state is in \(\{0,\ldots,69\,119\}\);
-- every consecutive pair, including the closing pair, is an edge of the specified PRISM graph or of a separately declared subgraph;
-- each orbit has exactly 640 distinct vertices;
-- the 108 vertex sets are pairwise disjoint;
-- their union is the entire 69,120-state set;
-- the cycle orientation, starting-point convention, and any distinguished labels are deterministic;
-- any extra condition that makes these cycles “distinguished” is stated mathematically rather than inferred from the number 108.
+The audit checks the mixed-radix indexing, simplicity of each cycle, all 640 closing and interior edges per cycle, pairwise vertex-disjointness, and exact coverage of the complete index set \(\{0,\ldots,69\,119\}\). The optional flag `--include-cycles --output reports/prism_108_cycles_certificate.json` writes the full ordered list of 69,120 mixed-radix indices. The deterministic flattened ordering is SHA-256 fingerprinted by the script.
 
-The last item is essential. A cycle cover is not unique in a high-degree graph. The construction needs a selection rule—symmetry, a cocycle, an operator eigenspace, a geometric constraint, or a deterministic recurrence—and an audit showing that the rule selects these cycles.
+**Important distinction:** this is a new constructive certificate for a valid 108-cycle cover of the specified PRISM graph. It does not establish that these are the same 108 cycles in the earlier historical/Pellis computation, nor does it recover an additional geometric or operator-based selection rule implicit in the word “distinguished”. That historical identification remains open until the original cycle list, generator, or defining rule is supplied.
 
-**Current classification:** \(108\times640=69\,120\) is exact arithmetic; the 108-cycle cover and its distinguished selection rule remain **reported / pending source recovery and independent reproduction**.
+**Current classification:** existence of a 108-cycle, length-640 vertex-disjoint cover for the specified product graph is **proved constructively and independently audited**; identification with the historical Pellis cycle family and any extra distinguished property remain **open provenance questions**.
 
 ## 4. Krist-All: the polynomial identity and the residual
 
@@ -298,7 +308,7 @@ The next technical exchange should be staged in this order:
 | Product-graph Laplacian spectrum and gap | Exact formula; gap numerically evaluated |
 | PRISM \(B_1B_2=0\) | Exact integer audit |
 | Product-torus Betti vector | Standard topological result; higher boundary ranks not all computed by the PRISM script |
-| 108 disjoint cycles of length 640 | Historical report; generator/list and independent audit missing from inspected sources |
+| A 108-cycle cover of length 640 | Constructively proved for the specified product graph; independent audit and regression tests added. Historical Pellis cycle-family identity remains unverified |
 | 11,725 Krist-All classes | Historical report; equivalence relation and enumerator missing |
 | Krist-All \(K^3=K^2+I\), residual \(5.22\times10^{-16}\) | Historical numerical claim; exact \(K\), \(W_0\), and normalization missing |
 | Kathara 12-centre/15-line transcription | Source-conditioned finite combinatorics |
@@ -322,7 +332,7 @@ Central repository:
 - theorems/MQM-multidimensional-structure.md
 - reports/KRISTALL_RECOVERY_STATUS.md
 - reports/prism_69120_audit.json
-- scripts/audit_prism_69120.py
+- scripts/audit_prism_69120.py\n- scripts/audit_prism_108_cycles.py and tests/test_prism_108_cycles.py
 
 Companion bridge repository:
 - docs/KATHARA_Q6_NONDEGENERATE_GATE_D.md
