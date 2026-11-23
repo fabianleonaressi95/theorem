@@ -3,7 +3,7 @@
 **Scope:** valutazione critica dei lavori di Robert W. Gray e Steffen Kühn sulla crittica a Maxwell, del problema Maxwell–Lodge, dell'elettrodinamica di Weber, dell'EED di Hively–Loebl e del possibile collegamento con olonomia quaternionica (RGS–QLG).
 **Status:** audit documentale e matematico; nessuna delle tesi alternative è assunta come dimostrata.
 
-## 1. Il risultato centrale: la dimostrazione Gray–Kühn (2019) è stata ritirata nella sua forma originaria
+## 1. Il risultato centrale: la dimostrazione Gray–Kühn (2019) non regge nella forma originaria
 
 Gray e Kühn, *Proof of the Inconsistency of the Full Set of Maxwell's Equations with the Maxwell-Lodge Experiment* (2019), argomentavano che un solenoide con `∇×A = 0`, `∂A/∂t ≠ 0`, `∇Φ = 0` e `B = 0` esterno produrrebbe `∂E/∂t ≠ 0` in contrasto con Ampère–Maxwell.
 
@@ -56,7 +56,7 @@ non è una riscrittura di Maxwell–Lorentz: cambia la legge di forza e l'impost
 
 **Hively–Loebl EED (2019, Physics Essays 32, 112–126):** propone `C = ∇·A + c⁻²∂Φ/∂t` come variabile fisica invece che vincolo di gauge Lorenz, con onde longitudinali scalari (SLW). L'argomento "8 equazioni per 6 componenti ⇒ sovradeterminazione" è errato: `∇·B=0` e `∇·E=ρ/ε₀` sono vincoli su dati iniziali/sorgenti la cui compatibilità temporale è garantita da `∂ρ/∂t + ∇·J = 0`. L'erratum del 2019 corregge refusi, non la tesi. Le previsioni SLW richiedono verifica indipendente.
 
-**Stato sperimentale:** nessuna replica indipendente conclusiva del Maxwell–Lodge; test specifici di predizioni Weber hanno dato risultati misti (un risultato positivo interpretato come Weber 2021, DOI 10.2478/jee-2021-0052; risultati nulli Canadian J. Phys. 2017 e PIER M 2021). Qingsong Li (2025, preprint non peer-reviewed) confronta previsioni numeriche Weber per solenoidi lungo/corto.
+**Stato sperimentale — perimetro della ricerca svolta:** i lavori esaminati comprendono un risultato del 2021 interpretato dagli autori come favorevole a una previsione Weber/Ampère (DOI 10.2478/jee-2021-0052) e risultati nulli su altre previsioni specifiche, relative alla massa inerziale degli elettroni (Canadian J. Phys. 2017; PIER M 2021). Questi esperimenti riguardano osservabili e modelli di apparato differenti: non sono repliche dello stesso test e non possono essere aggregati in un unico verdetto sulla legge di Weber. Il lavoro di Kühn riporta una dipendenza quantitativa del segnale dalla frequenza e un accordo con la stima Weber proposta dagli autori; sulla base delle fonti qui esaminate, però, non è disponibile un confronto pubblicato e indipendente con la previsione Maxwell–Lorentz completa per lo stesso apparato, la stessa procedura di misura e le medesime condizioni al contorno. Questo è un limite del dossier esaminato, non la dimostrazione che tale confronto non esista. Il preprint di Qingsong Li (2025, non peer-reviewed) presenta ulteriori calcoli Weber per solenoidi lunghi e corti, ma non costituisce da solo una verifica sperimentale indipendente.
 
 ## 5. Ponte verso RGS–QLG: olonomia come oggetto comune
 
@@ -72,7 +72,7 @@ Per un ponte RGS–QLG rigoroso servono: fibrato, gruppo di struttura, rappresen
 
 ## 6. Protocollo sperimentale discriminante (se si volesse procedere)
 
-Solenoide finito con geometria e `I(t)` misurati; acquisizione sincronizzata di `I, dI/dt`, EMF in bobina nota, `E_φ` tangenziale e `B` esterno; sweep in raggio/lunghezza/frequenza. Confronto diretto `ℰ_misurata − ℰ_maxwell` vs `ℰ_weber` **senza** calibrazione separata per punto. Un esperimento discrimina solo se le previsioni differiscono oltre le incertezze.
+Solenoide finito con geometria, distribuzione di corrente e `I(t)` misurati; acquisizione sincronizzata di `I, dI/dt`, EMF nella bobina ricevente, e mappe di `E` e `B` con sensibilità e incertezze documentate; sweep in raggio, lunghezza e frequenza. Per ciascun modello si deve calcolare il segnale effettivamente restituito dalla medesima catena di misura, includendo condizioni iniziali e al contorno, risposta del ricevitore, accoppiamenti parassiti e incertezze. Il confronto è tra `ℰ_misurata` e le due previsioni indipendenti, `ℰ_Maxwell–Lorentz` e `ℰ_Weber`, non tra il residuo di un modello e una previsione dell'altro. Parametri e procedure di calibrazione devono essere fissati prima del confronto e non riadattati separatamente per ciascun punto. L'esperimento discrimina solo se le previsioni divergono più dell'incertezza combinata.
 
 ## 7. Registro dei verdetti
 
@@ -81,7 +81,7 @@ Solenoide finito con geometria e `I(t)` misurati; acquisizione sincronizzata di 
 | Gray–Kühn 2019: inconsistenza di Maxwell | **Non valida nella forma originaria** (rettifica degli autori) |
 | Maxwell–Lodge richiede potenziali "extra-field" | **Non dimostrato** — coerente con Faraday + topologia |
 | `A` oscillante irrotazionale confuta Maxwell | **Non valido** — gauge-equivalente a `E=−∇Φ'` |
-| Weber vs Maxwell–Lorentz | **Aperto** — confronto quantitativo mancante |
+| Weber vs Maxwell–Lorentz | **Aperto nel dossier esaminato** — manca qui un confronto quantitativo omogeneo e indipendente |
 | EED / onde scalari Hively–Loebl | **Non verificato** — previsioni da testare |
 | Olonomia ↔ olonomia quaternionica QLG | **Ipotesi** — serve formulazione bundle/gauge esplicita |
 
@@ -91,4 +91,4 @@ Solenoide finito con geometria e `I(t)` misurati; acquisizione sincronizzata di 
 
 1. Audit integrale di *Experimental Disproof of Maxwell* (tesi sperimentale generale, distinta da Maxwell–Lodge).
 2. Se si costruisce il ponte QLG: fissare fibrato, gruppo di gauge e mappa `A_μ ↔ ω_quaternionic` prima di qualsiasi calcolo.
-3. Monitoraggio letteratura: repliche indipendenti Maxwell–Lodge, test quantitativi Weber, stato EED. Verifica *una tantum* su richiesta, non continua.
+3. Aggiornamento bibliografico *una tantum*, su richiesta: repliche Maxwell–Lodge, test quantitativi Weber e stato EED. Il presente audit non pretende di dimostrare l'inesistenza di altri confronti o repliche.
