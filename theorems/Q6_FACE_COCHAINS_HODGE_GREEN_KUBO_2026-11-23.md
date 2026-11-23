@@ -260,8 +260,8 @@ The exact combinatorial input is fully specified by the cell labels and boundary
 4. verify ranks (63,129,111) over (\mathbb Q) (or provide modular certificates plus a rational rank proof);
 5. build (P_{\rm cl}) and verify (P_{\rm cl}^T=P_{\rm cl}), (P_{\rm cl}^2=P_{\rm cl}), and (B_3^TP_{\rm cl}=0);
 6. build (A=\Delta_2|_{Z^2}) in an explicit orthonormal basis of (Z^2);
-7. compute and certify its eigenvalue/multiplicity table;
-8. only then evaluate the isotropic trace formula in Section 6.1.
+7. compare the tensor-product eigenvalue/multiplicity table with the explicit incidence-matrix Hodge operator;
+8. evaluate the isotropic trace formula in Section 6.1, already reduced exactly above.
 
 No numerical eigenspectrum or test execution is claimed by this document.
 
