@@ -309,7 +309,8 @@ The coordinates now include exact tetrahedral, octahedral and pyramidal centroid
 
 | Claim | Status |
 |---|---|
-| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |\n| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
+| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |
+| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
 | 56 tetrahedra + 14 octahedra + 24 pyramids partitioning the cuboctahedron | Exact coordinate/incidence and oriented-boundary/volume certificate |
 | Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
 | 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
