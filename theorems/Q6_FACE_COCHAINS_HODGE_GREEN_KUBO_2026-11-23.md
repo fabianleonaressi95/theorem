@@ -252,7 +252,7 @@ This excludes only the role of (M_s) as this reversible relaxation generator or 
 
 ## 10. Reproducibility and next finite computation
 
-The exact combinatorial input is fully specified by the cell labels and boundary formula in Section 2. A reproducible implementation should:
+The exact combinatorial input is fully specified by the cell labels and boundary formula in Section 2. The incidence implementation is `audits/q6_face_cochain_green_kubo.py`, with regression tests in `tests/test_q6_face_cochain_green_kubo.py`. Run `python audits/q6_face_cochain_green_kubo.py` and `python -m unittest tests.test_q6_face_cochain_green_kubo -v`. The script checks boundary identities and exact rational ranks, and records the tensor-product spectrum and Green–Kubo trace. Repository tests/CI have not been run for these commits. A reproducible independent matrix-level comparison should:
 
 1. enumerate cells in a frozen lexicographic order;
 2. build (B_1,B_2,B_3) with integer entries;
@@ -263,7 +263,7 @@ The exact combinatorial input is fully specified by the cell labels and boundary
 7. compare the tensor-product eigenvalue/multiplicity table with the explicit incidence-matrix Hodge operator;
 8. evaluate the isotropic trace formula in Section 6.1, already reduced exactly above.
 
-No numerical eigenspectrum or test execution is claimed by this document.
+No numerical diagonalization or repository test execution is claimed. The spectrum and trace coefficient stated above are obtained analytically from the tensor-product decomposition.
 
 ## 11. Evidence ledger
 
@@ -271,7 +271,7 @@ No numerical eigenspectrum or test execution is claimed by this document.
 |---|---|
 | Cubical cell counts (64,192,240,160) | Exact combinatorial identity |
 | (B_1B_2=B_2B_3=0) | Exact cubical boundary identities |
-| Ranks (63,129,111) | Exact consequence of contractibility/exactness; to be independently certified in the implementation |
+| Ranks (63,129,111) | Exact consequence of contractibility/exactness; also checked by exact rational elimination in the committed audit script |
 | (dim Z^2=129), (P_{\rm cl}) formula | Exact finite-dimensional linear algebra |
 | (Delta_2) self-adjoint and positive; (Z^2) invariant | Exact |
 | (A>0) on (Z^2) | Exact, since (H^2(I^6)=0) |
