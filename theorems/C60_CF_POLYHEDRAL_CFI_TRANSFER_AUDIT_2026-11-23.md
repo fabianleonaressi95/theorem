@@ -51,11 +51,12 @@ La frontiera ha lunghezza
 \[
 \mathcal H^1(\partial C_\rho(p))=\Theta_p\rho.
 \]
-Il numero dei settori triangolari incidenti è finito. Sia \(\mathcal A_p\) la famiglia finita delle estensioni affini di tutte le tracce nei settori che incontrano un intorno conico fissato. Scegliendo un compatto radiale fissato \(K_p\), poniamo
+Il numero dei settori triangolari incidenti è finito. Per ogni settore si usa il suo sviluppo euclideo, e si elencano le coppie effettive \((F,G)\) di estensioni affini che forniscono le due tracce sul medesimo settore. Per ogni coppia si prende il compatto chiuso del settore dentro un intorno conico fissato. Definiamo
 \[
-M_p=\max_{F,G\in\mathcal A_p}\sup_{x\in K_p}|F(x)-G(x)|<\infty.
+M_p:=\max_{(F,G,\ell)}
+\sup_{x\in K_{p,\ell}}|F_\ell(x)-G_\ell(x)|<\infty,
 \]
-Le tracce sui due lati della frontiera terminale sono una traccia esterna e una combinazione convessa di due estensioni affini. Quindi il salto è al più \(M_p\), e
+dove \(\ell\) varia sui settori e \(F_\ell,G_\ell\) sono scritte nello stesso sviluppo del settore \(\ell\). Il massimo è su una famiglia finita di coppie effettive, non su mappe espresse in coordinate incompatibili di settori diversi. Le tracce sui due lati della frontiera terminale sono una traccia esterna e una combinazione convessa di due estensioni affini dello stesso settore. Quindi il salto è al più \(M_p\), e
 \[
 E_{\partial C_\rho(p)}\le \Theta_p\rho M_p^2.
 \]
