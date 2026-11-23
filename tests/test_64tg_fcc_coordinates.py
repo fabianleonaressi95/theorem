@@ -32,6 +32,14 @@ class Test64TGCoordinateReconstruction(unittest.TestCase):
         self.assertEqual(result["pairwise_circumsphere_lenses"], 360)
         self.assertEqual(result["common_triple_ball_intersections"], 648)
 
+    def test_exact_cell_moment_records(self):
+        moments = self.model["cell_moments"]
+        self.assertEqual(len(moments["tetrahedra"]), 64)
+        self.assertEqual(len(moments["octahedra"]), 14)
+        self.assertEqual(len(moments["square_pyramids"]), 24)
+        self.assertEqual(moments["tetrahedra"][0]["covariance_over_a2_diagonal"], ["1/160"] * 3)
+        self.assertEqual(moments["octahedra"][0]["covariance_over_a2_diagonal"], ["1/80"] * 3)
+
 
 if __name__ == "__main__":
     unittest.main()
