@@ -17,7 +17,7 @@ Gray e Kühn, *Proof of the Inconsistency of the Full Set of Maxwell's Equations
 
 Se `E_φ` varia, `B_z` deve avere una struttura radiale compatibile. Piccolo ≠ identicamente nullo. La soluzione esatta per un solenoide infinito con sorgente arbitraria `I(t)` è nota (Rivera–Villarroel 2002 e lavori successivi).
 
-**Verdetto:** la dimostrazione del 2019 non stabilisce l'inconsistenza di Maxwell. Registrare come *risultato negativo*.
+**Verdetto:** la dimostrazione del 2019 non stabilisce l'inconsistenza di Maxwell. La rettifica degli autori riconosce che le ipotesi usate nella dimostrazione non sono simultaneamente compatibili; non va descritta come ritiro formale dell'intero articolo.
 
 ## 2. Maxwell–Lodge: configurazione coerente con Maxwell
 
@@ -78,7 +78,7 @@ Solenoide finito con geometria e `I(t)` misurati; acquisizione sincronizzata di 
 
 | Affermazione | Stato |
 |---|---|
-| Gray–Kühn 2019: inconsistenza di Maxwell | **Confutata** (dai сами авторi) |
+| Gray–Kühn 2019: inconsistenza di Maxwell | **Non valida nella forma originaria** (rettifica degli autori) |
 | Maxwell–Lodge richiede potenziali "extra-field" | **Non dimostrato** — coerente con Faraday + topologia |
 | `A` oscillante irrotazionale confuta Maxwell | **Non valido** — gauge-equivalente a `E=−∇Φ'` |
 | Weber vs Maxwell–Lorentz | **Aperto** — confronto quantitativo mancante |
