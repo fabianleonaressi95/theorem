@@ -93,7 +93,7 @@ La striscia termina agli estremi di `e`: su ogni interfaccia
 laterale `s=0` e `s=|e|` (lunghezza `δ` per strato) il valore
 interno `g⁻+((m−i+1)/m)h_e` incontra il valore esterno `g` (o la
 costruzione del segmento adiacente). Il salto è
-`(i/m)h_e+O(δ)`, ampiezza `≤C_e+cδ`. I `m` strati danno `m`
+`((m−i+1)/m)h_e+O(δ)`, ampiezza `≤C_e+cδ`. I `m` strati danno `m`
 segmenti di lunghezza `δ/m` per capo, lunghezza totale `δ` per
 capo. Per `φ=t²`, il costo esatto è
 
