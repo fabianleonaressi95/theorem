@@ -351,7 +351,7 @@ The reproducible implementation is `audits/jitterbug_coil_coupling.py`; run it f
 
 ```bash
 python3 audits/jitterbug_coil_coupling.py --output jitterbug_coil_report.json
-python3 -m unittest tests.test_jitterbug_coil_coupling -v
+python3 -m unittest discover -s tests -p 'test_jitterbug_coil_coupling.py' -v
 ```
 
 Default illustrative parameters are \(a_J=0.1\,\mathrm m\), \(v_s=0.01\,\mathrm{m/s}\), \(N=100\), \(r=0.8r_{\rm in}\), \(\mathbf B=(0,0,0.1)\,\mathrm T\), \(R_c=10\,\Omega\), and \(\mathscr L_c=0.01\,\mathrm H\). These are declared example inputs, not measured apparatus parameters. The script records the full time series of flux linkage, emf and current, plus the maximum rigid-panel fit residual. The tests cover rigid-pose recovery, zero emf for a static panel, agreement with the analytic rotating-panel Faraday derivative, and the geometric coil-fit constraint.
