@@ -1,0 +1,32 @@
+name: Q6 face-cochain Green-Kubo audit
+
+on:
+  push:
+    paths:
+      - "audits/q6_face_cochain_green_kubo.py"
+      - "tests/test_q6_face_cochain_green_kubo.py"
+      - ".github/workflows/q6-face-cochain-green-kubo.yml"
+  pull_request:
+    paths:
+      - "audits/q6_face_cochain_green_kubo.py"
+      - "tests/test_q6_face_cochain_green_kubo.py"
+      - ".github/workflows/q6-face-cochain-green-kubo.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  q6-face-cochain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run exact Q6 face-cochain unit tests
+        run: python -m unittest discover -s tests -p "test_q6_face_cochain_green_kubo.py" -v
+      - name: Reproduce exact incidence and Green-Kubo audit
+        run: python audits/q6_face_cochain_green_kubo.py
