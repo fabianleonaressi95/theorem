@@ -453,7 +453,7 @@ Until those checks and definitions exist, C.12.2 is an exact geometric result, C
 
 ### C.13.1 The rectangle construction on p. 2091
 
-Let the initial rectangle have short side (B_0=1) and long side (A_0=\phi), where \(\phi=(1+\sqrt5)/2\). Its aspect ratio is (A_0/B_0=\phi).
+Let the initial rectangle have short side $B_0=1$ and long side (A_0=\phi), where \(\phi=(1+\sqrt5)/2\). Its aspect ratio is (A_0/B_0=\phi).
 
 If the next rectangle is attached so that the previous long side becomes the new short side, then
 \[
