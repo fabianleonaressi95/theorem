@@ -161,7 +161,7 @@ The cochain projector
 \\[
 P_{\\rm cl}=I-B_3(B_3^TB_3)^+B_3^T
 \\]
-has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector, when (B_3:C_3\\to C_2) is the cubical boundary matrix and standard Euclidean cell inner products are used. This projector is not the graph-vertex Laplacian \\(L_{Q6}\\). Nor does the cosine curvature action automatically equal a Green--Kubo stress autocorrelation. The companion face-cochain note defines a reversible OU model on this closed space; it is a specified model choice, not a physical identification.
+has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector, when \\(B_3:C_3\\to C_2\\) is the cubical boundary matrix and standard Euclidean cell inner products are used. This projector is not the graph-vertex Laplacian \\(L_{Q6}\\). Nor does the cosine curvature action automatically equal a Green--Kubo stress autocorrelation. The companion face-cochain note defines a reversible OU model on this closed space; it is a specified model choice, not a physical identification.
 
 ## 6. What the supergolden sector can and cannot be
 
@@ -192,7 +192,7 @@ The meaningful next target is not “derive \(s\) from Q6” in the abstract. It
 5. Compute the characteristic polynomial exactly. Only if it is \(x^3-x^2-1\), with no fitted coefficients, is the supergolden identification established.
 
 Until steps 1–5 are supplied, the bridge is:
-- **proved:** Krystallo/hypercube scale identity; hypercube spectrum; OU Green–Kubo inverse-spectral formula; Q6 isotropic benchmark.
+- **proved:** sampled-sequence equality \\(K_n=|V(Q_n)|\\) (with no structural implication); hypercube spectrum; OU Green–Kubo inverse-spectral formula; Q6 vertex-space isotropic benchmark under the explicit unit-sphere convention.
 - **proved under the recorded normalization:** Q6 plaquette-curvature identity and closed-cochain projector rank.
 - **open:** identification of the physical stress observable, coupling of the 240-face sector to the vertex Laplacian, and a geometric derivation of a three-channel supergolden map.
 - **excluded for the reversible route:** direct identification of \(M_s\) with a self-adjoint Green–Kubo relaxation generator.
