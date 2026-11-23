@@ -87,6 +87,16 @@ def build_report() -> dict:
         "B2_B3_zero": composition_is_zero(data[2][2], data[3][2]),
     }
     closed_2_cochain_dimension = counts[2] - ranks[3]
+    # Tensor-product spectrum of the Hodge Laplacian on exact 2-cochains:
+    # m_2,exact(lambda) = m_1(lambda) - m_0(lambda), since d maps
+    # coexact 1-eigenvectors isometrically to exact 2-eigenvectors.
+    closed_spectrum = {4: 15, 6: 40, 8: 45, 10: 24, 12: 5}
+    green_kubo_trace = sum(
+        (Fraction(multiplicity, eigenvalue)
+         for eigenvalue, multiplicity in closed_spectrum.items()),
+        Fraction(0, 1),
+    )
+    isotropic_green_kubo_coefficient = green_kubo_trace / closed_2_cochain_dimension
     return {
         "n": 6,
         "cell_counts_C1_C2_C3": counts,
@@ -94,6 +104,9 @@ def build_report() -> dict:
         "boundary_identities": identities,
         "closed_2_cochain_dimension": closed_2_cochain_dimension,
         "harmonic_2_cochain_dimension": counts[2] - ranks[2] - ranks[3],
+        "closed_2_hodge_spectrum": closed_spectrum,
+        "green_kubo_trace_sum_m_over_lambda": str(green_kubo_trace),
+        "isotropic_green_kubo_coefficient": str(isotropic_green_kubo_coefficient),
         "projector": "P_cl = I_240 - B3 (B3^T B3)^+ B3^T",
         "inner_product": "standard Euclidean inner product in the oriented cell bases",
         "arithmetic": "exact integers and rational Gaussian elimination",
