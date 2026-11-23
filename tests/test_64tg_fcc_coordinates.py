@@ -26,6 +26,12 @@ class Test64TGCoordinateReconstruction(unittest.TestCase):
         result = audit(self.model)
         self.assertEqual(result["cell_face_incidences"], {1: 56, 2: 200})
 
+    def test_circumsphere_pair_and_triple_overlaps(self):
+        result = audit(self.model)
+        self.assertEqual(result["tetrahedron_circumspheres"], 64)
+        self.assertEqual(result["pairwise_circumsphere_lenses"], 360)
+        self.assertEqual(result["common_triple_ball_intersections"], 648)
+
 
 if __name__ == "__main__":
     unittest.main()
