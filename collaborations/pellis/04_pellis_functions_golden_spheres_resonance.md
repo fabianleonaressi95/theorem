@@ -563,3 +563,27 @@ Under the golden hierarchy (R_n=R_0phi^{-n}), each level is a homothetic copy. H
 **Consequence:** the reported sequence ((8,10),(10,12),(14,18)) cannot be obtained merely by applying golden homotheties to one fixed three-circle configuration. A level-dependent change of circle centres, incidence pattern, rotation, or ray-selection rule is necessary. The supplied report extract does not specify which one.
 
 **Classification:** exact geometric/operator benchmark for the chosen model; obstruction to count growth under pure homothety; reconstruction of the report's 8×10 / 10×12 / 14×18 grids remains open. No physical interpretation or equivalence with Pellis's resonance operator is claimed.
+
+
+## C.15 Exact incidence complex of the 19-circle Flower of Life
+
+The traditional 19-circle arrangement is formalized independently of the three-circle angular benchmark. The full construction, exact intersection classification, \(31\times19\) incidence matrix, \(D_6\)-orbit decomposition, and characteristic polynomial of \(B^\mathsf TB\) are recorded in [the exact 19-circle incidence audit](../../audits/FLOWER_OF_LIFE_19_EXACT_INCIDENCE_2026-11-23.md). A reproducible SymPy script is stored beside the audit.
+
+For common radius \(R=1\), the 19 centres form the hexagonal radius-two patch of the triangular lattice. The arrangement has 99 intersecting circle pairs but only 31 distinct intersection points, because some points are shared by three, four, or six circles. The point multiplicity distribution is \(2:12,\ 3:6,\ 4:6,\ 6:7\), giving 108 circle-point incidences.
+
+With \(B\) the binary point-circle incidence matrix, the exact Gram operator \(G=B^\mathsf TB\) has rank 19 and characteristic polynomial
+\[
+\begin{aligned}
+\chi_G(\lambda)={}&(\lambda-6)^2(\lambda-3)^2(\lambda-2)^3
+(\lambda^2-8\lambda+11)\\
+&\cdot(\lambda^3-19\lambda^2+78\lambda-76)^2\\
+&\cdot(\lambda^4-38\lambda^3+375\lambda^2-1350\lambda+1584).
+\end{aligned}
+\]
+The 31 intersection points split into \(D_6\)-orbits of sizes \(1,6,6,6,12\).
+
+This is not the same operator as the \(C_6\) angular Laplacian in C.14: the latter is a six-direction graph Laplacian, while \(B^\mathsf TB\) acts on the 19 circle labels and records shared intersection points. Their spectra must not be conflated. The 19-circle construction gives a global incidence model; an angular-ray graph still requires an explicit origin and ray-selection convention.
+
+The exact incidence structure is invariant under golden homothety, so scaling all radii by \(\phi^{-n}\) cannot change the counts 19 centres, 31 intersection points, or 108 incidences. No derivation of the Rapporto Vesica's \(8\times10\), \(10\times12\), or \(14\times18\) ray pairs is claimed.
+
+**Classification:** exact finite geometry and exact symbolic computation for the specified 19-circle arrangement; relation to the source's ray-count sequence remains open; no physical identification with Partiki, the 12 Tree Grid, or 15-dimensional fields is asserted.
