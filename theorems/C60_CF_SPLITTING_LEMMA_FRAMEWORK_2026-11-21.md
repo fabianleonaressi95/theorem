@@ -71,73 +71,72 @@ Lo strato `i=1`, adiacente a `e` (perché `t∈(−δ/m,0)`), ha coefficiente `1
 
 ## 3. Stima (S): interfacce fra strati
 
-Le interfacce interne `t=−iδ/m`, `i=1,…,m−1`, e il bordo esterno `t=−δ` sono segmenti di lunghezza al più `|e|` (tranne le parti assegnate ai dischi terminali, §4). Su ciascuna il salto è `h_e/m`, con `|h_e|≤C_e+cδ`. Per `φ(t)=t²`:
-Le interfacce `t=−iδ/m`, `i=1,…,m−1`, sono segmenti di lunghezza
-`|e|` (tranne le parti nei dischi terminali, §4). Su ciascuna il
-salto è `h_e/m` con `|h_e|≤C_e+cδ`. Per `φ(t)=t²`:
+Le interfacce interne \(t=-i\delta/m\), \(i=1,\ldots,m-1\), e il bordo esterno \(t=-\delta\) sono contate una sola volta. Su ciascuna il salto è esattamente \(h_e/m\), a meno della restrizione al tratto non rimosso dai cappucci terminali. Poiché \(|h_e|\le C_e+c\delta\) nella striscia e ogni tratto ha lunghezza al più \(|e|\), per \(\phi(t)=t^2\)
+\[
+E_S\le |e|\,m\left(\frac{C_e+c\delta}{m}\right)^2
+=\frac{|e|(C_e+c\delta)^2}{m}.
+\]
+Quindi \(E_S\to0\) per \(m\to\infty\), a \(\delta\) fissato e poi lungo la scelta dei parametri.
 
-```
-E_S ≤ |e|·m·((C_e+cδ)/m)² = |e|(C_e+cδ)²/m  →  0  per m→∞, δ→0.
-```
+## 4. Terminali, cappucci e vertici: geometria da specificare
 
-Nessuna dipendenza da `δ` nel denominatore: il numero di strati
-non entra nel denominatore perché ogni interfaccia ha salto
-`O(1/m)`, non `O(δ)`.
+### 4.1 Due geometrie possibili — non intercambiabili
 
-## 4. Stime (K) e (V): cappucci e vertici — il punto (B)
+La frase «striscia troncata fuori dai dischi terminali» deve essere resa operativa. Si distinguono due scelte.
 
-### 4.1 Cappucci laterali
+**Scelta A — rimozione completa dei cappucci dentro i dischi.** Si definisce la regione modificata
+\[
+D_e:=S_\delta(e)\setminus\bigl(B_\rho(A)\cup B_\rho(B)\bigr)
+\]
+e si pone \(v=g\) fuori da \(D_e\). Se \(\delta<\rho\), i lati corti \(s=0\) e \(s=|e|\) della striscia completa sono interamente contenuti nei dischi: non esistono quindi tratti laterali residui da sommare come \(K\). La frontiera artificiale della regione modificata è invece costituita dagli archi (o dai lati di un'approssimazione poligonale) di \(\partial B_\rho(A)\cup\partial B_\rho(B)\) che intersecano \(D_e\). Questi tratti devono essere assegnati a \(V\) e stimati usando le **tracce effettive** di \(v\) e \(g\).
 
-La striscia viene troncata fuori dai dischi terminali `B_ρ(A)∪B_ρ(B)`: i tratti laterali dentro i dischi sono assegnati esclusivamente a (V), non a (K). Sulle parti residue dei bordi laterali, il salto è la differenza tra la traccia affine dello strato e la traccia del campo esterno. Il bound `C_e+cδ` è valido solo quando il campo esterno è specificato e ha traccia compatibile; tale compatibilità è un'ipotesi della costruzione locale e va verificata sulla partizione comune. I `m` strati danno `m`
-La striscia termina agli estremi di `e`: su ogni interfaccia
-laterale `s=0` e `s=|e|` (lunghezza `δ` per strato) il valore
-interno `g⁻+((m−i+1)/m)h_e` incontra il valore esterno `g` (o la
-costruzione del segmento adiacente). Il salto è
-`((m−i+1)/m)h_e+O(δ)`, ampiezza `≤C_e+cδ`. I `m` strati danno `m`
-segmenti di lunghezza `δ/m` per capo, lunghezza totale `δ` per
-capo. Per `φ=t²`, il costo esatto è
+Per un complesso finito e dati affine-per-cella, esiste una costante locale \(M_P<\infty\), massimo delle differenze delle estensioni affini coinvolte sui compatti considerati, tale che il costo sui bordi artificiali è limitato da
+\[
+E_{\partial V}\le C\,\rho\,M_P^2.
+\]
+Il contributo del salto originale rimasto dentro i dischi soddisfa analogamente
+\[
+E_{J_g\cap\cup_P B_\rho(P)}
+\le C\,\rho\,\max_e C_e^2,
+\]
+perché il jump complex è finito e ogni ramo ha lunghezza \(O(\rho)\). Le costanti dipendono dal complesso e dai dati affine-per-cella; non sono, in generale, controllate dal solo \(C_e\) del singolo lato.
 
-```
-E_K = 2·Σ_{i=1}^m (δ/m)·((i/m)(C_e+cδ))²
-    ≤ (2δ/m³)(C_e+cδ)²·Σ_{i=1}^m i²
-    ≤ (2/3)·δ·(C_e+cδ)² · (1+o(1))
-    = O(δ)   per m fissato.
-```
+**Scelta B — cappucci laterali esterni ai dischi.** Se la costruzione conserva una parte dei lati corti fuori dai dischi, quei segmenti costituiscono un termine \(K\) separato. Su un tratto del lato \(s=0\) o \(s=|e|\) nello strato \(i\), il salto va calcolato come differenza tra la traccia effettiva interna
+\[
+g^-_{\rm aff}+\frac{m-i+1}{m}h_e
+\]
+e la traccia effettiva del campo esterno \(g_{\rm ext}\). Non è lecito sostituire questa differenza con \((i/m)h_e\), né dedurre il bound \(C_e+c\delta\) senza un'ipotesi/ verifica sulla traccia \(g_{\rm ext}\). Se tale verifica dà un bound \(M_{e,i}\), il conto corretto è
+\[
+E_K\le 2\sum_{i=1}^m \frac{\delta}{m}M_{e,i}^2
+\]
+(per due lati completi; per tratti troncati si usano le loro lunghezze effettive). Nel caso particolare in cui \(g_{\rm ext}=g^-_{\rm aff}\) lungo il lato, si può porre \(M_{e,i}\le ((m-i+1)/m)(C_e+c\delta)\); solo allora segue
+\[
+E_K\le 2\frac{\delta}{m}(C_e+c\delta)^2
+\sum_{i=1}^m\left(\frac{m-i+1}{m}\right)^2
+\le 2\delta(C_e+c\delta)^2.
+\]
+La stima è \(O(\delta)\), ma dipende dalla compatibilità delle tracce effettive.
 
-Per `φ` continua, un bound robusto è `E_K≤2δ·sup_{0≤t≤C_e+cδ}φ(t)`, che tende a zero per `δ→0` a `C_e` fissato. Nel caso quadratico dà `O(δ(C_e+cδ)²)`; non si usa una somma con coefficiente di salto che non sia stato derivato dalle tracce effettive.
-Questa è la stima mancante del punto (B) dell'audit:
-`E_cap ≤ C·δ·sup_{[0,C_e]}φ` per `φ` continua con `φ(0)=0`;
-per `t²` vale `O(δC_e²)` e non richiede `mδ→0` — il fattore
-`1/m` dello spessore cancella esattamente il numero di strati.
+Le scelte A e B sono alternative. Non si può assegnare lo stesso tratto sia a \(K\) sia a \(V\), né usare la stima di \(K\) sui lati già rimossi dentro i dischi.
 
-### 4.2 Dischi di vertice
+### 4.2 Vertici e giunzioni
 
-Attorno a ogni vertice `P` del jump complex (estremi di `e`,
-incroci, vertici C60) si toglie il disco `B_ρ(P)` e **non si
-applica alcun splitting**: il salto resta quello di `g`.
-Contributo:
+Attorno a ogni vertice del jump complex si sceglie una regione terminale \(Q_\rho(P)\), preferibilmente poligonale se si vuole una partizione poligonale esatta, con
+\[
+B_{c\rho}(P)\subset Q_\rho(P)\subset B_{C\rho}(P).
+\]
+Dentro \(Q_\rho(P)\) non si applica lo splitting e si pone \(v=g\). Il salto originale sui rami contenuti in \(Q_\rho(P)\) ha costo \(O(\rho)\). Sulla frontiera \(\partial Q_\rho(P)\), dove il campo modificato incontra \(g\), si stima invece il salto artificiale effettivo; la sua ampiezza è limitata da una costante locale \(M_P\) solo dopo aver elencato le celle affini che forniscono le due tracce. Poiché \(\mathcal H^1(\partial Q_\rho(P))=O(\rho)\), il costo è \(O(\rho M_P^2)\).
 
-```
-E_V ≤ Σ_P (C_P)²·c_P ρ     →  0  per ρ→0,
-```
+### 4.3 Condizioni di disgiunzione
 
-dove `C_P` è il massimo dei `C_e` sugli segmenti incidenti e
-`c_P` la lunghezza dell'arco `∂B_ρ∩J_g` (`O(1)` per ρ piccolo,
-universale sui vertici di un grafo finito).
+Prima di sommare i contributi, suddividere \(J_g\) in segmenti massimali sui quali la coppia di celle affine e il salto \(h_e\) sono fissati; includere come vertici tutti gli estremi, gli incroci e i punti di cambio della coppia di tracce. Per un complesso finito, dopo questa suddivisione si possono scegliere regioni terminali disgiunte e \(\delta/\rho\) abbastanza piccolo da rendere disgiunte le strisce dei rami incidenti fuori dalle regioni terminali. La scelta deve dipendere anche dalla minima separazione angolare positiva tra i rami incidenti, non soltanto dalle distanze tra segmenti non incidenti. Segmenti collineari sovrapposti vanno prima fusi o suddivisi in modo da non creare doppie assegnazioni.
 
-### 4.3 Disgiunzione
+La partizione finale deve assegnare ogni tratto di salto effettivo una sola volta:
+- interfacce fra strati e bordo esterno della striscia: \(S\);
+- eventuali lati corti effettivamente conservati fuori dalle regioni terminali: \(K\);
+- salti originali dentro le regioni terminali e frontiere artificiali tra \(v\) e \(g\): \(V\).
 
-Definire la regione splittata come `S_δ(e)\setminus(B_ρ(A)∪B_ρ(B))`. Le parti di interfacce laterali e terminali dentro i dischi sono assegnate esclusivamente a (V), non a (K); le interfacce (S) sono troncate analogamente. Per segmenti non incidenti, scegliere le scale sotto metà delle distanze minime positive; per segmenti incidenti, la rimozione dei dischi disgiunti separa le costruzioni. La disgiunzione è dunque fra le regioni effettivamente conteggiate, non fra le strisce complete.
-Per `δ,ρ` minori delle metà delle distanze minime fra:
-
-- segmenti non incidenti di `J_g`;
-- vertici distinti del jump complex;
-- vertici e lati non incidenti;
-
-le strisce di segmenti distinti non si sovrappongono, e ogni
-segmento di `J_g` fuori dai dischi `B_ρ` è trattato da una
-striscia sola. Le scelte `δ≪ρ≪`distanze minimex>0` esistono
-perché il grafo è finito.
+Per una partizione poligonale comune, le regioni terminali circolari vanno sostituite da poligoni con diametro e perimetro \(O(\rho)\), oppure la loro frontiera curva va trattata separatamente.
 
 ## 5. Convergenza e ordine dei limiti
 
@@ -183,14 +182,10 @@ m → ∞   (uccide E_S),   poi  δ → 0  (uccide E_K),   poi  ρ → 0
 
 ## 7. Stato
 
-**Lemma di splitting: dimostrato** per un grafo di salto finito
-in un complesso poliedrale piatto, con stime separate
-(S)/(K)/(V) esplicite. La proprietà 7 del documento quadratico
-(gradiente uniformemente limitato nelle strisce) è verificata
-in §2.1 — e si rileva che per la recovery finale non è nemmeno
-necessaria: dopo la staircase `∇u_{j,m,h}=G_j` **
-H²-quasi ovunque su ogni cella, strisce incluse** (il mismatch
-locale è assorbito in `M_P=A_P−G_P`), quindi il bulk è
-esattamente `∫W(G_j)` senza correzioni di area. Resta solo la
-trascrizione delle coordinate intrinseche su `Σ` (tecnico:
-la metrica è piatta fuori da `V`).
+**Stato: splitting locale condizionale.** La formula a strati e il conto (S) sono espliciti. Il controllo (K) vale soltanto dopo aver scelto una delle due geometrie di §4.1 e verificato le tracce esterne effettive; il controllo (V) richiede la stima dei salti artificiali sulle frontiere terminali, non soltanto del salto originale dentro i dischi. La disgiunzione richiede inoltre la suddivisione del jump complex e il controllo degli angoli tra rami incidenti (§4.3). Questi requisiti non sono tutti verificati dalla sola finitezza del grafo. Pertanto il lemma di splitting globale non è qui dichiarato dimostrato.
+
+La proprietà del gradiente resta valida localmente: su ogni strato (v) è affine e (
+abla v=
+abla g^-+((m-i+1)/m)
+abla h_e). Se la successiva staircase è costruita su una partizione comune finita e soddisfa le ipotesi del relativo lemma, allora (
+abla u_{j,m,h}=G_j) quasi ovunque sulle celle. Questo fatto non colma eventuali lacune nella contabilizzazione dei salti di (v). Il trasferimento intrinseco a (Sigma) richiede inoltre di trattare esplicitamente le giunzioni tra facce e i vertici conici.
