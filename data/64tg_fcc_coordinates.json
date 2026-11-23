@@ -19017,6 +19017,1428 @@
       "common_intersection_certificate_radius_squared_n": "1/2"
     }
   ],
+  "uniform_cell_barycentres_and_covariances": {
+    "tetrahedra": [
+      {
+        "index": 0,
+        "centroid_n_numerator": [
+          -6,
+          -6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 1,
+        "centroid_n_numerator": [
+          -6,
+          -6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 2,
+        "centroid_n_numerator": [
+          -6,
+          -6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 3,
+        "centroid_n_numerator": [
+          -6,
+          -6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 4,
+        "centroid_n_numerator": [
+          -6,
+          -2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 5,
+        "centroid_n_numerator": [
+          -6,
+          -2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 6,
+        "centroid_n_numerator": [
+          -6,
+          -2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 7,
+        "centroid_n_numerator": [
+          -6,
+          -2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 8,
+        "centroid_n_numerator": [
+          -6,
+          2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 9,
+        "centroid_n_numerator": [
+          -6,
+          2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 10,
+        "centroid_n_numerator": [
+          -6,
+          2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 11,
+        "centroid_n_numerator": [
+          -6,
+          2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 12,
+        "centroid_n_numerator": [
+          -6,
+          6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 13,
+        "centroid_n_numerator": [
+          -6,
+          6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 14,
+        "centroid_n_numerator": [
+          -6,
+          6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 15,
+        "centroid_n_numerator": [
+          -6,
+          6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 16,
+        "centroid_n_numerator": [
+          -2,
+          -6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 17,
+        "centroid_n_numerator": [
+          -2,
+          -6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 18,
+        "centroid_n_numerator": [
+          -2,
+          -6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 19,
+        "centroid_n_numerator": [
+          -2,
+          -6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 20,
+        "centroid_n_numerator": [
+          -2,
+          -2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 21,
+        "centroid_n_numerator": [
+          -2,
+          -2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 22,
+        "centroid_n_numerator": [
+          -2,
+          -2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 23,
+        "centroid_n_numerator": [
+          -2,
+          -2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 24,
+        "centroid_n_numerator": [
+          -2,
+          2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 25,
+        "centroid_n_numerator": [
+          -2,
+          2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 26,
+        "centroid_n_numerator": [
+          -2,
+          2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 27,
+        "centroid_n_numerator": [
+          -2,
+          2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 28,
+        "centroid_n_numerator": [
+          -2,
+          6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 29,
+        "centroid_n_numerator": [
+          -2,
+          6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 30,
+        "centroid_n_numerator": [
+          -2,
+          6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 31,
+        "centroid_n_numerator": [
+          -2,
+          6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 32,
+        "centroid_n_numerator": [
+          2,
+          -6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 33,
+        "centroid_n_numerator": [
+          2,
+          -6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 34,
+        "centroid_n_numerator": [
+          2,
+          -6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 35,
+        "centroid_n_numerator": [
+          2,
+          -6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 36,
+        "centroid_n_numerator": [
+          2,
+          -2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 37,
+        "centroid_n_numerator": [
+          2,
+          -2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 38,
+        "centroid_n_numerator": [
+          2,
+          -2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 39,
+        "centroid_n_numerator": [
+          2,
+          -2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 40,
+        "centroid_n_numerator": [
+          2,
+          2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 41,
+        "centroid_n_numerator": [
+          2,
+          2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 42,
+        "centroid_n_numerator": [
+          2,
+          2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 43,
+        "centroid_n_numerator": [
+          2,
+          2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 44,
+        "centroid_n_numerator": [
+          2,
+          6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 45,
+        "centroid_n_numerator": [
+          2,
+          6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 46,
+        "centroid_n_numerator": [
+          2,
+          6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 47,
+        "centroid_n_numerator": [
+          2,
+          6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 48,
+        "centroid_n_numerator": [
+          6,
+          -6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 49,
+        "centroid_n_numerator": [
+          6,
+          -6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 50,
+        "centroid_n_numerator": [
+          6,
+          -6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 51,
+        "centroid_n_numerator": [
+          6,
+          -6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 52,
+        "centroid_n_numerator": [
+          6,
+          -2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 53,
+        "centroid_n_numerator": [
+          6,
+          -2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 54,
+        "centroid_n_numerator": [
+          6,
+          -2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 55,
+        "centroid_n_numerator": [
+          6,
+          -2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 56,
+        "centroid_n_numerator": [
+          6,
+          2,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 57,
+        "centroid_n_numerator": [
+          6,
+          2,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 58,
+        "centroid_n_numerator": [
+          6,
+          2,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 59,
+        "centroid_n_numerator": [
+          6,
+          2,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 60,
+        "centroid_n_numerator": [
+          6,
+          6,
+          -6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 61,
+        "centroid_n_numerator": [
+          6,
+          6,
+          -2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 62,
+        "centroid_n_numerator": [
+          6,
+          6,
+          2
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      },
+      {
+        "index": 63,
+        "centroid_n_numerator": [
+          6,
+          6,
+          6
+        ],
+        "centroid_n_denominator": 4,
+        "covariance_over_a2_diagonal": [
+          "1/160",
+          "1/160",
+          "1/160"
+        ]
+      }
+    ],
+    "octahedra": [
+      {
+        "index": 0,
+        "centroid_n": [
+          -1,
+          -1,
+          -1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 1,
+        "centroid_n": [
+          -1,
+          -1,
+          1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 2,
+        "centroid_n": [
+          -1,
+          0,
+          0
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 3,
+        "centroid_n": [
+          -1,
+          1,
+          -1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 4,
+        "centroid_n": [
+          -1,
+          1,
+          1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 5,
+        "centroid_n": [
+          0,
+          -1,
+          0
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 6,
+        "centroid_n": [
+          0,
+          0,
+          -1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 7,
+        "centroid_n": [
+          0,
+          0,
+          1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 8,
+        "centroid_n": [
+          0,
+          1,
+          0
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 9,
+        "centroid_n": [
+          1,
+          -1,
+          -1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 10,
+        "centroid_n": [
+          1,
+          -1,
+          1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 11,
+        "centroid_n": [
+          1,
+          0,
+          0
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 12,
+        "centroid_n": [
+          1,
+          1,
+          -1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 13,
+        "centroid_n": [
+          1,
+          1,
+          1
+        ],
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "1/80"
+        ]
+      }
+    ],
+    "square_pyramids": [
+      {
+        "index": 0,
+        "centroid_n_numerator": [
+          -28,
+          -16,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 1,
+        "centroid_n_numerator": [
+          -28,
+          0,
+          -16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 2,
+        "centroid_n_numerator": [
+          -28,
+          0,
+          16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 3,
+        "centroid_n_numerator": [
+          -28,
+          16,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 4,
+        "centroid_n_numerator": [
+          28,
+          -16,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 5,
+        "centroid_n_numerator": [
+          28,
+          0,
+          -16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 6,
+        "centroid_n_numerator": [
+          28,
+          0,
+          16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 7,
+        "centroid_n_numerator": [
+          28,
+          16,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "3/640",
+          "1/80",
+          "1/80"
+        ]
+      },
+      {
+        "index": 8,
+        "centroid_n_numerator": [
+          -16,
+          -28,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 9,
+        "centroid_n_numerator": [
+          0,
+          -28,
+          -16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 10,
+        "centroid_n_numerator": [
+          0,
+          -28,
+          16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 11,
+        "centroid_n_numerator": [
+          16,
+          -28,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 12,
+        "centroid_n_numerator": [
+          -16,
+          28,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 13,
+        "centroid_n_numerator": [
+          0,
+          28,
+          -16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 14,
+        "centroid_n_numerator": [
+          0,
+          28,
+          16
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 15,
+        "centroid_n_numerator": [
+          16,
+          28,
+          0
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "3/640",
+          "1/80"
+        ]
+      },
+      {
+        "index": 16,
+        "centroid_n_numerator": [
+          -16,
+          0,
+          -28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 17,
+        "centroid_n_numerator": [
+          0,
+          -16,
+          -28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 18,
+        "centroid_n_numerator": [
+          0,
+          16,
+          -28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 19,
+        "centroid_n_numerator": [
+          16,
+          0,
+          -28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 20,
+        "centroid_n_numerator": [
+          -16,
+          0,
+          28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 21,
+        "centroid_n_numerator": [
+          0,
+          -16,
+          28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 22,
+        "centroid_n_numerator": [
+          0,
+          16,
+          28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      },
+      {
+        "index": 23,
+        "centroid_n_numerator": [
+          16,
+          0,
+          28
+        ],
+        "centroid_n_denominator": 16,
+        "covariance_over_a2_diagonal": [
+          "1/80",
+          "1/80",
+          "3/640"
+        ]
+      }
+    ]
+  },
   "audit": {
     "vertices": 63,
     "edges": 240,
@@ -19030,6 +20452,7 @@
     "tetrahedron_circumspheres": 64,
     "pairwise_circumsphere_lenses": 360,
     "common_triple_ball_intersections": 648,
+    "cell_moment_records": 102,
     "cell_face_incidences": {
       "1": 56,
       "2": 200
