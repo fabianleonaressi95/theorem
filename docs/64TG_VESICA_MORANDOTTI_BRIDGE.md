@@ -305,36 +305,6 @@ The static coordinate and incidence data are now explicit. The remaining inputs 
 
 The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
 
-## 11. Status summary
-
-| Claim | Status |
-|---|---|
-| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |
-| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
-| 56 tetrahedra + 14 octahedra + 24 pyramids partitioning the cuboctahedron | Exact coordinate/incidence and oriented-boundary/volume certificate |
-| Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
-| 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
-| 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
-| Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
-| Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
-| Pairwise circumsphere overlap as Vesica lens | Exact definition; 360 instances enumerated in the reconstructed FCC/D3 model |
-| Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
-| 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
-| 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
-| Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
-| Jitterbug phase/oscillation law | Open until a path and phase field are specified |
-| Cosmological/bimetric interpretation | Not established by this geometric audit |
-
-## References and internal links
-
-- Galeffi, *On the 14-Octahedron Backbone of the Bimetric 64-Tetrahedron Grid Universe*, viXra:2412.0104 (source PDF in repository root: 2412.0104v1.pdf).
-- Exact FCC/D3 coordinate dataset and audit script, linked above.
-- [T130 — Q6 discrete gradients, barycentres, traction moments and resistance assembly](../theorems/T130-q6-discrete-gradients-barycentres-resistance.md).
-- [T137 — Exact geometry of the Vesica Piscis and the sqrt(3) hexagonal chord](../theorems/T137-vesica-piscis-two-circle-hexagon-pi-sqrt3.md).
-- [Vesica–Needham–Bonilla dossier](VESICA_NEEDHAM_BONILLA_SQRT3_PHI_DOSSIER_2026-11-18.md).
-- [Integrated moments/barycentres/Morandotti synthesis](SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
-
-
 ## 12. Electromechanical coupling: from Jitterbug motion to coil emf
 
 The geometric parameter \(\gamma(t)\) and the radial face-centre distance
@@ -400,3 +370,32 @@ with the sign fixed by the chosen loop orientation.
 Both models are conditional examples, not predictions of Gray's paper or of the 64-TG source. To turn either into a testable electromechanical model, specify: (i) the coil's attachment points and orientation on the mechanism; (ii) \(N,A\) or the complete moving surface; (iii) the imposed field and its spatial/time dependence; (iv) the map from the Jitterbug configuration to the coil pose/deformation; and (v) circuit resistance, inductance and measurement loading. A rigid translation of a closed coil in a spatially uniform static magnetic field does not, by itself, produce a net loop emf; deformation, rotation, field gradients or time dependence must be included.
 
 **Classification:** the Gray law for \(V(\gamma)\) is a kinematic relation; the coil formulas above are conditional Faraday-law consequences once a mechanical/electromagnetic coupling is declared. No coil voltage is derived from the geometry alone.
+
+## 11. Status summary
+
+| Claim | Status |
+|---|---|
+| O3 / 64-TG static coordinate realization | Reconstructed as an explicit FCC/D3 model with exact coordinates and incidence certificate; not proved unique or source-authentic |
+| FCC/D3 coordinate reconstruction: 63 vertices, 240 edges, 64 tetrahedra | Exact finite computation; matches all source counts |
+| 56 tetrahedra + 14 octahedra + 24 pyramids partitioning the cuboctahedron | Exact coordinate/incidence and oriented-boundary/volume certificate |
+| Regular-solid volume identities in §3 | Exact arithmetic, conditional on stated counts and standard solids |
+| 8/15 packing fraction | Exact ratio of material volume to stated envelope volume |
+| 144-face area = 18a² | **Incorrect** for 144 regular tetrahedron faces of edge a/2; correct value \(9\sqrt3a^2\) |
+| Equal-area spherical partition and E=π/36 | Conditional; partition map not supplied |
+| Octahedron insphere ratio equals φ | False for the standard inradius; only approximate |
+| Pairwise circumsphere overlap as Vesica lens | Exact definition; 360 instances enumerated in the reconstructed FCC/D3 model |
+| Triveca | Not uniquely defined by the source; requires a declared triple intersection/section |
+| 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
+| 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
+| Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
+| Jitterbug phase/oscillation law | Open until a path and phase field are specified |
+| Cosmological/bimetric interpretation | Not established by this geometric audit |
+
+## References and internal links
+
+- Galeffi, *On the 14-Octahedron Backbone of the Bimetric 64-Tetrahedron Grid Universe*, viXra:2412.0104 (source PDF in repository root: 2412.0104v1.pdf).
+- Exact FCC/D3 coordinate dataset and audit script, linked above.
+- [T130 — Q6 discrete gradients, barycentres, traction moments and resistance assembly](../theorems/T130-q6-discrete-gradients-barycentres-resistance.md).
+- [T137 — Exact geometry of the Vesica Piscis and the sqrt(3) hexagonal chord](../theorems/T137-vesica-piscis-two-circle-hexagon-pi-sqrt3.md).
+- [Vesica–Needham–Bonilla dossier](VESICA_NEEDHAM_BONILLA_SQRT3_PHI_DOSSIER_2026-11-18.md).
+- [Integrated moments/barycentres/Morandotti synthesis](SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
