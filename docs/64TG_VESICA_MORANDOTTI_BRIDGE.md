@@ -39,7 +39,7 @@ The cuboctahedron decomposition in the source is arithmetically consistent:
 -24\left(\frac{\sqrt2}{48}a^3\right)
 =\frac{5\sqrt2}{4}a^3.
 \]
-Here the square-pyramid volume is \(\sqrt2 a^3/48\), corresponding to base side a/2 and height a/4. The cavity-volume sum is
+Here the square-pyramid volume is \(\sqrt2 a^3/48\), as used in the source's Eq. (2). If its base side is a/2, this volume corresponds to height \(\sqrt2 a/4\); the height must not be silently replaced by a/4. The cavity-volume sum is
 \[
 14V_{O(a/2)}+24V_{P(a/2)}
 =14\frac{\sqrt2}{24}a^3+24\frac{\sqrt2}{48}a^3
@@ -117,12 +117,12 @@ For any measurable region \(F\subset\mathbb R^3\) of positive volume, define
 c_F=\frac1{|F|}\int_Fx\,dx,\quad
 \Sigma_F=\frac1{|F|}\int_F(x-c_F)(x-c_F)^T\,dx.
 \]
-For \(g\in C^3\) near F, Taylor's theorem gives
+For \(g\in C^3\) on a neighbourhood of the convex hull of F, Taylor's theorem gives
 \[
 \frac1{|F|}\int_Fg(x)\,dx
 =g(c_F)+\frac12D^2g(c_F):\Sigma_F+R_F,
 \quad
-|R_F|\leq\frac{h_F^3}{6}\sup_F\|D^3g\|_{op},
+|R_F|\leq\frac{h_F^3}{6}\sup_{\operatorname{conv}(F)}\|D^3g\|_{op},
 \]
 where \(h_F=\sup_{x\in F}\|x-c_F\|\). The first-order term vanishes exactly because
 \[
