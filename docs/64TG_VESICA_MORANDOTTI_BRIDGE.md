@@ -406,7 +406,8 @@ Both models are conditional examples, not predictions of Gray's paper or of the 
 | 360 pairwise circumsphere lenses / Vesica sections | Exact finite enumeration from the reconstructed 64 tetrahedra |
 | 648 common triple circumball intersections / triveca candidates | Exact finite enumeration; two certified centre-triangle types |
 | Barycentric Taylor/covariance law | Proved general local identity under stated regularity |
-| Jitterbug phase/oscillation law | Open until a phase field/transport law is specified |\n| One-panel coil coupling | Explicit conditional model; panel pose reconstructed from three vertices, Faraday emf and RL response implemented |
+| Jitterbug phase/oscillation law | Open until a phase field/transport law is specified |
+| One-panel coil coupling | Explicit conditional model; panel pose reconstructed from three vertices, Faraday emf and RL response implemented |
 | Cosmological/bimetric interpretation | Not established by this geometric audit |
 
 ## References and internal links
