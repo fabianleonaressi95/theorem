@@ -64,7 +64,7 @@ The coordinate construction also closes the static Morandotti moment layer. For 
   \]
 - Edge-\(a/2\) octahedron with centre \(c_O\):
   \[
-  c_O=c_O,\qquad \Sigma_O=\frac{a^2}{80}I_3.
+  c_O=c,\qquad \Sigma_O=\frac{a^2}{80}I_3.
   \]
 - Square pyramid with base centroid \(b\), apex \(p\), and face-normal coordinate axis \(j\):
   \[
