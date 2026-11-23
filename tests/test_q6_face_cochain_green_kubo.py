@@ -21,6 +21,15 @@ class Q6FaceCochainAuditTests(unittest.TestCase):
         self.assertEqual(report["closed_2_cochain_dimension"], 129)
         self.assertEqual(report["harmonic_2_cochain_dimension"], 0)
 
+    def test_closed_face_hodge_spectrum_and_green_kubo_trace(self):
+        report = build_report()
+        self.assertEqual(
+            report["closed_2_hodge_spectrum"],
+            {4: 15, 6: 40, 8: 45, 10: 24, 12: 5},
+        )
+        self.assertEqual(report["green_kubo_trace_sum_m_over_lambda"], "2263/120")
+        self.assertEqual(report["isotropic_green_kubo_coefficient"], "2263/15480")
+
 
 if __name__ == "__main__":
     unittest.main()
