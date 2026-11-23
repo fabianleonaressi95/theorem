@@ -305,7 +305,7 @@ The static coordinate and incidence data are now explicit. The remaining inputs 
 
 The coordinates now include exact tetrahedral, octahedral and pyramidal centroids and covariance tensors, face normals and all circumspheres. They can be integrated with T130's Q6 gradient/barycentre/moment framework and the existing Vesica records. The reconstruction does **not** by itself identify the 64-TG with a bimetric spacetime or a cosmological model.
 
-## 12. Electromechanical coupling: from Jitterbug motion to coil emf
+## 11. Electromechanical coupling: from Jitterbug motion to coil emf
 
 The geometric parameter \(\gamma(t)\) and the radial face-centre distance
 \[
@@ -371,7 +371,7 @@ Both models are conditional examples, not predictions of Gray's paper or of the 
 
 **Classification:** the Gray law for \(V(\gamma)\) is a kinematic relation; the coil formulas above are conditional Faraday-law consequences once a mechanical/electromagnetic coupling is declared. No coil voltage is derived from the geometry alone.
 
-## 11. Status summary
+## 12. Status summary
 
 | Claim | Status |
 |---|---|
