@@ -223,7 +223,7 @@ Separate records are required for polygon/cotangent identities; zeta series and 
 Suggested deliverables:
 - docs/GOLDEN_ZETA_MAXWELL_FULLERENE_PROGRAM.md (this programme);
 - results/golden_zeta_maxwell/claim_ledger.csv;
-- symbolic checks for Sections 2--4;
+- executable algebraic/numerical regression checks for Sections 2--4 (floating-point regression tests are not formal symbolic proofs);
 - tests for polygon identities, zeta-series convergence and transfer-matrix determinant;
 - C64 dataset manifest and descriptor tables;
 - separate Maxwell derivation note with references and domains;
