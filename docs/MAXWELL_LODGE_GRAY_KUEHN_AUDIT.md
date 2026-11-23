@@ -1,0 +1,94 @@
+# Audit: Gray–Kühn Maxwell–Lodge, elettrodinamica di Weber, olonomia e ponte RGS–QLG
+
+**Scope:** valutazione critica dei lavori di Robert W. Gray e Steffen Kühn sulla crittica a Maxwell, del problema Maxwell–Lodge, dell'elettrodinamica di Weber, dell'EED di Hively–Loebl e del possibile collegamento con olonomia quaternionica (RGS–QLG).
+**Status:** audit documentale e matematico; nessuna delle tesi alternative è assunta come dimostrata.
+
+## 1. Il risultato centrale: la dimostrazione Gray–Kühn (2019) è stata ritirata nella sua forma originaria
+
+Gray e Kühn, *Proof of the Inconsistency of the Full Set of Maxwell's Equations with the Maxwell-Lodge Experiment* (2019), argomentavano che un solenoide con `∇×A = 0`, `∂A/∂t ≠ 0`, `∇Φ = 0` e `B = 0` esterno produrrebbe `∂E/∂t ≠ 0` in contrasto con Ampère–Maxwell.
+
+**Dove fallisce:** l'ipotesi `B_out = 0` esatto deriva dalla soluzione *semplificata* che trascura la corrente di spostamento; la contraddizione viene dedotta usando Ampère–Maxwell *completa*. Gli autori stessi hanno pubblicato la rettifica: la scomparsa del campo magnetico esterno non è compatibile con le equazioni complete quando `E_φ` varia nel tempo.
+
+**Formulazione corretta:** per un solenoide assialsimmetrico con `E_φ(r,t)`,
+
+```
+(∇×B)_φ = −∂B_z/∂r = μ₀ε₀ ∂E_φ/∂t
+```
+
+Se `E_φ` varia, `B_z` deve avere una struttura radiale compatibile. Piccolo ≠ identicamente nullo. La soluzione esatta per un solenoide infinito con sorgente arbitraria `I(t)` è nota (Rivera–Villarroel 2002 e lavori successivi).
+
+**Verdetto:** la dimostrazione del 2019 non stabilisce l'inconsistenza di Maxwell. La rettifica degli autori riconosce che le ipotesi usate nella dimostrazione non sono simultaneamente compatibili; non va descritta come ritiro formale dell'intero articolo.
+
+## 2. Maxwell–Lodge: configurazione coerente con Maxwell
+
+Rousseaux–Kofman–Minazzoli (2008, EPJD 49, 249–256) studiano una bobina intorno a un solenoide alimentato in AC: EMF indotta con campo magnetico esterno molto piccolo.
+
+Per il solenoide **infinito ideale**, fuori dal solenoide:
+
+```
+B = 0 localmente,   A_φ = Φ_B(t)/(2πr),   ∮_C A·dl = Φ_B ≠ 0
+∇×A = 0 localmente (domain esterno)
+```
+
+La circonferenza `C` che avvolge il solenoide **non** delimita una superficie interamente nel dominio esterno: il dominio è moltiplemente connesso. La classe di `[A]` in `H¹_dR(domain)` è non banale — 1-forma chiusa non esatta. La circolazione `∮ A·dl` è gauge-invariante per gauge regolari e monovalori (`∮∇χ·dl = 0`); l'oggetto fisico globale è l'**olonomia**, non `A` locale.
+
+La legge integrale di Faraday `∮E·dl = −dΦ_B/dt` è già contenuta in Maxwell: l'effetto non richiede potenziali come entità extra-field. L'interpretazione "solo i potenziali sono fisici" è una tesi interpretativa degli autori, non una dimostrazione.
+
+**Distinzione operativa obbligatoria:** solenoide infinito ideale ≠ solenoide finito sperimentale (B esterno non nullo vicino alle estremità, condizioni al contorno reali). Non trasferire proprietà topologiche ideali al dispositivo reale senza verifica.
+
+## 3. La tesi sperimentale generale di Gray
+
+In *Experimental Disproof of Maxwell* (2019) Gray sostiene che un potenziale vettore oscillante e localmente irrotazionale confuti Maxwell. **Non valido in generale:**
+
+Se `∇×A = 0` in regione semplicemente connessa, `A = ∇χ`, e con la gauge `A' = A − ∇χ = 0`, `Φ' = Φ + ∂χ/∂t`, si ottiene `E = −∇Φ'` — lo stesso campo. Un `A` oscillante irrotazionale è una rappresentazione gauge, non una confutazione. Nel dominio non semplicemente connesso resta la componente chiusa-non-esatta (circolazione), compatibile con Maxwell.
+
+Per valutare la tesi servirebbero: campo E misurato, procedura di determinazione di A, gauge operativo, condizioni al contorno, sensibilità della misura di B.
+
+## 4. Elettrodinamica di Weber e Extended Electrodynamics
+
+**Weber:** legge di forza carica-carica
+
+```
+F_W = (q_s q_d / 4πε₀) (r̂/r²) (1 − ṙ²/2c² + r r̈/c²)
+```
+
+non è una riscrittura di Maxwell–Lorentz: cambia la legge di forza e l'impostazione dinamica. La correzione Gray–Kühn non confuta Weber; e la capacità di Weber di descrivere l'induzione non confuta Maxwell.
+
+**Hively–Loebl EED (2019, Physics Essays 32, 112–126):** propone `C = ∇·A + c⁻²∂Φ/∂t` come variabile fisica invece che vincolo di gauge Lorenz, con onde longitudinali scalari (SLW). L'argomento "8 equazioni per 6 componenti ⇒ sovradeterminazione" è errato: `∇·B=0` e `∇·E=ρ/ε₀` sono vincoli su dati iniziali/sorgenti la cui compatibilità temporale è garantita da `∂ρ/∂t + ∇·J = 0`. L'erratum del 2019 corregge refusi, non la tesi. Le previsioni SLW richiedono verifica indipendente.
+
+**Stato sperimentale:** nessuna replica indipendente conclusiva del Maxwell–Lodge; test specifici di predizioni Weber hanno dato risultati misti (un risultato positivo interpretato come Weber 2021, DOI 10.2478/jee-2021-0052; risultati nulli Canadian J. Phys. 2017 e PIER M 2021). Qingsong Li (2025, preprint non peer-reviewed) confronta previsioni numeriche Weber per solenoidi lungo/corto.
+
+## 5. Ponte verso RGS–QLG: olonomia come oggetto comune
+
+Tre livelli distinti, non da identificare:
+
+| Livello | Oggetto | Formula |
+|---|---|---|
+| Classico | circolazione di A | `∮_C A·dl = Φ_B` |
+| Quantistico | fase Aharonov–Bohm | `Δθ = (q/ħ)∮_C A·dl = qΦ_B/ħ` |
+| Geometrico | olonomia di connessione | `Hol_γ(∇) = P exp(−∫_γ ω)` |
+
+Per un ponte RGS–QLG rigoroso servono: fibrato, gruppo di struttura, rappresentazione della carica, mappa connessione-quaternionica ↔ potenziale EM, e recupero di U(1) come caso particolare. **Una connessione quaternionica non è automaticamente una connessione elettromagnetica**: il confronto naturale parte da U(1) e dai suoi sollevamenti.
+
+## 6. Protocollo sperimentale discriminante (se si volesse procedere)
+
+Solenoide finito con geometria e `I(t)` misurati; acquisizione sincronizzata di `I, dI/dt`, EMF in bobina nota, `E_φ` tangenziale e `B` esterno; sweep in raggio/lunghezza/frequenza. Confronto diretto `ℰ_misurata − ℰ_maxwell` vs `ℰ_weber` **senza** calibrazione separata per punto. Un esperimento discrimina solo se le previsioni differiscono oltre le incertezze.
+
+## 7. Registro dei verdetti
+
+| Affermazione | Stato |
+|---|---|
+| Gray–Kühn 2019: inconsistenza di Maxwell | **Non valida nella forma originaria** (rettifica degli autori) |
+| Maxwell–Lodge richiede potenziali "extra-field" | **Non dimostrato** — coerente con Faraday + topologia |
+| `A` oscillante irrotazionale confuta Maxwell | **Non valido** — gauge-equivalente a `E=−∇Φ'` |
+| Weber vs Maxwell–Lorentz | **Aperto** — confronto quantitativo mancante |
+| EED / onde scalari Hively–Loebl | **Non verificato** — previsioni da testare |
+| Olonomia ↔ olonomia quaternionica QLG | **Ipotesi** — serve formulazione bundle/gauge esplicita |
+
+**Formula da conservare:** la dimostrazione Gray–Kühn non stabilisce l'inconsistenza del sistema completo di Maxwell perché combina una soluzione che trascura la corrente di spostamento con Ampère–Maxwell completa. Maxwell–Lodge resta un esempio di circolazione non banale in dominio moltiplemente connesso, compatibile con Maxwell e rilevante per l'olonomia.
+
+## 8. Prossimi passi
+
+1. Audit integrale di *Experimental Disproof of Maxwell* (tesi sperimentale generale, distinta da Maxwell–Lodge).
+2. Se si costruisce il ponte QLG: fissare fibrato, gruppo di gauge e mappa `A_μ ↔ ω_quaternionic` prima di qualsiasi calcolo.
+3. Monitoraggio letteratura: repliche indipendenti Maxwell–Lodge, test quantitativi Weber, stato EED. Verifica *una tantum* su richiesta, non continua.
