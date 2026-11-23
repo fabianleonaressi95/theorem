@@ -161,7 +161,7 @@ The cochain projector
 \\[
 P_{\\rm cl}=I-B_3(B_3^TB_3)^+B_3^T
 \\]
-has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector, when \\(B_3:C_3\\to C_2\\) is the cubical boundary matrix and standard Euclidean cell inner products are used. This projector is not the graph-vertex Laplacian \\(L_{Q6}\\). Nor does the cosine curvature action automatically equal a Green--Kubo stress autocorrelation. The companion face-cochain note defines a reversible OU model on this closed space; it is a specified model choice, not a physical identification.
+has rank 129 in the recorded Q6 construction and projects onto the closed 2-cochain sector, when \\(B_3:C_3\\to C_2\\) is the cubical boundary matrix and standard Euclidean cell inner products are used. This projector is not the graph-vertex Laplacian \\(L_{Q6}\\). Nor does the cosine curvature action automatically equal a Green--Kubo stress autocorrelation. The companion face-cochain note defines a reversible OU model on this closed space; it is a specified model choice, not a physical identification. See [Q6 face cochains, Hodge dynamics, and Green–Kubo](Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md) for the explicit cubical incidence construction, the 129-dimensional closed space, and the face-level correlation formula.
 
 ## 6. What the supergolden sector can and cannot be
 
