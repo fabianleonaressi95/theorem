@@ -131,78 +131,106 @@ The angle is tracked continuously chart by chart. Its winding supplies the rotat
 
 This is a principled source of a continuous frame angle when the kinematic gradient \(G\) is actually available. It is not an arbitrary \(R(\theta(x))\) inserted by hand.
 
-### 5.3 Boundary phase candidate from the conformal-coordinate calculation
+### 5.3 Conformal Vesica coordinate and the unified boundary phase
 
-The earlier *gradienti e baricentri* calculation also records a scalar phase candidate on the two boundary arcs. Keep it separate from the discrete pentagonal phases, the eight trigram phases and the gradient polar angle.
-
-With
+The *gradienti e baricentri* calculation supplies a single conformal coordinate for the whole Vesica, not merely a formal phase on two unrelated arcs. Let
 \[
 P_\pm=\frac12\pm i\frac{\sqrt3}{2},\qquad
-q(z)=-\frac{z-P_-}{z-P_+},\qquad
-\rho=|q|,
+q(z)=-\frac{z-P_-}{z-P_+}.
 \]
-the first arc \(z=e^{i\theta}\), \(-\pi/3<\theta<\pi/3\), gives
+The two boundary circles are \(|z|=1\) and \(|z-1|=1\); both pass through \(P_-\) and \(P_+\). A Möbius map sends each generalized circle through its zero \(P_-\) and pole \(P_+\) to a line through the origin. Direct boundary evaluation gives the two rays:
+\[
+z=e^{i\theta},\quad -\frac\pi3<\theta<\frac\pi3
+\quad\Longrightarrow\quad
+q=e^{-i\pi/3}\rho,
+\]
+\[
+z=1+e^{i\phi},\quad \frac{2\pi}3<\phi<\frac{4\pi}3
+\quad\Longrightarrow\quad
+q=e^{+i\pi/3}\rho,
+\]
+where \(\rho=|q|>0\). The point \(z=1/2\) in the lens maps to \(q=1\), so the Vesica interior maps to the sector
+\[
+-\frac\pi3<\arg q<\frac\pi3.
+\]
+On this sector choose the continuous principal branch of \(q^{3/2}\). Then
+\[
+\boxed{\zeta=iq^{3/2}}
+\]
+maps the sector conformally to the upper half-plane, since
+\[
+0<\arg\zeta=\frac\pi2+\frac32\arg q<\pi.
+\]
+On the first boundary arc \(\zeta\) is positive real; on the second it is negative real. Thus the signed real boundary coordinate \(t=\zeta\) satisfies
+\[
+|t|=\rho^{3/2},\qquad \rho=|t|^{2/3}.
+\]
+
+The radial boundary relations follow directly from the modulus of \(q\). On the first arc,
 \[
 \rho=
 \frac{\sin((\theta+\pi/3)/2)}
-{\sin((\pi/3-\theta)/2)}.
+{\sin((\pi/3-\theta)/2)},
+\qquad
+\theta(\rho)=2\arctan\frac{\sqrt3\rho}{2+\rho}-\frac\pi3.
 \]
-The second arc \(z=1+e^{i\phi}\), \(2\pi/3<\phi<4\pi/3\), gives the recorded radial relation
+On the second arc,
 \[
 \rho=
 \frac{\sin((4\pi/3-\phi)/2)}
-{\sin((\phi-2\pi/3)/2)}.
-\]
-The corresponding inverse expressions are
-\[
-\theta(\rho)=2\arctan\frac{\sqrt3\rho}{2+\rho}-\frac{\pi}{3},
+{\sin((\phi-2\pi/3)/2)},
 \qquad
-\phi(\rho)=\frac{2\pi}{3}
-+2\arctan\frac{\sqrt3}{1+2\rho}.
+\phi(\rho)=\frac{2\pi}3+
+2\arctan\frac{\sqrt3}{1+2\rho}.
 \]
-They have the correct endpoint ranges:
+The endpoint limits are consistent with the declared arcs:
 \[
-\theta(0)=-\frac{\pi}{3},\quad
-\theta(+\infty)=\frac{\pi}{3};
+\theta(0)=-\frac\pi3,\quad \theta(\infty)=\frac\pi3;
 \qquad
-\phi(0)=\frac{4\pi}{3},\quad
-\phi(+\infty)=\frac{2\pi}{3}.
+\phi(0)=\frac{4\pi}3,\quad \phi(\infty)=\frac{2\pi}3.
 \]
-With
+
+Define the normalized boundary phases
 \[
 f_1(\theta)=\frac{3\theta}{\pi},\qquad
-f_2(\phi)=3-\frac{3\phi}{\pi},
+f_2(\phi)=3-\frac{3\phi}{\pi}.
 \]
-both branches reduce, for \(\rho>0\), to
+Both reduce to the same scalar function of \(\rho\):
 \[
-g(\rho)=\frac6\pi
-\arctan\frac{\sqrt3\rho}{2+\rho}-1,
+g(\rho)=\frac6\pi\arctan\frac{\sqrt3\rho}{2+\rho}-1,
 \]
 because
 \[
 \arctan\frac{\sqrt3\rho}{2+\rho}
 +\arctan\frac{\sqrt3}{1+2\rho}
-=\frac{\pi}{3}.
+=\frac\pi3.
 \]
-Under the recorded parameter convention \(\rho=|t|^{2/3}\), this becomes
+Using \(\rho=|t|^{2/3}\), the unified boundary phase is
 \[
+\boxed{
 g(t)=\frac6\pi
 \arctan\left(
 \frac{\sqrt3|t|^{2/3}}{2+|t|^{2/3}}
-\right)-1,
+\right)-1.
+}
 \]
-which is even, with \(g(0)=-1\) and limits \(g(t)\to1\) as \(|t|\to\infty\).
+It is even, \(g(0)=-1\), and \(g(t)\to1\) as \(|t|\to\infty\).
 
-**Evidence boundary.** The identity unifying the two scalar expressions is an exact algebraic identity. The arc inversions have the endpoint ranges shown above. The complete conformal claim still requires a direct, independent verification of the definition of \(q\) on both arcs, the image of the two-dimensional Vesica interior, and a continuous branch of \(q^{3/2}\). In particular, on the first arc the ratio of sines in
+**Branch check.** On the first arc,
 \[
 \frac{z-P_-}{z-P_+}
 =e^{-i\pi/3}
 \frac{\sin((\theta+\pi/3)/2)}
-{\sin((\theta-\pi/3)/2)}
+{\sin((\theta-\pi/3)/2)}.
 \]
-is negative, so the leading minus in \(q\) makes \(\arg q=-\pi/3\) on the stated principal branch. This boundary fact alone does not establish the interior sector map.
+The sine ratio is negative, so the leading minus in \(q\) gives \(\arg q=-\pi/3\). On the second arc, writing
+\[
+z-P_-=e^{i\phi}+e^{i\pi/3},\qquad
+z-P_+=e^{i\phi}+e^{-i\pi/3},
+\]
+shows that the ratio has argument \(-2\pi/3\) on the indicated arc; the leading minus gives \(\arg q=+\pi/3\). These are the two boundary rays of the sector. The branch of \(q^{3/2}\) is therefore fixed continuously on the open sector, not chosen independently on the two arcs.
 
-The parameter \(t\) and the identification \(\rho=|t|^{2/3}\) must remain explicit conventions until the original parameterization is independently replayed. Do not identify \(g(t)\) with \(\alpha_k\), \(\theta_t^\pm\), \(\theta_G\), or the Jitterbug angles without a proved transition map.
+**Scope distinction.** This establishes the conformal sector map and the scalar boundary phase for the stated Vesica domain and branch. It does not identify \(g(t)\) with the pentagonal phases \(\alpha_k\), the trigram phases \(\theta_t^\pm\), the gradient polar angle \(\theta_G\), or the Jitterbug angles. Those are different phase variables; their transition map must still be derived from the incidence/transport structure.
 
 ### 5.4 Non-affine Vesica continuation (T099)
 
