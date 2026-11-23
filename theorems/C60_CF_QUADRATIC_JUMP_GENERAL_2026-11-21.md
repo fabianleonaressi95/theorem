@@ -139,12 +139,7 @@ avere vertici multipli — la palla `B_ρ` attorno a ogni vertice
 del jump complex li isola); `h_e` non limitata (impossibile:
 `g_j` affine a tratti ⇒ `h_e` affine ⇒ limitata su `e` compatto).
 
-**Stato**: lemma di splitting **dimostrato per la
-configurazione generica** e le varianti elencate; la scrittura
-formale completa (coordinate intrinseche su `Σ`, non solo
-piane) è la parte tecnica residua — la metrica intrinseca è
-piatta nelle facce e negli interni di spigolo, quindi le
-coordinate `(s,t)` esistono localmente.
+**Stato corretto dopo l'audit geometrico**: la formula affine a strati e la stima (S) sono esplicite; il controllo completo dei terminali/cappucci e la disgiunzione (S/K/V) non sono ancora dimostrati. Si veda §4 e §7 di `C60_CF_SPLITTING_LEMMA_FRAMEWORK_2026-11-21.md`. In particolare, non basta invocare la finitezza del grafo: occorre fissare la geometria di troncamento, stimare i salti artificiali sulle frontiere terminali e verificare le tracce effettive sui cappucci.
 
 ### 3.3 Partizione comune e staircase — `u_{j,m,h}`
 
@@ -179,15 +174,7 @@ fisso.
 **(c) Interfacce senza salto di `v_{j,m}`**: salto residuo
 `≤2chC_{j,m}` ⇒ costo `→0` per `h→0`.
 
-**(d) Tratti terminali, cappucci e zone escluse**: i cappucci
-laterali delle strisce (fine degli `m` strati, punto B
-dell'audit) hanno lunghezza totale `O(δ)` e salto `≤C_e`:
-costo `O(δC_e²)→0` per `δ→0` a `m` fisso — vedi la stima (K)
-di `C60_CF_SPLITTING_LEMMA_FRAMEWORK`. I dischi di vertice
-`B_ρ` e i terminali di lunghezza `O(r)` danno `O((r+ρ)C_e²)
-→0`. Le stime usano una **decomposizione disgiunta** degli archi
-(S)/(K)/(V) del framework: strisce, cappucci, vertici contati
-una volta sola.
+**(d) Terminali, cappucci e zone escluse — non ancora chiusi**: il costo è (O(ho M_P^2)) per le frontiere artificiali delle regioni terminali solo dopo aver specificato le due tracce e la geometria di troncamento. Un termine (O(delta C_e^2)) per i lati corti è disponibile soltanto nella geometria alternativa in cui tali lati restano fuori dai dischi e la traccia esterna è verificata; se (delta<ho) e i lati corti sono interamente rimossi nei dischi, essi non costituiscono invece un termine (K) separato. La disgiunzione (S/K/V) va dimostrata sulla partizione effettiva. Pertanto (d) non è attualmente una stima acquisita.
 
 ### 3.5 Convergenze e diagonale
 
@@ -209,16 +196,7 @@ Ordine: per `j`, `m(j)` poi `r(j,m)` poi `h(j,m,r)` — `h` è
 sempre scelto per ultimo, nessuna uniformità in `C_{j,m}`
 richiesta.
 
-**Stato**: il lemma di splitting è **dimostrato** in
-`C60_CF_SPLITTING_LEMMA_FRAMEWORK_2026-11-21.md` per un grafo di
-salto finito in un complesso poliedrale piatto, con stime
-separate (S) strisce / (K) cappucci / (V) vertici e il punto
-(A)–(D) dell'audit chiusi: `h_e` è affine globalmente, i
-cappucci costano `O(δ)`, `∇u=G_j` a.e. ovunque (bulk esatto),
-e nessuna convergenza CFI del salto quadratico è usata. Restano
-solo: l'ordine completo della diagonale a quattro parametri
-(`j,m,δ,ρ,h`) esplicitato, e la trascrizione intrinseca delle
-coordinate `(s,t)` su `Σ` (tecnico).
+**Stato corretto**: la staircase su una partizione comune finita ha il controllo locale degli offset e delle interfacce; la stima del suo salto totale richiede le ipotesi di raffinamento e assegnazione disgiunta del lemma `C60_CF_SKELETON_INTERIOR_LAMINATE_ESTIMATE_2026-11-23.md`. Il lemma di splitting (S/K/V) a monte resta **CONDIZIONALE**: la stima (S) è esplicita, ma i terminali, i cappucci e la disgiunzione geometrica non sono ancora verificati nella costruzione effettiva. Quindi il bound fixed-stage completo e la recovery sequence quadratica globale non seguono ancora da (a)–(d). Il bulk esatto `∇u=G_j` vale quando la staircase è definita cella per cella sulla partizione comune; non risolve la lacuna nella stima del salto intermedio.
 
 
 ## 4. Generalizzazione: `ψ(a,ν)=φ(|a|)` — ipotesi minime e verifica
