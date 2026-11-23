@@ -339,3 +339,70 @@ The coordinates now include exact tetrahedral, octahedral and pyramidal centroid
 - [T137 — Exact geometry of the Vesica Piscis and the sqrt(3) hexagonal chord](../theorems/T137-vesica-piscis-two-circle-hexagon-pi-sqrt3.md).
 - [Vesica–Needham–Bonilla dossier](VESICA_NEEDHAM_BONILLA_SQRT3_PHI_DOSSIER_2026-11-18.md).
 - [Integrated moments/barycentres/Morandotti synthesis](SYNTHESIS_MOMENTS_BARYCENTRES_GAMMA_BETA_ZETA_MORANDOTTI_2026-11-10.md).
+
+
+## 11. Electromechanical coupling: from Jitterbug motion to coil emf
+
+The geometric parameter \(\gamma(t)\) and the radial face-centre distance
+\[
+V(t)=\sqrt{\frac{2}{3}}\,EL\cos\gamma(t)
+\]
+are kinematic quantities. They do not, by themselves, define a magnetic flux or an induced voltage. In particular, Gray's triangle-rotation angle \(\gamma\) is not automatically the angle between a coil normal and an applied magnetic field; the ellipse parameter \(\theta\) is a different angle, related by \(\tan\gamma=\sqrt3\tan\theta\).
+
+For any specified coil surface \(S(t)\), with \(N\) turns and imposed magnetic field \(\mathbf B(\mathbf x,t)\), the flux linkage and transformer/motional emf are determined by
+\[
+\lambda(t)=N\int_{S(t)}\mathbf B(\mathbf x,t)\cdot d\mathbf S,
+\qquad
+\mathcal E(t)=-\frac{d\lambda}{dt}.
+\]
+This is the starting point. The coil mounting, its shape, the field and the mechanical map from the Jitterbug coordinates to the coil must be specified before the emf is determined.
+
+### Model A: a coil rigidly attached to a rotating triangular panel
+
+Let the panel rotate about its own fixed radial axis \(\hat{\mathbf v}\), with rotation matrix \(R_{\hat{\mathbf v}}(\gamma(t))\). If the coil normal at the reference configuration is \(\mathbf n_0\), then
+\[
+\mathbf n(t)=R_{\hat{\mathbf v}}(\gamma(t))\mathbf n_0,
+\qquad
+\lambda(t)=NBA\,\hat{\mathbf B}\cdot\mathbf n(t)
+\]
+for a uniform, static field and a rigid planar coil of constant area \(A\). Differentiating gives
+\[
+\mathcal E(t)=-NBA\,\hat{\mathbf B}\cdot
+\bigl(\hat{\mathbf v}\times\mathbf n(t)\bigr)\,\dot\gamma(t).
+\]
+The often-used expression
+\[
+\mathcal E=NBA\sin\gamma\,\dot\gamma
+\]
+is only a special orientation/convention (up to the chosen emf sign): it requires the coil-normal/field geometry to give \(\hat{\mathbf B}\cdot\mathbf n(t)=\cos\gamma(t)\). It is not a universal consequence of the Jitterbug.
+
+### Model B: a coil whose radius is mechanically driven by the radial coordinate
+
+As a separate illustrative coupling, suppose a circular coil remains normal to a uniform static field and a linkage imposes \(r(t)=kV(t)\), where \(k\) is a specified dimensionless mechanical scale factor. Then
+\[
+\lambda(t)=NB\pi k^2V(t)^2,
+\qquad
+\mathcal E(t)=-2\pi NBk^2V(t)\dot V(t).
+\]
+Using Gray's kinematic law,
+\[
+\dot V(t)=-\sqrt{\frac{2}{3}}\,EL\sin\gamma(t)\,\dot\gamma(t),
+\]
+so
+\[
+\mathcal E(t)=\frac{4\pi}{3}NBk^2(EL)^2
+\sin\gamma(t)\cos\gamma(t)\,\dot\gamma(t).
+\]
+This formula belongs to the stated radius-linkage model, not to the unmodified Jitterbug mechanism.
+
+For a lumped series circuit with resistance \(R_c\) and inductance \(\mathscr L_c\), the current then satisfies
+\[
+\mathscr L_c\frac{di}{dt}+R_ci=\mathcal E(t),
+\]
+with the sign fixed by the chosen loop orientation.
+
+### Status and required inputs
+
+Both models are conditional examples, not predictions of Gray's paper or of the 64-TG source. To turn either into a testable electromechanical model, specify: (i) the coil's attachment points and orientation on the mechanism; (ii) \(N,A\) or the complete moving surface; (iii) the imposed field and its spatial/time dependence; (iv) the map from the Jitterbug configuration to the coil pose/deformation; and (v) circuit resistance, inductance and measurement loading. A rigid translation of a closed coil in a spatially uniform static magnetic field does not, by itself, produce a net loop emf; deformation, rotation, field gradients or time dependence must be included.
+
+**Classification:** the Gray law for \(V(\gamma)\) is a kinematic relation; the coil formulas above are conditional Faraday-law consequences once a mechanical/electromagnetic coupling is declared. No coil voltage is derived from the geometry alone.
