@@ -160,6 +160,43 @@ def build_model():
     ]
     outside_tets = [t for t in tetrahedra if t not in set(inside_tets)]
 
+    # Exact uniform-volume barycentres and covariance tensors.
+    # Covariances are expressed relative to a^2 in physical orthonormal axes.
+    cell_moments = {
+        "tetrahedra": [
+            {
+                "index": i,
+                "centroid_n_numerator": tuple(sum(p[k] for p in tet) for k in range(3)),
+                "centroid_n_denominator": 4,
+                "covariance_over_a2_diagonal": ["1/160", "1/160", "1/160"],
+            }
+            for i, tet in enumerate(tetrahedra)
+        ],
+        "octahedra": [
+            {
+                "index": i,
+                "centroid_n": octa["center_n"],
+                "covariance_over_a2_diagonal": ["1/80", "1/80", "1/80"],
+            }
+            for i, octa in enumerate(octahedra)
+        ],
+        "square_pyramids": [
+            {
+                "index": i,
+                "centroid_n_numerator": tuple(
+                    3 * sum(p[k] for p in pyr["base_n"]) + 4 * pyr["apex_n"][k]
+                    for k in range(3)
+                ),
+                "centroid_n_denominator": 16,
+                "covariance_over_a2_diagonal": [
+                    "3/640" if k == pyr["face_axis"] else "1/80"
+                    for k in range(3)
+                ],
+            }
+            for i, pyr in enumerate(pyramids)
+        ],
+    }
+
     return {
         "points": points,
         "edges": edges,
@@ -171,6 +208,7 @@ def build_model():
         "circumspheres": circumspheres,
         "lens_pairs": lens_pairs,
         "triple_overlaps": triple_overlaps,
+        "cell_moments": cell_moments,
         "cuboctahedron_vertices": sorted(cuboctahedron_vertices),
         "cube_vertices": sorted(cube_vertices),
     }
@@ -215,6 +253,9 @@ def audit(model):
     assert len({tuple(x["center_n_numerator"]) for x in model["circumspheres"]}) == 64
     assert len(model["lens_pairs"]) == 360
     assert len(model["triple_overlaps"]) == 648
+    assert len(model["cell_moments"]["tetrahedra"]) == 64
+    assert len(model["cell_moments"]["octahedra"]) == 14
+    assert len(model["cell_moments"]["square_pyramids"]) == 24
 
     for edge in model["edges"]:
         assert sqdist(*edge) == 2
@@ -269,6 +310,7 @@ def audit(model):
         "tetrahedron_circumspheres": len(model["circumspheres"]),
         "pairwise_circumsphere_lenses": len(model["lens_pairs"]),
         "common_triple_ball_intersections": len(model["triple_overlaps"]),
+        "cell_moment_records": sum(len(v) for v in model["cell_moments"].values()),
         "cell_face_incidences": dict(sorted(Counter(incidence.values()).items())),
         "boundary_facets_by_size": dict(sorted(Counter(
             len(face) for face, count in incidence.items() if count == 1
@@ -299,6 +341,7 @@ def serialise(model, audit_result):
         "tetrahedron_circumspheres": model["circumspheres"],
         "pairwise_circumsphere_lenses": model["lens_pairs"],
         "common_triple_ball_intersections": model["triple_overlaps"],
+        "uniform_cell_barycentres_and_covariances": model["cell_moments"],
         "audit": audit_result,
         "volume_identities": {
             "tetrahedron_edge_a_over_2": "sqrt(2)*a^3/96",
