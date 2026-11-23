@@ -78,20 +78,22 @@ These are exact uniform-volume moments, not point-mass approximations. The tetra
 ### Incidence and partition certificate
 
 Use the 56 tetrahedra inside the cuboctahedron, the 14 octahedra and the 24 square pyramids as the cells of its decomposition. The exact face-incidence audit gives:
-- 200 distinct internal faces, each incident to exactly two cells;
+- 200 distinct internal triangular faces, each incident to exactly two cells;
 - 56 boundary facets, each incident to exactly one cell: 32 small triangles and 24 small squares;
 - no face with incidence greater than two.
 
-The 32 boundary triangles subdivide the cuboctahedron's eight triangular faces into four each; the 24 boundary squares subdivide its six square faces into four each. The cell volumes sum exactly to the cuboctahedron volume:
+The signed orientation audit verifies that the two induced orientations on each of the 200 internal triangular faces are opposite and cancel. The 32 boundary triangles point outward and subdivide the cuboctahedron's eight triangular faces into four each. The 24 square-pyramid bases lie on the six square cuboctahedron faces, four per face, with each pyramid apex strictly inward. Thus the oriented sum of the 56 tetrahedra, 14 octahedra and 24 pyramids has precisely the cuboctahedron boundary.
+
+The cell volumes also sum exactly to the cuboctahedron volume:
 \[
 56\frac{\sqrt2a^3}{96}
 +14\frac{\sqrt2a^3}{24}
 +24\frac{\sqrt2a^3}{48}
 =\frac{5\sqrt2}{3}a^3.
 \]
-Every cell lies in the cuboctahedron. Since the sum of cell volumes equals its volume, the cells have pairwise disjoint interiors up to measure-zero boundaries and cover the cuboctahedron up to measure zero; the face-incidence certificate supplies the conforming boundary matching. This is the missing explicit geometric realization of the 56-tetrahedron + 14-octahedron + 24-pyramid decomposition.
+Because the cells are positively oriented convex polyhedra contained in the cuboctahedron and their internal oriented faces cancel to its boundary, this is a conforming polyhedral-chain partition, not merely a numerical volume coincidence. The signed incidence checks are implemented in the audit script and unit tests.
 
-The full machine-readable coordinate set is in [data/64tg_fcc_coordinates.json](../data/64tg_fcc_coordinates.json). Regenerate and audit it with [scripts/audit_64tg_fcc_coordinates.py](../scripts/audit_64tg_fcc_coordinates.py); its checks are in [tests/test_64tg_fcc_coordinates.py](../tests/test_64tg_fcc_coordinates.py).
+The full machine-readable coordinate set, all 102 cell moments, all 64 circumspheres, 360 lens pairs and 648 triple intersections are in [data/64tg_fcc_coordinates.json](../data/64tg_fcc_coordinates.json). Regenerate and audit it with [scripts/audit_64tg_fcc_coordinates.py](../scripts/audit_64tg_fcc_coordinates.py); its checks are in [tests/test_64tg_fcc_coordinates.py](../tests/test_64tg_fcc_coordinates.py).
 
 ## 3. Exact volume audit
 
