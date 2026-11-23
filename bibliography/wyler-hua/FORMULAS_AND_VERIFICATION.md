@@ -99,3 +99,8 @@ dove \(P(z,w)\) è il kernel di Poisson–Szegő e \(d\sigma\) la misura di rife
 ## Relazione con THEROEM
 
 Questa scheda prepara l'audit dei risultati T002–T008. Non modifica quei teoremi e non assume che la formula di Wyler determini il dominio, la misura o il cutoff del modello. Ogni passaggio verso la marginale Wilson Q6 dovrà essere dimostrato separatamente.
+
+
+## Collegamento al dossier Krystallo–supergolden (23 novembre 2026)
+
+L'audit [`KRYSTALLO_SUPERGOLDEN_FINE_STRUCTURE_BRIDGE_AUDIT_2026-11-23.md`](../../theorems/KRYSTALLO_SUPERGOLDEN_FINE_STRUCTURE_BRIDGE_AUDIT_2026-11-23.md) confronta la crescita quadratica per quadrante della spirale Krystallo con la struttura cubica supergolden e con la formula di Wyler. La crescita (K_{n+1}=2K_n) non implica la matrice supergolden; T083–T085 non derivano \\(\\alpha\\). Il collegamento fisico resta aperto e richiede una costruzione indipendente con normalizzazione fissata a priori.
