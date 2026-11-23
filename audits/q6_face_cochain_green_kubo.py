@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from fractions import Fraction
 from itertools import combinations, product
+from math import comb
 
 
 def cells(n: int, k: int) -> list[tuple[int, ...]]:
@@ -87,10 +88,19 @@ def build_report() -> dict:
         "B2_B3_zero": composition_is_zero(data[2][2], data[3][2]),
     }
     closed_2_cochain_dimension = counts[2] - ranks[3]
-    # Tensor-product spectrum of the Hodge Laplacian on exact 2-cochains:
-    # m_2,exact(lambda) = m_1(lambda) - m_0(lambda), since d maps
-    # coexact 1-eigenvectors isometrically to exact 2-eigenvectors.
-    closed_spectrum = {4: 15, 6: 40, 8: 45, 10: 24, 12: 5}
+    # Derive the exact spectrum from tensor-product multiplicities:
+    # m_p(2(p+j)) = C(6,p) C(6-p,j). For each positive eigenvalue,
+    # exact degree-2 multiplicity = m_1(lambda) - m_0(lambda).
+    closed_spectrum = {}
+    for level in range(1, 7):
+        eigenvalue = 2 * level
+        m0 = comb(6, level)
+        m1 = 6 * comb(5, level - 1)
+        multiplicity = m1 - m0
+        if multiplicity:
+            closed_spectrum[eigenvalue] = multiplicity
+    if sum(closed_spectrum.values()) != closed_2_cochain_dimension:
+        raise ArithmeticError("tensor-product spectrum does not fill ker(B3^T)")
     green_kubo_trace = sum(
         (Fraction(multiplicity, eigenvalue)
          for eigenvalue, multiplicity in closed_spectrum.items()),
