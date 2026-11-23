@@ -53,22 +53,14 @@ v(x) = g⁻_aff(x) + ((m−i+1)/m)·h_e(x)    su S_i,
 
 `v=g` fuori dalla striscia (eccetto le regioni terminali di §4).
 Lo strato `i=1`, adiacente a `e` (perché `t∈(−δ/m,0)`), ha coefficiente `1`, quindi la traccia su `e` coincide con `g⁺_aff` e il salto originale si annulla nell'interno del segmento. Lo strato più esterno `i=m` ha coefficiente `1/m`; sul bordo `t=−δ` resta quindi un salto di ampiezza `|h_e|/m`, che va conteggiato come interfaccia aggiuntiva.
-v(x) = g⁻_aff(x) + (i/m)·h_e(x)    su S_i,
-```
-
-`v=g` fuori dalla striscia (eccetto le regioni terminali di §4).
-Allo strato `i=m` attiguo a `e` il valore è
-`g⁻+h_e=g⁺_aff`: la traccia su `e` coincide con quella di `g⁺`,
-quindi **il salto sull'`e` originale si annulla** nell'interno
-del segmento.
 
 ### 2.1 Proprietà elementari
 
 - **Affinità**: `h_e` affine ⇒ `v` affine su ogni `S_i`.
-- **Gradiente**: `∇v=∇g⁻+(i/m)∇h_e`, quindi
+- **Gradiente**: `∇v=∇g⁻+((m−i+1)/m)∇h_e`, quindi
   `‖∇v‖≤‖∇g⁻‖+‖∇h_e‖` uniforme in `m,δ` (la variazione avviene
   per salti, non per transizioni: non esiste gradiente `~1/δ`).
-- **Salto fra strati adiacenti**: `v_{i+1}−v_i=h_e/m` punto per
+- **Salto fra strati adiacenti**: `v_{i+1}−v_i=−h_e/m` punto per
   punto, ampiezza `≤(C_e+cδ)/m` dove `c` dipende solo da
   `‖∇h_e‖` (il valore di `h_e` nella striscia differisce da
   quello su `e` di `O(δ)`).
@@ -99,9 +91,9 @@ non entra nel denominatore perché ogni interfaccia ha salto
 La striscia viene troncata fuori dai dischi terminali `B_ρ(A)∪B_ρ(B)`: i tratti laterali dentro i dischi sono assegnati esclusivamente a (V), non a (K). Sulle parti residue dei bordi laterali, il salto è la differenza tra la traccia affine dello strato e la traccia del campo esterno. Il bound `C_e+cδ` è valido solo quando il campo esterno è specificato e ha traccia compatibile; tale compatibilità è un'ipotesi della costruzione locale e va verificata sulla partizione comune. I `m` strati danno `m`
 La striscia termina agli estremi di `e`: su ogni interfaccia
 laterale `s=0` e `s=|e|` (lunghezza `δ` per strato) il valore
-interno `g⁻+(i/m)h_e` incontra il valore esterno `g` (o la
+interno `g⁻+((m−i+1)/m)h_e` incontra il valore esterno `g` (o la
 costruzione del segmento adiacente). Il salto è
-`(i/m)h_e+O(δ)`, ampiezza `≤C_e+cδ`. I `m` strati danno `m`
+`((m−i+1)/m)h_e+O(δ)`, ampiezza `≤C_e+cδ`. I `m` strati danno `m`
 segmenti di lunghezza `δ/m` per capo, lunghezza totale `δ` per
 capo. Per `φ=t²`, il costo esatto è
 

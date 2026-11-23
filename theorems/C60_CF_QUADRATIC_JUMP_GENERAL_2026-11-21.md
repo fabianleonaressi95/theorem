@@ -60,11 +60,12 @@ partizione poliedrale comune.
 
 Fissati `j,m`, applichiamo a ogni segmento di salto `e` la
 costruzione a strati paralleli: striscia di larghezza `δ` nel
-lato adiacente, `m` strati, nell'`i`-esimo
-`v_{j,m}=g_j^-+((m−i+1)/m)h_e` con `h_e` affine (v. §3.2 precedente
-`v_{j,m}=g_j^-+(i/m)h_e` con `h_e` affine (v. §3.2 precedente
-per i dettagli di coordinate, estremi `r`, palle `ρ` attorno ai
-vertici del jump complex e disgiunzione delle strisce).
+lato adiacente, `m` strati, nell'`i`-esimo strato
+`v_{j,m}=g_j^-+((m−i+1)/m)h_e` con `h_e` affine, secondo la
+numerazione in cui `S_1` è adiacente al salto originale e
+`S_m` è lo strato esterno (per i dettagli di coordinate, estremi
+`r`, palle `ρ` attorno ai vertici del jump complex e disgiunzione
+delle strisce).
 
 Il risultato deve soddisfare:
 
@@ -81,7 +82,7 @@ Il risultato deve soddisfare:
    indipendente da `δ` e da `m` — nella costruzione a strati
    il valore cambia per **salti** fra strati adiacenti, non per
    transizioni continue, quindi
-   `∇v_{j,m}=∇g_j^-+(i/m)∇h_e` resta limitato da
+   `∇v_{j,m}=∇g_j^-+((m−i+1)/m)∇h_e` resta limitato da
    `‖∇g_j‖+‖∇h_e‖`; di conseguenza
    `∫_{strisce}W(∇v_{j,m}) ≤ C·area(strisce)·sup W →0` per
    `δ→0`. (Una versione a transizione continua avrebbe
@@ -103,7 +104,7 @@ con altri segmenti di `J_{g_j}` e senza incroci:
   poligoni. Proprietà 1, 6 ✓.
 - **Affinità**: `h_e(s,t)=q_e(s)−g_j^-(s,t)` con `q_e`
   affine in `s` (traccia di `g_j^+` su `e`, costante in `t`) e
-  `g_j^-` affine ⇒ `h_e` affine ⇒ `v_{j,m}=g_j^-+(i/m)h_e`
+  `g_j^-` affine ⇒ `h_e` affine ⇒ `v_{j,m}=g_j^-+((m−i+1)/m)h_e`
   affine su `S_i` ✓ (proprietà 1 nel dettaglio).
 - **`v_{j,m}→g_j`**: le modifiche sono in `S(e)`, area
   `2δ_m|e|+O(ρ_m)`, e `|v_{j,m}−g_j|≤|h_e|≤C_e` ⇒ errore `L¹`
@@ -116,7 +117,7 @@ con altri segmenti di `J_{g_j}` e senza incroci:
   `≤C_e`, lunghezza `≤2r_m+cδ_m` ✓ (proprietà 4). Fuori
   `S(e)∪terminali∪B_ρ` il valore è `g_j` ⇒ salto invariato
   ✓ (proprietà 5).
-- **Gradiente**: `∇v_{j,m}=∇g_j^-+(i/m)∇h_e` in `S_i`,
+- **Gradiente**: `∇v_{j,m}=∇g_j^-+((m−i+1)/m)∇h_e` in `S_i`,
   `|∇v|≤‖∇g_j‖+‖∇h_e‖≤C_{j,e}` uniforme in `i,m,δ`
   ✓ (proprietà 7).
 - **Tracce**: su ogni bordo di cella le due tracce sono
@@ -194,7 +195,7 @@ una volta sola.
   `v_{j,m}→g_j→g`.
 - `∇u_{j,m,h}=G_j` a.e. su **ogni** cella — strisce di splitting
   incluse: il mismatch locale `A_P−G_P` (che contiene il termine
-  `(i/m)∇h_e`) è assorbito in `M_P` e rimosso dalla staircase.
+  `((m−i+1)/m)∇h_e`) è assorbito in `M_P` e rimosso dalla staircase.
   Il bulk è quindi **esattamente** `∫_ΣW(G_j)` senza correzioni
   di area; la proprietà 7 serve solo a `v_{j,m}` intermedio,
   non all'energia finale. `G_j→G` in `L^p` ⇒
