@@ -49,6 +49,30 @@ where \(J_6 e_g=e_{g\oplus63}\). These identities are checked exactly up to floa
 
 This is a barycentric lift into the Q6 vertex-function space. It is not an edge embedding: T141's path lifts remain path-valued and the icosahedral face boundaries are not claimed to map to Q6 2-cells.
 
+### 3.1 An antipodal-equivariant edge-chain map
+
+The barycentre construction extends to a genuine map on the dodecahedral 1-skeleton. Orient a dual edge from face \(f_i\) to face \(f_j\), where \(i<j\), and write
+\[
+f_i\setminus f_j=\{a\},\qquad f_j\setminus f_i=\{b\}.
+\]
+Then
+\[
+b_{f_j}-b_{f_i}=\frac13(e_{\iota(b)}-e_{\iota(a)}).
+\]
+Let \(\Gamma_{ab}\) be the average of all shortest Q6 edge paths from \(\iota(a)\) to \(\iota(b)\), with each path given equal weight. Define
+\[
+C_1([f_i,f_j])=\frac13\Gamma_{ab}.
+\]
+Averaging over every ordering of the differing bit flips removes the arbitrary ordering of a single shortest path. Reversing the endpoints reverses the averaged chain, and complementing all six bits maps the averaged path to the corresponding antipodal path.
+
+Let \(D\in\mathbb R^{20\times30}\) be the oriented dodecahedral incidence matrix, \(C\in\mathbb R^{192\times30}\) the Q6 edge-chain matrix, and \(\partial_{Q6}\in\mathbb R^{64\times192}\) the cubical 1-boundary matrix. The audit verifies
+\[
+\boxed{\partial_{Q6}C=B^TD}
+\]
+with Frobenius residual \(3.04\times10^{-16}\), and verifies antipodal equivariance of the edge-chain map with residual \(0\). There are 18 dual edges whose opposite-vertex Q6 codes are at Hamming distance 2 and 12 at distance 4.
+
+This is an exact chain map on vertices and edges (numerically certified for the specified finite matrices). It is not yet a map on dodecahedral 2-cells: the boundary of each pentagonal dual face still needs a compatible Q6 cubical 2-chain filling.
+
 ## 4. Two independently specified Dirichlet operators
 
 ### 4.1 Q6-pulled-back energy
@@ -105,6 +129,31 @@ For comparison, the unweighted dodecahedral graph Laplacian has spectrum
 0,\;(3-\sqrt5)^{(3)},\;2^{(5)},\;3^{(4)},\;5^{(4)},\;(3+\sqrt5)^{(3)}.
 \]
 
+### 4.3 Dirichlet energy induced by the edge-chain map
+
+The edge-chain map gives a second Q6-derived energy, distinct from \(B L_6 B^T\). For a dodecahedral vertex potential \(u\in\mathbb R^{20}\), its oriented edge gradient is \(D^Tu\). Transport it to Q6 edge space by \(C\), and use the standard Euclidean norm there:
+\[
+\mathcal E_{\rm chain}(u)=\|CD^Tu\|^2,\qquad
+L_{\rm chain}=DC^TCD^T.
+\]
+This construction includes cross terms when different dodecahedral edges use overlapping Q6 links; it is not the independent-resistor approximation \(w=1/\text{path length}\).
+
+The induced operator is positive semidefinite, has rank 19 and nullity 1. Its spectrum is
+\[
+\begin{aligned}
+0,\;&0.0914098820,\;0.1033168918,\;0.1207703207,\;
+0.1286725635,\\
+&0.1315819077,\;0.1472920167,\;0.1707265858,\;
+0.1825488035,\\
+&0.2212420561,\;0.2789279140,\;0.3102596062,\;
+0.3291519540,\\
+&0.3587451831,\;0.3699858829,\;0.3993711189,\;
+0.4616684127,\\
+&0.5887125376,\;0.6370890114,\;0.7401322896.
+\end{aligned}
+\]
+This is the most direct energy induced by the explicit chain map tested here. It still does not yield the target eigenvalues \(0,4,6\).
+
 ## 5. Direct test against the selected Q6 sector
 
 Let \(F:\mathbb R^{64}\to\mathbb R^3\) be the archived Q6 coisometry with
@@ -139,7 +188,7 @@ The distinction matters: \(F L_6=\Lambda F\) is an identity on Q6; it does not i
 6. the numerical spectra and failed selected-sector intertwining test.
 
 **Not established:**
-- a chain map on 2-cells or a compatible Q6 face-boundary filling;
+- a chain map on 2-cells or a compatible Q6 cubical 2-chain filling of each pentagonal dodecahedral face;
 - a dodecahedral discrete gradient whose adjoint yields the selected Q6 operator;
 - an intertwiner with spectrum \(0,4,6\);
 - a derivation of \(1/240\), \(1/120\), or \(1/2\) from the dodecahedral geometry;
