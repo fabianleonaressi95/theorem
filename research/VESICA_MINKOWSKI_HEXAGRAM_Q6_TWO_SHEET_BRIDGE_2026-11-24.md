@@ -191,3 +191,59 @@ The independent execution returned: 64 distinct ordered geometric pairs; 57 dist
 
 
 **Sampling correction (24 November 2026):** the eight samples cover the entire 120-degree arcs, including both endpoints, with step (2\pi/21). The previous (\pi/21) step covered only 60 degrees and is superseded. The corrected audit gives minimum squared separation (0) (the two circle-intersection points), maximum approximately (3), mean (1.096173671917929), and still 57 distinct midpoints for 64 ordered pairs.
+
+
+## 8. A finite mechanical dynamics on the two-sheet configuration space
+
+The geometric configuration space is the product of the two sampled arcs. For a continuous model, temporarily allow
+\[
+\theta\in[-\pi/3,\pi/3],\qquad
+\varphi\in[2\pi/3,4\pi/3],
+\]
+and introduce a mechanical evolution parameter \(\tau\), distinct from the Minkowski coordinate \(t\). The two points are constrained to their respective unit-circle arcs. Their separation is
+\[
+D^2(\theta,\varphi)
+=|q_+(\varphi)-q_-(\theta)|^2
+=3+2\cos\varphi-2\cos\theta-2\cos(\varphi-\theta).
+\]
+A minimal two-rotor/spring Lagrangian is
+\[
+\mathscr L
+=\frac{I}{2}(\dot\theta^2+\dot\varphi^2)
+-\frac{\kappa}{2}D^2(\theta,\varphi),
+\qquad I>0,\quad\kappa\geq0.
+\]
+Its Euler–Lagrange equations are
+\[
+I\ddot\theta
+=\kappa[\sin(\varphi-\theta)-\sin\theta],
+\]
+\[
+I\ddot\varphi
+=\kappa[\sin\varphi-\sin(\varphi-\theta)].
+\]
+The conserved mechanical energy is
+\[
+E=\frac{I}{2}(\dot\theta^2+\dot\varphi^2)
++\frac{\kappa}{2}D^2(\theta,\varphi).
+\]
+The two zero-separation configurations are the common circle-intersection points:
+\[
+(\theta,\varphi)=(\pi/3,2\pi/3),\qquad
+(-\pi/3,4\pi/3).
+\]
+Thus the Vesica's two boundary intersections are exact zero-coupling-separation configurations of this chosen spring model.
+
+This is a well-defined constrained mechanical model on the two-sheet configuration space. It is **not** yet relativistic particle dynamics: \(\tau\) is not the Minkowski time, and the parameters \(I\) and \(\kappa\) have not been derived from a field action or calibrated to a physical system. Boundary conditions at the ends of the arcs (reflection, confinement, or continuation to the full circles) are additional model choices.
+
+### Discrete Q6 operator induced by the geometry
+
+For a fixed trigram-angle bijection \(\kappa_3\), let \(z_H=f(H)\) be a scalar field on the 64 hexagrams. The product angular metric assigns a squared edge length \(\ell_{HH'}^2=(\Delta\theta)^2\) when only the lower trigram changes, and \(\ell_{HH'}^2=(\Delta\varphi)^2\) when only the upper trigram changes, using the chosen representatives on the arcs. This defines the positive weighted graph energy
+\[
+\mathcal E_{\rm geom}(f)
+=\frac12\sum_{\{H,H'\}\in E(Q_6)}
+\frac{(f(H)-f(H'))^2}{\ell_{HH'}^2}.
+\]
+Its associated weighted graph Laplacian is a discrete operator derived from the chosen product metric and Q6 incidence. It is generally not the unweighted standard Q6 Laplacian. This gives a concrete candidate for the next RGS/QLG spectral comparison, but no continuum convergence or physical Hamiltonian is claimed.
+
+**Status:** the Lagrangian, equations and energy conservation are exact consequences of the declared two-rotor model. The choice of that model, its parameters, boundary conditions, coupling to the 64-state discrete dynamics, and any relativistic/quantum field interpretation remain hypotheses or open tasks.
