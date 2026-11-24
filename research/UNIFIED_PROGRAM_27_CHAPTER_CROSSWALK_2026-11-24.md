@@ -278,3 +278,49 @@ Keep the following as linked comparative dossiers, not as unverified consequence
 ## 10. Conversation-to-repository preservation principle
 
 Conversation summaries are useful discovery indexes, not substitutes for the canonical source files. Where a prior chat reports a result, this register preserves the exact claim and its reported status, but the current theorem file, audit, commit and data hash take precedence. The full conversation archive is not represented as exhaustively re-read in one operation; this is a consolidated recovery from available prior-chat context plus the live repository snapshots. New recovered strands should be appended here and cross-linked to their canonical records rather than copied into theorem statements.
+
+
+## 11. Live GitHub issue register and Jitterbug–coil work package (checked 24 November 2026)
+
+This section records actionable open work, not merely thematic connections. Issue state was fetched from GitHub on 24 November 2026. Closing an issue requires its acceptance criteria and reproducible evidence, not just a related PR merge.
+
+### 11.1 Jitterbug geometry and electromechanical coil
+
+**Merged source work — do not redo:**
+- [PR #202 — Exact quaternionic symmetric Jitterbug kinematics](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/202), merged 23 November 2026, merge commit 4a26e44b7ed3caaa27b3c1d31832f2426e4de03f. Records the symmetric cuboctahedron-to-octahedron vertex path, rigid-face quaternion pose and translation, with separate ellipse parameter θ and face rotation γ. Reported prototype residuals were about 4.4×10⁻¹⁶ over 101 parameter samples. The committed audit/CI provenance must be checked before describing this as fully CI-certified.
+- [PR #390 — Explicit Jitterbug panel-to-coil Faraday model](https://github.com/fabianleonaressi95/theorem/pull/390), merged 23 November 2026, merge commit d7ee4c6e6447944574e2b8236f8a5760805b85d6. A circular N-turn coil is rigidly mounted in one labelled triangular panel ε=(+1,+1,+1); panel pose is recovered by proper Kabsch fit from its three labelled vertices. Given a declared physical traversal speed, the model computes flux linkage, midpoint Faraday emf from the SO(3) increment, and series RL current response. Five unit tests are included, but the PR states they were not run in its authoring environment. Reproduce with:
+  python3 audits/jitterbug_coil_coupling.py --output jitterbug_coil_report.json
+  python3 -m unittest discover -s tests -p 'test_jitterbug_coil_coupling.py' -v
+- [PR #394 — Vesica, Star-of-David, Q6 phases and Jitterbug bridges](https://github.com/fabianleonaressi95/theorem/pull/394), merged 23 November 2026, merge commit f3599b388309abce08a86c1e82edbf7e777193e1. Reuses T091/T092/T097–T101 and T142/T143; the Möbius sector map and boundary phase identity are established on their stated domain. It explicitly leaves the six-planar-sector/eight-panel incidence map, full mixed frame and torsion coupling open.
+
+**Gray geometry baseline:** the standard symmetric Jitterbug uses eight rigid equilateral triangular panels, 12 vertices and 24 rods/edges; its principal motion connects the cuboctahedral/Vector Equilibrium and octahedral configurations, with the icosahedral intermediate. The Gray curve constraint is \(3Y^2+Z^2=L^2\); θ and γ are distinct and, under the PR #202 convention, \(\gamma=\arctan(\sqrt3\tan\theta)\). Do not conflate this with the separate 64-TG cellulation or planar six-sector Star of David.
+
+**Coil physics boundary:** this is a conditional electromechanical realization requiring explicit B-field, N, coil radius, panel geometry, traversal speed, resistance and inductance. Geometry alone does not predict voltage or current. The continuation parameter is not physical time until a speed law is declared. The one-panel coil is not yet a complete eight-panel generator, measured experiment or new electromagnetic law. Next: reproduce tests; sweep θ/γ and verify flux/emf/RL energy balance; compare symmetry-related panel placements and signs; then formulate multi-coil wiring, mutual inductance and phase sequence; finally add measured field/coil/drive data.
+
+### 11.2 Four coupled open derivation issues
+
+- [#398 — Vesica phase ↔ eight-panel Jitterbug frame map](https://github.com/fabianleonaressi95/theorem/issues/398). Define eight panel labels and oriented hinge-incidence graph; map Vesica/hexagram phase branches without forcing a 6↔8 bijection; derive panel frames and transitions; test rigidity and endpoint configurations. Depends on T098/T099, PR #394 and Gray/Verheyen/Matsumoto–Segerman. **Open.**
+- [#399 — Complete mixed-frame field A_a^m](https://github.com/fabianleonaressi95/theorem/issues/399). Derive the Ehresmann connection from the phase-to-panel embedding, including coordinate transformation, curvature F_ab^m, horizontal/vertical brackets and a variational or kinematic selection principle. Do not identify Ehresmann curvature with Cartan torsion. **Open.**
+- [#400 — Cartan torsion and T B_perp variation](https://github.com/fabianleonaressi95/theorem/issues/400). Differentiate the complete coframe retaining e, φ and A; define B_perp as a representation-carrying tensor/bivector; construct a dimensionally consistent invariant action; vary independently in all fields. A symbolic product T B_perp is not yet an action. **Open.**
+- [#401 — Dynamic 64-TG/FCC-D3 immersion into Jitterbug](https://github.com/fabianleonaressi95/theorem/issues/401). Start from the static 63-vertex, 240-edge, 64-tetrahedron reconstruction (56 internal + 8 external), 14 octahedral cavities and 24 square pyramids. Construct the configuration-space map; certify incidence, Jacobian rank/nullity and finite-branch continuation through VE, icosahedral and octahedral poses. Add masses, inertia and coil/RL dynamics only after kinematics. **Open.**
+
+Proposed work order: #398 → #399 → #400, with #401 consuming the phase/frame map and merged static 64-TG and one-panel coil submodels. This is a work-order proposal; only proved dependencies become proof edges.
+
+### 11.3 Unified provenance and source-data issues
+
+- [#402 — Expand unified theorem graph with prior-chat provenance and bibliography](https://github.com/fabianleonaressi95/theorem/issues/402). **Open at this audit.** Covers conversation-to-theorem provenance, bibliography, warning register, Pellis/Morandotti, Vesica/gradient/barycentre, Frank–Burgers, Jitterbug, 64-TG/FCC-D3, coil/RL and Q6 Clifford/2I. This document addresses part of #402 but does not close it until citations, provenance, graph endpoints and warning closure criteria are audited.
+- [#109 — Import original source data for 188D and Krist-All](https://github.com/fabianleonaressi95/theorem/issues/109). **Open.** Original NPZ and bundle hashes are recorded in the issue; original 64×3 X_Oh coordinates remain to be recovered from generator/source. Krist-All still lacks the 11,725-class enumerator/table, formal equivalence relation and K/W0 source data. Do not fit or fabricate.
+- [Companion issue #3 — Gauge-equivariant QLG and Clifford-steerable operators](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/issues/3). **Open.** Tracks Q6 complex, Möbius subcomplex, gauge covariance, 2I representations, Pin+ lift scope, Clifford grade actions and Mosco/continuum questions. T114–T123 and source PRs are milestones, not closure of continuum or physical-coupling questions.
+
+### 11.4 Experimental validation issues
+
+- [#113 — Open experimental actuator hysteresis data and asymmetric GPI baseline](https://github.com/fabianleonaressi95/theorem/issues/113). **Open.** Requires licensed raw actuator cycles, checksum/schema, held-out complete-cycle fits and uncertainty; compare Preisach, PI, asymmetric GPI and Bouc–Wen. Do not confuse pneumatic actuator hysteresis with magnetic loops or Cartan torsion.
+- [#114 — Jiles–Atherton against measured ferromagnetic loops](https://github.com/fabianleonaressi95/theorem/issues/114). **Open.** Verify dataset version, checksum, licence, units, frequency and geometry; fit/validate on held-out loops; report coercivity, remanence, saturation, loop area and errors. Keep INRIM first-magnetization curves distinct from the HEFMAG main loop archive and separate NO/GO sample archive. Quasi-static fits do not establish dynamic losses or FDT–Maxwell coupling.
+
+### 11.5 Q6–D5 and Wilson computational issue
+
+- [#84 — Port and certify Q6–D5 Wilson integer-fibre computation](https://github.com/fabianleonaressi95/theorem/issues/84). **Open.** Requires exact Smith normal form, saturated rank-124 kernel, rank-5 quotient, certified positive fibre sum and rigorous tail interval, plus Poisson/Gaussian comparison. No Hua/Bergman limit or physical 3+1D reduction follows automatically.
+
+### 11.6 Current open-issue inventory
+
+GitHub returned nine open issues in the primary repository at this check: #398, #399, #400, #401, #402, #109, #113, #114 and #84. The companion repository returned open issue #3. This is a live snapshot, not a permanent status guarantee. The four Jitterbug derivation issues are the immediate geometric chain; the coil model is already merged as a conditional one-panel calculation and should be validated/reused rather than reimplemented.
