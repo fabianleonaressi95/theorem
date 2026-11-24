@@ -1,0 +1,69 @@
+{
+  "title": "Bicone two-sheet model: spinor holonomy gives factor 1/2",
+  "status": "constructed model; NOT derived from archived K0 data",
+  "cone_results": {
+    "alpha_30.0deg": {
+      "deficit_angle_rad": 3.141592653589793,
+      "vector_holonomy_deg": 180.0,
+      "spinor_holonomy_phase": [
+        6.123233995736766e-17,
+        1.0
+      ],
+      "spinor_angle_is_half_vector_angle": true
+    },
+    "alpha_45.0deg": {
+      "deficit_angle_rad": 1.8403023690212206,
+      "vector_holonomy_deg": 105.44155877284291,
+      "spinor_holonomy_phase": [
+        0.6056998670788133,
+        0.795693201567481
+      ],
+      "spinor_angle_is_half_vector_angle": true
+    },
+    "alpha_60.0deg": {
+      "deficit_angle_rad": 0.8417872144769332,
+      "vector_holonomy_deg": 48.2308546376021,
+      "spinor_holonomy_phase": [
+        0.912724198102178,
+        0.40857623303214313
+      ],
+      "spinor_angle_is_half_vector_angle": true
+    }
+  },
+  "spinor_check": {
+    "su2_spin_half_weights": [
+      0.5,
+      -0.5
+    ],
+    "holonomy_phases": [
+      [
+        0.6056998670788133,
+        0.795693201567481
+      ],
+      [
+        0.6056998670788133,
+        -0.795693201567481
+      ]
+    ],
+    "note": "exp(i m delta) with m=+-1/2 gives exp(+-i delta/2): the factor 1/2 is the magnetic quantum number of the spin-1/2 representation -- i.e. the same 1/2 as j=1/2 of the defining SU(2) rep of 2I."
+  },
+  "sheet_structure": {
+    "sheets": "two nappes of the double cone, disjoint except apex",
+    "singular_point": "apex (unique common point of the two sheets)",
+    "Z2_exchange": "nappe swap <-> S = 2 Z_S|_W on the RGS carrier",
+    "eigenvalue_split": "Z_S eigenvalues +-1/2 = (sheet sign)/2"
+  },
+  "claims": {
+    "proved_in_model": [
+      "two nappes are disjoint except at the apex",
+      "vector holonomy = deficit angle delta",
+      "spinor (spin-1/2) holonomy = delta/2 -- factor 1/2 canonical",
+      "SU(2) weights m=+-1/2 reproduce the same half-angle"
+    ],
+    "open": [
+      "which cone angle alpha (if any) is selected by RGS/K0 data",
+      "whether the bicone apex maps to the K0 kernel or carrier",
+      "any derivation of f's coefficients 1/240, 1/120 from cone data"
+    ]
+  }
+}
