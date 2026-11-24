@@ -342,3 +342,16 @@ It also verified numerically that \(K\) has rank 192, nullity 192, and positive 
 \eta^{ij,ij}_{\rm OU}=4\,k_BT/(\mu V).
 \]
 This is a successful numerical reproduction of the finite toy-model identity. It does not upgrade the six-dimensional model to a three-dimensional material model or establish a hydrodynamic limit.
+
+
+### 11.2 Spectral conclusion: one relaxation atom, not a golden hierarchy
+
+For this canonical model the stress correlation is a single exponential:
+\[
+C_{ij,ij}(t)=16(k_BT)^2e^{-4\mu t}.
+\]
+Thus its stress spectral measure is exactly
+\[
+d\mu_{\Pi_{ij}}(\gamma)=16(k_BT)^2\,\delta_{4\mu}(d\gamma).
+\]
+There is one relaxation rate, \(4\mu\), in this harmonicized six-dimensional control. No \(\varphi\)-spaced hierarchy follows from the bare canonical Q6 central-force Hessian and scalar-mobility OU bath. A golden hierarchy would have to arise from additional derived structure—e.g. a nontrivial fibre lift, multiple physical internal sectors, scale-dependent mobility, or anharmonic/activated kinetics—and must be measured or proved from that enlarged model. It must not be inserted by relabelling the single atom.
