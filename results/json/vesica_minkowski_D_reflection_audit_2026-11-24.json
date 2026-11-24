@@ -1,0 +1,130 @@
+{
+  "status": "coordinate_identities_independently_checked",
+  "geometry": "Minkowski (2+1), two future null cones with vertices (0,0,0) and (0,1,0), t=1 sections",
+  "channels": [
+    {
+      "label": "-",
+      "theta": "-pi/3",
+      "phi": "2pi/3",
+      "A": [
+        0.5,
+        -0.8660254037844386
+      ],
+      "B": [
+        0.5,
+        0.8660254037844386
+      ],
+      "midpoint": [
+        0.5,
+        0
+      ],
+      "distance": 1.7320508075688772
+    },
+    {
+      "label": "0",
+      "theta": "0",
+      "phi": "pi",
+      "A": [
+        1,
+        0
+      ],
+      "B": [
+        0,
+        0
+      ],
+      "midpoint": [
+        0.5,
+        0
+      ],
+      "distance": 1
+    },
+    {
+      "label": "+",
+      "theta": "pi/3",
+      "phi": "4pi/3",
+      "A": [
+        0.5,
+        0.8660254037844386
+      ],
+      "B": [
+        0.5,
+        -0.8660254037844386
+      ],
+      "midpoint": [
+        0.5,
+        0
+      ],
+      "distance": 1.7320508075688772
+    }
+  ],
+  "reflection": {
+    "spacetime_map": "(t,x,y)->(t,x,-y)",
+    "channel_permutation": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "adapted_basis_columns": [
+      [
+        0,
+        0.7071067811865475,
+        0.7071067811865475
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0.7071067811865475,
+        -0.7071067811865475
+      ]
+    ],
+    "conjugated_matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        -1
+      ]
+    ]
+  },
+  "numerical_residuals": {
+    "null_cone_A": 1.11e-16,
+    "null_cone_B": 1.11e-16,
+    "orthogonality": 2.22e-16,
+    "conjugacy_offdiagonal": 2.24e-17,
+    "reflection_pointwise": 0
+  },
+  "channel_distances_not_equal": true,
+  "all_three_pair_midpoints_equal_vesica_center": true,
+  "limitations": [
+    "three-channel carrier is not a subset of the previous eight equally spaced arc samples",
+    "not an injective encoding of all 64 hexagrams",
+    "no full 188D intertwiner for K0, ZA, ZS",
+    "planar arc does not carry the nontrivial C3 rotation"
+  ],
+  "reproduction": "audits/audit_vesica_minkowski_D_reflection.py"
+}
