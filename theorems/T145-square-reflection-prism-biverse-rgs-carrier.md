@@ -1,193 +1,107 @@
-# T145 — Square reflection, PRISM biverso and the RGS six-dimensional carrier
+# T145 — Intrinsic \(\mathbb Z_2\) grading of the RGS half-scale carrier
 
 **Date:** 24 November 2026  
-**Type:** exact geometric and operator identities, plus a numerical identification on the archived RGS carrier  
-**Status:** square/\(\mathbb Z_2\) and biverso algebra **proved**; RGS carrier realization **numerically verified** from the archived \(188\times188\) arrays; extension to the full \(188\)-dimensional operator and identification with the scalar Euclidean square Laplacian **not claimed**.
+**Classification:** exact algebraic consequences conditional on the archived matrix identities; numerical verification on the stored \(188\times188\) arrays.
 
-## 1. The square supplies the geometric \(\mathbb Z_2\) action
+**Correction notice.** This record supersedes the previous T145 draft. The previous draft incorrectly fitted a sheet-exchange operator to the compressed \(K_0\) blocks and reported a two-branch \(K_0\) decomposition. The intrinsic grading is instead defined by \(S=2Z_S|_{\mathcal W}\). The audit shows that \(K_0\) mixes its two sectors and does not commute with this \(S\).
 
-Let \(Q=[0,1]^2\), and divide it along the diagonal \(x=y\):
-\[
-T_1=\{(x,y)\in Q:y\le x\},\qquad
-T_2=\{(x,y)\in Q:x\le y\}.
-\]
-The orthogonal reflection
-\[
-r(x,y)=(y,x),\qquad
-R=\begin{pmatrix}0&1\\1&0\end{pmatrix}
-\]
-satisfies \(R^2=I\), \(R^TR=I\), \(\det R=-1\), and exchanges \(T_1,T_2\). Both triangles have area \(1/2\) of the square.
+## 1. Carrier and intrinsic grading
 
-Let \(\mathcal H_1=L^2(T_1)\), \(\mathcal H_2=L^2(T_2)\). Pullback by \(r\) defines a unitary identification \(J:\mathcal H_1\to\mathcal H_2\). After using \(J\) to identify the two spaces, the reflection acts on \(\mathcal H_1\oplus\mathcal H_1\) as
+Define
 \[
-S_\square=\begin{pmatrix}0&I\\I&0\end{pmatrix},\qquad S_\square^2=I.
+P_{\mathcal W}:=4Z_S^2,\qquad \mathcal W:=\operatorname{ran}P_{\mathcal W}.
 \]
-Therefore
+The archived arrays give a rank-six carrier, with \(Z_S\) eigenvalues \(+\frac12\) and \(-\frac12\), each of multiplicity three, and zero on the orthogonal complement. On the carrier,
 \[
-P_\pm=\frac{I\pm S_\square}{2}
+Z_S^2=\frac14P_{\mathcal W}.
 \]
-are orthogonal projections onto the even and odd sectors. This is the precise square-to-two-sheet correspondence. The area split \(1/2\) and the projector normalization \(1/2\) are related by the same order-two symmetry, but are different statements: one is a measure partition, the other an operator identity.
-
-## 2. PRISM biverso: exact two-sector reduction
-
-Let \(L_\Omega=L_\Omega^T\) act on one sheet and let \(\kappa\ge0\) be the inter-sheet coupling. With
+Set
 \[
-\sigma=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-S=\sigma\otimes I_n,\qquad
-L_{K_2}=I_2-\sigma,\\
-L_{\rm bi}=I_2\otimes L_\Omega+\kappa\bigl((I_2-\sigma)\otimes I_n\bigr)
-=I_2\otimes L_\Omega+\kappa(I_{2n}-S).
+S:=2Z_S|_{\mathcal W}.
 \]
-we have \([L_{\rm bi},S]=0\). Since \(P_\pm=(I\pm S)/2\),
+Then
 \[
-L_{\rm bi}P_+=P_+(I_2\otimes L_\Omega),\qquad
-L_{\rm bi}P_-=P_-(I_2\otimes L_\Omega+2\kappa I).
-\]
-The restrictions are consequently
-\[
-\boxed{L_+=L_\Omega,\qquad L_-=L_\Omega+2\kappa I.}
-\]
-Equivalently, the orthogonal Hadamard map
-\[
-H_2=\frac1{\sqrt2}\begin{pmatrix}I&I\\I&-I\end{pmatrix}
-\]
-diagonalizes the two sheets:
-\[
-H_2^TL_{\rm bi}H_2=
-\begin{pmatrix}L_\Omega&0\\0&L_\Omega+2\kappa I\end{pmatrix}.
-\]
-This is the standard \(K_2\)-product/symmetric-block spectral splitting. The coupling contributes the factor \(2\kappa\) because \(L_{K_2}\) has eigenvalues \(0,2\).
-
-**Geometric qualification.** The reflection of the cut square gives the exchange involution. The term \(\kappa(I-S)\) is an additional graph/PRISM coupling between the two copies. The scalar Euclidean Laplacian on a square, with its usual domain and interface conditions, is not asserted to equal \(L_{\rm bi}\). A continuous square realization requires a separately specified quadratic form and transmission/coupling law.
-
-## 3. Exact numerical identification with the RGS carrier
-
-Use the original archived matrices \(K_0,Z_A,Z_S\in\mathbb R^{188\times188}\). The established carrier reconstruction defines
-\[
-Q=4Z_S^2,\qquad P_+=2Z_S^2+Z_S,
-\]
-chooses an orthonormal basis \(V\) of \(\operatorname{ran}P_+\), and sets \(W=2Z_AV\). The matrix \(U=(V,W)\) is an orthonormal basis of the six-dimensional carrier \(\mathcal W\).
-
-In this basis the original-array audit gives, to numerical precision,
-\[
-U^TZ_SU=\frac12\begin{pmatrix}I_3&0\\0&-I_3\end{pmatrix},\qquad
-U^TZ_AU=\frac12\begin{pmatrix}0&-I_3\\I_3&0\end{pmatrix},
-\]
-and
-\[
-U^TK_0U=
-\begin{pmatrix}H&-\kappa I_3\\-\kappa I_3&H\end{pmatrix},
+\boxed{S=S^*,\quad S^2=I_{\mathcal W}},
 \qquad
-\operatorname{spec}(H)=\{0.65,0.75,0.85\},\quad
-\kappa=0.15.
+\boxed{P_\pm=\frac12(I_{\mathcal W}\pm S),\quad
+\operatorname{rank}P_+=\operatorname{rank}P_-=3.}
 \]
-Apply the same orthogonal eigenbasis change of \(H\) to both sheets (which leaves the sheet-exchange matrix unchanged), and set
+This is the intrinsic two-sheet \(\mathbb Z_2\)-graded carrier. It is not an exchange operator chosen to force \(K_0\) into biverso block form.
+
+## 2. \(Z_A\) is odd with respect to the grading
+
+In an orthonormal basis ordered by the \(+\frac12\) and \(-\frac12\) eigenspaces of \(Z_S\), the numerical compression is
 \[
-L_\Omega=H-\kappa I_3,
-\qquad \operatorname{spec}(L_\Omega)=\{0.50,0.60,0.70\}.
+Z_A|_{\mathcal W}\simeq
+\frac12\begin{pmatrix}0&-I_3\\ I_3&0\end{pmatrix}.
 \]
-In that common channel eigenbasis, \(L_\Omega=\operatorname{diag}(0.50,0.60,0.70)\). Define the carrier exchange involution
+The diagonal blocks vanish, and each cross-sheet block has Frobenius norm
 \[
-S_{\rm RGS}=\begin{pmatrix}0&I_3\\I_3&0\end{pmatrix}
+\left\|\frac12I_3\right\|_F=\frac{\sqrt3}{2}.
 \]
-in the ordered \((V,W)\) coordinates. Then the compression has the exact biverso form
+Equivalently,
 \[
-\boxed{
-U^TK_0U=I_2\otimes L_\Omega+0.15(I_6-S_{\rm RGS}).
-}
+\boxed{SZ_A+Z_AS=0\quad\text{on }\mathcal W.}
 \]
-In particular,
+Thus \(Z_S\) is the grading/sign operator, whereas \(Z_A\) is an inter-sheet odd operator.
+
+## 3. \(K_0\) mixes the intrinsic sheets
+
+Let \(K_{\mathcal W}=\Pi_{\mathcal W}K_0|_{\mathcal W}\). In the \(S\)-eigenbasis its cross-sheet blocks are nonzero, and
 \[
-[K_0|_{\mathcal W},S_{\rm RGS}]=0.
+\boxed{[K_{\mathcal W},S]\ne0}
 \]
-and its parity restrictions are
+for the archived arrays. Therefore neither parity sector is invariant under \(K_{\mathcal W}\).
+
+This corrects the earlier proposed formula
 \[
-\boxed{
-\operatorname{spec}(K_0|_{\mathcal W,+})=(0.5,0.6,0.7),\quad
-\operatorname{spec}(K_0|_{\mathcal W,-})=(0.8,0.9,1.0).
-}
+K_{\mathcal W}=I_2\otimes L_\Omega+\kappa(I-S).
 \]
-The parity subspaces are precisely the already reconstructed \(J_A\) and \(J_B\) triplets. Thus the observed \(0.30\) separation of the two triplets is \(2\kappa\), with \(\kappa=0.15\), in this six-dimensional effective biverso operator.
+That model commutes with the sheet exchange and preserves parity sectors; the actual compressed \(K_0\) does not. No \(\kappa=0.15\) two-branch decomposition, no \(0.30\) branch separation, and no \(K_0\)-intertwiner of that form are asserted. The exact compressed eigenvalues and residuals are stored in the JSON audit.
 
-The basis map \(U:\mathbb R^2\otimes\mathbb R^3\to\mathcal W\subset\mathbb R^{188}\) is the concrete finite-dimensional intertwiner:
-\[
-K_0U=U L_{\rm bi}
-\]
-up to the measured carrier leakage (about \(1.18\times10^{-14}\) in Frobenius norm). This is stronger than a matching of spectra: it identifies the full compressed block operator and its two parity sectors.
+## 4. Four distinct occurrences of one half
 
-## 4. Relation between the biverso exchange and the original half-scale pair
+| Occurrence | Origin | Status |
+|---|---|---|
+| \(j=\frac12\) for \(U\cong\mathbb C^2\) | Spin label, \(\dim U=2j+1\) | Exact |
+| \(-I\in2I\) acts on \(\operatorname{Sym}^m(U)\) as \((-1)^m\) | Central character of the binary lift | Exact |
+| Eigenvalues \(\pm\frac12\) of \(Z_S|_{\mathcal W}\) | Normalization \(Z_S=S/2\) of the grading | Numerically verified |
+| \(+\frac12 I\) in \(K_0=N/10+\frac12I\) | Affine spectral offset | Open; not explained here |
 
-There are two distinct involutions on the carrier; they must not be conflated.
+These are related through order-two structures, double covers and grading conventions, but they are not the same operator or the same physical mechanism.
 
-In the \((V,W)\) basis,
-\[
-S_{\rm RGS}=\begin{pmatrix}0&I\\I&0\end{pmatrix}
-\]
-is the biverso sheet exchange and commutes with the compressed \(K_0\). Meanwhile
-\[
-2U^TZ_SU=\begin{pmatrix}I&0\\0&-I\end{pmatrix}
-\]
-is the sheet-sign involution. They anticommute. The skew operator satisfies
-\[
-2U^TZ_AU=
-\begin{pmatrix}0&-I\\I&0\end{pmatrix}
-=S_{\rm RGS}\,(2U^TZ_SU).
-\]
-Consequently \(2Z_S\) and \(2Z_A\) encode the two complementary parity/sign operations on the same carrier, with the same half-scale normalization. In particular, \(Z_A,Z_S\) individually do **not** commute with \(K_0\); it is \(S_{\rm RGS}\), reconstructed as the sheet-exchange involution in the carrier, that commutes with the compressed operator.
+## 5. Vesica, square, gradients, barycentres and dodecahedron
 
-This distinction resolves a potential confusion: the biverso parity projections \(P_\pm=(I\pm S_{\rm RGS})/2\) select the lower and upper \(K_0\) triplets, whereas the original \(Z_S\)-eigenspaces define the sheet-coordinate splitting \((V,W)\). Both are order-two structures, but they are not the same operator in the same basis.
+For the standard vesica of two equal circles of radius \(R\), with centre separation \(R\), the two intersection points and the two centres form two equilateral triangles sharing the centre-to-centre segment. Their union is a rhombus with angles \(60^\circ\) and \(120^\circ\), not a square.
 
-### Numerical certificate from GitHub Actions
+A square can be built after an additional construction is chosen (for example, a specified inscribed square or a square erected on a specified segment), but “the square from the vesica” is not yet unique. The next links also need explicit data:
+1. the four square vertices and the construction rule from the vesica;
+2. the scalar/vector field, domain and boundary conditions whose gradient is used;
+3. the point set and weights defining each barycentre;
+4. the incidence rule mapping those points to dodecahedral vertices, edges or faces;
+5. the metric/combinatorial operator on the dodecahedron;
+6. the exact definition of the recovered function \(f\), including a derivation of \(1/240\), \(1/120\) and \(1/2\).
 
-The focused workflow [45446809835](https://github.com/fabianleonaressi95/theorem/actions/runs/45446809835) completed successfully on the original root arrays. Its JSON artifact reports:
-
-| Check | Residual |
-|---|---:|
-| Carrier basis orthogonality (Frobenius) | \(1.45\times10^{-15}\) |
-| \(K_0\)-invariant carrier leakage (Frobenius) | \(1.18\times10^{-14}\) |
-| Equality of the two diagonal blocks | \(8.36\times10^{-16}\) |
-| Off-diagonal block versus \(-0.15I_3\) | \(4.48\times10^{-16}\) |
-| Full biverso block reconstruction | \(1.02\times10^{-15}\) |
-| Exchange commutator | \(1.31\times10^{-15}\) |
-| Hadamard block diagonalization | \(1.09\times10^{-15}\) |
-| Canonical \(Z_S\) carrier form | \(9.86\times10^{-16}\) |
-| Canonical \(Z_A\) carrier form | \(7.23\times10^{-16}\) |
-
-The two compressed parity spectra returned by the run are
-\[
-(0.5,0.6,0.7),\qquad(0.8,0.9,1.0),
-\]
-and the fitted scalar coupling is \(0.1499999999999999\). The JSON artifact is named \`t145-square-biverse-rgs-audit\` and is retained for 30 days.
-
-## 5. What is and is not proved
-
-| Statement | Status |
-|---|---|
-| Diagonal reflection exchanges the two congruent square triangles | Exact geometry |
-| The reflection gives \(S^2=I\) and \(P_\pm=(I\pm S)/2\) | Exact |
-| PRISM \(K_2\) coupling splits into \(L_\Omega\) and \(L_\Omega+2\kappa I\) | Exact algebra |
-| The original RGS carrier compression has \(\kappa=0.15\) and the stated two triplets | Numerically verified from original arrays |
-| The carrier basis map intertwines the compressed RGS operator with the biverso block | Numerically verified; leakage \(\sim1.18\times10^{-14}\) |
-| The full \(188D\) operator is a two-sheet biverso product | Not claimed |
-| The scalar Euclidean square Laplacian equals the PRISM biverso operator | Not claimed |
-| The same derivation explains every occurrence of \(1/2\) in physics | False / not claimed |
-| The physical origin of the affine \(1/2\) offset in the full \(K_0\) ladder is thereby settled | Not claimed |
+The two equilateral triangles are a sound geometric starting point, but do not alone determine these later objects. No theorem recovering \(f\) from the dodecahedron is claimed.
 
 ## 6. Reproducibility
 
 Run:
-\`\`\`bash
+~~~bash
 python scripts/audit_t145_square_biverse_rgs.py
-\`\`\`
-The script loads only the original root arrays, reconstructs the carrier deterministically, and writes the JSON audit in audits/T145_SQUARE_BIVERSE_RGS_CARRIER_2026-11-24.json. It checks square reflection, carrier leakage, the biverso reconstruction, projector identities, parity spectra, and the \(Z_A,Z_S\) relations. The result is a numerical certificate for the stored arrays, not an exact-arithmetic proof of the source matrices.
+~~~
+The script uses the original \(Z_S\) eigenspaces, ordered \(+\frac12\) then \(-\frac12\), and checks the rank-six carrier, \(S^2=I\), the ranks of \(P_\pm\), the off-diagonal structure and \(\sqrt3/2\) norm of \(Z_A\), and the cross-sheet blocks and commutator of \(K_0\). It writes results/json/rgs_intrinsic_z2_carrier_audit_2026-11-24.json. This is a floating-point verification of archived arrays, not an exact-arithmetic proof about their provenance.
 
-## 7. Literature and relation to established mathematics
+## 7. McKay, the central involution and T144
 
-The decomposition is an instance of the standard representation-theoretic splitting for an involution: the representation of \(\mathbb Z_2\) separates into its trivial and sign representations, with orthogonal projections \((I\pm S)/2\). The graph operator is the Laplacian of a two-layer product with \(K_2\); its two branches are the \(K_2\) eigenmodes \(0\) and \(2\).
+For \(2I\subset SU(2)\), the defining representation \(U\cong\mathbb C^2\) has spin \(j=\frac12\). The central element \(-I\in2I\) acts on \(\operatorname{Sym}^m(U)\) by \((-1)^m\). This is the canonical central \(\mathbb Z_2\) parity of the binary lift \(2I\to A_5\). It is a representation-theoretic two-sector grading, but acts on symmetric powers of \(U\), not automatically on the RGS carrier.
 
-Relevant references:
-1. C. Godsil and G. Royle, *Algebraic Graph Theory*, Graduate Texts in Mathematics 207, Springer, 2001, especially Chapter 14, “The Laplacian of a Graph”, pp. 279–306, DOI: 10.1007/978-1-4613-0163-9.
-2. R. Merris, “Laplacian matrices of graphs: a survey,” *Linear Algebra and its Applications* 197–198 (1994), 143–176, DOI: 10.1016/0024-3795(94)90486-3.
-3. J.-P. Serre, *Linear Representations of Finite Groups*, Springer, 1977, for the decomposition into irreducible representations and averaging/projector constructions.
+The McKay graph of \(2I\) is affine \(E_8\). The Coxeter number of \(E_8\) is \(30\); the period-30 recurrence in T144 is an arithmetic consequence of the Molien/Hilbert denominator and cumulative counting formula. Period \(30\) and central parity are different structures and must not be conflated.
 
-The literature supplies the general \(\mathbb Z_2\)/\(K_2\) machinery. The new program-specific content is the measured identification of the original RGS six-dimensional carrier with this biverso block, including the numerical value \(\kappa=0.15\) and the recovered \(0.30\) spectral branch shift.
+T144 compares the odd-degree cumulative invariant count with
+\[
+f(m)=\frac{m^2}{240}+\frac{m}{120}+\frac12.
+\]
+Its nonconstant coefficients have the stated arithmetic correspondence; its constant \(1/2\) remains unexplained in T144. The present grading result supplies no derivation of that constant.
+
+**References.** J.-P. Serre, *Linear Representations of Finite Groups*, Springer (1977); C. Godsil and G. Royle, *Algebraic Graph Theory*, GTM 207, Springer (2001); repository record theorems/spectral/mckay_affine_e8_binary_icosahedral.md.
