@@ -69,3 +69,16 @@ python audits/audit_vesica_hexagram_moment_compression.py
 The standard-library audit checks row orthonormality, CP8=DC, tensor-map orthonormality, equivariance under each factor reflection, all 64 labels, and pairwise distinctness of their feature vectors.
 
 **Classification:** exact finite-dimensional algebraic construction; numerical verification of its floating-point implementation; canonical relative to the declared polynomial-moment prescription; full RGS dynamical compatibility remains open.
+
+
+## Operator-adapted refinement from the Q6 Laplacian
+
+The original polynomial-moment map above remains a valid reflection-equivariant 8-to-3 compression. For the RGS spectral bridge, however, its odd linear mode belongs to Q3 Laplacian eigenvalue 2. A better operator-adapted variant replaces only that odd row by the top Walsh-parity mode
+\[
+\frac1{\sqrt8}(1,-1,-1,1,-1,1,1,-1),
+\]
+which belongs to Q3 Laplacian eigenvalue 6. Keeping the constant and angular-even eigenvalue-4 rows gives
+\[
+C_Q L_3 C_Q^T=\operatorname{diag}(0,4,6),\qquad C_QP_8=DC_Q.
+\]
+This preserves all eight trigram basis labels and all 64 distinct nine-component tensor features. The subsequent symmetric one-excitation projection produces the operator-derived rank-three Q6 sector that matches the RGS parity ordering. It is a refinement for the Q6–RGS bridge, not a deletion of the earlier angular-moment construction. Full details: research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md.
