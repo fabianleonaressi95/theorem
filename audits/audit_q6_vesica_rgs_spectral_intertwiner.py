@@ -31,11 +31,9 @@ D=np.diag([1.,1.,-1.])
 # Operator-adapted trigram coisometry: Q3 Laplacian eigenmodes 0,4,6.
 C=np.vstack([
     np.ones(8)/np.sqrt(8),
-    np.array([7,1,-3,-5,-5,-3,1,3])/np.sqrt(168), # overwritten below by exact vector
+    np.array([7,1,-3,-5,-5,-3,1,7])/np.sqrt(168),
     np.array([1,-1,-1,1,-1,1,1,-1])/np.sqrt(8)
 ])
-# The selected lambda=4 angular-even eigenvector in binary order.
-C[1]=np.array([7,1,-3,-5,-5,-3,1,7])/np.sqrt(168)
 Lc=C@L3@C.T
 K=np.kron(C,C)
 L9=K@L6@K.T
@@ -46,6 +44,10 @@ E[0,0]=1.0
 E[1,1]=E[3,1]=1/np.sqrt(2)
 E[2,2]=E[6,2]=1/np.sqrt(2)
 Lred=E.T@L9@E
+Swap=np.zeros((9,9))
+for i in range(3):
+    for j in range(3):
+        Swap[j*3+i,i*3+j]=1.0
 F=E.T@K
 
 # Reconstruct the actual six-dimensional RGS carrier deterministically.
@@ -64,8 +66,9 @@ if len(Vcols)!=3:
     raise RuntimeError("Could not recover rank-three +1/2 eigenspace")
 V=np.column_stack(Vcols)
 W=2*ZA@V
-H=((V,W).T if False else np.column_stack((V,W))).T@K0@np.column_stack((V,W))
-H=H[:3,:3]
+U=np.column_stack((V,W))
+Kc=U.T@K0@U
+H=Kc[:3,:3]
 evals,R=np.linalg.eigh(H)
 JA=(V+W)@R/np.sqrt(2)
 JB=(V-W)@R/np.sqrt(2)
@@ -87,7 +90,7 @@ checks={
  "C_tensor_C_64_feature_vectors_distinct":len({tuple(np.round(K[:,i],13)) for i in range(64)}),
  "E_orthonormal_columns":maxabs(E.T@E-np.eye(3)),
  "E_diagonal_reflection_equivariance":maxabs(np.kron(D,D)@E-E@D),
- "E_factor_swap_invariance":maxabs(np.kron(np.eye(3),np.eye(3))@E-E), # structural placeholder, exact by construction
+ "E_factor_swap_invariance":maxabs(Swap@E-E),
  "E_L9_invariant_subspace_leakage_fro":fro(L9@E-E@Lred),
  "F_coisometry":maxabs(F@F.T-np.eye(3)),
  "F_Q6_laplacian_intertwining_fro":fro(F@L6-Lred@F),
