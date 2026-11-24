@@ -65,7 +65,7 @@ def dual_data(t: float):
         opposite = tuple(sorted(antipodal_vertex[v] for v in face))
         antipodal_face.append(face_index[opposite])
 
-    return x, faces, dual_vertices, dual_edges, np.asarray(antipodal_face)
+    return x, faces, dual_vertices, dual_edges, np.asarray(antipodal_face), np.asarray(antipodal_vertex)
 
 
 def q6_laplacian() -> np.ndarray:
@@ -104,6 +104,86 @@ def selected_q6_coisometry() -> np.ndarray:
         left, upper = code & 7, (code >> 3) & 7
         F[:, code] = E.T @ K[:, left * 8 + upper]
     return F
+
+
+def dodecahedron_face_boundaries(faces, dual_edges, anti_face, anti_vertex, S_dual):
+    """Return the oriented 20x30 edge boundary and 30x12 face boundary."""
+    edge_index = {tuple(edge): k for k, edge in enumerate(dual_edges)}
+    D2 = np.zeros((len(dual_edges), 12), dtype=float)
+    cycles = []
+    for vertex in range(12):
+        incident = [i for i, face in enumerate(faces) if vertex in face]
+        adjacency = {
+            i: [j for j in incident
+                if j != i and len(set(faces[i]).intersection(faces[j])) == 2]
+            for i in incident
+        }
+        if len(incident) != 5 or any(len(adjacency[i]) != 2 for i in incident):
+            raise AssertionError("dual face around an icosahedral vertex is not a pentagon")
+        start = min(incident)
+        cycle = [start]
+        previous, current = None, start
+        nxt = min(adjacency[current])
+        while nxt != start:
+            cycle.append(nxt)
+            previous, current = current, nxt
+            nxt = next(q for q in adjacency[current] if q != previous)
+            if len(cycle) > 5:
+                raise AssertionError("pentagonal dual face did not close")
+        if len(cycle) != 5:
+            raise AssertionError("dual face boundary does not have five edges")
+        cycles.append(cycle)
+        for k in range(5):
+            i, j = cycle[k], cycle[(k + 1) % 5]
+            e = edge_index[tuple(sorted((i, j)))]
+            D2[e, vertex] = 1.0 if i < j else -1.0
+
+    if np.linalg.norm(S_dual @ D2) < 1e-12:
+        raise AssertionError("unexpected zero antipodal action on face boundaries")
+    S_dual2 = np.zeros((12, 12), dtype=float)
+    for vertex in range(12):
+        opposite = int(anti_vertex[vertex])
+        image = S_dual @ D2[:, vertex]
+        sign = float(np.dot(image, D2[:, opposite]) / 5.0)
+        if abs(abs(sign) - 1.0) > 1e-10:
+            raise AssertionError("antipodal map does not preserve/reverse a pentagonal boundary")
+        S_dual2[opposite, vertex] = 1.0 if sign > 0 else -1.0
+    return D2, S_dual2, cycles
+
+
+def q6_square_complex(qedges, qindex):
+    """All 240 oriented cubical 2-cells and their boundary matrix."""
+    squares, square_index = [], {}
+    for i in range(6):
+        for j in range(i + 1, 6):
+            for state in range(64):
+                if ((state >> i) & 1) == 0 and ((state >> j) & 1) == 0:
+                    square_index[(state, i, j)] = len(squares)
+                    squares.append((state, i, j))
+    boundary = np.zeros((len(qedges), len(squares)), dtype=float)
+    for col, (state, i, j) in enumerate(squares):
+        ei0 = qindex[(state, state ^ (1 << i))]
+        ej_i = qindex[(state ^ (1 << i),
+                       (state ^ (1 << i)) ^ (1 << j))]
+        ei_j = qindex[(state ^ (1 << j),
+                       (state ^ (1 << j)) ^ (1 << i))]
+        ej0 = qindex[(state, state ^ (1 << j))]
+        boundary[ei0, col] += 1.0
+        boundary[ej_i, col] += 1.0
+        boundary[ei_j, col] -= 1.0
+        boundary[ej0, col] -= 1.0
+
+    S_q1 = np.zeros((len(qedges), len(qedges)), dtype=float)
+    for k, (u, v) in enumerate(qedges):
+        S_q1[qindex[(v ^ Q6_MASK, u ^ Q6_MASK)], k] = -1.0
+
+    S_q2 = np.zeros((len(squares), len(squares)), dtype=float)
+    for k, (state, i, j) in enumerate(squares):
+        opposite = state ^ Q6_MASK
+        opposite &= ~(1 << i)
+        opposite &= ~(1 << j)
+        S_q2[square_index[(opposite, i, j)], k] = 1.0
+    return squares, boundary, S_q1, S_q2
 
 
 def q6_edge_complex():
@@ -181,7 +261,7 @@ def dodecahedron_edge_chain_lift(faces, dual_edges, B, antipodal_face):
     L_chain = D @ C.T @ C @ D.T
     L_chain = (L_chain + L_chain.T) / 2.0
     return (D, C, L_chain, boundary_residual, antipodal_residual,
-            dict(sorted(path_lengths.items())))
+            dict(sorted(path_lengths.items())), S_dual)
 
 
 def weighted_laplacian(points: np.ndarray, edges):
@@ -197,7 +277,7 @@ def weighted_laplacian(points: np.ndarray, edges):
 
 
 def audit(t: float = PSI_SG) -> dict:
-    x, faces, dual, edges, anti_face = dual_data(t)
+    x, faces, dual, edges, anti_face, anti_vertex = dual_data(t)
     B = barycentre_lift(faces)
     Lq = q6_laplacian()
     L_induced = B @ Lq @ B.T
@@ -212,9 +292,22 @@ def audit(t: float = PSI_SG) -> dict:
     L_geom, edge_lengths = weighted_laplacian(dual, edges)
 
     # Chain-level lift: each dual edge is a scaled Q6 path with matching boundary.
-    Ddual, Cedge, L_chain, chain_boundary_residual, chain_antipodal_residual, chain_path_lengths = (
+    Ddual, Cedge, L_chain, chain_boundary_residual, chain_antipodal_residual, chain_path_lengths, S_dual = (
         dodecahedron_edge_chain_lift(faces, edges, B, anti_face)
     )
+
+    # Complete the dodecahedral 2-skeleton into the cubical 2-skeleton of Q6.
+    D2, S_dual2, dual_face_cycles = dodecahedron_face_boundaries(
+        faces, edges, anti_face, anti_vertex, S_dual
+    )
+    qedges, qindex, qboundary = q6_edge_complex()
+    squares, q2boundary, S_q1, S_q2 = q6_square_complex(qedges, qindex)
+    q2_chain = np.linalg.pinv(q2boundary, rcond=1e-12) @ (Cedge @ D2)
+    face_fill_residual = float(np.linalg.norm(q2boundary @ q2_chain - Cedge @ D2))
+    face_fill_antipodal_residual = float(np.linalg.norm(S_q2 @ q2_chain - q2_chain @ S_dual2))
+    dodecahedron_chain_complex_residual = float(np.linalg.norm(Ddual @ D2))
+    q6_cubical_chain_complex_residual = float(np.linalg.norm(qboundary @ q2boundary))
+    q6_square_antipodal_residual = float(np.linalg.norm(q2boundary @ S_q2 - S_q1 @ q2boundary))
 
     # Selected three-dimensional Q6 sector from the archived spectral map.
     F = selected_q6_coisometry()
@@ -261,6 +354,14 @@ def audit(t: float = PSI_SG) -> dict:
         },
         "dodecahedron_q6_edge_chain_boundary_residual": chain_boundary_residual,
         "dodecahedron_q6_edge_chain_antipodal_residual": chain_antipodal_residual,
+        "dodecahedron_face_boundary_squared_zero_residual": dodecahedron_chain_complex_residual,
+        "q6_cubical_boundary_squared_zero_residual": q6_cubical_chain_complex_residual,
+        "dodecahedron_to_q6_face_fill_residual": face_fill_residual,
+        "dodecahedron_to_q6_face_fill_antipodal_residual": face_fill_antipodal_residual,
+        "dodecahedron_face_count": len(dual_face_cycles),
+        "q6_cubical_square_count": len(squares),
+        "q6_face_fill_rank": int(np.linalg.matrix_rank(q2_chain, tol=1e-9)),
+        "q6_square_antipodal_boundary_residual": q6_square_antipodal_residual,
         "chain_induced_energy_rank": int(np.linalg.matrix_rank(L_chain, tol=1e-8)),
         "chain_induced_energy_eigenvalues": np.linalg.eigvalsh(L_chain).tolist(),
         "selected_q6_chain_energy_intertwining_residual": selected_chain_residual,
@@ -293,12 +394,17 @@ def audit(t: float = PSI_SG) -> dict:
         "chain_induced_energy_is_psd": float(np.linalg.eigvalsh(L_chain).min()) > -TOL,
         "dodecahedron_edge_chain_boundary_commutes": chain_boundary_residual < TOL,
         "dodecahedron_edge_chain_antipodal_equivariance": chain_antipodal_residual < TOL,
+        "dodecahedron_2_boundary_squared_zero": dodecahedron_chain_complex_residual < TOL,
+        "q6_2_boundary_squared_zero": q6_cubical_chain_complex_residual < TOL,
+        "dodecahedron_pentagons_fill_in_q6": face_fill_residual < TOL,
+        "pentagon_fill_antipodal_equivariance": face_fill_antipodal_residual < TOL,
+        "q6_square_boundary_antipodal_equivariance": q6_square_antipodal_residual < TOL,
         "polar_metric_energy_is_psd": float(eig_geom.min()) > -TOL,
     }
     result["checks"] = checks
     result["all_structural_checks_pass"] = bool(all(checks.values()))
     result["interpretation"] = (
-        "The dual incidence, antipodal barycentre lift, and edge-level Q6 chain map are valid. "
+        "The dual incidence, antipodal barycentre lift, and antipodal-equivariant Q6 chain map through dodecahedral 2-cells are valid. "
         "However, the canonical barycentre pullback, the Q6 path-chain energy, "
         "and the polar-dual inverse-square metric Laplacian do not produce the "
         "selected spectrum (0,4,6); the selected-sector intertwining tests fail. "
