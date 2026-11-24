@@ -11,6 +11,9 @@ class IncreasingHarmonicTests(unittest.TestCase):
         r=reduce_matrix(m,3)
         self.assertEqual(r["complement_dimension"],4)
         self.assertEqual(r["constant_mode"],"removed_exactly")
+        self.assertAlmostEqual(r["D_spectral_radius"],1.0)
+        self.assertAlmostEqual(r["D_operator_norm_2"],1.0)
+        self.assertAlmostEqual(r["empirical_contraction_excess"],0.0)
         self.assertEqual(r["D"],[[float(i==j) for j in range(4)] for i in range(4)])
     def test_zero_memory_for_block_diagonal_matrix(self):
         m=[[0.0]*7 for _ in range(7)]
