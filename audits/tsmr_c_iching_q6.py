@@ -165,3 +165,27 @@ def fourier_transfer_matrix(xi: float):
          for j in range(64)]
         for i in range(64)
     ]
+
+
+def minimum_translation_gap_pair() -> tuple[int, int]:
+    """Return the exact positive Z[lambda] pair for the smallest shift gap."""
+    from decimal import Decimal, localcontext
+    from math import sqrt
+    values = sorted(set(golden_value(h, 6) for h in range(64)),
+                    key=lambda ab: Decimal(ab[0]) +
+                    Decimal(ab[1]) * ((Decimal(5).sqrt() - 1) / 2))
+    gaps = []
+    with localcontext() as ctx:
+        ctx.prec = 70
+        lam = (Decimal(5).sqrt() - 1) / 2
+        for left, right in zip(values, values[1:]):
+            diff = (right[0] - left[0], right[1] - left[1])
+            numeric = Decimal(diff[0]) + Decimal(diff[1]) * lam
+            gaps.append((abs(numeric), diff if numeric >= 0 else (-diff[0], -diff[1])))
+        return min(gaps, key=lambda item: item[0])[1]
+
+
+def translation_multiplicity_profile() -> tuple[tuple[int, int], ...]:
+    """Return (class size, number of classes) for the 64 exact translations."""
+    counts = Counter(len(states) for states in scalar_classes(6).values())
+    return tuple(sorted(counts.items()))
