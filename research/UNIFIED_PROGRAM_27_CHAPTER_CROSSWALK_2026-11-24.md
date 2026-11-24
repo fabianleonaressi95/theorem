@@ -366,7 +366,10 @@ The isotropic Q6 vertex-space mean is 1517σ²/(7560γ). Separately, the exact c
 
 **Target constitutive diagram (partly proved, partly open):**
 
-\[\begin{array}{ccccc}\text{Q6 geometry}&\xrightarrow{d_0=B_1^T}&\text{edge gradients}&\xrightarrow{d_0^*d_0=L_0}&\text{graph Green }L_0^\\dagger\\\\\text{Q6/material Hamiltonian}&\xrightarrow{-\delta/\delta\varepsilon}&\Pi_{ij}&\xrightarrow{\text{equilibrium correlations}}&\eta_{GK}(\omega)\\\\\text{Jitterbug panel kinematics}&\xrightarrow{\text{Biot--Savart/flux}}&e_{ext},L,R&\xrightarrow{\text{circuit + Maxwell forces}}&\text{electromechanical response}\\\\\text{continuum Stokes problem}&\xrightarrow{\text{boundary trace}}&g&\xrightarrow{\Lambda_\eta}&\text{traction}\end{array}\]
+1. Q6 geometry → discrete gradient \(d_0=B_1^T\) → vertex Laplacian \(L_0=d_0^*d_0\) → graph Green operator \(L_0^\dagger\).
+2. Q6/material Hamiltonian → variational stress \(\Pi_{ij}=-\delta H/\delta\varepsilon_{ij}\) (including gradient/hyperstress boundary terms) → equilibrium stress correlations → \(\eta_{GK}(\omega)\).
+3. Jitterbug panel kinematics → Biot–Savart field and finite-surface flux → \(e_{ext},L,R\) → circuit response plus Maxwell generalized forces.
+4. Continuum Stokes boundary-value problem → boundary velocity \(g\) → traction \(\Lambda_\eta g=(2\eta D(u)-pI)n\).
 
 The consistency target η_GK ↔ η entering Λ_η must be derived from one constitutive model and a controlled limit. The missing Q6/64-TG-to-eight-panel configuration-space map is still tracked by issues #398–#401; no automatic identification of the 64-vertex hypercube with the eight Jitterbug panels is permitted.
 
