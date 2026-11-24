@@ -1,6 +1,6 @@
 # Jitterbug: Neumann inductance, finite-surface flux, and Dirichlet–Neumann boundary maps
 
-**Status:** computational implementation added; CI status is pending. This note separates a shared Green-kernel structure from distinct operators. No physical generator claim is made.
+**Status:** implementation and numerical CI completed successfully (24 November 2026; PR #414). This note separates a shared Green-kernel structure from distinct operators. No physical generator claim is made.
 
 ## 1. Actual mechanism replaces the prescribed angular probe
 
@@ -72,8 +72,8 @@ The first is classical magnetostatics; the second is classical elliptic boundary
 
 - Jitterbug/Vesica geometry and panel embeddings: monograph chapters 13–14; T137, T142, T143 and the Jitterbug issues/PRs.
 - Field, transport and boundary response: chapters 20–22.
-- The existing hydrodynamic DN construction remains distinct: Lambda_eta maps boundary velocity to traction for a Stokes/Navier–Stokes boundary problem. It is not the magnetic scalar-potential DN map, although both are boundary response operators.
-- The Green–Kubo route to frequency-dependent viscosity remains microscopic stress correlations -> eta(omega) -> Stokes boundary problem -> Lambda_eta. The coil Neumann integral does not derive viscosity; the useful common structure is the Green operator and its boundary response.
+- The existing hydrodynamic DN construction remains distinct: for Stokes flow, solve the boundary-value problem with boundary velocity g and define \(\Lambda_\eta g=(2\eta D(u)-pI)n|_{\partial\Omega}\), the boundary traction. It is not the magnetic scalar-potential DN map, although both are boundary response operators.
+- The Green–Kubo route to frequency-dependent viscosity remains microscopic stress correlations -> eta(omega) -> Stokes boundary problem -> Lambda_eta. The coil Neumann integral does not derive viscosity; the useful common structure is the Green operator and its boundary response. The magnetic DN map and hydrodynamic traction DN map must remain separate operator families, with their own PDE, trace spaces, units and boundary data.
 
 ## 6. Reproduction and limitations
 
