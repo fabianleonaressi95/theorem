@@ -1,8 +1,9 @@
 """Exact I Ching / golden Q6 coding audit.
 
-Bit convention: bit k is line k+1 counted from the bottom; 1=yang, 0=yin.
-All golden values are represented exactly as (a,b) for a+b*lambda,
-where lambda**2 = 1-lambda.
+Bit-string convention: the leftmost printed digit is the bottom line; 1=yang, 0=yin.
+For integer codes, digits are read most-significant bit first, so the first
+printed digit receives weight lambda**0. Golden values are exact pairs (a,b)
+representing a+b*lambda, with lambda**2 = 1-lambda.
 """
 from __future__ import annotations
 
@@ -37,7 +38,7 @@ def golden_value(state: int, n_lines: int = 6) -> tuple[int, int]:
         raise ValueError("state does not fit the requested number of lines")
     a = b = 0
     for k in range(n_lines):
-        if (state >> k) & 1:
+        if (state >> (n_lines - 1 - k)) & 1:
             pa, pb = GOLDEN_POWERS[k]
             a += pa
             b += pb
@@ -53,7 +54,7 @@ def trigram_name(code: int) -> str:
 def q6_neighbors(state: int) -> tuple[int, ...]:
     if state < 0 or state >= 64:
         raise ValueError("hexagram code must be in 0..63")
-    return tuple(state ^ (1 << k) for k in range(6))
+    return tuple(state ^ (1 << (5 - k)) for k in range(6))
 
 
 def scalar_classes(n_lines: int = 6) -> dict[tuple[int, int], tuple[int, ...]]:
