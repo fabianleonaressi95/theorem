@@ -664,3 +664,12 @@ This is an exact finite geometric realization once the trigram-to-angle bijectio
 
 
 The reproducible implementation and numerical checks are in [the audit script](../audits/audit_vesica_hexagram_two_cone.py) and [its JSON result](../results/json/vesica_hexagram_two_cone_audit.json). The corrected eight-point sampling covers each full 120-degree arc with angular step (2\pi/21); all 64 pairs and 192 Q6 edges pass the finite checks. The midpoint projection has 57 distinct values (eight equal-index pairs coincide), so the relative displacement is required to retain the full state.
+
+
+### 12.18 Equivariant C3×C3 extension and invariant Q6 operator (24 November 2026)
+
+The follow-up record [C3×C3 equivariant sphere/null-cone and Q6 operator](C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md) resolves the planar fixed-point obstruction by embedding the eight trigram states into S²: the two fixed trigrams occupy the poles and the two three-cycles occupy equilateral triangles at latitudes z=±1/2. The map intertwines the finite-field action T(a,b,c)=(b,a+b,c) with a 120-degree rotation about the z-axis. Two copies of these sections give an injective 64-state product embedding into two 3+1D null-cone sections.
+
+This is an enlarged 3+1D construction, **not** an equivariant realization on the earlier 2+1D Vesica arcs or a proof that all eight states lie in the old Vesica lens. The ordinary cross-sheet distance is not invariant under independent rotations; its Reynolds average is invariant but discards relative azimuthal phase.
+
+The standard Q6 Laplacian is also not invariant under this GL(3,2) element, since T does not preserve Hamming adjacency. The research note defines instead the Reynolds-averaged product operator Lbar6=Lbar3⊗I8+I8⊗Lbar3. Its support has 256 weighted edges (versus 192 standard Q6 edges); it is positive semidefinite and C3×C3 invariant. This is a new operator on the same 64 states, not a replacement for the standard Q6 Laplacian. The finite identities and orbit counts are audited separately. Placement: chapters 2–5 (finite Q6/operator structure), 12–14 (Vesica/two-sheet geometry), and 15–17 only as a higher-dimensional null-cone extension pending a physical frame/action derivation. No new theorem number is assigned.
