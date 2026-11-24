@@ -1,0 +1,34 @@
+name: Jitterbug strain OU Green-Kubo audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "audits/jitterbug_strain_ou_green_kubo.py"
+      - "audits/jitterbug_mechanical_hessian.py"
+      - "audits/jitterbug_gray_kinematics.py"
+      - "tests/test_jitterbug_strain_ou_green_kubo.py"
+      - ".github/workflows/jitterbug-strain-ou-green-kubo.yml"
+  pull_request:
+    paths:
+      - "audits/jitterbug_strain_ou_green_kubo.py"
+      - "audits/jitterbug_mechanical_hessian.py"
+      - "audits/jitterbug_gray_kinematics.py"
+      - "tests/test_jitterbug_strain_ou_green_kubo.py"
+      - ".github/workflows/jitterbug-strain-ou-green-kubo.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  strain-ou-green-kubo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy pytest
+      - run: python -m pytest -q tests/test_jitterbug_strain_ou_green_kubo.py
+      - run: python audits/jitterbug_strain_ou_green_kubo.py
