@@ -40,14 +40,13 @@ H(u,\varepsilon)=\frac12\sum_{e=(v,w)\in E}
 \]
 The rest length is the reference length \(\ell_e\). Thus \(u=0,\varepsilon=0\) is stress-free. The total extensive microscopic stress conjugate to symmetric strain is defined by
 \[
-\boxed{\Pi_{ij}(u)=-\left.\frac{\partial H(u,\varepsilon)}
-{\partial\varepsilon_{ij}}\right|_{\varepsilon=0}.}
+\boxed{\Pi_{ij}(u)=-\left.\frac{\partial H(u,\varepsilon(\xi))}
+{\partial\xi_{ij}}\right|_{\xi=0}.}
 \tag{3.2}
 \]
-For \(i\ne j\), \(\varepsilon_{ij}\) denotes the common symmetric tensor entry, so its derivative uses
-\(S^{ij}=(e_ie_j^T+e_je_i^T)/2\); for \(i=j\), \(S^{ii}=e_ie_i^T\).
+For clarity about shear factors, use independent strain coordinates \(\xi_{ij}\) with \(i\le j\) and write \(\varepsilon=\sum_{i\le j}\xi_{ij}S^{ij}\), where \(S^{ii}=e_ie_i^T\) and \(S^{ij}=(e_ie_j^T+e_je_i^T)/2\) for \(i<j\). Thus an off-diagonal tensor entry is \(\varepsilon_{ij}=\xi_{ij}/2\). The stress component conjugate to \(\xi_{ij}\) is defined by \(\Pi_{ij}=-\partial H/\partial\xi_{ij}\); this is the standard symmetric-tensor contraction convention.
 
-Put \(s_e=r_e+(u_w-u_v)\) and \(\delta\ell_e=|s_e|-\ell_e\). Direct differentiation gives the exact, non-expanded stress:
+Put \(s_e=r_e+(u_w-u_v)\) and \(\delta\ell_e=|s_e|-\ell_e\). Direct differentiation with respect to the conjugate coordinate \(\xi_{ij}\) gives the exact, non-expanded stress:
 \[
 \boxed{
 \Pi_{ij}(u)=-
