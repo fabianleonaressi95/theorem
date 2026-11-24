@@ -78,8 +78,8 @@ report = {
     "K_carrier_leakage_fro": norm(leak),
     "K_carrier_image_fro": norm(K @ U),
     "K_carrier_relative_leakage": norm(leak) / norm(K @ U),
-    "ZA_low_to_high_max": maxabs(ZA @ JA - .5 * JB),
-    "ZA_high_to_low_max": maxabs(ZA @ JB + .5 * JA),
+    "ZA_low_to_high_max": maxabs(ZA @ JA + .5 * JB),
+    "ZA_high_to_low_max": maxabs(ZA @ JB - .5 * JA),
     "K_eigenvector_residual_max": maxabs(K @ basis -
         basis * basis_eigenvalues[None, :]),
     "spectral_involution_low_branch": [1, 1, -1],
