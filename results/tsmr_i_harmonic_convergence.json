@@ -1,0 +1,104 @@
+{
+  "model": "increasing-harmonic finite Galerkin audit of cumulative golden Markov operator",
+  "method": "30,000 iid samples from 48-term truncated golden Bernoulli convolution; empirical CDF ranks; shared sample across cutoffs; finite matrix eigenspectra computed numerically",
+  "samples": 30000,
+  "bernoulli_terms": 48,
+  "seed": 20261124,
+  "cutoffs": [
+    2,
+    3,
+    4,
+    6,
+    8
+  ],
+  "cdf_series_tail_bound": 2.4353901685728815e-10,
+  "records": [
+    {
+      "H": 2,
+      "complement_dimension": 2,
+      "K0_frobenius": 0.11482908544036509,
+      "rho_D": 0.21326358448079602,
+      "memory_norms": [
+        0.11482908544036509,
+        0.02362565870162154,
+        0.004938098462968497,
+        0.0010416180578251412,
+        0.00022083673928902686,
+        0.00004695029364616372,
+        0.000009996553778228764,
+        0.0000021301200163240417
+      ]
+    },
+    {
+      "H": 3,
+      "complement_dimension": 4,
+      "K0_frobenius": 0.1289080334815532,
+      "rho_D": 0.14226465965263138,
+      "memory_norms": [
+        0.1289080334815532,
+        0.004058371700248951,
+        0.00125410749344729,
+        0.0001152422905240601,
+        0.000020588992462541115,
+        0.000002763535879786225,
+        4.1965477272817e-7,
+        6.056837093057593e-8
+      ]
+    },
+    {
+      "H": 4,
+      "complement_dimension": 6,
+      "K0_frobenius": 0.12287046948268958,
+      "rho_D": 0.3605083499044519,
+      "memory_norms": [
+        0.12287046948268958,
+        0.0452635143952018,
+        0.024003660628004762,
+        0.0017621237531003698,
+        0.0033033842618851493,
+        0.0003757970588484989,
+        0.00036329065117104926,
+        0.00010897563340932666
+      ]
+    },
+    {
+      "H": 6,
+      "complement_dimension": 10,
+      "K0_frobenius": 0.12516382930959755,
+      "rho_D": 0.321209916254734,
+      "memory_norms": [
+        0.12516382930959755,
+        0.05674465856793145,
+        0.012973134271327973,
+        0.002239787709582235,
+        0.0009787714969191283,
+        0.0006086924259542365,
+        0.0000433612663968753,
+        0.00004464054467853258
+      ]
+    },
+    {
+      "H": 8,
+      "complement_dimension": 14,
+      "K0_frobenius": 0.1240155155126147,
+      "rho_D": 0.37883850490479803,
+      "memory_norms": [
+        0.1240155155126147,
+        0.05543528757690462,
+        0.01105309987487651,
+        0.012149820861316607,
+        0.002316393481633282,
+        0.0007719078182649027,
+        0.0006066906411786518,
+        0.00004329326591918671
+      ]
+    }
+  ],
+  "conclusion": "Finite truncations show fast initial memory decay, but cutoff dependence is non-monotone and rho(D_H) increases for H>=4. These data do not establish uniform contraction or convergence as H tends to infinity.",
+  "limitations": [
+    "empirical CDF and finite Bernoulli-series approximation",
+    "one random seed",
+    "finite-dimensional spectral data only",
+    "no operator-norm convergence claim"
+  ]
+}

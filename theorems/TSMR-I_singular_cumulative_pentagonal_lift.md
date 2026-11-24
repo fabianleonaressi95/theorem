@@ -232,3 +232,46 @@ harmonics. Consequently \(A_{\rm eff}(z)\) and \(K_n\) above are a
 reproducible finite Galerkin/Feshbach model, not the exact
 infinite-dimensional Mori–Zwanzig kernel. Establishing convergence as
 additional harmonics are included is the next open task.
+
+## 9. Increasing-harmonic Galerkin convergence audit (protocol)
+
+For cutoff H>=2 use the ordered basis
+\[
+\mathcal B_H=(\phi_c,\phi_s,1,\psi_{2,c},\psi_{2,s},\ldots,\psi_{H,c},\psi_{H,s}),
+\]
+where \(\psi_{k,c}(t)=\sqrt2\cos(2\pi kt)\) and
+\(\psi_{k,s}(t)=\sqrt2\sin(2\pi kt)\). The constant index 2 is
+excluded exactly from the memory complement. Partition the compression as
+\[
+A_H=\begin{pmatrix}A_{11}&B_H\\C_H&D_H\end{pmatrix},
+\qquad K_{H,n}=B_HD_H^nC_H.
+\]
+The audit records memory-kernel norms and a power-iteration estimate for
+the complement, using H=2,3,4,6,8 by default and one common empirical-CDF
+sample for paired cross-cutoff comparisons.
+
+**Reproducibility and status.** Source:
+audits/tsmr_i_harmonic_convergence.py. Tests:
+tests/test_tsmr_i_harmonic_convergence.py. Run
+python -m audits.tsmr_i_harmonic_convergence --samples 30000 --terms 48
+to generate results/tsmr_i_harmonic_convergence.json. The power iteration
+is an estimate, not a certified spectral-radius bound. Sampling and
+empirical-CDF errors remain. No infinite-dimensional convergence,
+monotonicity, or stability is asserted until results are generated and
+compared across larger sample counts, series lengths, and independent seeds.
+
+## 10. First increasing-harmonic numerical record
+
+A paired finite Galerkin experiment was recorded in results/tsmr_i_harmonic_convergence.json. It uses 30,000 samples, 48 Bernoulli terms, seed 20261124, and cutoffs H=2,3,4,6,8. The constant mode is excluded from each memory complement.
+
+| H | dim(complement) | ||K_{H,0}||_F | numerical rho(D_H) |
+|---:|---:|---:|---:|
+| 2 | 2 | 0.114829 | 0.213264 |
+| 3 | 4 | 0.128908 | 0.142265 |
+| 4 | 6 | 0.122870 | 0.360509 |
+| 6 | 10 | 0.125164 | 0.321210 |
+| 8 | 14 | 0.124016 | 0.378839 |
+
+The first memory-kernel norms decay rapidly for each fixed cutoff, but the cutoff dependence is not monotone. In particular, the complement spectral radius estimates rise for H>=4. This is evidence against claiming a cutoff-uniform contraction from the present experiment. It does not prove instability of the infinite-dimensional operator.
+
+The result is finite-dimensional and empirical: one seed, a truncated Bernoulli series, and an empirical CDF. Independent seeds, larger sample counts, longer series, and certified spectral/norm bounds are still needed. No convergence as H tends to infinity is claimed.
