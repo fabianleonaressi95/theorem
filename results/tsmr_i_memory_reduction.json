@@ -1,0 +1,33 @@
+{
+  "model": "finite 2+2 Galerkin/Feshbach reduction",
+  "input": "results/tsmr_i_golden_markov_blocks.json",
+  "basis_split": {
+    "active": ["phi_c", "phi_s"],
+    "exact_invariant_constant_removed": "1",
+    "resolved_complement": ["psi_c", "psi_s"]
+  },
+  "D": [
+    [-0.153065997, 0.0002784471],
+    [0.0005418985, -0.214569962]
+  ],
+  "D_eigenvalues": [-0.15306354, -0.21457242],
+  "D_spectral_radius": 0.2145724152,
+  "memory_kernel_frobenius_norms": {
+    "K0": 0.1152365569,
+    "K1": 0.0237804133,
+    "K2": 0.0049961439,
+    "K3": 0.0010602196,
+    "K4": 0.0002261929,
+    "K5": 0.0000483932
+  },
+  "self_energy_z_1": [
+    [0.03906965, -0.00022773],
+    [0.00015366, 0.08732742]
+  ],
+  "self_energy_frobenius_z_1": 0.0956691777,
+  "effective_active_operator_z_1": [
+    [0.05684413, -0.00024248],
+    [-0.00026646, 0.18371692]
+  ],
+  "scope": "This is a finite 2+2 reduction of the stored five-mode compression. It is not the exact infinite-dimensional L2 Mori-Zwanzig kernel."
+}
