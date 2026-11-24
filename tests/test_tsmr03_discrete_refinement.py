@@ -47,5 +47,35 @@ class TestTSMR03DiscreteRefinement(unittest.TestCase):
         self.assertLess(ratio, 1.05)
 
 
+
+    def test_torus_cellular_chain_complex_and_betti_numbers(self):
+        from audits.tsmr03_discrete_refinement import (
+            matrix_product_integer, torus_betti_numbers,
+            torus_cellular_boundaries,
+        )
+        for n in (3, 4):
+            b1, b2 = torus_cellular_boundaries(n)
+            product = matrix_product_integer(b1, b2)
+            self.assertTrue(all(value == 0 for row in product for value in row))
+            self.assertEqual(torus_betti_numbers(n), (1, 2, 1))
+
+    def test_torus_spectrum_and_bilinear_transport_under_refinement(self):
+        from audits.tsmr03_discrete_refinement import (
+            prolong_torus_field, torus_graph_spectrum,
+        )
+        coarse = torus_graph_spectrum(8)
+        fine = torus_graph_spectrum(16)
+        coarse_gap = next(value for value in coarse if value > 1e-12)
+        fine_gap = next(value for value in fine if value > 1e-12)
+        scaled_ratio = (fine_gap * 16**2) / (coarse_gap * 8**2)
+        self.assertGreater(scaled_ratio, 0.99)
+        self.assertLess(scaled_ratio, 1.02)
+        field = [[float(i+j) for j in range(4)] for i in range(4)]
+        refined = prolong_torus_field(field, factor=2)
+        self.assertEqual(len(refined), 8)
+        self.assertEqual([refined[2*i][2*j] for i in range(4) for j in range(4)],
+                         [field[i][j] for i in range(4) for j in range(4)])
+
+
 if __name__ == "__main__":
     unittest.main()
