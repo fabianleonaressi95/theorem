@@ -22,7 +22,7 @@ C_J=\left\{\frac1{\sqrt2}(s_1,s_2,0)
 \]
 The map
 \[
-\boxed{\;\Phi_0(x(n))=\frac{n}{2}\;}
+\boxed{\;\Phi_0(x(n))=\frac{n}{2\sqrt2}\;}
 \]
 is therefore an exact bijection from the 12 cuboctahedral FCC vertices to the 12 unit Jitterbug joints when the reference edge scale is set to \(a=1\). For general \(a\), the physical map is \(x(n)\mapsto n/2\) in dimensionless Jitterbug coordinates, i.e. divide physical coordinates by \(a\).
 
