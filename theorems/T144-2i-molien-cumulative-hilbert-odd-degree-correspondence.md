@@ -311,12 +311,24 @@ This is an exact interpolation identity on the selected three-point spectrum, re
 
 The finite-dimensional carrier evidence is recorded separately in `theorems/RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24.md`:
 
-- The stored symmetric \(188\times188\) matrix \(K_0\) has 64 numerical zero modes and 124 positive eigenvalues on the ladder \(0.5,0.6,\ldots,12.8\), to the stated floating-point tolerance. Thus \(f(0)=1/2\) coincides with the lowest positive eigenvalue of this archived matrix.
-- On a six-dimensional carrier \(\mathcal W\), the stored matrix \(Z_S\) has eigenvalues \(\pm1/2\), each with multiplicity three, and satisfies \(Z_S^2=\frac14P_{\mathcal W}\) to numerical precision.
+- The stored symmetric \(188\times188\) matrix \(K_0\) (file `K0.npy` at repository root) has 64 numerical zero modes and 124 positive eigenvalues forming the arithmetic ladder \(\{(k+5)/10:k=0,\ldots,123\}=0.5,0.6,\ldots,12.8\), to the stated floating-point tolerance. Thus \(f(0)=1/2\) coincides with the lowest positive eigenvalue of this archived matrix.
+- On a six-dimensional carrier \(\mathcal W\), the stored matrix \(Z_S\) (file `Z_S.npy`) has eigenvalues \(\pm1/2\), each with multiplicity three, and satisfies \(Z_S^2=\frac14P_{\mathcal W}\) to numerical precision; \(Z_A\) (`Z_A.npy`) is antisymmetric and \(Z_AZ_S+Z_SZ_A\approx0\).
 - These are two verified finite-array observations within the same archived RGS data set. They establish the occurrence of the scale \(1/2\), but do **not** prove that the minimum positive eigenvalue of \(K_0\), the \(Z_S\) coupling scale, and the constant term of \(f\) have a common generating mechanism.
+
+Both observations are reproducible end-to-end via `scripts/audit_k0_spectral_ladder_and_zs_scale.py`, which writes `audits/K0_SPECTRAL_LADDER_AND_ZS_SCALE.json` (all checks pass: ladder step deviation \(\sim4\times10^{-14}\), \(Z_S^2\) spectrum \(\{0^{(182)},\tfrac14^{(6)}\}\), anticommutator Frobenius norm \(\sim3\times10^{-16}\)).
 
 The provenance limitation is material. The exact archived \(K_0\) array is reproducible across recovered bundles, but its original generating cell, upstream inputs, and coordinate-basis derivation have not been recovered; see `docs/K0_ORIGINAL_PRODUCER_RECOVERY_2026-11-21.md` and `docs/RGS_188D_OPERATOR_PROVENANCE.md`. Accordingly, the matrix spectrum is verified as a property of the stored array, while its original construction and physical interpretation remain open.
 
 On the 2I counting side, \(1/2\) is neither the mean constant of the odd-residue quasipolynomial (\(541/720\)) nor the identity-class Molien weight (\(1/120\)). The rewriting \(f(2j)=1/2+j(j+1)/60\) is an algebraic identity only; it does not establish a Casimir, Weyl-shift, \(E_8\), or APS interpretation of the offset.
+
+| Result | Status |
+| --- | --- |
+| Cumulative count \(N_*(n)\), recurrence, closed form (A.1)–(A.9) | Proved |
+| Mean constant \(\overline D=541/720\); exclusion of the quasipolynomial mean as origin of \(\tfrac12\) | Proved |
+| \(f(0)=\lambda_{\min}^{+}(K_0)=\tfrac12\) | Certified spectral coincidence (script + JSON above) |
+| \(Z_S^{2}=\tfrac14P_{\mathcal W}\); \(|\operatorname{spec}(Z_S)|_{\mathcal W}=\tfrac12\) | Certified operator identity on stored arrays |
+| Common origin of the scale \(\tfrac12\) | Open |
+| Derivation of \(f\) from \(K_0\) or \(Z_S\) | Open |
+| Law \(A_\rho=d_\rho/240\) for the nine irreps | Conjecture |
 
 **Status:** the value \(1/2\) is (i) the constant term of the uniquely interpolating polynomial on the selected three-point Q6/RGS sector, (ii) the lowest positive eigenvalue of the archived \(K_0\) array, and (iii) the absolute eigenvalue scale of \(Z_S\) on \(\mathcal W\), all within the stated finite-dimensional numerical evidence. A common structural origin, an independent derivation of the scale, and any continuum or physical interpretation remain **open**.
