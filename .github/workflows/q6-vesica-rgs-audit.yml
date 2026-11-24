@@ -1,0 +1,27 @@
+name: Q6 Vesica RGS numerical audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/q6-vesica-rgs-audit.yml"
+      - "audits/audit_q6_vesica_rgs_spectral_intertwiner.py"
+      - "K0.npy"
+      - "P_G.npy"
+      - "Z_A.npy"
+      - "Z_S.npy"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy
+      - run: python audits/audit_q6_vesica_rgs_spectral_intertwiner.py
