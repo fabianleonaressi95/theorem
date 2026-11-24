@@ -557,3 +557,18 @@ The arrows are not transitive proof dependencies. In particular, the exact T142/
 **Confirmed repository state at this snapshot:** PR #428, *Complete and audit derived Q6 central-force stress tensor*, is merged. It adds the full strain-Hessian derivative \(A^{ij}\), including geometric stiffness, the linear-plus-quadratic stress expansion and finite-difference tests. The 3D Q6/Jitterbug within-fibre lift, physical calibration and hydrodynamic/Stokes limit remain open. PR #428 does not close those obligations.
 
 **Monograph placement:** preserve the existing 27 chapter numbers. The principal cross-links are chapters 2–5 (Q6, cochains and TSMR), 12–14 (quaternions, Vesica, Anti-Twin and PSU), 23–25 (QAT, Q-ball, multifractal dynamics and Green--Kubo), and 20–22 (stress, field equations, traction and transport). This is an index update, not a new chapter or theorem number.
+
+
+### 12.8 Field-theoretic Q-ball / PSU–Anti-Twin / radion reconstruction
+
+The Q-ball programme predates this crosswalk update and must not be restarted from a generic one-field Coleman ansatz. The reconstructed prior work is recorded in [PSU–Anti-Twin Q-ball and radion reconstruction](PSU_ANTITWIN_QBALL_RADION_RECONSTRUCTION_2026-11-24.md).
+
+That record distinguishes two repository uses of “Q-ball”: (i) the two-complex-field non-topological soliton with common global \(U(1)\) and exchange \(Z_2\), and (ii) the 32-panel football/Q-ball shell of T080/T088. T080 supplies an exact finite discrete Stokes complex; T088 supplies panel-frame seam transport, holonomy and a geometric anisotropy ansatz. Neither is itself a proof of a charged scalar soliton.
+
+The prior PSU–Anti-Twin field model already has a shared-vierbein action, common-phase Noether charge, coupled radial equations for a sextic self-potential, and the symmetric/antisymmetric Hessian eigenvalues \(\kappa_\pm=V_{PP}\pm V_{PA}\). Its interaction \(V_{\rm int}\) was intentionally left unspecified. The previously recorded interval \(0.6614378<\omega<1\) and single-profile benchmark \((\omega,E/Q)=(0.905607329,0.988291616)\) are retained with their distinct provenance; the latter is not a coupled two-field result.
+
+The radion coupling \(gW(R_{\rm th})\mathcal C(q_+,q_-)\) remains a phenomenological ansatz. The radion kinetic term, stabilization potential and coupling to the two scalar profiles must come from dimensional reduction of a specified action. Likewise, the common global \(U(1)\) is not automatically electromagnetic gauge symmetry or photon number.
+
+The historical finite PSU–Anti-Twin audit recorded \(J_{\rm AT}^2=I\), a \(128\to4\times32\) spectral split and the bosonic/fermionic determinant benchmarks. The historical script derive_rgs_psu_sea.py was not present in the current default-branch tree during reconstruction; the exact source/artifact must be restored before claiming a fresh replay.
+
+**Classification:** symmetry and Noether identities are exact/conditional within the declared two-field action; radial solutions and stability require the explicit interaction and numerical replay; radion stabilization, photon/QAT gauging and the field-theory-to-shell/Q6 discretization remain open. This branch is cross-linked to monograph chapters 12–14 (PSU/Anti-Twin and geometry) and 23–25 (QAT, Q-ball and field dynamics), while T080/T088 remain in the shell/structured-deformation chapters.
