@@ -549,3 +549,109 @@ The arrow from projective null directions to Farey dynamics is supplied only aft
 - Wolfram MathWorld, “Minkowski's Question Mark Function” (continued-fraction formula, strict increase, singularity, Farey mediant construction): https://mathworld.wolfram.com/MinkowskisQuestionMarkFunction.html.
 
 A finite exact-arithmetic check was also run on every reduced rational \(p/q\in(0,1)\) with \(q<80\): for each such input, the continued-fraction formula for \(?\) satisfied \(?(F(x))=T(?(x))\) exactly as a rational identity. Sample values include \(?(1/3)=1/4\), \(?(1/2)=1/2\), and \(?(2/3)=3/4\). This is a finite regression check of the formulas, not a proof of the global conjugacy; the latter is the classical theorem cited above.
+
+
+## 10. Does the FDT radial variable generate Farey dynamics?
+
+This section tests the proposed identification against the actual evolution law present in the supplied FDT synthesis, rather than merely observing that \(\alpha_{\rm ext}\in(0,1)\).
+
+### 10.1 The discrete map that Farey dynamics would require
+
+Write \(R=R_s>0\), \(r=r_f>R\), and
+\[
+\alpha=\frac{R}{r}\in(0,1).
+\]
+If \(\alpha\) is to evolve by the Farey map of §9, then its next-step value must be
+\[
+\alpha'=
+\begin{cases}
+\alpha/(1-\alpha),&0<\alpha\leq1/2,\\
+(1-\alpha)/\alpha,&1/2\leq\alpha<1.
+\end{cases}
+\]
+In the radial variable this is exactly
+\[
+\boxed{
+r'=
+\begin{cases}
+r-R,&r\geq2R,\\[2pt]
+R^2/(r-R),&R<r\leq2R.
+\end{cases}}
+\tag{10.1}
+\]
+To verify: substitute \(\alpha=R/r\) into each branch and use \(r'=R/\alpha'\). Both branches map the exterior interval \((R,\infty)\) onto \([R,\infty)\), with the branch point \(r=2R\) mapped to \(r'=R\). In dimensionless radius \(s=r/R>1\), the map is
+\[
+s'=
+\begin{cases}
+s-1,&s\geq2,\\
+1/(s-1),&1<s\leq2.
+\end{cases}
+\]
+This is a piecewise \(PGL(2,\mathbb Z)\) map: subtract one on the outer branch and invert after subtracting one on the inner branch. It is an exact reformulation of the Farey map, not a new physical law.
+
+### 10.2 What follows if the FDT inflow is taken as a radial velocity
+
+The supplied FDT synthesis gives
+\[
+\mathbf v_{\rm in}=-c\sqrt{\alpha}\,\hat{\mathbf r}.
+\]
+If, and only if, this is interpreted as the coordinate radial velocity of the same radius \(r_f(t)\), then
+\[
+\dot r=-c\sqrt{R/r}.
+\]
+Since \(\alpha=R/r\) and \(R\) is constant,
+\[
+\dot\alpha=-\frac{R}{r^2}\dot r
+=\frac{c}{R}\alpha^{5/2}.
+\]
+This autonomous ODE has the exact solution
+\[
+\boxed{
+\alpha(t)=
+\left[
+\alpha_0^{-3/2}
+-\frac{3c}{2R}(t-t_0)
+\right]^{-2/3}}
+\tag{10.2}
+\]
+on the interval where the bracket is positive. Equivalently,
+\[
+r(t)^{3/2}=r_0^{3/2}
+-\frac{3}{2}c\sqrt R\,(t-t_0).
+\]
+The flow is continuous, monotone, and deterministic; it is not the two-branch Farey map. Its time to reach \(\alpha=1\), under this coordinate-velocity interpretation, is
+\[
+t_*-t_0=\frac{2R}{3c}
+\left(\alpha_0^{-3/2}-1\right).
+\]
+This finite-time expression is conditional on the identification of \(\mathbf v_{\rm in}\) with \(d r_f/dt\), which the supplied summary does not independently establish.
+
+### 10.3 No-go statement from the currently supplied FDT data
+
+The current FDT record specifies the compactness variable \(R_s/r_f\), a radial inflow profile, and static conic/orbit relations. It does **not** specify:
+- a discrete return time or Poincaré section on which \(r_f\mapsto r_f'\) is defined;
+- a branch variable selecting \(r_f\geq2R_s\) versus \(R_s<r_f\leq2R_s\);
+- an integer spinor lattice or an equivalent arithmetic invariant;
+- a derivation of either radial update in (10.1) from an action, geodesic equation, matching condition, or conservation law.
+
+Therefore the Farey map is **not derivable from the supplied FDT equations as they stand**. The exact radial map (10.1) identifies what would have to be derived; the continuous ODE (10.2) shows that the natural reading of the supplied inflow does not itself produce it.
+
+This is a precise obstruction, not a proof that no such extension exists. A valid FDT-to-Farey theorem would need to derive a discrete section/return map and prove that its two branches reduce to (10.1), with the branch partition and integer structure fixed by FDT dynamics rather than inserted by hand.
+
+### 10.4 Falsifiable derivation target
+
+A minimal theorem target is:
+
+> **Candidate FDT–Farey theorem.** There exists an FDT-defined Poincaré section \(\Sigma\), a dimensionless radial observable \(\alpha=R_s/r_f\), and an FDT-derived branch partition of \(\Sigma\) such that the first-return map induces
+> \[
+> \alpha\circ\mathcal P=
+> \begin{cases}
+> \alpha/(1-\alpha),&\alpha\leq1/2,\\
+> (1-\alpha)/\alpha,&\alpha\geq1/2.
+> \end{cases}
+> \]
+> The section, return time, branch selection, and integer/projective structure must all be derived from the FDT equations and boundary data.
+
+If this theorem is proved, the classical identity \(?\circ F=T\circ ?\) then gives the singular conjugacy to tent dynamics. Until then, \(?(R_s/r_f)\) is a permissible coordinate change, not a dynamically selected FDT observable.
+
+**Status:** candidate theorem stated; not proved. Current result: exact conditional radial reformulation plus a conditional continuous-flow calculation; no FDT derivation of Farey dynamics yet.
