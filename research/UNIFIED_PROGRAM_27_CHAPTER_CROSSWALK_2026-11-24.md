@@ -403,6 +403,7 @@ This is exact for that finite Gaussian model. Physical calibration of \(A^{ij}\)
 
 **Monograph:** chapters 13–14 (panel/phase geometry) and 20–22 (stress, Green–Kubo, transport and boundary response). No theorem number is assigned and no existing T130/T131/PR #414/#419 result is duplicated.
 
+
 ### 11.11 Central-force energy and stress from an embedded Q6 graph
 
 Companion derivation: `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`; finite-difference tests: `tests/test_q6_central_force_stress.py`.

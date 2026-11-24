@@ -134,6 +134,9 @@ The exact stress expansion is consequently
 with \(c_{ij}\) from (4.2). The linear term is the leading stress of a stress-free network; the quadratic term is precisely the strain derivative of the displacement Hessian. This reconciles the virial derivation with the quadratic Hessian-Wick calculation, while showing why the latter alone omits the leading term.
 
 **Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the full microscopic stress is not just \(-\tfrac12u^TA^{ij}u\): it has the linear term \(c_{ij}^Tu\) as well. The generic quadratic-Wick calculation in the companion Q6/Jitterbug bridge is a valid separate model-conditional identity; for this central-force energy, the quadratic part is now explicitly derived as (4.3)–(4.4).
+This is the leading harmonic microscopic stress. The exact nonlinear stress remains (3.3); the quadratic and higher displacement corrections must be retained if the harmonic approximation is not controlled.
+
+**Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the leading harmonic stress is linear in displacement, not automatically \(-\tfrac12u^TA^{ij}u\). A quadratic stress arises in other models or at higher order. The generic quadratic-Wick calculation in the Q6/Jitterbug bridge remains a valid separate model-conditional identity, but it must not be substituted for (3.3) without deriving that energy.
 
 ## 5. Exact finite OU benchmark built from this Hessian
 

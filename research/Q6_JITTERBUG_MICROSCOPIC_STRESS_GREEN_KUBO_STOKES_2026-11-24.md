@@ -271,6 +271,7 @@ The existing eight-coil model supplies \(L(q)\), finite-surface flux and receive
 
 No theorem number is assigned: this is a research bridge note with a conditional theorem, not a new unconditional physical theorem.
 
+
 ## 4.2 Concrete central-force realization: companion derivation
 
 The generic quadratic strain ansatz above is not the only possible microscopic energy and is not automatically the correct stress for a stress-free spring network. A more concrete, geometrically explicit central-force energy and its exact strain derivative are now derived in `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`.
