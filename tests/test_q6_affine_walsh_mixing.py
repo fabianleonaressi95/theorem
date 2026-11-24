@@ -1,4 +1,8 @@
 import itertools
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "experiments" / "quantum_fractal_q6"))
 from affine_walsh_mixing import profile, exact_norm_profile, direct_commutator_frobenius_squared, run_audit
 
 def test_all_720_coordinate_permutations_partition_into_51_profiles():
