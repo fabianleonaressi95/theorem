@@ -321,6 +321,19 @@ The \(\mathbb Z_2\) sheet structure on \(\mathcal W\) is certified separately by
 
 On the \(2I\) side, \(1/2\) has a canonical representation-theoretic origin already formalized in `theorems/spectral/mckay_affine_e8_binary_icosahedral.md` and T026/T027: \(2I\subset SU(2)\) acts through its defining representation \(U\cong\mathbb C^2\), which is the spin-\(j=\tfrac12\) representation, and the central element \(-I\) acts as \((-1)^m\) on \(\operatorname{Sym}^m(U)\), producing the spinorial/nonspinorial \(\mathbb Z_2\) grading — the same two-sheet pattern as above. The GAP session `audits/2i_real_molien_exact/GAP_sessione_2A5_McKay_2I.pdf` exhibits the generators as unit quaternions with coordinates in \(\{0,\pm\tfrac12,\pm\phi/2\}\), so the halves are forced by unitarity, not inserted.
 
+### 7.1 Distinguishing the order-two structures
+
+The following four appearances of \(1/2\) must remain separate:
+
+1. \(j=\frac12\) is the spin label of the defining two-dimensional \(SU(2)\) representation \(U\).
+2. \((-1)^m\) is the character of the central element \(-I\in2I\) on \(\operatorname{Sym}^m(U)\).
+3. \(Z_S|_{\mathcal W}=\frac12S\), where \(S^2=I_{\mathcal W}\), is the normalization of the intrinsic RGS grading on a six-dimensional carrier.
+4. \(+\frac12I\) in the affine expression for \(K_0\) is a scalar spectral offset.
+
+Items 1–2 belong to the binary icosahedral representation; item 3 belongs to the archived RGS carrier; item 4 belongs to the spectrum of \(K_0\). The first three exhibit order-two/spinorial structure, but no representation intertwiner identifies the McKay central action with the RGS grading. Moreover, \(Z_A\) is odd relative to the RGS grading and \(K_0|_{\mathcal W}\) mixes its two sectors. Therefore item 3 does not explain item 4.
+
+The square-diagonal reflection gives another realization of an order-two action: it exchanges the two congruent right triangles and yields the parity projectors \((I\pm S_\square)/2\). This is a geometric model for the same abstract \(\mathbb Z_2\) projector algebra, not yet an intertwiner to either the McKay representation or the RGS carrier.
+
 The provenance limitation is material. The exact archived \(K_0\) array is reproducible across recovered bundles, but its original generating cell, upstream inputs, and coordinate-basis derivation have not been recovered; see `docs/K0_ORIGINAL_PRODUCER_RECOVERY_2026-11-21.md` and `docs/RGS_188D_OPERATOR_PROVENANCE.md`. Accordingly, the matrix spectrum is verified as a property of the stored array, while its original construction and physical interpretation remain open.
 
 On the 2I counting side, \(1/2\) is neither the mean constant of the odd-residue quasipolynomial (\(541/720\)) nor the identity-class Molien weight (\(1/120\)). The rewriting \(f(2j)=1/2+j(j+1)/60\) is an algebraic identity only; it does not establish a Casimir, Weyl-shift, \(E_8\), or APS interpretation of the offset.
