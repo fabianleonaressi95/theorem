@@ -14,7 +14,6 @@ on:
       - "tests/test_jitterbug_actual_field_dn.py"
       - "research/JITTERBUG_EIGHT_COIL_VALIDATION.md"
       - "research/JITTERBUG_NEUMANN_DIRICHLET_BRIDGE.md"
-      - ".github/workflows/jitterbug-eight-coil.yml"
   pull_request:
     paths:
       - "audits/jitterbug_eight_coil_coupling.py"
@@ -56,7 +55,6 @@ jobs:
       - name: Run actual-field and energy tests
         run: python -m unittest tests.test_jitterbug_actual_field_dn -v
 
-      - name: Run convergence and driven-flux validation tests
       - name: Run coaxial benchmark and driven-flux tests
         run: python -m unittest tests.test_jitterbug_eight_coil_validation -v
 
