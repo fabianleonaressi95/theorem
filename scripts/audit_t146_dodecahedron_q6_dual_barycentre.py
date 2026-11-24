@@ -13,7 +13,7 @@ The script deliberately reports spectral mismatches rather than tuning scales.
 from __future__ import annotations
 
 from collections import Counter
-from itertools import combinations
+from itertools import combinations, permutations
 import json
 from pathlib import Path
 
@@ -123,12 +123,14 @@ def q6_edge_complex():
     return edges, index, boundary
 
 
-def dodecahedron_edge_chain_lift(faces, dual_edges, B):
-    """Lift each oriented dual edge to 1/3 of a T141 shortest Q6 path.
+def dodecahedron_edge_chain_lift(faces, dual_edges, B, antipodal_face):
+    """Antipodal-equivariant averaged-shortest-path lift of dual edges.
 
-    If dual faces f_i,f_j share primal edge {u,v}, their barycentres differ
-    by (e_code(b)-e_code(a))/3, where a=f_i\\f_j and b=f_j\\f_i.
-    The path chain therefore has exactly that boundary.
+    For adjacent dual vertices f_i,f_j, the barycentre difference is
+    (e_code(b)-e_code(a))/3 for the opposite primal vertices a,b.
+    Average all shortest Q6 paths from code(a) to code(b), with coefficient
+    1/3. Averaging over every bit-flip order makes the chain independent of
+    an arbitrary path ordering and restores reversal/antipodal equivariance.
     """
     qedges, qindex, qboundary = q6_edge_complex()
     D = np.zeros((len(faces), len(dual_edges)), dtype=float)
@@ -141,24 +143,45 @@ def dodecahedron_edge_chain_lift(faces, dual_edges, B):
         a = next(iter(fi - fj))
         b = next(iter(fj - fi))
         start, target = int(Q6_CODES[a]), int(Q6_CODES[b])
-        current = start
-        path_lengths[(start ^ target).bit_count()] += 1
-        for bit in range(6):
-            if ((current ^ target) >> bit) & 1:
+        bits = [bit for bit in range(6) if ((start ^ target) >> bit) & 1]
+        orders = tuple(permutations(bits))
+        path_lengths[len(bits)] += 1
+        for order in orders:
+            current = start
+            coefficient = 1.0 / (3.0 * len(orders))
+            for bit in order:
                 nxt = current ^ (1 << bit)
                 if (current, nxt) in qindex:
                     edge_index, sign = qindex[(current, nxt)], 1.0
                 else:
                     edge_index, sign = qindex[(nxt, current)], -1.0
-                C[edge_index, k] += sign / 3.0
+                C[edge_index, k] += sign * coefficient
                 current = nxt
-        if current != target:
-            raise AssertionError("Q6 path did not reach its endpoint")
+            if current != target:
+                raise AssertionError("Q6 path did not reach its endpoint")
 
     boundary_residual = float(np.linalg.norm(qboundary @ C - B.T @ D))
+
+    # Induced action on oriented dual edges, including orientation reversal.
+    dual_edge_index = {tuple(edge): k for k, edge in enumerate(dual_edges)}
+    S_dual = np.zeros((len(dual_edges), len(dual_edges)), dtype=float)
+    for k, (i, j) in enumerate(dual_edges):
+        ai, aj = int(antipodal_face[i]), int(antipodal_face[j])
+        target_edge = tuple(sorted((ai, aj)))
+        target_index = dual_edge_index[target_edge]
+        S_dual[target_index, k] = 1.0 if ai < aj else -1.0
+
+    # Complement reverses the canonical orientation of every Q6 edge.
+    S_q6 = np.zeros((len(qedges), len(qedges)), dtype=float)
+    for k, (u, v) in enumerate(qedges):
+        target_edge = (v ^ Q6_MASK, u ^ Q6_MASK)
+        S_q6[qindex[target_edge], k] = -1.0
+    antipodal_residual = float(np.linalg.norm(S_q6 @ C - C @ S_dual))
+
     L_chain = D @ C.T @ C @ D.T
     L_chain = (L_chain + L_chain.T) / 2.0
-    return D, C, L_chain, boundary_residual, dict(sorted(path_lengths.items()))
+    return (D, C, L_chain, boundary_residual, antipodal_residual,
+            dict(sorted(path_lengths.items())))
 
 
 def weighted_laplacian(points: np.ndarray, edges):
@@ -189,8 +212,8 @@ def audit(t: float = PSI_SG) -> dict:
     L_geom, edge_lengths = weighted_laplacian(dual, edges)
 
     # Chain-level lift: each dual edge is a scaled Q6 path with matching boundary.
-    Ddual, Cedge, L_chain, chain_boundary_residual, chain_path_lengths = (
-        dodecahedron_edge_chain_lift(faces, edges, B)
+    Ddual, Cedge, L_chain, chain_boundary_residual, chain_antipodal_residual, chain_path_lengths = (
+        dodecahedron_edge_chain_lift(faces, edges, B, anti_face)
     )
 
     # Selected three-dimensional Q6 sector from the archived spectral map.
@@ -237,6 +260,7 @@ def audit(t: float = PSI_SG) -> dict:
             str(k): int(v) for k, v in chain_path_lengths.items()
         },
         "dodecahedron_q6_edge_chain_boundary_residual": chain_boundary_residual,
+        "dodecahedron_q6_edge_chain_antipodal_residual": chain_antipodal_residual,
         "chain_induced_energy_rank": int(np.linalg.matrix_rank(L_chain, tol=1e-8)),
         "chain_induced_energy_eigenvalues": np.linalg.eigvalsh(L_chain).tolist(),
         "selected_q6_chain_energy_intertwining_residual": selected_chain_residual,
@@ -268,6 +292,7 @@ def audit(t: float = PSI_SG) -> dict:
         "induced_energy_is_psd": float(eig_induced.min()) > -TOL,
         "chain_induced_energy_is_psd": float(np.linalg.eigvalsh(L_chain).min()) > -TOL,
         "dodecahedron_edge_chain_boundary_commutes": chain_boundary_residual < TOL,
+        "dodecahedron_edge_chain_antipodal_equivariance": chain_antipodal_residual < TOL,
         "polar_metric_energy_is_psd": float(eig_geom.min()) > -TOL,
     }
     result["checks"] = checks
