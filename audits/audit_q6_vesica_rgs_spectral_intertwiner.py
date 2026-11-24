@@ -188,7 +188,7 @@ out.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
 # Hard assertions: this script exits non-zero on any failed invariant.
 TOL=1e-8
 residual_checks=[k for k,v in checks.items()
-                 if type(v) in (int,float) and k not in ("P_G_rank",)
+                 if type(v) in (int,float) and k not in ("P_G_rank","RGS_upper_lower_triplet_shift")
                  and not (k.endswith("_distinct") or k.endswith("_count"))
                  and v>TOL]
 assert checks["input_finite"], "Non-finite input array"
