@@ -32,6 +32,7 @@ class TransferAudit:
     reciprocal_directed_edges: int
     reciprocal_fraction: float
     uniform_reversible: bool
+    max_reciprocity_multiplicity_defect: int
 
 
 def build_pair_transfer():
@@ -57,6 +58,10 @@ def build_pair_transfer():
     row_sums = [sum(row.values()) for row in rows]
     reciprocal = sum((j, i) in edge_set for i, j in edge_set)
     edge_count = len(edge_set)
+    multiplicity_defect = max((
+        abs(rows[i].get(j, 0) - rows[j].get(i, 0))
+        for i, j in edge_set
+    ), default=0)
     audit = TransferAudit(
         states=len(ordered),
         directed_edges=edge_count,
@@ -66,7 +71,8 @@ def build_pair_transfer():
         total_missing_transitions=sum(36 - s for s in row_sums),
         reciprocal_directed_edges=reciprocal,
         reciprocal_fraction=(reciprocal / edge_count if edge_count else 1.0),
-        uniform_reversible=(reciprocal == edge_count),
+        uniform_reversible=(reciprocal == edge_count and multiplicity_defect == 0),
+        max_reciprocity_multiplicity_defect=multiplicity_defect,
     )
     if audit.max_row_sum > 36:
         raise AssertionError("pair transfer is not substochastic")
@@ -148,6 +154,7 @@ def main() -> None:
     print(f"total_missing_transitions={audit.total_missing_transitions}")
     print(f"reciprocal_directed_edges={audit.reciprocal_directed_edges}")
     print(f"reciprocal_fraction={audit.reciprocal_fraction:.12g}")
+    print(f"max_reciprocity_multiplicity_defect={audit.max_reciprocity_multiplicity_defect}")
     print(f"uniform_reversible={audit.uniform_reversible}")
     print("operator=T=A/36; it is substochastic, not automatically a Markov")
     print("semigroup on a closed state space or a physical relaxation generator.")
