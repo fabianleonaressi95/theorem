@@ -30,7 +30,7 @@ This is the intrinsic two-sheet \(\mathbb Z_2\)-graded carrier. It is not an exc
 
 ## 2. \(Z_A\) is odd with respect to the grading
 
-In an orthonormal basis ordered by the \(+\frac12\) and \(-\frac12\) eigenspaces of \(Z_S\), the numerical compression is
+In an orthonormal basis ordered by the \(+\frac12\) and \(-\frac12\) eigenspaces of \(Z_S\), the numerical compression has zero diagonal blocks and off-diagonal blocks whose singular values are all (1/2). After an independent orthogonal basis choice in the minus sheet, it can be written
 \[
 Z_A|_{\mathcal W}\simeq
 \frac12\begin{pmatrix}0&-I_3\\ I_3&0\end{pmatrix}.
@@ -57,7 +57,7 @@ This corrects the earlier proposed formula
 \[
 K_{\mathcal W}=I_2\otimes L_\Omega+\kappa(I-S).
 \]
-That model commutes with the sheet exchange and preserves parity sectors; the actual compressed \(K_0\) does not. No \(\kappa=0.15\) two-branch decomposition, no \(0.30\) branch separation, and no \(K_0\)-intertwiner of that form are asserted. The exact compressed eigenvalues and residuals are stored in the JSON audit.
+That model commutes with the sheet exchange and preserves parity sectors; the actual compressed \(K_0\) does not. No \(\kappa=0.15\) two-branch decomposition, no \(0.30\) branch separation, and no \(K_0\)-intertwiner of that form are asserted. The eigenvalues of the full six-dimensional compression are (0.5,0.6,0.7,0.8,0.9,1.0). In the (Z_S)-eigenbasis its diagonal entries are not these eigenvalues: they lie approximately between (0.658) and (0.841), with nonzero cross-sheet entries. The exact compression and residuals are stored in the JSON audit.
 
 ## 4. Four distinct occurrences of one half
 
