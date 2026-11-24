@@ -101,7 +101,7 @@ This interpolation and its finite-dimensional map are recorded in T144 §7 and t
 
 T130 gives a specified least-squares discrete gradient on Q6 and a weighted barycentre/moment construction. Those formulas can be used only after a map from the dodecahedral vertices/faces/edges to Q6 states/links has been fixed, including weights, orientations and incidence. T141 supplies an antipodally equivariant path-valued lift of the icosahedral 1-skeleton into Q6, but it does not preserve edge lengths as single Q6 edges, does not provide a 2-chain lift, and does not yet intertwine the dodecahedral/icosahedral metric Laplacian with the selected Q6 Laplacian.
 
-Therefore the missing theorem is sharply identifiable. Extend the verified 1-chain map to a compatible cubical 2-chain filling of each pentagonal dodecahedral face, then construct a weighted cochain/Hodge map such that:
+Therefore the missing theorem is sharply identifiable. Use the verified chain map through degree two to construct a metric/cochain or Hodge map such that:
 1. it respects the antipodal involutions;
 2. it transports the face-frame barycentric gradients and their adjoints;
 3. its induced quadratic form is the Q6 Dirichlet form on the selected three-dimensional sector;
@@ -123,7 +123,8 @@ If these identities hold, the polynomial \(f\) follows by uniqueness of quadrati
 | Compatible 12-face pentagon-frame transport | Open |
 | Equal-face-barycentre lift into Q6 | Constructed; antipodal-equivariant (T146) |
 | Dodecahedral 1-chain map into Q6 | Constructed; boundary and antipodal identities certified; induced energy misses target spectrum (T146) |
-| Compatible dodecahedral 2-chain/cochain/Hodge lift into Q6 | Open |
+| Dodecahedral chain map through degree two into Q6 | Constructed; minimum-norm antipodal-equivariant pentagon fillings certified (T146) |
+| Compatible metric/cochain/Hodge intertwiner yielding (0,4,6) | Open |
 | Derivation of Q6 eigenvalues \(0,4,6\) from that dodecahedral map | Open |
 | Recovery of \(f\) from dodecahedral geometry alone | Open |
 | Existing Q6-to-RGS three-node interpolation formula \(f\) | Exact interpolation identity on the selected finite sector |
