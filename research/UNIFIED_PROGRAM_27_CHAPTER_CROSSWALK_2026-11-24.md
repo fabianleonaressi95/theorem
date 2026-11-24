@@ -673,3 +673,13 @@ The follow-up record [C3×C3 equivariant sphere/null-cone and Q6 operator](C3X_C
 This is an enlarged 3+1D construction, **not** an equivariant realization on the earlier 2+1D Vesica arcs or a proof that all eight states lie in the old Vesica lens. The ordinary cross-sheet distance is not invariant under independent rotations; its Reynolds average is invariant but discards relative azimuthal phase.
 
 The standard Q6 Laplacian is also not invariant under this GL(3,2) element, since T does not preserve Hamming adjacency. The research note defines instead the Reynolds-averaged product operator Lbar6=Lbar3⊗I8+I8⊗Lbar3. Its support has 256 weighted edges (versus 192 standard Q6 edges); it is positive semidefinite and C3×C3 invariant. This is a new operator on the same 64 states, not a replacement for the standard Q6 Laplacian. The finite identities and orbit counts are audited separately. Placement: chapters 2–5 (finite Q6/operator structure), 12–14 (Vesica/two-sheet geometry), and 15–17 only as a higher-dimensional null-cone extension pending a physical frame/action derivation. No new theorem number is assigned.
+
+
+### 12.19 Exact spectrum of the C3×C3-invariant Q6 operator (24 November 2026)
+
+The equivariant-operator note now records the exact rational spectrum. The factor operator has characteristic polynomial
+\[
+\chi_{\overline L_3}(\lambda)
+=\lambda(\lambda-2)(3\lambda-8)^3(3\lambda-14)^3/729,
+\]
+so its eigenvalues are 0, 2, 8/3 (multiplicity 3), and 14/3 (multiplicity 3). The product operator has eigenvalues 0, 2, 8/3, 4, 14/3, 16/3, 20/3, 22/3, 28/3 with multiplicities 1, 2, 6, 1, 12, 9, 6, 18, 9 respectively. Its kernel is one-dimensional and its spectral gap is exactly 2, matching the standard Q6 gap while the remaining spectra differ. This equality of gaps is a finite operator fact, not a continuum or physical equivalence. The standard-library audit now checks the rational factor eigenvalue multiplicities by exact Gaussian elimination and builds the product spectrum. Cross-link: [equivariant sphere/null-cone and Q6 operator](C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md). No new theorem number is assigned.
