@@ -26,11 +26,13 @@ class HalfBalanceTests(unittest.TestCase):
 
     def test_pentagonal_matrix_is_numerically_projector(self):
         p = pentagonal_projector()
-        p2 = tuple(matvec(p, tuple(p[i][j] for i in range(5))) for j in range(5))
-        # Compare P^2 with P column by column.
-        for j in range(5):
-            for i in range(5):
-                self.assertAlmostEqual(p[i][j], p2[j][i], places=12)
+        p2 = tuple(
+            tuple(sum(p[i][k] * p[k][j] for k in range(5)) for j in range(5))
+            for i in range(5)
+        )
+        for i in range(5):
+            for j in range(5):
+                self.assertAlmostEqual(p[i][j], p2[i][j], places=12)
 
     def test_balanced_vector_has_half_projection_and_five_quarters(self):
         q = balanced_unit_vector()
