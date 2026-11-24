@@ -79,8 +79,9 @@ checks = {
  "K0_mixes_grading_sectors": fn(Kpm)>1e-6 and fn(Kmp)>1e-6,
  "K0_not_commuting_with_grading": fn(Kc@S-S@Kc)>1e-6
 }
+checks = {key: bool(value) for key, value in checks.items()}
 report["checks"] = checks
-report["all_pass"] = all(checks.values())
+report["all_pass"] = bool(all(checks.values()))
 if not report["all_pass"]:
     raise SystemExit("One or more intrinsic Z2 carrier checks failed: "+str(checks))
 
