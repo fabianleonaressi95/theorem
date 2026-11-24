@@ -420,3 +420,140 @@ Derivation: `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`; finite-diff
 For any supplied embedding y:V(Q6)->R^d and positive edge spring constants, the note defines a central-force energy and derives exact strain-conjugate virial stress. The Hessian is K=R^T diag(kappa_e)R. Crucially, the strain derivative A^{ij}=partial_{xi_ij}K|_0 is derived explicitly, including geometric stiffness from affine prestress. The stress expansion is Pi_ij=c_ij^T u-(1/2)u^T A^{ij}u+O(|u|^3); the matching finite OU Green–Kubo tensor includes linear and quadratic stress correlations. This is distinct from the bare graph-Laplacian OU model.
 
 The canonical Q6 subset R^6 embedding is an anisotropic control, not a 3D material. The physical Q6/Jitterbug model still requires the within-fibre lift y(a,b;t), calibrated spring constants and dynamics. The Newtonian hydrodynamic limit and unconditional eta_GK=eta_Stokes remain open. Monograph: chapters 13–14 and 20–22.
+
+
+## 12. Evidence-status register: TSMR, De Aquino and the two distinct quarter factors
+
+**Purpose.** This is a classification and dependency crosswalk, not a new theorem and not a claim that every arrow below has been proved. It preserves the existing TSMR, Anti-Twin, PSU, photon/QAT, Q-ball and transport work while distinguishing exact algebra from physical interpretation.
+
+### 12.1 Four evidence classes
+
+Use these labels when linking the records:
+
+- **A — exact algebra / finite theorem:** identity proved from stated definitions, finite matrices, finite complexes or exact geometry.
+- **B — conditional theorem / model theorem:** proved after explicit hypotheses, such as a specified energy, OU dynamics, invariant covariance, projection of null modes or a continuum-limit assumption.
+- **C — numerical or structural correspondence:** reproducible finite computation, numerical coincidence, design correspondence or candidate map; not by itself a theorem about a physical system.
+- **D — physical bridge open:** requires a derived action/energy, calibrated observable, physical dynamics, a map preserving the relevant structures, or a controlled limit.
+
+These labels supplement rather than replace each theorem file's own status. A theorem record remains authoritative for its hypotheses and proof.
+
+### 12.2 TSMR and the geometric one-quarter
+
+The TSMR records are to be read together, not collapsed into a single unqualified physical law:
+
+- **TSMR-F** (theorems/TSMR-F_multifractal_morphological_equation.md): exact definitions and the stated finite-level/multifractal identities belong to **A** where proved in that record; measure-dependent dimension and spectrum claims retain their own hypotheses and numerical/provisional labels.
+- **TSMR-C** (theorems/TSMR-C_cumulative_morphodynamics.md): cumulative morphodynamic construction and its exact algebraic consequences belong to **A** only to the extent proved in the record.
+- **TSMR-C-I** (theorems/TSMR-C-I_iching_golden_q6_lift.md): the Q6/I-Ching/golden lift must distinguish exact finite coding identities from nondegeneracy, cellular-lift and physical-geometry obligations; the latter remain **C/D** until the required chain maps and geometric realization are supplied.
+- **TSMR-H** and **TSMR-I** retain their own model assumptions and open invariance/transfer checks; do not infer a physical constitutive law merely from an algebraic transfer relation.
+
+The elementary identity
+\[
+x(1-x)=\frac14-\left(x-\frac12\right)^2\leq\frac14
+\]
+is **A**. Its equality case is \(x=1/2\). This is the *geometric/binary one-quarter*: it is the maximum of the concave quadratic on \([0,1]\). It is not a Wick factor and does not enter the Gaussian covariance calculation unless a separate derivation explicitly identifies the variables and observables.
+
+### 12.3 Pentagon projection and the De Aquino threshold
+
+The pentagonal frame identities recorded in the existing TSMR/RGS material, including
+\[
+EE^T=\frac52 I_2,\qquad P=\frac25E^TE,
+\]
+are **A** for the specified frame and normalization. Under the separately stated condition \(\|Pq\|^2=1/2\), one obtains
+\[
+q^TG_5q=\frac52\|Pq\|^2=\frac54.
+\]
+The implication to the numerical threshold \(5/4\) is therefore **A** under those definitions and that condition.
+
+The further identification with De Aquino's parameter,
+\[
+\frac{m_g}{m_{i0}}=3-2\sqrt{1+\xi^2},\qquad
+m_g=0\Longrightarrow\xi^2=\frac54,
+\]
+is algebraically **A** within that phenomenological formula. Identifying the pentagonal quadratic form with the physical \(\xi^2\), or interpreting the threshold as a measured gravitational/inertial mass effect, is **C/D**, not established by the algebra alone. The proposed calibration \(p_0=m_{i0}c\) must be stated as an additional physical assumption, not silently built into the geometric identity.
+
+The historical relation \(\xi_k^2=(k^TQk)/4\) remains a **C** correspondence unless its normalization, domain and derivation are independently supplied. Do not use it as a proof of the pentagonal projection identity or of the De Aquino calibration.
+
+### 12.4 The distinct Gaussian/Wick one-quarter
+
+For a centered stationary Gaussian OU mode with
+\[
+\langle q(t)q(0)\rangle=\sigma^2e^{-\gamma\lambda t},
+\qquad \Pi_A=-\frac12Aq^2,
+\]
+the centered covariance is
+\[
+\operatorname{Cov}(\Pi_A(t),\Pi_A(0))
+=\frac{A^2\sigma^4}{2}e^{-2\gamma\lambda t},
+\]
+and hence
+\[
+\int_0^\infty\operatorname{Cov}(\Pi_A(t),\Pi_A(0))\,dt
+=\frac{A^2\sigma^4}{4\gamma\lambda}.
+\]
+The monomode factor \(1/4\) is **B** (exact under the stated Gaussian OU model). For a symmetric matrix \(A\), with the sum over all ordered pairs \((\alpha,\beta)\),
+\[
+\int_0^\infty\langle\delta\Pi_A(t)\delta\Pi_A(0)\rangle\,dt
+=\frac{\sigma^4}{2\gamma}
+\sum_{\alpha,\beta}
+\frac{|A_{\alpha\beta}|^2}{\lambda_\alpha+\lambda_\beta}.
+\]
+The coefficient in the full ordered-pair sum is \(1/(2\gamma)\), not \(1/(4\gamma)\). The single-mode result has \(1/(4\gamma\lambda)\) because its decay rate is \(2\gamma\lambda\). This is the *Wick/OU one-quarter*, distinct in origin and meaning from the binary maximum \(x(1-x)\leq1/4\).
+
+For the central-force Q6 energy in research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md, the stress contains both a linear term and a derived quadratic term:
+\[
+\Pi_{ij}=c_{ij}^Tu-\frac12u^TA^{ij}u+O(\|u\|^3).
+\]
+Under the overdamped OU dynamics with covariance \(k_BT K_{\mathcal H}^{-1}\), decay rates \(\mu\lambda_\alpha\), and Green--Kubo normalization \(1/(k_BTV)\), the quadratic contribution is
+\[
+\frac{k_BT}{2\mu V}
+\sum_{\alpha,\beta}
+\frac{A_{\alpha\beta}^{ij}A_{\alpha\beta}^{kl}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
+\]
+This is **B**, exact for the quadratic-truncated stress in the declared finite OU model, with symmetric \(A^{ij}\), all ordered mode pairs, and the full positive subspace. The linear contribution is separately
+\[
+\frac{1}{\mu V}c_{ij}^TK_{\mathcal H}^{-2}c_{kl}.
+\]
+Do not substitute the generic quadratic-observable Wick formula for the strain-derived central-force stress, and do not drop the linear term for a stress-free central-force network.
+
+### 12.5 Anti-Twin, PSU, photons/QAT and Q-ball: preserve the interfaces
+
+- **Anti-Twin / T142–T143:** exact involution, rank and intertwining identities belong to **A** under the finite-dimensional definitions in the corresponding records. Their interpretation as a physical two-sheet spacetime, photon sector or Lorentz-covariant field remains **D** until metric, action, observable and dynamics are shown to be preserved.
+- **PSU:** retain the source-specific expansion of the acronym and the distinct PSU state/phase spaces. A map into PSU is **A/B** only where its domain, codomain, metric or inner product, and intertwining identities are explicitly stated. Physical Planck-scale interpretation remains **D** unless independently calibrated.
+- **Photons / QAT / quaternionic transport:** SU(2), quaternionic and holonomy identities in T118–T120 are algebraic/geometric results at their stated level (**A/B**). Identifying them with a physical photon propagation law, electromagnetic stress tensor or measured coupling is **D** pending a field action, Maxwell limit, conservation law and testable observable.
+- **Q-ball / Q-shell:** preserve the existing stationary/coupled-action and boundary-value dossiers. A solution of a specified stationary equation is **B**; stability, parameter recovery and identification with the PSU/Anti-Twin or photon sectors require their own proofs and calibration (**C/D**).
+- **Gardi:** cite the paper only as speculative paradigm/context for fractal cosmological ideas. It is not independent evidence for the central-force energy, the Q6 chain map, the De Aquino calibration, the photon/QAT coupling, Q-ball stability or a Green--Kubo/Stokes limit.
+
+### 12.6 Q6-to-panel quotient: combinatorics is not yet a geometric chain lift
+
+The \(8{:}1\) map from Q6 vertices to the eight Jitterbug panel labels is an exact combinatorial quotient under the specified sign-triple labelling. A graph map on vertices alone does not define a cellular chain map. For the 1-skeleton, edge orientations and multiplicities must be fixed and the boundary identity
+\[
+\Pi_0\partial_1=\partial_1^{\rm panel}\Pi_1
+\]
+must be checked on every oriented edge, including the treatment of edges collapsed within a fibre. For a higher-dimensional cellular map, the corresponding \(k\)-cell maps and
+\[
+\Pi_{k-1}\partial_k=\partial_k^{\rm panel}\Pi_k
+\]
+must also be supplied. Any edge weights used after collapse must be derived from the push-forward energy/action or explicitly declared as a new model; they cannot be chosen merely to make a desired response coefficient.
+
+Thus: vertex quotient and enumerative panel incidence are **A/C** as specified; a full oriented weighted chain map is **B/D** until the matrices and identities are exhibited; the within-fibre coordinate lift \(y(a,b;t)\) and physical 3D embedding remain **D**.
+
+### 12.7 Transport chain and proof obligations
+
+Keep the following dependency sequence, but annotate every arrow by its evidence class:
+
+\[
+\text{Q6 finite complex / TSMR coding}
+\xrightarrow{A/B}\text{Vesica, pentagonal frame, Anti-Twin}
+\xrightarrow{A/B}\text{PSU and spinorial/QAT interfaces}
+\xrightarrow{C/D}\text{photon and Q-ball physical sectors}
+\xrightarrow{D}\text{calibrated deformable energy and microscopic stress}
+\xrightarrow{B}\text{finite-model Green--Kubo response}
+\xrightarrow{D}\text{hydrodynamic/Stokes limit}.
+\]
+
+The arrows are not transitive proof dependencies. In particular, the exact T142/T143 finite identities do not prove a photon or Q-ball constitutive law; a finite OU Green--Kubo identity does not prove a physical viscosity; and a conditional Green--Kubo/Stokes theorem does not verify its own hydrodynamic hypotheses.
+
+**Confirmed repository state at this snapshot:** PR #428, *Complete and audit derived Q6 central-force stress tensor*, is merged. It adds the full strain-Hessian derivative \(A^{ij}\), including geometric stiffness, the linear-plus-quadratic stress expansion and finite-difference tests. The 3D Q6/Jitterbug within-fibre lift, physical calibration and hydrodynamic/Stokes limit remain open. PR #428 does not close those obligations.
+
+**Monograph placement:** preserve the existing 27 chapter numbers. The principal cross-links are chapters 2–5 (Q6, cochains and TSMR), 12–14 (quaternions, Vesica, Anti-Twin and PSU), 23–25 (QAT, Q-ball, multifractal dynamics and Green--Kubo), and 20–22 (stress, field equations, traction and transport). This is an index update, not a new chapter or theorem number.
