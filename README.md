@@ -50,6 +50,9 @@ theorem/
 
 - **[TSMR-I Markov block audit](results/tsmr_i_golden_markov_blocks.json)** — deterministic-seed empirical-CDF evaluation of the golden Markov operator; both off-diagonal blocks are nonzero, distinguishing the exact projection lift from a false dynamical-intertwining claim. Source and tests: `audits/tsmr_i_markov_blocks.py`, `tests/test_tsmr_i_markov_blocks.py`.
 
+
+- **[TSMR-I finite memory reduction](theorems/TSMR-I_singular_cumulative_pentagonal_lift.md#8-feshbachmori-reduction-finite-harmonic-memory-model)** — finite 2+2 Feshbach reduction after separating the invariant constant mode; records the frequency-dependent self-energy and decaying second-harmonic memory kernels. Audit/tests: `audits/tsmr_i_memory_reduction.py`, `tests/test_tsmr_i_memory_reduction.py`.
+
 - **[TSMR-H — Half-balance principle](theorems/TSMR-H_half_balance_fractal_pentagon.md)** — proves the Bernoulli first-level overlap threshold at λ=1/2, the maximum-entropy probability p=1/2, and the pentagonal projector balance ||Pq||²=1/2; distinguishes the golden singular Bernoulli regime λ=φ⁻¹ from the uniform critical model and keeps the De Aquino coupling conditional. Reproducible audit: `audits/tsmr_h_half_balance.py`; tests: `tests/test_tsmr_h_half_balance.py`.
 
 - **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 239 theorem records and 14 companion catalogue entries are represented in a 292-node, 323-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
