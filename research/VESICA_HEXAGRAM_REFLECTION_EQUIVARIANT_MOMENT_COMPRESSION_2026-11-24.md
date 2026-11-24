@@ -15,7 +15,7 @@ Use the first three polynomial moments compatible with parity: constant (even), 
 
 C = [
   (1,1,1,1,1,1,1,1)/sqrt(8);
-  (7,1,-3,-5,-5,-3,1,7)/sqrt(462);
+  (7,1,-3,-5,-5,-3,1,7)/sqrt(168);
   (-7,-5,-3,-1,1,3,5,7)/sqrt(168)
 ].
 
