@@ -55,7 +55,7 @@ def linear_stress_coefficients(y, edges, kappa):
             for j in range(d):
                 c[i, j, v*d:(v+1)*d] += kappa[e] * ell * nhat[i] * nhat[j] * nhat
                 c[i, j, w*d:(w+1)*d] -= kappa[e] * ell * nhat[i] * nhat[j] * nhat
-    return -c
+    return c
 
 
 def test_energy_strain_derivative_matches_exact_stress():
