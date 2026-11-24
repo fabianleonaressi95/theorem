@@ -90,6 +90,50 @@ c_{ij}=
 }
 \tag{4.2}
 \]
+This is the leading harmonic microscopic stress. The exact nonlinear stress remains (3.3). The next term is quadratic and determines the strain derivative of the displacement Hessian.
+
+### 4.1 The strain-Hessian derivative \(A^{ij}\), derived rather than fitted
+
+For one edge at finite affine strain, put \(r_e^\xi=(I+\varepsilon(\xi))r_e\), \(\ell_e^\xi=|r_e^\xi|\), \(n_e^\xi=r_e^\xi/\ell_e^\xi\). The exact Hessian with respect to non-affine displacement at \(u=0\) is
+\[
+K_e(\xi)=\kappa_e\,b_eb_e^T\otimes
+\left[
+n_e^\xi(n_e^\xi)^T+
+\frac{\ell_e^\xi-\ell_e}{\ell_e^\xi}
+\left(I-n_e^\xi(n_e^\xi)^T\right)
+\right].
+\]
+The second term is the geometric-stiffness contribution from the affine prestress; omitting it would give an incorrect strain derivative. At \(\xi=0\), it vanishes and (4.1) is recovered.
+
+For the independent strain coordinate \(\xi_{ij}\), define
+\[
+q_e^{ij}=n_e^TS^{ij}n_e,\qquad
+m_e^{ij}=(I-n_en_e^T)S^{ij}n_e.
+\]
+Differentiating the full Hessian gives the explicit matrix
+\[
+\boxed{
+A^{ij}:=\left.\frac{\partial K(\xi)}{\partial\xi_{ij}}\right|_0
+=\sum_{e\in E}\kappa_e\,b_eb_e^T\otimes
+\left[
+m_e^{ij}n_e^T+n_e(m_e^{ij})^T
++q_e^{ij}(I-n_en_e^T)
+\right].
+}
+\tag{4.3}
+\]
+Thus \(A^{ij}\) is determined by the same embedding and spring constants as \(K\); it is not an independent fit.
+
+The exact stress expansion is consequently
+\[
+\boxed{
+\Pi_{ij}(u)=c_{ij}^Tu-\frac12u^TA^{ij}u+O(\|u\|^3),
+}
+\tag{4.4}
+\]
+with \(c_{ij}\) from (4.2). The linear term is the leading stress of a stress-free network; the quadratic term is precisely the strain derivative of the displacement Hessian. This reconciles the virial derivation with the quadratic Hessian-Wick calculation, while showing why the latter alone omits the leading term.
+
+**Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the full microscopic stress is not just \(-\tfrac12u^TA^{ij}u\): it has the linear term \(c_{ij}^Tu\) as well. The generic quadratic-Wick calculation in the companion Q6/Jitterbug bridge is a valid separate model-conditional identity; for this central-force energy, the quadratic part is now explicitly derived as (4.3)–(4.4).
 This is the leading harmonic microscopic stress. The exact nonlinear stress remains (3.3); the quadratic and higher displacement corrections must be retained if the harmonic approximation is not controlled.
 
 **Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the leading harmonic stress is linear in displacement, not automatically \(-\tfrac12u^TA^{ij}u\). A quadratic stress arises in other models or at higher order. The generic quadratic-Wick calculation in the Q6/Jitterbug bridge remains a valid separate model-conditional identity, but it must not be substituted for (3.3) without deriving that energy.
@@ -104,29 +148,57 @@ du_t=-\mu K_{\mathcal H}u_t\,dt+
 \]
 Its invariant covariance is \(k_BT K_{\mathcal H}^{-1}\). For the leading harmonic stress \(\Pi_{ij}^{(1)}=c_{ij}^Tu\),
 \[
-C_{ij,kl}(t)
+C_{ij,kl}^{(1)}(t)
 =k_BT\,c_{ij}^T e^{-\mu K_{\mathcal H}t}
 K_{\mathcal H}^{-1}c_{kl}.
 \]
 Therefore
 \[
 \boxed{
-\int_0^\infty C_{ij,kl}(t)\,dt
+\int_0^\infty C_{ij,kl}^{(1)}(t)\,dt
 =\frac{k_BT}{\mu}
 c_{ij}^T K_{\mathcal H}^{-2}c_{kl}.
 }
 \tag{5.2}
 \]
-The corresponding finite-model Green–Kubo tensor is
+For the stress retained through quadratic order in (4.4), center the quadratic observable:
+\[
+\delta\Pi_{ij}^{(2)}
+=-\frac12\left(u^TA^{ij}u-k_BT\operatorname{Tr}(A^{ij}K_{\mathcal H}^{-1})\right).
+\]
+The linear–quadratic cross-correlations vanish because the stationary process is centered Gaussian. Thus
+\[
+C_{ij,kl}^{(2)}(t)
+=\frac{(k_BT)^2}{2}
+\operatorname{Tr}\!\left(
+A^{ij}e^{-\mu K_{\mathcal H}t}K_{\mathcal H}^{-1}
+A^{kl}K_{\mathcal H}^{-1}e^{-\mu K_{\mathcal H}t}
+\right).
+\]
+If \(K_{\mathcal H}\phi_\alpha=\lambda_\alpha\phi_\alpha\), then
 \[
 \boxed{
-\eta_{ij,kl}^{\rm OU}
-=\frac{1}{\mu V}
-c_{ij}^T K_{\mathcal H}^{-2}c_{kl}.
+\int_0^\infty C_{ij,kl}^{(2)}(t)\,dt
+=\frac{(k_BT)^2}{2\mu}
+\sum_{\alpha,\beta}
+\frac{A^{ij}_{\alpha\beta}A^{kl}_{\alpha\beta}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
 }
 \tag{5.3}
 \]
-This is exact for the declared overdamped harmonic network. It is not yet the viscosity of a real Q6 material: the embedding, spring constants, mobility, volume, equilibrium regime, and physical dynamics must be justified. Inertial, anharmonic, or phason-flip dynamics changes the correlation function and generally changes (5.3).
+For the stress truncated at quadratic order, the Green–Kubo tensor is therefore
+\[
+\boxed{
+\eta_{ij,kl}^{\rm OU,(2)}
+=\frac{1}{\mu V}c_{ij}^TK_{\mathcal H}^{-2}c_{kl}
++\frac{k_BT}{2\mu V}
+\sum_{\alpha,\beta}
+\frac{A^{ij}_{\alpha\beta}A^{kl}_{\alpha\beta}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
+}
+\tag{5.4}
+\]
+For an autocorrelation, the quadratic contribution is nonnegative. Formula (5.4) is exact for the quadratic-truncated stress under the declared finite OU process; the cubic and higher terms of the exact virial stress (3.3) are not included. It is not yet the viscosity of a real Q6 material: the embedding, spring constants, mobility, volume, equilibrium regime, and physical dynamics must be justified. Inertial, anharmonic, or phason-flip dynamics changes the correlation function and generally changes these expressions.
 
 ## 6. What the abstract six-cube itself predicts—and does not
 
