@@ -148,29 +148,57 @@ du_t=-\mu K_{\mathcal H}u_t\,dt+
 \]
 Its invariant covariance is \(k_BT K_{\mathcal H}^{-1}\). For the leading harmonic stress \(\Pi_{ij}^{(1)}=c_{ij}^Tu\),
 \[
-C_{ij,kl}(t)
+C_{ij,kl}^{(1)}(t)
 =k_BT\,c_{ij}^T e^{-\mu K_{\mathcal H}t}
 K_{\mathcal H}^{-1}c_{kl}.
 \]
 Therefore
 \[
 \boxed{
-\int_0^\infty C_{ij,kl}(t)\,dt
+\int_0^\infty C_{ij,kl}^{(1)}(t)\,dt
 =\frac{k_BT}{\mu}
 c_{ij}^T K_{\mathcal H}^{-2}c_{kl}.
 }
 \tag{5.2}
 \]
-The corresponding finite-model Green–Kubo tensor is
+For the stress retained through quadratic order in (4.4), center the quadratic observable:
+\[
+\delta\Pi_{ij}^{(2)}
+=-\frac12\left(u^TA^{ij}u-k_BT\operatorname{Tr}(A^{ij}K_{\mathcal H}^{-1})\right).
+\]
+The linear–quadratic cross-correlations vanish because the stationary process is centered Gaussian. Thus
+\[
+C_{ij,kl}^{(2)}(t)
+=\frac{(k_BT)^2}{2}
+\operatorname{Tr}\!\left(
+A^{ij}e^{-\mu K_{\mathcal H}t}K_{\mathcal H}^{-1}
+A^{kl}K_{\mathcal H}^{-1}e^{-\mu K_{\mathcal H}t}
+\right).
+\]
+If \(K_{\mathcal H}\phi_\alpha=\lambda_\alpha\phi_\alpha\), then
 \[
 \boxed{
-\eta_{ij,kl}^{\rm OU}
-=\frac{1}{\mu V}
-c_{ij}^T K_{\mathcal H}^{-2}c_{kl}.
+\int_0^\infty C_{ij,kl}^{(2)}(t)\,dt
+=\frac{(k_BT)^2}{2\mu}
+\sum_{\alpha,\beta}
+\frac{A^{ij}_{\alpha\beta}A^{kl}_{\alpha\beta}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
 }
 \tag{5.3}
 \]
-This is exact for the declared overdamped harmonic network. It is not yet the viscosity of a real Q6 material: the embedding, spring constants, mobility, volume, equilibrium regime, and physical dynamics must be justified. Inertial, anharmonic, or phason-flip dynamics changes the correlation function and generally changes (5.3).
+For the stress truncated at quadratic order, the Green–Kubo tensor is therefore
+\[
+\boxed{
+\eta_{ij,kl}^{\rm OU,(2)}
+=\frac{1}{\mu V}c_{ij}^TK_{\mathcal H}^{-2}c_{kl}
++\frac{k_BT}{2\mu V}
+\sum_{\alpha,\beta}
+\frac{A^{ij}_{\alpha\beta}A^{kl}_{\alpha\beta}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
+}
+\tag{5.4}
+\]
+For an autocorrelation, the quadratic contribution is nonnegative. Formula (5.4) is exact for the quadratic-truncated stress under the declared finite OU process; the cubic and higher terms of the exact virial stress (3.3) are not included. It is not yet the viscosity of a real Q6 material: the embedding, spring constants, mobility, volume, equilibrium regime, and physical dynamics must be justified. Inertial, anharmonic, or phason-flip dynamics changes the correlation function and generally changes these expressions.
 
 ## 6. What the abstract six-cube itself predicts—and does not
 
