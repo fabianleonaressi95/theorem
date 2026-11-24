@@ -197,9 +197,14 @@ It has rank 3. The decisive intertwining test is
 The Frobenius residual is
 \[
 \boxed{\|\Lambda\Phi-\Phi L_{\rm pull}\|_F
-=5.709918966428033,}
+=5.709918966428033.}
 \]
-whereas the independent Q6 identity \(FL_6-\Lambda F=0\) has residual \(7.73\times10^{-16}\). Thus the Q6 sector itself is correctly reconstructed, but the barycentric dodecahedral pullback does not intertwine with it.
+For the stronger edge-chain energy the residual is
+\[
+\boxed{\|\Lambda\Phi-\Phi L_{\rm chain}\|_F
+=2.193691259440198.}
+\]
+The independent Q6 identity \(FL_6-\Lambda F=0\) has residual \(7.73\times10^{-16}\). Thus the Q6 sector itself is correctly reconstructed, but neither dodecahedral energy intertwines with it.
 
 The distinction matters: \(F L_6=\Lambda F\) is an identity on Q6; it does not imply that the compressed dodecahedral operator \(B L_6 B^T\) is intertwined by \(F B^T\). The latter requires an additional compatibility of the face-barycentre map with the selected invariant subspace, and this test fails for the T141 assignment.
 
