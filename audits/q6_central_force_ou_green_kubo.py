@@ -29,6 +29,14 @@ def main():
     K = np.zeros((ndof, ndof), dtype=float)
     shear_data = {}
 
+    # Assemble the reference rigidity Hessian once.
+    for v, w, k in edges:
+        b = np.zeros(n)
+        b[v], b[w] = -1.0, 1.0
+        nn = np.zeros(d)
+        nn[k] = 1.0
+        K += np.kron(np.outer(b, b), np.outer(nn, nn))
+
     for i in range(d):
         for j in range(i + 1, d):
             S = np.zeros((d, d))
@@ -44,7 +52,6 @@ def main():
                 m = S @ nn - q * nn
                 block = np.outer(m, nn) + np.outer(nn, m) + q * (np.eye(d) - np.outer(nn, nn))
                 bb = np.outer(b, b)
-                K += np.kron(bb, np.outer(nn, nn))
                 A += np.kron(bb, block)
                 # Reference bond length a=1 and spring constant kappa=1.
                 c -= q * np.kron(b, nn)
