@@ -85,6 +85,10 @@ def main() -> dict:
     assert all((a[0] == b[0]) ^ (a[1] == b[1]) for edge in edges
                for a, b in [edge])
 
+    minimum_separation_sq = min(separation_sq)
+    if minimum_separation_sq <= TOL**2:
+        minimum_separation_sq = 0.0  # exact circle intersection, normalized for roundoff
+
     result = {
         "model": "two sampled future-null-cone patches in Minkowski 2+1",
         "radius": 1.0,
@@ -99,7 +103,7 @@ def main() -> dict:
         "all_endpoints_and_midpoints_in_vesica": True,
         "midpoint_displacement_reconstruction_pass": True,
         "separation_squared": {
-            "minimum": min(separation_sq),
+            "minimum": minimum_separation_sq,
             "maximum": max(separation_sq),
             "mean": sum(separation_sq) / len(separation_sq),
         },
