@@ -84,6 +84,18 @@ A square can be built after an additional construction is chosen (for example, a
 
 The two equilateral triangles are a sound geometric starting point, but do not alone determine these later objects. No theorem recovering \(f\) from the dodecahedron is claimed.
 
+### Numerical certificate
+
+The focused workflow [45449413001](https://github.com/fabianleonaressi95/theorem/actions/runs/45449413001) completed successfully on the archived root arrays. All 11 assertions passed. In particular:
+- \(Z_S\) has three eigenvalues \(+1/2\), three \(-1/2\), and the remaining 182 eigenvalues are numerically zero;
+- the carrier projector has trace \(6\), and \(Z_S^2-\frac14P_{\mathcal W}\) has Frobenius residual \(0\);
+- \(S^2-I_{\mathcal W}\) has residual \(6.04\times10^{-15}\);
+- the two \(Z_A\) cross-blocks each have Frobenius norm \(0.866025403784438\), and their singular values are \((0.5,0.5,0.5)\), with singular-value residual \(1.36\times10^{-16}\);
+- the \(Z_A\) diagonal-block norms are \(1.10\times10^{-16}\) and \(2.15\times10^{-16}\);
+- the \(K_0\) carrier leakage is \(1.27\times10^{-14}\), while its cross-sheet block norm is \(0.2598076211\) and its commutator with \(S\) has norm \(0.7348469228\).
+
+The eigenvalues of the full six-dimensional compression are \(0.5,0.6,0.7,0.8,0.9,1.0\). The diagonal entries seen in the \(Z_S\)-eigenbasis lie approximately between \(0.658\) and \(0.841\); they are not the eigenvalues of the compression. The JSON artifact is retained for 30 days.
+
 ## 6. Reproducibility
 
 Run:
