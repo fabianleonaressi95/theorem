@@ -275,3 +275,154 @@ A paired finite Galerkin experiment was recorded in results/tsmr_i_harmonic_conv
 The first memory-kernel norms decay rapidly for each fixed cutoff, but the cutoff dependence is not monotone. In particular, the complement spectral radius estimates rise for H>=4. This is evidence against claiming a cutoff-uniform contraction from the present experiment. It does not prove instability of the infinite-dimensional operator.
 
 The result is finite-dimensional and empirical: one seed, a truncated Bernoulli series, and an empirical CDF. Independent seeds, larger sample counts, longer series, and certified spectral/norm bounds are still needed. No convergence as H tends to infinity is claimed.
+
+
+## 11. Exact contraction and empirical high-frequency defect
+
+The cumulative-coordinate Markov operator preserves Lebesgue measure:
+\[
+\int_0^1 \mathscr M_g h(t)\,dt=\int_0^1h(t)\,dt.
+\]
+Jensen's inequality gives
+\[
+|\mathscr M_g f(t)|^2\leq \mathscr M_g(|f|^2)(t),
+\qquad
+\boxed{\|\mathscr M_g f\|_{L^2}\leq\|f\|_{L^2}.}
+\]
+For every orthogonal finite-dimensional Galerkin projection, the exact
+compression is therefore contractive. A computed singular norm above one
+is a discretization/empirical-CDF defect, not a dynamical instability.
+
+The previous H=8 value near 0.996 was already present in the earlier
+audit. It is not a new discovery. The higher-cutoff values are numerical
+diagnostics only; the result JSON records their separate vectorized
+calculation provenance and does not claim a confirmed execution of the
+repository script or CI.
+
+## 12. Full Markov mixing versus compressed-complement dynamics
+
+Let \(P_0\) project onto constants, \(\Pi_1\) onto the first real Fourier
+pair, and
+\[
+Q=I-P_0-\Pi_1,\qquad
+D=Q\mathscr M_g\!\restriction_{\operatorname{ran}Q}.
+\]
+The exact Markov contraction proves \(\|D\|_{2\to2}\leq1\), but does not
+by itself prove a strict gap.
+
+### Strong convergence of the full Markov operator
+
+Transfer to the original Bernoulli coordinate by the unitary map
+\(f(t)\mapsto h(x)=f(F_g(x))\). The operator becomes
+\[
+(Ph)(x)=\tfrac12h(\lambda x-1)+\tfrac12h(\lambda x+1),
+\qquad \lambda=\varphi^{-1}.
+\]
+Let \(I=[-R,R]\), \(R=(1-\lambda)^{-1}\), and
+\[
+Y=\sum_{j=0}^{\infty}\varepsilon_j\lambda^j\sim\nu_g.
+\]
+For \(S_n=\sum_{j=0}^{n-1}\varepsilon_j\lambda^j\), couple the same first
+\(n\) signs in \(P^nh(x)\) and in a stationary copy
+\(Y=S_n+\lambda^nY'\), where \(Y'\sim\nu_g\) is independent. For every
+continuous \(h\) on \(I\),
+\[
+\sup_{x\in I}|P^nh(x)-\nu_g(h)|
+\leq \omega_h(2R\lambda^n),
+\]
+where \(\omega_h\) is the modulus of continuity. The right-hand side
+tends to zero. Since continuous functions are dense in \(L^2(\nu_g)\)
+and \(P\) is an \(L^2\)-contraction,
+\[
+\boxed{P^nh\longrightarrow \nu_g(h)\,1
+\quad\text{strongly in }L^2(\nu_g).}
+\]
+Equivalently, \(\mathscr M_g^nf\to(\int_0^1f)\,1\) strongly in
+\(L^2([0,1])\).
+
+This is an exact strong-convergence theorem for the **full** Markov
+operator. It is not an operator-norm estimate.
+
+### Why this does not settle the compression
+
+The compressed iterates are
+\[
+D^n=(Q\mathscr M_gQ)^n\!\restriction_{\operatorname{ran}Q},
+\]
+which insert \(Q\) after every step. In general
+\(D^n\ne Q\mathscr M_g^nQ\). Thus strong convergence of the full
+operator does not automatically imply strong stability or a spectral
+gap for \(D\).
+
+## 13. Exact norm of the infinite complementary compression
+
+A stronger exact statement is available:
+\[
+\boxed{\|D\|_{2\to2}=1.}
+\]
+Thus the infinite complementary compression has **no strict one-step
+operator-norm contraction**.
+
+**Proof.** Work in the unitarily equivalent Bernoulli coordinate
+\(L^2(\nu_g)\), and let
+\[
+\mathcal L=\operatorname{span}\{1,\phi_c\circ F_g,\phi_s\circ F_g\},
+\qquad Q=I-P_{\mathcal L}.
+\]
+Let \(\mathcal P_2\) be the subspace of restrictions to \(I\) of
+2-periodic functions on the circle \(\mathbb R/2\mathbb Z\). The
+pushforward of \(\nu_g\) to this circle is atomless: each point has
+finitely many preimages in the compact interval \(I\), and \(\nu_g\)
+has no atoms. Hence \(\mathcal P_2\) is infinite-dimensional.
+
+For \(h\in\mathcal P_2\), periodicity gives
+\[
+Ph(x)=\tfrac12h(\lambda x-1)+\tfrac12h(\lambda x+1)
+     =h(\lambda x+1)=h(\lambda x-1).
+\]
+By invariance of \(\nu_g\),
+\[
+\begin{aligned}
+\|Ph\|_{L^2(\nu_g)}^2
+&=\int |h(\lambda x+1)|^2\,d\nu_g(x)\\
+&=\frac12\int\bigl(|h(\lambda x-1)|^2+
+                         |h(\lambda x+1)|^2\bigr)\,d\nu_g(x)\\
+&=\int P(|h|^2)(x)\,d\nu_g(x)
+ =\|h\|_{L^2(\nu_g)}^2.
+\end{aligned}
+\]
+So \(P\) acts isometrically on the infinite-dimensional subspace
+\(\mathcal P_2\).
+
+The conditions \(h\perp\mathcal L\) and \(Ph\perp\mathcal L\) impose
+only six linear constraints on \(\mathcal P_2\), because
+\(\dim\mathcal L=3\). Their common kernel therefore contains a nonzero
+\(h\). For this \(h\), \(Qh=h\), \(QPh=Ph\), and
+\[
+Dh=QPQh=QPh=Ph,\qquad \|Dh\|_2=\|h\|_2.
+\]
+Hence \(\|D\|\geq1\). The reverse inequality follows from the Markov
+contraction and orthogonal projection, proving \(\|D\|=1\). \(\square\)
+
+### Consequence for exact Galerkin sections
+
+Let \(Q_H\) project onto complement harmonics \(2\leq k\leq H\), and
+let \(D_H=Q_HD Q_H\). Since \(Q_H\to Q\) strongly,
+\[
+\boxed{\lim_{H\to\infty}\|D_H\|_{2\to2}
+      =\|D\|_{2\to2}=1.}
+\]
+The upper bound is \(\|D_H\|\leq\|D\|\). For every fixed unit vector
+\(h\), \(Q_Hh\to h\) and \(Q_HD Q_Hh\to Dh\), giving the matching
+lower limit after taking the supremum over \(h\).
+
+This gives the correct interpretation of the earlier H=8 value near
+0.996: exact-measure Galerkin singular norms approach one. The
+empirical values slightly above one at larger H remain numerical errors,
+because every exact section is contractive.
+
+**Important distinction.** The identity \(\|D\|=1\) rules out a strict
+one-step norm gap. It does not determine the spectral radius
+\(\rho(D)\), nor whether \(D^nh\to0\) strongly for every \(h\in QL^2\).
+Those long-time questions remain open. Finite-section eigenvalue radii
+alone do not settle them.
