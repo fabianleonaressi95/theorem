@@ -156,7 +156,7 @@ def build_actual_mechanism_run(
 
     # Exact discrete receiver-side energy identity for the midpoint scheme:
     # Ein = Delta magnetic energy + Joule heat + mechanical transfer term.
-    Ein = joule = mechanical = delta_magnetic = 0.0
+    Ein = joule = mechanical = delta_magnetic = midpoint_correction = 0.0
     energy_rows = []
     for k, dt in enumerate(np.diff(frame_times)):
         i0, i1 = currents[k], currents[k+1]
@@ -166,7 +166,11 @@ def build_actual_mechanism_run(
         e_mid = emf[k]
         p_in = float(im @ e_mid)
         p_j = float(im @ Rmat @ im)
-        p_mech = float(0.5*im @ dL @ im)
+        delta_i = i1-i0
+        cross_correction = float(0.125*delta_i @ (L1-L0) @ delta_i)
+        mechanical_step = float(0.5*im @ (L1-L0) @ im-cross_correction)
+        p_mech = mechanical_step/dt
+        midpoint_correction += cross_correction
         W0 = float(0.5*i0 @ L0 @ i0)
         W1 = float(0.5*i1 @ L1 @ i1)
         dW = W1-W0
@@ -216,6 +220,7 @@ def build_actual_mechanism_run(
             "magnetic_energy_change": delta_magnetic,
             "joule_dissipation": joule,
             "mechanical_transfer_from_variable_L": mechanical,
+            "midpoint_cross_correction": midpoint_correction,
             "balance_residual": residual,
             "relative_balance_residual": abs(residual)/scale,
             "scope": "receiver circuit identity only; primary-source supply and actuator dynamics are not yet modeled",
