@@ -59,7 +59,7 @@ Let \(G_6=(\mathbb Z/2\mathbb Z)^6\), with vertices \(x\in\{0,1\}^6\) and edges 
 
 These are exact finite-graph identities. They are not a fractal spectral law: one finite graph has no scale limit and cannot determine a spectral dimension.
 
-**Important topology correction.** The finite group \((\mathbb Z/2)^6\) is not the profinite group \(\mathbb Z_2\). It is a finite quotient/level of the binary product structure. Walsh functions are its characters. This makes a natural finite-scale harmonic-analysis starting point, but does not make Q6 itself a p-adic fractal.
+**Important topology correction.** The finite group \((\mathbb Z/2)^6\) is not the profinite additive group \(\mathbb Z_2\): the former is a six-fold product with coordinatewise addition mod 2, while the latter is the inverse limit of cyclic groups \(\mathbb Z/2^n\) with binary carries. Q6 is a finite six-coordinate binary product, not a quotient of \(\mathbb Z_2\). Walsh functions are its characters. This makes a natural finite-scale harmonic-analysis starting point, but does not make Q6 itself a p-adic fractal.
 
 ## 4. Cantor coding is not the Q6 graph metric
 
@@ -225,3 +225,24 @@ Required output:
 - tests for projection identities, commutator calculations, and invariance under the declared Walsh normalization.
 
 Do not implement Fibonacci, gasket, Stone–Wales percolation, RMT, or a physical Schrödinger interpretation in this task. Those are separate follow-up experiments. Do not create a large CI workflow. Run the focused tests locally and report exact commands and outputs.
+
+
+## 10. Exact first result: Q6 Walsh filtration commutes with the standard Laplacian
+
+Fix the coordinate order \(x=(x_1,\ldots,x_6)\). For \(j=0,\ldots,6\), define \(E_j\) as conditional expectation onto functions of the first \(j\) bits:
+\[
+(E_jf)(x_1,\ldots,x_6)
+=2^{-(6-j)}\sum_{y_{j+1},\ldots,y_6\in\{0,1\}}
+f(x_1,\ldots,x_j,y_{j+1},\ldots,y_6).
+\]
+Then \(E_j^2=E_j=E_j^*\), \(\operatorname{rank}E_j=2^j\), and \(E_jE_k=E_{\min(j,k)}\). Write the hypercube Laplacian as
+\[
+L_6=\sum_{a=1}^6(I-X_a),
+\]
+where \(X_a\) flips coordinate \(a\). If \(a\le j\), \(X_a\) commutes with \(E_j\) because the flip acts on a retained coordinate. If \(a>j\), averaging over the suffix gives \(E_jX_a=E_j\), while \(X_aE_j=E_j\), so again they commute. Hence
+\[
+\boxed{[L_6,E_j]=0\quad\text{for every }j=0,\ldots,6.}
+\]
+This is an exact identity for the standard unweighted Cartesian-product Q6 Laplacian. An independent dense-matrix calculation gives Frobenius and operator-norm commutators equal to zero at every level, with projection ranks \(1,2,4,8,16,32,64\).
+
+Interpretation: the standard Q6 Laplacian respects the chosen coordinate filtration because it is a sum of independent coordinate-flip generators. This is a useful exact control and a baseline for testing a genuinely coupled/weighted PRISM operator. It is **not** evidence of multifractal scaling, a nontrivial renormalization law, or a quantum-fractal phase. The next nontrivial test must use a provenance-identified Q6/PRISM operator that is not merely the Cartesian-product Laplacian, and compare its commutators against this zero baseline.
