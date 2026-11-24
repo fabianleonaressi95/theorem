@@ -308,15 +308,15 @@ and is zero on the remaining directions. Therefore, exactly,
 \\sum_{\\alpha,\\beta}
 \\frac{|A^{ij}_{\\alpha\\beta}|^2}
 {\\lambda_\\alpha+\\lambda_\\beta}
-=\\frac{128}{2+2}=32.
+=\\frac{128}{2+2}=8.
 \\]
 For the reversible overdamped OU process on \\(\\mathcal H\\), with mobility \\(\\mu\\), temperature \\(T\\), and the stress retained through quadratic order, this gives
 \\[
 \\int_0^\\infty C_{ij,ij}(t)\\,dt
-=16\\frac{(k_BT)^2}{\\mu},
+=4\\frac{(k_BT)^2}{\\mu},
 \\qquad
 \\boxed{\\eta^{ij,ij}_{\\rm OU}
-=16\\frac{k_BT}{\\mu V}.}
+=4\\frac{k_BT}{\\mu V}.}
 \\]
 All 15 off-diagonal components of the six-dimensional cube control give the same value by coordinate-permutation symmetry. This is a finite exact benchmark for the declared quadratic-stress OU model, not a physical viscosity prediction: the embedding is six-dimensional, the energy is harmonicized, and the OU bath is imposed.
 
