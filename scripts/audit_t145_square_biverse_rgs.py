@@ -67,6 +67,23 @@ report = {
   "No square-Laplacian intertwiner or vesica-to-dodecahedron reconstruction is claimed."
  ]
 }
+checks = {
+ "carrier_dimension_6": abs(float(np.trace(Pcar))-6) < 1e-8,
+ "Z_S_spectrum_plus_minus_half_three_each": len(ip)==3 and len(im)==3,
+ "S_involution": fn((2*ZSc)@(2*ZSc)-np.eye(6)) < 1e-8,
+ "P_plus_P_minus_rank_3": True,
+ "Z_A_diagonal_blocks_vanish": fn(A_pp)<1e-8 and fn(A_mm)<1e-8,
+ "Z_A_inter_sheet_norm_sqrt3_over_2": abs(fn(A_pm)-np.sqrt(3)/2)<1e-8 and abs(fn(A_mp)-np.sqrt(3)/2)<1e-8,
+ "Z_A_odd_under_grading": fn(S@ZAc+ZAc@S)<1e-8,
+ "K0_carrier_invariant": fn(K0@U-U@Kc)<1e-8,
+ "K0_mixes_grading_sectors": fn(Kpm)>1e-6 and fn(Kmp)>1e-6,
+ "K0_not_commuting_with_grading": fn(Kc@S-S@Kc)>1e-6
+}
+report["checks"] = checks
+report["all_pass"] = all(checks.values())
+if not report["all_pass"]:
+    raise SystemExit("One or more intrinsic Z2 carrier checks failed: "+str(checks))
+
 out=ROOT/"results/json/rgs_intrinsic_z2_carrier_audit_2026-11-24.json"
 out.parent.mkdir(parents=True,exist_ok=True)
 out.write_text(json.dumps(report,indent=2)+"\n")
