@@ -224,7 +224,7 @@ sector is strongly contracting and produces a nonzero, rapidly decaying
 memory correction to the retained pentagonal pair. Thus a memory-bearing
 effective dynamics is more appropriate than a closed two-mode Markov law.
 
-**Scope limitation.** These numbers are computed from the \(5\\times5\)
+**Scope limitation.** These numbers are computed from the \(5\times5\)
 compressed matrix already estimated by the empirical-CDF procedure. The
 full orthogonal complement of the first-harmonic plane in \(L^2([0,1])\)
 contains every higher Fourier mode, not only the constant and second
