@@ -219,3 +219,6 @@ The factor character decomposition also gives the product representation sectors
 ## 10. Next test
 
 The next mathematically meaningful comparison is to compute the exact intertwining maps and eigenspace overlaps with the previously stored RGS/QLG operators, after fixing a common ordering of the 64 states. In particular, test whether the new 2-eigenspace or the nontrivial character sectors have a canonical image under the established Q6 tangent/Möbius projectors. This requires the actual stored matrices and must not be inferred from matching eigenvalues alone.
+
+
+**Action-space qualification:** the independent rotations R^i and R^j act on the two factors of the product configuration space separately. They are not a single common Lorentz transformation of one ambient Minkowski spacetime acting differently on two points. The construction is an equivariant product of two cone-section models; the cross-sheet observable is then defined on that product and Reynolds-averaged as above.
