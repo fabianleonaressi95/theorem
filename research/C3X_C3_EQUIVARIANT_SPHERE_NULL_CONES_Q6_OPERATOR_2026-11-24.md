@@ -263,3 +263,22 @@ Sections 11–12 above contain a superseded statement that the original payloads
 The reconstructed six-dimensional carrier yields two three-dimensional spectral triplets (J_A,J_B) with eigenvalues (0.5,0.6,0.7) and (0.8,0.9,1.0), respectively. The original skew operator pairs them as (Z_AJ_A=\tfrac12J_B), (Z_AJ_B=-\tfrac12J_A). The lower-triplet spectral involution (P_{0.5}+P_{0.6}-P_{0.7}) is (operatorname{diag}(1,1,-1)) in the ordered eigenbasis of (J_A). Thus the old sign pattern is recovered as a spectral involution on the lower triplet. It is **not** the same operator as the off-diagonal (J_A\leftrightarrow J_B) block of the original (Z_A), which is (\tfrac12I_3) in the paired basis.
 
 This reconstructs the RGS triplet pairing, but not yet the desired spherical intertwiner. The sphere model has an independent (C_3\times C_3) action on its two factors; an explicit action/representation on the reconstructed RGS triplets has not yet been extracted from the 188D data. Therefore no equivariant intertwiner is claimed at this stage. The corrected status is: **RGS half-scale carrier and triplet pairing NUMERICALLY VERIFIED; C3-equivariant geometric identification OPEN**.
+
+
+## 15. Conditional no-go: the original RGS triple is not (C_3)-invariant
+
+The recovered triplet basis makes the compatibility test explicit. In the ordered ((J_A,J_B)) basis,
+\[
+K_0=\operatorname{diag}(0.5,0.6,0.7,0.8,0.9,1.0),\quad
+Z_A=\frac12\begin{pmatrix}0&-I_3\\I_3&0\end{pmatrix},\quad
+Z_S=\frac12\begin{pmatrix}I_3&0\\0&-I_3\end{pmatrix}.
+\]
+For the natural cyclic permutation (R_3) on the three vertices of a latitude triangle, the diagonal action (operatorname{diag}(R_3,R_3)) preserves (Z_A,Z_S) but not (K_0):
+\[
+\|[K_0,\operatorname{diag}(R_3,R_3)]\|_F=\sqrt{0.12}\ne0.
+\]
+An independent factor rotation (operatorname{diag}(R_3,I_3)) fails already for (Z_A), with commutator Frobenius norm (sqrt3). The second factor gives the same obstruction. Thus the coupling (Z_A) permits at most the diagonal subgroup, while (K_0) breaks even that nontrivial (C_3).
+
+The obstruction is not an artifact of choosing the cyclic permutation matrix. Since (K_0|_{J_A}) and (K_0|_{J_B}) have simple real spectra, their orthogonal centralizers consist only of diagonal sign changes in their respective eigenbases. There is no nontrivial element of order three in either centralizer. Hence no nontrivial real (C_3) action can commute with the full (K_0) restriction on these triplets.
+
+**Conditional conclusion:** no intertwiner can simultaneously preserve the original triple ((K_0,Z_A,Z_S)) and implement the nontrivial spherical (C_3\times C_3) factor rotations in the natural triplet decomposition. This does not prohibit a geometric correspondence that does not intertwine (K_0), a diagonal (C_3) action preserving only ((Z_A,Z_S)), a Reynolds-averaged replacement for (K_0), or a covariant (rather than invariant) transformation law for (K_0). The explicit commutator audit is included in [the basis reconstruction script](../audits/reconstruct_rgs_half_carrier_basis.py), and the numerical triplet construction is in [the original-array audit](RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md).
