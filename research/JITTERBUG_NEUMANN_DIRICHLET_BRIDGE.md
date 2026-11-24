@@ -20,7 +20,7 @@ where x_q is the segment midpoint. For each receiver disk S_j(s), flux linkage i
 
 Thus the external field is not replaced by a uniform-field, centre-point approximation. Disk quadrature and source-filament discretization are explicit convergence parameters.
 
-The receiver inductance matrix still uses the Neumann mutual-inductance integral, regularized only for numerical quadrature, and thin-wire self-inductance on its diagonal. The coupled receiver equation remains
+The receiver inductance matrix uses one common finite-core regularized Neumann Green kernel for both diagonal self terms and off-diagonal mutual terms. Using a thin-wire diagonal approximation together with separately softened mutual terms had produced a negative eigenvalue in the first CI attempt; the implementation now uses the same core radius (the conductor wire radius) in every matrix entry. This consistency is required for the quadratic field-energy form to remain positive semidefinite. The coupled receiver equation remains
 
 \[\frac{d}{dt}(L(s)i)+Ri=e_{\rm ext}.\]
 
@@ -80,6 +80,6 @@ python -m unittest tests.test_jitterbug_actual_field_dn -v
 python audits/jitterbug_actual_field_dn.py --ds 0.08 --segments 48 --output jitterbug-actual-field-dn-report.json
 ```
 
-Tests cover the on-axis Biot–Savart field against the circular-loop formula, nonzero finite-surface flux, actual Jitterbug panel motion, positive inductance, and the discrete receiver energy identity.
+Tests cover the on-axis Biot–Savart field against the circular-loop formula, nonzero finite-surface flux, actual Jitterbug panel motion, positive-semidefinite inductance, and the discrete receiver energy identity. The first CI attempt exposed the inconsistent diagonal/off-diagonal regularization; that issue has been corrected and is being rerun.
 
 Still open: source/receiver segment and surface-quadrature convergence; actual winding placement and lead geometry; primary-source supply and actuator dynamics; Maxwell stress / generalized forces; complete mechanical + primary + receiver energy closure; experimental field and motion data. The model does not demonstrate useful output, net energy gain, self-running operation, or a new electromagnetic law.
