@@ -231,3 +231,10 @@ and
 \eta^{ij,ij}_{\rm OU}=4k_BT/(\mu V).
 \]
 This is a finite model result, not a spectral bridge from \(T_{\rm pair}\): the mechanical generator is derived independently from the rigidity Hessian and the declared OU bath. The unresolved three-dimensional Q6/Jitterbug fibre lift and material calibration remain necessary for a physical prediction.
+
+
+The corresponding stress spectral measure in this canonical OU control is a single atom,
+\[
+d\mu_{\Pi_{ij}}(\gamma)=16(k_BT)^2\delta_{4\mu}(d\gamma).
+\]
+It therefore does **not** reproduce a golden ladder of relaxation rates. The golden overlap automaton and the mechanical OU branch currently give two distinct objects: the former is a killed, non-reversible two-replica geometric transfer; the latter is a reversible one-trajectory mechanical benchmark with one relaxation rate. A \(\varphi\)-hierarchy requires additional derived physical degrees of freedom or scale-dependent dynamics, not an identification of these two operators.
