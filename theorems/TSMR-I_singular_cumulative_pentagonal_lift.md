@@ -981,3 +981,26 @@ The next work is now sharply specified:
   *Journal of Physics A: Mathematical and Theoretical* **58** (2025),
   405001, DOI: 10.1088/1751-8121/ae02cc.
 
+
+### 17.6 Action-derived Q6 shear: finite result and obstruction
+
+The implementation-level follow-up is recorded in [RGS–QLG–Q6 PR #217](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/217). It reuses the existing finite Euclidean action and its analytic directional derivative, rather than postulating a new force law.
+
+For a symmetric traceless coframe shear H, e_v(gamma)=(I+gamma H)e_v, define the exact finite-action response
+\[
+\Pi_H^{action}=-V^{-1}(dS_{Q6}/d\gamma)|_{\gamma=0}.
+\]
+The code evaluates this derivative analytically and provides a central finite-difference check. The current action has an important limitation: the Wilson plaquette term depends on link holonomies only; hopping, twin and quartic terms depend on the coframe only through determinant-volume factors. Since d log|det e_v|/d gamma = tr(H)=0, those sectors have zero first-order response to this shear. The only possible nonzero contribution is the fixed-frame coframe-difference regularizer. Thus this is an exact derivative of the implemented finite action, not yet the full microscopic shear stress needed for Green–Kubo.
+
+A separate previously derived geometric edge identity is also preserved. For w_e(gamma)=|d_e(gamma)|^{-2}, d_e(gamma)=(I+gamma H)d_e, and H=(E_xy+E_yx)/2,
+\[
+w'_e(0)=-2\,d_{e,x}d_{e,y}/|d_e|^4.
+\]
+If a declared edge Hamiltonian has the form H_link(gamma)=sum_e w_e(gamma)E_e with E_e held fixed, then
+\[
+\Pi_{xy}^{Q6}=-(1/V)\partial_\gamma H_{link}|_0
+= (2/V)\sum_e d_{e,x}d_{e,y}|d_e|^{-4}E_e.
+\]
+This conditional edge-energy response is implemented and finite-difference-auditable in PR #217. It is not identified with the plaquette-only Wilson term in the current unified action: the E_e must be derived from a common metric-dependent action before combining the formulas.
+
+**Updated evidence boundary:** exact finite-action and inverse-square edge-weight derivatives are specified; PR #217 adds implementation and tests (CI pending at last check). Still OPEN: metric-dependent gauge/Hodge and matter kinetic terms, equilibrium measure and time evolution, physical stress covariance, FDT normalization, Green–Kubo convergence, and Stokes matching. No viscosity is claimed.
