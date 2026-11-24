@@ -655,3 +655,77 @@ A minimal theorem target is:
 If this theorem is proved, the classical identity \(?\circ F=T\circ ?\) then gives the singular conjugacy to tent dynamics. Until then, \(?(R_s/r_f)\) is a permissible coordinate change, not a dynamically selected FDT observable.
 
 **Status:** candidate theorem stated; not proved. Current result: exact conditional radial reformulation plus a conditional continuous-flow calculation; no FDT derivation of Farey dynamics yet.
+
+
+### 10.5 The FDT critical value \(\alpha_c=2/3\) fixes a projective Farey chart
+
+The FDT evidence report identifies three regimes separated by \(\alpha_c=2/3\). There is a unique real Möbius transformation fixing the endpoints 0 and 1 and sending \(2/3\) to the Farey branch point \(1/2\):
+\[
+\boxed{x=h(\alpha)=\frac{\alpha}{2-\alpha}},\qquad
+h^{-1}(x)=\frac{2x}{1+x}.
+\]
+Uniqueness follows because a projective transformation is determined by its values at three distinct points. It is increasing on \((0,1)\), maps \((0,1)\) onto itself, and
+\[
+h(0)=0,\qquad h(2/3)=1/2,\qquad h(1)=1.
+\]
+Thus the FDT critical boundary is exactly the Farey branch boundary in this normalized projective chart. This alignment is derived from the three distinguished values; it does not yet derive a time evolution.
+
+Conjugate the standard Farey map \(F\) by \(h\):
+\[
+G=h^{-1}\circ F\circ h.
+\]
+Direct substitution gives the FDT-coordinate map
+\[
+\boxed{
+G(\alpha)=
+\begin{cases}
+\dfrac{2\alpha}{2-\alpha},&0<\alpha\leq2/3,\\[5pt]
+\dfrac{4(1-\alpha)}{2-\alpha},&2/3\leq\alpha<1.
+\end{cases}}
+\tag{10.3}
+\]
+The two formulas agree at \(\alpha=2/3\), where \(G(2/3)=1\). The first branch maps \((0,2/3]\) increasingly onto \((0,1]\); the second maps \([2/3,1)\) decreasingly onto \((0,1]\). The branch partition now coincides exactly with the FDT attractive/repulsive threshold.
+
+The induced radial form, using \(r=R_s/\alpha\), is
+\[
+\boxed{
+r'=
+\begin{cases}
+r-R_s/2,&r\geq3R_s/2,\\[4pt]
+\dfrac{R_s(2r-R_s)}{4(r-R_s)},&
+R_s<r\leq3R_s/2.
+\end{cases}}
+\tag{10.4}
+\]
+This is the precise radial update that a FDT return map would have to reproduce if the critical value \(2/3\) is its branch point. It is projectively conjugate to Farey by construction.
+
+Define the corresponding singular coordinate
+\[
+\boxed{q_{\rm FDT}(\alpha)=?\!\left(\frac{\alpha}{2-\alpha}\right)}.
+\]
+Then the classical Farey/question-mark conjugacy implies
+\[
+q_{\rm FDT}(G(\alpha))=T(q_{\rm FDT}(\alpha)).
+\]
+This is an exact theorem about the *constructed map* \(G\), not yet about physical FDT trajectories. It is better adapted than using \(? (\alpha)\) directly: it respects the FDT critical partition at \(2/3\).
+
+### 10.6 Event section versus Poincaré return: the obstruction
+
+Under the conditional inflow ODE (10.2), \(\dot\alpha>0\). The surface
+\[
+\Sigma_c=\{\alpha=2/3\}
+\]
+is a transverse **event section** for trajectories starting below the threshold, not a recurrent Poincaré section: each monotone radial trajectory crosses it at most once. The crossing time is
+\[
+t_c-t_0=\frac{2R_s}{3c}
+\left[
+\alpha_0^{-3/2}-(3/2)^{3/2}
+\right],
+\qquad 0<\alpha_0<2/3.
+\]
+After crossing, the same one-dimensional flow does not return to \(\Sigma_c\). Consequently it cannot by itself generate the two-branch return map (10.3). A genuine Poincaré map would require at least one additional dynamical degree of freedom (for example an angular/projective phase), a return mechanism, or a reflection/matching rule at the critical surface. None is specified in the supplied FDT synthesis.
+
+**Refined status.**
+- **Derived:** the unique endpoint-fixing Möbius chart that sends the FDT value \(2/3\) to Farey value \(1/2\); the conjugated map (10.3); its radial form (10.4); and the singular coordinate \(q_{\rm FDT}\).
+- **Conditional:** the monotone event-crossing time, assuming the supplied inflow is \(dr_f/dt\).
+- **Open:** whether FDT field equations, an action, or matching conditions produce the return mechanism and the map (10.3). The value \(2/3\) selects the correct projective branch point, but does not by itself supply recurrence or arithmetic dynamics.
