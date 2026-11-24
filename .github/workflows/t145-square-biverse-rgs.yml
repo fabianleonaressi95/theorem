@@ -1,0 +1,33 @@
+name: T145 square-biverse-RGS audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "K0.npy"
+      - "Z_A.npy"
+      - "Z_S.npy"
+      - "scripts/audit_t145_square_biverse_rgs.py"
+      - "theorems/T145-square-reflection-prism-biverse-rgs-carrier.md"
+      - ".github/workflows/t145-square-biverse-rgs.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy
+      - name: Reconstruct and audit the six-dimensional carrier
+        run: python scripts/audit_t145_square_biverse_rgs.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t145-square-biverse-rgs-audit
+          path: audits/T145_SQUARE_BIVERSE_RGS_CARRIER_2026-11-24.json
+          retention-days: 30
