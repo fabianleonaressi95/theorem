@@ -9,6 +9,9 @@ on:
       - "tests/test_tsmr03_vesica_geometry.py"
       - "audits/tsmr03_discrete_refinement.py"
       - "tests/test_tsmr03_discrete_refinement.py"
+      - "audits/tsmr_f_multifractal.py"
+      - "tests/test_tsmr_f_multifractal.py"
+      - "theorems/TSMR-F_multifractal_morphological_equation.md"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
     branches: [main]
@@ -30,4 +33,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run TSMR-02 and TSMR-03 regression tests
-        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement -v
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal -v
