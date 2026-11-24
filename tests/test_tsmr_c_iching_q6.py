@@ -12,6 +12,8 @@ from audits.tsmr_c_iching_q6 import (
     graph_directed_hull,
     first_level_hull_overlap_count,
     fourier_transfer_matrix,
+    minimum_translation_gap_pair,
+    translation_multiplicity_profile,
 )
 
 
@@ -38,6 +40,16 @@ class TSMRIChingGoldenQ6Tests(unittest.TestCase):
         # Exact pair arithmetic finds 21 of the 33 scalar classes fail
         # the equitable-partition criterion for the Q6 line-flip walk.
         self.assertEqual(len(non_lumpable_classes(6)), 21)
+
+    def test_exact_translation_collision_multiplicities(self):
+        self.assertEqual(
+            translation_multiplicity_profile(),
+            ((1, 12), (2, 12), (3, 8), (4, 1)),
+        )
+
+    def test_minimum_distinct_translation_gap_is_lambda_six(self):
+        # lambda**6 = 5 - 8*lambda in Z[lambda].
+        self.assertEqual(minimum_translation_gap_pair(), (5, -8))
 
     def test_exact_q6_walk_spectrum(self):
         # Eigenvalues are 1-k/3 with binomial multiplicities C(6,k).
