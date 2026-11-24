@@ -162,3 +162,73 @@ The omitted series tail is bounded by \(2.44\cdot10^{-10}\); the dominant uncert
 **Numerical conclusion:** the first-harmonic plane is not invariant under the tested golden cumulative-coordinate Markov operator: \(C_{\mathrm{out}}\ne0\) at a scale far above the finite-sample fluctuations. The reverse coupling \(C_{\mathrm{in}}\) is also nonzero. Thus the exact isometry \(J_gP=\Pi_1J_g\) from Theorem I1 does not extend to an intertwining of the Markov dynamics.
 
 This is a numerical falsification of the proposed invariant-plane property, not yet an exact analytic non-vanishing theorem. The stored matrix and reproducible audit are in \`results/tsmr_i_golden_markov_blocks.json\`; implementation and regression tests are in \`audits/tsmr_i_markov_blocks.py\` and \`tests/test_tsmr_i_markov_blocks.py\`.
+
+
+## 8. Feshbach/Mori reduction: finite harmonic memory model
+
+The constant function is an exact fixed vector of the Markov operator:
+\(\mathscr M_g1=1\). It must therefore be separated from the dynamical
+complement. On the stored five-mode compression, retain the active pair
+\((\phi_c,\phi_s)\), isolate the constant, and retain the second-harmonic
+pair \((\psi_c,\psi_s)\) as a resolved memory sector. The resulting
+\(2+2\) matrix has block form
+\[
+A^{(4)}=\begin{pmatrix}A_{11}&B\\C&D\end{pmatrix}.
+\]
+The finite-dimensional eigenvalue-dependent effective operator is the
+Schur/Feshbach complement
+\[
+\boxed{A_{\rm eff}(z)=A_{11}+B(zI-D)^{-1}C.}
+\]
+The second term is the frequency-dependent self-energy. Equivalently, in
+the discrete-time projected evolution the finite-compression memory
+kernels are
+\[
+\boxed{K_n=BD^nC,\qquad n\geq0.}
+\]
+
+For the stored numerical matrix:
+\[
+D\simeq\begin{pmatrix}
+-0.153066&0.000278\\
+0.000542&-0.214570
+\end{pmatrix},
+\quad \rho(D)\simeq0.214572.
+\]
+The first memory kernels have Frobenius norms
+\[
+\|K_0\|_F\simeq0.115237,\quad
+\|K_1\|_F\simeq0.023780,\quad
+\|K_2\|_F\simeq0.004996,\quad
+\|K_3\|_F\simeq0.001060.
+\]
+At \(z=1\), the self-energy is approximately
+\[
+\Sigma(1)=B(I-D)^{-1}C\simeq
+\begin{pmatrix}
+0.039070&-0.000228\\
+0.000154&0.087327
+\end{pmatrix},
+\]
+so
+\[
+A_{\rm eff}(1)\simeq
+\begin{pmatrix}
+0.056844&-0.000242\\
+-0.000266&0.183717
+\end{pmatrix}.
+\]
+
+**Interpretation.** In this four-mode Galerkin compression the second-harmonic
+sector is strongly contracting and produces a nonzero, rapidly decaying
+memory correction to the retained pentagonal pair. Thus a memory-bearing
+effective dynamics is more appropriate than a closed two-mode Markov law.
+
+**Scope limitation.** These numbers are computed from the \(5\\times5\)
+compressed matrix already estimated by the empirical-CDF procedure. The
+full orthogonal complement of the first-harmonic plane in \(L^2([0,1])\)
+contains every higher Fourier mode, not only the constant and second
+harmonics. Consequently \(A_{\rm eff}(z)\) and \(K_n\) above are a
+reproducible finite Galerkin/Feshbach model, not the exact
+infinite-dimensional Mori–Zwanzig kernel. Establishing convergence as
+additional harmonics are included is the next open task.
