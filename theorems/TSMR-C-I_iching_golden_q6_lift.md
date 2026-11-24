@@ -257,3 +257,147 @@ The overlap graph is a state-labelled, reproducible numerical diagnostic. The fi
 4. atomlessness, absolute continuity, singularity, and local-dimension spectrum.
 
 No multifractal or singular-measure conclusion is inferred from the current finite calculations.
+
+
+## 11. Exact finite-type overlap automaton and dimension estimate
+
+This section upgrades the floating-point hull-overlap diagnostic to an exact finite-state construction. It concerns the stationary Markov measure \(\nu\) defined in Section 5, with two independent copies of its Q6 coding.
+
+### 11.1 Exact hull diameter
+
+The Bellman operators
+\[
+(\mathcal L L)_i=\min_{j\sim i}(s(j)+rL_j),\qquad
+(\mathcal U U)_i=\max_{j\sim i}(s(j)+rU_j)
+\]
+are contractions in the sup norm with factor \(r=\lambda^6\). Exact deterministic-policy iteration, followed by exact Bellman verification in \(\mathbb Q(\sqrt5)\), gives
+\[
+\min_i L_i=\frac7{40}-\frac{11}{40}\lambda,
+\qquad
+\max_i U_i=\frac{73}{40}+\frac{51}{40}\lambda.
+\]
+Consequently every component support is contained in a common interval of diameter
+\[
+D=\max_iU_i-\min_iL_i
+=\frac{33}{20}+\frac{31}{20}\lambda.
+\]
+These are exact algebraic identities, not decimal endpoint fits.
+
+### 11.2 Pair-difference automaton
+
+Take two independent Q6 paths, with current states \(p,q\), and define the normalized prefix difference after \(n\) transitions by
+\[
+\delta_n=r^{-n}\sum_{t=1}^{n}r^{t-1}
+\big(s(H_t)-s(H'_t)\big),\qquad \delta_0=0.
+\]
+Writing \(\delta_n=a+b\lambda\), its update under the next pair of transitions \(p\to j\), \(q\to k\) is
+\[
+\boxed{\quad
+(p,q,\delta)\longrightarrow
+\left(j,k,\frac{\delta+s(j)-s(k)}{r}\right),
+\quad j\sim p,\ k\sim q.\quad}
+\]
+Since \(r^{-1}=13+8\lambda\), every difference remains in \(\mathbb Z[\lambda]\).
+
+If the two coded points satisfy
+\[
+|Y-Y'|\le D r^n,
+\]
+then the tail difference is at most \(D\), and therefore
+\[
+|\delta_n|\le 2D.
+\]
+Under the conjugate embedding \(\lambda'=-\varphi\), the contraction becomes \(r'=\varphi^6>1\). The maximum conjugate translation difference is
+\[
+\max_{j,k}|s'(j)-s'(k)|
+=\sum_{m=0}^{5}\varphi^m
+=\varphi(\varphi^6-1),
+\]
+so every reachable prefix difference also satisfies
+\[
+|\delta_n'|\le\varphi.
+\]
+These two exact embedding bounds define the finite automaton: start from all 4096 states \((p,q,0)\), and retain exactly those transitions for which \(|\delta|\le2D\) and \(|\delta'|\le\varphi\). The bounds are checked by exact sign tests in \(\mathbb Q(\sqrt5)\), not floating-point tolerances.
+
+The reachable automaton has:
+- **5566** states \((p,q,a,b)\);
+- **34762** directed transitions;
+- exactly **13** distinct difference values:
+\[
+\begin{aligned}
+\{&( -3,-2),(-3,-1),(-2,-2),(-2,-1),(-1,-1),(-1,0),\
+ &(0,0),(1,0),(1,1),(2,1),(2,2),(3,1),(3,2)\},
+\end{aligned}
+\]
+where each pair denotes \(a+b\lambda\).
+
+This is an exact finite-state pair automaton for all close pairs at the scales used below. It does not assert that every retained state corresponds to an actual support intersection; it is a necessary-state enclosure, which is sufficient for the counting bound.
+
+### 11.3 Exact path-count certificate
+
+Let \(A\) be the integer adjacency matrix of this automaton, counting each ordered pair of allowed one-line transitions. The audit computes the maximum row sum of \(A^{20}\) using integer arithmetic:
+\[
+\boxed{\quad \|A^{20}\|_\infty
+=9412274067081088.\quad}
+\]
+Thus, by submultiplicativity, the exponential growth rate of the number of admissible paired prefixes is at most
+\[
+\rho_*=
+\left(9412274067081088\right)^{1/20}
+\simeq 6.2904936491.
+\]
+
+For two independent stationary Q6 paths, each initial state pair has probability \(1/4096\), and each paired transition has probability \(1/36\). Every pair with \(|Y-Y'|\le Dr^n\) is represented by a path of length \(n\) in the automaton. Therefore, for a constant \(C_0<\infty\) independent of \(n\),
+\[
+(\nu\times\nu)\{|x-y|\le Dr^n\}
+\le C_0\left(\frac{\rho_*}{36}\right)^n.
+\]
+The finite remainder classes modulo 20 are absorbed into \(C_0\).
+
+### 11.4 Consequence for correlation and local dimensions
+
+Define the lower correlation dimension by
+\[
+\underline D_2(\nu)=
+\liminf_{\epsilon\downarrow0}
+\frac{\log (\nu\times\nu)\{|x-y|\le\epsilon\}}
+{\log\epsilon}.
+\]
+The path-count estimate yields the rigorous lower bound
+\[
+\boxed{
+\underline D_2(\nu)\ge
+\frac{\log\!\left(36/
+(9412274067081088)^{1/20}\right)}
+{\log(1/\lambda^6)}
+\simeq 0.6041966.
+}
+\]
+A geometric-scale Markov inequality and Borel--Cantelli argument then give, for \(\nu\)-almost every \(x\),
+\[
+\boxed{
+\underline d_\nu(x):=
+\liminf_{\epsilon\downarrow0}
+\frac{\log\nu(B(x,\epsilon))}{\log\epsilon}
+\ge 0.6041966.
+}
+\]
+In particular, \(\nu\) is **atomless**: a positive-mass atom would have lower local dimension zero, contradicting the almost-everywhere positive bound.
+
+This is a genuine dimension estimate derived from the exact finite automaton. It does **not** prove that the local dimension exists as a limit, that it is constant almost everywhere, or that the measure is absolutely continuous or singular. It also does not determine the full multifractal spectrum \(f(\alpha)\). Those questions remain open.
+
+### 11.5 Reproducibility and status
+
+Implementation: `audits/tsmr_c_iching_overlap_automaton.py`. Regression tests: `tests/test_tsmr_c_iching_overlap_automaton.py`.
+
+| Claim | Status |
+|---|---|
+| Bellman hull extrema and global diameter in \(\mathbb Q(\sqrt5)\) | Exact algebraic computation with exact fixed-point verification |
+| Pair-difference update and embedding bounds | Exact |
+| 5566-state / 34762-transition automaton | Exact finite enumeration |
+| \(\|A^{20}\|_\infty\) certificate | Exact integer computation |
+| Lower correlation-dimension bound | Rigorous consequence of the automaton count |
+| Almost-everywhere lower local-dimension bound | Rigorous consequence via Borel--Cantelli |
+| Atomlessness of the stationary Markov measure | Proved by the positive local-dimension bound |
+| Existence/constancy of exact local dimension; full multifractal spectrum | Open |
+| Absolute continuity versus singularity | Open |
