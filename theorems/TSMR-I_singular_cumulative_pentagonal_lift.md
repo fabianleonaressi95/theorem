@@ -506,3 +506,39 @@ not been computed here. Neither criterion is claimed to apply yet.
 a valid sufficient criterion. Whether its square-root summability holds
 for every vector in this particular golden-Bernoulli compression
 remains open; so do strong stability and the spectral radius of \(D\).
+
+
+## 15. The compressed complement has no unitary part
+
+The strong convergence of the full Markov operator on \(H_0\) yields
+another exact conclusion for its compression \(D=QP|_{QH_0}\).
+
+Suppose \(f\in QH_0\) satisfies
+\[
+\|D^n f\|=\|f\|\qquad\text{for every }n\geq0.
+\]
+Since \(D=QP\), with \(P\) and \(Q\) contractions,
+\[
+\|f\|=\|D f\|=\|QP f\|\leq\|P f\|\leq\|f\|.
+\]
+Equality throughout implies \(Pf=QPf=Df\). Applying the same
+argument to \(Df\), and then inductively, gives
+\[
+D^n f=P^n f\qquad(n\geq0).
+\]
+But \(f\in H_0\) and Section 12 proves \(P^n f\to0\) strongly.
+Consequently \(\|f\|=0\).
+
+Thus the maximal unitary part of the contraction \(D\) is trivial:
+\[
+\boxed{D\text{ is completely non-unitary}.}
+\]
+In particular, \(D\) has no eigenvalue on the unit circle.
+
+This does **not** imply \(\rho(D)<1\). The unilateral backward shift is
+the standard warning: it is strongly stable and has norm and spectral
+radius equal to one, while having no unitary part. Therefore the
+remaining possibilities for our \(D\) include strong stability with
+\(\rho(D)=1\), as well as failure of strong stability through a
+non-unitary component. The orbit-energy criterion in Section 14 is
+designed to distinguish these behaviours.
