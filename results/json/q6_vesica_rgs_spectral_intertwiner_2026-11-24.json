@@ -107,7 +107,7 @@
     "4": 5,
     "6": 1
   },
-  "spectral_polynomial": "f(x)=1/2 + x/120 + x^2/240",
+  "spectral_polynomial": "f(x)=1/2 + x/120 + x^2/240; coefficients derived from the original K0 carrier compression by quadratic functional calculus on the selected Q6 spectrum {0,4,6}",
   "f_selected_eigenvalues": [
     0.5,
     0.6,
@@ -1531,5 +1531,46 @@
     "conclusion": "success",
     "commit": "5942f801048a8d0c1de5b2a707eacad0307b0f27"
   },
-  "combined_RGS_checks_note": "Executed by GitHub Actions on the original K0.npy, P_G.npy, Z_A.npy, Z_S.npy from main; all scalar residuals are below 1e-8."
+  "combined_RGS_checks_note": "Executed by GitHub Actions on the original K0.npy, P_G.npy, Z_A.npy, Z_S.npy from main; all scalar residuals are below 1e-8.",
+  "spectral_polynomial_coefficients": [
+    0.5000000000000001,
+    0.008333333333333677,
+    0.004166666666666612
+  ],
+  "spectral_polynomial_coefficients_rational_recognition": [
+    "1/2",
+    "1/120",
+    "1/240"
+  ],
+  "spectral_polynomial_fit_residual": 0,
+  "upper_triplet_shift": 0.3,
+  "upper_lower_shift_residual": 5.551115123125783e-17,
+  "coefficient_derivation": {
+    "method": "Spectral-projector functional calculus; coefficients are solved from H reconstructed from K0 on the RGS carrier, paired with Q6 Lred eigenmodes 0,4,6",
+    "lower_RGS_spectrum": [
+      0.5,
+      0.6,
+      0.7
+    ],
+    "Q6_reduced_spectrum": [
+      0,
+      4,
+      6
+    ],
+    "coefficients": [
+      "1/2",
+      "1/120",
+      "1/240"
+    ],
+    "upper_lower_shift": "3/10 = 2*0.15",
+    "workflow_run": "https://github.com/fabianleonaressi95/theorem/actions/runs/45414155835",
+    "workflow_conclusion": "success",
+    "scope": "Unique degree-at-most-two functional-calculus representative on the selected three-dimensional sector; not a first-principles physical law or full 64-state equivalence"
+  },
+  "limitations": [
+    "The rank-three map F loses 61 dimensions of arbitrary Q6 fields; retain the full 64-state and nine-component lookup.",
+    "The quadratic polynomial is derived from the original RGS carrier compression and the Q6 spectral projectors; its degree-at-most-two representative is unique on the selected three-point spectrum, but the physical reason for selecting this degree remains open.",
+    "The map is an intertwiner only on the selected three-dimensional Q6 invariant sector, not on all 64 states.",
+    "No continuum or universal physical dynamics claim is made."
+  ]
 }
