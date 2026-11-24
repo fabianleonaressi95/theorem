@@ -2,7 +2,7 @@ name: Jitterbug actual-field and Dirichlet-Neumann audit
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'jitterbug/**']
     paths:
       - "audits/jitterbug_actual_field_dn.py"
       - "tests/test_jitterbug_actual_field_dn.py"
