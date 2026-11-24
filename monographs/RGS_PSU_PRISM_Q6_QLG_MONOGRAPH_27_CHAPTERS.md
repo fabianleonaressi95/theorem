@@ -962,3 +962,10 @@ Let \(D=\operatorname{diag}(1,1,-1)\). In the canonical paired spectral basis th
 ### Vesica–Minkowski interpretation of the RGS half-sign block
 
 The half-sign involution \(D=\operatorname{diag}(1,1,-1)\) is realized as a Lorentz reflection parity on three paired channels of the two null cones whose \(t=1\) sections bound the Vesica Piscis. The two arc endpoints are exchanged and the arc midpoint is fixed, so the reflection-adapted channel basis has eigenvalues \((+1,+1,-1)\). The original RGS BA blocks \(\pm D/2\) therefore admit a concrete three-channel geometric interpretation after the explicit upper-triplet gauge. This is not a full 64-hexagram embedding or a symmetry of the entire 188D \(K_0\) carrier. See [the construction and its scope limits](../research/VESICA_MINKOWSKI_RGS_D_REFLECTION_CHANNEL_REPRESENTATION_2026-11-24.md).
+
+
+### Q6–Vesica–RGS operator bridge: selected invariant sector
+
+The 64-state Q6 graph is split as Q3 Cartesian-product Q3. An operator-adapted trigram map uses Q3 Laplacian eigenmodes 0, 4 and 6, with reflection parities (+,+,-). Its tensor product retains 64 distinct nine-component hexagram features. Within that nine-dimensional space, the symmetric one-excitation sector over the constant mode is a three-dimensional invariant subspace for the compressed Q6 Laplacian and the diagonal Minkowski reflection. The resulting coisometry F from the 64 Q6 labels satisfies F L6 = diag(0,4,6) F and F R6 = D F.
+
+The selected sector is matched to the original RGS lower and upper triplets by the quadratic spectral interpolation f(x)=1/2+x/120+x^2/240 and f(x)+0.3, respectively. The RGS half-scale couplings transport through the same map with the Q6 antipodal reflection. This is a finite-dimensional operator bridge on one selected rank-three invariant sector, not an equivalence of all 64 Q6 states with the 188D RGS system. The quadratic f remains a matching candidate rather than a first-principles law. Full derivation, collision table, and reproducible original-array audit: [Q6–Vesica–RGS spectral intertwiner](../research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md).
