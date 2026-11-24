@@ -197,7 +197,9 @@ def build_actual_mechanism_run(
         "receiver": {
             "count": ncoils, "turns_each": turns, "radius_m": radius,
             "wire_radius_m": wire_radius_m, "resistance_ohm_each": resistance_ohm,
-            "loop_segments": segments,\n            "inductance_kernel": "common regularized Neumann Green kernel for self and mutual entries",\n            "kernel_core_radius_m": wire_radius_m,
+            "loop_segments": segments,
+            "inductance_kernel": "common regularized Neumann Green kernel for self and mutual entries",
+            "kernel_core_radius_m": wire_radius_m,
             "surface_quadrature": {"radial": disk_nr, "angular": disk_ntheta},
         },
         "frames": nframes, "duration_s": float(frame_times[-1]),
