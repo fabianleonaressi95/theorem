@@ -277,6 +277,267 @@ The first memory-kernel norms decay rapidly for each fixed cutoff, but the cutof
 The result is finite-dimensional and empirical: one seed, a truncated Bernoulli series, and an empirical CDF. Independent seeds, larger sample counts, longer series, and certified spectral/norm bounds are still needed. No convergence as H tends to infinity is claimed.
 
 
+## 11. Exact contraction, non-normal memory, and the finite-sample defect
+
+There is an exact operator inequality that constrains the interpretation of every Galerkin table. Since the cumulative-coordinate Markov operator preserves Lebesgue measure,
+[
+int_0^1 mathscr M_g h(t),dt=int_0^1h(t),dt
+]
+for every integrable (h). Jensen's inequality gives
+[
+|mathscr M_g f(t)|^2leq mathscr M_g(|f|^2)(t),
+]
+and therefore
+[
+oxed{|mathscr M_g f|_{L^2}leq|f|_{L^2}.}
+]
+Let (Q_H) be the orthogonal projection onto the resolved complement
+(operatorname{span}{psi_{k,c},psi_{k,s}:2leq kleq H}). Its exact
+compression (D_H=Q_Hmathscr M_gQ_H|_{operatorname{ran}Q_H}) must satisfy
+[
+oxed{|D_H|_{2	o2}leq1,qquad 
+ho(D_H)leq1.}
+]
+Thus a genuine loss of contractivity is mathematically impossible for the
+exact operator compression. Strict contraction, a uniform gap below one,
+and convergence as H tends to infinity do not follow from this inequality.
+
+### Refined empirical audit
+
+The vectorized NumPy audit was rerun with 300,000 samples, 48 Bernoulli
+terms, seed 20261124, and cutoffs through H=16. The result record is
+results/tsmr_i_harmonic_convergence.json.
+
+| H | dim(Q_H) | rho(D_H) | ||D_H||_2 (empirical) | ||K_0||_F | ||K_1||_F | ||K_2||_F | ||K_3||_F |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 2 | 0.21457 | 0.21457 | 0.11524 | 0.02378 | 0.00500 | 0.00106 |
+| 3 | 4 | 0.14899 | 0.47642 | 0.12943 | 0.00387 | 0.00142 | 0.00011 |
+| 4 | 6 | 0.36107 | 0.86673 | 0.12323 | 0.04485 | 0.02413 | 0.00158 |
+| 6 | 10 | 0.31920 | 0.97645 | 0.12497 | 0.05689 | 0.01329 | 0.00201 |
+| 8 | 14 | 0.38050 | 0.99582 | 0.12435 | 0.05528 | 0.01031 | 0.01198 |
+| 10 | 18 | 0.43350 | 1.00115 | 0.12437 | 0.05507 | 0.01825 | 0.00830 |
+| 12 | 22 | 0.41251 | 1.00286 | 0.12449 | 0.05544 | 0.02025 | 0.01012 |
+| 16 | 30 | 0.41403 | 1.00550 | 0.12442 | 0.05520 | 0.01971 | 0.00099 |
+
+The empirical singular norm exceeds one by at most about 0.55% in this
+table (H=16). This is not a physical or operator-theoretic instability:
+it is a finite-sample/empirical-CDF defect, amplified as higher frequencies
+are resolved. The exact contraction theorem above is the benchmark that
+the numerical scheme must respect in the limit. This defect should be used
+as an error diagnostic, not clipped or interpreted as a true norm.
+
+Three further observations are supported by the finite data:
+
+1. The initial coupling stabilizes: ||K_0||_F stays close to 0.1244 from
+   H=4 through H=16.
+2. Higher harmonics change the transient memory profile. In particular,
+   ||K_2||_F and ||K_3||_F are not monotone in H, and the H=8, 12, and 16
+   sequences have visible rebounds at intermediate n. The 2+2 model
+   therefore captures the existence of memory but under-resolves its
+   temporal profile.
+3. For the tested finite sections, rho(D_H) remains below 0.44 and the
+   recorded kernels are very small by n=20. This is evidence for decay in
+   these truncations, not a proof of a uniform spectral gap or of
+   convergence of the infinite-dimensional Mori-Zwanzig kernel.
+
+The current mathematical picture is consequently **contractive but
+potentially non-normal**, with a nontrivial transient memory response.
+The open problem is to control the empirical-CDF error uniformly in H and
+then establish whether the exact complement has a spectral gap, merely
+strong stability, or approximate unit-modulus modes. The audit now records
+both eigenvalue radius and largest singular value; the latter is essential
+because eigenvalues alone miss non-normal transient amplification.
+
+
+## 12. Exact dynamics versus compression of the infinite complement
+
+The question of a gap for the complementary compression must be stated with two
+different operators. Let (P_0) project onto constants, let (Pi_1) project
+onto the first real Fourier pair, and set
+[
+Q=I-P_0-Pi_1,qquad
+D=Qmathscr M_g!
+estriction_{operatorname{ran}Q}.
+]
+The exact Markov contraction gives
+[
+|mathscr M_g|_{2	o2}leq1,qquad
+oxed{|D|_{2	o2}leq1.}
+]
+This is an upper bound, not a strict gap.
+
+### The full Markov operator is strongly mixing
+
+Transfer to the original Bernoulli coordinate by the unitary map
+(f(t)mapsto h(x)=f(F_g(x))). The operator becomes
+[
+(Ph)(x)=	frac12h(lambda x-1)+	frac12h(lambda x+1),
+qquad lambda=arphi^{-1}.
+]
+Let (I=[-R,R]), (R=(1-lambda)^{-1}), and let
+[
+Y=sum_{j=0}^{infty}arepsilon_jlambda^jsim
+u_g.
+]
+For (ngeq1), write
+(S_n=sum_{j=0}^{n-1}arepsilon_jlambda^j). Coupling the same first
+(n) signs in (P^n h(x)) and in a stationary copy
+(Y=S_n+lambda^nY'), with (Y'sim
+u_g) independent, gives for every
+continuous (h) on (I)
+[
+sup_{xin I}|P^nh(x)-
+u_g(h)|
+leq omega_h(2Rlambda^n),
+]
+where (omega_h) is the modulus of continuity of (h). The right-hand
+side tends to zero. Since continuous functions are dense in (L^2(
+u_g))
+and (P) is an (L^2)-contraction, it follows that
+[
+oxed{P^nhlongrightarrow 
+u_g(h),1
+quad	ext{strongly in }L^2(
+u_g).}
+]
+Equivalently, (mathscr M_g^nf	o(int_0^1f),1) strongly in
+(L^2([0,1])). This is an exact strong-mixing statement for the **full**
+Markov operator; it is not an operator-norm estimate.
+
+### What this does not settle for the compressed complement
+
+The compression iterates are
+[
+D^n=(Qmathscr M_gQ)^n!
+estriction_{operatorname{ran}Q},
+]
+which insert (Q) after every step. In general they are not
+(Qmathscr M_g^nQ). Therefore strong convergence of the full Markov
+operator does **not** by itself prove strong stability of (D), nor
+(|D|<1), nor (
+ho(D)<1).
+
+The current finite-section data show eigenvalue radii below one, while the
+largest empirical singular values approach one (the H=8 value near 0.996
+was already present in the preceding audit). This is consistent with a
+non-normal compression whose transient norm is large, but empirical
+finite sections do not decide the infinite-dimensional norm or spectral
+radius. In particular, eigenvalue radii of the finite sections cannot be
+promoted to a uniform spectral gap.
+
+**Answer to the complement-gap question:** the exact infinite compression
+is known to be a contraction, but a strict or uniform spectral gap has
+not been established. Strong stability of the compressed operator itself
+also remains open. The exact strong-mixing theorem above applies to
+(mathscr M_g), not automatically to (Qmathscr M_gQ).
+
+### Required next criterion
+
+A valid gap claim would require a uniform estimate
+[
+sup_{Hgeq H_0}|D_H|_{2	o2}leq1-delta
+quad(delta>0)
+]
+for accurately computed **exact-measure** Galerkin sections, together with
+a convergence/approximation theorem linking those sections to
+(Qmathscr M_gQ). If this fails while (
+ho(D_H)) stays below one,
+the correct alternative to investigate is non-normal strong stability
+without operator-norm decay. The empirical-CDF singular-norm excess above
+one must first be removed by a measure-preserving quadrature or bounded
+as a certified discretization error.
+
+
+## 13. Exact norm of the infinite complementary compression
+
+A stronger statement than mere contractivity is available for the one-step
+compression. Let
+[
+mathcal L=operatorname{span}{1,phi_ccirc F_g,phi_scirc F_g},
+qquad Q=I-P_{mathcal L},
+qquad D=Qmathscr M_g|_{operatorname{ran}Q}.
+]
+Then
+[
+oxed{|D|_{2	o2}=1.}
+]
+In particular, the infinite complementary compression has **no strict
+one-step operator-norm contraction**.
+
+**Proof.** Work in the unitarily equivalent Bernoulli coordinate
+(L^2(
+u_g)), where
+[
+(Ph)(x)=	frac12h(lambda x-1)+	frac12h(lambda x+1).
+]
+Let (mathcal P_2) be the subspace of restrictions to (I) of
+2-periodic (L^2)-functions on the circle (mathbb R/2mathbb Z).
+The pushforward of (
+u_g) to that circle is atomless: each point has
+only finitely many preimages in the compact interval (I), and (
+u_g)
+has no atoms. Hence (mathcal P_2) is infinite-dimensional.
+
+For (hinmathcal P_2), periodicity gives
+[
+Ph(x)=h(lambda x+1)=h(lambda x-1).
+]
+Using invariance of (
+u_g),
+[
+egin{aligned}
+|Ph|_{L^2(
+u_g)}^2
+&=int |h(lambda x+1)|^2,d
+u_g(x)\
+&=rac12intigl(|h(lambda x-1)|^2+
+                         |h(lambda x+1)|^2igr),d
+u_g(x)\
+&=int P(|h|^2)(x),d
+u_g(x)
+ =|h|_{L^2(
+u_g)}^2.
+end{aligned}
+]
+Thus (P) is an isometry on the infinite-dimensional subspace
+(mathcal P_2).
+
+The conditions (hperpmathcal L) and (Phperpmathcal L) impose only
+six linear constraints on (mathcal P_2), because
+(dimmathcal L=3). Their common kernel therefore contains a nonzero
+(h). For such an (h), (Qh=h), (QPh=Ph), and
+[
+Dh=Q P Qh=QPh=Ph,qquad |Dh|_2=|h|_2.
+]
+So (|D|geq1). The reverse inequality follows from the Markov
+contraction and orthogonal projection, proving (|D|=1). (square)
+
+### Consequence for exact Galerkin sections
+
+Let (Q_H) be the orthogonal projection onto the complement harmonics
+(2leq kleq H), and let (D_H=Q_HD Q_H) on that finite-dimensional
+space. Since (Q_H	o Q) strongly, the exact-measure sections satisfy
+[
+oxed{lim_{H	oinfty}|D_H|_{2	o2}=|D|_{2	o2}=1.}
+]
+Indeed, the upper bound is (|D_H|leq|D|); for every fixed unit
+vector (h), (Q_Hh	o h) and (Q_HD Q_Hh	o Dh), giving the matching
+lower limit after taking the supremum over (h).
+
+This explains why the previously observed H=8 value near 0.996 is
+structurally relevant: exact Galerkin singular norms should approach one,
+not a number bounded uniformly below one. The empirical values slightly
+above one at larger H remain discretization errors, since every exact
+section is contractive.
+
+**Important distinction.** The identity (|D|=1) rules out a strict
+one-step norm gap. It does not determine the spectral radius
+(
+ho(D)), nor whether (D^n h	o0) strongly for every (hin QL^2).
+A contraction can have norm one and still have spectral radius below one
+or be strongly stable. The spectral-radius/long-time question for the
+compressed complement therefore remains open. Finite-section eigenvalue
+radii alone do not settle it.
 ## 11. Exact contraction and empirical high-frequency defect
 
 The cumulative-coordinate Markov operator preserves Lebesgue measure:
