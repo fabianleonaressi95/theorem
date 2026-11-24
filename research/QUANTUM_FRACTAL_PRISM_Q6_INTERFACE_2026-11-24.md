@@ -261,3 +261,8 @@ P_q(S)=\sum_{x\in Q_6}|\psi_S(x)|^{2q}=64^{1-q}.
 Thus the character basis is exactly extended on the finite 64-site graph. Its single-size participation exponent is consistent with the uniform control, but one value of \(N\) cannot establish a scaling exponent or exclude multifractality in a different operator.
 
 The Laplacian eigenvalues have degeneracies \(\binom6j\). Arbitrary orthonormal rotations inside a degenerate eigenspace need not preserve individual eigenvector IPRs. Any future multifractal claim must therefore specify a symmetry-adapted basis, use a basis-invariant subspace statistic, or demonstrate robustness under admissible rotations. This prevents basis choice from being mistaken for a physical multifractal signal.
+
+
+## 10. Preservation of the earlier Fibonacci/Q-PRISM work (24 November 2026)
+
+This interface must not be read as restarting multifractal analysis from the Q6 Walsh baseline. The prior RGS–PRISM Fibonacci finite-family concavity work (19 October), the proposed Q-PRISM quantum protocol, and the separate Q6/Xc geodesic-mass test (21 October) are preserved and distinguished in [FIBONACCI_MULTIFRACTAL_QPRISM_PRESERVATION_2026-11-24.md](FIBONACCI_MULTIFRACTAL_QPRISM_PRESERVATION_2026-11-24.md). The earlier finite concavity observation remains part of the research record; asymptotic nonlinearity of `tau_infty(q)` was not established, and the reported data-collapse `R^2=0.032733` was poor. The detailed historical numerical table requires source-data/script replay before being treated as reproducible. Q-PRISM is a proposed protocol, not an executed quantum experiment. The Q6/Xc `concavity=False` diagnostic is a distinct observable/model and does not negate Fibonacci eigenstate multifractality.
