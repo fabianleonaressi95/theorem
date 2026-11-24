@@ -43,7 +43,7 @@ class TestTSMRFMultifractal(unittest.TestCase):
         self.assertAlmostEqual(singular_value_function(matrix, 0.5),
                                math.sqrt(0.5), places=12)
         self.assertAlmostEqual(singular_value_function(matrix, 1.5),
-                               0.5*math.sqrt(0.5*0.25), places=12)
+                               0.5*math.sqrt(0.25), places=12)
 
     def test_finite_pressure_matches_common_scalar_maps(self):
         ratio = 0.4
