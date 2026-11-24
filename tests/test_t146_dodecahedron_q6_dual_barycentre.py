@@ -22,6 +22,16 @@ class TestT146DodecahedronQ6DualBarycentre(unittest.TestCase):
         self.assertLess(r["dodecahedron_q6_edge_chain_antipodal_residual"], 1e-9)
         self.assertTrue(r["checks"]["dodecahedron_edge_chain_antipodal_equivariance"])
 
+    def test_pentagonal_faces_fill_antipodally_in_q6_cubical_two_cells(self):
+        r = audit()
+        self.assertEqual(r["dodecahedron_face_count"], 12)
+        self.assertEqual(r["q6_cubical_square_count"], 240)
+        self.assertLess(r["dodecahedron_to_q6_face_fill_residual"], 1e-9)
+        self.assertLess(r["dodecahedron_to_q6_face_fill_antipodal_residual"], 1e-9)
+        self.assertLess(r["dodecahedron_face_boundary_squared_zero_residual"], 1e-9)
+        self.assertLess(r["q6_cubical_boundary_squared_zero_residual"], 1e-9)
+        self.assertLess(r["q6_square_antipodal_boundary_residual"], 1e-9)
+
     def test_canonical_operator_does_not_claim_target_spectrum(self):
         r = audit()
         eig = np.asarray(r["induced_q6_energy_eigenvalues"])
