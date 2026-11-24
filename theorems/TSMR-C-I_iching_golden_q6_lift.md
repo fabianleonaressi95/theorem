@@ -125,3 +125,73 @@ If a physical observable is later shown to have this measure as its spectral or 
 3. Determine whether the 64-state transfer operator admits a smaller exact representation retaining the required memory, rather than an invalid scalar quotient.
 4. Compare the Markov-coded measure with the i.i.d. golden Bernoulli convolution using Fourier decay, local dimensions, and generalized dimensions.
 5. Only after these steps, investigate whether its CDF conjugates a natural dynamical action to a simpler interval map.
+
+## 9. Transfer spectrum and overlap audit
+
+### 9.1 Exact spectrum of the Q6 transition matrix
+
+For the simple line-flip walk, \(P=A(Q_6)/6\). The hypercube spectrum gives
+\[
+\operatorname{Spec}(P)=\left\{1-\frac{k}{3}: k=0,\ldots,6\right\},
+\qquad
+m_k=\binom{6}{k}.
+\]
+Thus the eigenvalues and multiplicities are
+\[
+1^{(1)},\;(2/3)^{(6)},\;(1/3)^{(15)},\;0^{(20)},
+\;(-1/3)^{(15)},\;(-2/3)^{(6)},\;(-1)^{(1)}.
+\]
+The eigenvalue \(-1\) is the bipartite period-two mode: the walk alternates between even- and odd-parity hexagrams. The chain is irreducible with uniform stationary distribution, but it is not aperiodic. The usual one-sided gap from 1 to the next eigenvalue is \(1/3\); the absolute spectral gap is zero because of \(-1\). A lazy walk would remove this periodicity, but it is a different model and is not silently substituted here.
+
+### 9.2 Fourier transfer matrix
+
+With \(r=\lambda^6\), define
+\[
+f_i(\xi)=\mathbb E[e^{i\xi Y}\mid H_0=i].
+\]
+The conditional recursion is
+\[
+f_i(\xi)=\sum_jP_{ij}e^{i\xi s(j)}f_j(r\xi),
+\qquad
+f(\xi)=M(\xi)f(r\xi),
+\]
+where
+\[
+M(\xi)=P\,D(\xi),\qquad
+D(\xi)=\operatorname{diag}(e^{i\xi s(j)}).
+\]
+Since \(D(\xi)\) is unitary, all singular values of \(M(\xi)\) equal those of \(P\). This is an exact norm statement, but it does **not** imply Fourier decay: the spectral radius and the iterated phase products still matter. At \(\xi=0\), \(M(0)=P\).
+
+### 9.3 Exact translation overlaps and convex-hull diagnostics
+
+The 64 translation states \(s(j)\) take 33 distinct exact values in \(\mathbb Z[\lambda]\), with multiplicities:
+- 12 values occurring once;
+- 12 values occurring twice;
+- 8 values occurring three times;
+- 1 value occurring four times.
+
+The smallest gap between distinct translation values is exactly
+\[
+\min_{u\ne v}|s(u)-s(v)|=\lambda^6=r.
+\]
+This is a finite exact arithmetic statement. Equal translations are distinct hexagram states with different transition neighborhoods in general, which is why their future measures cannot be merged by scalar value alone.
+
+For each state \(i\), the convex hull endpoints of its graph-directed support satisfy the Bellman equations
+\[
+L_i=\min_{j\sim i}(s(j)+rL_j),\qquad
+U_i=\max_{j\sim i}(s(j)+rU_j).
+\]
+Iterating these contractions gives numerical hull enclosures. At 12 iterations, the global endpoint estimates are approximately
+\[
+\min_iL_i\simeq0.0050406531,\qquad
+\max_iU_i\simeq2.6129933357.
+\]
+At the first graph-directed level, 48 parent/child-pair convex-hull overlaps are detected across the 64 parent states. These are **convex-hull overlaps only**: they do not prove that the underlying compact support sets intersect, nor that the measure has interval support. The code reports them as diagnostics, not as a separation or intersection theorem.
+
+### 9.4 Current mathematical conclusion
+
+The Q6 transition spectrum is completely known, and the graph-directed Fourier recursion is explicit. The finite translation geometry has substantial exact coincidences and overlapping child hulls. None of these facts alone establishes atomlessness, singularity, absolute continuity, or multifractality of \(\nu\). The next analytical task is to study the matrix cocycle
+\[
+M(\xi)M(r\xi)\cdots M(r^{n-1}\xi)
+\]
+and the exact state-labelled overlap graph, retaining all 64 states (or proving a valid smaller automaton).
