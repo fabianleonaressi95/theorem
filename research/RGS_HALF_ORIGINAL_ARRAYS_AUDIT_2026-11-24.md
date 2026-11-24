@@ -128,13 +128,13 @@ K_0J_A=J_A\operatorname{diag}(0.5,0.6,0.7),\quad
 K_0J_B=J_B\operatorname{diag}(0.8,0.9,1.0),
 \]
 \[
-Z_AJ_A=\frac12J_B,\qquad Z_AJ_B=-\frac12J_A.
+Z_AJ_A=-\frac12J_B,\qquad Z_AJ_B=+\frac12J_A.
 \]
 This explicitly reconstructs a three-channel (J_A\leftrightarrow J_B) pairing from the original 188D arrays. The common spectral channel ordering makes the earlier low-branch involution
 \[
 \mathcal I_A=P_{0.5}+P_{0.6}-P_{0.7}
 \]
-act as \(\operatorname{diag}(1,1,-1)\) on (J_A), exactly the previously recorded sign pattern. This confirms that the sign pattern is a spectral involution on the lower triplet. It does **not** identify the old shorthand (Z_A^{BA}=\tfrac12\operatorname{diag}(1,1,-1)) with the full skew 188D (Z_A): in the reconstructed paired basis the (J_A\to J_B) block of (Z_A) is (+\tfrac12I_3). Keep those two operators/notations distinct unless the original basis conventions establish an additional channel-sign gauge.
+act as \(\operatorname{diag}(1,1,-1)\) on (J_A), exactly the previously recorded sign pattern. This confirms that the sign pattern is a spectral involution on the lower triplet. It does **not** identify the old shorthand (Z_A^{BA}=\tfrac12\operatorname{diag}(1,1,-1)) with the full skew 188D (Z_A): in the reconstructed paired basis the (J_A\to J_B) block of (Z_A) is (-\tfrac12I_3). Keep those two operators/notations distinct unless the original basis conventions establish an additional channel-sign gauge.
 
 The numerical reconstruction and a deterministic basis-extraction script are provided in `audits/reconstruct_rgs_half_carrier_basis.py`. Running it writes `results/npz/RGS_HALF_CARRIER_BASIS.npz` and its JSON audit. The script fixes the basis by coordinate-ordered Gram–Schmidt of (P_+e_j), then pairs it with (2Z_AV); hence it does not depend on arbitrary eigenvector choices inside the degenerate (+1/2) eigenspace.
 
