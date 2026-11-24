@@ -30,6 +30,9 @@ on:
       - "theorems/TSMR-I_singular_cumulative_pentagonal_lift.md"
       - "audits/tsmr_i_cumulative_pentagon.py"
       - "tests/test_tsmr_i_cumulative_pentagon.py"
+      - "audits/tsmr_i_markov_blocks.py"
+      - "tests/test_tsmr_i_markov_blocks.py"
+      - "results/tsmr_i_golden_markov_blocks.json"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
     branches: [main]
@@ -59,6 +62,9 @@ on:
       - "theorems/TSMR-I_singular_cumulative_pentagonal_lift.md"
       - "audits/tsmr_i_cumulative_pentagon.py"
       - "tests/test_tsmr_i_cumulative_pentagon.py"
+      - "audits/tsmr_i_markov_blocks.py"
+      - "tests/test_tsmr_i_markov_blocks.py"
+      - "results/tsmr_i_golden_markov_blocks.json"
       - ".github/workflows/tsmr02-chaos-game.yml"
 
 jobs:
@@ -70,4 +76,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run TSMR-02, TSMR-03, TSMR-F, TSMR-C, TSMR-H, and TSMR-I regression tests
-        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 tests.test_tsmr_c_iching_overlap_automaton tests.test_tsmr_h_half_balance tests.test_tsmr_i_cumulative_pentagon -v
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 tests.test_tsmr_c_iching_overlap_automaton tests.test_tsmr_h_half_balance tests.test_tsmr_i_cumulative_pentagon tests.test_tsmr_i_markov_blocks -v
