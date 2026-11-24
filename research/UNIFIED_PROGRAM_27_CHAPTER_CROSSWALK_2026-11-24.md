@@ -199,3 +199,82 @@ The defensible common programme is not an asserted equality among Vesica, Mandel
 \to\text{measurable predictions}.}
 \]
 The monograph already contains most of the mathematical and computational sectors needed to investigate it. The next work is to complete the crosswalk, reconcile inventory drift and prove each connecting map at its proper level, preserving every prior result and every open caveat.
+
+
+## 9. Supplemental strands recovered from the 23–24 November conversations
+
+These items extend the chapter crosswalk and must remain linked to their existing source records. They are included because they were developed in prior conversations and should not disappear merely because they sit in appendices or newer research branches.
+
+### 9.1 Fullerene C60/C64, Stone–Wales 90° and Vesica–Kathara–Q6
+
+**Existing dossiers:** research/FULLERENE_STONE_WALES_90_DEGREE_VESICA_BRIDGE.md; docs/VESICA_NEEDHAM_BONILLA_SQRT3_PHI_DOSSIER_2026-11-18.md; docs/VESICA_STAR_DAVID_JITTERBUG_PHASE_BRIDGE.md; docs/64TG_VESICA_MORANDOTTI_BRIDGE.md; C60 transport cross-audits in C60_TRANSPORTS_GH_CROSSAUDIT_2026-11-21.md and the associated JSON.
+
+Preserve the exact graph/fullerene counts:
+- C60 truncated icosahedron: 60 vertices, 90 edges, 32 faces = 12 pentagons + 20 hexagons.
+- Classical C64 fullerene: 64 vertices, 96 edges, 34 faces = 12 pentagons + 22 hexagons.
+- C60→C64 requires ΔV=4, ΔE=6, ΔF=2 and carbon insertion/growth. It is not a Stone–Wales move.
+- Stone–Wales 90° is a local bond reconnection; it conserves atom/vertex count and is distinct from growth. The move redistributes local connectivity and face structure; the IPR is impossible for C64 with 12 pentagons.
+
+The candidate crosswalk to Kathara–Q6 is the commutative condition R' S90 = Q90 R, with the existing chain maps R0∈Z^(64×12), R1∈Z^(192×21), R2∈Z^(240×10). Their chain identities and T116 nondegenerate rank condition rank(R2)=10 are already reported as satisfied for the original construction. The new obligation is to verify the chain identities after the Stone–Wales move and build explicit pre/post incidence matrices. A rigid rotation Q'=U90 Q U90^T preserves eigenvalues; a Stone–Wales reconnection changes connectivity and relaxed electronic density, so spectral invariance cannot be inferred from rigid rotation.
+
+**Status:** geometric/counting identities exact; Stone–Wales ↔ Kathara–Q6 map candidate; C60→C64 selective conversion unproved; electronic tensor/transport bridge requires pre/post graph, incidence matrices and a defined electronic model. The 23-November article branch research/h2-de-aquino-response had PR #403 in draft state; its reported 8/8 regression result and claim ledger are not a merge or a physical validation. Preserve the reported commit 15fd00f140b8afba78795afaf02007cc5a56edc5 and verify current PR/branch state before further mutation.
+
+### 9.2 Q6–I Ching golden lift, cumulative morphodynamics and TSMR-F
+
+Three previously unindexed theorem files were reconciled into the 239-record dependency graph:
+- TSMR-C-I_iching_golden_q6_lift.md → provisional Q6 thematic hub.
+- TSMR-C_cumulative_morphodynamics.md → provisional PRISM/symbolic-dynamics hub.
+- TSMR-F_multifractal_morphological_equation.md → provisional PRISM/symbolic-dynamics hub.
+
+**TSMR-C-I exact finite coding:** lines are read bottom-to-top, yang=1 and yin=0. 100 is Zhen (Thunder), 011 is Xun (Wind/Wood). With λ=φ^−1 and λ²=1−λ, the trigram observable π3(g)=d0+d1λ+d2λ² has the exact collision π3(100)=π3(011)=1. The six-line observable π6(h)=Σ d_k λ^k maps 64 hexagrams to 33 values. This scalar partition is not strongly lumpable for the Q6 random walk: 21 of the 33 classes have differing transition profiles. The 64-state lift must be retained, or sufficient memory added.
+
+**TSMR-C cumulative morphodynamics:** for atomless Borel probability μ on [a,b], Fμ(x)=μ([a,x]) is continuous and nondecreasing; it is strictly increasing iff every nonempty open interval has positive μ-mass (full support). Then Fμ pushes μ to uniform Lebesgue measure. If μ is singular, F'μ=0 Lebesgue-a.e. Full support and singularity are independent properties. The golden Bernoulli application at λ=φ^−1 is conditional on the required non-atomicity, full-support and singularity results; it is not identified with the Minkowski question-mark measure. A conjugacy transported by Fμ requires Fμ to be a homeomorphism and the dynamics to be specified on both spaces.
+
+**TSMR-F:** the IFS attractor and self-similar measure equations are exact; separated two-branch Cantor–Bernoulli generalized dimensions are exact under separation. The anisotropic singular-value pressure in the record is a finite-level diagnostic; existence of a limiting pressure, equality with Hausdorff dimensions and the multifractal formalism need additional assumptions. A fractal support alone does not imply a multifractal measure.
+
+**Recent Q6 automaton evidence from 24 November:** the project audit reports 5,566 pair-automaton states, 34,762 transitions and 13 golden differences; the certificate ||A^20||∞=9412274067081088; atomlessness and the lower bound D2≥0.6041966 are reported as proved in the project record. The support interval, singularity versus absolute continuity, existence of exact local dimension and full f(α) remain open. This is project-specific and must always be cited with the precise measure definition, automaton construction, data and audit. Do not restate the lower bound as an exact value D2=0.6041966.
+
+**Test provenance:** earlier TSMR-02 work reports test suites A/B/C (8+6+7=21 checks) on controlled IFS, vesica and discrete-complex examples. These tests do not prove that the real Q6/PRISM measure is multifractal or that a Vesica attractor has a physical interpretation. PR #405 was later reported merged at commit 8e9cedd1269a78bae5058d093f5738166e9bc2b0; check live GitHub status before citing this as current. PR #406 comparative TSMR-C-I/FDT note was reported open, not merged.
+
+### 9.3 Minkowski M1–M3, Farey, singular functions and SLE
+
+Preserve the three project records M1/M2/M3 separately:
+- M1: Q6 Hölder/gauge/strong-resolvent question. A proposed Hölder counterexample does not refute the theorem; Q6 finiteness does not itself imply continuum Nielsen–Ninomiya.
+- M2: Minkowski–Q6 one-axis reflection.
+- M3: Minkowski–Q6 D4 cell-orbit closure.
+
+M2/M3 are exact finite symmetry/closure audits under their declared actions, not a proof that the classical Minkowski question-mark function is the cumulative distribution of the golden Bernoulli measure. The latter is a separate measure-theoretic problem (TSMR-C).
+
+The polariton comparison uses Panico et al.'s 7/4 contour scaling and SLE/percolation interpretation. This must be compared to Q6 only after matching the random object, observable, measure, finite-size scaling and universality class. Do not compare 7/4 directly to the Q6 lower correlation dimension, the Hausdorff dimension 2 of the Mandelbrot boundary, or the spectral dimension of a graph.
+
+### 9.4 PRISM Fibonacci/QVSM and the R0/R1/R2 maps
+
+The previously obtained R0, R1 and R2 results are to be reused, not rediscovered. The Kathara–Q6 chain maps have declared shapes 64×12, 192×21 and 240×10; their chain identities were already checked, with T116 recording the nondegenerate lift and rank(R2)=10. The next task is a post-move comparison for Stone–Wales, not a fresh derivation of the original maps.
+
+The PRISM Fibonacci/QVSM branch contains exact algebraic scale identities and separate numerical phase/sector audits. Keep the 69,120-site graph, Fibonacci block data, QVSM phases and the 14-site cube–octahedron model distinct. The supergolden companion matrix Aψ and its characteristic polynomial λ³−λ²−1=0 are an algebraic object; its non-real eigenvalues obstruct identifying it directly with a reversible self-adjoint relaxation generator. Historical R0/R1/R2 values and phase scans must retain their input hashes and scripts.
+
+### 9.5 Golden zeta, cotangent, Fibonacci transfer and fullerene/Maxwell bridge
+
+The 23-November golden-zeta dossier reports exact identities including
+\[
+\Delta_5=\\pi\\sqrt{25+10\\sqrt5}=\\pi\\sqrt{15+20\\varphi},
+\]
+and the standard expansion of π cot(πx) in even zeta values for 0<|x|<1 (x=0 is a pole). The constant Cφ=8.0802127733210986785… and Fibonacci transfer roots (2.611461069, 5.222922137, …) are recorded numerical values, not independent physical constants. The zeta–φ–cotangent identities are analytic; the Maxwell/fullerenes connection remains a programme until the electromagnetic tensor is derived from the fullerene graph and calibrated.
+
+### 9.6 Bibliographic originality and finite-type overlap literature
+
+The finite-type/graph-directed overlap framework is established in the literature (including work by Lau–Ngai, Ngai–Wang–Dong, Feng–Feng, Rutar and Xie). The specific Q6–I Ching golden Markov construction may be a novel model, but its originality is not bibliographically certified by the existence of general finite-type machinery. The comparative literature review must identify the precise object, transition matrix, overlap type and theorem that is new.
+
+### 9.7 Other preserved physical and historical strands
+
+Keep the following as linked comparative dossiers, not as unverified consequences of RGS:
+- Wyler/D5/fine-structure constant: invariant measure and normalization audit, ETH/IAS archive trail and correspondence; no claim that a numerical match alone derives α.
+- Ratti vacuum-extraction proposal: critical bibliography and quantitative falsifiability audit; not evidence for vacuum energy extraction, FDT or RGS.
+- De Aquino, Rauscher, Fortunadrago–Ighina and related nonstandard claims: source-provenance and critical audit only.
+- Florenskij's reverse perspective and icosahedral/C6 comparisons: geometric/art-historical analogy and exact finite matrix identities kept separate from physical spin.
+- Pellis scalar spectrum and 2I representation dossiers; Morandotti collaboration; QCD/Yang–Mills, monopole, QHD–Euler–MHD, Q-ball and wormhole branches; entanglement/AdS-CFT comparisons (Van Raamsdonk, Ryu–Takayanagi, Maldacena, Swingle, Tononi); De Aquino threshold and other proposed physical correspondences.
+- The network-dynamics application (knowledge/resilience/competence models) remains an application programme with its own source register, model specification, data dictionary, tests and implementation status; it is not a theorem of the 27-chapter physical monograph.
+
+## 10. Conversation-to-repository preservation principle
+
+Conversation summaries are useful discovery indexes, not substitutes for the canonical source files. Where a prior chat reports a result, this register preserves the exact claim and its reported status, but the current theorem file, audit, commit and data hash take precedence. The full conversation archive is not represented as exhaustively re-read in one operation; this is a consolidated recovery from available prior-chat context plus the live repository snapshots. New recovered strands should be appended here and cross-linked to their canonical records rather than copied into theorem statements.
