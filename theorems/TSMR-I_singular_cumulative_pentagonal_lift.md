@@ -1032,3 +1032,30 @@ The implementation supplies this analytic derivative and an independent central 
 **Critical qualification:** the recovered Q6 embedding is three-dimensional and its six-direction pullback Gram has rank at most three. The seed does not supply a circumcentric dual-face measure. Therefore (A_p^0/A_p) is a declared conditional face-area weight, not a uniquely determined DEC Hodge star or continuum Yang–Mills action. The model remains separate from the existing plaquette-only Wilson action until the dual measure and continuum scaling are derived.
 
 **Evidence status:** exact finite derivative for the declared face-area action; numerical verification is pending the CI run for PR #218. Still OPEN: dual measure, full metric-compatible matter/gauge action, equilibrium dynamics and Gibbs measure, FDT normalization, physical stress covariance, Green–Kubo convergence and Stokes matching. No viscosity is claimed.
+
+
+The same implementation PR #218 now also includes a matter-gradient sector
+derived from the repository's existing metric-weighted 1D affine-P1 graph
+stiffness. For the two PSU sheets,
+[
+S_m=\frac{\kappa}{2}\sum_{e=(u,v)}\frac{
+\|\psi_+(v)-U_{uv}\psi_+(u)\|^2+
+\|\psi_-(v)-U_{uv}\psi_-(u)\|^2}{L_e},
+\qquad L_e=|X_v-X_u|.
+]
+This is a covariant graph Dirichlet action, not a Dirac action. Since
+[
+\frac{\dot L_e}{L_e}=\frac{d_e^THd_e}{|d_e|^2},
+]
+its exact fixed-field shear response is
+[
+\Pi_{xy}^{m}=\frac{\kappa}{2V}\sum_e
+\frac{\|D_e\psi_+\|^2+\|D_e\psi_-\|^2}{L_e}
+\frac{d_e^THd_e}{|d_e|^2}.
+]
+An independent central-difference test is included. This provides a
+metric-dependent matter-gradient sector tied to the already implemented
+P1 stiffness, but not yet a continuum-normalized physical matter stress.
+The face-Hodge gauge term and P1 matter term remain conditional finite
+sectors until the dual measure, common action normalization and equilibrium
+dynamics are established.
