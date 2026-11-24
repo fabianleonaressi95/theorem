@@ -981,3 +981,41 @@ The next work is now sharply specified:
   *Journal of Physics A: Mathematical and Theoretical* **58** (2025),
   405001, DOI: 10.1088/1751-8121/ae02cc.
 
+
+
+### 17.6 Action-level Q6 shear audit: the current finite action does not yet carry shear stress
+
+A concrete audit was added to the implementation repository in
+[PR #217](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/217),
+using the existing finite Euclidean action
+`src/unified_discrete_action.py` and its analytic directional derivative
+`src/unified_discrete_gradients.py`. It defines, for a declared symmetric
+traceless coframe shear (H),
+[
+e_v(\gamma)=(I+\gamma H)e_v,qquad
+\Pi_H^{\rm action}=-V^{-1}\left.\frac{dS_{Q6}}{d\gamma}\right|_0.
+]
+
+This gives an exact derivative of the *implemented finite action*, with an
+independent central-difference audit. It also exposes a structural
+obstruction rather than closing the physical identification:
+
+- the present Wilson plaquette term depends on link holonomies only, not on
+  the coframe or a metric/Hodge star;
+- the hopping, twin and quartic terms depend on the coframe through
+  determinant-volume factors only; for traceless (H),
+  (d\log|\det e_v|/d\gamma|_0=\mathrm{tr}(H)=0);
+- therefore these terms have zero first-order response to this shear;
+- the only possible nonzero contribution in the current action is the
+  fixed-frame coframe-difference regularizer.
+
+Thus (Pi_H^{\rm action}) is a legitimate action derivative under the
+declared finite model and strain, but it is **not yet** the full microscopic
+shear stress required by Green–Kubo. The model needs metric-dependent edge
+kinetics and a metric-dependent gauge/Hodge term, followed by an equilibrium
+dynamical model and covariance normalization. No physical viscosity is
+inferred from this response.
+
+**Status:** exact finite action derivative specified; implementation audit
+and PR #217 open for review; physical stress identification, equilibrium
+dynamics, FDT, Green–Kubo and Stokes matching remain OPEN.
