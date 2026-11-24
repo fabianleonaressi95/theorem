@@ -34,6 +34,7 @@ on:
       - "tests/test_tsmr_i_markov_blocks.py"
       - "audits/tsmr_i_memory_reduction.py"
       - "tests/test_tsmr_i_memory_reduction.py"
+      - "results/tsmr_i_memory_reduction.json"
       - "results/tsmr_i_golden_markov_blocks.json"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
@@ -68,6 +69,7 @@ on:
       - "tests/test_tsmr_i_markov_blocks.py"
       - "audits/tsmr_i_memory_reduction.py"
       - "tests/test_tsmr_i_memory_reduction.py"
+      - "results/tsmr_i_memory_reduction.json"
       - "results/tsmr_i_golden_markov_blocks.json"
       - ".github/workflows/tsmr02-chaos-game.yml"
 
