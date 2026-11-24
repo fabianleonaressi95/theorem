@@ -189,3 +189,79 @@ def translation_multiplicity_profile() -> tuple[tuple[int, int], ...]:
     """Return (class size, number of classes) for the 64 exact translations."""
     counts = Counter(len(states) for states in scalar_classes(6).values())
     return tuple(sorted(counts.items()))
+
+
+def changed_line_index(parent: int, child: int) -> int:
+    """Return bottom-to-top line index 0..5 changed from parent to child."""
+    diff = parent ^ child
+    if diff == 0 or diff.bit_count() != 1:
+        raise ValueError("parent and child must differ in exactly one line")
+    bit_position = diff.bit_length() - 1
+    return 5 - bit_position
+
+
+def labelled_hull_overlap_graph(iterations: int = 64):
+    """Return labelled pairs of overlapping child support-hulls.
+
+    Each record is (parent, child_a, child_b, line_a, line_b, overlap_left,
+    overlap_right). Line labels are bottom-to-top indices 0..5. Endpoints are
+    floating-point Bellman approximations; the output is a diagnostic graph
+    of convex-hull overlaps, not an exact support-intersection graph.
+    """
+    from math import sqrt
+    if iterations < 1:
+        raise ValueError("iterations must be positive")
+    lam = (sqrt(5.0) - 1.0) / 2.0
+    ratio = lam ** 6
+    shifts = [golden_float(golden_value(h, 6)) for h in range(64)]
+    lower = [0.0] * 64
+    upper = [0.0] * 64
+    for _ in range(iterations):
+        lower, upper = (
+            [min(shifts[j] + ratio * lower[j] for j in q6_neighbors(i))
+             for i in range(64)],
+            [max(shifts[j] + ratio * upper[j] for j in q6_neighbors(i))
+             for i in range(64)],
+        )
+    records = []
+    for parent in range(64):
+        children = [
+            (shifts[j] + ratio * lower[j],
+             shifts[j] + ratio * upper[j], j)
+            for j in q6_neighbors(parent)
+        ]
+        for a, b in __import__("itertools").combinations(children, 2):
+            left, right = max(a[0], b[0]), min(a[1], b[1])
+            if left <= right:
+                records.append((
+                    parent, a[2], b[2],
+                    changed_line_index(parent, a[2]),
+                    changed_line_index(parent, b[2]),
+                    left, right,
+                ))
+    return tuple(records)
+
+
+def fourier_characteristic_uniform(xi: float, depth: int = 80) -> complex:
+    """Finite-depth characteristic function of the stationary Markov coding.
+
+    Computes 64^{-1} 1^T M(xi) M(r xi)...M(r^(depth-1)xi) 1.
+    This is a numerical finite-depth value, not an asymptotic decay theorem.
+    """
+    from cmath import exp
+    from math import sqrt
+    if depth < 1:
+        raise ValueError("depth must be positive")
+    lam = (sqrt(5.0) - 1.0) / 2.0
+    ratio = lam ** 6
+    shifts = [golden_float(golden_value(h, 6)) for h in range(64)]
+    vector = [1.0 + 0.0j] * 64
+    for k in range(depth - 1, -1, -1):
+        frequency = xi * (ratio ** k)
+        weighted = [exp(1j * frequency * shifts[j]) * vector[j]
+                    for j in range(64)]
+        vector = [
+            sum(weighted[j] for j in q6_neighbors(i)) / 6.0
+            for i in range(64)
+        ]
+    return sum(vector) / 64.0
