@@ -146,7 +146,7 @@ The numerical reconstruction and a deterministic basis-extraction script are pro
 In the ordered eigenbasis ((J_A,J_B)), the restrictions are
 \[
 K_0=\operatorname{diag}(0.5,0.6,0.7,0.8,0.9,1.0),\quad
-Z_A=\frac12\begin{pmatrix}0&-I_3\\I_3&0\end{pmatrix},\quad
+Z_A=\frac12\begin{pmatrix}0&I_3\\-I_3&0\end{pmatrix},\quad
 Z_S=\frac12\begin{pmatrix}I_3&0\\0&-I_3\end{pmatrix}.
 \]
 Let (R_3) be the cyclic permutation matrix on three channels. The diagonal action \(\rho(g)=\operatorname{diag}(R_3,R_3)\) commutes with (Z_A) and (Z_S), but not with (K_0). Its commutator Frobenius norm with the restricted (K_0) is
