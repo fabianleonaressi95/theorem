@@ -1,4 +1,5 @@
 import unittest
+from fractions import Fraction
 
 from audits.tsmr_c_iching_q6 import (
     golden_value,
@@ -42,8 +43,9 @@ class TSMRIChingGoldenQ6Tests(unittest.TestCase):
         # Eigenvalues are 1-k/3 with binomial multiplicities C(6,k).
         self.assertEqual(
             q6_walk_spectrum(),
-            ((1.0, 1), (2/3, 6), (1/3, 15), (0.0, 20),
-             (-1/3, 15), (-2/3, 6), (-1.0, 1)),
+            ((Fraction(3, 3), 1), (Fraction(2, 3), 6), (Fraction(1, 3), 15),
+             (Fraction(0, 3), 20), (Fraction(-1, 3), 15),
+             (Fraction(-2, 3), 6), (Fraction(-3, 3), 1)),
         )
 
     def test_graph_directed_hulls_are_bounded_and_ordered(self):
