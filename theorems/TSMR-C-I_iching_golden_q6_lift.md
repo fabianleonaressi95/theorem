@@ -181,7 +181,7 @@ For each state \(i\), the convex hull endpoints of its graph-directed support sa
 L_i=\min_{j\sim i}(s(j)+rL_j),\qquad
 U_i=\max_{j\sim i}(s(j)+rU_j).
 \]
-Iterating these contractions gives numerical hull enclosures. At 12 iterations, the global endpoint estimates are approximately
+Iterating these contractions from zero gives monotone numerical endpoint approximations; the remaining error is bounded by a geometric tail of order \(r^{12}\) times the global range. At 12 iterations, the global endpoint estimates are approximately
 \[
 \min_iL_i\simeq0.0050406531,\qquad
 \max_iU_i\simeq2.6129933357.
