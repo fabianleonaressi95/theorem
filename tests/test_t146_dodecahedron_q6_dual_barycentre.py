@@ -13,6 +13,13 @@ class TestT146DodecahedronQ6DualBarycentre(unittest.TestCase):
         self.assertEqual(r["dodecahedron_vertex_degree_set"], [3])
         self.assertTrue(r["antipodal_dual_graph_automorphism"])
 
+    def test_edge_chain_map_commutes_with_boundary(self):
+        r = audit()
+        self.assertLess(r["dodecahedron_q6_edge_chain_boundary_residual"], 1e-9)
+        self.assertEqual(r["dodecahedron_q6_edge_chain_path_lengths"], {"2": 12, "4": 18})
+        self.assertEqual(r["chain_induced_energy_rank"], 19)
+        self.assertTrue(r["checks"]["dodecahedron_edge_chain_boundary_commutes"])
+
     def test_canonical_operator_does_not_claim_target_spectrum(self):
         r = audit()
         eig = np.asarray(r["induced_q6_energy_eigenvalues"])
