@@ -426,3 +426,75 @@ one-step norm gap. It does not determine the spectral radius
 \(\rho(D)\), nor whether \(D^nh\to0\) strongly for every \(h\in QL^2\).
 Those long-time questions remain open. Finite-section eigenvalue radii
 alone do not settle them.
+
+
+## 14. Orbit-energy criterion for strong stability of the complement
+
+The full Markov operator restricted to the mean-zero space
+\[
+H_0=\{f:\int f\,d\nu_g=0\}
+\]
+is a strongly stable contraction, by Section 12. The first-harmonic complement
+\[
+QH_0=\operatorname{ran}Q,\qquad
+D=QP|_{QH_0}
+\]
+is a finite-codimension compression of that stable contraction.
+
+A relevant sufficient criterion is Kérchy–Müller, *Compressions of stable contractions*,
+Integral Equations and Operator Theory **58** (2007), 477–486,
+DOI: 10.1007/s00020-007-1500-6. Their Corollary 5 states that if \(T\)
+is a stable contraction and \(T_P\) is an orthogonal compression, then
+for a given vector \(f\),
+\[
+\sum_{n=0}^{\infty}
+\left(\|T_P^n f\|^2-\|T_P^{n+1}f\|^2\right)^{1/2}<\infty
+\quad\Longrightarrow\quad
+\|T_P^n f\|\longrightarrow0.
+\]
+This is a sufficient orbit-by-orbit condition, not an automatic conclusion.
+
+For \(f_n=D^nf\in QH_0\), orthogonality of \(Q\) and invariance of
+the mean-zero space give the exact identity
+\[
+\boxed{
+\begin{aligned}
+\|f_n\|^2-\|f_{n+1}\|^2
+={}&\frac14\int
+|f_n(\lambda x-1)-f_n(\lambda x+1)|^2\,d\nu_g(x)\\
+&+\|\Pi_1 P f_n\|^2 .
+\end{aligned}}
+\]
+Indeed, the first term is \(\|f_n\|^2-\|Pf_n\|^2\), by the two-branch
+variance identity and invariance of \(\nu_g\); the second is the norm
+lost when \(P f_n\) is projected away from the first-harmonic plane.
+The constant component is zero because \(P\) preserves the mean.
+
+Consequently, a rigorous route to strong stability is to prove, for
+each \(f\in QH_0\), summability of the square roots of these two
+nonnegative losses along its compressed orbit. It is not enough that
+the losses themselves have finite sum: that follows by telescoping for
+every contraction and is automatic.
+
+### Defect-index route and its present limitation
+
+Finite-codimension compression theorems also give stability under
+additional finite-defect hypotheses. One relevant result of Benhida–
+Timotin assumes a stable contraction with finite defect
+\(\dim\overline{\operatorname{ran}(I-T^*T)^{1/2}}<\infty\).
+For the present Bernoulli operator, the defect form is
+\[
+\|f\|^2-\|Pf\|^2
+=\frac14\int|f(\lambda x-1)-f(\lambda x+1)|^2\,d\nu_g(x).
+\]
+The difference map has infinite-dimensional range: for example,
+testing exponential functions \(f_\xi(y)=e^{i\xi y}\) with distinct
+\(\xi\) for which \(\sin\xi\ne0\) produces distinct exponential
+functions proportional to \(e^{i\xi\lambda x}\). Thus the
+finite-\(d_T\) hypothesis is not available from this model. No claim
+is made here about the other defect index.
+
+**Status.** The orbit-energy identity is exact. Kérchy–Müller supplies
+a valid sufficient criterion. Whether its square-root summability holds
+for every vector in this particular golden-Bernoulli compression remains
+open; so do strong stability and the spectral radius of \(D\).
