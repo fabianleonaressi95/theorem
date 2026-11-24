@@ -230,7 +230,7 @@ The spherical coordinates contain a structurally forced half:
 [
 z=pmrac12,qquad ho=sqrt{1-z^2}=rac{sqrt3}{2}.
 ]
-These are not arbitrary fitted latitudes. A 120-degree orbit on the unit sphere has chord length (sqrt3); choosing its orbit plane at height (z=pm1/2) gives the two equilateral triangles used above. Equivalently, their colatitudes are (pi/3) and (2pi/3), so the axial projection is (cos(pi/3)=1/2). The same (1/2) is the familiar midpoint coordinate of the unit-separation two-vertex Vesica/Minkowski setup, but the midpoint and the spherical latitude are different geometric objects.
+These are not arbitrary fitted latitudes. A 120-degree orbit on the unit circle has chord length (sqrt3); on the unit sphere, choosing the orbit planes at height (z=pm1/2) gives horizontal radius \\(\\sqrt3/2\\) and triangle side length \\(3/2\\) for the two equilateral triangles used above. Equivalently, their colatitudes are (pi/3) and (2pi/3), so the axial projection is (cos(pi/3)=1/2). The same (1/2) is the familiar midpoint coordinate of the unit-separation two-vertex Vesica/Minkowski setup, but the midpoint and the spherical latitude are different geometric objects.
 
 There is also a prior RGS datum that must be compared rather than silently identified with this coordinate. In the 6 October 2026 stepping-operator calculation, the isolated rank-three block was reported as
 [
