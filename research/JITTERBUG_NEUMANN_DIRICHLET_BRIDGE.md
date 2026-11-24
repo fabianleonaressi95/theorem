@@ -103,11 +103,30 @@ On the mean-zero subspace, the graph Green operator is \(L_0^\dagger\). It solve
 
 ### 7.2 Green–Kubo as a dynamical resolvent, not merely a static Green function
 
-For the reversible OU process dX=−γL0X dt+√(2γσ²L0)dW, with the constant mode removed, and J=b^TX,
+Let \(H_0=\{x\in\mathbb R^{64}:\mathbf1^Tx=0\}\), and restrict \(L_0\) to \(H_0\), where it is strictly positive. The specified reversible OU process is
+\[
+dX_t=-\gamma L_0X_t\,dt+\sqrt{2\gamma\sigma^2L_0}\,dW_t,
+\qquad X_t\in H_0,\quad \gamma,\sigma>0.
+\]
+Its backward generator on smooth functions on \(H_0\) is
+\[
+(\mathscr Lf)(x)=-\gamma\langle L_0x,\nabla f(x)\rangle
++\gamma\sigma^2\operatorname{Tr}\!\left(L_0\nabla^2f(x)\right),
+\]
+where the gradient and Hessian are taken intrinsically on \(H_0\). The invariant law is the centered Gaussian \(N_{H_0}(0,\sigma^2I_{H_0})\); equivalently its stationary covariance, viewed on \(\mathbb R^{64}\), is \(\Sigma=\sigma^2P_{H_0}\), with \(P_{H_0}=I-\frac1{64}\mathbf1\mathbf1^T\). The constant mode is therefore absent, not merely assigned a finite relaxation time.
 
-\[\int_0^\infty\langle J(t)J(0)\rangle dt=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle.\]
-
-Equivalently, resolving the Q6 eigenvalues \(2k\) gives the established inverse-spectral sum \(\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\|P_kb\|^2/k\). Its isotropic Q6 mean is 1517σ²/(7560γ). In the closed-face OU model, the corresponding exact mean is 2263σ²/(15480γ). These are exact for their declared reversible OU models; neither number is a measured material viscosity.
+For \(b\in H_0\), define the centered linear observable/current \(J_b(t)=\langle b,X_t\rangle\). Then
+\[
+C_b(t)=\mathbb E_{\rm eq}[J_b(t)J_b(0)]
+=\sigma^2\langle b,e^{-\gamma L_0t}b\rangle.
+\]
+Since \(L_0|_{H_0}>0\), this correlation is integrable and
+\[
+\boxed{\int_0^\infty C_b(t)\,dt
+=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle
+=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.}
+\]
+For arbitrary \(b\in\mathbb R^{64}\), the observable depends only on \(b_0=P_{H_0}b\), so the right-hand side must use \(b_0\). The isotropic Q6 mean for \(b\) uniform on the unit sphere of \(H_0\) is \(1517\sigma^2/(7560\gamma)\). In the distinct closed-face OU model, the corresponding exact mean is \(2263\sigma^2/(15480\gamma)\). These are exact for their declared reversible OU models; neither number is a measured material viscosity.
 
 The continuum counterpart is the familiar resolvent identity for a reversible generator \(\mathcal L\): the time-integrated equilibrium correlation is an inverse-generator quadratic form on the centered subspace, provided the integral converges. Thus the shared architecture is gradient → positive Laplacian/energy → Green or inverse operator → time correlation/resolvent. The static Q6 fourth-moment law Δμ4=−8w⁴FQ6 supplies a separate curvature functional; it does not itself specify the stochastic generator or the stress observable.
 
