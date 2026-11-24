@@ -86,3 +86,8 @@ Therefore no nontrivial factorwise \(C_3\times C_3\) action can preserve the ful
 ## Proof status and limitations
 
 This is a **finite numerical proposition** for the four stored arrays. The identities are verified to floating-point tolerance, not proved as exact rational identities for an abstract family. The deterministic script must be run to regenerate the basis NPZ and JSON report. No physical interpretation, continuum limit, or universal theorem is claimed.
+
+
+## Geometric realization of the channel involution
+
+The involution \(D=\operatorname{diag}(1,1,-1)\) has an exact realization as the parity representation of the Minkowski reflection \((t,x,y)\mapsto(t,x,-y)\) on three paired channels of the two null cones defining the Vesica. The reflection swaps the two endpoint channels and fixes the central channel; in the orthonormal even/odd basis its matrix is \(D\). Under the recovered upper-triplet gauge \(J_B^\sharp=-J_BD\), this is the geometric channel interpretation of the numerical BA blocks \(\pm D/2\). This identifies the finite-dimensional coupling block with a Vesica–Minkowski reflection representation, but does not extend to a full 188D intertwiner or encode all 64 hexagrams. See [the explicit construction](../research/VESICA_MINKOWSKI_RGS_D_REFLECTION_CHANNEL_REPRESENTATION_2026-11-24.md).
