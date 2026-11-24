@@ -1019,3 +1019,26 @@ inferred from this response.
 **Status:** exact finite action derivative specified; implementation audit
 and PR #217 open for review; physical stress identification, equilibrium
 dynamics, FDT, Green–Kubo and Stokes matching remain OPEN.
+
+
+A second, separate geometric edge-response identity from the earlier Q6
+stress construction is retained as such. If
+(w_e(\gamma)=|d_e(\gamma)|^{-2}) and
+(d_e(\gamma)=(I+\gamma H)d_e), with
+(H=(E_{xy}+E_{yx})/2), then
+[
+w'_e(0)=-2\frac{d_{e,x}d_{e,y}}{|d_e|^4}.
+]
+For a declared edge Hamiltonian
+(H_{\rm link}(\gamma)=\sum_e w_e(\gamma)E_e), holding (E_e)
+fixed in this variation,
+[
+\Pi_{xy}^{Q6}
+=-\frac1V\partial_\gamma H_{\rm link}|_0
+=\frac2V\sum_e\frac{d_{e,x}d_{e,y}}{|d_e|^4}E_e.
+]
+This derivative is now implemented and finite-difference-auditable in
+PR #217. It is not identified with the plaquette-only Wilson action in the
+current unified Q6 model: the edge energies (E_e) and their dependence on
+the geometry must be derived from a single declared action before the two
+constructions can be combined.
