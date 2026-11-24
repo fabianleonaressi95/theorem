@@ -26,9 +26,9 @@ class GoldenBernoulliCollisionTests(unittest.TestCase):
     def test_first_collision_is_exact(self):
         # 1 = lambda + lambda**2, hence 100 and 011 have the same image.
         # Sum of powers 1 and 2 is (0,1)+(1,-1) = (1,0).
-        self.assertEqual((1, 0), (0, 1)) if False else None
         # (0,1) + (1,-1) = (1,0), the exact reduced form of lambda + lambda**2.
-        self.assertEqual((1, 0), tuple(x + y for x, y in zip((0, 1), (1, -1))))
+        reduced_lambda_plus_lambda_squared = (0 + 1, 1 - 1)
+        self.assertEqual((1, 0), reduced_lambda_plus_lambda_squared)
 
     def test_distinct_sum_counts(self):
         expected = {1: 2, 2: 4, 3: 7, 4: 12, 5: 20}
