@@ -90,6 +90,80 @@ def conditional_expectation(j: int) -> np.ndarray:
     return e
 
 
+def decode_state_permutation(P: np.ndarray,
+                             states: np.ndarray) -> np.ndarray:
+    """Decode a permutation matrix on Q6 states into an index map.
+
+    Returns ``idx`` with ``idx[i] = j`` iff ``P[i, j] != 0``.
+    Raises if ``P`` is not a genuine permutation matrix.
+    """
+    P = np.asarray(P, dtype=np.float64)
+    if P.shape != (N_SITES, N_SITES):
+        raise ValueError("expected a 64x64 permutation matrix")
+    if not np.allclose(P @ P.T, np.eye(N_SITES)) or \
+            not set(np.unique(P)) <= {0.0, 1.0}:
+        raise ValueError("matrix is not a 0/1 permutation matrix")
+    idx = np.argmax(np.abs(P), axis=1)
+    if not np.array_equal(np.sort(idx), np.arange(N_SITES)):
+        raise ValueError("matrix is not a permutation")
+    return idx
+
+
+def describe_induced_map(idx: np.ndarray,
+                         states: np.ndarray) -> dict:
+    """Classify the induced map on six-bit strings.
+
+    Checks, in order: bitwise complement of a coordinate subset,
+    coordinate permutation, coordinate swap, or 'other'.
+    """
+    st = [tuple(int(b) for b in row) for row in states]
+    img = [st[i] for i in idx]
+    out = {"kind": "other", "detail": None,
+           "examples": [[list(st[i]), list(img[i])] for i in range(4)]}
+    # bitwise complement of a subset of columns
+    for mask in range(1, 1 << N_BITS):
+        cols = [a for a in range(N_BITS) if (mask >> a) & 1]
+        if all(img[i] == tuple(
+                st[i][a] ^ (1 if a in cols else 0) for a in range(N_BITS))
+               for i in range(N_SITES)):
+            out["kind"] = "bit_flip"
+            out["detail"] = {"flipped_columns_0based": cols,
+                             "flipped_columns_1based": [a + 1 for a in cols]}
+            return out
+    # coordinate permutation pi: img[i][a] = st[i][pi[a]]
+    import itertools
+    for perm in itertools.permutations(range(N_BITS)):
+        if all(img[i] == tuple(st[i][perm[a]] for a in range(N_BITS))
+               for i in range(N_SITES)):
+            out["kind"] = "coordinate_permutation"
+            out["detail"] = {"image_col_a_takes_input_col": list(perm)}
+            return out
+    return out
+
+
+def permutation_matrix_from_map(idx: np.ndarray) -> np.ndarray:
+    """Rebuild the permutation matrix from an index map (independent
+    reconstruction, does not reuse the stored array)."""
+    P = np.zeros((N_SITES, N_SITES), dtype=np.float64)
+    P[np.arange(N_SITES), idx] = 1.0
+    return P
+
+
+def coordinate_swap_matrix(a: int, b: int) -> np.ndarray:
+    """Permutation matrix swapping columns ``a`` and ``b`` (0-based)
+    of the six-bit state strings.  Synthetic control only."""
+    if a == b or not (0 <= a < N_BITS) or not (0 <= b < N_BITS):
+        raise ValueError("need two distinct column indices in [0,5]")
+    states = np.array(list(itertools.product((0, 1), repeat=6)),
+                      dtype=np.int64)
+    idx = np.empty(N_SITES, dtype=int)
+    for i, row in enumerate(states):
+        swapped = list(row)
+        swapped[a], swapped[b] = swapped[b], swapped[a]
+        idx[i] = int(np.ravel_multi_index(tuple(swapped), (2,) * N_BITS))
+    return permutation_matrix_from_map(idx)
+
+
 def operator_inventory(arrays: dict[str, np.ndarray]) -> dict[str, dict]:
     """Provenance-identified 64x64 operators on the Q6 vertex space.
 
@@ -169,6 +243,19 @@ def operator_inventory(arrays: dict[str, np.ndarray]) -> dict[str, dict]:
                        "not a PRISM/Kathara candidate"),
         "role": "discrimination control only",
     }
+    # Reviewer-hypothesis control: the transposition of columns 2 and 4
+    # (0-based), i.e. 1-based columns 3 and 5, which was conjectured to be
+    # the action of Pi_AT.  NOT a stored operator; included to reproduce
+    # the independently computed commutator values and to demonstrate
+    # that a genuine coordinate swap DOES break the filtration.
+    ops["reviewer_swap_cols_2_4_control"] = {
+        "matrix": coordinate_swap_matrix(2, 4),
+        "provenance": ("SYNTHETIC CONTROL: coordinate transposition "
+                       "(0-based cols 2<->4 = 1-based cols 3<->5); "
+                       "hypothesis control, NOT the stored Pi_AT "
+                       "(which decodes to a bit flip of columns 3,4,5)"),
+        "role": "hypothesis control only",
+    }
     return ops
 
 
@@ -238,6 +325,20 @@ def run_audit() -> dict:
             **audit_operator(spec["matrix"], projections, W),
         }
 
+    # --- exact decode of the stored involutions ---
+    permutation_decode = {}
+    for name in ("Q6_antipodal", "Pi_AT"):
+        P = arrays[name].astype(np.float64)
+        idx = decode_state_permutation(P, states)
+        rebuilt = permutation_matrix_from_map(idx)
+        permutation_decode[name] = {
+            "induced_map": describe_induced_map(idx, states),
+            "reconstruction_max_abs_diff":
+                float(np.abs(rebuilt - P).max()),
+            "is_involution": bool(np.array_equal(idx[idx],
+                                                 np.arange(N_SITES))),
+        }
+
     # eigenvalue comparison for the Laplacian control: full spectrum vs
     # Walsh-character eigenvalues 2|S| (exact identity cross-check)
     L = ops["Q6_laplacian"]["matrix"]
@@ -259,9 +360,17 @@ def run_audit() -> dict:
             "definition": ("E_j = conditional expectation onto functions of "
                            "the first j columns of Q6_states "
                            "(columns 0..j-1); suffix columns j..5 averaged"),
+            "preservation_criterion": (
+                "for affine coordinate maps x -> P x + b (P a "
+                "coordinate permutation, b a bit-flip vector), "
+                "E_j is preserved iff P maps the kept coordinate set "
+                "{0,...,j-1} onto itself; the flip vector b is "
+                "unrestricted. For a general (non-affine) vertex map "
+                "no such criterion is claimed"),
             "levels": list(range(N_BITS + 1)),
             "projection_checks": proj_checks,
         },
+        "permutation_decode": permutation_decode,
         "operators": per_operator,
         "laplacian_spectrum_check": laplacian_check,
         "missing_operators": {
