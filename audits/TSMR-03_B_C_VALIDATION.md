@@ -16,6 +16,8 @@ Implementation: `audits/tsmr03_vesica_geometry.py`. Tests:
 - Bivesica and trivesica are explicitly defined as unions of translated
   vesica boundaries; this is a chosen test geometry, not a universal
   definition of those terms.
+- A two-map affine recursion generates finite vesica generations with
+  contraction factors 0.45 and 0.25 along the principal axes.
 - Box-count slopes are reported only as finite-scale estimates. A smooth
   vesica boundary is expected to have asymptotic box dimension 1; the
   numerical test uses a broad tolerance and does not establish fractality.
@@ -35,8 +37,8 @@ Implementation: `audits/tsmr03_discrete_refinement.py`. Tests:
 
 ## Scope and limitations
 
-These tests provide a minimal, exact homological model and a controlled
-spectral-refinement experiment. They do **not** yet test the user's full
+These tests provide exact low-dimensional homological models and controlled
+spectral-refinement experiments. They do **not** yet test the user's full
 Q6/PRISM complexes, higher-dimensional cellular boundary maps, nontrivial
 torsion, or a physical transport law. Those require importing the actual
 complexes and defining their refinement maps. No inference about a
