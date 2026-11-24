@@ -287,3 +287,10 @@ The earlier quadratic-Wick formula remains valid for its explicitly declared Gau
 
 
 The concrete central-force follow-up derives the same-energy strain-Hessian matrix A^{ij}=partial_{xi_ij}K|_0, including the geometric-stiffness term, and the stress expansion Pi_ij=c_ij^T u-(1/2)u^T A^{ij}u+O(|u|^3). Its matching finite OU Green–Kubo formula includes both linear and quadratic stress correlations. See `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`, §§3–5. Here A^{ij} is derived from the embedding and spring constants, not fitted independently. The physical 3D Jitterbug fibre lift remains open.
+
+
+## 10. Golden memory hierarchy: separate spectral supplement
+
+The proposed `\varphi)-hierarchy for relaxation rates and stress weights, its infrared integrability criterion, and the distinct role of the spherical Stokes factor `\pi` are recorded in [Q6 golden memory spectrum and the Green–Kubo–Stokes comparison](Q6_GOLDEN_MEMORY_SPECTRUM_GREEN_KUBO_2026-11-24.md).
+
+The supplement explicitly distinguishes the TSMR geometric overlap measure, the spectrum of a dynamical relaxation generator, and the stress spectral measure. It also records that the finite standard Q6 Laplacian has a positive gap and therefore cannot, by itself, generate an infinite hierarchy of rates accumulating at zero. The golden ansatz is classified as a candidate, not as a consequence of the existing finite-Q6 or OU calculations.

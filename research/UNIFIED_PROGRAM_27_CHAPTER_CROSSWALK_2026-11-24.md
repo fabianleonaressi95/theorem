@@ -645,3 +645,50 @@ The merged Jitterbug continuation independently verifies the finite 12-joint/24-
 ## 12.15 GL(6,2)-affine Walsh-filtration mixing audit (24 November 2026)
 
 The Q6/Walsh filtration audit was extended from stored involutions to the full affine class T(x)=Px+b, P in GL(6,2). Exact block criterion [U_T,E_j]=0 iff P[0:j,j:]=0 (500/500 verified); pure translations preserve every level; S6 gives 51 distinct profiles with only the identity fully preserving; trigram block GL(3,2)^2 gives 16 profiles with exact zeros at the j=3 trigram boundary; the EQC/Aut(Q6) generators REV and ROT supply naturally distinguished nontrivial profiles. Generic GL(6,2) mixing remains an algebraic counterexample class, not a physical operator; no coupled weighted vertex operator was identified. Report: docs/QUANTUM_FRACTAL_Q6_GL2_AFFINE_AUDIT.md; data: results/quantum_fractal_q6/gl2_affine_audit.json; tests: tests/test_q6_gl2_affine.py (7 passed). Monograph placement: chapter 2 (Q6 Fourier/Laplacian) and chapter 4 (trigrams/bit coding), as finite algebraic filtration evidence only.
+### 12.15 Exact affine Q6/Walsh commutator theorem (24 November 2026)
+
+The ordered-prefix Walsh filtration is not invariant under the full cube automorphism group. The theorem record [Q6 affine Walsh mixing theorem](Q6_AFFINE_WALSH_MIXING_THEOREM_2026-11-24.md) proves, for T(x)=Px+b, the exact commutator law in terms of r_j=dim(V_j intersect P^{-T}V_j): ||[U_T,E_j]||_F^2=2^(j+1)-2^(r_j+1), while the spectral norm is 0 iff r_j=j, otherwise 1. The translation b changes only Walsh phases and cannot cause mixing. The natural graph automorphism group is (F_2)^6 semidirect S_6, order 46,080; all 720 coordinate permutations were enumerated and yield 51 distinct commutator profiles. Coordinate swaps are genuine Q6 graph automorphisms and can break the ordered filtration, but no stored Anti-Twin/PRISM operator selects such a swap. In particular, Pi_AT and Q6_antipodal are bit-flip translations and preserve every level. This is an exact finite theorem plus exhaustive group census, not evidence of multifractal scaling or physical memory decay. Cross-links: monograph chapters 2–5 (Q6, Walsh/cubical structure) and 12–14 (Anti-Twin/RGS interface); no new chapter number.
+
+
+### 12.16 Vesica–Minkowski–hexagram bridge (24 November 2026)
+
+The research record [VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md](VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md) makes explicit that the 64 six-bit Q6 vertices can be identified with the 64 hexagrams after fixing the line-bit convention: each hexagram is an ordered pair of lower and upper three-bit trigrams. This gives the intrinsic set decomposition \(\mathbb F_2^6=\mathbb F_2^3\oplus\mathbb F_2^3\), and the (GL(3,2)\times GL(3,2)) subgroup preserves the (j=3) trigram boundary in the affine-filtration audit of PR #437.
+
+The same record gives the exact (2+1)-dimensional Minkowski construction of two null cones whose (t=-1) sections are unit circles; their disk intersection is the Vesica Piscis. It carefully distinguishes the cone-surface intersection curve from the spatial common chord. The proposed identification of the lower/upper trigram factors with the two conic sheets is **open**: it requires explicit maps, a target metric/causal relation, incidence compatibility and equivariance. The 64-hexagram bijection does not by itself identify Q6 edges or operators with I Ching relations, nor does the (3+3) split alone produce Lorentzian geometry.
+
+**Placement:** chapters 2–5 (Q6 and binary filtration), 12–14 (Vesica/Anti-Twin/two-sector geometry); chapters 15–17 only after a frame/coframe construction. Cross-links: T137, T142, T143 and PR #437. No new theorem number is assigned.
+
+
+### 12.17 Explicit two-cone realization of the 64 hexagrams (24 November 2026)
+
+The bridge record now includes an explicit finite map of the 64 hexagrams into the product of two sampled future-null-cone patches in Minkowski (2+1). The two unit-circle arcs are chosen as the portions of each circle lying inside the other disk; hence both sampled arcs lie on the Vesica boundary. Each hexagram maps injectively to an ordered pair of cone points, one selected by the lower trigram and one by the upper trigram. Their spatial midpoint lies in the Vesica by convexity, while the relative displacement retains the information lost by the midpoint projection. The Q6 graph incidence factors as (Q_3\square Q_3), with each edge changing one conic-sheet factor.
+
+This is an exact finite geometric realization once the trigram-to-angle bijection is fixed. The angular assignment is a model choice; Q6 edge lengths are not automatically uniform, and (GL(3,2)\times GL(3,2)) is not automatically an isometry group of the arcs. The construction does not yet derive physical dynamics, an action, or a continuum spacetime theory. See [the detailed construction and status gates](VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md). Placement: chapters 2–5 and 12–14; later frame/torsion chapters only after a separate derivation.
+
+
+The reproducible implementation and numerical checks are in [the audit script](../audits/audit_vesica_hexagram_two_cone.py) and [its JSON result](../results/json/vesica_hexagram_two_cone_audit.json). The corrected eight-point sampling covers each full 120-degree arc with angular step (2\pi/21); all 64 pairs and 192 Q6 edges pass the finite checks. The midpoint projection has 57 distinct values (eight equal-index pairs coincide), so the relative displacement is required to retain the full state.
+
+
+### 12.18 Equivariant C3×C3 extension and invariant Q6 operator (24 November 2026)
+
+The follow-up record [C3×C3 equivariant sphere/null-cone and Q6 operator](C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md) resolves the planar fixed-point obstruction by embedding the eight trigram states into S²: the two fixed trigrams occupy the poles and the two three-cycles occupy equilateral triangles at latitudes z=±1/2. The map intertwines the finite-field action T(a,b,c)=(b,a+b,c) with a 120-degree rotation about the z-axis. Two copies of these sections give an injective 64-state product embedding into two 3+1D null-cone sections.
+
+This is an enlarged 3+1D construction, **not** an equivariant realization on the earlier 2+1D Vesica arcs or a proof that all eight states lie in the old Vesica lens. The ordinary cross-sheet distance is not invariant under independent rotations; its Reynolds average is invariant but discards relative azimuthal phase.
+
+The standard Q6 Laplacian is also not invariant under this GL(3,2) element, since T does not preserve Hamming adjacency. The research note defines instead the Reynolds-averaged product operator Lbar6=Lbar3⊗I8+I8⊗Lbar3. Its support has 256 weighted edges (versus 192 standard Q6 edges); it is positive semidefinite and C3×C3 invariant. This is a new operator on the same 64 states, not a replacement for the standard Q6 Laplacian. The finite identities and orbit counts are audited separately. Placement: chapters 2–5 (finite Q6/operator structure), 12–14 (Vesica/two-sheet geometry), and 15–17 only as a higher-dimensional null-cone extension pending a physical frame/action derivation. No new theorem number is assigned.
+
+
+### 12.19 Exact spectrum of the C3×C3-invariant Q6 operator (24 November 2026)
+
+The equivariant-operator note now records the exact rational spectrum. The factor operator has characteristic polynomial
+\[
+\chi_{\overline L_3}(\lambda)
+=\lambda(\lambda-2)(3\lambda-8)^3(3\lambda-14)^3/729,
+\]
+so its eigenvalues are 0, 2, 8/3 (multiplicity 3), and 14/3 (multiplicity 3). The product operator has eigenvalues 0, 2, 8/3, 4, 14/3, 16/3, 20/3, 22/3, 28/3 with multiplicities 1, 2, 6, 1, 12, 9, 6, 18, 9 respectively. Its kernel is one-dimensional and its spectral gap is exactly 2, matching the standard Q6 gap while the remaining spectra differ. This equality of gaps is a finite operator fact, not a continuum or physical equivalence. The standard-library audit now checks the rational factor eigenvalue multiplicities by exact Gaussian elimination and builds the product spectrum. Cross-link: [equivariant sphere/null-cone and Q6 operator](C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md). No new theorem number is assigned.
+
+
+### 12.20 The recurring one-half: spherical geometry versus the RGS stepping block
+
+The C3-equivariant sphere construction contains the exact axial coordinates z=±1/2, with latitude radius √3/2 and triangle side 3/2. The value is fixed by the chosen 120-degree orbit geometry; it is not a fitted parameter. It must be distinguished from the earlier Vesica midpoint coordinate 1/2 and from the RGS stepping-operator block recorded on 6 October 2026:
+Z_A^{BA}=(1/2)diag(1,1,−1), Z_S^{BA}=−Z_A^{BA}, z_A=(1/2,1/2,−1/2), supported on the isolated J_A↔J_B block with Δk=3. The earlier spectral involution was I_A=P_0.5+P_0.6−P_0.7, restricting to diag(1,1,−1) on J_A. These are structurally suggestive shared coefficients/sign patterns, not yet an established operator identity. The original arrays Z_A.npy, Z_S.npy, K0.npy and P_G.npy must be recovered to identify the subspace and test an explicit intertwiner with the C3 representation sectors or the averaged Q6 eigenspaces. This comparison is open; no theorem number is assigned. Full qualification: [C3×C3 equivariant sphere/null-cone and Q6 operator](C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md), section 11.

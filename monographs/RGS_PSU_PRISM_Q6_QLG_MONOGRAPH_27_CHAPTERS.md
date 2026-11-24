@@ -908,3 +908,42 @@ The exterior-square splitting has dimensions \(3+9+3\), with \(\Lambda^2C_6\) ei
 ## Cross-repository preservation and literature crosswalk (24 November 2026)
 
 The chapter structure and canonical theorem records above are supplemented by the [Unified 27-chapter crosswalk and preservation register](../research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md). That register maps the existing theorem clusters, companion-repository documents, scripts, audits, data and external literature onto all 27 chapters. It does not replace this monograph or reclassify theorem status. It also records an inventory reconciliation item: the live tree contained 239 theorem Markdown paths at the 24 November snapshot, while the existing dependency graph reports 236. This discrepancy was reconciled on 24 November 2026: the three omitted records are TSMR-C-I_iching_golden_q6_lift.md, TSMR-C_cumulative_morphodynamics.md and TSMR-F_multifractal_morphological_equation.md. They were added as provisional thematic-index nodes, not proof dependencies. The graph now records 239 theorem files, 292 nodes and 323 edges; its 54 reviewed direct crosswalk edges were not changed.
+
+
+## Addendum — Vesica Piscis, Minkowski cones and the 64 hexagrams (24 November 2026)
+
+The 64 vertices of Q6 are identified with the 64 six-line hexagrams once a fixed convention maps the six binary coordinates to line values and orders them as lower and upper trigram:
+\[
+H=(L,U)\in\mathbb F_2^3\times\mathbb F_2^3.
+\]
+This is an exact bijection of sets. It makes the (3+3) split intrinsic to the hexagram composition, rather than an arbitrary partition of six bits. It does **not** by itself identify Q6 edges, faces, Laplacian or dynamics with traditional I Ching relations. Gray-code ordering remains a computational enumeration and is not the line-bit convention.
+
+The affine-filtration audit in PR #437 supplies the algebraic companion: the (GL(3,2)\times GL(3,2)) block-diagonal subgroup preserves the (j=3) boundary. The full exact criterion is the vanishing of the upper-right block in the audited row/column convention; lower block-triangular mixing can also preserve the ordered-prefix filtration, so the block-diagonal subgroup is not the entire stabilizer.
+
+For the geometric side, in Minkowski (2+1) with (ds^2=-dt^2+dx^2+dy^2), null cones from ((0,0,0)) and ((0,1,0)) cut the slice (t=-1) in the circles (x^2+y^2=1) and ((x-1)^2+y^2=1). Their disks intersect in the Vesica Piscis, with common chord endpoints \((1/2,\pm\sqrt3/2)\). The two cone surfaces intersect in a spacetime curve, not in that chord; the chord is the curve's intersection with the chosen time slice.
+
+The proposed interpretation of the lower and upper trigram factors as two geometric conic sheets remains **open**. It needs explicit maps from trigram states to geometric objects, a declared Lorentzian metric and causal relation, incidence compatibility with Q6, and an equivariance proof for the claimed symmetry group. The complete status ledger and construction gates are in [the research note](../research/VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md).
+
+
+### Addendum — explicit two-cone realization of the 64 hexagrams
+
+The Vesica–Minkowski–hexagram record now gives an explicit finite realization: two future null cones in Minkowski (2+1), with apexes one unit apart, are sampled on the 120-degree arcs of their unit-circle sections that lie inside the opposite disk. Eight sample directions on each arc encode the eight lower and upper trigrams. Each of the 64 hexagrams is the ordered pair of the corresponding cone points. Both spatial endpoints lie in the Vesica lens, so their midpoint lies there by convexity; the relative displacement is retained because the midpoint alone is not injective. The two-angle configuration space carries the product metric (d\theta^2+d\varphi^2), and the Q6 edge incidence factors as (Q_3\square Q_3).
+
+The construction is exact as a finite geometric model after fixing the trigram-to-angle bijection. It does not yet establish a canonical angular assignment, uniform Q6 edge lengths, geometric (GL(3,2)\times GL(3,2))-equivariance, physical dynamics, or a continuum limit. The harmonic separation functional in the research note is a candidate geometric coupling, not a derived physical energy. Full equations and proofs are in [the research record](../research/VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md).
+
+
+The finite construction is backed by [a standard-library audit script](../audits/audit_vesica_hexagram_two_cone.py) and [machine-readable results](../results/json/vesica_hexagram_two_cone_audit.json). The corrected sampling uses step (2\pi/21) across each full 120-degree arc. The midpoint map is not injective (57 distinct midpoint values for 64 ordered pairs), but midpoint plus relative displacement reconstructs every pair.
+
+
+### Addendum — C3×C3-equivariant spherical null-cone extension
+
+A subsequent construction resolves the finite-group equivariance obstruction by enlarging each cone section from the planar circle in Minkowski (2+1) to the unit sphere S² in Minkowski (3+1). The eight trigram states map injectively to two poles and two equilateral latitude triangles at z=±1/2. The order-three finite-field map T(a,b,c)=(b,a+b,c) is intertwined exactly with rotation by 120 degrees about the z-axis. Taking two copies yields an injective product representation of all 64 hexagrams and an isometric C3×C3 action on the product of the spherical sections.
+
+This construction must remain distinct from the earlier Vesica-lens construction: it does not show that all eight spherical samples lie in the old planar lens, and it does not make the old 2+1D arc sampling equivariant. The ordinary inter-sheet distance is not invariant under independent rotations; a finite-group average is invariant but removes relative azimuthal phase.
+
+There is also an operator consequence. T is not an automorphism of the Hamming cube Q3, so the standard Q6 Laplacian is not C3×C3 invariant. Averaging the Q3 Laplacian over the three conjugates of T gives a positive-semidefinite C3-invariant operator; its product sum on 64 states is C3×C3 invariant and has 256 weighted support edges, compared with 192 edges in standard Q6. It is a distinct finite operator, not the standard cube Laplacian. The full construction, proofs, limitations and reproducible audit are in [the equivariance research note](../research/C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md).
+
+
+### Addendum — exact spectrum of the C3×C3-invariant finite operator
+
+For the Reynolds-averaged factor Laplacian, the exact characteristic polynomial is λ(λ−2)(3λ−8)^3(3λ−14)^3/729. Its spectrum is 0, 2, 8/3 (multiplicity 3), and 14/3 (multiplicity 3). The product operator on the 64 hexagrams has spectrum 0, 2, 8/3, 4, 14/3, 16/3, 20/3, 22/3, 28/3 with multiplicities 1, 2, 6, 1, 12, 9, 6, 18, 9. Its kernel is one-dimensional and its spectral gap is exactly 2, the same as standard Q6; the remaining spectra differ. This is an exact finite-dimensional spectral result for a new C3×C3-invariant operator, not a claim that the standard Q6 Laplacian is invariant or that a physical continuum limit has been obtained. See [the full proof and audit](../research/C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md).

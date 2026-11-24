@@ -1,0 +1,32 @@
+name: Q6 pair-transfer stress bridge audit
+
+on:
+  push:
+    paths:
+      - "audits/tsmr_q6_stress_transfer_bridge.py"
+      - "audits/tsmr_c_iching_overlap_automaton.py"
+      - "audits/tsmr_c_iching_q6.py"
+      - "audits/q6_central_force_ou_green_kubo.py"
+      - ".github/workflows/tsmr-q6-stress-transfer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pair-transfer-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install numerical dependency
+        run: python -m pip install numpy
+      - name: Run exact-state transfer audit
+        env:
+          PYTHONPATH: .
+        run: python audits/tsmr_q6_stress_transfer_bridge.py
+      - name: Run central-force OU Green-Kubo benchmark
+        run: python audits/q6_central_force_ou_green_kubo.py

@@ -1,0 +1,87 @@
+{
+  "status": "all assertions passed (independent calculation of the script's exact checks)",
+  "trigram_states": 8,
+  "trigram_orbit_sizes": [
+    1,
+    1,
+    3,
+    3
+  ],
+  "hexagram_states": 64,
+  "C3xC3_orbit_histogram": {
+    "1": 4,
+    "3": 8,
+    "9": 4
+  },
+  "Q3_standard_edges": 12,
+  "Q3_C3_invariant_union_edges": 16,
+  "Q3_invariant_edge_multiplicity_histogram": {
+    "2": 12,
+    "3": 4
+  },
+  "Q6_standard_edges": 192,
+  "Q6_C3xC3_invariant_union_edges": 256,
+  "sphere_embedding_distinct_points": 8,
+  "sphere_embedding_radius_residual_max": 2.220446049250313e-16,
+  "equivariance_residual_max": 4.577566798522237e-16,
+  "reynolds_Q3_total_edge_conductance": 12,
+  "geometry_scope": "S2 sections of 3+1D null cones; not the previous 2+1D Vesica lens arcs",
+  "Q3_averaged_laplacian_spectrum_exact": [
+    {
+      "eigenvalue": "0",
+      "multiplicity": 1
+    },
+    {
+      "eigenvalue": "2",
+      "multiplicity": 1
+    },
+    {
+      "eigenvalue": "8/3",
+      "multiplicity": 3
+    },
+    {
+      "eigenvalue": "14/3",
+      "multiplicity": 3
+    }
+  ],
+  "Q6_averaged_laplacian_spectrum_exact": [
+    {
+      "eigenvalue": "0",
+      "multiplicity": 1
+    },
+    {
+      "eigenvalue": "2",
+      "multiplicity": 2
+    },
+    {
+      "eigenvalue": "8/3",
+      "multiplicity": 6
+    },
+    {
+      "eigenvalue": "4",
+      "multiplicity": 1
+    },
+    {
+      "eigenvalue": "14/3",
+      "multiplicity": 12
+    },
+    {
+      "eigenvalue": "16/3",
+      "multiplicity": 9
+    },
+    {
+      "eigenvalue": "20/3",
+      "multiplicity": 6
+    },
+    {
+      "eigenvalue": "22/3",
+      "multiplicity": 18
+    },
+    {
+      "eigenvalue": "28/3",
+      "multiplicity": 9
+    }
+  ],
+  "Q6_averaged_laplacian_spectral_gap_exact": "2",
+  "Q6_averaged_laplacian_kernel_dimension": 1
+}
