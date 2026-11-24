@@ -270,7 +270,7 @@ This reconstructs the RGS triplet pairing, but not yet the desired spherical int
 The recovered triplet basis makes the compatibility test explicit. In the ordered ((J_A,J_B)) basis,
 \[
 K_0=\operatorname{diag}(0.5,0.6,0.7,0.8,0.9,1.0),\quad
-Z_A=\frac12\begin{pmatrix}0&-I_3\\I_3&0\end{pmatrix},\quad
+Z_A=\frac12\begin{pmatrix}0&I_3\\-I_3&0\end{pmatrix},\quad
 Z_S=\frac12\begin{pmatrix}I_3&0\\0&-I_3\end{pmatrix}.
 \]
 For the natural cyclic permutation (R_3) on the three vertices of a latitude triangle, the diagonal action (operatorname{diag}(R_3,R_3)) preserves (Z_A,Z_S) but not (K_0):
@@ -282,3 +282,24 @@ An independent factor rotation (operatorname{diag}(R_3,I_3)) fails already for (
 The obstruction is not an artifact of choosing the cyclic permutation matrix. Since (K_0|_{J_A}) and (K_0|_{J_B}) have simple real spectra, their orthogonal centralizers consist only of diagonal sign changes in their respective eigenbases. There is no nontrivial element of order three in either centralizer. Hence no nontrivial real (C_3) action can commute with the full (K_0) restriction on these triplets.
 
 **Conditional conclusion:** no intertwiner can simultaneously preserve the original triple ((K_0,Z_A,Z_S)) and implement the nontrivial spherical (C_3\times C_3) factor rotations in the natural triplet decomposition. This does not prohibit a geometric correspondence that does not intertwine (K_0), a diagonal (C_3) action preserving only ((Z_A,Z_S)), a Reynolds-averaged replacement for (K_0), or a covariant (rather than invariant) transformation law for (K_0). The explicit commutator audit is included in [the basis reconstruction script](../audits/reconstruct_rgs_half_carrier_basis.py), and the numerical triplet construction is in [the original-array audit](RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md).
+
+
+## 16. Exact recovery of the historical \(BA\) block by channel-sign gauge
+
+The earlier \(3\times3\) record
+\[
+Z_A^{BA}=\frac12D,\qquad Z_S^{BA}=-\frac12D,\qquad
+D=\operatorname{diag}(1,1,-1)
+\]
+is now recovered from the original arrays. In the natural paired basis, \(Z_AJ_A=-\tfrac12J_B\) and \(Z_SJ_A=+\tfrac12J_B\). Keeping \(J_A\) fixed and choosing \(J_B^\sharp=-J_BD\) gives
+\[
+(J_B^\sharp)^TZ_AJ_A=+\frac12D,\qquad
+(J_B^\sharp)^TZ_SJ_A=-\frac12D.
+\]
+This is an exact numerical identification of the historical \(BA\) blocks in an explicit orthogonal channel-sign gauge. The same \(D\) is the lower-triplet spectral involution. The full 188D matrices remain distinct from these \(3\times3\) blocks.
+
+The gauge is not invariant under the natural cyclic permutation of the three triangle channels:
+\[
+\|[D,R_3]\|_F=\sqrt8.
+\]
+This is consistent with the symmetry obstruction in section 15: the half-sign splitting is not a \(C_3\)-invariant channel decomposition. The deterministic reconstruction script now exports \(J_B^\sharp\), \(D\), and the two recovered BA blocks and checks their residuals.
