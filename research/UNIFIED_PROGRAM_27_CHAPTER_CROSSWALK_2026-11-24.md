@@ -32,7 +32,7 @@ The companion repository tree returned 1,192 paths and includes RGS 188D data/pr
 
 **1. RGS–PSU–PRISM–Q6 architecture.** Connect the whole programme: RGS geometry, PSU variables, Q6 finite complex, PRISM refinement/coding, QLG spinorial sector, QAT as a separately audited physical proposal. Anchors: docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md; docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md; docs/UNIFIED_THEOREM_EDGES.json; monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md. Open: common action, state space, observable map and commuting diagram.
 
-**2. Boolean cube Q6: graph, Fourier and Laplacian.** Connect 64 binary states/I Ching hexagrams, 192 edges, degree 6, 240 square faces, Walsh characters, Laplacian, heat kernel and spectral zeta. Anchors: T015–T020, T069, T071, T108; docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md; docs/Q6_HYPERCUBE_GREEN_KUBO_SUPERGOLDEN.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md. For the standard graph cube, eigenvalues are 2k with multiplicities binomial(6,k), k=0,...,6, so K_Q6(t)=Tr(exp(-tL))=(1+exp(-2t))^6 and Z_Q6(s)=sum_{k=1}^6 binomial(6,k)(2k)^(-s). These are exact for the standard combinatorial vertex Laplacian, not the face Hodge Laplacian.
+**2. Boolean cube Q6: graph, Fourier and Laplacian.** Connect 64 binary states/I Ching hexagrams, 192 edges, degree 6, 240 square faces, Walsh characters, Laplacian, heat kernel and spectral zeta. Anchors: T015–T020, T069, T071, T108; docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md. For the standard graph cube, eigenvalues are 2k with multiplicities binomial(6,k), k=0,...,6, so K_Q6(t)=Tr(exp(-tL))=(1+exp(-2t))^6 and Z_Q6(s)=sum_{k=1}^6 binomial(6,k)(2k)^(-s). These are exact for the standard combinatorial vertex Laplacian, not the face Hodge Laplacian.
 
 **3. Cubical 2-skeleton and cellular Anti-Twin.** Connect incidence matrices B1,B2,B3, chain identities, ranks, cohomology, face geometry and antipodal maps. Anchors: T055, T060, T062, T068, T069, T071, T116, T117; theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md; audits/T143B-original-archive-q6-plaquette-certificate.md. The 6-cube has (N0,N1,N2,N3)=(64,192,240,160); the face-cochain record gives ranks 63,129,111, closed 2-cochain dimension 129 and H2=0. Closed cochains are not harmonic cohomology. Distinguish graph antipode XOR 63, recovered coordinate inversion XOR 7 and other model-specific involutions.
 
@@ -352,11 +352,15 @@ GitHub returned nine open issues in the primary repository at this check: #398, 
 
 **The exact discrete-gradient layer.** For the Q6 graph let B1 be the oriented vertex-edge boundary matrix and d0=B1^T the vertex-to-edge gradient. Then L0=d0* d0=B1 B1^T, and the Dirichlet form is E(u)=1/2||d0u||²=1/2 u^T L0u. On mean-zero data the graph Green operator is L0†. This is the vertex-space inverse-Laplacian object; it must not be confused with the face Hodge operator Δ2|ker(B3^T), which acts on the 129-dimensional closed face-cochain sector.
 
-**The exact Green–Kubo/resolvent layer.** For the declared reversible OU dynamics dX=−γL0X dt+√(2γσ²L0)dW on the mean-zero subspace and J=b^TX,
-
-\[\int_0^\infty\langle J(t)J(0)\rangle\,dt=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.\]
-
-The isotropic Q6 vertex-space mean is 1517σ²/(7560γ). Separately, the exact closed-face OU construction gives 2263σ²/(15480γ), using eigenvalues 4,6,8,10,12 with multiplicities 15,40,45,24,5. These are two different model benchmarks, not physical viscosities. T131 supplies the stress-tensor Green–Kubo formula with phonon, phason and interaction sectors and all ordered cross-correlations; a harmonic spectrum alone does not give finite dissipative viscosity.
+**The exact Green–Kubo/resolvent layer.** Let \(H_0=\mathbf1^\perp\subset\mathbb R^{64}\). The specified reversible OU process is
+\[
+dX_t=-\gamma L_0X_t\,dt+\sqrt{2\gamma\sigma^2L_0}\,dW_t,\qquad X_t\in H_0.
+\]
+Its backward generator is \(\mathscr Lf=-\gamma\langle L_0x,\nabla f\rangle+\gamma\sigma^2\operatorname{Tr}(L_0\nabla^2f)\), with derivatives on \(H_0\). Its invariant law is \(N_{H_0}(0,\sigma^2I_{H_0})\), or covariance \(\Sigma=\sigma^2P_{H_0}\) in \(\mathbb R^{64}\), where \(P_{H_0}=I-\mathbf1\mathbf1^T/64\). For the centered linear observable \(J_b(t)=\langle b,X_t\rangle\), with \(b\in H_0\), the correlation is \(C_b(t)=\sigma^2\langle b,e^{-\gamma L_0t}b\rangle\), and
+\[
+\int_0^\infty C_b(t)\,dt=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.
+\]
+For arbitrary \(b\), replace it by \(P_{H_0}b\). The isotropic Q6 vertex-space mean is \(1517\sigma^2/(7560\gamma)\). Separately, the exact closed-face OU construction gives \(2263\sigma^2/(15480\gamma)\), using eigenvalues 4,6,8,10,12 with multiplicities 15,40,45,24,5. These are two different model benchmarks, not physical viscosities.
 
 **The independent hypercube fourth-moment law.** The scalar/commuting-flux identity Δμ4=−8w⁴FQ6, FQ6=Σp(1−cos Ωp), is exact in its original finite Q6 construction. It is a static curvature/moment relation, not a Green–Kubo formula. A derivation connecting FQ6 or its metric/strain variation to the microscopic stress entering T131 is still required.
 
