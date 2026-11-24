@@ -14,6 +14,10 @@ on:
       - "theorems/TSMR-F_multifractal_morphological_equation.md"
       - "audits/TSMR-F_DEAQUINO_GOLDEN_BERNOULLI_BRIDGE.md"
       - "tests/test_tsmr_f_golden_collisions.py"
+      - "theorems/TSMR-C_cumulative_morphodynamics.md"
+      - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
+      - "audits/tsmr_c_cumulative.py"
+      - "tests/test_tsmr_c_cumulative.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
     branches: [main]
@@ -27,6 +31,10 @@ on:
       - "audits/tsmr_f_multifractal.py"
       - "tests/test_tsmr_f_multifractal.py"
       - "theorems/TSMR-F_multifractal_morphological_equation.md"
+      - "theorems/TSMR-C_cumulative_morphodynamics.md"
+      - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
+      - "audits/tsmr_c_cumulative.py"
+      - "tests/test_tsmr_c_cumulative.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
 
 jobs:
@@ -37,5 +45,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run TSMR-02 and TSMR-03 regression tests
-        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions -v
+      - name: Run TSMR-02, TSMR-03, TSMR-F, and TSMR-C regression tests
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative -v
