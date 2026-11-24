@@ -270,3 +270,16 @@ The existing eight-coil model supplies \(L(q)\), finite-surface flux and receive
 | Complete primary + actuator + receiver + Maxwell mechanical energy closure | [O] |
 
 No theorem number is assigned: this is a research bridge note with a conditional theorem, not a new unconditional physical theorem.
+
+## 4.2 Concrete central-force realization: companion derivation
+
+The generic quadratic strain ansatz above is not the only possible microscopic energy and is not automatically the correct stress for a stress-free spring network. A more concrete, geometrically explicit central-force energy and its exact strain derivative are now derived in `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`.
+
+For an embedding y:V(Q6)->R^d, edge vector r_e, rest length ell_e, displacement u, and spring constant kappa_e>0, that note uses
+
+\[
+H(u,\varepsilon)=\frac12\sum_e\kappa_e\left(|(I+\varepsilon)r_e+(Bu)_e|-\ell_e\right)^2.
+\]
+Its exact stress is the strain derivative of this same energy. In the stress-free harmonic regime the leading stress is linear in displacement, Pi_ij=c_ij^T u+O(|u|^2), while the Hessian is the rigidity matrix form K=R^T diag(kappa_e) R. The corresponding OU benchmark is built from this K on its full positive subspace, not from the bare graph Laplacian L_0.
+
+The earlier quadratic-Wick formula remains valid for its explicitly declared Gaussian quadratic observable, but it is a distinct model and must not be conflated with the central-force stress. The canonical Q6 subset R^6 embedding is anisotropic and gives zero off-diagonal shear coefficient; it is only a control. A physical three-dimensional model still requires the missing within-fibre lift y(a,b;t) from the eight panel frames. Therefore the 3D Q6/Jitterbug material stress and Stokes limit remain open.
