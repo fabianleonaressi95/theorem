@@ -19,6 +19,8 @@ class TestT146DodecahedronQ6DualBarycentre(unittest.TestCase):
         self.assertEqual(r["dodecahedron_q6_edge_chain_path_lengths"], {"2": 18, "4": 12})
         self.assertEqual(r["chain_induced_energy_rank"], 19)
         self.assertTrue(r["checks"]["dodecahedron_edge_chain_boundary_commutes"])
+        self.assertLess(r["dodecahedron_q6_edge_chain_antipodal_residual"], 1e-9)
+        self.assertTrue(r["checks"]["dodecahedron_edge_chain_antipodal_equivariance"])
 
     def test_canonical_operator_does_not_claim_target_spectrum(self):
         r = audit()
