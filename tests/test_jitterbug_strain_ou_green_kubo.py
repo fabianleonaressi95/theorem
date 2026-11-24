@@ -33,5 +33,5 @@ def test_integrated_gk_tensors_are_positive_semidefinite():
 
 def test_internal_mechanisms_are_not_mislabeled_as_phasons():
     result = audit()
-    assert "not a material viscosity" in result["interpretation"]
+    assert "not a material viscosity" in result["interpretation"].lower()
     assert "physical phason" not in result["interpretation"]
