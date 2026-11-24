@@ -275,3 +275,74 @@ A paired finite Galerkin experiment was recorded in results/tsmr_i_harmonic_conv
 The first memory-kernel norms decay rapidly for each fixed cutoff, but the cutoff dependence is not monotone. In particular, the complement spectral radius estimates rise for H>=4. This is evidence against claiming a cutoff-uniform contraction from the present experiment. It does not prove instability of the infinite-dimensional operator.
 
 The result is finite-dimensional and empirical: one seed, a truncated Bernoulli series, and an empirical CDF. Independent seeds, larger sample counts, longer series, and certified spectral/norm bounds are still needed. No convergence as H tends to infinity is claimed.
+
+
+## 11. Exact contraction, non-normal memory, and the finite-sample defect
+
+There is an exact operator inequality that constrains the interpretation of every Galerkin table. Since the cumulative-coordinate Markov operator preserves Lebesgue measure,
+[
+int_0^1 mathscr M_g h(t),dt=int_0^1h(t),dt
+]
+for every integrable (h). Jensen's inequality gives
+[
+|mathscr M_g f(t)|^2leq mathscr M_g(|f|^2)(t),
+]
+and therefore
+[
+oxed{|mathscr M_g f|_{L^2}leq|f|_{L^2}.}
+]
+Let (Q_H) be the orthogonal projection onto the resolved complement
+(operatorname{span}{psi_{k,c},psi_{k,s}:2leq kleq H}). Its exact
+compression (D_H=Q_Hmathscr M_gQ_H|_{operatorname{ran}Q_H}) must satisfy
+[
+oxed{|D_H|_{2	o2}leq1,qquad ho(D_H)leq1.}
+]
+Thus a genuine loss of contractivity is mathematically impossible for the
+exact operator compression. Strict contraction, a uniform gap below one,
+and convergence as H tends to infinity do not follow from this inequality.
+
+### Refined empirical audit
+
+The vectorized NumPy audit was rerun with 300,000 samples, 48 Bernoulli
+terms, seed 20261124, and cutoffs through H=16. The result record is
+results/tsmr_i_harmonic_convergence.json.
+
+| H | dim(Q_H) | rho(D_H) | ||D_H||_2 (empirical) | ||K_0||_F | ||K_1||_F | ||K_2||_F | ||K_3||_F |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 2 | 0.21457 | 0.21457 | 0.11524 | 0.02378 | 0.00500 | 0.00106 |
+| 3 | 4 | 0.14899 | 0.47642 | 0.12943 | 0.00387 | 0.00142 | 0.00011 |
+| 4 | 6 | 0.36107 | 0.86673 | 0.12323 | 0.04485 | 0.02413 | 0.00158 |
+| 6 | 10 | 0.31920 | 0.97645 | 0.12497 | 0.05689 | 0.01329 | 0.00201 |
+| 8 | 14 | 0.38050 | 0.99582 | 0.12435 | 0.05528 | 0.01031 | 0.01198 |
+| 10 | 18 | 0.43350 | 1.00115 | 0.12437 | 0.05507 | 0.01825 | 0.00830 |
+| 12 | 22 | 0.41251 | 1.00286 | 0.12449 | 0.05544 | 0.02025 | 0.01012 |
+| 16 | 30 | 0.41403 | 1.00550 | 0.12442 | 0.05520 | 0.01971 | 0.00099 |
+
+The empirical singular norm exceeds one by at most about 0.55% in this
+table (H=16). This is not a physical or operator-theoretic instability:
+it is a finite-sample/empirical-CDF defect, amplified as higher frequencies
+are resolved. The exact contraction theorem above is the benchmark that
+the numerical scheme must respect in the limit. This defect should be used
+as an error diagnostic, not clipped or interpreted as a true norm.
+
+Three further observations are supported by the finite data:
+
+1. The initial coupling stabilizes: ||K_0||_F stays close to 0.1244 from
+   H=4 through H=16.
+2. Higher harmonics change the transient memory profile. In particular,
+   ||K_2||_F and ||K_3||_F are not monotone in H, and the H=8, 12, and 16
+   sequences have visible rebounds at intermediate n. The 2+2 model
+   therefore captures the existence of memory but under-resolves its
+   temporal profile.
+3. For the tested finite sections, rho(D_H) remains below 0.44 and the
+   recorded kernels are very small by n=20. This is evidence for decay in
+   these truncations, not a proof of a uniform spectral gap or of
+   convergence of the infinite-dimensional Mori-Zwanzig kernel.
+
+The current mathematical picture is consequently **contractive but
+potentially non-normal**, with a nontrivial transient memory response.
+The open problem is to control the empirical-CDF error uniformly in H and
+then establish whether the exact complement has a spectral gap, merely
+strong stability, or approximate unit-modulus modes. The audit now records
+both eigenvalue radius and largest singular value; the latter is essential
+because eigenvalues alone miss non-normal transient amplification.
