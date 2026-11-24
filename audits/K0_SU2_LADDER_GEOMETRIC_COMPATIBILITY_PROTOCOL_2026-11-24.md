@@ -53,18 +53,27 @@ In particular, \(K_0=0\) on the 64D kernel contains no information that selects 
 
 ## 3. Test 2 — compatibility with \(Z_S,Z_A,T_{\mathrm{transport}}\)
 
-### 3.1 Required input arrays
+### 3.1 Required input arrays — AVAILABLE on `main`
 
-The reproducible test requires the exact local arrays used to produce the reports:
+All required arrays are committed on `main` (verified 2026-11-24, `git ls-files`):
 
-- \(K_0\) (or the archived \`K0.npy\`);
-- \(Z_S\);
-- \(Z_A\);
-- \(T_{\mathrm{transport}}\);
-- \(P_G\), or enough data to reconstruct it;
-- the basis map identifying the 124D complement and the 64D kernel in the same 188D coordinates.
+| Array | Repository path | SHA-256 |
+| --- | --- | --- |
+| \(K_0\) | `K0.npy` (188×188 float64) | `1aa4a6c0e237f5fb43d1d05e2de5a073087f3a2c1d1d200946fd693f1476aaa1` |
+| \(Z_S\) | `Z_S.npy` (188×188 float64) | `a37b6d13a7c97122d6adaf015764c992ca6380cca023f43dce2b01fecf350d16` |
+| \(Z_A\) | `Z_A.npy` (188×188 float64) | `e526e9ae82a2a71e1f636ba6c19c9bf3a755768093f9a234cd3d7bc88427412f` |
+| \(P_G\) | `P_G.npy` (188×188 float64) | `2eb41891a2b545499f80078eafb504e01c3f26f583310e49a60d3bf5be787493` |
+| full bundle | `data/RGS_PSU_all_matrices.npz` | `29b758d56c20ba9eb488d1846d1439c0fc145973762421d03083239ee832bba1` |
 
-The arrays must be supplied with shapes, hashes, and coordinate-basis provenance. A filename alone is insufficient.
+The NPZ additionally contains `T_transport`, `R_geo_tangent`, `Pi_AT`, `B_PG_A`, `U_polar`, `A_geometry_orthonormal`, `A_raw`, `Q_tangent`, `X_Oh_reconstructed`, `Q6_states`, `Q6_adjacency`, `Q6_laplacian`, `Q6_antipodal`, each in the same 188D (or stated) coordinate basis. Loading example:
+
+```python
+import numpy as np
+d = np.load("data/RGS_PSU_all_matrices.npz")
+K0, ZS, ZA, PG, T = d["K0"], np.load("Z_S.npy"), np.load("Z_A.npy"), d["P_G"], d["T_transport"]
+```
+
+Coordinate-basis provenance: all arrays share the archived 188D tangent coordinate system documented in `docs/RGS_188D_OPERATOR_PROVENANCE.md`; the basis-identification certificate itself remains an open item (see §6 of that document). A filename alone is insufficient — the SHA-256 values above are the content certificate.
 
 ### 3.2 Construct the standard ladder on the 124D sector
 
@@ -141,4 +150,6 @@ These verdicts must be kept separate. A PASS in the first two categories does no
 
 ## 6. Current repository state and immediate next action
 
-The three JSON reports and `q6-d5-integer-fiber.yml` are now present on `main`. The workflow is an exact-arithmetic Q6-D5 audit; its declared path filters and commands do not run the geometric ladder-compatibility test in this document. The four files supplied so far do not contain `Z_S`, `Z_A`, `T_transport`, `P_G`, or the 188D basis arrays. Therefore test 2 remains **BLOCKED on inputs**, not failed: the next required repository addition is the exact array bundle (or a reproducible generator with its input data), including hashes and coordinate-basis provenance. Once those are available, implement the numerical test and commit its script and JSON output together. No numerical outcome for test 2 is claimed yet.
+The three JSON reports and `q6-d5-integer-fiber.yml` are now present on `main`. The workflow is an exact-arithmetic Q6-D5 audit; its declared path filters and commands do not run the geometric ladder-compatibility test in this document.
+
+**Input status corrected (2026-11-24):** the required arrays are in fact already on `main` — see §3.1 for exact paths and SHA-256 hashes. The earlier statement that they were missing was incorrect: `K0.npy`, `Z_S.npy`, `Z_A.npy`, `P_G.npy` are tracked at repository root and `data/RGS_PSU_all_matrices.npz` contains `T_transport` and the remaining operators in the same coordinate basis. Test 2 is therefore **unblocked on inputs**; it remains unexecuted pending implementation of the frozen phase convention, the commutator suite of §3.4, and the null controls of §3.5. No numerical outcome for test 2 is claimed yet.
