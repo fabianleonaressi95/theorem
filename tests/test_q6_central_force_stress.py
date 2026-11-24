@@ -94,3 +94,54 @@ def test_linear_stress_is_first_derivative_of_exact_stress():
     c = linear_stress_coefficients(y, edges, kappa)
     pred = np.einsum("ijk,k->ij", c, u.reshape(-1))
     assert np.allclose(sigma, pred, rtol=2e-5, atol=2e-10)
+
+
+def hessian_at_strain(y, edges, kappa, eps):
+    n, d = y.shape
+    K = np.zeros((n*d, n*d))
+    F = np.eye(d) + eps
+    for e, (v, w) in enumerate(edges):
+        r = y[w] - y[v]
+        ell = np.linalg.norm(r)
+        rr = F @ r
+        ell_eps = np.linalg.norm(rr)
+        nhat = rr / ell_eps
+        prestress = (ell_eps - ell) / ell_eps
+        block = kappa[e] * (np.outer(nhat, nhat) +
+                            prestress * (np.eye(d) - np.outer(nhat, nhat)))
+        ids = np.r_[np.arange(v*d, (v+1)*d), np.arange(w*d, (w+1)*d)]
+        incidence = np.r_[-np.eye(d), np.eye(d)]
+        K[np.ix_(ids, ids)] += incidence.T @ block @ incidence
+    return K
+
+
+def analytic_hessian_strain_derivative(y, edges, kappa, i, j):
+    n, d = y.shape
+    A = np.zeros((n*d, n*d))
+    S = symmetric_basis(i, j, d)
+    for e, (v, w) in enumerate(edges):
+        r = y[w] - y[v]
+        ell = np.linalg.norm(r)
+        nhat = r / ell
+        q = nhat @ S @ nhat
+        m = (np.eye(d) - np.outer(nhat, nhat)) @ S @ nhat
+        block = kappa[e] * (np.outer(m, nhat) + np.outer(nhat, m) +
+                            q * (np.eye(d) - np.outer(nhat, nhat)))
+        ids = np.r_[np.arange(v*d, (v+1)*d), np.arange(w*d, (w+1)*d)]
+        incidence = np.r_[-np.eye(d), np.eye(d)]
+        A[np.ix_(ids, ids)] += incidence.T @ block @ incidence
+    return A
+
+
+def test_strain_derivative_of_full_hessian_matches_formula():
+    y = np.array([[0., 0., 0.], [1.1, .1, 0.], [.2, 1.0, .1], [.1, .2, 1.2]])
+    edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+    kappa = np.linspace(1.0, 2.0, len(edges))
+    h = 1e-6
+    for i in range(3):
+        for j in range(i, 3):
+            S = symmetric_basis(i, j, 3)
+            fd = (hessian_at_strain(y, edges, kappa, h*S) -
+                  hessian_at_strain(y, edges, kappa, -h*S)) / (2*h)
+            exact = analytic_hessian_strain_derivative(y, edges, kappa, i, j)
+            assert np.allclose(fd, exact, rtol=2e-6, atol=2e-9)
