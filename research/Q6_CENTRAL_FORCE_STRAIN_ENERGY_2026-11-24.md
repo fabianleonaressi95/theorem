@@ -90,9 +90,50 @@ c_{ij}=
 }
 \tag{4.2}
 \]
-This is the leading harmonic microscopic stress. The exact nonlinear stress remains (3.3); the quadratic and higher displacement corrections must be retained if the harmonic approximation is not controlled.
+This is the leading harmonic microscopic stress. The exact nonlinear stress remains (3.3). The next term is quadratic and determines the strain derivative of the displacement Hessian.
 
-**Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the leading harmonic stress is linear in displacement, not automatically \(-\tfrac12u^TA^{ij}u\). A quadratic stress arises in other models or at higher order. The generic quadratic-Wick calculation in the Q6/Jitterbug bridge remains a valid separate model-conditional identity, but it must not be substituted for (3.3) without deriving that energy.
+### 4.1 The strain-Hessian derivative \(A^{ij}\), derived rather than fitted
+
+For one edge at finite affine strain, put \(r_e^\xi=(I+\varepsilon(\xi))r_e\), \(\ell_e^\xi=|r_e^\xi|\), \(n_e^\xi=r_e^\xi/\ell_e^\xi\). The exact Hessian with respect to non-affine displacement at \(u=0\) is
+\[
+K_e(\xi)=\kappa_e\,b_eb_e^T\otimes
+\left[
+n_e^\xi(n_e^\xi)^T+
+\frac{\ell_e^\xi-\ell_e}{\ell_e^\xi}
+\left(I-n_e^\xi(n_e^\xi)^T\right)
+\right].
+\]
+The second term is the geometric-stiffness contribution from the affine prestress; omitting it would give an incorrect strain derivative. At \(\xi=0\), it vanishes and (4.1) is recovered.
+
+For the independent strain coordinate \(\xi_{ij}\), define
+\[
+q_e^{ij}=n_e^TS^{ij}n_e,\qquad
+m_e^{ij}=(I-n_en_e^T)S^{ij}n_e.
+\]
+Differentiating the full Hessian gives the explicit matrix
+\[
+\boxed{
+A^{ij}:=\left.\frac{\partial K(\xi)}{\partial\xi_{ij}}\right|_0
+=\sum_{e\in E}\kappa_e\,b_eb_e^T\otimes
+\left[
+m_e^{ij}n_e^T+n_e(m_e^{ij})^T
++q_e^{ij}(I-n_en_e^T)
+\right].
+}
+\tag{4.3}
+\]
+Thus \(A^{ij}\) is determined by the same embedding and spring constants as \(K\); it is not an independent fit.
+
+The exact stress expansion is consequently
+\[
+\boxed{
+\Pi_{ij}(u)=c_{ij}^Tu-\frac12u^TA^{ij}u+O(\|u\|^3),
+}
+\tag{4.4}
+\]
+with \(c_{ij}\) from (4.2). The linear term is the leading stress of a stress-free network; the quadratic term is precisely the strain derivative of the displacement Hessian. This reconciles the virial derivation with the quadratic Hessian-Wick calculation, while showing why the latter alone omits the leading term.
+
+**Key correction to the generic quadratic ansatz.** For a stress-free central-force network, the full microscopic stress is not just \(-\tfrac12u^TA^{ij}u\): it has the linear term \(c_{ij}^Tu\) as well. The generic quadratic-Wick calculation in the companion Q6/Jitterbug bridge is a valid separate model-conditional identity; for this central-force energy, the quadratic part is now explicitly derived as (4.3)–(4.4).
 
 ## 5. Exact finite OU benchmark built from this Hessian
 
