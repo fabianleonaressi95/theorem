@@ -603,3 +603,14 @@ For the already specified interaction, the symmetric branch is \(f_+=f_-=F/\sqrt
 A finite six-point scan at \(m=1,\lambda=1.5,g=1,\alpha=0.2,\kappa=0.1,q=0.05,R_{\max}=20\) indicates a candidate local minimum of \(Q(\omega)\) around \(\omega\approx0.905\)–\(0.906\). This is a branch-fold diagnostic, not a stability theorem. The sign change of finite-difference \(dQ/d\omega\) must be refined and compared with the full charge-constrained scalar–phase–Maxwell fluctuation operator.
 
 PR #220 is open and unmerged at this snapshot. Its flat-space electrostatic model does not yet include the radion action, asymmetric branches, magnetic fields or vierbein/TEGR backreaction. The radion kinetic term, stabilization and coupling must still be derived from the PSU–Anti-Twin geometric action.
+
+
+### 12.11 Quantum-fractal interface: Q6, Walsh, Cantor and Fibonacci
+
+The new research specification [Quantum–fractal interface for PRISM / Kathara–Q6](QUANTUM_FRACTAL_PRISM_Q6_INTERFACE_2026-11-24.md) reuses the existing TSMR-F multifractal record, Cantor–supergolden Phase 21, Fibonacci/golden-zeta model, Q6 Walsh spectrum and exact dyadic subdivision benchmark. It does not add a monograph chapter.
+
+The exact Q6 Walsh spectrum and heat trace are finite-graph identities, not evidence of a fractal spectral dimension. The Cantor coding of six-bit prefixes is a labelling, not an operator equivalence: the finite group \((\mathbb Z/2)^6\) is not the profinite group \(\mathbb Z_2\), and Hamming adjacency is not the Euclidean Cantor metric. The existing cubical midpoint chain map is a control refinement, not a Kathara/Krist-All fractal rule.
+
+The first bounded computational target is the Q6/Walsh finite-filtration audit: define conditional-expectation projections, compute their commutators with a provenance-identified Q6 operator, and report block couplings and exact spectral checks. Multifractal eigenstate scaling requires a genuine hierarchy with multiple levels, IPR fits, and uniform/localized/binomial controls. Fibonacci spectra and the Sierpiński gasket are separate comparison models, not identifications with Q6.
+
+**Classification:** Q6/Walsh identities, Cantor–Bernoulli formulas and existing dyadic chain-map identities are exact within their definitions; the Q6 filtration audit will be finite numerical evidence; PRISM/Kathara multifractal scaling and any physical quantum interpretation remain candidates/open. Gardi's Mandelbrot/IFS proposal is not a Schrödinger derivation.
