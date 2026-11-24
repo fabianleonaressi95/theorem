@@ -1,0 +1,45 @@
+name: Jitterbug actual-field and Dirichlet-Neumann audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "audits/jitterbug_actual_field_dn.py"
+      - "tests/test_jitterbug_actual_field_dn.py"
+      - "research/JITTERBUG_NEUMANN_DIRICHLET_BRIDGE.md"
+      - ".github/workflows/jitterbug-actual-field-dn.yml"
+  pull_request:
+    paths:
+      - "audits/jitterbug_actual_field_dn.py"
+      - "tests/test_jitterbug_actual_field_dn.py"
+      - "research/JITTERBUG_NEUMANN_DIRICHLET_BRIDGE.md"
+      - ".github/workflows/jitterbug-actual-field-dn.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-field:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical dependency
+        run: python -m pip install --upgrade numpy
+      - name: Run actual-field and energy tests
+        run: python -m unittest tests.test_jitterbug_actual_field_dn -v
+      - name: Execute actual Jitterbug field model
+        run: python audits/jitterbug_actual_field_dn.py --ds 0.08 --segments 48 --output jitterbug-actual-field-dn-report.json
+      - name: Upload actual-field report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jitterbug-actual-field-dn-report
+          path: jitterbug-actual-field-dn-report.json
+          if-no-files-found: error
+          retention-days: 90
