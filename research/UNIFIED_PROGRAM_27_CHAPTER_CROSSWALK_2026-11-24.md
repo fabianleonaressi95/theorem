@@ -572,3 +572,22 @@ The radion coupling \(gW(R_{\rm th})\mathcal C(q_+,q_-)\) remains a phenomenolog
 The historical finite PSU–Anti-Twin audit recorded \(J_{\rm AT}^2=I\), a \(128\to4\times32\) spectral split and the bosonic/fermionic determinant benchmarks. The historical script derive_rgs_psu_sea.py was not present in the current default-branch tree during reconstruction; the exact source/artifact must be restored before claiming a fresh replay.
 
 **Classification:** symmetry and Noether identities are exact/conditional within the declared two-field action; radial solutions and stability require the explicit interaction and numerical replay; radion stabilization, photon/QAT gauging and the field-theory-to-shell/Q6 discretization remain open. This branch is cross-linked to monograph chapters 12–14 (PSU/Anti-Twin and geometry) and 23–25 (QAT, Q-ball and field dynamics), while T080/T088 remain in the shell/structured-deformation chapters.
+
+
+### 12.9 Correction: the two-field Q-ball interaction was already specified
+
+The statement in §12.8 that \(V_{\rm int}\) remained unspecified is superseded by the recovered, already-merged PR #87 in the companion repository fabianleonaressi95/rgs-qlg-quaternion-bridge. The prior model fixes
+\[
+I=|\Phi_+|^2+|\Phi_-|^2,\quad J=|\Phi_+|^2-|\Phi_-|^2,\quad
+V=m^2I-\lambda I^2+gI^3+\alpha J^2
+-\kappa(\Phi_+^*\Phi_-+\Phi_-^*\Phi_+).
+\]
+Only the numerical/physical calibration of \(\alpha,\kappa\) remains open.
+
+The exact in-phase exchange-symmetric branch has \(m_{\rm eff}^2=m^2-\kappa\), necessary frequency window
+\[
+\sqrt{m^2-\kappa-\lambda^2/(4g)}<\omega<\sqrt{m^2-\kappa},
+\]
+and a relative-amplitude Hessian curvature shifted by \(4\alpha F^2\). A new two-field electrostatic Maxwell BVP, including both scalar equations, Noether/electric charge, Gauss-flux audit and local even/odd amplitude curvatures, is under PR #220 in the companion repository:
+https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
+It is open and unmerged; no CI pass or full fluctuation stability is claimed. The radion reduction/stabilization, asymmetric branches and vierbein backreaction remain open.
