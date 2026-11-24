@@ -121,4 +121,23 @@ Keep independent verdicts:
 - **PASS/FAIL:** (Z_S,Z_A) tensor/selection-rule structure and cubic intertwining.
 - **OPEN:** geometric origin of K0 and physical interpretation of the anisotropic operators.
 
-No numerical verdict for the joint SU(2)-cubic test is claimed by this protocol. The next implementation must stop at the basis-certificate gate if the independent map cannot be supplied.
+## 8. Executable audit implementation
+
+The conditional numerical implementation is now available at `scripts/audit_su2_oh_t1u_t2u_joint.py`. It:
+
+- reconstructs the ordinary (O_h) character projectors for (T_{1u}) and (T_{2u}) from the existing 64-site geometry and 188D tangent basis;
+- checks the expected isotypic ranks 39 and 30;
+- transports the projectors only through a supplied orthogonal basis map (C), with convention operator-coordinates (=C\) geometric-coordinates;
+- computes principal-angle intersections with (operatorname{Ran}P_G) and its complement;
+- reconstructs the canonical spin-(61/2) ladder from the positive spectrum of (K_0);
+- reports the (Z_S,Z_A,T_{transport}) kernel/complement and cubic blocks, plus the complete (Delta m) norm profiles for (Z_S,Z_A).
+
+Invocation (after the independent basis-map certificate has been placed in the repository):
+
+```bash
+python scripts/audit_su2_oh_t1u_t2u_joint.py --basis-map data/RGS_188D_TO_K0_BASIS_MAP.npy
+```
+
+The example filename is a required-input placeholder, not a claim that this map already exists. The script intentionally exits before cross-basis comparisons if the file is absent or non-orthogonal. It does not optimize a basis map against the desired commutators. The ordinary (O_h) audit is implemented; the binary-octahedral double-group character decomposition and null-model ensemble remain follow-up work.
+
+No numerical verdict for the joint SU(2)-cubic test is claimed until the independent basis-map certificate is supplied and the script is executed.
