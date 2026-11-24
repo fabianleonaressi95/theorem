@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths:
+      - "audits/jitterbug_actual_field_dn.py"
+      - "tests/test_jitterbug_actual_field_dn.py"
       - "audits/jitterbug_eight_coil_coupling.py"
       - "audits/jitterbug_coil_coupling.py"
       - "audits/jitterbug_gray_kinematics.py"
@@ -13,6 +15,8 @@ on:
       - ".github/workflows/jitterbug-eight-coil.yml"
   pull_request:
     paths:
+      - "audits/jitterbug_actual_field_dn.py"
+      - "tests/test_jitterbug_actual_field_dn.py"
       - "audits/jitterbug_eight_coil_coupling.py"
       - "audits/jitterbug_coil_coupling.py"
       - "audits/jitterbug_gray_kinematics.py"
@@ -51,12 +55,28 @@ jobs:
       - name: Execute independent numerical validation
         run: python audits/jitterbug_eight_coil_validation.py --output jitterbug-eight-coil-validation.json
 
+      - name: Run actual-field and energy tests
+        if: github.event_name == 'pull_request'
+        run: python -m unittest tests.test_jitterbug_actual_field_dn -v
+
+      - name: Execute actual Jitterbug field model
+        if: github.event_name == 'pull_request'
+        run: python audits/jitterbug_actual_field_dn.py --ds 0.08 --segments 48 --output jitterbug-actual-field-dn-report.json
+
       - name: Execute reduced-resolution Jitterbug model
         run: |
           python audits/jitterbug_eight_coil_coupling.py \
             --segments 32 \
             --ds 0.1 \
             --output jitterbug-eight-coil-report.json
+
+      - name: Upload actual-field report
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: jitterbug-actual-field-dn-report
+          path: jitterbug-actual-field-dn-report.json
+          if-no-files-found: error
 
       - name: Upload numerical report
         uses: actions/upload-artifact@v4
