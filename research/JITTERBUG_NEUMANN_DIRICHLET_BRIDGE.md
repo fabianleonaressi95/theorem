@@ -1,6 +1,6 @@
 # Jitterbug: Neumann inductance, finite-surface flux, and Dirichlet–Neumann boundary maps
 
-**Status:** computational implementation added; CI status is pending. This note separates a shared Green-kernel structure from distinct operators. No physical generator claim is made.
+**Status:** implementation and numerical CI completed successfully (24 November 2026; PR #414). This note separates a shared Green-kernel structure from distinct operators. No physical generator claim is made.
 
 ## 1. Actual mechanism replaces the prescribed angular probe
 
