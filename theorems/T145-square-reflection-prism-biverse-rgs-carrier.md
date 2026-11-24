@@ -32,10 +32,11 @@ are orthogonal projections onto the even and odd sectors. This is the precise sq
 
 Let \(L_\Omega=L_\Omega^T\) act on one sheet and let \(\kappa\ge0\) be the inter-sheet coupling. With
 \[
-L_{K_2}=I-S,\qquad
-L_{\rm bi}=I_2\otimes L_\Omega+\kappa(I-S)\otimes I,
-\quad
-S=\begin{pmatrix}0&I\\I&0\end{pmatrix},
+\sigma=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+S=\sigma\otimes I_n,\qquad
+L_{K_2}=I_2-\sigma,\\
+L_{\rm bi}=I_2\otimes L_\Omega+\kappa\bigl((I_2-\sigma)\otimes I_n\bigr)
+=I_2\otimes L_\Omega+\kappa(I_{2n}-S).
 \]
 we have \([L_{\rm bi},S]=0\). Since \(P_\pm=(I\pm S)/2\),
 \[
@@ -80,12 +81,12 @@ U^TK_0U=
 \operatorname{spec}(H)=\{0.65,0.75,0.85\},\quad
 \kappa=0.15.
 \]
-Set
+Apply the same orthogonal eigenbasis change of \(H\) to both sheets (which leaves the sheet-exchange matrix unchanged), and set
 \[
-L_\Omega=H-\kappa I_3
-=\operatorname{diag}(0.50,0.60,0.70)
+L_\Omega=H-\kappa I_3,
+\qquad \operatorname{spec}(L_\Omega)=\{0.50,0.60,0.70\}.
 \]
-in an eigenbasis of \(H\), and define the carrier exchange involution
+In that common channel eigenbasis, \(L_\Omega=\operatorname{diag}(0.50,0.60,0.70)\). Define the carrier exchange involution
 \[
 S_{\rm RGS}=\begin{pmatrix}0&I_3\\I_3&0\end{pmatrix}
 \]
@@ -98,7 +99,7 @@ U^TK_0U=I_2\otimes L_\Omega+
 \]
 In particular,
 \[
-[K_0|_{\mathcal W},S_{\rm RGS}]=0
+[K_0|_{\mathcal W},S_{\rm RGS}]=0.
 \]
 and its parity restrictions are
 \[
