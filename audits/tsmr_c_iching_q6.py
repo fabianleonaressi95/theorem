@@ -88,7 +88,8 @@ def q6_edge_count() -> int:
 def q6_walk_spectrum() -> tuple[tuple[int, int], ...]:
     """Exact eigenvalue/multiplicity pairs for adjacency(Q6)/6."""
     from math import comb
-    return tuple((1 - k / 3, comb(6, k)) for k in range(7))
+    from fractions import Fraction
+    return tuple((Fraction(3 - k, 3), comb(6, k)) for k in range(7))
 
 
 def golden_float(value: tuple[int, int]) -> float:
