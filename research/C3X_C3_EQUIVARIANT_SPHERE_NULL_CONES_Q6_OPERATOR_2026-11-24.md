@@ -186,3 +186,36 @@ The standard-library audit is in [audit_c3x_c3_two_sheet_equivariance.py](../aud
 ## 8. Next test
 
 The next mathematically meaningful comparison is spectral, not rhetorical: compute the exact spectrum and eigenspace decomposition of \(\overline L_6\), compare it with the standard Q6 Laplacian and the previously recorded RGS/QLG operators, and test whether the invariant eigenspaces align with the \(C_3\times C_3\) representation sectors. Any such alignment must be reported as a numerical or exact finite-dimensional result, not as evidence of a physical continuum theory.
+
+
+## 9. Exact spectrum and C3-character decomposition
+
+The averaged factor matrix has diagonal entries 3; its off-diagonal conductances are 1 on four pairs and 2/3 on twelve pairs. Its characteristic polynomial factors exactly as
+\[
+\boxed{
+\chi_{\overline L_3}(\lambda)
+=\lambda(\lambda-2)(3\lambda-8)^3(3\lambda-14)^3/729.
+}
+\]
+Hence
+\[
+\operatorname{spec}(\overline L_3)
+=\{0^{(1)},2^{(1)},(8/3)^{(3)},(14/3)^{(3)}\}.
+\]
+Because \(\overline L_3\) commutes with the order-three permutation, its eigenspaces split into the three complex characters \(1,\omega,\omega^2\). The eigenspaces at 0 and 2 are trivial-character lines; each of the eigenspaces at 8/3 and 14/3 contains one copy of each of the three characters.
+
+The product spectrum is the pairwise sum of factor eigenvalues. The exact eigenvalues and multiplicities are:
+\[
+\begin{array}{c|rrrrrrrrr}
+\lambda&0&2&8/3&4&14/3&16/3&20/3&22/3&28/3\\
+\hline
+m&1&2&6&1&12&9&6&18&9
+\end{array}
+\]
+The multiplicities sum to 64. In particular, the invariant operator has a one-dimensional kernel (the constants) and spectral gap exactly 2. This matches the numerical value of the standard Q6 gap, but the operators are different and their remaining spectra are not the same. The equality of the first positive eigenvalue is a finite exact coincidence of these two operators, not evidence of continuum equivalence.
+
+The factor character decomposition also gives the product representation sectors: the nine characters of \(C_3\times C_3\) are obtained by pairing the three characters from each factor. The spectrum above is the exact sum spectrum across those sectors; no physical interpretation is assigned to the character labels.
+
+## 10. Next test
+
+The next mathematically meaningful comparison is to compute the exact intertwining maps and eigenspace overlaps with the previously stored RGS/QLG operators, after fixing a common ordering of the 64 states. In particular, test whether the new 2-eigenspace or the nontrivial character sectors have a canonical image under the established Q6 tangent/Möbius projectors. This requires the actual stored matrices and must not be inferred from matching eigenvalues alone.
