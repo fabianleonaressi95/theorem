@@ -428,21 +428,68 @@ where X is the state space, T its evolution/transition, mu an invariant or outco
 
 A further structural connection concerns the word *Minkowski*, which must be used carefully: Minkowski spacetime and Minkowski's question-mark function are distinct constructions. Their possible bridge is projective dynamics, not a direct identity.
 
-### 9.1 Null directions as projective coordinates
+### 9.1 Correct dimension and the projective null conic
 
-In 1+1-dimensional Minkowski spacetime, introduce null coordinates
+A necessary dimensional correction: in 1+1-dimensional Minkowski spacetime the projectivized null cone consists of only two points, not an interval. The relevant construction takes place in a 2+1-dimensional Minkowski subspace (or a chosen 2+1 slice of 3+1 spacetime).
+
+Use coordinates \((X,Y,Z)\) with quadratic form
 \[
-u=ct-x,\qquad v=ct+x.
+Q(X,Y,Z)=X^2+Y^2-Z^2.
 \]
-The null cone is \(uv=0\). In higher dimensions, the null condition is
+The future null cone is \(Q=0, Z>0\). Its projectivization is a conic in \(\mathbb{RP}^2\), hence a circle, and is parametrized by the projective spinor coordinate \([p:q]\in\mathbb{RP}^1\):
 \[
-c^2t^2-\lVert\mathbf x\rVert^2=0.
+[X:Y:Z]=[p^2-q^2:2pq:p^2+q^2].
 \]
-A null ray is a direction, hence a point in the projectivization of the null cone. In a suitable affine chart, directions are represented by slope-like coordinates. Lorentz transformations act on such projective coordinates by fractional-linear maps in the corresponding low-dimensional representation.
+Indeed, \((p^2-q^2)^2+(2pq)^2=(p^2+q^2)^2\). The identity component of the Lorentz group is isomorphic to \(PSL(2,\mathbb R)\); its action on the null conic is the projective Möbius action on \(\mathbb{RP}^1\). This is the precise geometric source of the fractional-linear transformations. [See the cited 2+1 spacetime/projective-structure reference.]
 
-This gives a natural setting for Möbius transformations and, when an arithmetic subgroup is selected, for \(PSL(2,\mathbb Z)\), Farey fractions, and the Stern–Brocot tree. The arithmetic subgroup is an additional choice; it is not forced by the Lorentz cone alone.
+### 9.2 How the Farey map is obtained — and what must be chosen
 
-### 9.2 The question-mark map as a singular change of projective coordinate
+Put \(x=p/q\) in the chart \(p,q\geq0\), \(0\leq x\leq1\). The two branches of the Farey map are
+\[
+F(x)=
+\begin{cases}
+\dfrac{x}{1-x},&0\leq x\leq\tfrac12,\\[4pt]
+\dfrac{1-x}{x},&\tfrac12\leq x\leq1.
+\end{cases}
+\]
+They are exactly the projective actions of the integer matrices
+\[
+A_0=\begin{pmatrix}1&0\\-1&1\end{pmatrix},
+\qquad
+A_1=\begin{pmatrix}-1&1\\1&0\end{pmatrix},
+\]
+because
+\[
+A_0[p:q]=[p:q-p],\qquad
+A_1[p:q]=[q-p:p].
+\]
+The first matrix has determinant +1 and the second determinant -1. Thus the branches lie in the projective action of \(PGL(2,\mathbb Z)\); the second uses an orientation-reversing component. Both preserve the projective null conic through the symmetric-square representation. On the interval, the branch condition is precisely whether \(p\leq q-p\) or \(p\geq q-p\), i.e. the subtractive Euclidean algorithm on the pair \((p,q-p)\).
+
+This is the sought construction, with an important qualification. The Lorentz cone supplies the projective conic and the Möbius action, but it does **not** select the integer lattice \(\mathbb Z^2\), the positive cone \(p,q\geq0\), or the branch cut \(p=q/2\). Those are extra arithmetic/dynamical data. Once the integral spinor lattice and this Euclidean-algorithm partition are specified, the Farey map is induced by piecewise integral projective Lorentz transformations. It is therefore a *constructed arithmetic dynamics on the null conic*, not a consequence of Lorentz invariance alone.
+
+For a 3+1-dimensional physical model this construction is restricted to a chosen 2+1-dimensional Minkowski subspace (equivalently, a great-circle section of the celestial sphere). Extending it canonically to the full celestial sphere would require additional structure and is not claimed here.
+
+### 9.3 Minkowski's question-mark function as the conjugacy
+
+For \(x=[0;a_1,a_2,\ldots]\), define
+\[
+?(x)=\sum_{k\geq1}(-1)^{k-1}
+2^{-(a_1+\cdots+a_k-1)}.
+\]
+The continuous extension to rational endpoints gives an increasing homeomorphism of \([0,1]\). It conjugates the Farey map above to the tent map
+\[
+T(y)=
+\begin{cases}
+2y,&0\leq y\leq\tfrac12,\\
+2(1-y),&\tfrac12\leq y\leq1,
+\end{cases}
+\qquad ?\circ F=T\circ ?.
+\]
+The conjugacy follows from the continued-fraction branch rules: on the left branch the first partial quotient decreases by one; on the right branch the first digit is one and the remaining coding is complemented. This is a classical theorem, not a new result of the present programme. [Sources: the dynamical-systems text and the reference on the question-mark function.]
+
+Consequently, after the arithmetic choices in §9.2, the projective null-cone dynamics is conjugated by \(?\) to dyadic tent dynamics. The singularity of \(?\) means this is not a smooth Lorentz-coordinate change: it is a singular topological conjugacy that changes the natural coordinate measure.
+
+### 9.4 The question-mark map as a singular change of projective coordinate
 
 Minkowski's question-mark function \(?(x)\) is a strictly increasing singular homeomorphism of [0,1]. It maps the Farey/Stern–Brocot coding to dyadic coding and conjugates the Farey map to the tent map. Thus it can be interpreted as a nonlinear, singular reparametrization of a one-dimensional projective coordinate.
 
@@ -452,7 +499,7 @@ q=?(x)
 \]
 provides a well-defined alternative coordinate. This changes the measure and the regularity of the coordinate parametrization; it does not change the underlying null cone or the Lorentzian metric. A physical interpretation requires a separately derived dynamical or observational meaning for q.
 
-### 9.3 Relation to the FDT cone parameter
+### 9.5 Relation to the FDT cone parameter
 
 FDT introduces
 \[
@@ -466,7 +513,7 @@ This is mathematically legitimate as a reparametrization. It is not yet an FDT t
 
 The exact research question is therefore: can the cone's projective coordinate, under the FDT flow or orbit dynamics, be shown to evolve by a Farey-type map (or a Möbius system conjugate to it)? If yes, the question-mark function could linearize or symbolically recode that dynamics. If not, q_ext remains an optional singular coordinate change.
 
-### 9.4 Relation to TSMR cumulative morphodynamics
+### 9.6 Relation to TSMR cumulative morphodynamics
 
 For an atomless probability measure mu on an interval, its cumulative distribution
 \[
@@ -478,7 +525,7 @@ The TSMR-C-I result establishes atomlessness for its Q6 Markov measure, but does
 
 A precise bridge would require proving that a measure generated by the cone/projective dynamics is transported by a cumulative map to Lebesgue measure, or that its cumulative map is conjugate to the Minkowski question-mark function. Neither statement is currently established.
 
-### 9.5 Diagram of the proposed bridge
+### 9.7 Diagram of the proposed bridge
 
 \[
 \begin{array}{ccc}
@@ -493,3 +540,12 @@ A precise bridge would require proving that a measure generated by the cone/proj
 The downward arrow from projective null directions to Farey dynamics is the missing mathematical input. The question-mark function supplies the conjugacy only after the relevant Farey dynamics has been identified.
 
 **Conclusion:** the cone–Minkowski-staircase connection is a strong and precise research direction through projective geometry, Möbius dynamics, and singular measures. It is not a consequence of sharing the name Minkowski, nor does the present FDT cone construction by itself imply Farey dynamics.
+
+
+### 9.8 References and reproducibility check
+
+- “Constant curvature (2+1)-spacetimes and projective structures,” *Groups, Geometry, and Dynamics* (projective null conic, hyperbolic plane, and identification \(SO^+(2,1)\simeq PSL(2,\mathbb R)\)): https://proceedings.centre-mersenne.org/item/10.5802/tsg.230.pdf.
+- M. Urbański, M. Roy, S. Munday, *Non-Invertible Dynamical Systems 1* (Minkowski question-mark conjugacy between Farey and tent maps): https://api.pageplace.de/preview/DT0400.9783110702682_A43273741/preview-9783110702682_A43273741.pdf.
+- Wolfram MathWorld, “Minkowski's Question Mark Function” (continued-fraction formula, strict increase, singularity, Farey mediant construction): https://mathworld.wolfram.com/MinkowskisQuestionMarkFunction.html.
+
+A finite exact-arithmetic check was also run on every reduced rational \(p/q\in(0,1)\) with \(q<80\): for each such input, the continued-fraction formula for \(?\) satisfied \(?(F(x))=T(?(x))\) exactly as a rational identity. Sample values include \(?(1/3)=1/4\), \(?(1/2)=1/2\), and \(?(2/3)=3/4\). This is a finite regression check of the formulas, not a proof of the global conjugacy; the latter is the classical theorem cited above.
