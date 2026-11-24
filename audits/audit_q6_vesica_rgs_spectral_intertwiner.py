@@ -76,9 +76,27 @@ JBsharp=-JB@D
 PhiA=JA@F
 PhiB=JBsharp@F
 
+# Derive the quadratic functional-calculus coefficients from the
+# independently reconstructed RGS carrier block and the Q6 reduced operator.
+# H is read from K0 on the six-dimensional carrier; no coefficients are
+# supplied by hand. The -0.15 off-diagonal carrier coupling splits H into
+# lower/upper triplets H-0.15I and H+0.15I.
+Hsym=(H+H.T)/2
+Hdiag=R.T@Hsym@R
+lower_eigs=np.diag(Hdiag)-0.15
+upper_eigs=np.diag(Hdiag)+0.15
+xspec=np.diag(Lred)
+Vand=np.column_stack((np.ones(3),xspec,xspec**2))
+poly_coeff=np.linalg.solve(Vand,lower_eigs)
+poly_residual=fro(Vand@poly_coeff-lower_eigs)
+# Rational recognition is diagnostic only; the floating-point equations
+# and residual remain the primary numerical evidence.
+from fractions import Fraction
+poly_rational=[str(Fraction(float(v)).limit_denominator(1000000)) for v in poly_coeff]
+upper_shift_residual=maxabs(upper_eigs-lower_eigs-0.30)
 # Candidate spectral function. On selected Q6 eigenvalues 0,4,6 it is
 # exactly (1/2,3/5,7/10), the original RGS lower triplet.
-fL=0.5*np.eye(64)+L6/120+(L6@L6)/240
+fL=poly_coeff[0]*np.eye(64)+poly_coeff[1]*L6+poly_coeff[2]*(L6@L6)
 fL_high=fL+0.3*np.eye(64)
 maxabs=lambda X:float(np.max(np.abs(X)))
 fro=lambda X:float(np.linalg.norm(X))
@@ -103,6 +121,11 @@ checks={
  "F_Q6_laplacian_intertwining_fro":fro(F@L6-Lred@F),
  "F_Q6_reflection_intertwining":maxabs(F@R6-D@F),
  "Lred":Lred.tolist(),
+ "RGS_quadratic_functional_calculus_coefficients":poly_coeff.tolist(),
+ "RGS_quadratic_coefficients_rational_recognition":poly_rational,
+ "RGS_quadratic_fit_residual":poly_residual,
+ "RGS_upper_lower_triplet_shift":0.30,
+ "RGS_upper_lower_shift_residual":upper_shift_residual,
  "F_64_basis_images_distinct":len({tuple(np.round(F[:,i],13)) for i in range(64)}),
  "RGS_JA_K0_eigen_residual":maxabs(K0@JA-JA@np.diag([.5,.6,.7])),
  "RGS_JB_K0_eigen_residual":maxabs(K0@JB-JB@np.diag([.8,.9,1.])),
@@ -141,7 +164,12 @@ report={
  "F_kernel_dimension":61,
  "F_basis_image_distinct_count":len(groups),
  "F_collision_multiplicity_distribution":{str(k):v for k,v in sorted(mult.items())},
- "spectral_polynomial":"f(x)=1/2 + x/120 + x^2/240",
+ "spectral_polynomial":"f(x)=a+b*x+c*x^2; coefficients solved from the original K0 carrier compression and Q6 Lred",
+ "spectral_polynomial_coefficients":poly_coeff.tolist(),
+ "spectral_polynomial_coefficients_rational_recognition":poly_rational,
+ "spectral_polynomial_fit_residual":poly_residual,
+ "upper_triplet_shift":0.30,
+ "upper_lower_shift_residual":upper_shift_residual,
  "f_on_selected_spectrum":[.5,.6,.7],
  "f_plus_0_3_on_selected_spectrum":[.8,.9,1.0],
  "RGS_source_arrays":["K0.npy","P_G.npy","Z_A.npy","Z_S.npy"],
@@ -164,6 +192,9 @@ residual_checks=[k for k,v in checks.items()
                  and not (k.endswith("_distinct") or k.endswith("_count"))
                  and v>TOL]
 assert checks["input_finite"], "Non-finite input array"
+assert poly_residual<TOL, f"Quadratic carrier fit residual {poly_residual}"
+assert upper_shift_residual<TOL, f"Upper/lower triplet shift residual {upper_shift_residual}"
+assert np.allclose(poly_coeff,[0.5,1/120,1/240],atol=TOL,rtol=0), f"Unexpected polynomial coefficients: {poly_coeff}"
 assert checks["P_G_rank"]==64, f"Expected rank(P_G)=64, got {checks['P_G_rank']}"
 assert len(groups)==27, f"Expected 27 quotient images, got {len(groups)}"
 assert checks["C_tensor_C_64_feature_vectors_distinct"]==64
