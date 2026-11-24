@@ -257,3 +257,9 @@ For any supplied embedding and \(\kappa_e>0\):
 | Isotropic Newtonian hydrodynamic limit and \(\eta_{\rm GK}=\eta_{\rm Stokes}\) | [O] |
 
 No new theorem number is assigned. This note supplies the missing variational energy model while preserving the distinction between an exact finite graph model and a physical material.
+
+
+
+## 9. Operator-level relation to the golden overlap automaton
+
+The golden Q6 pair automaton now has an explicit substochastic transfer operator and a separate stress-insertion construction; see [From the Q6 pair-overlap automaton to a stress operator](Q6_PAIR_AUTOMATON_TO_STRESS_OPERATOR_2026-11-24.md). The symbolic state coding does not supply the spatial embedding or the central-force stress coefficients in §§2–4. In particular, a two-replica overlap-weighted stress statistic is not the temporal autocorrelation of this mechanical stress. The missing map from the pair-transfer space to the physical mechanical Hilbert space remains an open theorem target.
