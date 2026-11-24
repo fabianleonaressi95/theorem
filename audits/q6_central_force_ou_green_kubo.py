@@ -89,7 +89,7 @@ def main():
     print("shear components (i,j): ||c_ij||, ||A_H||_F^2, sum |Aab|^2/[la*lb*(la+lb)]")
     for row in results:
         print(f"{row[0:2]}: {row[2]:.12g}, {row[3]:.12g}, {row[4]:.12g}")
-    print("all six shear components: identical exact benchmark")
+    print("all 15 shear components: identical exact benchmark")
     print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)")
     print("integral_C = 4*(kB*T)^2/mu")
     print("eta_GK = 4*kB*T/(mu*V)")
