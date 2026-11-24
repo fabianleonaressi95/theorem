@@ -933,3 +933,12 @@ The construction is exact as a finite geometric model after fixing the trigram-t
 
 
 The finite construction is backed by [a standard-library audit script](../audits/audit_vesica_hexagram_two_cone.py) and [machine-readable results](../results/json/vesica_hexagram_two_cone_audit.json). The corrected sampling uses step (2\pi/21) across each full 120-degree arc. The midpoint map is not injective (57 distinct midpoint values for 64 ordered pairs), but midpoint plus relative displacement reconstructs every pair.
+
+
+### Addendum — C3×C3-equivariant spherical null-cone extension
+
+A subsequent construction resolves the finite-group equivariance obstruction by enlarging each cone section from the planar circle in Minkowski (2+1) to the unit sphere S² in Minkowski (3+1). The eight trigram states map injectively to two poles and two equilateral latitude triangles at z=±1/2. The order-three finite-field map T(a,b,c)=(b,a+b,c) is intertwined exactly with rotation by 120 degrees about the z-axis. Taking two copies yields an injective product representation of all 64 hexagrams and an isometric C3×C3 action on the product of the spherical sections.
+
+This construction must remain distinct from the earlier Vesica-lens construction: it does not show that all eight spherical samples lie in the old planar lens, and it does not make the old 2+1D arc sampling equivariant. The ordinary inter-sheet distance is not invariant under independent rotations; a finite-group average is invariant but removes relative azimuthal phase.
+
+There is also an operator consequence. T is not an automorphism of the Hamming cube Q3, so the standard Q6 Laplacian is not C3×C3 invariant. Averaging the Q3 Laplacian over the three conjugates of T gives a positive-semidefinite C3-invariant operator; its product sum on 64 states is C3×C3 invariant and has 256 weighted support edges, compared with 192 edges in standard Q6. It is a distinct finite operator, not the standard cube Laplacian. The full construction, proofs, limitations and reproducible audit are in [the equivariance research note](../research/C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md).
