@@ -24,6 +24,9 @@ on:
       - "tests/test_tsmr_c_iching_q6.py"
       - "audits/tsmr_c_iching_overlap_automaton.py"
       - "tests/test_tsmr_c_iching_overlap_automaton.py"
+      - "theorems/TSMR-H_half_balance_fractal_pentagon.md"
+      - "audits/tsmr_h_half_balance.py"
+      - "tests/test_tsmr_h_half_balance.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
     branches: [main]
@@ -47,6 +50,9 @@ on:
       - "tests/test_tsmr_c_iching_q6.py"
       - "audits/tsmr_c_iching_overlap_automaton.py"
       - "tests/test_tsmr_c_iching_overlap_automaton.py"
+      - "theorems/TSMR-H_half_balance_fractal_pentagon.md"
+      - "audits/tsmr_h_half_balance.py"
+      - "tests/test_tsmr_h_half_balance.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
 
 jobs:
@@ -57,5 +63,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run TSMR-02, TSMR-03, TSMR-F, and TSMR-C regression tests
-        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 tests.test_tsmr_c_iching_overlap_automaton -v
+      - name: Run TSMR-02, TSMR-03, TSMR-F, TSMR-C, and TSMR-H regression tests
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 tests.test_tsmr_c_iching_overlap_automaton tests.test_tsmr_h_half_balance -v
