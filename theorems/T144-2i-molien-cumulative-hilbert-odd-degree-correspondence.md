@@ -298,3 +298,15 @@ N(m)=f(m)-\frac12+D_{m\bmod60}.
 ### A.8 Status
 
 Proved: (A.1)–(A.11), i.e. the exact quasipolynomial structure of the cumulative invariant count of \(2I\) and the exact correspondence of its nonconstant part with \(f\) on odd degrees. Conjecture: the law \([m^{2}]B_\rho(m)=d_\rho/240\) for the nine irreps. Open: the origin of the constant \(\frac12\).
+
+## 7. Provenance note on the constant \(\frac12\) in \(f\)
+
+The polynomial \(f(x)=\frac12+\frac{x}{120}+\frac{x^{2}}{240}\) was introduced as the unique quadratic interpolation through the three spectral pairs \((0,\tfrac12),(4,\tfrac35),(6,\tfrac7{10})\) matching the selected Q6 eigenvalues \(0,4,6\) to the RGS lower-triplet eigenvalues \(0.5,0.6,0.7\) (see `research/Q6_RGS_QUADRATIC_FUNCTIONAL_CALCULUS_DERIVATION_2026-11-24.md`).
+
+Direct inspection of the stored arrays shows that the constant is a measured spectral datum, not a derived one:
+
+- \(K_0\) is symmetric with spectrum \(\{0^{(64)}\}\cup\{(k+5)/10:k=0,\ldots,123\}\), i.e. the arithmetic ladder \(0.5,0.6,\ldots,12.8\) on the 124-dimensional nonzero sector. The value \(f(0)=\tfrac12\) is exactly the bottom rung of this ladder.
+- The same magnitude \(\tfrac12\) is the coupling scale of the RGS pair \((Z_A,Z_S)\): \(Z_S\) has eigenvalues \(\pm\tfrac12\) (multiplicity 3 each) and \(Z_S^{2}=\tfrac14 P_{\mathcal W}\) on its six-dimensional range.
+- The generating cell of \(K_0\) is not present in the recovered source dump (see `docs/K0_ORIGINAL_PRODUCER_RECOVERY_2026-11-21.md`); the provenance of the ladder, and hence of the constant \(\tfrac12\), remains open upstream.
+
+On the invariant-counting side, \(\tfrac12\) is not the mean constant of the quasipolynomial \(N\) (which is \(\tfrac{541}{720}\), see §4), nor the Molien identity-class term \(1/|2I|=1/120\). The Casimir rewriting \(f(2j)=\tfrac12+j(j+1)/60\) identifies \(\tfrac12\) as an additive vacuum-type offset relative to the \(E_8\) Coxeter number \(h=30\), but no derivation of that offset from \(2I\) or from the Q6–RGS construction is currently available.
