@@ -254,3 +254,12 @@ The next audit should therefore report separately: (i) the exact (1/2) geometry 
 A follow-up source audit has now been recorded in [C3_RGS_HALF_BRIDGE_PROVENANCE_AUDIT_2026-11-24.md](C3_RGS_HALF_BRIDGE_PROVENANCE_AUDIT_2026-11-24.md). It finds a manifest of the old 188D arrays in the companion `rgs-qlg-quaternion-bridge` repository, but not their binary payloads. The manifest confirms that `Z_A.npy`, `Z_S.npy`, `Zmat.npy`, `P_G.npy`, and `K0.npy` were 188D objects; it does not establish the values of the quoted (3\times3) $BA$ block.
 
 The archived first-principles reconstruction record further classifies original $J_A,J_B$ provenance as `NOT_RECOVERABLE`; its QR/soft-$T_{2u}$ substitutes are `HYPOTHESIS_ONLY`. They cannot be used as a canonical intertwining basis. Therefore the geometric half is exact, but the numerical C3–RGS bridge remains **OPEN** pending recovery of the original checkpoint arrays and the basis/index provenance of the (BA) block. No intertwiner is claimed.
+
+
+## 14. Correction after recovery and reconstruction of the original 188D arrays
+
+Sections 11–12 above contain a superseded statement that the original payloads were not recovered. The four arrays were uploaded at repository root in commit `22bcb398` and are now directly audited; see [the original-array audit](RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md) and [the deterministic basis reconstruction](../audits/reconstruct_rgs_half_carrier_basis.py).
+
+The reconstructed six-dimensional carrier yields two three-dimensional spectral triplets (J_A,J_B) with eigenvalues (0.5,0.6,0.7) and (0.8,0.9,1.0), respectively. The original skew operator pairs them as (Z_AJ_A=\tfrac12J_B), (Z_AJ_B=-\tfrac12J_A). The lower-triplet spectral involution (P_{0.5}+P_{0.6}-P_{0.7}) is (operatorname{diag}(1,1,-1)) in the ordered eigenbasis of (J_A). Thus the old sign pattern is recovered as a spectral involution on the lower triplet. It is **not** the same operator as the off-diagonal (J_A\leftrightarrow J_B) block of the original (Z_A), which is (\tfrac12I_3) in the paired basis.
+
+This reconstructs the RGS triplet pairing, but not yet the desired spherical intertwiner. The sphere model has an independent (C_3\times C_3) action on its two factors; an explicit action/representation on the reconstructed RGS triplets has not yet been extracted from the 188D data. Therefore no equivariant intertwiner is claimed at this stage. The corrected status is: **RGS half-scale carrier and triplet pairing NUMERICALLY VERIFIED; C3-equivariant geometric identification OPEN**.
