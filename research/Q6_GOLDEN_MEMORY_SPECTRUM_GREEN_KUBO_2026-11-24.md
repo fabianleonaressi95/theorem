@@ -156,3 +156,11 @@ along one and the same controlled family of microscopic models and boundary-valu
 - `theorems/T132-coupled-phonon-phason-ou-green-kubo.md`: finite reversible coupled OU benchmark.
 - `theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md`: exact Q6 inverse-spectral sum and its supergolden obstruction.
 - `research/TSMR-FDT_comparative_note.md` and `audits/tsmr_c_iching_overlap_automaton.py`: golden-coded Q6 overlap construction and its separate measure-theoretic status.
+
+
+
+## 8. Operator-level bridge to the stress observable
+
+The exact finite pair-transfer operator, its substochastic interpretation, the stress-weighted two-replica statistic, and the missing physical intertwiner are formalized in [From the Q6 pair-overlap automaton to a stress operator](Q6_PAIR_AUTOMATON_TO_STRESS_OPERATOR_2026-11-24.md). The companion audit is `audits/tsmr_q6_stress_transfer_bridge.py`.
+
+The central conclusion is that the pair automaton is not itself a Green–Kubo relaxation generator: it propagates two independent symbolic paths and discards paths leaving its finite enclosure. A physical spectral identification requires a conservative reversible generator, a stress observable derived from the same mechanical energy, and an isometric intertwining map.
