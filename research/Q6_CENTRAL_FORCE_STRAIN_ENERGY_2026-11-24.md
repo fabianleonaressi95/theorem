@@ -265,63 +265,65 @@ No new theorem number is assigned. This note supplies the missing variational en
 The golden Q6 pair automaton now has an explicit substochastic transfer operator and a separate stress-insertion construction; see [From the Q6 pair-overlap automaton to a stress operator](Q6_PAIR_AUTOMATON_TO_STRESS_OPERATOR_2026-11-24.md). The symbolic state coding does not supply the spatial embedding or the central-force stress coefficients in §§2–4. In particular, a two-replica overlap-weighted stress statistic is not the temporal autocorrelation of this mechanical stress. The missing map from the pair-transfer space to the physical mechanical Hilbert space remains an open theorem target.
 
 
-## 11. Exact canonical Q6-in-\\(\\mathbb R^6\\) shear benchmark
+## 11. Exact canonical Q6-in-\(\mathbb R^6\) shear benchmark
 
 The abstract cube admits a canonical unit-edge embedding
-\\[
-y(x)=x,\\qquad x\\in\\{0,1\\}^6,
-\\]
+\[
+y(x)=x,\qquad x\in\{0,1\}^6,
+\]
 with unit spring constants. This is an exact **six-dimensional control model**, not a three-dimensional Jitterbug realization. It is useful because its central-force Hessian and shear-stress derivative can be evaluated without fitting geometric parameters.
 
-For coordinate direction \\(k\\), let \\(L_k\\) be the Laplacian of the perfect matching consisting of the 32 Q6 edges parallel to that coordinate. The rigidity Hessian decomposes by displacement component:
-\\[
-K=\\operatorname{diag}(L_1,L_2,\\ldots,L_6).
-\\]
-Each \\(L_k\\) has eigenvalues 0 and 2, each with multiplicity 32. Hence
-\\[
-\\operatorname{rank}K=6\\cdot32=192,
-\\qquad
-\\operatorname{nullity}K=384-192=192,
-\\]
-and every positive eigenvalue of \\(K_{\\mathcal H}\\) equals 2. The large nullspace is a real mechanism of this deliberately sparse toy embedding; it must not be silently replaced by a rigid-body-only nullspace.
+For coordinate direction \(k\), let \(L_k\) be the Laplacian of the perfect matching consisting of the 32 Q6 edges parallel to that coordinate. The rigidity Hessian decomposes by displacement component:
+\[
+K=\operatorname{diag}(L_1,L_2,\ldots,L_6).
+\]
+Each \(L_k\) has eigenvalues 0 and 2, each with multiplicity 32. Hence
+\[
+\operatorname{rank}K=6\cdot32=192,
+\qquad
+\operatorname{nullity}K=384-192=192,
+\]
+and every positive eigenvalue of \(K_{\mathcal H}\) equals 2. The large nullspace is a real mechanism of this deliberately sparse toy embedding; it must not be silently replaced by a rigid-body-only nullspace.
 
-For an independent off-diagonal strain coordinate \\(\\xi_{ij}\\), \\(i<j\\), use
-\\[
-S^{ij}=\\frac12(e_ie_j^T+e_je_i^T).
-\\]
+For an independent off-diagonal strain coordinate \(\xi_{ij}\), \(i<j\), use
+\[
+S^{ij}=\frac12(e_ie_j^T+e_je_i^T).
+\]
 The linear stress coefficient (4.2) vanishes because every reference bond is parallel to a coordinate axis:
-\\[
+\[
 c_{ij}=0.
-\\]
+\]
 The strain-Hessian derivative is instead
-\\[
-A^{ij}=(L_i+L_j)\\otimes S^{ij}.
-\\]
-In the common Walsh-character basis, its restriction to \\(\\mathcal H=\\operatorname{Ran}K\\) has 16 independent two-dimensional blocks
-\\[
-\\begin{pmatrix}0&2\\\\2&0\\end{pmatrix},
-\\]
+\[
+A^{ij}=(L_i+L_j)\otimes S^{ij}.
+\]
+In the common Walsh-character basis, its restriction to \(\mathcal H=\operatorname{Ran}K\) has 16 independent two-dimensional blocks
+\[
+\begin{pmatrix}0&2\\2&0\end{pmatrix},
+\]
 and is zero on the remaining directions. Therefore, exactly,
-\\[
-\\|A^{ij}_{\\mathcal H}\\|_F^2=128,
-\\qquad
-\\sum_{\\alpha,\\beta}
-\\frac{|A^{ij}_{\\alpha\\beta}|^2}
-{\\lambda_\\alpha+\\lambda_\\beta}
-=\\frac{128}{2+2}=8.
-\\]
-For the reversible overdamped OU process on \\(\\mathcal H\\), with mobility \\(\\mu\\), temperature \\(T\\), and the stress retained through quadratic order, this gives
-\\[
-\\int_0^\\infty C_{ij,ij}(t)\\,dt
-=4\\frac{(k_BT)^2}{\\mu},
-\\qquad
-\\boxed{\\eta^{ij,ij}_{\\rm OU}
-=4\\frac{k_BT}{\\mu V}.}
-\\]
+\[
+\|A^{ij}_{\mathcal H}\|_F^2=128,
+\qquad
+\sum_{\alpha,\beta}
+\frac{|A^{ij}_{\alpha\beta}|^2}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}
+=\frac{128}{2\cdot2\cdot4}=8.
+\]
+For the reversible overdamped OU process on \(\mathcal H\), with mobility \(\mu\), temperature \(T\), and the stress retained through quadratic order, this gives
+\[
+C_{ij,ij}(t)=16(k_BT)^2e^{-4\mu t},
+\qquad
+\int_0^\infty C_{ij,ij}(t)\,dt
+=4\frac{(k_BT)^2}{\mu},
+\]
+and
+\[
+\boxed{\eta^{ij,ij}_{\rm OU}=4\frac{k_BT}{\mu V}.}
+\]
 All 15 off-diagonal components of the six-dimensional cube control give the same value by coordinate-permutation symmetry. This is a finite exact benchmark for the declared quadratic-stress OU model, not a physical viscosity prediction: the embedding is six-dimensional, the energy is harmonicized, and the OU bath is imposed.
 
-The reproducible implementation is `audits/q6_central_force_ou_green_kubo.py`. It checks the Hessian rank/eigenvalues, the vanishing linear shear coefficient, the Frobenius norm and the Green–Kubo spectral sum for all 15 shear components. Its output is intended to be independently checked in CI.
-
+The reproducible implementation is audits/q6_central_force_ou_green_kubo.py. It checks the Hessian rank/eigenvalues, the vanishing linear shear coefficient, the Frobenius norm and the Green–Kubo spectral sum for all 15 shear components.
 
 ### 11.1 Reproducibility result
 
@@ -329,14 +331,14 @@ The implementation was executed in GitHub Actions with NumPy on Python 3.12. The
 [Q6 pair-transfer and central-force OU audit](https://github.com/fabianleonaressi95/theorem/actions/runs/45396828057).
 
 For every one of the 15 off-diagonal strain components, the program returned
-[
+\[
 \|c_{ij}\|=0,\qquad
 \|A^{ij}_{\mathcal H}\|_F^2=128,\qquad
 \sum_{\alpha,\beta}\frac{|A^{ij}_{\alpha\beta}|^2}
-{\lambda_\alpha+\lambda_\beta}=32.
-]
-It also verified numerically that (K) has rank 192, nullity 192, and positive spectrum consisting only of 2 (within the stated numerical tolerance). The computed OU Green–Kubo coefficient is therefore the exact value predicted by the character-space derivation:
-[
-\eta^{ij,ij}_{\rm OU}=16\,k_BT/(\mu V).
-]
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}=8.
+\]
+It also verified numerically that \(K\) has rank 192, nullity 192, and positive spectrum consisting only of 2 (within the stated numerical tolerance). The computed OU Green–Kubo coefficient is therefore the exact value predicted by the character-space derivation:
+\[
+\eta^{ij,ij}_{\rm OU}=4\,k_BT/(\mu V).
+\]
 This is a successful numerical reproduction of the finite toy-model identity. It does not upgrade the six-dimensional model to a three-dimensional material model or establish a hydrodynamic limit.
