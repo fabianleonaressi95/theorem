@@ -75,7 +75,7 @@ This is the correct I Ching formulation of the collision issue. A generic binary
 The Q6 random walk defines a stationary Markov chain \((H_n)_{n\ge0}\) on the 64 hexagrams with transition matrix \(P\) above. Let
 \[
 s(h)=\pi_6(h),\qquad
-Y=\sum_{n=0}^{\infty}(\lambda^6)^n s(H_n).
+Y=\sum_{n=1}^{\infty}(\lambda^6)^{n-1}s(H_n).
 \]
 Since \(0<\lambda^6<1\) and \(s(h)\) is bounded, the series converges absolutely. This defines a Markov-coded self-similar probability measure, distinct in general from the i.i.d. Bernoulli convolution.
 
