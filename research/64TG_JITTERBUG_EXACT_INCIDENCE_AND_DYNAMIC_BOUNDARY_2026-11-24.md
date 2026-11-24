@@ -26,7 +26,7 @@ The map
 \]
 is therefore an exact bijection from the 12 cuboctahedral FCC vertices to the 12 unit Jitterbug joints when the reference edge scale is set to \(a=1\). For general \(a\), the physical map is \(x(n)\mapsto n/2\) in dimensionless Jitterbug coordinates, i.e. divide physical coordinates by \(a\).
 
-It preserves all Euclidean distances after this declared scale normalization. In particular, the 24 nearest-neighbour edges of length \(a\) map to the 24 unit Jitterbug rods.
+It preserves all pairwise Euclidean distances after this declared scale normalization. The Jitterbug rods have length \\(a\\), whereas the stored FCC graph edges have length \\(a/2\\); these are different incidence structures.
 
 **Correction from the direct incidence audit (24 November 2026).** The stored 64-TG FCC edge list uses integer-coordinate squared distance 2 (physical edge length a/2). Each of the 24 Jitterbug rod pairs in the same 12-point set has integer-coordinate squared distance 8 (physical length a). Direct comparison against all 240 stored FCC edges gives **0 matches out of 24**. Thus the 12-point geometric congruence is exact, but the rods are not edges of the stored 64-TG graph. The previous draft's claim of an initial-pose subcomplex isomorphism is withdrawn.
 
