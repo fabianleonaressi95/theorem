@@ -63,3 +63,5 @@ class TestEightCoilPrimitives(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+# Integration trigger: actual-field / finite-surface energy audit is in PR #414.
