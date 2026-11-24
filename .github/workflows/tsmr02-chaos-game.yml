@@ -54,4 +54,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run TSMR-02, TSMR-03, TSMR-F, and TSMR-C regression tests
-        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative -v
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 -v
