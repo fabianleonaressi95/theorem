@@ -43,6 +43,8 @@ theorem/
 
 ### Main indexes
 
+- **[Unified 27-chapter crosswalk and preservation register](research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md)** — connects all 27 chapters to theorem clusters, companion-repository materials, arithmetic/special-function results, Vesica, fractals, Minkowski–Farey, QAT, Green–Kubo and polariton literature; records epistemic caveats and the 236/239 inventory reconciliation.
+
 - **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 236 theorem records and 14 companion catalogue entries are represented in a 289-node, 320-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 236 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 
