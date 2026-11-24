@@ -44,6 +44,11 @@ evals, R = np.linalg.eigh(H)
 
 JA = (V + W) @ R / np.sqrt(2)
 JB = (V - W) @ R / np.sqrt(2)
+D = np.diag([1., 1., -1.])
+# Historical BA-block convention: an explicit sign gauge on the upper triplet.
+JB_gauge = -JB @ D
+ZA_BA = JB_gauge.T @ ZA @ JA
+ZS_BA = JB_gauge.T @ ZS @ JA
 low = evals - 0.15
 high = evals + 0.15
 # Reorder by increasing K0 eigenvalue; eigh(H) already sorts evals.
@@ -80,14 +85,20 @@ report = {
     "K_carrier_relative_leakage": norm(leak) / norm(K @ U),
     "ZA_low_to_high_max": maxabs(ZA @ JA + .5 * JB),
     "ZA_high_to_low_max": maxabs(ZA @ JB - .5 * JA),
+    "historical_gauge_D": D.tolist(),
+    "ZA_BA_block_gauged": ZA_BA.tolist(),
+    "ZS_BA_block_gauged": ZS_BA.tolist(),
+    "ZA_BA_half_sign_residual": maxabs(ZA_BA - .5 * D),
+    "ZS_BA_opposite_half_sign_residual": maxabs(ZS_BA + .5 * D),
     "K_eigenvector_residual_max": maxabs(K @ basis -
         basis * basis_eigenvalues[None, :]),
     "spectral_involution_low_branch": [1, 1, -1],
 }
 np.savez_compressed(OUT / "RGS_HALF_CARRIER_BASIS.npz",
                     U=U, V_plus=V, W_minus=W, H=H, H_eigenvectors=R,
-                    J_A=JA, J_B=JB, basis= basis,
-                    basis_eigenvalues=basis_eigenvalues)
+                    J_A=JA, J_B=JB, J_B_historical_gauge=JB_gauge,
+                    gauge_D=D, ZA_BA=ZA_BA, ZS_BA=ZS_BA,
+                    basis=basis, basis_eigenvalues=basis_eigenvalues)
 (OUT / "RGS_HALF_CARRIER_BASIS_AUDIT.json").write_text(
     json.dumps(report, indent=2) + "\n")
 print(json.dumps(report, indent=2))
