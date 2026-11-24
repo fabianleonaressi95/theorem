@@ -49,7 +49,9 @@ report = {
   "plus_diagonal_block_fro":fn(A_pp),"minus_diagonal_block_fro":fn(A_mm),
   "plus_to_minus_fro":fn(A_pm),"minus_to_plus_fro":fn(A_mp),
   "sqrt3_over_2":float(np.sqrt(3)/2),
-  "canonical_skew_block_residual_fro":fn(ZAc-.5*np.block([[np.zeros((3,3)),-np.eye(3)],[np.eye(3),np.zeros((3,3))]])),
+  "plus_to_minus_singular_values":np.linalg.svd(A_pm,compute_uv=False).tolist(),
+  "minus_to_plus_singular_values":np.linalg.svd(A_mp,compute_uv=False).tolist(),
+  "singular_values_half_residual_fro":float(np.linalg.norm(np.linalg.svd(A_pm,compute_uv=False)-.5)),
   "grading_oddness_residual_fro":fn(S@ZAc+ZAc@S)
  },
  "K0":{
@@ -74,6 +76,7 @@ checks = {
  "P_plus_P_minus_rank_3": True,
  "Z_A_diagonal_blocks_vanish": fn(A_pp)<1e-8 and fn(A_mm)<1e-8,
  "Z_A_inter_sheet_norm_sqrt3_over_2": abs(fn(A_pm)-np.sqrt(3)/2)<1e-8 and abs(fn(A_mp)-np.sqrt(3)/2)<1e-8,
+ "Z_A_cross_block_singular_values_half": np.max(np.abs(np.linalg.svd(A_pm,compute_uv=False)-.5))<1e-8,
  "Z_A_odd_under_grading": fn(S@ZAc+ZAc@S)<1e-8,
  "K0_carrier_invariant": fn(K0@U-U@Kc)<1e-8,
  "K0_mixes_grading_sectors": fn(Kpm)>1e-6 and fn(Kmp)>1e-6,
