@@ -257,7 +257,7 @@ The PRISM Fibonacci/QVSM branch contains exact algebraic scale identities and se
 
 The 23-November golden-zeta dossier reports exact identities including
 \[
-\Delta_5=\\pi\\sqrt{25+10\\sqrt5}=\\pi\\sqrt{15+20\\varphi},
+\Delta_5=\pi\sqrt{25+10\sqrt5}=\pi\sqrt{15+20\varphi},
 \]
 and the standard expansion of π cot(πx) in even zeta values for 0<|x|<1 (x=0 is a pole). The constant Cφ=8.0802127733210986785… and Fibonacci transfer roots (2.611461069, 5.222922137, …) are recorded numerical values, not independent physical constants. The zeta–φ–cotangent identities are analytic; the Maxwell/fullerenes connection remains a programme until the electromagnetic tensor is derived from the fullerene graph and calibrated.
 
