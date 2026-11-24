@@ -5,6 +5,7 @@
   "npz_sha256": "29b758d56c20ba9eb488d1846d1439c0fc145973762421d03083239ee832bba1",
   "filtration": {
     "definition": "E_j = conditional expectation onto functions of the first j columns of Q6_states (columns 0..j-1); suffix columns j..5 averaged",
+    "preservation_criterion": "a vertex map preserves E_j iff it maps the kept coordinate set {0,...,j-1} onto itself; coordinate bit flips commute with every E_j because flipping a kept coordinate relabels the prefix consistently on both sides of the commutator, while flipping an averaged coordinate permutes the fiber being summed",
     "levels": [
       0,
       1,
@@ -75,6 +76,200 @@
       "chain_5_6": {
         "E_j E_{j+1} - E_j fro": 0.0
       }
+    }
+  },
+  "permutation_decode": {
+    "Q6_antipodal": {
+      "induced_map": {
+        "kind": "bit_flip",
+        "detail": {
+          "flipped_columns_0based": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "flipped_columns_1based": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "examples": [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "reconstruction_max_abs_diff": 0.0,
+      "is_involution": true
+    },
+    "Pi_AT": {
+      "induced_map": {
+        "kind": "bit_flip",
+        "detail": {
+          "flipped_columns_0based": [
+            3,
+            4,
+            5
+          ],
+          "flipped_columns_1based": [
+            4,
+            5,
+            6
+          ]
+        },
+        "examples": [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "reconstruction_max_abs_diff": 0.0,
+      "is_involution": true
     }
   },
   "operators": {
@@ -2126,6 +2321,234 @@
             10.4074795453,
             10.5258760634,
             10.9908282775
+          ]
+        }
+      }
+    },
+    "reviewer_swap_cols_2_4_control": {
+      "provenance": "SYNTHETIC CONTROL: coordinate transposition (0-based cols 2<->4 = 1-based cols 3<->5); hypothesis control, NOT the stored Pi_AT (which decodes to a bit flip of columns 3,4,5)",
+      "role": "hypothesis control only",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 2.8284271247461903,
+          "spectral": 1.0
+        },
+        "4": {
+          "frobenius": 4.0,
+          "spectral": 1.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 2.0,
+          "spectral": 1.0
+        },
+        "4": {
+          "frobenius": 2.8284271247461903,
+          "spectral": 1.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            1.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
           ]
         }
       }

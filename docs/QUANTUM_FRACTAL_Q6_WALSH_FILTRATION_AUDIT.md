@@ -38,7 +38,36 @@ the first `j` columns of `Q6_states` (columns `0..j−1`), averaging over
 the suffix columns `j..5`. Verified identities (all exact to <1e-12):
 `E_j² = E_j = E_j*`, `rank E_j = 2^j`, `E_j E_k = E_min(j,k)`.
 
-## 3. Results
+## 3. Permutation decode (PR-review correction)
+
+The stored `Pi_AT` was independently decoded from its action on
+`Q6_states` (`permutation_decode` in the JSON report):
+
+- `Q6_antipodal`: bitwise complement of **all six** columns.
+- `Pi_AT`: bitwise complement of columns **3,4,5 (0-based)** =
+  1-based columns **4,5,6** — i.e. flip of the last three bits.
+  It is **not** a coordinate transposition. The permutation matrix
+  rebuilt independently from the induced map reproduces the stored
+  array with max difference 0.0.
+
+**Preservation criterion.** A vertex map preserves `E_j` iff it maps
+the kept coordinate set `{0,…,j−1}` onto itself. Coordinate *bit
+flips* commute with every `E_j`: flipping a kept coordinate relabels
+the prefix consistently on both sides of the commutator, and flipping
+an averaged coordinate permutes the fiber being summed. A genuine
+coordinate *swap* between a kept and an averaged column does break the
+filtration.
+
+**Reviewer-hypothesis control.** The transposition of 0-based columns
+2↔4 (1-based 3↔5), conjectured to be the `Pi_AT` action, was
+implemented as `reviewer_swap_cols_2_4_control` (synthetic, not
+stored). It reproduces the independently reported values **exactly**:
+`||[·,E_3]||_F = 2√2 ≈ 2.828427`, `||[·,E_4]||_F = 4.0`, spectral norm
+1 at both levels, zero elsewhere. This confirms (a) the reviewer's
+arithmetic is correct *for that transposition*, and (b) the stored
+`Pi_AT` is a different map — a bit flip, whose commutators vanish.
+
+## 4. Results
 
 Machine-readable report:
 `results/quantum_fractal_q6/walsh_filtration_audit.json`.
@@ -46,23 +75,31 @@ Machine-readable report:
 - **Stored operators:** every commutator `[O, E_j]` and every Walsh
   block coupling `W_keep^T O W_~keep` vanishes *exactly* (Frobenius and
   spectral norms = 0) for all `j`, for all four stored/derived
-  operators. Reason: each stored operator acts by coordinate
-  permutations or bit flips, which preserve every suffix-fiber
-  sigma-algebra; none mixes kept and averaged coordinates.
-- **Synthetic GOE control:** commutator Frobenius norms range
-  9.4–32.2 across `j = 0..5` and Walsh block norms 6.7–22.8 — the
-  machinery has discriminating power; the zeros above are structural,
+  operators. All stored vertex maps are bit flips or the identity on
+  coordinates — none exchanges a kept with an averaged coordinate.
+- **Synthetic controls:** the GOE control gives commutator Frobenius
+  norms 9.4–32.2; the swap control gives the nonzero pattern above —
+  the machinery has discriminating power; the zeros are structural,
   not a bug.
 - **Spectrum check:** numerical eigenvalues of `Q6_laplacian` match the
   Walsh formula `2|S|` (multiplicities `C(6,j)`) to <1e-14.
 - **Compressions:** eigenvalues of `E_j O E_j` on `range(E_j)` are
   recorded per level in the JSON for every operator.
 
-## 4. Negative results and non-conclusions
+## 5. Negative results and non-conclusions
 
 - Exact zero commutators for stored operators are a **structural
-  property of fiber-preserving maps**, not evidence of a nontrivial
-  renormalization law, scale invariance, or fractal behaviour.
+  property of bit-flip/fiber-preserving maps**, not evidence of a
+  nontrivial renormalization law, scale invariance, or fractal
+  behaviour. (An earlier draft of this note over-generalised to
+  "coordinate permutations preserve every prefix sigma-algebra"; that
+  claim is false for swaps across the kept/averaged boundary — the
+  corrected criterion is stated in §3.)
+- `Pi_AT` does **not** break the filtration: being a bit flip of the
+  last three columns, it commutes with every `E_j`. A selective
+  scale-hierarchy breaking by the Anti-Twin sector is therefore **not**
+  present in the stored vertex operator; it would require a genuinely
+  coordinate-mixing operator, which remains unidentified (see §1).
 - Six-bit Q6 is a single finite graph; no scaling limit, spectral
   dimension, or multifractal exponent can be extracted.
 - The Walsh filtration commutes with the standard Laplacian, as proved
@@ -71,7 +108,7 @@ Machine-readable report:
 - No statement is made about PRISM/Kathara–Q6 dynamics, quantum
   emergence, or any physical observable.
 
-## 5. Reproduction
+## 6. Reproduction
 
 ```bash
 python experiments/quantum_fractal_q6/walsh_filtration.py   # writes JSON

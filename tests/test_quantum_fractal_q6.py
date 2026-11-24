@@ -14,9 +14,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]
                      / "experiments" / "quantum_fractal_q6"))
 
 from walsh_filtration import (  # noqa: E402
-    N_SITES, audit_operator, conditional_expectation, load_canonical_q6,
-    operator_inventory, run_audit, suffix_mask, walsh_matrix,
+    N_SITES, audit_operator, conditional_expectation, coordinate_swap_matrix,
+    decode_state_permutation, describe_induced_map, load_canonical_q6,
+    operator_inventory, permutation_matrix_from_map, run_audit,
+    suffix_mask, walsh_matrix,
 )
+
+SYNTHETIC_CONTROLS = {"synthetic_GOE_control",
+                      "reviewer_swap_cols_2_4_control"}
 
 
 def _fixtures():
@@ -77,7 +82,7 @@ def test_stored_operators_have_zero_filtration_commutators():
     projections = {j: conditional_expectation(j) for j in range(7)}
     ops = operator_inventory(arrays)
     for name, spec in ops.items():
-        if name == "synthetic_GOE_control":
+        if name in SYNTHETIC_CONTROLS:
             continue
         result = audit_operator(spec["matrix"], projections, W)
         for j in range(7):
@@ -103,6 +108,58 @@ def test_synthetic_control_is_detected():
 def test_suffix_mask_counts():
     for j in range(7):
         assert int(suffix_mask(j).sum()) == (1 << j)
+
+
+def test_pi_at_decodes_to_bit_flip_not_coordinate_swap():
+    """Regression for the PR #431 review: the stored Pi_AT must be the
+    bitwise complement of columns 3,4,5 (0-based), NOT a coordinate
+    transposition.  The independently rebuilt permutation matrix must
+    coincide with the stored array."""
+    arrays = load_canonical_q6()
+    states = arrays["Q6_states"]
+    P = arrays["Pi_AT"].astype(float)
+    idx = decode_state_permutation(P, states)
+    desc = describe_induced_map(idx, states)
+    assert desc["kind"] == "bit_flip"
+    assert desc["detail"]["flipped_columns_0based"] == [3, 4, 5]
+    # independent reconstruction matches the stored matrix exactly
+    rebuilt = permutation_matrix_from_map(idx)
+    assert np.abs(rebuilt - P).max() == 0.0
+    # and it is genuinely not the conjectured 3<->5 swap
+    swap = coordinate_swap_matrix(2, 4)
+    assert np.abs(swap - P).max() > 0.0
+
+
+def test_antipodal_decodes_to_full_bit_flip():
+    arrays = load_canonical_q6()
+    states = arrays["Q6_states"]
+    idx = decode_state_permutation(arrays["Q6_antipodal"].astype(float),
+                                   states)
+    desc = describe_induced_map(idx, states)
+    assert desc["kind"] == "bit_flip"
+    assert desc["detail"]["flipped_columns_0based"] == [0, 1, 2, 3, 4, 5]
+
+
+def test_reviewer_swap_hypothesis_reproduces_expected_commutators():
+    """The transposition (0-based cols 2<->4 = 1-based cols 3<->5),
+    conjectured to be Pi_AT, must give the independently reported
+    nonzero commutators: ||[.,E_3]||_F = 2*sqrt(2), ||[.,E_4]||_F = 4,
+    spectral norm 1, zero at the other levels.  This validates both the
+    filtration machinery and the reviewer's arithmetic while confirming
+    the stored Pi_AT is a different map."""
+    arrays = load_canonical_q6()
+    states = arrays["Q6_states"]
+    W = walsh_matrix(states)
+    projections = {j: conditional_expectation(j) for j in range(7)}
+    swap = coordinate_swap_matrix(2, 4)
+    result = audit_operator(swap, projections, W)
+    assert abs(result["commutators"]["3"]["frobenius"]
+               - 2.0 * np.sqrt(2.0)) < 1e-9
+    assert abs(result["commutators"]["4"]["frobenius"] - 4.0) < 1e-9
+    assert abs(result["commutators"]["3"]["spectral"] - 1.0) < 1e-9
+    assert abs(result["commutators"]["4"]["spectral"] - 1.0) < 1e-9
+    for j in (0, 1, 2, 5, 6):
+        assert result["commutators"][str(j)]["frobenius"] < 1e-12
 
 
 def test_run_audit_report_shape():
