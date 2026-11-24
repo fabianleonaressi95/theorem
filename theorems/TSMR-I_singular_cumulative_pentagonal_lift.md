@@ -542,3 +542,212 @@ remaining possibilities for our \(D\) include strong stability with
 \(\rho(D)=1\), as well as failure of strong stability through a
 non-unitary component. The orbit-energy criterion in Section 14 is
 designed to distinguish these behaviours.
+
+## 16. Golden Fourier memory, Green–Kubo correlations, and the Stokes limit
+
+This section records a cross-disciplinary bridge as a **research programme with
+separated mathematical and physical status**. The Fourier identities below
+are exact. The Green–Kubo and Stokes formulae are standard physical relations.
+Identifying the present golden-Bernoulli compression with a physical stress or
+friction memory kernel remains open.
+
+### 16.1 The exact \(\pi\)–\(\varphi\) Fourier cascade
+
+Let \(\lambda=\varphi^{-1}\), and let
+\[
+(P h)(x)=\frac12h(\lambda x-1)+\frac12h(\lambda x+1)
+\]
+be the equal-weight golden Bernoulli Markov operator. For every real
+frequency \(\xi\),
+\[
+\boxed{P(e^{i\xi x})=\cos(\xi)e^{i\lambda\xi x}.}
+\]
+Iteration gives the exact identity
+\[
+\boxed{
+P^n(e^{i\xi x})
+=\left(\prod_{j=0}^{n-1}\cos(\lambda^j\xi)\right)
+ e^{i\lambda^n\xi x}.}
+\]
+Consequently, for the characteristic function of the invariant golden
+Bernoulli measure,
+\[
+\widehat{\nu_g}(\xi)
+=\prod_{j=0}^{\infty}\cos(\lambda^j\xi).
+\]
+
+The roles of the constants are distinct:
+- \(\varphi\) fixes the geometric contraction of frequencies,
+  \(\xi\mapsto\lambda\xi\);
+- \(2\pi\) fixes the Fourier phase convention and the locations of
+  integer-period resonances;
+- the cosine product is the exact amplitude accumulated along the
+  scale cascade.
+
+Since \(\varphi\) is a Pisot number, the classical Erdős theorem implies
+that the Fourier transform of the equal-weight golden Bernoulli
+convolution does not tend to zero at infinity; in particular there are
+high-frequency sequences associated with \(2\pi\varphi^n\) along which
+Fourier persistence occurs. This is a rigorous arithmetic property of
+\(\nu_g\), not yet a statement about a physical relaxation spectrum.
+
+### 16.2 The operator memory already available
+
+For the orthogonal complement compression \(D=QP|_{\operatorname{ran}Q}\),
+the scalar orbit correlations
+\[
+C_n(f)=\langle f,D^n f\rangle_{L^2(\nu_g)}
+\]
+are well-defined for every \(f\in\operatorname{ran}Q\). In a finite
+Feshbach/Mori decomposition
+\[
+A=\begin{pmatrix}A_{11}&B\\C&D\end{pmatrix},
+\]
+the corresponding matrix-valued memory sequence is
+\[
+K_n=BD^nC,\qquad n\geq0,
+\]
+and the effective resolvent correction is
+\[
+\Sigma(z)=B(zI-D)^{-1}C.
+\]
+These are exact identities for a given block operator; in the present
+project the stored harmonic matrices are finite empirical-CDF
+approximations, while the infinite-dimensional compression results
+are those proved in Sections 12–15.
+
+Neither \(C_n(f)\) nor \(K_n\) is automatically a physical stress
+autocorrelation. A physical identification requires specifying the
+observable, the equilibrium state, the projection defining the resolved
+variables, and the physical time represented by one Markov step.
+
+### 16.3 Green–Kubo viscosity and Mori–Zwanzig memory
+
+For an equilibrium, homogeneous Newtonian fluid, the Green–Kubo
+expression for shear viscosity is
+\[
+\boxed{
+\eta_{\rm GK}
+=\frac{1}{Vk_BT}\int_0^\infty
+\left\langle\delta\Pi_{xy}(t)\,
+\delta\Pi_{xy}(0)\right\rangle_{\rm eq}\,dt,}
+\]
+where \(V\) is the volume, \(T\) the temperature, and
+\(\delta\Pi_{xy}\) the fluctuation of the appropriate microscopic
+off-diagonal stress component. The thermodynamic and long-time limits,
+ensemble, and stress convention must be specified in an application.
+
+In Mori–Zwanzig theory, a generalized Langevin equation contains a
+memory kernel determined by a **projected random-force correlation**.
+The exact prefactors depend on the normalization and inner product used
+for the resolved variable. Thus a generic stress autocorrelation and a
+Mori random-force memory kernel must not be identified without deriving
+the relevant projection and fluctuation–dissipation relation.
+
+If a discrete-time observable \(\Pi_n\) has been shown to represent the
+equilibrium shear stress sampled at intervals \(\Delta t\), a consistent
+trapezoidal Green–Kubo approximation is
+\[
+\eta_{\rm GK}^{(\Delta t)}
+=\frac{\Delta t}{Vk_BT}
+\left[\frac12 C_\Pi(0)+
+\sum_{n=1}^{\infty}C_\Pi(n)\right],
+\qquad
+C_\Pi(n)=\langle\delta\Pi_n\delta\Pi_0\rangle_{\rm eq}.
+\]
+This formula is a discretization of Green–Kubo, not a licence to
+substitute \(C_n(f)=\langle f,D^nf\rangle\): that substitution is
+permitted only after the physical observable and dynamics have been
+identified and the correlation series shown to converge.
+
+### 16.4 Stokes friction and the continuum matching condition
+
+For a rigid sphere of hydrodynamic radius \(a\), translating slowly
+through an unbounded incompressible Newtonian fluid with no-slip
+boundary condition and negligible Reynolds number, Stokes' law gives
+\[
+\zeta_{\rm Stokes}=6\pi\eta a.
+\]
+Therefore
+\[
+\boxed{\eta_{\rm Stokes}=\frac{\zeta}{6\pi a}.}
+\]
+The Einstein relation in thermal equilibrium,
+\(D_{\rm diff}=k_BT/\zeta\), connects the same friction coefficient
+to the long-time translational diffusion coefficient under its
+usual assumptions.
+
+A Green–Kubo friction coefficient can be matched to Stokes friction
+only after the force observable, projection, hydrodynamic radius,
+boundary condition, and zero-frequency/long-time limit have been
+made consistent. In particular, an unprojected force autocorrelation
+need not be the correct Mori friction kernel when conserved momentum
+or other slow variables are present.
+
+### 16.5 The proposed bridge and its status
+
+The proposed chain is
+\[
+\boxed{
+\begin{gathered}
+\text{golden scale cascade }(\varphi)
++\text{ Fourier phase }(2\pi)\\
+\Downarrow\quad\text{exact harmonic identities}\\
+\nu_g,\ P,\ D,\ C_n,\ K_n\\
+\Downarrow\quad\text{observable and projection still to identify}\\
+\text{Mori--Zwanzig memory / fluctuation--dissipation}\\
+\Downarrow\quad\text{hydrodynamic limit and matching}\\
+\eta_{\rm GK}\ \longleftrightarrow\
+\zeta\ \longleftrightarrow\ \eta_{\rm Stokes}.
+\end{gathered}}
+\]
+
+A discrete-scale-invariant memory profile such as
+\[
+K(t)=A\,t^{-\alpha}
+\left[1+\sum_{m\geq1}a_m
+\cos\!\left(2\pi m\log_\varphi(t/t_0)+\theta_m\right)\right]
+\]
+may be investigated as a **phenomenological ansatz** motivated by
+golden scaling. It is not derived by the Fourier product above and is
+not asserted as a theorem. Its Green–Kubo integrability must be checked:
+absolute convergence at large \(t\) follows for a bounded modulation
+when \(\alpha>1\); for \(\alpha\leq1\), any conditional cancellation
+requires a separate proof.
+
+**Evidence ledger.**
+- **Exact:** Fourier action of \(P\) on exponentials; its iterated cosine
+  product; the definition of \(C_n(f)\); the finite-block identities
+  \(K_n=BD^nC\) and \(\Sigma(z)=B(zI-D)^{-1}C\).
+- **Classical external results:** Pisot non-decay for the golden
+  Bernoulli Fourier transform; Green–Kubo transport formula;
+  Mori–Zwanzig projected-force memory; Stokes drag
+  \(\zeta=6\pi\eta a\).
+- **Numerical/project-level:** finite harmonic memory matrices and
+  their correlations, subject to the sampling and Galerkin limitations
+  stated in Sections 7–10.
+- **Open:** identify a physical stress or projected-force observable
+  represented by \(f\), \(D\), or \(K_n\); establish a justified time
+  scale \(\Delta t\); prove convergence of the relevant correlation
+  integral/sum; derive the fluctuation–dissipation normalization; and
+  demonstrate the hydrodynamic matching to Stokes friction.
+- **Not claimed:** \(\eta_{\rm GK}=\eta_{\rm Stokes}\) for the present
+  model; a physical viscosity prediction from \(\varphi\) alone; or a
+  derivation of the log-periodic ansatz from the golden Bernoulli
+  convolution.
+
+### References for this bridge
+
+- P. Erdős, “On a family of symmetric Bernoulli convolutions,”
+  *American Journal of Mathematics* **61** (1939), 974–976.
+- R. Kubo, “Statistical-Mechanical Theory of Irreversible Processes.
+  I. General Theory and Simple Applications to Magnetic and Conduction
+  Problems,” *Journal of the Physical Society of Japan* **12** (1957),
+  570–586.
+- H. Mori, “Transport, Collective Motion, and Brownian Motion,”
+  *Progress of Theoretical Physics* **33** (1965), 423–455.
+- R. Zwanzig, “Memory Effects in Irreversible Thermodynamics,”
+  *Physical Review* **124** (1961), 983–992.
+- G. G. Stokes, “On the Effect of the Internal Friction of Fluids on the
+  Motion of Pendulums,” *Transactions of the Cambridge Philosophical
+  Society* **9** (1851), 8–106.
