@@ -36,6 +36,7 @@ on:
       - "tests/test_tsmr_i_memory_reduction.py"
       - "audits/tsmr_i_harmonic_convergence.py"
       - "tests/test_tsmr_i_harmonic_convergence.py"
+      - "results/tsmr_i_harmonic_convergence.json"
       - "results/tsmr_i_memory_reduction.json"
       - "results/tsmr_i_golden_markov_blocks.json"
       - ".github/workflows/tsmr02-chaos-game.yml"
