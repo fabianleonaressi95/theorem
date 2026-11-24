@@ -1059,3 +1059,29 @@ P1 stiffness, but not yet a continuum-normalized physical matter stress.
 The face-Hodge gauge term and P1 matter term remain conditional finite
 sectors until the dual measure, common action normalization and equilibrium
 dynamics are established.
+
+
+### 17.8 Finite Q6 Gibbs measure and algorithmic stress correlations
+
+The gauge-only equilibrium benchmark is implemented in [RGS–QLG–Q6 PR #219](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/219). At fixed recovered RGS coordinates, take the conditional face-area action (S_g(X,U)) of §17.7 and define
+[
+d\mu_{Q6}(U)=Z^{-1}e^{-\lambda S_g(X,U)}
+\prod_{e\in Q6^{(1)}}dU_e,
+\qquad U_e\in SU(2),\quad \lambda>0,
+]
+where each (dU_e) is normalized Haar measure. The finite configuration space (SU(2)^{192}) is compact and (S_g) is continuous and bounded; hence (0<Z<\infty).
+
+The implementation proposes one-link updates
+[
+U_e' = U_e\exp(i\boldsymbol\sigma\cdot v),
+\qquad v\sim N(0,s^2I_3),
+]
+whose increment law is invariant under inversion. The Metropolis acceptance probability
+[
+a(U\to U')=\min\{1,e^{-\lambda[S_g(U')-S_g(U)]}\}
+]
+therefore gives detailed balance with respect to (d\mu_{Q6}). This establishes reversibility of the specified finite Markov kernel; it does not by itself establish an ergodicity rate or a physical dynamics.
+
+The recorded observable is the gauge shear derivative (Pi^g_{xy}=-V^{-1}\partial_\gamma S_g|_{\gamma=0}). The code computes the finite-chain normalized covariance (C_{MC}(k)) and its truncated trapezoidal sum. These are **Monte Carlo algorithmic-time correlations**. They are not a physical-time stress autocorrelation and their integral is not (eta_{GK}).
+
+**Evidence status:** exact finite Gibbs density and detailed-balance argument for the declared proposal; seeded numerical trace and autocorrelation tests are included in PR #219. Still OPEN: proof of irreducibility/aperiodicity and mixing bounds for the implemented kernel, statistical convergence at specified run lengths, a physical Hamiltonian/Langevin generator, fluctuation-dissipation normalization, physical time calibration, a normalizable matter Gibbs sector, thermodynamic/refinement limit, Green–Kubo viscosity and Stokes matching. The massless P1 matter sector is deliberately not integrated because its covariantly constant modes require a specified mass or constraint. No physical viscosity is claimed.
