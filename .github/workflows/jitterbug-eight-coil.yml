@@ -87,6 +87,5 @@ jobs:
           name: jitterbug-eight-coil-report
           path: |
             jitterbug-eight-coil-report.json
-            jitterbug-actual-field-dn-report.json
             jitterbug-eight-coil-validation.json
           if-no-files-found: error
