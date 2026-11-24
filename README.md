@@ -43,7 +43,7 @@ theorem/
 
 ### Main indexes
 
-- **[T145 — square reflection, PRISM biverso and RGS carrier](theorems/T145-square-reflection-prism-biverse-rgs-carrier.md)** — proves the square/ℤ₂ parity decomposition and the (K_2)-coupled two-sheet reduction; records its numerical intertwiner with the original six-dimensional RGS carrier (κ=0.15, branch shift 0.30).
+- **[T145 — intrinsic ℤ₂ grading of the RGS carrier](theorems/T145-square-reflection-prism-biverse-rgs-carrier.md)** — verifies (S=2Z_S|_{\mathcal W}), rank-three parity projectors and the off-diagonal (Z_A) coupling; explicitly records that (K_0) mixes the grading sectors, so the grading does not explain its affine half-offset.
 
 - **[Factor 1/2, Liouville and literature dossier](theorems/FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24.md)** — integrates the established Liouville theorem, the D5 Bergman density, the Q6 Wilson marginal chain T003–T009, the PSU para-Kähler bridge, the RGS six-dimensional half-scale carrier, and the distinct algebraic, geometric, analytic and physical origins of 1/2. Separates proved results, numerical evidence and open identifications.
 
