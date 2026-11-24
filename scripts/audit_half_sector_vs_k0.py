@@ -88,6 +88,10 @@ def main():
     P_zs, zs_support = support_projector_symmetric(ZS, a.tol)
     # For a general antisymmetric Z_A, use its left singular subspace.
     P_za, za_support = support_projector_svd(ZA, a.tol)
+    wz, Vz = np.linalg.eigh(sym(ZS))
+    Uz = Vz[:, np.abs(wz) > a.tol]
+    Ua, sa, _ = np.linalg.svd(ZA, full_matrices=False)
+    Ua = Ua[:, sa > a.tol]
 
     I = np.eye(K.shape[0])
     report = {
@@ -116,10 +120,10 @@ def main():
         "K0_restrictions": {
             "ZS_support_invariance_commutator_fro": float(np.linalg.norm(K @ P_zs - P_zs @ K, "fro")),
             "ZS_support_residual_from_half_fro": float(np.linalg.norm((K - 0.5 * I) @ P_zs, "fro")),
-            "ZS_restricted_symmetric_spectrum": np.linalg.eigvalsh(sym(P_zs @ K @ P_zs)).tolist(),
+            "ZS_restricted_symmetric_spectrum": np.linalg.eigvalsh(sym(Uz.T @ K @ Uz)).tolist(),
             "ZA_support_invariance_commutator_fro": float(np.linalg.norm(K @ P_za - P_za @ K, "fro")),
             "ZA_support_residual_from_half_fro": float(np.linalg.norm((K - 0.5 * I) @ P_za, "fro")),
-            "ZA_restricted_symmetric_spectrum": np.linalg.eigvalsh(sym(P_za @ K @ P_za)).tolist(),
+            "ZA_restricted_symmetric_spectrum": np.linalg.eigvalsh(sym(Ua.T @ K @ Ua)).tolist(),
         },
         "normalization_checks": {
             "four_ZS_squared_projector_residual_fro": float(np.linalg.norm(4 * ZS @ ZS - P_zs, "fro")),
