@@ -901,3 +901,10 @@ The geometric language is deliberately restricted: each sheet has an \(SO(3)\) r
 The exterior-square splitting has dimensions \(3+9+3\), with \(\Lambda^2C_6\) eigenvalues \(+5\) (multiplicity 6) and \(-5\) (multiplicity 9). The exact integer audit and regression tests are linked from the T138 record.
 
 **Open representation-theory gate:** the six-dimensional matrices \(R_6(g)\) for generators of a specified \(2I^*\) action are not yet available in this construction. The required test is \([C_6,R_6(g)]=0\). Until it is passed, invariance and representation type of the two sheets under \(2I^*\) are not claimed. No physical or De Aquino identification follows from the matrix identity alone.
+
+
+---
+
+## Cross-repository preservation and literature crosswalk (24 November 2026)
+
+The chapter structure and canonical theorem records above are supplemented by the [Unified 27-chapter crosswalk and preservation register](../research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md). That register maps the existing theorem clusters, companion-repository documents, scripts, audits, data and external literature onto all 27 chapters. It does not replace this monograph or reclassify theorem status. It also records an inventory reconciliation item: the live tree contained 239 theorem Markdown paths at the 24 November snapshot, while the existing dependency graph reports 236. This discrepancy must be resolved by path-level comparison before changing the graph or catalogue.
