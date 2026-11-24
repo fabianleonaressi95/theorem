@@ -121,11 +121,12 @@ If a physical observable is later shown to have this measure as its spectral or 
 
 ## 8. Research questions
 
-2. Determine full support and singularity of the stationary Markov-coded measure.
-2. Prove or disprove atomlessness and singularity of the stationary Markov-coded measure.
+1. Determine the topology of the 64 component supports and whether their union has interval support.
+2. Determine whether the stationary Markov-coded measure is singular or absolutely continuous.
 3. Determine whether the 64-state transfer operator admits a smaller exact representation retaining the required memory, rather than an invalid scalar quotient.
 4. Compare the Markov-coded measure with the i.i.d. golden Bernoulli convolution using Fourier decay, local dimensions, and generalized dimensions.
 5. Only after these steps, investigate whether its CDF conjugates a natural dynamical action to a simpler interval map.
+
 
 ## 9. Transfer spectrum and overlap audit
 
@@ -191,7 +192,6 @@ At the first graph-directed level, 48 parent/child-pair convex-hull overlaps are
 
 ### 9.4 Current mathematical conclusion
 The Q6 transition spectrum is completely known, and the graph-directed Fourier recursion is explicit. The finite translation geometry has substantial exact coincidences and overlapping child hulls. Those facts alone do not establish singularity, absolute continuity, or multifractality of \(\nu\); Section 11 gives a separate exact pair-automaton proof of atomlessness and a positive lower local-dimension bound. The remaining analytical task is to study the matrix cocycle
-The Q6 transition spectrum is completely known, and the graph-directed Fourier recursion is explicit. The finite translation geometry has substantial exact coincidences and overlapping child hulls. None of these facts alone establishes atomlessness, singularity, absolute continuity, or multifractality of \(\nu\). The next analytical task is to study the matrix cocycle
 \[
 M(\xi)M(r\xi)\cdots M(r^{n-1}\xi)
 \]
