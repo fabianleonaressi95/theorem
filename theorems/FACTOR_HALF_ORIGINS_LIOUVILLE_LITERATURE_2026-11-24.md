@@ -336,3 +336,21 @@ La legge di Liouville è un risultato acquisito: un flusso Hamiltoniano conserva
 La marginale Wilson–Q6 è atomica ed esatta a scala finita, con quoziente efficace \(\mathbb T^5\); non coincide esattamente con la misura continua di Bergman. Il limite debole resta aperto. Nel settore RGS, \(1/2\) è un valore spettrale e una scala algebrica verificata numericamente su un supporto di dimensione sei; il suo significato fisico non è ancora selezionato.
 
 La tesi sostenibile è: **il programma contiene realizzazioni concrete di più meccanismi indipendenti che producono \(1/2\); l'eventuale unificazione va dimostrata con mappe, identità e intertwiner, non dalla coincidenza del coefficiente.**
+
+
+## 11. Addendum — square reflection, PRISM biverso and the RGS carrier
+
+The square's diagonal reflection exchanges its two congruent triangular halves. After identifying the two \(L^2\) spaces by reflection, its action is the sheet-swap involution \(S\), and the normalized parity projectors are \((I\pm S)/2\).
+
+The new record [T145](T145-square-reflection-prism-biverse-rgs-carrier.md) establishes the exact PRISM \(K_2\)-coupling reduction and its numerical realization on the original RGS six-dimensional carrier:
+\[
+K_0|_{\mathcal W}\simeq
+I_2\otimes L_\Omega+0.15(I-S)\otimes I_3,
+\qquad
+\operatorname{spec}(L_\Omega)=\{0.5,0.6,0.7\}.
+\]
+The two parity branches are \(\{0.5,0.6,0.7\}\) and \(\{0.8,0.9,1.0\}\); their separation is \(2\kappa=0.30\). The basis map is an intertwiner for the compressed six-dimensional operator, with reported leakage \(3.1\times10^{-12}\).
+
+This gives a concrete connection between square reflection, the PRISM biverso and the RGS carrier. It does not identify the ordinary Euclidean square Laplacian with the graph-coupled biverso operator, and it does not turn the many occurrences of \(1/2\) into one universal mechanism. The distinction between the biverso exchange involution and the original \(2Z_S\) sheet-sign involution is explicit in T145.
+
+**Literature:** Godsil–Royle, *Algebraic Graph Theory*, GTM 207, Springer (2001), Ch. 14; Merris, “Laplacian matrices of graphs: a survey,” *Linear Algebra Appl.* 197–198 (1994), 143–176, DOI 10.1016/0024-3795(94)90486-3; Serre, *Linear Representations of Finite Groups* (1977).
