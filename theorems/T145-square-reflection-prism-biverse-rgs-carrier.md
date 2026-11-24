@@ -93,8 +93,7 @@ S_{\rm RGS}=\begin{pmatrix}0&I_3\\I_3&0\end{pmatrix}
 in the ordered \((V,W)\) coordinates. Then the compression has the exact biverso form
 \[
 \boxed{
-U^TK_0U=I_2\otimes L_\Omega+
-0.15(I_2-S_{\rm RGS})\otimes I_3.
+U^TK_0U=I_2\otimes L_\Omega+0.15(I_6-S_{\rm RGS}).
 }
 \]
 In particular,
