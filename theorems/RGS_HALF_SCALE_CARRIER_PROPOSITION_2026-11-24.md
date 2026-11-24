@@ -91,3 +91,18 @@ This is a **finite numerical proposition** for the four stored arrays. The ident
 ## Geometric realization of the channel involution
 
 The involution \(D=\operatorname{diag}(1,1,-1)\) has an exact realization as the parity representation of the Minkowski reflection \((t,x,y)\mapsto(t,x,-y)\) on three paired channels of the two null cones defining the Vesica. The reflection swaps the two endpoint channels and fixes the central channel; in the orthonormal even/odd basis its matrix is \(D\). Under the recovered upper-triplet gauge \(J_B^\sharp=-J_BD\), this is the geometric channel interpretation of the numerical BA blocks \(\pm D/2\). This identifies the finite-dimensional coupling block with a Vesica–Minkowski reflection representation, but does not extend to a full 188D intertwiner or encode all 64 hexagrams. See [the explicit construction](../research/VESICA_MINKOWSKI_RGS_D_REFLECTION_CHANNEL_REPRESENTATION_2026-11-24.md).
+
+
+## Algebraic nine-to-three quotient of the paired hexagram moments
+
+The complete eight-sample trigram moment map and its 64-state tensor table are documented separately. A further map from the nine-dimensional paired channel space to one three-channel copy is obtained by supplying the pointwise algebra on the three marked labels (-,0,+). In the reflection-adapted basis (f0,f+,f-), its multiplication matrix M has rank three, satisfies M M^T=I3, and obeys
+\[
+M(D\otimes D)=DM.
+\]
+This is equivariance for the single physical diagonal Minkowski reflection.
+
+The composite M(C tensor C): R^64 -> R^3 has rank three and kernel dimension 61. It maps the 64 labelled basis states to only 23 distinct three-vectors; collision multiplicities are 1:2 classes, 2:12 classes, 3:2 classes, 4:6 classes, 8:1 class. It is therefore a lossy algebraic quotient, not a replacement for the full 64-state lookup or the nine-component feature table.
+
+The reduction is not selected by reflection alone: the space of linear maps equivariant for the diagonal Z2 has dimension 14. The pointwise channel algebra is the additional structure selecting this particular M. The map matches the RGS channel involution D, but it does not derive the coefficient 1/2 in the already verified BA blocks and does not intertwine the full 188D triple (K0, ZA, ZS). The latter dynamical bridge remains open.
+
+Details and complete collision table: research/VESICA_HEXAGRAM_9_TO_3_POINTWISE_ALGEBRA_REDUCTION_2026-11-24.md and results/json/vesica_hexagram_9_to_3_algebra_reduction_2026-11-24.json.
