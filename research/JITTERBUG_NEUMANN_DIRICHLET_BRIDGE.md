@@ -82,6 +82,66 @@ python -m unittest tests.test_jitterbug_actual_field_dn -v
 python audits/jitterbug_actual_field_dn.py --ds 0.08 --segments 48 --output jitterbug-actual-field-dn-report.json
 ```
 
-Tests cover the on-axis Biot–Savart field against the circular-loop formula, nonzero finite-surface flux, actual Jitterbug panel motion, positive-semidefinite inductance, and the discrete receiver energy identity. The first CI attempt exposed the inconsistent diagonal/off-diagonal regularization; that issue has been corrected and is being rerun.
+Tests cover the on-axis Biot–Savart field against the circular-loop formula, nonzero finite-surface flux, actual Jitterbug panel motion, positive-semidefinite inductance, and the discrete receiver energy identity. The initial CI run exposed inconsistent diagonal/off-diagonal regularization; the common finite-core kernel correction is now included in the merged PR #414 and the unified workflow passed.
 
 Still open: source/receiver segment and surface-quadrature convergence; actual winding placement and lead geometry; primary-source supply and actuator dynamics; Maxwell stress / generalized forces; complete mechanical + primary + receiver energy closure; experimental field and motion data. The model does not demonstrate useful output, net energy gain, self-running operation, or a new electromagnetic law.
+## 7. Connection to the established Q6 hypercube–gradient–Green–Kubo programme
+
+This section connects the electromechanical calculation to existing Q6 results; it does not identify the Jitterbug eight-panel mechanism with the 64-vertex hypercube. The configuration-space/incidence map needed for such an identification remains in issues #398–#401.
+
+### 7.1 The Q6 gradient and its Green operator
+
+Let B1:C1→C0 be the oriented cubical boundary matrix of the Q6 graph, and define the discrete gradient d0=B1^T:C0→C1. With the standard Euclidean cell inner products, the vertex Laplacian is
+
+\[L_0=d_0^*d_0=B_1B_1^T.\]
+
+For a vertex potential u, the discrete Dirichlet energy is
+
+\[\mathcal E_{Q6}(u)=\tfrac12\|d_0u\|^2=\tfrac12u^TL_0u.\]
+
+On the mean-zero subspace, the graph Green operator is \(L_0^\dagger\). It solves \(L_0u=f\) for mean-zero \(f\), and its quadratic form is the inverse Dirichlet energy. The same incidence/adjoint pattern appears in the face-cochain sector, but there the relevant operator is A=Δ2|ker(B3^T), not L0: its dimension is 129 and its exact spectrum is 4^15, 6^40, 8^45, 10^24, 12^5.
+
+### 7.2 Green–Kubo as a dynamical resolvent, not merely a static Green function
+
+Let \(H_0=\{x\in\mathbb R^{64}:\mathbf1^Tx=0\}\), and restrict \(L_0\) to \(H_0\), where it is strictly positive. The specified reversible OU process is
+\[
+dX_t=-\gamma L_0X_t\,dt+\sqrt{2\gamma\sigma^2L_0}\,dW_t,
+\qquad X_t\in H_0,\quad \gamma,\sigma>0.
+\]
+Its backward generator on smooth functions on \(H_0\) is
+\[
+(\mathscr Lf)(x)=-\gamma\langle L_0x,\nabla f(x)\rangle
++\gamma\sigma^2\operatorname{Tr}\!\left(L_0\nabla^2f(x)\right),
+\]
+where the gradient and Hessian are taken intrinsically on \(H_0\). The invariant law is the centered Gaussian \(N_{H_0}(0,\sigma^2I_{H_0})\); equivalently its stationary covariance, viewed on \(\mathbb R^{64}\), is \(\Sigma=\sigma^2P_{H_0}\), with \(P_{H_0}=I-\frac1{64}\mathbf1\mathbf1^T\). The constant mode is therefore absent, not merely assigned a finite relaxation time.
+
+For \(b\in H_0\), define the centered linear observable/current \(J_b(t)=\langle b,X_t\rangle\). Then
+\[
+C_b(t)=\mathbb E_{\rm eq}[J_b(t)J_b(0)]
+=\sigma^2\langle b,e^{-\gamma L_0t}b\rangle.
+\]
+Since \(L_0|_{H_0}>0\), this correlation is integrable and
+\[
+\boxed{\int_0^\infty C_b(t)\,dt
+=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle
+=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.}
+\]
+For arbitrary \(b\in\mathbb R^{64}\), the observable depends only on \(b_0=P_{H_0}b\), so the right-hand side must use \(b_0\). The isotropic Q6 mean for \(b\) uniform on the unit sphere of \(H_0\) is \(1517\sigma^2/(7560\gamma)\). In the distinct closed-face OU model, the corresponding exact mean is \(2263\sigma^2/(15480\gamma)\). These are exact for their declared reversible OU models; neither number is a measured material viscosity.
+
+The continuum counterpart is the familiar resolvent identity for a reversible generator \(\mathcal L\): the time-integrated equilibrium correlation is an inverse-generator quadratic form on the centered subspace, provided the integral converges. Thus the shared architecture is gradient → positive Laplacian/energy → Green or inverse operator → time correlation/resolvent. The static Q6 fourth-moment law Δμ4=−8w⁴FQ6 supplies a separate curvature functional; it does not itself specify the stochastic generator or the stress observable.
+
+### 7.3 Where the Jitterbug Neumann and Dirichlet maps enter
+
+The coil Neumann integral is a current-current Green pairing. The magnetic scalar Dirichlet-to-Neumann map is a boundary response for a harmonic potential; the hydrodynamic traction map is a different boundary response for Stokes flow. Their common structure with Q6 is the Green-operator/Dirichlet-form framework, not equality of the operators.
+
+For Stokes flow, the boundary map \(\Lambda_\eta:g\mapsto(2\eta D(u)-pI)n\) depends on the viscosity. The Q6 Green–Kubo programme supplies a candidate route to a constitutive coefficient only after a physical microscopic stress/current, equilibrium dynamics, normalization and limiting procedure are derived. T130's Q6 least-squares shape gradient and positive local resistance assembly provide a discrete geometric/variational component, but their physical calibration and nonlocal Stokes convergence remain open.
+
+### 7.4 The precise bridge still to prove
+
+1. Construct a configuration-space or chain map from the actual eight-panel Jitterbug kinematics to the Q6/64-TG incidence data, preserving the declared gradients and orientations (issues #398–#401).
+2. Derive a common metric- and strain-dependent energy for the Q6 variables and panel/coil degrees of freedom; obtain the stress and hyperstress by variational differentiation, including boundary terms.
+3. Specify a reversible equilibrium generator (or an appropriate driven/open-system response theory) and prove that its stress correlation converges to the desired Green–Kubo response. Do not substitute the OU benchmark coefficients for a material viscosity.
+4. Derive the continuum Stokes boundary operator from the same constitutive model and compare its traction response with the microscopic Green–Kubo coefficient. The equality \(\eta_{GK}=\eta_{DN}\) is a target consistency relation, not a theorem already established.
+5. Close the full electromechanical energy balance including primary supply, actuator work, receiver Joule loss, magnetic storage and Maxwell-stress forces.
+
+**Classification:** Q6 incidence/gradient/Laplacian identities and the stated OU inverse-spectral formulas are exact finite-dimensional results; T130 gradient/resistance identities are exact under their hypotheses with numerical unit tests; Jitterbug finite-surface flux and receiver-side energy audit are CI-verified numerical results. The Q6-to-Jitterbug map, physical stress derivation, continuum limit and Green–Kubo-to-Stokes constitutive identification remain open.
