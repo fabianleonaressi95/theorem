@@ -549,3 +549,183 @@ The arrow from projective null directions to Farey dynamics is supplied only aft
 - Wolfram MathWorld, “Minkowski's Question Mark Function” (continued-fraction formula, strict increase, singularity, Farey mediant construction): https://mathworld.wolfram.com/MinkowskisQuestionMarkFunction.html.
 
 A finite exact-arithmetic check was also run on every reduced rational \(p/q\in(0,1)\) with \(q<80\): for each such input, the continued-fraction formula for \(?\) satisfied \(?(F(x))=T(?(x))\) exactly as a rational identity. Sample values include \(?(1/3)=1/4\), \(?(1/2)=1/2\), and \(?(2/3)=3/4\). This is a finite regression check of the formulas, not a proof of the global conjugacy; the latter is the classical theorem cited above.
+
+
+## 10. Does the FDT radial variable generate Farey dynamics?
+
+This section tests the proposed identification against the actual evolution law present in the supplied FDT synthesis, rather than merely observing that \(\alpha_{\rm ext}\in(0,1)\).
+
+### 10.1 The discrete map that Farey dynamics would require
+
+Write \(R=R_s>0\), \(r=r_f>R\), and
+\[
+\alpha=\frac{R}{r}\in(0,1).
+\]
+If \(\alpha\) is to evolve by the Farey map of §9, then its next-step value must be
+\[
+\alpha'=
+\begin{cases}
+\alpha/(1-\alpha),&0<\alpha\leq1/2,\\
+(1-\alpha)/\alpha,&1/2\leq\alpha<1.
+\end{cases}
+\]
+In the radial variable this is exactly
+\[
+\boxed{
+r'=
+\begin{cases}
+r-R,&r\geq2R,\\[2pt]
+R^2/(r-R),&R<r\leq2R.
+\end{cases}}
+\tag{10.1}
+\]
+To verify: substitute \(\alpha=R/r\) into each branch and use \(r'=R/\alpha'\). Both branches map the exterior interval \((R,\infty)\) onto \([R,\infty)\), with the branch point \(r=2R\) mapped to \(r'=R\). In dimensionless radius \(s=r/R>1\), the map is
+\[
+s'=
+\begin{cases}
+s-1,&s\geq2,\\
+1/(s-1),&1<s\leq2.
+\end{cases}
+\]
+This is a piecewise \(PGL(2,\mathbb Z)\) map: subtract one on the outer branch and invert after subtracting one on the inner branch. It is an exact reformulation of the Farey map, not a new physical law.
+
+### 10.2 What follows if the FDT inflow is taken as a radial velocity
+
+The supplied FDT synthesis gives
+\[
+\mathbf v_{\rm in}=-c\sqrt{\alpha}\,\hat{\mathbf r}.
+\]
+If, and only if, this is interpreted as the coordinate radial velocity of the same radius \(r_f(t)\), then
+\[
+\dot r=-c\sqrt{R/r}.
+\]
+Since \(\alpha=R/r\) and \(R\) is constant,
+\[
+\dot\alpha=-\frac{R}{r^2}\dot r
+=\frac{c}{R}\alpha^{5/2}.
+\]
+This autonomous ODE has the exact solution
+\[
+\boxed{
+\alpha(t)=
+\left[
+\alpha_0^{-3/2}
+-\frac{3c}{2R}(t-t_0)
+\right]^{-2/3}}
+\tag{10.2}
+\]
+on the interval where the bracket is positive. Equivalently,
+\[
+r(t)^{3/2}=r_0^{3/2}
+-\frac{3}{2}c\sqrt R\,(t-t_0).
+\]
+The flow is continuous, monotone, and deterministic; it is not the two-branch Farey map. Its time to reach \(\alpha=1\), under this coordinate-velocity interpretation, is
+\[
+t_*-t_0=\frac{2R}{3c}
+\left(\alpha_0^{-3/2}-1\right).
+\]
+This finite-time expression is conditional on the identification of \(\mathbf v_{\rm in}\) with \(d r_f/dt\), which the supplied summary does not independently establish.
+
+### 10.3 No-go statement from the currently supplied FDT data
+
+The current FDT record specifies the compactness variable \(R_s/r_f\), a radial inflow profile, and static conic/orbit relations. It does **not** specify:
+- a discrete return time or Poincaré section on which \(r_f\mapsto r_f'\) is defined;
+- a branch variable selecting \(r_f\geq2R_s\) versus \(R_s<r_f\leq2R_s\);
+- an integer spinor lattice or an equivalent arithmetic invariant;
+- a derivation of either radial update in (10.1) from an action, geodesic equation, matching condition, or conservation law.
+
+Therefore the Farey map is **not derivable from the supplied FDT equations as they stand**. The exact radial map (10.1) identifies what would have to be derived; the continuous ODE (10.2) shows that the natural reading of the supplied inflow does not itself produce it.
+
+This is a precise obstruction, not a proof that no such extension exists. A valid FDT-to-Farey theorem would need to derive a discrete section/return map and prove that its two branches reduce to (10.1), with the branch partition and integer structure fixed by FDT dynamics rather than inserted by hand.
+
+### 10.4 Falsifiable derivation target
+
+A minimal theorem target is:
+
+> **Candidate FDT–Farey theorem.** There exists an FDT-defined Poincaré section \(\Sigma\), a dimensionless radial observable \(\alpha=R_s/r_f\), and an FDT-derived branch partition of \(\Sigma\) such that the first-return map induces
+> \[
+> \alpha\circ\mathcal P=
+> \begin{cases}
+> \alpha/(1-\alpha),&\alpha\leq1/2,\\
+> (1-\alpha)/\alpha,&\alpha\geq1/2.
+> \end{cases}
+> \]
+> The section, return time, branch selection, and integer/projective structure must all be derived from the FDT equations and boundary data.
+
+If this theorem is proved, the classical identity \(?\circ F=T\circ ?\) then gives the singular conjugacy to tent dynamics. Until then, \(?(R_s/r_f)\) is a permissible coordinate change, not a dynamically selected FDT observable.
+
+**Status:** candidate theorem stated; not proved. Current result: exact conditional radial reformulation plus a conditional continuous-flow calculation; no FDT derivation of Farey dynamics yet.
+
+
+### 10.5 The FDT critical value \(\alpha_c=2/3\) fixes a projective Farey chart
+
+The FDT evidence report identifies three regimes separated by \(\alpha_c=2/3\). There is a unique real Möbius transformation fixing the endpoints 0 and 1 and sending \(2/3\) to the Farey branch point \(1/2\):
+\[
+\boxed{x=h(\alpha)=\frac{\alpha}{2-\alpha}},\qquad
+h^{-1}(x)=\frac{2x}{1+x}.
+\]
+Uniqueness follows because a projective transformation is determined by its values at three distinct points. It is increasing on \((0,1)\), maps \((0,1)\) onto itself, and
+\[
+h(0)=0,\qquad h(2/3)=1/2,\qquad h(1)=1.
+\]
+Thus the FDT critical boundary is exactly the Farey branch boundary in this normalized projective chart. This alignment is derived from the three distinguished values; it does not yet derive a time evolution.
+
+Conjugate the standard Farey map \(F\) by \(h\):
+\[
+G=h^{-1}\circ F\circ h.
+\]
+Direct substitution gives the FDT-coordinate map
+\[
+\boxed{
+G(\alpha)=
+\begin{cases}
+\dfrac{2\alpha}{2-\alpha},&0<\alpha\leq2/3,\\[5pt]
+\dfrac{4(1-\alpha)}{2-\alpha},&2/3\leq\alpha<1.
+\end{cases}}
+\tag{10.3}
+\]
+The two formulas agree at \(\alpha=2/3\), where \(G(2/3)=1\). The first branch maps \((0,2/3]\) increasingly onto \((0,1]\); the second maps \([2/3,1)\) decreasingly onto \((0,1]\). The branch partition now coincides exactly with the FDT attractive/repulsive threshold.
+
+The induced radial form, using \(r=R_s/\alpha\), is
+\[
+\boxed{
+r'=
+\begin{cases}
+r-R_s/2,&r\geq3R_s/2,\\[4pt]
+\dfrac{R_s(2r-R_s)}{4(r-R_s)},&
+R_s<r\leq3R_s/2.
+\end{cases}}
+\tag{10.4}
+\]
+This is the precise radial update that a FDT return map would have to reproduce if the critical value \(2/3\) is its branch point. It is projectively conjugate to Farey by construction.
+
+Define the corresponding singular coordinate
+\[
+\boxed{q_{\rm FDT}(\alpha)=?\!\left(\frac{\alpha}{2-\alpha}\right)}.
+\]
+Then the classical Farey/question-mark conjugacy implies
+\[
+q_{\rm FDT}(G(\alpha))=T(q_{\rm FDT}(\alpha)).
+\]
+This is an exact theorem about the *constructed map* \(G\), not yet about physical FDT trajectories. It is better adapted than using \(? (\alpha)\) directly: it respects the FDT critical partition at \(2/3\).
+
+### 10.6 Event section versus Poincaré return: the obstruction
+
+Under the conditional inflow ODE (10.2), \(\dot\alpha>0\). The surface
+\[
+\Sigma_c=\{\alpha=2/3\}
+\]
+is a transverse **event section** for trajectories starting below the threshold, not a recurrent Poincaré section: each monotone radial trajectory crosses it at most once. The crossing time is
+\[
+t_c-t_0=\frac{2R_s}{3c}
+\left[
+\alpha_0^{-3/2}-(3/2)^{3/2}
+\right],
+\qquad 0<\alpha_0<2/3.
+\]
+After crossing, the same one-dimensional flow does not return to \(\Sigma_c\). Consequently it cannot by itself generate the two-branch return map (10.3). A genuine Poincaré map would require at least one additional dynamical degree of freedom (for example an angular/projective phase), a return mechanism, or a reflection/matching rule at the critical surface. None is specified in the supplied FDT synthesis.
+
+**Refined status.**
+- **Derived:** the unique endpoint-fixing Möbius chart that sends the FDT value \(2/3\) to Farey value \(1/2\); the conjugated map (10.3); its radial form (10.4); and the singular coordinate \(q_{\rm FDT}\).
+- **Conditional:** the monotone event-crossing time, assuming the supplied inflow is \(dr_f/dt\).
+- **Open:** whether FDT field equations, an action, or matching conditions produce the return mechanism and the map (10.3). The value \(2/3\) selects the correct projective branch point, but does not by itself supply recurrence or arithmetic dynamics.
