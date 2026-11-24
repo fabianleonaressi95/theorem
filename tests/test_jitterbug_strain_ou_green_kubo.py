@@ -35,3 +35,19 @@ def test_internal_mechanisms_are_not_mislabeled_as_phasons():
     result = audit()
     assert "not a material viscosity" in result["interpretation"].lower()
     assert "physical phason" not in result["interpretation"]
+
+def test_canonical_cuboctahedral_strain_benchmarks():
+    result = audit()
+    expected = {
+        "00": (2.0, 6.50606398809524, 8.50606398809524),
+        "11": (2.0, 6.50606398809524, 8.50606398809524),
+        "22": (2.0, 6.50606398809524, 8.50606398809524),
+        "01": (2.0, 3.18718998015873, 5.18718998015873),
+        "02": (2.0, 3.18718998015873, 5.18718998015873),
+        "12": (2.0, 3.18718998015873, 5.18718998015873),
+    }
+    for component in result["components"]:
+        linear, quadratic, total = expected[component["strain"]]
+        assert abs(component["GK_linear_kBT_over_mu"] - linear) < 1e-9
+        assert abs(component["GK_quadratic_kBT2_over_mu"] - quadratic) < 1e-9
+        assert abs(component["GK_total_kBT_mu1"] - total) < 1e-9
