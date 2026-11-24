@@ -139,3 +139,26 @@ act as \(\operatorname{diag}(1,1,-1)\) on (J_A), exactly the previously recorded
 The numerical reconstruction and a deterministic basis-extraction script are provided in `audits/reconstruct_rgs_half_carrier_basis.py`. Running it writes `results/npz/RGS_HALF_CARRIER_BASIS.npz` and its JSON audit. The script fixes the basis by coordinate-ordered Gram–Schmidt of (P_+e_j), then pairs it with (2Z_AV); hence it does not depend on arbitrary eigenvector choices inside the degenerate (+1/2) eigenspace.
 
 **Status:** the (J_A/J_B) spectral triplets and their (Z_A)-pairing are **NUMERICALLY VERIFIED** from the original arrays. The identification of this reconstructed basis with any separately archived historical basis is still open. A geometric intertwiner to the spherical two-triangle model also remains open until its (C_3\times C_3) action is specified on these reconstructed triplets and verified against the RGS operators.
+
+
+## 9. Symmetry obstruction for the spherical (C_3\times C_3) action
+
+In the ordered eigenbasis ((J_A,J_B)), the restrictions are
+\[
+K_0=\operatorname{diag}(0.5,0.6,0.7,0.8,0.9,1.0),\quad
+Z_A=\frac12\begin{pmatrix}0&-I_3\\I_3&0\end{pmatrix},\quad
+Z_S=\frac12\begin{pmatrix}I_3&0\\0&-I_3\end{pmatrix}.
+\]
+Let (R_3) be the cyclic permutation matrix on three channels. The diagonal action \(\rho(g)=\operatorname{diag}(R_3,R_3)\) commutes with (Z_A) and (Z_S), but not with (K_0). Its commutator Frobenius norm with the restricted (K_0) is
+\[
+\|[K_0,\rho]\|_F=\sqrt{2(0.1^2+0.1^2+0.2^2)}=\sqrt{0.12}\simeq0.346410.
+\]
+An independent action on only one factor, e.g. \(\rho_A=\operatorname{diag}(R_3,I_3)\), fails already for (Z_A):
+\[
+\|[Z_A,\rho_A]\|_F=\sqrt3.
+\]
+The same holds for the other factor. Thus the nonzero pairing (Z_A:J_A\to J_B) reduces the independent product symmetry to the diagonal subgroup.
+
+There is also a basis-independent obstruction if (K_0)-invariance is required. The lower triplet has simple spectrum ((0.5,0.6,0.7)). Any real orthogonal operator commuting with this restriction must preserve each one-dimensional eigenspace, hence is diagonal with entries (\pm1); the only such element of order three is the identity. Therefore no nontrivial real (C_3) representation can commute with (K_0|_{J_A}). The same argument applies to (J_B). Consequently there is **no nontrivial (C_3\times C_3) or diagonal (C_3) action on the two triplets that preserves the full triple ((K_0,Z_A,Z_S))** under the natural factorwise action.
+
+This is a conditional no-go statement for an intertwiner that is required to preserve all three original operators and the nontrivial spherical rotation action. It does not forbid a geometric map that does not intertwine (K_0), nor a new Reynolds-averaged (C_3)-invariant operator, nor an action in which (K_0) is allowed to transform covariantly rather than remain fixed. The distinction must be explicit in any subsequent construction. The numerical commutator checks are included in `audits/reconstruct_rgs_half_carrier_basis.py`.
