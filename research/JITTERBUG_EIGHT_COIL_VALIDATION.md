@@ -1,6 +1,6 @@
 # Jitterbug eight-coil: numerical validation extension
 
-**Status:** reproducible validation fixtures added; results are pending the first CI run on this branch. No physical apparatus is validated by these calculations.
+**Status:** reproducible validation fixtures and CI run completed successfully (24 November 2026). No physical apparatus is validated by these calculations.
 
 ## 1. Mutual-inductance reference benchmark
 
@@ -26,7 +26,7 @@ A second controlled fixture has eight separated circular coils in a static unifo
 \qquad e_j=-\dot\lambda_j.
 ]
 
-The resulting eight-component emf drives the full coupled midpoint RL solver with the time-dependent inductance matrix. The audit reports emf/current maxima, the minimum inductance eigenvalue, and reciprocity residual. This is a deliberate excitation fixture demonstrating that changing coil orientation in a static field produces nonzero flux derivative. It is **not** yet the actual eight-panel Jitterbug trajectory: the angular law is prescribed independently to avoid claiming that the existing Gray path already supplies a useful flux sweep.
+The resulting eight-component emf drives the full coupled midpoint RL solver with the time-dependent inductance matrix. The successful CI run reported maximum emf 2.53605e-2 V, maximum current 4.02049e-3 A, minimum inductance eigenvalue 1.32315e-3 H, and exactly zero matrix-reciprocity residual at the tested precision. This is a deliberate excitation fixture demonstrating that changing coil orientation in a static field produces nonzero flux derivative. It is **not** yet the actual eight-panel Jitterbug trajectory: the angular law is prescribed independently to avoid claiming that the existing Gray path already supplies a useful flux sweep.
 
 ## 3. Reproduction
 
