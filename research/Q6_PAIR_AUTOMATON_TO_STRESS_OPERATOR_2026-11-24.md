@@ -180,3 +180,33 @@ The current state of the bridge is:
 - \`research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md\`: same-energy mechanical stress and OU benchmark.
 - \`research/Q6_JITTERBUG_MICROSCOPIC_STRESS_GREEN_KUBO_STOKES_2026-11-24.md\`: conditional Green–Kubo/Stokes matching theorem.
 - \`theorems/T131-q6-phonon-phason-green-kubo-transport.md\` and \`theorems/T132-coupled-phonon-phason-ou-green-kubo.md\`: phonon/phason stress-sector requirements and controlled OU identities.
+
+
+## 8. Executed exact audit: decisive obstruction
+
+The audit was executed on GitHub Actions (Python 3.12), run [45394600161](https://github.com/fabianleonaressi95/theorem/actions/runs/45394600161), commit `d85b9ab6036e1ec7311c4a1ca1c68d0b535716cf`. The run completed the exact-state transfer calculation and returned:
+
+| Quantity | Exact audit output |
+|---|---:|
+| Reachable states | 5,566 |
+| Directed support edges | 34,762 |
+| Diameter in \\(\\mathbb Z[\\lambda]\\) | \\(\\frac{33}{20}+\\frac{31}{20}\\lambda\\) |
+| Row-sum range of integer multiplicities | 0–18 |
+| Rows with at least one killed candidate move | 5,566 / 5,566 |
+| Missing paired choices (counted with multiplicity) | 165,614 |
+| Directed edges whose reverse is also present | 848 |
+| Reciprocal support fraction | 0.0243944537138 |
+| Maximum forward/reverse multiplicity defect on support edges | 1 |
+| Uniform reversible | `False` |
+
+The row-sum maximum 18 is strictly below the 36 candidate paired moves; every reachable state loses at least half of its candidate choices, and some states have no retained outgoing move. This is substantial enclosure killing, not a small boundary correction.
+
+More decisively, the support is not symmetric: only 848 of 34,762 directed support edges have their reverse. Therefore **there is no strictly positive diagonal weight matrix** \\(W=\\operatorname{diag}(w_x)\\) satisfying detailed balance
+\\[
+WT_{\\rm pair}=T_{\\rm pair}^{T}W,\\qquad w_x>0.
+\\]
+Indeed, for any retained edge \\(x\\to y\\) with no reverse edge, detailed balance would require \\(w_xT_{xy}=w_yT_{yx}=0\\), contradicting \\(w_x>0\\) and \\(T_{xy}>0\\). The conclusion is stronger than failure of the uniform measure: no positive diagonal reweighting can make this raw finite transfer reversible.
+
+**Status update:** [N] the numerical support audit is executed; [P] the implication “asymmetric support excludes every strictly positive diagonal detailed-balance measure” is an exact finite-matrix argument. Consequently the raw \\(T_{\\rm pair}\\) is ruled out as a reversible equilibrium transfer on this state space. It remains a valid substochastic geometric overlap operator. Do not repair it by row-normalization or ad hoc symmetrization: either operation changes the model and would need a new derivation.
+
+The CI workflow is `.github/workflows/tsmr-q6-stress-transfer.yml`; the script remains `audits/tsmr_q6_stress_transfer_bridge.py`.
