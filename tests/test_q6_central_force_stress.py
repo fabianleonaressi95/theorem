@@ -110,7 +110,7 @@ def hessian_at_strain(y, edges, kappa, eps):
         block = kappa[e] * (np.outer(nhat, nhat) +
                             prestress * (np.eye(d) - np.outer(nhat, nhat)))
         ids = np.r_[np.arange(v*d, (v+1)*d), np.arange(w*d, (w+1)*d)]
-        incidence = np.r_[-np.eye(d), np.eye(d)]
+        incidence = np.concatenate((-np.eye(d), np.eye(d)), axis=1)
         K[np.ix_(ids, ids)] += incidence.T @ block @ incidence
     return K
 
