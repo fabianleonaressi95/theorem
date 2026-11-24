@@ -93,3 +93,10 @@ The previous “not recovered” conclusion is superseded. The four binary array
 The original arrays establish a rank-six carrier with a symmetric/antisymmetric half-scale pair: (Z_S) has eigenvalues (+1/2) and (-1/2), each of multiplicity three; (Z_A) is skew-symmetric; (Z_A^2+Z_S^2\simeq0) and (Z_AZ_S+Z_SZ_A\simeq0). Both operators annihilate (operatorname{ran}P_G) and act in its orthogonal complement. This corrects the earlier “manifest only” and “payload not recovered” statements.
 
 The historical (3\times3) (BA) block/basis provenance is still not established by these four files alone. Accordingly, the six-dimensional half-scale algebra is **NUMERICALLY VERIFIED**, while the explicit identification with the previously quoted (J_A\leftrightarrow J_B) basis and the intertwiner to the spherical construction remain **OPEN**.
+
+
+## Further correction: a canonical numerical (J_A/J_B) basis is now reconstructed
+
+Although the separately archived historical basis/index provenance remains unavailable, the original arrays do determine a reproducible basis intrinsically. The rank-three (+1/2) eigenspace of (Z_S) gives (V); setting (W=2Z_AV) produces its paired (-1/2) basis. Diagonalizing the (3\times3) compression of (K_0) then gives lower and upper spectral triplets with eigenvalues ((0.5,0.6,0.7)) and ((0.8,0.9,1.0)). In this basis (Z_AJ_A=\tfrac12J_B). The deterministic extraction is implemented in [reconstruct_rgs_half_carrier_basis.py](../audits/reconstruct_rgs_half_carrier_basis.py); the full numerical identities are in [RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md](RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md).
+
+Thus the earlier statement “(J_A,J_B) cannot be recovered” is superseded if it means a basis for the six-dimensional carrier: such a basis is now numerically reconstructed. What remains unrecovered is the historical coordinate/index convention of the old stored (J_A,J_B) arrays, if distinct from this canonical construction. The spherical (C_3\times C_3) intertwiner remains open.
