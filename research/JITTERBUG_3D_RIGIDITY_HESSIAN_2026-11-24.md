@@ -67,6 +67,7 @@ Run:
     python -m pytest -q tests/test_jitterbug_mechanical_hessian.py
 
 Implementation: audits/jitterbug_mechanical_hessian.py.  
-Tests: tests/test_jitterbug_mechanical_hessian.py.
+Tests: tests/test_jitterbug_mechanical_hessian.py.  
+Dedicated CI: https://github.com/fabianleonaressi95/theorem/actions/runs/45403756229 (success; 2 tests passed and audit JSON emitted).
 
 **Conclusion:** [N] the 3D Jitterbug central-force lift has six internal infinitesimal mechanisms in addition to six rigid-body modes. This is a useful structural constraint on any future phonon/phason or Green–Kubo extension, not yet such an extension.
