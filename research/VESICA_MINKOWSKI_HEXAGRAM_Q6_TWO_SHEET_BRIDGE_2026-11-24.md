@@ -185,7 +185,7 @@ The construction is therefore a rigorous finite geometric bridge from the 64 hex
 
 The implementation is in [`audits/audit_vesica_hexagram_two_cone.py`](../audits/audit_vesica_hexagram_two_cone.py), with output [`results/json/vesica_hexagram_two_cone_audit.json`](../results/json/vesica_hexagram_two_cone_audit.json). The script uses only the Python standard library. Its execution checks all 64 ordered pairs, both null-cone equations, membership of all endpoints and all 64 midpoints in the Vesica lens, reconstruction from midpoint plus displacement, and all 192 Q6 Cartesian-product edges.
 
-The independent execution returned: 64 distinct ordered geometric pairs; 57 distinct midpoints at rounding tolerance (10^{-12}); eight equal-index pairs share the same midpoint; 192 Q6 edges; and squared inter-sheet separation in the interval approximately ([1,3]), with mean (1.096173671917929). All programmed assertions passed. The 57 midpoint count is a useful warning: the Vesica midpoint is a many-to-one projection, and the relative displacement is necessary to retain all 64 states.
+The independent execution returned: 64 distinct ordered geometric pairs; 57 distinct midpoints at rounding tolerance (10^{-12}); eight equal-index pairs share the same midpoint; 192 Q6 edges; and squared inter-sheet separation in the interval approximately ([0,3]), with mean (1.096173671917929). All programmed assertions passed. The 57 midpoint count is a useful warning: the Vesica midpoint is a many-to-one projection, and the relative displacement is necessary to retain all 64 states.
 
 **Reproduction:** `python audits/audit_vesica_hexagram_two_cone.py`.
 
