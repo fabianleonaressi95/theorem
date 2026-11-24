@@ -89,3 +89,10 @@ Run from the repository root:
 The audit checks the parity basis, coisometry, diagonal-reflection equivariance, failure of the two independent factor flips with target \(D\), rank, kernel dimension, and all 64 collision classes.
 
 **Conclusion:** a natural algebraic nine-to-three map exists once pointwise multiplication on the three marked channels is supplied. It is a lossy quotient, not a canonical consequence of reflection alone and not yet an RGS operator intertwiner.
+
+
+## Subsequent operator test: this is not the preferred RGS quotient
+
+The pointwise multiplication map M above is a valid algebra homomorphism and diagonal-reflection intertwiner, but it is not an invariant quotient for the Q6 Laplacian compressed to the nine-dimensional moment sector. Its Laplacian leakage is nonzero (Frobenius norm 2). It must therefore remain classified as an algebraic quotient, not the operator-derived Q6–RGS reduction.
+
+The later construction in research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md replaces it for the RGS bridge: it uses the invariant symmetric one-excitation subspace E of the Q6-compressed Laplacian and the coisometry F=E^T(C_Q tensor C_Q). This F intertwines the Q6 Laplacian and the diagonal reflection, and matches the RGS channel involution D.
