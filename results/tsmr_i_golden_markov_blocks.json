@@ -1,0 +1,21 @@
+{
+  "model": "equal-weight golden Bernoulli convolution",
+  "lambda": 0.6180339887498948,
+  "samples": 300000,
+  "series_terms": 48,
+  "seed": 20261124,
+  "cdf_tail_bound": 2.4353901685728815e-10,
+  "matrix_convention": "A[i,j] = <e_i, M_g e_j>_L2([0,1])",
+  "operator_matrix": [
+    [0.0177744786, -0.0000147489, 0.0, 0.935601452, 0.0000475368],
+    [-0.0004201242, 0.0963895017, 0.0, -0.0001206111, 0.850649622],
+    [0.0030293695, 0.0003217202, 1.0, -0.0058080935, -0.0004011266],
+    [0.0481506557, -0.0003152605, 0.0, -0.153065997, 0.0002784471],
+    [0.0002039620, 0.124687462, 0.0, 0.0005418985, -0.214569962]
+  ],
+  "off_diagonal_blocks": {
+    "Pi1_M_IminusPi1_frobenius": 1.2644978735,
+    "IminusPi1_M_Pi1_frobenius": 0.1336969344
+  },
+  "classification": "finite-sample numerical evidence; not an exact analytic evaluation"
+}
