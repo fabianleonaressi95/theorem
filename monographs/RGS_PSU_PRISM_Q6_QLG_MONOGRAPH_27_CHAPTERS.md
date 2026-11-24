@@ -908,3 +908,18 @@ The exterior-square splitting has dimensions \(3+9+3\), with \(\Lambda^2C_6\) ei
 ## Cross-repository preservation and literature crosswalk (24 November 2026)
 
 The chapter structure and canonical theorem records above are supplemented by the [Unified 27-chapter crosswalk and preservation register](../research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md). That register maps the existing theorem clusters, companion-repository documents, scripts, audits, data and external literature onto all 27 chapters. It does not replace this monograph or reclassify theorem status. It also records an inventory reconciliation item: the live tree contained 239 theorem Markdown paths at the 24 November snapshot, while the existing dependency graph reports 236. This discrepancy was reconciled on 24 November 2026: the three omitted records are TSMR-C-I_iching_golden_q6_lift.md, TSMR-C_cumulative_morphodynamics.md and TSMR-F_multifractal_morphological_equation.md. They were added as provisional thematic-index nodes, not proof dependencies. The graph now records 239 theorem files, 292 nodes and 323 edges; its 54 reviewed direct crosswalk edges were not changed.
+
+
+## Addendum — Vesica Piscis, Minkowski cones and the 64 hexagrams (24 November 2026)
+
+The 64 vertices of Q6 are identified with the 64 six-line hexagrams once a fixed convention maps the six binary coordinates to line values and orders them as lower and upper trigram:
+\[
+H=(L,U)\in\mathbb F_2^3\times\mathbb F_2^3.
+\]
+This is an exact bijection of sets. It makes the (3+3) split intrinsic to the hexagram composition, rather than an arbitrary partition of six bits. It does **not** by itself identify Q6 edges, faces, Laplacian or dynamics with traditional I Ching relations. Gray-code ordering remains a computational enumeration and is not the line-bit convention.
+
+The affine-filtration audit in PR #437 supplies the algebraic companion: the (GL(3,2)\times GL(3,2)) block-diagonal subgroup preserves the (j=3) boundary. The full exact criterion is the vanishing of the upper-right block in the audited row/column convention; lower block-triangular mixing can also preserve the ordered-prefix filtration, so the block-diagonal subgroup is not the entire stabilizer.
+
+For the geometric side, in Minkowski (2+1) with (ds^2=-dt^2+dx^2+dy^2), null cones from ((0,0,0)) and ((0,1,0)) cut the slice (t=-1) in the circles (x^2+y^2=1) and ((x-1)^2+y^2=1). Their disks intersect in the Vesica Piscis, with common chord endpoints \((1/2,\pm\sqrt3/2)\). The two cone surfaces intersect in a spacetime curve, not in that chord; the chord is the curve's intersection with the chosen time slice.
+
+The proposed interpretation of the lower and upper trigram factors as two geometric conic sheets remains **open**. It needs explicit maps from trigram states to geometric objects, a declared Lorentzian metric and causal relation, incidence compatibility with Q6, and an equivariance proof for the claimed symmetry group. The complete status ledger and construction gates are in [the research note](../research/VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md).
