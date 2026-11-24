@@ -121,7 +121,8 @@ If these identities hold, the polynomial \(f\) follows by uniqueness of quadrati
 | Vesica-to-regular-pentagon construction | Exact, separately documented |
 | Regular dodecahedron as polar dual of regular icosahedron | Classical exact geometry |
 | Compatible 12-face pentagon-frame transport | Open |
-| Dodecahedral weighted chain map into Q6 | Open |
+| Equal-face-barycentre lift into Q6 | Constructed; antipodal-equivariant, but canonical operator fails the target spectrum (T146) |
+| Compatible dodecahedral weighted chain/cochain map into Q6 | Open |
 | Derivation of Q6 eigenvalues \(0,4,6\) from that dodecahedral map | Open |
 | Recovery of \(f\) from dodecahedral geometry alone | Open |
 | Existing Q6-to-RGS three-node interpolation formula \(f\) | Exact interpolation identity on the selected finite sector |
