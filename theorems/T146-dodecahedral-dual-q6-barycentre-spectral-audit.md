@@ -71,7 +71,33 @@ Let \(D\in\mathbb R^{20\times30}\) be the oriented dodecahedral incidence matrix
 \]
 with Frobenius residual \(3.04\times10^{-16}\), and verifies antipodal equivariance of the edge-chain map with residual \(0\). There are 18 dual edges whose opposite-vertex Q6 codes are at Hamming distance 2 and 12 at distance 4.
 
-This is an exact chain map on vertices and edges (numerically certified for the specified finite matrices). It is not yet a map on dodecahedral 2-cells: the boundary of each pentagonal dual face still needs a compatible Q6 cubical 2-chain filling.
+This is a chain map on vertices and edges (numerically certified for the specified finite matrices). It extends through all twelve dodecahedral 2-cells as follows.
+
+### 3.2 Antipodal-equivariant filling of the twelve pentagons
+
+The twelve dodecahedral faces correspond to the twelve vertices of the icosahedron. Their oriented boundary matrix is \(D_2\in\mathbb R^{30\times12}\), with
+\[
+D D_2=0.
+\]
+The six-cube has 240 square 2-cells. Let \(\partial_2^{Q6}\in\mathbb R^{192\times240}\) be their cubical boundary matrix. For each pentagonal face, its Q6 boundary is the closed 1-chain given by the edge map:
+\[
+Z=C D_2,\qquad \partial_1^{Q6}Z=0.
+\]
+Choose the canonical minimum-norm filling
+\[
+Q_2=(\partial_2^{Q6})^+\,C D_2,
+\]
+where \(+\) denotes the Moore–Penrose pseudoinverse. This fixes the otherwise non-unique filling by requiring orthogonality to \(\ker\partial_2^{Q6}\). The audit gives
+\[
+\|\partial_2^{Q6}Q_2-CD_2\|_F=5.55\times10^{-15}.
+\]
+The antipodal action reverses the chosen dodecahedral face orientations and preserves the orientation of Q6 squares; the filling is equivariant:
+\[
+\|S_{Q6}^{(2)}Q_2-Q_2S_D^{(2)}\|_F
+=3.46\times10^{-15}.
+\]
+Both boundary-squared identities, \(DD_2=0\) and \(\partial_1^{Q6}\partial_2^{Q6}=0\), have zero residual. Thus the construction now supplies a finite chain map through degree two, from the dodecahedral cell complex into the cubical 2-skeleton of Q6.
+
 
 ## 4. Two independently specified Dirichlet operators
 
@@ -188,8 +214,8 @@ The distinction matters: \(F L_6=\Lambda F\) is an identity on Q6; it does not i
 6. the numerical spectra and failed selected-sector intertwining test.
 
 **Not established:**
-- a chain map on 2-cells or a compatible Q6 cubical 2-chain filling of each pentagonal dodecahedral face;
-- a dodecahedral discrete gradient whose adjoint yields the selected Q6 operator;
+- a metric/cochain or Hodge construction whose induced dodecahedral operator intertwines with the selected Q6 sector;
+- a derivation of the selected spectrum (0,4,6) from the dodecahedral geometry;
 - an intertwiner with spectrum \(0,4,6\);
 - a derivation of \(1/240\), \(1/120\), or \(1/2\) from the dodecahedral geometry;
 - a first-principles dodecahedral derivation of \(f\).
