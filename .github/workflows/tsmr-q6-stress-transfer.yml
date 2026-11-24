@@ -22,4 +22,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run exact-state transfer audit
+        env:
+          PYTHONPATH: .
         run: python audits/tsmr_q6_stress_transfer_bridge.py
