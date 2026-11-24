@@ -246,3 +246,18 @@ where \(X_a\) flips coordinate \(a\). If \(a\le j\), \(X_a\) commutes with \(E_j
 This is an exact identity for the standard unweighted Cartesian-product Q6 Laplacian. An independent dense-matrix calculation gives Frobenius and operator-norm commutators equal to zero at every level, with projection ranks \(1,2,4,8,16,32,64\).
 
 Interpretation: the standard Q6 Laplacian respects the chosen coordinate filtration because it is a sum of independent coordinate-flip generators. This is a useful exact control and a baseline for testing a genuinely coupled/weighted PRISM operator. It is **not** evidence of multifractal scaling, a nontrivial renormalization law, or a quantum-fractal phase. The next nontrivial test must use a provenance-identified Q6/PRISM operator that is not merely the Cartesian-product Laplacian, and compare its commutators against this zero baseline.
+
+
+## 11. Exact Walsh eigenvector participation baseline
+
+With the unitary Walsh normalization,
+\[
+\psi_S(x)=64^{-1/2}(-1)^{S\cdot x},
+\]
+every character has uniform pointwise intensity \(|\psi_S(x)|^2=1/64\). Consequently, for every \(q>0\),
+\[
+P_q(S)=\sum_{x\in Q_6}|\psi_S(x)|^{2q}=64^{1-q}.
+\]
+Thus the character basis is exactly extended on the finite 64-site graph. Its single-size participation exponent is consistent with the uniform control, but one value of \(N\) cannot establish a scaling exponent or exclude multifractality in a different operator.
+
+The Laplacian eigenvalues have degeneracies \(\binom6j\). Arbitrary orthonormal rotations inside a degenerate eigenspace need not preserve individual eigenvector IPRs. Any future multifractal claim must therefore specify a symmetry-adapted basis, use a basis-invariant subspace statistic, or demonstrate robustness under admissible rotations. This prevents basis choice from being mistaken for a physical multifractal signal.
