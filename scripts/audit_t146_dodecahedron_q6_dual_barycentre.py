@@ -106,6 +106,61 @@ def selected_q6_coisometry() -> np.ndarray:
     return F
 
 
+def q6_edge_complex():
+    """Canonical oriented 1-cells g -> g xor 2^k, with bit k initially zero."""
+    edges = []
+    index = {}
+    for state in range(64):
+        for bit in range(6):
+            if ((state >> bit) & 1) == 0:
+                neighbour = state ^ (1 << bit)
+                index[(state, neighbour)] = len(edges)
+                edges.append((state, neighbour))
+    boundary = np.zeros((64, len(edges)), dtype=float)
+    for k, (u, v) in enumerate(edges):
+        boundary[u, k] = -1.0
+        boundary[v, k] = 1.0
+    return edges, index, boundary
+
+
+def dodecahedron_edge_chain_lift(faces, dual_edges, B):
+    """Lift each oriented dual edge to 1/3 of a T141 shortest Q6 path.
+
+    If dual faces f_i,f_j share primal edge {u,v}, their barycentres differ
+    by (e_code(b)-e_code(a))/3, where a=f_i\\f_j and b=f_j\\f_i.
+    The path chain therefore has exactly that boundary.
+    """
+    qedges, qindex, qboundary = q6_edge_complex()
+    D = np.zeros((len(faces), len(dual_edges)), dtype=float)
+    C = np.zeros((len(qedges), len(dual_edges)), dtype=float)
+    path_lengths = Counter()
+
+    for k, (i, j) in enumerate(dual_edges):
+        D[i, k], D[j, k] = -1.0, 1.0
+        fi, fj = set(faces[i]), set(faces[j])
+        a = next(iter(fi - fj))
+        b = next(iter(fj - fi))
+        start, target = int(Q6_CODES[a]), int(Q6_CODES[b])
+        current = start
+        path_lengths[(start ^ target).bit_count()] += 1
+        for bit in range(6):
+            if ((current ^ target) >> bit) & 1:
+                nxt = current ^ (1 << bit)
+                if (current, nxt) in qindex:
+                    edge_index, sign = qindex[(current, nxt)], 1.0
+                else:
+                    edge_index, sign = qindex[(nxt, current)], -1.0
+                C[edge_index, k] += sign / 3.0
+                current = nxt
+        if current != target:
+            raise AssertionError("Q6 path did not reach its endpoint")
+
+    boundary_residual = float(np.linalg.norm(qboundary @ C - B.T @ D))
+    L_chain = D @ C.T @ C @ D.T
+    L_chain = (L_chain + L_chain.T) / 2.0
+    return D, C, L_chain, boundary_residual, dict(sorted(path_lengths.items()))
+
+
 def weighted_laplacian(points: np.ndarray, edges):
     W = np.zeros((len(points), len(points)), dtype=float)
     lengths = []
@@ -133,11 +188,17 @@ def audit(t: float = PSI_SG) -> dict:
     # Polar-dual metric Laplacian, with no fitted weights.
     L_geom, edge_lengths = weighted_laplacian(dual, edges)
 
+    # Chain-level lift: each dual edge is a scaled Q6 path with matching boundary.
+    Ddual, Cedge, L_chain, chain_boundary_residual, chain_path_lengths = (
+        dodecahedron_edge_chain_lift(faces, edges, B)
+    )
+
     # Selected three-dimensional Q6 sector from the archived spectral map.
     F = selected_q6_coisometry()
     Lambda = np.diag([0.0, 4.0, 6.0])
     Phi = F @ B.T
     selected_residual = float(np.linalg.norm(Lambda @ Phi - Phi @ L_induced))
+    selected_chain_residual = float(np.linalg.norm(Lambda @ Phi - Phi @ L_chain))
 
     eig_induced = np.linalg.eigvalsh(L_induced)
     eig_geom = np.linalg.eigvalsh(L_geom)
@@ -172,6 +233,13 @@ def audit(t: float = PSI_SG) -> dict:
         "barycentre_map_rank": int(np.linalg.matrix_rank(B, tol=1e-9)),
         "induced_q6_energy_rank": int(np.linalg.matrix_rank(L_induced, tol=1e-8)),
         "induced_q6_energy_eigenvalues": eig_induced.tolist(),
+        "dodecahedron_q6_edge_chain_path_lengths": {
+            str(k): int(v) for k, v in chain_path_lengths.items()
+        },
+        "dodecahedron_q6_edge_chain_boundary_residual": chain_boundary_residual,
+        "chain_induced_energy_rank": int(np.linalg.matrix_rank(L_chain, tol=1e-8)),
+        "chain_induced_energy_eigenvalues": np.linalg.eigvalsh(L_chain).tolist(),
+        "selected_q6_chain_energy_intertwining_residual": selected_chain_residual,
         "polar_dual_edge_length_classes": {
             str(k): int(v) for k, v in Counter(np.round(edge_lengths, 10)).items()
         },
@@ -198,16 +266,18 @@ def audit(t: float = PSI_SG) -> dict:
         "selected_q6_sector_is_correct": q6_eigen_residual < TOL,
         "selected_q6_map_has_rank_3": result["dodecahedron_to_selected_q6_map_rank"] == 3,
         "induced_energy_is_psd": float(eig_induced.min()) > -TOL,
+        "chain_induced_energy_is_psd": float(np.linalg.eigvalsh(L_chain).min()) > -TOL,
+        "dodecahedron_edge_chain_boundary_commutes": chain_boundary_residual < TOL,
         "polar_metric_energy_is_psd": float(eig_geom.min()) > -TOL,
     }
     result["checks"] = checks
     result["all_structural_checks_pass"] = bool(all(checks.values()))
     result["interpretation"] = (
-        "The dual incidence and antipodal barycentre lift are valid. "
-        "However, neither the canonical Q6-pulled-back energy nor the polar-dual "
-        "inverse-square metric Laplacian has the selected spectrum (0,4,6), and "
-        "the 3D selected-Q6 map is not an intertwiner for the induced dodecahedral "
-        "operator. Thus this canonical construction does not derive f."
+        "The dual incidence, antipodal barycentre lift, and edge-level Q6 chain map are valid. "
+        "However, the canonical barycentre pullback, the Q6 path-chain energy, "
+        "and the polar-dual inverse-square metric Laplacian do not produce the "
+        "selected spectrum (0,4,6); the selected-sector intertwining tests fail. "
+        "Thus these canonical constructions do not derive f."
     )
     if not result["all_structural_checks_pass"]:
         raise AssertionError(checks)
