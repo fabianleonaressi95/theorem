@@ -84,6 +84,24 @@ Run:
 
 The new script computes all six strain components, the projected c and A, and the complete 6x6 integrated linear, quadratic and total covariance matrices with kBT=mu=1 as reporting units. It checks symmetry and positive semidefiniteness. The output matrices are finite-model values, not universal constants. The dedicated workflow is the reproducibility record.
 
+
+### 4.1 Canonical numerical output
+
+The first successful CI evaluation (unit spring, unit rest length, kBT=mu=1) gives the same result for the three diagonal components:
+- linear contribution: 2;
+- centered quadratic contribution: 6.50606398809524;
+- total integrated autocorrelation: 8.50606398809524.
+
+For each of the three independent off-diagonal shear coordinates:
+- linear contribution: 2;
+- centered quadratic contribution: 3.18718998015873;
+- total: 5.18718998015873.
+
+The projected strain-Hessian Frobenius norms squared are 77.375 for each diagonal component and 19.125 for each shear component. The unprojected and projected linear-stress coefficient norms agree: sqrt(8) for diagonal components and 2 for shear components, so these c vectors have no component in the 12-dimensional nullspace. The positive eigenvalues are the same six-value multiset already recorded in the rigidity audit: 2-sqrt(2) (3), 1 (5), 2 (9), 3 (3), 2+sqrt(2) (3), 4 (1).
+
+These are unit-normalized finite-model integrated covariance coefficients. Restore physical factors as
+linear = (kBT/mu) times the reported linear number, and quadratic = ((kBT)^2/mu) times the reported quadratic number. A division by a physical volume is not included.
+
 ## 5. Interpretation and next mathematical obstruction
 
 - [N] The stiffness range supports a well-defined finite OU covariance and Green–Kubo integral.
