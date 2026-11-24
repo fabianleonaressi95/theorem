@@ -1,5 +1,5 @@
 {
-  "status": "Q6 finite graph identities independently checked; RGS combined array audit reproducible via committed script",
+  "status": "PASS: full Q6 operator sector and RGS coupling checked against the four original binary arrays",
   "Q6_graph": "Q3 Cartesian product Q3, 64 vertices, degree 6",
   "C_Q_rows": [
     {
@@ -156,7 +156,28 @@
     "ZS_BA_gauge_residual": 6.106226635438361e-16,
     "gauge": "J_B_sharp = -J_B D"
   },
-  "combined_RGS_checks": "Computed by audits/audit_q6_vesica_rgs_spectral_intertwiner.py from the four original binary arrays; not run in CI in this turn",
+  "combined_RGS_checks": {
+    "P_G_symmetry": 0,
+    "P_G_idempotence": 5.102032230169665e-15,
+    "P_G_rank": 64,
+    "K0_P_G_right_kernel": 7.999867376830732e-12,
+    "P_G_K0_left_kernel": 7.999837940667968e-12,
+    "P_G_K0_commutator": 5.3780239333673415e-14,
+    "RGS_JA_K0_eigen_residual": 1.4016565685892601e-15,
+    "RGS_JB_K0_eigen_residual": 2.5118795932144167e-15,
+    "RGS_ZA_JA_pair_residual": 6.245004513516506e-17,
+    "RGS_ZA_JB_pair_residual": 5.551115123125783e-17,
+    "RGS_ZS_JA_pair_residual": 8.326672684688674e-17,
+    "RGS_ZS_JB_pair_residual": 1.240327285323417e-16,
+    "RGS_gauged_ZA_BA_residual": 4.440892098500626e-16,
+    "RGS_gauged_ZS_BA_residual": 3.885780586188048e-16,
+    "composite_K0_lower_intertwining_fro": 8.02912264730999e-15,
+    "composite_K0_upper_intertwining_fro": 8.851269261192174e-15,
+    "composite_ZA_lower_to_upper_reflection_fro": 4.574154082995798e-16,
+    "composite_ZS_lower_to_upper_reflection_fro": 5.528442572950231e-16,
+    "composite_ZA_upper_to_lower_reflection_fro": 4.484090457361974e-16,
+    "composite_ZS_upper_to_lower_reflection_fro": 5.619590561890225e-16
+  },
   "hexagrams": [
     {
       "index": 0,
@@ -1502,5 +1523,13 @@
         -0.176776695296637
       ]
     }
-  ]
+  ],
+  "assertion_tolerance": 1e-8,
+  "workflow_run": {
+    "id": 45413523275,
+    "url": "https://github.com/fabianleonaressi95/theorem/actions/runs/45413523275",
+    "conclusion": "success",
+    "commit": "5942f801048a8d0c1de5b2a707eacad0307b0f27"
+  },
+  "combined_RGS_checks_note": "Executed by GitHub Actions on the original K0.npy, P_G.npy, Z_A.npy, Z_S.npy from main; all scalar residuals are below 1e-8."
 }
