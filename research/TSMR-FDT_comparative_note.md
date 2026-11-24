@@ -729,3 +729,71 @@ After crossing, the same one-dimensional flow does not return to \(\Sigma_c\). C
 - **Derived:** the unique endpoint-fixing Möbius chart that sends the FDT value \(2/3\) to Farey value \(1/2\); the conjugated map (10.3); its radial form (10.4); and the singular coordinate \(q_{\rm FDT}\).
 - **Conditional:** the monotone event-crossing time, assuming the supplied inflow is \(dr_f/dt\).
 - **Open:** whether FDT field equations, an action, or matching conditions produce the return mechanism and the map (10.3). The value \(2/3\) selects the correct projective branch point, but does not by itself supply recurrence or arithmetic dynamics.
+
+
+
+### 10.7 The value 2/3 and the Schwarzschild photon sphere: a conditional physical identification
+
+For the classical Schwarzschild metric, with
+\[
+R_s=\frac{2GM}{c^2},
+\]
+the unstable circular null orbit (photon sphere) is located at
+\[
+r_{\rm ph}=\frac{3GM}{c^2}=\frac{3}{2}R_s.
+\]
+Consequently,
+\[
+\frac{R_s}{r_{\rm ph}}=\frac23.
+\]
+This is an established result of Schwarzschild null-geodesic theory. It gives a physically meaningful occurrence of the same dimensionless number as the FDT threshold.
+
+It does **not**, by itself, identify the FDT threshold with the photon sphere. That identification is conditional on all of the following:
+1. the FDT variable is exactly \(\alpha=R_s/r_f\), with the same operational definition of \(R_s\);
+2. the FDT radius \(r_f\) is the Schwarzschild areal radius (or a coordinate whose relation to it has been explicitly derived);
+3. the FDT threshold refers to the same geometric/dynamical boundary as the unstable circular null orbit, rather than merely sharing its numerical value.
+
+Until these identifications are established from the FDT metric and field equations, the correct status is **geometric coincidence with a plausible physical interpretation**, not an FDT derivation.
+
+The photon sphere is also not the event horizon: in Schwarzschild coordinates the horizon is at \(r=R_s\), whereas the photon sphere is at \(r=3R_s/2\). The interval between them and the exterior null-geodesic capture/scattering structure must not be collapsed into a single “horizon” concept.
+
+### 10.8 EFT corrections, chaotic scattering, and the Mandelbrot analogy
+
+**EFT comparison.** Wang and Battista (2025) study quantum corrections to Schwarzschild black-hole dynamics in an effective-field-theory treatment, including the corrected photon-sphere radius. In their perturbative setup the classical value is recovered when the quantum correction is removed; the corrected radius depends on the EFT correction and on the orbit's conserved quantities. If an FDT identification with the photon sphere is independently established, the corresponding comparison observable would be
+\[
+\alpha_{\rm ph}^{\rm EFT}
+=\frac{R_s^{\rm EFT}}{\mathcal R_{\rm ps}^{\rm EFT}}.
+\]
+The numerator must be defined consistently with the EFT parametrization: one must state whether \(R_s\) is held at its classical value \(2GM/c^2\), or whether the mass/radius parameter itself is corrected or renormalized in the chosen convention. A corrected photon-sphere radius alone does not imply a shifted FDT threshold. The shift follows only if the FDT threshold is proven to track that same physical orbit and the numerator convention is fixed.
+
+**Chaotic scattering.** Shoom (2017) shows that, in a perturbed Schwarzschild setting, the photon-sphere structure can undergo metamorphoses and generate fractal basin boundaries between capture and escape. This is relevant evidence that null-geodesic scattering can support complicated invariant sets and fractal boundaries. It does not establish that the unperturbed Schwarzschild problem has the same fractal structure, nor that the induced return map is Farey. A symbolic coding of capture/escape trajectories, even when available, is not automatically a continued-fraction or Stern–Brocot coding.
+
+A physically derived route to a return map would have to begin with the null-geodesic flow in phase space, retaining at least the radial coordinate and its conjugate momentum together with angular momentum/impact parameter
+\[
+b=\frac{L}{E}.
+\]
+One must specify an incoming or outgoing section, define the first-return or scattering map, identify its invariant trapped set and branch partition, and derive the branch maps from the geodesic equations and boundary conditions. Only then can one test whether the map is Möbius/Farey or belongs to a different symbolic-dynamical class. The one-dimensional monotone radial ODE in §§10.2 and 10.6 is insufficient for this purpose.
+
+**Mandelbrot analogy.** The document *The_Mandelbrot_set_and_the_fractal_natur.pdf* (Gardi) compares Mandelbrot escape regions with photon-region behaviour and the Mandelbrot boundary with an event-horizon-like boundary (notably pp. 7–8 and 11–12 in the copy previously examined). This is an interpretative analogy proposed by that document. It does not derive the Schwarzschild photon sphere, the value \(2/3\), a gravitational scattering map, a Farey map, or Minkowski's question-mark conjugacy. It belongs in the motivation/analogy category, not in the evidence for the FDT–Farey identification.
+
+**Evidence ledger for the proposed chain.**
+
+| Link | Current status | What would establish the next step |
+|---|---|---|
+| Schwarzschild null geodesics \(\to r_{\rm ph}=3R_s/2\) | Established GR result | No new derivation needed; fix coordinate and mass conventions |
+| \(r_{\rm ph}\to\alpha=2/3\) | Exact arithmetic consequence if \(\alpha=R_s/r\) | Identify FDT \(r_f\) with Schwarzschild areal radius |
+| Photon sphere \(\to\) capture/scattering dynamics | Established in geodesic theory | Specify impact parameter and incoming/outgoing data |
+| Perturbed photon dynamics \(\to\) fractal basin boundaries | Established in particular perturbed models | State perturbation, phase space, and basin definition |
+| Scattering return map \(\to\) Farey map | Open candidate | Derive section, branches, and exact Möbius formulas |
+| Farey map \(\to\) Minkowski question-mark coordinate | Classical mathematical conjugacy, for the convention fixed in §9 | Use the exact map and tent-map definitions in §9.3 |
+| FDT equations \(\to\) the same scattering/Farey map | Open physical derivation | Derive it from FDT metric/action/field equations, not by inserting the map |
+| Mandelbrot analogy \(\to\) physical FDT result | Not established; analogy only | No evidential role unless a separate mathematical model is supplied |
+
+**Conclusion of §§10.7–10.8.** The Schwarzschild photon sphere gives a strong and non-arbitrary reason to investigate the FDT number \(2/3\). EFT corrections and fractal scattering provide relevant neighbouring literature. None currently closes the missing dynamical step from FDT equations to a Farey return map. The research target remains precise and falsifiable, but is still a candidate rather than a physical theorem.
+
+#### Additional references for §§10.7–10.8
+
+- D. Tong, *General Relativity*, lecture notes, discussion of Schwarzschild null geodesics and the unstable circular photon orbit at \(r=3GM/c^2\): https://www.damtp.cam.ac.uk/user/tong/gr/gr.pdf.
+- Z.-L. Wang and E. Battista, “Dynamical features and shadows of quantum Schwarzschild black hole in effective field theories of gravity,” *European Physical Journal C* 85 (2025), article 304. DOI: https://doi.org/10.1140/epjc/s10052-025-13833-7.
+- A. A. Shoom, “Metamorphoses of a photon sphere,” *Physical Review D* 96 (2017), 084056. DOI: https://doi.org/10.1103/PhysRevD.96.084056.
+- M. Gardi, *The_Mandelbrot_set_and_the_fractal_natur.pdf*, pp. 7–8 and 11–12 (analogy discussed above; bibliographic metadata and the underlying physical claims require independent verification).
