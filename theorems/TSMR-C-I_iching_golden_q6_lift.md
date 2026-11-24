@@ -89,13 +89,13 @@ The stationary mixture is
 \[
 \nu=\frac1{64}\sum_{i\in Q_6}\nu_i.
 \]
-This is a well-defined 64-state transfer model. Its existence does not imply that \(\nu\) is singular, atomless, or full-support; those are separate analytical questions to be tested/proved.
+This is a well-defined 64-state transfer model. Its existence alone does not imply singularity or full support. Atomlessness is proved by the exact pair-automaton estimate in Section 11.
 
 For comparison, if each hexagram block is sampled independently and uniformly rather than by Q6 single-line transitions, the six bits in each block are i.i.d. Bernoulli(1/2), and the concatenated digits recover the usual 0/1 Bernoulli convolution coding. That independent-block process is **not** the Q6 random walk.
 
 ## 6. Cumulative coordinate and physical interpretation
 
-If the stationary Markov-coded measure \(\nu\) is shown to be atomless and to have interval support, its CDF
+Since Section 11 proves atomlessness, if the stationary Markov-coded measure \(\nu\) is additionally shown to have interval support, its CDF
 \[
 F_\nu(x)=\nu(( -\infty,x])
 \]
@@ -114,13 +114,14 @@ If a physical observable is later shown to have this measure as its spectral or 
 | Six-line golden evaluation has 33 distinct values | Exact finite calculation |
 | Scalar partition is not strongly lumpable for Q6 (21 failing classes) | Exact finite calculation |
 | 64-state Markov-coded measure and vector transfer equation | Defined model; analytic properties open |
-| Atomlessness of this Markov-coded measure | Proved in Section 11 by a positive almost-everywhere lower local-dimension bound |\n| Full support and singularity of this Markov-coded measure | Open |
+| Atomlessness of this Markov-coded measure | Proved in Section 11 by a positive almost-everywhere lower local-dimension bound |
+| Full support and singularity of this Markov-coded measure | Open |
 | Conjugacy with Minkowski question-mark dynamics | Open |
 | Physical realization | Open |
 
 ## 8. Research questions
 
-1. Determine the support and overlap structure of the 64-state graph-directed IFS.
+2. Determine full support and singularity of the stationary Markov-coded measure.
 2. Prove or disprove atomlessness and singularity of the stationary Markov-coded measure.
 3. Determine whether the 64-state transfer operator admits a smaller exact representation retaining the required memory, rather than an invalid scalar quotient.
 4. Compare the Markov-coded measure with the i.i.d. golden Bernoulli convolution using Fourier decay, local dimensions, and generalized dimensions.
@@ -189,7 +190,7 @@ Iterating these contractions from zero gives monotone numerical endpoint approxi
 At the first graph-directed level, 48 parent/child-pair convex-hull overlaps are detected across the 64 parent states. These are **convex-hull overlaps only**: they do not prove that the underlying compact support sets intersect, nor that the measure has interval support. The code reports them as diagnostics, not as a separation or intersection theorem.
 
 ### 9.4 Current mathematical conclusion
-
+The Q6 transition spectrum is completely known, and the graph-directed Fourier recursion is explicit. The finite translation geometry has substantial exact coincidences and overlapping child hulls. Those facts alone do not establish singularity, absolute continuity, or multifractality of \(\nu\); Section 11 gives a separate exact pair-automaton proof of atomlessness and a positive lower local-dimension bound. The remaining analytical task is to study the matrix cocycle
 The Q6 transition spectrum is completely known, and the graph-directed Fourier recursion is explicit. The finite translation geometry has substantial exact coincidences and overlapping child hulls. None of these facts alone establishes atomlessness, singularity, absolute continuity, or multifractality of \(\nu\). The next analytical task is to study the matrix cocycle
 \[
 M(\xi)M(r\xi)\cdots M(r^{n-1}\xi)
