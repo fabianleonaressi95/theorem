@@ -78,19 +78,19 @@ def main():
         # integral C(t)dt = (kBT)^2/(2 mu) * denom_sum.
         assert np.linalg.norm(c) < 1e-12
         assert abs(fro2 - 128.0) < 1e-8
-        assert abs(denom_sum - 32.0) < 1e-8
+        assert abs(denom_sum - 8.0) < 1e-8
         results.append((i, j, np.linalg.norm(c), fro2, denom_sum))
 
     print("Q6 canonical R^6 central-force / OU audit")
     print(f"vertices={n} edges={len(edges)} dof={ndof}")
     print(f"rank_K={rank} nullity_K={ndof-rank}")
     print(f"positive_eigenvalue_set={sorted(set(np.round(positive_evals, 10)))}")
-    print("shear components (i,j): ||c_ij||, ||A_H||_F^2, sum |Aab|^2/(la+lb)")
+    print("shear components (i,j): ||c_ij||, ||A_H||_F^2, sum |Aab|^2/[la*lb*(la+lb)]")
     for row in results:
         print(f"{row[0:2]}: {row[2]:.12g}, {row[3]:.12g}, {row[4]:.12g}")
     print("all six shear components: identical exact benchmark")
-    print("integral_C = 16*(kB*T)^2/mu")
-    print("eta_GK = 16*kB*T/(mu*V)")
+    print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)\n    print("integral_C = 4*(kB*T)^2/mu")")
+    print("eta_GK = 4*kB*T/(mu*V)")
     print("scope: exact quadratic-stress OU toy model; not 3D material viscosity")
 
 
