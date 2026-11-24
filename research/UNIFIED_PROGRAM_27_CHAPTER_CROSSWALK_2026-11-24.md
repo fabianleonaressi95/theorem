@@ -631,3 +631,12 @@ Issue [#409](https://github.com/fabianleonaressi95/theorem/issues/409) is advanc
 Keep the dependency order explicit: #398 resolves Vesica/phase-to-panel incidence and panel frames; #401 addresses the dynamic 64-TG/Jitterbug immersion; #409 uses panel frames to build the eight-coil electromagnetic model; #399 derives the Ehresmann mixed-frame field law; #400 derives Cartan torsion from the full coframe and tests any proposed \(T B_\perp\) action. These are linked work packages, not a single theorem and not interchangeable evidence. The coil model does not establish torsion, hydrodynamic viscosity, generator output or energy gain.
 
 **Monograph placement:** chapters 13–14 for Vesica/Jitterbug kinematics and panel geometry; chapters 15–17 for frame/coframe and torsion; chapters 20–22 for the separate transport/Green–Kubo/Stokes programme. The present coil audit is an engineering-model specification, not a new theorem number.
+
+
+## 12.14 Exact static 64-TG/Jitterbug boundary identification (24 November 2026)
+
+The record [64TG_JITTERBUG_EXACT_INCIDENCE_AND_DYNAMIC_BOUNDARY_2026-11-24.md](64TG_JITTERBUG_EXACT_INCIDENCE_AND_DYNAMIC_BOUNDARY_2026-11-24.md) closes the static cuboctahedral incidence subproblem: after scale normalization, the 12 FCC/D3 cuboctahedral vertices are the 12 Jitterbug joints, the 24 cuboctahedral edges are its rods, and its eight sign-triple triangular faces are the eight rigid panels. The two chiral four-panel families are selected by the sign product. The panel shared-vertex graph is Q3, not the rod/hinge graph.
+
+The merged Jitterbug continuation independently verifies the finite 12-joint/24-rod branch. The full 64-TG dynamic immersion remains open because no motion has yet been assigned to the other 51 FCC vertices and all 64 tetrahedral cells. Likewise, no map from Vesica/T101 phase data to Jitterbug theta/gamma follows from the static incidence identification. This distinction governs issues #398 and #401; #409 may reuse the eight panel frames, while #399–#400 still require a derived base/fibre geometry and full coframe.
+
+**Monograph placement:** chapters 13–14 (Vesica/Jitterbug and geometric incidence), with the full moving-cell extension remaining a chapter 15–17 dependency rather than a new theorem claim.
