@@ -1,0 +1,52 @@
+{
+  "title": "Jitterbug icosahedron-point Hessian vs K0 ladder",
+  "icosahedron_config": {
+    "vertex_count": 12,
+    "nearest_distance": 1.0,
+    "nearest_neighbor_edges": 60,
+    "rod_unit_length_max_err": 0.0
+  },
+  "mechanical_hessian": {
+    "n": 24,
+    "min": 0.5857864376269045,
+    "max": 3.427050983124844,
+    "mean_gap": 0.12353324110860607,
+    "gap_cv": 1.7577160117562525
+  },
+  "zero_modes": 12,
+  "positive_eigenvalues_first10": [
+    0.5857864376269045,
+    0.5857864376269054,
+    0.5857864376269066,
+    0.8477599760588297,
+    0.8477599760588305,
+    0.8477599760588311,
+    1.0000000000000004,
+    1.0000000000000022,
+    1.809016994374947,
+    1.8090169943749477
+  ],
+  "k0_ladder": {
+    "n": 124,
+    "min": 0.5000000000000088,
+    "max": 12.799999999999978,
+    "mean_gap": 0.09999999999999976,
+    "gap_cv": 9.76772632399932e-14
+  },
+  "k0_ladder_first10": [
+    0.5000000000000088,
+    0.600000000000006,
+    0.6999999999999793,
+    0.7999999999999877,
+    0.9000000000000028,
+    0.9999999999999984,
+    1.0999999999999932,
+    1.2000000000000133,
+    1.2999999999999885,
+    1.399999999999998
+  ],
+  "comparison": {
+    "both_equispaced": false,
+    "note": "gap_cv << 1 means arithmetic (number-operator) spectrum; gap_cv ~ O(1) means Laplacian-like growth. Different dimensions (36 vs 188) -- signature comparison only."
+  }
+}
