@@ -17,6 +17,8 @@ on:
       - "audits/jitterbug_coil_coupling.py"
       - "audits/jitterbug_gray_kinematics.py"
       - "tests/test_jitterbug_eight_coil_coupling.py"
+      - "audits/jitterbug_eight_coil_validation.py"
+      - "tests/test_jitterbug_eight_coil_validation.py"
       - ".github/workflows/jitterbug-eight-coil.yml"
   workflow_dispatch:
 
