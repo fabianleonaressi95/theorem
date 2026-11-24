@@ -114,7 +114,7 @@ If a physical observable is later shown to have this measure as its spectral or 
 | Six-line golden evaluation has 33 distinct values | Exact finite calculation |
 | Scalar partition is not strongly lumpable for Q6 (21 failing classes) | Exact finite calculation |
 | 64-state Markov-coded measure and vector transfer equation | Defined model; analytic properties open |
-| Atomlessness, full support, singularity of this Markov-coded measure | Open |
+| Atomlessness of this Markov-coded measure | Proved in Section 11 by a positive almost-everywhere lower local-dimension bound |\n| Full support and singularity of this Markov-coded measure | Open |
 | Conjugacy with Minkowski question-mark dynamics | Open |
 | Physical realization | Open |
 
@@ -250,11 +250,11 @@ The irregular finite-frequency values do not establish decay as \(|\xi|\to\infty
 
 ### 10.3 Correct status of the analysis
 
-The overlap graph is a state-labelled, reproducible numerical diagnostic. The finite-depth Fourier transform is computable and normalized. The following remain open:
+The floating-point hull-overlap graph is a state-labelled diagnostic, and the finite-depth Fourier transform is computable and normalized. Section 11 subsequently replaces the bounded-difference part by an exact finite automaton and proves atomlessness. The following remain open:
 1. exact certification of the hull-overlap inequalities in \(\mathbb Q(\sqrt5)\);
 2. actual support intersections and the topology of the 64 component supports;
 3. uniform Fourier decay or a non-decay subsequence;
-4. atomlessness, absolute continuity, singularity, and local-dimension spectrum.
+4. absolute continuity, singularity, and the full local-dimension spectrum.
 
 No multifractal or singular-measure conclusion is inferred from the current finite calculations.
 
