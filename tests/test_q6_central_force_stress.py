@@ -145,3 +145,19 @@ def test_strain_derivative_of_full_hessian_matches_formula():
                   hessian_at_strain(y, edges, kappa, -h*S)) / (2*h)
             exact = analytic_hessian_strain_derivative(y, edges, kappa, i, j)
             assert np.allclose(fd, exact, rtol=2e-6, atol=2e-9)
+
+
+def test_stress_expansion_includes_derived_quadratic_hessian_term():
+    rng = np.random.default_rng(733)
+    y = np.array([[0., 0., 0.], [1.1, .1, 0.], [.2, 1.0, .1], [.1, .2, 1.2]])
+    edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+    kappa = np.linspace(1.0, 2.0, len(edges))
+    u = rng.normal(scale=1e-4, size=y.shape)
+    _, exact_stress = energy_and_stress(y, edges, u, kappa, np.zeros((3, 3)))
+    c = linear_stress_coefficients(y, edges, kappa)
+    for i in range(3):
+        for j in range(i, 3):
+            A = analytic_hessian_strain_derivative(y, edges, kappa, i, j)
+            q = u.reshape(-1)
+            approximation = c[i, j] @ q - 0.5 * q @ A @ q
+            assert abs(exact_stress[i, j] - approximation) < 2e-10
