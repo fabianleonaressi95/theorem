@@ -346,3 +346,30 @@ GitHub returned nine open issues in the primary repository at this check: #398, 
 - Keep this magnetic DN map separate from the hydrodynamic traction map Lambda_eta:g -> (2 eta D(u)-pI)n on the boundary, which follows the Green–Kubo -> eta(omega) -> Stokes boundary-response chain. Shared Green-operator/boundary-response architecture is a research bridge, not an identity between magnetic coupling and viscosity.
 - **Monograph crosswalk:** chapters 13–14 (Jitterbug/Vesica/RGS geometry), 20–22 (fields, transport and boundary response), with hydrodynamic Green–Kubo material retained in its existing location. This is a computational/structural connection, not a new proved physical theorem.
 - **Still open:** source placement optimization; source and receiver quadrature convergence; coil leads and wiring; primary supply and actuator dynamics; Maxwell-stress generalized forces; full machine energy closure; experimental validation. PR #414 does not close issues #398–#401 or #409.
+### 11.9 Q6 hypercube gradients, Green operators, Green–Kubo and Jitterbug Neumann–Dirichlet response
+
+**Existing anchors (do not duplicate or rediscover):** [PR #75](https://github.com/fabianleonaressi95/theorem/pull/75), `projects/Q6-HYPERCUBE-STORA-ZUMINO-GREEN-KUBO.md`; T099–T100; T130 `theorems/T130-q6-discrete-gradients-barycentres-resistance.md`; T131 `theorems/T131-q6-phonon-phason-green-kubo-transport.md`; T132; `theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md`; `theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md`; [Jitterbug PR #414](https://github.com/fabianleonaressi95/theorem/pull/414) and its Neumann–Dirichlet research note.
+
+**The exact discrete-gradient layer.** For the Q6 graph let B1 be the oriented vertex-edge boundary matrix and d0=B1^T the vertex-to-edge gradient. Then L0=d0* d0=B1 B1^T, and the Dirichlet form is E(u)=1/2||d0u||²=1/2 u^T L0u. On mean-zero data the graph Green operator is L0†. This is the vertex-space inverse-Laplacian object; it must not be confused with the face Hodge operator Δ2|ker(B3^T), which acts on the 129-dimensional closed face-cochain sector.
+
+**The exact Green–Kubo/resolvent layer.** For the declared reversible OU dynamics dX=−γL0X dt+√(2γσ²L0)dW on the mean-zero subspace and J=b^TX,
+
+\[\int_0^\infty\langle J(t)J(0)\rangle\,dt=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.\]
+
+The isotropic Q6 vertex-space mean is 1517σ²/(7560γ). Separately, the exact closed-face OU construction gives 2263σ²/(15480γ), using eigenvalues 4,6,8,10,12 with multiplicities 15,40,45,24,5. These are two different model benchmarks, not physical viscosities. T131 supplies the stress-tensor Green–Kubo formula with phonon, phason and interaction sectors and all ordered cross-correlations; a harmonic spectrum alone does not give finite dissipative viscosity.
+
+**The independent hypercube fourth-moment law.** The scalar/commuting-flux identity Δμ4=−8w⁴FQ6, FQ6=Σp(1−cos Ωp), is exact in its original finite Q6 construction. It is a static curvature/moment relation, not a Green–Kubo formula. A derivation connecting FQ6 or its metric/strain variation to the microscopic stress entering T131 is still required.
+
+**The gradient/resistance branch.** T130 defines a local weighted least-squares shape gradient on the six incident Q6 edges and proves affine recovery when the local 2D star spans the tangent plane. It also proves symmetry and nonnegative dissipation for the declared local resistance assembly R_h=Σ_i w_i J_i^T D_i J_i. Its calibrated Q6-to-material embedding and nonlocal Stokes/BEM limit remain open. This is the geometric-gradient/Dirichlet-form side of the programme.
+
+**The Jitterbug boundary-response branch.** PR #414 now gives actual Gray/Jitterbug panel poses, finite-surface magnetic flux, a common finite-core Neumann kernel for the inductance matrix, and a receiver-side energy audit. The Neumann coil integral is a current-current Green pairing; magnetic scalar DN/ND and hydrodynamic Stokes traction DN are separate boundary operators. Their defensible common structure with Q6 is: discrete gradient/incidence → positive Laplacian or energy form → Green/inverse operator → boundary or time-dependent response. The Q6 graph Green operator, the magnetic Neumann inductance form, and the Stokes traction DN map are not equal.
+
+**Target constitutive diagram (partly proved, partly open):**
+
+\[\begin{array}{ccccc}\text{Q6 geometry}&\xrightarrow{d_0=B_1^T}&\text{edge gradients}&\xrightarrow{d_0^*d_0=L_0}&\text{graph Green }L_0^\\dagger\\\\\text{Q6/material Hamiltonian}&\xrightarrow{-\delta/\delta\varepsilon}&\Pi_{ij}&\xrightarrow{\text{equilibrium correlations}}&\eta_{GK}(\omega)\\\\\text{Jitterbug panel kinematics}&\xrightarrow{\text{Biot--Savart/flux}}&e_{ext},L,R&\xrightarrow{\text{circuit + Maxwell forces}}&\text{electromechanical response}\\\\\text{continuum Stokes problem}&\xrightarrow{\text{boundary trace}}&g&\xrightarrow{\Lambda_\eta}&\text{traction}\end{array}\]
+
+The consistency target η_GK ↔ η entering Λ_η must be derived from one constitutive model and a controlled limit. The missing Q6/64-TG-to-eight-panel configuration-space map is still tracked by issues #398–#401; no automatic identification of the 64-vertex hypercube with the eight Jitterbug panels is permitted.
+
+**Monograph placement:** chapters 13–14 for Jitterbug/Vesica and configuration geometry; chapters 20–22 for gradients, Green operators, transport and boundary response. Keep the original Q6 fourth-moment theorem and T131/T132 as separate theorem records; this crosswalk is a bridge index, not a merged theorem.
+
+**Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
