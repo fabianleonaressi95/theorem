@@ -23,7 +23,7 @@ from audits.jitterbug_gray_kinematics import (
     configs, rigid_triangles,
 )
 from audits.jitterbug_eight_coil_coupling import (
-    MU0, coil_polygon, panel_frames, inductance_matrix,
+    MU0, coil_polygon, panel_frames, neumann_mutual,
     midpoint_coupled_rl,
 )
 
@@ -139,7 +139,18 @@ def build_actual_mechanism_run(
             flux[k, j] = finite_surface_flux(
                 centers[k, j], rotations[k, j], normals[j], radius, turns,
                 source_pts, source_dl, source_current_A, disk_nr, disk_ntheta)
-        Lseq[k] = inductance_matrix(loops, N, radii, wires, softening_m)
+        # Use one common finite-core Green kernel for every diagonal and
+        # off-diagonal entry. Mixing thin-wire self terms with separately
+        # softened mutual terms can destroy positive semidefiniteness.
+        L = np.zeros((ncoils, ncoils))
+        for i in range(ncoils):
+            L[i, i] = neumann_mutual(
+                loops[i], loops[i], N[i], N[i], wire_radius_m)
+            for j in range(i):
+                mij = neumann_mutual(
+                    loops[i], loops[j], N[i], N[j], wire_radius_m)
+                L[i, j] = L[j, i] = mij
+        Lseq[k] = L
 
     emf = -np.diff(flux, axis=0)/np.diff(frame_times)[:, None]
     Rmat = np.eye(ncoils)*resistance_ohm
