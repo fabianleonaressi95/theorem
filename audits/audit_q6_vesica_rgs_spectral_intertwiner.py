@@ -88,7 +88,7 @@ upper_eigs=np.diag(Hdiag)+0.15
 xspec=np.diag(Lred)
 Vand=np.column_stack((np.ones(3),xspec,xspec**2))
 poly_coeff=np.linalg.solve(Vand,lower_eigs)
-poly_residual=fro(Vand@poly_coeff-lower_eigs)
+poly_residual=float(np.linalg.norm(Vand@poly_coeff-lower_eigs))
 # Rational recognition is diagnostic only; the floating-point equations
 # and residual remain the primary numerical evidence.
 from fractions import Fraction
