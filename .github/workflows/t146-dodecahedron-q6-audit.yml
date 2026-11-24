@@ -1,0 +1,30 @@
+name: T146 dodecahedron Q6 dual barycentre audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/audit_t146_dodecahedron_q6_dual_barycentre.py"
+      - "tests/test_t146_dodecahedron_q6_dual_barycentre.py"
+      - ".github/workflows/t146-dodecahedron-q6-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy scipy
+      - run: python scripts/audit_t146_dodecahedron_q6_dual_barycentre.py
+      - run: python -m unittest tests.test_t146_dodecahedron_q6_dual_barycentre
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t146-dodecahedron-q6-audit
+          path: results/json/dodecahedron_q6_dual_barycentre_audit_2026-11-24.json
+          retention-days: 30
