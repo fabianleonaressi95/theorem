@@ -45,6 +45,8 @@ theorem/
 
 - **[Unified 27-chapter crosswalk and preservation register](research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md)** — connects all 27 chapters to theorem clusters, companion-repository materials, arithmetic/special-function results, Vesica, fractals, Minkowski–Farey, QAT, Green–Kubo and polariton literature; records epistemic caveats and the 236/239 inventory reconciliation.
 
+
+- **[TSMR-I — Singular cumulative-coordinate pentagonal lift](theorems/TSMR-I_singular_cumulative_pentagonal_lift.md)** — constructs an isometry from the regular-pentagon real DFT decomposition into L² of an atomless interval-supported measure via its cumulative distribution; proves the exact projector intertwining JνP=Πν,1Jν. For the golden Bernoulli measure, its singular CDF supplies the uniform probability coordinate. Dynamical invariance of the first-harmonic plane under the induced Markov operator remains open. Audit and tests: `audits/tsmr_i_cumulative_pentagon.py`, `tests/test_tsmr_i_cumulative_pentagon.py`.
 - **[TSMR-H — Half-balance principle](theorems/TSMR-H_half_balance_fractal_pentagon.md)** — proves the Bernoulli first-level overlap threshold at λ=1/2, the maximum-entropy probability p=1/2, and the pentagonal projector balance ||Pq||²=1/2; distinguishes the golden singular Bernoulli regime λ=φ⁻¹ from the uniform critical model and keeps the De Aquino coupling conditional. Reproducible audit: `audits/tsmr_h_half_balance.py`; tests: `tests/test_tsmr_h_half_balance.py`.
 
 - **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 239 theorem records and 14 companion catalogue entries are represented in a 292-node, 323-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
