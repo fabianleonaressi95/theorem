@@ -32,7 +32,7 @@ The companion repository tree returned 1,192 paths and includes RGS 188D data/pr
 
 **1. RGS–PSU–PRISM–Q6 architecture.** Connect the whole programme: RGS geometry, PSU variables, Q6 finite complex, PRISM refinement/coding, QLG spinorial sector, QAT as a separately audited physical proposal. Anchors: docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md; docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md; docs/UNIFIED_THEOREM_EDGES.json; monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md. Open: common action, state space, observable map and commuting diagram.
 
-**2. Boolean cube Q6: graph, Fourier and Laplacian.** Connect 64 binary states/I Ching hexagrams, 192 edges, degree 6, 240 square faces, Walsh characters, Laplacian, heat kernel and spectral zeta. Anchors: T015–T020, T069, T071, T108; docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md; docs/Q6_HYPERCUBE_GREEN_KUBO_SUPERGOLDEN.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md. For the standard graph cube, eigenvalues are 2k with multiplicities binomial(6,k), k=0,...,6, so K_Q6(t)=Tr(exp(-tL))=(1+exp(-2t))^6 and Z_Q6(s)=sum_{k=1}^6 binomial(6,k)(2k)^(-s). These are exact for the standard combinatorial vertex Laplacian, not the face Hodge Laplacian.
+**2. Boolean cube Q6: graph, Fourier and Laplacian.** Connect 64 binary states/I Ching hexagrams, 192 edges, degree 6, 240 square faces, Walsh characters, Laplacian, heat kernel and spectral zeta. Anchors: T015–T020, T069, T071, T108; docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md; theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md. For the standard graph cube, eigenvalues are 2k with multiplicities binomial(6,k), k=0,...,6, so K_Q6(t)=Tr(exp(-tL))=(1+exp(-2t))^6 and Z_Q6(s)=sum_{k=1}^6 binomial(6,k)(2k)^(-s). These are exact for the standard combinatorial vertex Laplacian, not the face Hodge Laplacian.
 
 **3. Cubical 2-skeleton and cellular Anti-Twin.** Connect incidence matrices B1,B2,B3, chain identities, ranks, cohomology, face geometry and antipodal maps. Anchors: T055, T060, T062, T068, T069, T071, T116, T117; theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md; audits/T143B-original-archive-q6-plaquette-certificate.md. The 6-cube has (N0,N1,N2,N3)=(64,192,240,160); the face-cochain record gives ranks 63,129,111, closed 2-cochain dimension 129 and H2=0. Closed cochains are not harmonic cohomology. Distinguish graph antipode XOR 63, recovered coordinate inversion XOR 7 and other model-specific involutions.
 
@@ -333,3 +333,291 @@ GitHub returned nine open issues in the primary repository at this check: #398, 
 - [Technical note](JITTERBUG_EIGHT_COIL_COUPLING.md) states approximations and reproduction commands.
 
 **Status:** draft PR, not merged; no clean-run test evidence yet. The full model has not passed segment/softening convergence, a trusted two-loop benchmark, positive-semidefinite verification across the path, wiring/polarity comparison or complete mechanical/electromagnetic energy balance. No experiment or generator performance is claimed. PR #411 does not close #398–#401 or #409. The 64-TG/FCC-D3 embedding remains separate.
+
+### 11.8 Actual eight-panel flux, Neumann kernel and Dirichlet–Neumann bridge — PR #414
+
+- [PR #414 — actual Jitterbug motion and finite-surface magnetic coupling](https://github.com/fabianleonaressi95/theorem/pull/414) uses the Gray/Jitterbug path and Kabsch rigid-panel frames directly. It replaces the prescribed sinusoidal angular probe with the actual panel poses.
+- The source winding is a fixed-current circular filament. Its spatially varying field is computed by polygonal Biot–Savart quadrature; flux linkage is integrated over each finite receiver-coil disk. The eight-coil inductance matrix uses a single finite-core regularized Neumann Green kernel for both self and mutual entries. This replaces the inconsistent mix of thin-wire self terms and separately softened mutual terms that produced a negative eigenvalue in the first audit.
+- The receiver circuit is integrated with the implicit-midpoint scheme. The audit verifies the exact discrete receiver-side energy identity, including the finite-step midpoint cross correction: electrical port input = magnetic-energy change + Joule dissipation + variable-inductance mechanical transfer. The balance residual is at floating-point roundoff.
+- **Successful CI:** [actual-field / DN run](https://github.com/fabianleonaressi95/theorem/actions/runs/45360396702), with tests, model execution and JSON artifact uploaded. The latest PR head also has successful actual-field checks; see [PR #414](https://github.com/fabianleonaressi95/theorem/pull/414).
+- **Measured numerical result for the declared default configuration:** 23 frames over 17.6242 s; panel-fit residual 5.02e-17 m; minimum inductance eigenvalue 2.8390e-3 H; reciprocity residual 0. However, the chosen centred 500-turn, 0.20 m primary loop at 1 A gives only 3.8510e-9 V maximum receiver emf and 3.8738e-10 A maximum current. This is a valid low-coupling result for that symmetric source placement, not evidence of useful generation. Source placement/orientation and field/mesh convergence must be studied before engineering conclusions.
+- Receiver-side energy audit: port input 8.8182e-17 J, Joule loss 8.8181e-17 J, magnetic-energy change 1.2645e-21 J, variable-inductance mechanical transfer -3.9831e-24 J, relative balance residual 1.95e-16. This is not the full machine balance: primary supply, actuator dynamics and complete Maxwell force law remain open.
+- **Neumann–Dirichlet connection:** the Neumann coil-coupling integral and the Dirichlet-to-Neumann map are distinct operators built from the same Laplace Green kernel G(x,y)=1/(4π|x-y|). The former is the line-current energy pairing; the latter maps scalar-potential boundary values to normal derivatives in a current-free domain. The Neumann-to-Dirichlet map is the inverse on compatible mean-zero trace spaces after fixing the additive constant. For linked current filaments, use a cut domain with circulation data or the Coulomb-gauge vector potential; a globally single-valued scalar magnetic potential is not available.
+- Keep this magnetic DN map separate from the hydrodynamic traction map Lambda_eta:g -> (2 eta D(u)-pI)n on the boundary, which follows the Green–Kubo -> eta(omega) -> Stokes boundary-response chain. Shared Green-operator/boundary-response architecture is a research bridge, not an identity between magnetic coupling and viscosity.
+- **Monograph crosswalk:** chapters 13–14 (Jitterbug/Vesica/RGS geometry), 20–22 (fields, transport and boundary response), with hydrodynamic Green–Kubo material retained in its existing location. This is a computational/structural connection, not a new proved physical theorem.
+- **Still open:** source placement optimization; source and receiver quadrature convergence; coil leads and wiring; primary supply and actuator dynamics; Maxwell-stress generalized forces; full machine energy closure; experimental validation. PR #414 does not close issues #398–#401 or #409.
+- **Still open:** source placement optimization; source and receiver quadrature convergence; coil leads and wiring; primary supply and actuator dynamics; Maxwell-stress generalized forces; full machine energy closure; experimental validation. PR #414 does not close issues #398–#401 or #409.
+### 11.9 Q6 hypercube gradients, Green operators, Green–Kubo and Jitterbug Neumann–Dirichlet response
+
+**Existing anchors (do not duplicate or rediscover):** [PR #75](https://github.com/fabianleonaressi95/theorem/pull/75), `projects/Q6-HYPERCUBE-STORA-ZUMINO-GREEN-KUBO.md`; T099–T100; T130 `theorems/T130-q6-discrete-gradients-barycentres-resistance.md`; T131 `theorems/T131-q6-phonon-phason-green-kubo-transport.md`; T132; `theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md`; `theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md`; [Jitterbug PR #414](https://github.com/fabianleonaressi95/theorem/pull/414) and its Neumann–Dirichlet research note.
+
+**The exact discrete-gradient layer.** For the Q6 graph let B1 be the oriented vertex-edge boundary matrix and d0=B1^T the vertex-to-edge gradient. Then L0=d0* d0=B1 B1^T, and the Dirichlet form is E(u)=1/2||d0u||²=1/2 u^T L0u. On mean-zero data the graph Green operator is L0†. This is the vertex-space inverse-Laplacian object; it must not be confused with the face Hodge operator Δ2|ker(B3^T), which acts on the 129-dimensional closed face-cochain sector.
+
+**The exact Green–Kubo/resolvent layer.** Let \(H_0=\mathbf1^\perp\subset\mathbb R^{64}\). The specified reversible OU process is
+\[
+dX_t=-\gamma L_0X_t\,dt+\sqrt{2\gamma\sigma^2L_0}\,dW_t,\qquad X_t\in H_0.
+\]
+Its backward generator is \(\mathscr Lf=-\gamma\langle L_0x,\nabla f\rangle+\gamma\sigma^2\operatorname{Tr}(L_0\nabla^2f)\), with derivatives on \(H_0\). Its invariant law is \(N_{H_0}(0,\sigma^2I_{H_0})\), or covariance \(\Sigma=\sigma^2P_{H_0}\) in \(\mathbb R^{64}\), where \(P_{H_0}=I-\mathbf1\mathbf1^T/64\). For the centered linear observable \(J_b(t)=\langle b,X_t\rangle\), with \(b\in H_0\), the correlation is \(C_b(t)=\sigma^2\langle b,e^{-\gamma L_0t}b\rangle\), and
+\[
+\int_0^\infty C_b(t)\,dt=\frac{\sigma^2}{\gamma}\langle b,L_0^\dagger b\rangle=\frac{\sigma^2}{2\gamma}\sum_{k=1}^6\frac{\|P_kb\|^2}{k}.
+\]
+For arbitrary \(b\), replace it by \(P_{H_0}b\). The isotropic Q6 vertex-space mean is \(1517\sigma^2/(7560\gamma)\). Separately, the exact closed-face OU construction gives \(2263\sigma^2/(15480\gamma)\), using eigenvalues 4,6,8,10,12 with multiplicities 15,40,45,24,5. These are two different model benchmarks, not physical viscosities.
+
+**The independent hypercube fourth-moment law.** The scalar/commuting-flux identity Δμ4=−8w⁴FQ6, FQ6=Σp(1−cos Ωp), is exact in its original finite Q6 construction. It is a static curvature/moment relation, not a Green–Kubo formula. A derivation connecting FQ6 or its metric/strain variation to the microscopic stress entering T131 is still required.
+
+**The gradient/resistance branch.** T130 defines a local weighted least-squares shape gradient on the six incident Q6 edges and proves affine recovery when the local 2D star spans the tangent plane. It also proves symmetry and nonnegative dissipation for the declared local resistance assembly R_h=Σ_i w_i J_i^T D_i J_i. Its calibrated Q6-to-material embedding and nonlocal Stokes/BEM limit remain open. This is the geometric-gradient/Dirichlet-form side of the programme.
+
+**The Jitterbug boundary-response branch.** PR #414 now gives actual Gray/Jitterbug panel poses, finite-surface magnetic flux, a common finite-core Neumann kernel for the inductance matrix, and a receiver-side energy audit. The Neumann coil integral is a current-current Green pairing; magnetic scalar DN/ND and hydrodynamic Stokes traction DN are separate boundary operators. Their defensible common structure with Q6 is: discrete gradient/incidence → positive Laplacian or energy form → Green/inverse operator → boundary or time-dependent response. The Q6 graph Green operator, the magnetic Neumann inductance form, and the Stokes traction DN map are not equal.
+
+**Target constitutive diagram (partly proved, partly open):**
+
+1. Q6 geometry → discrete gradient \(d_0=B_1^T\) → vertex Laplacian \(L_0=d_0^*d_0\) → graph Green operator \(L_0^\dagger\).
+2. Q6/material Hamiltonian → variational stress \(\Pi_{ij}=-\delta H/\delta\varepsilon_{ij}\) (including gradient/hyperstress boundary terms) → equilibrium stress correlations → \(\eta_{GK}(\omega)\).
+3. Jitterbug panel kinematics → Biot–Savart field and finite-surface flux → \(e_{ext},L,R\) → circuit response plus Maxwell generalized forces.
+4. Continuum Stokes boundary-value problem → boundary velocity \(g\) → traction \(\Lambda_\eta g=(2\eta D(u)-pI)n\).
+
+The consistency target η_GK ↔ η entering Λ_η must be derived from one constitutive model and a controlled limit. The missing Q6/64-TG-to-eight-panel configuration-space map is still tracked by issues #398–#401; no automatic identification of the 64-vertex hypercube with the eight Jitterbug panels is permitted.
+
+**Monograph placement:** chapters 13–14 for Jitterbug/Vesica and configuration geometry; chapters 20–22 for gradients, Green operators, transport and boundary response. Keep the original Q6 fourth-moment theorem and T131/T132 as separate theorem records; this crosswalk is a bridge index, not a merged theorem.
+
+**Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
+**Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
+
+### 11.10 Explicit Q6–Jitterbug quotient, strain-derived stress and conditional Stokes limit
+
+New derivation note: research/Q6_JITTERBUG_MICROSCOPIC_STRESS_GREEN_KUBO_STOKES_2026-11-24.md.
+
+**Exact panel incidence.** The eight Gray/Jitterbug triangular panels are indexed by sign triples \(\varepsilon\in\{\pm1\}^3\). Their reference vertices are \(2^{-1/2}(\varepsilon_1,\varepsilon_2,0)\), \(2^{-1/2}(\varepsilon_1,0,\varepsilon_3)\), \(2^{-1/2}(0,\varepsilon_2,\varepsilon_3)\). Two panels share a vertex iff their sign triples differ in one coordinate. Thus the panel-contact graph is exactly \(Q_3\), with 8 panel nodes and 12 shared-vertex contacts.
+
+**Explicit Q6 quotient.** Write \(Q_6=Q_3^{\rm panel}\square Q_3^{\rm fibre}\), \(x=(a,b)\in\mathbb F_2^3\times\mathbb F_2^3\), and \(\pi(a,b)=((-1)^{a_1},(-1)^{a_2},(-1)^{a_3})\). This is an exact surjective 8:1 graph quotient. First-three-coordinate edges project to panel contacts; last-three-coordinate edges are collapsed inside each 8-state fibre. Each panel contact has eight horizontal Q6 edge lifts, so this is not a graph covering or edge bijection. The chain-map identity holds on the graph 1-skeleton with horizontal edges projected and fibre edges sent to zero. This does not yet give a map on Q6 squares/cubes or a geometric Q6/64-TG immersion.
+
+**Moving frame assignment.** Attach each fibre label \(a\) to the existing Gray/Jitterbug Kabsch frame \((R_a(t),c_a(t),n_a(t))\). This is an explicit label-to-frame candidate; the within-fibre coordinates and higher-cell lift remain open. Continue issues #398 and #401; do not close them on the quotient alone.
+
+**Microscopic stress correction.** For \(H(q,\varepsilon)=\tfrac12q^TK(\varepsilon)q\), \(K(\varepsilon)=K_0+\varepsilon_{ij}A^{ij}+\cdots\), the total stress is \(\Pi_{ij}=-\partial_{\varepsilon_{ij}}H|_0=-\tfrac12q^TA^{ij}q\). It is quadratic, not the previously used arbitrary linear OU observable \(b^TX\). Under the declared mean-zero Q6 OU process, Wick's identity gives
+\[
+\int_0^\infty\langle\delta\Pi_A(t)\delta\Pi_A(0)\rangle\,dt
+=\frac{\sigma^4}{2\gamma}\sum_{\alpha,\beta}
+\frac{|A_{\alpha\beta}|^2}{\lambda_\alpha+\lambda_\beta}.
+\]
+This is exact for that finite Gaussian model. Physical calibration of \(A^{ij}\), energy, volume and dynamics remains open.
+
+**Green–Kubo/Stokes theorem status.** A conditional theorem is recorded: if the same microscopic energy/stress has equilibrium linear response, uniform Green–Kubo convergence, a Newtonian incompressible hydrodynamic limit, and convergence of boundary traction maps, then the limiting coefficient in \(\tau=2\eta D(u)\) equals the Green–Kubo coefficient and the Stokes traction DN coefficient. The proof is the identification of the same coefficient through bulk constitutive response and boundary traction. Those hypotheses are not yet established for Q6/Jitterbug; hence the unconditional physical equality remains open.
+
+**Monograph:** chapters 13–14 (panel/phase geometry) and 20–22 (stress, Green–Kubo, transport and boundary response). No theorem number is assigned and no existing T130/T131/PR #414/#419 result is duplicated.
+
+
+### 11.11 Central-force energy and stress from an embedded Q6 graph
+
+Companion derivation: `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`; finite-difference tests: `tests/test_q6_central_force_stress.py`.
+
+For any explicitly supplied embedding y:V(Q6)->R^d and positive edge spring constants, the note defines one central-force energy H=1/2 sum_e kappa_e(|(I+epsilon)r_e+(Bu)_e|-ell_e)^2 and derives total stress by -partial_epsilon H. Its harmonic Hessian is the rigidity matrix form K=R^T diag(kappa_e)R, and the leading stress is linear in displacement for a stress-free reference. A matching overdamped OU benchmark is derived on the full positive subspace of K. This is distinct from the bare graph-Laplacian OU model and from the earlier generic quadratic-stress Wick ansatz.
+
+The canonical six-dimensional hypercube embedding is retained only as an anisotropic control; it has zero off-diagonal shear coefficient and is not a 3D material model. The physical Q6/Jitterbug embedding still requires the within-fibre lift y(a,b;t), which the 8:1 panel quotient does not supply. Therefore physical shear calibration, hydrodynamic limit and eta_GK=eta_Stokes remain open. Monograph: chapters 13–14 (geometric lift) and 20–22 (stress/transport/continuum limit).
+
+
+### 11.11 Central-force Q6 energy, derived Aij and microscopic stress
+
+Derivation: `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`; finite-difference tests: `tests/test_q6_central_force_stress.py`.
+
+For any supplied embedding y:V(Q6)->R^d and positive edge spring constants, the note defines a central-force energy and derives exact strain-conjugate virial stress. The Hessian is K=R^T diag(kappa_e)R. Crucially, the strain derivative A^{ij}=partial_{xi_ij}K|_0 is derived explicitly, including geometric stiffness from affine prestress. The stress expansion is Pi_ij=c_ij^T u-(1/2)u^T A^{ij}u+O(|u|^3); the matching finite OU Green–Kubo tensor includes linear and quadratic stress correlations. This is distinct from the bare graph-Laplacian OU model.
+
+The canonical Q6 subset R^6 embedding is an anisotropic control, not a 3D material. The physical Q6/Jitterbug model still requires the within-fibre lift y(a,b;t), calibrated spring constants and dynamics. The Newtonian hydrodynamic limit and unconditional eta_GK=eta_Stokes remain open. Monograph: chapters 13–14 and 20–22.
+
+
+## 12. Evidence-status register: TSMR, De Aquino and the two distinct quarter factors
+
+**Purpose.** This is a classification and dependency crosswalk, not a new theorem and not a claim that every arrow below has been proved. It preserves the existing TSMR, Anti-Twin, PSU, photon/QAT, Q-ball and transport work while distinguishing exact algebra from physical interpretation.
+
+### 12.1 Four evidence classes
+
+Use these labels when linking the records:
+
+- **A — exact algebra / finite theorem:** identity proved from stated definitions, finite matrices, finite complexes or exact geometry.
+- **B — conditional theorem / model theorem:** proved after explicit hypotheses, such as a specified energy, OU dynamics, invariant covariance, projection of null modes or a continuum-limit assumption.
+- **C — numerical or structural correspondence:** reproducible finite computation, numerical coincidence, design correspondence or candidate map; not by itself a theorem about a physical system.
+- **D — physical bridge open:** requires a derived action/energy, calibrated observable, physical dynamics, a map preserving the relevant structures, or a controlled limit.
+
+These labels supplement rather than replace each theorem file's own status. A theorem record remains authoritative for its hypotheses and proof.
+
+### 12.2 TSMR and the geometric one-quarter
+
+The TSMR records are to be read together, not collapsed into a single unqualified physical law:
+
+- **TSMR-F** (theorems/TSMR-F_multifractal_morphological_equation.md): exact definitions and the stated finite-level/multifractal identities belong to **A** where proved in that record; measure-dependent dimension and spectrum claims retain their own hypotheses and numerical/provisional labels.
+- **TSMR-C** (theorems/TSMR-C_cumulative_morphodynamics.md): cumulative morphodynamic construction and its exact algebraic consequences belong to **A** only to the extent proved in the record.
+- **TSMR-C-I** (theorems/TSMR-C-I_iching_golden_q6_lift.md): the Q6/I-Ching/golden lift must distinguish exact finite coding identities from nondegeneracy, cellular-lift and physical-geometry obligations; the latter remain **C/D** until the required chain maps and geometric realization are supplied.
+- **TSMR-H** and **TSMR-I** retain their own model assumptions and open invariance/transfer checks; do not infer a physical constitutive law merely from an algebraic transfer relation.
+
+The elementary identity
+\[
+x(1-x)=\frac14-\left(x-\frac12\right)^2\leq\frac14
+\]
+is **A**. Its equality case is \(x=1/2\). This is the *geometric/binary one-quarter*: it is the maximum of the concave quadratic on \([0,1]\). It is not a Wick factor and does not enter the Gaussian covariance calculation unless a separate derivation explicitly identifies the variables and observables.
+
+### 12.3 Pentagon projection and the De Aquino threshold
+
+The pentagonal frame identities recorded in the existing TSMR/RGS material, including
+\[
+EE^T=\frac52 I_2,\qquad P=\frac25E^TE,
+\]
+are **A** for the specified frame and normalization. Under the separately stated condition \(\|Pq\|^2=1/2\), one obtains
+\[
+q^TG_5q=\frac52\|Pq\|^2=\frac54.
+\]
+The implication to the numerical threshold \(5/4\) is therefore **A** under those definitions and that condition.
+
+The further identification with De Aquino's parameter,
+\[
+\frac{m_g}{m_{i0}}=3-2\sqrt{1+\xi^2},\qquad
+m_g=0\Longrightarrow\xi^2=\frac54,
+\]
+is algebraically **A** within that phenomenological formula. Identifying the pentagonal quadratic form with the physical \(\xi^2\), or interpreting the threshold as a measured gravitational/inertial mass effect, is **C/D**, not established by the algebra alone. The proposed calibration \(p_0=m_{i0}c\) must be stated as an additional physical assumption, not silently built into the geometric identity.
+
+The historical relation \(\xi_k^2=(k^TQk)/4\) remains a **C** correspondence unless its normalization, domain and derivation are independently supplied. Do not use it as a proof of the pentagonal projection identity or of the De Aquino calibration.
+
+### 12.4 The distinct Gaussian/Wick one-quarter
+
+For a centered stationary Gaussian OU mode with
+\[
+\langle q(t)q(0)\rangle=\sigma^2e^{-\gamma\lambda t},
+\qquad \Pi_A=-\frac12Aq^2,
+\]
+the centered covariance is
+\[
+\operatorname{Cov}(\Pi_A(t),\Pi_A(0))
+=\frac{A^2\sigma^4}{2}e^{-2\gamma\lambda t},
+\]
+and hence
+\[
+\int_0^\infty\operatorname{Cov}(\Pi_A(t),\Pi_A(0))\,dt
+=\frac{A^2\sigma^4}{4\gamma\lambda}.
+\]
+The monomode factor \(1/4\) is **B** (exact under the stated Gaussian OU model). For a symmetric matrix \(A\), with the sum over all ordered pairs \((\alpha,\beta)\),
+\[
+\int_0^\infty\langle\delta\Pi_A(t)\delta\Pi_A(0)\rangle\,dt
+=\frac{\sigma^4}{2\gamma}
+\sum_{\alpha,\beta}
+\frac{|A_{\alpha\beta}|^2}{\lambda_\alpha+\lambda_\beta}.
+\]
+The coefficient in the full ordered-pair sum is \(1/(2\gamma)\), not \(1/(4\gamma)\). The single-mode result has \(1/(4\gamma\lambda)\) because its decay rate is \(2\gamma\lambda\). This is the *Wick/OU one-quarter*, distinct in origin and meaning from the binary maximum \(x(1-x)\leq1/4\).
+
+For the central-force Q6 energy in research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md, the stress contains both a linear term and a derived quadratic term:
+\[
+\Pi_{ij}=c_{ij}^Tu-\frac12u^TA^{ij}u+O(\|u\|^3).
+\]
+Under the overdamped OU dynamics with covariance \(k_BT K_{\mathcal H}^{-1}\), decay rates \(\mu\lambda_\alpha\), and Green--Kubo normalization \(1/(k_BTV)\), the quadratic contribution is
+\[
+\frac{k_BT}{2\mu V}
+\sum_{\alpha,\beta}
+\frac{A_{\alpha\beta}^{ij}A_{\alpha\beta}^{kl}}
+{\lambda_\alpha\lambda_\beta(\lambda_\alpha+\lambda_\beta)}.
+\]
+This is **B**, exact for the quadratic-truncated stress in the declared finite OU model, with symmetric \(A^{ij}\), all ordered mode pairs, and the full positive subspace. The linear contribution is separately
+\[
+\frac{1}{\mu V}c_{ij}^TK_{\mathcal H}^{-2}c_{kl}.
+\]
+Do not substitute the generic quadratic-observable Wick formula for the strain-derived central-force stress, and do not drop the linear term for a stress-free central-force network.
+
+### 12.5 Anti-Twin, PSU, photons/QAT and Q-ball: preserve the interfaces
+
+- **Anti-Twin / T142–T143:** exact involution, rank and intertwining identities belong to **A** under the finite-dimensional definitions in the corresponding records. Their interpretation as a physical two-sheet spacetime, photon sector or Lorentz-covariant field remains **D** until metric, action, observable and dynamics are shown to be preserved.
+- **PSU:** retain the source-specific expansion of the acronym and the distinct PSU state/phase spaces. A map into PSU is **A/B** only where its domain, codomain, metric or inner product, and intertwining identities are explicitly stated. Physical Planck-scale interpretation remains **D** unless independently calibrated.
+- **Photons / QAT / quaternionic transport:** SU(2), quaternionic and holonomy identities in T118–T120 are algebraic/geometric results at their stated level (**A/B**). Identifying them with a physical photon propagation law, electromagnetic stress tensor or measured coupling is **D** pending a field action, Maxwell limit, conservation law and testable observable.
+- **Q-ball / Q-shell:** preserve the existing stationary/coupled-action and boundary-value dossiers. A solution of a specified stationary equation is **B**; stability, parameter recovery and identification with the PSU/Anti-Twin or photon sectors require their own proofs and calibration (**C/D**).
+- **Gardi:** cite the paper only as speculative paradigm/context for fractal cosmological ideas. It is not independent evidence for the central-force energy, the Q6 chain map, the De Aquino calibration, the photon/QAT coupling, Q-ball stability or a Green--Kubo/Stokes limit.
+
+### 12.6 Q6-to-panel quotient: combinatorics is not yet a geometric chain lift
+
+The \(8{:}1\) map from Q6 vertices to the eight Jitterbug panel labels is an exact combinatorial quotient under the specified sign-triple labelling. A graph map on vertices alone does not define a cellular chain map. For the 1-skeleton, edge orientations and multiplicities must be fixed and the boundary identity
+\[
+\Pi_0\partial_1=\partial_1^{\rm panel}\Pi_1
+\]
+must be checked on every oriented edge, including the treatment of edges collapsed within a fibre. For a higher-dimensional cellular map, the corresponding \(k\)-cell maps and
+\[
+\Pi_{k-1}\partial_k=\partial_k^{\rm panel}\Pi_k
+\]
+must also be supplied. Any edge weights used after collapse must be derived from the push-forward energy/action or explicitly declared as a new model; they cannot be chosen merely to make a desired response coefficient.
+
+Thus: vertex quotient and enumerative panel incidence are **A/C** as specified; a full oriented weighted chain map is **B/D** until the matrices and identities are exhibited; the within-fibre coordinate lift \(y(a,b;t)\) and physical 3D embedding remain **D**.
+
+### 12.7 Transport chain and proof obligations
+
+Keep the following dependency sequence, but annotate every arrow by its evidence class:
+
+\[
+\text{Q6 finite complex / TSMR coding}
+\xrightarrow{A/B}\text{Vesica, pentagonal frame, Anti-Twin}
+\xrightarrow{A/B}\text{PSU and spinorial/QAT interfaces}
+\xrightarrow{C/D}\text{photon and Q-ball physical sectors}
+\xrightarrow{D}\text{calibrated deformable energy and microscopic stress}
+\xrightarrow{B}\text{finite-model Green--Kubo response}
+\xrightarrow{D}\text{hydrodynamic/Stokes limit}.
+\]
+
+The arrows are not transitive proof dependencies. In particular, the exact T142/T143 finite identities do not prove a photon or Q-ball constitutive law; a finite OU Green--Kubo identity does not prove a physical viscosity; and a conditional Green--Kubo/Stokes theorem does not verify its own hydrodynamic hypotheses.
+
+**Confirmed repository state at this snapshot:** PR #428, *Complete and audit derived Q6 central-force stress tensor*, is merged. It adds the full strain-Hessian derivative \(A^{ij}\), including geometric stiffness, the linear-plus-quadratic stress expansion and finite-difference tests. The 3D Q6/Jitterbug within-fibre lift, physical calibration and hydrodynamic/Stokes limit remain open. PR #428 does not close those obligations.
+
+**Monograph placement:** preserve the existing 27 chapter numbers. The principal cross-links are chapters 2–5 (Q6, cochains and TSMR), 12–14 (quaternions, Vesica, Anti-Twin and PSU), 23–25 (QAT, Q-ball, multifractal dynamics and Green--Kubo), and 20–22 (stress, field equations, traction and transport). This is an index update, not a new chapter or theorem number.
+
+
+### 12.8 Field-theoretic Q-ball / PSU–Anti-Twin / radion reconstruction
+
+The Q-ball programme predates this crosswalk update and must not be restarted from a generic one-field Coleman ansatz. The reconstructed prior work is recorded in [PSU–Anti-Twin Q-ball and radion reconstruction](PSU_ANTITWIN_QBALL_RADION_RECONSTRUCTION_2026-11-24.md).
+
+That record distinguishes two repository uses of “Q-ball”: (i) the two-complex-field non-topological soliton with common global \(U(1)\) and exchange \(Z_2\), and (ii) the 32-panel football/Q-ball shell of T080/T088. T080 supplies an exact finite discrete Stokes complex; T088 supplies panel-frame seam transport, holonomy and a geometric anisotropy ansatz. Neither is itself a proof of a charged scalar soliton.
+
+The prior PSU–Anti-Twin field model already has a shared-vierbein action, common-phase Noether charge, coupled radial equations for a sextic self-potential, and the symmetric/antisymmetric Hessian eigenvalues \(\kappa_\pm=V_{PP}\pm V_{PA}\). Its interaction \(V_{\rm int}\) was intentionally left unspecified. The previously recorded interval \(0.6614378<\omega<1\) and single-profile benchmark \((\omega,E/Q)=(0.905607329,0.988291616)\) are retained with their distinct provenance; the latter is not a coupled two-field result.
+
+The radion coupling \(gW(R_{\rm th})\mathcal C(q_+,q_-)\) remains a phenomenological ansatz. The radion kinetic term, stabilization potential and coupling to the two scalar profiles must come from dimensional reduction of a specified action. Likewise, the common global \(U(1)\) is not automatically electromagnetic gauge symmetry or photon number.
+
+The historical finite PSU–Anti-Twin audit recorded \(J_{\rm AT}^2=I\), a \(128\to4\times32\) spectral split and the bosonic/fermionic determinant benchmarks. The historical script derive_rgs_psu_sea.py was not present in the current default-branch tree during reconstruction; the exact source/artifact must be restored before claiming a fresh replay.
+
+**Classification:** symmetry and Noether identities are exact/conditional within the declared two-field action; radial solutions and stability require the explicit interaction and numerical replay; radion stabilization, photon/QAT gauging and the field-theory-to-shell/Q6 discretization remain open. This branch is cross-linked to monograph chapters 12–14 (PSU/Anti-Twin and geometry) and 23–25 (QAT, Q-ball and field dynamics), while T080/T088 remain in the shell/structured-deformation chapters.
+
+
+### 12.9 Correction: the two-field Q-ball interaction was already specified
+
+The statement in §12.8 that \(V_{\rm int}\) remained unspecified is superseded by the recovered, already-merged PR #87 in the companion repository fabianleonaressi95/rgs-qlg-quaternion-bridge. The prior model fixes
+\[
+I=|\Phi_+|^2+|\Phi_-|^2,\quad J=|\Phi_+|^2-|\Phi_-|^2,\quad
+V=m^2I-\lambda I^2+gI^3+\alpha J^2
+-\kappa(\Phi_+^*\Phi_-+\Phi_-^*\Phi_+).
+\]
+Only the numerical/physical calibration of \(\alpha,\kappa\) remains open.
+
+The exact in-phase exchange-symmetric branch has \(m_{\rm eff}^2=m^2-\kappa\), necessary frequency window
+\[
+\sqrt{m^2-\kappa-\lambda^2/(4g)}<\omega<\sqrt{m^2-\kappa},
+\]
+and a relative-amplitude Hessian curvature shifted by \(4\alpha F^2\). A new two-field electrostatic Maxwell BVP, including both scalar equations, Noether/electric charge, Gauss-flux audit and local even/odd amplitude curvatures, is under PR #220 in the companion repository:
+https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
+It is open and unmerged; no CI pass or full fluctuation stability is claimed. The radion reduction/stabilization, asymmetric branches and vierbein backreaction remain open.
+
+
+### 12.10 Two-field Q-ball Maxwell branch and charge turning point
+
+The symmetric two-field BVP is now implemented in the companion repository under PR #220:
+https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
+
+For the already specified interaction, the symmetric branch is \(f_+=f_-=F/\sqrt2\), with \(m_{\rm eff}^2=m^2-\kappa\). The implementation solves both scalar Euler–Lagrange equations and the electrostatic Maxwell equation, and audits the common Noether charge, electric charge, energy and Gauss flux. The \(q=0\) limit is tested against the existing global Q-ball with mass \(m_{\rm eff}\).
+
+A finite six-point scan at \(m=1,\lambda=1.5,g=1,\alpha=0.2,\kappa=0.1,q=0.05,R_{\max}=20\) indicates a candidate local minimum of \(Q(\omega)\) around \(\omega\approx0.905\)–\(0.906\). This is a branch-fold diagnostic, not a stability theorem. The sign change of finite-difference \(dQ/d\omega\) must be refined and compared with the full charge-constrained scalar–phase–Maxwell fluctuation operator.
+
+PR #220 is open and unmerged at this snapshot. Its flat-space electrostatic model does not yet include the radion action, asymmetric branches, magnetic fields or vierbein/TEGR backreaction. The radion kinetic term, stabilization and coupling must still be derived from the PSU–Anti-Twin geometric action.
+
+
+### 12.11 Quantum-fractal interface: Q6, Walsh, Cantor and Fibonacci
+
+The new research specification [Quantum–fractal interface for PRISM / Kathara–Q6](QUANTUM_FRACTAL_PRISM_Q6_INTERFACE_2026-11-24.md) reuses the existing TSMR-F multifractal record, Cantor–supergolden Phase 21, Fibonacci/golden-zeta model, Q6 Walsh spectrum and exact dyadic subdivision benchmark. It does not add a monograph chapter.
+
+The exact Q6 Walsh spectrum and heat trace are finite-graph identities, not evidence of a fractal spectral dimension. The Cantor coding of six-bit prefixes is a labelling, not an operator equivalence: the finite group \((\mathbb Z/2)^6\) is not the profinite group \(\mathbb Z_2\), and Hamming adjacency is not the Euclidean Cantor metric. The existing cubical midpoint chain map is a control refinement, not a Kathara/Krist-All fractal rule.
+
+The first finite-filtration result is already exact for the standard Cartesian-product Q6 Laplacian: conditional-expectation projections onto the first j bits commute with L6 for every j=0,...,6, with ranks 2^j. This is the zero-coupling baseline, not multifractal evidence. The next nontrivial test must use a provenance-identified weighted/coupled Q6 or PRISM operator. Multifractal eigenstate scaling requires a genuine hierarchy with multiple levels, IPR fits, and uniform/localized/binomial controls. Fibonacci spectra and the Sierpiński gasket are separate comparison models, not identifications with Q6.
+
+**Classification:** Q6/Walsh identities, Cantor–Bernoulli formulas and existing dyadic chain-map identities are exact within their definitions; the Q6 filtration audit will be finite numerical evidence; PRISM/Kathara multifractal scaling and any physical quantum interpretation remain candidates/open. Gardi's Mandelbrot/IFS proposal is not a Schrödinger derivation.
+
+
+## 12.12 Fibonacci multifractality and Q-PRISM preservation (24 November 2026)
+
+The earlier 19 October RGS–PRISM Fibonacci analysis and its Q-PRISM quantum-readout proposal are preserved in [FIBONACCI_MULTIFRACTAL_QPRISM_PRESERVATION_2026-11-24.md](FIBONACCI_MULTIFRACTAL_QPRISM_PRESERVATION_2026-11-24.md). Keep this strand distinct from the exact Cantor–Bernoulli implementation in `audits/tsmr_f_multifractal.py`, the Phase-21 three-state transfer identity T056, and the standard finite Q6 Walsh calculation. The historical Fibonacci approximant family explicitly recorded is 144, 233, 377, 610, 987, 1597, with local effective exponents `tau_q^eff`; the prior verdict was that nonlinear `tau_infty(q)` is compatible with finite data but not asymptotically established, and the reported data-collapse `R^2=0.032733` is poor. The earlier concavity observation is preserved as a finite numerical result, but its raw arrays/script/fit provenance must be recovered before its detailed table is upgraded to reproducible repository evidence. Q-PRISM remains a proposed architecture (15 address qubits for L=17711; state preparation, Hamiltonian simulation and randomized-moment readout still need a gate-level specification); no quantum hardware execution or advantage is claimed. The separate Q6/Xc finite test with `concavity=False` does not refute the Fibonacci result because it uses a different object and observable.
