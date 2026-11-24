@@ -751,3 +751,14 @@ requires a separate proof.
 - G. G. Stokes, “On the Effect of the Internal Friction of Fluids on the
   Motion of Pendulums,” *Transactions of the Cambridge Philosophical
   Society* **9** (1851), 8–106.
+
+### 16.6 Monograph and theorem crosswalk
+
+This is a cross-cutting bridge, not a new chapter. Its natural monograph links
+are Chapters 1–5 (Fourier/arithmetic and geometric foundations), 13–19
+(fractal measures, golden scaling, Markov operators and memory), and 24–27
+(transport, continuum limits and physical interpretation). The relevant
+theorem-record crosswalk is T100–T107 and T131, read together with the
+TSMR-I records in this file. These links are organizational: they do not
+upgrade an open physical identification into a proved theorem.
+
