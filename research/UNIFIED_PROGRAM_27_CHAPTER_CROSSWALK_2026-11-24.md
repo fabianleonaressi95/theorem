@@ -380,3 +380,25 @@ The consistency target η_GK ↔ η entering Λ_η must be derived from one cons
 **Monograph placement:** chapters 13–14 for Jitterbug/Vesica and configuration geometry; chapters 20–22 for gradients, Green operators, transport and boundary response. Keep the original Q6 fourth-moment theorem and T131/T132 as separate theorem records; this crosswalk is a bridge index, not a merged theorem.
 
 **Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
+
+### 11.10 Explicit Q6–Jitterbug quotient, strain-derived stress and conditional Stokes limit
+
+New derivation note: research/Q6_JITTERBUG_MICROSCOPIC_STRESS_GREEN_KUBO_STOKES_2026-11-24.md.
+
+**Exact panel incidence.** The eight Gray/Jitterbug triangular panels are indexed by sign triples \(\varepsilon\in\{\pm1\}^3\). Their reference vertices are \(2^{-1/2}(\varepsilon_1,\varepsilon_2,0)\), \(2^{-1/2}(\varepsilon_1,0,\varepsilon_3)\), \(2^{-1/2}(0,\varepsilon_2,\varepsilon_3)\). Two panels share a vertex iff their sign triples differ in one coordinate. Thus the panel-contact graph is exactly \(Q_3\), with 8 panel nodes and 12 shared-vertex contacts.
+
+**Explicit Q6 quotient.** Write \(Q_6=Q_3^{\rm panel}\square Q_3^{\rm fibre}\), \(x=(a,b)\in\mathbb F_2^3\times\mathbb F_2^3\), and \(\pi(a,b)=((-1)^{a_1},(-1)^{a_2},(-1)^{a_3})\). This is an exact surjective 8:1 graph quotient. First-three-coordinate edges project to panel contacts; last-three-coordinate edges are collapsed inside each 8-state fibre. Each panel contact has eight horizontal Q6 edge lifts, so this is not a graph covering or edge bijection. The chain-map identity holds on the graph 1-skeleton with horizontal edges projected and fibre edges sent to zero. This does not yet give a map on Q6 squares/cubes or a geometric Q6/64-TG immersion.
+
+**Moving frame assignment.** Attach each fibre label \(a\) to the existing Gray/Jitterbug Kabsch frame \((R_a(t),c_a(t),n_a(t))\). This is an explicit label-to-frame candidate; the within-fibre coordinates and higher-cell lift remain open. Continue issues #398 and #401; do not close them on the quotient alone.
+
+**Microscopic stress correction.** For \(H(q,\varepsilon)=\tfrac12q^TK(\varepsilon)q\), \(K(\varepsilon)=K_0+\varepsilon_{ij}A^{ij}+\cdots\), the total stress is \(\Pi_{ij}=-\partial_{\varepsilon_{ij}}H|_0=-\tfrac12q^TA^{ij}q\). It is quadratic, not the previously used arbitrary linear OU observable \(b^TX\). Under the declared mean-zero Q6 OU process, Wick's identity gives
+\[
+\int_0^\infty\langle\delta\Pi_A(t)\delta\Pi_A(0)\rangle\,dt
+=\frac{\sigma^4}{2\gamma}\sum_{\alpha,\beta}
+\frac{|A_{\alpha\beta}|^2}{\lambda_\alpha+\lambda_\beta}.
+\]
+This is exact for that finite Gaussian model. Physical calibration of \(A^{ij}\), energy, volume and dynamics remains open.
+
+**Green–Kubo/Stokes theorem status.** A conditional theorem is recorded: if the same microscopic energy/stress has equilibrium linear response, uniform Green–Kubo convergence, a Newtonian incompressible hydrodynamic limit, and convergence of boundary traction maps, then the limiting coefficient in \(\tau=2\eta D(u)\) equals the Green–Kubo coefficient and the Stokes traction DN coefficient. The proof is the identification of the same coefficient through bulk constitutive response and boundary traction. Those hypotheses are not yet established for Q6/Jitterbug; hence the unconditional physical equality remains open.
+
+**Monograph:** chapters 13–14 (panel/phase geometry) and 20–22 (stress, Green–Kubo, transport and boundary response). No theorem number is assigned and no existing T130/T131/PR #414/#419 result is duplicated.
