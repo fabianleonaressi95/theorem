@@ -762,3 +762,222 @@ theorem-record crosswalk is T100–T107 and T131, read together with the
 TSMR-I records in this file. These links are organizational: they do not
 upgrade an open physical identification into a proved theorem.
 
+## 17. Identifying the physical stress observable: exact Mori reduction and the Q6 obstruction
+
+This section sharpens the open bridge in Section 16. It gives the exact
+operator identity that a discrete model must satisfy, derives the
+continuum momentum-to-stress relation used in hydrodynamics, and states
+what is currently missing for the golden-Bernoulli/Q6 construction.
+
+### 17.1 Exact discrete Mori–Zwanzig identity
+
+Let \(\mathcal H\) be a Hilbert space, \(T:\mathcal H\to\mathcal H\)
+a bounded one-step evolution operator, and \(\mathsf P\) an orthogonal
+projection onto resolved variables. Put \(\mathsf Q=I-\mathsf P\) and
+write the block operator
+\[
+T=\begin{pmatrix}
+T_{PP}&T_{PQ}\\
+T_{QP}&T_{QQ}
+\end{pmatrix}
+\quad\text{on }\mathsf P\mathcal H\oplus\mathsf Q\mathcal H.
+\]
+For \(h_n=T^nh\), set \(u_n=\mathsf P h_n\) and \(v_n=\mathsf Qh_n\).
+The two block recurrences are
+\[
+u_{n+1}=T_{PP}u_n+T_{PQ}v_n,\qquad
+v_{n+1}=T_{QP}u_n+T_{QQ}v_n.
+\]
+Solving the second recurrence and substituting into the first gives,
+for every \(n\geq0\),
+\[
+\boxed{
+u_{n+1}=T_{PP}u_n+
+T_{PQ}T_{QQ}^{\,n}v_0+
+\sum_{j=0}^{n-1}
+T_{PQ}T_{QQ}^{\,n-1-j}T_{QP}u_j.}
+\]
+The sum is the exact discrete memory term. Its kernel is
+\[
+\boxed{K_m=T_{PQ}T_{QQ}^{\,m}T_{QP},\qquad m\geq0.}
+\]
+The term \(T_{PQ}T_{QQ}^{n}v_0\) is the initial unresolved-state
+contribution and must not be silently discarded.
+
+This identity applies to the finite harmonic block decomposition in
+Section 8, with \(T_{PP}=A_{11}\), \(T_{PQ}=B\),
+\(T_{QP}=C\), \(T_{QQ}=D\). Thus \(K_m=BD^mC\) is an exact
+discrete projection-memory kernel for that chosen block matrix.
+It is not, by itself, a Green–Kubo stress correlation or a
+fluctuation–dissipation theorem. In particular, for a non-self-adjoint
+Markov operator, \(T_{PQ}\) and \(T_{QP}\) are not automatically
+adjoints, and positivity of the scalar memory sequence does not follow.
+
+### 17.2 The continuum identity that connects momentum to shear stress
+
+Consider an equilibrium fluid with microscopic momentum density
+\(g_x(\mathbf q)\), and choose a transverse wavevector
+\(\mathbf q=q\,\mathbf e_y\). Local momentum conservation gives
+\[
+\partial_t g_x(q,t)=-iq\,\Pi_{xy}(q,t),
+\]
+where \(\Pi_{xy}\) is the corresponding microscopic momentum-flux
+(stress) component. This conservation law is the physical bridge:
+shear stress is the flux transporting transverse momentum.
+
+In the equilibrium Hilbert space with inner product
+\((X,Y)=\langle X^*Y\rangle_{\rm eq}\), let \(\mathsf P\) be the
+Mori projection onto \(A=g_x(q)\):
+\[
+\mathsf P X=(X,A)(A,A)^{-1}A,\qquad \mathsf Q=I-\mathsf P.
+\]
+For Liouville generator \(\mathcal L\), define the initial random force
+\[
+F(0)=\mathsf Q\mathcal L A
+=-iq\,\mathsf Q\Pi_{xy}(q),
+\]
+where the last equality uses the momentum conservation law. Under
+the standard Mori construction, the orthogonal-dynamics force is
+\(F(t)=e^{t\mathsf Q\mathcal L\mathsf Q}F(0)\), and the scalar memory
+kernel is
+\[
+\boxed{
+M_A(t)=\frac{(F(t),F(0))}{(A,A)}
+=\frac{q^2}{(g_x(q),g_x(q))}
+\left(
+e^{t\mathsf Q\mathcal L\mathsf Q}\mathsf Q\Pi_{xy}(q),
+\mathsf Q\Pi_{xy}(q)
+\right).}
+\]
+This is an exact projected-stress representation under the stated
+equilibrium and projection hypotheses. It is the appropriate
+Mori object to compare with a coarse-grained memory kernel.
+
+Crucially, the stress in this formula evolves under **orthogonal
+dynamics**, not automatically under the full Liouville evolution.
+Therefore it is not legitimate to replace this expression by the
+ordinary Green–Kubo stress autocorrelation without deriving the
+relevant zero-wavevector, zero-frequency and projection limits.
+The Green–Kubo shear viscosity remains
+\[
+\eta_{\rm GK}=\frac{1}{Vk_BT}\int_0^\infty
+\langle\delta\Pi_{xy}(t)\delta\Pi_{xy}(0)\rangle_{\rm eq}\,dt,
+\]
+with the stress evolved under the full equilibrium dynamics. The
+matching between this formula and the Mori memory is a hydrodynamic
+limit statement, not an algebraic identity at finite \(q\).
+
+### 17.3 A graph-level candidate for Q6/RGS
+
+The reconstructed embedding \(X:V(Q6)\to\mathbb R^3\) permits a
+geometric **candidate** for a graph virial stress, provided a mechanical
+action is supplied. For an oriented edge \(e=(i,j)\), put
+\[
+r_e=X_j-X_i,\qquad
+f_e=-\frac{\partial U}{\partial r_e},
+\]
+where \(U\) is an explicitly specified edge-based potential. A
+configurational stress candidate is
+\[
+\boxed{
+\Pi^{\rm graph}_{ab}
+=\frac1V\sum_{e\in E(Q6)}r_{e,a}f_{e,b},
+\qquad
+\delta\Pi^{\rm graph}_{ab}
+=\Pi^{\rm graph}_{ab}
+-\langle\Pi^{\rm graph}_{ab}\rangle_{\rm eq}.}
+\]
+For shear viscosity the relevant component is the off-diagonal
+traceless part, for example \(a=x,b=y\). A complete mechanical model
+may also require a kinetic contribution, depending on its degrees of
+freedom and Hamiltonian.
+
+This expression is a definition conditional on \(U\), \(V\), and an
+equilibrium measure; it is **not yet a computed Q6 stress**. The
+available graph geometry and adjacency do not determine the edge
+forces, physical volume, temperature, momenta, or time evolution.
+Assigning arbitrary edge weights or treating a geometric anisotropy
+tensor as a stress would not close this gap.
+
+### 17.4 Necessary identification test for the golden memory
+
+To identify a golden-Bernoulli correlation with a physical shear
+stress, one must construct an equilibrium dynamical model and a
+centered observable \(\Pi_{xy}\) such that a map \(\mathcal J\) from
+the golden-coordinate space into the physical observable space
+satisfies, at minimum:
+
+1. **Equilibrium compatibility:** \(\mathcal J\) preserves the relevant
+   inner product/covariance and maps constants to constants.
+2. **Observable identification:** \(\mathcal J f\) is the centered
+   microscopic shear stress, or the projected random force associated
+   with transverse momentum; it cannot be declared so by matching
+   dimensions or plots.
+3. **Dynamical compatibility:** the Markov/compressed evolution
+   intertwines with the physical full or orthogonal dynamics in the
+   precise sector used. For a discrete model this requires an identity
+   or controlled approximation such as
+   \(\mathcal J T_{\rm eff}^n f\simeq
+   T_{\rm phys,eff}^n\mathcal J f\), with an error estimate.
+4. **Time calibration:** one Markov step corresponds to a measured or
+   derived \(\Delta t\), not an arbitrary unit.
+5. **Fluctuation–dissipation and convergence:** the projected-force
+   covariance has the normalization required by the Mori equation,
+   and the Green–Kubo integral (or its discrete sum) converges in the
+   stated thermodynamic and long-time limits.
+6. **Hydrodynamic matching:** the long-wavelength transverse-momentum
+   relaxation yields a finite shear viscosity and, for a sphere with
+   no-slip boundary conditions at low Reynolds number, the friction
+   tends to \(\zeta=6\pi\eta a\).
+
+The current golden Bernoulli operator is a scalar invariant-measure
+Markov operator. The present record does not construct a momentum
+density, a Liouville generator, a Q6 edge-force action, or a map
+\(\mathcal J\) satisfying these conditions. Moreover, its compression
+\(D=QPQ\) is not known to be a reversible Markov semigroup. The
+physical stress identification is therefore **open**, not proved or
+numerically verified.
+
+### 17.5 Decisive next computations
+
+The next work is now sharply specified:
+
+- provide an action \(U\) on the reconstructed Q6/RGS embedding and
+  derive forces by differentiation, rather than fitting edge weights;
+- construct the invariant Gibbs/equilibrium measure and its
+  time-evolution operator (including momenta if the model is
+  mechanical);
+- calculate the graph virial stress and its equilibrium covariance;
+- verify the discrete or continuous momentum-balance identity;
+- build the Mori projection onto transverse momentum and compute the
+  projected-force memory;
+- compare that memory with \(BD^nC\) only after an explicit
+  intertwining/covariance map and a time-step calibration are given;
+- evaluate the Green–Kubo integral and test the hydrodynamic/Stokes
+  limit with finite-size and boundary-condition controls.
+
+**Status update.**
+- **Proved here:** the discrete block-memory recurrence and its exact
+  kernel; the conditional Mori projected-stress identity from local
+  momentum conservation.
+- **Defined as candidate:** the Q6 graph virial stress, conditional on
+  a specified mechanical action and equilibrium model.
+- **Open:** construction of that action and equilibrium dynamics;
+  identification of the golden observable with stress or random force;
+  FDT normalization; Green–Kubo convergence; and Stokes matching.
+- **Explicitly not claimed:** that the existing \(D\), \(C_n\), or
+  \(K_n\) already is a physical stress correlation or viscosity kernel.
+
+### References for the projection/stress identification
+
+- H. Mori, “Transport, Collective Motion, and Brownian Motion,”
+  *Progress of Theoretical Physics* **33** (1965), 423–455.
+- R. Zwanzig, “Memory Effects in Irreversible Thermodynamics,”
+  *Physical Review* **124** (1961), 983–992.
+- “4.2 Mori–Zwanzig Theory,” *The Green–Kubo Relations*,
+  Australian National University online text.
+- C. Widder, J. Zimmer, and T. Schilling, “On the generalized
+  Langevin equation and the Mori projection operator technique,”
+  *Journal of Physics A: Mathematical and Theoretical* **58** (2025),
+  405001, DOI: 10.1088/1751-8121/ae02cc.
+
