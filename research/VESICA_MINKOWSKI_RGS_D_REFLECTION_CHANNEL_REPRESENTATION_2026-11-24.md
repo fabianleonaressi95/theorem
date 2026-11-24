@@ -123,7 +123,7 @@ The coefficient \(+1/2\) is carried by the two even modes and \(-1/2\) by the od
 
 A hexagram is \(H=(L,U)\in\mathbb F_2^3\times\mathbb F_2^3\). The lower and upper trigrams label the two cone sectors. The six distinguished channel pairs above give a three-channel geometric carrier inside the two-sheet picture. This is a representation of the recovered three-dimensional RGS coupling sector; it is **not** a complete injective map of all 64 hexagrams to these six points.
 
-The earlier eight-point-per-arc construction remains the set-level bridge for all 64 states: it maps each trigram to one of eight points on its corresponding Vesica arc, with a hexagram mapped to an ordered pair. The present three-channel construction is a reflection-adapted subrepresentation of that geometry. It selects the two arc endpoints and the arc midpoint in each sector. Its three paired midpoints coincide at the Vesica center, so midpoint alone does not encode the channel.
+The earlier eight-point-per-arc construction remains the set-level bridge for all 64 states: it maps each trigram to one of eight points on its corresponding Vesica arc, with a hexagram mapped to an ordered pair. The present three-channel construction is a reflection-adapted marked configuration on the same continuous arcs, but it is **not** a subset of the earlier eight-point sample: the arc midpoint lies between the two central samples of that even-sized grid. Its three paired midpoints coincide at the Vesica center, so midpoint alone does not encode the channel.
 
 The bit/trigram labeling must be fixed consistently when embedding these three distinguished channels into the full eight-state lookup table. No unproved identification of a particular binary trigram orbit with \(c=-,0,+\) is imposed here.
 
@@ -153,3 +153,15 @@ Accordingly, the present result is a geometric realization of the \(BA\) couplin
 | The planar Vesica model is \(C_3\)-equivariant | False for the selected arcs |
 
 The deterministic coordinate check is in audits/audit_vesica_minkowski_D_reflection.py; the underlying original-array reconstruction is in audits/reconstruct_rgs_half_carrier_basis.py.
+
+
+### Discrete eight-sample check: what the reflection does to the 64-state bridge
+
+In the earlier eight-point sampling
+\[
+\theta_k=-\pi/3+\frac{2k\pi}{21},\qquad
+\phi_k=2\pi/3+\frac{2k\pi}{21},\qquad k=0,\ldots,7,
+\]
+the same ambient reflection sends \(k\mapsto7-k\) on each sheet. Since there are eight samples, this permutation has no fixed sample and decomposes into four transpositions. Its permutation representation on the trigram sample space therefore has \(+1\) and \(-1\) eigenspaces of dimensions \(4\) and \(4\), respectively. On the 64 hexagrams the simultaneous reflection acts on both factors; the independent pair of sheet reflections gives the corresponding product action.
+
+This is not the three-dimensional \((2,1)\) parity representation above. The latter is a separately marked three-channel configuration on the continuous Vesica arcs, chosen to match the RGS carrier dimension. A linear compression/intertwiner from the eight-state trigram representation to this three-channel carrier has not yet been specified. In particular, no three of the eight equally spaced samples are being silently identified with \((-,0,+)\).
