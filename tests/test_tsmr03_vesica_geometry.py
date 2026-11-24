@@ -3,7 +3,8 @@ import unittest
 
 from audits.tsmr03_vesica_geometry import (
     affine_transform, box_count, circular_vesica_boundary,
-    effective_box_dimension, ellipse_deform, vesica_family,
+    effective_box_dimension, ellipse_deform, recursive_vesica_levels,
+    standard_recursive_vesica_maps, vesica_family,
 )
 
 
@@ -38,6 +39,19 @@ class TestTSMR03VesicaGeometry(unittest.TestCase):
         self.assertEqual(len(family["bivesica"]), 2*len(family["vesica"]))
         self.assertEqual(len(family["trivesica"]), 3*len(family["vesica"]))
         self.assertIn("elliptic_vesica", family)
+
+    def test_recursive_anisotropic_vesica_generations_double_each_level(self):
+        seed = circular_vesica_boundary(samples_per_arc=40)
+        levels = recursive_vesica_levels(seed, standard_recursive_vesica_maps(), depth=4)
+        self.assertEqual([len(level) for level in levels],
+                         [len(seed) * (2**n) for n in range(5)])
+        for level in levels:
+            self.assertTrue(all(math.isfinite(x) and math.isfinite(y)
+                                for x, y in level))
+        # Both linear maps are strict contractions and anisotropic.
+        matrix = standard_recursive_vesica_maps()[0][0]
+        self.assertAlmostEqual(matrix[0][0], 0.45)
+        self.assertAlmostEqual(matrix[1][1], 0.25)
 
     def test_box_count_and_effective_dimension_are_finite_scale_diagnostics(self):
         circle = circular_vesica_boundary(samples_per_arc=1000)
