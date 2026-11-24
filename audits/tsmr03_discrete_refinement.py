@@ -107,3 +107,88 @@ def refinement_report(n_vertices: int, factor: int = 2) -> dict:
         "prolonged_values": prolonged,
         "coarse_values": sample,
     }
+
+
+def torus_cellular_boundaries(n: int) -> tuple[list[list[int]], list[list[int]]]:
+    """Return (B1, B2) for the periodic n-by-n square cellulation of T^2.
+
+    Vertices are indexed by (i,j), horizontal then vertical oriented edges,
+    and positively oriented square faces. This is a cellular (cubical) chain
+    complex, not a simplicial triangulation.
+    """
+    if n < 3:
+        raise ValueError("periodic square torus requires n >= 3")
+    vertices = n*n
+    edges = 2*vertices
+    faces = vertices
+    def v(i: int, j: int) -> int:
+        return (i % n)*n + (j % n)
+    def h(i: int, j: int) -> int:
+        return (i % n)*n + (j % n)
+    def e_v(i: int, j: int) -> int:
+        return vertices + (i % n)*n + (j % n)
+    b1 = [[0]*edges for _ in range(vertices)]
+    for i in range(n):
+        for j in range(n):
+            b1[v(i,j)][h(i,j)] -= 1
+            b1[v(i+1,j)][h(i,j)] += 1
+            b1[v(i,j)][e_v(i,j)] -= 1
+            b1[v(i,j+1)][e_v(i,j)] += 1
+    b2 = [[0]*faces for _ in range(edges)]
+    for i in range(n):
+        for j in range(n):
+            face = i*n+j
+            b2[h(i,j)][face] += 1
+            b2[e_v(i+1,j)][face] += 1
+            b2[h(i,j+1)][face] -= 1
+            b2[e_v(i,j)][face] -= 1
+    return b1, b2
+
+
+def matrix_product_integer(left: list[list[int]],
+                           right: list[list[int]]) -> list[list[int]]:
+    """Multiply compatible integer matrices."""
+    if not left or not right or len(left[0]) != len(right):
+        raise ValueError("incompatible matrix dimensions")
+    return [[sum(left[i][k]*right[k][j] for k in range(len(right)))
+             for j in range(len(right[0]))] for i in range(len(left))]
+
+
+def torus_betti_numbers(n: int) -> tuple[int, int, int]:
+    """Compute cellular Betti numbers (beta0,beta1,beta2) over Q."""
+    b1, b2 = torus_cellular_boundaries(n)
+    r1 = rank_over_rational(b1)
+    r2 = rank_over_rational(b2)
+    vertices, edges, faces = n*n, 2*n*n, n*n
+    return (vertices-r1, edges-r1-r2, faces-r2)
+
+
+def torus_graph_spectrum(n: int) -> list[float]:
+    """Spectrum of the 1-skeleton Laplacian on the periodic square torus."""
+    if n < 3:
+        raise ValueError("periodic square torus requires n >= 3")
+    return sorted(4.0 - 2.0*math.cos(2*math.pi*p/n)
+                  - 2.0*math.cos(2*math.pi*q/n)
+                  for p in range(n) for q in range(n))
+
+
+def prolong_torus_field(values: list[list[float]], factor: int = 2) -> list[list[float]]:
+    """Periodic bilinear interpolation of a vertex field to a refined torus."""
+    n = len(values)
+    if n < 3 or any(len(row) != n for row in values) or factor < 2:
+        raise ValueError("values must be a square n>=3 grid and factor >= 2")
+    fine_n = n*factor
+    fine = [[0.0]*fine_n for _ in range(fine_n)]
+    for i in range(fine_n):
+        x0, tx = divmod(i, factor)
+        tx = tx/factor
+        for j in range(fine_n):
+            y0, ty = divmod(j, factor)
+            ty = ty/factor
+            a = values[x0 % n][y0 % n]
+            b = values[(x0+1) % n][y0 % n]
+            c = values[x0 % n][(y0+1) % n]
+            d = values[(x0+1) % n][(y0+1) % n]
+            fine[i][j] = ((1-tx)*(1-ty)*a + tx*(1-ty)*b
+                          + (1-tx)*ty*c + tx*ty*d)
+    return fine
