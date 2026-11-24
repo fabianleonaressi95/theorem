@@ -43,6 +43,8 @@ theorem/
 
 ### Main indexes
 
+- **[Factor 1/2, Liouville and literature dossier](theorems/FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24.md)** — integrates the established Liouville theorem, the D5 Bergman density, the Q6 Wilson marginal chain T003–T009, the PSU para-Kähler bridge, the RGS six-dimensional half-scale carrier, and the distinct algebraic, geometric, analytic and physical origins of 1/2. Separates proved results, numerical evidence and open identifications.
+
 - **[Unified 27-chapter crosswalk and preservation register](research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md)** — connects all 27 chapters to theorem clusters, companion-repository materials, arithmetic/special-function results, Vesica, fractals, Minkowski–Farey, QAT, Green–Kubo and polariton literature; records epistemic caveats and the 236/239 inventory reconciliation.
 
 
