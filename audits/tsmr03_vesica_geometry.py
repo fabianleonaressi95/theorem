@@ -103,3 +103,44 @@ def vesica_family(radius: float = 1.0, center_distance: float = 1.0,
         "trivesica": (base + shift(base, 1.2, 0.0)
                       + shift(base, 0.6, 1.0)),
     }
+
+
+def recursive_vesica_levels(
+    seed_points: Iterable[Point],
+    maps: Iterable[tuple[tuple[tuple[float, float], tuple[float, float]], Point]],
+    depth: int,
+) -> list[list[Point]]:
+    """Generate finite generations of affine vesica copies.
+
+    Each map is (2x2 matrix, translation). Level 0 is the seed boundary;
+    level n+1 is the union of all images of level n. This is a finite
+    construction for visualization and box-count diagnostics, not a proof
+    that the limiting attractor has a particular Hausdorff dimension.
+    """
+    if depth < 0:
+        raise ValueError("depth must be nonnegative")
+    maps = list(maps)
+    if not maps:
+        raise ValueError("at least one affine map is required")
+    level = list(seed_points)
+    if not level:
+        raise ValueError("seed boundary must be nonempty")
+    levels = [level]
+    for _ in range(depth):
+        next_level: list[Point] = []
+        for matrix, translation in maps:
+            image = affine_transform(level, matrix)
+            dx, dy = translation
+            next_level.extend((x + dx, y + dy) for x, y in image)
+        level = next_level
+        levels.append(level)
+    return levels
+
+
+def standard_recursive_vesica_maps() -> tuple[tuple[tuple[tuple[float, float],
+                                                               tuple[float, float]], Point], ...]:
+    """Two contractive, vertically anisotropic copies placed left and right."""
+    return (
+        (((0.45, 0.0), (0.0, 0.25)), (-0.50, 0.0)),
+        (((0.45, 0.0), (0.0, 0.25)), (0.50, 0.0)),
+    )
