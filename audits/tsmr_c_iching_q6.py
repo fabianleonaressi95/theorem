@@ -83,3 +83,84 @@ def non_lumpable_classes(n_lines: int = 6) -> dict[tuple[int, int], tuple[int, .
 
 def q6_edge_count() -> int:
     return (64 * 6) // 2
+
+
+def q6_walk_spectrum() -> tuple[tuple[int, int], ...]:
+    """Exact eigenvalue/multiplicity pairs for adjacency(Q6)/6."""
+    from math import comb
+    return tuple((1 - k / 3, comb(6, k)) for k in range(7))
+
+
+def golden_float(value: tuple[int, int]) -> float:
+    """Numerical evaluation of an exact Z[lambda] pair."""
+    from math import sqrt
+    lam = (sqrt(5.0) - 1.0) / 2.0
+    return value[0] + value[1] * lam
+
+
+def graph_directed_hull(iterations: int = 24):
+    """Approximate statewise support-hull endpoints by Bellman iteration.
+
+    Returns lower and upper endpoint vectors. Each iteration contracts the
+    previous endpoint uncertainty by lambda**6. These are convex-hull bounds,
+    not claims that the graph-directed supports themselves are intervals.
+    """
+    from math import sqrt
+    if iterations < 1:
+        raise ValueError("iterations must be positive")
+    lam = (sqrt(5.0) - 1.0) / 2.0
+    ratio = lam ** 6
+    shifts = [golden_float(golden_value(h, 6)) for h in range(64)]
+    lower = [0.0] * 64
+    upper = [0.0] * 64
+    for _ in range(iterations):
+        next_lower = [
+            min(shifts[j] + ratio * lower[j] for j in q6_neighbors(i))
+            for i in range(64)
+        ]
+        next_upper = [
+            max(shifts[j] + ratio * upper[j] for j in q6_neighbors(i))
+            for i in range(64)
+        ]
+        lower, upper = next_lower, next_upper
+    return lower, upper
+
+
+def first_level_hull_overlap_count(iterations: int = 24) -> int:
+    """Count pairs of overlapping child convex hulls over all parent states.
+
+    A pair is counted once for each parent state. Convex-hull overlap does
+    not prove that the underlying fractal support sets intersect.
+    """
+    from math import sqrt
+    lam = (sqrt(5.0) - 1.0) / 2.0
+    ratio = lam ** 6
+    shifts = [golden_float(golden_value(h, 6)) for h in range(64)]
+    lower, upper = graph_directed_hull(iterations)
+    count = 0
+    for i in range(64):
+        children = []
+        for j in q6_neighbors(i):
+            children.append((shifts[j] + ratio * lower[j],
+                             shifts[j] + ratio * upper[j]))
+        for a in range(6):
+            for b in range(a + 1, 6):
+                if max(children[a][0], children[b][0]) <= min(children[a][1], children[b][1]):
+                    count += 1
+    return count
+
+
+def fourier_transfer_matrix(xi: float):
+    """Return M(xi)=P diag(exp(i*xi*s_j)) as a complex 64x64 matrix.
+
+    Fourier recursion for f_i(xi)=E[exp(i*xi*Y)|H_0=i] is
+    f(xi)=M(xi) f(lambda**6 xi).
+    """
+    from cmath import exp
+    shifts = [golden_float(golden_value(h, 6)) for h in range(64)]
+    phases = [exp(1j * xi * shift) for shift in shifts]
+    return [
+        [phases[j] / 6.0 if (i ^ j).bit_count() == 1 else 0j
+         for j in range(64)]
+        for i in range(64)
+    ]
