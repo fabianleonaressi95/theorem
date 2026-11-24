@@ -195,3 +195,65 @@ The Q6 transition spectrum is completely known, and the graph-directed Fourier r
 M(\xi)M(r\xi)\cdots M(r^{n-1}\xi)
 \]
 and the exact state-labelled overlap graph, retaining all 64 states (or proving a valid smaller automaton).
+
+
+## 10. State-labelled overlap graph and finite-depth Fourier audit
+
+### 10.1 Labelled hull-overlap graph
+
+The child associated with state \(j\) from parent \(i\) is allowed exactly when \(j\sim i\) in Q6. Its support is contained in the interval
+\[
+I_{i,j}=s(j)+r[L_j,U_j],\qquad r=\lambda^6,
+\]
+where \([L_j,U_j]\) is the convex hull of the state-conditioned support. Define a labelled overlap edge
+\[
+(i; j,k)
+\]
+when \(j,k\) are distinct Q6-neighbors of the same parent \(i\) and
+\[
+I_{i,j}\cap I_{i,k}\ne\varnothing.
+\]
+The edge retains all three hexagram labels. Its two line labels are the unique bottom-to-top line indices changed from parent to child.
+
+Using 64 Bellman iterations in double precision, the diagnostic graph has:
+- 48 labelled child-pair overlap edges;
+- 40 of the 64 parent states carry at least one such edge;
+- 32 parents carry one edge and 8 parents carry two edges;
+- each edge joins two distinct one-line changes from its parent.
+
+The smallest observed hull-overlap width is approximately \(2.06114\times10^{-3}\). The Bellman tail after 64 iterations is far smaller than this at the chosen contraction ratio, but the implementation uses floating-point arithmetic and is therefore a numerical diagnostic, not an exact algebraic certification. The graph is **not** the support-intersection graph: hull overlap is necessary for support intersection, but not sufficient.
+
+### 10.2 Finite-depth Fourier observable
+
+The code evaluates
+\[
+\widehat\nu_N(\xi)=
+\frac1{64}\mathbf 1^T
+M(\xi)M(r\xi)\cdots M(r^{N-1}\xi)\mathbf 1,
+\]
+which is the characteristic function of the truncated Markov-coded sum with the stationary initial distribution. At \(\xi=0\), it equals 1 exactly in the mathematical model. Numerical tests compare two truncation depths at a fixed frequency to check convergence of this finite-depth computation.
+
+A sample at depth 80 gives the following magnitudes (rounded):
+| \(\xi\) | \(|\widehat\nu_{80}(\xi)|\) |
+|---:|---:|
+| 1 | 0.79813 |
+| 5 | 0.01173 |
+| 10 | 0.03952 |
+| 20 | 0.00712 |
+| 50 | 0.06317 |
+| 100 | 0.0000283 |
+| 200 | 0.08511 |
+| 500 | 0.06803 |
+| 1000 | 0.00655 |
+
+The irregular finite-frequency values do not establish decay as \(|\xi|\to\infty\). In particular, a sparse sample with small values cannot prove the Rajchman property or singularity. A rigorous Fourier conclusion requires uniform frequency estimates or a suitable theorem for this specific matrix cocycle.
+
+### 10.3 Correct status of the analysis
+
+The overlap graph is a state-labelled, reproducible numerical diagnostic. The finite-depth Fourier transform is computable and normalized. The following remain open:
+1. exact certification of the hull-overlap inequalities in \(\mathbb Q(\sqrt5)\);
+2. actual support intersections and the topology of the 64 component supports;
+3. uniform Fourier decay or a non-decay subsequence;
+4. atomlessness, absolute continuity, singularity, and local-dimension spectrum.
+
+No multifractal or singular-measure conclusion is inferred from the current finite calculations.
