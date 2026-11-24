@@ -247,3 +247,10 @@ The original matrix artifacts were named `Z_A.npy`, `Z_S.npy`, `K0.npy`, and `P_
 The shared occurrence of the coefficient (1/2) and the sign pattern ((+,+,-)) is a concrete comparison target, not yet an identity: the spherical (z)-coordinate is a geometric embedding coordinate, whereas (Z_A^{BA}) is a block of an RGS stepping operator. To establish a bridge, one must recover the original arrays, identify the same ordered three-dimensional subspace and basis convention, and test an explicit intertwiner (U) satisfying the appropriate relation (for example (U Z_A^{BA} U^{-1}) against the relevant coordinate or projected operator). A matching diagonal pattern alone is insufficient.
 
 The next audit should therefore report separately: (i) the exact (1/2) geometry of the two latitude triangles; (ii) the old RGS block and involution; (iii) whether the RGS block embeds into a (C_3)-representation sector or a canonical subspace of (overline L_6). Until the original matrices and basis maps are available, item (iii) remains open.
+
+
+## 12. RGS one-half bridge: provenance audit
+
+A follow-up source audit has now been recorded in [C3_RGS_HALF_BRIDGE_PROVENANCE_AUDIT_2026-11-24.md](C3_RGS_HALF_BRIDGE_PROVENANCE_AUDIT_2026-11-24.md). It finds a manifest of the old 188D arrays in the companion `rgs-qlg-quaternion-bridge` repository, but not their binary payloads. The manifest confirms that `Z_A.npy`, `Z_S.npy), `Zmat.npy`, `P_G.npy), and `K0.npy` were 188D objects; it does not establish the values of the quoted (3\times3) (BA) block.
+
+The archived first-principles reconstruction record further classifies original (J_A,J_B) provenance as `NOT_RECOVERABLE`; its QR/soft-(T_{2u}) substitutes are `HYPOTHESIS_ONLY). They cannot be used as a canonical intertwining basis. Therefore the geometric half is exact, but the numerical C3–RGS bridge remains **OPEN** pending recovery of the original checkpoint arrays and the basis/index provenance of the (BA) block. No intertwiner is claimed.
