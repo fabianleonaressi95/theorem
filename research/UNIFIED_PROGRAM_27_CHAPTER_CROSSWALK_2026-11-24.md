@@ -324,3 +324,12 @@ Proposed work order: #398 → #399 → #400, with #401 consuming the phase/frame
 ### 11.6 Current open-issue inventory
 
 GitHub returned nine open issues in the primary repository at this check: #398, #399, #400, #401, #402, #109, #113, #114 and #84. The companion repository returned open issue #3. This is a live snapshot, not a permanent status guarantee. The four Jitterbug derivation issues are the immediate geometric chain; the coil model is already merged as a conditional one-panel calculation and should be validated/reused rather than reimplemented.
+
+
+### 11.7 Eight-coil coupled-circuit implementation draft — PR #411
+
+- [PR #411 — eight-panel Jitterbug coil coupling](https://github.com/fabianleonaressi95/theorem/pull/411) adds `audits/jitterbug_eight_coil_coupling.py`, one circular coil per rigid triangular panel, proper Kabsch panel poses, imposed-field flux linkage, external Faraday emf, polygonal regularized Neumann mutual inductances, thin-wire self-inductance approximation and an implicit-midpoint solver for \(d(Li)/dt+Ri=e_{ext}\).
+- [Primitive tests](../tests/test_jitterbug_eight_coil_coupling.py) cover polygon closure, mutual-inductance reciprocity, positive thin-wire self-inductance, matrix symmetry, zero-emf/zero-current and a finite one-coil RL response.
+- [Technical note](JITTERBUG_EIGHT_COIL_COUPLING.md) states approximations and reproduction commands.
+
+**Status:** draft PR, not merged; no clean-run test evidence yet. The full model has not passed segment/softening convergence, a trusted two-loop benchmark, positive-semidefinite verification across the path, wiring/polarity comparison or complete mechanical/electromagnetic energy balance. No experiment or generator performance is claimed. PR #411 does not close #398–#401 or #409. The 64-TG/FCC-D3 embedding remains separate.
