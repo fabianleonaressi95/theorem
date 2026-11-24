@@ -5,7 +5,7 @@ from pathlib import Path
 
 C = [
     [1/math.sqrt(8)]*8,
-    [x/math.sqrt(462) for x in (7,1,-3,-5,-5,-3,1,7)],
+    [x/math.sqrt(168) for x in (7,1,-3,-5,-5,-3,1,7)],
     [x/math.sqrt(168) for x in (-7,-5,-3,-1,1,3,5,7)],
 ]
 D = [[1,0,0],[0,1,0],[0,0,-1]]
