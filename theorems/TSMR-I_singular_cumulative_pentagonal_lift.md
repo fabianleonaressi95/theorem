@@ -137,3 +137,28 @@ Both \(F_g\) and Minkowski's \(?(x)\) are strictly increasing singular distribut
 - P. Erdős, “On a family of symmetric Bernoulli convolutions,” *Amer. J. Math.* 61 (1939), 974–976.
 - Y. Peres, W. Schlag, and B. Solomyak, “Sixty Years of Bernoulli Convolutions,” survey.
 - A. D. B. (Minkowski), classical construction of the question-mark function; see also modern treatments of its singular distribution and Farey dynamics.
+
+
+## 7. Numerical audit of the dynamical off-diagonal blocks
+
+The Markov operator is not assumed self-adjoint. In the real Fourier basis ordered as
+\((\phi_c,\phi_s,\phi_0,\psi_c,\psi_s)\), define its compression matrix by
+\[
+A_{ij}=\langle e_i,\mathscr M_g e_j\rangle_{L^2([0,1])}.
+\]
+The two relevant blocks are therefore
+\[
+C_{\mathrm{out}}=(I-\Pi_1)\mathscr M_g\Pi_1=A_{2:5,\,0:2},
+\qquad
+C_{\mathrm{in}}=\Pi_1\mathscr M_g(I-\Pi_1)=A_{0:2,\,2:5}.
+\]
+A deterministic-seed Monte Carlo audit, using 300,000 Bernoulli samples and 48 terms of the golden series to approximate the CDF, gives
+\[
+\|C_{\mathrm{in}}\|_F\approx1.26450,\qquad
+\|C_{\mathrm{out}}\|_F\approx0.13370.
+\]
+The omitted series tail is bounded by \(2.44\cdot10^{-10}\); the dominant uncertainty is empirical-CDF / sampling error, not series truncation. The two blocks are visibly different, as expected for a non-self-adjoint Markov operator.
+
+**Numerical conclusion:** the first-harmonic plane is not invariant under the tested golden cumulative-coordinate Markov operator: \(C_{\mathrm{out}}\ne0\) at a scale far above the finite-sample fluctuations. The reverse coupling \(C_{\mathrm{in}}\) is also nonzero. Thus the exact isometry \(J_gP=\Pi_1J_g\) from Theorem I1 does not extend to an intertwining of the Markov dynamics.
+
+This is a numerical falsification of the proposed invariant-plane property, not yet an exact analytic non-vanishing theorem. The stored matrix and reproducible audit are in \`results/tsmr_i_golden_markov_blocks.json\`; implementation and regression tests are in \`audits/tsmr_i_markov_blocks.py\` and \`tests/test_tsmr_i_markov_blocks.py\`.
