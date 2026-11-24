@@ -478,14 +478,16 @@ for every contraction and is automatic.
 
 ### Defect-index route and its present limitation
 
-Finite-codimension compression theorems also give stability under
-additional finite-defect hypotheses. Benhida–Timotin,
+There is a second, more restrictive route in the literature. Benhida–Timotin,
 *Finite rank perturbations of contractions*, Integral Equations and
 Operator Theory **36** (2000), 253–268, DOI: 10.1007/BF01213924,
-Lemma 3.3, gives such a criterion when the defect space
-\(\overline{\operatorname{ran}(I-T^*T)^{1/2}}\) is finite-dimensional.
+Lemma 3.3, concerns contractions of Sz.-Nagy–Foiaș class \(C_0\)
+(their convention is \(T^{*n}x\to0\)) and a finite defect space
+\(\overline{\operatorname{ran}(I-T^*T)^{1/2}}\). It therefore cannot
+be applied merely from the strong stability of \(P^n\); the required
+adjoint-side stability must also be established.
 
-For the present Bernoulli operator, the defect form is
+For the present Bernoulli operator, the defect form on the other side is
 \[
 \|f\|^2-\|Pf\|^2
 =\frac14\int|f(\lambda x-1)-f(\lambda x+1)|^2\,d\nu_g(x).
@@ -494,10 +496,11 @@ The difference map has infinite-dimensional range: testing exponential
 functions \(f_\xi(y)=e^{i\xi y}\) with distinct \(\xi\) for which
 \(\sin\xi\ne0\) produces distinct exponential functions proportional
 to \(e^{i\xi\lambda x}\). These functions are linearly independent on
-the interval support. Thus the finite-\(d_T\) hypothesis is not
-available from this model. No claim is made here about the other defect
-index, which is the one appearing in the complementary finite-codimension
-criterion quoted by Kérchy–Müller.
+the interval support. Thus this finite-\(d_P\) hypothesis is unavailable.
+The complementary finite-codimension criterion quoted by Kérchy–Müller
+instead asks for finite \(d_{P^*}\), namely finite-dimensional
+\(\overline{\operatorname{ran}(I-PP^*)^{1/2}}\); that defect index has
+not been computed here. Neither criterion is claimed to apply yet.
 
 **Status.** The orbit-energy identity is exact. Kérchy–Müller supplies
 a valid sufficient criterion. Whether its square-root summability holds
