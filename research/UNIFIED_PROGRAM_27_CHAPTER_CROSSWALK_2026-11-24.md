@@ -591,3 +591,15 @@ The exact in-phase exchange-symmetric branch has \(m_{\rm eff}^2=m^2-\kappa\), n
 and a relative-amplitude Hessian curvature shifted by \(4\alpha F^2\). A new two-field electrostatic Maxwell BVP, including both scalar equations, Noether/electric charge, Gauss-flux audit and local even/odd amplitude curvatures, is under PR #220 in the companion repository:
 https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
 It is open and unmerged; no CI pass or full fluctuation stability is claimed. The radion reduction/stabilization, asymmetric branches and vierbein backreaction remain open.
+
+
+### 12.10 Two-field Q-ball Maxwell branch and charge turning point
+
+The symmetric two-field BVP is now implemented in the companion repository under PR #220:
+https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
+
+For the already specified interaction, the symmetric branch is \(f_+=f_-=F/\sqrt2\), with \(m_{\rm eff}^2=m^2-\kappa\). The implementation solves both scalar Euler–Lagrange equations and the electrostatic Maxwell equation, and audits the common Noether charge, electric charge, energy and Gauss flux. The \(q=0\) limit is tested against the existing global Q-ball with mass \(m_{\rm eff}\).
+
+A finite six-point scan at \(m=1,\lambda=1.5,g=1,\alpha=0.2,\kappa=0.1,q=0.05,R_{\max}=20\) indicates a candidate local minimum of \(Q(\omega)\) around \(\omega\approx0.905\)–\(0.906\). This is a branch-fold diagnostic, not a stability theorem. The sign change of finite-difference \(dQ/d\omega\) must be refined and compared with the full charge-constrained scalar–phase–Maxwell fluctuation operator.
+
+PR #220 is open and unmerged at this snapshot. Its flat-space electrostatic model does not yet include the radion action, asymmetric branches, magnetic fields or vierbein/TEGR backreaction. The radion kinetic term, stabilization and coupling must still be derived from the PSU–Anti-Twin geometric action.
