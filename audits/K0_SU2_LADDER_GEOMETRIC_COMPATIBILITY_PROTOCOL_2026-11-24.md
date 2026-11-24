@@ -139,6 +139,6 @@ The construction must not infer these operators from the desired spectrum or fit
 
 These verdicts must be kept separate. A PASS in the first two categories does not imply a PASS in geometric compatibility.
 
-## 6. Immediate next action
+## 6. Current repository state and immediate next action
 
-Add the three local JSON reports and the exact arrays (or a reproducible source bundle) to the repository or attach them to the audit workflow. Then implement the numerical test above and commit its script and machine-readable JSON output together. Until those inputs are present, no numerical outcome for test 2 is claimed.
+The three JSON reports and `q6-d5-integer-fiber.yml` are now present on `main`. The workflow is an exact-arithmetic Q6-D5 audit; its declared path filters and commands do not run the geometric ladder-compatibility test in this document. The four files supplied so far do not contain `Z_S`, `Z_A`, `T_transport`, `P_G`, or the 188D basis arrays. Therefore test 2 remains **BLOCKED on inputs**, not failed: the next required repository addition is the exact array bundle (or a reproducible generator with its input data), including hashes and coordinate-basis provenance. Once those are available, implement the numerical test and commit its script and JSON output together. No numerical outcome for test 2 is claimed yet.
