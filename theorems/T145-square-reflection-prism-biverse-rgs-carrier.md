@@ -72,17 +72,32 @@ These are related through order-two structures, double covers and grading conven
 
 ## 5. Vesica, square, gradients, barycentres and dodecahedron
 
-For the standard vesica of two equal circles of radius \(R\), with centre separation \(R\), the two intersection points and the two centres form two equilateral triangles sharing the centre-to-centre segment. Their union is a rhombus with angles \(60^\circ\) and \(120^\circ\), not a square.
+The local geometry is now made explicit in the companion [vesica–square–barycentre–dodecahedron–Q6 note](../research/VESICA_SQUARE_BARYCENTRE_DODECAHEDRON_Q6_BRIDGE_2026-11-24.md).
 
-A square can be built after an additional construction is chosen (for example, a specified inscribed square or a square erected on a specified segment), but “the square from the vesica” is not yet unique. The next links also need explicit data:
-1. the four square vertices and the construction rule from the vesica;
-2. the scalar/vector field, domain and boundary conditions whose gradient is used;
-3. the point set and weights defining each barycentre;
-4. the incidence rule mapping those points to dodecahedral vertices, edges or faces;
-5. the metric/combinatorial operator on the dodecahedron;
-6. the exact definition of the recovered function \(f\), including a derivation of \(1/240\), \(1/120\) and \(1/2\).
+For two radius-\(R\) circles whose centres are \(O_\pm=(\pm R/2,0)\), their intersections are \(P,Q=(0,\pm\sqrt3R/2)\). Thus \(O_-O_+P\) and \(O_-O_+Q\) are equilateral triangles; their union is a \(60^\circ/120^\circ\) rhombus, not a square.
 
-The two equilateral triangles are a sound geometric starting point, but do not alone determine these later objects. No theorem recovering \(f\) from the dodecahedron is claimed.
+A precise square contained in the vesica is obtained by taking \(M_\pm=(0,\pm R/2)\) on the common chord and the four vertices
+\[
+O_-,\ M_+,\ O_+,\ M_-.
+\]
+Its diagonals \(O_-O_+\) and \(M_+M_-\) are perpendicular and both have length \(R\). Hence its side is \(R/\sqrt2\) and its area is \(R^2/2\). The square lies in both disks by convexity; it is a specified construction, not the union of the equilateral triangles.
+
+The two triangle barycentres are \(G_\pm=(0,\pm\sqrt3R/6)\), separated by \(R/\sqrt3\). On the upper triangle, the affine barycentric coordinates have constant gradients
+\[
+\nabla\lambda_P=(0,2/(\sqrt3R)),\quad
+\nabla\lambda_\pm=(\pm1/R,-1/(\sqrt3R)),
+\]
+all of norm \(2/(\sqrt3R)\). The lower-triangle formulas follow by reflection.
+
+The vesica-to-pentagon construction and its golden-ratio length are separately established in the repository. T139 supplies the icosahedral hull, whose regular case is at \(t=\varphi\); the regular dodecahedron is its polar dual. What remains open is the globally compatible transport of the twelve local pentagon frames and a weighted chain/cochain map from the dodecahedral/icosahedral incidence complex into Q6.
+
+The polynomial
+\[
+f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}
+\]
+is already recovered as the unique degree-at-most-two interpolation from the selected Q6 eigenvalues \(0,4,6\) to the RGS lower triplet \(0.5,0.6,0.7\), as documented in T144 §7 and the Q6–Vesica–RGS spectral-intertwiner note. The new vesica square and barycentric gradients do not yet derive the Q6 Dirichlet form or those three eigenvalues. To claim a dodecahedral first-principles derivation of \(f\), the missing dual-incidence map, transported gradients, weights and induced Q6 operator must be proved.
+
+No theorem recovering \(f\) from the dodecahedron is claimed at this stage.
 
 ### Numerical certificate
 
