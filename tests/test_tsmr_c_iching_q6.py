@@ -16,8 +16,10 @@ class TSMRIChingGoldenQ6Tests(unittest.TestCase):
         self.assertEqual(trigram_name(0b011), "Xun")
 
     def test_exact_zhen_xun_golden_collision(self):
+        # Printed order is bottom-to-top: the leftmost digit has weight 1.
         self.assertEqual(golden_value(0b100, 3), (1, 0))
         self.assertEqual(golden_value(0b011, 3), (1, 0))
+        self.assertEqual(golden_value(0b001, 3), (1, -1))
 
     def test_eight_trigrams_have_seven_golden_values(self):
         self.assertEqual(len(scalar_classes(3)), 7)
