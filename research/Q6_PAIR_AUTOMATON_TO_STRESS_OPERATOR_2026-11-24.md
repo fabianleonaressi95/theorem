@@ -210,3 +210,20 @@ Indeed, for any retained edge \\(x\\to y\\) with no reverse edge, detailed balan
 **Status update:** [N] the numerical support audit is executed; [P] the implication “asymmetric support excludes every strictly positive diagonal detailed-balance measure” is an exact finite-matrix argument. Consequently the raw \\(T_{\\rm pair}\\) is ruled out as a reversible equilibrium transfer on this state space. It remains a valid substochastic geometric overlap operator. Do not repair it by row-normalization or ad hoc symmetrization: either operation changes the model and would need a new derivation.
 
 The CI workflow is `.github/workflows/tsmr-q6-stress-transfer.yml`; the script remains `audits/tsmr_q6_stress_transfer_bridge.py`.
+
+
+## 9. Independent mechanical branch: canonical Q6 central-force OU model
+
+The failed detailed-balance test above does not prevent a separate physical-model construction. The central-force energy now supplies an independent route:
+- `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md` derives the Hessian and strain stress from one energy;
+- `audits/q6_central_force_ou_green_kubo.py` evaluates the canonical six-dimensional cube control;
+- the combined CI run [45396828057](https://github.com/fabianleonaressi95/theorem/actions/runs/45396828057) passes both the pair-transfer obstruction audit and the mechanical OU benchmark.
+
+For the canonical (Q_6\hookrightarrow\mathbb R^6) embedding, the quadratic shear-stress OU calculation gives
+[
+\int_0^\infty C_{ij,ij}(t)\,dt
+=16(k_BT)^2/\mu,
+\qquad
+\eta^{ij,ij}_{\rm OU}=16k_BT/(\mu V).
+]
+This is a finite model result, not a spectral bridge from (T_{\rm pair}): the mechanical generator is derived independently from the rigidity Hessian and the declared OU bath. The unresolved three-dimensional Q6/Jitterbug fibre lift and material calibration remain necessary for a physical prediction.
