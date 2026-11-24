@@ -381,6 +381,7 @@ The consistency target η_GK ↔ η entering Λ_η must be derived from one cons
 **Monograph placement:** chapters 13–14 for Jitterbug/Vesica and configuration geometry; chapters 20–22 for gradients, Green operators, transport and boundary response. Keep the original Q6 fourth-moment theorem and T131/T132 as separate theorem records; this crosswalk is a bridge index, not a merged theorem.
 
 **Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
+**Status:** exact finite combinatorics/gradient/Dirichlet-form identities [P]; exact OU Green–Kubo inverse-spectral identities under declared reversible dynamics [P]; finite numerical implementation checks [N]; physical stress identification, material calibration, Q6–Jitterbug chain map, Green–Kubo-to-Stokes equality and full electromechanical closure [O].
 
 ### 11.10 Explicit Q6–Jitterbug quotient, strain-derived stress and conditional Stokes limit
 
