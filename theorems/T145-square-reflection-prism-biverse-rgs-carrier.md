@@ -113,7 +113,7 @@ The basis map \(U:\mathbb R^2\otimes\mathbb R^3\to\mathcal W\subset\mathbb R^{18
 \[
 K_0U=U L_{\rm bi}
 \]
-up to the measured carrier leakage (about \(3.1\times10^{-12}\) in Frobenius norm). This is stronger than a matching of spectra: it identifies the full compressed block operator and its two parity sectors.
+up to the measured carrier leakage (about \(1.18\times10^{-14}\) in Frobenius norm). This is stronger than a matching of spectra: it identifies the full compressed block operator and its two parity sectors.
 
 ## 4. Relation between the biverso exchange and the original half-scale pair
 
@@ -167,7 +167,7 @@ and the fitted scalar coupling is \(0.1499999999999999\). The JSON artifact is n
 | The reflection gives \(S^2=I\) and \(P_\pm=(I\pm S)/2\) | Exact |
 | PRISM \(K_2\) coupling splits into \(L_\Omega\) and \(L_\Omega+2\kappa I\) | Exact algebra |
 | The original RGS carrier compression has \(\kappa=0.15\) and the stated two triplets | Numerically verified from original arrays |
-| The carrier basis map intertwines the compressed RGS operator with the biverso block | Numerically verified; leakage \(\sim3.1\times10^{-12}\) |
+| The carrier basis map intertwines the compressed RGS operator with the biverso block | Numerically verified; leakage \(\sim1.18\times10^{-14}\) |
 | The full \(188D\) operator is a two-sheet biverso product | Not claimed |
 | The scalar Euclidean square Laplacian equals the PRISM biverso operator | Not claimed |
 | The same derivation explains every occurrence of \(1/2\) in physics | False / not claimed |
