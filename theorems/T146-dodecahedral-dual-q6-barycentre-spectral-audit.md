@@ -208,6 +208,17 @@ The independent Q6 identity \(FL_6-\Lambda F=0\) has residual \(7.73\times10^{-1
 
 The distinction matters: \(F L_6=\Lambda F\) is an identity on Q6; it does not imply that the compressed dodecahedral operator \(B L_6 B^T\) is intertwined by \(F B^T\). The latter requires an additional compatibility of the face-barycentre map with the selected invariant subspace, and this test fails for the T141 assignment.
 
+## 5.1 Relation to the \(2I\)/McKay coefficients in T144
+
+The regular dodecahedron has rotational group \(A_5\) of order \(60\); its binary spin cover is \(2I\subset SU(2)\), of order \(120\). T144 independently proves the cumulative invariant-count correspondence whose nonconstant coefficients are
+\[
+\frac{1}{240}=\frac{1}{2|2I|},\qquad
+\frac{1}{120}=\frac{1}{|2I|}.
+\]
+The constant \(1/2\) is explicitly not recovered by the T144 invariant count: its periodic constant terms do not equal \(1/2\).
+
+This gives a canonical group-theoretic source for the two nonconstant coefficients appearing in \(f\), and a geometric route from dodecahedral/icosahedral symmetry to \(2I\). It does **not** identify those coefficients with the eigenvalues of the dodecahedral chain-induced Laplacian above. Nor does it derive the constant term \(1/2\). The three-node Q6-to-RGS interpolation remains the established finite spectral correspondence; a derivation of the whole polynomial from one dodecahedral Hodge operator is still open.
+
 ## 6. What is now established, and what remains open
 
 **Established:**
