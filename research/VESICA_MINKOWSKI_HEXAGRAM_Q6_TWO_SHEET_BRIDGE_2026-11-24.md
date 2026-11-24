@@ -118,8 +118,8 @@ The arc of the second circle lying inside the first disk is
 ]
 Choose eight equally spaced sample directions on each arc:
 [
-\theta_k=-\frac{\pi}{3}+\frac{k\pi}{21},\qquad
-\varphi_k=\frac{2\pi}{3}+\frac{k\pi}{21},\qquad k=0,\ldots,7.
+\theta_k=-\frac{\pi}{3}+\frac{2k\pi}{21},\qquad
+\varphi_k=\frac{2\pi}{3}+\frac{2k\pi}{21},\qquad k=0,\ldots,7.
 ]
 Both sampled arcs lie on the boundary of the Vesica lens (V=D_-(1)\cap D_+(1)).
 
