@@ -1,0 +1,61 @@
+name: TSMR-02/03 geometry and refinement tests
+
+on:
+  pull_request:
+    paths:
+      - "audits/tsmr02_chaos_game.py"
+      - "tests/test_tsmr02_chaos_game.py"
+      - "audits/tsmr03_vesica_geometry.py"
+      - "tests/test_tsmr03_vesica_geometry.py"
+      - "audits/tsmr03_discrete_refinement.py"
+      - "tests/test_tsmr03_discrete_refinement.py"
+      - "audits/tsmr_f_multifractal.py"
+      - "tests/test_tsmr_f_multifractal.py"
+      - "theorems/TSMR-F_multifractal_morphological_equation.md"
+      - "audits/TSMR-F_DEAQUINO_GOLDEN_BERNOULLI_BRIDGE.md"
+      - "tests/test_tsmr_f_golden_collisions.py"
+      - "theorems/TSMR-C_cumulative_morphodynamics.md"
+      - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
+      - "audits/tsmr_c_cumulative.py"
+      - "tests/test_tsmr_c_cumulative.py"
+      - "theorems/TSMR-C-I_iching_golden_q6_lift.md"
+      - "audits/TSMR-C-I_ICHING_Q6_AUDIT.md"
+      - "audits/tsmr_c_iching_q6.py"
+      - "tests/test_tsmr_c_iching_q6.py"
+      - "audits/tsmr_c_iching_overlap_automaton.py"
+      - "tests/test_tsmr_c_iching_overlap_automaton.py"
+      - ".github/workflows/tsmr02-chaos-game.yml"
+  push:
+    branches: [main]
+    paths:
+      - "audits/tsmr02_chaos_game.py"
+      - "tests/test_tsmr02_chaos_game.py"
+      - "audits/tsmr03_vesica_geometry.py"
+      - "tests/test_tsmr03_vesica_geometry.py"
+      - "audits/tsmr03_discrete_refinement.py"
+      - "tests/test_tsmr03_discrete_refinement.py"
+      - "audits/tsmr_f_multifractal.py"
+      - "tests/test_tsmr_f_multifractal.py"
+      - "theorems/TSMR-F_multifractal_morphological_equation.md"
+      - "theorems/TSMR-C_cumulative_morphodynamics.md"
+      - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
+      - "audits/tsmr_c_cumulative.py"
+      - "tests/test_tsmr_c_cumulative.py"
+      - "theorems/TSMR-C-I_iching_golden_q6_lift.md"
+      - "audits/TSMR-C-I_ICHING_Q6_AUDIT.md"
+      - "audits/tsmr_c_iching_q6.py"
+      - "tests/test_tsmr_c_iching_q6.py"
+      - "audits/tsmr_c_iching_overlap_automaton.py"
+      - "tests/test_tsmr_c_iching_overlap_automaton.py"
+      - ".github/workflows/tsmr02-chaos-game.yml"
+
+jobs:
+  tsmr-geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run TSMR-02, TSMR-03, TSMR-F, and TSMR-C regression tests
+        run: python -m unittest tests.test_tsmr02_chaos_game tests.test_tsmr03_vesica_geometry tests.test_tsmr03_discrete_refinement tests.test_tsmr_f_multifractal tests.test_tsmr_f_golden_collisions tests.test_tsmr_c_cumulative tests.test_tsmr_c_iching_q6 tests.test_tsmr_c_iching_overlap_automaton -v
