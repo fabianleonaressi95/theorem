@@ -63,11 +63,11 @@ class TestTSMR03DiscreteRefinement(unittest.TestCase):
         from audits.tsmr03_discrete_refinement import (
             prolong_torus_field, torus_graph_spectrum,
         )
-        coarse = torus_graph_spectrum(8)
-        fine = torus_graph_spectrum(16)
+        coarse = torus_graph_spectrum(16)
+        fine = torus_graph_spectrum(32)
         coarse_gap = next(value for value in coarse if value > 1e-12)
         fine_gap = next(value for value in fine if value > 1e-12)
-        scaled_ratio = (fine_gap * 16**2) / (coarse_gap * 8**2)
+        scaled_ratio = (fine_gap * 32**2) / (coarse_gap * 16**2)
         self.assertGreater(scaled_ratio, 0.99)
         self.assertLess(scaled_ratio, 1.02)
         field = [[float(i+j) for j in range(4)] for i in range(4)]
