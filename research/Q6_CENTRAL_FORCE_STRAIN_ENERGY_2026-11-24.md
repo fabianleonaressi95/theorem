@@ -321,3 +321,22 @@ For the reversible overdamped OU process on \\(\\mathcal H\\), with mobility \\(
 All 15 off-diagonal components of the six-dimensional cube control give the same value by coordinate-permutation symmetry. This is a finite exact benchmark for the declared quadratic-stress OU model, not a physical viscosity prediction: the embedding is six-dimensional, the energy is harmonicized, and the OU bath is imposed.
 
 The reproducible implementation is `audits/q6_central_force_ou_green_kubo.py`. It checks the Hessian rank/eigenvalues, the vanishing linear shear coefficient, the Frobenius norm and the Green–Kubo spectral sum for all 15 shear components. Its output is intended to be independently checked in CI.
+
+
+### 11.1 Reproducibility result
+
+The implementation was executed in GitHub Actions with NumPy on Python 3.12. The combined audit run completed successfully:
+[Q6 pair-transfer and central-force OU audit](https://github.com/fabianleonaressi95/theorem/actions/runs/45396828057).
+
+For every one of the 15 off-diagonal strain components, the program returned
+[
+\|c_{ij}\|=0,\qquad
+\|A^{ij}_{\mathcal H}\|_F^2=128,\qquad
+\sum_{\alpha,\beta}\frac{|A^{ij}_{\alpha\beta}|^2}
+{\lambda_\alpha+\lambda_\beta}=32.
+]
+It also verified numerically that (K) has rank 192, nullity 192, and positive spectrum consisting only of 2 (within the stated numerical tolerance). The computed OU Green–Kubo coefficient is therefore the exact value predicted by the character-space derivation:
+[
+\eta^{ij,ij}_{\rm OU}=16\,k_BT/(\mu V).
+]
+This is a successful numerical reproduction of the finite toy-model identity. It does not upgrade the six-dimensional model to a three-dimensional material model or establish a hydrodynamic limit.
