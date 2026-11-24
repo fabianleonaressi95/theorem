@@ -75,7 +75,12 @@ GitHub Actions run: [Q6 Vesica RGS numerical audit](https://github.com/fabianleo
 (0.5000000000000001,\;0.008333333333333677,\;0.004166666666666612),
 \]
 with rational recognition \((1/2,1/120,1/240)\), fit residual zero at reported precision, and upper/lower shift residual \(5.55\times10^{-17}\).
+\n## 4. Scope\n\nThis is an exact algebraic identity on the selected three-dimensional spectral sector, numerically verified from the stored finite matrices. The polynomial is the unique degree-at-most-two representative on the three-point spectrum. The derivation does **not** prove that degree two is selected by a deeper physical principle, does not determine a continuum law, and does not establish an equivalence on all 64 Q6 states. Those remain open questions.
 
-## 4. Scope
+## 5. Independent-refinement status (24 November 2026)
 
-This is an exact algebraic identity on the selected three-dimensional spectral sector, numerically verified from the stored finite matrices. The polynomial is the unique degree-at-most-two representative on the three-point spectrum. The derivation does **not** prove that degree two is selected by a deeper physical principle, does not determine a continuum law, and does not establish an equivalence on all 64 Q6 states. Those remain open questions.
+A subsequent repository-level admissibility audit found that the present result is **not** an independent refinement test. The three spectral pairs \((0,1/2),(4,3/5),(6,7/10)\) determine three polynomial coefficients exactly; therefore the zero interpolation residual is expected and is not out-of-sample evidence.
+
+The provenance record for \(K_0\) still lacks its exact generating cell, inputs, and a certificate identifying its 188D coordinate basis with the geometric tangent basis. The existing Q6 embedding audit reports nonzero coupling of \(K_0\) between the embedded 64D sector and its 124D complement. The archived \(T_{transport}\) is constructed using \(P_G\) and a polar factor, so it is not an independent held-out operator.
+
+Accordingly, the numerical PASS above validates the stored-array identities and the selected rank-three intertwiner only. It does **not** establish coefficient invariance under refinement. The independent-refinement test is currently **BLOCKED / OPEN** pending an independently generated refined operator, a certified basis map and invariant subspace, and at least one held-out spectral node. See [Q6–RGS independent refinement protocol](Q6_RGS_INDEPENDENT_REFINEMENT_PROTOCOL_2026-11-24.md).
