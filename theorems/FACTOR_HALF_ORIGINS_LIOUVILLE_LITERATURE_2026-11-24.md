@@ -345,7 +345,7 @@ The square's diagonal reflection exchanges its two congruent triangular halves. 
 The new record [T145](T145-square-reflection-prism-biverse-rgs-carrier.md) establishes the exact PRISM \(K_2\)-coupling reduction and its numerical realization on the original RGS six-dimensional carrier:
 \[
 K_0|_{\mathcal W}\simeq
-I_2\otimes L_\Omega+0.15(I-S)\otimes I_3,
+I_2\otimes L_\Omega+0.15(I_6-S),
 \qquad
 \operatorname{spec}(L_\Omega)=\{0.5,0.6,0.7\}.
 \]
