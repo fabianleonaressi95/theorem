@@ -14,8 +14,8 @@ from pathlib import Path
 
 N = 8
 TOL = 1e-11
-THETA = [-math.pi / 3 + k * math.pi / 21 for k in range(N)]
-PHI = [2 * math.pi / 3 + k * math.pi / 21 for k in range(N)]
+THETA = [-math.pi / 3 + k * 2 * math.pi / 21 for k in range(N)]
+PHI = [2 * math.pi / 3 + k * 2 * math.pi / 21 for k in range(N)]
 Q_MINUS = [(math.cos(t), math.sin(t)) for t in THETA]
 Q_PLUS = [(1 + math.cos(p), math.sin(p)) for p in PHI]
 
