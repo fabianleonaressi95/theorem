@@ -117,3 +117,8 @@ Machine-readable report:
 python experiments/quantum_fractal_q6/walsh_filtration.py   # writes JSON
 python -m pytest tests/test_quantum_fractal_q6.py -v      # 7 tests
 ```
+
+
+## 7. Exact affine commutator theorem and Q6 automorphism census
+
+The separate theorem record [Q6 affine Walsh mixing theorem](../research/Q6_AFFINE_WALSH_MIXING_THEOREM_2026-11-24.md) proves the exact law in terms of r_j=dim(V_j intersect P^{-T}V_j): ||[U_T,E_j]||_F^2=2^(j+1)-2^(r_j+1), with spectral norm 0 iff r_j=j, otherwise 1. The affine translation is irrelevant to both norms. The natural unweighted cube group is (F_2)^6 semidirect S_6, order 46,080; exhaustive enumeration of its 720 coordinate-permutation parts yields 51 distinct profiles. Exactly the 64 translations preserve all seven ordered prefix levels. Coordinate swaps are genuine Q6 graph automorphisms, but the stored Anti-Twin map is a translation and does not break the filtration. No physically selected RGS/PRISM mixing operator has yet been identified. Reproduction: experiments/quantum_fractal_q6/affine_walsh_mixing.py; results: results/quantum_fractal_q6/affine_walsh_mixing.json.
