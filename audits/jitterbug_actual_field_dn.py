@@ -90,7 +90,7 @@ def finite_surface_flux(center, rotation, normal0, radius, turns,
 def build_actual_mechanism_run(
     edge_length_m=0.1, speed_m_s=0.01, turns=100,
     radius_fraction=0.65, wire_radius_m=1e-4, resistance_ohm=10.0,
-    ds=0.08, segments=48, softening_m=1e-5,
+    ds=0.08, segments=48,
     source_radius_m=0.20, source_turns=500, source_current_A=1.0,
     source_segments=256, disk_nr=6, disk_ntheta=24,
 ):
@@ -129,8 +129,6 @@ def build_actual_mechanism_run(
     flux = np.zeros((nframes, ncoils))
     Lseq = np.zeros((nframes, ncoils, ncoils))
     N = [int(turns)]*ncoils
-    radii = [radius]*ncoils
-    wires = [wire_radius_m]*ncoils
     for k in range(nframes):
         loops = []
         for j in range(ncoils):
@@ -199,7 +197,7 @@ def build_actual_mechanism_run(
         "receiver": {
             "count": ncoils, "turns_each": turns, "radius_m": radius,
             "wire_radius_m": wire_radius_m, "resistance_ohm_each": resistance_ohm,
-            "loop_segments": segments,
+            "loop_segments": segments,\n            "inductance_kernel": "common regularized Neumann Green kernel for self and mutual entries",\n            "kernel_core_radius_m": wire_radius_m,
             "surface_quadrature": {"radial": disk_nr, "angular": disk_ntheta},
         },
         "frames": nframes, "duration_s": float(frame_times[-1]),
