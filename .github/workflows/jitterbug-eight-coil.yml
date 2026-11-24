@@ -8,6 +8,8 @@ on:
       - "audits/jitterbug_coil_coupling.py"
       - "audits/jitterbug_gray_kinematics.py"
       - "tests/test_jitterbug_eight_coil_coupling.py"
+      - "audits/jitterbug_eight_coil_validation.py"
+      - "tests/test_jitterbug_eight_coil_validation.py"
       - ".github/workflows/jitterbug-eight-coil.yml"
   pull_request:
     paths:
@@ -15,6 +17,8 @@ on:
       - "audits/jitterbug_coil_coupling.py"
       - "audits/jitterbug_gray_kinematics.py"
       - "tests/test_jitterbug_eight_coil_coupling.py"
+      - "audits/jitterbug_eight_coil_validation.py"
+      - "tests/test_jitterbug_eight_coil_validation.py"
       - ".github/workflows/jitterbug-eight-coil.yml"
   workflow_dispatch:
 
@@ -41,6 +45,12 @@ jobs:
       - name: Run eight-coil unit tests
         run: python -m unittest tests.test_jitterbug_eight_coil_coupling -v
 
+      - name: Run convergence and driven-flux validation tests
+        run: python -m unittest tests.test_jitterbug_eight_coil_validation -v
+
+      - name: Execute independent numerical validation
+        run: python audits/jitterbug_eight_coil_validation.py --output jitterbug-eight-coil-validation.json
+
       - name: Execute reduced-resolution Jitterbug model
         run: |
           python audits/jitterbug_eight_coil_coupling.py \
@@ -52,5 +62,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jitterbug-eight-coil-report
-          path: jitterbug-eight-coil-report.json
+          path: |
+            jitterbug-eight-coil-report.json
+            jitterbug-eight-coil-validation.json
           if-no-files-found: error
