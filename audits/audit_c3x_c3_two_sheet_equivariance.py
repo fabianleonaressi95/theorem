@@ -10,6 +10,7 @@ import itertools
 import json
 import math
 from collections import Counter
+from fractions import Fraction
 from pathlib import Path
 
 BITS = list(itertools.product((0, 1), repeat=3))
@@ -139,6 +140,76 @@ assert equivariance_residual < 1e-12
 weighted_edge_sum = sum(m / 3.0 for m in edge_counts.values())
 assert abs(weighted_edge_sum - 12.0) < 1e-12
 
+
+# Exact rational spectrum of the Reynolds-averaged Q3 Laplacian.
+# For a symmetric matrix, eigenspace dimensions equal algebraic
+# multiplicities, so exact nullities at the candidate eigenvalues certify
+# the complete spectrum once the dimensions sum to eight.
+Lbar = [[Fraction(0) for _ in range(8)] for _ in range(8)]
+for (i, j), multiplicity in edge_counts.items():
+    conductance = Fraction(multiplicity, 3)
+    Lbar[i][i] += conductance
+    Lbar[j][j] += conductance
+    Lbar[i][j] -= conductance
+    Lbar[j][i] -= conductance
+assert all(sum(row) == 0 for row in Lbar)
+assert all(Lbar[i][j] == Lbar[j][i] for i in range(8) for j in range(8))
+
+
+def exact_rank(matrix):
+    a = [row[:] for row in matrix]
+    rows, cols = len(a), len(a[0]) if a else 0
+    rank = 0
+    for col in range(cols):
+        pivot = next((r for r in range(rank, rows) if a[r][col]), None)
+        if pivot is None:
+            continue
+        a[rank], a[pivot] = a[pivot], a[rank]
+        scale = a[rank][col]
+        a[rank] = [v / scale for v in a[rank]]
+        for r in range(rows):
+            if r != rank and a[r][col]:
+                scale = a[r][col]
+                a[r] = [a[r][k] - scale*a[rank][k] for k in range(cols)]
+        rank += 1
+        if rank == rows:
+            break
+    return rank
+
+
+factor_spectrum = [
+    (Fraction(0), 1),
+    (Fraction(2), 1),
+    (Fraction(8, 3), 3),
+    (Fraction(14, 3), 3),
+]
+for eigenvalue, multiplicity in factor_spectrum:
+    shifted = [
+        [Lbar[i][j] - (eigenvalue if i == j else 0)
+         for j in range(8)]
+        for i in range(8)
+    ]
+    assert 8 - exact_rank(shifted) == multiplicity
+assert sum(m for _, m in factor_spectrum) == 8
+
+product_spectrum = Counter()
+for lam_a, mult_a in factor_spectrum:
+    for lam_b, mult_b in factor_spectrum:
+        product_spectrum[lam_a + lam_b] += mult_a * mult_b
+expected_product_spectrum = Counter({
+    Fraction(0): 1,
+    Fraction(2): 2,
+    Fraction(8, 3): 6,
+    Fraction(4): 1,
+    Fraction(14, 3): 12,
+    Fraction(16, 3): 9,
+    Fraction(20, 3): 6,
+    Fraction(22, 3): 18,
+    Fraction(28, 3): 9,
+})
+assert product_spectrum == expected_product_spectrum
+assert sum(product_spectrum.values()) == 64
+
 result = {
     "status": "all assertions passed",
     "trigram_states": 8,
@@ -160,6 +231,16 @@ result = {
     ),
     "equivariance_residual_max": equivariance_residual,
     "reynolds_Q3_total_edge_conductance": weighted_edge_sum,
+    "Q3_averaged_laplacian_spectrum_exact": [
+        {"eigenvalue": str(v), "multiplicity": m}
+        for v, m in factor_spectrum
+    ],
+    "Q6_averaged_laplacian_spectrum_exact": [
+        {"eigenvalue": str(v), "multiplicity": product_spectrum[v]}
+        for v in sorted(product_spectrum)
+    ],
+    "Q6_averaged_laplacian_spectral_gap_exact": "2",
+    "Q6_averaged_laplacian_kernel_dimension": 1,
     "geometry_scope": "S2 sections of 3+1D null cones; not the previous 2+1D Vesica lens arcs",
 }
 out = Path("results/json/c3x_c3_two_sheet_equivariance_audit.json")
