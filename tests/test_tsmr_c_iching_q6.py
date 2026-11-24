@@ -14,6 +14,9 @@ from audits.tsmr_c_iching_q6 import (
     fourier_transfer_matrix,
     minimum_translation_gap_pair,
     translation_multiplicity_profile,
+    labelled_hull_overlap_graph,
+    changed_line_index,
+    fourier_characteristic_uniform,
 )
 
 
@@ -78,6 +81,28 @@ class TSMRIChingGoldenQ6Tests(unittest.TestCase):
         self.assertTrue(all(abs(sum(row) - 1.0) < 1e-12 for row in matrix))
         self.assertTrue(all(abs(matrix[i][j] - matrix[j][i]) < 1e-12
                             for i in range(64) for j in range(64)))
+
+    def test_labelled_hull_overlap_graph_has_48_pairs(self):
+        records = labelled_hull_overlap_graph(64)
+        self.assertEqual(len(records), 48)
+        self.assertEqual(len({record[0] for record in records}), 40)
+        for parent, a, b, line_a, line_b, left, right in records:
+            self.assertNotEqual(a, b)
+            self.assertEqual((parent ^ a).bit_count(), 1)
+            self.assertEqual((parent ^ b).bit_count(), 1)
+            self.assertNotEqual(line_a, line_b)
+            self.assertEqual(changed_line_index(parent, a), line_a)
+            self.assertEqual(changed_line_index(parent, b), line_b)
+            self.assertLessEqual(left, right)
+
+    def test_markov_fourier_characteristic_normalization(self):
+        self.assertAlmostEqual(fourier_characteristic_uniform(0.0, 32).real, 1.0, places=12)
+        self.assertAlmostEqual(fourier_characteristic_uniform(0.0, 32).imag, 0.0, places=12)
+
+    def test_markov_fourier_characteristic_depth_stability(self):
+        shallow = fourier_characteristic_uniform(7.0, 24)
+        deep = fourier_characteristic_uniform(7.0, 48)
+        self.assertLess(abs(shallow - deep), 1e-10)
 
     def test_neighbor_operation_is_single_line_change(self):
         for state in (0, 1, 0b100011, 63):
