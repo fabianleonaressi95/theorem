@@ -7,6 +7,7 @@ from audits.tsmr_c_iching_overlap_automaton import (
     build_overlap_automaton,
     max_row_sum_power,
     overlap_dimension_audit,
+    p_cmp,
 )
 
 
@@ -14,10 +15,12 @@ class TSMRIChingExactOverlapAutomatonTests(unittest.TestCase):
     def test_exact_bellman_extrema(self):
         lower = exact_hull_endpoints("min")
         upper = exact_hull_endpoints("max")
-        self.assertEqual(min(lower, key=lambda x: float(x[0] + x[1] * Fraction(6180339887498948, 10**16))),
-                         (Fraction(7, 40), Fraction(-11, 40)))
-        self.assertEqual(max(upper, key=lambda x: float(x[0] + x[1] * Fraction(6180339887498948, 10**16))),
-                         (Fraction(73, 40), Fraction(51, 40)))
+        lower_extreme = (Fraction(7, 40), Fraction(-11, 40))
+        upper_extreme = (Fraction(73, 40), Fraction(51, 40))
+        self.assertIn(lower_extreme, lower)
+        self.assertIn(upper_extreme, upper)
+        self.assertTrue(all(p_cmp(lower_extreme, value) <= 0 for value in lower))
+        self.assertTrue(all(p_cmp(upper_extreme, value) >= 0 for value in upper))
         self.assertEqual(exact_global_diameter(), (Fraction(33, 20), Fraction(31, 20)))
 
     def test_finite_pair_automaton_cardinality(self):
