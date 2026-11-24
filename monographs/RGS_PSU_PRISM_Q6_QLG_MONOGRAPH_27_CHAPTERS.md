@@ -952,3 +952,8 @@ For the Reynolds-averaged factor Laplacian, the exact characteristic polynomial 
 ### Addendum — reconstructed RGS half-scale triplets (2026-11-24)
 
 The original 188D arrays now establish a rank-six carrier for the half-scale pair. A deterministic basis reconstruction splits it into lower and upper triplets (J_A,J_B), with (K_0)-spectra ((0.5,0.6,0.7)) and ((0.8,0.9,1.0)), and (Z_AJ_A=-\tfrac12J_B), (Z_AJ_B=+\tfrac12J_A). The low-triplet spectral involution (P_{0.5}+P_{0.6}-P_{0.7}) has matrix (operatorname{diag}(1,1,-1)). This is the recovered numerical bridge to the earlier half/sign pattern. It remains distinct from the spherical geometry's (z=\pm1/2): an equivariant intertwiner requires the (C_3\times C_3) representation on the RGS triplets and is still open. See [full original-array audit](../research/RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md) and [basis reconstruction script](../audits/reconstruct_rgs_half_carrier_basis.py).
+
+
+### Addendum — exact historical half-sign block recovered by gauge
+
+Let \(D=\operatorname{diag}(1,1,-1)\). In the canonical paired spectral basis the original arrays give \(Z_AJ_A=-\tfrac12J_B\), \(Z_SJ_A=+\tfrac12J_B\). Under the explicit upper-triplet channel gauge \(J_B^\sharp=-J_BD\), the BA blocks become \(Z_A^{BA}=+\tfrac12D\) and \(Z_S^{BA}=-\tfrac12D\), reproducing the previously recorded half-sign block. The same \(D\) is the spectral involution on the lower triplet. This identifies the old block at the level of a basis-gauged restriction, not as an equality of the full 188D operators. The gauge and residual checks are documented in [the original-array audit](../research/RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md#10-exact-recovery-of-the-historical-ba-half-sign-block).
