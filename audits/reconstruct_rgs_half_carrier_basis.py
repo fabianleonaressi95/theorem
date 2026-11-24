@@ -50,6 +50,15 @@ high = evals + 0.15
 basis = np.column_stack((JA, JB))
 basis_eigenvalues = np.r_[low, high]
 
+# The natural C3 action on each ordered triplet is the cyclic permutation.
+R3 = np.array([[0., 0., 1.], [1., 0., 0.], [0., 1., 0.]])
+rho_diag = np.block([[R3, np.zeros((3,3))], [np.zeros((3,3)), R3]])
+rho_A_only = np.block([[R3, np.zeros((3,3))], [np.zeros((3,3)), np.eye(3)]])
+ZA_c = U.T @ ZA @ U
+ZS_c = U.T @ ZS @ U
+K_eig = basis.T @ K @ basis
+ZA_eig = basis.T @ ZA @ basis
+ZS_eig = basis.T @ ZS @ basis
 maxabs = lambda x: float(np.max(np.abs(x)))
 norm = lambda x: float(np.linalg.norm(x))
 report = {
