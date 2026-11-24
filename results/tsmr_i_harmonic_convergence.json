@@ -142,5 +142,7 @@
     "empirical CDF",
     "finite Galerkin sections only",
     "no operator-norm convergence or infinite-dimensional spectral-gap claim"
-  ]
+  ],
+  "provenance": "Numerical values in this record were produced by a separate vectorized NumPy calculation using the stated sample count, truncation and seed. The repository audit script defines the reproducible calculation, but this JSON must not be described as output captured from a confirmed execution of that script or CI run.",
+  "validation_status": "pending_exact_script_execution_and_CI"
 }
