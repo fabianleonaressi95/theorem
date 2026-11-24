@@ -72,7 +72,9 @@ report = {
         "biverso_reconstruction_fro": fro(Kc-Lbi),
         "exchange_commutator_fro": fro(Kc@S-S@Kc),
         "Pplus_idempotence_fro": fro(Pp@Pp-Pp),
+        "Pplus_restricted_spectrum": np.linalg.eigvalsh((Had.T @ Kc @ Had)[:3, :3]).tolist(),
         "Pminus_idempotence_fro": fro(Pm@Pm-Pm),
+        "Pminus_restricted_spectrum": np.linalg.eigvalsh((Had.T @ Kc @ Had)[3:, 3:]).tolist(),
         "Pplus_Pminus_fro": fro(Pp@Pm),
         "Hadamard_diagonalization_residual_fro": fro(
             Kdiag-np.block([[L0, np.zeros((3,3))],
