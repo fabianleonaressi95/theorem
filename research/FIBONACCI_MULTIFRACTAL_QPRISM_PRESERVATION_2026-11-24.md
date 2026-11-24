@@ -106,3 +106,13 @@ For Q-PRISM, write a separate gate-level resource specification only after fixin
 | Q6/Xc `concavity=False` | Separate finite diagnostic | Does not refute Fibonacci result |
 | Transfer-matrix conjugacy T056 | Exact finite algebra | No geometric/quantum equivalence implied |
 
+
+## 8. Companion-repository records recovered on 24 November
+
+The companion repository `fabianleonaressi95/rgs-qlg-quaternion-bridge` contains additional multifractal infrastructure that must also be preserved:
+- `docs/RGS_PSU_MULTIFRACTAL_VECTOR_BUNDLE.md` and `src/rgs_psu_multifractal_bundle.py` define a rank-three bundle over the eight Q3 labels, a metric-compatible seed-induced GL(3) connection, and a nested-measure multifractal slope diagnostic. The canonical connection is explicitly flat/pure gauge; it does not supply nonzero Yang–Mills curvature.
+- `tests/test_rgs_psu_multifractal_bundle.py` verifies flatness/gauge covariance and two synthetic controls: a uniform measure and a nonuniform binomial cascade. These tests validate the estimator on synthetic data; they do not establish that the RGS seed itself is multifractal.
+- `data/prism_fibonacci/` contains Fibonacci-labelled geometric/PRISM audits (including window, center-placebo, block-sector and phase audits). These are not automatically the missing Fibonacci tight-binding eigenvector/IPR arrays from the 19 October analysis; their observable and provenance must be matched before use.
+- `experiments/rgs_psu_core/RGS_PSU_Multifractal_Cascade_Viscosity.py` and `RGS_PSU_Multifractal_Shear_Bridge_Integrated.py` contain older cascade/shear prototypes. Their comments assert physical viscosity/cascade interpretations that are not derived by the code: the scripts use prescribed exponents/scales and synthetic action/Langevin models. Treat them as exploratory prototypes, not as validated multifractal or Navier–Stokes/gauge results.
+
+These companion records complement, but do not replace, the missing provenance for the historical Fibonacci eigenstate concavity table and the Q-PRISM gate-level circuit specification.
