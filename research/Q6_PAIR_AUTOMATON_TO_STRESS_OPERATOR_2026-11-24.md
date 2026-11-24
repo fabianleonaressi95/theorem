@@ -217,7 +217,7 @@ The CI workflow is `.github/workflows/tsmr-q6-stress-transfer.yml`; the script r
 The failed detailed-balance test above does not prevent a separate physical-model construction. The central-force energy now supplies an independent route:
 - research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md derives the Hessian and strain stress from one energy;
 - audits/q6_central_force_ou_green_kubo.py evaluates the canonical six-dimensional cube control;
-- the combined CI run [45396828057](https://github.com/fabianleonaressi95/theorem/actions/runs/45396828057) passes both the pair-transfer obstruction audit and the mechanical OU benchmark.
+- the combined CI run [45397243586](https://github.com/fabianleonaressi95/theorem/actions/runs/45397243586) passes both the pair-transfer obstruction audit and the mechanical OU benchmark.
 
 For the canonical \(Q_6\hookrightarrow\mathbb R^6\) embedding, the quadratic shear-stress OU calculation gives
 \[
