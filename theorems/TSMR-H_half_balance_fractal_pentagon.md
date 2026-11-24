@@ -9,11 +9,11 @@ Fix \(0<\lambda<1\) and the two affine contractions
 \[
 S_-(x)=\lambda x-1,\qquad S_+(x)=\lambda x+1.
 \]
-Their compact invariant set is the interval
+The convex hull of the invariant attractor is the interval
 \[
-K_\lambda=[-R_\lambda,R_\lambda],\qquad R_\lambda=\frac1{1-\lambda}.
+I_\lambda=[-R_\lambda,R_\lambda],\qquad R_\lambda=\frac1{1-\lambda}.
 \]
-Indeed, \(S_-(K_\lambda)\cup S_+(K_\lambda)=K_\lambda\). The two first-level images are
+The first-level cylinder hulls are
 \[
 S_-(K_\lambda)=[-1-\lambda R_\lambda,-1+\lambda R_\lambda],\quad
 S_+(K_\lambda)=[1-\lambda R_\lambda,1+\lambda R_\lambda].
