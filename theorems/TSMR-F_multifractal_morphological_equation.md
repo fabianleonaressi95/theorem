@@ -113,3 +113,8 @@ The companion audit and tests cover:
 The earlier TSMR-03 vesica code samples and deforms a lens and constructs finite recursive generations. A single ellipse or vesica is not thereby a fractal. A finite box-count slope is not a proof of an asymptotic dimension. Connecting the measure above to a vesica requires an explicit IFS, weights, scale convention, and validation of separation/overlap assumptions.
 
 **Classification:** TSMR-F is a proposed organizing framework. The Hutchinson attractor theorem and the separated Cantor–Bernoulli formulas are established mathematics. Numerical outputs from finite-depth pressure or finite-scale box counts are diagnostics, not proofs. No Gödelian, physical, or quantum-gravity conclusion is asserted.
+
+
+## 8. Arithmetic overlaps and external thresholds
+
+The complementary audit [TSMR-F_DEAQUINO_GOLDEN_BERNOULLI_BRIDGE.md](../audits/TSMR-F_DEAQUINO_GOLDEN_BERNOULLI_BRIDGE.md) records three distinct appearances of (1/2): the De Aquino golden identity (arphi=1/2+sqrt5/2) after imposing the model's zero threshold; the squared projection norm (\|Pq\|^2=1/2) for the regular pentagonal frame; and, separately, Bernoulli probability (p=1/2) or contraction ratio (\lambda=1/2). They are not interchangeable. The audit also corrects the raw finite-level golden-coding distinct-sum counts and distinguishes them from the Fibonacci overlap graph in the literature.
