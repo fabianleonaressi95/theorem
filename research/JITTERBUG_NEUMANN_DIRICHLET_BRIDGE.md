@@ -30,9 +30,11 @@ For symmetric L(t), define magnetic energy W_m=1/2 i^T L i. Multiplying the circ
 
 \[i^Te_{\rm ext}=\frac{dW_m}{dt}+i^TRi+\frac12 i^T\dot L i.\]
 
-The last term is the power transferred through the changing receiver inductance (electromechanical conversion term, with sign determined by the chosen positive mechanical coordinate). The implicit-midpoint discretization obeys the corresponding exact step identity, up to floating-point roundoff:
+The last term is the power transferred through the changing receiver inductance (electromechanical conversion term, with sign determined by the chosen positive mechanical coordinate). For a finite step, the midpoint product rule has a cross term. With Δi=i₁−i₀ and ΔL=L₁−L₀, the exact discrete identity used in the code is
 
-\[E_{\rm port}=\Delta W_m+E_{\rm Joule}+E_{\rm mech,L}.\]
+\[E_{\rm port}=\Delta W_m+E_{\rm Joule}+\left(\frac12 i_m^T\Delta L i_m-\frac18\Delta i^T\Delta L\Delta i\right),\]
+
+up to floating-point roundoff. The final quadratic correction is reported separately and vanishes as the time step is refined. This prevents a discretization residual from being mislabeled as physical energy production or loss.
 
 The report accumulates all four terms and the residual. This is deliberately a receiver-side balance. It does not yet include the primary winding's electrical supply dynamics, actuator inertia/friction, or the full force law of the source–receiver pair. Therefore it is not a closed energy balance of the complete machine.
 
