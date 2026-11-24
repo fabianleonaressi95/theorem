@@ -328,7 +328,7 @@ The reproducible implementation is audits/q6_central_force_ou_green_kubo.py. It 
 ### 11.1 Reproducibility result
 
 The implementation was executed in GitHub Actions with NumPy on Python 3.12. The combined audit run completed successfully:
-[Q6 pair-transfer and central-force OU audit](https://github.com/fabianleonaressi95/theorem/actions/runs/45396828057).
+[Q6 pair-transfer and central-force OU audit](https://github.com/fabianleonaressi95/theorem/actions/runs/45397243586).
 
 For every one of the 15 off-diagonal strain components, the program returned
 \[
