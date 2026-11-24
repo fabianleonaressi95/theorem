@@ -45,7 +45,7 @@ For \(m=1,\lambda=1.5,g=1,\kappa=0.1\), this gives
 \[
 0.5809475\ldots<\omega<0.9486833\ldots.
 \]
-This is a necessary potential criterion, not proof of a gauged finite-domain solution or its stability. It agrees with the algebra in the two-field technical note; the contrary quartic-shift critique is rejected.
+This is the ungauged/global necessary potential criterion, not proof of a gauged finite-domain solution or its stability. In the gauged problem the asymptotic frequency is the gauge-invariant \\(\\Omega_\\infty=\\omega-qA_0(\\infty)\\); the same bound applies to \\(\\Omega_\\infty\\), and it reduces to a bound on \\(\\omega\\) only in the gauge/boundary convention \\(A_0(\\infty)=0\\). It agrees with the algebra in the two-field technical note; the contrary quartic-shift critique is rejected.
 
 ## 3. What Q6 already gives exactly
 
