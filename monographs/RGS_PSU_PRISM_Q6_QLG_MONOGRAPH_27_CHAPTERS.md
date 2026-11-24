@@ -957,3 +957,8 @@ The original 188D arrays now establish a rank-six carrier for the half-scale pai
 ### Addendum — exact historical half-sign block recovered by gauge
 
 Let \(D=\operatorname{diag}(1,1,-1)\). In the canonical paired spectral basis the original arrays give \(Z_AJ_A=-\tfrac12J_B\), \(Z_SJ_A=+\tfrac12J_B\). Under the explicit upper-triplet channel gauge \(J_B^\sharp=-J_BD\), the BA blocks become \(Z_A^{BA}=+\tfrac12D\) and \(Z_S^{BA}=-\tfrac12D\), reproducing the previously recorded half-sign block. The same \(D\) is the spectral involution on the lower triplet. This identifies the old block at the level of a basis-gauged restriction, not as an equality of the full 188D operators. The gauge and residual checks are documented in [the original-array audit](../research/RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md#10-exact-recovery-of-the-historical-ba-half-sign-block).
+
+
+### Vesica–Minkowski interpretation of the RGS half-sign block
+
+The half-sign involution \(D=\operatorname{diag}(1,1,-1)\) is realized as a Lorentz reflection parity on three paired channels of the two null cones whose \(t=1\) sections bound the Vesica Piscis. The two arc endpoints are exchanged and the arc midpoint is fixed, so the reflection-adapted channel basis has eigenvalues \((+1,+1,-1)\). The original RGS BA blocks \(\pm D/2\) therefore admit a concrete three-channel geometric interpretation after the explicit upper-triplet gauge. This is not a full 64-hexagram embedding or a symmetry of the entire 188D \(K_0\) carrier. See [the construction and its scope limits](../research/VESICA_MINKOWSKI_RGS_D_REFLECTION_CHANNEL_REPRESENTATION_2026-11-24.md).
