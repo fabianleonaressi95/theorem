@@ -198,3 +198,23 @@ The PSU and Anti-Twin labels specify the two sectors and their exchange structur
 | Embedding of the field soliton on the T080/T088 shell or Q6 complex | Open |
 
 **Immediate continuation order:** (i) restore/replay the historical derive_rgs_psu_sea.py source and exact \(128\to4\times32\) split; (ii) specify the smallest exchange-symmetric \(V_{\rm int}\) consistent with the PSU–Anti-Twin reduction, without fitting it to a desired solution; (iii) solve the coupled radial boundary-value problem and compute \(Q(\omega),E(\omega),dQ/d\omega\); (iv) analyze the full radial Hessian in the \(+\) and \(-\) sectors; (v) derive the radion action by reduction; (vi) only then gauge the common \(U(1)\) and connect to QAT/photons. T080/T088 can enter as a spatial discretization after the field action and chain maps are fixed.
+
+
+## 10. Recovery correction — exact two-field interaction and new BVP
+
+The earlier statement in §3 that the functional form of \(V_{\rm int}\) was undetermined is superseded. The already-merged PR #87 in the companion repository fabianleonaressi95/rgs-qlg-quaternion-bridge specified
+\[
+I=|\Phi_P|^2+|\Phi_A|^2,\qquad J=|\Phi_P|^2-|\Phi_A|^2,
+\]
+\[
+V_{\rm int}=\alpha J^2-\kappa(\Phi_P^*\Phi_A+\Phi_A^*\Phi_P).
+\]
+Thus the full self-potential and interaction are already fixed up to the two explicit model parameters \(\alpha,\kappa\). Their physical values remain uncalibrated and must not be invented.
+
+On the in-phase exchange-symmetric branch \(\Phi_P=\Phi_A=F e^{i\omega t}/\sqrt2\), one has \(m_{\rm eff}^2=m^2-\kappa\), and the necessary frequency interval is
+\[
+\sqrt{m^2-\kappa-\lambda^2/(4g)}<\omega<\sqrt{m^2-\kappa}.
+\]
+The coefficient \(\alpha\) vanishes from the symmetric background equation but shifts the relative-sheet amplitude curvature. The implementation and tests for the symmetric two-field Maxwell branch are proposed in PR #220:
+https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/220
+PR #220 is open and unmerged at this correction. Its finite-domain benchmark is a model check, not a physical calibration or a full stability proof.
