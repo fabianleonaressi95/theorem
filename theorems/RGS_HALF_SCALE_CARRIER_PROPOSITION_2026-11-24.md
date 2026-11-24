@@ -106,3 +106,43 @@ The composite M(C tensor C): R^64 -> R^3 has rank three and kernel dimension 61.
 The reduction is not selected by reflection alone: the space of linear maps equivariant for the diagonal Z2 has dimension 14. The pointwise channel algebra is the additional structure selecting this particular M. The map matches the RGS channel involution D, but it does not derive the coefficient 1/2 in the already verified BA blocks and does not intertwine the full 188D triple (K0, ZA, ZS). The latter dynamical bridge remains open.
 
 Details and complete collision table: research/VESICA_HEXAGRAM_9_TO_3_POINTWISE_ALGEBRA_REDUCTION_2026-11-24.md and results/json/vesica_hexagram_9_to_3_algebra_reduction_2026-11-24.json.
+
+
+## Operator-derived Q6 spectral sector and composite RGS intertwiner
+
+The six-cube graph is \(Q_6=Q_3\square Q_3\). An operator-adapted trigram coisometry \(C_Q\) is formed from Q3 Laplacian eigenmodes with eigenvalues \(0,4,6\): the constant mode, the selected angular-even mode, and the top Walsh-parity mode. It satisfies
+\[
+C_Q L_3 C_Q^T=\operatorname{diag}(0,4,6),\qquad C_QP_8=DC_Q.
+\]
+The full tensor feature map \(C_Q\otimes C_Q\) has 64 distinct basis-state columns.
+
+Inside the nine-dimensional tensor sector, let E select the symmetric one-excitation subspace over the constant mode:
+\[
+e_0\otimes e_0,\quad
+(e_0\otimes e_4+e_4\otimes e_0)/\sqrt2,\quad
+(e_0\otimes e_6+e_6\otimes e_0)/\sqrt2.
+\]
+It is invariant under the compressed Q6 Laplacian and the diagonal reflection, with reduced Laplacian \(\operatorname{diag}(0,4,6)\) and reflection D. Thus
+\[
+F=E^T(C_Q\otimes C_Q):\mathbb R^{64}\to\mathbb R^3
+\]
+satisfies \(FF^T=I_3\), \(FL_6=\operatorname{diag}(0,4,6)F\), and \(FR_6=DF\). The full 64-state, nine-component lookup remains pairwise distinct; the selected rank-three quotient has 27 distinct basis-state images and is intentionally lossy.
+
+Let \(f(x)=1/2+x/120+x^2/240\). It maps the selected Q6 eigenvalues \(0,4,6\) to the original RGS lower-triplet eigenvalues \(0.5,0.6,0.7\); \(f+0.3\) maps them to the upper triplet \(0.8,0.9,1.0\). This is the unique quadratic interpolation through the three known spectral pairs, not yet a first-principles law.
+
+With \(\Phi_A=J_AF\) and \(\Phi_B^\sharp=J_B^\sharp F\), \(J_B^\sharp=-J_BD\), the existing RGS carrier identities and the new Q6 identities give the composite intertwining relations
+\[
+K_0\Phi_A\simeq\Phi_A f(L_6),\qquad
+K_0\Phi_B^\sharp\simeq\Phi_B^\sharp(f(L_6)+0.3I),
+\]
+\[
+Z_A\Phi_A\simeq+\tfrac12\Phi_B^\sharp R_6,\quad
+Z_S\Phi_A\simeq-\tfrac12\Phi_B^\sharp R_6,
+\]
+\[
+Z_A\Phi_B^\sharp\simeq-\tfrac12\Phi_A R_6,\quad
+Z_S\Phi_B^\sharp\simeq-\tfrac12\Phi_A R_6.
+\]
+Here \(\simeq\) is numerical because the original RGS arrays are floating-point data. The combined reproducible audit is audits/audit_q6_vesica_rgs_spectral_intertwiner.py. Full details and the 64-state table are in research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md and results/json/q6_vesica_rgs_spectral_intertwiner_2026-11-24.json.
+
+This establishes a finite-dimensional operator bridge on one selected three-dimensional Q6 invariant sector, not an equivalence of the full 64-dimensional Q6 state space with the 188-dimensional RGS system. The quadratic spectral law remains a matching candidate.
