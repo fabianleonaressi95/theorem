@@ -97,6 +97,7 @@ The antipodal action reverses the chosen dodecahedral face orientations and pres
 =3.46\times10^{-15}.
 \]
 Both boundary-squared identities, \(DD_2=0\) and \(\partial_1^{Q6}\partial_2^{Q6}=0\), have zero residual. Thus the construction now supplies a finite chain map through degree two, from the dodecahedral cell complex into the cubical 2-skeleton of Q6.
+The filling matrix \(Q_2\) has rank 11, matching the rank of \(D_2\). The dodecahedral fundamental 2-cycle lies in \(\ker D_2\); because the Moore–Penrose choice sends a zero boundary to the zero filling, this global cycle is mapped to zero. The chain map is therefore not a homology injection and is not a topological embedding of the dodecahedral sphere into the Q6 2-skeleton. Choosing a nonzero Q6 2-cycle to represent that class would be additional geometric data, not a consequence of the minimum-norm rule.
 
 
 ## 4. Two independently specified Dirichlet operators
