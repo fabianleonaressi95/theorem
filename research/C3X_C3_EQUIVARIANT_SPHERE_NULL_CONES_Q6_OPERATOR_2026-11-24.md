@@ -222,3 +222,28 @@ The next mathematically meaningful comparison is to compute the exact intertwini
 
 
 **Action-space qualification:** the independent rotations R^i and R^j act on the two factors of the product configuration space separately. They are not a single common Lorentz transformation of one ambient Minkowski spacetime acting differently on two points. The construction is an equivariant product of two cone-section models; the cross-sheet observable is then defined on that product and Reynolds-averaged as above.
+
+
+## 11. The recurring one-half: an exact geometric value and a separate RGS datum
+
+The spherical coordinates contain a structurally forced half:
+[
+z=pmrac12,qquad ho=sqrt{1-z^2}=rac{sqrt3}{2}.
+]
+These are not arbitrary fitted latitudes. A 120-degree orbit on the unit sphere has chord length (sqrt3); choosing its orbit plane at height (z=pm1/2) gives the two equilateral triangles used above. Equivalently, their colatitudes are (pi/3) and (2pi/3), so the axial projection is (cos(pi/3)=1/2). The same (1/2) is the familiar midpoint coordinate of the unit-separation two-vertex Vesica/Minkowski setup, but the midpoint and the spherical latitude are different geometric objects.
+
+There is also a prior RGS datum that must be compared rather than silently identified with this coordinate. In the 6 October 2026 stepping-operator calculation, the isolated rank-three block was reported as
+[
+Z_A^{BA}=rac12operatorname{diag}(1,1,-1),qquad
+Z_S^{BA}=-Z_A^{BA},
+]
+with (z_A=(1/2,1/2,-1/2)), supported only on the (J_Aleftrightarrow J_B) block ((Delta k=3)); the reported associated changes were (Delta K_0=0.3) and (Delta N=3). A related spectral involution was recorded as
+[
+mathcal I_A=P_{0.5}+P_{0.6}-P_{0.7},qquad
+mathcal I_A|_{J_A}=operatorname{diag}(1,1,-1).
+]
+The original matrix artifacts were named `Z_A.npy`, `Z_S.npy`, `K0.npy`, and `P_G.npy`, with report `K0_STEPPING_OPERATORS_REPORT.json`.
+
+The shared occurrence of the coefficient (1/2) and the sign pattern ((+,+,-)) is a concrete comparison target, not yet an identity: the spherical (z)-coordinate is a geometric embedding coordinate, whereas (Z_A^{BA}) is a block of an RGS stepping operator. To establish a bridge, one must recover the original arrays, identify the same ordered three-dimensional subspace and basis convention, and test an explicit intertwiner (U) satisfying the appropriate relation (for example (U Z_A^{BA} U^{-1}) against the relevant coordinate or projected operator). A matching diagonal pattern alone is insufficient.
+
+The next audit should therefore report separately: (i) the exact (1/2) geometry of the two latitude triangles; (ii) the old RGS block and involution; (iii) whether the RGS block embeds into a (C_3)-representation sector or a canonical subspace of (overline L_6). Until the original matrices and basis maps are available, item (iii) remains open.
