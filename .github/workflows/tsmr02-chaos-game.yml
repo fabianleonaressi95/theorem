@@ -18,6 +18,10 @@ on:
       - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
       - "audits/tsmr_c_cumulative.py"
       - "tests/test_tsmr_c_cumulative.py"
+      - "theorems/TSMR-C-I_iching_golden_q6_lift.md"
+      - "audits/TSMR-C-I_ICHING_Q6_AUDIT.md"
+      - "audits/tsmr_c_iching_q6.py"
+      - "tests/test_tsmr_c_iching_q6.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
   push:
     branches: [main]
@@ -35,6 +39,10 @@ on:
       - "audits/TSMR-C_CUMULATIVE_AUDIT.md"
       - "audits/tsmr_c_cumulative.py"
       - "tests/test_tsmr_c_cumulative.py"
+      - "theorems/TSMR-C-I_iching_golden_q6_lift.md"
+      - "audits/TSMR-C-I_ICHING_Q6_AUDIT.md"
+      - "audits/tsmr_c_iching_q6.py"
+      - "tests/test_tsmr_c_iching_q6.py"
       - ".github/workflows/tsmr02-chaos-game.yml"
 
 jobs:
