@@ -1004,3 +1004,31 @@ If a declared edge Hamiltonian has the form H_link(gamma)=sum_e w_e(gamma)E_e wi
 This conditional edge-energy response is implemented and finite-difference-auditable in PR #217. It is not identified with the plaquette-only Wilson term in the current unified action: the E_e must be derived from a common metric-dependent action before combining the formulas.
 
 **Updated evidence boundary:** exact finite-action and inverse-square edge-weight derivatives are specified; PR #217 adds implementation and tests (CI pending at last check). Still OPEN: metric-dependent gauge/Hodge and matter kinetic terms, equilibrium measure and time evolution, physical stress covariance, FDT normalization, Green–Kubo convergence, and Stokes matching. No viscosity is claimed.
+
+
+### 17.7 Metric-dependent Q6 plaquette response from recovered RGS face geometry
+
+The implementation follow-up is recorded in [RGS–QLG–Q6 PR #218](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/218). It uses the hash-recovered coordinate map (X:Q_6^{(0)}\to\mathbb R^3) and the canonical 240 square faces. It does not invent a map from the six cube axes into three spatial axes and does not reinterpret the archived four-component edge coframe as a vertex tetrad.
+
+For each face (p=(v,v_a,v_{ab},v_b)), let (a_p=X_{v_a}-X_v), (b_p=X_{v_b}-X_v), and
+[
+G_p=\begin{pmatrix}a_p\cdot a_p&a_p\cdot b_p\\a_p\cdot b_p&b_p\cdot b_p\end{pmatrix},\qquad A_p=\sqrt{\det G_p}.
+]
+With reference areas (A_p^0) held fixed, the separately declared finite face-Hodge candidate is
+[
+S_g[X,U]=\beta\sum_{p=1}^{240}\frac{A_p^0}{A_p(X)}
+\left(1-\frac12\operatorname{ReTr}U_p\right).
+]
+For ambient shear (X(\gamma)=(I+\gamma H)X), (H=(E_{xy}+E_{yx})/2), Jacobi's formula yields
+[
+\frac{\dot A_p}{A_p}=\frac12\operatorname{tr}(G_p^{-1}\dot G_p),
+\qquad
+\Pi_{xy}^{g}=\frac{\beta}{V}\sum_p\frac{A_p^0}{A_p}
+\left(1-\frac12\operatorname{ReTr}U_p\right)
+\frac12\operatorname{tr}(G_p^{-1}\dot G_p).
+]
+The implementation supplies this analytic derivative and an independent central finite-difference audit.
+
+**Critical qualification:** the recovered Q6 embedding is three-dimensional and its six-direction pullback Gram has rank at most three. The seed does not supply a circumcentric dual-face measure. Therefore (A_p^0/A_p) is a declared conditional face-area weight, not a uniquely determined DEC Hodge star or continuum Yang–Mills action. The model remains separate from the existing plaquette-only Wilson action until the dual measure and continuum scaling are derived.
+
+**Evidence status:** exact finite derivative for the declared face-area action; numerical verification is pending the CI run for PR #218. Still OPEN: dual measure, full metric-compatible matter/gauge action, equilibrium dynamics and Gibbs measure, FDT normalization, physical stress covariance, Green–Kubo convergence and Stokes matching. No viscosity is claimed.
