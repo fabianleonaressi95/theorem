@@ -93,7 +93,7 @@ poly_residual=float(np.linalg.norm(Vand@poly_coeff-lower_eigs))
 # and residual remain the primary numerical evidence.
 from fractions import Fraction
 poly_rational=[str(Fraction(float(v)).limit_denominator(1000000)) for v in poly_coeff]
-upper_shift_residual=maxabs(upper_eigs-lower_eigs-0.30)
+upper_shift_residual=float(np.max(np.abs(upper_eigs-lower_eigs-0.30)))
 # Candidate spectral function. On selected Q6 eigenvalues 0,4,6 it is
 # exactly (1/2,3/5,7/10), the original RGS lower triplet.
 fL=poly_coeff[0]*np.eye(64)+poly_coeff[1]*L6+poly_coeff[2]*(L6@L6)
