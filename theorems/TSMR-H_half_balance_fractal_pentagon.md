@@ -15,8 +15,8 @@ I_\lambda=[-R_\lambda,R_\lambda],\qquad R_\lambda=\frac1{1-\lambda}.
 \]
 The first-level cylinder hulls are
 \[
-S_-(K_\lambda)=[-1-\lambda R_\lambda,-1+\lambda R_\lambda],\quad
-S_+(K_\lambda)=[1-\lambda R_\lambda,1+\lambda R_\lambda].
+S_-(I_\lambda)=[-1-\lambda R_\lambda,-1+\lambda R_\lambda],\quad
+S_+(I_\lambda)=[1-\lambda R_\lambda,1+\lambda R_\lambda].
 \]
 The signed gap between them is therefore
 \[
