@@ -9,7 +9,8 @@ on:
       - "K0_inv.npy"
       - "K0_*REPORT.json"
       - "K0_*CERTIFICATION.json"
-      - "*K0*audit.zip"
+      - "RGS_PSU_OH_K0_AUDIT.zip"
+      - "RGS_PSU_alignment_K0_audit.zip"
       - "two_time_kernel_*.npz"
       - ".github/workflows/k0-binary-audit.yml"
 
