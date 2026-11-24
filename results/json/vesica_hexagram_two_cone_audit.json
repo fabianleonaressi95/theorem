@@ -12,9 +12,10 @@
   "all_endpoints_and_midpoints_in_vesica": true,
   "midpoint_displacement_reconstruction_pass": true,
   "separation_squared": {
-    "minimum": 0.9999999999999999,
-    "maximum": 2.9999999999999996,
-    "mean": 1.5116227306831138
+    "minimum": 0,
+    "maximum": 3.0000000000000013,
+    "mean": 1.096173671917929
   },
-  "interpretation": "Finite geometric realization only; angular bijection is a model choice. No physical dynamics or GL(3,2) geometric equivariance is asserted."
+  "interpretation": "Finite geometric realization only; angular bijection is a model choice. No physical dynamics or GL(3,2) geometric equivariance is asserted.",
+  "audit_correction": "Eight samples now include both endpoints of each full 120-degree Vesica arc; angular step is 2*pi/21."
 }
