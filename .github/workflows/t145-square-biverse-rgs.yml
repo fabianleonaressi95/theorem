@@ -29,5 +29,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: t145-square-biverse-rgs-audit
-          path: audits/T145_SQUARE_BIVERSE_RGS_CARRIER_2026-11-24.json
+          path: results/json/rgs_intrinsic_z2_carrier_audit_2026-11-24.json
           retention-days: 30
