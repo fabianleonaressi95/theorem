@@ -137,6 +137,28 @@ Consequently \(2Z_S\) and \(2Z_A\) encode the two complementary parity/sign oper
 
 This distinction resolves a potential confusion: the biverso parity projections \(P_\pm=(I\pm S_{\rm RGS})/2\) select the lower and upper \(K_0\) triplets, whereas the original \(Z_S\)-eigenspaces define the sheet-coordinate splitting \((V,W)\). Both are order-two structures, but they are not the same operator in the same basis.
 
+### Numerical certificate from GitHub Actions
+
+The focused workflow [45446809835](https://github.com/fabianleonaressi95/theorem/actions/runs/45446809835) completed successfully on the original root arrays. Its JSON artifact reports:
+
+| Check | Residual |
+|---|---:|
+| Carrier basis orthogonality (Frobenius) | \(1.45\times10^{-15}\) |
+| \(K_0\)-invariant carrier leakage (Frobenius) | \(1.18\times10^{-14}\) |
+| Equality of the two diagonal blocks | \(8.36\times10^{-16}\) |
+| Off-diagonal block versus \(-0.15I_3\) | \(4.48\times10^{-16}\) |
+| Full biverso block reconstruction | \(1.02\times10^{-15}\) |
+| Exchange commutator | \(1.31\times10^{-15}\) |
+| Hadamard block diagonalization | \(1.09\times10^{-15}\) |
+| Canonical \(Z_S\) carrier form | \(9.86\times10^{-16}\) |
+| Canonical \(Z_A\) carrier form | \(7.23\times10^{-16}\) |
+
+The two compressed parity spectra returned by the run are
+\[
+(0.5,0.6,0.7),\qquad(0.8,0.9,1.0),
+\]
+and the fitted scalar coupling is \(0.1499999999999999\). The JSON artifact is named \`t145-square-biverse-rgs-audit\` and is retained for 30 days.
+
 ## 5. What is and is not proved
 
 | Statement | Status |
