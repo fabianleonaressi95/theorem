@@ -165,3 +165,10 @@ In the earlier eight-point sampling
 the same ambient reflection sends \(k\mapsto7-k\) on each sheet. Since there are eight samples, this permutation has no fixed sample and decomposes into four transpositions. Its permutation representation on the trigram sample space therefore has \(+1\) and \(-1\) eigenspaces of dimensions \(4\) and \(4\), respectively. On the 64 hexagrams the single ambient Minkowski reflection acts diagonally on both factors. One can define an abstract independent (\mathbb Z_2\times\mathbb Z_2) action on the product of the two label sets, but its two generators are not both realized by that one ambient spacetime reflection.
 
 This is not the three-dimensional \((2,1)\) parity representation above. The latter is a separately marked three-channel configuration on the continuous Vesica arcs, chosen to match the RGS carrier dimension. A linear compression/intertwiner from the eight-state trigram representation to this three-channel carrier has not yet been specified. In particular, no three of the eight equally spaced samples are being silently identified with \((-,0,+)\).
+
+
+## 8. Canonical moment compression from the complete eight-sample trigram
+
+The previously open eight-to-three passage is now constructed by the reflection-equivariant polynomial-moment map. It uses all eight angular samples (constant-even, centered-quadratic-even, linear-odd), satisfies CP8 = DC, and lifts to a nine-dimensional paired feature map for all 64 hexagrams. The full derivation, limits, reproducible audit and 64-state table are recorded in [VESICA_HEXAGRAM_REFLECTION_EQUIVARIANT_MOMENT_COMPRESSION_2026-11-24.md](VESICA_HEXAGRAM_REFLECTION_EQUIVARIANT_MOMENT_COMPRESSION_2026-11-24.md) and [the JSON lookup](../results/json/vesica_hexagram_moment_compression_2026-11-24.json).
+
+This closes the finite representation-theoretic compression step, but not the dynamical bridge: compatibility with the full RGS triple (K0, ZA, ZS), or a canonical nine-to-three reduction of the paired space, remains open.
