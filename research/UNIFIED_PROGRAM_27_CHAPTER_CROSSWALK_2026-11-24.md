@@ -402,3 +402,12 @@ This is exact for that finite Gaussian model. Physical calibration of \(A^{ij}\)
 **Green–Kubo/Stokes theorem status.** A conditional theorem is recorded: if the same microscopic energy/stress has equilibrium linear response, uniform Green–Kubo convergence, a Newtonian incompressible hydrodynamic limit, and convergence of boundary traction maps, then the limiting coefficient in \(\tau=2\eta D(u)\) equals the Green–Kubo coefficient and the Stokes traction DN coefficient. The proof is the identification of the same coefficient through bulk constitutive response and boundary traction. Those hypotheses are not yet established for Q6/Jitterbug; hence the unconditional physical equality remains open.
 
 **Monograph:** chapters 13–14 (panel/phase geometry) and 20–22 (stress, Green–Kubo, transport and boundary response). No theorem number is assigned and no existing T130/T131/PR #414/#419 result is duplicated.
+
+
+### 11.11 Central-force energy and stress from an embedded Q6 graph
+
+Companion derivation: `research/Q6_CENTRAL_FORCE_STRAIN_ENERGY_2026-11-24.md`; finite-difference tests: `tests/test_q6_central_force_stress.py`.
+
+For any explicitly supplied embedding y:V(Q6)->R^d and positive edge spring constants, the note defines one central-force energy H=1/2 sum_e kappa_e(|(I+epsilon)r_e+(Bu)_e|-ell_e)^2 and derives total stress by -partial_epsilon H. Its harmonic Hessian is the rigidity matrix form K=R^T diag(kappa_e)R, and the leading stress is linear in displacement for a stress-free reference. A matching overdamped OU benchmark is derived on the full positive subspace of K. This is distinct from the bare graph-Laplacian OU model and from the earlier generic quadratic-stress Wick ansatz.
+
+The canonical six-dimensional hypercube embedding is retained only as an anisotropic control; it has zero off-diagonal shear coefficient and is not a 3D material model. The physical Q6/Jitterbug embedding still requires the within-fibre lift y(a,b;t), which the 8:1 panel quotient does not supply. Therefore physical shear calibration, hydrodynamic limit and eta_GK=eta_Stokes remain open. Monograph: chapters 13–14 (geometric lift) and 20–22 (stress/transport/continuum limit).
