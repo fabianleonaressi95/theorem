@@ -11,8 +11,13 @@ import json
 import math
 from pathlib import Path
 import argparse
+import sys
 
 import numpy as np
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from audits.jitterbug_eight_coil_coupling import (
     MU0, coil_polygon, neumann_mutual, inductance_matrix,
