@@ -36,7 +36,7 @@ def power_norms(b,d,c,count=8):
     for n in range(count):
         out[str(n)]=frobenius(matmul(b,cur)); cur=matmul(d,cur)
     return out
-def power_radius_estimate(d,iterations=300):
+def power_iteration_growth_estimate(d,iterations=300):
     n=len(d); v=[1.0/sqrt(n)]*n; est=0.0
     for _ in range(iterations):
         w=[sum(d[i][j]*v[j] for j in range(n)) for i in range(n)]
@@ -55,7 +55,7 @@ def reduce_matrix(matrix,h):
             "complement_dimension":len(comp),"A11":a,"B":b,"C":c,"D":d,
             "K0":k0,"K0_frobenius":frobenius(k0),
             "memory_kernel_frobenius":power_norms(b,d,c),
-            "D_power_radius_estimate":power_radius_estimate(d),
+            "D_power_iteration_growth_estimate":power_iteration_growth_estimate(d),
             "scope":"finite empirical-CDF Galerkin estimate; not exact L2"}
 def audit(samples=30000,terms=48,cutoffs=(2,3,4,6,8),seed=20261124):
     matrix=estimate_compression(samples,terms,max(cutoffs),seed)
