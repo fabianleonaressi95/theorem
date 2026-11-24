@@ -90,7 +90,8 @@ def main():
     for row in results:
         print(f"{row[0:2]}: {row[2]:.12g}, {row[3]:.12g}, {row[4]:.12g}")
     print("all six shear components: identical exact benchmark")
-    print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)")\n    print("integral_C = 4*(kB*T)^2/mu")
+    print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)")
+    print("integral_C = 4*(kB*T)^2/mu")
     print("eta_GK = 4*kB*T/(mu*V)")
     print("scope: exact quadratic-stress OU toy model; not 3D material viscosity")
 
