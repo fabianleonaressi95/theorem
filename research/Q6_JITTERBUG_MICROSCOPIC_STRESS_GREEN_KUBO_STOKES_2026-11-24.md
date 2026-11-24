@@ -86,7 +86,7 @@ Take
 H(q,\varepsilon)=\frac12q^TK(\varepsilon)q,\qquad
 K(\varepsilon)=K_0+\sum_{ij}\varepsilon_{ij}A^{ij}+O(|\varepsilon|^2),
 \]
-with symmetric \(K_0,A^{ij}\). Then
+with symmetric \(K_0,A^{ij}\). The derivative formula below is general. To use the specific OU equilibrium in §5 without changing its invariant law, its reference energy on the mean-zero subspace must be \(H_0(X)=\|X\|^2/(2\sigma^2)\), i.e. \(K_0=\sigma^{-2}I_{H_0}\); the OU mobility is \(\gamma L_0\). Then
 \[
 \boxed{\Pi_{ij}(q)=-\frac12q^TA^{ij}q.}
 \]
@@ -119,7 +119,12 @@ Its invariant covariance is \(\sigma^2I_{H_0}\), and
 \[
 \mathbb E[X_tX_0^T]=\sigma^2e^{-\gamma L_0t}.
 \]
-For symmetric \(A\) on \(H_0\), define
+For symmetric \(A\) on \(H_0\), use the strain-perturbed energy
+\[
+H(X,\varepsilon)=\frac{1}{2\sigma^2}\|X\|^2
++\frac12\varepsilon_{xy}X^TAX+O(\varepsilon^2),
+\]
+so that the extensive shear stress is exactly \(\Pi_A=-\tfrac12X^TAX\) and its equilibrium mean is \(-\tfrac12\sigma^2\operatorname{Tr}A\). Thus define
 \[
 \delta\Pi_A(t)=-\frac12
 \left(X_t^TAX_t-\sigma^2\operatorname{Tr}A\right).
