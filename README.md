@@ -42,6 +42,7 @@ theorem/
 ```
 
 ### Main indexes
+- [Vesica–square–barycentre–dodecahedron–Q6 bridge](research/VESICA_SQUARE_BARYCENTRE_DODECAHEDRON_Q6_BRIDGE_2026-11-24.md) — exact inscribed-square, triangle-centroid and barycentric-gradient construction; isolates the missing dodecahedral-to-Q6 operator lift needed to derive the existing interpolation polynomial geometrically.
 
 - **[T145 — intrinsic ℤ₂ grading of the RGS carrier](theorems/T145-square-reflection-prism-biverse-rgs-carrier.md)** — verifies (S=2Z_S|_{\mathcal W}), rank-three parity projectors and the off-diagonal (Z_A) coupling; explicitly records that (K_0) mixes the grading sectors, so the grading does not explain its affine half-offset.
 
