@@ -72,8 +72,9 @@ def main():
     for (i, j), (A, c) in shear_data.items():
         AH = Q.T @ A @ Q
         fro2 = float(np.sum(AH * AH))
-        denom_sum = float(np.sum((AH * AH) /
-                                  (positive_evals[:, None] + positive_evals[None, :])))
+        lam_a = positive_evals[:, None]
+        lam_b = positive_evals[None, :]
+        denom_sum = float(np.sum((AH * AH) / (lam_a * lam_b * (lam_a + lam_b))))
         # For stress deltaPi=-1/2(u^T A u - kBT Tr(A K_H^-1)):
         # integral C(t)dt = (kBT)^2/(2 mu) * denom_sum.
         assert np.linalg.norm(c) < 1e-12
@@ -89,7 +90,7 @@ def main():
     for row in results:
         print(f"{row[0:2]}: {row[2]:.12g}, {row[3]:.12g}, {row[4]:.12g}")
     print("all six shear components: identical exact benchmark")
-    print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)\n    print("integral_C = 4*(kB*T)^2/mu")")
+    print("C(t) = 16*(kB*T)^2*exp(-4*mu*t)")\n    print("integral_C = 4*(kB*T)^2/mu")
     print("eta_GK = 4*kB*T/(mu*V)")
     print("scope: exact quadratic-stress OU toy model; not 3D material viscosity")
 
