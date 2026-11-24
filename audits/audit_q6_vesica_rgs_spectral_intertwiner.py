@@ -83,6 +83,13 @@ fL_high=fL+0.3*np.eye(64)
 maxabs=lambda X:float(np.max(np.abs(X)))
 fro=lambda X:float(np.linalg.norm(X))
 checks={
+ "input_finite":bool(all(np.isfinite(x).all() for x in (K0,PG,ZA,ZS))),
+ "P_G_symmetry":maxabs(PG-PG.T),
+ "P_G_idempotence":fro(PG@PG-PG),
+ "P_G_rank":int(np.linalg.matrix_rank(PG,tol=1e-8)),
+ "K0_P_G_right_kernel":fro(K0@PG),
+ "P_G_K0_left_kernel":fro(PG@K0),
+ "P_G_K0_commutator":fro(PG@K0-K0@PG),
  "C_orthonormal_rows":maxabs(C@C.T-np.eye(3)),
  "C_Q3_eigenmode_leakage_fro":fro(L3@C.T-C.T@Lc),
  "C_reflection_CP8_minus_DC":maxabs(C@P8-D@C),
@@ -150,5 +157,26 @@ report={
 out=ROOT/"results/json/q6_vesica_rgs_spectral_intertwiner_2026-11-24.json"
 out.parent.mkdir(parents=True,exist_ok=True)
 out.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
-print(json.dumps({"checks":checks,"F_image_distinct":len(groups),"collision_multiplicities":report["F_collision_multiplicity_distribution"]},indent=2))
+# Hard assertions: this script exits non-zero on any failed invariant.
+TOL=1e-8
+residual_checks=[k for k,v in checks.items()
+                 if isinstance(v,(int,float)) and k not in ("P_G_rank",)
+                 and not (k.endswith("_distinct") or k.endswith("_count"))
+                 and v>TOL]
+assert checks["input_finite"], "Non-finite input array"
+assert checks["P_G_rank"]==64, f"Expected rank(P_G)=64, got {checks['P_G_rank']}"
+assert len(groups)==27, f"Expected 27 quotient images, got {len(groups)}"
+assert checks["C_tensor_C_64_feature_vectors_distinct"]==64
+assert checks["F_rank"] if "F_rank" in checks else np.linalg.matrix_rank(F)==3
+assert not residual_checks, "Residuals above tolerance: "+", ".join(
+    f"{k}={checks[k]:.3e}" for k in residual_checks)
+assert fro(K0@PG)<=TOL and fro(PG@K0)<=TOL
+assert maxabs(PG@PG-PG)<=TOL and maxabs(PG-PG.T)<=TOL
+report["status"]="PASS: Q6 operator sector and RGS coupling checked against original binary arrays"
+report["assertion_tolerance"]=TOL
+report["failed_checks"]=[]
+out.write_text(json.dumps(report,indent=2)+"\\n",encoding="utf-8")
+print(json.dumps({"status":"PASS","checks":checks,
+ "F_image_distinct":len(groups),
+ "collision_multiplicities":report["F_collision_multiplicity_distribution"]},indent=2))
 print("Wrote",out)
