@@ -441,3 +441,94 @@ the correct alternative to investigate is non-normal strong stability
 without operator-norm decay. The empirical-CDF singular-norm excess above
 one must first be removed by a measure-preserving quadrature or bounded
 as a certified discretization error.
+
+
+## 13. Exact norm of the infinite complementary compression
+
+A stronger statement than mere contractivity is available for the one-step
+compression. Let
+[
+mathcal L=operatorname{span}{1,phi_ccirc F_g,phi_scirc F_g},
+qquad Q=I-P_{mathcal L},
+qquad D=Qmathscr M_g|_{operatorname{ran}Q}.
+]
+Then
+[
+oxed{|D|_{2	o2}=1.}
+]
+In particular, the infinite complementary compression has **no strict
+one-step operator-norm contraction**.
+
+**Proof.** Work in the unitarily equivalent Bernoulli coordinate
+(L^2(
+u_g)), where
+[
+(Ph)(x)=	frac12h(lambda x-1)+	frac12h(lambda x+1).
+]
+Let (mathcal P_2) be the subspace of restrictions to (I) of
+2-periodic (L^2)-functions on the circle (mathbb R/2mathbb Z).
+The pushforward of (
+u_g) to that circle is atomless: each point has
+only finitely many preimages in the compact interval (I), and (
+u_g)
+has no atoms. Hence (mathcal P_2) is infinite-dimensional.
+
+For (hinmathcal P_2), periodicity gives
+[
+Ph(x)=h(lambda x+1)=h(lambda x-1).
+]
+Using invariance of (
+u_g),
+[
+egin{aligned}
+|Ph|_{L^2(
+u_g)}^2
+&=int |h(lambda x+1)|^2,d
+u_g(x)\
+&=rac12intigl(|h(lambda x-1)|^2+
+                         |h(lambda x+1)|^2igr),d
+u_g(x)\
+&=int P(|h|^2)(x),d
+u_g(x)
+ =|h|_{L^2(
+u_g)}^2.
+end{aligned}
+]
+Thus (P) is an isometry on the infinite-dimensional subspace
+(mathcal P_2).
+
+The conditions (hperpmathcal L) and (Phperpmathcal L) impose only
+six linear constraints on (mathcal P_2), because
+(dimmathcal L=3). Their common kernel therefore contains a nonzero
+(h). For such an (h), (Qh=h), (QPh=Ph), and
+[
+Dh=Q P Qh=QPh=Ph,qquad |Dh|_2=|h|_2.
+]
+So (|D|geq1). The reverse inequality follows from the Markov
+contraction and orthogonal projection, proving (|D|=1). (square)
+
+### Consequence for exact Galerkin sections
+
+Let (Q_H) be the orthogonal projection onto the complement harmonics
+(2leq kleq H), and let (D_H=Q_HD Q_H) on that finite-dimensional
+space. Since (Q_H	o Q) strongly, the exact-measure sections satisfy
+[
+oxed{lim_{H	oinfty}|D_H|_{2	o2}=|D|_{2	o2}=1.}
+]
+Indeed, the upper bound is (|D_H|leq|D|); for every fixed unit
+vector (h), (Q_Hh	o h) and (Q_HD Q_Hh	o Dh), giving the matching
+lower limit after taking the supremum over (h).
+
+This explains why the previously observed H=8 value near 0.996 is
+structurally relevant: exact Galerkin singular norms should approach one,
+not a number bounded uniformly below one. The empirical values slightly
+above one at larger H remain discretization errors, since every exact
+section is contractive.
+
+**Important distinction.** The identity (|D|=1) rules out a strict
+one-step norm gap. It does not determine the spectral radius
+(ho(D)), nor whether (D^n h	o0) strongly for every (hin QL^2).
+A contraction can have norm one and still have spectral radius below one
+or be strongly stable. The spectral-radius/long-time question for the
+compressed complement therefore remains open. Finite-section eigenvalue
+radii alone do not settle it.
