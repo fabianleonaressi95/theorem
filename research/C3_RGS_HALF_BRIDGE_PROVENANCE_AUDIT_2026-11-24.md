@@ -84,3 +84,12 @@ Recover the original checkpoint payloads (at minimum `Zmat.npy`, `Z_A.npy`, `Z_S
 | Reported (Z_A^{BA}=\frac12\operatorname{diag}(1,1,-1)) | **HISTORICAL CLAIM; RAW BLOCK NOT REAUDITED** |
 | C3–RGS invariant-subspace identification | **OPEN** |
 | Explicit intertwiner (U) | **NOT COMPUTED / OPEN** |
+
+
+## 2026-11-24 correction: original arrays recovered
+
+The previous “not recovered” conclusion is superseded. The four binary arrays were uploaded to the repository root on 2026-11-24 in commit `22bcb3985856302c23ddd2b2dd4b8be4aa896eca`. Their numerical contents have now been read and audited directly. See [RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md](RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md) and reproducible script [audit_rgs_half_original_arrays.py](../audits/audit_rgs_half_original_arrays.py).
+
+The original arrays establish a rank-six carrier with a symmetric/antisymmetric half-scale pair: (Z_S) has eigenvalues (+1/2) and (-1/2), each of multiplicity three; (Z_A) is skew-symmetric; (Z_A^2+Z_S^2\simeq0) and (Z_AZ_S+Z_SZ_A\simeq0). Both operators annihilate (operatorname{ran}P_G) and act in its orthogonal complement. This corrects the earlier “manifest only” and “payload not recovered” statements.
+
+The historical (3\times3) (BA) block/basis provenance is still not established by these four files alone. Accordingly, the six-dimensional half-scale algebra is **NUMERICALLY VERIFIED**, while the explicit identification with the previously quoted (J_A\leftrightarrow J_B) basis and the intertwiner to the spherical construction remain **OPEN**.
