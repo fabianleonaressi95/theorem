@@ -346,3 +346,98 @@ then establish whether the exact complement has a spectral gap, merely
 strong stability, or approximate unit-modulus modes. The audit now records
 both eigenvalue radius and largest singular value; the latter is essential
 because eigenvalues alone miss non-normal transient amplification.
+
+
+## 12. Exact dynamics versus compression of the infinite complement
+
+The question of a gap for the complementary compression must be stated with two
+different operators. Let (P_0) project onto constants, let (Pi_1) project
+onto the first real Fourier pair, and set
+[
+Q=I-P_0-Pi_1,qquad
+D=Qmathscr M_g!estriction_{operatorname{ran}Q}.
+]
+The exact Markov contraction gives
+[
+|mathscr M_g|_{2	o2}leq1,qquad
+oxed{|D|_{2	o2}leq1.}
+]
+This is an upper bound, not a strict gap.
+
+### The full Markov operator is strongly mixing
+
+Transfer to the original Bernoulli coordinate by the unitary map
+(f(t)mapsto h(x)=f(F_g(x))). The operator becomes
+[
+(Ph)(x)=	frac12h(lambda x-1)+	frac12h(lambda x+1),
+qquad lambda=arphi^{-1}.
+]
+Let (I=[-R,R]), (R=(1-lambda)^{-1}), and let
+[
+Y=sum_{j=0}^{infty}arepsilon_jlambda^jsim
+u_g.
+]
+For (ngeq1), write
+(S_n=sum_{j=0}^{n-1}arepsilon_jlambda^j). Coupling the same first
+(n) signs in (P^n h(x)) and in a stationary copy
+(Y=S_n+lambda^nY'), with (Y'sim
+u_g) independent, gives for every
+continuous (h) on (I)
+[
+sup_{xin I}|P^nh(x)-
+u_g(h)|
+leq omega_h(2Rlambda^n),
+]
+where (omega_h) is the modulus of continuity of (h). The right-hand
+side tends to zero. Since continuous functions are dense in (L^2(
+u_g))
+and (P) is an (L^2)-contraction, it follows that
+[
+oxed{P^nhlongrightarrow 
+u_g(h),1
+quad	ext{strongly in }L^2(
+u_g).}
+]
+Equivalently, (mathscr M_g^nf	o(int_0^1f),1) strongly in
+(L^2([0,1])). This is an exact strong-mixing statement for the **full**
+Markov operator; it is not an operator-norm estimate.
+
+### What this does not settle for the compressed complement
+
+The compression iterates are
+[
+D^n=(Qmathscr M_gQ)^n!estriction_{operatorname{ran}Q},
+]
+which insert (Q) after every step. In general they are not
+(Qmathscr M_g^nQ). Therefore strong convergence of the full Markov
+operator does **not** by itself prove strong stability of (D), nor
+(|D|<1), nor (ho(D)<1).
+
+The current finite-section data show eigenvalue radii below one, while the
+largest empirical singular values approach one (the H=8 value near 0.996
+was already present in the preceding audit). This is consistent with a
+non-normal compression whose transient norm is large, but empirical
+finite sections do not decide the infinite-dimensional norm or spectral
+radius. In particular, eigenvalue radii of the finite sections cannot be
+promoted to a uniform spectral gap.
+
+**Answer to the complement-gap question:** the exact infinite compression
+is known to be a contraction, but a strict or uniform spectral gap has
+not been established. Strong stability of the compressed operator itself
+also remains open. The exact strong-mixing theorem above applies to
+(mathscr M_g), not automatically to (Qmathscr M_gQ).
+
+### Required next criterion
+
+A valid gap claim would require a uniform estimate
+[
+sup_{Hgeq H_0}|D_H|_{2	o2}leq1-delta
+quad(delta>0)
+]
+for accurately computed **exact-measure** Galerkin sections, together with
+a convergence/approximation theorem linking those sections to
+(Qmathscr M_gQ). If this fails while (ho(D_H)) stays below one,
+the correct alternative to investigate is non-normal strong stability
+without operator-norm decay. The empirical-CDF singular-norm excess above
+one must first be removed by a measure-preserving quadrature or bounded
+as a certified discretization error.
