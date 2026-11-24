@@ -166,7 +166,7 @@ def build_actual_mechanism_run(
         e_mid = emf[k]
         p_in = float(im @ e_mid)
         p_j = float(im @ Rmat @ im)
-        p_mech = float(0.5*im @ dL @ im / dt)
+        p_mech = float(0.5*im @ dL @ im)
         W0 = float(0.5*i0 @ L0 @ i0)
         W1 = float(0.5*i1 @ L1 @ i1)
         dW = W1-W0
