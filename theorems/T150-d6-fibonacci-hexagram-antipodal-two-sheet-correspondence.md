@@ -207,3 +207,30 @@ In particular,
 Thus the six-orbit module is exactly two sheets, each carrying a three-mode cyclic representation. The half-turn is the sheet exchange, and the two parity projections have rank three.
 
 This factorization is a representation-space intertwiner. It does not assert that the full Q6 graph Laplacian preserves the six-state subspace, nor does it identify the channel space with a physical Pellis transfer operator. A raw \(2\times2\) Cauchy transfer has the wrong dimension; an operator-level identification requires a physically derived three-mode multiplicity and compatible boundary domains. The corresponding transfer lift and its multiplicity test are recorded in the companion Pellis C dossier.
+
+
+## 9. Realization of the three-mode factor as a spherical dipole representation
+
+The three-point permutation representation also has a canonical real orthogonal realization as the \(\ell=1\) angular representation of a sphere restricted to a \(D_3\) subgroup. Define
+\[
+W_3=
+\begin{pmatrix}
+1/\sqrt3&1/\sqrt3&1/\sqrt3\\
+2/\sqrt6&-1/\sqrt6&-1/\sqrt6\\
+0&1/\sqrt2&-1/\sqrt2
+\end{pmatrix}.
+\]
+For the cyclic shift \(C_3e_j=e_{j+1}\) and reflection \(F_3e_j=e_{-j}\),
+\[
+W_3C_3W_3^T=
+\begin{pmatrix}
+1&0&0\\
+0&-\frac12&-\frac{\sqrt3}{2}\\
+0&\frac{\sqrt3}{2}&-\frac12
+\end{pmatrix},
+\qquad
+W_3F_3W_3^T=\operatorname{diag}(1,1,-1).
+\]
+The first coordinate is the invariant axis; the remaining two form the real \(m=\pm1\) angular pair. This is the standard \(\ell=1\) representation restricted to a \(120^\circ\) rotation and a reflection. Therefore \((I_2\otimes W_3)\Phi\) identifies the Fibonacci six-orbit representation with two copies of the spherical dipole representation.
+
+This is an exact representation-theoretic realization and a candidate geometric interpretation for three standing-wave modes per sheet. It does not establish that the Golden Spheres Resonance operator selects the \(\ell=1\) sector, nor that its boundary conditions preserve this subspace. Those are separate physical/operator questions.
