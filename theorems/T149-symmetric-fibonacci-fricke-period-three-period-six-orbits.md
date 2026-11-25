@@ -18,10 +18,11 @@ T149 supplements T147 and T148, which analyze the distinct singular endpoints \(
 ## 1. Reversibility
 
 Direct substitution gives \(I\circ T=I\). Its Jacobian is
-\\[
-DT(x,y,z)=\\begin{pmatrix}2y&2x&-1\\\\1&0&0\\\\0&1&0\\end{pmatrix},\\qquad \\boxed{\\det DT=-1}.
-\\]
-Consequently \(\\det DT^q=(-1)^q\). The map
+\[
+DT(x,y,z)=\begin{pmatrix}2y&2x&-1\\1&0&0\\0&1&0\end{pmatrix},
+\qquad \boxed{\det DT=-1}.
+\]
+Consequently \(\det DT^q=(-1)^q\). The map
 \[
 R(x,y,z)=(z,y,x)
 \]
