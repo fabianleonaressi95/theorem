@@ -6,7 +6,7 @@
 
 ## Abstract
 
-A reversor-symmetric period-six orbit of the Fibonacci trace map carries a dihedral \(D_6\)-action. Its half-turn \(T^3\) is an involution pairing opposite orbit points, while \(T^2\) cycles each of the two alternating three-point subsets. We construct an explicit six-element \(D_6\)-orbit inside the 64 Q6 hexagrams, each written as an ordered pair of three-bit trigrams. On this orbit, Q6 antipodal complement is exactly the half-turn of the hexagon. This gives an exact orbit-level PSU/Anti-Twin realization: three antipodal pairs arranged as two alternating trigram triples. It does not identify all 64 Q6 states with one Fibonacci orbit.
+A reversor-symmetric period-six orbit of the Fibonacci trace map carries a dihedral \(D_6\)-action. Its half-turn \(T^3\) is an involution pairing opposite orbit points, while \(T^2\) cycles each of the two alternating three-point subsets. We construct an explicit six-element \(D_6\)-orbit inside the 64 Q6 hexagrams, each written as an ordered pair of three-bit trigrams. On this orbit, Q6 antipodal complement is exactly the half-turn of the hexagon. This gives an exact orbit-level PSU/Anti-Twin realization: three antipodal pairs arranged on the two alternating vertex triangles. It does not identify all 64 Q6 states with one Fibonacci orbit.
 
 ## 1. Two distinct six-position structures: trigrams and interlaced triangles
 
@@ -92,7 +92,7 @@ These projectors give symmetric/antisymmetric combinations across opposite pairs
 
 ## 4. An explicit six-state D6 orbit in Q6
 
-Arrange the six bit positions on a hexagon. Let \(r\) act by cyclic shift \(i\mapsto i+1\pmod6\), and let \(s\) act by reflection \(i\mapsto2-i\pmod6\). These permutations act on the six bits of each hexagram.
+Arrange the six line positions of each hexagram at the vertices of a regular hexagon. Let \(r\) act by cyclic shift \(i\mapsto i+1\pmod6\), and let \(s\) act by reflection \(i\mapsto2-i\pmod6\). These generate the full 12-element symmetry group. The chosen \(s\) is a vertex-axis reflection; its conjugates give the other two vertex axes, while the remaining three reflections are edge-axis reflections. The two alternating position triples are the two interlaced equilateral triangles. This geometric partition is distinct from the consecutive trigram block split.
 
 Take
 \[
@@ -155,7 +155,7 @@ The real three-dimensional permutation representation of a triangle rotation als
 
 ## 7. Theorem, proof, and evidence boundary
 
-**Theorem.** Every exact period-six orbit through a point of \(\operatorname{Fix}(R)\) is \(D_6\)-equivariantly isomorphic to the Q6 orbit of \(q_0=000\mid111\) under the specified dihedral action on the six bit positions. Under this isomorphism, \(T^3\) corresponds to Q6 antipodal complement \(J\). The orbit-level quotient consists of three antipodal pairs, while the global Q6 involution partitions all 64 hexagrams into 32 pairs.
+**Theorem.** Every exact period-six orbit through a point of \(\operatorname{Fix}(R)\) is \(D_6\)-equivariantly isomorphic to the Q6 orbit of \(q_0=000\mid111\) under the specified dihedral action on the six line positions. Under this isomorphism, \(T^3\) corresponds to Q6 antipodal complement \(J\). The alternating position classes are the two interlaced triangles, exchanged by the half-turn; the orbit-level quotient consists of three opposite pairs, while the global Q6 involution partitions all 64 hexagrams into 32 pairs. The consecutive lower/upper trigram partition remains a distinct structure.
 
 **Proof.** The reversor relation gives the Fibonacci orbit the \(D_6\)-set structure \(D_6/\langle s\rangle\). The hexagram \(q_0\) is fixed by \(s:i\mapsto2-i\), and its six rotations are distinct, so its orbit has the same stabilizer. The map \(T^kp\mapsto r^kq_0\) is therefore well-defined and equivariant. Since \(r^3q_0=Jq_0\), and complement commutes with all bit-position permutations, \(T^3\) corresponds to \(J\) on the entire six-state orbit. Finally, \(J\) is fixed-point-free on the 64 binary strings, giving 32 global antipodal pairs. \(\square\)
 
