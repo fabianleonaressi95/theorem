@@ -2,13 +2,19 @@
 
 **Date:** 25 November 2026  
 **Classification:** exact finite combinatorics and group action.  
-**Status:** proved for the specified six-state Q6 suborbit. Extension to all 64 hexagrams and identification with Pellis operators remain open.
+**Status:** proved as a finite \(D_6\)-set isomorphism on the specified six-state Q6 suborbit. The geometric two-triangle interpretation and the local \(C_3\) representation at \(p_0\) are stated with their precise scope. Extension to all 64 hexagrams and identification with Pellis operators remain open.
 
 ## Abstract
 
 A reversor-symmetric period-six orbit of the Fibonacci trace map carries a dihedral \(D_6\)-action. Its half-turn \(T^3\) is an involution pairing opposite orbit points, while \(T^2\) cycles each of the two alternating three-point subsets. We construct an explicit six-element \(D_6\)-orbit inside the 64 Q6 hexagrams, each written as an ordered pair of three-bit trigrams. On this orbit, Q6 antipodal complement is exactly the half-turn of the hexagon. This gives an exact orbit-level PSU/Anti-Twin realization: three antipodal pairs arranged as two alternating trigram triples. It does not identify all 64 Q6 states with one Fibonacci orbit.
 
-## 1. Q6 as an ordered pair of trigrams
+## 1. Two distinct six-position structures: trigrams and interlaced triangles
+
+A geometric regular hexagram (Star of David) has six vertices and symmetry group \(D_6\), of order 12: six rotations by multiples of \(60^\\circ\), and six reflections. Three reflection axes pass through opposite vertices; the other three pass through midpoints of opposite edges. Its vertices split into the two alternating triples, each the vertex set of an equilateral triangle; these are the two interlaced triangles.
+
+For an I Ching hexagram, the six line bits are conventionally grouped into two consecutive three-bit blocks, the lower and upper trigrams. This consecutive trigram split is not literally the alternating-vertex split of the Star of David. The common structure is the six-position set with its dihedral action; the two partitions must not be conflated.
+
+## 2. Q6 as an ordered pair of trigrams
 
 Let
 \[
@@ -35,7 +41,7 @@ Consequently the 64 hexagrams split into exactly 32 antipodal pairs \(\{x,Jx\}\)
 
 Thus PSU/Anti-Twin is an antipodal pairing internal to the 64 ordered-trigram states; it is not a disjoint union of two independent copies of Q6.
 
-## 2. The D6 action on a symmetric Fibonacci six-orbit
+## 3. The D6 action on a symmetric Fibonacci six-orbit
 
 Let
 \[
@@ -84,7 +90,7 @@ P_\pm=\frac12(I\pm S).
 \]
 These projectors give symmetric/antisymmetric combinations across opposite pairs; they are not the indicator projections onto \(\mathcal T_0\) and \(\mathcal T_1\).
 
-## 3. An explicit six-state D6 orbit in Q6
+## 4. An explicit six-state D6 orbit in Q6
 
 Arrange the six bit positions on a hexagon. Let \(r\) act by cyclic shift \(i\mapsto i+1\pmod6\), and let \(s\) act by reflection \(i\mapsto2-i\pmod6\). These permutations act on the six bits of each hexagram.
 
@@ -111,7 +117,7 @@ On these six hexagrams the antipodal complement is the half-turn:
 \]
 Each displayed state has its second trigram equal to the bitwise complement of its first. The selected orbit therefore consists of three antipodal pairs. It is a six-state suborbit of Q6, not the whole 64-state space.
 
-## 4. Exact equivariant identification
+## 5. Exact equivariant identification
 
 For any exact period-six point \(p=(a,b,a)\) in the reversor-fixed plane, define
 \[
@@ -129,15 +135,34 @@ In particular,
 \]
 Thus the Fibonacci half-turn involution agrees exactly with the restriction of Q6 antipodal PSU/Anti-Twin complement under this orbit-level identification.
 
-The alternating Fibonacci triples map to the even- and odd-rotation triples of the six selected hexagrams. The antipodal involution pairs one state from each triple; the quotient has three antipodal classes.
+The alternating Fibonacci triples map to the even- and odd-rotation triples of the six selected hexagrams. Under the regular-hexagon realization, these are exactly the two alternating vertex sets (the two interlaced triangles). The antipodal involution pairs opposite vertices, one from each triangle; the quotient has three antipodal classes. This statement concerns the six positions/vertices in the geometric realization, not the consecutive lower/upper trigram blocks.
 
-## 5. Theorem, proof, and evidence boundary
+## 6. The order-three linearization at the singular endpoint \(p_0\)
+
+At \(p_0=(0,0,0)\),
+\\[
+DT(p_0)=\\begin{pmatrix}0&0&-1\\\\1&0&0\\\\0&1&0\\end{pmatrix},
+\\qquad DT(p_0)^3=-I_3,
+\\qquad DT(p_0)^6=I_3.
+\\]
+Thus \(DT^2(p_0)\) has order three and spectrum
+\\[
+\\{1,\\omega,\\omega^2\\},\\qquad \\omega=e^{2\\pi i/3}.
+\\]
+The real three-dimensional permutation representation of a triangle rotation also has this spectrum and minimal polynomial \(X^3-1\). Since the three eigenvalues are distinct, both real matrices are cyclic and are similar over \(\\mathbb R\). Hence the ambient linearization \(DT^2(p_0)\) is isomorphic, as a real \(C_3\)-representation, to the permutation representation on the three vertices of one triangle.
+
+**Singularity caveat.** The Fricke level through \(p_0\) is singular. This is an isomorphism of ambient three-dimensional linear representations, not an identification with a two-dimensional tangent plane to a regular Fricke surface. It also does not by itself construct an operator intertwiner with Pellis.
+
+## 7. Theorem, proof, and evidence boundary
 
 **Theorem.** Every exact period-six orbit through a point of \(\operatorname{Fix}(R)\) is \(D_6\)-equivariantly isomorphic to the Q6 orbit of \(q_0=000\mid111\) under the specified dihedral action on the six bit positions. Under this isomorphism, \(T^3\) corresponds to Q6 antipodal complement \(J\). The orbit-level quotient consists of three antipodal pairs, while the global Q6 involution partitions all 64 hexagrams into 32 pairs.
 
 **Proof.** The reversor relation gives the Fibonacci orbit the \(D_6\)-set structure \(D_6/\langle s\rangle\). The hexagram \(q_0\) is fixed by \(s:i\mapsto2-i\), and its six rotations are distinct, so its orbit has the same stabilizer. The map \(T^kp\mapsto r^kq_0\) is therefore well-defined and equivariant. Since \(r^3q_0=Jq_0\), and complement commutes with all bit-position permutations, \(T^3\) corresponds to \(J\) on the entire six-state orbit. Finally, \(J\) is fixed-point-free on the 64 binary strings, giving 32 global antipodal pairs. \(\square\)
 
 **Proved exactly**
+- The geometric regular hexagram has the 12-element symmetry group \(D_6\), with three vertex-axis and three edge-axis reflections.
+- Its six vertices split into two alternating equilateral triangles; this is distinct from the consecutive lower/upper trigram split of an I Ching hexagram.
+- The ambient \(DT^2(p_0)\) representation is real-similar to the permutation representation of \(C_3\) on a triangle.
 - Q6 is the ordered-trigram-pair space \((\mathbb Z_2)^3\times(\mathbb Z_2)^3\).
 - \(J\) is a fixed-point-free involution with 32 antipodal pairs.
 - A reversor-symmetric exact period-six Fibonacci orbit is a transitive \(D_6\)-set.
@@ -149,5 +174,7 @@ The alternating Fibonacci triples map to the even- and odd-rotation triples of t
 - An intertwiner between the full Q6 graph Laplacian, the 188-dimensional RGS operator, and the physical Pellis transfer operator.
 - A continuum two-sheet geometry or wormhole interpretation.
 - A physical identification of the T147 golden multipliers or T148 order-three endpoint with Pellis resonance frequencies.
+
+The two three-vertex triangles are the alternating position classes; the projectors \(P_\\pm=(I\\pm T^3)/2\) instead select symmetric/antisymmetric combinations across opposite vertices. Thus the two rank-three eigenspaces are not the coordinate spans of the two triangles.
 
 The result is stronger than the counting observation \(2\times3=6\): it is an explicit \(D_6\)-equivariant bijection on a six-state Q6 suborbit, with the antipodal involution exactly matched to \(T^3\).
