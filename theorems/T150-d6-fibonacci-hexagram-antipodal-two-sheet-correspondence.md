@@ -178,3 +178,59 @@ The real three-dimensional permutation representation of a triangle rotation als
 The two three-vertex triangles are the alternating position classes; the projectors \(P_\\pm=(I\\pm T^3)/2\) instead select symmetric/antisymmetric combinations across opposite vertices. Thus the two rank-three eigenspaces are not the coordinate spans of the two triangles.
 
 The result is stronger than the counting observation \(2\times3=6\): it is an explicit \(D_6\)-equivariant bijection on a six-state Q6 suborbit, with the antipodal involution exactly matched to \(T^3\).
+
+
+## 8. Canonical two-sheet/three-mode factorization of the six-dimensional orbit module
+
+The six-dimensional permutation module has a canonical factorization once the antipodal pairs are used as mode labels. Let \(e_k\) denote the basis vector at \(T^kp\), and let \(f_{\epsilon,j}\) be the basis of \(\mathbb C^2_{\rm sheet}\otimes\mathbb C^3_{\rm mode}\). Define
+\[
+\Phi(e_{2j})=f_{0,j},\qquad
+\Phi(e_{2j+3\ {\rm mod}\ 6})=f_{1,j},
+\quad j=0,1,2.
+\]
+This is a permutation-unitary map. Let \(C_3e_j=e_{j+1\ {\rm mod}\ 3}\) and \(F_3e_j=e_{-j\ {\rm mod}\ 3}\). In sheet-major order,
+\[
+\Phi r\Phi^{-1}=
+\begin{pmatrix}0&C_3^2\\ C_3^{-1}&0\end{pmatrix},
+\qquad
+\Phi s\Phi^{-1}=
+\begin{pmatrix}F_3&0\\0&F_3\end{pmatrix}.
+\]
+In particular,
+\[
+\boxed{
+\Phi r^2\Phi^{-1}=I_2\otimes C_3,\quad
+\Phi r^3\Phi^{-1}=\sigma_x\otimes I_3,\quad
+\Phi s\Phi^{-1}=I_2\otimes F_3.
+}
+\]
+Thus the six-orbit module is exactly two sheets, each carrying a three-mode cyclic representation. The half-turn is the sheet exchange, and the two parity projections have rank three.
+
+This factorization is a representation-space intertwiner. It does not assert that the full Q6 graph Laplacian preserves the six-state subspace, nor does it identify the channel space with a physical Pellis transfer operator. A raw \(2\times2\) Cauchy transfer has the wrong dimension; an operator-level identification requires a physically derived three-mode multiplicity and compatible boundary domains. The corresponding transfer lift and its multiplicity test are recorded in the companion Pellis C dossier.
+
+
+## 9. Realization of the three-mode factor as a spherical dipole representation
+
+The three-point permutation representation also has a canonical real orthogonal realization as the \(\ell=1\) angular representation of a sphere restricted to a \(D_3\) subgroup. Define
+\[
+W_3=
+\begin{pmatrix}
+1/\sqrt3&1/\sqrt3&1/\sqrt3\\
+2/\sqrt6&-1/\sqrt6&-1/\sqrt6\\
+0&1/\sqrt2&-1/\sqrt2
+\end{pmatrix}.
+\]
+For the cyclic shift \(C_3e_j=e_{j+1}\) and reflection \(F_3e_j=e_{-j}\),
+\[
+W_3C_3W_3^T=
+\begin{pmatrix}
+1&0&0\\
+0&-\frac12&-\frac{\sqrt3}{2}\\
+0&\frac{\sqrt3}{2}&-\frac12
+\end{pmatrix},
+\qquad
+W_3F_3W_3^T=\operatorname{diag}(1,1,-1).
+\]
+The first coordinate is the invariant axis; the remaining two form the real \(m=\pm1\) angular pair. This is the standard \(\ell=1\) representation restricted to a \(120^\circ\) rotation and a reflection. Therefore \((I_2\otimes W_3)\Phi\) identifies the Fibonacci six-orbit representation with two copies of the spherical dipole representation.
+
+This is an exact representation-theoretic realization and a candidate geometric interpretation for three standing-wave modes per sheet. It does not establish that the Golden Spheres Resonance operator selects the \(\ell=1\) sector, nor that its boundary conditions preserve this subspace. Those are separate physical/operator questions.
