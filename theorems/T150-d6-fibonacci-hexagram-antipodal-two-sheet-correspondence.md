@@ -140,16 +140,16 @@ The alternating Fibonacci triples map to the even- and odd-rotation triples of t
 ## 6. The order-three linearization at the singular endpoint \(p_0\)
 
 At \(p_0=(0,0,0)\),
-\\[
-DT(p_0)=\\begin{pmatrix}0&0&-1\\\\1&0&0\\\\0&1&0\\end{pmatrix},
-\\qquad DT(p_0)^3=-I_3,
-\\qquad DT(p_0)^6=I_3.
-\\]
+\[
+DT(p_0)=\begin{pmatrix}0&0&-1\\1&0&0\\0&1&0\end{pmatrix},
+\qquad DT(p_0)^3=-I_3,
+\qquad DT(p_0)^6=I_3.
+\]
 Thus \(DT^2(p_0)\) has order three and spectrum
-\\[
-\\{1,\\omega,\\omega^2\\},\\qquad \\omega=e^{2\\pi i/3}.
-\\]
-The real three-dimensional permutation representation of a triangle rotation also has this spectrum and minimal polynomial \(X^3-1\). Since the three eigenvalues are distinct, both real matrices are cyclic and are similar over \(\\mathbb R\). Hence the ambient linearization \(DT^2(p_0)\) is isomorphic, as a real \(C_3\)-representation, to the permutation representation on the three vertices of one triangle.
+\[
+\{1,\omega,\omega^2\},\qquad \omega=e^{2\pi i/3}.
+\]
+The real three-dimensional permutation representation of a triangle rotation also has this spectrum and minimal polynomial \(X^3-1\). Since the three eigenvalues are distinct, both real matrices are cyclic and are similar over \(\mathbb R\). Hence the ambient linearization \(DT^2(p_0)\) is isomorphic, as a real \(C_3\)-representation, to the permutation representation on the three vertices of one triangle.
 
 **Singularity caveat.** The Fricke level through \(p_0\) is singular. This is an isomorphism of ambient three-dimensional linear representations, not an identification with a two-dimensional tangent plane to a regular Fricke surface. It also does not by itself construct an operator intertwiner with Pellis.
 
