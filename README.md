@@ -675,3 +675,6 @@ These are finite mathematical/software checks. They do not establish physical ca
 - [T138 — Exact two-sheet decomposition of the six-dimensional icosahedral matrix](theorems/T138-c6-exact-two-sheet-spin3-decomposition.md) proves over the integers that the displayed symmetric matrix satisfies \(C_6^2=5I_6\), establishes its \(3+3\) orthogonal eigenspace splitting, gives the graph parametrization of both sheets and records the induced \(\Lambda^2\) spectrum. It distinguishes a real Euclidean 3-space and its \(SO(3)\)/Spin(3) frame symmetry from an intrinsic quaternionic module.
 - Reproducibility: [exact integer audit](scripts/audit_t138_c6_two_sheet_spin3.py) and [regression tests](tests/test_t138_c6_two_sheet_spin3.py).
 - **Open gate:** no six-index \(2I^*\) generator action has yet been supplied or shown to commute with \(C_6\). The representation types of the sheets, a specific \(2I^*\) lift, and any physical/De Aquino interpretation remain open.
+
+
+- **T151 — Spectral expectation weights:** an exact lemma showing that a diagonal spectral expectation is a convex combination of eigenvalues and that a target value does not uniquely determine modal weights without an independent state-selection principle. This audits the expectation-value construction in the Golden Spheres Resonance preprint without ruling out a future variational derivation.
