@@ -665,6 +665,8 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 ### Fibonacci–Fricke periodic orbits and Q6 antipodal hexagrams — 25 November 2026
 
+- [Pellis correspondence — Fibonacci transfer, Fricke dynamics, and the Q6 antipodal orbit](docs/PELLIS_FIBONACCI_Q6_TWO_SHEET_BRIDGE.md): records the exact (SL(2)) Fibonacci trace recursion, the neck matching factor (2bd=0), the T147–T150 results, and the precise remaining operator-intertwining requirements. It explicitly separates trace dynamics from the full matrix-entry data needed for Pellis resonances.
+
 - [T149 — Exact symmetric period-three and period-six Fibonacci–Fricke orbits](theorems/T149-symmetric-fibonacci-fricke-period-three-period-six-orbits.md): records the nontrivial symmetric period-three orbit, the exact Type-A and Type-C period-six families, their Fricke levels, and exact monodromy. At (c=4), the regular period-six tangential traces are (402) and (536\pm98\sqrt{89}). The classification is restricted to the reversor-symmetric locus; the singular period-three orbit is assigned its ambient monodromy, not a regular tangent spectrum.
 - [T150 — D6-equivariant Fibonacci hexagonal orbit and Q6 antipodal two-sheet correspondence](theorems/T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence.md): writes each Q6 hexagram as an ordered pair of trigrams, defines the fixed-point-free antipodal complement (J), and proves an explicit (D_6)-equivariant bijection between a reversor-symmetric Fibonacci period-six orbit and the six-state Q6 orbit of (000\mid111). On that suborbit (T^3) is exactly the restriction of (J). Globally Q6 has 32 antipodal pairs. The full 64-state/Q6-operator and physical Pellis intertwiners remain open.
 
