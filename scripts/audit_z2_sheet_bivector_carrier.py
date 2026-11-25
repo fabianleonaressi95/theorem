@@ -83,6 +83,21 @@ def main() -> None:
         max(np.linalg.norm(Kc[:half, half:]), np.linalg.norm(Kc[half:, :half]))
     )
 
+    # --- null-pair / complex-structure structure ---
+    # Globally: Z_S^2 = +1/4 P_W and Z_A^2 = -1/4 P_W, hence Z_S^2 + Z_A^2 = 0.
+    I188 = np.eye(n)
+    Pw = 4.0 * (Z @ Z)  # = P_W since Z_S^2 = 1/4 P_W
+    null_pair_err = float(np.linalg.norm(Z @ Z + Za @ Za))
+    za2_eq = float(np.linalg.norm(Za @ Za + 0.25 * Pw))
+    zs2_eq = float(np.linalg.norm(Z @ Z - 0.25 * Pw))
+    pw_idem = float(np.linalg.norm(Pw @ Pw - Pw))
+    pw_sym = float(np.linalg.norm(Pw - Pw.T))
+    # On the carrier, J := 2 Z_A|_W is an almost-complex structure:
+    # J^2 = -I_W and {J, S} = 0 (S = 2 Z_S|_W).
+    J = 2.0 * A
+    complex_structure_err = float(np.linalg.norm(J @ J + Iw))
+    anticomm_err = float(np.linalg.norm(J @ S + S @ J))
+
     checks = {
         "carrier_dimension_is_6": carrier_dim == 6,
         "carrier_inside_ker_PG": pg_expect < 1e-8,
@@ -93,6 +108,12 @@ def main() -> None:
         "ZA_offdiagonal_only": diag_block < 1e-8,
         "ZA_offdiag_norm_sqrt3_over_2": off_err < 1e-8,
         "ZA_preserves_carrier": leakage < 1e-8,
+        "null_pair_ZS2_plus_ZA2_zero": null_pair_err < 1e-8,
+        "ZA_squared_eq_minus_quarter_PW": za2_eq < 1e-8,
+        "ZS_squared_eq_quarter_PW": zs2_eq < 1e-8,
+        "PW_projector": max(pw_idem, pw_sym) < 1e-8,
+        "JA_is_complex_structure": complex_structure_err < 1e-8,
+        "JA_anticommutes_with_S": anticomm_err < 1e-8,
     }
 
     report = {
@@ -118,6 +139,11 @@ def main() -> None:
             "ZA_offdiag_norm_error": off_err,
             "ZA_carrier_leakage": leakage,
             "K0_sheet_mixing_norm": sheet_mixing,
+            "null_pair_ZS2_plus_ZA2_fro": null_pair_err,
+            "ZA2_eq_minus_quarter_PW_fro": za2_eq,
+            "ZS2_eq_quarter_PW_fro": zs2_eq,
+            "complex_structure_J_squared_plus_I_fro": complex_structure_err,
+            "J_S_anticommutator_fro": anticomm_err,
         },
         "checks": checks,
         "all_pass": all(checks.values()),
