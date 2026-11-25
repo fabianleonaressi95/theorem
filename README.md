@@ -663,6 +663,13 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 ### T138 — Exact C6 two-sheet decomposition and the Spin(3) distinction
 
+### Fibonacci–Fricke periodic orbits and Q6 antipodal hexagrams — 25 November 2026
+
+- [T149 — Exact symmetric period-three and period-six Fibonacci–Fricke orbits](theorems/T149-symmetric-fibonacci-fricke-period-three-period-six-orbits.md): records the nontrivial symmetric period-three orbit, the exact Type-A and Type-C period-six families, their Fricke levels, and exact monodromy. At (c=4), the regular period-six tangential traces are (402) and (536\pm98\sqrt{89}). The classification is restricted to the reversor-symmetric locus; the singular period-three orbit is assigned its ambient monodromy, not a regular tangent spectrum.
+- [T150 — D6-equivariant Fibonacci hexagonal orbit and Q6 antipodal two-sheet correspondence](theorems/T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence.md): writes each Q6 hexagram as an ordered pair of trigrams, defines the fixed-point-free antipodal complement (J), and proves an explicit (D_6)-equivariant bijection between a reversor-symmetric Fibonacci period-six orbit and the six-state Q6 orbit of (000\mid111). On that suborbit (T^3) is exactly the restriction of (J). Globally Q6 has 32 antipodal pairs. The full 64-state/Q6-operator and physical Pellis intertwiners remain open.
+
+**Connection to T147–T148:** T147 and T148 are the two distinct singular endpoint limits (p_1=(1,1,1)) and (p_0=(0,0,0)) of the same period-two branch. T149 adds other symmetric periodic families; T150 supplies the exact orbit-level D6/hexagram bridge. None of these finite dynamical results alone identifies the physical Pellis transfer operator.
+
 - [T138 — Exact two-sheet decomposition of the six-dimensional icosahedral matrix](theorems/T138-c6-exact-two-sheet-spin3-decomposition.md) proves over the integers that the displayed symmetric matrix satisfies \(C_6^2=5I_6\), establishes its \(3+3\) orthogonal eigenspace splitting, gives the graph parametrization of both sheets and records the induced \(\Lambda^2\) spectrum. It distinguishes a real Euclidean 3-space and its \(SO(3)\)/Spin(3) frame symmetry from an intrinsic quaternionic module.
 - Reproducibility: [exact integer audit](scripts/audit_t138_c6_two_sheet_spin3.py) and [regression tests](tests/test_t138_c6_two_sheet_spin3.py).
 - **Open gate:** no six-index \(2I^*\) generator action has yet been supplied or shown to commute with \(C_6\). The representation types of the sheets, a specific \(2I^*\) lift, and any physical/De Aquino interpretation remain open.
