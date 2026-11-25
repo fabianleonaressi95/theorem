@@ -165,23 +165,23 @@ The roots of the quadratic with coefficient \(3+\sqrt{89}\) give the plus trace;
 ## 7. Branch collisions and the two distinct endpoint mechanisms
 
 The two period-six branches have different limiting behavior. On A,
-\\[
+\[
 c_A(b)+1=b^2,
-\\]
+\]
 so the branch reaches \(p_0=(0,0,0)\) at \(b=0\). On C,
-\\[
+\[
 c_C(a)+1=3a^2-6a^3+16a^4+O(a^5)
-\\]
-as \(a\\to0\), again reaching \(p_0\). At this point
-\\[
+\]
+as \(a\to0\), again reaching \(p_0\). At this point
+\[
 DT(p_0)^6=I_3,
-\\]
-while \(DT^2(p_0)\) has ambient spectrum \(\\{1,e^{2\\pi i/3},e^{-2\\pi i/3}\\}\). Since \(p_0\) is singular on its Fricke level, this is an ambient linear representation statement, not a tangent-plane spectrum on a regular surface.
+\]
+while \(DT^2(p_0)\) has ambient spectrum \(\{1,e^{2\pi i/3},e^{-2\pi i/3}\}\). Since \(p_0\) is singular on its Fricke level, this is an ambient linear representation statement, not a tangent-plane spectrum on a regular surface.
 
-At the other end of C, writing \(a=-1+\\epsilon\),
-\\[
-c_C(a)=5\\epsilon^2+O(\\epsilon^3),
-\\]
+At the other end of C, writing \(a=-1+\epsilon\),
+\[
+c_C(a)=5\epsilon^2+O(\epsilon^3),
+\]
 and \(p_C(-1)=(-1,1,-1)\), the symmetric period-three orbit. The period-six branch therefore closes on the period-three orbit at \(c=0\), where the period-three ambient monodromy has multiplier \(-1\). This is a candidate period-doubling collision, not yet a standard flip-bifurcation theorem: the collision lies on a singular Fricke level and nondegeneracy conditions have not been established.
 
 These are distinct mechanisms: an order-six linear resonance at \(p_0\), and a period-three/period-six collision at the singular three-cycle.
@@ -192,14 +192,14 @@ Within the reversor-symmetric locus \(x=z\), the level \(c=4\) contains one exac
 
 ## 9. Exact relation between period-two and period-six traces at \(c=4\)
 
-On the period-two branch B at \(c=4\), the tangential period-two traces are \(\\tau_2^\\pm=2\\pm\\sqrt{89}\). If \(A\) is the period-two tangential monodromy, then the period-six iterate is \(A^3\), and Cayley–Hamilton gives
-\\[
-\\operatorname{tr}(A^3)=(\\operatorname{tr}A)^3-3\\operatorname{tr}A.
-\\]
+On the period-two branch B at \(c=4\), the tangential period-two traces are \(\tau_2^\pm=2\pm\sqrt{89}\). If \(A\) is the period-two tangential monodromy, then the period-six iterate is \(A^3\), and Cayley–Hamilton gives
+\[
+\operatorname{tr}(A^3)=(\operatorname{tr}A)^3-3\operatorname{tr}A.
+\]
 Therefore
-\\[
-(2\\pm\\sqrt{89})^3-3(2\\pm\\sqrt{89})=536\\pm98\\sqrt{89}.
-\\]
+\[
+(2\pm\sqrt{89})^3-3(2\pm\sqrt{89})=536\pm98\sqrt{89}.
+\]
 These are exactly the two tangential traces obtained on the two C period-six cycles at \(c=4\). This is an exact algebraic trace identity. It does not by itself identify the period-six C cycles with the period-two orbit; they are distinct periodic orbits, and the equality is at the level of the trace of the cubed two-dimensional monodromy.
 
 ## 10. Theorem statement and proof
@@ -211,7 +211,7 @@ These are exactly the two tangential traces obtained on the two C period-six cyc
 DT(x,y,z)=
 \begin{pmatrix}2y&2x&-1\\1&0&0\\0&1&0\end{pmatrix}.
 \]
-On regular period-six levels, invariance of \(I\) fixes the normal covector; because \(\\det DT^6=+1\), the tangential quadratic is reciprocal. Substitution of \(b^2=5\), and reduction modulo the Type-C quartic, gives the exact traces displayed above. The period-three matrix is obtained by multiplying the three exact Jacobians at its orbit points. \(\square\)
+On regular period-six levels, invariance of \(I\) fixes the normal covector; because \(\det DT^6=+1\), the tangential quadratic is reciprocal. Substitution of \(b^2=5\), and reduction modulo the Type-C quartic, gives the exact traces displayed above. The period-three matrix is obtained by multiplying the three exact Jacobians at its orbit points. \(\square\)
 
 ## 11. Scope
 
