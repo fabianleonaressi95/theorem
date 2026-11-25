@@ -59,6 +59,21 @@ The full ambient monodromy spectrum is
 \]
 The orbit lies at singular points of \(\Sigma_0\), where \(\nabla I=0\). This is therefore an ambient monodromy result, not a tangential Floquet statement on a regular Fricke surface.
 
+The real solution set of \(T^3(x,y,z)=(x,y,z)\) consists of the two fixed points
+\[
+p_0=(0,0,0),\qquad p_1=(1,1,1),
+\]
+and the three points of the exact period-three orbit displayed above. One convenient elimination form of the fixed-point equations is
+\[
+\begin{cases}
+8x^3y^2-8x^2yz-2xy^2+2xz^2-x+yz=0,\\
+2x^2y-xz-y=0,\\
+xy-z=0.
+\end{cases}
+\]
+Substituting \(z=xy\) reduces the real solutions to \(p_0,p_1\) and the three-cycle. In particular, there is no exact period-three orbit on \(c=4\); the nontrivial three-cycle is on the singular level \(c=0\).
+
+
 ## 3. Exact factorization of the symmetric \(T^6\)-fixed locus
 
 For \(p=(a,b,a)\in\operatorname{Fix}(R)\), the condition that \(T^3(p)\) is again fixed by \(R\) is
