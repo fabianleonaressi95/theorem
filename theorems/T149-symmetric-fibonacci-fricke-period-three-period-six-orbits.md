@@ -60,15 +60,15 @@ The orbit lies at singular points of \(\Sigma_0\), where \(\nabla I=0\). This is
 
 ## 3. Exact factorization of the symmetric \(T^6\)-fixed locus
 
-For \(p=(a,b,a)\\in\\operatorname{Fix}(R)\), the condition that \(T^3(p)\) is again fixed by \(R\) is
-\\[
-\\boxed{4a(2ab-a-b)(2ab-a+b)=0.}
-\\]
+For \(p=(a,b,a)\in\operatorname{Fix}(R)\), the condition that \(T^3(p)\) is again fixed by \(R\) is
+\[
+\boxed{4a(2ab-a-b)(2ab-a+b)=0.}
+\]
 It yields precisely three algebraic branches:
 
-- **A:** \(a=0\), namely \(p_A(b)=(0,b,0)\), of exact period six for \(b\\ne0\).
-- **B:** \(2ab-a+b=0\), namely \(p_2(a)=(a,a/(2a-1),a)\), the previously studied period-two branch (where defined).
-- **C:** \(2ab-a-b=0\), namely \(p_C(a)=(a,a/(2a+1),a)\), of exact period six for \(a\\ne0,-1\) and \(2a+1\\ne0\).
+- **A:** \(a=0\), namely \(p_A(b)=(0,b,0)\), of exact period six for \(b\ne0\).
+- **B:** \(2ab-a-b=0\), namely \(p_2(a)=(a,a/(2a-1),a)\), the previously studied period-two branch (where defined).
+- **C:** \(2ab-a+b=0\), namely \(p_C(a)=(a,a/(2a+1),a)\), of exact period six for \(a\ne0,-1\) and \(2a+1\ne0\).
 
 The implication from \(T^3(p)\\in\\operatorname{Fix}(R)\) to \(T^6(p)=p\) follows from reversibility: \(RT^3=T^{-3}R\). Conversely, every point of the symmetric locus fixed by \(T^6\) is represented by one of these branches. The two factors B and C must not be merged: B has period two, whereas C has exact period six away from its excluded lower-period parameter values.
 
@@ -123,7 +123,7 @@ For a regular Fricke level, invariance of \(I\) gives a unit normal multiplier f
 
 ## 6. Tangential monodromy on regular period-six levels
 
-At an exact period-six point \(p\) on a regular Fricke level, put \(M_6(p)=DT^6(p)\). Differentiating \(I\circ T^6=I\) fixes the normal covector. Since \(\det DT=1\), the ambient characteristic polynomial factors as
+At an exact period-six point \(p\) on a regular Fricke level, put \(M_6(p)=DT^6(p)\). Differentiating \(I\circ T^6=I\) fixes the normal covector. Since \(\det DT=-1\), but the period is six and \(\det DT^6=+1\), the ambient characteristic polynomial factors as
 \[
 \chi_{M_6(p)}(\lambda)
 =(\lambda-1)(\lambda^2-\tau\lambda+1),
