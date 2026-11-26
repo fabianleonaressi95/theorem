@@ -8,6 +8,13 @@ on:
       - 'scripts/audit_ja_local_identifiability.py'
       - 'tests/test_ja_local_identifiability.py'
       - '.github/workflows/hysteresis-audit.yml'
+  pull_request:
+    paths:
+      - 'Hysteresis_datasets.xlsx'
+      - 'scripts/audit_hysteresis_dataset.py'
+      - 'scripts/audit_ja_local_identifiability.py'
+      - 'tests/test_ja_local_identifiability.py'
+      - '.github/workflows/hysteresis-audit.yml'
   workflow_dispatch:
 permissions:
   contents: read
