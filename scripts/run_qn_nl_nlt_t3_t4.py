@@ -107,12 +107,12 @@ def one_hysteresis(K,model,seed,frequency_seed,dwell,sigmas,dt,
             "forward":forward,"backward":backward,"gaps":gaps}
 
 
-def summarize(rows):
+def summarize(rows, dwells):
     out=[]
     dims=sorted({r["dimension"] for r in rows})
     for n in dims:
         for model in MODELS:
-            for dwell in DEFAULT_DWELLS:
+            for dwell in dwells:
                 ss=[r for r in rows if r["dimension"]==n and r["model"]==model and r["dwell_steps"]==dwell]
                 if not ss: continue
                 out.append({"dimension":n,"model":model,"dwell_steps":dwell,
@@ -133,7 +133,7 @@ def summarize(rows):
                 q[-1]["passes_T3_dwell_persistence"]=bool(g[0]>0 and g[-1]>=.5*g[0] and g[0]<=g[1]<=g[2])
     # T4: Q6 R0 gap must be >= 50% of Q4 at each model/dwell.
     for model in MODELS:
-        for dwell in DEFAULT_DWELLS:
+        for dwell in dwells:
             a=next((x for x in out if x["dimension"]==4 and x["model"]==model and x["dwell_steps"]==dwell),None)
             c=next((x for x in out if x["dimension"]==6 and x["model"]==model and x["dwell_steps"]==dwell),None)
             if a and c:
@@ -177,7 +177,7 @@ def main():
                         a.omega0,a.omega1,a.tau0,a.tau1)
                     row["dimension"]=n
                     rows.append(row)
-    summary=summarize(rows)
+    summary=summarize(rows,dwells)
     report={"protocol":"Q4-Q6-NL-NLT-T3-T4-v1","code_revision":git_revision(),
         "python":platform.python_version(),"numpy":np.__version__,
         "complex_audits":audits,"design":{"dimensions":dims,"sigmas":sigmas,
