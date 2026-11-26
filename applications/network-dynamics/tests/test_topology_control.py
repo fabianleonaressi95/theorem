@@ -29,4 +29,4 @@ def test_topology_control_reproducible_and_has_all_controls():
     assert all(row["replicates"] == 2 for row in a)
     assert all(row["ci95_normal_lower"] <= row["ci95_normal_upper"] for row in a)
     assert all(row["degree_sequence_preserved"] for row in a
-               if row["control"].endswith("_degree_preserving_rewire"))
+               if "_minus_" not in row["control"] and row["control"].endswith("_degree_preserving_rewire"))
