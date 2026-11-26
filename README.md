@@ -67,8 +67,8 @@ theorem/
 
 - **[TSMR-H — Half-balance principle](theorems/TSMR-H_half_balance_fractal_pentagon.md)** — proves the Bernoulli first-level overlap threshold at λ=1/2, the maximum-entropy probability p=1/2, and the pentagonal projector balance ||Pq||²=1/2; distinguishes the golden singular Bernoulli regime λ=φ⁻¹ from the uniform critical model and keeps the De Aquino coupling conditional. Reproducible audit: `audits/tsmr_h_half_balance.py`; tests: `tests/test_tsmr_h_half_balance.py`.
 
-- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 239 theorem records and 14 companion catalogue entries are represented in a 292-node, 323-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
-- **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 239 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
+- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 241 theorem records and 14 companion catalogue entries are represented in a 295-node, 330-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
+- **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 241 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 
 
 - **[Ricostruzione dalle fondamenta](monographs/00_FROM_FIRST_PRINCIPLES_LIGHT_CUBE_SPHERE_PHI_PSU_QAT.md)** — luce e unità di Planck, cubo-sfera, derivazione π→φ, icosaedro/quaternioni/2I, PSU–Anti-Twin, Q-ball, QAT e interfaccia Calabi–Yau. È il punto di partenza della ricostruzione; Q6 e PRISM vengono dopo.
@@ -680,3 +680,8 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 
 - **T151 — Spectral expectation weights:** an exact lemma showing that a diagonal spectral expectation is a convex combination of eigenvalues and that a target value does not uniquely determine modal weights without an independent state-selection principle. This audits the expectation-value construction in the Golden Spheres Resonance preprint without ruling out a future variational derivation.
+
+
+### T152 — Binary McKay–ADE, Calabi–Yau orbifolds and crepant resolutions
+
+- [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
