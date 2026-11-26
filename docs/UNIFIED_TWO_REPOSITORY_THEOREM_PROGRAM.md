@@ -25,7 +25,7 @@ A filename, title, merged PR, or successful numerical test is not by itself evid
 
 ## 2. Current inventory of the accessible repository
 
-The main branch of `theorem` contains **236 Markdown records under `theorems/`**. The links below preserve their existing names and IDs. This is an inventory, not a blanket certification of their proof status.
+The curated link list below preserves the original **236-record baseline** and its canonical names. It is not the complete live inventory: as of 26 November 2026, the machine-readable unified graph indexes **254 theorem records** in `theorem/theorems/`. Neither count is a blanket certification of proof status.
 
 
 ## Foundations, Liouville, Bergman, Wilson and Q6
@@ -362,4 +362,4 @@ These are programme-wide gates, not claims that the results already pass:
 
 ## 7. Integrity note for this revision
 
-The accessible repository inventory is generated from the `main` tree and includes 236 Markdown theorem files. The second repository was not accessible under the exact name supplied in this session, so no theorem count, path, or status is fabricated for it. Once its repository endpoint is accessible, the same schema is to be applied and the combined registry completed. Existing scientific records and classifications are not changed by this index.
+The live main-branch registry is now maintained in `docs/UNIFIED_THEOREM_EDGES.json`: it indexes 254 theorem records from `fabianleonaressi95/theorem`, 14 companion catalogue entries from `fabianleonaressi95/rgs-qlg-quaternion-bridge`, and the typed cross-repository/document links. The 236-record figure above is retained only as the historical curated-list baseline. Filename-derived classification edges remain provisional and do not certify theorem status.

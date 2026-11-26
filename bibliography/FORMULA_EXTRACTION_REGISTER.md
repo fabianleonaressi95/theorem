@@ -46,3 +46,5 @@ Si procede per dipendenza matematica, non per notorietà dell'autore. Prima le d
 
 ## Prima tranche
 La prima scheda tratta Wyler e Hua perché il repository contiene già T002–T008 su domini di tipo IV, densità di Bergman e marginali Wilson. Il risultato numerico di Wyler va tenuto separato dalla dimostrazione matematica di Hua e dalla giustificazione fisica della costante alpha.
+
+| F011 | Q6 hypercube graph; Brouwer–Haemers (2012), Biggs (1993) | Graph Laplacian Walsh spectrum; distinction from cubical Hodge/Dirac | Graph result proved and exact integer regression test added. Historical T017 operator not recovered from accessible branch; full Dirac multiplicities, Clifford action, doubling and Rumin identification remain OPEN. | [T017 Q6 Dirac recovery audit](../docs/T017_Q6_DIRAC_RECOVERY_AUDIT.md); [exact graph test](../scripts/test_t017_q6_dirac_recovery.py) |

@@ -1,5 +1,7 @@
 """Tests for scripts/rgs_defect_benchmark.py."""
 import unittest
+import numpy as np
+from scripts.rgs_defect_benchmark import incidence_square, solve_case, measure_volterra_burgers, measure_wedge_frank
 import tempfile
 from pathlib import Path
 import numpy as np

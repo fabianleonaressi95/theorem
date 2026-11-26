@@ -118,3 +118,26 @@ The minimal reproducible sequence is:
 3. “The topology of fullerenes,” *WIREs Computational Molecular Science* (2015). DOI: [10.1002/wcms.1207](https://doi.org/10.1002/wcms.1207).
 
 **Conclusion.** The 90° Stone–Wales event is now treated as a local, atom-conserving graph reconnection; C60 → C64 is a distinct growth operation. The common language with vesica anisotropy is the covariance tensor and, potentially, a verified chain-map diagram. The physical bridge remains open until the atomistic relaxation, density calculation, and chain-map tests are performed.
+
+## 6. Executed C60 graph audit (2026-11-26)
+
+The implementation and output are recorded in [C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md](../docs/C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md), with script [audit_c60_stone_wales.py](../scripts/audit_c60_stone_wales.py) and test [test_c60_stone_wales.py](../tests/test_c60_stone_wales.py).
+
+The correct construction is performed in the **dual triangulation**: flip a dual edge joining two degree-6 vertices whose two opposite vertices have degree 5. The corresponding direct graph is reconstructed as the dual of the flipped triangulation. The run found 30 labelled admissible flips. For every retained candidate, the direct graph has (V,E,F;p,h)=(60,90,32;12,20), all carbon degrees 3, and Euler characteristic 2.
+
+For the selected representative, the direct graph removes bonds (5,37) and (13,36), and adds (5,36) and (13,37). The exact integer chain maps satisfy
+\[
+B'_1S_1=B_1,\qquad B'_2S_2=S_1B_2,
+\]
+with rank(S1)=90 and rank(S2)=31. This verifies a cellular chain correspondence for the chosen path and filling maps. It does **not** construct an intertwiner with Kathara/Q6.
+
+The paired RDKit MMFF94s relaxations give reported model energies 945.1698747 and 963.0943689 (difference +17.9244942 in the same force-field units). The global carbon-coordinate covariance anisotropy changes from 0.0438637 to 0.1381264; the local-patch proxy changes from 0.8911495 to 0.8997506. These are geometric nuclear-coordinate descriptors for one empirical force-field model, not electronic-density moments, DFT energies, or a reaction barrier. The nonzero final gradient norms (0.22199 and 0.21343) are retained as a convergence caveat.
+
+### Updated classification
+
+- C60 dual Stone–Wales graph reconstruction and 30-flip enumeration: numerically verified.
+- Chain-map boundary identities for the selected direct-graph correspondence: exact integer verification.
+- MMFF94s nuclear-coordinate covariance response: numerically verified for one selected representative.
+- Electronic-density anisotropy and the vesica (Q)-tensor: still open.
+- Fullerene-to-Kathara/Q6 chain-map intertwining: still open.
+- Universal fullerene/molecular response law: still open.
