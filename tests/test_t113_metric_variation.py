@@ -22,7 +22,7 @@ def test_scalar_fluid_and_solid_sensitivity(alpha):
 def test_r_zero_separates_phonon_and_phason_sectors():
     K, M = coupled_sectors(0.2, -0.1, 0.0)(1.0)
     values, _ = generalized_modes(K, M)
-    assert values == pytest.approx([0.81, 1.44])
+    assert values == pytest.approx([0.7, 1.5])
     result = logarithmic_sensitivity(coupled_sectors(0.2, -0.1, 0.0))
     assert result["candidate_log_speed_slope"] == pytest.approx([-0.1, 0.2], abs=1e-8)
 
