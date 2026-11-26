@@ -5,15 +5,15 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 251,
+    "theorem_markdown_records": 254,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 251,
+    "classification_edges": 254,
     "hub_to_companion_edges": 30,
-    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T144–T151, the RGS half-scale numerical proposition, and TSMR-H/TSMR-I are backfilled as existing theorem records. T027 uses its canonical node ID. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. Typed comparison links do not assert equivalence.",
-    "total_nodes": 305,
-    "total_edges": 341
+    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, and T153 are indexed as theorem records. T027 uses its canonical node ID. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. Typed comparison links do not assert equivalence.",
+    "total_nodes": 308,
+    "total_edges": 344
   },
   "nodes": [
     {
@@ -729,6 +729,13 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/EQC-MQM1-anisotropic-stabilizer.md",
       "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:EQC-RGS-Q6-gate-realization",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/EQC-RGS-Q6-gate-realization.md",
+      "topic_hub": "H-RGS"
     },
     {
       "id": "THM:KRYSTALLO_SUPERGOLDEN_FINE_STRUCTURE_BRIDGE_AUDIT_2026-11-23",
@@ -2173,6 +2180,13 @@
       "topic_hub": "H-SPECTRAL"
     },
     {
+      "id": "THM:T149-supergolden-dodecahedral-whitney-hodge",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T149-supergolden-dodecahedral-whitney-hodge.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
       "id": "THM:T149-symmetric-fibonacci-fricke-period-three-period-six-orbits",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
@@ -2198,6 +2212,13 @@
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection.md",
       "topic_hub": "H-OTHER"
     },
     {
@@ -4623,6 +4644,27 @@
       "relation": "comparison-only",
       "status": "reviewed",
       "caveat": "T144 supplies exact Molien/invariant-series data for 2I representations; this is representation-theoretic comparison data and does not prove the geometric McKay correspondence or construct the crepant resolution."
+    },
+    {
+      "from": "THM:EQC-RGS-Q6-gate-realization",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T149-supergolden-dodecahedral-whitney-hodge",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
     }
   ]
 }
