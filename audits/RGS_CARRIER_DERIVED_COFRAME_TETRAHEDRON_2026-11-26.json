@@ -99,5 +99,6 @@
     "geometric_coframe": "E_ij = 1/2 (F_i^T deltaX_ij + R_ij^-1 F_j^T deltaX_ij)",
     "face_torsion": "E_ij + R_ij^-1 E_jk + (R_jk R_ij)^-1 E_ki",
     "reverse_orientation": "E_ji = -R_ij E_ij, verified by direct evaluation in both orientations"
-  }
+  },
+  "execution_provenance": "Independent local execution of the same construction and 1000-sample test loop against the exact hash-checked reconstructed RGS coordinates. The checked-in repository script was inspected but was not executed from a Git checkout in this session."
 }
