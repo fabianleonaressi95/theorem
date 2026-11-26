@@ -47,7 +47,7 @@ This is an analytic proof for the graph Laplacian; the accompanying Python test 
    ]
 3. **Cubical Dirac** (D=d+d^*): acts on the direct sum of all cubical cochains, once incidence conventions and inner products are fixed. It satisfies (D^2=dd^*+d^*d), degree by degree, with the appropriate boundary conventions.
 
-The graph Laplacian (L_0) is not automatically the degree-zero block of the full cubical Hodge Laplacian: the latter depends on the chosen cubical boundary maps and includes higher-cell incidence contributions.
+With standard unit inner products and ordinary cubical boundary maps, the degree-zero Hodge Laplacian is \\Delta_0=d_0^*d_0 and equals the vertex graph Laplacian of the cube's 1-skeleton. Higher-dimensional cells do not add a higher-incidence term in degree zero. The full Dirac nevertheless acts on all cochain degrees; knowing only its degree-zero block does not determine the complete Dirac spectrum or multiplicities.
 
 ## 4. Multiplicity and Clifford tests still required for T017
 
