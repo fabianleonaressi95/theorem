@@ -37,7 +37,7 @@
 | `cosmodex-pwa` | private | — | **EMPTY repository** | UNUSED |
 | `astra-q-core` | private | — | **EMPTY repository** | UNUSED |
 
-Total: 14 repositories (13 non-empty + 2 empty). `theroem` is not a separate repository — it is the pre-rename name of `theorem` (GitHub API redirect verified 2026-11-26).
+**Total: 14 repositories: 12 non-empty and 2 empty.** `theroem` is not a separate repository — it is the pre-rename name of `theorem` (GitHub API redirect verified 2026-11-26).
 
 ## Canonical ownership rules (proposed)
 
