@@ -34,6 +34,23 @@ The documentation bundle introduced by theorem PR **#464** is now **MERGED** int
 | #461 | SE(3) tetrahedral non-Abelian Bianchi | MERGED |
 | #464 | Master project registry (this audit's docs) | MERGED |
 
+## Scientific content and CI audit — PRs #449, #450, #458, #461
+
+The four PR head commits were checked through GitHub check-runs on 2026-11-26. All four PRs are merged; all reported checks on their respective PR head commits concluded successfully.
+
+| PR | Head commit | PR-head checks | Evidence actually established | Remaining boundary |
+|---|---|---|---|---|
+| #449 | `850d6945e60d745b48b6e86c5ce75f871c9ae7ef` | `audit`: success | Dual-triangulation enumeration reports 30 labelled admissible C60 flips; exact graph invariants and the two integer chain-map identities are checked for the selected representative. MMFF94s nuclear-coordinate covariance changes are reported for one selected relaxation. | No electronic-density calculation, DFT, transition-state barrier, Kathara/Q6 intertwiner, or universal vesica/fullerenic law. The covariance result is a one-case geometric proxy; nonzero final gradient norms are recorded. |
+| #450 | `0adc60a7a99ed8d4ddfba355875cbdaf9b28b859` | `audit`: success | Matched Volterra dipole and edge incompatibility sources are passed through the same periodic Fourier Airy solver. Tests cover residuals, source means, (b=\Omega d), and monotonic reduction of stress/strain/energy discrepancies in a fixed-core small-separation comparison. | A passing test is not a proof of a continuum theorem. No displacement-FEM cross-check, singular-core renormalization, Mosco convergence, or Gamma convergence. The full uploaded sweep artifact was not independently inspected in this audit. |
+| #458 | `1618f4d22fd4ca5b5a66cb538fcbb1ac5992ecd4` | `two-core-p3-c0-ipdg`, `trace-constant`, `independent-remeshing`, `distance-refinement`, `cubical-and-syntax`, `defect-benchmark-tests`: all success | The merged benchmark and its listed PR-head checks pass. T3/T4 and the separate robustness scripts are added with explicit preregistered criteria and reproducible commands. | The PR text explicitly says the full T3/T4 execution and robustness artifact are still outstanding. Bistability remains **not demonstrated**; script presence is not numerical evidence. |
+| #461 | `91e34047accf509ed83e7af8bfa9792f0ab377a6` | `audit`: success | The tetrahedral ordered non-Abelian curvature identity is derived algebraically under stated orientation/base-point conventions; the script specifies 1,000 seeded SE(3) assignments and gauge-covariance checks. | This is not a discrete torsion Bianchi identity. No Cartan torsion, deWit/Nye identification, continuum limit, or general 3-complex extension is established. |
+
+### Separate post-merge main workflow observation
+
+A separate `push` workflow on `main`, run [45866447326](https://github.com/fabianleonaressi95/theorem/actions/runs/45866447326), was still **in progress** at the time of this audit. Its Morandotti FEM matrix included completed failures for three `d=0.48/0.56, h=0.08` cases, several cancelled jobs, and several jobs still running; the trace-constant, distance-refinement, and independent-remeshing jobs shown in that run had succeeded. This is a post-merge main workflow, not the PR-head check result for #458. It must be triaged separately; do not describe the overall main workflow as green.
+
+**Classification rule:** merge status and CI success certify repository integration and the specified software checks only. They do not automatically promote the scientific statements beyond the evidence and limitations recorded above.
+
 ### fullerene-c64-audit
 
 | PR | Title | State | CI | Assessment |
