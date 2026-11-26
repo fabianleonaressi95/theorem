@@ -680,3 +680,8 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 
 - **T151 — Spectral expectation weights:** an exact lemma showing that a diagonal spectral expectation is a convex combination of eigenvalues and that a target value does not uniquely determine modal weights without an independent state-selection principle. This audits the expectation-value construction in the Golden Spheres Resonance preprint without ruling out a future variational derivation.
+
+
+### T152 — Binary McKay–ADE, Calabi–Yau orbifolds and crepant resolutions
+
+- [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
