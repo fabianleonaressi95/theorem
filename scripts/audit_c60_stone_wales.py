@@ -163,8 +163,7 @@ def main():
     if a.relax:
         x0,m0=mmff_relax(xyz,bonds,a.max_iterations)
         x1,m1=mmff_relax(xyz,sorted(h.edges()),a.max_iterations)
-        patch=set()
-        patch=set(c["central_edge"])
+        patch=set(c["rotated_carbon_vertices"])
         for e in c["removed_edges"]+c["added_edges"]: patch.update(e)
         for v in list(patch): patch.update(g[v]); patch.update(h[v])
         report["mmff94s"]={"before_model":m0,"after_model":m1,
