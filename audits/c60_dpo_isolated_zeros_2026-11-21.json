@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-21",
+  "finding": "a x b ha 6 zeri isolati (uno per dominio fallito) -> rank nabla S = 1 in 6 punti isolati, rank 2 altrove. rank 2 a.e. => (A4) soddisfatta nel senso W^{1,1}.",
+  "zeros": [
+    {
+      "edge": 5,
+      "side": 0,
+      "sigma": 0.279,
+      "u": 0.00382
+    },
+    {
+      "edge": 20,
+      "side": 0,
+      "sigma": 0.1505,
+      "u": 0.0062
+    },
+    {
+      "edge": 21,
+      "side": 1,
+      "sigma": 0.2747,
+      "u": -0.02448
+    },
+    {
+      "edge": 26,
+      "side": 0,
+      "sigma": 0.2034,
+      "u": 0.0186
+    },
+    {
+      "edge": 50,
+      "side": 1,
+      "sigma": 0.1179,
+      "u": -0.02441
+    },
+    {
+      "edge": 56,
+      "side": 1,
+      "sigma": 0.4894,
+      "u": -0.01802
+    }
+  ],
+  "isolation": "test ad anello r=1e-3..1e-2: |a x b| >= 6e-3 attorno a ogni zero",
+  "gauss_newton_residual": "|a x b| < 1e-14 ai punti trovati",
+  "cap_rank": "min sigma_min = 2.7e-4 > 0 su tutti i 60 cap (griglia FD)"
+}

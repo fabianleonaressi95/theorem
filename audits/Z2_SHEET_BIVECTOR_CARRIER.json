@@ -1,0 +1,52 @@
+{
+  "title": "Z2 sheet (bivector) structure on the 6D RGS carrier",
+  "inputs": {
+    "Z_S.npy": "archived 188x188 symmetric operator",
+    "Z_A.npy": "archived 188x188 antisymmetric operator",
+    "K0.npy": "archived 188x188 kernel operator",
+    "P_G.npy": "archived 64-dim projector"
+  },
+  "results": {
+    "carrier_dimension": 6,
+    "Z_S_eigenvalues": {
+      "-1/2": 3,
+      "+1/2": 3
+    },
+    "carrier_P_G_expectation": 8.488648079627023e-17,
+    "S_squared_minus_identity_fro": 2.576601754737325e-15,
+    "S_diagonal_deviation": 7.619065666548434e-16,
+    "P_plus_rank": 3,
+    "P_minus_rank": 3,
+    "projector_relation_error": 6.441504386843314e-16,
+    "ZA_diagonal_block_norm": 2.1687602051337486e-16,
+    "ZA_offdiagonal_block_norm": 0.8660254037844386,
+    "sqrt3_over_2": 0.8660254037844386,
+    "ZA_offdiag_norm_error": 0.0,
+    "ZA_carrier_leakage": 8.205328835756041e-16,
+    "K0_sheet_mixing_norm": 0.2598076211353314,
+    "null_pair_ZS2_plus_ZA2_fro": 3.4243765818179673e-16,
+    "ZA2_eq_minus_quarter_PW_fro": 3.4243765818179673e-16,
+    "ZS2_eq_quarter_PW_fro": 0.0,
+    "complex_structure_J_squared_plus_I_fro": 1.7116496151411998e-15,
+    "J_S_anticommutator_fro": 2.2504575438427934e-15
+  },
+  "checks": {
+    "carrier_dimension_is_6": true,
+    "carrier_inside_ker_PG": true,
+    "S_involution": true,
+    "S_diagonal_in_eigenbasis": true,
+    "projectors_rank_3_each": true,
+    "projector_relations": true,
+    "ZA_offdiagonal_only": true,
+    "ZA_offdiag_norm_sqrt3_over_2": true,
+    "ZA_preserves_carrier": true,
+    "null_pair_ZS2_plus_ZA2_zero": true,
+    "ZA_squared_eq_minus_quarter_PW": true,
+    "ZS_squared_eq_quarter_PW": true,
+    "PW_projector": true,
+    "JA_is_complex_structure": true,
+    "JA_anticommutes_with_S": true
+  },
+  "all_pass": true,
+  "scope_note": "Certifies a Z2 two-sheet grading on the 6D carrier with Z_A as inter-sheet coupling. The +1/2 affine offset of K0 is a different object: K0 mixes the sheets (sheet_mixing_norm > 0), so this grading is NOT a symmetry of K0 and does not explain the K0 half-offset."
+}

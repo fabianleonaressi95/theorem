@@ -209,3 +209,16 @@ Risultati riportati:
 - commutatore dell'estensione polare proiettata: (1.42\times10^{-14}).
 
 La conclusione è negativa per l'identificazione canonica: la mappa grezza è antipodalmente equivarante, ma non cade nel kernel di (P_G). Il piccolo commutatore dell'estensione proiettata non è una verifica indipendente, perché l'estensione è costruita nel kernel. Il report numerico completo e le matrici derivate sono ancora da committare e verificare da clean checkout; questo replay non è ancora un certificato CI riproducibile.
+
+
+## 15. Integrazione unitaria KTHNY–Q6–Morandotti–\(\\mathcal N=4\\) SYM (12 novembre 2026)
+
+Il programma non viene diviso in teorie parallele. La catena matematica condivisa è: complessi cellulari e cochain (T055–T067, T099, T103–T104); fasi, cariche individuali e moiré (T100–T101, T105); olonomie e difetti cinematici (T091–T097); elasticità incompatibile/Airy/KKT e benchmark Morandotti; dinamica d'equilibrio, FDT e Green–Kubo (T100, T105–T107); rinormalizzazione e melting 2D secondo KTHNY (T106 e letteratura primaria).
+
+KTHNY fornisce la teoria termodinamica del gas vettoriale di dislocazioni e del successivo unbinding delle disclinazioni. Il criterio \(K_R=16\\pi\) riguarda la rigidità di Young rinormalizzata alla soglia di unbinding delle dislocazioni, non il modulo nudo. Il raccordo con Morandotti deve passare da energia di core, fugacità, interazione dei difetti, screening e flusso RG; non basta una corrispondenza di etichette Frank/Burgers.
+
+\(\\mathcal N=4\\) SYM entra attraverso operatori Wilson–'t Hooft, cariche elettriche/magnetiche e dualità S. La connessione più precisa col programma è la compactificazione su \(T^2\): Harvey–Moore–Strominger mostrano come la dualità S nel limite infrarosso si traduca nella dualità T della teoria efficace bidimensionale, con scambio fra cariche elettriche/magnetiche e momento/avvolgimento. Questo apre un confronto matematico fra reticoli di carica, torus PRISM, cicli Q6 e gas vettoriale KTHNY. La mappa che preservi forma bilineare, parametri modulari, operatori e funzioni di partizione resta da derivare.
+
+T102 è un vincolo negativo importante: la supersimmetria cubicale del complesso Hodge Q6 è finito-dimensionale e non è la teoria di campo \(\\mathcal N=4\\) SYM. Le sei direzioni Q6 non sono automaticamente i sei scalari aggiunti della teoria gauge. Per la costruzione SYM servono gruppo di gauge, campi, algebra supersimmetrica, simmetria R e dinamica conforme.
+
+I dettagli, la tabella T091–T109 e i riferimenti sono ora integrati nel **Capitolo 27 della monografia unitaria**. La nota KTHNY/SYM è soltanto un'appendice bibliografico-tecnica subordinata. La gerarchia epistemica rimane: [E] teoria standard; [P] identità dimostrate; [N] audit numerici; [C] risultati condizionali; [M] modelli; [H] ponti ipotetici; [O] problemi aperti.

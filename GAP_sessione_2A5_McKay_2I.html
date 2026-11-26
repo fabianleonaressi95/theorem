@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Sessione GAP — 2.A5, McKay E8, 2I, Molien/Klein</title>
+<style>body{font-family:monospace;font-size:9pt;white-space:pre-wrap;}</style></head>
+<body><pre>
+GAP 4.11.1 sessione — 2.A5, corrispondenza di McKay (E8~), gruppo binario icosaedrale 2I, serie di Molien e invarianti di Klein
+=====================================================================================================================================
+
+gap> tbl := CharacterTable("2.A5");;
+gap> Display(tbl);
+2.A5
+
+     2  3  3  2  1  1   1   1   1   1
+     3  1  1  .  1  1   .   .   .   .
+     5  1  1  .  .  .   1   1   1   1
+
+       1a 2a 4a 3a 6a  5a 10a  5b 10b
+    2P 1a 1a 2a 3a 3a  5b  5b  5a  5a
+    3P 1a 2a 4a 1a 2a  5b 10b  5a 10a
+    5P 1a 2a 4a 3a 6a  1a  2a  1a  2a
+
+X.1     1  1  1  1  1   1   1   1   1
+X.2     3  3 -1  .  .   A   A  *A  *A
+X.3     3  3 -1  .  .  *A  *A   A   A
+X.4     4  4  .  1  1  -1  -1  -1  -1
+X.5     5  5  1 -1 -1   .   .   .   .
+X.6     2 -2  . -1  1  -A   A -*A  *A
+X.7     2 -2  . -1  1 -*A  *A  -A   A
+X.8     4 -4  .  1 -1  -1   1  -1   1
+X.9     6 -6  .  .  .   1  -1   1  -1
+
+A = -E(5)-E(5)^4
+  = (1-Sqrt(5))/2 = -b5
+
+gap> irr := Irr(tbl);;
+gap> M := List(irr, chi -> List(irr, psi -> ScalarProduct(tbl, chi, psi)));;
+gap> M = IdentityMat(9);            # deve dare true
+true
+gap> List(irr, Degree);             # gradi: 1,2,2,3,3,4,4,5,6 (l'ordine in GAP può variare)
+[ 1, 3, 3, 4, 5, 2, 2, 4, 6 ]
+gap> Sum(List(irr, x -> Degree(x)^2));   # 120
+120
+
+gap> # Classe di -1 e rappresentazione fondamentale (faithful, grado 2)
+gap> ord := OrdersClassRepresentatives(tbl);;
+gap> z   := Position(ord, 2);;
+gap> U   := First(irr, chi -> Degree(chi) = 2 and chi[z] = -2);;
+gap> # (l'altra faithful di grado 2 è il coniugato di Galois: stesso grafo)
+gap>
+gap> # 0) Controllo sulle etichette 5a/5b/10a/10b, senza fidarsi dei nomi:
+gap> #    2cos(2a) = (2cos a)^2 - 2, quindi U(g^2) = U(g)^2 - 2
+gap> pm := PowerMap(tbl, 2);;
+gap> ForAll([1..n], c -> U[pm[c]] = U[c]^2 - 2);     # deve dare true
+true
+gap> List([1..n], c -> [ClassNames(tbl)[c], ord[c], ClassNames(tbl)[pm[c]]]);
+[ [ "1a", 1, "1a" ], [ "2a", 2, "1a" ], [ "4a", 4, "2a" ], [ "3a", 3, "3a" ],
+  [ "6a", 6, "3a" ], [ "5a", 5, "5b" ], [ "10a", 10, "5b" ],
+  [ "5b", 5, "5a" ], [ "10b", 10, "5a" ] ]
+gap>
+gap> # 1) Matrice di McKay: U (x) rho_i = sum_j A[i][j] rho_j
+gap> A := List([1..n], i -> List([1..n],
+>        j -> ScalarProduct(tbl, U*irr[i], irr[j])));;
+gap> Display(A);
+[ [  0,  0,  0,  0,  0,  1,  0,  0,  0 ],
+  [  0,  0,  0,  0,  0,  1,  0,  1,  0 ],
+  [  0,  0,  0,  0,  0,  0,  0,  0,  1 ],
+  [  0,  0,  0,  0,  0,  0,  1,  0,  1 ],
+  [  0,  0,  0,  0,  0,  0,  0,  1,  1 ],
+  [  1,  1,  0,  0,  0,  0,  0,  0,  0 ],
+  [  0,  0,  0,  1,  0,  0,  0,  0,  0 ],
+  [  0,  1,  0,  0,  1,  0,  0,  0,  0 ],
+  [  0,  0,  1,  1,  1,  0,  0,  0,  0 ] ]
+gap> A = TransposedMat(A);                  # true: grafo non orientato
+true
+gap> d := List(irr, Degree);;               # vettore delta (marche di E8~)
+gap> A*d = 2*d;                             # true
+true
+gap> Sum(List([1..n], i -> Sum(A[i])));     # 2 * (numero di archi) = 16 per E8~ (8 archi)
+16
+gap> Sum(List(A, r -> Number(r, x -> x <> 0)) ) ; # numero di vicini totali, per ispezione
+16
+gap>
+gap> # 2) Molteplicità in Sym^k U, via ricorrenza S_{k+1} = U*S_k - S_{k-1}
+gap> N  := 60;;
+gap> u  := ValuesOfClassFunction(U);;
+gap> S  := [ List([1..n], x -> 1), u ];;
+gap> for k in [1..N-1] do
+>   Add(S, List([1..n], c -> u[c]*S[k+1][c] - S[k][c]));
+> od;
+gap> # S[k+1] = carattere di Sym^k U
+gap> mult :=
+> u := ValuesOfClassFunction(U);;
+Syntax error: ; expected
+u := ValuesOfClassFunction(U);;
+  ^^
+gap> S := [ List([1..n], x -> 1), u ];;
+gap> for k in [1..59] do Add(S, List([1..n], c -> u[c]*S[k+1][c] - S[k][c])); od;
+gap> mult := List([0..60], k -> List(irr, chi -> ScalarProduct(tbl, S[k+1], chi)));;
+gap> Display(List([0..8], k -> mult[k+1]));
+[ [  1,  0,  0,  0,  0,  0,  0,  0,  0 ],
+  [  0,  0,  0,  0,  0,  1,  0,  0,  0 ],
+  [  0,  1,  0,  0,  0,  0,  0,  0,  0 ],
+  [  0,  0,  0,  0,  0,  0,  0,  1,  0 ],
+  [  0,  0,  0,  0,  1,  0,  0,  0,  0 ],
+  [  0,  0,  0,  0,  0,  0,  0,  0,  1 ],
+  [  0,  0,  1,  1,  0,  0,  0,  0,  0 ],
+  [  0,  0,  0,  0,  0,  0,  1,  0,  1 ],
+  [  0,  0,  0,  1,  1,  0,  0,  0,  0 ] ]
+gap> List(irr, Degree);
+[ 1, 3, 3, 4, 5, 2, 2, 4, 6 ]
+gap> triv := TrivialCharacter(tbl);;
+gap> inv := List([0..60], k -> ScalarProduct(tbl, S[k+1], triv));;
+gap> molien := function(k) local a,b,c; c := 0;
+>   for a in [0..QuoInt(k,12)] do for b in [0..QuoInt(k,20)] do
+>     if 12*a+20*b = k or 12*a+20*b+30 = k then c := c+1; fi;
+>   od; od; return c; end;;
+gap> inv = List([0..60], molien);
+true
+gap> Filtered([0..60], k -> inv[k+1] <> 0);
+[ 0, 12, 20, 24, 30, 32, 36, 40, 42, 44, 48, 50, 52, 54, 56, 60 ]
+gap> ForAll([1..8], k -> ValuesOfClassFunction(SymmetricParts(tbl, [U], k)[1]) = S[k+1]);
+true
+gap> spec := List([0..60], l -> [l, l*(l+2), (l+1)*inv[l+1]]);;
+gap> spec := Filtered(spec, r -> r[3] > 0);;
+gap> Display(spec);
+[ [     0,     0,     1 ],
+  [    12,   168,    13 ],
+  [    20,   440,    21 ],
+  [    24,   624,    25 ],
+  [    30,   960,    31 ],
+  [    32,  1088,    33 ],
+  [    36,  1368,    37 ],
+  [    40,  1680,    41 ],
+  [    42,  1848,    43 ],
+  [    44,  2024,    45 ],
+  [    48,  2400,    49 ],
+  [    50,  2600,    51 ],
+  [    52,  2808,    53 ],
+  [    54,  3024,    55 ],
+  [    56,  3248,    57 ],
+  [    60,  3720,   122 ] ]
+gap> # molteplicità spettrale come (l+1) * <Sym^l U, 1>, ricalcolata dai caratteri
+gap> check := List([0..60], l -> (l+1) * ScalarProduct(tbl, S[l+1], TrivialCharacter(tbl)));;
+gap> check = List([0..60], l -> (l+1)*inv[l+1]);     # true (stessa cosa, controllo di coerenza)
+true
+gap>
+gap> # somma delle molteplicità fino a l=60 e confronto con la funzione di Weyl:
+gap> # per Gamma libera di ordine 120, N(l) ~ (l+1)(l+2)(2l+3)/6 / 120 per l grande
+gap> Sum(spec, r -> r[3]);
+677
+gap>
+gap> # 1) Sym^l U calcolata da GAP, senza la ricorrenza
+gap> SP := List([0..60], l -> SymmetricParts(tbl, [U], l)[1]);;
+Error, MaximumList: <list> must contain at least one element at /usr/share/gap/lib/list.gi:2672 called from
+MaximumList( arg[1] ) at /usr/share/gap/lib/list.gi:2586 called from
+Maximum( exponents[i] ) at /usr/share/gap/lib/ctblfuns.gi:3753 called from
+SymmetricParts( tbl, [ U ], l ) at *stdin*:69 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *stdin*:69
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+brk> inv2 := List([0..60], l -> ScalarProduct(tbl, SP[l+1], TrivialCharacter(tbl)));;
+Syntax warning: Unbound global variable in *errin*:1
+inv2 := List([0..60], l -> ScalarProduct(tbl, SP[l+1], TrivialCharacter(tbl)));;
+^^^^
+Error, Variable: <debug-variable-0-1> cannot be used here in
+  <corrupted statement>  called from 
+Error( "MaximumList: <list> must contain at least one element" ); at /usr/share/gap/lib/list.gi:2672 called from
+MaximumList( arg[1] ) at /usr/share/gap/lib/list.gi:2586 called from
+Maximum( exponents[i] ) at /usr/share/gap/lib/ctblfuns.gi:3753 called from
+SymmetricParts( tbl, [ U ], l ) at *stdin*:69 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+...  at *errin*:1
+brk> inv2 = inv;                       # deve dare true (inv e' quello calcolato con la ricorrenza)
+Syntax warning: Unbound global variable in *errin*:2
+inv2 = inv;                       # deve dare true (inv e' quello calcolato con la ricorrenza)
+^^^^
+Error, Variable: 'inv2' must have a value in
+  Error( "MaximumList: <list> must contain at least one element" ); at /usr/share/gap/lib/list.gi:2672 called from 
+MaximumList( arg[1] ) at /usr/share/gap/lib/list.gi:2586 called from
+Maximum( exponents[i] ) at /usr/share/gap/lib/ctblfuns.gi:3753 called from
+SymmetricParts( tbl, [ U ], l ) at *stdin*:69 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+...  at *errin*:5
+brk> ForAll([0..60], l -> ValuesOfClassFunction(SP[l+1]) = S[l+1]);   # true
+Error, List Element: <list> must be a list (not a function) in
+  return ValuesOfClassFunction( SP[l + 1] ) = S[l + 1]; at *errin*:3 called from 
+func( elm ) at /usr/share/gap/lib/coll.gi:1565 called from
+Error( "MaximumList: <list> must contain at least one element" ); at /usr/share/gap/lib/list.gi:2672 called from
+MaximumList( arg[1] ) at /usr/share/gap/lib/list.gi:2586 called from
+Maximum( exponents[i] ) at /usr/share/gap/lib/ctblfuns.gi:3753 called from
+SymmetricParts( tbl, [ U ], l ) at *stdin*:69 called from
+...  at *errin*:3
+type 'quit;' to quit to outer loop
+brk_2> quit;
+brk> quit;
+gap> tbl := CharacterTable("2.A5");; irr := Irr(tbl);; n := Length(irr);;
+gap> ord := OrdersClassRepresentatives(tbl);; z := Position(ord, 2);;
+gap> U := First(irr, chi -> Degree(chi) = 2 and chi[z] = -2);;
+gap> u := ValuesOfClassFunction(U);;
+gap> S := [ List([1..n], x -> 1), u ];;
+gap> for k in [1..59] do Add(S, List([1..n], c -> u[c]*S[k+1][c] - S[k][c])); od;
+gap> triv := TrivialCharacter(tbl);;
+gap> inv := List([0..60], k -> ScalarProduct(tbl, S[k+1], triv));;
+gap> ser := MolienSeries(tbl, U);;
+gap> inv3 := List([0..60], l -> ValueMolienSeries(ser, l));;
+gap> inv = inv3;
+true
+gap> SP := List([1..60], l -> SymmetricParts(tbl, [U], l)[1]);;
+Error, Variable: 'SP' is read only
+not in any function at *stdin*:80
+type 'quit;' to quit to outer loop
+brk> quit;
+gap> # --- 1. Gruppo 2I in SU(2,C) come gruppo di matrici 2x2 ---
+gap> # Quaternioni unitari: q = a + b i + c j + d k  ->  [[a+bi, c+di],[-c+di, a-bi]]
+gap> # Generatori del binario icosaedrale: (1+i+j+k)/2 e (i+ (phi)...)  -> uso la
+gap> # presentazione con sqrt5. Scelta: lo ottengo come gruppo di matrici sul campo
+gap> # CF(120) (contiene sqrt5, i, zeta_8).
+gap> F := CF(120);;
+gap> r5 := RootInt(5);;                                  # sqrt(5) non serve: uso ER
+gap> phi := (1+ER(5))/2;;
+gap> rq := function(a,b,c,d)
+>   return [[a+b*E(4), c+d*E(4)],[-c+d*E(4), a-b*E(4)]];
+> end;;
+gap> g1 := rq(1/2,1/2,1/2,1/2);;
+gap> g2 := rq(phi/2,1/(2*phi),0,1/2);;                   # elemento di ordine 10
+gap> G := Group(g1, g2);;
+gap> Print("|G| = ", Size(G), "\n");                     # deve essere 120
+|G| = 120
+gap> # --- (a') moltiplicazione a sinistra per un quaternione (a,b,c,d) su R^4 ---
+gap> # base: 1, i, j, k ; con i^2=j^2=k^2=-1, ij=k
+gap> LeftMult := function(a,b,c,d)
+>   return [
+>     [a,-b,-c,-d],
+>     [b, a,-d, c],
+>     [c, d, a,-b],
+>     [d,-c, b, a]];
+> end;;
+gap>
+gap> # generatori reali di 2I come quaternioni (gli stessi di prima)
+gap> # g1 = (1+i+j+k)/2 ; g2 = (phi/2, 1/(2phi), 0, 1/2)
+gap> gen4 := [ LeftMult(1/2,1/2,1/2,1/2),
+>           LeftMult(phi/2, 1/(2*phi), 0, 1/2) ];;
+gap> G4 := Group(gen4);;
+gap> Print("|G4| = ", Size(G4), "\n");   # deve essere 120
+|G4| = 120
+gap>
+gap> # --- (b) polinomi omogenei di grado l in 4 variabili: base di monomi ---
+gap> Monos := function(l)
+>   local res, a, b, c, d;
+>   res := [];
+>   for a in [0..l] do for b in [0..l-a] do for c in [0..l-a-b] do
+>     d := l-a-b-c;
+>     Add(res, [a,b,c,d]);
+>   od; od; od;
+>   return res;
+> end;;
+gap>
+gap> # rappresentazione su polinomi: sostituzione x -> M x (lineare nelle variabili)
+gap> # il polinomio x^e = prod x_i^{e_i}; sotto M diventa prod (sum_j M[i][j] x_j)^{e_i}
+gap> # implemento su polinomi come dizionari {monomio -> coeff} tramite PolynomialRing
+gap> PolyRep := function(l, M)
+>   local R, x, mons, idx, mat, m, p, e, ell;
+>   R := PolynomialRing(CF(120), ["x1","x2","x3","x4"]);;
+>   x := IndeterminatesOfPolynomialRing(R);;
+>   mons := Monos(l);;
+>   mat := NullMat(Length(mons), Length(mons), CF(120));;
+>   for m in [1..Length(mons)] do
+>     e := mons[m];
+>     p := Product([1..4], i -> (Sum([1..4], j -> M[i][j]*x[j]))^e[i]);
+>     for ell in [1..Length(mons)] do
+>       mat[ell][m] := Value(Coefficient(p, mons[ell]), []);   # placeholder, vedi nota
+Syntax warning: Unbound global variable
+      mat[ell][m] := Value(Coefficient(p, mons[ell]), []);   # placeholder, vedi nota
+                           ^^^^^^^^^^^
+>     od;
+>   od;
+>   return mat;
+> end;;
+gap> # --- Monomi di grado l in 4 variabili ---
+gap> Monos := function(l)
+>   local res, a, b, c;
+>   res := [];
+>   for a in [0..l] do for b in [0..l-a] do for c in [0..l-a-b] do
+>     Add(res, [a, b, c, l-a-b-c]);
+>   od; od; od;
+>   return res;
+> end;;
+gap>
+gap> # --- Valutazione dei monomi in un punto p in R^4 ---
+gap> EvalMonos := function(l, p)
+>   local m;
+>   return List(Monos(l), e -> Product([1..4], i -> p[i]^e[i]));
+> end;;
+gap>
+gap> # --- Matrice di sostituzione x -> M*x sui monomi, via punti campione ---
+gap> # Trovo T con  (monomi di M*x) = T * (monomi di x)  risolvendo un sistema
+gap> # su N >= dim punti generici. Questo e' corretto perche' la rappresentazione
+gap> # sui polinomi e' determinata dai valori su punti generici.
+gap> ActMatrix := function(l, M)
+>   local d, pts, A, B, p, Mp;
+>   d := Length(Monos(l));
+>   pts := List([1..d+5], k -> List([1..4], i -> Random([-5..5])));
+>   A := List(pts, p -> EvalMonos(l, p));        # righe: valori dei monomi
+>   B := List(pts, p -> EvalMonos(l, M*p));      # valori su M*p
+>   # T tale che B = A * T^t  ->  T^t = A^+ B
+>   return TransposedMat(SolutionMat(A, B));
+> end;;
+gap> Monos(2);                       # deve dare 10 monomi
+[ [ 0, 0, 0, 2 ], [ 0, 0, 1, 1 ], [ 0, 0, 2, 0 ], [ 0, 1, 0, 1 ], [ 0, 1, 1, 0 ], [ 0, 2, 0, 0 ], [ 1, 0, 0, 1 ], [ 1, 0, 1, 0 ],
+  [ 1, 1, 0, 0 ], [ 2, 0, 0, 0 ] ]
+gap> Length(Monos(3));               # deve dare 20
+20
+gap> M := gen4[1];;
+gap> Length(ActMatrix(1, M));        # deve dare 4
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 1st choice method found for `SolutionMat' on 2 arguments at /usr/share/gap/lib/methsel2.g:249 called from
+SolutionMat( A, B ) at *stdin*:168 called from
+<function "ActMatrix">( <arguments> )
+ called from read-eval loop at *stdin*:173
+type 'quit;' to quit to outer loop
+brk> quit;
+gap> # Polinomio = lista di [esponenti, coefficiente]
+gap> PolyMul := function(p, q)
+>   local res, a, b, e, k, found;
+>   res := [];
+>   for a in p do for b in q do
+>     e := a[1] + b[1];
+>     k := First([1..Length(res)], i -> res[i][1] = e);
+>     if k = fail then Add(res, [e, a[2]*b[2]]);
+>     else res[k][2] := res[k][2] + a[2]*b[2]; fi;
+>   od; od;
+>   return res;
+> end;;
+gap>
+gap> # forma lineare sum_j c_j x_j come polinomio
+gap> LinPoly := function(c)
+>   local res, j, e;
+>   res := [];
+>   for j in [1..4] do
+>     if c[j] <> 0 then
+>       e := [0,0,0,0]; e[j] := 1;
+>       Add(res, [e, c[j]]);
+>     fi;
+>   od;
+>   return res;
+> end;;
+gap>
+gap> # Matrice di x -> M x sullo spazio dei monomi di grado l
+gap> # colonna m = immagine del monomio m-esimo, espressa nei monomi
+gap> ActMatrix := function(l, M)
+>   local mons, d, T, m, e, p, term, t, idx, i;
+>   mons := Monos(l);
+>   d := Length(mons);
+>   T := NullMat(d, d, CF(120));
+>   for m in [1..d] do
+>     e := mons[m];
+>     p := [[[0,0,0,0], One(CF(120))]];
+>     for i in [1..4] do
+>       for t in [1..e[i]] do
+>         p := PolyMul(p, LinPoly(M[i]));
+>       od;
+>     od;
+>     for term in p do
+>       idx := Position(mons, term[1]);
+>       T[idx][m] := T[idx][m] + term[2];
+>     od;
+>   od;
+>   return T;
+> end;;
+gap> T1 := ActMatrix(1, gen4[1]);;
+gap> T1 = gen4[1] or T1 = TransposedMat(gen4[1]);   # deve dare true
+false
+gap> g := gen4[2];; h := gen4[1];;
+gap> ActMatrix(2,g)*ActMatrix(2,h) = ActMatrix(2, g*h);  # deve dare true
+false
+gap> K := NumberField(X(Rationals, "s"))  # oppure semplicemente:
+> phi := (1+ER(5))/2;;   # ER(5) = sqrt(5) in GAP
+Error, Function: number of arguments must be 2 (not 1)
+not in any function at *stdin*:226
+type 'quit;' to quit to outer loop
+brk> quit;
+Syntax error: ; expected
+phi := (1+ER(5))/2;;   # ER(5) = sqrt(5) in GAP
+ ^^
+gap> # ---- campo: tutto nel campo generato da sqrt(5) ----
+gap> phi := (1+ER(5))/2;;
+gap> F := Field(phi);;     # campo che contiene i coefficienti di gen4
+
+gap> # ---- monomi di grado l in 4 variabili ----
+gap> Monos := function(l)
+>   local res, a, b, c;
+>   res := [];
+>   for a in [0..l] do for b in [0..l-a] do for c in [0..l-a-b] do
+>     Add(res, [a, b, c, l-a-b-c]);
+>   od; od; od;
+>   return res;
+> end;;
+
+gap> # ---- prodotto di polinomi, polinomio = lista di [esponenti, coeff] ----
+gap> PolyMul := function(p, q)
+>   local res, a, b, e, k;
+>   res := [];
+>   for a in p do for b in q do
+>     e := a[1] + b[1];
+>     k := PositionProperty(res, r -> r[1] = e);
+>     if k = fail then
+>       Add(res, [e, a[2]*b[2]]);
+>     else
+>       res[k][2] := res[k][2] + a[2]*b[2];
+>     fi;
+>   od; od;
+>   return res;
+> end;;
+
+gap> # ---- forma lineare sum_j c_j x_j come polinomio ----
+gap> LinPoly := function(c)
+>   local res, j, e;
+>   res := [];
+>   for j in [1..4] do
+>     if c[j] <> Zero(c[j]) then
+>       e := [0,0,0,0];
+>       e[j] := 1;
+>       Add(res, [e, c[j]]);
+>     fi;
+>   od;
+>   return res;
+> end;;
+
+gap> # ---- matrice di x -> M x sullo spazio dei monomi di grado l ----
+gap> # colonna m = immagine del monomio m-esimo, espressa nei monomi
+gap> ActMatrix := function(l, M)
+>   local mons, d, T, m, e, p, t, i, idx, term, one;
+>   mons := Monos(l);
+>   d := Length(mons);
+>   one := One(M[1][1]);
+>   T := NullMat(d, d, Field(M[1][1]));
+>   for m in [1..d] do
+>     e := mons[m];
+>     p := [[[0,0,0,0], one]];
+>     for i in [1..4] do
+>       for t in [1..e[i]] do
+>         p := PolyMul(p, LinPoly(M[i]));
+>       od;
+>     od;
+>     for term in p do
+>       idx := Position(mons, term[1]);
+>       T[idx][m] := T[idx][m] + term[2];
+>     od;
+>   od;
+>   return T;
+> end;;
+
+gap> # ---- generatori (come nel tuo file) ----
+gap> gen4 := [ LeftMult(1/2,1/2,1/2,1/2), LeftMult(phi/2, 1/(2*phi), 0, 1/2) ];;
+gap> T1 := ActMatrix(1, gen4[1]);;
+gap> T1 = TransposedMat(gen4[1]);                          # atteso: true
+false
+gap> ActMatrix(2,gen4[2])*ActMatrix(2,gen4[1]) = ActMatrix(2, gen4[2]*gen4[1]);  # atteso: true
+false
+gap> # ---- generatori (come nel tuo file) ----
+gap> gen4 := [ LeftMult(1/2,1/2,1/2,1/2), LeftMult(phi/2, 1/(2*phi), 0, 1/2) ];;
+gap> T1 := ActMatrix(1, gen4[1]);;
+gap> T1 = TransposedMat(gen4[1]);                          # atteso: true
+false
+gap> false
+> gap> ActMatrix(2,gen4[2])*ActMatrix(2,gen4[1]) = ActMatrix(2, gen4[2]*gen4[1]);  # atteso: true
+Syntax error: ; expected
+gap> ActMatrix(2,gen4[2])*ActMatrix(2,gen4[1]) = ActMatrix(2, gen4[2]*gen4[1]);  # atteso: true
+^^^
+gap> false
+> gap>
+Syntax error: ; expected
+gap>
+^^^
+>
+>
+> LeftMult;
+gap> T1 = gen4[1] or T1 = TransposedMat(gen4[1]) or Display(T1);
+[ [   1/2,  -1/2,   1/2,  -1/2 ],
+  [   1/2,   1/2,  -1/2,  -1/2 ],
+  [  -1/2,   1/2,   1/2,  -1/2 ],
+  [   1/2,   1/2,   1/2,   1/2 ] ]
+Error, Function call: <func> must return a value
+not in any function at *stdin*:310
+gap>
+gap>
+gap> gen4;
+[ [ [ 1/2, -1/2, -1/2, -1/2 ], [ 1/2, 1/2, -1/2, 1/2 ], [ 1/2, 1/2, 1/2, -1/2 ], [ 1/2, -1/2, 1/2, 1/2 ] ],
+  [ [ -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4, 0, -1/2 ], [ 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, -1/2, 0 ],
+      [ 0, 1/2, -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4 ], [ 1/2, 0, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ] ] ]
+gap> LeftMult;
+function( a, b, c, d ) ... end
+gap> ActMatrix;
+function( l, M ) ... end
+gap> Display(ActMatrix);
+function ( l, M )
+    local mons, d, T, m, e, p, t, i, idx, term, one;
+    mons := Monos( l );
+    d := Length( mons );
+    one := One( M[1][1] );
+    T := NullMat( d, d, Field( M[1][1] ) );
+    for m in [ 1 .. d ] do
+        e := mons[m];
+        p := [ [ [ 0, 0, 0, 0 ], one ] ];
+        for i in [ 1 .. 4 ] do
+            for t in [ 1 .. e[i] ] do
+                p := PolyMul( p, LinPoly( M[i] ) );
+            od;
+        od;
+        for term in p do
+            idx := Position( mons, term[1] );
+            T[idx][m] := T[idx][m] + term[2];
+        od;
+    od;
+    return T;
+end
+gap> A := ActMatrix(2, gen4[1]) * ActMatrix(2, gen4[2]);;
+gap> B := ActMatrix(2, gen4[1]*gen4[2]);;
+gap> A = B;
+false
+gap> A = TransposedMat(B);
+false
+gap> ActMatrix(2, gen4[2]*gen4[1]) * ActMatrix(2, gen4[1]) = ActMatrix(2, gen4[1]*gen4[2]);
+false
+gap> gen4[1];
+[ [ 1/2, -1/2, -1/2, -1/2 ], [ 1/2, 1/2, -1/2, 1/2 ], [ 1/2, 1/2, 1/2, -1/2 ], [ 1/2, -1/2, 1/2, 1/2 ] ]
+gap> IsMatrix(gen4[1]);
+true
+gap> Length(Monos(2));
+10
+gap> I := IdentityMat(4, GF(5));  # o il campo che usi
+[ [ Z(5)^0, 0*Z(5), 0*Z(5), 0*Z(5) ], [ 0*Z(5), Z(5)^0, 0*Z(5), 0*Z(5) ], [ 0*Z(5), 0*Z(5), Z(5)^0, 0*Z(5) ],
+  [ 0*Z(5), 0*Z(5), 0*Z(5), Z(5)^0 ] ]
+gap> ActMatrix(2, I) = IdentityMat(10, GF(5));
+true
+gap> # 1. Testa un'azione di una singola variabile, con una matrice di permutazione:
+gap> P := [[0,1,0,0],[1,0,0,0],[0,0,1,0],[0,0,0,1]];;
+gap> ActMatrix(1, P) * ActMatrix(1, P) = IdentityMat(4, Rationals);
+true
+gap> # Se P è un'involuzione, il risultato dovrebbe essere true. Se è false, c'è un errore nella costruzione.
+gap>
+gap> # 2. Testa il funtore su due matrici diagonali, dove non ci sono ambiguità di convenzione:
+gap> D1 := DiagonalMat([2,3,5,7]);;  D2 := DiagonalMat([11,13,17,19]);;
+gap> ActMatrix(2, D1*D2) = ActMatrix(2, D1) * ActMatrix(2, D2);
+true
+gap> U := [[1,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];;   # unipotente, non diagonale
+gap> V := [[1,0,0,0],[0,1,1,0],[0,0,1,0],[0,0,0,1]];;
+gap> ActMatrix(2, U*V) = ActMatrix(2, U) * ActMatrix(2, V);
+false
+gap> ActMatrix(2, U*V) = ActMatrix(2, V) * ActMatrix(2, U);
+true
+gap> ActMatrix(2, gen4[1]*gen4[2]) = ActMatrix(2, gen4[2]) * ActMatrix(2, gen4[1]);
+true
+gap> # Verifica: ActMatrix(2, M*N) = ActMatrix(2, N) * ActMatrix(2, M)
+gap> # e conteggio dei casi in cui l'ordine naturale ActMatrix(2, M) * ActMatrix(2, N)
+gap> # NON coincide con ActMatrix(2, M*N).
+gap>
+gap> TestAntiHom := function(trials)
+>     local i, M, N, ok, count, naturalFails;
+>     count := 0;
+>     naturalFails := 0;
+>     for i in [1..trials] do
+>         # matrici casuali invertibili 4x4 a entrate piccole
+>         repeat
+>             M := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(M) <> 0;
+>         repeat
+>             N := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(N) <> 0;
+>
+>         # Proprietà di anti-omomorfismo
+>         ok := ActMatrix(2, M*N) = ActMatrix(2, N) * ActMatrix(2, M);
+>         if not ok then
+>             Print("Fallito anti-omomorfismo su M = ", M, ", N = ", N, "\n");
+>             return false;
+>         fi;
+>
+>         # Conteggio: ordine naturale fallisce?
+>         if ActMatrix(2, M*N) <> ActMatrix(2, M) * ActMatrix(2, N) then
+>             naturalFails := naturalFails + 1;
+>         fi;
+>         count := count + 1;
+>     od;
+>     Print("Anti-omomorfismo superato in ", count, " test su ", trials, " coppie.\n");
+>     Print("Ordine naturale non valido in ", naturalFails, " casi su ", trials, ".\n");
+>     return true;
+> end;
+function( trials ) ... end
+gap>
+gap> TestAntiHom(100);
+Anti-omomorfismo superato in 100 test su 100 coppie.
+Ordine naturale non valido in 100 casi su 100.
+true
+gap> TestAntiHomComm := function(trials)
+>     local i, M, N, ok, count, naturalFails, commCount, commOK, commFails;
+>     count := 0;
+>     naturalFails := 0;
+>     commCount := 0;
+>     commFails := 0;
+>     for i in [1..trials] do
+>         repeat
+>             M := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(M) <> 0;
+>         repeat
+>             N := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(N) <> 0;
+>
+>         # Anti-omomorfismo: sempre verificato
+>         ok := ActMatrix(2, M*N) = ActMatrix(2, N) * ActMatrix(2, M);
+>         if not ok then
+>             Print("Fallito anti-omomorfismo su M = ", M, ", N = ", N, "\n");
+>             return false;
+>         fi;
+>
+>         # Ordine naturale
+>         if ActMatrix(2, M*N) <> ActMatrix(2, M) * ActMatrix(2, N) then
+>             naturalFails := naturalFails + 1;
+>         fi;
+>
+>         # Coppie commutanti: M*N = N*M
+>         if M*N = N*M then
+>             commCount := commCount + 1;
+>             # In questo caso i due ordini devono coincidere
+>             if ActMatrix(2, M*N) <> ActMatrix(2, M) * ActMatrix(2, N) then
+>                 commFails := commFails + 1;
+>                 Print("Incoerenza su coppia commutante: M = ", M, ", N = ", N, "\n");
+>             fi;
+>         fi;
+>
+>         count := count + 1;
+>     od;
+>     Print("Anti-omomorfismo superato in ", count, " test su ", trials, " coppie.\n");
+>     Print("Ordine naturale non valido in ", naturalFails, " casi su ", trials, ".\n");
+>     Print("Coppie commutanti trovate: ", commCount, ".\n");
+>     Print("Incoerenze sulle coppie commutanti: ", commFails, ".\n");
+>     return commFails = 0;
+> end;
+function( trials ) ... end
+gap>
+gap> TestAntiHomComm(100);
+Anti-omomorfismo superato in 100 test su 100 coppie.
+Ordine naturale non valido in 100 casi su 100.
+Coppie commutanti trovate: 0.
+Incoerenze sulle coppie commutanti: 0.
+true
+gap> TestComm := function(trials)
+>     local i, M, N, ok, commFails;
+>     commFails := 0;
+>     for i in [1..trials] do
+>         repeat
+>             M := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(M) <> 0;
+>         N := M^2 + 2*M;
+>         if DeterminantMat(N) <> 0 then
+>             if ActMatrix(2, M*N) <> ActMatrix(2, M) * ActMatrix(2, N) then
+>                 commFails := commFails + 1;
+>             fi;
+>         fi;
+>     od;
+>     Print("Incoerenze su coppie commutanti costruite: ", commFails, "\n");
+>     return commFails = 0;
+> end;
+function( trials ) ... end
+gap>
+gap> TestComm(100);
+Incoerenze su coppie commutanti costruite: 0
+true
+gap> TestComm := function(trials)
+>     local i, M, N, tested, skipped, commFails;
+>     tested := 0;
+>     skipped := 0;
+>     commFails := 0;
+>     for i in [1..trials] do
+>         repeat
+>             M := RandomMat(4, 4, [-2..2]);
+>         until DeterminantMat(M) <> 0;
+>         N := M^2 + 2*M;
+>         if DeterminantMat(N) <> 0 then
+>             tested := tested + 1;
+>             if ActMatrix(2, M*N) <> ActMatrix(2, M) * ActMatrix(2, N) then
+>                 commFails := commFails + 1;
+>             fi;
+>         else
+>             skipped := skipped + 1;
+>         fi;
+>     od;
+>     Print("Coppie commutanti testate: ", tested, " su ", trials, ".\n");
+>     Print("Coppie scartate (N singolare): ", skipped, ".\n");
+>     Print("Incoerenze su coppie commutanti costruite: ", commFails, "\n");
+>     return commFails = 0;
+> end;
+function( trials ) ... end
+gap>
+gap> TestComm(100);
+Coppie commutanti testate: 95 su 100.
+Coppie scartate (N singolare): 5.
+Incoerenze su coppie commutanti costruite: 0
+true
+gap> # ---- Costruzione di 2I come insieme di quaternioni ----
+gap> # 2I = { ±1,±i,±j,±k } ∪ { (±1±i±j±k)/2 } ∪ { (even perms of (0,±1,±φ^{-1},±φ))/2 }
+gap> # dove φ = (1+√5)/2
+gap>
+gap> Quat2I := function()
+>     local phi, phiInv, elts, signs, base, perm, p, v, s, q;
+>     phi := (1 + Sqrt(5))/2;
+>     phiInv := phi - 1;
+>     elts := [];
+>
+>     # 8 unità: ±1, ±i, ±j, ±k
+>     for v in [ [1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1] ] do
+>         Add(elts, v); Add(elts, -v);
+>     od;
+>
+>     # 16 elementi (±1±i±j±k)/2
+>     for s in Tuples([-1,1], 4) do
+>         Add(elts, s/2);
+>     od;
+>
+>     # 96 elementi: permutazioni pari di (0, ±1, ±φ^{-1}, ±φ)/2
+>     base := [0, 1, phiInv, phi];
+>     for perm in AlternatingGroup([1..4]) do   # 12 permutazioni pari
+>         for s in Tuples([-1,1], 3) do          # segni sulle 3 coordinate non nulle
+>             v := [0,0,0,0];
+>             # posizioni: componente i riceve base[i^perm]
+>             q := List([1..4], i -> base[i^perm]);
+>             # applica segni alle componenti non nulle
+>             p := 1;
+>             for i in [1..4] do
+Syntax warning: Unbound global variable
+            for i in [1..4] do
+                ^
+>                 if q[i] <> 0 then
+>                     v[i] := s[p] * q[i] / 2;
+>                     p := p + 1;
+>                 fi;
+>             od;
+>             Add(elts, v);
+>         od;
+>     od;
+>
+>     return Set(elts);
+> end;
+function(  ) ... end
+gap>
+gap> Q := Quat2I();;
+gap> Print("Numero di elementi: ", Length(Q), "\n");   # atteso: 120
+Numero di elementi: 120
+gap> # Matrice ortogonale 4x4 associata a un quaternione unitario q (moltiplicazione sinistra)
+gap> Mat2I := List(Q, LeftMulMat);;
+Error, Variable: 'LeftMulMat' must have a value
+not in any function at *stdin*:512
+gap>
+gap> # Verifica: ogni matrice è ortogonale
+gap> Print("Ortogonali: ", ForAll(Mat2I, M -> M*TransposedMat(M) = IdentityMat(4)), "\n");
+Error, Variable: 'Mat2I' must have a value
+not in any function at *stdin*:515
+gap>
+gap> # Verifica: il gruppo generato ha ordine 120
+gap> G := Group(Mat2I);;
+Error, Variable: 'Mat2I' must have a value
+not in any function at *stdin*:518
+gap> Print("Ordine del gruppo: ", Size(G), "\n");   # atteso 120
+Ordine del gruppo: 120
+gap> # ===== 1. Quaternioni =====
+gap> QMul := function(p, q)
+>     return [ p[1]*q[1] - p[2]*q[2] - p[3]*q[3] - p[4]*q[4],
+>              p[1]*q[2] + p[2]*q[1] + p[3]*q[4] - p[4]*q[3],
+>              p[1]*q[3] - p[2]*q[4] + p[3]*q[1] + p[4]*q[2],
+>              p[1]*q[4] + p[2]*q[3] - p[3]*q[2] + p[4]*q[1] ];
+> end;
+function( p, q ) ... end
+gap>
+gap> LeftMulMat := function(p)
+>     local e;
+>     e := IdentityMat(4);
+>     return TransposedMat(List([1..4], i -> QMul(p, e[i])));
+> end;
+function( p ) ... end
+gap>
+gap> # ===== 2. Gruppo binario icosaedrale 2I (120 quaternioni) =====
+gap> Quat2I := function()
+>     local phi, phiInv, elts, v, s, perm, q, base, i, p, w;
+>     phi := (1 + Sqrt(5))/2;
+>     phiInv := phi - 1;
+>     elts := [];
+>
+>     for v in [ [1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1] ] do
+>         Add(elts, v);
+>         Add(elts, -v);
+>     od;
+>
+>     for s in Tuples([-1,1], 4) do
+>         Add(elts, s/2);
+>     od;
+>
+>     base := [0, 1, phiInv, phi];
+>     for perm in AlternatingGroup([1..4]) do
+>         for s in Tuples([-1,1], 3) do
+>             w := [0,0,0,0];
+>             q := List([1..4], i -> base[i^perm]);
+>             p := 1;
+>             for i in [1..4] do
+>                 if q[i] <> 0 then
+>                     w[i] := s[p] * q[i] / 2;
+>                     p := p + 1;
+>                 fi;
+>             od;
+>             Add(elts, w);
+>         od;
+>     od;
+>
+>     return Set(elts);
+> end;
+function(  ) ... end
+gap>
+gap> Q := Quat2I();;
+gap> Print("Numero di elementi: ", Length(Q), "\n");
+Numero di elementi: 120
+gap>
+gap> # ===== 3. Matrici e verifiche =====
+gap> Mat2I := List(Q, LeftMulMat);;
+gap> Print("Ortogonali: ", ForAll(Mat2I, M -> M*TransposedMat(M) = IdentityMat(4)), "\n");
+Ortogonali: true
+gap> Print("Chiuso sotto prodotto: ",
+>       ForAll(Q, p -> ForAll(Q, q -> QMul(p,q) in Q)), "\n");
+Chiuso sotto prodotto: true
+gap>
+gap> G := Group(Mat2I);;
+gap> Print("Ordine del gruppo: ", Size(G), "\n");
+Ordine del gruppo: 120
+gap> # ===== 4. Serie di Molien per 2I =====
+gap> # Hilbert series: H(t) = (1/|G|) * sum_g 1 / det(I - t*g)
+gap>
+gap> MolienCoeffs := function(mats, maxdeg)
+>     local Gord, coeffs, g, cp, invDenom, ser, d, s;
+>     Gord := Length(mats);
+>     coeffs := List([0..maxdeg], d -> 0);
+>     for g in mats do
+>         # det(I - t g) = sum_k (-1)^k * e_k(g) * t^k, con e_k = somme dei minori principali
+>         # usiamo il polinomio caratteristico di g: det(xI - g) = x^4 + c3 x^3 + c2 x^2 + c1 x + c0
+>         # det(I - t g) = 1 + ... : si ottiene dai coefficienti del polinomio caratteristico
+>         cp := CoefficientsOfUnivariatePolynomial(CharacteristicPolynomial(g));
+>         # cp[k+1] e' il coefficiente di x^k in det(xI-g); det(I - t g) = t^4 * det(t^-1 I - g)
+>         # quindi det(I - t g) = sum_k cp[k+1] * t^(4-k) ... riordinato in potenze di t
+>         s := List([0..4], k -> cp[k+1] * (-1)^0);
+>         # serie di 1/P(t), P(t) = sum_k s[k+1] * t^k  con s ricavati dal reverse
+>         s := Reversed(s);
+>         # calcolo dei coefficienti della serie 1/P(t) fino a maxdeg
+>         ser := List([0..maxdeg], d -> 0);
+>         ser[1] := 1 / s[1];
+>         for d in [1..maxdeg] do
+>             ser[d+1] := -(1/s[1]) * Sum([1..Minimum(d,4)], k -> s[k+1] * ser[d-k+1]);
+>         od;
+>         for d in [0..maxdeg] do
+>             coeffs[d+1] := coeffs[d+1] + ser[d+1];
+>         od;
+>     od;
+>     return List(coeffs, c -> c / Gord);
+> end;
+function( mats, maxdeg ) ... end
+gap>
+gap> Hm := MolienCoeffs(Mat2I, 12);;
+gap> Print("Dimensioni degli invarianti di grado 0..12:\n", List(Hm, RatFloat), "\n");
+Error, Variable: 'RatFloat' must have a value
+not in any function at *stdin*:611
+gap> # ===== 4. Serie di Molien per 2I (corretta) =====
+gap> # det(I - t g) = 1 + c3 t + c2 t^2 + c1 t^3 + c0 t^4, dove
+gap> # p(x) = x^4 + c3 x^3 + c2 x^2 + c1 x + c0 = charpoly(g)
+gap>
+gap> MolienCoeffs := function(mats, maxdeg)
+>     local Gord, coeffs, g, c, P, ser, d, k, tot;
+>     Gord := Length(mats);
+>     coeffs := List([0..maxdeg], x -> 0);
+>     for g in mats do
+>         c := CoefficientsOfUnivariatePolynomial(CharacteristicPolynomial(g));
+>         # c[1]=c0, c[2]=c1, c[3]=c2, c[4]=c3, c[5]=1
+>         # P(t) = det(I - t g) = 1 + c3 t + c2 t^2 + c1 t^3 + c0 t^4
+>         P := [1, c[4], c[3], c[2], c[1]];
+>         # ser = 1/P(t): ser[d] = -sum_{k=1..4} P[k+1]*ser[d-k], ser[0]=1
+>         ser := List([0..maxdeg], x -> 0);
+>         ser[1] := 1;
+>         for d in [1..maxdeg] do
+>             tot := 0;
+>             for k in [1..Minimum(d,4)] do
+>                 tot := tot + P[k+1] * ser[d-k+1];
+>             od;
+>             ser[d+1] := -tot;
+>         od;
+>         for d in [0..maxdeg] do
+>             coeffs[d+1] := coeffs[d+1] + ser[d+1];
+>         od;
+>     od;
+>     return List(coeffs, x -> x / Gord);
+> end;
+function( mats, maxdeg ) ... end
+gap>
+gap> Hm := MolienCoeffs(Mat2I, 12);;
+gap> Print("Dimensioni degli invarianti di grado 0..12:\n", Hm, "\n");
+Dimensioni degli invarianti di grado 0..12:
+[ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 14 ]
+gap> Hm;
+[ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 14 ]
+gap> # Verifica: i coefficienti nel ring di invarianti devono essere non-negativi interi
+gap> ForAll(Hm, x -> x >= 0 and IsInt(x));
+true
+gap> ct := CharacterTable("2.A5");
+CharacterTable( "2.A5" )
+gap> Display(ct);
+2.A5
+
+     2  3  3  2  1  1   1   1   1   1
+     3  1  1  .  1  1   .   .   .   .
+     5  1  1  .  .  .   1   1   1   1
+
+       1a 2a 4a 3a 6a  5a 10a  5b 10b
+    2P 1a 1a 2a 3a 3a  5b  5b  5a  5a
+    3P 1a 2a 4a 1a 2a  5b 10b  5a 10a
+    4P 1a 1a 1a 3a 3a  5a  5a  5b  5b
+    5P 1a 2a 4a 3a 6a  1a  2a  1a  2a
+    6P 1a 1a 2a 1a 1a  5a  5a  5b  5b
+    7P 1a 2a 4a 3a 6a  5b 10b  5a 10a
+    8P 1a 1a 1a 3a 3a  5b  5b  5a  5a
+    9P 1a 2a 4a 1a 2a  5a 10a  5b 10b
+   10P 1a 1a 2a 3a 3a  1a  1a  1a  1a
+
+X.1     1  1  1  1  1   1   1   1   1
+X.2     3  3 -1  .  .   A   A  *A  *A
+X.3     3  3 -1  .  .  *A  *A   A   A
+X.4     4  4  .  1  1  -1  -1  -1  -1
+X.5     5  5  1 -1 -1   .   .   .   .
+X.6     2 -2  . -1  1  -A   A -*A  *A
+X.7     2 -2  . -1  1 -*A  *A  -A   A
+X.8     4 -4  .  1 -1  -1   1  -1   1
+X.9     6 -6  .  .  .   1  -1   1  -1
+
+A = -E(5)-E(5)^4
+  = (1-Sqrt(5))/2 = -b5
+gap> chi := Irr(ct)[6];
+Character( CharacterTable( "2.A5" ), [ 2, -2, 0, -1, 1, E(5)+E(5)^4, -E(5)-E(5)^4, E(5)^2+E(5)^3, -E(5)^2-E(5)^3 ] )
+gap> Display(chi);
+2.A5
+
+     2  3  3  2  1  1  1   1  1   1
+     3  1  1  .  1  1  .   .  .   .
+     5  1  1  .  .  .  1   1  1   1
+
+       1a 2a 4a 3a 6a 5a 10a 5b 10b
+    2P 1a 1a 2a 3a 3a 5b  5b 5a  5a
+    3P 1a 2a 4a 1a 2a 5b 10b 5a 10a
+    4P 1a 1a 1a 3a 3a 5a  5a 5b  5b
+    5P 1a 2a 4a 3a 6a 1a  2a 1a  2a
+    6P 1a 1a 2a 1a 1a 5a  5a 5b  5b
+    7P 1a 2a 4a 3a 6a 5b 10b 5a 10a
+    8P 1a 1a 1a 3a 3a 5b  5b 5a  5a
+    9P 1a 2a 4a 1a 2a 5a 10a 5b 10b
+   10P 1a 1a 2a 3a 3a 1a  1a 1a  1a
+
+Y.1     2 -2  . -1  1  A  -A *A -*A
+
+A = E(5)+E(5)^4
+  = (-1+Sqrt(5))/2 = b5
+gap> Degree(chi);
+2
+gap> ct := CharacterTable("2.A5");
+CharacterTable( "2.A5" )
+gap> chi := Irr(ct)[6];
+Character( CharacterTable( "2.A5" ), [ 2, -2, 0, -1, 1, E(5)+E(5)^4, -E(5)-E(5)^4, E(5)^2+E(5)^3, -E(5)^2-E(5)^3 ] )
+gap> cls := SizesConjugacyClasses(ct);
+[ 1, 1, 30, 20, 20, 12, 12, 12, 12 ]
+gap> vals := ValuesOfClassFunction(chi);
+[ 2, -2, 0, -1, 1, E(5)+E(5)^4, -E(5)-E(5)^4, E(5)^2+E(5)^3, -E(5)^2-E(5)^3 ]
+gap> # Molien: sum over classes of |class|/|G| * 1/(1 - chi(g) t + t^2)
+gap> R := PolynomialRing(Rationals, ["t"]);  # or use indeterminate
+Rationals[t]
+gap> t := Indeterminate(Rationals, "t");
+t
+gap> P := Sum([1..Length(cls)], i -> cls[i] / (1 - vals[i]*t + t^2)) / 120;
+(t^16+t^14-t^10-t^8-t^6+t^2+1)/(t^18+t^16-t^12-t^10-t^8-t^6+t^2+1)
+gap> Value(P, []);   # or simplify
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 1st choice method found for `Value' on 2 arguments at /usr/share/gap/lib/methsel2.g:249 called from
+<function "HANDLE_METHOD_NOT_FOUND">( <arguments> )
+ called from read-eval loop at *stdin*:660
+type 'quit;' to quit to outer loop
+brk> quit;
+gap> Display(Series(P, 0, 40));   # or compare coefficients with the expansion of the claimed formula
+Error, Variable: 'Series' must have a value
+not in any function at *stdin*:660
+gap> t := Indeterminate(Rationals, "t");;
+gap> P := Sum([1..Length(cls)], i -> cls[i] / (1 - vals[i]*t + t^2)) / 120;;
+gap> # Reduce to lowest terms:
+gap> N := NumeratorRat(P);; D := DenominatorRat(P);;
+Error, NumeratorRat: <rat> must be a rational (not a component object)
+not in any function at *stdin*:664
+type 'quit;' to quit to outer loop
+brk> Print(Gcd(N, D), "\n");     # common factor, should be nontrivial
+Error, Variable: 'D' must have a value
+not in any function at *errin*:1
+brk> # Power series check to degree 40:
+brk> Print(List([0..20], n -> CoefficientsOfUnivariatePolynomial(N) ), "\n");
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 2nd choice method found for `CoefficientsOfUnivariatePolynomial' on 1 arguments at /usr/share/gap/lib/methsel2.g:249 called from
+CoefficientsOfUnivariatePolynomial( N ) at *errin*:3 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *errin*:3
+type 'quit;' to quit to outer loop
+brk_2> quit;
+brk> quit;
+gap> ser := List([0..40], n -> Coefficient(
+Syntax warning: Unbound global variable
+ser := List([0..40], n -> Coefficient(
+                          ^^^^^^^^^^^
+>    Value(P, []) , n)); # not needed
+Error, Variable: 'Coefficient' must have an assigned value in
+  return Coefficient( Value( P, [  ] ), n ); at *stdin*:665 called from 
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *stdin*:665
+type 'quit;' to quit to outer loop
+brk> quit;
+gap> target := (1 + t^30) / ((1 - t^12) * (1 - t^20));
+(t^16+t^14-t^10-t^8-t^6+t^2+1)/(t^18+t^16-t^12-t^10-t^8-t^6+t^2+1)
+gap> Print(NumeratorRat(P*Denominator(target) - target*DenominatorRat(P)), "\n");
+Error, Variable: 'Denominator' must have a value
+not in any function at *stdin*:666
+gap> N := t^16+t^14-t^10-t^8-t^6+t^2+1;;
+gap> D := t^18+t^16-t^12-t^10-t^8-t^6+t^2+1;;
+gap> target_num := 1 + t^30;;
+gap> target_den := (1 - t^12)*(1 - t^20);;
+gap> # P = target iff N*target_den = target_num*D
+gap> Print(N*target_den - target_num*D, "\n");
+0
+gap>
+gap> Harm := [];
+[  ]
+gap> for l in [0..12] do
+>     pprev := 0;
+>     if l >= 2 then
+>         pprev := Hm[l-1];
+>     fi;
+>     Add(Harm, Hm[l+1] - pprev);
+> od;
+gap>
+gap> Print("Dimensioni armoniche: ", Harm, "\n");
+Dimensioni armoniche: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13 ]
+gap> Hm := MolienCoeffs(Mat2I, 30);;   # coefficienti fino al grado 30 (indice k -> t^(k-1))
+gap>
+gap> Harm := [];;
+gap> for l in [0..30] do
+>     pprev := 0;
+>     if l >= 2 then
+>         pprev := Hm[l-1];
+>     fi;
+>     Add(Harm, Hm[l+1] - pprev);
+> od;
+gap>
+gap> Print("Dimensioni armoniche quaternioniche: ", Harm, "\n");
+Dimensioni armoniche quaternioniche: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 25, 0, 0, 0, 0, 0, 31 ]
+gap> # Sviluppo in serie: coefficiente di t^n nella serie di Klein
+gap> KleinCoeffs := function(N)
+>     local c, n, a, b;
+>     c := List([0..N], x -> 0);
+>     for a in [0..N] do
+>         for b in [0..N] do
+>             if 12*a + 20*b <= N then
+>                 c[12*a + 20*b + 1] := c[12*a + 20*b + 1] + 1;
+>             fi;
+>             if 12*a + 20*b + 30 <= N then
+>                 c[12*a + 20*b + 30 + 1] := c[12*a + 20*b + 30 + 1] + 1;
+>             fi;
+>         od;
+>     od;
+>     return c;   # c[n+1] = coefficiente di t^n
+> end;;
+gap>
+gap> cK := KleinCoeffs(30);;
+gap> Print("Coefficienti Klein c_l: ", cK, "\n");
+Coefficienti Klein c_l: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 ]
+gap> Confronto := [];;
+gap> for l in [0..30] do
+>     attesa := (l+1) * cK[l+1];
+>     ok := (Harm[l+1] = attesa);
+>     Add(Confronto, [l, Harm[l+1], attesa, ok]);
+> od;
+gap>
+gap> Print("grado l | dim H_l quaternionica | (l+1)c_l | ok\n");
+grado l | dim H_l quaternionica | (l+1)c_l | ok
+gap> for r in Confronto do
+>     Print(r[1], " | ", r[2], " | ", r[3], " | ", r[4], "\n");
+> od;
+0 | 1 | 1 | true
+1 | 0 | 0 | true
+2 | 0 | 0 | true
+3 | 0 | 0 | true
+4 | 0 | 0 | true
+5 | 0 | 0 | true
+6 | 0 | 0 | true
+7 | 0 | 0 | true
+8 | 0 | 0 | true
+9 | 0 | 0 | true
+10 | 0 | 0 | true
+11 | 0 | 0 | true
+12 | 13 | 13 | true
+13 | 0 | 0 | true
+14 | 0 | 0 | true
+15 | 0 | 0 | true
+16 | 0 | 0 | true
+17 | 0 | 0 | true
+18 | 0 | 0 | true
+19 | 0 | 0 | true
+20 | 21 | 21 | true
+21 | 0 | 0 | true
+22 | 0 | 0 | true
+23 | 0 | 0 | true
+24 | 25 | 25 | true
+25 | 0 | 0 | true
+26 | 0 | 0 | true
+27 | 0 | 0 | true
+28 | 0 | 0 | true
+29 | 0 | 0 | true
+30 | 31 | 31 | true
+gap>
+gap> Print("\nTutti i gradi coincidono: ", ForAll(Confronto, r -> r[4]), "\n");
+
+Tutti i gradi coincidono: true
+gap> tbl := CharacterTable("2.A5");;
+gap> List(Irr(tbl), x -> x[1]);     # gradi dei caratteri
+[ 1, 3, 3, 4, 5, 2, 2, 4, 6 ]
+gap> tbl := CharacterTable("2.A5");;
+gap> irr := Irr(tbl);;
+gap> ords := OrdersClassRepresentatives(tbl);;
+gap> pos_centro := Position(ords, 2);;          # classe dell'elemento -1 (ordine 2)
+gap> fedeli := Filtered([1..Length(irr)],
+>     i -> irr[i][1] = 2 and irr[i][pos_centro] = -2);;
+gap> chi := irr[fedeli[1]];;
+gap> Print("Carattere fedele di grado 2: ", chi, "\n");
+Carattere fedele di grado 2: Character( CharacterTable( "2.A5" ), [ 2, -2, 0, -1, 1, E(5)+E(5)^4, -E(5)-E(5)^4, E(5)^2+E(5)^3,
+  -E(5)^2-E(5)^3 ] )
+gap> tr := chi;;                       # traccia di ciascuna classe
+gap> ord := SizesConjugacyClasses(tbl);;
+gap> # Per SU(2): det(1 - t g) = 1 - tr(g) t + t^2
+gap> M := (1/Size(tbl)) * Sum([1..Length(ord)],
+>      k -> ord[k] / (1 - tr[k]*t + t^2));;
+gap> # coefficienti di 1/(1 - c t + t^2): a_0 = 1, a_1 = c, a_n = c*a_{n-1} - a_{n-2}
+gap> coefSerie := function(c, deg)
+>     local a, n;
+>     a := [1, c];
+>     for n in [3..deg+1] do
+>         Add(a, c*a[n-1] - a[n-2]);
+>     od;
+>     return a{[1..deg+1]};
+> end;;
+gap>
+gap> deg := 30;;
+gap> tot := List([1..deg+1], i -> 0);;
+gap> for k in [1..Length(sizes)] do
+>     tot := tot + sizes[k] * coefSerie(chi[k], deg);
+> od;
+Error, Variable: 'sizes' must have an assigned value in
+  for k in [ 1 .. Length( sizes ) ] do
+    tot := tot + sizes[k] * coefSerie( chi[k], deg );
+od; at *stdin*:757 called from
+<function "unknown">( <arguments> )
+ called from read-eval loop at *stdin*:757
+type 'quit;' to quit to outer loop
+brk> tot := tot / N;;
+brk> # tot[n+1] è il coefficiente di t^n nella serie di Molien
+brk> Print(List([1..deg+1], i -> tot[i]), "\n");
+[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+brk> quit;
+gap> tbl := CharacterTable("2.A5");;
+gap> irr := Irr(tbl);;
+gap> ords := OrdersClassRepresentatives(tbl);;
+gap> pos_centro := Position(ords, 2);;
+gap> chi := First(irr, x -> x[1] = 2 and x[pos_centro] = -2);;
+gap> sizes := SizesConjugacyClasses(tbl);;
+gap> N := Size(tbl);;
+gap>
+gap> coefSerie := function(c, deg)
+>     local a, n;
+>     a := [1, c];
+>     for n in [3..deg+1] do
+>         Add(a, c*a[n-1] - a[n-2]);
+>     od;
+>     return a{[1..deg+1]};
+> end;;
+gap>
+gap> deg := 30;;
+gap> tot := List([1..deg+1], i -> 0);;
+gap> for k in [1..Length(sizes)] do
+>     tot := tot + sizes[k] * coefSerie(chi[k], deg);
+> od;
+gap> tot := tot / N;;
+gap> Print(List([1..deg+1], i -> tot[i]), "\n");
+[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 ]
+gap> # ============================================================
+gap> # 2I = gruppo binario icosaedrale come quaternioni unitari
+gap> # ============================================================
+gap>
+gap> # Campo ℚ(√5)
+gap> s5 := RootInt(5);  # solo per riferimento
+2
+gap> phi := (1 + Sqrt(5)) / 2;   # sezione aurea (per controllo)
+-E(5)^2-E(5)^3
+
+gap> # Generatori standard di 2I come quaternioni unitari (coord. (a,b,c,d) = a+bi+cj+dk)
+gap> # Costruzione: 2I = {±1, ±i, ±j, ±k, (±1±i±j±k)/2, (0 ±1 ±φ⁻¹ ±φ)/2 con permutazioni pari}
+gap> # Usiamo la versione standard con φ.
+gap>
+gap> Qalg := QuaternionAlgebra(Field(Sqrt(5)));  # quaternioni su ℚ(√5)
+<algebra-with-one of dimension 4 over NF(5,[ 1, 4 ])>
+gap> Elts := [];
+[  ]
+gap>
+gap> # ±1, ±i, ±j, ±k
+gap> for sgn in [1,-1] do
+>   Add(Elts, [sgn,0,0,0]);
+>   Add(Elts, [0,sgn,0,0]);
+>   Add(Elts, [0,0,sgn,0]);
+>   Add(Elts, [0,0,0,sgn]);
+> od;
+gap>
+gap> # (±1 ±i ±j ±k)/2
+gap> for s1 in [1,-1] do for s2 in [1,-1] do
+> for s3 in [1,-1] do for s4 in [1,-1] do
+>   Add(Elts, [s1,s2,s3,s4]/2);
+> od; od; od; od;
+gap>
+gap> # (0, ±1, ±φ⁻¹, ±φ)/2 con permutazioni pari delle coordinate
+gap> phiinv := phi - 1;   # = 1/φ
+E(5)+E(5)^4
+gap> base := [0, 1, phiinv, phi]/2;
+[ 0, 1/2, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ]
+gap> perms := [
+>   [1,2,3,4],[2,1,4,3],[3,4,1,2],[4,3,2,1],
+>   [1,3,4,2],[3,1,2,4],[4,2,3,1],[2,4,1,3],
+>   [1,4,2,3],[4,1,3,2],[2,3,1,4],[3,2,4,1]
+> ];
+[ [ 1, 2, 3, 4 ], [ 2, 1, 4, 3 ], [ 3, 4, 1, 2 ], [ 4, 3, 2, 1 ], [ 1, 3, 4, 2 ], [ 3, 1, 2, 4 ], [ 4, 2, 3, 1 ], [ 2, 4, 1, 3 ],
+  [ 1, 4, 2, 3 ], [ 4, 1, 3, 2 ], [ 2, 3, 1, 4 ], [ 3, 2, 4, 1 ] ]
+gap> for p in perms do
+>   v := List([1..4], i -> base[p[i]]);
+>   for s1 in [1,-1] do for s2 in [1,-1] do for s3 in [1,-1] do
+>     w := [v[1], s1*v[2], s2*v[3], s3*v[4]];
+>     if ForAll(w, x -> x <> 0) or true then
+>       Add(Elts, w);
+>     fi;
+>   od; od; od;
+> od;
+gap>
+gap> # Elimina duplicati
+gap> Elts := DuplicatesRemoved(Elts);  # funzione di supporto sotto
+Error, Variable: 'DuplicatesRemoved' must have a value
+not in any function at *stdin*:829
+gap>
+gap> # ------------------------------------------------------------
+gap> # CONTROLLI
+gap> # ------------------------------------------------------------
+gap> Print("Numero elementi: ", Length(Elts), "  (atteso 120)\n");
+Numero elementi: 120  (atteso 120)
+gap> Print("Norme tutte 1: ", ForAll(Elts, v -> Sum(v, x -> x^2) = 1), "\n");
+Norme tutte 1: true
+gap> # ============================================================
+gap> # 2I = gruppo binario icosaedrale come quaternioni unitari
+gap> # ============================================================
+gap>
+gap> phi := (1 + Sqrt(5)) / 2;   # sezione aurea
+-E(5)^2-E(5)^3
+gap> phiinv := phi - 1;          # = 1/φ
+E(5)+E(5)^4
+
+gap> Elts := [];
+[  ]
+
+gap> # ±1, ±i, ±j, ±k
+gap> for sgn in [1,-1] do
+>   Add(Elts, [sgn,0,0,0]);
+>   Add(Elts, [0,sgn,0,0]);
+>   Add(Elts, [0,0,sgn,0]);
+>   Add(Elts, [0,0,0,sgn]);
+> od;
+
+gap> # (±1 ±i ±j ±k)/2
+gap> for s1 in [1,-1] do for s2 in [1,-1] do
+> for s3 in [1,-1] do for s4 in [1,-1] do
+>   Add(Elts, [s1,s2,s3,s4]/2);
+> od; od; od; od;
+
+gap> # (0, ±1, ±φ⁻¹, ±φ)/2 con permutazioni pari delle coordinate
+gap> base := [0, 1, phiinv, phi]/2;
+[ 0, 1/2, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ]
+gap> 
+gap> perms := [
+>   [1,2,3,4],[2,1,4,3],[3,4,1,2],[4,3,2,1],
+>   [1,3,4,2],[3,1,2,4],[4,2,3,1],[2,4,1,3],
+>   [1,4,2,3],[4,1,3,2],[2,3,1,4],[3,2,4,1]
+> ];
+[ [ 1, 2, 3, 4 ], [ 2, 1, 4, 3 ], [ 3, 4, 1, 2 ], [ 4, 3, 2, 1 ], [ 1, 3, 4, 2 ], [ 3, 1, 2, 4 ], [ 4, 2, 3, 1 ], [ 2, 4, 1, 3 ],
+  [ 1, 4, 2, 3 ], [ 4, 1, 3, 2 ], [ 2, 3, 1, 4 ], [ 3, 2, 4, 1 ] ]
+gap> for p in perms do
+>   v := List([1..4], i -> base[p[i]]);
+>   for s1 in [1,-1] do for s2 in [1,-1] do for s3 in [1,-1] do
+>     Add(Elts, [v[1], s1*v[2], s2*v[3], s3*v[4]]);
+>   od; od; od;
+> od;
+
+gap> # Rimozione duplicati (nome corretto in GAP)
+gap> Elts := DuplicateFreeList(Elts);
+[ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ], [ -1, 0, 0, 0 ], [ 0, -1, 0, 0 ], [ 0, 0, -1, 0 ], [ 0, 0, 0, -1 ],
+  [ 1/2, 1/2, 1/2, 1/2 ], [ 1/2, 1/2, 1/2, -1/2 ], [ 1/2, 1/2, -1/2, 1/2 ], [ 1/2, 1/2, -1/2, -1/2 ], [ 1/2, -1/2, 1/2, 1/2 ],
+  [ 1/2, -1/2, 1/2, -1/2 ], [ 1/2, -1/2, -1/2, 1/2 ], [ 1/2, -1/2, -1/2, -1/2 ], [ -1/2, 1/2, 1/2, 1/2 ], [ -1/2, 1/2, 1/2, -1/2 ],
+  [ -1/2, 1/2, -1/2, 1/2 ], [ -1/2, 1/2, -1/2, -1/2 ], [ -1/2, -1/2, 1/2, 1/2 ], [ -1/2, -1/2, 1/2, -1/2 ], [ -1/2, -1/2, -1/2, 1/2 ],
+  [ -1/2, -1/2, -1/2, -1/2 ], [ 0, 1/2, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 0, 1/2, 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3 ], [ 0, 1/2, -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 0, 1/2, -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3 ], [ 0, -1/2, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 0, -1/2, 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3 ], [ 0, -1/2, -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 0, -1/2, -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3 ], [ 1/2, 0, -1/2*E(5)^2-1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 1/2, 0, -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4 ], [ 1/2, 0, 1/2*E(5)^2+1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 1/2, 0, 1/2*E(5)^2+1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4 ], [ -1/2, 0, -1/2*E(5)^2-1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4 ],
+  [ -1/2, 0, -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4 ], [ -1/2, 0, 1/2*E(5)^2+1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4 ],
+  [ -1/2, 0, 1/2*E(5)^2+1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4 ], [ 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2 ],
+  [ 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2 ], [ 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2 ],
+  [ 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2 ], [ -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2 ],
+  [ -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2 ], [ -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2 ],
+  [ -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2 ], [ -1/2*E(5)^2-1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4, 1/2, 0 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4, -1/2, 0 ], [ -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4, 1/2, 0 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4, -1/2, 0 ], [ 1/2*E(5)^2+1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4, 1/2, 0 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, 1/2*E(5)+1/2*E(5)^4, -1/2, 0 ], [ 1/2*E(5)^2+1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4, 1/2, 0 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, -1/2*E(5)-1/2*E(5)^4, -1/2, 0 ], [ 0, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 1/2 ],
+  [ 0, 1/2*E(5)+1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, -1/2 ], [ 0, 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 1/2 ],
+  [ 0, 1/2*E(5)+1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, -1/2 ], [ 0, -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, 1/2 ],
+  [ 0, -1/2*E(5)-1/2*E(5)^4, -1/2*E(5)^2-1/2*E(5)^3, -1/2 ], [ 0, -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, 1/2 ],
+  [ 0, -1/2*E(5)-1/2*E(5)^4, 1/2*E(5)^2+1/2*E(5)^3, -1/2 ], [ 1/2*E(5)+1/2*E(5)^4, 0, 1/2, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 1/2*E(5)+1/2*E(5)^4, 0, 1/2, 1/2*E(5)^2+1/2*E(5)^3 ], [ 1/2*E(5)+1/2*E(5)^4, 0, -1/2, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 1/2*E(5)+1/2*E(5)^4, 0, -1/2, 1/2*E(5)^2+1/2*E(5)^3 ], [ -1/2*E(5)-1/2*E(5)^4, 0, 1/2, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ -1/2*E(5)-1/2*E(5)^4, 0, 1/2, 1/2*E(5)^2+1/2*E(5)^3 ], [ -1/2*E(5)-1/2*E(5)^4, 0, -1/2, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ -1/2*E(5)-1/2*E(5)^4, 0, -1/2, 1/2*E(5)^2+1/2*E(5)^3 ], [ -1/2*E(5)^2-1/2*E(5)^3, 1/2, 1/2*E(5)+1/2*E(5)^4, 0 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, 1/2, -1/2*E(5)-1/2*E(5)^4, 0 ], [ -1/2*E(5)^2-1/2*E(5)^3, -1/2, 1/2*E(5)+1/2*E(5)^4, 0 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, -1/2, -1/2*E(5)-1/2*E(5)^4, 0 ], [ 1/2*E(5)^2+1/2*E(5)^3, 1/2, 1/2*E(5)+1/2*E(5)^4, 0 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, 1/2, -1/2*E(5)-1/2*E(5)^4, 0 ], [ 1/2*E(5)^2+1/2*E(5)^3, -1/2, 1/2*E(5)+1/2*E(5)^4, 0 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, -1/2, -1/2*E(5)-1/2*E(5)^4, 0 ], [ 1/2, -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 1/2, -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4 ], [ 1/2, 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 1/2, 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4 ], [ -1/2, -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4 ],
+  [ -1/2, -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4 ], [ -1/2, 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4 ],
+  [ -1/2, 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4 ], [ 0, -1/2*E(5)^2-1/2*E(5)^3, 1/2, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 0, -1/2*E(5)^2-1/2*E(5)^3, 1/2, -1/2*E(5)-1/2*E(5)^4 ], [ 0, -1/2*E(5)^2-1/2*E(5)^3, -1/2, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 0, -1/2*E(5)^2-1/2*E(5)^3, -1/2, -1/2*E(5)-1/2*E(5)^4 ], [ 0, 1/2*E(5)^2+1/2*E(5)^3, 1/2, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 0, 1/2*E(5)^2+1/2*E(5)^3, 1/2, -1/2*E(5)-1/2*E(5)^4 ], [ 0, 1/2*E(5)^2+1/2*E(5)^3, -1/2, 1/2*E(5)+1/2*E(5)^4 ],
+  [ 0, 1/2*E(5)^2+1/2*E(5)^3, -1/2, -1/2*E(5)-1/2*E(5)^4 ], [ -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4, 1/2 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4, -1/2 ], [ -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4, 1/2 ],
+  [ -1/2*E(5)^2-1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4, -1/2 ], [ 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4, 1/2 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, 0, 1/2*E(5)+1/2*E(5)^4, -1/2 ], [ 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4, 1/2 ],
+  [ 1/2*E(5)^2+1/2*E(5)^3, 0, -1/2*E(5)-1/2*E(5)^4, -1/2 ], [ 1/2, 1/2*E(5)+1/2*E(5)^4, 0, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 1/2, 1/2*E(5)+1/2*E(5)^4, 0, 1/2*E(5)^2+1/2*E(5)^3 ], [ 1/2, -1/2*E(5)-1/2*E(5)^4, 0, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ 1/2, -1/2*E(5)-1/2*E(5)^4, 0, 1/2*E(5)^2+1/2*E(5)^3 ], [ -1/2, 1/2*E(5)+1/2*E(5)^4, 0, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ -1/2, 1/2*E(5)+1/2*E(5)^4, 0, 1/2*E(5)^2+1/2*E(5)^3 ], [ -1/2, -1/2*E(5)-1/2*E(5)^4, 0, -1/2*E(5)^2-1/2*E(5)^3 ],
+  [ -1/2, -1/2*E(5)-1/2*E(5)^4, 0, 1/2*E(5)^2+1/2*E(5)^3 ], [ 1/2*E(5)+1/2*E(5)^4, 1/2, -1/2*E(5)^2-1/2*E(5)^3, 0 ],
+  [ 1/2*E(5)+1/2*E(5)^4, 1/2, 1/2*E(5)^2+1/2*E(5)^3, 0 ], [ 1/2*E(5)+1/2*E(5)^4, -1/2, -1/2*E(5)^2-1/2*E(5)^3, 0 ],
+  [ 1/2*E(5)+1/2*E(5)^4, -1/2, 1/2*E(5)^2+1/2*E(5)^3, 0 ], [ -1/2*E(5)-1/2*E(5)^4, 1/2, -1/2*E(5)^2-1/2*E(5)^3, 0 ],
+  [ -1/2*E(5)-1/2*E(5)^4, 1/2, 1/2*E(5)^2+1/2*E(5)^3, 0 ], [ -1/2*E(5)-1/2*E(5)^4, -1/2, -1/2*E(5)^2-1/2*E(5)^3, 0 ],
+  [ -1/2*E(5)-1/2*E(5)^4, -1/2, 1/2*E(5)^2+1/2*E(5)^3, 0 ] ]
+gap> 
+gap> # ------------------------------------------------------------
+gap> # Controlli
+gap> # ------------------------------------------------------------
+gap> Print("Elementi distinti: ", Length(Elts), "  (atteso 120)\n");
+Elementi distinti: 120  (atteso 120)
+gap> Print("Norme tutte 1: ", ForAll(Elts, v -> Sum(v, x -> x^2) = 1), "\n");
+Norme tutte 1: true
+gap> 
+gap> # Prodotto di quaternioni (a,b,c,d) = a+bi+cj+dk
+gap> qmul := function(p, q)
+>   local a1,b1,c1,d1,a2,b2,c2,d2;
+>   a1:=p[1]; b1:=p[2]; c1:=p[3]; d1:=p[4];
+>   a2:=q[1]; b2:=q[2]; c2:=q[3]; d2:=q[4];
+>   return [ a1*a2 - b1*b2 - c1*c2 - d1*d2,
+>            a1*b2 + b1*a2 + c1*d2 - d1*c2,
+>            a1*c2 - b1*d2 + c1*a2 + d1*b2,
+>            a1*d2 + b1*c2 - c1*b2 + d1*a2 ];
+> end;
+function( p, q ) ... end
+gap> 
+gap> # Chiusura sotto prodotto: 2I deve essere un gruppo
+gap> closed := ForAll(Elts, p -> ForAll(Elts, q -> qmul(p,q) in Elts));
+false
+gap> Print("Chiuso sotto prodotto: ", closed, "\n");
+Chiuso sotto prodotto: false
+gap> # ------------------------------------------------------------
+gap> # Verifica chiusura con tolleranza numerica
+gap> # (evita problemi di confronto esatto nel campo ciclotomico)
+gap> # ------------------------------------------------------------
+gap> EltsF := List(Elts, v -> List(v, x -> ComplexToFloat(x)));
+Syntax warning: Unbound global variable
+EltsF := List(Elts, v -> List(v, x -> ComplexToFloat(x)));
+                                      ^^^^^^^^^^^^^^
+Error, Variable: 'ComplexToFloat' must have an assigned value in
+  return ComplexToFloat( x ); at *stdin*:965 called from 
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+List( v, function ( x )
+      return ComplexToFloat( x );
+  end ) at *stdin*:965 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *stdin*:965
+type 'quit;' to quit to outer loop
+brk> EltsF := List(EltsF, v -> List(v, x -> RealPart(x)));
+Syntax warning: Unbound global variable in *errin*:1
+EltsF := List(EltsF, v -> List(v, x -> RealPart(x)));
+^^^^^
+Error, Variable: 'EltsF' must have a value in
+  return ComplexToFloat( x ); at *stdin*:965 called from 
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+List( v, function ( x )
+      return ComplexToFloat( x );
+  end ) at *stdin*:965 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *errin*:1
+brk>
+brk> qmulF := function(p, q)
+Syntax warning: Unbound global variable in *errin*:3
+qmulF := function(p, q)
+^^^^^
+>   local a1,b1,c1,d1,a2,b2,c2,d2;
+>   a1:=p[1]; b1:=p[2]; c1:=p[3]; d1:=p[4];
+>   a2:=q[1]; b2:=q[2]; c2:=q[3]; d2:=q[4];
+>   return [ a1*a2 - b1*b2 - c1*c2 - d1*d2,
+>            a1*b2 + b1*a2 + c1*d2 - d1*c2,
+>            a1*c2 - b1*d2 + c1*a2 + d1*b2,
+>            a1*d2 + b1*c2 - c1*b2 + d1*a2 ];
+> end;
+function( p, q ) ... end
+brk>
+brk> # Per ogni prodotto, cerca il più vicino elemento di Elts
+brk> inGroupF := function(v, L)
+Syntax warning: Unbound global variable in *errin*:14
+inGroupF := function(v, L)
+^^^^^^^^
+>   return ForAny(L, w -> Maximum(List([1..4], i -> AbsFloat(v[i]-w[i]))) < 10^-9);
+Syntax warning: Unbound global variable in *errin*:15
+  return ForAny(L, w -> Maximum(List([1..4], i -> AbsFloat(v[i]-w[i]))) < 10^-9);
+                                                  ^^^^^^^^
+> end;
+function( v, L ) ... end
+brk>
+brk> closedF := ForAll(EltsF, p -> ForAll(EltsF, q -> inGroupF(qmulF(p,q), EltsF)));
+Syntax warning: Unbound global variable in *errin*:18
+closedF := ForAll(EltsF, p -> ForAll(EltsF, q -> inGroupF(qmulF(p,q), EltsF)));
+^^^^^^^
+Syntax warning: Unbound global variable in *errin*:18
+closedF := ForAll(EltsF, p -> ForAll(EltsF, q -> inGroupF(qmulF(p,q), EltsF)));
+                  ^^^^^
+Error, Variable: 'EltsF' must have a value in
+  return ComplexToFloat( x ); at *stdin*:965 called from 
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+List( v, function ( x )
+      return ComplexToFloat( x );
+  end ) at *stdin*:965 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *errin*:18
+Syntax warning: Unbound global variable in *errin*:18
+closedF := ForAll(EltsF, p -> ForAll(EltsF, q -> inGroupF(qmulF(p,q), EltsF)));
+                                     ^^^^^
+Syntax warning: Unbound global variable in *errin*:18
+closedF := ForAll(EltsF, p -> ForAll(EltsF, q -> inGroupF(qmulF(p,q), EltsF)));
+                                                                      ^^^^^
+brk> Print("Chiuso sotto prodotto (float): ", closedF, "\n");
+Syntax warning: Unbound global variable in *errin*:19
+Print("Chiuso sotto prodotto (float): ", closedF, "\n");
+                                         ^^^^^^^
+Error, Variable: 'closedF' must have a value in
+  return ComplexToFloat( x ); at *stdin*:965 called from 
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+List( v, function ( x )
+      return ComplexToFloat( x );
+  end ) at *stdin*:965 called from
+func( C[i] ) at /usr/share/gap/lib/coll.gi:665 called from
+<function "List">( <arguments> )
+ called from read-eval loop at *errin*:19
+brk> quit;
+gap> G := SL(2,5);
+SL(2,5)
+gap> Print("Ordine di SL(2,5): ", Size(G), "  (atteso 120)\n");
+Ordine di SL(2,5): 120  (atteso 120)
+gap> Print("E' il gruppo binario icosaedrale: ", IsomorphismGroups(G, SmallGroup(120,5)) <> fail, "\n");
+E' il gruppo binario icosaedrale: true
+gap> Print("Centro: ", Size(Centre(G)), "  (atteso 2)\n");
+Centro: 2  (atteso 2)
+gap> Print("Classi di coniugio: ", Length(ConjugacyClasses(G)), "  (atteso 9)\n");
+Classi di coniugio: 9  (atteso 9)
+gap> Print("Ordini degli elementi: ", Collected(List(Elements(G), Order)), "\n");
+Ordini degli elementi: [ [ 1, 1 ], [ 2, 1 ], [ 3, 20 ], [ 4, 30 ], [ 5, 24 ], [ 6, 20 ], [ 10, 24 ] ]
+gap>
+</pre></body></html>

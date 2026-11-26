@@ -21,3 +21,6 @@ Ogni progetto deve avere una scheda con: obiettivo, oggetti matematici, fonti, t
 11. **Q6 topological synchronization and hysteresis industrial benchmark** — Q6 cubical 2-skeleton, exact chain identities, Anti-Twin lift, NL/NLT topological synchronization and separate Preisach/Prandtl-Ishlinskii/Bouc-Wen constitutive baselines. Industrial validation remains data-dependent. See [project specification](q6_hysteresis_benchmark/README.md) and [T068 audit record](../theorems/T068-q6-cubical-topological-synchronization-audit.md).
 
 12. **Q6 multi-seed/multi-rate hysteresis study** — forward/backward continuation over multiple seeds and dwell times, effective sigma sweep rates, branch-gap/loop-area statistics and NL/NLT plots. See [protocol and reproduction](q6_hysteresis_benchmark/README.md).
+
+
+13. **Gravitoelectromagnetism / MHD / quantum hydrodynamics / fluxons** — weak-field mass-current effects, magnetic induction and flux freezing, Madelung/Pauli spin-fluid equations, compact phase winding and Josephson fluxons; cross-linked to T047 and T049B–T049D. The Q6/PRISM discrete field equations and any common GEM–Einstein–Cartan action remain open. See [integrated bridge note](../research/GRAVITOMAGNETISM_MHD_QHD_FLUXON_BRIDGE.md).

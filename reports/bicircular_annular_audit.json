@@ -1,0 +1,51 @@
+{
+  "schema": "bicircular-annular-audit-v1",
+  "classification": "manufactured numerical replay of the committed audit algorithms; not physical validation",
+  "date": "2026-11-11",
+  "E001_vesica_baseline": {
+    "parameters": {"R1": 1.0, "R2": 1.0, "d": 1.0},
+    "chord": 1.7320508075688772,
+    "chord_error": 0.0,
+    "area_quadrature": 1.2283696986087617,
+    "area_exact": 1.228369698608757,
+    "area_classical": 1.228369698608757,
+    "area_error": 4.6629367034256575e-15,
+    "centroid": [0.5000000000000001, 0.0]
+  },
+  "E002_asymmetric_lens": {
+    "parameters": {"R1": 1.35, "R2": 0.92, "d": 1.10},
+    "area_quadrature": 1.5814162005748194,
+    "area_exact": 1.5814162005748138,
+    "area_relative_error": 3.5102176903891972e-15,
+    "centroid": [0.7890181872634017, 0.0]
+  },
+  "E003_affine_anisotropy": {
+    "F_exact": [[1.2, 0.15], [0.05, 0.82]],
+    "F_reconstructed": [[1.2, 0.15], [0.05, 0.82]],
+    "F_error_frobenius": 2.8609792490763984e-17,
+    "strain_anisotropy": 0.2171217630731659
+  },
+  "E004_annular_gradient_convergence": [
+    {"h": 0.4, "gradient_error": 0.31264382268138796},
+    {"h": 0.2, "gradient_error": 0.07816095567034705},
+    {"h": 0.1, "gradient_error": 0.019540238917586758},
+    {"h": 0.05, "gradient_error": 0.004885059729396743}
+  ],
+  "E005_defect_loop_closure": {
+    "target_burgers": [0.7, -0.25],
+    "target_frank": 0.4,
+    "levels": [
+      {"n": 32, "burgers_error": 0.002397299694004072, "frank_error": 0.0012900786265699349},
+      {"n": 64, "burgers_error": 0.000597590212628655, "frank_error": 0.0003215861423949695},
+      {"n": 128, "burgers_error": 0.00014928953035814118, "frank_error": 0.000080338404041518},
+      {"n": 256, "burgers_error": 0.000037315637338747, "frank_error": 0.0000200809712224137},
+      {"n": 512, "burgers_error": 0.000009328487852637854, "frank_error": 0.000005020015990120363}
+    ]
+  },
+  "verification_boundary": {
+    "numerical_replay": "passed",
+    "pytest_in_repository": "not yet executed by GitHub Actions",
+    "physical_validation": "not performed",
+    "continuum_reconstruction": "open"
+  }
+}

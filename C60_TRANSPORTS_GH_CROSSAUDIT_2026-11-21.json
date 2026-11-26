@@ -1,0 +1,25 @@
+{
+  "vertex_match_max_dist": 0.0,
+  "faces_matched": 32,
+  "frame_det_min": 0.9999999999999996,
+  "frame_det_max": 1.0000000000000002,
+  "D_on_GH_tree_vs_GH": {
+    "gauge_C_deg": -108.0,
+    "max_matrix_residual": 1.4432899320127035e-15,
+    "tree_recurrence_residual": 0.0
+  },
+  "A_on_GH_tree_edges_vs_GH": 1.5543122344752192e-15,
+  "holonomy_max_angle_diff_deg": 2.842170943040401e-14,
+  "holonomy_max_trace_diff": 2.4424906541753444e-15,
+  "holonomy_max_det_diff": 2.4424906541753444e-15,
+  "holonomy_sign_agreement": "60/60",
+  "holonomy_max_matrix_diff": 1.4432899320127035e-15,
+  "M_norm": {
+    "GH_mean": 1.2014309604729314,
+    "BFS_mean": 1.5882207782824755,
+    "DFS_mean": 1.8700615097071114,
+    "max_abs_BFS_minus_GH": 2.8284271247461885,
+    "max_abs_DFS_minus_GH": 2.8284271247461885,
+    "max_abs_BFS_minus_DFS": 2.5327759839319213
+  }
+}

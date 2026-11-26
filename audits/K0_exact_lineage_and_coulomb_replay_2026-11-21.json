@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-21",
+  "status": "EXACT_IDENTITY_PASSED_PRODUCER_OPEN",
+  "canonical_K0": {
+    "shape": [
+      188,
+      188
+    ],
+    "dtype": "float64",
+    "array_data_sha256": "d7e70c87d1f068af9399be231f95f5f7b09e70ba1d444df52bc70c19011bb614",
+    "symmetric_residual_fro": 0,
+    "spectrum": {
+      "zero_modes": 64,
+      "positive_modes": 124,
+      "positive_min": 0.5000000000000024,
+      "positive_max": 12.799999999999976,
+      "max_gap_error_from_0_1": 3.977373985719623e-14
+    }
+  },
+  "exact_comparisons": [
+    {
+      "source": "canonical RGS_PSU_all_matrices.npz",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    },
+    {
+      "source": "A13 nested RGS_PSU_all_matrices.npz::K0",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    },
+    {
+      "source": "A13 nested psu_fibre_connection_matrices.npz::K0",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    },
+    {
+      "source": "188D_FINAL_BUNDLE.zip::K0.npy",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    }
+  ],
+  "exact_Q_comparisons": [
+    {
+      "source": "A13 nested RGS_PSU_all_matrices.npz::Q_tangent",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    },
+    {
+      "source": "A13 nested psu_fibre_connection_matrices.npz::Q",
+      "exact": true,
+      "frobenius": 0,
+      "max_abs": 0
+    }
+  ],
+  "Q_array_data_sha256": "829f9fa5be27fb93db91252f60381e1af6803e6629fa5a586b023b851088e6a2",
+  "coulomb_replay": {
+    "formula": "Q.T @ (H_Coulomb + lambda_force * I_192) @ Q",
+    "same_archived_X_and_Q": true,
+    "energy": 897.0080867574258,
+    "lambda_force": 3.7375336948226257,
+    "K0_vs_replay": {
+      "exact": false,
+      "frobenius": 79.56974154080754,
+      "max_abs": 3.1363573865233203
+    },
+    "replay_spectrum": {
+      "negative": 29,
+      "near_zero": 3,
+      "positive": 156,
+      "min": -2.7768623261940504,
+      "max": 15.575302442738005
+    },
+    "verdict": "DISTINCT_OPERATOR_NOT_K0"
+  },
+  "source_paths_excluded": [
+    "T2u illustrative random SPD kernel R.T@R + 0.1 I (positive definite; not target spectrum)",
+    "generate_mock_kernel_188d fallback (185 internal dimensions, +2I Gram shift, repeated 37x37 blocks; incompatible target nullity/spectrum)"
+  ],
+  "notebook_trace": {
+    "checkpoint_manifest": "188D_CHECKPOINT/AUTO_DUMP/K0.npy (188x188 float64) listed as an existing saved object",
+    "loader": "load_or_create_data() first loads K0_kernel_188.npy; on FileNotFoundError calls generate_mock_kernel_188d()",
+    "exact_producer": "not present in recovered source trace"
+  },
+  "final_status": {
+    "archived_matrix_identity": "verified exact",
+    "coordinate_frame_identity": "verified exact",
+    "exact_producer": "open",
+    "physical_hessian_identity": "not established"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "classification": "SUPERSEDED_BY_CORRECT_COORDINATE_SEMANTICS",
+  "status": "The previous row-to-edge interpretation was incorrect.",
+  "correct_interpretation": "Q_tangent rows are 64 vertex displacement triples (x_i,y_i,z_i), not 192 graph edges.",
+  "replacement_script": "scripts/reconstruct_q6_tangent_188d_action.py",
+  "replacement_audit": "audits/Q6_tangent_188D_reconstruction.json",
+  "reason": "The A14 Jacobian has three uniform translation rows in vertex-major Cartesian coordinate order and a fourth radial row X_flat^T."
+}

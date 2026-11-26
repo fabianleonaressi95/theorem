@@ -1,0 +1,30 @@
+name: C60 MMFF94s relaxed Coulomb audit
+on:
+  workflow_dispatch:
+    inputs:
+      max_iterations:
+        description: "Maximum MMFF94s minimization iterations"
+        required: false
+        default: "10000"
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical and molecular dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy rdkit
+      - name: Run C60 relaxation and Coulomb audit
+        run: |
+          python scripts/audit_c60_mmff94s_relaxed_coulomb.py \
+            --max-iterations "${{ inputs.max_iterations }}" \
+            --out-dir c60_mmff94s_audit
+      - name: Upload numerical artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: c60-mmff94s-relaxed-coulomb-audit
+          path: c60_mmff94s_audit/

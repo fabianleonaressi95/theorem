@@ -1,0 +1,824 @@
+{
+  "status": "Exact algebraic reduction; numerical implementation independently checked",
+  "construction": "Pointwise multiplication on three labelled channels, transported to the reflection-adapted basis",
+  "M_rows": [
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0.7071067811865474,
+      0,
+      0,
+      0,
+      0.7071067811865474
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.7071067811865474,
+      0,
+      0.7071067811865474,
+      0
+    ]
+  ],
+  "M_rank": 3,
+  "M_kernel_dimension": 6,
+  "M_coisometry": "M M^T = I_3",
+  "equivariance": {
+    "diagonal_physical_reflection": "M(D tensor D)=D M",
+    "lower_independent_flip_with_target_D": "fails; max residual sqrt(2)",
+    "upper_independent_flip_with_target_D": "fails; max residual sqrt(2)"
+  },
+  "composition": {
+    "map": "T=M(C tensor C): R^64 -> R^3",
+    "rank": 3,
+    "kernel_dimension": 61,
+    "distinct_basis_state_images": 23,
+    "multiplicity_distribution_classes_by_size": {
+      "1": 2,
+      "2": 12,
+      "3": 2,
+      "4": 6,
+      "8": 1
+    },
+    "collision_classes": [
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        7,
+        16,
+        21,
+        42,
+        47,
+        56,
+        61
+      ],
+      [
+        3,
+        6,
+        24,
+        48
+      ],
+      [
+        4,
+        5,
+        32,
+        40
+      ],
+      [
+        9,
+        36
+      ],
+      [
+        10,
+        17,
+        20,
+        34
+      ],
+      [
+        11,
+        25
+      ],
+      [
+        12,
+        33
+      ],
+      [
+        13,
+        41
+      ],
+      [
+        14,
+        49
+      ],
+      [
+        15,
+        39,
+        57,
+        60
+      ],
+      [
+        18,
+        19,
+        26
+      ],
+      [
+        22,
+        50
+      ],
+      [
+        23,
+        31,
+        58,
+        59
+      ],
+      [
+        27,
+        54
+      ],
+      [
+        28,
+        35
+      ],
+      [
+        29,
+        43,
+        46,
+        53
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        37,
+        44,
+        45
+      ],
+      [
+        38,
+        52
+      ],
+      [
+        55,
+        62
+      ]
+    ]
+  },
+  "equivariant_map_dimension_under_diagonal_Z2": 14,
+  "checks": {
+    "parity_basis_orthogonality_max": 2.22e-16,
+    "Q_transpose_S_Q_equals_D_max": 2.22e-16,
+    "M_coisometry_max": 4.44e-16,
+    "M_diagonal_reflection_intertwining_max": 0,
+    "M_lower_independent_flip_residual": 1.4142135623730947,
+    "M_upper_independent_flip_residual": 1.4142135623730947,
+    "C_reflection_intertwining_max": 0,
+    "T_diagonal_reflection_intertwining_max": 0
+  },
+  "hexagrams": [
+    {
+      "index": 0,
+      "lower_bits": "000",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        0.412478955692152,
+        -0.412478955692152
+      ]
+    },
+    {
+      "index": 1,
+      "lower_bits": "000",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 2,
+      "lower_bits": "000",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 3,
+      "lower_bits": "000",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        0.117851130197758
+      ]
+    },
+    {
+      "index": 4,
+      "lower_bits": "000",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 5,
+      "lower_bits": "000",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 6,
+      "lower_bits": "000",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        0.117851130197758
+      ]
+    },
+    {
+      "index": 7,
+      "lower_bits": "000",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 8,
+      "lower_bits": "001",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 9,
+      "lower_bits": "001",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        0.109433192326489,
+        -0.042089689356342
+      ]
+    },
+    {
+      "index": 10,
+      "lower_bits": "001",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        0.050507627227611
+      ]
+    },
+    {
+      "index": 11,
+      "lower_bits": "001",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0.101015254455221
+      ]
+    },
+    {
+      "index": 12,
+      "lower_bits": "001",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        -0.042089689356342,
+        0.109433192326489
+      ]
+    },
+    {
+      "index": 13,
+      "lower_bits": "001",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        -0.075761440841416,
+        0.075761440841416
+      ]
+    },
+    {
+      "index": 14,
+      "lower_bits": "001",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        -0.101015254455221,
+        0
+      ]
+    },
+    {
+      "index": 15,
+      "lower_bits": "001",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        -0.117851130197758
+      ]
+    },
+    {
+      "index": 16,
+      "lower_bits": "010",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 17,
+      "lower_bits": "010",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        0.050507627227611
+      ]
+    },
+    {
+      "index": 18,
+      "lower_bits": "010",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        0.075761440841416
+      ]
+    },
+    {
+      "index": 19,
+      "lower_bits": "010",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        0.075761440841416
+      ]
+    },
+    {
+      "index": 20,
+      "lower_bits": "010",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        0.050507627227611
+      ]
+    },
+    {
+      "index": 21,
+      "lower_bits": "010",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 22,
+      "lower_bits": "010",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        -0.075761440841416,
+        -0.075761440841416
+      ]
+    },
+    {
+      "index": 23,
+      "lower_bits": "010",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 24,
+      "lower_bits": "011",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        0.117851130197758
+      ]
+    },
+    {
+      "index": 25,
+      "lower_bits": "011",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0.101015254455221
+      ]
+    },
+    {
+      "index": 26,
+      "lower_bits": "011",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        0.075761440841416
+      ]
+    },
+    {
+      "index": 27,
+      "lower_bits": "011",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        0.109433192326489,
+        0.042089689356342
+      ]
+    },
+    {
+      "index": 28,
+      "lower_bits": "011",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        0.101015254455221,
+        0
+      ]
+    },
+    {
+      "index": 29,
+      "lower_bits": "011",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        -0.050507627227611
+      ]
+    },
+    {
+      "index": 30,
+      "lower_bits": "011",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        -0.042089689356342,
+        -0.109433192326489
+      ]
+    },
+    {
+      "index": 31,
+      "lower_bits": "011",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 32,
+      "lower_bits": "100",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 33,
+      "lower_bits": "100",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        -0.042089689356342,
+        0.109433192326489
+      ]
+    },
+    {
+      "index": 34,
+      "lower_bits": "100",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        0.050507627227611
+      ]
+    },
+    {
+      "index": 35,
+      "lower_bits": "100",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        0.101015254455221,
+        0
+      ]
+    },
+    {
+      "index": 36,
+      "lower_bits": "100",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        0.109433192326489,
+        -0.042089689356342
+      ]
+    },
+    {
+      "index": 37,
+      "lower_bits": "100",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        -0.075761440841416
+      ]
+    },
+    {
+      "index": 38,
+      "lower_bits": "100",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        0,
+        -0.101015254455221
+      ]
+    },
+    {
+      "index": 39,
+      "lower_bits": "100",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        -0.117851130197758
+      ]
+    },
+    {
+      "index": 40,
+      "lower_bits": "101",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 41,
+      "lower_bits": "101",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        -0.075761440841416,
+        0.075761440841416
+      ]
+    },
+    {
+      "index": 42,
+      "lower_bits": "101",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 43,
+      "lower_bits": "101",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        -0.050507627227611
+      ]
+    },
+    {
+      "index": 44,
+      "lower_bits": "101",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        -0.075761440841416
+      ]
+    },
+    {
+      "index": 45,
+      "lower_bits": "101",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0.075761440841416,
+        -0.075761440841416
+      ]
+    },
+    {
+      "index": 46,
+      "lower_bits": "101",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        -0.050507627227611
+      ]
+    },
+    {
+      "index": 47,
+      "lower_bits": "101",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 48,
+      "lower_bits": "110",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        0.117851130197758
+      ]
+    },
+    {
+      "index": 49,
+      "lower_bits": "110",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        -0.101015254455221,
+        0
+      ]
+    },
+    {
+      "index": 50,
+      "lower_bits": "110",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        -0.075761440841416,
+        -0.075761440841416
+      ]
+    },
+    {
+      "index": 51,
+      "lower_bits": "110",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        -0.042089689356342,
+        -0.109433192326489
+      ]
+    },
+    {
+      "index": 52,
+      "lower_bits": "110",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        0,
+        -0.101015254455221
+      ]
+    },
+    {
+      "index": 53,
+      "lower_bits": "110",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0.050507627227611,
+        -0.050507627227611
+      ]
+    },
+    {
+      "index": 54,
+      "lower_bits": "110",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        0.109433192326489,
+        0.042089689356342
+      ]
+    },
+    {
+      "index": 55,
+      "lower_bits": "110",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 56,
+      "lower_bits": "111",
+      "upper_bits": "000",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 57,
+      "lower_bits": "111",
+      "upper_bits": "001",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        -0.117851130197758
+      ]
+    },
+    {
+      "index": 58,
+      "lower_bits": "111",
+      "upper_bits": "010",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 59,
+      "lower_bits": "111",
+      "upper_bits": "011",
+      "three_channel_feature": [
+        0.125,
+        -0.176776695296637,
+        -0.176776695296637
+      ]
+    },
+    {
+      "index": 60,
+      "lower_bits": "111",
+      "upper_bits": "100",
+      "three_channel_feature": [
+        0.125,
+        -0.117851130197758,
+        -0.117851130197758
+      ]
+    },
+    {
+      "index": 61,
+      "lower_bits": "111",
+      "upper_bits": "101",
+      "three_channel_feature": [
+        0.125,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 62,
+      "lower_bits": "111",
+      "upper_bits": "110",
+      "three_channel_feature": [
+        0.125,
+        0.176776695296637,
+        0.176776695296637
+      ]
+    },
+    {
+      "index": 63,
+      "lower_bits": "111",
+      "upper_bits": "111",
+      "three_channel_feature": [
+        0.125,
+        0.412478955692152,
+        0.412478955692152
+      ]
+    }
+  ],
+  "RGS_comparison": {
+    "compatible_channel_involution": "D=diag(1,1,-1)",
+    "original_array_BA_blocks": "Z_A^BA=+D/2; Z_S^BA=-D/2",
+    "not_derived": "The multiplication map does not derive the factor 1/2 and does not intertwine K0, ZA, ZS on the 188D space."
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "classification": "finite-group representation decomposition and numerical operator audit",
+  "group": {
+    "order": 16,
+    "abstract_isomorphism": "D8 x C2",
+    "element_order_counts": {
+      "1": 1,
+      "2": 11,
+      "4": 4
+    },
+    "center_order": 4,
+    "derived_subgroup_order": 2,
+    "abelianization_order": 8,
+    "multiplication_closure_failures": 0
+  },
+  "ambient_and_tangent_dimensions": {
+    "ambient": 192,
+    "tangent": 188
+  },
+  "representation_character_decomposition": [
+    {
+      "label": "chi_01",
+      "dimension": 1,
+      "multiplicity": 13,
+      "isotypic_dimension": 13,
+      "projector_idempotence_residual": 5.027387684759863e-15,
+      "projector_commutator_max": 8.378387043896744e-15
+    },
+    {
+      "label": "chi_02",
+      "dimension": 1,
+      "multiplicity": 10,
+      "isotypic_dimension": 10,
+      "projector_idempotence_residual": 9.141665493577504e-15,
+      "projector_commutator_max": 5.820585821976596e-15
+    },
+    {
+      "label": "chi_03",
+      "dimension": 1,
+      "multiplicity": 14,
+      "isotypic_dimension": 14,
+      "projector_idempotence_residual": 5.637692801986348e-15,
+      "projector_commutator_max": 9.4157897085717e-15
+    },
+    {
+      "label": "chi_04",
+      "dimension": 1,
+      "multiplicity": 10,
+      "isotypic_dimension": 10,
+      "projector_idempotence_residual": 9.445712349046265e-15,
+      "projector_commutator_max": 6.020480697676265e-15
+    },
+    {
+      "label": "chi_05",
+      "dimension": 1,
+      "multiplicity": 10,
+      "isotypic_dimension": 10,
+      "projector_idempotence_residual": 9.465419446595548e-15,
+      "projector_commutator_max": 5.667419446595548e-15
+    },
+    {
+      "label": "chi_06",
+      "dimension": 1,
+      "multiplicity": 14,
+      "isotypic_dimension": 14,
+      "projector_idempotence_residual": 5.616566767068692e-15,
+      "projector_commutator_max": 9.386732449288009e-15
+    },
+    {
+      "label": "chi_07",
+      "dimension": 1,
+      "multiplicity": 10,
+      "isotypic_dimension": 10,
+      "projector_idempotence_residual": 8.934167546281171e-15,
+      "projector_commutator_max": 6.062837184769327e-15
+    },
+    {
+      "label": "chi_08",
+      "dimension": 1,
+      "multiplicity": 13,
+      "isotypic_dimension": 13,
+      "projector_idempotence_residual": 5.1495657647512806e-15,
+      "projector_commutator_max": 8.466731208470302e-15
+    },
+    {
+      "label": "chi_09",
+      "dimension": 2,
+      "multiplicity": 23,
+      "isotypic_dimension": 46,
+      "projector_idempotence_residual": 8.48351241441625e-15,
+      "projector_commutator_max": 1.405302650972343e-14
+    },
+    {
+      "label": "chi_10",
+      "dimension": 2,
+      "multiplicity": 24,
+      "isotypic_dimension": 48,
+      "projector_idempotence_residual": 9.843257190055731e-15,
+      "projector_commutator_max": 1.4511435744736324e-14
+    }
+  ],
+  "dimension_check": 188,
+  "character_table_row_orthogonality_residual": 0,
+  "operator_audit": {
+    "K0": {
+      "rank": 124,
+      "symmetric_relative_residual": 0,
+      "covariant_group_elements_tol_1e_10": 1,
+      "max_relative_covariance_defect": 0.9968416840575127,
+      "group_averaged_operator_relative_change": 0.6757163055151654,
+      "group_average_rank": 188,
+      "off_isotypic_block_frobenius_relative": 0.6426808984005491,
+      "group_average_invariance_residual": 2.9013387673726906e-15
+    },
+    "P_G": {
+      "rank": 64,
+      "symmetric_relative_residual": 0,
+      "covariant_group_elements_tol_1e_10": 1,
+      "max_relative_covariance_defect": 1.1623204025954914,
+      "group_averaged_operator_relative_change": 0.7867635111078884,
+      "group_average_rank": 188,
+      "off_isotypic_block_frobenius_relative": 0.7481145767923726,
+      "group_average_invariance_residual": 2.8734397234538473e-15
+    },
+    "T_transport": {
+      "rank": 64,
+      "symmetric_relative_residual": 1.1556003837180175,
+      "covariant_group_elements_tol_1e_10": 1,
+      "max_relative_covariance_defect": 1.3665225130845595,
+      "group_averaged_operator_relative_change": 0.9057048472202707,
+      "group_average_rank": 128,
+      "off_isotypic_block_frobenius_relative": 0.8463446995317815,
+      "group_average_invariance_residual": 2.8746358326726545e-15
+    },
+    "R_geo_tangent": {
+      "rank": 188,
+      "symmetric_relative_residual": 3.2437354873986924e-16,
+      "covariant_group_elements_tol_1e_10": 16,
+      "max_relative_covariance_defect": 2.903869960040969e-15,
+      "group_averaged_operator_relative_change": 1.3564000083311773e-15,
+      "group_average_rank": 188,
+      "off_isotypic_block_frobenius_relative": 1.3902818655273431e-15,
+      "group_average_invariance_residual": 2.844654465672731e-15
+    }
+  },
+  "interpretation": [
+    "The 188D representation decomposes into eight real one-dimensional irreducibles and two real two-dimensional irreducibles.",
+    "Multiplicities: 13,10,14,10,10,14,10,13; and 23,24 for the two-dimensional irreducibles.",
+    "R_geo_tangent is in the commutant to numerical precision.",
+    "K0, P_G and T_transport have large off-isotypic couplings and large non-invariant components.",
+    "Group averaging is the Frobenius-orthogonal projection onto the invariant operator subspace, but substantially changes K0, P_G and T_transport."
+  ],
+  "basis_provenance_qualification": {
+    "representation_decomposition": "Valid for R_geo_tangent reconstructed in Q_tangent coordinates.",
+    "operator_covariance_table": "Conditional stored-coordinate calculation only; geometric interpretation requires proof that K0, P_G and T_transport use the exact same 188D basis.",
+    "basis_identification_certificate_available": false,
+    "T_transport_reconstruction": "T_transport = U_polar @ A_geometry_orthonormal.T; U_polar = polar(P_G @ A_geometry_orthonormal).",
+    "reference": "docs/RGS_188D_OPERATOR_PROVENANCE.md",
+    "status": "Do not interpret as unconditional theorem of physical symmetry breaking."
+  }
+}

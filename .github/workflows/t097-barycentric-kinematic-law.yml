@@ -1,0 +1,33 @@
+name: T097 barycentric-kinematic Frank-Burgers law
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'theorems/T097-barycentric-kinematic-frank-burgers-law.md'
+      - 'tests/test_t097_barycentric_kinematic_law.py'
+      - '.github/workflows/t097-barycentric-kinematic-law.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'theorems/T097-barycentric-kinematic-frank-burgers-law.md'
+      - 'tests/test_t097_barycentric_kinematic_law.py'
+      - '.github/workflows/t097-barycentric-kinematic-law.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  law-components:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy pytest
+      - name: Verify T097 component identities
+        run: python -m pytest -q tests/test_t097_barycentric_kinematic_law.py

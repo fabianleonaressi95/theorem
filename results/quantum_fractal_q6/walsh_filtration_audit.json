@@ -1,0 +1,2695 @@
+{
+  "experiment": "Q6/Walsh finite filtration audit",
+  "scope": "finite 64-site computations only; no fractal scaling, spectral dimension, or physical interpretation claimed",
+  "npz": "data/RGS_PSU_all_matrices.npz",
+  "npz_sha256": "29b758d56c20ba9eb488d1846d1439c0fc145973762421d03083239ee832bba1",
+  "filtration": {
+    "definition": "E_j = conditional expectation onto functions of the first j columns of Q6_states (columns 0..j-1); suffix columns j..5 averaged",
+    "preservation_criterion": "for affine coordinate maps x -> P x + b (P a coordinate permutation, b a bit-flip vector), E_j is preserved iff P maps the kept coordinate set {0,...,j-1} onto itself; the flip vector b is unrestricted. For a general (non-affine) vertex map no such criterion is claimed",
+    "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "projection_checks": {
+      "0": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 1,
+        "expected_rank": 1
+      },
+      "1": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 2,
+        "expected_rank": 2
+      },
+      "2": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 4,
+        "expected_rank": 4
+      },
+      "3": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 8,
+        "expected_rank": 8
+      },
+      "4": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 16,
+        "expected_rank": 16
+      },
+      "5": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 32,
+        "expected_rank": 32
+      },
+      "6": {
+        "idempotent_fro": 0.0,
+        "selfadjoint_fro": 0.0,
+        "rank": 64,
+        "expected_rank": 64
+      },
+      "chain_0_1": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      },
+      "chain_1_2": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      },
+      "chain_2_3": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      },
+      "chain_3_4": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      },
+      "chain_4_5": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      },
+      "chain_5_6": {
+        "E_j E_{j+1} - E_j fro": 0.0
+      }
+    }
+  },
+  "permutation_decode": {
+    "Q6_antipodal": {
+      "induced_map": {
+        "kind": "bit_flip",
+        "detail": {
+          "flipped_columns_0based": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "flipped_columns_1based": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "examples": [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "reconstruction_max_abs_diff": 0.0,
+      "is_involution": true
+    },
+    "Pi_AT": {
+      "induced_map": {
+        "kind": "bit_flip",
+        "detail": {
+          "flipped_columns_0based": [
+            3,
+            4,
+            5
+          ],
+          "flipped_columns_1based": [
+            4,
+            5,
+            6
+          ]
+        },
+        "examples": [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "reconstruction_max_abs_diff": 0.0,
+      "is_involution": true
+    }
+  },
+  "operators": {
+    "Q6_laplacian": {
+      "provenance": "data/RGS_PSU_all_matrices.npz::Q6_laplacian; verified identical to 6I - Q6_adjacency (standard unweighted hypercube Laplacian)",
+      "role": "control (research note Sec. 10 predicts zero commutator)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            0.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            0.0,
+            2.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            4.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            8.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            10.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            6.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            12.0
+          ]
+        }
+      }
+    },
+    "Q6_adjacency": {
+      "provenance": "data/RGS_PSU_all_matrices.npz::Q6_adjacency; verified 0/1 cube adjacency",
+      "role": "control (L = 6I - A)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            6.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            4.0,
+            6.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            2.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -4.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -6.0,
+            -4.0,
+            -4.0,
+            -4.0,
+            -4.0,
+            -4.0,
+            -4.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0,
+            6.0
+          ]
+        }
+      }
+    },
+    "Q6_antipodal": {
+      "provenance": "data/RGS_PSU_all_matrices.npz::Q6_antipodal; symmetric involution, bitwise-complement permutation of the 64 states",
+      "role": "stored involution; generates sector projectors",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            -1.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "Pi_AT": {
+      "provenance": "data/RGS_PSU_all_matrices.npz::Pi_AT; Anti-Twin involution on Q6 states (equivariance R_geo_tangent A = A Pi_AT, see scripts/audit_188d_antitwin.py)",
+      "role": "stored involution; generates sector projectors",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            1.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "P_antipodal_plus": {
+      "provenance": "derived: (I + Q6_antipodal)/2 from stored involution",
+      "role": "derived sector projector (not a stored array)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            0.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "P_antipodal_minus": {
+      "provenance": "derived: (I - Q6_antipodal)/2",
+      "role": "derived sector projector (not a stored array)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            0.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            0.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "P_AT_plus": {
+      "provenance": "derived: (I + Pi_AT)/2",
+      "role": "derived sector projector (not a stored array)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            1.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "P_AT_minus": {
+      "provenance": "derived: (I - Pi_AT)/2",
+      "role": "derived sector projector (not a stored array)",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "4": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            0.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            0.0,
+            0.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "synthetic_GOE_control": {
+      "provenance": "SYNTHETIC CONTROL: fixed-seed (20261124) GOE symmetric random matrix; not a stored Q6 operator, not a PRISM/Kathara candidate",
+      "role": "discrimination control only",
+      "commutators": {
+        "0": {
+          "frobenius": 9.440320096675963,
+          "spectral": 6.675314356931218
+        },
+        "1": {
+          "frobenius": 11.550351463515593,
+          "spectral": 6.582992754989264
+        },
+        "2": {
+          "frobenius": 15.67503454327361,
+          "spectral": 6.52352981780059
+        },
+        "3": {
+          "frobenius": 20.91420346232569,
+          "spectral": 7.1730214570229105
+        },
+        "4": {
+          "frobenius": 27.691977956694302,
+          "spectral": 7.207661761627116
+        },
+        "5": {
+          "frobenius": 32.220274899913264,
+          "spectral": 7.139551193731126
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 6.675314356931218,
+          "spectral": 6.675314356931218
+        },
+        "1": {
+          "frobenius": 8.16733184493984,
+          "spectral": 6.582992754989266
+        },
+        "2": {
+          "frobenius": 11.083923220882145,
+          "spectral": 6.52352981780059
+        },
+        "3": {
+          "frobenius": 14.78857509132567,
+          "spectral": 7.1730214570229105
+        },
+        "4": {
+          "frobenius": 19.581185397646934,
+          "spectral": 7.207661761627116
+        },
+        "5": {
+          "frobenius": 22.783174873423377,
+          "spectral": 7.139551193731127
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            -0.6983158785
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            -1.9899703237,
+            0.972037715
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            -2.7323777555,
+            -0.273950432,
+            1.1709461412,
+            2.1967320606
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            -3.8885368734,
+            -2.7106434189,
+            -0.8480817113,
+            -0.3675501953,
+            1.38729956,
+            2.1912486074,
+            2.5060802246,
+            3.8265424937
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            -4.9285433332,
+            -4.7388343493,
+            -3.3298347926,
+            -2.5678613978,
+            -1.796750599,
+            -1.0976732866,
+            -0.9195791438,
+            0.4287973824,
+            0.5867379936,
+            1.0855820356,
+            1.8237233916,
+            2.3612857917,
+            2.9978279434,
+            3.777895903,
+            4.3789570912,
+            4.6333439335
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -7.5115852115,
+            -6.6841325166,
+            -5.4228769417,
+            -5.08571596,
+            -4.2890227579,
+            -4.1090658301,
+            -3.6140571061,
+            -3.4286936044,
+            -3.1202172556,
+            -2.8019126872,
+            -2.2484879191,
+            -2.097993118,
+            -1.3344664666,
+            -1.0797530318,
+            -0.5498922563,
+            0.2342638389,
+            0.2894037587,
+            0.9106879473,
+            1.3484611131,
+            1.7486838514,
+            2.3349547645,
+            2.5766156832,
+            2.7860030232,
+            3.0432398295,
+            3.4851098088,
+            4.2978354532,
+            4.325526018,
+            4.6075991729,
+            5.5707717067,
+            6.2666615023,
+            7.2807419276,
+            7.3633222691
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -10.5314192192,
+            -10.1562266096,
+            -9.3632113105,
+            -8.9547160175,
+            -8.592882413,
+            -7.8825022277,
+            -7.5222120591,
+            -7.1122495112,
+            -6.5983149462,
+            -6.3747190292,
+            -6.2339196864,
+            -5.9686765124,
+            -5.7718677413,
+            -5.3891313176,
+            -4.7587195151,
+            -4.5197122766,
+            -4.4769641625,
+            -4.093831214,
+            -3.6098540984,
+            -3.3995142392,
+            -2.75439428,
+            -2.6393875434,
+            -2.5715908694,
+            -2.3434600563,
+            -2.0808727304,
+            -1.6655997199,
+            -1.49940679,
+            -1.0546541579,
+            -0.7905141759,
+            -0.7045038185,
+            -0.3075913092,
+            0.2166889316,
+            0.3979416605,
+            0.6864206488,
+            0.8494877167,
+            1.0169757106,
+            1.037649167,
+            1.8485779259,
+            2.0390680056,
+            2.3678323931,
+            2.6082674879,
+            2.8800305167,
+            3.0421166538,
+            3.2977152997,
+            3.642873406,
+            3.971385272,
+            4.6942152307,
+            4.8053174854,
+            5.1233736045,
+            5.4490196316,
+            5.7672098331,
+            5.9610865942,
+            6.2753441373,
+            6.5889308948,
+            7.4740260197,
+            7.618544731,
+            7.8450843237,
+            8.0037158711,
+            8.5423399832,
+            8.7855846125,
+            9.1525241185,
+            10.4074795453,
+            10.5258760634,
+            10.9908282775
+          ]
+        }
+      }
+    },
+    "reviewer_swap_cols_2_4_control": {
+      "provenance": "SYNTHETIC CONTROL: coordinate transposition (0-based cols 2<->4 = 1-based cols 3<->5); hypothesis control, NOT the stored Pi_AT (which decodes to a bit flip of columns 3,4,5)",
+      "role": "hypothesis control only",
+      "commutators": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 2.8284271247461903,
+          "spectral": 1.0
+        },
+        "4": {
+          "frobenius": 4.0,
+          "spectral": 1.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "walsh_blocks": {
+        "0": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "1": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "2": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "3": {
+          "frobenius": 2.0,
+          "spectral": 1.0
+        },
+        "4": {
+          "frobenius": 2.8284271247461903,
+          "spectral": 1.0
+        },
+        "5": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        },
+        "6": {
+          "frobenius": 0.0,
+          "spectral": 0.0
+        }
+      },
+      "compressions": {
+        "0": {
+          "dim": 1,
+          "eigenvalues": [
+            1.0
+          ]
+        },
+        "1": {
+          "dim": 2,
+          "eigenvalues": [
+            1.0,
+            1.0
+          ]
+        },
+        "2": {
+          "dim": 4,
+          "eigenvalues": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "3": {
+          "dim": 8,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "4": {
+          "dim": 16,
+          "eigenvalues": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "5": {
+          "dim": 32,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "6": {
+          "dim": 64,
+          "eigenvalues": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "laplacian_spectrum_check": {
+    "numeric_eigenvalues": [
+      0.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      12.0
+    ],
+    "walsh_formula_eigenvalues": [
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      12
+    ],
+    "max_abs_difference": 9.769962616701378e-15
+  },
+  "missing_operators": {
+    "coupled_or_weighted_vertex_operator": "No weighted/coupled 64x64 vertex-space Q6 operator was found in data/RGS_PSU_all_matrices.npz or in the audited scripts. The stored Q6_laplacian is exactly the standard hypercube Laplacian, so its commutators vanish identically (control only). A genuine PRISM/Kathara coupled operator must be supplied with provenance before a nontrivial commutator test is possible."
+  }
+}

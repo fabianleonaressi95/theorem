@@ -1,0 +1,148 @@
+{
+  "model": "increasing-harmonic finite Galerkin audit of the golden cumulative Markov operator",
+  "samples": 300000,
+  "bernoulli_terms": 48,
+  "seed": 20261124,
+  "cutoffs": [
+    2,
+    3,
+    4,
+    6,
+    8,
+    10,
+    12,
+    16
+  ],
+  "cdf_series_tail_bound": 2.4353901685728815e-10,
+  "exact_operator_fact": "The invariant Markov operator is an L2 contraction by Jensen's inequality and invariance of Lebesgue measure.",
+  "records": [
+    {
+      "H": 2,
+      "complement_dimension": 2,
+      "rho_D": 0.21457241545801484,
+      "norm2_D": 0.21457274475478108,
+      "K0": 0.11523655649660075,
+      "K1": 0.023780413243212818,
+      "K2": 0.004996143885115062,
+      "K3": 0.0010602196362457413,
+      "K4": 0.00022619290850391907,
+      "K5": 0.000048392086505524715
+    },
+    {
+      "H": 3,
+      "complement_dimension": 4,
+      "rho_D": 0.14899143318967978,
+      "norm2_D": 0.476421466723974,
+      "K0": 0.1294334704774932,
+      "K1": 0.003867649592942637,
+      "K2": 0.0014151328528685054,
+      "K3": 0.00011250505921778533,
+      "K4": 0.00002343072492367594,
+      "K5": 0.0000028826734295187497
+    },
+    {
+      "H": 4,
+      "complement_dimension": 6,
+      "rho_D": 0.3610697219273554,
+      "norm2_D": 0.8667268042750086,
+      "K0": 0.1232320034813689,
+      "K1": 0.04485372892551232,
+      "K2": 0.02412800145904227,
+      "K3": 0.0015790748555125,
+      "K4": 0.0033192506301681895,
+      "K5": 0.00041640523946873543
+    },
+    {
+      "H": 6,
+      "complement_dimension": 10,
+      "rho_D": 0.3192001341545886,
+      "norm2_D": 0.9764491268948787,
+      "K0": 0.12496934080249655,
+      "K1": 0.056894523429599844,
+      "K2": 0.013292648016500767,
+      "K3": 0.002012970384806976,
+      "K4": 0.0010640296401559426,
+      "K5": 0.0005846456104289544
+    },
+    {
+      "H": 8,
+      "complement_dimension": 14,
+      "rho_D": 0.38050067218517636,
+      "norm2_D": 0.995818098015924,
+      "K0": 0.12435079470787362,
+      "K1": 0.055283667718711064,
+      "K2": 0.01031011873675716,
+      "K3": 0.011978430964389098,
+      "K4": 0.002222433485844403,
+      "K5": 0.0008637195954759411
+    },
+    {
+      "H": 10,
+      "complement_dimension": 18,
+      "rho_D": 0.4334973620916983,
+      "norm2_D": 1.0011458167215486,
+      "K0": 0.12437190633030626,
+      "K1": 0.055071266151428516,
+      "K2": 0.018254037145561963,
+      "K3": 0.00829838813032098,
+      "K4": 0.007719493810226579,
+      "K5": 0.0009918330346982702
+    },
+    {
+      "H": 12,
+      "complement_dimension": 22,
+      "rho_D": 0.41250855520048924,
+      "norm2_D": 1.002855574882763,
+      "K0": 0.12448587587755448,
+      "K1": 0.05543809344492683,
+      "K2": 0.020248190481868822,
+      "K3": 0.010120316733137987,
+      "K4": 0.0014907437922768419,
+      "K5": 0.0010832623942316245
+    },
+    {
+      "H": 16,
+      "complement_dimension": 30,
+      "rho_D": 0.41402860501041466,
+      "norm2_D": 1.0054968056940772,
+      "K0": 0.12441756141493197,
+      "K1": 0.05520315279620225,
+      "K2": 0.01971374506304221,
+      "K3": 0.0009906916201248104,
+      "K4": 0.005328369696770259,
+      "K5": 0.0019398835610897227
+    }
+  ],
+  "long_memory_check": {
+    "H8": {
+      "K20": 7.781322185122178e-10,
+      "K30": 2.68491119533321e-14,
+      "K40": 6.828659960055347e-19
+    },
+    "H12": {
+      "K20": 1.5950669639951286e-9,
+      "K30": 2.2133632762145455e-13,
+      "K40": 3.155345117126324e-17
+    },
+    "H16": {
+      "K20": 4.910066013911581e-10,
+      "K30": 5.785304442340599e-13,
+      "K40": 2.242781780134989e-17
+    }
+  },
+  "interpretation": [
+    "K0 remains near 0.1244 from H=4 through H=16, so total initial coupling stabilizes numerically.",
+    "Higher harmonics add a non-monotone transient memory profile; the two-mode complement misses visible intermediate-time memory.",
+    "Finite-section spectral radii remain below 0.44 for tested cutoffs, but this is not a theorem for the infinite-dimensional complement.",
+    "The empirical matrix 2-norm exceeds one slightly for H>=10. This cannot occur for the exact compression of the invariant L2 contraction and diagnoses finite-sample/empirical-CDF error amplified by high-frequency modes."
+  ],
+  "limitations": [
+    "one 300000-sample seed",
+    "48-term Bernoulli truncation",
+    "empirical CDF",
+    "finite Galerkin sections only",
+    "no operator-norm convergence or infinite-dimensional spectral-gap claim"
+  ],
+  "provenance": "Numerical values in this record were produced by a separate vectorized NumPy calculation using the stated sample count, truncation and seed. The repository audit script defines the reproducible calculation, but this JSON must not be described as output captured from a confirmed execution of that script or CI run.",
+  "validation_status": "pending_exact_script_execution_and_CI"
+}

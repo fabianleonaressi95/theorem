@@ -19,13 +19,79 @@ on:
       - ".github/workflows/t045-2i-certificate.yml"
 
 jobs:
-  exact-certificate:
+  exact-certificate-shards:
+    name: T045 exact certificate degrees ${{ matrix.start }}-${{ matrix.end }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - { start: 0, end: 3 }
+          - { start: 4, end: 7 }
+          - { start: 8, end: 10 }
+          - { start: 11, end: 13 }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run exhaustive exact certificate
-        run: python -m unittest tests.test_t045_2i_representation_certificate -v
+      - name: Run bounded exhaustive exact certificate shard
+        run: |
+          python -m src.t045_2i_representation_certificate \
+            --degree-start "${{ matrix.start }}" --degree-end "${{ matrix.end }}" \
+            > "t045-${{ matrix.start }}-${{ matrix.end }}.json"
+      - name: Validate shard JSON
+        run: python -m json.tool "t045-${{ matrix.start }}-${{ matrix.end }}.json" > /dev/null
+      - name: Upload exact certificate shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: t045-certificate-shard-${{ matrix.start }}-${{ matrix.end }}
+          path: "t045-${{ matrix.start }}-${{ matrix.end }}.json"
+          if-no-files-found: error
+          retention-days: 30
+
+  assemble-exact-certificate:
+    name: Assemble T045 coverage for all projector degrees 0-13
+    needs: exact-certificate-shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download all certificate shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: t045-certificate-shard-*
+          path: shards
+          merge-multiple: true
+      - name: Validate complete T045 coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = {(0,3), (4,7), (8,10), (11,13)}
+          payloads = [json.loads(p.read_text()) for p in sorted(Path("shards").glob("t045-*.json"))]
+          assert len(payloads) == 4, f"expected four shards, got {len(payloads)}"
+          ranges = {tuple(p["projector_degree_shard"]) for p in payloads}
+          assert ranges == expected, ranges
+          assert all(p["status"] == "PASS" for p in payloads)
+          projectors = sum(len(p["projectors_all_pairs_degrees_in_shard"]) for p in payloads)
+          assert projectors == 14, f"expected 14 projector degree reports, got {projectors}"
+          matrix_units = [item for p in payloads for item in p["matrix_units_exhaustive"]]
+          sym_degrees = {int(item["representation"].replace("Sym^", "")) for item in matrix_units
+                         if item["representation"].startswith("Sym^") and "direct-sum" not in item["representation"]}
+          assert sym_degrees == set(range(8)), sym_degrees
+          assert any(item["representation"] == "Sym^2 direct-sum Sym^10" for item in matrix_units)
+          print("T045 complete: projector degrees 0-13, matrix units Sym^0-Sym^7, and Sym^2⊕Sym^10.")
+          PY
+      - name: Upload assembled shard set
+        uses: actions/upload-artifact@v4
+        with:
+          name: t045-exact-certificate-shards
+          path: shards/*.json
+          if-no-files-found: error
+          retention-days: 90

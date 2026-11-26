@@ -1,0 +1,37 @@
+name: Morandotti post-processing tests
+# Focused pytest-only validation; no FEM sweep is launched.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tests/test_morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_independent_remeshing.py'
+      - 'tests/test_morandotti_resolution_decomposition.py'
+      - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - 'scripts/morandotti_resolution_decomposition.py'
+      - 'scripts/morandotti_mesh_realization_diagnostics.py'
+      - '.github/workflows/morandotti-postprocessing-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  postprocessing-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python test environment
+        run: python3 -c "import pytest, numpy; print('pytest', pytest.__version__); print('numpy', numpy.__version__)"
+      - name: Run Morandotti post-processing tests
+        run: >-
+          python3 -m pytest -q
+          tests/test_morandotti_distance_refinement.py
+          tests/test_morandotti_independent_remeshing.py
+          tests/test_morandotti_resolution_decomposition.py
+          tests/test_morandotti_mesh_realization_diagnostics.py

@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-24",
+  "source_commit": "22bcb3985856302c23ddd2b2dd4b8be4aa896eca",
+  "arrays": [
+    "K0.npy",
+    "P_G.npy",
+    "Z_A.npy",
+    "Z_S.npy"
+  ],
+  "status": "NUMERICALLY_VERIFIED_DIRECT_ARRAY_CALCULATION",
+  "carrier": {
+    "dimension": 6,
+    "K0_eigenvalues": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1
+    ],
+    "H_eigenvalues": [
+      0.65,
+      0.75,
+      0.85
+    ],
+    "K0_carrier_leakage_fro": 3.0921591177840503e-12,
+    "K0_carrier_image_fro": 1.8841443681416918,
+    "P_G_rank": 64,
+    "K0_kernel_dimension": 64
+  },
+  "canonical_pair": {
+    "Z_A_on_JA": "-1/2 J_B",
+    "Z_A_on_JB": "+1/2 J_A",
+    "Z_S_on_JA": "+1/2 J_B",
+    "Z_S_on_JB": "+1/2 J_A",
+    "low_triplet_involution": [
+      1,
+      1,
+      -1
+    ]
+  },
+  "historical_channel_gauge": {
+    "D": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        -1
+      ]
+    ],
+    "definition": "J_B_sharp = - J_B D",
+    "Z_A_BA": [
+      [
+        0.5,
+        0,
+        0
+      ],
+      [
+        0,
+        0.5,
+        0
+      ],
+      [
+        0,
+        0,
+        -0.5
+      ]
+    ],
+    "Z_S_BA": [
+      [
+        -0.5,
+        0,
+        0
+      ],
+      [
+        0,
+        -0.5,
+        0
+      ],
+      [
+        0,
+        0,
+        0.5
+      ]
+    ],
+    "Z_A_BA_residual_max": 6.661338147750939e-16,
+    "Z_S_BA_residual_max": 6.106226635438361e-16,
+    "D_commutator_with_C3_fro": 2.8284271247461903
+  },
+  "symmetry_obstruction": {
+    "diagonal_C3_preserves": [
+      "Z_A",
+      "Z_S"
+    ],
+    "diagonal_C3_breaks": [
+      "K0"
+    ],
+    "K0_diagonal_C3_commutator_fro": 0.34641016151377546,
+    "independent_factor_C3_breaks": [
+      "Z_A"
+    ],
+    "Z_A_independent_factor_C3_commutator_fro": 1.7320508075688772,
+    "no_nontrivial_order3_orthogonal_element_in_centralizer_of_simple_triplet_spectrum": true
+  },
+  "reproduction": {
+    "script": "audits/reconstruct_rgs_half_carrier_basis.py",
+    "outputs": [
+      "results/npz/RGS_HALF_CARRIER_BASIS.npz",
+      "results/npz/RGS_HALF_CARRIER_BASIS_AUDIT.json"
+    ],
+    "note": "The residuals above were calculated directly from the fetched binary arrays. The committed Python script is the reproducible local regeneration path; it has not been run in CI in this turn."
+  }
+}

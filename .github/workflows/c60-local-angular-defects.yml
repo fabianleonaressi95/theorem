@@ -1,0 +1,28 @@
+name: C60 local angular defects
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/audit_c60_local_angular_defects.py
+      - scripts/audit_c60_icosahedral_connection.py
+      - .github/workflows/c60-local-angular-defects.yml
+  pull_request:
+    paths:
+      - scripts/audit_c60_local_angular_defects.py
+      - scripts/audit_c60_icosahedral_connection.py
+      - .github/workflows/c60-local-angular-defects.yml
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install numpy scipy
+      - run: python scripts/audit_c60_local_angular_defects.py --out-dir c60_local_angular_defects
+      - uses: actions/upload-artifact@v4
+        with:
+          name: c60-local-angular-defects
+          path: c60_local_angular_defects/

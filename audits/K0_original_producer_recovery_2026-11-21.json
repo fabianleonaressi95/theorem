@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-21",
+  "target": "archived K0 (188x188 float64)",
+  "status": "ORIGINAL_PRODUCER_NOT_RECOVERED",
+  "verified": {
+    "archive_identity": "exact array equality across canonical NPZ, A13 bundle, fibre archive and 188D final bundle",
+    "shape": [
+      188,
+      188
+    ],
+    "dtype": "float64",
+    "symmetric": true,
+    "spectrum": {
+      "zero_modes": 64,
+      "positive_modes": 124,
+      "positive_grid_min": 0.5,
+      "positive_grid_max": 12.8,
+      "step": 0.1
+    }
+  },
+  "source_evidence": {
+    "later_kernel_pipeline": {
+      "K_field_branch": "K=K_field; SOURCE_KERNEL='K_field'",
+      "Kinv_branch": "K=safe_inverse(sym(Kinv)); SOURCE_KERNEL='Kinv'",
+      "fallback": "QR conjugate of linspace(0.5,5.0,188), positive definite",
+      "recorded_source": "Kinv",
+      "equivalence_to_archived_K0": "not established; fallback is spectrally incompatible"
+    },
+    "later_K0_loader": {
+      "load": "np.load('K0_kernel_188.npy')",
+      "fallback": "generate_mock_kernel_188d()",
+      "mock_equivalence": "excluded by shape/spectrum incompatibility"
+    },
+    "checkpoint_manifest": {
+      "path": "/kaggle/working/188D_CHECKPOINT/AUTO_DUMP/K0.npy",
+      "shape": [
+        188,
+        188
+      ],
+      "dtype": "float64",
+      "producer_cell": "not present in recovered dump"
+    },
+    "source_scan_leads": [
+      "/kaggle/working/.virtual_documents/__notebook_source__.ipynb",
+      "/kaggle/working/188D_PROJECT/reports/01_kernel_recovery.json"
+    ]
+  },
+  "excluded_candidates": [
+    "Coulomb constrained Hessian Q^T(H_E+lambda I)Q",
+    "T2u illustrative synthetic Gram kernel",
+    "185D repeated-37x37 mock fallback",
+    "QR synthetic fallback with spectrum 0.5..5.0"
+  ],
+  "open": [
+    "original K0 checkpoint writer/cell",
+    "upstream input data",
+    "physical/action-based interpretation"
+  ],
+  "classification": {
+    "archived_object": "verified_numerically",
+    "producer": "open",
+    "physical_derivation": "unproved"
+  }
+}

@@ -1,0 +1,304 @@
+from fractions import Fraction as F
+
+import pytest
+
+from models.morandotti_certified_rational_integration import (
+    integrate_rational_triangle, integrate_rational_triangle_many,
+)
+
+
+def test_exact_constant_and_linear_integrals_are_enclosed():
+    lo, hi, leaves, _ = integrate_rational_triangle(
+        {(0, 0): 2}, {(0, 0): 1}, absolute_tolerance=F(1, 10**12)
+    )
+    assert lo == hi == 1
+    assert leaves == 1
+
+    lo, hi, _, _ = integrate_rational_triangle(
+        {(1, 0): 1}, {(0, 0): 1}, absolute_tolerance=F(1, 10**5), max_depth=18
+    )
+    assert lo <= F(1, 6) <= hi
+    assert hi-lo <= F(1, 10**5)
+
+
+def test_rational_integral_with_positive_denominator():
+    # The rational Neumann enclosure certifies this mildly varying denominator
+    # on the root triangle, without unnecessary geometric subdivision.
+    lo, hi, leaves, depth = integrate_rational_triangle(
+        {(0, 0): 1}, {(0, 0): 1, (1, 0): 1},
+        absolute_tolerance=F(1, 5), max_depth=2,
+    )
+    assert lo < hi
+    assert hi-lo <= F(1, 5)
+    assert leaves == 1
+    assert depth == 0
+
+
+def test_denominator_zero_or_uncertified_is_rejected():
+    with pytest.raises(ZeroDivisionError):
+        integrate_rational_triangle({(0, 0): 1}, {})
+    with pytest.raises(ArithmeticError):
+        integrate_rational_triangle(
+            {(0, 0): 1}, {(1, 0): 1}, max_depth=0
+        )
+
+
+def test_float_coefficients_are_rejected():
+    with pytest.raises(TypeError):
+        integrate_rational_triangle({(0, 0): 0.5}, {(0, 0): 1})
+
+
+
+def test_shared_triangle_integrator_overlaps_scalar_enclosures():
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(0, 1): F(1)},
+    ]
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    kwargs = {"absolute_tolerance": F(1, 5), "max_depth": 4}
+    batch = integrate_rational_triangle_many(numerators, denominator, **kwargs)
+    scalar = [
+        integrate_rational_triangle(p, denominator, **kwargs)
+        for p in numerators
+    ]
+    for (blo, bhi, _, _), (slo, shi, _, _) in zip(batch, scalar):
+        assert blo <= shi
+        assert slo <= bhi
+
+
+def test_shared_tree_uses_signed_neumann_enclosure_without_forced_refinement():
+    # The numerator changes sign on the root triangle.  A direct quotient
+    # range forces subdivision; the signed Neumann expansion certifies it
+    # on the root using an L-infinity/Bernstein remainder bound.
+    numerator = {(1, 0): F(1), (0, 0): -F(1, 3)}
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    # Keep the remaining entries small enough that they do not force
+    # unrelated refinement of the shared tree.
+    numerators = [numerator] + [
+        {(0, 0): F(1, 100), (1, 0): F(1, 100)}
+        for _ in range(54)
+    ]
+    result = integrate_rational_triangle_many(
+        numerators, denominator,
+        absolute_tolerance=F(1, 5), max_depth=8,
+    )
+    lo, hi, leaves, depth = result[0]
+    assert lo < hi
+    assert hi-lo <= F(1, 5)
+    assert leaves == 1
+    assert depth == 0
+
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerator, denominator,
+        absolute_tolerance=F(1, 5), max_depth=8,
+    )
+    assert lo <= scalar_hi
+    assert scalar_lo <= hi
+
+
+def test_batch_refinement_is_local_to_the_numerator_that_needs_it():
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    numerators = [
+        {(0, 0): F(1)},  # Needs subdivision to meet this tight tolerance.
+        {},              # Identically zero: certified exactly on the root.
+    ]
+    result = integrate_rational_triangle_many(
+        numerators, denominator,
+        absolute_tolerance=F(1, 1000), max_depth=8,
+    )
+    hard_lo, hard_hi, hard_leaves, hard_depth = result[0]
+    easy_lo, easy_hi, easy_leaves, easy_depth = result[1]
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerators[0], denominator,
+        absolute_tolerance=F(1, 1000), max_depth=8,
+    )
+    assert hard_lo <= scalar_hi and scalar_lo <= hard_hi
+    assert hard_lo < hard_hi
+    assert hard_hi-hard_lo <= F(1, 1000)
+    assert hard_leaves > 1
+    assert hard_depth > 0
+    assert easy_lo == easy_hi == 0
+    assert easy_leaves == 1
+    assert easy_depth == 0
+
+
+
+def test_bernstein_residual_integrator_certifies_nonconstant_rational_integral():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    lo, hi, leaves, depth = integrate_rational_triangle_bernstein_residual(
+        {(0, 0): F(1)},
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(1, 100000),
+        max_depth=12,
+        expansion_order=2,
+    )
+    # Integral = 2*log(2)-1; these rational bounds are deliberately wider
+    # than the requested enclosure to avoid floating-point test oracles.
+    assert lo <= F(3863, 10000)
+    assert hi >= F(3862, 10000)
+    assert hi-lo <= F(1, 100000)
+    assert leaves >= 1
+    assert depth <= 12
+
+
+def test_bernstein_residual_integrator_handles_sign_changing_numerator():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    numerator = {(1, 0): F(1), (0, 0): -F(1, 3)}
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    lo, hi, leaves, depth = integrate_rational_triangle_bernstein_residual(
+        numerator, denominator,
+        absolute_tolerance=F(1, 10000),
+        max_depth=12,
+        expansion_order=2,
+    )
+    scalar_lo, scalar_hi, _, _ = integrate_rational_triangle(
+        numerator, denominator,
+        absolute_tolerance=F(1, 10000),
+        max_depth=12,
+    )
+    assert lo <= scalar_hi and scalar_lo <= hi
+    assert hi-lo <= F(1, 10000)
+    assert leaves >= 1
+    assert depth <= 12
+
+
+def test_bernstein_residual_integrator_rejects_uncertified_denominator():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+    )
+
+    with pytest.raises(ArithmeticError):
+        integrate_rational_triangle_bernstein_residual(
+            {(0, 0): F(1)}, {(1, 0): F(1)}, max_depth=0
+        )
+
+
+def test_bernstein_residual_batch_matches_scalar_enclosures():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual,
+        integrate_rational_triangle_bernstein_residual_many,
+    )
+
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(1, 0): F(1), (0, 0): -F(1, 3)},
+    ]
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    kwargs = {
+        "absolute_tolerance": F(1, 10000),
+        "max_depth": 12,
+        "expansion_order": 2,
+    }
+    batch = integrate_rational_triangle_bernstein_residual_many(
+        numerators, denominator, **kwargs
+    )
+    for numerator, (blo, bhi, _, _ ) in zip(numerators, batch):
+        slo, shi, _, _ = integrate_rational_triangle_bernstein_residual(
+            numerator, denominator, **kwargs
+        )
+        assert blo <= shi and slo <= bhi
+        assert bhi-blo <= F(1, 10000)
+
+
+
+def test_bernstein_residual_batch_uses_one_tree_and_reports_progress():
+    from models.morandotti_certified_rational_integration import (
+        integrate_rational_triangle_bernstein_residual_many,
+    )
+
+    denominator = {(0, 0): F(1), (1, 0): F(1)}
+    numerators = [
+        {(0, 0): F(1)},
+        {(1, 0): F(1)},
+        {(1, 0): F(1), (0, 0): -F(1, 3)},
+        {},
+    ]
+    events = []
+    results = integrate_rational_triangle_bernstein_residual_many(
+        numerators,
+        denominator,
+        absolute_tolerance=F(1, 1000),
+        max_depth=12,
+        expansion_order=1,
+        progress_callback=events.append,
+    )
+
+    assert len(results) == len(numerators)
+    # A shared partition gives every entry the same accepted-leaf count and
+    # maximum depth, including the identically-zero numerator.
+    assert len({item[2] for item in results}) == 1
+    assert len({item[3] for item in results}) == 1
+    for lo, hi, _, _ in results:
+        assert lo <= hi
+        assert hi-lo <= F(1, 1000)
+
+    stages = [event["integration_stage"] for event in events]
+    assert "bernstein_residual_batch_start" in stages
+    assert "bernstein_residual_batch_triangle_start" in stages
+    assert "bernstein_residual_batch_leaf_accepted" in stages
+    assert stages.count("bernstein_residual_entry_complete") == len(numerators)
+    completions = [
+        event for event in events
+        if event["integration_stage"] == "bernstein_residual_entry_complete"
+    ]
+    assert all(event["integration_tree_mode"] == "shared" for event in completions)
+
+
+
+def test_neumann_batch_uses_a_hard_triangle_budget():
+    # A nonconstant denominator with a tight tolerance forces refinement.
+    # The budget must fail explicitly instead of allowing an unbounded tree.
+    with pytest.raises(ArithmeticError, match="max_triangles=4"):
+        integrate_rational_triangle_many(
+            [{(0, 0): F(1)}],
+            {(0, 0): F(1), (1, 0): F(1)},
+            absolute_tolerance=F(1, 10**12),
+            max_depth=20,
+            max_triangles=4,
+        )
+
+
+
+def test_neumann_batch_uses_polynomial_tail_bound_before_subdivision():
+    # For p=x(1-x), q=1+x, the Bernstein enclosure of p*(q-3/2)
+    # is tighter than the product of the separate sup-norm bounds.
+    lo, hi, leaves, depth = integrate_rational_triangle_many(
+        [{(1, 0): F(1), (2, 0): F(-1)}],
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(14, 100),
+        max_depth=4,
+    )[0]
+    assert lo <= hi
+    assert hi-lo <= F(14, 100)
+    assert leaves == 1
+    assert depth == 0
+
+
+
+def test_neumann_diagnostic_callback_reports_bounds_and_tail_decisions():
+    events = []
+    result = integrate_rational_triangle_many(
+        [{(1, 0): F(1), (2, 0): F(-1)}],
+        {(0, 0): F(1), (1, 0): F(1)},
+        absolute_tolerance=F(14, 100),
+        max_depth=4,
+        diagnostic_callback=events.append,
+    )
+    assert result[0][2] == 1
+    assert any(event["stage"] == "triangle_bounds" for event in events)
+    assert all(event.get("numerator_index", 1) == 1 for event in events)
+    bounds = [event for event in events if event["stage"] == "order_bound"]
+    assert bounds
+    assert all("selected_remainder" in event for event in bounds)
+    timings = [event for event in events if event["stage"] == "timing"]
+    operations = {event["operation"] for event in timings}
+    assert "compose_denominator" in operations
+    assert "bernstein_denominator_bounds" in operations

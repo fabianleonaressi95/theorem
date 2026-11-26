@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-21",
+  "construction": "p_ij = (2u_i+u_j)/3 su icosaedro; A_fg = B_g^T T_fg B_f; D_g = A_fg D_f su albero del grafo duale",
+  "counts": {
+    "vertices": 60,
+    "edges": 90,
+    "faces": 32,
+    "pentagons": 12,
+    "hexagons": 20,
+    "radius": 1.6520124393784104
+  },
+  "edge_length": 0.6666666666666667,
+  "checks": {
+    "A_isometry_residual": 1.2212453270876722e-15,
+    "A_det_minus_1": 9.992007221626409e-16,
+    "A_inverse_residual": 1.2212453270876722e-15,
+    "D_recurrence_residual": 0.0,
+    "vertex_holonomy_deg_min": 11.999999999999961,
+    "vertex_holonomy_deg_max": 12.000000000000037,
+    "vertex_holonomy_abs_deg": 11.999999999999998,
+    "total_vertex_curvature_deg": 719.9999999999999,
+    "n_vertices_12deg": 60,
+    "gauge_holonomy_consistency": 2.3314683517128287e-15,
+    "M_f_candidate_norm_min": 0.0,
+    "M_f_candidate_norm_max": 2.8284271247461894,
+    "M_f_candidate_norm_mean": 1.5882207782824755,
+    "n_faces_D_identity": 1
+  }
+}

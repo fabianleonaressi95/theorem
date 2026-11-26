@@ -1,0 +1,343 @@
+# T076 — Constitutive mechanics, damage and cyclic response of the 90 physical football seams
+
+**Status: INTERFACE FRAMEWORK FORMULATED; PANEL-DISCONTINUOUS SEAM TRACE AND ELASTIC PENALTY ASSEMBLER IMPLEMENTED; solver coupling, damage/contact and football-specific identification OPEN.**  
+**Depends on:** T073 (football-shell continuum programme), T074 (icosahedral shell combinatorics), T075 (ellipsoid/ovaloid reduction and physical seam network), `models/football_shell.py`.
+
+## 1. Object and scope
+
+Let \\(\\Gamma=\\bigcup_{e=1}^{90}\\Gamma_e\\) be the physical panel-boundary seam network of the repository's truncated-icosahedral football model. The 90 curves join 12 pentagonal and 20 hexagonal panels. They are not interchangeable with the 270 triangle hinges of the fan triangulation. A seam is a material joint whose response depends on its construction: stitching, welding, adhesive bonding, clamping or another joining process.
+
+The present theorem record defines a family of admissible interface models. It does **not** assign measured properties to an unspecified football, nor assume that its seams are welded, glued or sewn with a particular thread.
+
+## 2. Kinematics on a shell
+
+For a seam \\(\\Gamma_e\\) shared by panels \\(P_e^-\\) and \\(P_e^+\\), let \\(y^\\pm\\) denote the traces of the deformed panel maps. Choose a unit tangent \\(s_e\\) to the seam and a local in-surface normal \\(m_e^\\pm\\) on each side. Define the displacement jump
+\\[
+\\delta_e=y^+-y^-,
+\\qquad
+\\delta_{s,e}=\\delta_e\\cdot s_e,
+\\qquad
+\\delta_{n,e}=\\delta_e\\cdot m_e .
+\\]
+For a shell embedded in \\(\\mathbb R^3\\), the relative displacement also has an out-of-surface component; retain it when the construction permits peel/opening. The local frame and sign convention must be fixed once and transported consistently along each seam.
+
+The panel bulk energy and interface energy are separate:
+\\[
+\\mathcal E[y,z]=
+\\sum_{p=1}^{32}\\int_{P_p}W_p(x,\\nabla_Sy)\\,dA_g+
+\\sum_{e=1}^{90}\\int_{\\Gamma_e}\\psi_e(\\delta_e,\\eta_e,z_e; x)\\,ds_g
++\\mathcal E_{\\rm bend}[y].
+\\]
+Here \\(\\eta_e\\) denotes any relative rotation or director jump required by a shell theory, and \\(z_e\\) collects interface internal variables. The line energy density \\(\\psi_e\\) has units J/m; its derivative with respect to a displacement jump has units N/m. A seam represented by discrete stitches instead requires a sum of stitch energies, or a justified homogenisation to a line density.
+
+## 2.1. Fibre-covariant seam jump and tangent anisotropy
+
+The seam jump is a section of the restricted displacement bundle, not intrinsically a vector obtained by subtracting two unrelated panel-coordinate triples. Set
+\[
+E=TS\oplus NS\longrightarrow S.
+\]
+For panel-side trivializations, let \(g_{+-}(x):E_x^-\to E_x^+\) be the transition map. The intrinsic jump is
+\[
+[u]_e=u^+-g_{+-}u^-\in E|_{\Gamma_e}.
+\]
+Any seam traction, stiffness or internal variable must be transformed by the corresponding bundle maps when the local frame changes. At a multi-panel junction, incident resultants are transported to a common fibre before balance is imposed. The transition maps must obey the cocycle/holonomy compatibility conditions; flatness is not assumed.
+
+A candidate fibrewise quadratic energy, prior to damage, is
+\[
+\psi_e^{\rm fib}(x,[u]_e)
+=\frac12\left\langle K_e(x)[u]_e,[u]_e\right\rangle_{E_x},
+\qquad
+K_e(x)=
+\begin{pmatrix}
+k_{0,e}I_{T_xS}+\alpha_e A_T(x)&0\\
+0&k_{o,e}
+\end{pmatrix}.
+\]
+Here \(A_T(x)\in\operatorname{Sym}^+(T_xS)\) is the tangent anisotropy induced by the distinct Q6 T2u triplet and a PRISM/G2 Gram form:
+\[
+U_x=L_xV,\qquad
+A_T(x)=U_x\Gamma_TU_x^*,
+\qquad
+\Gamma_T=R_T^TQ_{G_2}R_T.
+\]
+The first three-dimensional T2u spectral subspace is now reconstructible from the 64-site O_h action and constrained Coulomb Hessian; the finite-mesh shell map \(L_i=P_iW_iQ\) is implemented in T073. This makes the discrete candidate tensor computable without confusing the 188D source space with a shell tangent fibre.
+
+The coefficients \(k_{0,e},\alpha_e,k_{o,e}\) remain construction-specific parameters to be identified from seam coupons. This is not yet a calibrated football constitutive law. Under a local tangent-frame change \(F_x\mapsto F_xO_x\), the matrix of \(A_T\) changes by conjugation \(A_F\mapsto O_x^TA_FO_x\), so the fibrewise energy is frame-independent when all components and transition maps are transformed consistently. Damage and hysteresis variables must likewise be assigned to the appropriate interface bundle or scalar internal-variable bundle.
+
+## Discrete seam connection and gauge compatibility (finite-mesh level)
+
+The implementation in `models/football_bundle_connection.py` now constructs, for each of the 90 physical seam edges, the hinge-wise minimal rotation \(R_{-+}\in SO(3)\) carrying the minus panel normal to the plus panel normal. With fixed panel tangent frames \(F_\pm\in\mathbb R^{3\times2}\), it returns
+\[
+g^{TS}_{+-}=F_+^T R_{-+}F_-\in O(2).
+\]
+It also augments the frames by their normals, \(\widehat F_\pm=[F_\pm,n_\pm]\), and returns the full displacement-bundle transition
+\[
+g^{E}_{+-}=\widehat F_+^T R_{-+}\widehat F_-\in O(3),
+\qquad E=TS\oplus NS.
+\]
+The seam jump is evaluated in the plus chart as \([u]_e=u_+-g^E_{+-}u_-\). Under independent orthogonal chart changes \(O_\pm\), the rules are
+\[
+u_\pm' = O_\pm^T u_\pm,\qquad
+(g^E_{+-})'=O_+^Tg^E_{+-}O_-,\qquad
+[u]'_e=O_+^T[u]_e.
+\]
+Thus a fibrewise quadratic seam energy is chart-independent when its stiffness is transformed by the same conjugation.
+
+The T2u/PRISM channel basis has a separate \(O(3)\) gauge. If \(V\mapsto VO\) and \(R_T\mapsto R_TO\), then \(\Gamma_T\mapsto O^T\Gamma_TO\), \(U_i\mapsto U_iO\), and
+\[
+(U_iO)(O^T\Gamma_TO)(U_iO)^T=U_i\Gamma_TU_i^T.
+\]
+The code and tests implement this simultaneous gauge law. This proves gauge covariance of the formula; it does **not** select a physical alignment between the reconstructed T2u basis and the labelled PRISM channels.
+
+**Data-provenance boundary:** the theorem repository currently contains the T2u reconstruction and the PRISM Gram definition \(Q_{G_2}\), but no machine-readable table of the 216 physical \(2\times3\) tripletti with their canonical channel labels and 20 class assignments. The implementation therefore does not fabricate those matrices or claim all-216 validation. Supplying the source table (or its canonical generator) is required to fix the physical channel gauge and run the complete 216-case push-forward audit.
+
+The connection and chart-covariance tests have been added to the football workflow. Their CI result is pending; the finite-mesh construction is not a smooth continuum connection, and its hinge holonomy/refinement limit remains open.
+
+## 3. Reversible traction response
+
+Before damage, a simple local elastic interface potential is
+\\[
+\\psi_e^{(0)}=
+\\tfrac12 k_{n,e}\\langle\\delta_{n,e}\\rangle_+^2+
+\\tfrac12 k_{s,e}\\delta_{s,e}^2+
+\\tfrac12 k_{o,e}\\delta_{o,e}^2+
+\\tfrac12 k_{\\theta,e}\\eta_e^2,
+\\qquad
+t_e=\\partial_{\\delta_e}\\psi_e^{(0)}.
+\\]
+The positive-part convention \\(\\langle r\\rangle_+=\\max(r,0)\\) is appropriate only for a tension-carrying interface that does not transmit tensile normal traction after opening; compressive contact must be supplied separately. The coefficients are effective line stiffnesses and must be dimensioned and calibrated for the selected seam construction. This quadratic law is a small-displacement baseline, not a universal seam law.
+
+For a perfectly bonded interface, impose the appropriate displacement/rotation continuity as a constraint. A finite-stiffness spring is not mathematically identical to perfect bonding except in a specified limiting regime.
+
+## 4. Cohesive opening, peel and mixed-mode damage
+
+For a bonded or welded seam for which cohesive separation is physically appropriate, introduce a scalar damage variable \\(d_e\\in[0,1]\\), non-decreasing in time, and for example
+\\[
+\\psi_e=(1-d_e)\\psi_e^{(0)},\\qquad
+\\dot d_e\\geq0.
+\\]
+A mixed-mode initiation condition can be written in normalized form
+\\[
+\\left(\\frac{\\langle t_n\\rangle}{t_n^0}\\right)^2+
+\\left(\\frac{t_s}{t_s^0}\\right)^2+
+\\left(\\frac{t_o}{t_o^0}\\right)^2=1,
+\\]
+with subsequent evolution governed by a calibrated fracture-energy criterion. The critical energies \\(G_{Ic},G_{IIc},G_{IIIc}\\), peak tractions and mixed-mode interaction parameter are material/process parameters, not values derivable from football geometry. A bilinear or exponential traction–separation curve is a model choice; its area must match the measured fracture energy.
+
+Do not use a cohesive law to represent a purely mechanical sewn seam without evidence that it captures the stitch/thread load path. Thread rupture, needle-hole tear-out, stitch pull-out and fabric tearing may require discrete stitch elements or a calibrated effective seam law.
+
+## 5. Contact, clamping and frictional slip
+
+For a seam whose load transfer is due to contact or clamping, use unilateral contact variables rather than an adhesive cohesive potential. With gap (g_n), compressive contact pressure \\(\\lambda_n\\), and tangential traction \\(\\tau_e\\), the ideal Signorini/Coulomb conditions are
+\\[
+g_n\\geq0,\\quad \\lambda_n\\geq0,\\quad g_n\\lambda_n=0,
+\\qquad
+\\|\\tau_e\\|\\leq\\mu_e\\lambda_n.
+\\]
+During sliding, the frictional dissipation is non-negative. A clamped seam may additionally need bolt/clamp compliance, pre-load loss and local bearing/tear-out. These effects cannot be inferred from a welded-seam test.
+
+## 6. Fatigue and hysteresis under cyclic loading
+
+Cyclic loading is not represented by a static strength number. The state may include accumulated damage \\(d_e(N)\\), residual slip \\(r_e(N)\\), and a hysteretic internal variable \\(q_e\\). A general thermodynamically admissible formulation requires
+\\[
+\\mathcal D_e=t_e\\cdot\\dot\\delta_e-
+\\dot\\psi_e\\geq0
+\\]
+(after including all internal-variable power terms consistently). For cycle-based degradation one may write only the abstract evolution
+\\[
+d_e^{N+1}=d_e^N+
+\\mathcal F_e(\\Delta G_e,R_e,N,T,\\mathrm{RH},\\ldots),
+\\qquad d_e^{N+1}\\geq d_e^N,
+\\]
+where \\(\\Delta G_e\\) is a cycle energy-release measure and \\(R_e\\) a load ratio. The function \\(\\mathcal F_e\\) must be identified from cyclic tests; a Paris-type law is not to be imported automatically from bulk fracture into textile seams.
+
+Hysteresis can be represented by a rate-independent internal variable or a viscoelastic/viscoplastic law, depending on observed rate, frequency and temperature effects. The loop area
+\\[
+W_{\\rm diss}^{(N)}=\\oint_{\\text{cycle }N} t_e\\cdot d\\delta_e
+\\]
+is an observable energy-loss measure. Its nonzero value must be measured; it must not be inserted merely because the model is intended to have memory.
+
+## 7. Junctions and seam network coupling
+
+At each multi-panel junction \\(v\\), enforce force and moment balance using the incident seam resultants and panel boundary tractions:
+\\[
+\\sum_{e\\ni v} f_{e,v}+\\sum_{p\\ni v} f_{p,v}=0,
+\\qquad
+\\sum_{e\\ni v} m_{e,v}+\\sum_{p\\ni v} m_{p,v}=0,
+\\]
+with signs and admissible moments determined by the shell discretisation. A junction may need its own local compliance or reinforcement variable; do not distribute a junction defect uniformly over adjacent seams without a model.
+
+## 8. What the literature actually supports
+
+1. **Membrane engineering guidance.** Stranghöner et al., JRC 132615 (2023), DOI 10.2760/24763, treats seams as structural joints, distinguishes seam resistance from parent-fabric tensile/tear/adhesion properties, and requires experimental seam resistance characterisation. It also distinguishes sewn joints in uncoated fabrics from welded/clamped joints in coated fabrics.
+2. **Welded PVDF seams.** Liu et al. (2026), *Thin-Walled Structures* 222, 114501, DOI 10.1016/j.tws.2026.114501, report 140 parent-membrane and 430 weld-seam specimens; tensile rupture and peeling are distinct failure modes, and seam strength depends on membrane density, seam width and direction.
+3. **Off-axis welded seams.** Yu et al. (2025), *Journal of Industrial Textiles*, DOI 10.1177/15589250251342853, test the effects of off-axis angle and weld length.
+4. **Cyclic welded seams.** Zhao et al., “Study on tensile performance of welded seams of PVC coated fabric membrane under uniaxial cyclic load”, DOI 10.1177/15280837241300935, report cyclic changes in modulus, ratcheting/residual strain and dissipated strain energy. This supports testing hysteresis and degradation in welded seams, not assuming the same parameters for sewn seams.
+5. **Cohesive-zone methods.** The traction–separation and mixed-mode damage framework is established in interface/fracture mechanics; its parameters and even its suitability remain construction-specific. Cohesive models are not a substitute for identifying the actual failure mechanism.
+
+These sources establish the relevance of seam-specific strength, peel, off-axis response and cyclic degradation. They do not supply parameters for the user's football.
+
+## 9. Minimum experimental programme to identify the football seam law
+
+Before numerical calibration, identify the actual panel material and joining process, seam geometry, stitch/weld/adhesive details, manufacturing direction and conditioning. Then sample representative seam families and junctions.
+
+| Test | Primary identification | Required observations |
+|---|---|---|
+| Monotonic seam tension, warp/weft and off-axis | line stiffness, peak load, ultimate extension | force–displacement, failure location/mode |
+| Peel/opening (where applicable) | opening stiffness and Mode-I resistance | peel force, separation path |
+| Lap shear (where applicable) | shear stiffness and Mode-II resistance | slip, debonding, rupture |
+| Cyclic tension/shear | hysteresis, ratcheting, residual slip, stiffness loss | full loops over cycle count |
+| Fatigue to failure | life distribution and damage law | load ratio, amplitude, cycles, failure mode |
+| Temperature/humidity conditioning | environmental dependence | conditioned vs reference response |
+| Junction coupon test | local concentration and junction compliance | crack initiation and load redistribution |
+
+Use replicate specimens and report scatter/quantiles; do not fit a deterministic design strength to a single coupon. Preserve separate datasets for seam construction, orientation and panel type. A real scan and material coupons are needed before claims about the actual football's ovaloid mechanics or industrial durability.
+
+## 10. Discrete implementation plan
+
+The current `models/football_shell.py` line reinforcement and seam bending multiplier are not a general cohesive/contact/fatigue model. The next implementation should proceed in gates:
+
+- **Gate A — topology audit:** verify the 90 physical seam edges and junction incidence independently of the 270 fan-triangulation hinges.
+- **Gate B1 — axial seam reinforcement:** implemented separately on the 90 physical seam edges; tests cover symmetry, semidefiniteness, rigid-translation invariance and edgewise energy equivalence.\n- **Gate B2 — discontinuous interface kinematics:** implemented by `build_seam_discontinuous_mesh`, which duplicates panel-local traces and returns 90 pairs of side-specific seam segments. `assemble_seam_jump_stiffness` assembles the consistent P1 line penalty for the full vector jump, with energy \\(\\frac12\\kappa\\int_{\\Gamma_e}|u^+-u^-|^2ds\\). Tests cover coincident reference traces, topology, symmetry, positive semidefiniteness and the rigid-translation kernel. An independent local reconstruction of the repository's truncated-icosahedral mesh reproduced 212 panel-local nodes, 180 triangles, 90 seam pairs; the assembled 636×636 penalty matrix was symmetric, had minimum eigenvalue about \\(-1.54\\times10^{-14}\\) (roundoff), and annihilated rigid translations to about \\(7.5\\times10^{-15}\\). This is an independent numerical cross-check of the assembly formula, not a run of the repository's pytest suite.\n- **Important boundary:** these are assembly primitives and regression tests, not yet a complete coupled shell solve. The existing conforming CST/hinge solver has not yet been rewritten to assemble panel bulk and bending terms on the duplicated degrees of freedom. Therefore the interface penalty has not yet been exercised in a pressure-loaded global equilibrium problem.
+- **Gate C — construction-specific branch:** implement either (i) cohesive opening/damage, (ii) discrete stitch/thread law, or (iii) contact/friction/clamp law only after construction is identified.
+- **Gate D — cyclic state:** add internal variables and cycle update only after cyclic coupon data exist; test non-negative dissipation and mesh/time-step objectivity.
+- **Gate E — calibration/validation:** fit on one subset of coupons and validate on held-out seam orientations, widths and junction tests; report uncertainty and failure-mode confusion matrix.
+
+No arbitrary seam stiffness, damage threshold, fatigue exponent or hysteresis coefficient should be selected to improve agreement with the global ellipsoid fit.
+
+## 11. Status ledger
+
+| Claim | Status |
+|---|---|
+| The model has 90 physical panel-boundary seams, distinct from 270 triangulation hinges | Implemented combinatorics; verify against source/test before changing topology |
+| Seams require construction-specific mechanical characterisation | Supported by engineering literature |
+| Cohesive traction–separation is an established model class for bonded/welded interfaces | Established method; applicability is conditional |
+| Contact/Coulomb laws are appropriate for contact/clamped interfaces | Established method; parameters/application conditional |
+| Fatigue/hysteresis can matter for cyclically loaded welded seams | Experimentally supported in coated membrane literature |
+| Actual football seam technology and parameters | Unknown/open |
+| Sewn seam thread pull-out law for this football | Open; requires construction details and tests |
+| Energy-consistent axial spring on 90 physical seam edges | Implemented in Gate B1; regression tests added, execution not yet confirmed |\n| Panel-discontinuous traces and consistent vector-jump penalty assembler | Implemented as assembly primitives; solver coupling and execution remain unverified |\n| Full pressure-loaded shell solve with duplicated seam traces | Open; requires remapping bulk CST and hinge terms and junction constraints |\n| Football-specific damage/fatigue/hysteresis law | Open; requires cyclic tests |
+| Seam-aware ellipsoid/ovaloid numerical calibration | Open |
+| Industrial durability or certification | Not established |
+
+
+## 12. Intrinsic fibré formulation — required geometric level
+
+The interface model is to be defined on bundles over the reference shell, not on a globally chosen list of Cartesian nodal components.
+
+Let \(S\) be the compact oriented reference shell and let
+\[
+\pi:E\longrightarrow S,\qquad E=TS\oplus NS
+\]
+be the displacement vector bundle, where \(NS\) is the normal line bundle. For an oriented embedded surface in \(\mathbb R^3\), \(NS\) is trivial once a global unit normal is chosen, but the tangent bundle \(TS\) is not globally trivial in general. The decomposition \(E\simeq S\times\mathbb R^3\) is available through the embedding, but must not be confused with a global tangent frame.
+
+The fibre of \(E_x\) is the admissible infinitesimal displacement at \(x\). A displacement is a section \(u\in\Gamma(E)\), or a panelwise section
+\[
+u=(u_p)_{p=1}^{32},\qquad
+u_p\in SBV(P_p;E|_{P_p}),
+\]
+when jumps are admitted at physical seams. The covariant derivative is a section
+\[
+\nabla^E u\in T^*S\otimes E,
+\]
+using the connection induced by the Levi-Civita connection on \(TS\) and the normal connection on \(NS\). For the Euclidean embedding, this is equivalently the induced ambient connection with its tangential/normal splitting; local components must transform under frame changes.
+
+For each panel \(P_p\), choose a local orthonormal frame \(\mathcal F_p\) only as a trivialization. On an overlap along a seam \(\Gamma_e\), the two frames are related by a transition map
+\[
+g_{+-}(x):E_x^-\longrightarrow E_x^+,
+\qquad x\in\Gamma_e,
+\]
+with the cocycle compatibility required wherever three or more panel charts meet. The intrinsic jump is therefore
+\[
+[u]_e(x)=u^+(x)-g_{+-}(x)u^-(x)\in E_x^+,
+\]
+not the raw subtraction of coordinate columns expressed in unrelated panel frames. If both traces are expressed in one common ambient trivialization, this formula reduces to the ordinary vector difference; that is a representation choice, not the definition.
+
+The seam carries its own interface bundle (the restriction of the displacement bundle, or equivalently the bundle of admissible jump vectors)
+\[
+E|_{\Gamma_e}\longrightarrow\Gamma_e.
+\]
+A quadratic elastic interface density is a fibrewise positive semidefinite form
+\[
+\psi_e(x,\xi)=\tfrac12\langle K_e(x)\xi,\xi\rangle_{E_x},
+\qquad \xi=[u]_e(x),
+\]
+where \(K_e\) is a section of the bundle of symmetric bilinear forms on \(E|_{\Gamma_e}\). The corresponding energy is
+\[
+\mathcal E_{\rm seam}(u)=
+\frac12\sum_{e=1}^{90}\int_{\Gamma_e}
+\langle K_e(x)[u]_e,[u]_e\rangle\,ds_g.
+\]
+The decomposition into tangential slip, in-surface opening/peel and shell-normal displacement is defined using the seam tangent, the panel conormals and the shell normal. It must be transported with the local frames; scalar coefficients \(k_s,k_m,k_o\) are meaningful only after these subbundles/projectors have been specified.
+
+The discrete panel-local copies introduced in Gate B2 are permissible coordinate representatives of the two restrictions \(E|_{P_p}\) and \(E|_{P_q}\). The coincidence of their reference coordinates identifies the base point \(x\); it does not identify their fibre coordinates unless the transition map \(g_{+-}\) is applied. The current implementation duplicates three ambient Cartesian components and uses the identity identification in that ambient trivialization. It is therefore a special trivialized representation of the bundle jump, not yet a frame-covariant implementation of general \(g_{+-}\), material director transport or a nontrivial connection.
+
+At a multi-panel junction \(v\), all incident panel fibres are compared by their transition maps. The product of transition maps around any closed chart cycle must satisfy the cocycle/holonomy compatibility. Junction equilibrium is a balance in the common fibre \(E_v\), after transport of every incident force covector/resultant to that fibre. It is not obtained merely by sharing or duplicating a Cartesian node.
+
+### Fibré status and obligations
+
+| Object | Status |
+|---|---|
+| Displacement bundle \(E=TS\oplus NS\) over an oriented embedded shell | Geometric definition |
+| Panelwise SBV sections and intrinsic covariant derivative | Formulated; functional-analytic hypotheses on the piecewise-smooth shell remain to be fixed |
+| Seam transition maps and cocycle compatibility | Required; actual panel-frame transition data not yet encoded |
+| Fibre-valued jump \([u]_e=u^+-g_{+-}u^-\) | Defined |
+| Fibrewise quadratic interface energy | Defined as a model class |
+| Gate B2 duplicated Cartesian traces | Implemented as a local trivialization with identity ambient transition |
+| Frame-covariant discrete transport and connection assembly | Open |
+| Junction holonomy/force balance in common fibres | Open |
+| Bundle-valued cohesive damage, contact and cyclic internal variables | Open; construction-specific calibration required |
+| Intrinsic \(\Gamma\)-/Mosco limit for the fibrated seam functional | Open; T073 L1–L6 remain proof obligations |
+
+No global trivialization of \(TS\), no automatic flatness of the induced connection, and no vanishing of seam holonomy is assumed. A numerical Cartesian representation may be used for assembly, but every local quantity and transition must be shown to transform covariantly so that the energy is independent of the chosen panel frames.
+
+## References
+
+- Stranghöner et al. (2023), *Prospect for European Guidance for the Structural Design of Tensile Membrane Structures*, JRC 132615, DOI: 10.2760/24763.
+- Liu et al. (2026), *Tensile strength evaluation for the weld seams of PVDF-coated fabrics membrane*, *Thin-Walled Structures* 222, 114501, DOI: 10.1016/j.tws.2026.114501.
+- Yu et al. (2025), *Experimental study on mechanical properties and failure mechanisms of coated fabrics with different welding lengths*, DOI: 10.1177/15589250251342853.
+- Zhao et al., *Study on tensile performance of welded seams of PVC coated fabric membrane under uniaxial cyclic load*, DOI: 10.1177/15280837241300935.
+- See also `audits/2026-11-10_physical_seams_interfaces_literature_audit.md` for the broader interface/defect literature audit.
+
+
+## 13. Triplett-induced anisotropy in the seam tangent bundle
+
+The tangential part of the interface stiffness is a symmetric bundle endomorphism of \(TS|_{\Gamma_e}\), not a fixed \(2\times2\) matrix copied from one panel chart. T073 §2.1 specifies the candidate construction:
+\[
+\Gamma_T=R_T^TQ_{G_2}R_T,\qquad
+U_x=L_xV,\qquad
+A_T(x)=U_x\Gamma_TU_x^*.
+\]
+The first Q6 \(T_{2u}\) triplet \(V\in\mathbb R^{188\times3}\) is now reconstructed by the 48-element \(O_h\) character projector and the constrained Coulomb Hessian. Its isotypic projector has rank 30; the first eigenvalue is \(-0.069949330084017\) with multiplicity three. A deterministic coordinate-pivoted frame is exported by scripts/reconstruct_rgs_t2u_triplet.py. The spectral subspace is invariant, but the particular orthonormal basis within the degenerate triplet is a gauge choice.
+
+The finite-mesh shell map is explicitly assembled as \(L_i=P_iW_iQ\), where \(W\) is the direction-grouped 64-to-92 transfer and \(P_i\) projects to the nodal shell tangent plane. The map is computationally specified at all 92 shell nodes. The 216 PRISM/G2 tripletti remain separate channel data; their Gram forms are pushed forward only after composing \(L_iV\). No equality between the 216 tripletti and the Q6 triplet is assumed.
+
+A candidate seam operator is
+\[
+K_e(x)=
+\left(k_{0,e}I_{T_xS}+\alpha_e A_T(x)\right)
+\oplus k_{o,e}I_{N_xS}.
+\]
+It separates tangent-plane anisotropy from normal peel/opening. In a local tangent frame its matrix changes by orthogonal conjugation under frame rotation; the fibre operator and its eigenvalues do not change. Thus the constitutive law is frame-covariant, provided the transfer \(L_x\), the triplett channel identification and the seam transition maps are themselves compatible.
+
+The module models/tangent_triplet_anisotropy.py implements the T2u reconstruction, finite-mesh bundle transfer, Gram push-forward and block fibre stiffness. Regression tests have been added for the T2u eigen-residual, the all-node rank-two map, tangency, positive semidefiniteness and local frame covariance; their execution is pending until the PR workflow reports a result.
+
+**Status:** T2u spectral subspace — numerically reconstructed and verified against the recorded eigenvalue; finite-mesh nodal transfer — implemented; G2 triplett Gram structure — recorded programme data; fibrewise composition — implemented as a candidate. The smooth connection, transition maps/holonomy across all 90 seams, PRISM-channel gauge alignment and physical calibration remain OPEN. Neither the T2u triplet nor the 216 tripletti are an invertible tetrad.
+
+
+
+## 14. Explicit nodal transfer for the tangent anisotropy
+
+T073 §2.2 now specifies the finite-mesh map rather than leaving \(L_x\) wholly abstract. Let \(W\) be the established 64-to-92 affine geometric transfer, \(Q\) the \(192\times188\) null-space basis of the four RGS constraints, and \(P_i\) the tangent projector at shell node \(x_i\). For the three-row block \(W_i\),
+\[
+L_i=P_iW_iQ,\qquad [L_i]_{F_i}=F_i^TW_iQ.
+\]
+The implementation returns all 92 ambient and local maps. Given the explicit orthonormal Q6 triplet basis \(V\in\\mathbb R^{188\\times3}\), it forms \(U_i=L_iV\) and evaluates
+\[
+A_T(x_i)=U_i\Gamma_TU_i^T.
+\]
+The source direction grouping (56 distinct directions and eight duplicate pairs) is retained; the existing 16-neighbour setting is the reference configuration, not a claimed optimum.
+
+This is an explicit discrete nodal bundle map. It is not yet a continuous bundle morphism, and it does not by itself supply parallel transport or seam transition matrices. The triplett-induced anisotropy must still be transported to a common seam fibre before assembling the 90 interface operators. No constitutive coefficients are calibrated by this construction.
+
+The new test files check the T2u spectral reconstruction, rank-two condition at all 92 nodes, tangency, source-basis residuals, positive semidefiniteness of the pushed tensors and local frame covariance. The reconstruction script exports the 188×3 basis, spectral projector and diagnostics. Test execution is pending; no CI result is claimed.

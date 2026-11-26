@@ -1,0 +1,28 @@
+name: T106 Born, FDT and Frank–Burgers audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "theorems/T106-born-measure-q6-fdt-frank-burgers.md"
+      - "scripts/audit_t106_born_fdt_defects.py"
+      - "tests/test_t106_born_fdt_defects.py"
+      - ".github/workflows/t106-born-fdt-defects.yml"
+  pull_request:
+    paths:
+      - "theorems/T106-born-measure-q6-fdt-frank-burgers.md"
+      - "scripts/audit_t106_born_fdt_defects.py"
+      - "tests/test_t106_born_fdt_defects.py"
+      - ".github/workflows/t106-born-fdt-defects.yml"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest
+      - run: python scripts/audit_t106_born_fdt_defects.py
+      - run: python -m pytest -q tests/test_t106_born_fdt_defects.py

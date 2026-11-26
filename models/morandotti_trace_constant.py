@@ -1,0 +1,226 @@
+"""Finite-dimensional generalized-eigenvalue estimate for T134 trace constants."""
+from __future__ import annotations
+
+import numpy as np
+from scipy.linalg import eigh
+from scipy.sparse import csr_matrix, diags
+from scipy.sparse.linalg import eigsh
+
+
+def largest_generalized_eigenvalue(numerator, denominator, *, tol=1e-10,
+                                   return_diagnostics=False):
+    """Compute max x.T A x / x.T B x with diagonal equilibration.
+
+    B must be positive definite. Congruence scaling by diag(B)^(-1/2)
+    preserves the generalized spectrum while reducing the severe coefficient
+    scaling caused by curved, graded finite-element Hessian Gram matrices.
+    The returned eigenpair is checked in the equilibrated coordinates.
+    """
+    A = csr_matrix(numerator, dtype=float)
+    B = csr_matrix(denominator, dtype=float)
+    if A.shape != B.shape or A.ndim != 2 or A.shape[0] == 0:
+        raise ValueError("numerator and denominator must be nonempty square matrices of equal shape")
+    if not np.isfinite(A.data).all() or not np.isfinite(B.data).all():
+        raise ValueError("generalized eigenvalue matrices must be finite")
+
+    scale_a = max(float(np.linalg.norm(A.data)), 1.0)
+    scale_b = max(float(np.linalg.norm(B.data)), 1.0)
+    asym_a = float(np.max(np.abs((A - A.T).data))) if (A - A.T).nnz else 0.0
+    asym_b = float(np.max(np.abs((B - B.T).data))) if (B - B.T).nnz else 0.0
+    if asym_a > 1e-9 * scale_a:
+        raise ValueError("numerator matrix is not symmetric")
+    if asym_b > 1e-9 * scale_b:
+        raise ValueError("denominator matrix is not symmetric")
+
+    # Remove harmless assembly asymmetry before factorization.
+    A = ((A + A.T) * 0.5).tocsr()
+    B = ((B + B.T) * 0.5).tocsr()
+    n = A.shape[0]
+
+    if n <= 3:
+        Ad, Bd = A.toarray(), B.toarray()
+        bvals = np.linalg.eigvalsh(Bd)
+        bmin, bmax = float(bvals[0]), float(bvals[-1])
+        if bmin <= 1e-12 * max(bmax, 1.0):
+            raise ValueError(f"denominator is not numerically positive definite: lambda_min={bmin:g}")
+        values, vectors = eigh(Ad, Bd, check_finite=True)
+        result = float(values[-1])
+        x = vectors[:, -1]
+        residual_matrix_a, residual_matrix_b = A, B
+        scaling_min = scaling_max = 1.0
+    else:
+        diagonal = np.asarray(B.diagonal(), dtype=float)
+        if not np.isfinite(diagonal).all() or np.any(diagonal <= 0.0):
+            raise ValueError(
+                "denominator is not numerically positive definite: it has a non-positive or non-finite diagonal; "
+                "the Hessian energy may contain unconstrained null modes"
+            )
+
+        # Congruence transform: x = S y, S_ii = B_ii^(-1/2).
+        # The equilibrated denominator has unit diagonal.
+        inv_sqrt_diagonal = 1.0 / np.sqrt(diagonal)
+        S = diags(inv_sqrt_diagonal, format="csr")
+        As = (S @ A @ S).tocsr()
+        Bs = (S @ B @ S).tocsr()
+        residual_matrix_a, residual_matrix_b = As, Bs
+        scaling_min = float(np.min(inv_sqrt_diagonal))
+        scaling_max = float(np.max(inv_sqrt_diagonal))
+
+        ncv_values = sorted(set(min(n, value) for value in
+                                (40, 80, 160, 320) if min(n, value) > 2))
+
+        # A positive diagonal is necessary but not sufficient for B > 0.
+        # Certify the equilibrated denominator numerically by estimating both
+        # spectral extremes and checking their eigenpair residuals. Since Bs
+        # has unit diagonal, the threshold below is scale-aware and rejects
+        # numerically singular quotients rather than silently proceeding.
+        def denominator_extreme(which):
+            last_error = None
+            for ncv in ncv_values:
+                try:
+                    vals, vecs = eigsh(
+                        Bs, k=1, which=which, tol=min(tol, 1e-10),
+                        return_eigenvectors=True, maxiter=max(30000, 30*n),
+                        ncv=ncv,
+                    )
+                    lam = float(vals[0])
+                    vec = vecs[:, 0]
+                    Bv = Bs @ vec
+                    relres = float(np.linalg.norm(Bv - lam * vec) /
+                                   max(np.linalg.norm(Bv) + abs(lam)*np.linalg.norm(vec), 1e-300))
+                    if np.isfinite(lam) and np.isfinite(relres) and relres <= 1e-7:
+                        return lam, relres
+                except Exception as exc:
+                    from scipy.sparse.linalg import ArpackNoConvergence
+                    if not isinstance(exc, ArpackNoConvergence):
+                        raise
+                    last_error = exc
+            raise RuntimeError(
+                f"could not certify denominator {which} eigenvalue "
+                f"(n={n}, ncv={ncv_values}); "
+                f"partial eigenvalues={getattr(last_error, 'eigenvalues', None)}"
+            ) from last_error
+
+        bmin, bmin_residual = denominator_extreme("SA")
+        bmax, bmax_residual = denominator_extreme("LA")
+        if bmin <= 1e-12 * max(abs(bmax), 1.0):
+            raise ValueError(
+                "denominator is not numerically positive definite on the reduced space: "
+                f"lambda_min={bmin:g}, lambda_max={bmax:g}"
+            )
+
+        best = None
+        last_error = None
+        for ncv in ncv_values:
+            try:
+                values, vectors = eigsh(
+                    As, k=1, M=Bs, which="LA", tol=tol,
+                    return_eigenvectors=True, maxiter=max(30000, 30*n),
+                    ncv=ncv,
+                )
+                y = vectors[:, 0]
+                candidate_value = float(values[0])
+                Ay, By = As @ y, Bs @ y
+                rq = float(np.dot(y, Ay) / np.dot(y, By))
+                res = float(np.linalg.norm(Ay - rq * By) /
+                            max(np.linalg.norm(Ay) + abs(rq)*np.linalg.norm(By), 1e-300))
+                if best is None or res < best[0]:
+                    best = (res, candidate_value, rq, y.copy())
+                if np.isfinite(res) and res <= 1e-7:
+                    break
+            except Exception as exc:
+                from scipy.sparse.linalg import ArpackNoConvergence
+                if isinstance(exc, RuntimeError) and "Factor is exactly singular" in str(exc):
+                    raise ValueError(
+                        "equilibrated denominator is singular; generalized "
+                        "eigenproblem requires a positive definite denominator"
+                    ) from exc
+                if not isinstance(exc, ArpackNoConvergence):
+                    raise
+                last_error = exc
+        # ARPACK can report a nominal eigenvalue while returning a vector
+        # that is not a generalized eigenvector when the equilibrated Gram
+        # matrix is strongly ill-conditioned. Never accept that pair. For
+        # moderate reduced spaces, fall back to a symmetric dense generalized
+        # solve and independently recheck its Rayleigh residual.
+        sparse_pair_valid = False
+        if best is not None:
+            sparse_residual, sparse_value, _, sparse_y = best
+            sparse_ay, sparse_by = As @ sparse_y, Bs @ sparse_y
+            sparse_rq = float(np.dot(sparse_y, sparse_ay) /
+                              np.dot(sparse_y, sparse_by))
+            sparse_disagreement = float(
+                abs(sparse_value - sparse_rq) /
+                max(abs(sparse_value), abs(sparse_rq), 1.0)
+            )
+            sparse_pair_valid = (
+                np.isfinite(sparse_residual)
+                and sparse_residual <= 1e-7
+                and sparse_disagreement <= 1e-7
+            )
+
+        dense_fallback_used = False
+        if not sparse_pair_valid:
+            if n > 3000:
+                raise RuntimeError(
+                    "sparse generalized eigensolver did not produce a certified "
+                    f"eigenpair (n={n}, ncv={ncv_values}, "
+                    f"best_relative_residual={None if best is None else best[0]}, "
+                    f"best_solver_eigenvalue={None if best is None else best[1]}, "
+                    f"best_rayleigh_quotient={None if best is None else best[2]}); "
+                    "dense verification fallback is limited to n<=3000"
+                ) from last_error
+            dense_values, dense_vectors = eigh(
+                As.toarray(), Bs.toarray(), check_finite=True,
+                subset_by_index=[n-1, n-1], driver="gvx",
+            )
+            result = float(dense_values[-1])
+            y = dense_vectors[:, -1]
+            dense_fallback_used = True
+        else:
+            _, result, _, y = best
+
+        # Independently recompute the quotient; the common residual check
+        # below remains authoritative for both sparse and dense paths.
+        x = inv_sqrt_diagonal * y
+        # bmin and bmax were estimated on the equilibrated denominator above.
+
+    Ax = residual_matrix_a @ (x if n <= 3 else y)
+    Bx = residual_matrix_b @ (x if n <= 3 else y)
+    rayleigh = float(np.dot(x if n <= 3 else y, Ax) /
+                     np.dot(x if n <= 3 else y, Bx))
+    residual = float(np.linalg.norm(Ax - rayleigh * Bx) /
+                     max(np.linalg.norm(Ax) + abs(rayleigh)*np.linalg.norm(Bx), 1e-300))
+    eigenvalue_disagreement = float(abs(float(result) - rayleigh) /
+                                    max(abs(float(result)), abs(rayleigh), 1.0))
+    diagnostics = {
+        "denominator_lambda_min_estimate": bmin,
+        "denominator_lambda_max_estimate": bmax,
+        "denominator_condition_estimate": (float(bmax / bmin) if bmin is not None else None),
+        "denominator_extreme_eigenvalues_estimated": bmin is not None,
+        "denominator_lambda_min_relative_residual": (bmin_residual if n > 3 else 0.0),
+        "denominator_lambda_max_relative_residual": (bmax_residual if n > 3 else 0.0),
+        "denominator_numerically_positive_definite": bool(bmin > 1e-12 * max(abs(bmax), 1.0)),
+        "denominator_diagonal_min": float(np.min(B.diagonal())),
+        "denominator_diagonal_max": float(np.max(B.diagonal())),
+        "congruence_scaling_min": scaling_min,
+        "congruence_scaling_max": scaling_max,
+        "generalized_eigenvalue": rayleigh,
+        "solver_reported_eigenvalue": float(result),
+        "eigensolver_dense_fallback_used": bool(dense_fallback_used) if n > 3 else False,
+        "solver_rayleigh_relative_disagreement": eigenvalue_disagreement,
+        "rayleigh_quotient_check": rayleigh,
+        "relative_generalized_eigenpair_residual": residual,
+        "numerator_relative_symmetry_defect": float(asym_a / scale_a),
+        "denominator_relative_symmetry_defect": float(asym_b / scale_b),
+    }
+    if not np.isfinite(rayleigh) or not np.isfinite(residual):
+        raise RuntimeError("largest generalized eigenpair is not finite")
+    if residual > 1e-7:
+        raise RuntimeError(
+            "largest generalized eigenvector failed the equilibrated Rayleigh residual check: "
+            f"relative residual={residual:g}, "
+            f"solver eigenvalue={float(result):g}, Rayleigh quotient={rayleigh:g}; "
+            f"diagonal scaling range=[{scaling_min:g}, {scaling_max:g}]"
+        )
+    return (rayleigh, diagnostics) if return_diagnostics else rayleigh

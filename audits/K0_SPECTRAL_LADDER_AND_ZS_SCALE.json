@@ -1,0 +1,29 @@
+{
+  "k0_shape": [
+    188,
+    188
+  ],
+  "k0_symmetric": true,
+  "kernel_dim": 64,
+  "positive_eigenvalue_count": 124,
+  "ladder_min": 0.5000000000000088,
+  "ladder_max": 12.799999999999978,
+  "ladder_step_max_dev": 3.9440672949808686e-14,
+  "ladder_matches_(k+5)/10": true,
+  "zs_eigenvalues": {
+    "-0.5": 3,
+    "0.0": 182,
+    "0.5": 3
+  },
+  "zs_squared_eigenvalues": {
+    "-0.0": 182,
+    "0.25": 6
+  },
+  "zs_squared_is_quarter_projector": true,
+  "za_antisymmetric": true,
+  "za_zs_anticommute_on_W_fro": 3.333666704883557e-16,
+  "f_at_0": 0.5,
+  "f0_equals_k0_min_positive": true,
+  "f0_equals_abs_zs_eigenvalue": true,
+  "classification": "spectral coincidence on stored arrays; not a derivation of f from K0/Z_S"
+}

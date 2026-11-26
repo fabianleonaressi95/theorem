@@ -1,0 +1,157 @@
+{
+  "status": "PASS_EXACT_ARCHIVED_MATRIX_REPLAY",
+  "date": "2026-11-12",
+  "source_hashes": {
+    "X_Oh_reconstructed.npy": "4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f",
+    "188D_FINAL_BUNDLE.zip": "a2660035925a63e04e63ba2ccf15496fb2ef76be75dd3ad9c814977324b76aa2",
+    "actual_original_X_report_matrices.npz": "74b3654b472815300fbe9171fac6961effa2fcccc5a2148533a211d5ba36d0e8"
+  },
+  "geometry": {
+    "shape": [
+      64,
+      3
+    ],
+    "dtype": "float64",
+    "finite": true,
+    "centroid": [
+      -3.469446951953614e-18,
+      0,
+      0
+    ],
+    "centered_rank": 3,
+    "second_moment": [
+      [
+        1.2500000000000002,
+        1.10170891471592e-17,
+        5.8129187192287784e-18
+      ],
+      [
+        1.10170891471592e-17,
+        1.2500000000000002,
+        4.078195243251971e-18
+      ],
+      [
+        5.8129187192287784e-18,
+        4.078195243251971e-18,
+        1.25
+      ]
+    ],
+    "radial_min": 0.829027345109799,
+    "radial_max": 2.185129251114611,
+    "antipodal_max_pair_residual": 0,
+    "antipodal_bijective": true,
+    "antipodal_involution": true
+  },
+  "replay": {
+    "tangent_basis_shape": [
+      192,
+      188
+    ],
+    "P_G_rank": 64,
+    "projected_rank": 64,
+    "geometric_equivariance_residual": 1.647294145743781e-14,
+    "geometry_to_kernel_distance": 6.537062941350011,
+    "principal_angle_cosine_min": 0.002650180290793834,
+    "principal_angle_cosine_max": 0.9310812434297996,
+    "projected_polar_K0_commutator_relative": 1.4158305586806082e-14,
+    "direct_Rgeo_K0_commutator_relative_conditional": 0.9968416840575127
+  },
+  "archived_matrix_comparison": {
+    "Pi_AT": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "Q_tangent": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "V_vertex_modes": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "A_raw": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "A_geometry_orthonormal": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "P_G": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "K0": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "R_geo_tangent": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "principal_angle_cosines": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "singular_values_A_raw": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "singular_values_PG_A": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "U_geom_projected": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    },
+    "R_AT_kernel_extension": {
+      "exact_array_match": true,
+      "max_abs_difference": 0,
+      "frobenius_difference": 0
+    }
+  },
+  "verdict": {
+    "verified": [
+      "Original coordinate array geometry checks",
+      "All 13 stored matrices regenerated exactly from X and original K0/P_G",
+      "Antipodal equivariance identity"
+    ],
+    "not_established": [
+      "Geometric 64D image equals Im(P_G)",
+      "Projected-polar commutator as independent evidence",
+      "Unconditional interpretation of [K0,R_geo] without basis alignment"
+    ]
+  },
+  "kristall": {
+    "archive_sha256": "fd2ddd0e61ef52d9b7d0ba12cdc6c9ca6e149619d59caa77649a3259079939ac",
+    "recovered_archive_files": 59,
+    "core_script": "src/audit/verify_core_identities.py",
+    "core_script_result": [
+      "|X|=69120",
+      "canonical index bijective",
+      "supergolden root=1.465571231876768",
+      "simultaneous shift order=960"
+    ],
+    "missing": [
+      "formal equivalence relation for 11,725 classes",
+      "canonical representative encoding/table",
+      "deterministic 11,725-class enumerator",
+      "independent K and W0 definitions/data",
+      "independent tests for K^3=K^2+I and W0 residual"
+    ],
+    "recovered_supplementary_notes": "A separate 14-site cube–octahedron model, not the 11,725-class PRISM/Krist-All enumeration"
+  }
+}

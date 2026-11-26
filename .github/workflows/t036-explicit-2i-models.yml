@@ -1,0 +1,132 @@
+name: T036 explicit exact 2I irreducible models
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/t036-explicit-2i-models.yml"
+      - "src/t036_2i_irreducible_models.py"
+      - "src/t034_exact_2i_character_table.py"
+      - "src/t032_2i_molien.py"
+      - "audits/t035_exact_binary_icosahedral_model.py"
+      - "tests/test_t036_2i_irreducible_models.py"
+      - "theorems/T036-explicit-2i-irreducible-models.md"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/t036-explicit-2i-models.yml"
+      - "src/t036_2i_irreducible_models.py"
+      - "src/t034_exact_2i_character_table.py"
+      - "src/t032_2i_molien.py"
+      - "audits/t035_exact_binary_icosahedral_model.py"
+      - "tests/test_t036_2i_irreducible_models.py"
+      - "theorems/T036-explicit-2i-irreducible-models.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: t036-explicit-2i-models-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  exact-model-shards:
+    name: Build exact irreducible model ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 9
+      matrix:
+        label: ["1", "2", "2'", "3", "3'", "4", "4'", "5", "6"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install exact algebra dependency
+        run: python -m pip install --disable-pip-version-check sympy
+      - name: Compile model builder
+        run: python -m py_compile src/t036_2i_irreducible_models.py
+      - name: Build and verify one irreducible model
+        run: python -m src.t036_2i_irreducible_models --labels "${{ matrix.label }}" --output "shard-${{ matrix.label }}.json"
+      - name: Upload irreducible shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: t036-model-shard-${{ matrix.label }}
+          path: "shard-${{ matrix.label }}.json"
+          if-no-files-found: error
+          retention-days: 14
+
+  assemble-certificate:
+    name: Assemble all nine models and verify complete coverage
+    needs: exact-model-shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download all irreducible shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: t036-model-shard-*
+          path: shards
+          merge-multiple: true
+      - name: Assemble and validate the complete exact certificate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from src.t032_2i_molien import IRREP_DIMENSIONS
+          files = sorted(Path("shards").glob("*.json"))
+          payloads = [json.loads(p.read_text()) for p in files]
+          expected = set(IRREP_DIMENSIONS)
+          models, degrees = {}, {}
+          group = None
+          checks = []
+          for payload in payloads:
+              assert payload["verification"]["passed"] and payload["verification"]["shard_complete"]
+              assert len(payload["irreps"]) == 1, "each T036 worker must export exactly one irrep"
+              assert payload["group"] == "2I" and payload["order"] == 120
+              if group is None:
+                  group = payload["element_coordinates_Q_phi"]
+              assert group == payload["element_coordinates_Q_phi"]
+              for label, model in payload["irreps"].items():
+                  assert label not in models
+                  assert len(model["matrices_by_group_index"]) == 120
+                  models[label] = model
+              degrees.update(payload["first_multiplicity_one_degrees"])
+              checks.append(payload["verification"])
+          assert set(models) == expected, (set(models), expected)
+          assert sum(IRREP_DIMENSIONS[k]**2 for k in expected) == 120
+          assert sum(x["character_values_recovered"] for x in checks) == 81
+          assert sum(x["invariant_metric_checks"] for x in checks) == 1080
+          report = {
+              "passed": True, "shards_merged": len(payloads),
+              "irreducibles": len(models),
+              "matrix_models": sum(len(models[k]["matrices_by_group_index"]) for k in expected),
+              "character_values_recovered": sum(x["character_values_recovered"] for x in checks),
+              "invariant_metric_checks": sum(x["invariant_metric_checks"] for x in checks),
+              "sum_dimension_squares": 120,
+              "first_multiplicity_one_degrees": degrees,
+          }
+          output = {
+              "group": "2I", "order": 120, "coefficient_field": "Q(sqrt(5), i)",
+              "element_coordinates_Q_phi": group,
+              "irreps": {k: models[k] for k in IRREP_DIMENSIONS},
+              "first_multiplicity_one_degrees": degrees, "verification": report,
+          }
+          Path("data").mkdir(exist_ok=True)
+          Path("data/t036_2i_irreducible_models_exact.json").write_text(json.dumps(output, indent=2)+"\\n")
+          print(json.dumps(report, indent=2))
+          PY
+      - name: Upload complete exact representation models
+        uses: actions/upload-artifact@v4
+        with:
+          name: t036-exact-2i-irreducible-models
+          path: data/t036_2i_irreducible_models_exact.json
+          if-no-files-found: error
+          retention-days: 90

@@ -131,3 +131,4 @@ python scripts/run_q6_nl_nlt_robustness.py \\
 ```
 
 La riuscita del controllo numerico non equivale a bistabilità: serve soltanto a escludere, entro il test definito, una dipendenza rilevante dal passo o dall'integratore.
+Questo commit implementa T1 e T2. Non dichiara bistabilità dimostrata. Restano da implementare T3 (sweep avanti/indietro con dwell 640, 2560, 10240), T4 (Q4/Q5/Q6), dimezzamento di dt e confronto con un integratore indipendente. La conclusione resta **non dimostrata** finché non sono soddisfatti tutti i criteri preregistrati.

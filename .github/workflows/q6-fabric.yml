@@ -1,0 +1,47 @@
+name: Q6 fabric benchmark
+
+on:
+  push:
+    branches:
+      - feat/q6-modular-interconnection-fabric
+    paths:
+      - "experiments/networking/**"
+      - ".github/workflows/q6-fabric.yml"
+  pull_request:
+    paths:
+      - "experiments/networking/**"
+      - ".github/workflows/q6-fabric.yml"
+  workflow_dispatch:
+    inputs:
+      flows:
+        description: "Number of simultaneous flows (maximum 4096)"
+        required: false
+        default: "4096"
+
+jobs:
+  validate-and-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate graph invariants
+        run: python experiments/networking/q6_fabric_sim.py --self-test
+      - name: Run reproducible benchmark
+        env:
+          FLOWS: ${{ github.event.inputs.flows || '512' }}
+        run: |
+          python experiments/networking/q6_fabric_sim.py \
+            --flows "${FLOWS}" \
+            --seed 20261116 \
+            --csv q6_fabric_results.csv
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: q6-fabric-benchmark-results
+          path: q6_fabric_results.csv
+          if-no-files-found: error

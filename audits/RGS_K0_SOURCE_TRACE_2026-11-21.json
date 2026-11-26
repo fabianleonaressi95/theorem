@@ -1,0 +1,66 @@
+{
+  "title": "RGS 188D K0 source trace",
+  "date": "2026-11-21",
+  "status": "EXACT_GENERATOR_NOT_RECOVERED",
+  "recovered_artifacts": {
+    "source_repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+    "k0_npy": {
+      "path": "data/rgs_188d/K0.npy",
+      "git_blob_sha": "235813e428c48718b9f4b55b98afe047160c007e",
+      "bytes": 282880,
+      "shape": [
+        188,
+        188
+      ]
+    },
+    "bundle_188d": {
+      "path": "archive/bundles/188D_FINAL_BUNDLE.zip",
+      "git_blob_sha": "7823fa102a13c09aef4c95430b57902077c62de9",
+      "bytes": 784648
+    },
+    "bundle_a13": {
+      "path": "archive/bundles/A13_RGS_PSU_QLG_KAGGLE_BUNDLE.zip",
+      "git_blob_sha": "4ec53f8d4df933ca50517287e2e205c25b2bd98e",
+      "bytes": 3788278
+    },
+    "note": "Git blob SHA values are not SHA-256 hashes of the file bytes."
+  },
+  "source_trace": {
+    "a13_consumer": "A13_RGS_PSU_QLG_TWINE_ANTITWIN.py loads Q and K0 from the same psu_fibre_connection_matrices.npz member.",
+    "a13_a14_basis_check": "Reported tangent-projector Frobenius difference is 0.",
+    "limitation": "No direct numerical identity comparison has yet been established between A13 bundle K0 and RGS_PSU_all_matrices.npz::K0.",
+    "historical_bundle": "188D_FINAL_BUNDLE is consumed as pre-existing K0/Kinv/P_G/J/J_A/J_B arrays; recovered replay code loads rather than generates K0."
+  },
+  "target_spectrum": {
+    "dimension": 188,
+    "zero_modes": 64,
+    "positive_modes": 124,
+    "positive_min": 0.5,
+    "positive_max": 12.8,
+    "spacing": 0.1,
+    "spectral_reconstruction_residual": 8.002626084588939e-12
+  },
+  "mock_path_exclusion": {
+    "source": "formule.pdf, generate_mock_kernel_188d/load_or_create_data",
+    "mock_internal_dimension": 185,
+    "gram_shift": 2,
+    "repeated_block_size": 37,
+    "illustrative_projector_rank": 94,
+    "target_kernel_rank": 64,
+    "verdict": "INCOMPATIBLE_WITH_ARCHIVED_TARGET_K0",
+    "reason": "Dimension, positive spectral lower bound and illustrative projector rank do not match the archived 188D operator."
+  },
+  "basis_status": "PARTIAL",
+  "unresolved": [
+    "Compare extracted K0 arrays from A13 and 188D_FINAL_BUNDLE with target NPZ K0.",
+    "Compare accompanying Q bases and recover any orthogonal basis-change matrix.",
+    "Recover exact notebook/script cell that first generated and saved the target K0.",
+    "Recover the original action and unconstrained Hessian before identifying K0=Q^T H Q."
+  ],
+  "classification": {
+    "archived_K0": "recovered numerical spectral operator",
+    "PG": "numerically verified spectral kernel projector",
+    "physical_hessian_identity": "not established",
+    "exact_generator": "not recovered"
+  }
+}

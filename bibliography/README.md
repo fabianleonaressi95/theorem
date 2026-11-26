@@ -13,8 +13,13 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 ## Estrazione e verifica delle formule
 - [Registro maestro delle formule](FORMULA_EXTRACTION_REGISTER.md): inventario, stati epistemici, protocollo e priorità.
 
+## Geometria sferica e teoria spettrale
+- [S013 — Spherical space forms, Molien theory, diagonal SU(2) actions and Ikeda correction chain](../theorems/S013-general-spherical-space-form-molien-diagonal-actions.md): Ikeda (1995), Lehoucq–Uzan–Weeks (2003), Aurich–Lustig–Steiner (2005), Aurich–Lustig (2012), Allcock (2018), and Martin–Merino–Poddar–Roby (2026 preprint), with source status and unresolved audit items.
+
 ## Fonti citate online
 - [Autori, articoli e pagine online citati nelle conversazioni](online-citations/README.md): registro separato dai documenti caricati nella Library, con fonti verificate e lacune esplicite.
+
+- [Morfodinamica Quantistica](morphodynamics-quantum/README.md): letteratura ibrida quantistico-classica, grafi quantistici a geometria variabile, retroazione semiclassica, FEEC/DEC e repository software; include mappa delle dipendenze con MQM-1, T113-D/F/A e T102.
 
 ## Settori bibliografici
 - [Vetri di spin](spin-glasses/README.md)
@@ -26,6 +31,7 @@ Stati: **VERIFICATA** (metadati controllati); **IDENTIFICATA** (titolo/autori re
 - [Olografia ed emergenza dello spazio-tempo](holography-emergent-spacetime/README.md)
 - [Geometria discreta, ipercubi e combinatoria](discrete-geometry-combinatorics/README.md)
 - [Informazione e IIT](information-theory/README.md)
+- [Funzioni speciali, momenti, Beta–zeta–Bernoulli e Veneziano](special-functions-beta-zeta-bernoulli-veneziano/README.md)
 - [Fonti critiche e non standard](critical-and-nonstandard/README.md)
 
 ## Regola

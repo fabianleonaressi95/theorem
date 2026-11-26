@@ -1,0 +1,52 @@
+{
+  "geometry": {
+    "vertex_match_max_dist": 0.0,
+    "faces_matched": 32,
+    "frame_gauge_all_proper": true
+  },
+  "D_field": {
+    "tree": "GH dual_tree root=0, Devin A_fg in GH frame gauge",
+    "max_matrix_residual_vs_GH": 1.7763568394002505e-15,
+    "naive_global_gauge_deg": -108.0,
+    "naive_global_gauge_max_resid_rad": 8.881784197001252e-16,
+    "naive_global_gauge_max_mat_resid": 1.887379141862766e-15,
+    "root_frame_gauge_deg": -108.0,
+    "gauge_equals_root_frame_gauge": true
+  },
+  "A_on_GH_tree_edges_max_residual": 6.661338147750939e-16,
+  "holonomies": {
+    "n_cycles": 60,
+    "max_angle_diff_deg": 2.842170943040401e-14,
+    "max_trace_diff": 2.886579864025407e-15,
+    "max_det_diff": 3.1086244689504383e-15,
+    "max_matrix_diff": 1.6653345369377348e-15,
+    "sign_agreement": "60/60",
+    "devin_angles_deg_min": 11.999999999999961,
+    "devin_angles_deg_max": 12.000000000000028,
+    "gh_angles_deg_min": 11.99999999999996,
+    "gh_angles_deg_max": 12.000000000000034,
+    "devin_own_holonomy_deg_min": 11.999999999999961,
+    "devin_own_holonomy_deg_max": 12.000000000000037
+  },
+  "M_f_norms_mean": {
+    "devin_in_GH_gauge": 1.3029333326383155,
+    "GH": 1.3029333326383157,
+    "devin_BFS": 1.5882207782824755,
+    "devin_DFS": 1.8700615097071114
+  },
+  "M_f_norms_max_abs_diff": {
+    "devin_GHgauge_vs_GH": 2.220446049250313e-15,
+    "BFS_vs_GH": 2.8284271247461885,
+    "DFS_vs_GH": 2.8284271247461885,
+    "BFS_vs_DFS": 2.5327759839319213
+  },
+  "classification": {
+    "discrete_connection": "independent replica verified",
+    "vertex_holonomies_12deg": "independent replica verified (full matrices)",
+    "total_curvature_4pi": "discrete Gauss-Bonnet check",
+    "global_gauge_C": "explained: C = R_{f0}, convention artifact",
+    "M_f_norm": "gauge-dependent, not an invariant",
+    "G_f_M_f_fields": "algebraic candidates pending global g",
+    "DPO_admissibility": "open problem"
+  }
+}

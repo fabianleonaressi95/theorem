@@ -1,0 +1,22 @@
+{
+  "bulk_W2_Dirichlet": 64.53978047478572,
+  "bulk_W1_TV": 45.636516430012115,
+  "surface_psi_s": 38.934788858521706,
+  "surface_psi_s2": 29.37424181231886,
+  "strip_integral_L2_by_h_scaled": {
+    "0.2": 129.8960020491379,
+    "0.1": 229.77186890974053,
+    "0.05": 444.42626561924124
+  },
+  "L2_ratio_0.2_vs_0.1": 0.5653259585931467,
+  "L2_ratio_0.1_vs_0.05": 0.5170078518864945,
+  "CF_constant_sequence_energy_W1_plus_psi1": 84.57130528853382,
+  "CF_constant_sequence_energy_W2_plus_psi1": 103.47456933330743,
+  "CF_constant_sequence_status": "u_n=g e' una determining sequence per la coppia C60 corrente poiche' ∇_Σg=G faccia per faccia (M=0). Le energie W1/W2 sono upper bound numerici per I(g,G), non il valore dell'infimo.",
+  "interpretation": "I valori strip L2 sono un audit della regolarizzazione continua e campionano 20/90 spigoli con scaling. Non escludono W quadratica per CF: la successione costante u_n=g e' determinante per la coppia corrente (M=0), ha energia finita W1 e W2. L'interfaccia psi=s e' integrata su tutti i 90 spigoli con quadratura trapezoidale.",
+  "regularization_TV_candidate": {
+    "bulk": 45.636516430012115,
+    "surface": 38.934788858521706,
+    "total_TV": 84.57130528853382
+  }
+}

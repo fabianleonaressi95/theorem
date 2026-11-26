@@ -1,0 +1,17 @@
+{
+  "model": "truncated regular icosahedron (C60)",
+  "base_icosahedron_vertices": 12,
+  "base_icosahedron_edges": 30,
+  "truncated_vertices": 60,
+  "faces": 32,
+  "face_size_counts": {
+    "5": 12,
+    "6": 20
+  },
+  "antipodal_face_pair_count": 16,
+  "max_antipodal_plane_residual": 9.04363360636956e-16,
+  "max_normal_unit_residual": 0,
+  "total_fibre_dimension": 64,
+  "fibre_definition": "E_f = ker(n_f^T) in R^3",
+  "scope": "Executed geometry construction; no Q6 group action or intertwiner claimed."
+}

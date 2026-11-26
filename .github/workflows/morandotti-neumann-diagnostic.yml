@@ -1,0 +1,77 @@
+name: Morandotti production-mesh Neumann entry diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      mesh_size:
+        description: "Target mesh size used by the production run"
+        required: true
+        default: "0.30"
+        type: string
+      distance:
+        description: "Distance between the two cores"
+        required: true
+        default: "0.48"
+        type: string
+      seed:
+        description: "Mesh random seed"
+        required: true
+        default: "11"
+        type: string
+      cell:
+        description: "1-based cell index in the production-generated mesh"
+        required: true
+        default: "1"
+        type: string
+      entry:
+        description: "1-based upper-triangular P3 entry"
+        required: true
+        default: "55"
+        type: string
+      tolerance:
+        description: "Absolute integration tolerance"
+        required: true
+        default: "1/10000"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  production-mesh-diagnostic:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, basix, gmsh; print('DOLFINx', dolfinx.__version__); print('Basix', basix.__version__); print('Gmsh', gmsh.__version__)"
+      - name: Profile one entry on the production-generated mesh
+        env:
+          MESH_SIZE: ${{ inputs.mesh_size }}
+          DISTANCE: ${{ inputs.distance }}
+          SEED: ${{ inputs.seed }}
+          CELL: ${{ inputs.cell }}
+          ENTRY: ${{ inputs.entry }}
+          TOLERANCE: ${{ inputs.tolerance }}
+        run: |
+          python3 -m py_compile models/morandotti_certified_rational_integration.py models/morandotti_certified_curved_p3_forms.py scripts/certify_morandotti_direct_ipdg.py
+          python3 scripts/certify_morandotti_direct_ipdg.py \
+            --mesh-size "$MESH_SIZE" \
+            --distance "$DISTANCE" \
+            --seed "$SEED" \
+            --tolerance "$TOLERANCE" \
+            --max-depth 24 \
+            --diagnostic-cell "$CELL" \
+            --diagnostic-entry "$ENTRY" \
+            --diagnostic-out artifacts/morandotti_direct_ipdg/entry-diagnostic
+      - name: Upload production-mesh diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-production-mesh-entry-diagnostic
+          path: artifacts/morandotti_direct_ipdg/entry-diagnostic/
+          if-no-files-found: warn

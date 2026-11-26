@@ -102,3 +102,23 @@ Reported diagnostics from that execution:
 Interpretation: the geometric map is antipodally equivariant to numerical precision, but its raw image is not the 64-dimensional kernel image of \\(P_G\\). The projected-polar extension has a small commutator because it is constructed inside that image; this is not an independent proof of geometric identification. Therefore the proposed canonical geometric intertwiner is **not established** by this replay.
 
 Artifact status: the replay output was generated in the working environment, but its full JSON report and matrix NPZ have not yet been committed. The values above are a recorded local execution result, not a clean-checkout CI certificate. To close this gate, commit the report and matrices, add regression tests against the original bundle, and rerun the workflow from a clean checkout.
+
+## Original-input replay — 2026-11-12
+
+The original Library artifacts were materialized and their byte-level SHA-256 hashes checked against the previously recorded manifest:
+
+- `X_Oh_reconstructed.npy`: `4792f7003a30d07d0b48fdcef90a6dac74a4a907f2aa5cfb8d417f66aaa6519f`.
+- `188D_FINAL_BUNDLE.zip`: `a2660035925a63e04e63ba2ccf15496fb2ef76be75dd3ad9c814977324b76aa2`.
+- `actual_original_X_report_matrices.npz`: `74b3654b472815300fbe9171fac6961effa2fcccc5a2148533a211d5ba36d0e8`.
+- `PRISM_KristAll_recovered_sources.zip`: `fd2ddd0e61ef52d9b7d0ba12cdc6c9ca6e149619d59caa77649a3259079939ac`.
+
+A deterministic runner is added at `scripts/replay_188d_original_inputs.py`. It requires the three original 188D inputs, can verify their hashes, regenerates the geometry, tangent basis, raw and polar maps, projector comparison, principal angles and kernel extension, then compares all 13 regenerated arrays with the archived NPZ using exact array equality. The independent replay performed on 2026-11-12 produced zero elementwise difference for all 13 arrays.
+
+Fresh replay results are recorded in `reports/188d_original_input_replay_2026-11-12.json`. Key results:
+- Original geometry: shape (64,3), float64, finite, centered rank 3, second moment 1.25 I, exact antipodal involution.
+- `||R_geo A-A Pi_AT||_F = 1.647294145743781e-14`.
+- `||P_G A-A||_F = 6.537062941350011`; principal-angle cosines range from 0.0026501803 to 0.9310812434.
+- The projected-polar extension's relative K0 commutator is 1.4158305586806082e-14 and is construction-induced.
+- The direct `[K0,R_geo]` comparison remains conditional on a common tangent-coordinate basis.
+
+The source NPZ and ZIP files remain recovered Library artifacts and have **not** yet been committed as binary Git objects. Thus this is a verified local replay plus a committed runner/report, not yet a fully self-contained clean-checkout replay. The issue remains open for binary publication and CI replay.

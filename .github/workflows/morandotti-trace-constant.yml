@@ -1,0 +1,157 @@
+name: Morandotti curved-P3 trace-constant audit
+
+on:
+  push:
+    branches: [main, t134-interior-facet-weight-fix]
+    paths:
+      - 'scripts/certify_morandotti_curved_p3_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_trace_constant.py'
+      - 'models/morandotti_exact_geometry.py'
+      - 'models/morandotti_exact_integration.py'
+      - 'models/morandotti_certified_rational_integration.py'
+      - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'models/morandotti_direct_ipdg_certificate.py'
+      - 'scripts/certify_morandotti_direct_ipdg.py'
+      - 'tests/test_morandotti_direct_ipdg_certificate.py'
+      - 'tests/test_morandotti_certified_curved_p3_forms.py'
+      - 'tests/test_morandotti_certified_rational_integration.py'
+      - 'tests/test_morandotti_trace_constant.py'
+      - 'tests/test_morandotti_exact_geometry.py'
+      - 'tests/test_morandotti_exact_integration.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
+  workflow_dispatch:
+    inputs:
+      mesh_size:
+        description: "Target mesh size (single mesh only)"
+        required: true
+        default: "0.30"
+        type: string
+      distance:
+        description: "Distance between the two cores"
+        required: true
+        default: "0.48"
+        type: string
+      seed:
+        description: "Mesh random seed"
+        required: true
+        default: "11"
+        type: string
+      alpha:
+        description: "IPDG penalty parameter"
+        required: true
+        default: "40"
+        type: string
+      kappa:
+        description: "Coercivity margin"
+        required: true
+        default: "1/1000"
+        type: string
+      tolerance:
+        description: "Absolute integration tolerance"
+        required: true
+        default: "1/10000"
+        type: string
+      integration_method:
+        description: "Certified rational volume integrator"
+        required: true
+        type: choice
+        options: [bernstein_residual, neumann]
+        default: neumann
+      residual_expansion_order:
+        description: "T135 finite Neumann polynomial order"
+        required: true
+        default: "2"
+        type: string
+  pull_request:
+    branches: [main, t134-exact-integration-foundation]
+    paths:
+      - 'scripts/certify_morandotti_curved_p3_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_trace_constant.py'
+      - 'models/morandotti_exact_geometry.py'
+      - 'models/morandotti_exact_integration.py'
+      - 'models/morandotti_certified_rational_integration.py'
+      - 'models/morandotti_certified_curved_p3_forms.py'
+      - 'models/morandotti_direct_ipdg_certificate.py'
+      - 'scripts/certify_morandotti_direct_ipdg.py'
+      - 'tests/test_morandotti_direct_ipdg_certificate.py'
+      - 'tests/test_morandotti_certified_curved_p3_forms.py'
+      - 'tests/test_morandotti_certified_rational_integration.py'
+      - 'tests/test_morandotti_trace_constant.py'
+      - 'tests/test_morandotti_exact_geometry.py'
+      - 'tests/test_morandotti_exact_integration.py'
+      - '.github/workflows/morandotti-trace-constant.yml'
+
+concurrency:
+  group: morandotti-trace-constant-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  trace-constant:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, ufl, petsc4py, gmsh, scipy; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('PETSc', petsc4py.__version__); print('Gmsh', gmsh.__version__); print('SciPy', scipy.__version__)"
+      - name: "01 — Trace-constant unit tests"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_trace_constant.py
+      - name: "02 — Exact geometry unit tests"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_exact_geometry.py
+      - name: "03 — Exact integration unit tests"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_exact_integration.py
+      - name: "04 — Certified rational integration unit tests"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_certified_rational_integration.py
+      - name: "05 — Curved-P3 local form assembly tests"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_certified_curved_p3_forms.py
+      - name: "06 — Compile direct IPDG certificate module and runner"
+        run: |
+          python3 -m py_compile models/morandotti_direct_ipdg_certificate.py scripts/certify_morandotti_direct_ipdg.py
+          python3 scripts/certify_morandotti_direct_ipdg.py --help
+      - name: "07 — Direct IPDG boundary-facet assembly"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_direct_ipdg_certificate.py::test_direct_boundary_assembly_builds_D_P_C_with_exact_intervals
+      - name: "08 — Direct IPDG strict coercivity / LDL certificate"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_direct_ipdg_certificate.py::test_direct_coercivity_certificate_requires_strict_positive_pivots tests/test_morandotti_direct_ipdg_certificate.py::test_direct_coercivity_certificate_rejects_nonpositive_shift
+      - name: "09 — Direct IPDG two-sided interior-facet assembly"
+        run: python3 -m pytest -vv -ra tests/test_morandotti_direct_ipdg_certificate.py::test_direct_interior_facet_assembly_uses_two_sided_jump_and_average
+      - name: Run one-mesh direct interval IPDG certificate
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          MESH_SIZE: ${{ inputs.mesh_size }}
+          DISTANCE: ${{ inputs.distance }}
+          SEED: ${{ inputs.seed }}
+          ALPHA: ${{ inputs.alpha }}
+          KAPPA: ${{ inputs.kappa }}
+          TOLERANCE: ${{ inputs.tolerance }}
+          INTEGRATION_METHOD: ${{ inputs.integration_method }}
+          RESIDUAL_EXPANSION_ORDER: ${{ inputs.residual_expansion_order }}
+        run: >-
+          python3 scripts/certify_morandotti_direct_ipdg.py
+          --mesh-size "$MESH_SIZE"
+          --distance "$DISTANCE"
+          --seed "$SEED"
+          --alpha "$ALPHA"
+          --kappa "$KAPPA"
+          --tolerance "$TOLERANCE"
+          --integration-method "$INTEGRATION_METHOD"
+          --residual-expansion-order "$RESIDUAL_EXPANSION_ORDER"
+          --max-depth 24
+      - name: Upload fixed-mesh certificate and diagnostics
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: t135-direct-ipdg-certificate
+          path: |
+            artifacts/morandotti_direct_ipdg/direct_coercivity.json
+            artifacts/morandotti_direct_ipdg/progress.json
+          if-no-files-found: warn
+
+

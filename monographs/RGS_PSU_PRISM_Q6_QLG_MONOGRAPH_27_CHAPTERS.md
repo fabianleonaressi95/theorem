@@ -525,6 +525,200 @@ Una teoria unitaria non si ottiene sommando i nomi RGS, PSU, PRISM, Q6, QLG, QAT
 
 Ogni risultato pubblicabile deve avere: definizione, ipotesi, dimostrazione o protocollo numerico, codice, dati, test, limiti, riferimenti e confronto con letteratura primaria. Le affermazioni fisiche devono produrre osservabili e predizioni. Le affermazioni industriali devono essere valutate su dati e metriche concordate.
 
+
+### 27.5 — La spina dorsale unitaria: topologia, connessione, difetti, dinamica e limite
+
+L'integrazione dei risultati successivi a T068 non aggiunge una seconda teoria accanto alla monografia: completa il percorso già fissato nei capitoli 1–27. La struttura comune è la seguente:
+
+\[
+\boxed{
+\text{complesso cellulare}
+\to \text{cochain e Hodge}
+\to \text{connessioni/olonomie}
+\to \text{difetti cinematici}
+\to \text{energia elastica}
+\to \text{misura/dinamica}
+\to \text{risposta e rinormalizzazione}
+\to \text{limite continuo}.
+}
+\]
+
+Ogni freccia indica un'interfaccia matematica da costruire o un risultato già disponibile nel proprio perimetro; non afferma che tutti i modelli fisici siano già derivati da un'unica azione.
+
+**A. Supporto discreto e topologia.** Q6 conserva i 64 esagrammi come siti distinti, 192 archi e 240 facce quadrate del 2-scheletro. La distinzione fra grafo e cubo riempito resta essenziale: il numero ciclico del grafo è 129, mentre il cubo completo è contrattile. T055–T067 forniscono mappe di catena, naturalità, conformità e Stokes per le costruzioni effettivamente specificate; T099 fissa la rete di Kirchhoff e il Gray-torus cinematico; T103–T104 classificano connessioni \(\mathbb Z_2\), cicli, cocicli, flussi e olonomie sul cubo. Questi risultati sono il substrato comune, non una misura di carica fisica.
+
+**B. Campi di fase, cariche e moiré.** T100–T101–T105 costituiscono una sola catena: cariche e correlazioni sui 64 esagrammi; due famiglie di fasi misurate sui due cerchi; sollevamento delle fasi a tutti i 64 siti; ricostruzione dei due campi complessi; interferenza e vettore moiré. Le medie sui soli otto trigrammi non sostituiscono i 64 dati individuali. L'identità di interferenza è esatta una volta dati i campi, ma l'embedding, le ampiezze, le fasi e la legge costitutiva carica–fase richiedono calibrazione. T105 vieta di inferire una legge di carica dal solo conteggio combinatorio.
+
+**C. Connessione e difetti.** T091–T097 uniscono la meccanica di Morandotti al linguaggio geometrico: composizione tensoriale Frank–Burgers con termine misto firmato; trasporto \(SE(2)\); connessione di Cartan; curvatura e torsione; ricostruzione cinematica da gradiente e mismatch strutturato. T096 è un vincolo cruciale: il campo di deformazione simmetrico ricavato da Airy non determina da solo la parte antisimmetrica della distorsione e quindi non identifica univocamente la chiusura di Burgers. Per estrarre olonomie dai dati FEM occorre una variabile cinematica indipendente (spostamento/distorsione plastica), una microrotazione con legge costitutiva, oppure un problema di gauge/recovery esplicitamente posto.
+
+Il significato fisico delle quattro quantità deve rimanere separato:
+- winding di fase su un plaquette;
+- chiusura traslazionale/Burgers;
+- olonomia rotazionale/Frank;
+- flusso magnetico \(\mathbb Z_2\) di T103–T104.
+
+Una mappa fra esse è un teorema ulteriore, non una convenzione di nomenclatura. T106 chiarisce inoltre che un vettore reciproco calibrato e un ordine traslazionale sono necessari per inferire Burgers; un campo di orientazione locale e la simmetria del reticolo sono necessari per inferire Frank.
+
+**C1. Sorgente di Frank–Read: soglia, geometria del difetto e dinamica vincolata.** T124 aggiunge il livello di attivazione della dislocazione al settore Frank–Burgers, senza sostituire la ricostruzione cinematica già formalizzata. Nel modello circolare a tensione di linea costante,
+\[
+\tau_c=\frac{2T}{bL}.
+\]
+Con la convenzione specifica \(T\simeq Gb^2/2\), segue \(\tau_c\simeq Gb/L\); la formula \(2Gb/L\) richiede una diversa convenzione per \(T\). Questa soglia è un risultato del modello ridotto, non una soglia universale indipendente dal carattere della dislocazione, dal core e dai pinning.
+
+Il collegamento ai risultati già verificati è il seguente:
+
+1. **T091 — interazione tensoriale Frank–Burgers.** Fornisce la decomposizione dei settori Frank, Burgers e del termine misto firmato, con identità tensoriali e sensibilità variazionale nel perimetro dichiarato.
+2. **T092–T095 — geometria locale, trasporto \(SE(2)\) e Cartan.** Forniscono la descrizione ordinata della chiusura traslazionale e rotazionale; T096 impedisce di ricavare Burgers dalla sola deformazione simmetrica di Airy.
+3. **T097–T098 — ricostruzione cinematica e dualità dei due cerchi.** Collegano gradiente, mismatch strutturato, frame rotazionale e covarianza baricentrica, sotto le ipotesi dei rispettivi record.
+4. **T099 — ricostruzione bicircolare/annulare e raffinamento.** Fornisce una pipeline di misura della deformazione e dei residui; il replay a cinque esperimenti è manufactured-data, non validazione su un cristallo.
+5. **T124 — Frank–Read.** Aggiunge il criterio di instabilità del segmento vincolato e identifica ciò che manca per passare dalla soglia al loop emesso: legge di evoluzione della curva, regola di cutting/reconnection e rigenerazione della sorgente.
+
+**Azioni GitHub già eseguite e verificate nel ramo Morandotti:** [PR #161 audit](https://github.com/fabianleonaressi95/theorem/pull/161), con [run 43051485760](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760), verifica la decomposizione dei salti di trazione Frank/Burgers e il termine misto; [PR #162 raffinamento](https://github.com/fabianleonaressi95/theorem/pull/162), con [run a cinque livelli 43052448456](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456) e [audit base 43052448351](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351), verifica la pipeline DOLFINx a cinque scale e conserva report e campi FE. Queste esecuzioni verificano la decomposizione e la pipeline di ricostruzione Morandotti; **non** verificano direttamente la soglia Frank–Read, il cutting/reconnection, la convergenza continua o la fisica del core.
+
+Le azioni dedicate [T096](../.github/workflows/t096-airy-holonomy-identifiability.yml) e [T097](../.github/workflows/t097-barycentric-kinematic-law.yml) costituiscono ulteriori gate riproducibili: la prima controlla la non-identificabilità da Airy strain, la seconda le identità della ricostruzione cinematica. [T094](../.github/workflows/t094-se2-holonomy-audit.yml) è invece un workflow specifico per olonomie Cartan/\(SE(2)\), il cui stato di esecuzione va controllato separatamente prima di chiamarlo verificato.
+
+La catena multiscala da chiudere è
+\[
+\text{core atomistico/DFT}
+\to (E_{\rm core},\,V_{\rm Peierls})
+\to (T_{\rm line},\,\text{mobilità})
+\to \text{curva vincolata}
+\to \text{loop Frank–Read}
+\to \text{densità e interazione dei difetti}.
+\]
+Il passaggio DFT→parametri efficaci richiede una procedura di coarse-graining; l'eventuale tunnelling quantistico richiede un'azione efficace e un tasso di transizione calcolato, non segue dalla soglia classica. La corrispondenza con il gas vettoriale KTHNY richiede inoltre di estrarre Burgers, energia di core e fugacità da un modello elastico 2D calibrato.
+
+**C2. Interfaccia variazionale Q6/PRISM–Frank–Read (T125).** T125 formalizza il livello successivo senza trasformare il supporto combinatorio in una legge materiale. Su un grafo finito embedded nel piano di scorrimento, con etichette di Burgers in un reticolo dichiarato, l'energia di linea più core e lavoro esterno produce per variazione prima un bilancio nodale esatto. Per un flusso gradiente autonomo con mobilità positiva segue inoltre la dissipazione monotona dell'energia. L'aggiunta di un ciclo chiuso conserva il contenuto agli estremi, ma non definisce l'istante né la regola di cutting/reconnection: serve una mappa di evento separata che rispetti orientazione e carica di Burgers e rigeneri la sorgente.
+
+Il collegamento operativo è: **Q6/PRISM** fornisce una possibile struttura d'incidenza; **T091 e le Actions Morandotti** forniscono una ricostruzione indipendentemente verificata dei salti di trazione; **T096–T099** delimitano l'identificabilità cinematica; **T124** fornisce la soglia circolare ridotta; **T125** specifica energia, prima variazione e flusso dissipativo per una rete a topologia fissata. L'embedding fisico, il reticolo di Burgers, tensione, core, mobilità e pinning restano input da calibrare. Le Actions 43051485760, 43052448456 e 43052448351 non sono test del modello di linea T125 né della riconnessione.
+
+**Classificazione T125:** identità di variazione prima e dissipazione [P, per grafo finito e modello dichiarato]; dati materiali e scelta costitutiva [M]; derivazione da Q6/PRISM, limite Γ e convergenza dell'evoluzione [O]; emissione Frank–Read e topological update [O]. Il risultato chiude la specifica variazionale a topologia fissa, non la dimostrazione della moltiplicazione Frank–Read.
+
+
+
+
+**C3. Riconnessione locale e conservazione esatta di Burgers (T126).** Per due archi orientati disgiunti \((a\to b;B_1)\), \((c\to d;B_2)\), la regola locale di scambio delle teste \((a\to d;B_1)\), \((c\to b;B_2)\) conserva l'intero bordo \(C_0(V;\Lambda_B)\) se e solo se \(B_1=B_2\) (per estremi distinti). T126 dimostra l'identità algebrica e rifiuta esplicitamente lo scambio a Burgers disuguali; per reazioni generali di giunzione resta necessario \(\sum B_{in}=\sum B_{out}\). L'implementazione è proposta in source PR #199 con test unitari, non ancora certificati da CI. Questa mossa chiude il requisito di conservazione per una riconnessione combinatoria ristretta, ma non stabilisce barriera energetica, trigger fisico, geometria di glide, reazione a Burgers disuguali o rigenerazione della sorgente Frank–Read.
+
+**C4. Accettazione energetica degli eventi topologici (T127).** T127 completa il raccordo fra moto continuo e cambiamento di topologia. Su ciascun grafo, il flusso gradiente autonomo di T125 dissipa l'energia; un evento candidato di T126 è accettato soltanto se \(E_{dopo}+C_{evento}\le E_{prima}\), con costo dichiarato non negativo. Ne segue che l'energia ibrida non aumenta né durante l'evoluzione liscia né ai salti; se è limitata inferiormente, la somma dei costi degli eventi accettati è limitata dall'energia iniziale meno il limite inferiore. Il costo è un input costitutivo/di selezione, **non** una barriera di attivazione né un tasso cinetico. L'implementazione e i test sono proposti in source PR #200; CI non ancora certificata. Restano aperti calibrazione materiale, dinamica termica, rigenerazione Frank–Read e convergenza al continuo.
+
+**Classificazione integrata:** soglia circolare T124 [P, condizionata al modello]; decomposizione/ricostruzione Morandotti [P/N secondo i singoli record e le Actions citate]; parametro materiale e dinamica completa [M/O]; limite RGS–PRISM e raccordo KTHNY [O].
+
+**D. Statistica, FDT e trasporto.** T100, T105, T106 e T107 sono il livello dinamico dello stesso sistema: correlazioni complete \(64\times64\), correnti sui 192 archi, continuità di Kirchhoff, ensemble stazionario, risposta a campo debole e verifica indipendente della relazione Kubo/FDT. Il teorema Born/Haar in T106 dà una misura uniforme sul simplesso per stati puri complessi Haar; non dà una dinamica termica. Il modello Gibbs/diffusione reversibile di T107 è una realizzazione statistica distinta e dichiarata. La formula Green–Kubo richiede corrente fisica, unità, normalizzazione areale/volumica, ipotesi di equilibrio e controllo della convergenza; il Green operator del grafo non è l'integrale Green–Kubo.
+
+**E. KTHNY: limite termodinamico dei difetti bidimensionali.** KTHNY è la teoria di riferimento per la fusione 2D mediata da difetti. Nel regime triangolare e nelle ipotesi in cui lo scenario a due transizioni è valido, l'unbinding delle coppie di dislocazioni porta dal solido alla fase esatica; l'unbinding successivo delle disclinazioni porta al liquido isotropo. Il gas di Coulomb vettoriale di Young conserva sia interazioni radiali sia angolari. Con la convenzione standard
+\[
+K=\frac{Y a^2}{k_B T},
+\]
+il criterio alla soglia di unbinding delle dislocazioni è
+\[
+K_R=16\pi,
+\]
+dove \(K_R\) è la rigidità di Young **rinormalizzata**; non è un valore universale del modulo elastico nudo. Fugacità, energia di core, anisotropia, substrato e interazioni possono modificare o pre-emptare lo scenario semplice.
+
+La connessione già contenuta in T106 è quindi sostanziale: T091–T097 forniscono i settori cinematici Frank/Burgers e il benchmark elastico; T100–T107 forniscono correlazioni, risposta e test FDT; KTHNY fornisce il quadro RG termodinamico nel quale verificare proliferazione, screening e perdita degli ordini traslazionale/orientazionale. Non si assume che Q6 abbia già una transizione KTHNY: occorrono una geometria 2D calibrata, energia di core, fugacità, interazione difetto-difetto e flusso RG misurati o derivati.
+
+Gli operatori Wilson–'t Hooft sono classificati da cariche elettriche e magnetiche (dipendenti dal gruppo di gauge e dalla sua forma globale). Il parametro complesso di accoppiamento è
+\[
+\tau_{\rm YM}=\frac{\theta}{2\pi}+\frac{4\pi i}{g_{\rm YM}^2},
+\]
+e la trasformazione S agisce come \(\tau_{\rm YM}\mapsto-1/\tau_{\rm YM}\) nel caso autoduale, con la corrispondente trasformazione del gruppo di gauge nella formulazione generale.
+
+Il collegamento più concreto con il programma non è il numero sei del cubo, ma il **toro**. Harvey–Moore–Strominger studiano la compactificazione di \(D=4,\ \mathcal N=4\) Yang–Mills su \(T^2\): nel limite infrarosso la teoria efficace è descritta da una SCFT bidimensionale con struttura orbifold proposta, e la dualità \(S\) si traduce nella dualità \(T\), scambiando stati elettrici/magnetici con settori di momento/avvolgimento. Questo offre un'interfaccia naturale con i tori PRISM, i cicli Q6 e il gas di cariche KTHNY.
+
+La corrispondenza da costruire è precisa: identificare il reticolo di Burgers e quello delle cariche angolari/Frank, la forma quadratica d'interazione del gas di Coulomb, le fugacità e le dimensioni di scala degli operatori di difetto; confrontarli con i settori momento/avvolgimento e gli operatori di vertice della SCFT toroidale. La mappa deve preservare forma bilineare, regole di fusione/OPE e funzioni di partizione o correlatori. Occorre inoltre tenere distinti il parametro di accoppiamento \(\tau_{\rm YM}\), il parametro complesso di struttura del toro \(\tau_{T^2}\) e la rigidità elastica KTHNY \(K_R\): non sono la stessa variabile e non si identifica \(K_R\) con \(\operatorname{Im}\tau_{\rm YM}\) senza una derivazione. Solo se questa mappa è costruita si potrà identificare il gas vettoriale dei difetti KTHNY con un settore di cariche/momento-avvolgimento della teoria efficace toroidale. Per ora è un programma di confronto, non un'equivalenza dimostrata.
+
+La distinzione già esplicitata in T102 è vincolante: la supersimmetria cubicale del complesso de Rham/Hodge di Q6 è una supersimmetria finito-dimensionale di meccanica quantistica; **non** costruisce il multipletto, l'algebra, la dinamica conforme o la dualità di \(\mathcal N=4\) SYM. Le sei direzioni del cubo non sono automaticamente i sei scalari aggiunti di SYM. Per un embedding in SYM servono connessione \(SU(N)\), sei scalari aggiunti, quattro fermioni di Weyl, trasformazioni supersimmetriche, algebra di chiusura, simmetria \(SU(4)_R\) e controllo del limite.
+
+### 27.6 — Diagramma delle interfacce e obblighi di prova
+
+\[
+\begin{array}{c}
+\text{Q6 / PRISM: celle, cicli, cochain, Hodge}\
+\downarrow\
+\text{campi di fase, link gauge, connessione }SE(2)\
+\downarrow\
+\text{cariche per esagramma, moiré, olonomie}\
+\downarrow\
+\text{Burgers / Frank / torsione / curvatura}\
+\downarrow\
+\text{Morandotti: incompatibilità, Airy, KKT, C0-IPDG}\
+\downarrow\
+\text{Gibbs, FDT, Kubo/Green--Kubo}\
+\downarrow\
+\text{KTHNY: gas vettoriale, fugacità, RG, melting 2D}
+\end{array}
+\qquad
+\begin{array}{c}
+\mathcal N=4\text{ SYM in 4D}\
+\downarrow\
+\text{compactificazione su }T^2\
+\downarrow\
+\text{SCFT 2D / reticolo momento-avvolgimento}\
+\downarrow\
+\text{confronto di dualità con il settore toroidale}\
+\updownarrow\
+\text{PRISM / cicli Q6 / gas di cariche KTHNY}
+\end{array}
+\]
+
+Il diagramma a destra incontra quello a sinistra nel settore toroidale e nel linguaggio dei reticoli di carica; non autorizza una freccia di equivalenza senza la mappa di cui sopra.
+
+Obblighi prioritari:
+1. congelare la convenzione dei sei bit e il pairing inferiore/superiore, mantenendo i 64 esagrammi;
+2. collegare T101/T105 a misure reali dei due campi e alle correnti del circuito;
+3. ricostruire indipendentemente spostamento/distorsione e orientazione per estrarre Burgers e Frank dai campi Morandotti;
+4. derivare energia di core, fugacità e interazione del gas di difetti e confrontare il flusso RG con KTHNY;
+5. validare FDT confrontando correlazioni e risposta debole indipendente;
+6. definire il toro fisico e il reticolo di cariche, poi confrontare il settore KTHNY con il reticolo momento-avvolgimento della SYM compactificata;
+7. solo dopo, formulare un'azione efficace comune e provarne simmetrie, positività/stabilità, limiti e osservabili.
+
+### 27.7 — Registro integrato dei teoremi T091–T109
+
+| Record | Ruolo nel programma unitario | Stato da conservare |
+|---|---|---|
+| T091 | Composizione tensoriale Frank–Burgers e termine misto | Identità finite provate; benchmark numerico a due core; limite/legge costitutiva aperti |
+| T092–T094 | Geometria a due cerchi, trasporto \(SE(2)\), Cartan e audit | Teoremi locali/identità; audit numerico; estrazione da core FEM e limite singolare aperti |
+| T096 | Non-identificabilità della chiusura Burgers dai soli dati Airy simmetrici | Proposizione provata e witness numerico |
+| T097–T099 | Ricostruzione cinematica, barycentri, bicircolare e rete | Identità/risultati condizionali; calibrazione fisica e convergenza da completare |
+| T100–T101 | Cariche individuali, correlazioni, moiré e fasi sui 240 plaquette | Identità di grafo e definizioni; embedding e dati fisici aperti |
+| T102 | Supersimmetria cubicale e heat supertrace | Risultato finito esatto; distinto da \(\mathcal N=4\) SYM |
+| T103–T104 | Connessione magnetica \(\mathbb Z_2\), cicli/cocicli e olonomie | Classificazione finita provata; interpretazione fisica aperta |
+| T105 | Legge circuito–carica–moiré sui 64 siti | Identità di circuito/interferenza; legge costitutiva da misurare |
+| T106 | Born/Haar, FDT, difetti e raccordo KTHNY | Teoremi di misura e Kubo standard; ponte fisico condizionale |
+| T107 | Modello Gibbs reversibile, FDT e test preregistrati Frank/Burgers | Modello matematico definito; interpretazione materiale aperta |
+| T108–T109 | Influenze booleane, Laplaciano Qn e confronto AA | Identità Fourier/Laplaciane provate; non equivalgono a una legge fisica dei difetti |
+| T110 | XY su toro 2D/3D, winding, vortici e confronto KTHNY | Identità di reticolo esatte; simulazione finita e transizioni da verificare |
+
+I record T001–T110 sono una rete di dipendenze, non una lista di teoremi tutti dello stesso rango. Ogni record conserva la propria classificazione [E]/[P]/[N]/[C]/[M]/[H]/[O]. In particolare T108–T109 sono un ramo matematico sul cubo booleano: la loro vicinanza a Q6 e alla congettura Aaronson–Ambainis non li trasforma in una dinamica di cariche o in una legge KTHNY.
+
+### 27.8 — Risultati preesistenti da riutilizzare, non riscoprire
+
+Il lavoro precedente contiene già oggetti denominati \(R_0,R_1,R_2\) come mappe di catena di dimensioni registrate rispettivamente \(64\times12\), \(192\times21\), \(240\times10\), con \(R_2=0\) nella costruzione degenerata e identità di commutazione registrate nell'audit storico. Vanno recuperati i file e le convenzioni originali prima di riutilizzarli; non vanno sostituiti con nuove mappe né dichiarati canonici o face-preserving senza verifica. Questo uso dei simboli non va confuso con il dossier radiale del wormhole: lì \(r_*\simeq0.9907068184\), \(R_0\simeq2.7178138074\), \(r_1\simeq1.089778\), \(r_2\simeq1.981414\); il parametro maiuscolo \(R_1\) non è stato determinato e non va identificato con \(r_1\).
+
+### 27.9 — Riferimenti primari per i due raccordi fisici
+
+**KTHNY / melting 2D**
+1. D. R. Nelson and B. I. Halperin, “Dislocation-mediated melting in two dimensions,” *Phys. Rev. B* 19 (1979), 2457. DOI: [10.1103/PhysRevB.19.2457](https://doi.org/10.1103/PhysRevB.19.2457).
+2. A. P. Young, “Melting and the vector Coulomb gas in two dimensions,” *Phys. Rev. B* 19 (1979), 1855. DOI: [10.1103/PhysRevB.19.1855](https://doi.org/10.1103/PhysRevB.19.1855).
+3. J. M. Kosterlitz, “Kosterlitz–Thouless physics: a review of key issues,” *Rep. Prog. Phys.* 79 (2016), 026001. DOI: [10.1088/0034-4885/79/2/026001](https://doi.org/10.1088/0034-4885/79/2/026001).
+
+**\(\mathcal N=4\) SYM / dualità / torus**
+4. J. A. Harvey, G. Moore, A. Strominger, “Reducing S duality to T duality,” *Phys. Rev. D* 52 (1995), 7161–7167. DOI: [10.1103/PhysRevD.52.7161](https://doi.org/10.1103/PhysRevD.52.7161), arXiv:[hep-th/9501022](https://arxiv.org/abs/hep-th/9501022).
+5. A. Kapustin, “Wilson–’t Hooft operators in four-dimensional gauge theories and S-duality,” *Phys. Rev. D* 74 (2006), 025005. DOI: [10.1103/PhysRevD.74.025005](https://doi.org/10.1103/PhysRevD.74.025005).
+6. A. Kapustin and N. Saulina, “The algebra of Wilson–’t Hooft operators,” *Nucl. Phys. B* 814 (2009), 327–365. DOI: [10.1016/j.nuclphysb.2009.02.004](https://doi.org/10.1016/j.nuclphysb.2009.02.004).
+7. J. Gomis and T. Okuda, “S-duality, ’t Hooft operators and the operator product expansion,” *JHEP* 09 (2009), 072. DOI: [10.1088/1126-6708/2009/09/072](https://doi.org/10.1088/1126-6708/2009/09/072).
+8. Y. Hatsuda and T. Okazaki, “S-duality of boundary lines in \(\mathcal N=4\) SYM theories and supersymmetric indices,” *JHEP* 08 (2025), 127. DOI: [10.1007/JHEP08(2025)127](https://doi.org/10.1007/JHEP08(2025)127).
+
+La nota [KTHNY_N4_SYM_RGS_PRISM.md](../docs/KTHNY_N4_SYM_RGS_PRISM.md) va letta come appendice bibliografico-tecnica di questo capitolo, non come teoria autonoma. Il testo canonico è questa monografia e i theorem record richiamati.
+
+### 27.10 — XY su tori: BKT in 2D e loop di vortice in 3D
+
+Il controllo XY è separato dal modello Gibbs/FDT di T107 nel record [T110](../theorems/T110-xy-torus-vortex-kthny-bkt.md), con implementazione in scripts/audit_xy_torus_kthny_bkt.py. Sul toro 2D, il winding di plaquette è una carica intera globalmente neutra; i due winding armonici sui cicli non contrattibili sono dati distinti. La transizione BKT si diagnostica tramite la rigidità di elicità rinormalizzata, con salto universale \\(\\Upsilon_R/(k_BT)=2/\\pi\\), non identificando il correlatore firmato delle cariche con il potenziale logaritmico.
+
+Nel toro 3D, i winding delle tre famiglie di plaquette diventano flussi sui link del reticolo duale, con divergenza discreta nulla e supporto in reti di loop chiuse. Il caso \\(C_4^3\\) è il controllo combinatorio a 64 siti; il caso 2D \\(C_4^2\\) è il controllo di sezione/quotiente. Nessuno dei due è automaticamente una geometria materiale calibrata.
+
+**Separazione fisica essenziale:** BKT è il riferimento XY 2D a vortici scalari; KTHNY è il melting di un cristallo 2D attraverso dislocazioni vettoriali e disclinazioni, con \\(K_R=16\\pi\\) alla soglia di unbinding delle dislocazioni. Il modello XY 3D ha proliferazione di loop e non riceve la soglia KTHNY 2D. Il raccordo con Burgers/Frank richiede quindi un modello elastico 2D autonomo e dati di calibrazione; T110 non identifica vortici XY, cariche dei 64 esagrammi, Burgers, Frank e flusso \\(\\mathbb F_2\\) di T104.
+
 ---
 
 # APPENDICE A — Registro dei risultati e dei riferimenti canonici
@@ -543,6 +737,13 @@ Ogni risultato pubblicabile deve avere: definizione, ipotesi, dimostrazione o pr
 | QAT/luce | bibliografia e note critiche | `bibliography/quantum-light-foundations/` | ipotesi da confrontare con Maxwell |
 | Isteresi | T068 | `scripts/run_q6_hysteresis_sweep_study.py`, `models/constitutive_hysteresis.py` | benchmark multi-rate; dati industriali mancanti |
 | XCont/CA | note XCont | `models/prism_cellular_automata.py`, `models/prism_ca_evolution.py` | strumenti computazionali |
+| Frank–Burgers / Morandotti | T091–T099 | record T091–T099; `docs/rgs_defect_benchmark/` | identità finite, benchmark numerici e ponti cinematici condizionali |
+| Frank–Read / dislocation activation | T091–T099, T124 | `theorems/T124-frank-read-source-line-tension-atomistic-core.md`; PR #161/#162 Actions; DOLFINx two-core reports | soglia circolare [P condizionata]; decomposizione e ricostruzione numeriche verificate; cutting, core, evoluzione e limite continuo [O] |
+| Moiré, cariche, FDT e difetti | T100–T107 | records T100–T107; `scripts/audit_t103*`, `tests/test_t103*` | identità Q6 esatte; calibrazione fisica, dinamica e embedding aperti |
+| Influenze booleane e AA | T108–T109 | records T108–T109 | identità Fourier/Laplaciane; teorema AA dimension-uniforme distinto |
+| XY/BKT e vortici 3D | T110 | scripts/audit_xy_torus_kthny_bkt.py, tests/test_xy_torus_kthny_bkt.py | identità di winding/chiusura; scaling critico ancora da eseguire |
+| KTHNY | Nelson–Halperin; Young; T106 | capitolo 27.5 e bibliografia primaria | teoria standard 2D; applicazione al sistema Q6/Morandotti condizionale |
+| \(\mathcal N=4\) SYM | Harvey–Moore–Strominger; Kapustin; T102 | capitolo 27.5 e nota bibliografica subordinata | dualità/linee e compactificazione toroidale; mappa verso KTHNY/Q6 aperta |
 
 ## Registro completo dei theorem record
 
@@ -557,3 +758,214 @@ Non si cancellano risultati negativi, correzioni o no-go. Sono parte integrante 
 ---
 
 **Dichiarazione finale.** Questa monografia è la sintesi di orientamento e dipendenze del repository al 9 novembre 2026. Non sostituisce i record matematici originali e non certifica automaticamente i risultati numerici riportati in archivi non riprodotti. Il suo scopo è rendere possibile una prosecuzione cumulativa, verificabile e scientificamente onesta del programma RGS–PSU–PRISM–Q6–QLG.
+
+
+---
+
+# Appendice di programma — Tre gas di difetti e ponte QLG–N=4 SYM–stringhe
+
+Il dossier operativo [Three defect gases and QLG–RGS–N=4 SYM–IIB bridge](../docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md) sviluppa tre calcoli separati:
+
+- **BKT 2D:** vortici scalari, fugacità e flusso della rigidità di fase; criterio rinormalizzato \(\Upsilon_R/(k_BT)=2/\pi\).
+- **XY 3D:** flussi vorticosi interi sul reticolo duale, chiusura esatta, omologia delle reti e distribuzione delle lunghezze con convenzione esplicita.
+- **KTHNY 2D:** gas vettoriale di Burgers, settore separato di Frank, kernel elastico derivato e criterio \(Y_Ra^2/(k_BT)=16\pi\).
+
+Questi tre settori sono collegati alla geometria Q6/QLG solo tramite mappe esplicite. La catena verso \(\mathcal N=4\) SYM e stringhe IIB è un programma di derivazione: T102 resta una supersimmetria cubicale finita, non una costruzione di SYM; AdS/CFT è il ponte consolidato della teoria standard, mentre l'embedding RGS/QLG è aperto.
+
+**Gate di accettazione:** definizioni e normalizzazioni; derivazione o approssimazione dichiarata; codice e dati riproducibili; controlli di taglia finita/incertezza; criteri di falsificazione. Nessun esponente, punto critico o dualità QLG–stringhe viene assunto in anticipo.
+
+
+## Appendice — Estensione QHD–Euler–MHD e flussi vorticosi
+
+Il dossier centrale è stato esteso con il ponte tra idrodinamica quantistica (Madelung/Gross–Pitaevskii), vorticità di Euler, flusso magnetico MHD, superconduttori di tipo II e QHD dei plasmi. Il nucleo comune è la geometria dei flussi, delle circolazioni, delle classi di omologia e delle leggi di trasporto; non si identificano però vortici neutri, linee di vorticità classiche e tubi di flusso magnetico. La quantizzazione del flusso magnetico richiede il condensato carico e l'accoppiamento gauge.
+
+Il programma di verifica comprende: confronto T110–Gross–Pitaevskii sotto raffinamento; conservazione di Kelvin e Alfvén nei rispettivi regimi ideali; riconnessione quantistica e magnetica; benchmark Ginzburg–Landau/London; estensione a modelli QHD multi-specie con termine di Bohm e legge di Ohm generalizzata. Le equazioni, le unità e le condizioni di validità sono registrate in `docs/THREE_DEFECT_GASES_QLG_N4_IIB_BRIDGE.md`, §VI.
+
+
+## Appendice tecnica — Micro-nuotatori e controllo geometrico (T128)
+
+Il lavoro di Micalizio, Morandotti, Shum e Zoppello (2026), *Purcell swimmer near a wall*, fornisce un benchmark continuo pertinente al programma: due angoli interni \((\alpha_-,\alpha_+)\), tre variabili di corpo \((x,y,\theta)\), bilanci idrodinamici a basso Reynolds, connessione cinematica e controllabilità locale tramite parentesi di Lie. Il lavoro dichiara MATLAB con \texttt{ode45}; non documenta DOLFINx, PyTorch o TensorFlow per questo studio.
+
+Il record T128 separa il riferimento continuo dal possibile modello discreto Q6. La connessione continua si ricava dalla matrice di resistenza, \(A=-R_{bb}^{-1}R_{bs}\). Una discretizzazione Q6 richiede una mappa esplicita dai 64 vertici allo spazio delle forme, un'etichettatura dei controlli sugli archi e un trasporto discreto in \(SE(2)\) derivato da \(A\). Non è lecito assegnare arbitrariamente due direzioni del cubo ai due giunti.
+
+La ricostruzione numerica indipendente, basata sull'integrazione di \(J^T D J\), è conservata in \texttt{audits/purcell\_swimmer\_wall/}. Dopo aver corretto l'intervallo di arclunghezza delle aste esterne, essa restituisce \(\Delta x/\xi^2\simeq0.06172485\) per \(\xi=10^{-3}\), avvicinandosi al valore pubblicato \(5/81\simeq0.0617284\). I campi iniziali di controllo coincidono inoltre con quelli analitici riportati nell'articolo. Il benchmark numerico principale è riprodotto; questo non equivale alla dimostrazione indipendente del teorema di controllabilità.
+
+**Classificazione T128:** modello continuo e teorema di controllabilità locale [M, risultato dimostrato nell'articolo]; uso MATLAB/\texttt{ode45} [dato documentale]; riproduzione numerica del benchmark e stabilità di quadratura [N]; mappa Q6-shape-space, connessione discreta e convergenza di olonomia [O]. Nessuna equivalenza fisica tra Q6 e un micro-nuotatore è affermata.
+
+
+## T129 — Ostacolo di equivarianza e mappa calibrata Q6–Purcell
+
+La proiezione interna aurea già recuperata in RGS–PSU fornisce \(P_\perp:\mathbb R^6\to E_\perp\simeq\mathbb R^3\), con i sei assi del cut-and-project e tutti i 192 archi Q6. T129 dimostra, sotto l'azione irriducibile standard di \(A_5\), che non esiste una mappa lineare non nulla globalmente \(A_5\)-equivariante dal 3-spazio interno a uno spazio reale bidimensionale dei controlli. Il dato aureo da solo non seleziona quindi i due giunti del nuotatore.
+
+Viene costruita la famiglia calibrata \(\Phi_{B,\kappa}(v)=\kappa B P_\perp(v-\frac12\mathbf1)\bmod 2\pi\), dove \(B\) è un 2-frame ortonormale interno e \(\kappa\) una scala angolare. Tutte le sei direzioni Q6 contribuiscono ai due controlli; \(B\) e \(\kappa\) restano parametri da derivare dalla geometria indipendente del nuotatore e della parete. Per ogni arco si calcola inoltre un trasporto locale \(SE(2)\) mediante la connessione continua T128 valutata al punto medio della variazione di forma.
+
+**Classificazione:** ostacolo di rappresentazione [P, sotto ipotesi esplicite]; mappa e trasporti finiti [N/C]; calibrazione fisica, propagazione globale, olonomia e convergenza sotto raffinamento [O]. Non è ancora dimostrato un nuotatore Q6 fisicamente completo.
+## Appendice tecnica — Costruzione parametrica Q6–Purcell (T129)
+
+La geometria cut-and-project già implementata nel repository RGS–QLG–Quaternion Bridge fornisce la decomposizione aurea ortogonale \(\mathbb R^6=E_\parallel\oplus E_\perp\), con entrambi i sottospazi tridimensionali. Per i vertici \(v\in\{0,1\}^6\), la coordinata interna è \(P_\perp(v-\frac12\mathbf1)\). T129 definisce quindi una famiglia di mappe verso lo spazio delle forme del nuotatore,
+\[
+\Phi_{C,\sigma,s_0}(v)=s_0+\sigma C P_\perp(v-\tfrac12\mathbf1),
+\qquad C\in\mathbb R^{2\times3},\quad \operatorname{rank}C=2.
+\]
+La matrice \(C\) e la scala angolare \(\sigma\) non sono fissate dalla sola decomposizione aurea: costituiscono dati di calibrazione da derivare da osservabili indipendenti. Non viene scelto arbitrariamente un piano interno né vengono eliminati quattro assi. Tutte le sei direzioni coordinate e i 192 archi Q6 restano nel modello, con 32 archi per ciascuna direzione; i sei vettori proiettati e la loro matrice di Gram vengono registrati: l'anisotropia è misurata, non imposta né cancellata per assunzione.
+
+Nel problema vicino alla parete, la connessione \(A(s,y,\theta)=-R_{bb}^{-1}R_{bs}\) dipende anche dalla distanza dalla parete e dall'orientamento. Il trasporto di un arco deve dunque essere integrato come aggiornamento dipendente dallo stato, lungo il segmento di forma corrispondente, anziché essere postulato come una matrice universale \(U_e\). Il codice T129 implementa questa interfaccia tramite un callback della connessione e verifica il trasporto diretto/inverso su un caso costante di controllo.
+
+**Classificazione:** mappa parametrica e identità finite [P, condizionate alla calibrazione]; verifiche numeriche strutturali [N]; calibrazione fisica, olonomie dei 192 archi con la connessione di parete effettiva, convergenza sotto raffinamento e teorema di controllabilità Q6 [O]. T129 non afferma che i vertici Q6 siano configurazioni fisiche del micro-nuotatore.
+
+
+La simmetria icosaedrale standard agisce sullo spazio interno tridimensionale tramite una rappresentazione irriducibile di \(A_5\). Poiché \(A_5\) non possiede rappresentazioni irriducibili bidimensionali, non esiste una proiezione lineare non nulla \(A_5\)-equivariante da tale modulo verso uno spazio delle forme bidimensionale. La calibrazione \(C\) richiede quindi una struttura aggiuntiva che rompa o estenda quella simmetria (per esempio una geometria di parete e un frame del nuotatore specificati); non è dedotta dalla sola finestra aurea. Il codice registra i sei vettori proiettati, le loro norme e la matrice di Gram \(6\\times6\), così l'anisotropia resta una quantità verificabile della calibrazione.
+
+
+## Appendice tecnica — T130: gradienti, baricentri, momenti e resistenza
+
+T130 collega la geometria delle forme alla meccanica locale. Sul grafo Q6, il gradiente di un campo scalare è ricostruito con minimi quadrati sui sei archi incidenti; la matrice locale (G_v) deve avere rango due. Il test affine controlla che un campo (f(x)=a\cdot x+c) restituisca il gradiente (a), mentre il numero di condizionamento segnala stelle quasi degeneri.
+
+Per punti di quadratura (x_i) e pesi positivi (w_i), il baricentro è (x_c=\sum_iw_ix_i/\sum_iw_i). Le trazioni discrete determinano forza e momento. Il passaggio dall'origine (o) al baricentro soddisfa esattamente (M_c=M_o-(x_c-o)\times F): il baricentro è un riferimento geometrico, non va identificato automaticamente con il centro di resistenza.
+
+Per il modello locale-drag dichiarato, i Jacobiani cinematici (J_i) e i tensori dissipativi (D_i\succ0) producono (R_h=\sum_iw_iJ_i^TD_iJ_i\succeq0). Il complemento di Schur fornisce la connessione forza-libera (A_h=-R_{bb}^{-1}R_{bs}) e la metrica dissipativa delle forme. Questa identità non sostituisce Stokes/BEM: le interazioni idrodinamiche non locali richiedono un kernel accoppiato tra punti distinti.
+
+**Classificazione T130:** identità algebriche finite [P]; test numerici su campo affine e drag sintetico [N]; calibrazione dei pesi e dei Jacobiani delle aste, connessione idrodinamica vicino alla parete, convergenza e confronto con T128 [O]. Non si identifica il baricentro geometrico con il centro idrodinamico e non si dichiara una validazione fisica.
+
+
+## Addendum — T131: modi normali Q6, fasoni e trasporto Green–Kubo
+
+Il record [T131](../theorems/T131-q6-phonon-phason-green-kubo-transport.md) collega il modello di modi normali già introdotto in T113-D alla legge tensoriale di Green–Kubo. Il problema agli autovalori finito è (K e_\alpha=\omega_\alpha^2 M e_\alpha), con Hessiana simmetrica e matrice delle masse definita positiva. La classificazione longitudinale/trasversale si ricava dagli autovettori rispetto a una direzione di propagazione; non va confusa con la distinzione acustico/ottico, che dipende dal moto relativo degli atomi della base.
+
+La legge di trasporto usa lo stress microscopico totale estensivo:
+\[
+\eta_{ij,kl}=\frac{1}{k_BT V}\int_0^\infty\langle\delta\Pi_{ij}(t)\delta\Pi_{kl}(0)\rangle_{eq}\,dt.
+\]
+I contributi fononici, fasonici e misti, insieme alle correlazioni incrociate, devono provenire dalla stessa dinamica microscopica. La stima numerica implementata in T131 è esplicitamente a finestra temporale finita: non certifica da sola la convergenza dell'integrale infinito.
+
+Il grafo Q6 finito non determina automaticamente una dispersione di Bloch; occorrono geometria materiale, masse, Hessiana e una famiglia estesa con condizioni al contorno definite. Analogamente, lo spettro armonico non determina da solo una viscosità dissipativa: servono anarmonicità o un meccanismo di rilassamento fisicamente giustificato. I fasoni possono essere variabili continue rilassative oppure transizioni discrete tra configurazioni quasiperiodiche; non sono identificati automaticamente con il settore interno RGS.
+
+L'equazione di stato e la velocità del suono devono essere ricavate dalla stessa energia libera e dal percorso termodinamico dichiarato. La metrica acustica è applicabile nel limite fluido barotropico, inviscido e irrotazionale; mezzi anisotropi o dispersivi possono richiedere più superfici caratteristiche. Non si afferma una derivazione di gravità quantistica.
+
+**Stato:** identità matematiche e audit numerico sintetico [P]/[N]; calibrazione materiale Q6, dinamica fasonica, anarmonicità, convergenza Green–Kubo e applicazione acustica [O].
+
+
+### Precisazione T131 — decomposizione dello stress e correlazioni incrociate
+
+In T131, \(\mathrm{ph}\), \(\mathrm{pha}\) e \(\mathrm{int}\) indicano rispettivamente i contributi fononico, fasonico e d'interazione fonone–fasone. La somma dello stress è definita derivando ogni termine della stessa decomposizione Hamiltoniana rispetto alla medesima deformazione: \(\Pi^a_{ij}=-\partial H_a/\partial\varepsilon_{ij}\), e \(\Pi_{ij}=\sum_a\Pi^a_{ij}\). La correlazione totale contiene nove coppie ordinate \((a,b)\), comprese le autocorrelazioni del settore d'interazione e i sei termini incrociati. La ripartizione dei contributi individuali può dipendere dalla convenzione con cui si assegna l'energia d'interazione; la risposta totale non deve dipenderne.
+
+Con stress simmetrico in notazione di Voigt a sei componenti, tre settori producono 18 canali \((a,I)\) e una matrice di correlazione \(18\times18\), equivalentemente nove blocchi settore-settore ciascuno di dimensione \(6\times6\). La matrice \(3\times3\) descrive soltanto i settori per una coppia di componenti fissata.
+
+I termini incrociati sono nulli solo quando la misura d'equilibrio e le simmetrie lo impongono; la presenza di un Hamiltoniano d'interazione non li rende automaticamente tutti non nulli. Le parità temporali vanno trattate con Onsager–Casimir: per osservabili di parità \(\epsilon_a,\epsilon_b\), \(C_{ab}(t;\mathcal B)=\epsilon_a\epsilon_b C_{ba}(t;-\mathcal B)\), con trasposizione degli indici tensoriali. Stress meccanico ordinario è normalmente pari sotto inversione temporale. Non si deduce che una singola correlazione sia dispari in \(t\) dalla sola differenza di parità.
+
+La parte simmetrica della risposta è quella dissipativa; una parte antisimmetrica può descrivere risposte Hall/giroscopiche non dissipative quando ammesse dalle simmetrie. Infine, il criterio numerico è il plateau dell'integrale temporale progressivo, non un plateau della correlazione: la correlazione deve decadere o avere una coda idrodinamica trattabile.
+### Precisazione T131 — stress simmetrico, iperstress e risposta fasonica
+
+La decomposizione settoriale è definita da un'unica Hamiltoniana dichiarata,
+\[
+H(\varepsilon,w)=H_{\mathrm{ph}}+H_{\mathrm{pha}}+H_{\mathrm{int}},
+\]
+e tutti i contributi allo stress fononico sono ottenuti variando ciascun termine rispetto alla stessa deformazione simmetrica \(\varepsilon_{ij}\):
+\[
+\Pi^a_{ij}(x)=-\frac{\delta H_a}{\delta\varepsilon_{ij}(x)},\qquad
+\Pi_{ij}=\sum_a\Pi^a_{ij}.
+\]
+Se la densità energetica dipende da gradienti della deformazione, la derivata funzionale contiene i termini di divergenza dell'iperstress e genera anche contributi al bordo. L'iperstress non rende automaticamente non simmetrico lo stress coniugato a una deformazione simmetrica. Una componente antisimmetrica richiede una struttura meccanica ulteriore, per esempio gradi di libertà rotazionali indipendenti o stress di coppia in una teoria micropolare. La corrente microscopica di quantità di moto impiegata in Green–Kubo deve essere derivata dal bilancio completo: non si aggiunge un termine di iperstress per analogia.
+
+Con stress fononico simmetrico, tre settori e sei componenti di Voigt per settore danno 18 canali e una matrice di correlazione \(18\times18\), composta da nove blocchi \(6\times6\). La convenzione di Voigt deve dichiarare l'ordinamento e l'uso di tagli tensoriali \(\varepsilon_{ij}\) oppure ingegneristici \(\gamma_{ij}=2\varepsilon_{ij}\), mantenendo la coniugazione lavoro-forza. La matrice \(27\times27\) è giustificata solo da nove componenti indipendenti di stress per settore in un modello che ammetta realmente stress non simmetrico; la presenza di gradienti o iperstress non basta.
+
+La deformazione fasonica \(w_{ij}\) ha un proprio stress coniugato \(\Pi^w_{ij}=-\delta H/\delta w_{ij}\). Le sue componenti indipendenti dipendono dalla cinematica fasonica adottata e possono arrivare a nove in tre dimensioni. La risposta congiunta fononica–fasonica va quindi organizzata in blocchi \(\varepsilon\varepsilon,\varepsilon w,w\varepsilon,ww\), con dimensioni determinate dai gradi di libertà effettivi e dalla convenzione di settore; non coincide automaticamente con la matrice di correlazione dello stress fononico.
+
+La correlazione totale contiene le nove coppie ordinate di settori. I contributi individuali dipendono dalla partizione dichiarata dell'energia d'interazione, mentre lo stress totale resta invariato se la somma Hamiltoniana e la sua variazione sono mantenute fisse. Le relazioni di reciprocità seguono Onsager–Casimir con inversione dei campi dispari temporali; non si deduce la disparità temporale di una singola correlazione incrociata dalla sola differenza di parità degli osservabili.
+
+Per Green–Kubo, il plateau riguarda l'integrale progressivo, non la correlazione. Una coda \(t^{-3/2}\) in tre dimensioni è integrabile con errore di troncamento \(O(t_{\max}^{-1/2})\); una coda \(t^{-1}\) in due dimensioni produce una divergenza logaritmica. Queste leggi richiedono modi lenti diffusivi con rilassamento proporzionale a \(k^2\): l'esponente Q6–PRISM resta aperto finché non è derivata la dinamica dei modi fononici, fasonici e misti.
+
+
+## Addendum — T132: benchmark accoppiato fonone–fasone
+
+Il record [T132](../theorems/T132-coupled-phonon-phason-ou-green-kubo.md) introduce un sistema gaussiano reversibile a due coordinate \(q=(u,w)\), con Hessiana definita positiva e accoppiamento non nullo. La dinamica di Ornstein–Uhlenbeck possiede una covarianza d'equilibrio esatta e un propagatore noto. Per tre osservabili quadratiche dichiarate — contributo fononico, fasonico e d'interazione — l'identità di Wick fornisce analiticamente le nove correlazioni ordinate:
+\[
+C_{ab}(t)=\frac12\operatorname{tr}[S_aE(t)S_bE(t)^T].
+\]
+La somma dei nove blocchi coincide con la correlazione dello stress totale; a campo nullo la matrice dei blocchi è reciproca. Un simulatore OU a passo esatto confronta la covarianza empirica con quella analitica senza introdurre l'errore di discretizzazione di Euler–Maruyama.
+
+**Limite essenziale:** il bagno OU e le matrici sintetiche sono ipotesi di benchmark, non un modello di scattering fononico, di flip fasonici o di rilassamento anarmonico calibrato. Il coefficiente integrato è quindi un risultato del modello matematico, non una viscosità materiale. Restano aperte la derivazione comune di Hessiana e stress da un'Hamiltoniana Q6/materiale, la cinematica e la cinetica fasonica, la corrente microscopica e la convergenza fisica. Le sei direzioni Q6 non vengono isotropizzate.
+
+
+## Audit execution register — 12 November 2026
+
+The repository's 27-chapter monograph now points to the reproducible finite audit record for T103/T104, T105, T107 and T131/T132. The associated CI runs and exact test counts are recorded in audits/reports/actions-validation-2026-11-12.md. These checks remain finite-model/software evidence and are not promoted to physical validation.
+
+
+## Addendum — T138: six-dimensional icosahedral matrix and its two sheets
+
+The record [T138](../theorems/T138-c6-exact-two-sheet-spin3-decomposition.md) isolates the exact finite-dimensional algebra associated with the signed symmetric matrix \(C_6\). Its block decomposition \(C_6=\left(\begin{smallmatrix}U&S\\S^T&-U\end{smallmatrix}\right)\) gives \(C_6^2=5I_6\) from \(U^2=I_3+J_3\), \(SS^T=S^TS=4I_3-J_3\), and \(US=SU\). Thus the eigenspaces \(V_\pm=\ker(C_6\mp\sqrt5I_6)\) are orthogonal real three-spaces, with projectors \(P_\pm=\frac12(I_6\pm C_6/\sqrt5)\) and an explicit graph parametrization.
+
+The geometric language is deliberately restricted: each sheet has an \(SO(3)\) rotation group, whose standard spin double cover is \(\operatorname{Spin}(3)\simeq SU(2)\simeq Sp(1)\). Unit quaternions realize that cover on imaginary quaternions, but this does not equip either three-dimensional sheet with intrinsic quaternionic endomorphisms \(I,J,K\).
+
+The exterior-square splitting has dimensions \(3+9+3\), with \(\Lambda^2C_6\) eigenvalues \(+5\) (multiplicity 6) and \(-5\) (multiplicity 9). The exact integer audit and regression tests are linked from the T138 record.
+
+**Open representation-theory gate:** the six-dimensional matrices \(R_6(g)\) for generators of a specified \(2I^*\) action are not yet available in this construction. The required test is \([C_6,R_6(g)]=0\). Until it is passed, invariance and representation type of the two sheets under \(2I^*\) are not claimed. No physical or De Aquino identification follows from the matrix identity alone.
+
+
+---
+
+## Cross-repository preservation and literature crosswalk (24 November 2026)
+
+The chapter structure and canonical theorem records above are supplemented by the [Unified 27-chapter crosswalk and preservation register](../research/UNIFIED_PROGRAM_27_CHAPTER_CROSSWALK_2026-11-24.md). That register maps the existing theorem clusters, companion-repository documents, scripts, audits, data and external literature onto all 27 chapters. It does not replace this monograph or reclassify theorem status. It also records an inventory reconciliation item: the live tree contained 239 theorem Markdown paths at the 24 November snapshot, while the existing dependency graph reports 236. This discrepancy was reconciled on 24 November 2026: the three omitted records are TSMR-C-I_iching_golden_q6_lift.md, TSMR-C_cumulative_morphodynamics.md and TSMR-F_multifractal_morphological_equation.md. They were added as provisional thematic-index nodes, not proof dependencies. The graph now records 239 theorem files, 292 nodes and 323 edges; its 54 reviewed direct crosswalk edges were not changed.
+
+
+## Addendum — Vesica Piscis, Minkowski cones and the 64 hexagrams (24 November 2026)
+
+The 64 vertices of Q6 are identified with the 64 six-line hexagrams once a fixed convention maps the six binary coordinates to line values and orders them as lower and upper trigram:
+\[
+H=(L,U)\in\mathbb F_2^3\times\mathbb F_2^3.
+\]
+This is an exact bijection of sets. It makes the (3+3) split intrinsic to the hexagram composition, rather than an arbitrary partition of six bits. It does **not** by itself identify Q6 edges, faces, Laplacian or dynamics with traditional I Ching relations. Gray-code ordering remains a computational enumeration and is not the line-bit convention.
+
+The affine-filtration audit in PR #437 supplies the algebraic companion: the (GL(3,2)\times GL(3,2)) block-diagonal subgroup preserves the (j=3) boundary. The full exact criterion is the vanishing of the upper-right block in the audited row/column convention; lower block-triangular mixing can also preserve the ordered-prefix filtration, so the block-diagonal subgroup is not the entire stabilizer.
+
+For the geometric side, in Minkowski (2+1) with (ds^2=-dt^2+dx^2+dy^2), null cones from ((0,0,0)) and ((0,1,0)) cut the slice (t=-1) in the circles (x^2+y^2=1) and ((x-1)^2+y^2=1). Their disks intersect in the Vesica Piscis, with common chord endpoints \((1/2,\pm\sqrt3/2)\). The two cone surfaces intersect in a spacetime curve, not in that chord; the chord is the curve's intersection with the chosen time slice.
+
+The proposed interpretation of the lower and upper trigram factors as two geometric conic sheets remains **open**. It needs explicit maps from trigram states to geometric objects, a declared Lorentzian metric and causal relation, incidence compatibility with Q6, and an equivariance proof for the claimed symmetry group. The complete status ledger and construction gates are in [the research note](../research/VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md).
+
+
+### Addendum — explicit two-cone realization of the 64 hexagrams
+
+The Vesica–Minkowski–hexagram record now gives an explicit finite realization: two future null cones in Minkowski (2+1), with apexes one unit apart, are sampled on the 120-degree arcs of their unit-circle sections that lie inside the opposite disk. Eight sample directions on each arc encode the eight lower and upper trigrams. Each of the 64 hexagrams is the ordered pair of the corresponding cone points. Both spatial endpoints lie in the Vesica lens, so their midpoint lies there by convexity; the relative displacement is retained because the midpoint alone is not injective. The two-angle configuration space carries the product metric (d\theta^2+d\varphi^2), and the Q6 edge incidence factors as (Q_3\square Q_3).
+
+The construction is exact as a finite geometric model after fixing the trigram-to-angle bijection. It does not yet establish a canonical angular assignment, uniform Q6 edge lengths, geometric (GL(3,2)\times GL(3,2))-equivariance, physical dynamics, or a continuum limit. The harmonic separation functional in the research note is a candidate geometric coupling, not a derived physical energy. Full equations and proofs are in [the research record](../research/VESICA_MINKOWSKI_HEXAGRAM_Q6_TWO_SHEET_BRIDGE_2026-11-24.md).
+
+
+The finite construction is backed by [a standard-library audit script](../audits/audit_vesica_hexagram_two_cone.py) and [machine-readable results](../results/json/vesica_hexagram_two_cone_audit.json). The corrected sampling uses step (2\pi/21) across each full 120-degree arc. The midpoint map is not injective (57 distinct midpoint values for 64 ordered pairs), but midpoint plus relative displacement reconstructs every pair.
+
+
+### Addendum — C3×C3-equivariant spherical null-cone extension
+
+A subsequent construction resolves the finite-group equivariance obstruction by enlarging each cone section from the planar circle in Minkowski (2+1) to the unit sphere S² in Minkowski (3+1). The eight trigram states map injectively to two poles and two equilateral latitude triangles at z=±1/2. The order-three finite-field map T(a,b,c)=(b,a+b,c) is intertwined exactly with rotation by 120 degrees about the z-axis. Taking two copies yields an injective product representation of all 64 hexagrams and an isometric C3×C3 action on the product of the spherical sections.
+
+This construction must remain distinct from the earlier Vesica-lens construction: it does not show that all eight spherical samples lie in the old planar lens, and it does not make the old 2+1D arc sampling equivariant. The ordinary inter-sheet distance is not invariant under independent rotations; a finite-group average is invariant but removes relative azimuthal phase.
+
+There is also an operator consequence. T is not an automorphism of the Hamming cube Q3, so the standard Q6 Laplacian is not C3×C3 invariant. Averaging the Q3 Laplacian over the three conjugates of T gives a positive-semidefinite C3-invariant operator; its product sum on 64 states is C3×C3 invariant and has 256 weighted support edges, compared with 192 edges in standard Q6. It is a distinct finite operator, not the standard cube Laplacian. The full construction, proofs, limitations and reproducible audit are in [the equivariance research note](../research/C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md).
+
+
+### Addendum — exact spectrum of the C3×C3-invariant finite operator
+
+For the Reynolds-averaged factor Laplacian, the exact characteristic polynomial is λ(λ−2)(3λ−8)^3(3λ−14)^3/729. Its spectrum is 0, 2, 8/3 (multiplicity 3), and 14/3 (multiplicity 3). The product operator on the 64 hexagrams has spectrum 0, 2, 8/3, 4, 14/3, 16/3, 20/3, 22/3, 28/3 with multiplicities 1, 2, 6, 1, 12, 9, 6, 18, 9. Its kernel is one-dimensional and its spectral gap is exactly 2, the same as standard Q6; the remaining spectra differ. This is an exact finite-dimensional spectral result for a new C3×C3-invariant operator, not a claim that the standard Q6 Laplacian is invariant or that a physical continuum limit has been obtained. See [the full proof and audit](../research/C3X_C3_EQUIVARIANT_SPHERE_NULL_CONES_Q6_OPERATOR_2026-11-24.md).
+
+
+### Addendum — reconstructed RGS half-scale triplets (2026-11-24)
+
+The original 188D arrays now establish a rank-six carrier for the half-scale pair. A deterministic basis reconstruction splits it into lower and upper triplets (J_A,J_B), with (K_0)-spectra ((0.5,0.6,0.7)) and ((0.8,0.9,1.0)), and (Z_AJ_A=-\tfrac12J_B), (Z_AJ_B=+\tfrac12J_A). The low-triplet spectral involution (P_{0.5}+P_{0.6}-P_{0.7}) has matrix (operatorname{diag}(1,1,-1)). This is the recovered numerical bridge to the earlier half/sign pattern. It remains distinct from the spherical geometry's (z=\pm1/2): an equivariant intertwiner requires the (C_3\times C_3) representation on the RGS triplets and is still open. See [full original-array audit](../research/RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md) and [basis reconstruction script](../audits/reconstruct_rgs_half_carrier_basis.py).
+
+
+### Addendum — exact historical half-sign block recovered by gauge
+
+Let \(D=\operatorname{diag}(1,1,-1)\). In the canonical paired spectral basis the original arrays give \(Z_AJ_A=-\tfrac12J_B\), \(Z_SJ_A=+\tfrac12J_B\). Under the explicit upper-triplet channel gauge \(J_B^\sharp=-J_BD\), the BA blocks become \(Z_A^{BA}=+\tfrac12D\) and \(Z_S^{BA}=-\tfrac12D\), reproducing the previously recorded half-sign block. The same \(D\) is the spectral involution on the lower triplet. This identifies the old block at the level of a basis-gauged restriction, not as an equality of the full 188D operators. The gauge and residual checks are documented in [the original-array audit](../research/RGS_HALF_ORIGINAL_ARRAYS_AUDIT_2026-11-24.md#10-exact-recovery-of-the-historical-ba-half-sign-block).
+
+
+### Vesica–Minkowski interpretation of the RGS half-sign block
+
+The half-sign involution \(D=\operatorname{diag}(1,1,-1)\) is realized as a Lorentz reflection parity on three paired channels of the two null cones whose \(t=1\) sections bound the Vesica Piscis. The two arc endpoints are exchanged and the arc midpoint is fixed, so the reflection-adapted channel basis has eigenvalues \((+1,+1,-1)\). The original RGS BA blocks \(\pm D/2\) therefore admit a concrete three-channel geometric interpretation after the explicit upper-triplet gauge. This is not a full 64-hexagram embedding or a symmetry of the entire 188D \(K_0\) carrier. See [the construction and its scope limits](../research/VESICA_MINKOWSKI_RGS_D_REFLECTION_CHANNEL_REPRESENTATION_2026-11-24.md).
+
+
+### Q6–Vesica–RGS operator bridge: selected invariant sector
+
+The 64-state Q6 graph is split as Q3 Cartesian-product Q3. An operator-adapted trigram map uses Q3 Laplacian eigenmodes 0, 4 and 6, with reflection parities (+,+,-). Its tensor product retains 64 distinct nine-component hexagram features. Within that nine-dimensional space, the symmetric one-excitation sector over the constant mode is a three-dimensional invariant subspace for the compressed Q6 Laplacian and the diagonal Minkowski reflection. The resulting coisometry F from the 64 Q6 labels satisfies F L6 = diag(0,4,6) F and F R6 = D F.
+
+The selected sector is matched to the original RGS lower and upper triplets by the quadratic spectral interpolation f(x)=1/2+x/120+x^2/240 and f(x)+0.3, respectively. The RGS half-scale couplings transport through the same map with the Q6 antipodal reflection. This is a finite-dimensional operator bridge on one selected rank-three invariant sector, not an equivalence of all 64 Q6 states with the 188D RGS system. The quadratic f remains a matching candidate rather than a first-principles law. Full derivation, collision table, and reproducible original-array audit: [Q6–Vesica–RGS spectral intertwiner](../research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md).

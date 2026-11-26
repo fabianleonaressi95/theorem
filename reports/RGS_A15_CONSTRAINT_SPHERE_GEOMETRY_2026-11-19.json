@@ -1,0 +1,46 @@
+{
+  "title": "A15 RGS A13/A14 constraint-manifold geometry audit",
+  "status": "PASS",
+  "source_archive": "A13_RGS_PSU_QLG_KAGGLE/RGS_PSU_all_matrices.npz",
+  "source_archive_sha256": "29b758d56c20ba9eb488d1846d1439c0fc145973762421d03083239ee832bba1",
+  "source_arrays": {
+    "X_Oh_reconstructed": [
+      64,
+      3
+    ],
+    "Q_tangent": [
+      192,
+      188
+    ]
+  },
+  "geometry": {
+    "constraint_manifold": "S^188(sqrt(240))",
+    "ambient_space": "R^192",
+    "centroid_subspace_dimension": 189,
+    "dimension": 188,
+    "radius_squared": 240.00000000000006,
+    "radius": 15.49193338482967,
+    "sectional_curvature": 0.004166666666666666,
+    "ricci_eigenvalue": 0.7791666666666665,
+    "scalar_curvature": 146.4833333333333
+  },
+  "residuals": {
+    "centroid_max_abs": 2.220446049250313e-16,
+    "radius_squared_abs_error_from_240": 5.684341886080802e-14,
+    "J_rank": 4,
+    "JQ_fro": 1.2385465290863038e-14,
+    "Q_orthonormality_fro": 1.3145467710370518e-14,
+    "tangent_projector_symmetry_fro": 0,
+    "tangent_projector_idempotence_fro": 2.2041309253327976e-14,
+    "canonical_normal_frame_orthonormality_fro": 2.4532694666933987e-18,
+    "normal_tangent_orthogonality_fro": 1.054707846224981e-15,
+    "canonical_projector_vs_archived_Q_fro": 9.033015339120408e-15
+  },
+  "classification": {
+    "constraint_manifold_identification": "PASS",
+    "induced_Riemannian_Levi_Civita_projection_formula": "PASS",
+    "four_dimensional_spacetime_coframe": "NOT_ESTABLISHED",
+    "Lorentzian_spin_connection": "NOT_ESTABLISHED",
+    "continuum_SU2_holonomy_from_archived_links": "NOT_ESTABLISHED"
+  }
+}

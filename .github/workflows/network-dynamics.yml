@@ -1,0 +1,68 @@
+name: Network Dynamics
+
+on:
+  push:
+    paths:
+      - "applications/network-dynamics/**"
+      - ".github/workflows/network-dynamics.yml"
+  pull_request:
+    paths:
+      - "applications/network-dynamics/**"
+      - ".github/workflows/network-dynamics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: applications/network-dynamics/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r applications/network-dynamics/requirements.txt
+          python -m pip install pytest
+
+      - name: Run tests
+        run: python -m pytest applications/network-dynamics/tests -q
+
+      - name: Run synthetic baseline smoke test
+        run: |
+          python applications/network-dynamics/src/network_dynamics.py \
+            --seed 20261119 \
+            --steps 20 \
+            --output /tmp/network-dynamics-results
+
+      - name: Run paired-seed Monte Carlo audit
+        run: |
+          python applications/network-dynamics/src/monte_carlo.py \
+            --replicates 100 \
+            --seed 20261119 \
+            --output /tmp/network-dynamics-results/monte-carlo
+
+      - name: Run factorial sensitivity audit
+        run: |
+          python applications/network-dynamics/src/sensitivity.py \
+            --replicates 20 \
+            --seed 20261119 \
+            --removal-repetitions 20 \
+            --output /tmp/network-dynamics-results/sensitivity
+
+      - name: Upload synthetic results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-dynamics-synthetic-results
+          path: /tmp/network-dynamics-results/
+          if-no-files-found: ignore

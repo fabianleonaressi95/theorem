@@ -1,6 +1,6 @@
 # T032 — Fixed harmonic-basis matrix for the Rumin middle differential
 
-**Status:** the generic Case V multiplicity-space matrix is reconstructed from the exact coefficient data recorded in T025. Its Gram matrix is proved algebraically below. The repository audit script is supplied but has **not yet been executed in this session**. The result is not a new global nine-irrep spectral theorem.
+**Status:** the generic Case V multiplicity-space matrix is reconstructed from the exact coefficient data recorded in T025. Its Gram matrix is proved algebraically below, and the exact SymPy audit passed on all 400 integer parameter pairs `1≤p,q≤20` in CI run [43909122496](https://github.com/fabianleonaressi95/theorem/actions/runs/43909122496). The result is not a new global nine-irrep spectral theorem.
 
 ## 1. Purpose and relation to earlier results
 
@@ -116,7 +116,7 @@ This argument does not provide all nine irreducible matrix models or their chara
 - Explicit matrices for all nine irreducible representations of (2I).
 - Any Q6/PRISM continuum limit or physical consequence.
 
-**Validation status:** `audits/t032_rumin_fixed_harmonic_matrix.py` is an exact SymPy audit intended to check the identities over a configurable rectangle. It has been added but was not run in this session.
+**Validation status:** `audits/t032_rumin_fixed_harmonic_matrix.py` was executed with `--max-p 20 --max-q 20`; all 400 blocks passed exact assertions for the coefficient identities, Gram matrix, rank, trace, determinant, minimal polynomial, kernel, and target-phase invariance. The JSON result is retained in artifact `rumin-exact-audit-results` from run `43909122496`.
 
 ## References
 

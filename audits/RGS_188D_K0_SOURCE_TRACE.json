@@ -1,0 +1,28 @@
+{
+  "title": "RGS 188D K0 source trace",
+  "status": "UPSTREAM_CARRIER_IDENTIFIED; EXACT_K0_PRODUCER_UNRESOLVED",
+  "verified_chain": {
+    "A13": "loads K0 from RGS_PSU_fiber_connection_audit/psu_fibre_connection_matrices.npz",
+    "fibre_builder": "loads K0 from RGS_PSU_all_matrices.npz and copies it into psu_fibre_connection_matrices.npz; does not generate K0",
+    "upstream_archive": "RGS_PSU_all_matrices.npz"
+  },
+  "notebook_evidence": {
+    "synthetic_random_gram": "K0 = R.T @ R + 0.1*I appears as a synthetic example",
+    "mock_kernel_fallback": "generate_mock_kernel_188d is called only if K0_kernel_188.npy is absent in load_or_create_data",
+    "spectral_projector": "P_G is constructed by selecting eigenspace vectors of whichever K0 the loader returns",
+    "checkpoint": "AUTO_DUMP manifest records K0.npy, shape 188x188, float64, timestamp 2026-10-02 21:13:54",
+    "coulomb_hessian": "A separate K = Q.T @ (H_E + lambda*I) @ Q calculation appears; identity with archived K0 is not established"
+  },
+  "provenance_gaps": [
+    "exact cell or script that generated K0 in RGS_PSU_all_matrices.npz",
+    "input array hashes and assignment history",
+    "explicit 188D coordinate-basis identifier for K0",
+    "proof linking either synthetic notebook path to the archived K0"
+  ],
+  "classification": {
+    "K0": "archived PSD matrix; exact physical/geometric provenance unresolved",
+    "P_G": "spectral kernel projector of archived K0; not independent geometric evidence",
+    "fibre_archive": "carrier/copy of K0, not its generator",
+    "Coulomb_constrained_hessian": "separate calculation; do not identify with K0 without array-level equality or documented transform"
+  }
+}

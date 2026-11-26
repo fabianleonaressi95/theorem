@@ -1,0 +1,53 @@
+name: Rumin exact audits — T022, T023, T032
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/rumin-exact-audits.yml"
+      - "bibliography/spin-geometry-quaternionic/RUMIN_2I_T022_EVENTUAL_HURWITZ_AUDIT.py"
+      - "bibliography/spin-geometry-quaternionic/RUMIN_2I_T023_GAMMA_SINE_IDENTITIES.py"
+      - "audits/t032_rumin_fixed_harmonic_matrix.py"
+      - "theorems/T021-rumin-analytic-torsion-2I.md"
+      - "theorems/T022-eventual-hurwitz-rumin-2I.md"
+      - "theorems/T023-gamma-reflection-rumin-2I.md"
+      - "theorems/T032-rumin-fixed-harmonic-matrix.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rumin-exact-audits-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exact-audits:
+    name: Exact Hurwitz, Gamma and Rumin matrix checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install SymPy
+        run: python -m pip install --disable-pip-version-check sympy
+      - name: T022 — 70-digit eventual Hurwitz audit
+        run: python bibliography/spin-geometry-quaternionic/RUMIN_2I_T022_EVENTUAL_HURWITZ_AUDIT.py > t022-results.json
+      - name: T023 — exact Gamma-to-sine identities
+        run: python bibliography/spin-geometry-quaternionic/RUMIN_2I_T023_GAMMA_SINE_IDENTITIES.py > t023-results.json
+      - name: T032 — exact fixed-basis matrix audit
+        run: python audits/t032_rumin_fixed_harmonic_matrix.py --max-p 20 --max-q 20 --output t032-results.json
+      - name: Upload verified numerical certificates
+        uses: actions/upload-artifact@v4
+        with:
+          name: rumin-exact-audit-results
+          path: |
+            t022-results.json
+            t023-results.json
+            t032-results.json
+          if-no-files-found: error
+          retention-days: 90

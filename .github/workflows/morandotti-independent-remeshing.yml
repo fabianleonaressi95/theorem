@@ -1,0 +1,115 @@
+name: Morandotti independent-remeshing audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      resume_from_run_id:
+        description: "Optional previous run ID whose checkpoint artifact should be resumed"
+        required: false
+        type: string
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_morandotti_independent_remeshing.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'scripts/morandotti_resolution_decomposition.py'
+      - 'scripts/morandotti_mesh_realization_diagnostics.py'
+      - 'models/morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_independent_remeshing.py'
+      - 'tests/test_morandotti_resolution_decomposition.py'
+      - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - '.github/workflows/morandotti-independent-remeshing.yml'
+      - 'scripts/audit_runtime.py'
+      - 'scripts/render_audit_summary.py'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_morandotti_independent_remeshing.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'scripts/morandotti_resolution_decomposition.py'
+      - 'scripts/morandotti_mesh_realization_diagnostics.py'
+      - 'models/morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_distance_refinement.py'
+      - 'tests/test_morandotti_independent_remeshing.py'
+      - 'tests/test_morandotti_resolution_decomposition.py'
+      - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - '.github/workflows/morandotti-independent-remeshing.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  independent-remeshing:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[{"shard":"h0080","mesh_size":0.08},{"shard":"h0060","mesh_size":0.06},{"shard":"h0045","mesh_size":0.045},{"shard":"h0035","mesh_size":0.035}]') || fromJSON('[{"shard":"pr","mesh_size":0.08}]') }}
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+      options: --user root
+    timeout-minutes: 120
+    env:
+      AUDIT_PROGRESS_FILE: artifacts/morandotti_independent_remeshing/progress.jsonl
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python3 -c "import dolfinx, ufl, petsc4py, gmsh; print('DOLFINx', dolfinx.__version__); print('UFL', ufl.__version__); print('PETSc', petsc4py.__version__); print('Gmsh', gmsh.__version__)"
+      - name: Run pure post-processing tests
+        run: |
+          python3 -m pytest -q tests/test_morandotti_distance_refinement.py tests/test_morandotti_independent_remeshing.py tests/test_morandotti_resolution_decomposition.py tests/test_morandotti_mesh_realization_diagnostics.py
+      - name: Restore a previous checkpoint when requested
+        if: github.event_name == 'workflow_dispatch' && inputs.resume_from_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: morandotti-independent-remeshing-${{ matrix.shard }}
+          run-id: ${{ inputs.resume_from_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts/morandotti_independent_remeshing
+      - name: Run independent-remeshing sweep
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          RESUME_FROM_RUN_ID: ${{ inputs.resume_from_run_id }}
+        run: |
+          RESUME_FLAG=""
+          if [ -n "$RESUME_FROM_RUN_ID" ]; then
+            [[ "$RESUME_FROM_RUN_ID" =~ ^[0-9]+$ ]] || { echo "resume_from_run_id must be numeric"; exit 2; }
+            RESUME_FLAG="--resume"
+          fi
+          python3 scripts/rgs_morandotti_independent_remeshing.py \
+            --mesh-sizes ${{ matrix.mesh_size }} \
+            --distance-values 0.48 0.56 \
+            --mesh-seeds 11 17 23 29 37 47 59 \
+            --alpha 10 \
+            --young-modulus 1.0 \
+            --poisson-ratio 0.0 \
+            --out artifacts/morandotti_independent_remeshing/report.json \
+            $RESUME_FLAG
+      - name: Decompose resolution and remeshing variability
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python3 scripts/morandotti_resolution_decomposition.py \
+            --input artifacts/morandotti_independent_remeshing/report.json \
+            --out artifacts/morandotti_independent_remeshing/decomposition.json
+      - name: Diagnose mesh quality and core-exchange symmetry
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python3 scripts/morandotti_mesh_realization_diagnostics.py \
+            --report artifacts/morandotti_independent_remeshing/report.json \
+            --out artifacts/morandotti_independent_remeshing/mesh_diagnostics.json
+      - name: Render phase timing and realization summary
+        if: always() && github.event_name == 'workflow_dispatch'
+        run: python3 scripts/render_audit_summary.py artifacts/morandotti_independent_remeshing/progress.jsonl
+      - name: Upload report, checkpoint, progress, decompositions, diagnostics, and finite-element fields
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-independent-remeshing-${{ matrix.mesh_seed }}
+          path: artifacts/morandotti_independent_remeshing/
+          if-no-files-found: error
+          retention-days: 14

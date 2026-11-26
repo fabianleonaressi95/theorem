@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-24",
+  "classification": "methodological audit",
+  "status": "BLOCKED_OPEN",
+  "question": "Do the Q6-RGS quadratic functional-calculus coefficients persist under independent spectral refinement?",
+  "current_spectral_pairs": [
+    [
+      0,
+      0.5
+    ],
+    [
+      4,
+      0.6
+    ],
+    [
+      6,
+      0.7
+    ]
+  ],
+  "current_coefficients": [
+    "1/2",
+    "1/120",
+    "1/240"
+  ],
+  "current_result_scope": "Unique degree-at-most-two interpolation on the selected rank-three sector; stored-array numerical identity only.",
+  "reasons_blocked": [
+    "Three spectral pairs determine three quadratic coefficients and provide no held-out validation.",
+    "K0 provenance lacks its exact generating cell, inputs, and a certified identification of its 188D coordinate basis with the geometric tangent basis.",
+    "The existing Q6 embedding audit reports nonzero coupling of K0 between the embedded 64D sector and its 124D complement.",
+    "T_transport depends on PG and a polar construction, so it is not an independent held-out operator."
+  ],
+  "admissibility_requirements": [
+    "Independently generated refined Laplacian L_h and RGS operator K_h with archived source lineage.",
+    "Certified basis map U_h and invariant-subspace leakage measurements.",
+    "At least three fitting nodes and one distinct held-out spectral node.",
+    "At least two independent refinement levels with coefficient drift and conditioning reported.",
+    "Polynomial degree not fixed in advance; compare constant, linear, quadratic, and higher-degree models."
+  ],
+  "claims_not_made": [
+    "No independent refinement test has passed.",
+    "No coefficient invariance theorem is established.",
+    "No continuum or physical law is inferred."
+  ],
+  "protocol": "research/Q6_RGS_INDEPENDENT_REFINEMENT_PROTOCOL_2026-11-24.md",
+  "related_audit": "research/Q6_RGS_QUADRATIC_FUNCTIONAL_CALCULUS_DERIVATION_2026-11-24.md"
+}

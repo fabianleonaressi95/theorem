@@ -1,0 +1,33 @@
+{
+  "Q6_T_h_order": 24,
+  "C60_I_order": 60,
+  "C60_A4_order": 12,
+  "C60_face_count": 32,
+  "C60_face_size_counts": {
+    "5": 12,
+    "6": 20
+  },
+  "C60_fibre_dimension": 64,
+  "Q6_A4_character_multiset": {
+    "0": 3,
+    "4": 8,
+    "64": 1
+  },
+  "C60_A4_fibre_character_multiset": {
+    "64.0": 1,
+    "-2.0": 8,
+    "0.0": 3
+  },
+  "Q6_inversion_coset_character_multiset": {
+    "0": 12
+  },
+  "C60_inversion_coset_character_multiset": {
+    "0.0": 12
+  },
+  "Q6_T_h_adjacency_automorphisms": 8,
+  "Q6_T_h_elements": 24,
+  "equivalent_T_h_representations": false,
+  "reason": "The eight order-three elements have character 4 on Q6 states and -2 on the C60 face-tangent bundle. The character mismatch excludes an invertible intertwiner under any A4 isomorphism.",
+  "spectral_comparison_authorized": false,
+  "limitation": "The coordinate-induced Q6 T_h action is not a full automorphism action of Q6 adjacency."
+}

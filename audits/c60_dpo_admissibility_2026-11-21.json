@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-21",
+  "candidate": "g_f = Q_f x + t_f, Q_f da D_BFS (M=0, segue la connessione)",
+  "dpo_axioms": {
+    "G_isometric_immersion": true,
+    "orientation_preserving": true,
+    "distributional_gradient": "G dA + jump dH^1 (misura concentrata sugli spigoli)",
+    "determining_sequence": "strip width h -> convergenza in misura verificata numericamente",
+    "classical_det_condition": "non applicabile a matrici 3x2; sostituita da G^T G = I e rank 2"
+  },
+  "checks": {
+    "max_G_orthogonality_residual": 2.886579864025407e-15,
+    "all_G_rank2_isometric": true,
+    "total_jump_measure_mass": 38.93478885852171,
+    "mean_edge_jump_mass": 0.4326087650946857,
+    "max_edge_jump_mass": 0.7632035184181062,
+    "total_surface_area": 32.26989023739286,
+    "bulk_gradient_L1": 45.636516430012115,
+    "predicted_TV_limit": 84.57130528853384,
+    "strip_integral_by_h": {
+      "0.15": 40.119060248429435,
+      "0.075": 38.70953746389283,
+      "0.0375": 38.297257659090405
+    },
+    "jump_mass_sum_check": 38.93478885852171,
+    "TV_estimate_h_0.15": 85.75557667844154,
+    "rel_err_vs_limit_h_0.15": 0.014003229415311746,
+    "TV_estimate_h_0.075": 84.34605389390495,
+    "rel_err_vs_limit_h_0.075": 0.0026634494272068884,
+    "TV_estimate_h_0.0375": 83.93377408910251,
+    "rel_err_vs_limit_h_0.0375": 0.0075383866579360765,
+    "jump_mass_by_edge_type": {
+      "5v6": {
+        "mean": 0.4096811666136865,
+        "max": 0.6696131517627241,
+        "n": 60
+      },
+      "6v6": {
+        "mean": 0.4784639620566841,
+        "max": 0.7632035184181062,
+        "n": 30
+      }
+    }
+  },
+  "verdict": "ADMISSIBLE_candidate: la g segue la connessione (M=0 a.e.), e' discontinua sugli spigoli con salto misurato; la determining sequence esiste come limite di misure. Manca ancora: dimostrazione formale per il caso immersione e confronto con la formulazione DPO standard."
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-21",
+  "candidate": "g_f = Q_f x + t_f, Q_f da D_BFS",
+  "checks": {
+    "vertex_cap": [
+      {
+        "R": 0.15,
+        "cap_grad_L1": 19.178398813447124,
+        "cap_area": 3.921527177589711
+      },
+      {
+        "R": 0.075,
+        "cap_grad_L1": 9.508319624325233,
+        "cap_area": 0.9803817943974278
+      },
+      {
+        "R": 0.0375,
+        "cap_grad_L1": 4.740930085708775,
+        "cap_area": 0.24509544859935695
+      }
+    ],
+    "vertex_cap_scaling": "atteso ~O(R): confronta R=0.15 vs 0.0375",
+    "strip_min_sigma_min": 0.0008907796608070124,
+    "strip_min_at": [
+      5,
+      27,
+      13
+    ],
+    "strip_is_immersed": true,
+    "min_nonadjacent_face_image_distance": 0.0010171848417160835,
+    "min_nonadjacent_pair": [
+      0,
+      4
+    ],
+    "globally_embedded_probe": true
+  },
+  "notes": "cap vertex: partition of unity su 3 wedge, grad ~1/R, area ~R^2 -> contributo O(R). strip: sigma_min>0 => immersione locale. embedding: sondata vertice-facci su immagini polygonali."
+}
