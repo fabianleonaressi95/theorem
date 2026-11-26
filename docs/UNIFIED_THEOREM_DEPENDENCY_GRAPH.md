@@ -142,7 +142,7 @@ The quaternion/QLG-side copy of this graph is maintained at [the companion repos
 
 ## 5. Full-coverage inventory and interpretation
 
-The machine-readable edge registry now contains **295 nodes and 331 directed edges**:
+The machine-readable edge registry now contains **295 nodes and 330 directed edges**:
 
 - 241 theorem-record nodes from `theorem/theorems/`;
 - 14 catalogue-entry nodes from the companion `results/catalogue/laws_theorems_registry.json`;
