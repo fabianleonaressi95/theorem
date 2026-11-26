@@ -205,14 +205,15 @@ v(z)=\xi\cdot z
 \]
 The exact set of constrained vertices and the treatment of crossing edges must be fixed in an implementation and in a proof.
 
-The candidate density is the normalized large-cell limit
+For a local blow-up formula on the bounded macroscopic domain, the natural candidate is
 \[
-f_{\rm cell}(x,\xi)
-=\lim_{R\to\infty}\ \lim_{\varepsilon\downarrow0}
-\frac{m_\varepsilon(\xi,Q_R(x))}{|Q_R|},
+f(x,\xi)
+=\lim_{r\downarrow0}\ \lim_{\varepsilon\downarrow0}
+\frac{m_\varepsilon(\xi,Q_r(x))}{|Q_r|},
+\qquad \varepsilon/r\to0,
 \tag{7.2}
 \]
-when these limits exist in the stated order (or under a rigorously specified joint regime). In a genuinely homogenization-based setting, the cell problem is usually formulated after rescaling to a reference graph and taking large boxes.
+at points where the limit exists, with the boundary strip and crossing-edge convention fixed. Here the inner limit is taken with the physical cube fixed and the mesh tending to zero; the outer limit shrinks the cube to the macroscopic point. For periodic or stationary homogenization, an equivalent cell problem is often expressed instead on the rescaled reference graph in cubes of side length \(R\to\infty\). These are different formulations and must not be conflated.
 
 To obtain **full-sequence** convergence, it is sufficient to prove that every subsequential \(\Gamma\)-limit has the same density, equivalently that the relevant cell minima converge to one deterministic value independently of the extracted subsequence. Possible routes include:
 
