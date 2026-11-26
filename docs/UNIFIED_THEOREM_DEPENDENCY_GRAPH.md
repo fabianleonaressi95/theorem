@@ -148,7 +148,7 @@ The machine-readable edge registry now contains **309 nodes and 345 directed edg
 - 255 theorem-record nodes from `theorem/theorems/`;
 - 14 catalogue-entry nodes from the companion `results/catalogue/laws_theorems_registry.json`;
 - 8 thematic hubs, plus application-dossier and companion-document nodes;
-- 254 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
+- 255 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
 
 The 255 classification arrows ensure that every theorem record in the 26-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
 
@@ -162,8 +162,7 @@ The 255 classification arrows ensure that every theorem record in the 26-Novembe
 - **Open obligation:** T027's Rumin complex is not identified with the derived McKay equivalence; such a link requires a functorial construction and an operator-intertwining proof.
 - Surface result: \(\mathbb C^2/2I\) is the \(E_8\) Kleinian singularity and has a unique minimal crepant resolution. Threefold result: \(G\)-Hilb/BKR applies under its stated hypotheses. For \(n>3\), no universal existence assertion is made.
 
-The machine-readable graph now includes T152 and backfills the previously omitted existing records T144, T145, and T147–T151. The T027 open-obligation edge uses its canonical node ID (`THM:T027-mckay-molien-rumin-bridge`), and T144 has an explicit `comparison-only` edge to T152. These are index/crosswalk repairs, not new mathematical implications. The resulting inventory is 248 theorem records, 302 nodes, and 338 directed edges.
-The machine-readable graph includes T152 and now backfills the previously omitted existing records T144, T145, and T147–T151, together with the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, and T153. The two T149 records are distinct and remain separate nodes. The T027 open-obligation edge uses its canonical node ID (`THM:T027-mckay-molien-rumin-bridge`), and T144 has an explicit `comparison-only` edge to T152. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. These are index/crosswalk repairs, not new mathematical implications. The resulting inventory is 254 theorem records, 308 nodes, and 344 directed edges.
+The machine-readable graph includes T152 and backfills the previously omitted existing records T144, T145, and T147–T151, together with the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153, and T154. The two T149 records are distinct and remain separate nodes. The T027 open-obligation edge uses its canonical node ID (`THM:T027-mckay-molien-rumin-bridge`), and T144 has an explicit `comparison-only` edge to T152. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. These are index/crosswalk repairs, not new mathematical implications. The resulting inventory is 255 theorem records, 309 nodes, and 345 directed edges.
 
 
 ## T154 — RGS spatial coframe and labelled constraint splitting
