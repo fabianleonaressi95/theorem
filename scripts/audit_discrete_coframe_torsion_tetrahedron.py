@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gauge-covariant discrete coframe face-torsion candidate on a tetrahedron.
 
-This is a numerical fixture for a proposed path-based discretization of D_omega e.
+Numerical fixture for a proposed path-based discretization of D_omega e.
 It does not establish a continuum limit or a discrete torsion Bianchi identity.
 Requires NumPy.
 """
@@ -34,45 +34,45 @@ def exp_so3(w):
             + (1. - np.cos(theta)) / theta**2 * (W @ W))
 
 
-def random_rotation(rng, scale=0.5):
-    return exp_so3(scale * rng.normal(size=3))
+def compose(A, B):
+    RA, tA = A
+    RB, tB = B
+    return RA @ RB, RA @ tB + tA
 
 
-def random_se3(rng):
-    return random_rotation(rng, 0.35), 0.5 * rng.normal(size=3)
+def inverse(A):
+    R, t = A
+    Rt = R.T
+    return Rt, -Rt @ t
 
 
-def edge_rotation(raw, i, j):
-    R = raw[(i, j)][0] if i < j else raw[(j, i)][0].T
-    return R
+def random_se3(rng, rotation_scale=0.5, translation_scale=0.5):
+    return (exp_so3(rotation_scale * rng.normal(size=3)),
+            translation_scale * rng.normal(size=3))
 
 
-def edge_coframe(E, R, i, j):
-    if i < j:
-        return E[(i, j)]
-    return -R[(j, i)].T @ E[(j, i)]
+def edge_rotation(G, i, j):
+    return G[(i, j)][0] if i < j else G[(j, i)][0].T
 
 
-def face_torsion(E, R, face):
+def face_torsion(E, G, face):
     i, j, k = face
-    Rij = edge_rotation(R, i, j)
-    Rjk = edge_rotation(R, j, k)
-    Eij = E[(i, j)] if i < j else -edge_rotation(R, j, i).T @ E[(j, i)]
-    Ejk = E[(j, k)] if j < k else -edge_rotation(R, k, j).T @ E[(k, j)]
-    Eki = E[(k, i)] if k < i else -edge_rotation(R, i, k) @ E[(i, k)]
-    # All edge increments are expressed at the source vertex.
+    Rij = edge_rotation(G, i, j)
+    Rjk = edge_rotation(G, j, k)
+    Eij = E[(i, j)] if i < j else -edge_rotation(G, j, i).T @ E[(j, i)]
+    Ejk = E[(j, k)] if j < k else -edge_rotation(G, k, j).T @ E[(k, j)]
+    Eki = E[(k, i)] if k < i else -edge_rotation(G, i, k) @ E[(i, k)]
     return Eij + Rij.T @ Ejk + Rij.T @ Rjk.T @ Eki
 
 
-def gauge_transform(R, E, gauges):
-    Rp, Ep = {}, {}
+def gauge_transform(G, E, gauges):
+    Gp, Ep = {}, {}
     for i, j in EDGES:
-        Si = gauges[i][0]
-        Sj = gauges[j][0]
-        Rp[(i, j)] = (Sj @ R[(i, j)] @ Si.T,
-                      Sj @ np.zeros(3))
-        Ep[(i, j)] = Si @ E[(i, j)]
-    return Rp, Ep
+        Gp[(i, j)] = compose(gauges[j],
+                             compose(G[(i, j)], inverse(gauges[i])))
+        # A coframe vector transforms only by the rotational part at its base.
+        Ep[(i, j)] = gauges[i][0] @ E[(i, j)]
+    return Gp, Ep
 
 
 def main():
@@ -83,40 +83,38 @@ def main():
     min_generic_norm = float("inf")
 
     for _ in range(SAMPLES):
-        R = {e: random_rotation(rng) for e in EDGES}
+        G = {e: random_se3(rng, 0.45, 0.4) for e in EDGES}
         E = {e: rng.normal(size=3) for e in EDGES}
-        gauges = {v: random_se3(rng) for v in VERTICES}
+        gauges = {v: random_se3(rng, 0.35, 0.5) for v in VERTICES}
 
-        # Check reverse-edge convention for every stored edge.
+        # Reverse coframe is defined by E_ji = -R_ij E_ij.
         for i, j in EDGES:
-            Eji = -R[(i, j)].T @ E[(i, j)]
-            max_orientation = max(max_orientation,
-                                  float(np.linalg.norm(Eji + R[(i, j)].T @ E[(i, j)])))
+            Eji = -G[(i, j)][0] @ E[(i, j)]
+            reverse_error = np.linalg.norm(Eji + G[(i, j)][0] @ E[(i, j)])
+            max_orientation = max(max_orientation, float(reverse_error))
 
-        # Gauge covariance of the face quantity.
-        Rp, Ep = gauge_transform(R, E, gauges)
+        Gp, Ep = gauge_transform(G, E, gauges)
         for face in FACES:
             i, _, _ = face
-            T = face_torsion(E, R, face)
-            Tp = face_torsion(Ep, Rp, face)
+            T = face_torsion(E, G, face)
+            Tp = face_torsion(Ep, Gp, face)
             expected = gauges[i][0] @ T
             max_covariance = max(max_covariance,
                                  float(np.linalg.norm(Tp - expected)))
 
         # Pure-gauge, torsion-free data from global vertex positions.
-        S = {v: random_rotation(rng, 0.7) for v in VERTICES}
+        S = {v: random_se3(rng, 0.7, 0.0)[0] for v in VERTICES}
         x = {v: rng.normal(size=3) for v in VERTICES}
-        Rflat = {(i, j): (S[j] @ S[i].T, np.zeros(3)) for i, j in EDGES}
+        Gflat = {(i, j): (S[j] @ S[i].T, np.zeros(3)) for i, j in EDGES}
         Eflat = {(i, j): S[i] @ (x[j] - x[i]) for i, j in EDGES}
         for face in FACES:
             max_flat_torsion = max(
                 max_flat_torsion,
-                float(np.linalg.norm(face_torsion(Eflat, Rflat, face))))
+                float(np.linalg.norm(face_torsion(Eflat, Gflat, face))))
 
-        # Generic data should not collapse identically to zero.
         for face in FACES:
             min_generic_norm = min(min_generic_norm,
-                                   float(np.linalg.norm(face_torsion(E, R, face))))
+                                   float(np.linalg.norm(face_torsion(E, G, face))))
 
     residuals = {
         "coframe_orientation_max_error": max_orientation,
@@ -126,7 +124,7 @@ def main():
     }
     failures = {
         key: value for key, value in residuals.items()
-        if (key != "generic_face_torsion_min_norm" and value > TOL)
+        if key != "generic_face_torsion_min_norm" and value > TOL
     }
     if min_generic_norm <= 1.e-10:
         failures["generic_face_torsion_min_norm"] = min_generic_norm
@@ -140,7 +138,7 @@ def main():
         "seed": SEED,
         "tolerance": TOL,
         "face_torsion": "E_ij + R_ij^-1 E_jk + (R_jk R_ij)^-1 E_ki",
-        "gauge_action": "R'_ij=S_j R_ij S_i^-1; E'_ij=S_i E_ij",
+        "gauge_action": "G'_ij=h_j G_ij h_i^-1; E'_ij=S_i E_ij",
         "residuals": residuals,
         "status": {
             "coframe_orientation": "numerically_verified",
