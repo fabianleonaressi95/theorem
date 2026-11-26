@@ -5,15 +5,15 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 239,
+    "theorem_markdown_records": 240,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
-    "verified_or_reviewed_direct_edges": 54,
-    "classification_edges": 239,
+    "verified_or_reviewed_direct_edges": 60,
+    "classification_edges": 240,
     "hub_to_companion_edges": 30,
-    "note": "All 239 theorem files in the 24-November-2026 tree snapshot are nodes. Each has a provisional thematic-index edge; that edge is not a proof dependency. Direct edges are explicitly typed and carry caveats. Three TSMR records were added in the 24-November reconciliation.",
-    "total_nodes": 292,
-    "total_edges": 323
+    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record. The graph retains typed, caveated links; comparison edges do not assert equivalence.",
+    "total_nodes": 293,
+    "total_edges": 330
   },
   "nodes": [
     {
@@ -2143,6 +2143,13 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/TSMR-F_multifractal_morphological_equation.md",
       "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md",
+      "topic_hub": "H-OTHER"
     }
   ],
   "edges": [
@@ -4406,6 +4413,55 @@
       "relation": "thematic-index-classification",
       "status": "provisional",
       "caveat": "Topic assignment is provisional. This is a thematic index edge, not a proof dependency; inspect the full record and its assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T119-binary-icosahedral-group-and-selected-representations",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "representation-input",
+      "status": "reviewed",
+      "caveat": "T119 supplies the exact 2I group and selected representations; T152 adds the classical surface McKay/ADE and crepant-resolution framework. T119 does not itself prove the geometric correspondence."
+    },
+    {
+      "from": "THM:T121-icosahedral-a5-action-on-q6-clifford-module",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "representation-input",
+      "status": "reviewed",
+      "caveat": "T121 supplies the ordinary A5 action; it is distinct from the central-nontrivial 2I spin representations."
+    },
+    {
+      "from": "THM:T144",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "Invariant-count/Molien coefficients are related representation data, not a proof of the McKay resolution."
+    },
+    {
+      "from": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "Dodecahedral/Q6 chain and spectral audit are geometric comparison data; the failed intertwining is retained and is not the E8 Cartan form."
+    },
+    {
+      "from": "DOC:A1",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "The S3/2I scalar spectrum is distinct from the exceptional-curve intersection lattice of the E8 resolution."
+    },
+    {
+      "from": "THM:T027",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "open-obligation",
+      "status": "open",
+      "caveat": "No derived-McKay functor on the Rumin complex or spectral intertwining has been constructed."
     }
   ]
 }
