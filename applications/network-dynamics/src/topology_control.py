@@ -113,6 +113,7 @@ def run_topology_control(replicates: int = 100, seed: int = DEFAULT_SEED,
     if n_edges < n_agents - 1 or n_edges > n_agents * (n_agents - 1) // 2:
         raise ValueError("invalid edge count for simple connected-capable graph")
     records: dict[tuple[str, str], list[float]] = {}
+    paired_records: dict[tuple[str, str, str], list[float]] = {}
     degree_checks: dict[str, bool] = {}
     metric_names = (
         "skill_coverage_threshold_0_60", "mean_knowledge_state",
@@ -131,6 +132,7 @@ def run_topology_control(replicates: int = 100, seed: int = DEFAULT_SEED,
             )
         }
         for name in ARCHITECTURES:
+            controls[f"{name}_original_profile_informed"] = set(graphs[name])
             controls[f"{name}_degree_preserving_rewire"] = degree_preserving_rewire(
                 graphs[name], n_agents, np.random.default_rng(rep_seed + 300 + ARCHITECTURES.index(name)),
                 swaps_per_edge=swaps_per_edge,
@@ -143,13 +145,20 @@ def run_topology_control(replicates: int = 100, seed: int = DEFAULT_SEED,
                 minlength=n_agents,
             )
             degree_checks[name] = degree_checks.get(name, True) and np.array_equal(before, after)
+        replicate_metrics: dict[str, dict[str, float]] = {}
         for name, edges in controls.items():
             result = evaluate(
                 edges, profiles, initial, steps, eta, rho,
                 rep_seed + 1000, removal_repetitions,
             )
+            replicate_metrics[name] = {metric: result[metric] for metric in metric_names}
             for metric in metric_names:
                 records.setdefault((name, metric), []).append(result[metric])
+        for left, right in itertools.combinations(sorted(controls), 2):
+            for metric in metric_names:
+                paired_records.setdefault((left, right, metric), []).append(
+                    replicate_metrics[left][metric] - replicate_metrics[right][metric]
+                )
 
     rows = []
     for (control, metric), vals in sorted(records.items()):
@@ -165,6 +174,20 @@ def run_topology_control(replicates: int = 100, seed: int = DEFAULT_SEED,
                 degree_checks.get(control.removesuffix("_degree_preserving_rewire"), False)
                 if control.endswith("_degree_preserving_rewire") else False
             ),
+            "swaps_per_edge": swaps_per_edge, "steps": steps,
+            "eta": eta, "rho": rho, "nodes": n_agents, "edges": n_edges,
+        })
+    for (left, right, metric), vals in sorted(paired_records.items()):
+        arr = np.asarray(vals, dtype=float)
+        mean = float(arr.mean())
+        se = float(arr.std(ddof=1) / np.sqrt(replicates))
+        rows.append({
+            "control": f"{left}_minus_{right}", "metric": metric,
+            "replicates": replicates, "mean": mean,
+            "sample_std": float(arr.std(ddof=1)),
+            "ci95_normal_lower": mean - 1.96 * se,
+            "ci95_normal_upper": mean + 1.96 * se,
+            "degree_sequence_preserved": False,
             "swaps_per_edge": swaps_per_edge, "steps": steps,
             "eta": eta, "rho": rho, "nodes": n_agents, "edges": n_edges,
         })
