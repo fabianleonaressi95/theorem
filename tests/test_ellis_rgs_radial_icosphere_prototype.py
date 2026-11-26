@@ -57,10 +57,6 @@ def test_affine_radial_mode_has_exact_ellis_interior_radial_energy():
 
 
 def test_circumcentric_dual_crosses_every_primal_edge_at_refinement_levels():
-    # Build rejects same-side circumcentres rather than accepting an unsigned
-    # centre distance as a valid positive conductance.
-
-def test_circumcentric_dual_crosses_every_primal_edge_at_refinement_levels():
     # EllisGraph.build now rejects same-side circumcentres instead of
     # accepting their unsigned distance as a positive conductance.
     for level in (0, 1, 2, 3):
