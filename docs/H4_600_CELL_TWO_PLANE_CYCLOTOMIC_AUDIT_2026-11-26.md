@@ -44,7 +44,7 @@ The audit constructs the following words, with multiplication convention \(U=S_{
 \[
 U_3=S_1S_2S_1S_2S_1S_3S_2S_1S_2S_1S_3S_2S_1S_2S_4S_3S_2S_1S_2S_1S_3S_2S_1S_2S_4S_3S_2S_1S_2S_1S_3S_2S_1S_4S_3S_2S_1S_2S_3S_4.
 \]
-The computed characteristic polynomial is
+The exact \(\mathbb Q(\sqrt5)\) matrix audit verifies \(U_3^3=I\) and the characteristic polynomial is
 \[
 \chi_{U_3}(x)=(x^2+x+1)^2.
 \]
@@ -66,7 +66,7 @@ This is a genuine H4 occurrence of \(\sqrt3\), arising from an order-three eleme
 U_5={}&S_1S_2S_1S_2S_1S_3S_2S_1S_2S_1S_3S_2S_1S_4S_3S_2S_1S_2S_1S_3S_2S_1S_2S_3S_4S_3.
 \end{aligned}
 \]
-Its characteristic polynomial is
+The exact \(\mathbb Q(\sqrt5)\) matrix audit verifies \(U_5^5=I\) and its characteristic polynomial is
 \[
 \chi_{U_5}(x)=x^4+x^3+x^2+x+1=\Phi_5(x).
 \]
@@ -118,7 +118,7 @@ Run:
 \[
 \texttt{python scripts/audit\_h4\_two\_plane\_cyclotomic.py}
 \]
-The script builds the simple reflections from G, verifies G-orthogonality and determinant signs, checks the two explicit words, enumerates the generated group using rounded numerical matrix keys, and checks the angle-pair census. Because group enumeration uses floating-point keys, its 14,400-element census is a numerical exhaustive audit; an exact algebraic-number implementation and exact conjugacy-class census remain desirable.
+The script builds the simple reflections from G, verifies G-orthogonality and determinant signs, checks the two explicit words, enumerates the generated group using rounded numerical matrix keys, and checks the angle-pair census. Because group enumeration uses floating-point keys, its 14,400-element census is a numerical exhaustive audit; an exact conjugacy-class census remains desirable.
 
 ## 7. Evidence boundary
 
@@ -126,7 +126,7 @@ The script builds the simple reflections from G, verifies G-orthogonality and de
 |---|---|
 | The displayed generators are the simple reflections of the [5,3,3] Coxeter representation | Exact definition |
 | The two displayed words belong to H4 by construction | Exact finite-group membership |
-| The two characteristic polynomials and angle pairs | Cyclotomic consequences; script cross-checks numerically |
+| The two representative characteristic polynomials and finite orders | Exact arithmetic in \(\mathbb Q(\sqrt5)\) in the audit script |
 | \(\sqrt3\) chord factor and \(\varphi\) singular-value ratio | Exact trigonometric consequences once the angle pairs are established |
 | Full 14,400-element angle census and absence of a mixed pair | Exhaustive floating-point audit; exact class proof pending |
 | Identification with a physical RGS/Pellis operator | Open; no operator intertwiner supplied |
