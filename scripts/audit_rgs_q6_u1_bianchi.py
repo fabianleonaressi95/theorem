@@ -89,6 +89,6 @@ def audit(path: Path):
 def main():
     p=argparse.ArgumentParser();p.add_argument("archive",type=Path);p.add_argument("--output",type=Path);a=p.parse_args()
     r=audit(a.archive);s=json.dumps(r,indent=2,ensure_ascii=False);print(s)
-    if a.output:a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(s+"\\n",encoding="utf-8")
+    if a.output:a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(s+"\n",encoding="utf-8")
     if r["status"]!="PASS":raise SystemExit(1)
 if __name__=="__main__":main()
