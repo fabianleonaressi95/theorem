@@ -37,7 +37,7 @@ def test_separated_spherical_l1_mode_is_a_finite_consistency_diagnostic():
         assert result["spherical_l1_continuum_eigenvalue"] == 2.0
 
 
-def test_affine_radial_mode_has_exact_ellis_dirichlet_energy():
+def test_affine_radial_mode_has_exact_ellis_interior_radial_energy():
     r0 = 0.8292
     result = EllisGraph(r0=r0, radial_cells=17, sphere_subdivisions=1).build()
     nv = len(result["sphere_vertices"])
@@ -49,6 +49,8 @@ def test_affine_radial_mode_has_exact_ellis_dirichlet_energy():
         radial_edges[:, 2] * (values[radial_edges[:, 0].astype(int)]
                               - values[radial_edges[:, 1].astype(int)]) ** 2
     ))
-    continuum_energy = 4 * math.pi * 24 * r0 ** 3
+    u_left, u_right = result["u"][0], result["u"][-1]
+    primitive = lambda u: u ** 3 / 3.0 + r0 ** 2 * u
+    continuum_energy = 4 * math.pi * (primitive(u_right) - primitive(u_left))
     assert nr == 17
     assert abs(discrete_energy - continuum_energy) < 1e-10
