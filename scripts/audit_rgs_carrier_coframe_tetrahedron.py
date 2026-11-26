@@ -170,8 +170,9 @@ def main() -> None:
         for i, j in E:
             Rg2 = minimal_rotation(rotated_points[i], rotated_points[j])
             R2 = rotated_frames[j].T @ Rg2 @ rotated_frames[i]
-            E2 = rotated_frames[i].T @ Rg2.T @ (
-                rotated_points[j] - rotated_points[i])
+            delta2 = rotated_points[j] - rotated_points[i]
+            E2 = 0.5 * (rotated_frames[i].T @ delta2
+                        + R2.T @ rotated_frames[j].T @ delta2)
             max_global_rotation_invariance = max(
                 max_global_rotation_invariance,
                 float(np.linalg.norm(R2 - R[(i, j)])),
