@@ -17,7 +17,6 @@ from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
 
 
-def make_mesh(R, a, centers, h, comm):
 from models.morandotti_cell_reconstruction import (
     build_defect_components, rotate_defect_vector_to_frame,
     defect_quadratic_decomposition, deformation_metric,
@@ -107,10 +106,6 @@ def assemble(expr, mesh):
     return mesh.comm.allreduce(fem.assemble_scalar(fem.form(expr)), op=MPI.SUM)
 
 
-def solve_level(h, alpha=10.0, R=1.0, a=0.12,
-                centers=((-0.28, 0.0), (0.28, 0.0))):
-    comm = MPI.COMM_WORLD
-    mesh, tags = make_mesh(R, a, centers, h, comm)
 def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0.0,
                 centers=((-0.28, 0.0), (0.28, 0.0)), orientation_angle_deg=0.0,
                 rotate_defect_data=True, core_separation=None,
@@ -224,11 +219,6 @@ def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                 gd.x.array[dofs] = 1.0
                 gn = ufl.as_ufl(0.0)
             elif mode == 1:
-                gd.x.array[dofs] = dof_xy[dofs, 0]
-                gn = n[0]
-            else:
-                gd.x.array[dofs] = dof_xy[dofs, 1]
-                gn = n[1]
                 gd.x.array[dofs] = dof_xy[dofs] @ axis
                 gn = axis[0]*n[0] + axis[1]*n[1]
             else:
