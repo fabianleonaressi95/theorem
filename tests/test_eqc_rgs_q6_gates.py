@@ -68,6 +68,16 @@ class TestEQCRGSQ6GateRealization(unittest.TestCase):
             for vertex in range(64):
                 digits = q6_vertex_to_qutrit_digits(vertex)
                 self.assertTrue(all(d in (1, 2) for d in digits))
+        # The local Q6 flip fixes the excluded digit 0 pointwise.
+        for q in range(3):
+            source = f"P q{q} 0 2 1"
+            digits = [1, 1, 1, 1, 1, 1]
+            digits[q] = 0
+            state = [0j] * (3 ** 6)
+            state[encode_qutrit_digits(digits)] = 1 + 0j
+            output = run(compile_source(source), state)
+            nonzero = next(i for i, a in enumerate(output) if abs(a) > 1e-12)
+            self.assertEqual(decode_qutrit_digits(nonzero)[q], 0)
         # Existing INV swaps stored digits 0 and 2, so it does not preserve Q6.
         inv = compile_source("INV q0")
         digits = (2, 1, 1, 1, 1, 1)
