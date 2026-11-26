@@ -15,8 +15,6 @@ import gmsh, ufl
 from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
-
-
 from models.morandotti_cell_reconstruction import (
     build_defect_components, rotate_defect_vector_to_frame,
     defect_quadratic_decomposition, deformation_metric,
@@ -235,14 +233,6 @@ def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
                                "pc_factor_mat_solver_type":"mumps"})
             uh = problem.solve()
             fields.append(uh)
-            val = 1.0 if mode == 0 else (ufl.SpatialCoordinate(mesh)[0] if mode == 1
-                                         else ufl.SpatialCoordinate(mesh)[1])
-            value_res = np.sqrt(max(assemble((uh-val)**2*ds(tag), mesh), 0.0))
-            normal_target = gn
-            normal_res = np.sqrt(max(assemble((ufl.dot(ufl.grad(uh),n)-normal_target)**2*ds(tag),mesh),0.0))
-            boundary_rows.append({"core":core_idx,"mode":mode,
-                                  "core_value_L2_residual":float(value_res),
-                                  "active_core_normal_L2_residual":float(normal_res)})
             # Record value and normal-derivative residuals on every boundary
             # component, not only the active core. Inactive components carry
             # homogeneous data for this cell problem.
@@ -274,10 +264,6 @@ def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
             MI[i,j] = assemble(fi*dS, mesh)
     MF = MB + MI
     rel = lambda X: float(np.linalg.norm(X-X.T, "fro")/max(np.linalg.norm(X,"fro"),1e-300))
-    return {"h_target":h,"cells":int(nc),"dofs":int(V.dofmap.index_map.size_global),
-        "cores":[{"center":list(c),"radius":a} for c in centers],
-        "cell_fields":len(fields),"interaction_dimension":[m,m],
-        "boundary_residuals":boundary_rows,
 
     # Resolve the two-core interaction into the geometrically preferred
     # longitudinal/transverse frame. This quantifies anisotropy; it does not
@@ -519,7 +505,6 @@ def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
         "min_eigenvalue_hessian":float(np.linalg.eigvalsh(MH).min()),
         "min_eigenvalue_laplacian":float(np.linalg.eigvalsh(ML).min()),
         "condition_hessian":float(np.linalg.cond(MH)),
-        "condition_laplacian":float(np.linalg.cond(ML))}
         "condition_laplacian":float(np.linalg.cond(ML)),
         "anisotropy": {
             "definition": "longitudinal/transverse frame aligned with the center-to-center axis",
@@ -532,20 +517,6 @@ def solve_level(h, alpha=40.0, R=1.0, a=0.12, young_modulus=1.0, poisson_ratio=0
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--mesh-sizes",nargs="+",type=float,default=[0.24,0.16,0.11])
-    p.add_argument("--alpha",type=float,default=10.0)
-    p.add_argument("--out",default="artifacts/morandotti_two_core/report.json")
-    a=p.parse_args()
-    levels=[solve_level(h,alpha=a.alpha) for h in a.mesh_sizes]
-    report={"title":"Two-core P3 C0-IPDG interaction matrix audit",
-        "reference":"Cesana, Fabbrini, León Baldelli, Morandotti (2026), arXiv:2609.29614",
-        "status":"two circular cores; six P3 cell fields; serial MPI; numerical audit",
-        "limitations":["only two equal circular cores in a fixed outer disk",
-          "no analytic off-centre cell-field error available",
-          "not the arbitrary-N production reconstruction",
-          "no singular-core limit, dynamics or material calibration"],
-        "levels":levels}
-    path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(report,indent=2)+"\n")
     p.add_argument("--alpha",type=float,default=40.0)
     p.add_argument("--young-modulus",type=float,default=1.0)
     p.add_argument("--poisson-ratio",type=float,default=0.0)
