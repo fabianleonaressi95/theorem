@@ -1,0 +1,42 @@
+name: Q6-C60 V4 face-fibre equivariance audit
+
+on:
+  push:
+    branches:
+      - audit/q6-v4-face-fibre-equivariance-2026-11-26
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/audit_q6_c60_v4_equivariance.py"
+      - "data/RGS_PSU_all_matrices.npz"
+      - ".github/workflows/q6-c60-v4-equivariance.yml"
+
+jobs:
+  v4-equivariance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade numpy scipy
+      - name: Syntax check
+        run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py
+      - name: Run V4 representation and operator audit
+        run: |
+          python scripts/audit_q6_c60_v4_equivariance.py \
+            data/RGS_PSU_all_matrices.npz \
+            --out audits/Q6_C60_V4_equivariance.json \
+            --matrices artifacts/Q6_C60_V4_intertwiner.npz
+      - name: Upload audit outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: q6-c60-v4-equivariance
+          path: |
+            audits/Q6_C60_V4_equivariance.json
+            artifacts/Q6_C60_V4_intertwiner.npz
+          if-no-files-found: error

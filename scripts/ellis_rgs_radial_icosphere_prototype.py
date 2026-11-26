@@ -102,6 +102,13 @@ def _signed_circumcentric_dual_length(
     tol: float = 1e-10,
 ) -> float:
     """Return dual arc length only when it crosses the primal edge orthogonally."""
+    """Return dual arc length only when it crosses the primal edge orthogonally.
+
+    The normalized edge midpoint and the two spherical face circumcentres lie
+    on the great circle orthogonal to the primal chord.  Signed angles from
+    the midpoint must have opposite signs: otherwise the shortest centre arc
+    does not cross the primal edge and is not its circumcentric dual.
+    """
     if len(adjacent_faces) != 2:
         raise ValueError("A closed spherical edge must have two adjacent faces")
     midpoint = vertices[a] + vertices[b]
@@ -127,6 +134,7 @@ def _signed_circumcentric_dual_length(
         raise RuntimeError(
             "Circumcentres are not on opposite sides of the primal edge; "
             "unsigned centre distance is not a valid circumcentric dual"
+            "the unsigned centre distance is not a valid circumcentric dual"
         )
     dual = theta0 - theta1
     if not np.isfinite(dual) or dual <= 0 or dual >= math.pi:
