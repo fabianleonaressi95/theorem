@@ -183,3 +183,29 @@ python scripts/run_q6_nl_nlt_robustness.py \\
 ```
 
 La riuscita del controllo numerico non equivale a bistabilità: serve soltanto a escludere, entro il test definito, una dipendenza rilevante dal passo o dall'integratore.
+
+## 10. T1 quotient-Jacobian correction
+
+The reduced vector field must be formed by re-fixing the global phase after each infinitesimal step. With the slice theta[0]=0, its node components are
+\[
+\dot\theta_i^{\rm slice}=\dot\theta_i-\dot\theta_0,\qquad i=1,\ldots,63.
+\]
+Dropping only the first component gives the same zero set for this incidence model, but not the correct quotient Jacobian. The T1 script now uses quotient_vector_field both for Newton refinement and for the stability Jacobian.
+
+## 11. Numerical pilot at sigma=1.25 (26 November 2026)
+
+A focused pilot was executed with a Numba-compiled implementation of the frozen NL/NLT right-hand sides and RK4, using the same oriented cubical incidence construction, frequency law, seeds and frame convention as the repository protocol. The machine-readable summary is in artifacts/q6_nl_nlt_candidate_sigma_1p25_pilot_2026-11-26.json.
+
+**T2, 20 matched seeds.** At sigma=1.25, NLT has mean absolute paired \(R_0\) separation 0.741, 0.804 and 0.777 at \(T,2T,4T\), with paired standard deviations 0.086, 0.054 and 0.095. The separation/SD ratios are 8.61, 14.97 and 8.20; the \(4T/T\) persistence ratio is 1.05. NLT therefore passes the T2 thresholds at this tested point. NL gives separations 0.028 at \(T\) and 0.001 at \(4T\), and fails. The pilot scan used nine sigma values with spacing 0.25, not the full preregistered 0.05 grid.
+
+**T3, local window only.** For NLT, the mean \(R_0\) branch gap over sigma=1.20,1.25,1.30 grows from 0.0899 to 0.2156 to 0.3193 as dwell increases from 640 to 2560 to 10240 steps (ratio 3.55; non-decreasing). NL decreases from 0.0226 to 0.00656 to 0.00531 (ratio 0.235; not non-decreasing). This is a 3-point local-window test, not the full 41-point sweep.
+
+**T4, dwell 640 only.** The Q6/Q4 \(R_0\)-gap ratios for NLT are 0.610, 0.517 and 0.407 at sigma=1.20,1.25,1.30. Thus the 0.50 threshold is passed at 1.20 and 1.25, but not 1.30. NL fails at all three points. The Q4/Q5/Q6 incidence counts and \(B_1B_2=0\) identities were checked.
+
+**Numerical robustness at sigma=1.25.** Eighty matched cases (20 seeds, two initial families, two models) were compared at RK4 dt=0.025, RK4 dt=0.0125, and DOP853. All 80 satisfy the 10% criterion. Maximum relative discrepancies are 0.164% for \(R_{1d}\) under dt halving and 0.164% under DOP853.
+
+**T1 remains the blocker.** The origin is a stable fixed point for both models at sigma=1.25 on the global-phase quotient; its largest real eigenvalue is -2.5. However, 200 random Newton starts per model did not converge to additional roots. This does not prove that no second stable root exists, but the two-stable-fixed-point T1 criterion has not been met.
+
+### Decision
+
+The focused pilot is consistent with a strong and persistent NLT initial-family separation near sigma=1.25, while NL fails the corresponding local T2/T3/T4 checks. **Bistability remains NON DIMOSTRATA**: the second stable fixed point has not been found, and T2/T3/T4/robustness have not been run over their complete preregistered grids and dwell combinations. No Lyapunov function, effective potential, barrier, tunnelling or wormhole interpretation follows from this pilot.
