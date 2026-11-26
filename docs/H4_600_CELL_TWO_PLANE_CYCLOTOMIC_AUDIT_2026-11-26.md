@@ -42,7 +42,7 @@ The audit constructs the following words, with multiplication convention \(U=S_{
 ### Element A — the order-three / vesica chord
 
 \[
-U_3=S_1S_2S_1S_2S_3S_2S_1S_2S_3S_4.
+U_3=S_1S_2S_1S_2S_1S_3S_2S_1S_2S_1S_3S_2S_1S_2S_4S_3S_2S_1S_2S_1S_3S_2S_1S_2S_4S_3S_2S_1S_2S_1S_3S_2S_1S_4S_3S_2S_1S_2S_3S_4.
 \]
 The computed characteristic polynomial is
 \[
