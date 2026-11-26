@@ -11,7 +11,7 @@ The existing ideal truncated-icosahedron generator supplies the cage:
 
 ## Exact graph operation
 
-For a central edge \(B-C\) shared by a pentagon and a hexagon, enumerate the four-site Stone-Wales switch
+For a central edge \(B-C\) shared by two hexagonal faces in the direct cage; this is the central bond of the dual-edge-flip representation of the pyracylene patch, enumerate the four-site Stone-Wales switch
 \[
 AB,CD\mapsto AC,BD,
 \]
