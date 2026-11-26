@@ -63,6 +63,16 @@ def transpose_exact(A):
 def trace_exact(A):
     return qsum([A[i][i] for i in range(4)])
 
+
+def matrix_add_exact(A, B):
+    return [[qadd(A[i][j], B[i][j]) for j in range(4)] for i in range(4)]
+
+def matrix_scale_exact(A, scalar):
+    return [[qmul(scalar, A[i][j]) for j in range(4)] for i in range(4)]
+
+def matrix_equal_exact(A, B):
+    return A == B
+
 def charpoly_exact(A):
     # Newton identities; result [1,c1,c2,c3,c4] for
     # x^4 + c1*x^3 + c2*x^2 + c3*x + c4.
@@ -108,6 +118,53 @@ assert charpoly_exact(U3_exact) == [
 assert charpoly_exact(U5_exact) == [
     ONE, ONE, ONE, ONE, ONE
 ]
+
+
+# Exact invariant-plane projectors for the order-five element.
+# cos(72°)=(sqrt(5)-1)/4; cos(144°)=-(sqrt(5)+1)/4.
+cos72 = (F(-1, 4), F(1, 4))
+cos144 = (F(-1, 4), F(-1, 4))
+
+def spectral_pair_projector(U, cosine_weights):
+    out = [[ZERO for _ in range(4)] for _ in range(4)]
+    power = [row[:] for row in I_exact]
+    scale = (F(2, 5), F(0))
+    for weight in cosine_weights:
+        out = matrix_add_exact(out, matrix_scale_exact(
+            power, qmul(scale, weight)
+        ))
+        power = matmul_exact(power, U)
+    return out
+
+P72_exact = spectral_pair_projector(
+    U5_exact, [ONE, cos72, cos144, cos144, cos72]
+)
+P144_exact = spectral_pair_projector(
+    U5_exact, [ONE, cos144, cos72, cos72, cos144]
+)
+assert matmul_exact(P72_exact, P72_exact) == P72_exact
+assert matmul_exact(P144_exact, P144_exact) == P144_exact
+assert matmul_exact(P72_exact, P144_exact) == [[ZERO for _ in range(4)] for _ in range(4)]
+assert matrix_add_exact(P72_exact, P144_exact) == I_exact
+assert matmul_exact(U5_exact, P72_exact) == matmul_exact(P72_exact, U5_exact)
+assert matmul_exact(U5_exact, P144_exact) == matmul_exact(P144_exact, U5_exact)
+assert matmul_exact(transpose_exact(P72_exact), G_exact) == matmul_exact(G_exact, P72_exact)
+assert matmul_exact(transpose_exact(P144_exact), G_exact) == matmul_exact(G_exact, P144_exact)
+assert trace_exact(P72_exact) == (F(2), F(0))
+assert trace_exact(P144_exact) == (F(2), F(0))
+
+# The order-three element is isoclinic. K is sqrt(3) times a G-orthogonal
+# complex structure; choosing any v gives one invariant plane span(v,Kv),
+# but no such pair is canonical.
+K3_exact = matrix_add_exact(
+    matrix_scale_exact(U3_exact, (F(2), F(0))), I_exact
+)
+minus3I_exact = matrix_scale_exact(I_exact, (F(-3), F(0)))
+assert matmul_exact(K3_exact, K3_exact) == minus3I_exact
+assert matrix_add_exact(
+    matmul_exact(transpose_exact(K3_exact), G_exact),
+    matmul_exact(G_exact, K3_exact)
+) == [[ZERO for _ in range(4)] for _ in range(4)]
 
 # ---------------- Floating-point full-group enumeration ----------------
 PHI = (1.0 + math.sqrt(5.0)) / 2.0
@@ -196,6 +253,9 @@ assert not mixed, f"Unexpected mixed-angle H4 element(s): {mixed}"
 print("H4 audit: PASS")
 print("Exact Q(sqrt(5)) checks: U3^3=I, charpoly(U3)=(x^2+x+1)^2")
 print("Exact Q(sqrt(5)) checks: U5^5=I, charpoly(U5)=Phi_5(x)")
+print("Exact invariant-plane projectors P72 and P144: idempotent, orthogonal,")
+print("  complementary, G-self-adjoint, U5-invariant, each rank 2.")
+print("Exact order-three complex structure K=2U3+I: K^2=-3I and K^T G+GK=0.")
 print(f"Numerical census: |H4|={len(seen)}, proper rotations=7200")
 print("Order-three angles (deg):", tuple(round(math.degrees(x), 8) for x in a3))
 print("Order-three chord singular values:", (s3, s3), "sqrt(3) =", math.sqrt(3))
