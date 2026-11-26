@@ -38,29 +38,64 @@ def topology(g,faces):
       "euler":g.number_of_nodes()-g.number_of_edges()+len(faces)}
 
 def enumerate_switches(g,faces):
-    # A fullerene SW move is a constrained 2-switch: choose two disjoint
-    # molecular bonds and reconnect their four endpoints pairwise.
+    # The SW_5|6 operation is a single diagonal flip in the triangulated
+    # fullerene dual. Dual vertices are direct-graph faces; dual triangles
+    # are direct-graph carbon atoms.
+    ef=incidence(faces)
+    dual=nx.Graph(); dual.add_nodes_from(range(len(faces)))
+    for fs in ef.values(): dual.add_edge(*fs)
+    if any(len(f)!=3 for f in oriented_faces(dual)):
+        raise ValueError("fullerene dual is not a triangulation")
+    atom_tri={}
+    for v in g:
+        incident=tuple(sorted(i for i,f in enumerate(faces) if v in f))
+        if len(incident)!=3: raise ValueError("direct vertex not trivalent")
+        atom_tri[incident]=v
     found={}
-    edges=sorted(tuple(sorted(e)) for e in g.edges())
-    for i,(a,b) in enumerate(edges):
-        for c,d in edges[i+1:]:
-            if len({a,b,c,d})<4: continue
-            for add in (
-                {tuple(sorted((a,c))),tuple(sorted((b,d)))},
-                {tuple(sorted((a,d))),tuple(sorted((b,c)))},
-            ):
-                rem={(a,b),(c,d)}
-                if len(add)!=2 or add & rem: continue
-                if any(g.has_edge(*e) and e not in rem for e in add): continue
-                h=g.copy(); h.remove_edges_from(rem); h.add_edges_from(add)
-                if sorted(dict(h.degree()).values()) != [3]*60: continue
-                try: hf=oriented_faces(h)
-                except ValueError: continue
-                t=topology(h,hf)
-                if (t["V"],t["E"],t["F"],t["pentagons"],t["hexagons"],t["other_face_sizes"],t["euler"]) != (60,90,32,12,20,[],2): continue
-                key=tuple(sorted(h.edges()))
-                found.setdefault(key,{"removed_edges":[list(e) for e in sorted(rem)],
-                    "added_edges":[list(e) for e in sorted(add)],"graph":h,"faces":hf})
+    for h1,h2 in sorted(dual.edges()):
+        if dual.degree[h1]!=6 or dual.degree[h2]!=6: continue
+        opposite=sorted(set(dual[h1]) & set(dual[h2]))
+        if len(opposite)!=2: continue
+        p1,p2=opposite
+        if dual.degree[p1]!=5 or dual.degree[p2]!=5: continue
+        if dual.has_edge(p1,p2): continue
+        b=atom_tri.get(tuple(sorted((h1,h2,p1))))
+        c=atom_tri.get(tuple(sorted((h1,h2,p2))))
+        if b is None or c is None: continue
+        d2=dual.copy(); d2.remove_edge(h1,h2); d2.add_edge(p1,p2)
+        try: tri_faces=oriented_faces(d2)
+        except ValueError: continue
+        if len(tri_faces)!=60 or any(len(t)!=3 for t in tri_faces): continue
+        tri_to_atom={}
+        new1=tuple(sorted((p1,p2,h1))); new2=tuple(sorted((p1,p2,h2)))
+        for tri in tri_faces:
+            key=tuple(sorted(tri))
+            if key in atom_tri: tri_to_atom[key]=atom_tri[key]
+            elif key==new1: tri_to_atom[key]=b
+            elif key==new2: tri_to_atom[key]=c
+        if len(tri_to_atom)!=60 or len(set(tri_to_atom.values()))!=60: continue
+        edge_tri=defaultdict(list)
+        for tri in tri_faces:
+            key=tuple(sorted(tri))
+            for u,v in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
+                edge_tri[tuple(sorted((u,v)))].append(key)
+        h=nx.Graph(); h.add_nodes_from(range(60))
+        valid=True
+        for ts in edge_tri.values():
+            if len(ts)!=2: valid=False; break
+            h.add_edge(tri_to_atom[ts[0]],tri_to_atom[ts[1]])
+        if not valid: continue
+        try: hf=oriented_faces(h)
+        except ValueError: continue
+        t=topology(h,hf)
+        if (t["V"],t["E"],t["F"],t["pentagons"],t["hexagons"],t["other_face_sizes"],t["euler"]) != (60,90,32,12,20,[],2): continue
+        removed=sorted(set(tuple(sorted(e)) for e in g.edges())-set(tuple(sorted(e)) for e in h.edges()))
+        added=sorted(set(tuple(sorted(e)) for e in h.edges())-set(tuple(sorted(e)) for e in g.edges()))
+        if len(removed)!=2 or len(added)!=2: continue
+        key=tuple(sorted(h.edges()))
+        found.setdefault(key,{"dual_edge":[h1,h2],"opposite_pentagon_faces":[p1,p2],
+          "rotated_carbon_vertices":[b,c],"removed_edges":[list(e) for e in removed],
+          "added_edges":[list(e) for e in added],"graph":h,"faces":hf})
     return [found[k] for k in sorted(found)]
 
 def boundary(g,faces):
@@ -110,7 +145,7 @@ def main():
     if not cs: raise RuntimeError("no admissible planar SW_5|6 dual-edge-flip switch found")
     c=cs[0]; h,fh=c["graph"],c["faces"]; t1=topology(h,fh)
     chain=make_chain_map(g,fg,h,fh)
-    report={"status":"computed_graph_audit","operation":"dual edge flip / equivalent direct-graph 2-switch; degree-preserving fullerene 2-switch: remove two disjoint bonds and reconnect endpoints pairwise",
+    report={"status":"computed_graph_audit","operation":"dual edge flip / equivalent direct-graph 2-switch; Stone-Wales dual diagonal flip; direct graph changes by a degree-preserving 2-switch",
       "distinct_admissible_postgraphs":len(cs),"selected_switch":{k:v for k,v in c.items() if k not in ("graph","faces")},
       "before":t0,"after":t1,"chain_map":{k:v for k,v in chain.items() if k not in ("S1","S2")},
       "limitations":["Topological switch, not an atomistic transition-state trajectory.",
@@ -134,6 +169,6 @@ def main():
       "Admissible distinct postgraphs: "+str(len(cs))+"\\n\\n"+
       "Before: "+str(t0)+"\\n\\nAfter: "+str(t1)+"\\n\\n"+
       "Both cellular chain-map identities verified exactly over integers.\\n")
-    print(json.dumps({k:v for k,v in report.items() if k!="mmff94s"},indent=2))
+    print(json.dumps(report,indent=2))
 
 if __name__=="__main__": main()
