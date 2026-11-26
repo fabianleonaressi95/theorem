@@ -79,7 +79,7 @@ Il JSON registra la revisione Git, le versioni di Python/NumPy, le frequenze, i 
 
 ## 6. Limiti espliciti
 
-Questo commit implementa T1 e T2. Non dichiara bistabilità dimostrata. Restano da implementare T3 (sweep avanti/indietro con dwell 640, 2560, 10240), T4 (Q4/Q5/Q6), dimezzamento di dt e confronto con un integratore indipendente. La conclusione resta **non dimostrata** finché non sono soddisfatti tutti i criteri preregistrati.
+Il codice per T1–T4 è ora presente. L'esecuzione completa e la verifica degli artifact sono ancora da effettuare; restano inoltre i controlli di dimezzamento di dt e confronto con un integratore indipendente. Non si dichiara bistabilità dimostrata: la conclusione resta **non dimostrata** finché tutti i criteri preregistrati non risultano soddisfatti.
 
 ## 7. T3 — sweep avanti/indietro e persistenza rispetto al dwell
 
