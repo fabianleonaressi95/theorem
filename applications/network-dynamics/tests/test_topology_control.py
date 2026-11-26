@@ -16,7 +16,7 @@ def test_topology_control_reproducible_and_has_all_controls():
     b = run_topology_control(replicates=2, seed=13, steps=3,
                              swaps_per_edge=2, removal_repetitions=2)
     assert a == b
-    controls = {row["control"] for row in a}
+    controls = {row["control"] for row in a if "_minus_" not in row["control"]}
     assert controls == {
         "profile_blind_random",
         "hierarchical_original_profile_informed",
