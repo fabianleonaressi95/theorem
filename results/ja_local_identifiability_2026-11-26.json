@@ -1,0 +1,20 @@
+{
+  "method": "dimensionless central finite-difference residual Jacobian at archived in-sample JA optimum",
+  "source": {
+    "workflow_run": "42653094685",
+    "artifact": "hysteresis-audit",
+    "dataset_doi": "10.5281/zenodo.17053338",
+    "redistributed_raw_data": false
+  },
+  "interpretation": "All seven local Jacobians have numerical rank 5/5, but condition numbers are high and every alpha estimate is within 1% of an optimizer bound. This is not evidence of practical or physical identifiability.",
+  "sheets": {
+    "CIPSQ": {"rank":5,"condition_number":8393.5274,"singular_values":[22.606135,6.748566,2.192172,0.083126,0.002693],"bound_hits":["alpha:lower","c:upper"],"duration_s":25.915276,"median_dt_s":0.02001205,"dt_cv":0.0322642,"inverse_duration_hz":0.0385873},
+    "CIPHS": {"rank":5,"condition_number":7081.2261,"singular_values":[21.697137,3.503214,0.566260,0.152675,0.003064],"bound_hits":["alpha:lower","k:lower"],"duration_s":52.551817,"median_dt_s":0.02001260,"dt_cv":0.0286146,"inverse_duration_hz":0.0190288},
+    "Fe85Si15": {"rank":5,"condition_number":9442.9979,"singular_values":[42.968265,3.356085,3.185360,0.185913,0.004550],"bound_hits":["alpha:lower"],"duration_s":52.560110,"median_dt_s":0.02000820,"dt_cv":0.0419622,"inverse_duration_hz":0.0190258},
+    "NdFeB": {"rank":5,"condition_number":12094.5612,"singular_values":[24.926070,9.720122,2.216048,0.273568,0.002061],"bound_hits":["alpha:upper","c:lower"],"duration_s":78.395956,"median_dt_s":0.02001220,"dt_cv":0.0289428,"inverse_duration_hz":0.0127558},
+    "SF-D360": {"rank":5,"condition_number":10679.0655,"singular_values":[17.201648,4.404886,1.303760,0.143921,0.001611],"bound_hits":["alpha:upper","c:lower"],"duration_s":32.677103,"median_dt_s":0.02001445,"dt_cv":0.0297080,"inverse_duration_hz":0.0306025},
+    "Fe3O4": {"rank":5,"condition_number":8681.3627,"singular_values":[32.463134,10.512376,2.669589,0.104146,0.003739],"bound_hits":["a:lower","alpha:lower"],"duration_s":52.550545,"median_dt_s":0.02000880,"dt_cv":0.0306832,"inverse_duration_hz":0.0190293},
+    "Fe2O3": {"rank":5,"condition_number":49126.3301,"singular_values":[15.147346,4.670663,1.348870,0.002928,0.000308],"bound_hits":["alpha:upper","c:upper","k:upper"],"duration_s":43.832127,"median_dt_s":0.02000870,"dt_cv":0.0363023,"inverse_duration_hz":0.0228143}
+  },
+  "timing_caveat": "inverse_duration_hz is derived from the extracted max-to-max segment, not an independently documented excitation frequency."
+}
