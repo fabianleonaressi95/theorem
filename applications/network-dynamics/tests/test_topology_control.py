@@ -19,6 +19,9 @@ def test_topology_control_reproducible_and_has_all_controls():
     controls = {row["control"] for row in a}
     assert controls == {
         "profile_blind_random",
+        "hierarchical_original_profile_informed",
+        "matrix_original_profile_informed",
+        "practices_like_original_profile_informed",
         "hierarchical_degree_preserving_rewire",
         "matrix_degree_preserving_rewire",
         "practices_like_degree_preserving_rewire",
