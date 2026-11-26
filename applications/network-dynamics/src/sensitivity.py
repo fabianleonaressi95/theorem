@@ -67,6 +67,7 @@ def run_sensitivity(replicates: int = 20, seed: int = DEFAULT_SEED,
     scenarios = list(itertools.product(ETAS, RHOS, SKILL_RANGES,
                                        REMOVAL_FRACTIONS, REMOVAL_MODES))
     observations: dict[tuple, list[float]] = {}
+    paired_observations: dict[tuple, list[float]] = {}
     for scenario_index, (eta, rho, skill_range, fraction, mode) in enumerate(scenarios):
         low, high = skill_range
         for replicate in range(replicates):
@@ -75,6 +76,7 @@ def run_sensitivity(replicates: int = 20, seed: int = DEFAULT_SEED,
             profiles = skill_profiles(rng, 30, 8, low, high)
             initial = profiles * rng.uniform(0.15, 0.55, size=profiles.shape)
             networks = build_networks(profiles, seed=run_seed + 1, n_edges=45)
+            replicate_values: dict[str, tuple[float, ...]] = {}
             for architecture_index, architecture in enumerate(ARCHITECTURES):
                 adjacency = adjacency_matrix(30, networks[architecture])
                 mixing = neighbor_mixing_matrix(adjacency)
@@ -101,8 +103,20 @@ def run_sensitivity(replicates: int = 20, seed: int = DEFAULT_SEED,
                     (eta, rho, low, high, fraction, mode, architecture, "within_skill_dispersion"),
                     (eta, rho, low, high, fraction, mode, architecture, "largest_component_retained"),
                 )
+                replicate_values[architecture] = values
                 for key, value in zip(keys, values):
                     observations.setdefault(key, []).append(value)
+            for left, right in itertools.combinations(ARCHITECTURES, 2):
+                for metric, left_value, right_value in zip(
+                    ("skill_coverage", "mean_knowledge", "within_skill_dispersion",
+                     "largest_component_retained"),
+                    replicate_values[left], replicate_values[right],
+                ):
+                    pair_key = (eta, rho, low, high, fraction, mode,
+                                f"{left}_minus_{right}", metric)
+                    paired_observations.setdefault(pair_key, []).append(
+                        left_value - right_value
+                    )
 
     rows = []
     for key, values_list in sorted(observations.items(), key=lambda item: str(item[0])):
@@ -114,6 +128,21 @@ def run_sensitivity(replicates: int = 20, seed: int = DEFAULT_SEED,
             "eta": eta, "rho": rho, "skills_per_agent_min": low,
             "skills_per_agent_max": high, "removal_fraction": fraction,
             "removal_mode": mode, "architecture": architecture, "metric": metric,
+            "replicates": replicates, "mean": mean,
+            "sample_std": float(values.std(ddof=1)),
+            "ci95_normal_lower": mean - 1.96 * se,
+            "ci95_normal_upper": mean + 1.96 * se,
+            "steps": steps, "removal_repetitions_per_replicate": removal_repetitions,
+        })
+    for key, values_list in sorted(paired_observations.items(), key=lambda item: str(item[0])):
+        eta, rho, low, high, fraction, mode, contrast, metric = key
+        values = np.asarray(values_list, dtype=float)
+        mean = float(values.mean())
+        se = float(values.std(ddof=1) / np.sqrt(replicates))
+        rows.append({
+            "eta": eta, "rho": rho, "skills_per_agent_min": low,
+            "skills_per_agent_max": high, "removal_fraction": fraction,
+            "removal_mode": mode, "architecture": contrast, "metric": metric,
             "replicates": replicates, "mean": mean,
             "sample_std": float(values.std(ddof=1)),
             "ci95_normal_lower": mean - 1.96 * se,
