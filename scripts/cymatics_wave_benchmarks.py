@@ -93,8 +93,10 @@ def run_benchmarks(n: int = 18) -> dict[str, Any]:
     lap = square_dirichlet_laplacian(n)
     stiffness = lap @ lap
     perturbation = np.zeros_like(stiffness)
-    centre = n // 2
-    idx = centre * n + centre
+    # Choose an off-centre grid point where the (1,2) and (2,1) modes
+    # have different amplitudes; the central point is nodal for both.
+    row, col = n // 3, n // 4
+    idx = row * n + col
     perturbation[idx, idx] = 0.05 * float(np.max(np.diag(stiffness)))
     perturbed_values = np.linalg.eigvalsh(stiffness + perturbation)
     # The unperturbed (1,2)/(2,1) pair occupies sorted indices 1 and 2.
