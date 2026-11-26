@@ -5,15 +5,15 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 240,
+    "theorem_markdown_records": 241,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 240,
+    "classification_edges": 241,
     "hub_to_companion_edges": 30,
-    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record. The graph retains typed, caveated links; comparison edges do not assert equivalence.",
-    "total_nodes": 293,
-    "total_edges": 330
+    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T146 and A1 are explicitly represented as existing theorem/document nodes. Typed comparison links do not assert equivalence.",
+    "total_nodes": 295,
+    "total_edges": 331
   },
   "nodes": [
     {
@@ -2150,6 +2150,20 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md",
       "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T146-dodecahedral-dual-q6-barycentre-spectral-audit.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "DOC:A1_POINCARE_SCALAR_SPECTRUM",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md",
+      "title": "Exact scalar spectral geometry of S3/2I"
     }
   ],
   "edges": [
@@ -4436,20 +4450,6 @@
       "caveat": "T121 supplies the ordinary A5 action; it is distinct from the central-nontrivial 2I spin representations."
     },
     {
-      "from": "THM:T144",
-      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
-      "relation": "comparison-only",
-      "status": "reviewed",
-      "caveat": "Invariant-count/Molien coefficients are related representation data, not a proof of the McKay resolution."
-    },
-    {
-      "from": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
-      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
-      "relation": "comparison-only",
-      "status": "reviewed",
-      "caveat": "Dodecahedral/Q6 chain and spectral audit are geometric comparison data; the failed intertwining is retained and is not the E8 Cartan form."
-    },
-    {
       "from": "DOC:A1",
       "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
       "relation": "comparison-only",
@@ -4462,6 +4462,27 @@
       "relation": "open-obligation",
       "status": "open",
       "caveat": "No derived-McKay functor on the Rumin complex or spectral intertwining has been constructed."
+    },
+    {
+      "from": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Dodecahedral/Q6 theorem index; this classification is not a proof dependency."
+    },
+    {
+      "from": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "Dodecahedral dual/Q6 chain is comparison data; its spectral obstruction is not the E8 Cartan/intersection form."
+    },
+    {
+      "from": "DOC:A1_POINCARE_SCALAR_SPECTRUM",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "The S3/2I scalar spectrum is distinct from the exceptional-curve intersection lattice of the E8 resolution."
     }
   ]
 }
