@@ -38,6 +38,19 @@ def vector_field(K, x, omega, omega_link, sigma, model):
     a, b = rhs(K, th, ph, omega, omega_link, sigma, model)
     return pack(a, b)
 
+def quotient_vector_field(K, y, omega, omega_link, sigma, model):
+    """Vector field in the theta[0]=0 phase slice.
+
+    The global theta phase is a neutral symmetry. Re-fixing theta[0]=0 after
+    each infinitesimal step subtracts theta_dot[0] from every remaining
+    theta component; simply dropping theta_dot[0] gives the wrong quotient
+    Jacobian, even though it has the same zero set for this incidence model.
+    """
+    x = reduced_to_full(y)
+    theta, phi = unpack(x)
+    theta_dot, phi_dot = rhs(K, theta, phi, omega, omega_link, sigma, model)
+    return np.concatenate((theta_dot[1:] - theta_dot[0], phi_dot))
+
 
 def reduced_to_full(y):
     """Reduced coordinates y=(theta[1:],phi), with theta[0]=0."""
@@ -80,8 +93,8 @@ def t1_for_model(K, model, sigmas, starts, seed, root_tol, dedup_tol):
             theta=rng.uniform(-np.pi,np.pi,64)
             phi=rng.uniform(-np.pi,np.pi,192)
             y0=full_to_reduced(pack(theta,phi))
-            fun=lambda y: vector_field(K,reduced_to_full(y),zeros64,zeros192,
-                                      float(sigma),model)[1:]
+            fun=lambda y: quotient_vector_field(K,y,zeros64,zeros192,
+                                                float(sigma),model)
             sol=root(fun,y0,method="hybr",options={"xtol":root_tol})
             residual=float(np.linalg.norm(fun(sol.x))/np.sqrt(255))
             row={"start":start_id,"solver_success":bool(sol.success),
@@ -94,8 +107,8 @@ def t1_for_model(K, model, sigmas, starts, seed, root_tol, dedup_tol):
         fixed=[]
         for idx,item in enumerate(found):
             x=item["state"]
-            J=finite_jacobian(lambda z:vector_field(
-                K,z,zeros64,zeros192,float(sigma),model)[1:],full_to_reduced(x))
+            J=finite_jacobian(lambda z:quotient_vector_field(
+                K,z,zeros64,zeros192,float(sigma),model),full_to_reduced(x))
             ev=eigvals(J)
             maxreal=float(np.max(ev.real))
             fixed.append({"candidate":idx,"residual_rms":item["residual_rms"],
