@@ -57,6 +57,9 @@ def matpow_exact(A, n):
         out = matmul_exact(out, A)
     return out
 
+def transpose_exact(A):
+    return [[A[j][i] for j in range(4)] for i in range(4)]
+
 def trace_exact(A):
     return qsum([A[i][i] for i in range(4)])
 
@@ -78,6 +81,10 @@ for i in range(4):
     for j in range(4):
         R[i][j] = qsub(R[i][j], qscale(G_exact[i][j], F(2)))
     S_exact.append(R)
+
+for reflection in S_exact:
+    assert matmul_exact(matmul_exact(transpose_exact(reflection), G_exact),
+                        reflection) == G_exact
 
 WORD_ORDER3 = (1, 2, 1, 2, 1, 3, 2, 1, 2, 1, 3, 2, 1, 2, 4, 3,
                2, 1, 2, 1, 3, 2, 1, 2, 4, 3, 2, 1, 2, 1, 3, 2,
@@ -118,6 +125,9 @@ for i in range(4):
 L = np.linalg.cholesky(G).T
 Linv = np.linalg.inv(L)
 S = [L @ R @ Linv for R in S_root]
+for reflection in S:
+    assert np.linalg.norm(reflection.T @ reflection - I4) < 2e-8
+    assert abs(np.linalg.det(reflection) + 1.0) < 2e-8
 
 def word_matrix(word):
     out = I4.copy()
