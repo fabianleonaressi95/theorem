@@ -73,6 +73,20 @@ def matrix_scale_exact(A, scalar):
 def matrix_equal_exact(A, B):
     return A == B
 
+
+def format_qsqrt5(value):
+    a, b = value
+    if b == 0:
+        return str(a)
+    if a == 0:
+        return f"({b})*sqrt(5)"
+    return f"({a}) + ({b})*sqrt(5)"
+
+def print_exact_matrix(name, A):
+    print(name + " (simple-root coordinates; entries in Q(sqrt(5))):")
+    for row in A:
+        print("  [" + ", ".join(format_qsqrt5(x) for x in row) + "]")
+
 def charpoly_exact(A):
     # Newton identities; result [1,c1,c2,c3,c4] for
     # x^4 + c1*x^3 + c2*x^2 + c3*x + c4.
@@ -263,4 +277,7 @@ print("Order-five angles (deg):", tuple(round(math.degrees(x), 8) for x in a5))
 print("Order-five chord singular values:", tuple(s5), "ratio =", s5[1]/s5[0], "phi =", PHI)
 print("Counts (120,120) and (72,144):", proper_pairs[p120], proper_pairs[p72_144])
 print("Mixed 120/golden angle pairs:", mixed)
+print_exact_matrix("P72", P72_exact)
+print_exact_matrix("P144", P144_exact)
+print_exact_matrix("K3=2U3+I", K3_exact)
 print("NOTE: full group census uses rounded floating-point keys; representative checks are exact.")
