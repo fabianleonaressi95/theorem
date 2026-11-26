@@ -12,27 +12,32 @@ The documentation bundle introduced by theorem PR **#464** is now **MERGED** int
 
 ## Open pull requests
 
-*Updated 2026-11-26 (delta pass): the four PRs audited earlier today (#449, #450, #458, #461) were all **MERGED** at ~17:17–17:23Z by the owner, together with registry PR #464. Five new open PRs (#468–#473) appeared subsequently.*
+*Updated 2026-11-26 (second delta pass, verified against GitHub API): #468, #470, #472, #473 and registry PR #475 were all MERGED (~17:44–17:47Z). Open PRs are now #471, #476, #477 (draft), #478 (draft), #479. Verified counts: 428 merged PRs, 29 closed-unmerged, 10 open issues; main @ `38d139c`.*
 
-### theorem
+### theorem — open PRs
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
-| #468 | Test Q6–C60 equivariance on the Klein-four subgroup | OPEN, mergeable | `v4-equivariance` SUCCESS (×2) | +610/−0: new workflow, audit JSON, doc, script. Bounded test/audit artifact. **Recommend: merge after owner review.** |
-| #470 | Add EG-01 bottleneck benchmark | OPEN **DRAFT** | No checks reported | +395/−0: `research/` docs + `benchmarks/eg01_bottleneck.py`. Draft — owner review pending. |
-| #471 | Audit oriented circumcentric dual edges in Ellis icosphere | OPEN **DRAFT**, mergeable | No checks reported | +149/−4: extends T049/T070 scripts/tests/docs. Draft — owner review pending. |
-| #472 | Add T154: In2Infinity Extended Jitterbug source and geometry audit | OPEN, mergeable | No checks reported at audit time | +308/−0: T154 theorem doc, audit script, test, source-review note. **Recommend: confirm a workflow covers the new test, then merge.** |
-| #473 | Reconcile theorem graph inventory and repair T152 crosswalk | OPEN, mergeable | No checks reported at audit time | +1308/−1117 across README, `UNIFIED_THEOREM_DEPENDENCY_GRAPH.md`, `UNIFIED_THEOREM_EDGES.json`, `UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md`. Large doc/JSON restructure — **recommend careful review before merge** (touches canonical cross-repo graph). |
+| #471 | Audit oriented circumcentric dual edges in Ellis icosphere | OPEN, mergeable | `test` SUCCESS | +9/−0 across T049/T070 docs + prototype script/tests. Small scoped correction. **Recommend: merge after owner review.** |
+| #476 | Derive discrete coframe from the RGS geometric carrier | OPEN, mergeable | No checks reported | +491/−0: new audit JSON, 2 docs, 1 script — directly relevant to the RGS coframe/spin-connection thread (theorem #321 merged). **Recommend: confirm CI coverage, then merge.** |
+| #477 | Record Q6 NL/NLT sigma-1.25 pilot and correct T1 quotient Jacobian | OPEN **DRAFT**, mergeable | `cubical-and-syntax` SUCCESS | +336/−5: pilot artifact + protocol doc + workflow/script changes. Draft — owner review pending. |
+| #478 | Add Sangaku circle-geometry classification workstream | OPEN **DRAFT**, mergeable | No checks reported | +284/−0: new `research/sangaku_geometry/` workstream (protocol, manuscript, case sheets). Draft — owner review pending. |
+| #479 | Formalize Volterra dipole-to-edge theorem and C0-IPDG comparison | OPEN, mergeable | No checks reported | +149/−0: single manuscript doc. Low risk; **recommend merge after review.** |
 
-### Merged since first audit pass (2026-11-26 ~17:17–17:23Z)
+### Merged since first audit pass (2026-11-26 ~17:17–17:47Z)
 
-| PR | Title | Notes |
+| PR | Title | Merged at (UTC) |
 |---|---|---|
-| #449 | C60 Stone–Wales 90° dual-flip + vesica bridge | MERGED — results preserved on main |
-| #450 | Volterra dipole-to-edge stress/energy limit | MERGED (was draft) |
-| #458 | RGS defect benchmark (Torino/Morandotti) | MERGED |
-| #461 | SE(3) tetrahedral non-Abelian Bianchi | MERGED |
-| #464 | Master project registry (this audit's docs) | MERGED |
+| #449 | C60 Stone–Wales 90° dual-flip + vesica bridge | 17:17 |
+| #450 | Volterra dipole-to-edge stress/energy limit | 17:17 |
+| #458 | RGS defect benchmark (Torino/Morandotti) | 17:17 |
+| #461 | SE(3) tetrahedral non-Abelian Bianchi | 17:23 |
+| #464 | Master project registry | ~17:23 |
+| #468 | Q6–C60 equivariance on Klein-four subgroup | 17:44 |
+| #470 | EG-01 bottleneck benchmark | 17:44 |
+| #472 | T154 In2Infinity Extended Jitterbug audit | 17:46 |
+| #473 | Theorem graph inventory / T152 crosswalk repair | 17:46 |
+| #475 | Registry delta update | 17:46 |
 
 ## Scientific content and CI audit — PRs #449, #450, #458, #461
 

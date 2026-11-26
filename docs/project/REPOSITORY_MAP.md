@@ -2,8 +2,8 @@
 
 ## theorem (canonical mathematics)
 
-- **HEAD:** `main` @ `b4de0de` ("Link topology control audit in README", 2026-11-26). CI on main: latest runs green.
-- **Scale:** ~85 MB, 1,419 files at depth-1 clone; ~94 merged PRs, 7 closed unmerged, **5 open PRs** (#468, #470 draft, #471 draft, #472, #473 — see PR_ISSUE_AUDIT.md); **10 open issues** (#84, #109, #113, #114, #398–#402, #409); **~393 branches** (large stale-branch accumulation — see PR_ISSUE_AUDIT.md).
+- **HEAD:** `main` @ `38d139c` ("Update T149 index after T155 connection construction", 2026-11-26). CI on main: latest runs green.
+- **Scale:** ~85 MB, 1,419 files at depth-1 clone; **428 merged PRs**, 29 closed unmerged, **5 open PRs** (#471, #476, #477 draft, #478 draft, #479 — see PR_ISSUE_AUDIT.md); **10 open issues** (#84, #109, #113, #114, #398–#402, #409); **~393 branches** (large stale-branch accumulation — see PR_ISSUE_AUDIT.md).
 - **Key directories:** `docs/` (~120 audit/theorem notes), `theorems/`, `models/`, `experiments/`, `scripts/`, `tests/`, `reports/`, `research/`, `applications/`, `manuscripts/`, `monographs/`, `bibliography/`, `data/`, `evidence/`, `verification/`.
 - **Root hygiene problems (documented, not yet fixed):** committed `__pycache__`/`.pyc` files, duplicate `" (1)"`/`" (2)"` filenames (`README (6).md` … `README (8).md`, `bianchi (1).py`, `test_*.py` duplicates), loose `.npy`/`.npz`/`.zip` artifacts at root. Cleanup candidate — preserve before deleting.
 - **Recent merged work (2026-11-24→26):** Q6/Walsh filtration, TSMR/Jitterbug Green–Kubo, Q6–PRISM obstruction programme, Q6–C60 equivariance, Pellis D6 decomposition, RGS Killing geometry, Q4–Q6 NL/NLT audits, Jiles–Atherton local identifiability, supergolden dodecahedral Whitney–Hodge (T149 FEEC).
