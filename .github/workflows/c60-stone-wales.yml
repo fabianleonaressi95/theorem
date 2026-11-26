@@ -4,7 +4,7 @@ on:
     paths:
       - "scripts/audit_c60_stone_wales.py"
       - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
-      - "tests/test_c60_stone_wales.py"
+      - "tests/test_c60_stone_wales.py"\n      - "scripts/classify_c60_sw_orbits.py"\n      - "tests/test_c60_sw_orbits.py"
       - "docs/C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md"
       - ".github/workflows/c60-stone-wales.yml"
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install numpy scipy networkx rdkit pytest
       - run: python scripts/audit_c60_stone_wales.py --out-dir c60_stone_wales_audit --relax
-      - run: pytest -q tests/test_c60_stone_wales.py
+      - run: python scripts/classify_c60_sw_orbits.py --out c60_stone_wales_audit/orbit_classification.json\n      - run: pytest -q tests/test_c60_stone_wales.py tests/test_c60_sw_orbits.py
       - uses: actions/upload-artifact@v4
         with:
           name: c60-stone-wales-90-degree-audit
