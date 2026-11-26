@@ -111,13 +111,13 @@ def _icosphere(level: int) -> tuple[np.ndarray, np.ndarray]:
                 out.append(p.tolist())
             return cache[key]
         hull = ConvexHull(points)
-        new_faces = []
         for tri in hull.simplices:
             a, b, c = map(int, tri)
-            ab, bc, ca = midpoint(a, b), midpoint(b, c), midpoint(c, a)
-            new_faces.extend(((a, ab, ca), (b, bc, ab), (c, ca, bc), (ab, bc, ca)))
+            midpoint(a, b)
+            midpoint(b, c)
+            midpoint(c, a)
         points = np.asarray(out, dtype=float)
-        # ConvexHull is recomputed next iteration; final faces returned below.
+        # Re-hulling all normalized vertices gives the subdivided spherical triangulation.
     faces = ConvexHull(points).simplices
     # Orient faces outward.
     for k, tri in enumerate(faces):
