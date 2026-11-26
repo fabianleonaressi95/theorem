@@ -41,7 +41,7 @@ def enumerate_switches(g,faces):
     ef=incidence(faces); found={}
     for b,c in sorted(g.edges()):
         sizes=sorted(len(faces[i]) for i in ef[(b,c)])
-        if sizes != [5,6]: continue
+        if sizes != [6,6]: continue
         for B,C in ((b,c),(c,b)):
             for A in sorted(set(g[B])-{C}):
                 for D in sorted(set(g[C])-{B}):
@@ -105,10 +105,10 @@ def main():
     if (t0["V"],t0["E"],t0["F"],t0["pentagons"],t0["hexagons"],t0["euler"])!=(60,90,32,12,20,2) or set(t0["degrees"])!={3}:
         raise RuntimeError("initial C60 topology failed: "+str(t0))
     cs=enumerate_switches(g,fg)
-    if not cs: raise RuntimeError("no admissible planar SW_5|6 switch found")
+    if not cs: raise RuntimeError("no admissible planar SW_5|6 dual-edge-flip switch found")
     c=cs[0]; h,fh=c["graph"],c["faces"]; t1=topology(h,fh)
     chain=make_chain_map(g,fg,h,fh)
-    report={"status":"computed_graph_audit","operation":"central B-C retained; remove A-B,C-D; add A-C,B-D",
+    report={"status":"computed_graph_audit","operation":"dual edge flip / equivalent direct-graph 2-switch; central B-C retained; remove A-B,C-D; add A-C,B-D",
       "distinct_admissible_postgraphs":len(cs),"selected_switch":{k:v for k,v in c.items() if k not in ("graph","faces")},
       "before":t0,"after":t1,"chain_map":{k:v for k,v in chain.items() if k not in ("S1","S2")},
       "limitations":["Topological switch, not an atomistic transition-state trajectory.",
