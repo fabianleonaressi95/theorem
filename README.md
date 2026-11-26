@@ -691,10 +691,7 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 ### T152 — Binary McKay–ADE, Calabi–Yau orbifolds and crepant resolutions
 
-- **Graph reconciliation (26 November 2026):** T144, T145 and T147–T151 are now backfilled as theorem nodes; the T027 open-obligation edge uses the canonical T027 identifier, and T144 is linked to T152 only by a `comparison-only` edge. The machine-readable inventory is 248 theorem records, 302 nodes and 338 edges.
-
-- [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
-- **Graph reconciliation (26 November 2026):** T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, and T153 are indexed as theorem records; T027 uses its canonical node identifier, and T144 is linked to T152 only by a `comparison-only` edge. The two T149 records are distinct. The Liouville half-factor literature dossier is intentionally not counted as a theorem. Current inventory: 254 theorem records, 308 nodes, 344 edges.
+- **Graph reconciliation (26 November 2026):** T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153 and T154 are indexed as theorem records; T027 uses its canonical node identifier, and T144 is linked to T152 only by a `comparison-only` edge. The two T149 records are distinct. The Liouville half-factor literature dossier is intentionally not counted as a theorem. Current inventory: 255 theorem records, 309 nodes, 345 edges.
 
 - [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
 
@@ -704,6 +701,13 @@ These are finite mathematical/software checks. They do not establish physical ca
 - [T153](theorems/T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection.md) formalizes the exact bisection of a square pyramid into two equal-volume tetrahedra, the cuboctahedron's tetrahedron/half-octahedron decomposition, cuboctahedron–rhombic-dodecahedron duality, Euler/angle-defect relations, and the distinction between soap-film form-finding and geometric torsion. It audits the supplied In2Infinity molecular/quantum/orbital claims without promoting them to established physics.
 - The central (J)-question is answered conditionally: (J) may be required to be parallel under a discrete connection, but this alone does not define torsion. A coframe, connection, discrete torsion operator and convergent refinement are still required. If the two sheets carry the inequivalent (A_5) modules (3) and (3'), ordinary (A_5)-equivariance of an inter-sheet exchange is obstructed by Schur's lemma; outer-automorphism covariance is a separate test.
 - [T153 source review](docs/T153-source-review-geometric-physics-claims.md) records access limitations and separates established geometry from unsupported physical extrapolations. No new numerical audit or continuum result is claimed.
+
+
+### T154 — RGS spatial coframe and labelled constraint splitting
+
+- [T154](theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the exact finite decomposition of the four constraint normals into three uniform Cartesian translations and one fixed-radius/radial normal, and the \(SO(3)\)-equivariant split \(\mathbb R^4=\mathbb R^3\oplus\mathbb R\) of the archived edge feature.
+- A13/A14 reports numerically verify the 188D tangent projector, the labelled 3+1 constraint-normal decomposition, common edge indexing, and the active \(SU(2)\to SO(3)\) lift. The fourth edge component is a radial scalar singlet, **not Lorentz time**.
+- The nonzero covariant face-torsion diagnostic is finite-graph evidence only. The raw edge coframe is used for the integrated cochain; the normalized edge feature is not. No continuum tetrad, Levi-Civita connection, teleparallel GR, or \(K_0\)-factorization theorem is claimed.
 
 
 ### Cymatics and wave morphogenesis
