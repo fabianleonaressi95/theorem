@@ -13,11 +13,13 @@ The In2Infinity pages reviewed describe:
   O \longrightarrow I \longrightarrow C \longrightarrow S \longrightarrow RC,
   \]
   where \(O\) is the octahedron, \(I\) the icosahedron, \(C\) the cuboctahedron, \(S\) the snub cube and \(RC\) the rhombic cuboctahedron.
-- Three sphere levels attached to each form: **IN, MID, OUT**.
+- Three concentric sphere levels attached to each form: **IN** (tangent to face centres), **MID** (tangent to edge centres) and **OUT** (through the vertices), as explicitly defined in the GQM FAQ.
 - A proposed mapping of these sphere radii to atomic radii for 81 stable elements.
 - A second operation, **truncation**, and a nested Cube/Octahedron blueprint, with stated mid-sphere scales of 50 pm and 100 pm.
 - **Geo-Molecular Chemistry:** an extension of molecular/lattice geometry to four dimensions, with proposed explanations for conductivity, resistance, thermal properties, nitrogen fixation and biogeochemical cycles.
-- **Atomic Geometry / D-orbital Geometry:** polyhedral interpretations of orbital shapes and proposed links between the Extended Jitterbug, transition-metal radii and electronic configurations.
+- **Atomic Geometry:** maps S/P/D/F orbital families to nested polyhedral forms; the indexed pages describe P-orbitals through an octahedral arrangement, D-orbital families through cube / rhombic-cuboctahedral geometry, and F-orbital structures through cuboctahedral and star-tetrahedral constructions.
+- **Geo-Nuclear Physics:** proposes polyhedral arrangements for nucleon counts, isotope stability and a toroidal 4D connection between nuclear and electron-cloud structure.
+- **D-orbital Geometry:** proposes links between the Extended Jitterbug, transition-metal radii and electronic configurations.
 
 These are statements of the source's model, not results established by this repository.
 
@@ -93,5 +95,8 @@ The existing T145 conclusion remains unchanged: the audited \(J\) is a complex s
 3. In2Infinity, “D-orbital Geometry — Part 1,” https://www.in2infinity.com/d-orbital-geometry-part-1/
 4. In2Infinity, “D-orbital Geometry — Part 2,” https://www.in2infinity.com/d-orbital-geometry-part-2/
 5. In2Infinity, “4D Thinking,” https://www.in2infinity.com/theory/geometric-thinking/4d-thinking/
+6. In2Infinity, “Atomic Geometry,” https://www.in2infinity.com/theory/atomic-geometry/
+7. In2Infinity, “P-orbital Geometry,” https://www.in2infinity.com/p-orbital-geometry/
+8. In2Infinity, “Geo-Nuclear Physics,” https://www.in2infinity.com/theory/geo-nuclear-physics/
 
 **Access note:** web indexing exposed substantial page text, while direct page retrieval returned HTTP 403 during this audit. The source register is therefore not a claim of exhaustive archival capture. Original figures, animations, tables and downloadable material must still be preserved and transcribed.
