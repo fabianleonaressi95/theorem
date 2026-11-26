@@ -86,8 +86,8 @@ A finite-system diagnostic is the normalized ground-state overlap after subtract
 \[
 \mathcal O_{s,nn}=
 \frac{|\langle \widetilde O_s,\widetilde O_{nn}\rangle_0|^2}
-{\langle\widetilde O_s,\widetilde O_s\rangle_0
- \langle\widetilde O_{nn},\widetilde O_{nn}\rangle_0},
+{\sqrt{\langle\widetilde O_s,\widetilde O_s\rangle_0
+ \langle\widetilde O_{nn},\widetilde O_{nn}\rangle_0}},
 \quad \widetilde O=O-\langle O\rangle_0.
 \]
 
