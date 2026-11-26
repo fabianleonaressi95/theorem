@@ -79,7 +79,7 @@ Il JSON registra la revisione Git, le versioni di Python/NumPy, le frequenze, i 
 
 ## 6. Limiti espliciti
 
-Il codice per T1–T4 è ora presente. L'esecuzione completa e la verifica degli artifact sono ancora da effettuare; restano inoltre i controlli di dimezzamento di dt e confronto con un integratore indipendente. Non si dichiara bistabilità dimostrata: la conclusione resta **non dimostrata** finché tutti i criteri preregistrati non risultano soddisfatti.
+Il codice per T1–T4 e per i controlli di robustezza numerica è ora presente. L'esecuzione completa e la verifica degli artifact sono ancora da effettuare. Non si dichiara bistabilità dimostrata: la conclusione resta **non dimostrata** finché tutti i criteri preregistrati non risultano soddisfatti.
 
 ## 7. T3 — sweep avanti/indietro e persistenza rispetto al dwell
 
@@ -114,3 +114,20 @@ python scripts/run_qn_nl_nlt_t3_t4.py \\
 ```
 
 Il costo computazionale è elevato: il protocollo completo va eseguito come job dedicato e non è dichiarato eseguito dal solo fatto che lo script sia stato aggiunto. Il JSON registra dimensioni, audit dei complessi, seed, frequenze, dwell, traiettorie e statistiche. Le verifiche T3/T4 restano non valutate fino alla produzione e al controllo dell'artifact.
+
+## 9. Robustezza numerica — dimezzamento di dt e integratore indipendente
+
+Lo script `scripts/run_q6_nl_nlt_robustness.py` confronta, a parità di condizioni iniziali, frequenze, modello, `sigma` e tempo fisico:
+- RK4 con `dt=0.025`;
+- RK4 con `dt=0.0125` e il doppio dei passi;
+- SciPy DOP853 con tolleranze predefinite `rtol=1e-10`, `atol=1e-12`.
+
+Il sottoinsieme predefinito usa 20 seed e otto valori di `sigma`, per entrambe le famiglie iniziali e per NL/NLT. Per ciascuna osservabile (`R0`, `R1_down`, `R1_up`) il report conserva differenza assoluta e relativa. Il criterio del 10% è applicato alla differenza relativa rispetto al run RK4 di riferimento; vicino a osservabili nulle questo criterio è intenzionalmente severo.
+
+```bash
+python scripts/run_q6_nl_nlt_robustness.py \\
+  --T-steps 640 --dt 0.025 \\
+  --output artifacts/q6_nl_nlt_robustness.json
+```
+
+La riuscita del controllo numerico non equivale a bistabilità: serve soltanto a escludere, entro il test definito, una dipendenza rilevante dal passo o dall'integratore.
