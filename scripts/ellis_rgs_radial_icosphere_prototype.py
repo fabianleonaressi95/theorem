@@ -101,6 +101,7 @@ def _signed_circumcentric_dual_length(
     adjacent_faces: list[int],
     tol: float = 1e-10,
 ) -> float:
+    """Return dual arc length only when it crosses the primal edge orthogonally."""
     """Return dual arc length only when it crosses the primal edge orthogonally.
 
     The normalized edge midpoint and the two spherical face circumcentres lie
@@ -132,6 +133,7 @@ def _signed_circumcentric_dual_length(
     if theta0 <= tol or theta1 >= -tol:
         raise RuntimeError(
             "Circumcentres are not on opposite sides of the primal edge; "
+            "unsigned centre distance is not a valid circumcentric dual"
             "the unsigned centre distance is not a valid circumcentric dual"
         )
     dual = theta0 - theta1

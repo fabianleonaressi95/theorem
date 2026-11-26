@@ -1,5 +1,6 @@
 # T070 — Oriented circumcentric dual on the spherical icosphere
 
+**Status: geometric criterion derived and implemented; automated refinement test added; execution not yet verified here. Not a DEC convergence theorem.**
 **Status: geometric criterion implemented; automated refinement test added; execution not yet verified here. Not a DEC convergence theorem.**
 
 ## Question
@@ -58,6 +59,7 @@ where \ell_ab is the spherical primal-edge length.
 
 ## Implementation
 
+The prototype centralizes this criterion in the function _signed_circumcentric_dual_length and uses it both when assembling angular graph conductances and when computing the spherical l=1 Rayleigh diagnostic.
 The prototype now centralizes this criterion in the function _signed_circumcentric_dual_length and uses it both when assembling the angular graph conductances and when computing the spherical l=1 Rayleigh diagnostic.
 
 The routine raises an error if:
