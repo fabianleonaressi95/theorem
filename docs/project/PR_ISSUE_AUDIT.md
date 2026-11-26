@@ -1,6 +1,14 @@
 # PR and issue audit — 26 November 2026
 
-Policy: nothing merged or closed by this audit. Recommendations only.
+Policy: nothing merged or closed by the audit itself; recommendations only.
+
+## Registry publication
+
+The documentation bundle introduced by theorem PR **#464** is now **MERGED** into `main`.
+- Merge commit: `8d379ac191db24123db014973b9e2de44d9795df`
+- Head commit: `9db111f131e462e9538f2b618f52cedc9f4eebae`
+- Files: the five project-registry documents under `docs/project/`.
+- This publication merge does not imply that any scientific claim was upgraded or that any cleanup recommendation was executed.
 
 ## Open pull requests
 
@@ -10,7 +18,7 @@ Policy: nothing merged or closed by this audit. Recommendations only.
 |---|---|---|---|---|
 | #449 | C60 Stone–Wales 90° dual-flip + vesica bridge | OPEN, mergeable=UNKNOWN | `audit` SUCCESS | Diff adds `scripts/audit_c60_stone_wales.py`, `tests/test_c60_stone_wales.py`, 3 docs (+158/−31). Claims are scoped: dual-graph reconstruction, 30 labelled flips, integer chain-map identities, MMFF94s covariance proxy with explicit "not DFT/not barrier" caveat. **Recommend: review then merge** — consistent with repo conventions, claims properly bounded. |
 | #450 | Volterra dipole-to-edge stress/energy limit | OPEN **DRAFT**, mergeable | `audit` SUCCESS (run 45864849396, head 0adc60a) | Extends merged #131 work to matched Airy elasticity comparison; sweep artifact uploaded; residuals ~1e-16. Draft status may be intentional pending owner review of the sweep tables. **Recommend: owner review of draft → merge if satisfied; otherwise mark ready.** |
-| #458 | RGS defect benchmark (Torino/Morandotti) | OPEN, mergeable, **UNSTABLE** | Mixed: `trace-constant`, `independent-remeshing`, `cubical-and-syntax`, `defect-benchmark-tests` SUCCESS; `distance-refinement` and `two-core-p3-c0-ipdg` show no conclusion (queued/running at audit time); PR body empty | +386/−12 across 6 files incl. 3 new workflow files and 2 scripts + 1 test + 1 protocol doc. Empty PR body is a documentation gap. **Recommend: wait for pending checks, require PR description, then merge.** |
+| #458 | RGS defect benchmark (Torino/Morandotti) | OPEN, mergeable, **UNSTABLE** | Mixed: `trace-constant`, `independent-remeshing`, `cubical-and-syntax`, `defect-benchmark-tests` SUCCESS; `distance-refinement` and `two-core-p3-c0-ipdg` showed no conclusion (queued/running at audit time); PR body empty | +386/−12 across 6 files incl. 3 new workflow files and 2 scripts + 1 test + 1 protocol doc. Empty PR body is a documentation gap. **Recommend: wait for pending checks, require PR description, then merge.** |
 | #461 | SE(3) tetrahedral non-Abelian Bianchi | OPEN, mergeable | **No checks reported** | +284/−0: one script `audit_se3_tetrahedral_bianchi.py` + one doc. Claims strictly bounded (curvature Bianchi only; explicitly not torsion/deWit/Nye). **Recommend: verify a workflow runs the script (no CI seen) or add one; then merge.** |
 
 ### fullerene-c64-audit
