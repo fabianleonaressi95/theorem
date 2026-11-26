@@ -12,14 +12,27 @@ The documentation bundle introduced by theorem PR **#464** is now **MERGED** int
 
 ## Open pull requests
 
+*Updated 2026-11-26 (delta pass): the four PRs audited earlier today (#449, #450, #458, #461) were all **MERGED** at ~17:17–17:23Z by the owner, together with registry PR #464. Five new open PRs (#468–#473) appeared subsequently.*
+
 ### theorem
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
-| #449 | C60 Stone–Wales 90° dual-flip + vesica bridge | OPEN, mergeable=UNKNOWN | `audit` SUCCESS | Diff adds `scripts/audit_c60_stone_wales.py`, `tests/test_c60_stone_wales.py`, 3 docs (+158/−31). Claims are scoped: dual-graph reconstruction, 30 labelled flips, integer chain-map identities, MMFF94s covariance proxy with explicit "not DFT/not barrier" caveat. **Recommend: review then merge** — consistent with repo conventions, claims properly bounded. |
-| #450 | Volterra dipole-to-edge stress/energy limit | OPEN **DRAFT**, mergeable | `audit` SUCCESS (run 45864849396, head 0adc60a) | Extends merged #131 work to matched Airy elasticity comparison; sweep artifact uploaded; residuals ~1e-16. Draft status may be intentional pending owner review of the sweep tables. **Recommend: owner review of draft → merge if satisfied; otherwise mark ready.** |
-| #458 | RGS defect benchmark (Torino/Morandotti) | OPEN, mergeable, **UNSTABLE** | Mixed: `trace-constant`, `independent-remeshing`, `cubical-and-syntax`, `defect-benchmark-tests` SUCCESS; `distance-refinement` and `two-core-p3-c0-ipdg` showed no conclusion (queued/running at audit time); PR body empty | +386/−12 across 6 files incl. 3 new workflow files and 2 scripts + 1 test + 1 protocol doc. Empty PR body is a documentation gap. **Recommend: wait for pending checks, require PR description, then merge.** |
-| #461 | SE(3) tetrahedral non-Abelian Bianchi | OPEN, mergeable | **No checks reported** | +284/−0: one script `audit_se3_tetrahedral_bianchi.py` + one doc. Claims strictly bounded (curvature Bianchi only; explicitly not torsion/deWit/Nye). **Recommend: verify a workflow runs the script (no CI seen) or add one; then merge.** |
+| #468 | Test Q6–C60 equivariance on the Klein-four subgroup | OPEN, mergeable | `v4-equivariance` SUCCESS (×2) | +610/−0: new workflow, audit JSON, doc, script. Bounded test/audit artifact. **Recommend: merge after owner review.** |
+| #470 | Add EG-01 bottleneck benchmark | OPEN **DRAFT** | No checks reported | +395/−0: `research/` docs + `benchmarks/eg01_bottleneck.py`. Draft — owner review pending. |
+| #471 | Audit oriented circumcentric dual edges in Ellis icosphere | OPEN **DRAFT**, mergeable | No checks reported | +149/−4: extends T049/T070 scripts/tests/docs. Draft — owner review pending. |
+| #472 | Add T154: In2Infinity Extended Jitterbug source and geometry audit | OPEN, mergeable | No checks reported at audit time | +308/−0: T154 theorem doc, audit script, test, source-review note. **Recommend: confirm a workflow covers the new test, then merge.** |
+| #473 | Reconcile theorem graph inventory and repair T152 crosswalk | OPEN, mergeable | No checks reported at audit time | +1308/−1117 across README, `UNIFIED_THEOREM_DEPENDENCY_GRAPH.md`, `UNIFIED_THEOREM_EDGES.json`, `UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md`. Large doc/JSON restructure — **recommend careful review before merge** (touches canonical cross-repo graph). |
+
+### Merged since first audit pass (2026-11-26 ~17:17–17:23Z)
+
+| PR | Title | Notes |
+|---|---|---|
+| #449 | C60 Stone–Wales 90° dual-flip + vesica bridge | MERGED — results preserved on main |
+| #450 | Volterra dipole-to-edge stress/energy limit | MERGED (was draft) |
+| #458 | RGS defect benchmark (Torino/Morandotti) | MERGED |
+| #461 | SE(3) tetrahedral non-Abelian Bianchi | MERGED |
+| #464 | Master project registry (this audit's docs) | MERGED |
 
 ### fullerene-c64-audit
 
