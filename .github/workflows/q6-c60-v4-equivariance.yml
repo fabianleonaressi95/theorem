@@ -35,7 +35,7 @@ jobs:
       - name: Upload audit outputs
         uses: actions/upload-artifact@v4
         with:
-          name: q6-c60-v4-equivariance-\${{ github.run_number }}
+          name: q6-c60-v4-equivariance
           path: |
             audits/Q6_C60_V4_equivariance.json
             artifacts/Q6_C60_V4_intertwiner.npz
