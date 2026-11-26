@@ -80,3 +80,37 @@ Il JSON registra la revisione Git, le versioni di Python/NumPy, le frequenze, i 
 ## 6. Limiti espliciti
 
 Questo commit implementa T1 e T2. Non dichiara bistabilità dimostrata. Restano da implementare T3 (sweep avanti/indietro con dwell 640, 2560, 10240), T4 (Q4/Q5/Q6), dimezzamento di dt e confronto con un integratore indipendente. La conclusione resta **non dimostrata** finché non sono soddisfatti tutti i criteri preregistrati.
+
+## 7. T3 — sweep avanti/indietro e persistenza rispetto al dwell
+
+Lo script `scripts/run_qn_nl_nlt_t3_t4.py` implementa il test di isteresi per ciascun modello e dimensione. Per ogni seed e dwell:
+- genera una sola realizzazione delle frequenze e la riutilizza nei due rami;
+- esegue lo sweep crescente in `sigma`;
+- avvia lo sweep decrescente dallo stato terminale del ramo crescente;
+- registra `R0`, `R1_down` e `R1_up` a ogni valore di `sigma`.
+
+Per rendere non ambiguo il termine «gap», la statistica preregistrata è la media, sulla griglia di `sigma`, della differenza assoluta tra i due rami per `R0`. Sono inoltre conservati il massimo gap e tutti i valori per `sigma`. Non si confonde questa quantità con l'area integrale del ciclo.
+
+Dwell: 640, 2560 e 10240 passi. Il criterio T3 richiede che il gap medio al dwell più lungo sia almeno metà di quello al dwell più breve e che i tre valori siano non decrescenti. Il report mantiene separati i gap di `R0`, `R1_down` e `R1_up`.
+
+## 8. T4 — confronto cubicale Q4/Q5/Q6
+
+La costruzione è generica: vertici come bitstring, spigoli orientati lungo una coordinata e quadrati orientati come bordi di facce coordinate. Prima della dinamica viene verificato esattamente `B1 @ B2 = 0`. I conteggi attesi sono:
+- Q4: 16 vertici, 32 spigoli, 24 quadrati;
+- Q5: 32 vertici, 80 spigoli, 80 quadrati;
+- Q6: 64 vertici, 192 spigoli, 240 quadrati.
+
+Si usano gli stessi seed, griglia di `sigma`, dwell e convenzione delle frequenze per tutte le dimensioni. Il criterio di persistenza di taglia è `gap_R0(Q6) >= 0.5 * gap_R0(Q4)`, confrontato separatamente per modello e dwell. Q5 è mantenuto come controllo intermedio, non sostituisce il confronto Q4/Q6.
+
+Esecuzione di riferimento:
+
+```bash
+python scripts/run_qn_nl_nlt_t3_t4.py \\
+  --dimensions 4,5,6 \\
+  --sigmas 0.00,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90,0.95,1.00,1.05,1.10,1.15,1.20,1.25,1.30,1.35,1.40,1.45,1.50,1.55,1.60,1.65,1.70,1.75,1.80,1.85,1.90,1.95,2.00 \\
+  --seeds 11,23,37,51,67,79,97,109,127,139,151,163,179,191,211,223,239,251,263,277 \\
+  --dwells 640,2560,10240 --dt 0.025 \\
+  --output artifacts/q6_nl_nlt_t3_t4.json
+```
+
+Il costo computazionale è elevato: il protocollo completo va eseguito come job dedicato e non è dichiarato eseguito dal solo fatto che lo script sia stato aggiunto. Il JSON registra dimensioni, audit dei complessi, seed, frequenze, dwell, traiettorie e statistiche. Le verifiche T3/T4 restano non valutate fino alla produzione e al controllo dell'artifact.
