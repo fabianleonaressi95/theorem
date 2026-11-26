@@ -70,7 +70,7 @@ class TestEQCRGSQ6GateRealization(unittest.TestCase):
                 self.assertTrue(all(d in (1, 2) for d in digits))
         # Existing INV swaps stored digits 0 and 2, so it does not preserve Q6.
         inv = compile_source("INV q0")
-        digits = (1, 1, 1, 1, 1, 1)
+        digits = (2, 1, 1, 1, 1, 1)
         state = [0j] * (3 ** 6)
         state[encode_qutrit_digits(digits)] = 1 + 0j
         output = run(inv, state)
