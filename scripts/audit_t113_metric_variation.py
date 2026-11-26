@@ -98,8 +98,8 @@ def power_law_sector(alpha: float, inertia_exponent: float = 1.0):
 def coupled_sectors(alpha_phonon: float, alpha_phason: float, coupling: float):
     """Positive two-sector toy kernel; coupling=0 is the decoupled control."""
     def matrices(rho: float):
-        p = rho ** (1.0 + 2.0 * alpha_phonon)
-        s = rho ** (1.0 + 2.0 * alpha_phason)
+        p = 1.5 * rho ** (1.0 + 2.0 * alpha_phonon)
+        s = 0.7 * rho ** (1.0 + 2.0 * alpha_phason)
         cross = coupling * math.sqrt(p * s)
         K = np.array([[p, cross], [cross, s]])
         M = np.diag([rho, rho])
@@ -146,9 +146,8 @@ def audit() -> dict:
             "all_hf_fd_errors_below_1e-7": all(
                 item["max_hf_fd_error"] < 1e-7 for item in results.values()
             ),
-            "R_zero_spectrum_is_sector_union": (
-                abs(results["phonon_phason_R_zero"]["omega_squared"][0] -
-                    min(1.0, 1.0)) < 1e-12
+            "R_zero_spectrum_is_sector_union": np.allclose(
+                results["phonon_phason_R_zero"]["omega_squared"], [0.7, 1.5], atol=1e-12
             ),
             "lapse_variation_consistent": abs(energy-lapse_energy_fd) < 1e-9,
         },
