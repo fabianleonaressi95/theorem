@@ -11,11 +11,11 @@ The existing ideal truncated-icosahedron generator supplies the cage:
 
 ## Exact graph operation
 
-For a central edge \(B-C\) shared by two hexagonal faces in the direct cage; this is the central bond of the dual-edge-flip representation of the pyracylene patch, enumerate the four-site Stone-Wales switch
+The audit works in the **dual triangulation**. Each vertex of the dual is a pentagonal or hexagonal face of C60; each triangular face of the dual corresponds to one carbon atom. For each dual edge joining two degree-6 vertices whose two opposite vertices both have degree 5, perform the diagonal flip
 \[
-AB,CD\mapsto AC,BD,
+(H_1,H_2)\longmapsto(P_1,P_2).
 \]
-retaining \(BC\). Keep only resulting graphs that are planar, trivalent, have 60 vertices and 90 edges, and retain exactly 12 pentagons and 20 hexagons. Distinct post-graphs are deduplicated.
+This is the dual description of the pyracylene Stone–Wales move. Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. The direct-graph operation is then recorded as its two removed and two added C–C bonds.
 
 ## Chain-map construction
 
