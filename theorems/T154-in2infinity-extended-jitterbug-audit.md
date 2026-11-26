@@ -48,6 +48,22 @@ Each square pyramid is exactly one half of a regular octahedron: reflect it acro
 
 This is a static decomposition, not by itself a Jitterbug motion.
 
+## 2A. Five-solid coordinate audit (unit edge)
+
+A standard-coordinate reconstruction was added for all five solids. The snub cube uses the real Tribonacci root \(t^3-t^2-t-1=0\) in its chiral signed-permutation orbit; the rhombic cuboctahedron uses the 24 vertices given by permutations and sign changes of \((1,1,1+\sqrt2)\). The hull audit enumerates supporting planes and edge midpoints, without an external geometry package.
+
+| Solid | V | E | F | Face sizes | IN candidates (face-plane distances) | MID | OUT |
+|---|---:|---:|---:|---|---|---:|---:|
+| Octahedron | 6 | 12 | 8 | 8 triangles | 0.408248 | 0.500000 | 0.707107 |
+| Icosahedron | 12 | 30 | 20 | 20 triangles | 0.755761 | 0.809017 | 0.951057 |
+| Cuboctahedron | 12 | 24 | 14 | 8 triangles, 6 squares | 0.707107 (square), 0.816497 (triangle) | 0.866025 | 1.000000 |
+| Snub cube | 24 | 60 | 38 | 32 triangles, 6 squares | 1.142614, 1.213356 | 1.247223 | 1.343713 |
+| Rhombic cuboctahedron | 24 | 48 | 26 | 8 triangles, 18 squares | 1.207107, 1.274274 | 1.306563 | 1.398966 |
+
+All radii are normalized to edge length 1. Euler's identity \(V-E+F=2\) holds in every row. The listed IN candidates are distances from the centre to distinct face-plane orbits, not a single common inradius where the face types have different distances. This matters: the cuboctahedron has two face orbits, as In2Infinity itself notes in its P-orbital discussion; the same issue occurs for the snub cube and rhombic cuboctahedron in this coordinate reconstruction. A unique IN sphere tangent to every face centre therefore cannot be assumed for these three solids. The source needs to specify which face family or construction defines the IN value used in each atomic-radius assignment.
+
+The script `scripts/audit_t154_in2infinity_geometry.py` and tests `tests/test_t154_in2infinity_geometry.py` reproduce the combinatorics and numerical sphere radii. These are a coordinate-level numerical certificate; exact algebraic simplification of every snub-cube radius and reconstruction of the source's animation/vertex correspondence remain open.
+
 ## 3. Exact polar dual: rhombic dodecahedron
 
 With the polar convention \(P^\circ=\{x:x\cdot v\leq1\ \forall v\in P\}\), the polar of the above cuboctahedron is
@@ -64,7 +80,7 @@ It is the rhombic dodecahedron, with 12 rhombic faces. This establishes the pola
 
 ## 4. What is not yet a theorem
 
-The source's five-solid sequence is a proposed continuous transformation chain. The pages inspected do not provide, in the accessible text, a common vertex labelling, explicit coordinate paths, a parameter interval, or a proof that all five stages belong to one continuous family with specified rigidity constraints. Therefore this record does **not** claim such a family has been reconstructed.
+The source distinguishes the classical Fuller Jitterbug (cuboctahedron collapsing through icosahedral configurations to the octahedron) from its Extended Jitterbug, whose five-form order is octahedron → icosahedron → cuboctahedron → snub cube → rhombic cuboctahedron. The indexed pages describe the five forms as continuously related and the latter three as progressive opening of triangular faces. However, they do not expose a common vertex labelling, explicit coordinate paths, a parameter interval, or a proof of the rigidity constraints in the accessible text. The coordinate audit above reconstructs the five static endpoint solids only; it does **not** prove the continuous five-stage motion.
 
 Likewise, the source's IN/MID/OUT sphere definitions and the 81-element radius table need to be transcribed with their exact radius convention, element-by-element values, uncertainty, source provenance and fitting/prediction split before any accuracy claim can be checked. The stated superiority over Bohr or van der Waals radii is not accepted without a like-for-like benchmark.
 
