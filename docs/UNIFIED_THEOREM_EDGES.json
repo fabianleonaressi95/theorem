@@ -13,7 +13,7 @@
     "hub_to_companion_edges": 30,
     "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T146 and A1 are explicitly represented as existing theorem/document nodes. Typed comparison links do not assert equivalence.",
     "total_nodes": 295,
-    "total_edges": 331
+    "total_edges": 330
   },
   "nodes": [
     {
@@ -4448,13 +4448,6 @@
       "relation": "representation-input",
       "status": "reviewed",
       "caveat": "T121 supplies the ordinary A5 action; it is distinct from the central-nontrivial 2I spin representations."
-    },
-    {
-      "from": "DOC:A1",
-      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
-      "relation": "comparison-only",
-      "status": "reviewed",
-      "caveat": "The S3/2I scalar spectrum is distinct from the exceptional-curve intersection lattice of the E8 resolution."
     },
     {
       "from": "THM:T027",
