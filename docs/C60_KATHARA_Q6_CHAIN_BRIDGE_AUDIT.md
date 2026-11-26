@@ -96,7 +96,7 @@ No such target action is currently defined. The 30-move \(I_h\) orbit classifica
 
 ## Reproduction
 
-\`\`\`bash
+```bash
 python scripts/audit_c60_q6_bridge.py --out c60_q6_bridge_audit.json
 pytest -q tests/test_c60_q6_bridge.py
-\`\`\`
+```
