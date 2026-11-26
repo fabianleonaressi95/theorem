@@ -150,3 +150,15 @@ The machine-readable edge registry now contains **292 nodes and 323 directed edg
 - 239 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 54 direct typed crosswalk arrows.
 
 The 239 classification arrows ensure that every theorem file in the 24-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
+
+
+## T152 — McKay–ADE and crepant Calabi–Yau orbifolds (26 November 2026)
+
+- [T152](../theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) is the new theorem record for the binary McKay correspondence and dimension-dependent crepant-resolution theory.
+- **Representation input:** T119 supplies the exact \(2I\) quaternionic group and selected representations; T121 supplies the ordinary \(A_5\) action. These are distinct central-character sectors.
+- **Comparison links:** T144's invariant-count/Molien data and A1's \(S^3/2I\) scalar spectrum are representation/spectral comparisons, not proofs of the geometric resolution.
+- **Geometric comparison:** T146 supplies the dodecahedral dual and Q6 chain map; its recorded spectral obstruction is retained and is not identified with the \(E_8\) Cartan/intersection form.
+- **Open obligation:** T027's Rumin complex is not identified with the derived McKay equivalence; such a link requires a functorial construction and an operator-intertwining proof.
+- Surface result: \(\mathbb C^2/2I\) is the \(E_8\) Kleinian singularity and has a unique minimal crepant resolution. Threefold result: \(G\)-Hilb/BKR applies under its stated hypotheses. For \(n>3\), no universal existence assertion is made.
+
+The machine-readable graph adds T152 as a theorem node and records the typed dependencies/comparisons above. The inventory count is incremented from 239 to 240 theorem records.
