@@ -1,0 +1,32 @@
+name: Volterra dipole elastic-limit audit
+
+on:
+  pull_request:
+    paths:
+      - "scripts/rgs_volterra_elastic_limit.py"
+      - "scripts/rgs_volterra_dipole_audit.py"
+      - "tests/test_rgs_volterra_elastic_limit.py"
+      - "tests/test_rgs_volterra_dipole_audit.py"
+      - ".github/workflows/volterra-elastic-limit.yml"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy pytest
+      - name: Run Volterra source and elasticity tests
+        run: python -m pytest -q tests/test_rgs_volterra_dipole_audit.py tests/test_rgs_volterra_elastic_limit.py
+      - name: Generate stress and energy sweep
+        run: python scripts/rgs_volterra_elastic_limit.py --out artifacts/volterra_elastic_limit
+      - name: Upload numerical report
+        uses: actions/upload-artifact@v4
+        with:
+          name: volterra-elastic-limit-report
+          path: artifacts/volterra_elastic_limit/
+          if-no-files-found: error
