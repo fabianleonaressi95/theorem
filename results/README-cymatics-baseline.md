@@ -4,7 +4,7 @@ Run:
 
 ```bash
 python scripts/cymatics_wave_benchmarks.py --output results/cymatics_baseline.json
-python -m unittest tests/test_cymatics_wave_benchmarks.py -v
+python -m unittest discover -s tests -p 'test_cymatics_wave_benchmarks.py' -v
 ```
 
 The generated JSON is intentionally not committed as a claimed result until the script has been executed in the target repository environment. The expected invariants are:
