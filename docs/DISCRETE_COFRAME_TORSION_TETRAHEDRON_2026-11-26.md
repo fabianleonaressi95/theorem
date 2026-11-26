@@ -2,6 +2,9 @@
 
 ## Purpose and status
 
+**Carrier-derived specialization:** the finite construction from the hash-checked RGS 64-site coordinates is documented in [RGS_CARRIER_DERIVED_COFRAME_TETRAHEDRON_2026-11-26.md](RGS_CARRIER_DERIVED_COFRAME_TETRAHEDRON_2026-11-26.md), with an executable audit. That specialization supplies concrete edge data for the abstract coframe introduced below; it does not identify the selected tetrahedron with a Q6 incidence cell or with the archived A13 PSU links.
+
+
 This note adds an independent discrete coframe to the SE(3) edge-transport fixture. It defines a path-based, gauge-covariant face quantity that is a candidate discretization of Cartan torsion.
 
 **Status:** proposed discrete definition plus numerical covariance/flatness checks. It is not a theorem identifying the quantity with continuum Cartan torsion, and it is not a deWit–Nye/Burgers construction.
