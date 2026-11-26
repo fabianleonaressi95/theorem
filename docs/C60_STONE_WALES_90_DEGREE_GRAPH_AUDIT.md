@@ -45,7 +45,7 @@ The workflow uploads JSON/Markdown reports and graph arrays. Inspect the artifac
 |---|---|
 | C60 starting topology is (60,90,32;12,20) | Existing repository audit |
 | SW switch preserves vertex/edge counts and degree 3 | Exact property of specified switch |
-| An admissible planar SW_5|6 post-graph exists | Pending run |
+| At least one admissible planar Stone–Wales 2-switch exists | Pending run |
 | Both chain-map identities hold for selected maps | Pending run |
 | MMFF94s nuclear-coordinate covariance changes | Pending run |
 | Electronic density anisotropy changes and matches vesica tensor | Open; not computed |
