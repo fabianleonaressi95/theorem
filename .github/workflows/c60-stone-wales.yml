@@ -1,5 +1,12 @@
 name: C60 Stone-Wales 90-degree graph audit
 on:
+  push:
+    branches:
+      - research/c60-sw-orbit-classification
+    paths:
+      - "scripts/classify_c60_sw_orbits.py"
+      - "tests/test_c60_sw_orbits.py"
+      - ".github/workflows/c60-stone-wales.yml"
   pull_request:
     paths:
       - "scripts/audit_c60_stone_wales.py"
