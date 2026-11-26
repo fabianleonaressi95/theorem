@@ -83,13 +83,14 @@ Required inputs: Hilbert space and particle-number sector; Hamiltonian and bound
 
 A finite-system diagnostic is the normalized ground-state overlap after subtracting expectation values:
 
-\[
-\mathcal O_{s,nn}=
-\frac{|\langle \widetilde O_s,\widetilde O_{nn}\rangle_0|^2}
-{\sqrt{\langle\widetilde O_s,\widetilde O_s\rangle_0
- \langle\widetilde O_{nn},\widetilde O_{nn}\rangle_0}},
-\quad \widetilde O=O-\langle O\rangle_0.
-\]
+\\[
+\\mathcal O_{s,nn}=
+\\frac{|\\langle 0|\\widetilde O_s^\\dagger\\widetilde O_{nn}|0\\rangle|^2}
+{\\langle 0|\\widetilde O_s^\\dagger\\widetilde O_s|0\\rangle
+ \\langle 0|\\widetilde O_{nn}^\\dagger\\widetilde O_{nn}|0\\rangle},
+\\quad
+\\widetilde O=O-\\langle0|O|0\\rangle.
+\\]
 
 This is an operator-state overlap diagnostic, not proof of operator equality. Spectral overlap must also be compared on a declared frequency window.
 
