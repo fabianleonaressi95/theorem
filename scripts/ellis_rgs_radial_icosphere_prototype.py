@@ -139,6 +139,28 @@ def _spherical_face_centres(vertices: np.ndarray, faces: np.ndarray) -> np.ndarr
     return np.asarray(centres)
 
 
+def spherical_l1_rayleigh(subdivisions: int) -> float:
+    """Discrete Rayleigh quotient of a coordinate l=1 spherical harmonic."""
+    vertices, faces = _icosphere(subdivisions)
+    areas = SphericalVoronoi(vertices).calculate_areas()
+    centres = _spherical_face_centres(vertices, faces)
+    edge_faces = {}
+    for fi, face in enumerate(faces):
+        for a, b in ((face[0], face[1]), (face[1], face[2]), (face[2], face[0])):
+            key = (min(int(a), int(b)), max(int(a), int(b)))
+            edge_faces.setdefault(key, []).append(fi)
+    energy = 0.0
+    values = vertices[:, 2]
+    for (a, b), adjacent in edge_faces.items():
+        primal = _angle(vertices[a], vertices[b])
+        dual = _angle(centres[adjacent[0]], centres[adjacent[1]])
+        energy += (dual / primal) * (values[a] - values[b]) ** 2
+    norm2 = float(np.dot(areas, values ** 2))
+    if norm2 <= 0:
+        raise RuntimeError("Degenerate l=1 test mode")
+    return float(energy / norm2)
+
+
 def audit(radial_cells: int, subdivisions: int, r0: float = 0.8292) -> dict:
     g = EllisGraph(r0=r0, radial_cells=radial_cells,
                    sphere_subdivisions=subdivisions).build()
@@ -158,6 +180,8 @@ def audit(radial_cells: int, subdivisions: int, r0: float = 0.8292) -> dict:
         "relative_volume_error": abs(g["volume"] - g["continuum_volume"]) / g["continuum_volume"],
         "radial_edges": g["radial_edges"],
         "angular_edges_per_layer": g["angular_edges_per_layer"],
+        "spherical_l1_rayleigh": spherical_l1_rayleigh(subdivisions),
+        "spherical_l1_continuum_eigenvalue": 2.0,
         "boundary_condition": "natural graph Neumann (no exterior radial edges)",
         "limitations": [
             "angular dual cells use spherical Voronoi areas",
