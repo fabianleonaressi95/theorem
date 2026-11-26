@@ -63,7 +63,10 @@ def edge_data(points: np.ndarray):
             Rg = minimal_rotation(points[i], points[j])
             ambient_R[(i, j)] = Rg
             R[(i, j)] = frames[j].T @ Rg @ frames[i]
-            E[(i, j)] = frames[i].T @ Rg.T @ (points[j] - points[i])
+            delta = points[j] - points[i]
+            source_chord = frames[i].T @ delta
+            target_chord = frames[j].T @ delta
+            E[(i, j)] = 0.5 * (source_chord + R[(i, j)].T @ target_chord)
     return frames, ambient_R, R, E
 
 
@@ -75,6 +78,13 @@ def edge_coframe(R, E, i: int, j: int) -> np.ndarray:
     if i < j:
         return E[(i, j)]
     return -edge_rotation(R, j, i) @ E[(j, i)]
+
+
+def directed_edge_coframe(points, frames, R, i: int, j: int) -> np.ndarray:
+    """Evaluate the symmetric chord average directly in either orientation."""
+    delta = points[j] - points[i]
+    Rij = edge_rotation(R, i, j)
+    return 0.5 * (frames[i].T @ delta + Rij.T @ frames[j].T @ delta)
 
 
 def face_torsion(R, E, face) -> np.ndarray:
@@ -115,17 +125,19 @@ def main() -> None:
                      for key, value in torsions.items()}
 
     orientation_error = 0.0
-    edge_length_error = 0.0
+    coframe_norm_bound_excess = 0.0
+    coframe_norm_ratios = {}
     rotation_orthogonality_error = 0.0
     rotation_determinant_error = 0.0
     radial_transport_error = 0.0
     for (i, j), e in E.items():
+        reverse_direct = directed_edge_coframe(points, frames, R, j, i)
         orientation_error = max(
             orientation_error,
-            float(np.linalg.norm(edge_coframe(R, E, j, i) + R[(i, j)] @ e)))
-        edge_length_error = max(
-            edge_length_error,
-            abs(float(np.linalg.norm(e) - np.linalg.norm(points[j] - points[i]))))
+            float(np.linalg.norm(reverse_direct + R[(i, j)] @ e)))
+        ratio = float(np.linalg.norm(e) / np.linalg.norm(points[j] - points[i]))
+        coframe_norm_ratios[str((i, j))] = ratio
+        coframe_norm_bound_excess = max(coframe_norm_bound_excess, max(0.0, ratio - 1.0))
         rij = R[(i, j)]
         rotation_orthogonality_error = max(
             rotation_orthogonality_error,
@@ -167,7 +179,7 @@ def main() -> None:
 
     residuals = {
         "coframe_orientation_max_error": orientation_error,
-        "coframe_vs_euclidean_edge_length_max_error": edge_length_error,
+        "coframe_norm_upper_bound_max_excess": coframe_norm_bound_excess,
         "local_SO3_orthogonality_max_error": rotation_orthogonality_error,
         "local_SO3_determinant_max_error": rotation_determinant_error,
         "ambient_radial_transport_max_error": radial_transport_error,
@@ -188,7 +200,8 @@ def main() -> None:
         "radii": np.linalg.norm(points, axis=1).tolist(),
         "oriented_tetrahedron_volume": volume,
         "edge_pairs_local": [list(e) for e in E],
-        "edge_lengths": {str(e): float(np.linalg.norm(v)) for e, v in E.items()},
+        "edge_lengths": {str(e): float(np.linalg.norm(points[e[1]] - points[e[0]])) for e in E},
+        "coframe_to_chord_norm_ratios": coframe_norm_ratios,
         "radial_increments": {
             str((i, j)): float(np.linalg.norm(points[j]) - np.linalg.norm(points[i]))
             for i, j in E
@@ -202,7 +215,7 @@ def main() -> None:
             "n_i": "X_i / ||X_i||",
             "ambient_transport": "shortest SO(3) rotation taking n_i to n_j",
             "local_transport": "R_ij = F_j^T Rg_ij F_i",
-            "geometric_coframe": "E_ij = F_i^T Rg_ij^T (X_j - X_i)",
+            "geometric_coframe": "E_ij = 1/2 (F_i^T deltaX_ij + R_ij^-1 F_j^T deltaX_ij)",
             "face_torsion": "E_ij + R_ij^-1 E_jk + (R_jk R_ij)^-1 E_ki",
             "reverse_orientation": "E_ji = -R_ij E_ij",
         },
