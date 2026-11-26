@@ -55,10 +55,11 @@ def profile_audit(profile: str, d_over_h: float, sigma_over_h: float,
     # z=y/sigma. The finite-dipole quotient, multiplied by sigma, is
     # dimensionless and is compared with -f'(z).
     z = np.linspace(-14.0, 14.0, points)
-    f, fp = PROFILES[profile](z)
+    profile_fn = PROFILES[profile]
+    f, fp = profile_fn(z)
     ratio = d_over_h / sigma_over_h  # d/sigma
     half = 0.5 * ratio
-    q = (f(z - half) - f(z + half)) / ratio
+    q = (profile_fn(z - half)[0] - profile_fn(z + half)[0]) / ratio
     target = -fp
 
     norm = np.sqrt(np.trapz(target * target, z))
