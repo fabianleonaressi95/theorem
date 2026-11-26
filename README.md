@@ -685,3 +685,10 @@ These are finite mathematical/software checks. They do not establish physical ca
 ### T152 — Binary McKay–ADE, Calabi–Yau orbifolds and crepant resolutions
 
 - [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
+
+
+### T153 — Pyramid bisection, polyhedral duality and the inter-sheet complex structure
+
+- [T153](theorems/T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection.md) formalizes the exact bisection of a square pyramid into two equal-volume tetrahedra, the cuboctahedron's tetrahedron/half-octahedron decomposition, cuboctahedron–rhombic-dodecahedron duality, Euler/angle-defect relations, and the distinction between soap-film form-finding and geometric torsion. It audits the supplied In2Infinity molecular/quantum/orbital claims without promoting them to established physics.
+- The central (J)-question is answered conditionally: (J) may be required to be parallel under a discrete connection, but this alone does not define torsion. A coframe, connection, discrete torsion operator and convergent refinement are still required. If the two sheets carry the inequivalent (A_5) modules (3) and (3'), ordinary (A_5)-equivariance of an inter-sheet exchange is obstructed by Schur's lemma; outer-automorphism covariance is a separate test.
+- [T153 source review](docs/T153-source-review-geometric-physics-claims.md) records access limitations and separates established geometry from unsupported physical extrapolations. No new numerical audit or continuum result is claimed.
