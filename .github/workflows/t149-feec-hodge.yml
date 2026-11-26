@@ -17,3 +17,8 @@ jobs:
       - run: pip install numpy scipy
       - run: python scripts/audit_t149_dodecahedron_feec_hodge.py
       - run: python -m unittest tests.test_t149_dodecahedron_feec_hodge
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t149-feec-hodge-report
+          path: results/json/t149_supergolden_dodecahedron_feec_hodge.json
+          retention-days: 30
