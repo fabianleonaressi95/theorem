@@ -142,12 +142,12 @@ The quaternion/QLG-side copy of this graph is maintained at [the companion repos
 
 ## 5. Full-coverage inventory and interpretation
 
-The machine-readable edge registry now contains **292 nodes and 323 directed edges**:
+The machine-readable edge registry now contains **295 nodes and 331 directed edges**:
 
-- 239 theorem-record nodes from `theorem/theorems/`;
+- 241 theorem-record nodes from `theorem/theorems/`;
 - 14 catalogue-entry nodes from the companion `results/catalogue/laws_theorems_registry.json`;
 - 8 thematic hubs, plus application-dossier and companion-document nodes;
-- 239 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 54 direct typed crosswalk arrows.
+- 241 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
 
 The 239 classification arrows ensure that every theorem file in the 24-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
 
@@ -161,4 +161,4 @@ The 239 classification arrows ensure that every theorem file in the 24-November-
 - **Open obligation:** T027's Rumin complex is not identified with the derived McKay equivalence; such a link requires a functorial construction and an operator-intertwining proof.
 - Surface result: \(\mathbb C^2/2I\) is the \(E_8\) Kleinian singularity and has a unique minimal crepant resolution. Threefold result: \(G\)-Hilb/BKR applies under its stated hypotheses. For \(n>3\), no universal existence assertion is made.
 
-The machine-readable graph adds T152 as a theorem node and records the typed dependencies/comparisons above. The inventory count is incremented from 239 to 240 theorem records.
+The machine-readable graph adds T152 as a theorem node and records the typed dependencies/comparisons above. The inventory count is incremented from 239 to 241 theorem records: T152 is new in this PR, and the already-existing T146 theorem node is backfilled into the previously stale graph inventory.
