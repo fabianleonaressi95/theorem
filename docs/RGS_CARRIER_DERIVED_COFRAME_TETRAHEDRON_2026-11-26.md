@@ -99,7 +99,7 @@ The independently seeded 1,000-sample checks give maximum residuals:
 - direct reverse-edge consistency: \(7.04\times10^{-16}\);
 - coframe norm upper-bound excess: zero to working precision.
 
-These are implementation checks of a finite construction, not a proof of a continuum limit.
+These are implementation checks of a finite construction, not a proof of a continuum limit. The numerical loop was independently reproduced locally against the exact hash-checked coordinates; the checked-in script was inspected but was not run from a Git checkout in this session.
 
 ## 6. Relation to archived PSU transports and open work
 
