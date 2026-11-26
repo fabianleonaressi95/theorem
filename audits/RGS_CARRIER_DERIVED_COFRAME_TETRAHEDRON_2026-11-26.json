@@ -1,0 +1,126 @@
+{
+  "title": "RGS carrier-derived coframe and face-torsion tetrahedral audit",
+  "fixture": "RGS 64-site seed; selected four-point tetrahedron",
+  "source": "src.rgs_seed_64_reconstruction.load_rgs_seed_data",
+  "source_coordinate_sha256": "6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e67f286126e419cf",
+  "selected_carrier_vertex_ids": [
+    0,
+    8,
+    32,
+    56
+  ],
+  "points": [
+    [
+      -0.47863916086470326,
+      -0.47863916086470326,
+      -0.47863916086470326
+    ],
+    [
+      -1.507311680616975,
+      -1.507311680616975,
+      -0.4804298481859356
+    ],
+    [
+      -1.903910673611661,
+      -0.48230704367200045,
+      -0.48230704367200045
+    ],
+    [
+      -0.9518396334290641,
+      -0.9518396334290641,
+      -0.9518396334290641
+    ]
+  ],
+  "radii": [
+    0.829027345109799,
+    2.185129251114611,
+    2.0224035259669764,
+    1.6486346057568746
+  ],
+  "oriented_tetrahedron_volume": 0.11513116875074175,
+  "edge_lengths": {
+    "(0, 1)": 1.4547637307645722,
+    "(0, 2)": 1.425280951874604,
+    "(0, 3)": 0.8196072606470755,
+    "(1, 2)": 1.0990581380736832,
+    "(1, 3)": 0.9161471366746882,
+    "(2, 3)": 1.1607587911544426
+  },
+  "radial_increments": {
+    "(0, 1)": 1.3561019060048123,
+    "(0, 2)": 1.1933761808571774,
+    "(0, 3)": 0.8196072606470756,
+    "(1, 2)": -0.16272572514763484,
+    "(1, 3)": -0.5364946453577366,
+    "(2, 3)": -0.3737689202101018
+  },
+  "face_torsion_norms": {
+    "(0, 1, 2)": 0.38996016148971197,
+    "(0, 1, 3)": 0.16034204673166658,
+    "(0, 2, 3)": 0.24663325109771367,
+    "(1, 2, 3)": 0.11915671589083109
+  },
+  "samples": 1000,
+  "seed": 20261126,
+  "tolerance": 2e-11,
+  "residuals": {
+    "ambient_radial_transport_max_error": 3.444376352465766e-16,
+    "coframe_orientation_max_error": 7.034368257765356e-16,
+    "coframe_norm_upper_bound_max_excess": 0,
+    "face_torsion_gauge_covariance_max_error": 2.4701292793724788e-15,
+    "global_SO3_invariance_max_error": 3.37661150723213e-15,
+    "local_SO3_orthogonality_max_error": 1.1139374852064735e-15,
+    "local_SO3_determinant_max_error": 7.771561172376096e-16
+  },
+  "failures": {},
+  "classification": {
+    "hash_checked_RGS_coordinates": "source_verified",
+    "carrier_derived_edge_coframe": "explicit_finite_construction",
+    "face_torsion_gauge_covariance": "numerically_verified",
+    "global_SO3_invariance": "numerically_verified",
+    "Q6_incidence_alignment": "not_claimed_not_tested",
+    "continuum_Cartan_limit": "open",
+    "discrete_torsion_Bianchi": "not_defined_not_tested",
+    "deWit_Nye_Burgers_identification": "open",
+    "coframe_orientation": "numerically_verified"
+  },
+  "coframe_to_chord_norm_ratios": {
+    "(0, 1)": 0.9806772228791297,
+    "(0, 2)": 0.9536505289491618,
+    "(0, 3)": 1,
+    "(1, 2)": 0.9660041694246428,
+    "(1, 3)": 0.9806772228791297,
+    "(2, 3)": 0.9536505289491617
+  },
+  "definition": {
+    "n_i": "X_i / ||X_i||",
+    "ambient_transport": "shortest SO(3) rotation taking n_i to n_j",
+    "local_transport": "R_ij = F_j^T Rg_ij F_i",
+    "geometric_coframe": "E_ij = 1/2 (F_i^T deltaX_ij + R_ij^-1 F_j^T deltaX_ij)",
+    "face_torsion": "E_ij + R_ij^-1 E_jk + (R_jk R_ij)^-1 E_ki",
+    "reverse_orientation": "E_ji = -R_ij E_ij, verified by direct evaluation in both orientations"
+  },
+  "execution_provenance": "Independent local execution of the same construction and 1000-sample test loop against the exact hash-checked reconstructed RGS coordinates. The checked-in repository script was inspected but was not executed from a Git checkout in this session.",
+  "face_torsion_vectors": {
+    "(0, 1, 2)": [
+      -0.38409469302051324,
+      -0.006809912428942744,
+      0.06703595628668291
+    ],
+    "(0, 1, 3)": [
+      2.533816231376257e-18,
+      -0.15724379309956657,
+      -0.03136816031839684
+    ],
+    "(0, 2, 3)": [
+      0.2036908467159094,
+      -0.117600965182893,
+      -0.07421598546968011
+    ],
+    "(1, 2, 3)": [
+      -0.11640670952144555,
+      0.007920557584838117,
+      0.024188131135399804
+    ]
+  }
+}

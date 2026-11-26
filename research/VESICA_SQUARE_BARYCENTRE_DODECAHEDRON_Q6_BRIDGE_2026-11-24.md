@@ -128,3 +128,12 @@ If these identities hold, the polynomial \(f\) follows by uniqueness of quadrati
 | Derivation of Q6 eigenvalues \(0,4,6\) from that dodecahedral map | Open |
 | Recovery of \(f\) from dodecahedral geometry alone | Open |
 | Existing Q6-to-RGS three-node interpolation formula \(f\) | Exact interpolation identity on the selected finite sector |
+
+
+## 7. T149 executed FEEC/Hodge audit (26 November 2026)
+
+The supergolden polar-dual geometry (t=ψsg) and the regular icosahedral control (t=φ) have now been triangulated independently by the 32–90–60 face-centroid fan. The Whitney 0-, 1- and 2-form mass matrices, mass-induced adjoints, antipodal signed permutations and parity spectra are computed in T149. The supergolden Q6 comparison is made only with the T141 assignment; no Q6 map is imposed on the regular control.
+
+The normalized Whitney 2-form displayed in T149 has squared L2 norm 1/A_T, not 4/A_T. The original specification's 4/A_T value was corrected before the reported audit. Both cases satisfy the incidence and antipodal metric tests, and all mass matrices are positive definite. The supergolden scalar Schur spectrum and T146 Q6 pull/chain spectra remain distinct; the Q6-sector intertwining residuals are 5.7099189664 and 2.1936912594. The regular control has regular pentagonal frames to machine precision; the supergolden pentagons are measurably deformed.
+
+This completes the canonical FEEC assembly, but not the missing connection: local pentagonal frames do not determine transition maps or holonomy across faces. The derivation of the Q6/RGS polynomial f from a global dodecahedral Hodge operator remains open. See [T149](../theorems/T149-supergolden-dodecahedral-whitney-hodge.md), its [audit script](../scripts/audit_t149_dodecahedron_feec_hodge.py), and the [machine-readable summary](../results/json/t149_supergolden_dodecahedron_feec_hodge_summary.json).

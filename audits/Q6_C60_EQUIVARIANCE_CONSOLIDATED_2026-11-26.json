@@ -1,0 +1,79 @@
+{
+  "classification": "consolidation of existing numerical/geometric audits; no new numerical result",
+  "date": "2026-11-26",
+  "source_reports": {
+    "proxy": "audits/Q6_Oh_face_fibre_equivariance.json",
+    "c60": "audits/Q6_C60_T_h_character_comparison.json",
+    "tangent": "audits/Q6_tangent_188D_reconstruction.json"
+  },
+  "state_order": "Q6_states row order; binary lexicographic 000000..111111",
+  "coordinate_Oh": {
+    "order": 48,
+    "Q6_adjacency_automorphisms": 16,
+    "not_a_full_Q6_graph_action": true
+  },
+  "antipodal_proxy": {
+    "pairs": 32,
+    "character_equivalence_under_Th": false,
+    "status": "rejected proxy; normals are antipodal point directions, not actual C60 face normals"
+  },
+  "actual_C60_face_bundle": {
+    "faces": 32,
+    "face_sizes": {
+      "5": 12,
+      "6": 20
+    },
+    "dimension": 64,
+    "Q6_A4_character_multiset": {
+      "0": 3,
+      "4": 8,
+      "64": 1
+    },
+    "C60_A4_character_multiset": {
+      "-2.0": 8,
+      "0.0": 3,
+      "64.0": 1
+    },
+    "equivalent_under_Th": false,
+    "obstruction": "Eight order-three elements have characters 4 (Q6) and -2 (C60); no invertible intertwiner exists for these representations.",
+    "spectral_comparison_authorized": false
+  },
+  "tangent_188D": {
+    "ambient_dimension": 192,
+    "tangent_dimension": 188,
+    "row_semantics": "192 rows are 64 vertex displacement triples (x_i,y_i,z_i), not 192 graph-edge labels.",
+    "compatible_group_order": 16,
+    "closure_failures": 0,
+    "max_projector_invariance_residual": 1.3338312675709916e-14,
+    "max_intertwiner_residual": 1.9493599325461606e-14,
+    "max_induced_orthogonality_residual": 3.853825687870195e-14,
+    "operator_covariance": {
+      "K0": {
+        "preserved_count_tol_1e_10": 1,
+        "group_order": 16,
+        "max_relative_commutator": 0.9968416840575127
+      },
+      "R_geo_tangent": {
+        "preserved_count_tol_1e_10": 16,
+        "group_order": 16,
+        "max_relative_commutator": 2.903869960040969e-15
+      },
+      "P_G": {
+        "preserved_count_tol_1e_10": 1,
+        "group_order": 16,
+        "max_relative_commutator": 1.1623204025954914
+      },
+      "T_transport": {
+        "preserved_count_tol_1e_10": 1,
+        "group_order": 16,
+        "max_relative_commutator": 1.3665225130845595
+      }
+    }
+  },
+  "overall_conclusion": "The proposed Q6-to-actual-C60 face-tangent representation equivalence fails the Th character test. The 188D action is reconstructed for the 16-element common geometry/Q6 subgroup, but archived K0, P_G and T_transport are not covariant under that full subgroup. Do not compare their spectra with a C60 operator as if an equivariant identification had been established.",
+  "open_items": [
+    "Recover and document the independent geometric provenance of the 32 C60 face normals and the precise face-to-state candidate map, if a different map is proposed.",
+    "If a smaller common subgroup is scientifically motivated, state it explicitly and recompute its character decomposition; do not silently weaken Th.",
+    "Any spectral comparison requires a separately justified operator intertwiner or a clearly labelled non-equivariant comparison."
+  ]
+}
