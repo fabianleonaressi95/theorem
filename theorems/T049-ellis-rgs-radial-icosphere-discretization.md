@@ -127,7 +127,7 @@ This identity is useful because it isolates the radial and spherical consistency
 \left[\int_{S^2}|\nabla_{S^2}Y|^2d\Omega\right].
 \]
 
-A new invariant test uses p(u)=u and Y=1. Since a(u)^2=u^2+r0^2 is quadratic, the radial midpoint quadrature is exact for this affine radial mode; the angular areas sum to 4 pi. The discrete Dirichlet energy must therefore equal 4 pi integral a(u)^2 du = 96 pi r0^3, up to floating-point roundoff. This exact calibration is a check of the radial conductance normalization, not a proof for general p or for the angular factor.
+A new invariant test uses p(u)=u and Y=1. Since a(u)^2=u^2+r0^2 is quadratic, the radial midpoint quadrature is exact on each interval between adjacent radial cell centres; the angular areas sum to 4 pi. At finite resolution the graph has no exterior radial edges, so its energy equals 4 pi integral from u_0 to u_{N_r-1} of a(u)^2 du, where u_0 and u_{N_r-1} are the first and last cell centres. It does not equal the full-domain integral at finite h: the two omitted boundary half-cells contribute an O(h_r) term. Those boundary contributions vanish as h_r tends to zero. This exact interior calibration checks the radial conductance normalization, not the boundary truncation, general p, or the angular factor.
 
 
 ## Conditional consistency proposition for separated smooth modes
