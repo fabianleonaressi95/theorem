@@ -44,6 +44,8 @@ theorem/
 ```
 
 ### Main indexes
+
+- **[Sangaku Geometry — circle-construction classification](research/sangaku_geometry/README.md)** — independent workstream classifying marked circle configurations by incidence/tangency structure, Euclidean symmetry and normalized coordinate/distance fields. Includes the proved quadratic-tower theorem for intersection constructions, exact Vesica Piscis and pentagon records, a clearly conditional tangency model, SymPy checks and a source-verification protocol.
 - **[In2Infinity technical contact brief](collaborations/in2infinity/01-initial-technical-contact-brief-2026-11-26.md)** — prepares the independently reconstructed five-solid coordinate/radius results, the unresolved multi-face IN convention, targeted questions for Colin Power and Dr Heike Bielek, and a carefully separated optional (S^3/2I) / Stergios Pellis discussion.
 - **[T154 — In2Infinity Extended Jitterbug source and geometry audit](theorems/T154-in2infinity-extended-jitterbug-audit.md)** — records the source's five-solid sequence, IN/MID/OUT sphere model, truncation and 81-element radius claims; proves the explicit cuboctahedron decomposition and its polar rhombic-dodecahedron coordinates; keeps the five-solid interpolation and physical claims open. [source review and validation protocol](audits/in2infinity/T154-source-review-2026-11-26.md).
 - [Vesica–square–barycentre–dodecahedron–Q6 bridge](research/VESICA_SQUARE_BARYCENTRE_DODECAHEDRON_Q6_BRIDGE_2026-11-24.md) — exact inscribed-square, triangle-centroid and barycentric-gradient construction; isolates the missing dodecahedral-to-Q6 operator lift needed to derive the existing interpolation polynomial geometrically.
