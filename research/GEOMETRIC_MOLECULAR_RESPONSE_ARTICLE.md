@@ -431,3 +431,12 @@ The fullerene connection is now documented separately in [FULLERENE_STONE_WALES_
 - Under a rigid 90° planar rotation, a density covariance transforms as \(Q'=U_{90}QU_{90}^T\); its eigenvalues and scalar anisotropy are invariant, while its principal-axis direction rotates by 90°. A Stone–Wales move is not a rigid rotation of the entire density: its effect on \(Q\) must be computed from relaxed before/after electronic densities.
 
 Accordingly, the common programme now has three distinct operations—local Stone–Wales reconnection, cage growth, and density-defined vesica deformation—and a common tensor/chain-complex language for testing possible bridges. No universal physical equivalence is asserted.
+
+
+### Executed graph and geometric-proxy benchmark
+
+The C60 dual-triangulation audit has now run successfully (2026-11-26): 30 labelled dual-edge flips were found, each retaining the direct-graph invariants (60 vertices, 90 edges, 32 faces, 12 pentagons, 20 hexagons, degree 3). For one selected representative, the exact integer chain-map identities \(B'_1S_1=B_1\) and \(B'_2S_2=S_1B_2\) passed, with ranks 90 and 31 for \(S_1\) and \(S_2\).
+
+A paired RDKit MMFF94s relaxation gave force-field energies 945.1698747 and 963.0943689 (same model units). The global covariance anisotropy of the **carbon nuclear coordinates** changed from 0.0438637 to 0.1381264; the local-patch proxy changed from 0.8911495 to 0.8997506. These are geometric nuclear-coordinate covariances, not electron-density tensors or De Aquino overlap moments. The final gradient norms (0.22199 and 0.21343) are retained as convergence caveats. No DFT density or transition-state calculation was performed.
+
+The exact output, selected bond switch, chain matrices and evidence ledger are recorded in [C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md](../docs/C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md). The fullerene-to-Kathara/Q6 intertwiner and any universal molecular/fullerenic anisotropy law remain open.
