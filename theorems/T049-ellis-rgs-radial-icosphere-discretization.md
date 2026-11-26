@@ -102,3 +102,29 @@ The discrete quotient is
 {\sum_j A_jY_1(\omega_j)^2}.
 \]
 This is a **consistency diagnostic only**. The test checks finiteness and positivity at two refinement levels; it deliberately does not assert monotone convergence or treat a finite quotient as proof of the angular Mosco liminf/recovery statements.
+
+
+## Separated-variable energy factorization
+
+For nodal data v_ij=p(u_i)Y(omega_j), the product graph energy splits exactly:
+\[
+\mathcal E_h(v)=
+\left[\sum_i\frac{a(u_{i+1/2})^2}{u_{i+1}-u_i}
+(p(u_{i+1})-p(u_i))^2\right]
+\left[\sum_j A_jY(\omega_j)^2\right]
++
+\left[\sum_i\delta_i p(u_i)^2\right]
+\left[\sum_{\{j,k\}}\frac{\ell^*_{jk}}{\ell_{jk}}
+(Y(\omega_j)-Y(\omega_k))^2\right].
+\]
+This identity is useful because it isolates the radial and spherical consistency problems. The corresponding continuum expression is
+\[
+\mathcal E(pY)=
+\left[\int_{-L}^L a(u)^2|p'(u)|^2du\right]
+\left[\int_{S^2}Y^2d\Omega\right]
++
+\left[\int_{-L}^L p(u)^2du\right]
+\left[\int_{S^2}|\nabla_{S^2}Y|^2d\Omega\right].
+\]
+
+A new invariant test uses p(u)=u and Y=1. Since a(u)^2=u^2+r0^2 is quadratic, the radial midpoint quadrature is exact for this affine radial mode; the angular areas sum to 4 pi. The discrete Dirichlet energy must therefore equal 4 pi integral a(u)^2 du = 96 pi r0^3, up to floating-point roundoff. This exact calibration is a check of the radial conductance normalization, not a proof for general p or for the angular factor.
