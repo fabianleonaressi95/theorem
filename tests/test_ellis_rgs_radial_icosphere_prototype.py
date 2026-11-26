@@ -25,3 +25,13 @@ def test_exact_cell_masses_reproduce_continuum_volume():
 def test_spherical_dual_areas_sum_to_four_pi():
     result = EllisGraph(radial_cells=4, sphere_subdivisions=2).build()
     assert abs(float(result["sphere_cell_area"].sum()) - 4 * math.pi) < 1e-10
+
+
+def test_separated_spherical_l1_mode_is_a_finite_consistency_diagnostic():
+    coarse = audit(6, 0)
+    refined = audit(6, 1)
+    for result in (coarse, refined):
+        value = result["spherical_l1_rayleigh"]
+        assert math.isfinite(value)
+        assert value > 0
+        assert result["spherical_l1_continuum_eigenvalue"] == 2.0
