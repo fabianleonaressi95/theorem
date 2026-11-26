@@ -32,23 +32,29 @@ Let \(R^g_{ij}\in SO(3)\) be the shortest ambient rotation carrying \(n_i\) to \
 R_{ij}=F_j^T R^g_{ij}F_i.
 \]
 
-## 3. Coframe derived from the carrier chord
+## 3. Symmetric coframe derived from the carrier chord
 
-The Euclidean chord \(X_j-X_i\) is transported back to the source radial frame:
+Write \(\Delta X_{ij}=X_j-X_i\). Its source- and target-frame components are \(F_i^T\Delta X_{ij}\) and \(F_j^T\Delta X_{ij}\). Pull the target component back to the source fibre with \(R_{ij}^{-1}\), then average:
 \[
-\boxed{E_{ij}=F_i^T(R^g_{ij})^T(X_j-X_i).}
+\boxed{
+E_{ij}=\frac12\left(F_i^T\Delta X_{ij}
++R_{ij}^{-1}F_j^T\Delta X_{ij}\right).
+}
 \]
-This is not an independently chosen vector. It is determined by the carrier coordinates, the radial directions, the minimal radial transport, and the declared vertex frames.
-
-It has the exact length property
-\[
-\|E_{ij}\|=\|X_j-X_i\|.
-\]
-The reverse edge obeys
+This construction is symmetric under reversal of the oriented edge. Direct substitution gives
 \[
 E_{ji}=-R_{ij}E_{ij}.
 \]
-Thus it satisfies the orientation convention used by the face-torsion candidate.
+It is also gauge covariant under independent changes of the local frames:
+\[
+R'_{ij}=S_jR_{ij}S_i^{-1},\qquad E'_{ij}=S_iE_{ij}.
+\]
+
+Because this is an average of two vectors of equal norm, it obeys
+\[
+\|E_{ij}\|\leq\|\Delta X_{ij}\|.
+\]
+The ratio \(\|E_{ij}\|/\|\Delta X_{ij}\|\) records the alignment of the source and transported target chord components. It is not required to equal one.
 
 The radial increment
 \[
@@ -68,13 +74,9 @@ For an oriented face \((i,j,k)\), define
 \]
 Every term is transported into the fibre at \(i\). Under independent local frame rotations \(S_i\in SO(3)\),
 \[
-R'_{ij}=S_jR_{ij}S_i^{-1},\qquad E'_{ij}=S_iE_{ij},
-\]
-and therefore
-\[
 \mathcal T'_{ijk}=S_i\mathcal T_{ijk}.
 \]
-The audit tests this covariance on 1,000 seeded independent frame changes, as well as invariance under common ambient \(SO(3)\) rotations.
+The audit tests this covariance on 1,000 seeded independent frame changes, as well as invariance under common ambient \(SO(3)\) rotations and direct edge-reversal consistency.
 
 ## 5. Numerical result
 
@@ -86,16 +88,16 @@ python scripts/audit_rgs_carrier_coframe_tetrahedron.py
 The script writes \`audits/RGS_CARRIER_DERIVED_COFRAME_TETRAHEDRON_2026-11-26.json\`.
 
 The four face-torsion norms for the selected tetrahedron are approximately:
-- \((0,1,2)\): \(0.7341662259\)
-- \((0,1,3)\): \(0.5691989452\)
-- \((0,2,3)\): \(0.8577807732\)
-- \((1,2,3)\): \(0.4965341479\)
+- \((0,1,2)\): \(0.3899601615\)
+- \((0,1,3)\): \(0.1603420467\)
+- \((0,2,3)\): \(0.2466332511\)
+- \((1,2,3)\): \(0.1191567159\)
 
 The independently seeded 1,000-sample checks give maximum residuals:
-- frame-gauge covariance: \(2.42\times10^{-15}\);
-- common ambient \(SO(3)\) invariance: \(2.37\times10^{-15}\);
-- reverse-edge orientation: zero to working precision;
-- chord-length preservation: \(4.44\times10^{-16}\).
+- frame-gauge covariance: \(2.47\times10^{-15}\);
+- common ambient \(SO(3)\) invariance: \(3.38\times10^{-15}\);
+- direct reverse-edge consistency: \(7.04\times10^{-16}\);
+- coframe norm upper-bound excess: zero to working precision.
 
 These are implementation checks of a finite construction, not a proof of a continuum limit.
 
