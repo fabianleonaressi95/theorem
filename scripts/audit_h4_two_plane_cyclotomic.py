@@ -39,10 +39,10 @@ def word_matrix(word):
 
 def angle_pair(A):
     vals = np.linalg.eigvals(A)
-    angles = sorted(abs(float(np.angle(z))) for z in vals if z.imag > 1e-7)
-    if len(angles) != 2:
-        raise AssertionError(f"Expected two non-real conjugate pairs, got {vals}")
-    return tuple(angles)
+    # Each real rotation-plane angle occurs twice in the four eigenvalues;
+    # this also handles 0 and pi planes (real eigenvalues +/-1).
+    angles = sorted(abs(float(np.angle(z))) for z in vals)
+    return (angles[0], angles[2])
 
 def check_word(word, expected):
     U = word_matrix(word)
