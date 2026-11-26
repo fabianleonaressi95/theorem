@@ -96,6 +96,27 @@ def enumerate_switches(g,faces):
         found.setdefault(key,{"dual_edge":[h1,h2],"opposite_pentagon_faces":[p1,p2],
           "rotated_carbon_vertices":[b,c],"removed_edges":[list(e) for e in removed],
           "added_edges":[list(e) for e in added],"graph":h,"faces":hf})
+    ef=incidence(faces); found={}
+    for b,c in sorted(g.edges()):
+        sizes=sorted(len(faces[i]) for i in ef[(b,c)])
+        if sizes != [5,6]: continue
+        for B,C in ((b,c),(c,b)):
+            for A in sorted(set(g[B])-{C}):
+                for D in sorted(set(g[C])-{B}):
+                    if len({A,B,C,D})<4: continue
+                    rem={tuple(sorted((A,B))),tuple(sorted((C,D)))}
+                    add={tuple(sorted((A,C))),tuple(sorted((B,D)))}
+                    if len(rem)!=2 or len(add)!=2 or rem & add: continue
+                    if any(g.has_edge(*e) and e not in rem for e in add): continue
+                    h=g.copy(); h.remove_edges_from(rem); h.add_edges_from(add)
+                    if sorted(dict(h.degree()).values()) != [3]*60: continue
+                    try: hf=oriented_faces(h)
+                    except ValueError: continue
+                    t=topology(h,hf)
+                    if (t["V"],t["E"],t["F"],t["pentagons"],t["hexagons"],t["other_face_sizes"],t["euler"]) != (60,90,32,12,20,[],2): continue
+                    key=tuple(sorted(h.edges()))
+                    found.setdefault(key,{"central_edge":[B,C],"removed_edges":[list(e) for e in sorted(rem)],
+                      "added_edges":[list(e) for e in sorted(add)],"graph":h,"faces":hf})
     return [found[k] for k in sorted(found)]
 
 def boundary(g,faces):
@@ -146,6 +167,10 @@ def main():
     c=cs[0]; h,fh=c["graph"],c["faces"]; t1=topology(h,fh)
     chain=make_chain_map(g,fg,h,fh)
     report={"status":"computed_graph_audit","operation":"dual edge flip / equivalent direct-graph 2-switch; Stone-Wales dual diagonal flip; direct graph changes by a degree-preserving 2-switch",
+    if not cs: raise RuntimeError("no admissible planar SW_5|6 switch found")
+    c=cs[0]; h,fh=c["graph"],c["faces"]; t1=topology(h,fh)
+    chain=make_chain_map(g,fg,h,fh)
+    report={"status":"computed_graph_audit","operation":"central B-C retained; remove A-B,C-D; add A-C,B-D",
       "distinct_admissible_postgraphs":len(cs),"selected_switch":{k:v for k,v in c.items() if k not in ("graph","faces")},
       "before":t0,"after":t1,"chain_map":{k:v for k,v in chain.items() if k not in ("S1","S2")},
       "limitations":["Topological switch, not an atomistic transition-state trajectory.",
@@ -156,6 +181,7 @@ def main():
         x0,m0=mmff_relax(xyz,bonds,a.max_iterations)
         x1,m1=mmff_relax(xyz,sorted(h.edges()),a.max_iterations)
         patch=set()
+        patch=set(c["central_edge"])
         for e in c["removed_edges"]+c["added_edges"]: patch.update(e)
         for v in list(patch): patch.update(g[v]); patch.update(h[v])
         report["mmff94s"]={"before_model":m0,"after_model":m1,
@@ -170,5 +196,6 @@ def main():
       "Before: "+str(t0)+"\\n\\nAfter: "+str(t1)+"\\n\\n"+
       "Both cellular chain-map identities verified exactly over integers.\\n")
     print(json.dumps(report,indent=2))
+    print(json.dumps({k:v for k,v in report.items() if k!="mmff94s"},indent=2))
 
 if __name__=="__main__": main()
