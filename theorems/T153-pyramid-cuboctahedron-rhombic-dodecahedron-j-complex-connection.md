@@ -86,7 +86,7 @@ The In2Infinity pages propose an “Extended Jitterbug” involving the octahedr
 
 Usable geometric claims include the cuboctahedron's face/edge/vertex counts, its duality with the rhombic dodecahedron, the rhombic dodecahedron's 14,24,12 counts, its space tiling, and the cube/square-pyramid construction. These are standard polyhedral facts and are recorded here with independent mathematical statements.
 
-The article also contains claims about aether ground states, toroidal photon flow, consciousness, noble-gas “vortices”, and cosmic cells. Those claims are not consequences of the polyhedral identities and are not adopted. The article's stated “2160°” sum for the twelve rhombic faces is not the sum of all planar face-interior angles: twelve rhombi contribute \(12\cdot360^\circ=4320^\circ\). Any alternative angle convention would need to be explicitly defined. Symbolic numerical coincidences (for example 10,080) are not mathematical evidence.
+The article also contains claims about aether ground states, toroidal photon flow, consciousness, noble-gas “vortices”, and cosmic cells. Those claims are not consequences of the polyhedral identities and are not adopted. The article's stated “2160°” sum for the twelve rhombic faces is not the sum of all planar face-interior angles: twelve rhombi contribute \(12\cdot360^\circ=4320^\circ\). Its earlier statement that all cuboctahedron face-interior angles are 60° is also false if read literally: triangular faces have 60° angles, while square faces have 90° angles. Any alternative angle convention would need to be explicitly defined. Symbolic numerical coincidences (for example 10,080) are not mathematical evidence.
 
 ### 5.2 In2Infinity: atomic, orbital, molecular and geo-quantum proposals
 
