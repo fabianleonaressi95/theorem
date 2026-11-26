@@ -15,6 +15,7 @@ import gmsh, ufl
 from dolfinx import fem
 from dolfinx.fem.petsc import LinearProblem
 from dolfinx.io import gmsh as gmshio
+# Shared solver dependency: distance-refinement, independent-remeshing, and trace-certificate audits import this module.
 from models.morandotti_cell_reconstruction import (
     build_defect_components, rotate_defect_vector_to_frame,
     defect_quadratic_decomposition, deformation_metric,
