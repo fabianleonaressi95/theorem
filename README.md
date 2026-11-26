@@ -67,7 +67,7 @@ theorem/
 
 - **[TSMR-H — Half-balance principle](theorems/TSMR-H_half_balance_fractal_pentagon.md)** — proves the Bernoulli first-level overlap threshold at λ=1/2, the maximum-entropy probability p=1/2, and the pentagonal projector balance ||Pq||²=1/2; distinguishes the golden singular Bernoulli regime λ=φ⁻¹ from the uniform critical model and keeps the De Aquino coupling conditional. Reproducible audit: `audits/tsmr_h_half_balance.py`; tests: `tests/test_tsmr_h_half_balance.py`.
 
-- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 241 theorem records and 14 companion catalogue entries are represented in a 295-node, 331-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
+- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 241 theorem records and 14 companion catalogue entries are represented in a 295-node, 330-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 241 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 
 
