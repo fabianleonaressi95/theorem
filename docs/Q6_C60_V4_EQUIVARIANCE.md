@@ -58,6 +58,31 @@ The outcomes must be kept separate:
 
 The workflow **.github/workflows/q6-c60-v4-equivariance.yml** runs this command and uploads both outputs.
 
-## 5. Scientific status
+## 5. Numerical results (GitHub Actions run 5)
+
+The workflow completed successfully on 2026-11-26. The generated JSON and NPZ matrix bundle were uploaded as the artifact **q6-c60-v4-equivariance**.
+
+- Q6 and C60 V4 characters: \((64,0,0,0)\) on both sides.
+- Each of the four real V4 irreducibles occurs with multiplicity 16 on both sides.
+- All four Q6 V4 transformations preserve Q6 adjacency exactly; all four adjacency residuals are zero.
+- The explicit orthogonal intertwiner is \(64\times64\). Its orthogonality residual is \(8.04\times10^{-15}\), and its maximum per-element intertwining residual is \(6.63\times10^{-15}\).
+- The reconstructed 188D tangent subspace is invariant under all four elements; maximum projector residual \(1.19\times10^{-14}\), maximum induced-orthogonality residual \(3.50\times10^{-14}\).
+
+Operator covariance on the 188D space is selective:
+
+| Operator | Elements preserved (of 4) | Maximum relative covariance residual |
+|---|---:|---:|
+| \(K_0\) | 1 | 0.9897387721 |
+| \(R_{\rm geo,tangent}\) | 4 | \(2.64\times10^{-15}\) |
+| \(P_G\) | 1 | 1.1530236121 |
+| \(T_{\rm transport}\) | 1 | 1.3618898128 |
+
+Therefore the \(V_4\) equivalence is a verified representation-level result and all three nonidentity elements are genuine Q6 graph symmetries. However, among the archived 188D operators, only \(R_{\rm geo,tangent}\) is \(V_4\)-covariant. The \(K_0\), \(P_G\), and \(T_{\rm transport}\) spectra cannot be interpreted as \(V_4\)-symmetry-resolved using this action.
+
+Workflow run: https://github.com/fabianleonaressi95/theorem/actions/runs/45868725620
+
+## 6. Scientific status
+
+The equality of the four \(V_4\) characters and the multiplicities \(16,16,16,16\) follow from the previously archived \(A_4\) character data. The graph-automorphism, explicit-matrix, and 188D operator checks are now numerically verified. No C60 spectrum is asserted or compared.
 
 The equality of the four \(V_4\) characters and the multiplicities \(16,16,16,16\) follow from the previously archived \(A_4\) character data. The graph-automorphism, explicit-matrix, and 188D operator checks are new numerical tests and must be read from the generated workflow report. No C60 spectrum is asserted or compared here.
