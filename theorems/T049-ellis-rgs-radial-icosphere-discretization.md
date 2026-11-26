@@ -85,3 +85,20 @@ It does NOT establish:
 7. Only then construct a separate RGS-preserving refinement and compare its metric, measures, and energies with this benchmark.
 
 The finite PRISM graph C64 square C6^3 square C5 remains a finite combinatorial model; it is not silently treated as a member of this radial–icosphere refinement family.
+
+## First separated-mode diagnostic
+
+The script now reports the discrete Rayleigh quotient of the coordinate function
+\[
+Y_{1}(\omega)=\omega_3,
+\]
+whose continuum spherical eigenvalue is 2:
+\[
+-\Delta_{S^2}Y_1=2Y_1.
+\]
+The discrete quotient is
+\[
+\lambda_{1,h}=\frac{\sum_{\{j,k\}}(\ell^*_{jk}/\ell_{jk})(Y_1(\omega_j)-Y_1(\omega_k))^2}
+{\sum_j A_jY_1(\omega_j)^2}.
+\]
+This is a **consistency diagnostic only**. The test checks finiteness and positivity at two refinement levels; it deliberately does not assert monotone convergence or treat a finite quotient as proof of the angular Mosco liminf/recovery statements.
