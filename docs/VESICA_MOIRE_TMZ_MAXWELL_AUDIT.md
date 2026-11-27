@@ -22,10 +22,11 @@ For an isotropic, lossless medium with scalar relative permittivity \(\varepsilo
 \partial_t H_x=-\partial_y E_z,\qquad
 \partial_t H_y=\partial_x E_z.
 \]
-Eliminating \(H_x,H_y\) yields
+In normalized units with \(c=1\), eliminating \(H_x,H_y\) yields
 \[
 \varepsilon_r\,\partial_t^2 E_z=\Delta E_z.
 \]
+Restoring physical units gives \(\varepsilon_r\,\partial_t^2 E_z=c^2\Delta E_z\).
 For harmonic fields \(E_z=e(x,y)e^{-i\omega t}\),
 \[
 -\Delta e=(\omega/c)^2\varepsilon_r e
