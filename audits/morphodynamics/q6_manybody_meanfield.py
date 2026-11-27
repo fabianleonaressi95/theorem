@@ -57,9 +57,7 @@ def two_boson_hamiltonian(h, interaction):
         occ[j] += 1
         if i == j:
             rows.append(col); cols.append(col); vals.append(float(interaction))
-        for q in (i, j):
-            if q == j and i == j:
-                continue
+        for q in sorted(set((i, j))):
             nq = int(occ[q])
             if nq == 0:
                 continue
@@ -100,9 +98,7 @@ def one_body_density(psi):
     for col, (i, j) in enumerate(pairs):
         occ = np.zeros(64, dtype=int)
         occ[i] += 1; occ[j] += 1
-        for q in (i, j):
-            if q == j and i == j:
-                continue
+        for q in sorted(set((i, j))):
             nq = int(occ[q])
             if nq == 0:
                 continue
