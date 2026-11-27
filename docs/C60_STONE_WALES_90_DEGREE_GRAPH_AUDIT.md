@@ -124,3 +124,8 @@ The 30 labelled flips are consistent with the classical C60 Stone–Wales patch 
 For each accepted dual flip, the two endpoints of the flipped dual edge must have degree 6 and the two opposite vertices must have degree 5. Thus the initial four-ring patch is exactly \(5/6/6/5\), with a central direct \(6|6\) bond. After the flip, the two old degree-6 dual vertices become degree 5 and the two old degree-5 vertices become degree 6, giving \(6/5/5/6\). The regression test checks this degree exchange explicitly; it also checks that the direct-graph ring inventory remains 12 pentagons and 20 hexagons.
 
 The 30 labelled flips remain one symmetry orbit, not 30 distinct isomer classes. This is a finite-graph result and does not by itself establish a transition-state trajectory or activation barrier.
+
+
+## 8. Pi-only electronic-population diagnostic
+
+A separate fixed-geometry Hückel calculation is documented in C60_SW_PI_ELECTRONIC_POPULATION_AUDIT.md. It uses the 60-site adjacency Hamiltonian H=-A, 60 pi electrons, and the diagonal of the spin-summed occupied-orbital density matrix. This yields a site-population covariance, **not** a continuous real-space electron-density tensor or DFT result. The pristine-to-SW HOMO–LUMO gap changes from 0.7565982539 t to 0.3184344809 t, and the site-population anisotropy from numerical zero to 0.0016099344. All 30 labelled flips give the same spectral and covariance invariants to numerical tolerance. The separate Q6 parity audit rules out a direct C60-carbon-graph to Q6-1-skeleton graph homomorphism, but not a chain map with multi-edge images or a face-fibre construction.
