@@ -15,10 +15,17 @@ import json
 from itertools import combinations
 import numpy as np
 
-from scripts.audit_q6_discrete_cartan import (
-    I3, reconstruct_seed, spatial_coframes, build_discrete_cartan,
-    q6_squares, random_so3
-)
+try:
+    from scripts.audit_q6_discrete_cartan import (
+        I3, reconstruct_seed, spatial_coframes, build_discrete_cartan,
+        q6_squares, random_so3
+    )
+except ModuleNotFoundError:
+    # Also support direct execution: python scripts/audit_q6_se3_cartan_bianchi.py
+    from audit_q6_discrete_cartan import (
+        I3, reconstruct_seed, spatial_coframes, build_discrete_cartan,
+        q6_squares, random_so3
+    )
 
 ZERO = np.zeros(3)
 IDENTITY = (I3.copy(), ZERO.copy())
