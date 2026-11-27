@@ -56,7 +56,7 @@ def volterra_three_core_data(separation: float, core_radius: float,
     moments_dipole = global_moments(frank_dipole, burgers_dipole)
     moments_edge = global_moments(frank_edge, burgers_edge)
     distances = np.linalg.norm(centers[:, None, :] - centers[None, :, :], axis=-1)
-    distances += np.eye(3)*np.inf
+    np.fill_diagonal(distances, np.inf)
     if np.min(distances) <= 2.0*a:
         raise ValueError("core disks overlap")
 
