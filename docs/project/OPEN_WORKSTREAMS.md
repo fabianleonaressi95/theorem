@@ -27,7 +27,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
 | SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
-| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | no open PR; further continuum/Γ-limit claims remain separately scoped |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
 | In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | `theorem` | T154/T155 merged in #517; T156 merged in #516; source review and coordinate/incidence tests | PARTIALLY VERIFIED: static coordinate and finite incidence results only | continuous 22.5° hinge path, chirality/orientation map, and physical/atomic interpretations remain OPEN; PR #517 merge does not close these claims |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
