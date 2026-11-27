@@ -88,7 +88,7 @@ Their oriented angular rates are \(+\Omega\) and \(-\Omega\). Under a time-depen
 \[
 \omega'_t=S\omega_tS^{-1}-\dot S S^{-1},
 \]
-so \(D'_tB'=S(D_tB)\). This is the exact tetrad-frame covariance bridge for a rotating field; it is not a new Maxwell or gravitational field equation. The CI audit checks the identity at 33 sample times.
+so \(D'_tB'=S(D_tB)\). This is the exact tetrad-frame covariance bridge for a rotating field; it is not a new Maxwell or gravitational field equation. The CI audit checks the identity at 33 sample times: the positive-sequence rate is +2.3, the negative-sequence rate is −2.3, and the maximum co-rotating-frame covariance residual is (8.89\times10^{-16}).
 
 ## 6. Reproduction
 
