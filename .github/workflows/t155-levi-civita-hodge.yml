@@ -1,4 +1,4 @@
-name: T155 dodecahedral Levi-Civita and covariant Hodge audit
+name: T155 geometric and theorem-register audits
 on:
   push:
     paths:
@@ -13,6 +13,10 @@ on:
     paths:
       - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
       - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
+      - "docs/THEOREM_MASTER_REGISTER.csv"
+      - "docs/THEOREM_MASTER_REGISTER.md"
+      - "scripts/build_theorem_register.py"
+      - "scripts/check_theorem_register.py"
       - ".github/workflows/t155-levi-civita-hodge.yml"
   workflow_dispatch:
 jobs:
