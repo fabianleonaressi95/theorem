@@ -245,6 +245,12 @@ def build_audit() -> dict:
         },
         "checks": checks,
         "all_exact_checks_passed": all(checks.values()),
+        # Stable exact data interface for downstream representation audits.
+        "signed_actions": [g.tolist() for g in actions],
+        "class_of_action": {
+            name: [actions.index(g) for g in elements]
+            for name, elements in class_data.items()
+        },
     }
 
 
