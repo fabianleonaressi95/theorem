@@ -1,0 +1,31 @@
+name: C60 Kathara Q6 chain bridge audit
+on:
+  push:
+    branches:
+      - research/c60-q6-chain-bridge-audit
+    paths:
+      - "scripts/audit_c60_q6_bridge.py"
+      - "tests/test_c60_q6_bridge.py"
+      - ".github/workflows/c60-q6-chain-bridge.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_c60_q6_bridge.py"
+      - "tests/test_c60_q6_bridge.py"
+      - "scripts/audit_c60_stone_wales.py"
+      - ".github/workflows/c60-q6-chain-bridge.yml"
+  workflow_dispatch:
+jobs:
+  exact-c60-homology:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy scipy networkx pytest
+      - run: python scripts/audit_c60_q6_bridge.py --out c60_q6_bridge_audit.json
+      - run: pytest -q tests/test_c60_q6_bridge.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: c60-q6-chain-bridge-audit
+          path: c60_q6_bridge_audit.json

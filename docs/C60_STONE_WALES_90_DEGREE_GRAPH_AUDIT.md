@@ -104,4 +104,18 @@ These values are **nuclear-coordinate covariance proxies** for one selected labe
 | A commutative fullerene–Kathara/Q6 map exists | Open |
 | The molecular vesica tensor and fullerene nuclear covariance obey one common law | Open |
 
+The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.\n\n### Symmetry and graph-isomorphism classification (new audit)\n\nThe companion script `scripts/classify_c60_sw_orbits.py` enumerates the automorphism group of the icosahedral fullerene dual graph, verifies its order, and partitions the 30 labelled dual flips under that action. The action is applied to the dual edge being flipped, not to an arbitrarily labelled carbon-graph reconstruction.
+
+The exact finite-graph result is:
+
+- admissible labelled SW_{5|6} dual flips: **30**;
+- automorphism group order of the dual graph: **120** (the full (I_h) symmetry group);
+- unlabelled post-switch carbon-graph isomorphism classes: **1**, of size 30;
+- (I_h)-orbits of admissible dual edges: **1**, of size 30.
+
+Thus the 30 labelled operations are one symmetry orbit and produce one unlabelled post-switch graph class. They are **not 30 non-isomorphic C60 chemical isomers**. The classification is combinatorial; it does not calculate transition-state trajectories, barriers, or multi-step isomer networks. The full partition is written to `orbit_classification.json` by the workflow.
+
+### Chemical identification of the local move
+
+The dual flip has two degree-6 endpoints (hexagons) and two opposite degree-5 vertices (pentagons). In the direct fullerene surface, this is the pyracylene (mathrm{SW}_{5|6}) rearrangement, with the local four-ring pattern (5/6/6/5 \rightarrow 6/5/5/6). It is not the graphenic (mathrm{SW}_{6|6}) operation, whose initial four-ring patch consists of four hexagons and produces a (5/7/7/5) defect. The distinction follows the established fullerene/graphene terminology in Ori et al. (2011) and the dual-edge description in Sabirov & Ori (2020).
 The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.
