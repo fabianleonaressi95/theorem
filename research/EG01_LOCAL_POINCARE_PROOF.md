@@ -156,3 +156,12 @@ The correct remaining open questions are the boundary completion of (G3), the un
 - Graph-to-nonlocal-energy domination: **proved** under (S), (D_b), (P), (W), and the stated Voronoi boundary geometry.
 - Uniform Poincare / strong \(L^2\) compactness: **proved conditionally** under the same assumptions and the standard nonlocal compactness lemma.
 - Full Gamma-convergence theorem: **open**.
+
+
+## 10. Reference for the nonlocal compactness step
+
+A standard reference for nonlocal difference-quotient characterizations and their relation to Sobolev compactness and Gamma-convergence is:
+
+- A. C. Ponce, “A new approach to Sobolev spaces and connections to Γ-convergence,” *Calculus of Variations and Partial Differential Equations* 19 (2004), 229–255, DOI: [10.1007/s00526-003-0195-z](https://doi.org/10.1007/s00526-003-0195-z).
+
+The graph-specific contribution here is the estimate (5.2), which reduces the discrete graph energy to that established nonlocal framework.
