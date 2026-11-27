@@ -75,18 +75,19 @@ def equivariance_residuals(x, psi, x_reference, vertex_map, *,
 
     energy = joint_energy(x, psi, x_reference,
                           stiffness=stiffness, coupling=coupling)
-    energyp = joint_energy(xp, psip, xrefp,
+    # Keep x_reference fixed: symmetry is tested for the same model parameters.
+    energyp = joint_energy(xp, psip, x_reference,
                            stiffness=stiffness, coupling=coupling)
     grad = geometry_gradient(x, psi, x_reference,
                              stiffness=stiffness, coupling=coupling)
-    gradp = geometry_gradient(xp, psip, xrefp,
+    gradp = geometry_gradient(xp, psip, x_reference,
                               stiffness=stiffness, coupling=coupling)
     xdot, psidot = coupled_rhs(
         x, psi, x_reference, stiffness=stiffness, coupling=coupling,
         mobility=mobility, hbar=hbar
     )
     xdotp, psidot_p = coupled_rhs(
-        xp, psip, xrefp, stiffness=stiffness, coupling=coupling,
+        xp, psip, x_reference, stiffness=stiffness, coupling=coupling,
         mobility=mobility, hbar=hbar
     )
 
@@ -108,21 +109,29 @@ def equivariance_residuals(x, psi, x_reference, vertex_map, *,
 
 def rk4_step(x, psi, x_reference, dt, *, stiffness=1.0, coupling=1.0,
              mobility=1.0, hbar=1.0):
-    """One explicit RK4 step for the coupled finite-dimensional MQM-1 ODE."""
+    """One normalized-stage RK4 step on the MQM-1 unit-state manifold."""
+    def normalize(state):
+        norm = np.linalg.norm(state)
+        if not np.isfinite(norm) or norm == 0.0:
+            raise ValueError("intermediate quantum state has invalid norm")
+        return state / norm
+
     def rhs(xx, pp):
+        # The exact vector field is tangent to the unit sphere. Normalize
+        # Runge-Kutta stage states to satisfy MQM-1's strict input contract.
         return coupled_rhs(
-            xx, pp, x_reference, stiffness=stiffness, coupling=coupling,
-            mobility=mobility, hbar=hbar
+            xx, normalize(pp), x_reference, stiffness=stiffness,
+            coupling=coupling, mobility=mobility, hbar=hbar
         )
 
+    psi = normalize(np.asarray(psi, dtype=complex))
     k1x, k1p = rhs(x, psi)
-    k2x, k2p = rhs(x + 0.5 * dt * k1x, psi + 0.5 * dt * k1p)
-    k3x, k3p = rhs(x + 0.5 * dt * k2x, psi + 0.5 * dt * k2p)
-    k4x, k4p = rhs(x + dt * k3x, psi + dt * k3p)
-    return (
-        x + (dt / 6.0) * (k1x + 2*k2x + 2*k3x + k4x),
-        psi + (dt / 6.0) * (k1p + 2*k2p + 2*k3p + k4p),
-    )
+    k2x, k2p = rhs(x + 0.5 * dt * k1x, normalize(psi + 0.5 * dt * k1p))
+    k3x, k3p = rhs(x + 0.5 * dt * k2x, normalize(psi + 0.5 * dt * k2p))
+    k4x, k4p = rhs(x + dt * k3x, normalize(psi + dt * k3p))
+    x_next = x + (dt / 6.0) * (k1x + 2*k2x + 2*k3x + k4x)
+    psi_next = psi + (dt / 6.0) * (k1p + 2*k2p + 2*k3p + k4p)
+    return x_next, normalize(psi_next)
 
 
 def integrate_rk4(x, psi, x_reference, *, steps, dt, stiffness=1.0,
