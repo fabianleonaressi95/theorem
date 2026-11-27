@@ -33,6 +33,9 @@ Maps each active research thread to its canonical repository, key files, verific
 |---|---|---|---|---|
 | SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | no open PR; further continuum/Γ-limit claims remain separately scoped |
+| Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
+| In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | `theorem` | T154/T155 merged in #517; T156 merged in #516; source review and coordinate/incidence tests | PARTIALLY VERIFIED: static coordinate and finite incidence results only | continuous 22.5° hinge path, chirality/orientation map, and physical/atomic interpretations remain OPEN; PR #517 merge does not close these claims |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 and #479 merged; matched Morandotti C0-IPDG benchmark proposed in PR #526 | NUMERICALLY VERIFIED for existing dipole→edge audit | PR #526 open; benchmark review pending; do not infer a continuum/Γ-limit theorem from the new benchmark alone |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 and #479 merged; matched Morandotti C0-IPDG benchmark proposed in PR #526 | NUMERICALLY VERIFIED for existing dipole→edge audit | PR #526 open; matched FEM comparison remains under review; four reported eigenpairs failed residual certification and eight cases were cancelled, so no certified comparison is yet available; no continuum/Γ-limit theorem is inferred |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
@@ -45,6 +48,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
 | FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `test_volumetric_complex.py`, `holonomy.py`, `connection.py`, PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
+| T157 covariant Whitney curvature audit | `theorem` | `scripts/audit_t157_full_covariant_whitney_curvature.py`, `tests/test_t157_full_covariant_whitney_curvature.py`, `.github/workflows/t157-covariant-whitney.yml` | IMPLEMENTED; CI status not yet confirmed in this pass | audit mathematical assumptions and run the new workflow; do not assume flatness because the model explicitly treats the covariant curvature defect as nonzero |
 | T157 covariant Whitney curvature audit | `theorem` | `theorems/T157-full-covariant-whitney-curvature.md`, script, regression test and workflow | NUMERICALLY VERIFIED for the finite link-based model (per committed report) | T158 now supplies an interior pullback connection and path-transported masses; mesh-refinement convergence remains OPEN; curvature defect is intentionally nonzero |
 | T158 interior pullback connection Whitney mass audit | `theorem` | `theorems/T158-interior-pullback-covariant-whitney.md`, script, tests and workflow | NUMERICALLY VERIFIED for the specified finite-mesh model (per committed report; order-8/order-12 mass residuals near 10^-14) | mesh-refinement convergence and smooth-continuum identification remain OPEN |
 | Mosco convergence / graph Γ-limits | `rgs-qlg` (PR #230 formalization) + `theorem` PR #451 | `rgs-qlg/docs/FLAT_TORUS_G6_P1_MOSCO_PROOF.md`, `theorem` PR #451 | ANALYTICALLY VERIFIED per repo | — |
@@ -56,6 +60,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | Thread | Canonical repo | Status | Missing |
 |---|---|---|---|
 | C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | PR #449 pending |
+| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged; follow-up PR #518 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | follow-up PR #518 review pending; do not treat it as new physical validation |
 | C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PRs #449 and #518 merged) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | preserve the distinction between graph-patch regression tests and electronic-structure/physical validation |
 | C64 enumeration/audit | `fullerene-c64-audit` | NUMERICALLY VERIFIED (per PR #1 body; tests reported passing; **no CI**) | PR #1 unmerged; add CI |
 | Fullerene↔Q6/Kathara interface | `theorem` + `fullerene-c64-audit` doc | HYPOTHESIS (explicitly conjectural) | needs theorem + data bridge |
