@@ -176,7 +176,7 @@ def main() -> int:
         scripts, tests = extract_refs(text)
         rel = path.relative_to(ROOT).as_posix()
         rows.append({
-            "id": fid, "title": title, "area": area_of(fid, title),
+            "id": fid, "record_key": path.stem, "title": title, "area": area_of(fid, title),
             "statement": "", "hypotheses": "", "status": status,
             "proof_type": "", "proof_ref": "", "scripts": ";".join(scripts),
             "tests": ";".join(tests), "datasets": "", "quantitative": "",
@@ -223,7 +223,7 @@ def main() -> int:
         else:
             r["proof_type"] = "mixed / see card"
 
-    fieldnames = ["id", "title", "area", "statement", "hypotheses", "status",
+    fieldnames = ["id", "record_key", "title", "area", "statement", "hypotheses", "status",
                   "proof_type", "proof_ref", "scripts", "tests", "datasets",
                   "quantitative", "dependencies", "limits", "next_check",
                   "last_update", "file", "status_note"]
@@ -256,10 +256,10 @@ def main() -> int:
         for s in TAXONOMY:
             fh.write(f"| {s} | {counts.get(s, 0)} |\n")
         fh.write("\n## Cards\n\n")
-        fh.write("| ID | Title | Area | Status | File | Note |\n|---|---|---|---|---|---|\n")
+        fh.write("| ID | Record key (unique) | Title | Area | Status | File | Note |\n|---|---|---|---|---|---|---|\n")
         for r in rows:
             title = r["title"].replace("|", "\\|")[:90]
-            fh.write(f"| {r['id']} | {title} | {r['area']} | {r['status']} | `{r['file']}` | {r['status_note']} |\n")
+            fh.write(f"| {r['id']} | `{r['record_key']}` | {title} | {r['area']} | {r['status']} | `{r['file']}` | {r['status_note']} |\n")
 
     print(f"rows={len(rows)}")
     for s in TAXONOMY:
