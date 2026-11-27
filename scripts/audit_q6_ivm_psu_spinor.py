@@ -24,14 +24,31 @@ SIGMA = np.asarray([
 ], dtype=np.complex128)
 
 
-def golden_axes() -> np.ndarray:
-    """Six normalized icosahedral axes used by the signed Q6 construction."""
+def golden_axes(parameter: float = PHI) -> np.ndarray:
+    """Six normalized icosahedral axes, with algebraic conjugate parameter allowed."""
+    p = float(parameter)
     raw = np.asarray([
-        (0, 1, PHI), (0, 1, -PHI),
-        (1, PHI, 0), (1, -PHI, 0),
-        (PHI, 0, 1), (PHI, 0, -1),
+        (0, 1, p), (0, 1, -p),
+        (1, p, 0), (1, -p, 0),
+        (p, 0, 1), (p, 0, -1),
     ], dtype=float)
     return raw / np.linalg.norm(raw, axis=1)[:, None]
+
+
+def golden_projection_matrices() -> tuple[np.ndarray, np.ndarray]:
+    """Return the T129 physical/internal 3x6 golden projections."""
+    phi_star = (1.0 - np.sqrt(5.0)) / 2.0
+
+    def A(p: float) -> np.ndarray:
+        return np.asarray([
+            [0.0, 0.0, 1.0, -1.0, p, p],
+            [1.0, -1.0, p, p, 0.0, 0.0],
+            [p, p, 0.0, 0.0, 1.0, -1.0],
+        ], dtype=float)
+
+    p_parallel = A(PHI) / np.sqrt(2.0 * (2.0 + PHI))
+    p_internal = A(phi_star) / np.sqrt(2.0 * (2.0 + phi_star))
+    return p_parallel, p_internal
 
 
 def q6_vectors() -> tuple[np.ndarray, np.ndarray]:
@@ -117,6 +134,25 @@ def _distance_spectrum(points: np.ndarray) -> np.ndarray:
 def run_audit() -> dict:
     bits, points = q6_vectors()
     edges = q6_edges()
+
+    # Exact bridge to T129: signed golden vectors are the physical/internal
+    # projections of the centred Q6 cube, up to scale and a fixed bit relabelling.
+    p_parallel, p_internal = golden_projection_matrices()
+    centred = bits.astype(float) - 0.5
+    x_parallel = centred @ p_parallel.T
+    x_internal = centred @ p_internal.T
+    bit_relabel_mask = 53  # axes 0,2,4,5 are complemented in this convention
+    relabel = np.arange(64, dtype=np.int64) ^ bit_relabel_mask
+    phi_star = (1.0 - np.sqrt(5.0)) / 2.0
+    internal_points = (1.0 - 2.0 * bits) @ golden_axes(phi_star)
+    projection_scale = 1.0 / (2.0 * np.sqrt(2.0))
+    physical_projection_residual = float(np.max(
+        np.linalg.norm(x_parallel - projection_scale * points[relabel], axis=1)
+    ))
+    internal_projection_residual = float(np.max(
+        np.linalg.norm(x_internal - projection_scale * internal_points[relabel], axis=1)
+    ))
+    projected_distances = _distance_spectrum(x_parallel)
     radii = np.linalg.norm(points, axis=1)
     rounded_radii, shell_counts = np.unique(np.round(radii, 10), return_counts=True)
     distances = _distance_spectrum(points)
@@ -178,6 +214,8 @@ def run_audit() -> dict:
     # PSU radius is l_P/2, hence non-overlap requires centre separation >= l_P.
     min_pair_distance = float(distances.min())
     lambda_min_over_lP = 1.0 / min_pair_distance
+    min_projected_pair_distance = float(projected_distances.min())
+    lambda_min_projected_over_lP = 1.0 / min_projected_pair_distance
 
     # Fundamental spin-1/2 representation: 2pi -> -I, 4pi -> +I.
     q_2pi = np.asarray([np.cos(np.pi), 0.0, 0.0, np.sin(np.pi)])
@@ -187,6 +225,8 @@ def run_audit() -> dict:
 
     checks = {
         "64_distinct_vectors": unique_count == 64,
+        "exact_T129_physical_projection_identity": physical_projection_residual < 1e-12,
+        "exact_T129_internal_projection_identity": internal_projection_residual < 1e-12,
         "32_antipodal_pairs": antipodal_residual < 1e-12,
         "q6_has_192_edges": len(edges) == 192,
         "four_radial_shells_12_20_20_12": list(shell_counts) == [12, 20, 20, 12],
@@ -199,6 +239,15 @@ def run_audit() -> dict:
     }
     return {
         "status": "FINITE_Q6_GOLDEN_VECTOR_AND_SPIN_LIFT_AUDITED",
+        "cut_project_correspondence": {
+            "source": "T129 golden 6D -> physical/internal 3D projections of centred Q6 cube",
+            "bit_relabel_mask_low_bit_first": bit_relabel_mask,
+            "identity": "P_parallel*(b-1/2) = F_phi(b XOR 53)/(2*sqrt(2))",
+            "internal_identity": "P_internal*(b-1/2) = F_phi_star(b XOR 53)/(2*sqrt(2))",
+            "projection_scale": projection_scale,
+            "physical_projection_residual_max": physical_projection_residual,
+            "internal_projection_residual_max": internal_projection_residual,
+        },
         "construction": {
             "carrier": "64 six-bit I Ching states; Hamming-1 Q6 adjacency",
             "vector_rule": "F(b)=sum_i (-1)^b_i n_i; n_i are six normalized icosahedral axes",
@@ -225,7 +274,9 @@ def run_audit() -> dict:
             "psu_radius": "l_P/2 (Haramein 2013 convention)",
             "condition": "centre distance >= l_P",
             "scale_rule": "P_b=lambda*F(b)",
-            "lambda_min_over_lP": lambda_min_over_lP,
+            "lambda_min_over_lP_for_F_coordinates": lambda_min_over_lP,
+            "minimum_pair_distance_in_T129_physical_coordinates": min_projected_pair_distance,
+            "lambda_min_over_lP_for_T129_physical_coordinates": lambda_min_projected_over_lP,
             "interpretation": "necessary non-overlap scale only; not a space-filling or physical derivation",
         },
         "spinorial_lift": {
@@ -253,7 +304,7 @@ def run_audit() -> dict:
         "checks": checks,
         "pass": all(checks.values()),
         "epistemic_limits": [
-            "The 64 signed golden vectors are a defined Q6 construction, not the 64 tetrahedron cells themselves.",
+            "The 64 signed golden vectors are exactly the T129 physical projection of the centred Q6 cube, up to the stated scale and bit relabelling; they are not the 64 tetrahedron cells themselves.",
             "The reported 64-tetrahedron IVM grid is a distinct geometric construction; equivariance is untested.",
             "PSU non-overlap is a geometric necessary condition, not a packing, holographic, or quantum-gravity theorem.",
             "This is a spatial Spin(3) lift, not a Lorentzian Spin(1,3)=SL(2,C) spin bundle.",
