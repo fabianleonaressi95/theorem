@@ -1,6 +1,6 @@
 # C60 Stone-Wales 90° graph and covariance audit
 
-**Status:** implementation added; numerical status is pending the dedicated GitHub Actions run. No result is promoted to verified until the workflow report and artifact are inspected.
+**Status:** graph reconstruction, topology checks, chain-map identities and the 30-site enumeration were verified by the 2026-11-26 GitHub Actions run. The present clarification makes the pyracylene patch signature explicit and adds a regression test.
 
 ## Starting graph
 
@@ -119,3 +119,10 @@ Thus the 30 labelled operations are one symmetry orbit and produce one unlabelle
 
 The dual flip has two degree-6 endpoints (hexagons) and two opposite degree-5 vertices (pentagons). In the direct fullerene surface, this is the pyracylene (mathrm{SW}_{5|6}) rearrangement, with the local four-ring pattern (5/6/6/5 \rightarrow 6/5/5/6). It is not the graphenic (mathrm{SW}_{6|6}) operation, whose initial four-ring patch consists of four hexagons and produces a (5/7/7/5) defect. The distinction follows the established fullerene/graphene terminology in Ori et al. (2011) and the dual-edge description in Sabirov & Ori (2020).
 The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.
+
+
+## Pyracylene patch signature: explicit regression criterion
+
+For each accepted dual flip, the two endpoints of the flipped dual edge must have degree 6 and the two opposite vertices must have degree 5. Thus the initial four-ring patch is exactly \(5/6/6/5\), with a central direct \(6|6\) bond. After the flip, the two old degree-6 dual vertices become degree 5 and the two old degree-5 vertices become degree 6, giving \(6/5/5/6\). The regression test checks this degree exchange explicitly; it also checks that the direct-graph ring inventory remains 12 pentagons and 20 hexagons.
+
+The 30 labelled flips remain one symmetry orbit, not 30 distinct isomer classes. This is a finite-graph result and does not by itself establish a transition-state trajectory or activation barrier.
