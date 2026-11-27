@@ -133,7 +133,10 @@ def audit():
     spread_gap = float(max(gaps) - min(gaps))
     spread_anisotropy = float(max(anisotropies) - min(anisotropies))
 
-    same_postgraph_class = all(nx.is_isomorphic(moves[0]["graph"], move["graph"]) for move in moves[1:])\n    if not same_postgraph_class:\n        raise RuntimeError("The 30 labelled SW moves do not form one unlabelled postgraph class")\n    post_group = automorphism_group_report(moves[0]["graph"])
+    same_postgraph_class = all(nx.is_isomorphic(moves[0]["graph"], move["graph"]) for move in moves[1:])
+    if not same_postgraph_class:
+        raise RuntimeError("The 30 labelled SW moves do not form one unlabelled postgraph class")
+    post_group = automorphism_group_report(moves[0]["graph"])
     q6 = q6_one_skeleton()
     c60_has_odd_face = any(len(face) % 2 for face in c60_faces)
     q6_bipartite = nx.is_bipartite(q6)
