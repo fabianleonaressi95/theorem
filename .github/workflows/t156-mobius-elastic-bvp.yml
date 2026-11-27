@@ -23,7 +23,7 @@ permissions:
 jobs:
   t156-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,8 +35,30 @@ jobs:
         run: python scripts/audit_t156_vesica_mobius_farey.py
       - name: Run exact algebra regression tests
         run: python -m unittest discover -s tests -p "test_t156_vesica_mobius_farey.py" -v
-      - name: Attempt finite-width symmetric Mobius BVP
+      - name: SciPy collocation diagnostic (not the primary continuation solver)
+        continue-on-error: true
         run: python scripts/solve_t156_mobius_elastic_bvp.py
+      - name: Install AUTO-07p build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran make
+      - name: Build AUTO-07p
+        run: |
+          git clone --depth 1 https://github.com/auto-07p/auto-07p.git /tmp/auto-07p
+          cd /tmp/auto-07p
+          ./configure
+          make -j2
+      - name: Run AUTO-07p Möbius continuation
+        run: |
+          export AUTO_DIR=/tmp/auto-07p
+          source "$AUTO_DIR/cmds/auto.env.sh"
+          export PATH="$AUTO_DIR/bin:$AUTO_DIR/cmds:$PATH"
+          mkdir -p /tmp/t156-auto
+          cp scripts/t156_auto/* /tmp/t156-auto/
+          cd /tmp/t156-auto
+          auto mobius.auto
+          mkdir -p "$GITHUB_WORKSPACE/results/t156_auto"
+          cp -a . "$GITHUB_WORKSPACE/results/t156_auto/"
       - name: Run BVP formulation tests
         if: always()
         run: python -m unittest discover -s tests -p "test_t156_mobius_elastic_bvp.py" -v
@@ -45,6 +67,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: t156-mobius-elastic-bvp-report
-          path: results/t156_mobius_elastic_bvp.json
+          path: |
+            results/t156_mobius_elastic_bvp.json
+            results/t156_auto/
           if-no-files-found: warn
           retention-days: 30
