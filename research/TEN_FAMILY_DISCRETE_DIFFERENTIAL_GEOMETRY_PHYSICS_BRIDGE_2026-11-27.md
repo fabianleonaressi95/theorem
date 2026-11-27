@@ -187,7 +187,7 @@ Le quattro compatibilità da dimostrare sono:
 8. Cho, “Gauge theory of Poincaré symmetry”, Physical Review D 14 (1976), 3335, DOI 10.1103/PhysRevD.14.3335. Connessione lorentziana, curvatura e torsione nella teoria di gauge di Poincaré.
 9. Wilson, “Confinement of quarks”, Physical Review D 10 (1974), 2445, DOI 10.1103/PhysRevD.10.2445. Azione di gauge su reticolo e variabili di plaquette.
 
-Questa letteratura legittima strumenti e metodi nelle rispettive ipotesi; non dimostra che la specifica costruzione Q6–golden–IVM–PSU possieda già il limite lorentziano e fisico richiesto.
+10. Braune, Gillespie, Tong, Desbrun, “Discrete Torsion of Connection Forms on Simplicial Meshes,” ACM Transactions on Graphics 44(4), Article 67 (2025), DOI 10.1145/3731197. Definisce torsione discreta di connessioni su mesh simpliciali rispetto a una connessione di riferimento; è un riferimento recente per l'operatore, non una dimostrazione per il complesso RGS.\n11. Yan, Ding, Ma, Zhang, “Dynamics of Regge calculus with torsion,” arXiv:2610.00593 (2026), preprint non ancora peer-reviewed alla data di questo dossier. Costruisce tetradi discrete e olonomie d'interfaccia, con curvatura sui hinge e torsione sulle interfacce; va trattato come lavoro preliminare da verificare criticamente.\n\nQuesta letteratura legittima strumenti e metodi nelle rispettive ipotesi; non dimostra che la specifica costruzione Q6–golden–IVM–PSU possieda già il limite lorentziano e fisico richiesto.
 
 ## 10. Registro di stato
 
