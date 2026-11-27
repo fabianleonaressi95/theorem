@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       resume_from_run_id:
-        description: "Optional previous run ID whose checkpoint artifact should be resumed"
+        description: "Optional previous run ID whose shard artifacts should be resumed"
         required: false
         type: string
   pull_request:
@@ -19,6 +19,7 @@ on:
       - 'tests/test_morandotti_independent_remeshing.py'
       - 'tests/test_morandotti_resolution_decomposition.py'
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - 'docs/rgs_defect_benchmark/MORANDOTTI_INDEPENDENT_REMESHING_EXTENDED_REFINEMENT.md'
       - '.github/workflows/morandotti-independent-remeshing.yml'
       - 'scripts/audit_runtime.py'
       - 'scripts/render_audit_summary.py'
@@ -34,6 +35,7 @@ on:
       - 'tests/test_morandotti_independent_remeshing.py'
       - 'tests/test_morandotti_resolution_decomposition.py'
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - 'docs/rgs_defect_benchmark/MORANDOTTI_INDEPENDENT_REMESHING_EXTENDED_REFINEMENT.md'
       - '.github/workflows/morandotti-independent-remeshing.yml'
 
 permissions:
@@ -46,12 +48,12 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        include: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[{"shard":"h0080","mesh_size":0.08},{"shard":"h0060","mesh_size":0.06},{"shard":"h0045","mesh_size":0.045},{"shard":"h0035","mesh_size":0.035}]') || fromJSON('[{"shard":"pr","mesh_size":0.08}]') }}
+        include: ${{ github.event_name == 'workflow_dispatch' && fromJSON('[{"shard":"h0080","mesh_size":0.08},{"shard":"h0060","mesh_size":0.06},{"shard":"h0045","mesh_size":0.045},{"shard":"h0035","mesh_size":0.035},{"shard":"h0027","mesh_size":0.027},{"shard":"h0022","mesh_size":0.022},{"shard":"h0018","mesh_size":0.018}]') || fromJSON('[{"shard":"pr","mesh_size":0.08}]') }}
     runs-on: ubuntu-latest
     container:
       image: dolfinx/dolfinx:v0.11.0
       options: --user root
-    timeout-minutes: 120
+    timeout-minutes: 180
     env:
       AUDIT_PROGRESS_FILE: artifacts/morandotti_independent_remeshing/progress.jsonl
     steps:
@@ -109,7 +111,7 @@ jobs:
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: morandotti-independent-remeshing-${{ matrix.mesh_seed }}
+          name: morandotti-independent-remeshing-${{ matrix.shard }}
           path: artifacts/morandotti_independent_remeshing/
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30

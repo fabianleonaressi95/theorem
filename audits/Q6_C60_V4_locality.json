@@ -1,0 +1,88 @@
+{
+  "classification": "numerical locality diagnostic for one explicit V4 intertwiner",
+  "date": "2026-11-27",
+  "workflow_run": "https://github.com/fabianleonaressi95/theorem/actions/runs/46015219978",
+  "workflow_artifact": "q6-c60-v4-equivariance",
+  "source_archive": "data/RGS_PSU_all_matrices.npz",
+  "Q6_operator": "archived Q6_adjacency (64x64)",
+  "transport": "D_C60 = Phi D_Q6 Phi^T, with Phi the projector-built orthogonal V4 intertwiner",
+  "face_inventory": {
+    "faces": 32,
+    "pentagons": 12,
+    "hexagons": 20,
+    "face_adjacency_edges": 90,
+    "degree_counts": {"5": 12, "6": 20}
+  },
+  "intertwiner": {
+    "shape": [64, 64],
+    "orthogonality_residual": 8.334971870570539e-15,
+    "max_V4_intertwining_residual": 5.664894297393229e-15,
+    "isotypic_multiplicities": {
+      "-1,-1": {"Q6": 16, "C60": 16},
+      "-1,+1": {"Q6": 16, "C60": 16},
+      "+1,-1": {"Q6": 16, "C60": 16},
+      "+1,+1": {"Q6": 16, "C60": 16}
+    }
+  },
+  "transported_operator": {
+    "shape": [64, 64],
+    "symmetry_residual": 4.462900062787044e-15,
+    "frobenius_norm": 19.595917942265434,
+    "block_support_thresholds": {
+      "1e-12": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      },
+      "1e-10": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      },
+      "1e-8": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      },
+      "1e-6": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      },
+      "1e-4": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      },
+      "1e-2": {
+        "nonzero_2x2_blocks": 944,
+        "diagonal_blocks": 24,
+        "adjacent_face_blocks": 160,
+        "nonadjacent_offdiagonal_blocks": 760,
+        "adjacent_edge_coverage": 0.8888888888888888,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8260869565217391
+      }
+    },
+    "adjacent_block_frobenius_energy_fraction": 0.23265743423780794,
+    "nonadjacent_offdiagonal_frobenius_energy_fraction": 0.7673425657621922,
+    "max_block_norm": 1.7120119798150288,
+    "median_nonadjacent_block_norm": 0.461412618697445
+  },
+  "basis_dependence": "The four V4 isotypic sectors each have multiplicity 16. The reported intertwiner is the deterministic eigensolver/projector choice from the previous audit; this run does not optimize over the O(16)^4 freedom. Therefore observed nonlocality is a property of this explicit intertwiner, not a no-go theorem for all V4 intertwiners.",
+  "conclusion": "The current explicit V4 intertwiner transports Q6 adjacency to a 64D operator on C60 face fibres. For this representative the transported operator is dense and nonlocal relative to actual C60 face adjacency. No canonical or optimized local intertwiner is established by this diagnostic."
+}

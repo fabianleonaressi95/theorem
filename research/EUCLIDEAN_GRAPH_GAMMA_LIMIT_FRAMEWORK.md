@@ -66,6 +66,7 @@ The lower bound follows from (G2) for distinct endpoints, but is recorded to mak
 **(G5) Approximate-geodesic connectivity.** For every pair \(x,y\in V_\varepsilon\), there is an edge path \(P_\varepsilon(x,y)\) joining them whose vertices lie in the \(C_{\rm path}\varepsilon\)-neighbourhood of the Euclidean segment \([x,y]\). Every edge on the path satisfies (G4).
 
 The path condition is stronger than bare connectivity. Together with uniform separation, it gives a uniform bound on path length and edge congestion for all vertex pairs at any fixed multiple of the mesh scale. With boundary-complete fill, this yields nonlocal coercivity and a uniform discrete Poincare inequality; see [EG01_LOCAL_POINCARE_PROOF.md](EG01_LOCAL_POINCARE_PROOF.md). The boundary-adapted averaging operator in [EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md](EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md) then gives the H1 interpolation estimate, upper growth, and the discrete fundamental estimate.
+The path condition is stronger than bare connectivity. Together with uniform separation, it gives a uniform bound on path length and edge congestion for all vertex pairs at any fixed multiple of the mesh scale. This yields a comparison with a continuum nonlocal difference quotient and, with boundary-complete fill, a uniform discrete Poincaré inequality; see [EG-01 local Poincare proof](EG01_LOCAL_POINCARE_PROOF.md). It does not by itself provide a global all-pairs congestion bound or the interpolation/upper-growth estimates needed for the full Gamma-limit.
 
 **(G6) Edge weights.** Each edge has a scalar conductance \(a_e^\varepsilon\) with
 \[
@@ -135,6 +136,7 @@ Then bounded energy and bounded \(L^2\)-norm give boundedness of \(I_\varepsilon
 together with uniform \(L^2\) boundedness and a boundary-extension/equi-tightness condition. For sequences \(\varepsilon_n\to0\), (4.2) yields the translation control needed by the Fréchet–Kolmogorov criterion.
 
 **Status:** (C1) is now derived from the nonlocal comparison by the normalized local averaging operator in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. The same note proves upper growth and the discrete fundamental estimate. The remaining analytic check is the localized measure property required by the abstract integral-representation theorem; the conclusion is therefore stated subsequentially and conditionally.
+**Important:** the EG-01 proof note derives a uniform Poincare inequality and L2 compactness under boundary-complete fill. It does not derive the full H1 interpolation estimate (C1), nor does it establish the fundamental estimate or integral representation. Those remain additional obligations.
 
 ## 5. Locality, growth, and the integral-representation target
 

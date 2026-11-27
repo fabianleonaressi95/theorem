@@ -5,7 +5,7 @@ import json
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-K0, ZA, ZS = [np.load(ROOT / n, allow_pickle=False)
+K0, ZA, ZS = [np.load(ROOT / "artifacts" / n, allow_pickle=False)
               for n in ("K0.npy", "Z_A.npy", "Z_S.npy")]
 if any(a.shape != (188, 188) for a in (K0, ZA, ZS)):
     raise SystemExit("Expected three 188x188 source arrays.")

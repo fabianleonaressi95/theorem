@@ -63,9 +63,9 @@ def compare(P, Q):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--k0", default="K0.npy")
-    ap.add_argument("--zs", default="Z_S.npy")
-    ap.add_argument("--za", default="Z_A.npy")
+    ap.add_argument("--k0", default="artifacts/K0.npy")
+    ap.add_argument("--zs", default="artifacts/Z_S.npy")
+    ap.add_argument("--za", default="artifacts/Z_A.npy")
     ap.add_argument("--out", default="audits/HALF_SECTOR_VS_K0_2026-11-24.json")
     ap.add_argument("--tol", type=float, default=1e-8)
     a = ap.parse_args()

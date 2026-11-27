@@ -80,40 +80,62 @@ def _largest_component_average_path(adjacency: np.ndarray) -> float:
 
 
 def _greedy_modularity(adjacency: np.ndarray) -> float:
-    """Maximum modularity reached by deterministic greedy community merging."""
+    """Greedy modularity score using the best positive community merge."""
     m2 = float(adjacency.sum())
     if m2 == 0:
         return 0.0
-    n = len(adjacency)
-    degree = adjacency.sum(axis=1)
-    communities = [{i} for i in range(n)]
-
-    def q(partition):
-        total = 0.0
-        for group in partition:
-            idx = sorted(group)
-            internal = float(adjacency[np.ix_(idx, idx)].sum())
-            volume = float(degree[idx].sum())
-            total += internal / m2 - (volume / m2) ** 2
-        return total
-
-    best = q(communities)
-    while len(communities) > 1:
-        candidate = None
-        candidate_q = best
-        for i in range(len(communities)):
-            for j in range(i + 1, len(communities)):
-                merged = communities[i] | communities[j]
-                trial = [g for k, g in enumerate(communities) if k not in (i, j)] + [merged]
-                value = q(trial)
-                if value > candidate_q + 1e-12:
-                    candidate_q, candidate = value, (i, j, merged)
-        if candidate is None:
+    degree = adjacency.sum(axis=1).astype(float).tolist()
+    groups = list(range(len(adjacency)))
+    weights = adjacency.astype(float).copy()
+    score = -sum((k / m2) ** 2 for k in degree)
+    while len(groups) > 1:
+        best_delta, best_pair = 0.0, None
+        for i in range(len(groups)):
+            for j in range(i + 1, len(groups)):
+                delta = weights[i, j] / m2 - 2.0 * degree[i] * degree[j] / (m2 * m2)
+                if delta > best_delta + 1e-12:
+                    best_delta, best_pair = delta, (i, j)
+        if best_pair is None:
             break
-        i, j, merged = candidate
-        communities = [g for k, g in enumerate(communities) if k not in (i, j)] + [merged]
-        best = candidate_q
-    return float(best)
+        i, j = best_pair
+        score += best_delta
+        degree[i] += degree[j]
+        weights[i, :] += weights[j, :]
+        weights[:, i] += weights[:, j]
+        weights[i, i] = 0.0
+        keep = [k for k in range(len(groups)) if k != j]
+        weights = weights[np.ix_(keep, keep)]
+        degree = [degree[k] for k in keep]
+        groups = [groups[k] for k in keep]
+    return float(score)
+
+
+def _rewire_with_acceptance(edges: set[tuple[int, int]], n_agents: int,
+                            rng: np.random.Generator, swaps_per_edge: int) -> tuple[set[tuple[int, int]], float]:
+    current = set(edges)
+    target = swaps_per_edge * len(current)
+    accepted = attempts = 0
+    max_attempts = max(100, target * 30)
+    edge_list = sorted(current)
+    while accepted < target and attempts < max_attempts:
+        attempts += 1
+        a, b = edge_list[int(rng.integers(len(edge_list)))]
+        c, d = edge_list[int(rng.integers(len(edge_list)))]
+        if len({a, b, c, d}) < 4:
+            continue
+        if rng.random() < 0.5:
+            new1, new2 = (min(a, d), max(a, d)), (min(c, b), max(c, b))
+        else:
+            new1, new2 = (min(a, c), max(a, c)), (min(b, d), max(b, d))
+        if new1 == new2 or new1 in current or new2 in current:
+            continue
+        current.remove((a, b))
+        current.remove((c, d))
+        current.add(new1)
+        current.add(new2)
+        accepted += 1
+        edge_list = sorted(current)
+    return current, accepted / target if target else 1.0
 
 
 def structural_metrics(edges: set[tuple[int, int]], profiles: np.ndarray) -> dict:
@@ -167,16 +189,14 @@ def run_structural_sweep(replicates: int = 30, seed: int = DEFAULT_SEED,
                     rng_rewire = np.random.default_rng(
                         seed + rep * 1_000_003 + ARCHITECTURES.index(arch) * 100_003 + intensity * 997
                     )
-                    candidate = degree_preserving_rewire(
+                    candidate, accepted_fraction = _rewire_with_acceptance(
                         original, N_AGENTS, rng_rewire, swaps_per_edge=intensity,
                     )
-                    # Edge symmetric difference counts twice the number of accepted swaps.
-                    accepted = len(original.symmetric_difference(candidate)) // 2
                 key = (arch, intensity)
                 degree_ok[key] = degree_ok.get(key, True) and np.array_equal(
                     original_degree, _degrees(candidate, N_AGENTS)
                 )
-                acceptance.setdefault(key, []).append(accepted / max(1, len(original) * intensity) if intensity else 1.0)
+                acceptance.setdefault(key, []).append(accepted_fraction if intensity else 1.0)
                 metrics = structural_metrics(candidate, profiles)
                 for metric in metric_names:
                     observations.setdefault((arch, intensity, metric), []).append(metrics[metric])

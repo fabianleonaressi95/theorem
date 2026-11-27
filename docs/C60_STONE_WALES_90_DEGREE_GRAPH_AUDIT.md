@@ -1,6 +1,6 @@
 # C60 Stone-Wales 90° graph and covariance audit
 
-**Status:** implementation added; numerical status is pending the dedicated GitHub Actions run. No result is promoted to verified until the workflow report and artifact are inspected.
+**Status:** graph reconstruction, topology checks, chain-map identities and the 30-site enumeration were verified by the 2026-11-26 GitHub Actions run. The present clarification makes the pyracylene patch signature explicit and adds a regression test.
 
 ## Starting graph
 
@@ -16,11 +16,9 @@ The audit works in the **dual triangulation**. Each vertex of the dual is a pent
 (H_1,H_2)\longmapsto(P_1,P_2).
 \]
 This is the dual description of the pyracylene Stone–Wales move. Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. The direct-graph operation is then recorded as its two removed and two added C–C bonds.
-For a central edge \(B-C\) shared by a pentagon and a hexagon, enumerate the four-site Stone-Wales switch
-\[
-AB,CD\mapsto AC,BD,
-\]
-retaining \(BC\). Keep only resulting graphs that are planar, trivalent, have 60 vertices and 90 edges, and retain exactly 12 pentagons and 20 hexagons. Distinct post-graphs are deduplicated.
+This is the dual description of the fullerene **pyracylene** move, conventionally denoted \\(SW_{5|6}\\). The notation labels the four-ring patch, not the ring pair sharing the rotated bond. The central direct-graph bond is a \\(6|6\\) bond shared by hexagons \\(H_1,H_2\\); the two opposite dual vertices \\(P_1,P_2\\) are pentagons. The initial patch is therefore \\(5/6/6/5\\), and the dual flip \\(H_1H_2\\to P_1P_2\\) changes it to \\(6/5/5/6\\). Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. Record the two removed and two added C–C bonds.
+
+This is distinct from graphenic \\(SW_{6|6}\\), whose initial patch is \\(6/6/6/6\\) and whose product contains the \\(5/7/7/5\\) defect. A criterion requiring the central direct bond itself to be 5|6 would select a different local environment, not the C60 pyracylene patch audited here.
 
 ## Chain-map construction
 
@@ -104,4 +102,25 @@ These values are **nuclear-coordinate covariance proxies** for one selected labe
 | A commutative fullerene–Kathara/Q6 map exists | Open |
 | The molecular vesica tensor and fullerene nuclear covariance obey one common law | Open |
 
+The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.\n\n### Symmetry and graph-isomorphism classification (new audit)\n\nThe companion script `scripts/classify_c60_sw_orbits.py` enumerates the automorphism group of the icosahedral fullerene dual graph, verifies its order, and partitions the 30 labelled dual flips under that action. The action is applied to the dual edge being flipped, not to an arbitrarily labelled carbon-graph reconstruction.
+
+The exact finite-graph result is:
+
+- admissible labelled SW_{5|6} dual flips: **30**;
+- automorphism group order of the dual graph: **120** (the full (I_h) symmetry group);
+- unlabelled post-switch carbon-graph isomorphism classes: **1**, of size 30;
+- (I_h)-orbits of admissible dual edges: **1**, of size 30.
+
+Thus the 30 labelled operations are one symmetry orbit and produce one unlabelled post-switch graph class. They are **not 30 non-isomorphic C60 chemical isomers**. The classification is combinatorial; it does not calculate transition-state trajectories, barriers, or multi-step isomer networks. The full partition is written to `orbit_classification.json` by the workflow.
+
+### Chemical identification of the local move
+
+The dual flip has two degree-6 endpoints (hexagons) and two opposite degree-5 vertices (pentagons). In the direct fullerene surface, this is the pyracylene (mathrm{SW}_{5|6}) rearrangement, with the local four-ring pattern (5/6/6/5 \rightarrow 6/5/5/6). It is not the graphenic (mathrm{SW}_{6|6}) operation, whose initial four-ring patch consists of four hexagons and produces a (5/7/7/5) defect. The distinction follows the established fullerene/graphene terminology in Ori et al. (2011) and the dual-edge description in Sabirov & Ori (2020).
 The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.
+
+
+## Pyracylene patch signature: explicit regression criterion
+
+For each accepted dual flip, the two endpoints of the flipped dual edge must have degree 6 and the two opposite vertices must have degree 5. Thus the initial four-ring patch is exactly \(5/6/6/5\), with a central direct \(6|6\) bond. After the flip, the two old degree-6 dual vertices become degree 5 and the two old degree-5 vertices become degree 6, giving \(6/5/5/6\). The regression test checks this degree exchange explicitly; it also checks that the direct-graph ring inventory remains 12 pentagons and 20 hexagons.
+
+The 30 labelled flips remain one symmetry orbit, not 30 distinct isomer classes. This is a finite-graph result and does not by itself establish a transition-state trajectory or activation barrier.

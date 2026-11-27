@@ -143,3 +143,64 @@ These evaluations do not prove that a proposed cutoff or matching function is \(
 5. Any RGS derivation of the exotic stress tensor or resolution of the null-energy-condition violation.
 
 **Repository classification:** audit / conditional geometric identity. Do not assign a numbered theorem or promote it to a proved RGS wormhole theorem until gates 1–4 are closed. The earlier claim that a particular quintic multiplicative cutoff produces two additional extrema is not repeated as a verified result here; it requires a committed reproducible calculation and exact definition of the cutoff before it can be cited.
+
+
+## 7. Metric-level equivalence test: the missing RGS coefficient
+
+The RGS–EMS radial ansatz used in the earlier geometric work is
+\[
+ds^2=-N(r)^2c^2dt^2+A(r)^2dr^2+R(r)^2d\Omega^2.
+\]
+Here \(A(r)\) is the radial metric coefficient (not the areal radius), and the proper radial coordinate is defined by
+\[
+dl=A(r)\,dr
+\]
+on an oriented chart, with \(A>0\). The scalar profile \(R(r)\) alone does not determine \(A(r)\) or \(N(r)\).
+
+For this metric to be exactly the ultrastatic Ellis metric with throat radius \(R_0\),
+\[
+ds^2=-c^2dt^2+dl^2+R(l)^2d\Omega^2,\qquad
+R(l)^2=R_0^2+l^2,
+\]
+the necessary and sufficient coefficient conditions (away from the throat, extended by continuity at it) are
+\[
+\boxed{N(r)=1,\qquad
+A(r)^2=\frac{R'(r)^2}{1-R_0^2/R(r)^2}
+=\frac{R(r)^2R'(r)^2}{R(r)^2-R_0^2}.}
+\]
+Equivalently, on the two sides,
+\[
+A(r)=\left|\frac{R(r)R'(r)}{\sqrt{R(r)^2-R_0^2}}\right|.
+\]
+For the inherited profile, \(R'/R=2r-1.963/r\). At the throat the apparent \(0/0\) has the finite limit
+\[
+A(r_*)=2R_0=5.435627614842063\ldots.
+\]
+This is a **testable required form** for the original RGS radial coefficient, not a derivation of that coefficient. If the independently derived RGS \(A(r)\) fails this identity, the metric is not the ultrastatic Ellis metric in this coordinate. If it satisfies it and the lapse is unity, the equivalence follows by direct coordinate change.
+
+For a nonconstant lapse, the spatial slices can still have the Ellis spatial geometry, but the full spacetime is not the ultrastatic Ellis solution. A lapse profile must be derived from the RGS field equations or action; it cannot be chosen after the fact and described as an RGS prediction.
+
+### What the current archive establishes
+
+The historical RGS ansatz record supplies the general coframe/metric notation \(N,A,R\), with proper distance \(d\ell=A\,du\), but the exact functions \(A(r)\) and \(N(r)\) for the numerical profile \(\phi(r)=r^2-2.963\log r\) have not been recovered in the available source material. No equation currently links \(A\) to \(\phi\). Consequently the metric-level identity above cannot yet be evaluated against the original RGS model.
+
+### Required source recovery / next proof obligations
+
+1. Locate the original RGS derivation that defines \(A\) and \(N\) as functions of the same coordinate used in \(R(r)=r e^{\phi(r)}\). Do not combine formulas written in different radial gauges without transforming them.
+2. Substitute the original \(A(r)\) into the boxed identity and simplify symbolically. Check the throat limit separately.
+3. Derive or retrieve \(N(r)\) from the same model and test whether it is identically one after asymptotic time normalization.
+4. Only after 1–3, compute the Einstein tensor of the complete metric and compare it with the stress tensor derived from the RGS action. Do not import the Ellis phantom-scalar source as though it had been derived by RGS.
+5. Treat \(r_1,r_2\) as matching coordinates only after the actual matching equations and boundary data are located. A pair of coordinate values cannot determine a \(C^2\) metric matching by itself.
+
+**Updated classification:** the radial-profile lemma is proved; the Ellis coordinate representation is an exact conditional construction; equivalence of the original RGS–EMS spacetime to Ellis is **open / not established** pending recovery and verification of \(A(r)\), \(N(r)\), and the model field equations.
+
+
+For reproducibility, evaluating the required coefficient from the inherited profile gives
+\[
+A_{\rm Ellis}(r_*)=5.435627614842062\ldots,
+\]
+\[
+A_{\rm Ellis}(r_1)=5.423336691037318\ldots,\qquad
+A_{\rm Ellis}(r_2)=40.22396279314685\ldots.
+\]
+These are **target values** for comparison with a separately derived RGS coefficient; they are not measured or recovered RGS metric data.
