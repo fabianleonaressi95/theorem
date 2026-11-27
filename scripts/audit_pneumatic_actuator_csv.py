@@ -2,7 +2,7 @@
 """Non-destructive audit for the pneumatic actuator CSV in Issue #113.
 
 No physical unit is inferred from bare column names. Frequency in Hz is only
-reported when the caller explicitly confirms that Time is measured in seconds.
+reported when the caller supplies a verified seconds-per-Time-unit scale.
 The source CSV is never modified.
 """
 from __future__ import annotations
@@ -140,8 +140,8 @@ def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> d
         },
         "interpretation": (
             "Structural audit only. Bare Time column does not establish seconds. "
-            "Do not infer physical frequency or compare with 0.05 Hz until the time unit "
-            "is independently documented."
+            "Do not infer physical frequency or compare with 0.05 Hz until the seconds-per-unit "
+            "scale is independently documented."
         ),
     }
     return report
