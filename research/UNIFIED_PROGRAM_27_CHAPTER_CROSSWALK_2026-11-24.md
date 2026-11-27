@@ -720,3 +720,47 @@ The full 64-state moment lookup remains at results/json/vesica_hexagram_moment_c
 ## Operator-derived Q6–Vesica–RGS bridge (24 Nov 2026)
 
 The preferred RGS reduction is now the invariant symmetric one-excitation sector of the compressed Q6 Laplacian, not the earlier pointwise-product quotient. The operator-adapted trigram map uses Q3 Laplacian eigenmodes 0, 4, 6 and is antipodal-reflection equivariant. The 9D tensor sector contains a canonical 3D symmetric one-excitation subspace with reduced Laplacian diag(0,4,6) and reflection D. Its coisometry F from all 64 Q6 labels intertwines both L_Q6 and the diagonal reflection. The full nine-component table retains 64 distinct labels; the rank-three sector quotient has 27 distinct images. The RGS carrier spectra are matched by the unique quadratic interpolation f(x)=1/2+x/120+x^2/240, with upper branch f+0.3; this polynomial is a candidate matching law, not a first-principles derivation. The combined audit script reconstructs the carrier from the original arrays. See research/Q6_VESICA_RGS_SPECTRAL_INTERTWINER_2026-11-24.md.
+
+
+## 13. T161 interface crosswalk to all 27 chapters — 27 November 2026
+
+T161 is the geometric spine of the programme, not a theorem from which every chapter follows. The table below assigns each chapter its actual interface to the Q6–golden cut-and-project–rhombic triacontahedron–IVM–Lorentzian spin construction. “Programme/interface” is organizational or model-level; it is not a proof arrow.
+
+| Ch. | Chapter domain | T161 interface | Relation and evidence boundary |
+|---:|---|---|---|
+| 1 | RGS–PSU–PRISM–Q6 architecture | Global carrier and integration diagram | Programme-level; common action and commuting diagram remain open |
+| 2 | Boolean Q6, Walsh and Laplacian | 64 labelled cube states and antipodal complement | Exact finite combinatorics; projected point cloud is not the triacontahedron graph |
+| 3 | Cubical 2-skeleton and cellular Anti-Twin | Chain incidence and antipodal action on the Q6 carrier | Exact finite chain identities; distinguish graph cycle rank from filled-complex homology |
+| 4 | Trigrams, bit coding and Kathara | Coordinate/coding realization of the Q6 labels | Finite maps are record-specific; no automatic metric identification with IVM |
+| 5 | Q6 cohomology and Hodge | Discrete differential forms and refinement interface | Finite Hodge results; continuum convergence remains a separate Mosco/FEEC obligation |
+| 6 | SU(2), SU(3), links and gauge covariance | Gauge transport on the carrier and future spin connection | Finite gauge covariance; continuum gauge limit not supplied by T161 |
+| 7 | Q6–D5 integer quotient and Wilson fibres | Parallel measure/spectral sector | Programme-level connection only; D5/Wilson–Bergman claims retain their own hypotheses |
+| 8 | Wilson, marginal, Bergman and Hua | Parallel harmonic-analysis and measure sector | No geometric implication from the triacontahedron; preserve no-go and conditional results |
+| 9 | Clifford, discrete Dirac and Nielsen–Ninomiya | Spinorial endpoint and refinement gate | T147 is Euclidean Spin(6); T149 is an exact gapped obstruction; Lorentzian Dirac limit open |
+| 10 | Binary icosahedral group and Poincaré quotient | Icosahedral symmetry and possible spin representation input | Group/representation theory is established in its own records; no automatic Spin(6)→Spin(1,3) map |
+| 11 | Rumin complex and analytic torsion | Spectral/topological companion sector | Independent theorem family; connection is through shared 2I representation data, not a T161 consequence |
+| 12 | Quaternions, SU(2), SO(3), intertwiners | Spatial spin lift and double-cover conventions | Standard finite/group theory; boosts and Lorentzian lift require an extra construction |
+| 13 | RGS 188D reconstruction | Candidate spatial coframe and constraint data | Dataset-specific rank/equivariance audits; physical tetrad derivation remains open |
+| 14 | PSU, Anti-Twin and Lorentz symmetry | Candidate time leg from two-sheet fluid modes | Conditional on common metric and future unit-timelike four-velocities; not yet derived from fluid equations |
+| 15 | PRISM product graph | Refinement and scale hierarchy | Finite graph/coding results; mesh-compatible continuum limit remains open |
+| 16 | Krist-All | Symbolic dynamics and class/coding layer | Separate finite automata/provenance interface; not a metric map to the triacontahedron |
+| 17 | FEEC, cubical de Rham and curved geometry | Discrete coframe, chain maps and compatible forms | Commuting finite maps do not prove curved Mosco convergence |
+| 18 | Golden and supergolden refinements | \\(\\phi\\) defines the golden 6D frame; \\(\\psi\\) remains a separate scale/arithmetic branch | Golden projection is direct; supergolden/eta/zeta physical interpretation remains conditional/open |
+| 19 | Mosco and geometric continuum limit | Required refinement gate from finite carrier to continuum | Open analytic obligation; no finite spectrum alone proves convergence |
+| 20 | Einstein–Cartan and Weyssenhoff fluid | Independent Cartan connection with curvature and torsion | Conditional field-theory interface; spin current/action and physical source assumptions must be explicit |
+| 21 | Teleparallelism and scalar–torsion actions | Flat-connection branch of the Cartan geometry | Distinct constrained branch; do not identify with generic Riemann–Cartan connection |
+| 22 | QLG spinorial interface | Local \\(\\mathrm{Spin}^+(1,3)\\) module and gauge/fluid coupling | Four complex spinor components per site; lattice operator and continuum limit still open |
+| 23 | QAT, topological light and cube–sphere geometry | Spatial geometry and Maxwell/coframe comparison | Model-level comparison; QAT physical claims remain separately audited hypotheses |
+| 24 | Wormholes, EMS and stability | Lorentzian metric/Cartan applications | Application layer only after field equations and matter content are derived |
+| 25 | Spin glass, correlators and cellular dynamics | Q6/PRISM carrier for correlations and Green–Kubo observables | Finite statistical identities; thermodynamic/material limit and calibration open |
+| 26 | Synchronization, hysteresis and industrial applications | Geometric carrier for defects, phases and mechanical response | Application/benchmark interface; material constitutive laws require independent calibration |
+| 27 | Unified theory and work order | Full synthesis and dependency governance | T161 organizes interfaces; it does not collapse distinct proofs into one theorem |
+
+### Record-level audit companion
+
+The current branch contains 289 theorem Markdown files: 284 on primary `main` plus five branch-only proposals (T146–T149 and T161). The generated register has 280 valid rows and omits four main-tree cards T157–T160. Its 410 declared dependency tokens resolve as 306 unique IDs, 101 ambiguous IDs and 3 unresolved IDs. The 306 unique declarations are now preserved in the companion graph as **unreviewed declarations**, not proof dependencies. Full details and file-path candidates are in:
+
+- `docs/T161_RECORD_LEVEL_INTEGRATION_AUDIT_2026-11-27.md`
+- `docs/T161_REGISTER_DEPENDENCY_AUDIT_2026-11-27.json`
+
+No existing theorem has been renumbered, deleted or promoted in status.
