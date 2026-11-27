@@ -103,9 +103,9 @@ The vesica-axis chart fallback is used at 4, 14, 28 and 62 nodes for \(m=1,2,3,4
 
 **Numerically verified:** conforming mesh counts, parent-map consistency, positive Whitney masses, quadrature agreement, antipodal covariance, Gauss-map holonomy, curvature identity, and stabilization of the lowest Hodge-0 eigenvalue over four refinement levels.
 
-**Still open:** a rigorous spectral-convergence theorem for this piecewise-smooth connection; a curved-FEEC approximation/error estimate; convergence of the complete Hodge spectra and eigenspaces; a compatible refined Q6/RGS chain map; and any first-principles derivation of \(f\).
+**Still open:** the local covariant Whitney consistency/commuting defect \(\mathfrak C_{h,T}=\nabla^A I_{h,T}^0-I_{h,T}^1D_0^A\), including derivatives of the path-transport factors; a rigorous spectral-convergence theorem for this piecewise-smooth connection; a curved-FEEC approximation/error estimate; convergence of the complete Hodge spectra and eigenspaces; a compatible refined Q6/RGS chain map; and any first-principles derivation of \(f\).
 
-The correct conclusion is a finite refinement study, not a continuum theorem. The observed eigenvalue sequence is a useful target for a future convergence proof, while the mismatch with \((0,4,6)\) remains explicit.
+The current four-level stabilization study does not estimate the covariant Whitney consistency defect. The correct conclusion is a finite refinement study, not a continuum theorem. The observed eigenvalue sequence is a useful target for a future convergence proof, while the mismatch with \((0,4,6)\) remains explicit.
 
 ## 7. Reproduction
 
