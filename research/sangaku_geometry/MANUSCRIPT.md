@@ -109,13 +109,43 @@ Consequently
 \]
 Thus the source construction is verified as an exact Euclidean pentagon construction. The coordinate implementation and regression test are in \`hirano_sangaku.py\` and \`tests/test_hirano_sangaku.py\`; the source transcription and its visual-inspection limitation are recorded in SGC-004 and SOURCE_REGISTER.md. The paper's pixel-based digital rendering is not used as the mathematical proof.
 
-## 7. Classification questions
+
+## 8. Case study E — Flower of Life: a 19-circle lattice model
+
+This case separates an exact ideal configuration from its possible archaeological realization. Define the radius-two hexagonal patch in axial coordinates by
+\[
+H_2=\{(m,n)\in\mathbb Z^2:\max(|m|,|n|,|m+n|)\leq2\},
+\]
+and embed it as
+\[
+p(m,n)=\left(m+\frac n2,\frac{\sqrt3}{2}n\right).
+\]
+There are 19 centres. Put a unit circle at each centre. This is the canonical 1+6+12 two-ring arrangement used in SGC-005.
+
+For coordinate differences (a,b), the squared distance is a²+ab+b². Direct finite enumeration gives the nonzero squared centre distances
+\[
+\{1,3,4,7,9,12,13,16\}.
+\]
+Therefore the centre coordinate field is Q(√3), the squared-distance/radius-square field is Q, and the distance field is Q(√3,√7,√13), of degree 8 over Q. The latter follows because the square-free parts 3, 7 and 13 occur and represent independent square classes.
+
+The axial transformations
+\[
+R(m,n)=(-n,m+n),\qquad S(m,n)=(m+n,-n)
+\]
+preserve H2 and generate D6, of order 12. This is the full symmetry group of the unlabelled ideal centre/circle arrangement. It is not automatically the symmetry group of a marked construction diagram or of an archaeological image.
+
+The exact model and finite checks are implemented in flower_of_life.py and tests/test_flower_of_life.py. These statements concern centres and radii; intersection-point coordinates are not included in the stated fields and require a separate extension calculation.
+
+Sparavigna and Baldi (2016, DOI 10.2139/ssrn.2756099) discuss a Mycenaean gold roundel decoration resembling the Flower of Life, compass construction, six-fold symmetry and circle packing. The paper motivates this case but does not, by itself, prove that the artifact is exactly the 19-circle model above. Image calibration, centre/radius fitting, uncertainty analysis and a source-verified incidence transcription remain open.
+
+## 9. Classification questions
+
 1. Which finite list of combinatorial, metric and field invariants classifies marked circle configurations up to congruence or similarity?
 2. When does a geometric symmetry group constrain the coordinate-field or distance-field Galois action?
 3. Which tangency-only construction systems remain within quadratic towers, and which produce higher algebraic degree?
 4. Can a source-verified Sangaku corpus be encoded so that diagrams, equations, construction graphs and proof status are machine-checkable?
 
-## 8. Current status
+## 10. Current status
 | Item | Status |
 |---|---|
 | Quadratic-tower theorem under stated operations | PROVED |
@@ -126,5 +156,5 @@ Thus the source construction is verified as an exact Euclidean pentagon construc
 | Complete classification theorem | OPEN |
 | General Apollonius/tangency degree bounds | OPEN |
 
-## References and provenance
+## 11. References and provenance
 The initial source set includes Sparavigna–Baldi studies on the regular pentagon, Vesica Piscis, Japanese temple geometry/Sangaku, Flower of Life and overlapping-circle constructions (2016). Add exact bibliographic metadata, source snapshots where permitted, and diagram transcriptions only after each item has been checked against the original publication. No claim of historical priority or novelty is made here.

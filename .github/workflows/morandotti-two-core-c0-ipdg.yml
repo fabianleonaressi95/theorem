@@ -39,11 +39,38 @@ jobs:
       - name: Run two-core six-field interaction audit
         run: |
           python3 scripts/rgs_morandotti_two_core_c0_ipdg.py \
-            --mesh-sizes 0.08 0.06 0.045 \
+            --mesh-sizes 0.08 0.06 0.045 0.035 0.027 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
             --out artifacts/morandotti_two_core/report.json
+
+      - name: Validate explicit Frank-Burgers traction refinement report
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("artifacts/morandotti_two_core/report.json").read_text())
+          summary = report["traction_jump_refinement"]
+          levels = summary["levels"]
+          expected_h = [0.08, 0.06, 0.045, 0.035, 0.027]
+          assert len(levels) == len(expected_h), (len(levels), expected_h)
+          for level, h in zip(levels, expected_h):
+              assert abs(level["h_target"] - h) < 1e-12, (level["h_target"], h)
+              assert level["cases"], "missing reconstruction cases"
+              for name, case in level["cases"].items():
+                  f = case["J_F_squared"]
+                  b = case["J_B_squared"]
+                  cross = case["J_FB"]
+                  total = case["J_total_squared"]
+                  residual = case["additivity_residual"]
+                  scale = max(abs(total), 1e-300)
+                  assert abs(total - f - b - cross) <= 1e-10 * scale, (h, name, total, f, b, cross)
+                  assert abs(residual) <= 1e-10 * scale, (h, name, residual, scale)
+          assert len(summary["convergence"]) == len(expected_h) - 1
+          print("Validated Frank/Burgers traction decomposition at all five mesh levels.")
+          PY
 
       - name: Upload two-core report and FE fields
         uses: actions/upload-artifact@v4

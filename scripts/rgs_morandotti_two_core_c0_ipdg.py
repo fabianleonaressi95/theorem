@@ -678,6 +678,87 @@ def main():
             "comparisons":orientation_covariance,
             "interpretation":"same reference mesh connectivity is rotated in place, so covariance differences isolate numerical transformation/geometry effects rather than angle-dependent remeshing",
         }}
+    # Export a compact, explicit five-level refinement table for the
+    # Frank/Burgers interior-facet traction-jump decomposition. The mixed
+    # term is assembled independently above; do not infer it by subtraction.
+    def relative_change(current, previous):
+        current, previous = float(current), float(previous)
+        scale = max(abs(current), abs(previous))
+        if scale <= 1e-30:
+            return 0.0
+        if abs(current) <= 1e-30:
+            return None
+        return float(abs(current - previous) / abs(current))
+
+    traction_level_rows = []
+    for level in levels:
+        case_rows = {}
+        for case_name, case in level["reconstruction_cases"].items():
+            parts = case["interior_facet_traction_jump_squared_decomposition"]
+            frank_sq = float(parts["frank_squared"])
+            burgers_sq = float(parts["burgers_squared"])
+            mixed = float(parts["mixed_cross_term"])
+            total_sq = float(parts["total_squared"])
+            residual = float(parts["additivity_residual"])
+            case_rows[case_name] = {
+                "J_F_squared": frank_sq,
+                "J_B_squared": burgers_sq,
+                "J_FB": mixed,
+                "J_total_squared": total_sq,
+                "J_F_L2": float(np.sqrt(max(frank_sq, 0.0))),
+                "J_B_L2": float(np.sqrt(max(burgers_sq, 0.0))),
+                "J_total_L2": float(np.sqrt(max(total_sq, 0.0))),
+                "additivity_residual": residual,
+                "normalized_additivity_residual": float(
+                    abs(residual) / max(abs(total_sq), 1e-300)),
+            }
+        traction_level_rows.append({
+            "h_target": float(level["h_target"]),
+            "cells": int(level["cells"]),
+            "dofs": int(level["dofs"]),
+            "cases": case_rows,
+        })
+
+    traction_convergence_rows = []
+    for i in range(1, len(traction_level_rows)):
+        previous = traction_level_rows[i - 1]
+        current = traction_level_rows[i]
+        case_changes = {}
+        for case_name, current_case in current["cases"].items():
+            previous_case = previous["cases"][case_name]
+            quantities = ("J_F_squared", "J_B_squared", "J_FB", "J_total_squared")
+            case_changes[case_name] = {
+                "absolute_change": {
+                    key: float(abs(current_case[key] - previous_case[key]))
+                    for key in quantities
+                },
+                "relative_change": {
+                    key: relative_change(current_case[key], previous_case[key])
+                    for key in quantities
+                },
+            }
+        traction_convergence_rows.append({
+            "from_h": previous["h_target"],
+            "to_h": current["h_target"],
+            "cases": case_changes,
+        })
+
+    report["traction_jump_refinement"] = {
+        "definition": {
+            "J_F_squared": "integral over interior facets of |jump(sigma_F, n)|^2",
+            "J_B_squared": "integral over interior facets of |jump(sigma_B, n)|^2",
+            "J_FB": "2 * integral over interior facets of jump(sigma_F, n) dot jump(sigma_B, n)",
+            "J_total_squared": "integral over interior facets of |jump(sigma_F + sigma_B, n)|^2",
+            "identity": "J_total_squared = J_F_squared + J_B_squared + J_FB",
+            "relative_change": "abs(current - previous) / abs(current); null if current is zero and previous is nonzero",
+        },
+        "levels": traction_level_rows,
+        "convergence": traction_convergence_rows,
+        "interpretation_limit": (
+            "This is a mesh-refinement diagnostic for the discrete reconstructed "
+            "traction jumps; it is not by itself a continuum-convergence proof."
+        ),
+    }
     path=Path(a.out); path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report,indent=2))

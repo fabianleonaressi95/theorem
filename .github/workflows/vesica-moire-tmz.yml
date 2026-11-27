@@ -1,0 +1,41 @@
+name: Vesica-Moire TMz Maxwell audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "audits/vesica_moire_tmz_maxwell.py"
+      - "tests/test_vesica_moire_tmz_maxwell.py"
+      - "docs/VESICA_MOIRE_TMZ_MAXWELL_AUDIT.md"
+      - ".github/workflows/vesica-moire-tmz.yml"
+  pull_request:
+    paths:
+      - "audits/vesica_moire_tmz_maxwell.py"
+      - "tests/test_vesica_moire_tmz_maxwell.py"
+      - "docs/VESICA_MOIRE_TMZ_MAXWELL_AUDIT.md"
+      - ".github/workflows/vesica-moire-tmz.yml"
+  workflow_dispatch:
+
+jobs:
+  tmz-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy scipy pytest
+      - name: Run focused TMz regression tests
+        run: python -m pytest -q tests/test_vesica_moire_tmz_maxwell.py
+      - name: Run reproducible spectral audit
+        run: |
+          python audits/vesica_moire_tmz_maxwell.py --output-dir /tmp/vesica-moire-tmz
+          python - <<'PY'
+          import json
+          d = json.load(open("/tmp/vesica-moire-tmz/tmz_spectrum.json"))
+          assert d["relative_permittivity_range"][0] > 0
+          assert d["uniform_analytic_max_abs_error"] < 1e-8
+          assert len(d["mode_comparison"]) == 9
+          assert all(row["lambda_moire"] > 0 for row in d["mode_comparison"])
+          print("TMz Maxwell Moire spectral audit passed")
+          PY

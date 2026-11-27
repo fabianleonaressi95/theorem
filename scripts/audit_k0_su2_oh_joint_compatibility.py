@@ -67,8 +67,8 @@ def build_oh_tangent(X):
 def main():
     d = np.load("data/RGS_PSU_all_matrices.npz")
     K0, PG, T = d["K0"], d["P_G"], d["T_transport"]
-    ZS = np.load("Z_S.npy")
-    ZA = np.load("Z_A.npy")
+    ZS = np.load("artifacts/Z_S.npy")
+    ZA = np.load("artifacts/Z_A.npy")
     X = d["X_Oh_reconstructed"]
 
     P1, P2, Rs = build_oh_tangent(X)

@@ -9,6 +9,7 @@ Independent geometry workstream within THEOREM. It develops a reproducible class
 - **EXACT:** normalized Vesica Piscis and regular-pentagon field calculations.
 - **MODEL / EXACT-COMPUTATION:** SGC-003 equal-radius tangency identity. Its secondary-source transcription is documented, but its identification with a particular historical tablet remains unverified.
 - **SOURCE-TRANSCRIBED / EXACT-ALGEBRA:** SGC-004 Hirano pentagon construction; exact Euclidean reconstruction established, with figure-by-figure inspection of the 2016 source PDF still pending.
+- **MODEL / EXACT-COMPUTATION:** SGC-005 canonical 19-circle triangular-lattice model; D6 symmetry and centre/radius distance fields established exactly. It is not yet a calibrated reconstruction of the Mycenaean roundel.
 - **OPEN:** complete invariants, classification of Apollonian/tangency constructions, and a verified historical Sangaku corpus.
 
 ## Contents
@@ -18,7 +19,9 @@ Independent geometry workstream within THEOREM. It develops a reproducible class
 - [Source register and transcription status](SOURCE_REGISTER.md)
 - [1837 source/diagram audit](SOURCE_AUDIT_1837.md)
 - [SGC-004 — Hirano's Sangaku pentagon reconstruction](case_sheets/hirano_pentagon_sangaku.md)
+- [SGC-005 — Flower of Life 19-circle model](case_sheets/flower_of_life_19_circle_model.md)
 - [Exact coordinate reconstruction](hirano_sangaku.py)
+- [Exact Flower of Life lattice model](flower_of_life.py)
 - [Exact symbolic checks](symbolic_checks.py)
 - [Tests](tests/)
 
@@ -28,5 +31,6 @@ Python 3.10+, SymPy and pytest:
     python -m pytest -q research/sangaku_geometry/tests
     python research/sangaku_geometry/symbolic_checks.py
     python research/sangaku_geometry/hirano_sangaku.py
+    python research/sangaku_geometry/flower_of_life.py
 
 No numerical fitting is used in the exact identities. Geometric symmetry groups are not identified with Galois groups without a separately proved action.

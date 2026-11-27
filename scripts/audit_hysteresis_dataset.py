@@ -134,7 +134,7 @@ def fit_ja(H, J_mT, max_nfev=250):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument("workbook",nargs="?",default="Hysteresis_datasets.xlsx")
+    ap.add_argument("workbook",nargs="?",default="data/Hysteresis_datasets.xlsx")
     ap.add_argument("--out",default="hysteresis_audit")
     args=ap.parse_args()
     path=Path(args.workbook)

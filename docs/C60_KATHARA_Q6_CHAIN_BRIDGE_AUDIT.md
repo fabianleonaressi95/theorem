@@ -100,3 +100,14 @@ No such target action is currently defined. The 30-move \(I_h\) orbit classifica
 python scripts/audit_c60_q6_bridge.py --out c60_q6_bridge_audit.json
 pytest -q tests/test_c60_q6_bridge.py
 ```
+
+
+## 7. Additional exact obstruction from bipartite parity
+
+The direct C60 carbon graph contains pentagonal 5-cycles. The Q6 1-skeleton is the 6-cube graph and is bipartite. Since a graph homomorphism sends a cycle to a closed walk of the same length and a bipartite graph has no closed odd walk, there is no edge-preserving graph homomorphism from the C60 carbon graph to the Q6 1-skeleton.
+
+This is narrower than a chain-map obstruction: it rules out only a vertex map taking every C–C bond to one Q6 edge. It does not rule out a cellular chain map with multi-edge images, subdivision, common refinement, or a face-fibre representation map. Thus the direct chain-map problem remains open, but the naive vertex-to-state/edge-to-edge identification is mathematically excluded.
+
+The existing pristine-C60 representation audits must also remain distinct from the Stone–Wales problem: the tested A4 face-tangent representations have a character mismatch, while a separately specified V4 restriction admits an abstract 64D intertwiner. The post-SW carbon graph has a combinatorial V4 automorphism group, but no geometrically realized post-SW face-tangent action has yet been matched to the Q6 V4 action.
+
+The executable parity and Hückel population audit is scripts/audit_c60_sw_pi_density.py; its tests are in tests/test_c60_sw_pi_density.py, and the numerical specification is in docs/C60_SW_PI_ELECTRONIC_POPULATION_AUDIT.md.
