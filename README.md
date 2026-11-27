@@ -715,6 +715,10 @@ These are finite mathematical/software checks. They do not establish physical ca
 - [T153 source review](docs/T153-source-review-geometric-physics-claims.md) records access limitations and separates established geometry from unsupported physical extrapolations. No new numerical audit or continuum result is claimed.
 
 
+### Companion-repository crosswalk
+
+- [GEC-6 and RGS vierbein evidence crosswalk](research/COMPANION_RGS_GEC6_VIERBEIN_CROSSWALK_2026-11-27.md) — maps merged companion PRs #233–#235 to Q6/GEC-6, antipodal action and T154 without duplicating theorem statements.
+
 ### T154 — RGS spatial coframe and labelled constraint splitting
 
 - [T154](theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the exact finite decomposition of the four constraint normals into three uniform Cartesian translations and one fixed-radius/radial normal, and the \(SO(3)\)-equivariant split \(\mathbb R^4=\mathbb R^3\oplus\mathbb R\) of the archived edge feature.
