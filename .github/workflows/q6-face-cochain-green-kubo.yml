@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - "audits/q6_face_cochain_green_kubo.py"
+      - "scripts/audit_q6_antitwin_temporal_chain.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
   workflow_dispatch:
