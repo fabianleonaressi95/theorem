@@ -1,30 +1,27 @@
-# PR and issue audit — 26 November 2026
+# PR and issue audit — 27 November 2026
 
 Policy: nothing merged or closed by the audit itself; recommendations only.
 
-## Registry publication
+## Registry publication and subsequent reconciliations
 
-The documentation bundle introduced by theorem PR **#464** is now **MERGED** into `main`.
-- Merge commit: `8d379ac191db24123db014973b9e2de44d9795df`
-- Head commit: `9db111f131e462e9538f2b618f52cedc9f4eebae`
-- Files: the five project-registry documents under `docs/project/`.
-- This publication merge does not imply that any scientific claim was upgraded or that any cleanup recommendation was executed.
+The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
 
-## Open pull requests
+Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added T157 and T158 covariant Whitney records, scripts, tests and workflows; T158 reports order-8/order-12 quadrature agreement near 10^-14 while explicitly leaving mesh-refinement convergence open. T156's separate FEEC Hodge audit documents finite-element identities and antipodal equivariance, while Q6 spectral intertwining remains open. PR #523 added the T099 reproducibility workflow. Latest main commit observed: `04b00a2ff83135e36d872a68844f3c126fc98a61`. None of these integrations alone establishes a smooth-continuum theorem.
 
-*Updated 2026-11-26 (second delta pass, verified against GitHub API): #468, #470, #472, #473 and registry PR #475 were all MERGED (~17:44–17:47Z). Open PRs are now #471, #476, #477 (draft), #478 (draft), #479. Verified counts: 428 merged PRs, 29 closed-unmerged, 10 open issues; main @ `38d139c`.*
+This pass synchronizes the registry only; it does not alter scientific classifications or perform branch/issue cleanup.
+
+## Live pull-request state — 2026-11-27
+
+A fresh GitHub PR search returned **two open research PRs in `theorem`: #524 and #525**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published. This registry reconciliation will be submitted as a separate documentation-only PR.
 
 ### theorem — open PRs
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
-| #471 | Audit oriented circumcentric dual edges in Ellis icosphere | OPEN, mergeable | `test` SUCCESS | +9/−0 across T049/T070 docs + prototype script/tests. Small scoped correction. **Recommend: merge after owner review.** |
-| #476 | Derive discrete coframe from the RGS geometric carrier | OPEN, mergeable | No checks reported | +491/−0: new audit JSON, 2 docs, 1 script — directly relevant to the RGS coframe/spin-connection thread (theorem #321 merged). **Recommend: confirm CI coverage, then merge.** |
-| #477 | Record Q6 NL/NLT sigma-1.25 pilot and correct T1 quotient Jacobian | OPEN **DRAFT**, mergeable | `cubical-and-syntax` SUCCESS | +336/−5: pilot artifact + protocol doc + workflow/script changes. Draft — owner review pending. |
-| #478 | Add Sangaku circle-geometry classification workstream | OPEN **DRAFT**, mergeable | No checks reported | +284/−0: new `research/sangaku_geometry/` workstream (protocol, manuscript, case sheets). Draft — owner review pending. |
-| #479 | Formalize Volterra dipole-to-edge theorem and C0-IPDG comparison | OPEN, mergeable | No checks reported | +149/−0: single manuscript doc. Low risk; **recommend merge after review.** |
+| [#524](https://github.com/fabianleonaressi95/theorem/pull/524) | Audit Pellis GSR register and correct T150/T151 statements | OPEN | Not independently assessed in this registry pass | Owner review; verify source provenance and exact statement corrections. |
+| [#525](https://github.com/fabianleonaressi95/theorem/pull/525) | Develop PEL-05: independent spectral-state selection criteria | OPEN | Not independently assessed in this registry pass | Owner review; check independent criteria and avoid circular spectral selection. |
 
-### Merged since first audit pass (2026-11-26 ~17:17–17:47Z)
+### Selected subsequent merges verified on 2026-11-27
 
 | PR | Title | Merged at (UTC) |
 |---|---|---|
@@ -38,6 +35,22 @@ The documentation bundle introduced by theorem PR **#464** is now **MERGED** int
 | #472 | T154 In2Infinity Extended Jitterbug audit | 17:46 |
 | #473 | Theorem graph inventory / T152 crosswalk repair | 17:46 |
 | #475 | Registry delta update | 17:46 |
+| #471 | Ellis oriented circumcentric dual audit | 2026-11-27 |
+| #476 | RGS carrier-derived discrete coframe | 2026-11-27 |
+| #477 | Q6 NL/NLT sigma-1.25 pilot and T1 quotient Jacobian | 2026-11-27 |
+| #478 | Sangaku circle-geometry classification workstream | 2026-11-27 |
+| #479 | Volterra dipole-to-edge C0-IPDG comparison | 2026-11-27 |
+| #480 | Post-merge registry synchronization | 2026-11-26 |
+| #487 | Ellis circumcentric dual audit cleanup | 2026-11-27 |
+| #508 | Live theorem inventory and graph-count reconciliation | 2026-11-27 |
+| #514 | Ellis circumcentric dual audit v2 | 2026-11-27 |
+| #516 | T156 rhombicuboctahedron–snub-cube incidence audit | 2026-11-27 |
+| #517 | In2Infinity T154/T155 source and transition audit | 2026-11-27 |
+| #518 | C60 pyracylene Stone–Wales patch clarification and regression test | 2026-11-27 |
+| #519 | SGC-003 / 1837 Ohsu Kannon source audit | 2026-11-27 |
+| #520 | T124 mixed tensor character proof | 2026-11-27 |
+| #521 | Q6 many-body mean-field and RGS Berry-cycle audits | 2026-11-27 |
+| #523 | T099 bicircular-annular reproducibility CI audit | 2026-11-27 |
 
 ## Scientific content and CI audit — PRs #449, #450, #458, #461
 
@@ -60,7 +73,7 @@ A separate `push` workflow on `main`, run [45866447326](https://github.com/fabia
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
-| #1 | C64 fullerene computational audit | OPEN, mergeable | **No CI configured** | `c64-audit`→`main`, +46,885/−1 (bulk is data/logs under `data/`). Self-contained repo; acceptance tests exist (`tests/test_audit.py`, reported 11 pass locally). Large diff is mostly generated artifacts — acceptable for an audit-data repo but consider whether `data/` logs belong in git. **Recommend: merge after owner confirms artifact policy; optionally add a minimal CI running `pytest tests/test_audit.py`.** |
+| #1 | C64 fullerene computational audit | OPEN | No CI was reported in the previous audit | Current open-PR search confirms #1 remains open. The earlier report recorded a large data/log diff and 11 local acceptance tests; neither CI nor artifact policy was re-audited here. |
 
 ### rheomarine — verification result
 
@@ -69,11 +82,11 @@ PRs **#20, #21, #22 are MERGED** into `main` (`eca7b9a`, verified 2026-11-26): E
 ## Verified merged (results preserved)
 
 - theorem **#344** (SE(3) tetrahedral defect fixture, merged 2026-11-21), **#131** (Volterra dipole-to-edge elastic limit, merged 2026-11-11), **#232** (T103/T105/T107 Actions hardening, merged 2026-11-12) — all MERGED; content present on main.
-- theorem recent merges #413–#460 cover the Q6/TSMR/Jitterbug/FEEC programme (see REPOSITORY_MAP.md).
+- theorem recent merges #413–#523 cover Q6/TSMR/Jitterbug/FEEC, geometry, graph inventory, In2Infinity, C60, T124, Q6 many-body/Berry, and T099 reproducibility. T156 FEEC and T157/T158 covariant Whitney artifacts are documented on `main` (see REPOSITORY_MAP.md).
 
 ## Closed-unmerged PRs
 
-theorem: 7 closed PRs (superseded iterations — normal). rgs-qlg: 10 closed. No action.
+theorem: historical closed-unmerged count from the 2026-11-26 audit is not refreshed here. rgs-qlg: historical count 10. No cleanup action authorized.
 
 ## Open issues
 
@@ -84,7 +97,7 @@ theorem: 7 closed PRs (superseded iterations — normal). rgs-qlg: 10 closed. No
 
 ## Branch hygiene
 
-- theorem: ~393 branches vs 4 open PRs → large stale-branch accumulation; most are likely merged/superseded. Recommend an owner-approved branch audit (list → confirm → delete) rather than blanket deletion.
+- theorem: historical census recorded ~393 branches; branch count not refreshed in this pass. Recommend an owner-approved branch audit (list → confirm → delete) rather than blanket deletion.
 - rgs-qlg: ~200 branches vs 1 open issue, 0 open PRs → same recommendation.
 - rheomarine: 21 branches ≈ merged PR heads; candidates for cleanup after confirmation.
 - fullerene-c64-audit: 2 branches (main + c64-audit) — clean.
