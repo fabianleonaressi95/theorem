@@ -146,9 +146,11 @@ def extract_refs(text: str) -> tuple[list[str], list[str]]:
 
 def area_of(fid: str, title: str) -> str:
     t = (fid + " " + title).lower()
+    if "eqc" in t:
+        return "EQC"
     rules = [
-        ("C60", "fullerene/C60"), ("fullerene", "fullerene"), ("Q6", "Q6 lattice"),
-        ("RGS", "RGS"), ("PRISM", "PRISM"), ("QLG", "QLG"), ("krist", "Krist-All"),
+        ("c60", "fullerene/C60"), ("fullerene", "fullerene"), ("q6", "Q6 lattice"),
+        ("rgs", "RGS"), ("prism", "PRISM"), ("qlg", "QLG"), ("krist", "Krist-All"),
         ("antitwin", "Anti-Twin"), ("se3", "SE(3)"), ("cartan", "Cartan"),
         ("feec", "FEEC/DEC"), ("hodge", "Hodge"), ("rumin", "Rumin"),
         ("morandotti", "Morandotti"), ("jitterbug", "Jitterbug"),
