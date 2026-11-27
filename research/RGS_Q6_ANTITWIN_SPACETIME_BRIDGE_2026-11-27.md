@@ -65,6 +65,38 @@ Invertibility, unitarity or orthogonality must be selected according to the actu
 
 A Möbius seam is represented by the transition map S_k: crossing the seam exchanges the sheets. Its square is the identity on the sheet fibre. The global holonomy around a loop is the ordered product of link transports and seam transitions. A nontrivial sheet exchange is not itself a nonzero Cartan torsion tensor.
 
+### 2.1 Canonical chain-compatible time generator
+
+There is a nontrivial finite-dimensional temporal model available without inventing edge weights. Equip the oriented cell bases with the declared Euclidean inner products and define the cubical Hodge Laplacian
+\[
+L_k=B_k^TB_k+B_{k+1}B_{k+1}^T.
+\]
+The cubical chain identity implies the exact intertwining relation
+\[
+B_kL_k=L_{k-1}B_k.
+\]
+On the doubled complex define
+\[
+H_k=L_k\otimes I_2+\mu I_{C_k}\otimes(I_2-S),
+\qquad \mu\in\mathbb R.
+\]
+Because the sheet coupling is degree-independent and acts only on the two-sheet factor,
+\[
+\mathbb B_kH_k=H_{k-1}\mathbb B_k,
+\qquad [H_k,S_k]=0.
+\]
+Consequently both the unitary real-time evolution
+\[
+U_k(t)=e^{-itH_k}
+\]
+and the dissipative semigroup \(e^{-tH_k}\) satisfy the temporal chain-map condition (2.1). For real \(\mu\), \(H_k\) is self-adjoint; for \(\mu\geq0\), it is positive semidefinite.
+
+In the even/odd sheet sectors, \(I-S\) has eigenvalues 0 and 2, so
+\[
+H_{k,e}=L_k,\qquad H_{k,o}=L_k+2\mu I.
+\]
+This gives an exact, parameter-explicit Anti-Twin splitting. The Möbius seam remains the transition S; the coupling \(\mu\) is a separate dynamical parameter. This construction is a canonical Hodge/chain benchmark, not yet the MHD generator, not a derived Lorentzian tetrad, and not a claim about physical time measured in seconds. A numerical audit should verify the identities using the oriented incidence matrices before any physical interpretation.
+
 ## 3. Space-time plaquettes and discrete curvature
 
 Let V_v(n) be the temporal link at vertex v and U_vw(n) the spatial link on an oriented edge v→w. With the convention that the rightmost map acts first, define the temporal-spatial plaquette holonomy
