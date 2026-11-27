@@ -351,7 +351,7 @@ def run_audit(steps: tuple[int, ...] = (8, 16)) -> dict:
     )
 
     return {
-        "status": "STATIC_3PLUS1_COFRA ME_INTERPOLATION_CANDIDATE; LC_LINK_MISMATCH_MEASURED",
+        "status": "STATIC_3PLUS1_COFRAME_INTERPOLATION_CANDIDATE; LC_LINK_MISMATCH_MEASURED",
         "provenance": {
             "seed_coordinate_sha256": EXPECTED_X_SHA256,
             "q6_edge_sha256": EXPECTED_EDGE_SHA256,
