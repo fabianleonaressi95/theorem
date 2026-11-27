@@ -81,12 +81,12 @@ Run from the repository root:
 python -m pytest -q tests/test_q6_manybody_meanfield.py tests/test_q6_rgs_berry_cycle.py
 ```
 
-A short numerical comparison can be launched with:
+An interaction sweep (including the exact product-state control at U=0) can be launched with:
 
 ```bash
 python - <<'PY'
-from audits.morphodynamics.q6_manybody_meanfield import run_comparison
-print(run_comparison(final_time=0.25, samples=26))
+from audits.morphodynamics.q6_manybody_meanfield import interaction_sweep
+print(interaction_sweep(final_time=0.25, samples=26))
 PY
 ```
 
