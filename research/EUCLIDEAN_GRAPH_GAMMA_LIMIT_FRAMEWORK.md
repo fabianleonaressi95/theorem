@@ -104,9 +104,9 @@ This makes the varying discrete spaces explicit. The cell volumes are of order \
 
 The continuum comparison is strong \(L^2(\Omega)\). Other identifications (finite elements, partitions, or averaging maps) are possible, but must be specified and proved consistent rather than silently interchanged.
 
-## 4. The missing analytic hypothesis: uniform compactness
+## 4. Uniform compactness and H1 interpolation
 
-The initial interior-only form of (G3) does not control boundary Voronoi cells. If (G3) is strengthened to boundary-complete fill on \\overline{\\Omega}, then (G2) and (G5) imply a local path-congestion estimate; this controls a continuum nonlocal difference quotient and gives strong L2 compactness and a uniform Poincare inequality. See the conditional proof in [EG01_LOCAL_POINCARE_PROOF.md](EG01_LOCAL_POINCARE_PROOF.md). The stronger H1 interpolation estimate (C1), upper-growth bounds, and the integral-representation hypotheses remain separate obligations.
+The initial interior-only form of (G3) does not control boundary Voronoi cells. Strengthen it to boundary-complete fill on \(\overline{\Omega}\). Then (G2) and (G5) imply local path congestion and nonlocal coercivity, giving strong \(L^2\) compactness and a uniform Poincare inequality; see [EG01_LOCAL_POINCARE_PROOF.md](EG01_LOCAL_POINCARE_PROOF.md). The companion [H1 interpolation and integral-representation note](EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md) constructs a normalized local averaging operator entirely inside \(\Omega\), proving (C1) without a triangulation or global extension operator.
 
 **(C1) Extension formulation.** There are linear or suitably stable extension/interpolation maps
 \[
@@ -121,7 +121,7 @@ and a constant \(C\) independent of \(\varepsilon\) such that
 \le C\varepsilon^2\mathcal E_\varepsilon(v).
 \tag{4.1}
 \]
-A harmless \(L^2\)-normalization (or a fixed mean value) is also imposed when controlling constants.
+The operator is linear and preserves constants; its explicit normalized-kernel construction and both estimates are proved in the companion note.
 
 Then bounded energy and bounded \(L^2\)-norm give boundedness of \(I_\varepsilon v\) in \(H^1(\Omega)\). Rellich compactness gives a strongly \(L^2\)-convergent subsequence, and (4.1) transfers that convergence to \(P_\varepsilon v\).
 
@@ -158,7 +158,7 @@ The integral-representation argument requires, in addition to compactness:
 - **(L5) measure property:** localized energies have the required subadditivity and inner-regularity properties in the limit;
 - **(L6) quadratic stability:** the limit of the quadratic forms remains a quadratic form (for example, through an appropriate Mosco convergence theorem for closed forms on the fixed \(L^2\) space).
 
-The graph-specific estimates for (L1)–(L4) are derived in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. For (L5), use the edge-energy measures supported at edge midpoints, weak-* compactness on bounded-energy sequences, and the gluing estimate (4.1) to verify the De Giorgi–Letta measure property. This final measure-property verification should be recorded explicitly before promoting the integral-representation status beyond conditional. The cited lattice theorems are methodological references; their stochastic-lattice hypotheses are not automatically inherited by arbitrary embedded graphs.
+The graph-specific estimates for (L1)–(L4) are derived in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. The same note records the De Giorgi–Letta measure-property argument for (L5): midpoint-localized edge measures, monotonicity, disjoint superadditivity, and subadditivity obtained by cutoff gluing. The cited lattice theorems are methodological references; their stochastic-lattice hypotheses are not automatically inherited by arbitrary embedded graphs.
 
 ## 6. Conditional theorem (the first target)
 
@@ -189,7 +189,7 @@ where \(A_0\in L^\infty(\Omega;\mathbb R^{d\times d}_{\rm sym})\) and
 
 The constants in (6.2) depend on the uniform growth/coercivity constants, not just on vertex separation and edge length.
 
-**Status of Theorem A:** compactness, (C1), upper growth, and the graph fundamental estimate are now derived under boundary-complete fill and the stated graph hypotheses. The subsequential integral-representation conclusion remains conditional on completing the localized measure-property verification in (L5). No full-sequence convergence is claimed.
+**Status of Theorem A:** the graph-specific compactness, (C1), upper growth, fundamental estimate, and localized measure-property argument are recorded in the companion proof notes. Thus the subsequential integral representation follows conditionally on the standard local quadratic integral-representation theorem. No full-sequence convergence is claimed.
 
 ## 7. Cell formula and full-sequence convergence
 
@@ -289,14 +289,14 @@ The existing E(2) graph-transport convergence result concerns transport along ap
 
 | ID | Obligation | Status |
 |---|---|---|
-| EG-01 | Derive a uniform discrete Poincaré/extension estimate from explicit graph hypotheses | Open |
-| EG-02 | Prove Fréchet–Kolmogorov compactness for the chosen Voronoi identification | Open, conditional on EG-01 |
-| EG-03 | Prove the graph fundamental estimate and boundary-layer stability | Open |
-| EG-04 | Establish the local integral representation for this graph class | Open |
-| EG-05 | Prove preservation of quadratic structure under the selected convergence notion | Open / theorem-specific |
+| EG-01 | Uniform Poincare inequality and local path congestion | Proved conditionally under boundary-complete fill; see EG01_LOCAL_POINCARE_PROOF.md |
+| EG-02 | Strong L2 compactness and H1 interpolation | Proved conditionally by nonlocal comparison and normalized local averaging; see EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md |
+| EG-03 | Uniform upper growth and graph fundamental estimate | Proved conditionally in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md |
+| EG-04 | Subsequential local integral representation | Conditional on the standard local quadratic integral-representation theorem and the measure-property argument in the companion note |
+| EG-05 | Quadratic structure via Mosco convergence | Conditional; energy compactness supplies the weak-to-strong liminf mechanism |
 | EG-06 | Define and validate the cell problem, including boundary convention and order of limits | Open |
 | EG-07 | Give sufficient conditions for full-sequence cell convergence | Open |
 | EG-08 | Characterize effective tensors realizable by graph geometry | Open |
 | EG-09 | Extend the scalar result to de Rham/Hodge energies on varying spaces | Deferred |
 
-**Overall classification:** CONDITIONAL THEOREM PACKAGE. The local geometric, interpolation, growth, and gluing estimates are proved under the strengthened boundary-complete assumptions. The abstract integral representation remains conditional on the localized measure-property check; full-sequence homogenization and the cell-tensor uniqueness criterion remain open.
+**Overall classification:** CONDITIONAL THEOREM PACKAGE. The local geometric, interpolation, growth, and gluing estimates are proved under the strengthened boundary-complete assumptions. Subsequential integral representation follows from the standard local quadratic theorem under the stated measure-property argument. Full-sequence homogenization and the cell-tensor uniqueness criterion remain open.
