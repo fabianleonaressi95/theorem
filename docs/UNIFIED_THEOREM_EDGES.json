@@ -5,15 +5,15 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 279,
+    "theorem_markdown_records": 280,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 279,
+    "classification_edges": 280,
     "hub_to_companion_edges": 30,
     "note": "Synced 27-November-2026 against the post-reorganisation inventory (the same card set covered by THEOREM_MASTER_REGISTER). File paths are stable identifiers; node ids embed unique filename stems, so duplicated T-prefixes do not collide. Cards added since the previous snapshot are indexed under H-OTHER with provisional status pending author topic assignment; no dependency edges were invented.",
-    "total_nodes": 333,
-    "total_edges": 369
+    "total_nodes": 334,
+    "total_edges": 370
   },
   "nodes": [
     {
@@ -2429,6 +2429,13 @@
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/T159-curved-feec-mesh-refinement.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:MQ-T005-rgs-tetrahedron-classical-flux-closure",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQ-T005-rgs-tetrahedron-classical-flux-closure.md",
       "topic_hub": "H-OTHER"
     }
   ],
@@ -5011,6 +5018,13 @@
     },
     {
       "from": "THM:T159-curved-feec-mesh-refinement",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:MQ-T005-rgs-tetrahedron-classical-flux-closure",
       "to": "H-OTHER",
       "relation": "thematic-index-classification",
       "status": "provisional",

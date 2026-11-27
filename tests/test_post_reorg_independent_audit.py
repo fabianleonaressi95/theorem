@@ -83,17 +83,22 @@ def test_graph_no_dangling_edges_and_coverage_consistent():
     assert cov["classification_edges"] == cls
 
 
-def test_graph_new_nodes_parked_at_other_hub_pending_author():
-    """The 16 cards added by the sync must remain provisional H-OTHER."""
+def test_graph_sync_added_nodes_parked_at_other_hub_pending_author():
+    """Cards added by graph-sync runs must remain provisional H-OTHER.
+
+    The count grows if main gains new cards between syncs; the invariant is
+    that every sync-added classification edge is provisional and parked at
+    H-OTHER (never an invented topical assignment).
+    """
     g = _graph()
-    other_edges = [
+    sync_edges = [
         e for e in g["edges"]
         if e.get("relation") == "thematic-index-classification"
-        and e["to"] == "H-OTHER"
         and "post-reorg graph sync" in e.get("caveat", "")
     ]
-    assert len(other_edges) == 16
-    for e in other_edges:
+    assert len(sync_edges) >= 16
+    for e in sync_edges:
+        assert e["to"] == "H-OTHER"
         assert e["status"] == "provisional"
 
 
