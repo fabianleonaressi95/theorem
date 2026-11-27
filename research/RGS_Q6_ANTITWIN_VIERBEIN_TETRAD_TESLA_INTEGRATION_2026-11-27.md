@@ -228,7 +228,11 @@ This is a working core bibliography, not a claim to enumerate every publication.
 8. Fortescue, *Method of Symmetrical Co-Ordinates Applied to the Solution of Polyphase Networks* (1918), DOI 10.1109/T-AIEE.1918.4765570.
 9. *Differential Forms in Lattice Field Theories: An Overview* (2013), DOI 10.1155/2013/487270.
 
-## 11. Repository dependencies and next construction
+## 11. Executed coframe/connection audit (27 November 2026)
+
+The follow-up implementation and measured result are recorded in [RGS–Q6 static coframe and Levi-Civita link audit](RGS_Q6_STATIC_COFRAME_LC_LINK_AUDIT_2026-11-27.md), with machine-readable report [RGS_Q6_STATIC_COFRAME_LC_LINK_AUDIT.json](../audits/RGS_Q6_STATIC_COFRAME_LC_LINK_AUDIT.json). CI run #25 succeeded. It reconstructs the 64 spatial coframes, builds an SPD-preserving log-Gaussian interpolation, computes its Levi-Civita connection and compares all 192 edge transports and 240 face holonomies with the Q6 minimal-radial-rotation links. The mismatch is measured, not fitted away. It also checks a time-dependent co-rotating tetrad gauge, the Tesla positive/negative sequence rates, temporal Cartan torsion cancellation and the quaternionic SU(2) double-cover behaviour. This closes the **static interpolation/connection audit gate only**; the dynamical 4D tetrad and common field action remain open.
+
+## 12. Repository dependencies and next construction
 
 Preserve and reuse:
 - docs/RGS_COFRAME_SPIN_CONNECTION_RECOVERED_IMPLEMENTATIONS_2026-11-27.md
