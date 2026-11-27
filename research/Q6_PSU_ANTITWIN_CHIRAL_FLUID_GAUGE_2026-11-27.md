@@ -17,7 +17,13 @@ Retain the fluid variables
 \Phi_\pm=\ln N_\pm,\quad n_\pm=\mathcal A_\pm/N_\pm,\quad
 \xi_\pm=(n_\pm\cdot n_\pm)\Phi_\pm.
 \]
-For each variable \(X\), \(X_e=(X_++X_-)/2\), \(X_o=(X_+-X_-)/2\). The sheet connections are \(a_\pm=a_e\pm a_o\), and the locked spinor sees
+For each variable \(X\), \(X_e=(X_++X_-)/2\), \(X_o=(X_+-X_-)/2\). In Planck-normalized units, set
+\[
+\widehat n_{\pm\mu}=\ell_P n_{\pm\mu},\qquad
+g_{\rm PSU}=g_*\lambda_{\rm PSU}\sqrt{\alpha_G},\qquad
+a_{\pm\mu}=g_{\rm PSU}\widehat n_{\pm\mu}.
+\]
+This makes \(a_e\) and \(a_o\) the even/odd parts of the existing fluid gauge field. The parameter \(g_*\) remains explicit. The locked spinor sees
 \[
 D_\mu=\nabla_\mu+iq(a_{e\mu}+a_{o\mu}\gamma^5).
 \]
