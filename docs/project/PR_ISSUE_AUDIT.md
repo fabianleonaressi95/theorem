@@ -12,7 +12,7 @@ This pass synchronizes the registry only; it does not alter scientific classific
 
 ## Live pull-request state — 2026-11-27
 
-A fresh GitHub PR search returned **two open PRs in `theorem`: #518 and #519**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published.
+A fresh GitHub PR search returned **two pre-existing research PRs in `theorem`: #518 and #519; this documentation reconciliation is itself PR #522**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published.
 
 ### theorem — open PRs
 
@@ -20,6 +20,7 @@ A fresh GitHub PR search returned **two open PRs in `theorem`: #518 and #519**. 
 |---|---|---|---|---|
 | [#518](https://github.com/fabianleonaressi95/theorem/pull/518) | Clarify C60 pyracylene SW_5|6 patch and add regression test | OPEN | Not independently assessed in this registry pass | Owner review; verify the graph patch and regression test against the already merged C60 Stone–Wales audit. Do not infer a universal molecular or physical law. |
 | [#519](https://github.com/fabianleonaressi95/theorem/pull/519) | Audit SGC-003 against the documented 1837 Ohsu Kannon Sangaku | OPEN | Not independently assessed in this registry pass | Owner review; preserve source provenance and separate historical reconstruction from any generalized geometric claim. |
+| [#522](https://github.com/fabianleonaressi95/theorem/pull/522) | Sync project registry with live repository state | OPEN, documentation-only | Checks pending | This registry update; owner review before merge. |
 
 ### Selected subsequent merges verified on 2026-11-27
 
