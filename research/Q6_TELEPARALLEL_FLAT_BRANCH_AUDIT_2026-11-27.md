@@ -48,7 +48,7 @@ The executable audit applies independent deterministic \(SO(3)\) frame changes a
 
 Reproduce:
 \`\`\`bash
-python -m unittest tests.test_q6_teleparallel_branch -v
+python -m unittest discover -s tests -p "test_q6_teleparallel_branch.py" -v
 python scripts/audit_q6_teleparallel_branch.py
 \`\`\`
 
