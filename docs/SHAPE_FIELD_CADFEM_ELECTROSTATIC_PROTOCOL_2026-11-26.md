@@ -28,8 +28,8 @@ Quasi-static electrostatics in the gas gap (valid while displacement current ≪
 
 - Potential: `∇·(ε ∇φ) = 0` with `ε = ε0 εr` (air: εr = 1).
 - Field: `E = −∇φ`; energy density `u = ½ ε |E|²`; total energy `U = ∫ u dV`.
-- Field enhancement factor `β = |E|_max / |E|_avg` over the gap, where `|E|_avg = V/d` for planar reference.
-- Boundary conditions: Dirichlet `φ = V` on live electrodes, `φ = 0` on ground/return electrode, homogeneous Neumann `∂φ/∂n = 0` on symmetry planes and outer boundaries placed far enough that the field there is verified negligible (domain-independence test required).
+- Field enhancement factor `β = |E|_max / |E|_ref`. For gap geometries `|E|_ref = V/d` (planar reference); for the isolated-sphere benchmark `|E|_ref = E₀`, the incident uniform field — the two references are not interchangeable.
+- Boundary conditions: Dirichlet `φ = V` on live electrodes, `φ = 0` on ground/return electrode, homogeneous Neumann `∂φ/∂n = 0` on symmetry planes and outer boundaries placed far enough that the field there is verified negligible (domain-independence test required). **Exception — uniform-field benchmarks:** reproducing a uniform field `E₀` around an embedded conductor requires imposing the corresponding far-field potential `φ = −E₀ z` (plus the appropriate multipole-consistent condition) on the outer boundary; homogeneous Neumann alone does not generate `E₀`.
 - Conductors are modeled as equipotential boundaries (perfect-conductor approximation). **Mathematical boundary surfaces are not physical conductors**: edge singularities at sharp corners/edges are mesh-dependent and must be reported as such, never interpreted as physical field divergence.
 
 ## 4. Geometries under study
@@ -71,7 +71,7 @@ Separate module, clearly labeled **estimate**, using standard gas-discharge crit
 ## 8. Verification tests (pre-registered)
 
 1. Parallel-plate capacitor: `|E| = V/d` uniform, `U = ½ ε V² A/d` — tolerance ≤ 1e-6 relative on fine mesh.
-2. Isolated sphere in uniform field: `β = 3` at surface — tolerance ≤ 1e-3.
+2. Isolated sphere in uniform field `E₀`: surface field reaches `3E₀` at the poles, i.e. `β = |E|_max/E₀ = 3` — tolerance ≤ 1e-3. The reference field is `E₀`, **not** `V/d`; the outer boundary must impose `φ = −E₀ z` (see §3 BC exception).
 3. Sphere-plane / sphere-sphere literature enhancement factors where available.
 4. Mesh convergence: `|E|_max` vs `h_min` must show asymptotic behavior; divergence at sharp edges documented, not hidden.
 5. Domain independence: outer-boundary doubling changes `E_max` < 1%.
@@ -79,7 +79,7 @@ Separate module, clearly labeled **estimate**, using standard gas-discharge crit
 
 ## 9. Falsifiable predictions
 
-- P1: For fixed gap and voltage, `β` increases monotonically as tip radius `r → 0` for G1/G2/G3, saturating only at mesh resolution.
+- P1: For fixed gap and voltage, `β` increases monotonically as the **physical** tip radius `r` decreases across the resolved sweep. For ideal sharp edges (`r = 0`) the field diverges — the finite physical radius, not mesh resolution, is what regularizes the field; mesh refinement only resolves the finite-radius solution. The `r → 0` limit is therefore reported as divergent/unbounded, not as a finite saturation value.
 - P2: `V_inception` decreases with increasing `β` at fixed gap; the product `β · V_inception` is approximately constant across geometries at fixed gas conditions (to be tested, not assumed).
 - P3: Circular disk (G4) shows lower `β` than triangular apex (G3) at equal minimum radius of curvature.
 - P4: For very obtuse wedge angles (θ → 180°), `β → 1` (plane limit).

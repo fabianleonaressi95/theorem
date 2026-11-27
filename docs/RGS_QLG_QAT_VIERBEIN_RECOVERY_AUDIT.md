@@ -1,6 +1,6 @@
 # RGS–PSU / QLG vierbein and QAT recovery audit
 
-**Status:** source reconstruction recovered; numerical rerun of the archived binary bundle is still pending.
+**Status:** source reconstruction and archived numerical audit report recovered. The values below are historical outputs recorded in `RGS_QLG_QAT_generalization_audit.json`; the raw NPZ bundles are not currently present in the accessible repository, so this pass verifies report/source consistency rather than rerunning the binary computation.
 **Scope:** distinguish the archived link coframe, the spatial vertex field called `E`, the proposed Lorentzian tetrad, and the operators grouped in the historical QAT audit. This note does not identify them by notation alone.
 
 ## 1. Recovered source chain
@@ -12,7 +12,7 @@ The archive contains the following executable source records:
 - `RGS_QLG_QAT_generalization_audit.py`: historical QAT generalization audit, which combines A13/A14 archives with `Q6_exact_incidence_and_H241.npz`.
 - `RGS_PSU_construct_geometric_intertwiner.py`: tests a proposed geometry-to-kernel map, while explicitly warning that a projected-polar extension commuting with (K_0) is not evidence of geometric alignment.
 
-The original binary arrays and the full source bundle are not currently present in the accessible `fabianleonaressi95/theorem` branch. The source scripts and reports were recovered from the user's file archive. Therefore this document records the recovered definitions and audit requirements, not a fresh execution of those binaries.
+The original binary arrays and full ZIP bundles are not currently present in the accessible `fabianleonaressi95/theorem` branch. However, the complete A13/A14 source scripts and the machine-readable QAT result `RGS_QLG_QAT_generalization_audit.json` are in the user's Library. The quantitative results below are transcribed from that archived report and cross-checked against the source definitions. They are not represented as a fresh rerun of the unavailable NPZ files.
 
 ## 2. Four distinct geometric objects
 
@@ -89,12 +89,47 @@ The source script uses the acronym **QAT** in its filename/title but the recover
 - A radial edge component or vertex scalar (\tau) is not a time coordinate or a torsion scalar without a further geometric derivation.
 - A tiny commutator for an operator extended by a projected polar factor on \(\ker K_0\) is structural and does not prove that the proposed geometric feature map equals the kernel.
 
+## 4A. Archived quantitative results recovered
+
+The archived QAT JSON records the following values:
+
+| Check | Archived value | Interpretation |
+|---|---:|---|
+| (\operatorname{rank}J) | 4 | Four independent constraints |
+| (\|JQ\|_F) | (1.23855\times10^{-14}) | Archived tangent frame lies in the constraint kernel |
+| (\|Q^TQ-I\|_F) | (1.31455\times10^{-14}) | Tangent frame is orthonormal |
+| (\|N^TN-I\|_F) | (2.45327\times10^{-18}) | Labelled normal frame is orthonormal |
+| (\|Q^TN\|_F) | (1.05471\times10^{-15}) | Tangent and normal spaces are orthogonal |
+| (\|QQ^T+NN^T-I\|_F) | (8.97758\times10^{-15}) | Tangent/normal projectors resolve the identity |
+| A13/A14 tangent projector difference | 0 | Exact agreement in the archived arrays |
+| SEA/A14 tangent projector difference | 0 | Exact agreement in the archived arrays |
+| (SU(2)) unitarity max residual | (3.20960\times10^{-16}) | Archived link matrices are unitary |
+| (SO(3)) orthogonality max residual | (1.17162\times10^{-15}) | Archived rotations are orthogonal |
+| (SO(3)) determinant max residual | (7.77156\times10^{-16}) | Archived rotations have determinant +1 |
+| Coframe reconstruction Frobenius residual | 0 | Archived coframe matches its formula exactly at stored precision |
+| Coframe unit-norm max residual | (1.11022\times10^{-16}) | Normalization verified |
+| (\|K_{geometry}-D^TD\|_F) | 0 | Exact Gram construction |
+| (\lambda(K_{geometry})) range | [1.00898634, 12] | Positive definite on archived tangent coordinates |
+| (\lambda(K_0)) range | [(9.94038\times10^{-13}), 12.8] | (K_0) is near-semidefinite |
+| Relative (\|K_{geometry}-K_0\|_F/\|K_0\|_F) | 0.844971 | They are materially different operators |
+| Sorted spectral difference (L^2) | 38.08997 | Their spectra are not interchangeable |
+| (K_{fibre}) Hermiticity residual | 0 | Archived spinor-fibre operator is Hermitian |
+| (\lambda(K_{fibre})) range | [0.58610364, 11.41389636] | Positive fibre spectrum |
+| (B_1B_2) Frobenius residual | 0 | Q6 incidence chain identity |
+| (\operatorname{rank}B_1,\operatorname{rank}B_2) | 63, 129 | Consistent with the 64-vertex/192-edge/240-plaquette chain |
+| Holonomy sheets | 240 each | Both conjugate sheets cover the 240 plaquettes |
+| Sheet conjugation residual | 0 | Second holonomy sheet is the complex conjugate of the first |
+
+Additional radial-channel diagnostics: RMS fourth coframe component (0.27599575), maximum absolute value (0.68186731); (\tau\) lies in ([0.07834387,0.45027537]) and its correlation with vertex radius is (-0.89115925). This is evidence for a nontrivial radial geometric channel, not for physical time.
+
+The key correction to the earlier handoff is that the A14 rank and residuals are already available in the archived JSON. They should not be described as awaiting discovery. What remains unavailable is the raw-array rerun and hash-level provenance of those arrays.
+
 ## 5. Epistemic classification
 
 | Statement | Classification | Reason |
 |---|---|---|
-| A13 link coframe formula and its dimensions | Recovered definition; numerical rerun pending | Explicit source code and required archive keys recovered |
-| A14 translation + scale constraint Jacobian | Analytic formula recovered; numerical rerun pending | Explicit source code recovered |
+| A13 link coframe formula and its dimensions | Definition recovered; archived numerical checks pass | A13 source and QAT JSON give exact reconstruction residual 0 and unit-norm residual (1.11\times10^{-16}) |
+| A14 translation + scale constraint Jacobian | Analytically reconstructed; archived numerical checks pass | rank 4; (\|JQ\|_F=1.24\times10^{-14}); projector complement (8.98\times10^{-15}) |
 | (\dim\ker J=188) | Conditional on rank (J=4) | A14 checks rank from the original (X) |
 | (E_i=\operatorname{principal\_sqrt}(C_i/c_0)) | Historical construction record | Transcript recovered; (C_i) and binary (E) unavailable |
 | (64\times4\times4) Lorentzian tetrad | Candidate/ansatz only | Temporal block was not derived |
@@ -105,7 +140,7 @@ The source script uses the acronym **QAT** in its filename/title but the recover
 
 ## 6. Reproduction and closure checklist
 
-Restore the exact bundle inputs before rerunning:
+To upgrade the archived result to a fully reproducible raw-data rerun, restore the exact bundle inputs:
 
 - `RGS_PSU_all_matrices.npz` (or the archived `RGS_PSU_all_matrices (1).npz`);
 - `psu_fibre_connection_matrices.npz`;

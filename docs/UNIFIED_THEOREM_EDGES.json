@@ -5,15 +5,16 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 263,
+    "theorem_markdown_records": 280,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 263,
+    "classification_edges": 280,
     "hub_to_companion_edges": 30,
-    "note": "Updated 27-November-2026: reconciles the live 263-record theorem inventory, including the previously unindexed CYM/MQ records, T070, T113-H, the distinct In2Infinity T154 record, and T155. The RGS spatial-coframe T154 remains a separate record with its own canonical slug. T144–T151 and earlier backfills remain indexed; typed comparison links do not assert equivalence.",
-    "total_nodes": 317,
-    "total_edges": 353
+    "note": "Synced 27-November-2026 against the post-reorganisation inventory (the same card set covered by THEOREM_MASTER_REGISTER). File paths are stable identifiers; node ids embed unique filename stems, so duplicated T-prefixes do not collide. Cards added since the previous snapshot are indexed under H-OTHER with provisional status pending author topic assignment; no dependency edges were invented.",
+    "note": "Synced 27-November-2026 against the live 280-card theorems/ tree and the clean master register. MQ-T005 is now indexed under H-RGS; duplicated T154/T155 display prefixes remain distinct by full filename-stem record key. The Liouville half-factor literature dossier is not part of this inventory. Direct typed crosswalks are unchanged; no dependency edges were invented.",
+    "total_nodes": 334,
+    "total_edges": 370
   },
   "nodes": [
     {
@@ -2318,6 +2319,126 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/T155-dodecahedral-gauss-map-levi-civita-hodge.md",
       "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:EQC-RGS-Q6-minimal-gates",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/EQC-RGS-Q6-minimal-gates.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T-BIANCHI",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T-BIANCHI.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T-DEC-SE3",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T-DEC-SE3.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T-DEWIT",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T-DEWIT.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T-H2-DISLOC",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T-H2-DISLOC.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T071-angular-dec-consistency-proof-obligations",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T071-angular-dec-consistency-proof-obligations.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T071-conditional-angular-dec-consistency-ellis-icosphere",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T071-conditional-angular-dec-consistency-ellis-icosphere.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T113I-ekn-solid-nonlinear-tail-and-mass",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T113I-ekn-solid-nonlinear-tail-and-mass.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T124-mixed-tensor-product-3x3prime",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T124-mixed-tensor-product-3x3prime.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T155-rhombic-cuboctahedron-snub-cube-transition",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T155-rhombic-cuboctahedron-snub-cube-transition.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T156-rhombicuboctahedron-snub-cube-incidence",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T156-rhombicuboctahedron-snub-cube-incidence.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T156-vesica-mobius-elastic-farey-half",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T156-vesica-mobius-elastic-farey-half.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T157-full-covariant-whitney-curvature",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T157-full-covariant-whitney-curvature.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T158-interior-pullback-covariant-whitney",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T158-interior-pullback-covariant-whitney.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T159-curved-feec-mesh-refinement",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T159-curved-feec-mesh-refinement.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:MQ-T005-rgs-tetrahedron-classical-flux-closure",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQ-T005-rgs-tetrahedron-classical-flux-closure.md",
+      "topic_hub": "H-OTHER"
+      "topic_hub": "H-RGS"
     }
   ],
   "edges": [
@@ -4791,6 +4912,129 @@
       "relation": "thematic-index-classification",
       "status": "provisional",
       "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:EQC-RGS-Q6-minimal-gates",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T-BIANCHI",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T-DEC-SE3",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T-DEWIT",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T-H2-DISLOC",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T071-angular-dec-consistency-proof-obligations",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T071-conditional-angular-dec-consistency-ellis-icosphere",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T113I-ekn-solid-nonlinear-tail-and-mass",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T124-mixed-tensor-product-3x3prime",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T155-rhombic-cuboctahedron-snub-cube-transition",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T156-rhombicuboctahedron-snub-cube-incidence",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T156-vesica-mobius-elastic-farey-half",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T157-full-covariant-whitney-curvature",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T158-interior-pullback-covariant-whitney",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T159-curved-feec-mesh-refinement",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:MQ-T005-rgs-tetrahedron-classical-flux-closure",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "RGS tetrahedral classical-flux closure record. This topic edge is an index only, not a proof dependency; the exact Euclidean closure theorem and the numerical seed instance have separate evidential scopes."
     }
   ]
 }

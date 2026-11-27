@@ -1,0 +1,40 @@
+name: Morandotti P1 same-mesh transfer audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/rgs_morandotti_p1_same_mesh.py'
+      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
+      - 'models/morandotti_cell_reconstruction.py'
+      - 'docs/rgs_defect_benchmark/MORANDOTTI_P1_SAME_MESH_TRANSFER.md'
+      - '.github/workflows/morandotti-p1-same-mesh-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p1-transfer:
+    runs-on: ubuntu-latest
+    container:
+      image: dolfinx/dolfinx:v0.11.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify numerical environment
+        run: |
+          python -c "import dolfinx, gmsh, petsc4py, mpi4py, ufl, numpy; print('DOLFINx', dolfinx.__version__)"
+      - name: Generate the two-core P3 reference on the target geometry
+        run: |
+          mkdir -p artifacts/morandotti_p1_transfer
+          python -c "from scripts.rgs_morandotti_two_core_c0_ipdg import solve_level; solve_level(0.06, alpha=10.0, young_modulus=1.0, poisson_ratio=0.0, args_artifact_path='artifacts/morandotti_p1_transfer/cell_fields_h0.0600.npz')"
+      - name: Solve P1 displacement transfer and compare observables
+        run: |
+          python scripts/rgs_morandotti_p1_same_mesh.py \
+            --input artifacts/morandotti_p1_transfer/cell_fields_h0.0600.npz \
+            --out artifacts/morandotti_p1_transfer/report.json
+      - name: Upload P1 transfer report and source fields
+        uses: actions/upload-artifact@v4
+        with:
+          name: morandotti-p1-same-mesh-transfer
+          path: artifacts/morandotti_p1_transfer/

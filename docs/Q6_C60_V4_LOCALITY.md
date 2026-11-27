@@ -111,3 +111,36 @@ The optimized map still satisfies the constraints numerically:
 At block threshold `1e-2`, all 90 undirected C60 face adjacencies are represented, while the number of nonzero 2x2 blocks falls to 368/1024; 156 off-diagonal nonadjacent blocks remain above threshold. At thresholds through `1e-6`, all 1024 blocks remain nonzero. Thus this is **near-local concentration, not exact locality**.
 
 The optimizer is nonconvex and uses finite random restarts. The result is a numerical local optimum, not a global-optimality certificate. The exact-locality question remains open. Machine-readable values: `audits/Q6_C60_V4_locality_optimization.json`.
+
+
+## Exact-locality feasibility test (2026-11-27)
+
+The next question was whether some point in the full `O(16)^4` intertwiner family makes **every** block between distinct nonadjacent C60 faces exactly zero. The parameter space has 480 continuous degrees of freedom. The target imposes 812 directed 2x2 block-zero conditions (3248 scalar entries before accounting for symmetry redundancy).
+
+The reproducible search is `scripts/test_q6_c60_v4_exact_locality.py`. It uses the same isotypic parameterization as the preceding optimizer, with a fixed seed and three stages: quadratic nonlocal-energy reduction, block-L1 sparsification, and a final quadratic refinement. It requires NumPy and PyTorch. Reproduce from the two NPZ inputs in the `q6-c60-v4-equivariance` Actions artifact:
+
+```bash
+python scripts/test_q6_c60_v4_exact_locality.py \
+  --representations artifacts/Q6_C60_V4_intertwiner.npz \
+  --locality artifacts/Q6_C60_V4_locality.npz \
+  --out audits/Q6_C60_V4_exact_locality.json \
+  --matrices artifacts/Q6_C60_V4_exact_locality.npz
+```
+
+### Verified numerical outcome
+
+For seed `20261127`, the best candidate found in this finite search has:
+- nonadjacent off-diagonal Frobenius energy fraction: **1.7915%**;
+- adjacent off-diagonal energy fraction: **98.2085%**;
+- orthogonality residual: `4.37e-14`;
+- maximum V4 intertwining residual: `6.23e-15`;
+- transported-operator symmetry residual: `1.25e-14`;
+- exact Q6 adjacency spectrum retained: eigenvalues `-6,-4,-2,0,2,4,6` with multiplicities `1,6,15,20,15,6,1`.
+
+At block threshold `1e-2`, all 180 directed adjacent-face blocks remain, but **620 nonadjacent blocks** are also above threshold. At thresholds through `1e-6`, all 812 nonadjacent blocks remain nonzero. Thus the search did **not** find exact locality.
+
+### What this does and does not establish
+
+This is a reproducible near-local candidate and a failed exact-zero search from one seeded nonconvex trajectory. The positive residual is **not** a certified lower bound: other initializations or a different method may do better. Consequently, this does not prove that exact locality is impossible. The mathematical status remains **open**; a global obstruction or an exact construction is still needed.
+
+Machine-readable report: `audits/Q6_C60_V4_exact_locality.json`.

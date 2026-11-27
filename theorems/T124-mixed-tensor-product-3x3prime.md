@@ -1,6 +1,7 @@
 # T124 — Mixed tensor product of the two icosahedral three-dimensional modules
 
 **Status:** character-theoretic decomposition proved; an exact-arithmetic 9×9 matrix audit has now been added, but its execution result is not yet certified in this PR.
+**Status:** character-theoretic decomposition proved; exact 9×9 matrix audit committed, execution not yet certified.
 **Depends on:** T121 (the exact signed-axis action of A5 on Q6 and the splitting 6 = 3 ⊕ 3′).
 **Scope:** this record does not modify or subsume T123.
 
@@ -42,6 +43,7 @@ Consequently
 By complete reducibility and uniqueness of irreducible character decomposition, this proves the stated direct-sum decomposition, with multiplicity one for each summand. The dimension check is \(4+5=9=3\cdot3\).
 
 ## Central projectors to be realized in the T124 matrix audit
+## Exact matrix realization and central projectors
 
 For the tensor representation \(D(g)=D_3(g)\otimes D_{3'}(g)\), the central idempotents are
 \[
@@ -49,6 +51,7 @@ P_4=\frac4{60}\sum_{g\in A_5}\chi_4(g^{-1})D(g),\qquad
 P_5=\frac5{60}\sum_{g\in A_5}\chi_5(g^{-1})D(g).
 \]
 The matrix-level audit must establish exactly
+The audit `audits/t124_mixed_tensor_character_check.py` constructs exact bases from the columns of the T121 projectors, computes all 60 restricted 3×3 matrices, forms the 9×9 Kronecker-product action, and constructs the central projectors below. It asserts the representation laws, invariance, idempotence, orthogonality, completeness, ranks and centrality. The exact identities to be checked are
 \[
 P_4^2=P_4,\quad P_5^2=P_5,\quad P_4P_5=0,\quad
 P_4+P_5=I_9,
@@ -62,3 +65,12 @@ The companion audit `audits/t124_mixed_tensor_character_check.py` now constructs
 The T121 audit now exports the signed actions and conjugacy-class membership as an exact data interface for this downstream calculation. The matrix audit has been committed but has **not yet been executed in this environment**; therefore its checks are implementation assertions, not a reported passing test run. Run `python audits/t124_mixed_tensor_character_check.py` from the repository root before promoting this PR from draft. The character identity above independently proves the decomposition, conditional only on the T121 identification of the two three-dimensional irreducibles.
 
 T123 is intentionally untouched.
+## Verification boundary
+
+The character identity above independently proves the representation decomposition, conditional only on the T121 identification of the two three-dimensional irreducibles. The matrix audit is committed but has **not yet been executed in this environment**; its assertions must not be reported as passing until the command below succeeds.
+
+Run from the repository root:
+
+    python audits/t124_mixed_tensor_character_check.py
+
+T121's audit exports the exact signed actions and conjugacy-class membership for this downstream calculation. T123 is intentionally untouched.
