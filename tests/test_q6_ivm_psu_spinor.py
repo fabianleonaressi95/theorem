@@ -32,6 +32,10 @@ class Q6IVMPSUSpinorTests(unittest.TestCase):
                                    return_counts=True)
         self.assertEqual(len(values), 4)
         self.assertEqual(counts.tolist(), [12, 20, 20, 12])
+        audit = run_audit()
+        projection = audit["cut_project_correspondence"]
+        self.assertLess(projection["physical_projection_residual_max"], 1e-12)
+        self.assertLess(projection["internal_projection_residual_max"], 1e-12)
 
     def test_edge_spin_lift_and_reverse_link(self):
         import numpy as np
@@ -48,6 +52,8 @@ class Q6IVMPSUSpinorTests(unittest.TestCase):
         self.assertTrue(result["pass"], result["checks"])
         self.assertEqual(result["construction"]["vertices"], 64)
         self.assertEqual(result["construction"]["edges"], 192)
+        self.assertLess(result["cut_project_correspondence"]["physical_projection_residual_max"], 1e-12)
+        self.assertLess(result["cut_project_correspondence"]["internal_projection_residual_max"], 1e-12)
         self.assertEqual(result["spinorial_lift"]["face_count"], 240)
         self.assertEqual(result["fuller_haramein_comparison"]["equivariant_Q6_to_tetra_grid_match"],
                          "NOT_TESTED")
