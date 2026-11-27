@@ -8,6 +8,7 @@ on:
       - "tests/test_t159_curved_feec_refinement.py"
       - "theorems/T159-curved-feec-mesh-refinement.md"
       - ".github/workflows/t159-curved-feec-refinement.yml"
+      - "README.md"
   workflow_dispatch:
 
 permissions:
