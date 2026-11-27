@@ -245,7 +245,7 @@ def run(fibre_path: Path, embedding_path: Path, output_path: Path) -> dict:
                 else:
                     k = lookup[(b, a)]
                     rab = rotated_links[k].T
-                    eab = -rab @ rotated_coframes[k]
+                    eab = -rab.T @ rotated_coframes[k]
                 total += prefix.T @ eab
                 prefix = rab @ prefix
             transformed_direct.append(total)
