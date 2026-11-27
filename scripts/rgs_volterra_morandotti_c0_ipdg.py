@@ -295,7 +295,9 @@ def solve_level(separation: float, core_radius: float, mesh_size: float,
                             edge["bulk_elastic_energy"])
     return {
         "separation": separation, "core_radius": core_radius,
-        "mesh_size_target": mesh_size, "frank_magnitude": omega,
+        "mesh_size_target": mesh_size,
+        "mesh_to_core_ratio": float(mesh_size/core_radius),
+        "frank_magnitude": omega,
         "burgers_vector_matched": data["burgers_vector"].tolist(),
         "global_moments_dipole": data["global_moments_dipole"].tolist(),
         "global_moments_edge": data["global_moments_edge"].tolist(),
@@ -319,9 +321,13 @@ def solve_level(separation: float, core_radius: float, mesh_size: float,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="artifacts/volterra_morandotti_c0_ipdg/report.json")
-    parser.add_argument("--mesh-sizes", nargs="+", type=float, default=[0.06, 0.045])
-    parser.add_argument("--separations", nargs="+", type=float, default=[0.48, 0.56])
-    parser.add_argument("--core-radius", type=float, default=0.06)
+    parser.add_argument("--separations", nargs="+", type=float, default=[0.48])
+    parser.add_argument("--core-radii", nargs="+", type=float, default=[0.06, 0.04, 0.03])
+    parser.add_argument("--mesh-size-factors", nargs="+", type=float, default=[1.0, 0.75])
+    parser.add_argument("--mesh-sizes", nargs="+", type=float, default=None,
+                        help="optional absolute mesh sizes; overrides mesh-size-factors")
+    parser.add_argument("--core-radius", type=float, default=None,
+                        help="legacy single-radius option; overrides core-radii")
     parser.add_argument("--outer-radius", type=float, default=1.0)
     parser.add_argument("--frank-magnitude", type=float, default=0.01)
     parser.add_argument("--young-modulus", type=float, default=1.0)
@@ -330,12 +336,18 @@ def main():
     args = parser.parse_args()
     if not (-1.0 < args.poisson_ratio < 0.5):
         parser.error("poisson-ratio must lie in (-1, 1/2)")
+    core_radii = [args.core_radius] if args.core_radius is not None else args.core_radii
     rows = []
+    mesh_schedule = {}
     for separation in args.separations:
-        for h in args.mesh_sizes:
-            rows.append(solve_level(
-                separation, args.core_radius, h, args.alpha, args.outer_radius,
-                args.frank_magnitude, args.young_modulus, args.poisson_ratio))
+        for core_radius in core_radii:
+            mesh_sizes = (args.mesh_sizes if args.mesh_sizes is not None else
+                          [core_radius*factor for factor in args.mesh_size_factors])
+            mesh_schedule[str(core_radius)] = [float(h) for h in mesh_sizes]
+            for h in mesh_sizes:
+                rows.append(solve_level(
+                    separation, core_radius, h, args.alpha, args.outer_radius,
+                    args.frank_magnitude, args.young_modulus, args.poisson_ratio))
     report = {
         "title": "Volterra dipole-to-edge: matched three-core P3 C0-IPDG benchmark",
         "status": "C0-IPDG computation; results must be taken from this run's artifact",
@@ -348,9 +360,10 @@ def main():
             "plane_strain": True,
         },
         "penalty_alpha": args.alpha,
-        "core_radius": args.core_radius,
+        "core_radii": core_radii,
         "separations": args.separations,
-        "mesh_sizes": args.mesh_sizes,
+        "mesh_schedule_by_core_radius": mesh_schedule,
+        "mesh_size_factors": args.mesh_size_factors if args.mesh_sizes is None else None,
         "source_convention": {
             "dipole": "Frank +Omega at (0,+d/2), -Omega at (0,-d/2)",
             "edge": "Burgers b=(-Omega*d,0) at (0,0)",
