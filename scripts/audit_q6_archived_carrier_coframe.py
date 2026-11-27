@@ -231,17 +231,7 @@ def run(fibre_path: Path, embedding_path: Path, output_path: Path) -> dict:
             gauges[int(g)] @ local_coframes[k]
             for k, (g, _h, _d) in enumerate(edges)
         ])
-        # Evaluate the transformed cycles with the same directed-edge rules.
-        transformed = np.asarray([
-            cycle_torsion(cycle, points, gauges @ frames,
-                          # The local connection/coframe are already gauge transformed;
-                          # use a dedicated local lookup evaluator below.
-                          rotated_links, edges, lookup)
-            for cycle in squares
-        ])
-        # The cycle evaluator above recomputes coframes from points/frames.
-        # Compare against a direct transformed-coframe path sum instead.
-        transformed_direct = []
+        # Evaluate the transformed coframe directly, preserving the local gauge action.\n        transformed_direct = []
         for cycle in squares:
             total = np.zeros(3)
             prefix = np.eye(3)
