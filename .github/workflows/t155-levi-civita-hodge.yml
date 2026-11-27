@@ -5,6 +5,11 @@ on:
       - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
       - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
       - ".github/workflows/t155-levi-civita-hodge.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
+      - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
+      - ".github/workflows/t155-levi-civita-hodge.yml"
   workflow_dispatch:
 jobs:
   audit:
