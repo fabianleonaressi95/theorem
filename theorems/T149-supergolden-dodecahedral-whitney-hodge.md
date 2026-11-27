@@ -174,3 +174,10 @@ python -m unittest tests.test_t149_dodecahedron_feec_hodge
 \`\`\`
 
 Machine-readable report: results/json/t149_supergolden_dodecahedron_feec_hodge.json. Workflow: .github/workflows/t149-feec-hodge.yml.
+
+
+## 9. Follow-up: global face connection constructed in T155
+
+The previously open inter-face connection on the 12 pentagonal frames has now been constructed independently in [T155](T155-dodecahedral-gauss-map-levi-civita-hodge.md). T155 uses the Gauss-map normals, minimal SO(3) rotations, the vesica-axis gauge, geometric face-area masses and shared-edge/centroid-distance conductances. Its antipodal frame covariance and 4π holonomy total pass.
+
+This closes the face-graph connection gap identified in the original T149 conclusion. It does **not** yet produce a covariant Whitney differential on all 32 vertices, 90 edges and 60 triangles. The full 32–90–60 covariant FEEC extension, its Hodge spectrum, and the derivation of the Q6/RGS polynomial f remain open.

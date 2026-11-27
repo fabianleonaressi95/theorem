@@ -26,8 +26,8 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
-| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PR #344 merged; **PR #461 open** (non-Abelian Bianchi); issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
-| Volterra dipole→edge dislocation elasticity | `theorem` | PR #131 merged; PR #450 draft (Airy limit) | NUMERICALLY VERIFIED | draft review pending |
+| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 open (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
 | 2I / Poincaré quotient / McKay correspondence | `theorem` + `rgs-qlg` | `theorem/docs/binary-icosahedral-2i.md`? (rgs-qlg `docs/binary-icosahedral-2i.md`), PR #444 (binary McKay–ADE) | ANALYTICALLY VERIFIED per repo | — |
@@ -56,7 +56,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | RheoMarine HFR–M0 transport | `rheomarine` | PILOT-REPRODUCED (Lagrangian); solver masks SOFTWARE VERIFIED; validation DATA-BLOCKED (issue #2) | independent ADCP/drifter/particle observations; coastline mask; longer HFR windows |
 | DS1/DS2 lab rheology analysis | `rheomarine` | ANALYZED (derived CSVs/JSON committed) | absolute z-calibration for DS1; DS2 recipes |
 | Hysteresis datasets (188D, JA, actuator) | `theorem` (`Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
-| Shape–Field experimental research | **not found as a distinct repo** — possibly inside `kilaw`/`naressi-*`/ChatGPT threads | UNMAPPED | owner clarification needed |
+| Shape–Field / electrostatic discharge FEM | `theorem` (protocol); dedicated app repo TBD | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` (CADFEM/Fuger 2026-04-10 reference) | OPEN — protocol only | FEM implementation, §8 verification tests, inception-voltage module |
 | SSA / scaling laws | `ASTRAQ` | SOFTWARE VERIFIED (stale since Aug) | — |
 | CosModex galaxy map | `cosmodex` | SOFTWARE (stale; hygiene issues) | — |
 

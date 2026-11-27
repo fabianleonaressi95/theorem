@@ -65,14 +65,14 @@ The lower bound follows from (G2) for distinct endpoints, but is recorded to mak
 
 **(G5) Approximate-geodesic connectivity.** For every pair \(x,y\in V_\varepsilon\), there is an edge path \(P_\varepsilon(x,y)\) joining them whose vertices lie in the \(C_{\rm path}\varepsilon\)-neighbourhood of the Euclidean segment \([x,y]\). Every edge on the path satisfies (G4).
 
-The path is a connectivity/geometric-accessibility condition. It is **not** a substitute for a uniform Poincaré inequality: it gives no uniform bound on path length, overlap, congestion, or the energy cost of transporting values through a bottleneck.
+The path condition is stronger than bare connectivity. Together with uniform separation, it gives a uniform bound on path length and edge congestion for all vertex pairs at any fixed multiple of the mesh scale. This yields a comparison with a continuum nonlocal difference quotient and, with boundary-complete fill, a uniform discrete Poincaré inequality; see [EG-01 local Poincare proof](EG01_LOCAL_POINCARE_PROOF.md). It does not by itself provide a global all-pairs congestion bound or the interpolation/upper-growth estimates needed for the full Gamma-limit.
 
 **(G6) Edge weights.** Each edge has a scalar conductance \(a_e^\varepsilon\) with
 \[
 0<a_-\le a_e^\varepsilon\le a_+<\infty.
 \]
 
-By separation and the upper edge-length bound, the degree is uniformly bounded by a packing argument. This controls local edge counts, but does not by itself give coercivity in every direction.
+By separation and the upper edge-length bound, the degree is uniformly bounded by a packing argument. More importantly, separation plus (G5) gives bounded local path length and bounded congestion for fixed-radius vertex pairs. The resulting Poincare/compactness conclusion requires boundary-complete fill, as detailed in the EG-01 proof note.
 
 ## 3. Discrete energy and identification with \(L^2(\Omega)\)
 
@@ -106,7 +106,7 @@ The continuum comparison is strong \(L^2(\Omega)\). Other identifications (finit
 
 ## 4. The missing analytic hypothesis: uniform compactness
 
-The geometric assumptions (G1)–(G6) are not currently claimed to imply compactness. Add one of the following analytic conditions and then investigate whether it can be derived from stronger graph-geometric assumptions.
+The initial interior-only form of (G3) does not control boundary Voronoi cells. If (G3) is strengthened to boundary-complete fill on \\overline{\\Omega}, then (G2) and (G5) imply a local path-congestion estimate; this controls a continuum nonlocal difference quotient and gives strong L2 compactness and a uniform Poincare inequality. See the conditional proof in [EG01_LOCAL_POINCARE_PROOF.md](EG01_LOCAL_POINCARE_PROOF.md). The stronger H1 interpolation estimate (C1), upper-growth bounds, and the integral-representation hypotheses remain separate obligations.
 
 **(C1) Extension formulation.** There are linear or suitably stable extension/interpolation maps
 \[
@@ -134,7 +134,7 @@ Then bounded energy and bounded \(L^2\)-norm give boundedness of \(I_\varepsilon
 \]
 together with uniform \(L^2\) boundedness and a boundary-extension/equi-tightness condition. For sequences \(\varepsilon_n\to0\), (4.2) yields the translation control needed by the Fréchet–Kolmogorov criterion.
 
-**Important:** (C1) or (C2) is an additional analytic input, not a consequence asserted here from (G1)–(G6). A proof deriving it from the path condition would need quantitative control of path lengths and congestion, or a suitable uniform discrete Poincaré/isoperimetric inequality.
+**Important:** the EG-01 proof note derives a uniform Poincare inequality and L2 compactness under boundary-complete fill. It does not derive the full H1 interpolation estimate (C1), nor does it establish the fundamental estimate or integral representation. Those remain additional obligations.
 
 ## 5. Locality, growth, and the integral-representation target
 

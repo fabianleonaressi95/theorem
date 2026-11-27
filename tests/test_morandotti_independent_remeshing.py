@@ -10,7 +10,9 @@ if str(ROOT) not in sys.path:
 from scripts.rgs_morandotti_independent_remeshing import validate_realization_grid
 
 
-MESH_SIZES = (0.08, 0.06, 0.045, 0.035)
+# Seven h-levels, two fixed separations, seven independent Gmsh seeds:
+# 7 * 2 * 7 = 98 independently generated finite-element realizations.
+MESH_SIZES = (0.08, 0.06, 0.045, 0.035, 0.027, 0.022, 0.018)
 DISTANCES = (0.48, 0.56)
 SEEDS = (11, 17, 23, 29, 37, 47, 59)
 
@@ -30,9 +32,10 @@ def _records():
     return rows
 
 
-def test_accepts_exact_56_realizations_with_distinct_meshes():
+def test_accepts_exact_98_realizations_with_distinct_meshes():
     groups = validate_realization_grid(_records(), MESH_SIZES, DISTANCES, SEEDS)
     assert len(groups) == len(MESH_SIZES) * len(DISTANCES)
+    assert sum(len(samples) for samples in groups.values()) == 98
     assert all(len(samples) == len(SEEDS) for samples in groups.values())
 
 
@@ -47,4 +50,11 @@ def test_rejects_missing_or_duplicated_seed_record():
     rows = _records()
     rows.pop()
     with pytest.raises(RuntimeError, match="realization grid mismatch"):
+        validate_realization_grid(rows, MESH_SIZES, DISTANCES, SEEDS)
+
+
+def test_rejects_seed_that_did_not_generate_a_fresh_mesh():
+    rows = _records()
+    rows[0]["fresh_mesh_generated_for_this_pair"] = False
+    with pytest.raises(RuntimeError, match="fresh mesh"):
         validate_realization_grid(rows, MESH_SIZES, DISTANCES, SEEDS)

@@ -5,17 +5,479 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 241,
+    "theorem_markdown_records": 263,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 241,
+    "classification_edges": 263,
     "hub_to_companion_edges": 30,
-    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T146 and A1 are explicitly represented as existing theorem/document nodes. Typed comparison links do not assert equivalence.",
-    "total_nodes": 295,
-    "total_edges": 330
+    "note": "Updated 27-November-2026: reconciles the live 263-record theorem inventory, including the previously unindexed CYM/MQ records, T070, T113-H, the distinct In2Infinity T154 record, and T155. The RGS spatial-coframe T154 remains a separate record with its own canonical slug. T144–T151 and earlier backfills remain indexed; typed comparison links do not assert equivalence.",
+    "total_nodes": 317,
+    "total_edges": 353
   },
   "nodes": [
+    {
+      "id": "APP:MorandottiBrief",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "docs/MORANDOTTI_BRIEFING_2026-11-11.md"
+    },
+    {
+      "id": "APP:MorandottiDefect",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "docs/rgs_defect_benchmark/README.md"
+    },
+    {
+      "id": "APP:Pellis01",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "collaborations/pellis/01_exact_scalar_spectrum_poincare_sphere.md"
+    },
+    {
+      "id": "APP:Pellis02",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "collaborations/pellis/02_prism_kathara_kristall_multidimensional.md"
+    },
+    {
+      "id": "APP:Pellis03",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "collaborations/pellis/03_geometric_self_adjoint_operators.md"
+    },
+    {
+      "id": "APP:Pellis04",
+      "kind": "application-dossier",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "collaborations/pellis/04_pellis_functions_golden_spheres_resonance.md"
+    },
+    {
+      "id": "CAT:DK-Q6-010",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Combinatorial Dirac-Kahler operator",
+      "status": [
+        "PROVEN",
+        "EXACT_FINITE"
+      ],
+      "scope": "unweighted Q6 2-skeleton cochains",
+      "sources": [
+        "src/dirac_kahler.py",
+        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
+      ]
+    },
+    {
+      "id": "CAT:MOSCO-TORUS-009",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Flat periodic-torus Mosco prototype",
+      "status": [
+        "PROVEN"
+      ],
+      "scope": "flat periodic torus and explicitly stated common-Hilbert/Fourier assumptions",
+      "sources": [
+        "docs/MOSCO_PROTOTYPE_REGULAR_TORUS.md",
+        "src/mosco_torus.py",
+        "tests/test_mosco_torus.py"
+      ]
+    },
+    {
+      "id": "CAT:OVERLAP-GW-011",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Finite overlap Ginsparg-Wilson identity",
+      "status": [
+        "PROVEN",
+        "NUMERIC"
+      ],
+      "scope": "finite gamma5-Hermitian kernel with nonzero Hermitian-kernel gap",
+      "sources": [
+        "src/overlap_dirac.py",
+        "results/json/rgs_q6_phase10_index_spectral_flow.json"
+      ]
+    },
+    {
+      "id": "CAT:OVERLAP-LOC-012",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Finite overlap locality diagnostics",
+      "status": [
+        "NUMERIC",
+        "OPEN"
+      ],
+      "scope": "one archived Q6 matrix and sampled rho values",
+      "sources": [
+        "results/json/rgs_q6_phase10_index_spectral_flow.json"
+      ]
+    },
+    {
+      "id": "CAT:Q6-CX-001",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Q6 cellular complex and incidence",
+      "status": [
+        "EXACT_FINITE",
+        "PROVEN"
+      ],
+      "scope": "canonical 6-cube 2-skeleton",
+      "sources": [
+        "src/q6_complex.py",
+        "tests/test_q6_complex.py"
+      ]
+    },
+    {
+      "id": "CAT:Q6-SP-002",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Hypercube Laplacian spectrum",
+      "status": [
+        "PROVEN"
+      ],
+      "scope": "canonical graph Q6",
+      "sources": [
+        "src/q6_complex.py"
+      ]
+    },
+    {
+      "id": "CAT:RGS-DIRAC-005",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Spatial discrete Dirac operator",
+      "status": [
+        "MODEL",
+        "NUMERIC"
+      ],
+      "scope": "256-dimensional archived finite operator",
+      "sources": [
+        "results/json/rgs_q6_phase6_reference_audit.json"
+      ]
+    },
+    {
+      "id": "CAT:RGS-GEO-003",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Curved Clifford field from coframe",
+      "status": [
+        "PROVEN",
+        "NUMERIC"
+      ],
+      "scope": "each site with invertible coframe and consistent signature",
+      "sources": [
+        "docs/WEILER_PHASE6_THEOREM_MAP.md",
+        "results/json/rgs_q6_phase6_reference_audit.json"
+      ]
+    },
+    {
+      "id": "CAT:RGS-SPIN-004",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Polar SO(3)-to-SU(2) edge lift",
+      "status": [
+        "CANDIDATE",
+        "NUMERIC"
+      ],
+      "scope": "archived finite RGS-Q6 data",
+      "sources": [
+        "results/json/rgs_q6_phase6_reference_audit.json"
+      ]
+    },
+    {
+      "id": "CAT:RGS-WILSON-006",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Covariant Wilson graph Laplacian",
+      "status": [
+        "PROVEN",
+        "NUMERIC"
+      ],
+      "scope": "unitary links and nonnegative edge weights",
+      "sources": [
+        "docs/CHIRAL_WILSON_AUDIT.md",
+        "results/json/rgs_q6_wilson_audit.json"
+      ]
+    },
+    {
+      "id": "CAT:RGS-WILSON-007",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Euclidean Wilson convention correction",
+      "status": [
+        "EXACT_FINITE",
+        "PROVEN"
+      ],
+      "scope": "specified periodic symbol and operator convention",
+      "sources": [
+        "docs/WEILER_PHASE6_THEOREM_MAP.md",
+        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
+      ]
+    },
+    {
+      "id": "CAT:THERM-MOB-013",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Finite Mobius spectral thermodynamics",
+      "status": [
+        "NUMERIC",
+        "MODEL"
+      ],
+      "scope": "specified finite 24-level-per-sector spectrum",
+      "sources": [
+        "docs/MOBIUS_HAWKING_THERMODYNAMICS.md",
+        "src/thermodynamics.py"
+      ]
+    },
+    {
+      "id": "CAT:WEILER-EQV-014",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Geometric equivariance constraints",
+      "status": [
+        "PROVEN",
+        "OPEN"
+      ],
+      "scope": "standard equivariant-map theorems plus partial Q6 implementation",
+      "sources": [
+        "docs/WEILER_PHASE6_THEOREM_MAP.md"
+      ]
+    },
+    {
+      "id": "CAT:WILSON-SCALE-008",
+      "kind": "catalogue-entry",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "title": "Wilson scaling window",
+      "status": [
+        "PROVEN"
+      ],
+      "scope": "regular periodic Fourier lattice symbol",
+      "sources": [
+        "src/wilson_refinement.py",
+        "examples/wilson_refinement_audit.py",
+        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
+      ]
+    },
+    {
+      "id": "DOC:A1_POINCARE_SCALAR_SPECTRUM",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md",
+      "title": "Exact scalar spectral geometry of S3/2I"
+    },
+    {
+      "id": "DOC:ANALYTIC_GRADIENT_GATE",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_ANALYTIC_GRADIENTS_AND_SPIN_CONNECTION_GATE.md",
+      "title": "Analytic gradient / spin-connection gate"
+    },
+    {
+      "id": "DOC:D5_BERGMAN",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_D5_BERGMAN_LIOUVILLE_PULLBACK_THEOREM.md",
+      "title": "D5 Bergman–Liouville pullback"
+    },
+    {
+      "id": "DOC:DK_Q6",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
+      "title": "Dirac–Kähler operator"
+    },
+    {
+      "id": "DOC:ELLIS_SPIN_CONNECTION",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/ELLIS_RGS_LEVI_CIVITA_SPIN_CONNECTION.md",
+      "title": "Ellis–RGS Levi-Civita SU(2) transport"
+    },
+    {
+      "id": "DOC:KATHARA_GATE_C",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/KATHARA_Q6_CHAIN_MAP_GATE_C.md",
+      "title": "Kathara–Q6 Gate C"
+    },
+    {
+      "id": "DOC:KATHARA_GATE_D",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/KATHARA_Q6_NONDEGENERATE_GATE_D.md",
+      "title": "Kathara–Q6 Gate D"
+    },
+    {
+      "id": "DOC:MOSCO_CURVED",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/RGS_MOSCO_CURVED_REFINEMENT_PROGRAM.md",
+      "title": "curved Mosco open programme"
+    },
+    {
+      "id": "DOC:MOSCO_TORUS",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/MOSCO_PROTOTYPE_REGULAR_TORUS.md",
+      "title": "flat Mosco theorem"
+    },
+    {
+      "id": "DOC:OVERLAP_GW",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
+      "title": "finite overlap/Ginsparg–Wilson"
+    },
+    {
+      "id": "DOC:OVERLAP_LOC",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/RGS_MOSCO_CURVED_REFINEMENT_PROGRAM.md",
+      "title": "locality/convergence open obligations"
+    },
+    {
+      "id": "DOC:Q6_2I_INTERTWINER",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_2I_INTERTWINER_COMPATIBILITY.md",
+      "title": "Q6–2I central-character compatibility"
+    },
+    {
+      "id": "DOC:Q6_BARYCENTRIC",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_BARYCENTRIC_P1_FEM.md",
+      "title": "Q6 barycentric P1 finite elements"
+    },
+    {
+      "id": "DOC:Q6_CX",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/KATHARA_Q6_CHAIN_MAP_GATE_C.md",
+      "title": "Q6/Kathara cellular-chain companion"
+    },
+    {
+      "id": "DOC:Q6_DYADIC_SUBDIVISION",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_DYADIC_SUBDIVISION_CHAIN_MAP.md",
+      "title": "Q6 midpoint subdivision"
+    },
+    {
+      "id": "DOC:Q6_SP",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md",
+      "title": "Q6 finite spectral/Hodge structure"
+    },
+    {
+      "id": "DOC:RGS_DIRAC",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/ELLIS_RGS_INTRINSIC_SPIN_DIRAC.md",
+      "title": "intrinsic spinorial Dirac operator"
+    },
+    {
+      "id": "DOC:RGS_EC_TORSION",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/RGS_EC_ALGEBRAIC_AXIAL_TORSION_BENCHMARK.md",
+      "title": "Einstein–Cartan axial torsion benchmark"
+    },
+    {
+      "id": "DOC:RGS_GEO",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/WEILER_PHASE6_THEOREM_MAP.md",
+      "title": "coframe-induced Clifford field"
+    },
+    {
+      "id": "DOC:RGS_SPIN",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/ELLIS_RGS_LEVI_CIVITA_SPIN_CONNECTION.md",
+      "title": "finite SU(2) spin transport"
+    },
+    {
+      "id": "DOC:RGS_WILSON",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/CHIRAL_WILSON_AUDIT.md",
+      "title": "gauge-covariant Wilson operator"
+    },
+    {
+      "id": "DOC:THERM_MOB",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/MOBIUS_HAWKING_THERMODYNAMICS.md",
+      "title": "finite Möbius spectral thermodynamics"
+    },
+    {
+      "id": "DOC:UNIFIED_GEOMETRY",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md",
+      "title": "programme architecture; not a theorem"
+    },
+    {
+      "id": "DOC:UNIFIED_RGS_PRISM_QLG",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md",
+      "title": "RGS–PSU–PRISM–QLG programme architecture"
+    },
+    {
+      "id": "DOC:VESICA_JITTERBUG",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "docs/VESICA_STAR_DAVID_JITTERBUG_PHASE_BRIDGE.md",
+      "title": "Vesica–hexagram–Jitterbug phase bridge"
+    },
+    {
+      "id": "DOC:WILSON_SCALE",
+      "kind": "companion-document",
+      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
+      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
+      "title": "Wilson scaling and overlap conventions"
+    },
+    {
+      "id": "H-D5",
+      "kind": "thematic-hub",
+      "title": "D5 · Liouville · Bergman · Wilson · special functions"
+    },
+    {
+      "id": "H-MOR",
+      "kind": "thematic-hub",
+      "title": "Morandotti · structured deformation · gradients · defects"
+    },
+    {
+      "id": "H-OTHER",
+      "kind": "thematic-hub",
+      "title": "Other / independent roots requiring explicit crosswalk"
+    },
+    {
+      "id": "H-PRISM",
+      "kind": "thematic-hub",
+      "title": "PRISM · Krist-All · supergolden · phases"
+    },
+    {
+      "id": "H-Q6",
+      "kind": "thematic-hub",
+      "title": "Q6 · chains · Hodge · Dirac · gauge"
+    },
+    {
+      "id": "H-RGS",
+      "kind": "thematic-hub",
+      "title": "RGS · coframes · spin · Mosco · geometry"
+    },
+    {
+      "id": "H-SPECTRAL",
+      "kind": "thematic-hub",
+      "title": "Spectral theory · Rumin · 2I · Poincaré"
+    },
+    {
+      "id": "H-VESICA",
+      "kind": "thematic-hub",
+      "title": "Vesica · hexagram · pentagon · Jitterbug"
+    },
     {
       "id": "THM:001-fixed-lattice-temporal-wilson-limit",
       "kind": "theorem-record",
@@ -297,11 +759,11 @@
       "topic_hub": "H-Q6"
     },
     {
-      "id": "THM:MQM-Q6-symmetry-stabilizer",
+      "id": "THM:mckay_affine_e8_binary_icosahedral",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/MQM-Q6-symmetry-stabilizer.md",
-      "topic_hub": "H-Q6"
+      "path": "theorems/spectral/mckay_affine_e8_binary_icosahedral.md",
+      "topic_hub": "H-SPECTRAL"
     },
     {
       "id": "THM:MQM-multidimensional-structure",
@@ -309,6 +771,13 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/MQM-multidimensional-structure.md",
       "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:MQM-Q6-symmetry-stabilizer",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQM-Q6-symmetry-stabilizer.md",
+      "topic_hub": "H-Q6"
     },
     {
       "id": "THM:MQM1-discriminant-analysis",
@@ -344,6 +813,13 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/MQM1-rgs-metric-reference.md",
       "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:poincare_s3_2i_multiplicities",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/spectral/poincare_s3_2i_multiplicities.md",
+      "topic_hub": "H-SPECTRAL"
     },
     {
       "id": "THM:Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23",
@@ -1655,480 +2131,95 @@
       "topic_hub": "H-SPECTRAL"
     },
     {
-      "id": "THM:mckay_affine_e8_binary_icosahedral",
+      "id": "THM:T144-2i-molien-cumulative-hilbert-odd-degree-correspondence",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/spectral/mckay_affine_e8_binary_icosahedral.md",
+      "path": "theorems/T144-2i-molien-cumulative-hilbert-odd-degree-correspondence.md",
       "topic_hub": "H-SPECTRAL"
     },
     {
-      "id": "THM:poincare_s3_2i_multiplicities",
+      "id": "THM:T145-square-reflection-prism-biverse-rgs-carrier",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/spectral/poincare_s3_2i_multiplicities.md",
+      "path": "theorems/T145-square-reflection-prism-biverse-rgs-carrier.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T146-dodecahedral-dual-q6-barycentre-spectral-audit.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T147-golden-tangential-spectrum-fibonacci-period-two",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T147-golden-tangential-spectrum-fibonacci-period-two.md",
       "topic_hub": "H-SPECTRAL"
     },
     {
-      "id": "CAT:Q6-CX-001",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Q6 cellular complex and incidence",
-      "status": [
-        "EXACT_FINITE",
-        "PROVEN"
-      ],
-      "scope": "canonical 6-cube 2-skeleton",
-      "sources": [
-        "src/q6_complex.py",
-        "tests/test_q6_complex.py"
-      ]
-    },
-    {
-      "id": "CAT:Q6-SP-002",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Hypercube Laplacian spectrum",
-      "status": [
-        "PROVEN"
-      ],
-      "scope": "canonical graph Q6",
-      "sources": [
-        "src/q6_complex.py"
-      ]
-    },
-    {
-      "id": "CAT:RGS-GEO-003",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Curved Clifford field from coframe",
-      "status": [
-        "PROVEN",
-        "NUMERIC"
-      ],
-      "scope": "each site with invertible coframe and consistent signature",
-      "sources": [
-        "docs/WEILER_PHASE6_THEOREM_MAP.md",
-        "results/json/rgs_q6_phase6_reference_audit.json"
-      ]
-    },
-    {
-      "id": "CAT:RGS-SPIN-004",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Polar SO(3)-to-SU(2) edge lift",
-      "status": [
-        "CANDIDATE",
-        "NUMERIC"
-      ],
-      "scope": "archived finite RGS-Q6 data",
-      "sources": [
-        "results/json/rgs_q6_phase6_reference_audit.json"
-      ]
-    },
-    {
-      "id": "CAT:RGS-DIRAC-005",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Spatial discrete Dirac operator",
-      "status": [
-        "MODEL",
-        "NUMERIC"
-      ],
-      "scope": "256-dimensional archived finite operator",
-      "sources": [
-        "results/json/rgs_q6_phase6_reference_audit.json"
-      ]
-    },
-    {
-      "id": "CAT:RGS-WILSON-006",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Covariant Wilson graph Laplacian",
-      "status": [
-        "PROVEN",
-        "NUMERIC"
-      ],
-      "scope": "unitary links and nonnegative edge weights",
-      "sources": [
-        "docs/CHIRAL_WILSON_AUDIT.md",
-        "results/json/rgs_q6_wilson_audit.json"
-      ]
-    },
-    {
-      "id": "CAT:RGS-WILSON-007",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Euclidean Wilson convention correction",
-      "status": [
-        "EXACT_FINITE",
-        "PROVEN"
-      ],
-      "scope": "specified periodic symbol and operator convention",
-      "sources": [
-        "docs/WEILER_PHASE6_THEOREM_MAP.md",
-        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
-      ]
-    },
-    {
-      "id": "CAT:WILSON-SCALE-008",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Wilson scaling window",
-      "status": [
-        "PROVEN"
-      ],
-      "scope": "regular periodic Fourier lattice symbol",
-      "sources": [
-        "src/wilson_refinement.py",
-        "examples/wilson_refinement_audit.py",
-        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
-      ]
-    },
-    {
-      "id": "CAT:MOSCO-TORUS-009",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Flat periodic-torus Mosco prototype",
-      "status": [
-        "PROVEN"
-      ],
-      "scope": "flat periodic torus and explicitly stated common-Hilbert/Fourier assumptions",
-      "sources": [
-        "docs/MOSCO_PROTOTYPE_REGULAR_TORUS.md",
-        "src/mosco_torus.py",
-        "tests/test_mosco_torus.py"
-      ]
-    },
-    {
-      "id": "CAT:DK-Q6-010",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Combinatorial Dirac-Kahler operator",
-      "status": [
-        "PROVEN",
-        "EXACT_FINITE"
-      ],
-      "scope": "unweighted Q6 2-skeleton cochains",
-      "sources": [
-        "src/dirac_kahler.py",
-        "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md"
-      ]
-    },
-    {
-      "id": "CAT:OVERLAP-GW-011",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Finite overlap Ginsparg-Wilson identity",
-      "status": [
-        "PROVEN",
-        "NUMERIC"
-      ],
-      "scope": "finite gamma5-Hermitian kernel with nonzero Hermitian-kernel gap",
-      "sources": [
-        "src/overlap_dirac.py",
-        "results/json/rgs_q6_phase10_index_spectral_flow.json"
-      ]
-    },
-    {
-      "id": "CAT:OVERLAP-LOC-012",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Finite overlap locality diagnostics",
-      "status": [
-        "NUMERIC",
-        "OPEN"
-      ],
-      "scope": "one archived Q6 matrix and sampled rho values",
-      "sources": [
-        "results/json/rgs_q6_phase10_index_spectral_flow.json"
-      ]
-    },
-    {
-      "id": "CAT:THERM-MOB-013",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Finite Mobius spectral thermodynamics",
-      "status": [
-        "NUMERIC",
-        "MODEL"
-      ],
-      "scope": "specified finite 24-level-per-sector spectrum",
-      "sources": [
-        "docs/MOBIUS_HAWKING_THERMODYNAMICS.md",
-        "src/thermodynamics.py"
-      ]
-    },
-    {
-      "id": "CAT:WEILER-EQV-014",
-      "kind": "catalogue-entry",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "title": "Geometric equivariance constraints",
-      "status": [
-        "PROVEN",
-        "OPEN"
-      ],
-      "scope": "standard equivariant-map theorems plus partial Q6 implementation",
-      "sources": [
-        "docs/WEILER_PHASE6_THEOREM_MAP.md"
-      ]
-    },
-    {
-      "id": "DOC:Q6_CX",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/KATHARA_Q6_CHAIN_MAP_GATE_C.md",
-      "title": "Q6/Kathara cellular-chain companion"
-    },
-    {
-      "id": "DOC:Q6_SP",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_COMBINATORIAL_HODGE_LAPLACIANS.md",
-      "title": "Q6 finite spectral/Hodge structure"
-    },
-    {
-      "id": "DOC:RGS_GEO",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/WEILER_PHASE6_THEOREM_MAP.md",
-      "title": "coframe-induced Clifford field"
-    },
-    {
-      "id": "DOC:RGS_SPIN",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/ELLIS_RGS_LEVI_CIVITA_SPIN_CONNECTION.md",
-      "title": "finite SU(2) spin transport"
-    },
-    {
-      "id": "DOC:RGS_DIRAC",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/ELLIS_RGS_INTRINSIC_SPIN_DIRAC.md",
-      "title": "intrinsic spinorial Dirac operator"
-    },
-    {
-      "id": "DOC:RGS_WILSON",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/CHIRAL_WILSON_AUDIT.md",
-      "title": "gauge-covariant Wilson operator"
-    },
-    {
-      "id": "DOC:WILSON_SCALE",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
-      "title": "Wilson scaling and overlap conventions"
-    },
-    {
-      "id": "DOC:MOSCO_TORUS",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/MOSCO_PROTOTYPE_REGULAR_TORUS.md",
-      "title": "flat Mosco theorem"
-    },
-    {
-      "id": "DOC:MOSCO_CURVED",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/RGS_MOSCO_CURVED_REFINEMENT_PROGRAM.md",
-      "title": "curved Mosco open programme"
-    },
-    {
-      "id": "DOC:DK_Q6",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
-      "title": "Dirac–Kähler operator"
-    },
-    {
-      "id": "DOC:OVERLAP_GW",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/WILSON_REFINEMENT_OVERLAP_DIRAC_KAHLER.md",
-      "title": "finite overlap/Ginsparg–Wilson"
-    },
-    {
-      "id": "DOC:OVERLAP_LOC",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/RGS_MOSCO_CURVED_REFINEMENT_PROGRAM.md",
-      "title": "locality/convergence open obligations"
-    },
-    {
-      "id": "DOC:THERM_MOB",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/MOBIUS_HAWKING_THERMODYNAMICS.md",
-      "title": "finite Möbius spectral thermodynamics"
-    },
-    {
-      "id": "DOC:Q6_BARYCENTRIC",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_BARYCENTRIC_P1_FEM.md",
-      "title": "Q6 barycentric P1 finite elements"
-    },
-    {
-      "id": "DOC:D5_BERGMAN",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_D5_BERGMAN_LIOUVILLE_PULLBACK_THEOREM.md",
-      "title": "D5 Bergman–Liouville pullback"
-    },
-    {
-      "id": "DOC:UNIFIED_GEOMETRY",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md",
-      "title": "programme architecture; not a theorem"
-    },
-    {
-      "id": "H-SPECTRAL",
-      "kind": "thematic-hub",
-      "title": "Spectral theory · Rumin · 2I · Poincaré"
-    },
-    {
-      "id": "H-Q6",
-      "kind": "thematic-hub",
-      "title": "Q6 · chains · Hodge · Dirac · gauge"
-    },
-    {
-      "id": "H-RGS",
-      "kind": "thematic-hub",
-      "title": "RGS · coframes · spin · Mosco · geometry"
-    },
-    {
-      "id": "H-MOR",
-      "kind": "thematic-hub",
-      "title": "Morandotti · structured deformation · gradients · defects"
-    },
-    {
-      "id": "H-VESICA",
-      "kind": "thematic-hub",
-      "title": "Vesica · hexagram · pentagon · Jitterbug"
-    },
-    {
-      "id": "H-PRISM",
-      "kind": "thematic-hub",
-      "title": "PRISM · Krist-All · supergolden · phases"
-    },
-    {
-      "id": "H-D5",
-      "kind": "thematic-hub",
-      "title": "D5 · Liouville · Bergman · Wilson · special functions"
-    },
-    {
-      "id": "H-OTHER",
-      "kind": "thematic-hub",
-      "title": "Other / independent roots requiring explicit crosswalk"
-    },
-    {
-      "id": "APP:Pellis01",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "collaborations/pellis/01_exact_scalar_spectrum_poincare_sphere.md"
-    },
-    {
-      "id": "APP:Pellis02",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "collaborations/pellis/02_prism_kathara_kristall_multidimensional.md"
-    },
-    {
-      "id": "APP:Pellis03",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "collaborations/pellis/03_geometric_self_adjoint_operators.md"
-    },
-    {
-      "id": "APP:Pellis04",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "collaborations/pellis/04_pellis_functions_golden_spheres_resonance.md"
-    },
-    {
-      "id": "APP:MorandottiBrief",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "docs/MORANDOTTI_BRIEFING_2026-11-11.md"
-    },
-    {
-      "id": "APP:MorandottiDefect",
-      "kind": "application-dossier",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "docs/rgs_defect_benchmark/README.md"
-    },
-    {
-      "id": "DOC:Q6_DYADIC_SUBDIVISION",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_DYADIC_SUBDIVISION_CHAIN_MAP.md",
-      "title": "Q6 midpoint subdivision"
-    },
-    {
-      "id": "DOC:KATHARA_GATE_C",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/KATHARA_Q6_CHAIN_MAP_GATE_C.md",
-      "title": "Kathara–Q6 Gate C"
-    },
-    {
-      "id": "DOC:KATHARA_GATE_D",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/KATHARA_Q6_NONDEGENERATE_GATE_D.md",
-      "title": "Kathara–Q6 Gate D"
-    },
-    {
-      "id": "DOC:Q6_2I_INTERTWINER",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_2I_INTERTWINER_COMPATIBILITY.md",
-      "title": "Q6–2I central-character compatibility"
-    },
-    {
-      "id": "DOC:ELLIS_SPIN_CONNECTION",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/ELLIS_RGS_LEVI_CIVITA_SPIN_CONNECTION.md",
-      "title": "Ellis–RGS Levi-Civita SU(2) transport"
-    },
-    {
-      "id": "DOC:ANALYTIC_GRADIENT_GATE",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/Q6_ANALYTIC_GRADIENTS_AND_SPIN_CONNECTION_GATE.md",
-      "title": "Analytic gradient / spin-connection gate"
-    },
-    {
-      "id": "DOC:RGS_EC_TORSION",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/RGS_EC_ALGEBRAIC_AXIAL_TORSION_BENCHMARK.md",
-      "title": "Einstein–Cartan axial torsion benchmark"
-    },
-    {
-      "id": "DOC:VESICA_JITTERBUG",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "docs/VESICA_STAR_DAVID_JITTERBUG_PHASE_BRIDGE.md",
-      "title": "Vesica–hexagram–Jitterbug phase bridge"
-    },
-    {
-      "id": "DOC:UNIFIED_RGS_PRISM_QLG",
-      "kind": "companion-document",
-      "repository": "fabianleonaressi95/rgs-qlg-quaternion-bridge",
-      "path": "docs/RGS_PSU_PRISM_QLG_UNIFIED_GEOMETRIC_THEORY.md",
-      "title": "RGS–PSU–PRISM–QLG programme architecture"
-    },
-    {
-      "id": "THM:TSMR-C-I_iching_golden_q6_lift",
+      "id": "THM:T148-elliptic-order-three-fibonacci-period-two-singularity",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/TSMR-C-I_iching_golden_q6_lift.md",
+      "path": "theorems/T148-elliptic-order-three-fibonacci-period-two-singularity.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:T149-symmetric-fibonacci-fricke-period-three-period-six-orbits",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T149-symmetric-fibonacci-fricke-period-three-period-six-orbits.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence.md",
       "topic_hub": "H-Q6"
+    },
+    {
+      "id": "THM:T151-spectral-expectation-weights-state-selection",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T151-spectral-expectation-weights-state-selection.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:EQC-RGS-Q6-gate-realization",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/EQC-RGS-Q6-gate-realization.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:T149-supergolden-dodecahedral-whitney-hodge",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T149-supergolden-dodecahedral-whitney-hodge.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection.md",
+      "topic_hub": "H-OTHER"
     },
     {
       "id": "THM:TSMR-C_cumulative_morphodynamics",
@@ -2145,25 +2236,88 @@
       "topic_hub": "H-PRISM"
     },
     {
-      "id": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "id": "THM:TSMR-C-I_iching_golden_q6_lift",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md",
+      "path": "theorems/TSMR-C-I_iching_golden_q6_lift.md",
+      "topic_hub": "H-Q6"
+    },
+    {
+      "id": "THM:TSMR-H_half_balance_fractal_pentagon",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/TSMR-H_half_balance_fractal_pentagon.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:TSMR-I_singular_cumulative_pentagonal_lift",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/TSMR-I_singular_cumulative_pentagonal_lift.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T154-rgs-spatial-coframe-constraint-splitting",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T154-rgs-spatial-coframe-constraint-splitting.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:CYM-T001-courant-nodal-domain-bound",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/CYM-T001-courant-nodal-domain-bound.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:MQ-T002-four-valent-spin-half-intertwiner-dimension",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQ-T002-four-valent-spin-half-intertwiner-dimension.md",
       "topic_hub": "H-OTHER"
     },
     {
-      "id": "THM:T146-dodecahedral-dual-q6-barycentre-spectral-audit",
+      "id": "THM:MQ-T003-invariant-one-link-gluing",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/T146-dodecahedral-dual-q6-barycentre-spectral-audit.md",
+      "path": "theorems/MQ-T003-invariant-one-link-gluing.md",
       "topic_hub": "H-OTHER"
     },
     {
-      "id": "DOC:A1_POINCARE_SCALAR_SPECTRUM",
-      "kind": "companion-document",
+      "id": "THM:MQM2-dynamical-rgs-q6-symmetry",
+      "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
-      "path": "documents/DOCUMENT_A1_EXACT_SPECTRAL_GEOMETRY_S3_2I.md",
-      "title": "Exact scalar spectral geometry of S3/2I"
+      "path": "theorems/MQM2-dynamical-rgs-q6-symmetry.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:T070-oriented-circumcentric-dual-spherical-icosphere",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T070-oriented-circumcentric-dual-spherical-icosphere.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T113H-metric-variation-control-suite",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T113H-metric-variation-control-suite.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:T154-in2infinity-extended-jitterbug-audit",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T154-in2infinity-extended-jitterbug-audit.md",
+      "topic_hub": "H-VESICA"
+    },
+    {
+      "id": "THM:T155-dodecahedral-gauss-map-levi-civita-hodge",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T155-dodecahedral-gauss-map-levi-civita-hodge.md",
+      "topic_hub": "H-PRISM"
     }
   ],
   "edges": [
@@ -4450,7 +4604,7 @@
       "caveat": "T121 supplies the ordinary A5 action; it is distinct from the central-nontrivial 2I spin representations."
     },
     {
-      "from": "THM:T027",
+      "from": "THM:T027-mckay-molien-rumin-bridge",
       "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
       "relation": "open-obligation",
       "status": "open",
@@ -4476,6 +4630,167 @@
       "relation": "comparison-only",
       "status": "reviewed",
       "caveat": "The S3/2I scalar spectrum is distinct from the exceptional-curve intersection lattice of the E8 resolution."
+    },
+    {
+      "from": "THM:T144-2i-molien-cumulative-hilbert-odd-degree-correspondence",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T145-square-reflection-prism-biverse-rgs-carrier",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T147-golden-tangential-spectrum-fibonacci-period-two",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T148-elliptic-order-three-fibonacci-period-two-singularity",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T149-symmetric-fibonacci-fricke-period-three-period-six-orbits",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence",
+      "to": "H-Q6",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T151-spectral-expectation-weights-state-selection",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:TSMR-H_half_balance_fractal_pentagon",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:TSMR-I_singular_cumulative_pentagonal_lift",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T144-2i-molien-cumulative-hilbert-odd-degree-correspondence",
+      "to": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
+      "relation": "comparison-only",
+      "status": "reviewed",
+      "caveat": "T144 supplies exact Molien/invariant-series data for 2I representations; this is representation-theoretic comparison data and does not prove the geometric McKay correspondence or construct the crepant resolution."
+    },
+    {
+      "from": "THM:EQC-RGS-Q6-gate-realization",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T149-supergolden-dodecahedral-whitney-hodge",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T153-pyramid-cuboctahedron-rhombic-dodecahedron-j-complex-connection",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T154-rgs-spatial-coframe-constraint-splitting",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic classification only. The exact finite splitting is proved under the stated seed hypotheses; the continuum/physical connection interpretation remains open."
+    },
+    {
+      "from": "THM:CYM-T001-courant-nodal-domain-bound",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQ-T002-four-valent-spin-half-intertwiner-dimension",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQ-T003-invariant-one-link-gluing",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQM2-dynamical-rgs-q6-symmetry",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T070-oriented-circumcentric-dual-spherical-icosphere",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T113H-metric-variation-control-suite",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T154-in2infinity-extended-jitterbug-audit",
+      "to": "H-VESICA",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T155-dodecahedral-gauss-map-levi-civita-hodge",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
     }
   ]
 }

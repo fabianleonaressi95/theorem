@@ -68,6 +68,14 @@ jobs:
             --removal-repetitions 40 \
             --output /tmp/network-dynamics-results/topology-control
 
+      - name: Run structural rewiring-intensity sweep
+        run: |
+          python applications/network-dynamics/src/structural_sweep.py \
+            --replicates 20 \
+            --seed 20261119 \
+            --intensities 0 1 5 20 50 100 \
+            --output /tmp/network-dynamics-results/structural-sweep
+
       - name: Upload synthetic results
         if: always()
         uses: actions/upload-artifact@v4

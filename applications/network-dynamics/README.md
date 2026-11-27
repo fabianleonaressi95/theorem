@@ -46,3 +46,29 @@ The command writes JSON and CSV summaries locally. Generated results are synthet
 | RGS-specific modelling advantage | Open computational hypothesis |
 
 No empirical validation, causal conclusion or commercial-readiness claim is made.
+
+## Structural diagnostics and rewiring-intensity sweep
+
+The structural sweep evaluates each architecture at 0, 1, 5, 20, 50 and 100 accepted double-edge swaps per original edge. Every intensity starts independently from the same original graph and uses a deterministic replicate/architecture/intensity seed. Degree sequence and edge count are checked at every point.
+
+Reported diagnostics:
+- mean local clustering coefficient;
+- greedy-merge modularity (a deterministic heuristic, not a global modularity optimum);
+- degree assortativity (undefined values are retained as NaN);
+- mean Jaccard similarity of endpoint competence profiles on edges;
+- average shortest-path length inside the largest connected component;
+- component count, largest-component fraction and degree variance;
+- achieved fraction of requested accepted swaps.
+
+The sweep is a structural sensitivity analysis, not a causal decomposition. The degree sequence is held fixed within each architecture, while other graph properties are allowed to change together. The modularity score is explicitly heuristic. Confidence intervals are normal-approximation intervals over synthetic replicates and are not adjusted for multiple comparisons.
+
+Run locally:
+
+```bash
+python applications/network-dynamics/src/structural_sweep.py \
+  --replicates 100 \
+  --seed 20261119 \
+  --intensities 0 1 5 20 50 100 \
+  --output applications/network-dynamics/results/structural-sweep
+```
+
