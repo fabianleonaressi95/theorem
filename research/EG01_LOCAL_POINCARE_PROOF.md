@@ -150,6 +150,7 @@ Replace the earlier statement that (G1)-(G6) do not provide a uniform path-lengt
 
 The correct remaining open questions are the explicit localized measure-property verification, the subsequential cell-density identification, and uniqueness of the effective tensor needed for full-sequence convergence. Boundary-complete fill remains a standing strengthened hypothesis.
 The correct remaining open questions are the boundary completion of (G3), the uniform interpolation/upper-growth construction, the fundamental estimate, and the integral representation.
+The companion H1/integral-representation note records the localized measure-property argument. Remaining work is an independent audit of that localization/diagonal step, identification of the subsequential cell density, and uniqueness of the effective tensor needed for full-sequence convergence. Boundary-complete fill remains a standing strengthened hypothesis.
 
 ## 9. Classification
 
@@ -161,6 +162,8 @@ The correct remaining open questions are the boundary completion of (G3), the un
 - Subsequential integral representation: **conditional** on the localized measure-property verification.
 - Full-sequence Gamma-convergence: **open without a uniqueness/homogenization hypothesis**.
 - Full Gamma-convergence theorem: **open**.
+- Subsequential integral representation: **conditional on the standard local quadratic integral-representation theorem**, with the graph-specific measure-property argument recorded in the companion note.
+- Full-sequence Gamma-convergence: **open without a uniqueness/homogenization hypothesis**.
 
 
 ## 10. Reference for the nonlocal compactness step
