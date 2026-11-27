@@ -133,10 +133,18 @@ The degree-one zero eigenvalue is a kernel of the curved Hodge operator, not a c
 
 **Still open**
 1. Prove a uniqueness/optimality principle for the area-weighted nodal normals inherited from T157.
-2. Establish mesh-refinement convergence and a curved-connection FEEC error estimate.
-3. Compare alternative interior paths/gauges at fixed curvature and prove the expected gauge-equivalent spectra.
-4. Derive a mathematically justified map from these operators to the selected Q6/RGS sector, if one exists.
-5. Derive the T144 polynomial (f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}) from the dodecahedral geometry, rather than interpolating it.
+2. Establish the local covariant Whitney consistency/commuting-defect estimate. If \(I_{h,T}^0\) is the path-transported nodal interpolant and \(I_{h,T}^1\) is the edge-Whitney interpolant used by the current \(M_1^A\), quantify
+   \[
+   \mathfrak C_{h,T}u
+   =\nabla^A I_{h,T}^0u-I_{h,T}^1(D_0^A u).
+   \]
+   The derivative of the path-transport factors \(Q_{v,T}(x)\) must be accounted for. The current script integrates transported ordinary Whitney 1-forms; quadrature agreement alone does not bound this commutator.
+3. Establish mesh-refinement convergence and a curved-connection spectral error estimate, using the consistency bound above and a uniform coercivity/compactness argument (or a Mosco-convergence proof for the discrete quadratic forms).
+4. Compare alternative interior paths/gauges at fixed curvature and prove the expected gauge-equivalent spectra.
+5. Derive a mathematically justified map from these operators to the selected Q6/RGS sector, if one exists.
+6. Derive the T144 polynomial \(f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}\) from the dodecahedral geometry, rather than interpolating it.
+
+**Literature boundary.** Christiansen–Hu develop finite element systems for vector bundles and a discrete Bianchi identity in the presence of curvature; their de Rham/cohomology result is for the flat case, so it does not directly give a FEEC complex for T157–T159 (S. H. Christiansen & K. Hu, *Foundations of Computational Mathematics* 23 (2023), 545–596, [doi:10.1007/s10208-022-09555-x](https://doi.org/10.1007/s10208-022-09555-x)). Berwick-Evans–Hirani–Schubel give a combinatorial theory of discrete vector bundles with connection, with curvature identities and twisted de Rham cohomology for flat discrete connections ([arXiv:2104.10277v3](https://arxiv.org/abs/2104.10277)). Berchenko-Kogan–Gawlik prove convergence, in dual Sobolev norms, for Regge finite-element approximations of the Levi-Civita connection and curvature on triangulated surfaces; this is a relevant route, not a theorem for the present path-transported Whitney masses (*Foundations of Computational Mathematics* 24 (2024), 587–637, [doi:10.1007/s10208-022-09597-1](https://doi.org/10.1007/s10208-022-09597-1)). Classical FEEC convergence uses a subcomplex and bounded commuting projections; because \(D_1^A D_0^A\ne0\), those hypotheses cannot simply be imported unchanged.
 
 **Conclusion:** T158 removes the endpoint-only approximation in the Whitney mass assembly by specifying a continuous pullback connection inside each triangle. It closes the finite-mesh interior-transport construction, but does not yet prove refinement convergence or a continuum FEEC theorem.
 

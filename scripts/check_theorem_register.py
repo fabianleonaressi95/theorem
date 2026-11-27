@@ -65,8 +65,17 @@ def main() -> int:
                 warnings.append(f"{r['id']}: unresolved dependency {dep}")
 
     ids = {}
+    record_keys = {}
     for r in rows:
         ids.setdefault(r["id"], []).append(r["file"])
+        key = r.get("record_key", "").strip()
+        if not key:
+            errors.append(f"missing unique record_key for {r['file']}")
+        else:
+            record_keys.setdefault(key, []).append(r["file"])
+    for key, files in record_keys.items():
+        if len(files) > 1:
+            errors.append(f"duplicate record_key {key}: {', '.join(sorted(files))}")
     for cid, files in ids.items():
         if len(files) > 1:
             warnings.append(f"duplicate card id {cid}: {len(files)} files "
