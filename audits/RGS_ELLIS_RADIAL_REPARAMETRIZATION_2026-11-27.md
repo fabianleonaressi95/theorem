@@ -193,3 +193,14 @@ The historical RGS ansatz record supplies the general coframe/metric notation \(
 5. Treat \(r_1,r_2\) as matching coordinates only after the actual matching equations and boundary data are located. A pair of coordinate values cannot determine a \(C^2\) metric matching by itself.
 
 **Updated classification:** the radial-profile lemma is proved; the Ellis coordinate representation is an exact conditional construction; equivalence of the original RGS–EMS spacetime to Ellis is **open / not established** pending recovery and verification of \(A(r)\), \(N(r)\), and the model field equations.
+
+
+For reproducibility, evaluating the required coefficient from the inherited profile gives
+\[
+A_{\rm Ellis}(r_*)=5.435627614842062\ldots,
+\]
+\[
+A_{\rm Ellis}(r_1)=5.423336691037318\ldots,\qquad
+A_{\rm Ellis}(r_2)=40.22396279314685\ldots.
+\]
+These are **target values** for comparison with a separately derived RGS coefficient; they are not measured or recovered RGS metric data.
