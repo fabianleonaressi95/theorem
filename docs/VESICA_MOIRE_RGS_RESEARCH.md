@@ -188,5 +188,4 @@ The geometric ratio \(\sqrt3\) is exact for the stated circle construction. The 
 - J. D. Jackson, *Classical Electrodynamics*, 3rd ed., Wiley, 1998.
 - A. Bossavit, *Computational Electromagnetism: Variational Formulations, Complementarity, Edge Elements*, Academic Press, 1998.
 - P. Monk, *Finite Element Methods for Maxwell's Equations*, Oxford University Press, 2003.
-- A. H. B. de? [Do not cite an unverified Moiré source here; add primary references after source audit.]
 
