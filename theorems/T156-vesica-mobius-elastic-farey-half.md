@@ -279,3 +279,18 @@ The audit records the collocation residual, maximum \(|w\eta'|\), normalized Wun
 ### Interpretation gate
 
 A successful regularized BVP would establish a numerical finite-width Möbius equilibrium for the *candidate Vesica aspect ratio*. It would not establish that the Vesica generates the Möbius material frame, that \(\chi=h(\alpha)\) follows from FDT, or that the topological \(1/2\) and Farey \(1/2\) have a common physical cause. The exact switching-point limit and an independent linking-number calculation remain separate proof obligations.
+
+
+### Continuation solver: AUTO-07p
+
+The SciPy solve_bvp collocation attempt is retained as a diagnostic and currently encounters a singular collocation Jacobian. This is not treated as an equilibrium result. The primary numerical route is therefore AUTO-07p, which the source paper itself uses for this BVP because both interval endpoints are singular and the switching point requires continuation.
+
+The AUTO implementation is in `scripts/t156_auto/mobius.f90`, with constants in `scripts/t156_auto/c.mobius` and driver `scripts/t156_auto/mobius.auto`. It continues the regularized endpoint parameter
+
+\[
+\kappa(L/2): 0.05\to0.02\to0.01\to0.005
+\]
+
+at the Vesica candidate width \(w=3\sqrt3/4\) after \(L=2\pi\) normalization. It uses the constitutive-consistent endpoint sign from Eqs. (20)–(21), not the conflicting sign printed in Eq. (39). The GitHub Actions workflow builds AUTO-07p from its public source and archives the continuation output.
+
+A successful AUTO run would establish a regularized numerical stationary solution for this candidate aspect ratio. It would still not prove global minimality, independently reconstruct the linking number, or derive the Vesica-to-ribbon identification from physical first principles.
