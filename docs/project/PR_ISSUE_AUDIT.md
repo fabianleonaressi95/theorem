@@ -34,6 +34,11 @@ A fresh GitHub PR search returned **one open PR in `theorem`: #518**, titled “
 | #472 | T154 In2Infinity Extended Jitterbug audit | 17:46 |
 | #473 | Theorem graph inventory / T152 crosswalk repair | 17:46 |
 | #475 | Registry delta update | 17:46 |
+| #471 | Ellis oriented circumcentric dual audit | 2026-11-27 |
+| #476 | RGS carrier-derived discrete coframe | 2026-11-27 |
+| #477 | Q6 NL/NLT sigma-1.25 pilot and T1 quotient Jacobian | 2026-11-27 |
+| #478 | Sangaku circle-geometry classification workstream | 2026-11-27 |
+| #479 | Volterra dipole-to-edge C0-IPDG comparison | 2026-11-27 |
 | #480 | Post-merge registry synchronization | 2026-11-26 |
 | #487 | Ellis circumcentric dual audit cleanup | 2026-11-27 |
 | #508 | Live theorem inventory and graph-count reconciliation | 2026-11-27 |
