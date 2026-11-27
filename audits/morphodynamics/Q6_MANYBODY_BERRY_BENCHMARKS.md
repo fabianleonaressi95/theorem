@@ -6,72 +6,64 @@
 
 `audits/morphodynamics/q6_manybody_meanfield.py` compares:
 
-- the exact symmetric two-boson Fock-space dynamics on the 64-vertex Q6 graph (dimension `binom(65,2)=2080`);
+- exact symmetric two-boson Fock-space dynamics on the 64-vertex Q6 graph (dimension 2,080);
 - the Hartree closure for a normalized one-particle orbital `phi`;
-- the same 192-edge metric variables `x_e=log(w_e)` in both systems.
+- the same 192-edge metric variables `x_e = log(w_e)` in both systems.
 
 The declared Hamiltonian is
 
-[
-H_2(x)=dGamma(h(x))+
-Usum_{v=0}^{63}|2_vanglelangle2_v|,
-qquad
-h(x)=t B,mathrm{diag}(e^x)B^T.
-]
+```text
+H2(x) = dGamma(h(x)) + U * sum_v |2_v><2_v|
+h(x)  = t * B * diag(exp(x)) * B^T
+```
 
 Here `U` is an explicit on-site Bose-Hubbard interaction. The corresponding Hartree equation is
 
-[
-ihbardotphi=
-left[h(x)+U,mathrm{diag}(|phi|^2)ight]phi.
-]
+```text
+i hbar d(phi)/dt = [h(x) + U * diag(|phi|^2)] phi
+```
 
-The full and Hartree geometric forces are computed from the same unnormalized one-body density matrix (Gamma), with (mathrm{Tr}Gamma=2):
+The full and Hartree geometric forces use the same unnormalized one-body density matrix `Gamma`, with `trace(Gamma)=2`:
 
-[
-partial_{x_e}E=
-kappa(x_e-x_e^*)+
-t e^{x_e}b_e^TGamma b_e.
-]
+```text
+dE/dx_e = kappa * (x_e - x*_e) + t * exp(x_e) * b_e^T Gamma b_e
+```
 
-For Hartree, (Gamma=2|phianglelanglephi|). For the exact state, (Gamma_{pq}=langle a_p^dagger a_qangle) is reconstructed from the Fock amplitudes. Thus the comparison isolates the closure error due to correlations, while retaining a common backreaction law.
+For Hartree, `Gamma = 2 |phi><phi|`. For the exact state, `Gamma[p,q] = <a_p^dagger a_q>` is reconstructed from the Fock amplitudes. Thus the comparison isolates the closure error due to correlations while retaining a common backreaction law.
 
 Reported diagnostics:
 - Frobenius norm of the difference between trace-one one-body density matrices;
 - Euclidean distance between the two 192-component geometries;
 - exact two-body state norm drift.
 
-The noninteracting case (U=0) is the essential regression: a product initial state must remain a product under one-body evolution, and the two closures must agree up to integration error. For (U
-e0), deviations are numerical evidence only. A genuine mean-field limit requires a sequence in particle number (N), a specified interaction scaling (typically (U/(N-1))), uniform estimates, and convergence of reduced density matrices; this two-particle benchmark does not prove that limit.
+The noninteracting case `U=0` is the essential regression: a product initial state must remain a product under one-body evolution, and the two closures must agree up to integration error. For `U != 0`, deviations are numerical evidence only. A genuine mean-field limit requires a sequence in particle number `N`, a specified interaction scaling (typically `U/(N-1)`), uniform estimates, and convergence of reduced density matrices. This two-particle benchmark does not prove that limit.
 
 ## 2. RGS-derived Berry loop
 
-`audits/morphodynamics/q6_rgs_berry_cycle.py` constructs a closed loop from the archived 64-point RGS seed. It applies the two fixed symmetric strain generators
+`audits/morphodynamics/q6_rgs_berry_cycle.py` constructs a closed loop from the archived 64-point RGS seed. It applies two fixed, dimensionless symmetric strain generators:
 
-[
-S_1=mathrm{diag}(1,-1,0),qquad
-S_2=egin{pmatrix}0&1&0\1&0&0\0&0&0end{pmatrix},
-]
+```text
+S1 = diag(1,-1,0)
+S2 = [[0,1,0],[1,0,0],[0,0,0]]
+F(theta) = exp(amplitude * (cos(theta)*S1 + sin(theta)*S2))
+```
 
-through (F(	heta)=exp[epsilon(cos	heta S_1+sin	heta S_2)]). The edge lengths are recomputed from the deformed RGS coordinates and the conductances use the existing metric-graph convention
+The edge lengths are recomputed from the deformed RGS coordinates. Conductances use the existing metric-graph convention:
 
-[
-w_e(	heta)=ell_{m rms}(	heta)/ell_e(	heta).
-]
+```text
+w_e(theta) = ell_rms(theta) / ell_e(theta)
+```
 
-No edge weights are fitted to obtain a target phase. The Hamiltonian is the resulting weighted Q6 Laplacian. For an isolated eigenline (u_j), the Wilson product is
+No edge weights are fitted to obtain a target phase. The Hamiltonian is the resulting weighted Q6 Laplacian. For an isolated eigenline `u_j`, the Wilson product is
 
-[
-W=prod_{j=0}^{M-1}
-rac{langle u(	heta_j),u(	heta_{j+1})angle}
-{|langle u(	heta_j),u(	heta_{j+1})angle|},
-qquad
-gamma_B=-arg W,
-]
+```text
+W = product_j <u(theta_j),u(theta_(j+1))> / abs(<u(theta_j),u(theta_(j+1))>)
+gamma_B = -arg(W)
+```
 
-with the last overlap closing the loop. This is invariant under independent phase choices of the sampled eigenvectors. The script refuses to report a phase if the selected band loses its adjacent spectral gap or if neighboring overlaps vanish.
+The final overlap closes the loop. This is invariant under independent phase choices of the sampled eigenvectors. The script refuses to report a phase if the selected band loses its adjacent spectral gap or if neighboring overlaps vanish.
 
-The Hamiltonian is real symmetric, so a nondegenerate real eigenline can only exhibit a (0) or (pi) holonomy (a sign change). A nontrivial continuous (U(1)) Berry curvature would require an appropriate complex Hermitian family, for example a physically specified magnetic/gauge connection; it must not be inferred from this real metric-only cycle. The constant ground state is exactly trivial and is used as a control test. Excited-band holonomy is meaningful only after the spectral-gap test passes.
+The Hamiltonian is real symmetric, so a nondegenerate real eigenline can only exhibit a 0 or pi holonomy (a sign change). A nontrivial continuous U(1) Berry curvature would require an appropriate complex Hermitian family, for example a physically specified magnetic/gauge connection; it must not be inferred from this real metric-only cycle. The constant ground state is exactly trivial and is used as a control test. Excited-band holonomy is meaningful only after the spectral-gap test passes.
 
 ## 3. Reproducibility
 
@@ -110,8 +102,8 @@ The latter may correctly stop if the chosen excited eigenline is not isolated. I
 | Interacting full-vs-Hartree discrepancy | Numerical verification, parameter-dependent |
 | RGS-strain loop and Wilson product | Exact finite-dimensional construction |
 | Berry phase for a band | Numerical result only if gap/overlap checks pass |
-| Mean-field convergence as (N\to\infty) | Open |
+| Mean-field convergence as N tends to infinity | Open |
 | Continuum RGS Berry connection / curvature | Open |
-| Physical derivation of (U,t,kappa,mu) | Open |
+| Physical derivation of U, t, kappa, mu | Open |
 
 No change is made to T113-D/F, T102, or T048: these benchmarks are companion audits and do not upgrade their theorem status.
