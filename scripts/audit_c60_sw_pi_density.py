@@ -164,7 +164,8 @@ def audit():
         },
         "SW_5_6": {
             "labelled_moves": len(moves),
-            "postgraph_isomorphism_classes": 1 if same_postgraph_class else None,\n            "all_30_postgraphs_isomorphic_to_selected": same_postgraph_class,
+            "postgraph_isomorphism_classes": 1 if same_postgraph_class else None,
+            "all_30_postgraphs_isomorphic_to_selected": same_postgraph_class,
             "postgraph_automorphism_group": post_group,
             "selected_move": {
                 "dual_edge": list(moves[0]["dual_edge"]),
