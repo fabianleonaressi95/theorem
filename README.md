@@ -10,7 +10,7 @@ It brings together source literature, manuscript records, reproducible computati
 
 - **Purpose:** canonical home for theorem-level mathematics of the RGS–PSU–PRISM–Q6 programme — statements, proofs, audits, dependency graphs. Experimental software, datasets and application code live in companion repositories (see `docs/project/`).
 - **Theorem register:** every card under `theorems/` is inventoried in **[docs/THEOREM_MASTER_REGISTER.md](docs/THEOREM_MASTER_REGISTER.md)** / **[.csv](docs/THEOREM_MASTER_REGISTER.csv)** — one row per card, with epistemic status, proof type, verification scripts/tests, dependencies and limits. Regenerate with `python3 scripts/build_theorem_register.py`; validate with `python3 scripts/check_theorem_register.py`.
-- **Cards:** 280 markdown records in `theorems/` (incl. `theorems/spectral/`). Status distribution (heuristic classification, see register `status_note` column): **PROVED 45, EXACT_CERTIFICATE 14, NUMERICALLY_VERIFIED 86, CONDITIONAL 83, CANDIDATE 6, HYPOTHESIS 2, OPEN 44**. SUPERSEDED/QUARANTINED: 0. *Classification is conservative and machine-assisted; ~100 rows carry a low-confidence note pending author review.*
+- **Cards:** the live 27-November-2026 `main` tree contains **284 Markdown records** under `theorems/` (including `theorems/spectral/`). The status distribution in the checked-in master register is an older snapshot and must be regenerated with `python3 scripts/build_theorem_register.py` before quoting current status totals. Preserve full filename stems because legacy display IDs are reused.
 - **Known numbering issue:** some legacy card prefixes are reused by multiple files, including T154 and T155. The register preserves display IDs but now adds a unique `record_key` (the full filename stem) alongside the file path; graph node IDs use the same slug-based distinction. Renumbering theorem titles remains an author decision.
 - **Reproduce checks:** `python3 -m pytest tests/` (unit tests), `python3 scripts/check_theorem_register.py` (register consistency), plus per-workflow audit scripts under `scripts/` and `audits/`.
 - **Declared limits:** no card is EXPERIMENTALLY VALIDATED; numerical audits are not proofs; quarantined/unverified material is preserved under `archive/` rather than deleted.
@@ -43,7 +43,7 @@ The tree below summarizes the principal areas. The live repository may contain a
 ```text
 theorem/
 ├── .github/workflows/       # Continuous-integration workflows (80)
-├── theorems/                # 272 numbered/themed result cards (+ spectral/)
+├── theorems/                # 284 Markdown result records in the 27-Nov-2026 tree snapshot (+ spectral/)
 ├── foundations/             # Established definitions, laws, results
 ├── conjectures/             # Unproved hypotheses (reserved; see register)
 ├── proofs/                  # Standalone formal proofs/certificates (reserved)
