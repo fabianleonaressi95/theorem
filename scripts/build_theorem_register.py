@@ -146,9 +146,11 @@ def extract_refs(text: str) -> tuple[list[str], list[str]]:
 
 def area_of(fid: str, title: str) -> str:
     t = (fid + " " + title).lower()
+    if "eqc" in t:
+        return "EQC"
     rules = [
-        ("C60", "fullerene/C60"), ("fullerene", "fullerene"), ("Q6", "Q6 lattice"),
-        ("RGS", "RGS"), ("PRISM", "PRISM"), ("QLG", "QLG"), ("krist", "Krist-All"),
+        ("c60", "fullerene/C60"), ("fullerene", "fullerene"), ("q6", "Q6 lattice"),
+        ("rgs", "RGS"), ("prism", "PRISM"), ("qlg", "QLG"), ("krist", "Krist-All"),
         ("antitwin", "Anti-Twin"), ("se3", "SE(3)"), ("cartan", "Cartan"),
         ("feec", "FEEC/DEC"), ("hodge", "Hodge"), ("rumin", "Rumin"),
         ("morandotti", "Morandotti"), ("jitterbug", "Jitterbug"),
@@ -176,7 +178,7 @@ def main() -> int:
         scripts, tests = extract_refs(text)
         rel = path.relative_to(ROOT).as_posix()
         rows.append({
-            "id": fid, "title": title, "area": area_of(fid, title),
+            "id": fid, "record_key": path.stem, "title": title, "area": area_of(fid, title),
             "statement": "", "hypotheses": "", "status": status,
             "proof_type": "", "proof_ref": "", "scripts": ";".join(scripts),
             "tests": ";".join(tests), "datasets": "", "quantitative": "",
@@ -223,7 +225,7 @@ def main() -> int:
         else:
             r["proof_type"] = "mixed / see card"
 
-    fieldnames = ["id", "title", "area", "statement", "hypotheses", "status",
+    fieldnames = ["id", "record_key", "title", "area", "statement", "hypotheses", "status",
                   "proof_type", "proof_ref", "scripts", "tests", "datasets",
                   "quantitative", "dependencies", "limits", "next_check",
                   "last_update", "file", "status_note"]
@@ -249,6 +251,7 @@ def main() -> int:
             "confidence and MUST NOT be cited externally as PROVED/"
             "NUMERICALLY_VERIFIED etc. without explicit author sign-off. "
             "No heuristic status was promoted to PROVED; original card "
+            "A PROVED label is text-derived and requires independent card-level review before external citation; original card "
             "evidence remains authoritative.\n\n"
         )
         fh.write("## Status distribution\n\n")
@@ -256,10 +259,10 @@ def main() -> int:
         for s in TAXONOMY:
             fh.write(f"| {s} | {counts.get(s, 0)} |\n")
         fh.write("\n## Cards\n\n")
-        fh.write("| ID | Title | Area | Status | File | Note |\n|---|---|---|---|---|---|\n")
+        fh.write("| ID | Record key (unique) | Title | Area | Status | File | Note |\n|---|---|---|---|---|---|---|\n")
         for r in rows:
             title = r["title"].replace("|", "\\|")[:90]
-            fh.write(f"| {r['id']} | {title} | {r['area']} | {r['status']} | `{r['file']}` | {r['status_note']} |\n")
+            fh.write(f"| {r['id']} | `{r['record_key']}` | {title} | {r['area']} | {r['status']} | `{r['file']}` | {r['status_note']} |\n")
 
     print(f"rows={len(rows)}")
     for s in TAXONOMY:

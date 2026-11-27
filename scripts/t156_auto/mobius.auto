@@ -1,0 +1,4 @@
+print("*** T156: AUTO-07p symmetric Mobius BVP continuation ***")
+mobius = run(e="mobius", c="mobius")
+save(mobius, "mobius")
+print("*** T156 AUTO branch saved; inspect fort.7/fort.8 and mobius.* ***")

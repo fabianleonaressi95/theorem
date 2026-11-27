@@ -2,7 +2,7 @@
 
 **Date:** 26 November 2026  
 **Classification:** explicit geometric discrete connection; finite-volume Hodge construction; numerical and topological certificates.  
-**Result:** Levi-Civita transport on the 12 pentagonal face normals is constructed without spectral fitting. Antipodal covariance and the discrete Gauss–Bonnet total pass. The resulting 12-dimensional covariant Hodge spectrum is positive and is not the selected Q6 triplet.
+**Result:** Levi-Civita transport on the 12 pentagonal face normals is constructed without spectral fitting. Antipodal covariance, the per-triangle Wilson-holonomy/spherical-area identity (maximum residual 2.22×10⁻¹⁶), and the discrete Gauss–Bonnet total pass. Both 12-dimensional spectra reproduce the recorded regular and supergolden controls within 10⁻⁷. The covariant Hodge spectrum is positive and is not the selected Q6 triplet.
 
 ## 1. Geometry and frame gauge
 

@@ -4,6 +4,7 @@
 - **Date:** 2026-11-27
 - **Scope:** verification only; no theorem statement, proof or numerical result modified. One mechanical doc annotation added (§6).
 - **Method:** independent reconstruction of invariants from primary sources (filesystem, JSON/CSV/MD artifacts, git history) — generator internals were not reused for the graph/register checks.
+- **Integration note (2026-11-27):** this document and its test file are ported to `main` unchanged in substance; the regenerated register/graph/manifest artifacts were **not** re-applied because `main` already carries the 280-card sync via #555 plus the MQ-T005 `H-RGS` reconciliation in #561.
 
 ## 1. Register verification
 
@@ -39,6 +40,13 @@ the author (they touch theorem records).
   explicit "post-reorg graph sync / pending author topic assignment" caveat.
 - **Node preservation:** 0 nodes removed, 0 nodes modified; 17 theorem-record
   nodes added, ids `THM:<unique filename stem>`.
+  **0 removed, 0 modified**. Exactly **17 edges added** by the sync runs —
+  16 `thematic-index-classification` → `H-OTHER` (`status: provisional`,
+  explicit "post-reorg graph sync / pending author topic assignment" caveat).
+  The 17th (MQ-T005) was subsequently assigned `H-RGS` with a proper topical
+  caveat by PR #561 on `main`; it is no longer parked at `H-OTHER`.
+- **Node preservation:** 0 nodes removed, 0 nodes modified; 17 theorem-record
+  nodes added (16 still provisional H-OTHER, MQ-T005 since assigned H-RGS), ids `THM:<unique filename stem>`.
 - **Counts:** 280 records / 334 nodes / 370 edges — verified by independent
   recount; `coverage` block, `.md` prose and JSON all agree.
 - **Dangling edges:** 0. **Duplicate node ids:** 0. **Duplicate intro
@@ -135,6 +143,7 @@ SHA-256 (identical within each group):
 | 3 | T095 dependency unresolved (T096–T099) | Medium | Author decision |
 | 4 | `two_time_kernel` N labels unverifiable | Medium | `unresolved`; data preserved |
 | 5 | 17 new graph nodes parked at H-OTHER | Low | Provisional by design; author topic assignment |
+| 5 | 16 new graph nodes parked at H-OTHER (MQ-T005 later assigned H-RGS by #561) | Low | Provisional by design; author topic assignment for the remaining 16 |
 | 6 | 112 low-confidence heuristic register statuses | Medium | Sign-off caveat in place; no promotion |
 
 ## 9. Acceptance criteria
@@ -144,6 +153,7 @@ SHA-256 (identical within each group):
 | Register and graph coherent | ✅ verified independently |
 | Independent tests pass | ✅ 19/19 |
 | No invented dependencies | ✅ verified vs git history (+17 provisional only) |
+| No invented dependencies | ✅ verified vs git history (+17 provisional; 16 still H-OTHER, MQ-T005 → H-RGS by #561) |
 | No ambiguous data deleted/promoted | ✅ NPZ preserved, statuses unchanged |
 | Scientific decisions under author control | ✅ all open items documented |
 

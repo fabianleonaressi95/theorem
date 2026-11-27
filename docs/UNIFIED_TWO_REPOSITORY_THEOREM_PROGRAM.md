@@ -25,7 +25,7 @@ A filename, title, merged PR, or successful numerical test is not by itself evid
 
 ## 2. Current inventory of the accessible repository
 
-The curated link list below preserves the original **236-record baseline** and its canonical names. It is not the complete live inventory: as of 26 November 2026, the machine-readable unified graph indexes **263 theorem records** in `theorem/theorems/`. Neither count is a blanket certification of proof status.
+The curated link list below preserves the original **236-record baseline** and its canonical names. It is not the complete live inventory: as of 27 November 2026, the machine-readable unified graph indexes **280 theorem records** in `theorem/theorems/`. Neither count is a blanket certification of proof status.
 
 
 ## Foundations, Liouville, Bergman, Wilson and Q6
@@ -362,4 +362,4 @@ These are programme-wide gates, not claims that the results already pass:
 
 ## 7. Integrity note for this revision
 
-The live main-branch registry is now maintained in `docs/UNIFIED_THEOREM_EDGES.json`: it indexes 263 theorem records from `fabianleonaressi95/theorem`, 14 companion catalogue entries from `fabianleonaressi95/rgs-qlg-quaternion-bridge`, and the typed cross-repository/document links. The 236-record figure above is retained only as the historical curated-list baseline. The two T154 records (In2Infinity and RGS spatial coframe) have distinct canonical slugs. Filename-derived classification edges remain provisional and do not certify theorem status.
+The live main-branch registry is now maintained in `docs/UNIFIED_THEOREM_EDGES.json`: it indexes 280 theorem records from `fabianleonaressi95/theorem`, 14 companion catalogue entries from `fabianleonaressi95/rgs-qlg-quaternion-bridge`, and the typed cross-repository/document links. The 236-record figure above is retained only as the historical curated-list baseline. The two T154 records (In2Infinity and RGS spatial coframe) and the two T155 records (dodecahedral Gauss map and rhombic-cuboctahedron-to-snub-cube transition) have distinct canonical slugs. MQ-T005 is included in the live graph. The register now exposes a unique `record_key` from each full filename stem. Filename-derived classification edges remain provisional and do not certify theorem status.

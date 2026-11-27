@@ -1,9 +1,22 @@
-name: T155 dodecahedral Levi-Civita and covariant Hodge audit
+name: T155 geometric and theorem-register audits
 on:
   push:
     paths:
       - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
       - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
+      - "docs/THEOREM_MASTER_REGISTER.csv"
+      - "docs/THEOREM_MASTER_REGISTER.md"
+      - "scripts/build_theorem_register.py"
+      - "scripts/check_theorem_register.py"
+      - ".github/workflows/t155-levi-civita-hodge.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
+      - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
+      - "docs/THEOREM_MASTER_REGISTER.csv"
+      - "docs/THEOREM_MASTER_REGISTER.md"
+      - "scripts/build_theorem_register.py"
+      - "scripts/check_theorem_register.py"
       - ".github/workflows/t155-levi-civita-hodge.yml"
   workflow_dispatch:
 jobs:
@@ -17,6 +30,16 @@ jobs:
       - run: pip install numpy scipy
       - run: python scripts/audit_t155_dodecahedral_levi_civita_hodge.py
       - run: python -m unittest tests.test_t155_dodecahedral_levi_civita_hodge
+      - name: Rebuild and validate the theorem register
+        run: |
+          python scripts/build_theorem_register.py
+          python scripts/check_theorem_register.py
+          if git diff --quiet -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md; then
+            echo "The committed theorem register is up to date."
+          else
+            echo "::warning::Theorem cards changed without regenerating the committed register. The generated register has been validated in this run; commit the refreshed CSV/Markdown register before or immediately after merging."
+            git diff --stat -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: t155-levi-civita-hodge-report

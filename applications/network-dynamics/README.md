@@ -87,6 +87,7 @@ The sweep reports clustering, heuristic modularity, degree assortativity, compet
 
 - [Baseline Monte Carlo and factorial sensitivity audit](RESULTS_AUDIT_2026-11-26.md): 100 paired baseline seeds and 108 factorial scenarios with 20 replicates per scenario.
 - [Topology-only control audit](TOPOLOGY_CONTROL_AUDIT_2026-11-26.md): 100 paired replicates comparing original profile-informed graphs, degree-preserving rewires and a profile-blind reference.
+- [Structural rewiring-intensity audit](STRUCTURAL_REWIRING_AUDIT_2026-11-27.md): 20 replicates per architecture/intensity cell; reports the effect of degree-preserving endpoint swaps on clustering, modularity, competence similarity and connectivity.
 
 ### Main model-internal findings
 
@@ -99,7 +100,7 @@ These are findings about the specified synthetic graph-generation and update rul
 
 ## Continuous integration and evidence status
 
-The [Network Dynamics workflow](../../.github/workflows/network-dynamics.yml) runs tests, a baseline smoke test, paired Monte Carlo, factorial sensitivity, topology-only controls and a structural rewiring-intensity sweep. The successful [run 45868636969](https://github.com/fabianleonaressi95/theorem/actions/runs/45868636969) on `main` uploaded the artifact `network-dynamics-synthetic-results`.
+The [Network Dynamics workflow](../../.github/workflows/network-dynamics.yml) runs tests, a baseline smoke test, paired Monte Carlo, factorial sensitivity, topology-only controls and a structural rewiring-intensity sweep. The successful [run #46](https://github.com/fabianleonaressi95/theorem/actions/runs/46019035009), on commit `446cc8313a1b954ac4e8e174c0eb97204427e105`, completed every step and uploaded the artifact `network-dynamics-synthetic-results`. In that CI run, the structural sweep used 20 replicates and intensities `0 1 5 20 50 100`.
 
 | Item | Status |
 |---|---|
@@ -107,7 +108,7 @@ The [Network Dynamics workflow](../../.github/workflows/network-dynamics.yml) ru
 | Software tests and experiment smoke tests | CI passed |
 | Paired Monte Carlo and factorial sensitivity | Executed; synthetic results audited |
 | Topology-only controls | Executed; synthetic results audited |
-| Structural rewiring-intensity sweep | Executed in CI; output retained in workflow artifact; separate quantitative interpretation pending |
+| Structural rewiring-intensity sweep | Executed in CI; quantitative synthetic audit published |
 | Empirical organizational validation | Not performed |
 | Causal claims about organizational structures | Not established |
 | RGS-specific modelling advantage | Open computational hypothesis |
@@ -116,7 +117,7 @@ Normal-approximation intervals summarize variability across synthetic replicates
 
 ## Next research steps
 
-1. Inspect and publish the structural-sweep artifact with a separate quantitative audit.
-2. Add multiple independent rewires per graph and assess whether the requested swap counts adequately mix the degree-preserving ensemble.
+1. Retain per-replicate outputs and compute paired replicate-level differences with paired bootstrap or permutation intervals.
+2. Add multiple independent rewiring chains per original graph and diagnostics for mixing/convergence of graph statistics.
 3. Report continuous coverage curves alongside the threshold metric, particularly where the threshold is unattainable at a parameter boundary.
 4. Validate model assumptions and metrics against an independently collected empirical network before making claims about real organizational systems.

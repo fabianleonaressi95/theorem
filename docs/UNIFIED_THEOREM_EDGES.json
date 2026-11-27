@@ -12,6 +12,7 @@
     "classification_edges": 280,
     "hub_to_companion_edges": 30,
     "note": "Synced 27-November-2026 against the post-reorganisation inventory (the same card set covered by THEOREM_MASTER_REGISTER). File paths are stable identifiers; node ids embed unique filename stems, so duplicated T-prefixes do not collide. Cards added since the previous snapshot are indexed under H-OTHER with provisional status pending author topic assignment; no dependency edges were invented.",
+    "note": "Synced 27-November-2026 against the live 280-card theorems/ tree and the clean master register. MQ-T005 is now indexed under H-RGS; duplicated T154/T155 display prefixes remain distinct by full filename-stem record key. The Liouville half-factor literature dossier is not part of this inventory. Direct typed crosswalks are unchanged; no dependency edges were invented.",
     "total_nodes": 334,
     "total_edges": 370
   },
@@ -2437,6 +2438,7 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/MQ-T005-rgs-tetrahedron-classical-flux-closure.md",
       "topic_hub": "H-OTHER"
+      "topic_hub": "H-RGS"
     }
   ],
   "edges": [
@@ -5029,6 +5031,10 @@
       "relation": "thematic-index-classification",
       "status": "provisional",
       "caveat": "Added by post-reorg graph sync (2026-11-27); hub parked at H-OTHER pending author topic assignment. Filename-only index edge, not a proof dependency."
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "RGS tetrahedral classical-flux closure record. This topic edge is an index only, not a proof dependency; the exact Euclidean closure theorem and the numerical seed instance have separate evidential scopes."
     }
   ]
 }

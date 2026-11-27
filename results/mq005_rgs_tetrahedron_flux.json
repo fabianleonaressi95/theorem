@@ -228,6 +228,9 @@
     "su2_spin_assignment": "open_not_assigned",
     "physical_area_scale": "open_not_assigned",
     "coherent_intertwiner": "conditional_future_construction",
-    "continuum_or_spinfoam_dynamics": "not_claimed"
-  }
+    "continuum_or_spinfoam_dynamics": "not_claimed",
+    "q6_global_k4_obstruction": "exact_bipartite_parity_argument"
+  },
+  "q6_graph_bipartite": true,
+  "q6_global_k4_obstruction": true
 }

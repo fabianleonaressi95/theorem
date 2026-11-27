@@ -15,6 +15,8 @@ def test_selected_carrier_points_are_not_a_q6_k4():
     result = audit.build_audit()
     assert result["q6_induced_edge_count"] == 2
     assert result["q6_complete_graph_k4"] is False
+    assert result["q6_graph_bipartite"] is True
+    assert result["q6_global_k4_obstruction"] is True
     assert sorted(edge["q6_hamming_distance"] for edge in result["edges"]) == [
         1, 1, 2, 2, 2, 3
     ]
