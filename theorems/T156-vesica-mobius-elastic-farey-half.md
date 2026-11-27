@@ -2,7 +2,7 @@
 
 **Date:** 27 November 2026  
 **Classification:** exact geometric identities; exact projective conjugacy; finite rational regression; elastic-strip relation from the literature; physical bridge open.  
-**Status:** framework and reproducibility tests added. No elastic equilibrium solver or FDT derivation is claimed.
+**Status:** exact algebraic framework plus a finite-width symmetric Möbius BVP implementation; numerical convergence is pending CI execution. Physical FDT identification remains open.
 
 ## 1. Why this is T156, not T057
 
@@ -91,7 +91,7 @@ V_S=Dw\int_0^L
 
 on intervals where \(\kappa\ne0\). This relation supplies a legitimate geometric mechanism for nonzero centreline torsion in a developable ribbon. It does not imply that every Möbius strip has nonzero torsion, and it does not determine an equilibrium without boundary conditions, admissible configurations and an energy minimization.
 
-**Benchmark boundary:** the published Starostin–van der Heijden equilibrium is the external reference problem. The present audit checks the algebraic developability identity and the Sadowsky energy density on supplied test profiles; it does not claim to reproduce the published minimizer.
+**Benchmark boundary:** the algebraic audit checks the developability identity and Sadowsky density on supplied profiles. A separate finite-width solver now implements the published symmetric Möbius BVP; until its CI run converges and its invariants are checked, no reproduction of the published minimizer is claimed.
 
 ## 6. The second half: FDT threshold to Farey branch
 
@@ -217,3 +217,80 @@ The finite checks are regression evidence only. They do not prove global identit
 - Repository companion: [Factor 1/2 origins and Liouville dossier](FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24.md).
 
 **Final classification:** exact Euclidean and projective identities; established Möbius/developable-strip mathematics; finite regression checks; candidate Vesica–FDT coordinate; open physical identification and elastic-equilibrium selection.
+
+
+## 11. Vesica-derived aspect-ratio candidate and finite-width elastic BVP
+
+The Vesica lens has perimeter
+
+\[
+P_v=4R\arccos\chi
+\]
+
+and half-height
+
+\[
+b=R\sqrt{1-\chi^2}.
+\]
+
+A specific, reproducible *candidate reduction* is to identify the strip centreline length with the lens perimeter and the strip half-width with the lens half-height:
+
+\[
+L:=P_v,\qquad w:=b.
+\]
+
+This is a modelling choice, not a geometric identity about a physical ribbon. It gives
+
+\[
+\frac{w}{L}=
+\frac{\sqrt{1-\chi^2}}{4\arccos\chi}.
+\]
+
+At \(\chi=1/2\),
+
+\[
+\frac{w}{L}=\frac{3\sqrt3}{8\pi},\qquad
+\frac{L}{2w}=\frac{4\pi}{3\sqrt3},\qquad
+L=2\pi\Longrightarrow w=\frac{3\sqrt3}{4}\simeq1.299038.
+\]
+
+This aspect ratio lies between the \(w=1.0\) and \(w=1.5\) finite-width examples plotted by Starostin–van der Heijden with \(L=2\pi\). It is therefore a useful interpolation benchmark, not evidence that the lens physically selects this strip.
+
+### Finite-width equilibrium system
+
+The numerical companion implements the 15-dimensional symmetric half-strip BVP in Starostin–van der Heijden (2015), Eqs. (23)–(29), with boundary conditions (30)–(38) and the constitutive boundary condition (21). **Source-consistency correction:** the printed Eq. (39) gives a sign for the (2\kappa(1+\eta^2)^2) term that contradicts Eqs. (20)–(21). At \(\eta'(0)=0\), Eq. (21) and \(h=\kappa^2(1+\eta^2)^2V\), (V(0)=1\), require \(M_3(0)=2\kappa(0)(1+\eta(0)^2)^2-\eta(0)M_1(0)\). The solver uses this constitutive-consistent sign and includes a regression test; this discrepancy is explicitly flagged for independent source/author confirmation rather than silently attributed to the paper. The finite-width Wunderlich density is
+
+\[
+h(\kappa,\eta,\eta')=
+\kappa^2(1+\eta^2)^2
+\frac{\operatorname{atanh}(w\eta')}{w\eta'}.
+\]
+
+The solver uses the bounded variable \(q=\operatorname{atanh}(w\eta')\) with an explicit edge margin \(\delta=10^{-4}\), so the iterates satisfy \(|w\eta'|\le 1-\delta\). This is a numerical regularization of the edge singularity, not the exact limiting surface. It continues the switching-point regularization through
+
+\[
+\kappa(L/2)\in\{0.05,0.02,0.01,0.005\},
+\]
+
+rather than imposing the singular endpoint directly. This follows the published numerical strategy, which reports continuation towards values around \(10^{-3}\).
+
+The audit records the collocation residual, maximum \(|w\eta'|\), normalized Wunderlich energy, boundary residual, and drift in the first integrals \(|F|^2\), \(F\cdot M\) and the Hamiltonian. Reproduction files: [solver](../scripts/solve_t156_mobius_elastic_bvp.py), [BVP tests](../tests/test_t156_mobius_elastic_bvp.py), [workflow](../.github/workflows/t156-mobius-elastic-bvp.yml); the exact algebra audit and its tests are [here](../scripts/audit_t156_vesica_mobius_farey.py) and [here](../tests/test_t156_vesica_mobius_farey.py). Repository-root register references: `scripts/audit_t156_vesica_mobius_farey.py`, `scripts/solve_t156_mobius_elastic_bvp.py`, `tests/test_t156_vesica_mobius_farey.py`, `tests/test_t156_mobius_elastic_bvp.py`. The linking value \(Lk=1/2\) is selected by the symmetric Möbius BVP class; it is not independently reconstructed from the computed curve in this implementation.
+
+### Interpretation gate
+
+A successful regularized BVP would establish a numerical finite-width Möbius equilibrium for the *candidate Vesica aspect ratio*. It would not establish that the Vesica generates the Möbius material frame, that \(\chi=h(\alpha)\) follows from FDT, or that the topological \(1/2\) and Farey \(1/2\) have a common physical cause. The exact switching-point limit and an independent linking-number calculation remain separate proof obligations.
+
+
+### Continuation solver: AUTO-07p
+
+The SciPy solve_bvp collocation attempt is retained as a diagnostic and currently encounters a singular collocation Jacobian. This is not treated as an equilibrium result. The primary numerical route is therefore AUTO-07p, which the source paper itself uses for this BVP because both interval endpoints are singular and the switching point requires continuation.
+
+The AUTO implementation is in `scripts/t156_auto/mobius.f90`, with constants in `scripts/t156_auto/c.mobius` and driver `scripts/t156_auto/mobius.auto`. It continues the regularized endpoint parameter
+
+\[
+direct regularized solve at \(\kappa(L/2)=0.005\), with the target width set from the Vesica candidate
+\]
+
+at the Vesica candidate width \(w=3\sqrt3/4\) after \(L=2\pi\) normalization. It uses the constitutive-consistent endpoint sign from Eqs. (20)–(21), not the conflicting sign printed in Eq. (39). The GitHub Actions workflow builds AUTO-07p from its public source and archives the continuation output.
+
+A successful AUTO run would establish a regularized numerical stationary solution for this candidate aspect ratio. It would still not prove global minimality, independently reconstruct the linking number, or derive the Vesica-to-ribbon identification from physical first principles.
