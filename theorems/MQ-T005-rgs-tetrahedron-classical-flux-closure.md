@@ -41,7 +41,7 @@ The computed closure residual is \(6.36\times10^{-17}\). The independent script 
 
 ## Incidence obstruction
 
-The pairwise Hamming distances between the four Q6 labels are \(1,1,3,2,2,2\). Thus only two of the six pairs are Q6 edges. The selected geometric tetrahedron is not a Q6 \(K_4\) and is not identified with a Q6 tetrahedral cell. Its geometric faces must not be relabelled as Q6 2-cells.
+The pairwise Hamming distances between the four Q6 labels are \(1,1,3,2,2,2\). Thus only two of the six pairs are Q6 edges. The selected geometric tetrahedron is not a Q6 \(K_4\) and is not identified with a Q6 tetrahedral cell. More generally, Q6 is bipartite under six-bit parity, so its graph contains no triangle and no \(K_4\) anywhere. No different four-vertex selection can yield a tetrahedron with all six edges in the Q6 1-skeleton. Its geometric faces must not be relabelled as Q6 2-cells; an RGS–QLG bridge needs a distinct verified 3-complex/refinement/dual complex.
 
 ## Quantum boundary
 
