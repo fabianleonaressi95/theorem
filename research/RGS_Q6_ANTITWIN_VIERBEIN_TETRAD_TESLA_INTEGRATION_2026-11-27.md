@@ -190,7 +190,7 @@ A coupling among torsion, vorticity, magnetic field, density gradient and sheet 
 **Lemma 1 — Metric reconstruction.** Every invertible coframe defines \(g_{\mu\nu}=\eta_{AB}e^A{}_\mu e^B{}_\nu\) and its inverse.  
 **Status:** exact algebra; RGS static Clifford consequence is T115.
 
-**Lemma 2 — Cartan identities.** For any Lorentz connection, \(T^A=De^A\), \(R^A{}_B=D\omega^A{}_B\), \(DT^A=R^A{}_B\wedge e^B\), \(DR^A{}_B=0\).  
+**Lemma 2 — Cartan identities.** For any Lorentz connection, (T^A=de^A+\omega^A{}_B\wedge e^B), (R^A{}_B=d\omega^A{}_B+\omega^A{}_C\wedge\omega^C{}_B), and the Bianchi identities are (DT^A=R^A{}_B\wedge e^B), (DR^A{}_B=0).  
 **Status:** standard differential-geometric identities; not yet audited on Q6 mesh.
 
 **Proposition 3 — Maxwell Bianchi preservation.** If discrete potential is a 1-cochain \(a\), \(f=\delta a\), and temporal cochain transport commutes with \(\delta\), then \(\delta f=0\) is preserved.  
