@@ -250,7 +250,7 @@ def main() -> int:
             "`no status` or `audit/benchmark card (heuristic)` are low-"
             "confidence and MUST NOT be cited externally as PROVED/"
             "NUMERICALLY_VERIFIED etc. without explicit author sign-off. "
-            "No heuristic status was promoted to PROVED; original card "
+            "A PROVED label is text-derived and requires independent card-level review before external citation; original card "
             "evidence remains authoritative.\n\n"
         )
         fh.write("## Status distribution\n\n")
