@@ -1,4 +1,4 @@
-# Open workstreams registry — 26 November 2026
+# Open workstreams registry — 27 November 2026
 
 Maps each active research thread to its canonical repository, key files, verification status, missing work and dependencies. Statuses are conservative: "per repo docs/CI" means the repository's own audit documents claim the result and CI passes; it does not constitute independent re-verification.
 
@@ -9,8 +9,8 @@ Maps each active research thread to its canonical repository, key files, verific
 | RGS–PSU operator lineage, K0 audits, 188D provenance | `theorem` (+ `rgs-qlg` for QLG side) | `theorem/docs/RGS_*`, `K0_*.json`, `rgs-qlg/docs/RGS_*` | NUMERICALLY VERIFIED (per repo audits); PROVED only where a formal doc exists | issue #109: 188D/Krist-All source-data import incomplete |
 | PSU + Anti-Twin two-field Q-ball | `rgs-qlg` | PR #220 merged (symmetric PSU–Anti-Twin Maxwell BVP) | SOFTWARE VERIFIED / NUMERICALLY VERIFIED per repo | biverse README claims Yang–Mills gap "formal proof" — **no supporting artifact found in `biverse`; quarantined as HYPOTHESIS pending substantiation** |
 | Möbius biverse / PSU spherical units | `biverse` | README only | HYPOTHESIS (claim quarantined) | needs actual proof document or code; otherwise archive repo |
-| Q6–NL/NLT T1–T4 hysteresis protocols | `theorem` | `docs/Q6_NL_NLT_T1_T2_PROTOCOL_2026-11-09.md`, `scripts/run_qn_nl_nlt_t3_t4.py`, PR #458 in flight | SOFTWARE VERIFIED (CI green on #458 partial) | merge pending pending checks |
-| Morandotti defect benchmark (Torino) | `theorem` | `docs/rgs_defect_benchmark/`, PR #458 | SOFTWARE VERIFIED in progress | PR #458 pending |
+| Q6–NL/NLT T1–T4 hysteresis protocols | `theorem` | `docs/Q6_NL_NLT_T1_T2_PROTOCOL_2026-11-09.md`, `scripts/run_qn_nl_nlt_t3_t4.py`, PR #477 merged | SOFTWARE VERIFIED (merged software/protocol artifacts; scientific robustness remains separately bounded) | complete outstanding T3/T4 and robustness execution records; do not infer bistability from script presence |
+| Morandotti defect benchmark (Torino) | `theorem` | `docs/rgs_defect_benchmark/`, PR #458 merged; follow-on remeshing audit #501 merged | SOFTWARE VERIFIED (benchmark artifacts integrated) | retain the distinction between reproducible benchmark results and any physical/continuum claim |
 
 ## B. Q6 / QLG / PRISM / Krist-All / Kathara
 
@@ -27,8 +27,9 @@ Maps each active research thread to its canonical repository, key files, verific
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
 | SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
-| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 open (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
+| In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | `theorem` | T154/T155 merged in #517; T156 merged in #516; source review and coordinate/incidence tests | PARTIALLY VERIFIED: static coordinate and finite incidence results only | continuous 22.5° hinge path, chirality/orientation map, and physical/atomic interpretations remain OPEN; PR #517 merge does not close these claims |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
 | 2I / Poincaré quotient / McKay correspondence | `theorem` + `rgs-qlg` | `theorem/docs/binary-icosahedral-2i.md`? (rgs-qlg `docs/binary-icosahedral-2i.md`), PR #444 (binary McKay–ADE) | ANALYTICALLY VERIFIED per repo | — |
 
@@ -45,7 +46,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Status | Missing |
 |---|---|---|---|
-| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | PR #449 pending |
+| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged; follow-up PR #518 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | PR #449 pending |
 | C64 enumeration/audit | `fullerene-c64-audit` | NUMERICALLY VERIFIED (per PR #1 body; tests reported passing; **no CI**) | PR #1 unmerged; add CI |
 | Fullerene↔Q6/Kathara interface | `theorem` + `fullerene-c64-audit` doc | HYPOTHESIS (explicitly conjectural) | needs theorem + data bridge |
 
