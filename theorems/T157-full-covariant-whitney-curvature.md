@@ -100,11 +100,11 @@ The script runs the supergolden geometry (t=\psi_{\rm sg}=1.465571231876768) and
 | Cells ((N_0,N_1,N_2)) | (32, 90, 60) | (32, 90, 60) |
 | Antipodal link covariance residual | (4.71\times10^{-16}) | (5.55\times10^{-16}) |
 | (D_1^AD_0^A) norm | 1.6271950 | 1.6193480 |
-| Curvature identity residual | (2.33\times10^{-15}) | (2.43\times10^{-15}) |
+| Curvature identity residual | (2.31\times10^{-15}) | (2.31\times10^{-15}) |
 | Holonomy sum | 12.56637061435918 | 12.56637061435916 |
-| Gauss–Bonnet residual from (4\pi) | (7.11\times10^{-15}) | (8.88\times10^{-15}) |
+| Gauss–Bonnet residual from (4\pi) | (1.78\times10^{-15}) | 0.0 |
 | Holonomy / spherical-area residual | (2.22\times10^{-16}) | (2.50\times10^{-16}) |
-| Gauge-covariance residual | (8.98\times10^{-15}) | (1.80\times10^{-15}) |
+| Gauge-covariance residual | (7.92\times10^{-15}) | (1.82\times10^{-15}) |
 
 All three covariant mass matrices are positive definite in both runs. Their minimum eigenvalues are:
 
