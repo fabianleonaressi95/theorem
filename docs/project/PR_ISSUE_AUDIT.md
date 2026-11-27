@@ -6,13 +6,13 @@ Policy: nothing merged or closed by the audit itself; recommendations only.
 
 The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
 
-Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added the T157 covariant Whitney curvature script, regression test, workflow and theorem record; the numerical report now records the two audited geometries and residuals. The latest main commit observed is `0b5e7b23d815edb9913046a48733308b5c58100c`. This remains a finite link-based model, not a proof of a smooth continuum connection.
+Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added the T157 covariant Whitney curvature script, regression test, workflow and theorem record; the numerical report records two audited geometries and residuals. Further direct commits add the T158 interior pullback connection Whitney mass audit script, regression test and workflow; no T158 theorem record or independent result classification is asserted here. The latest main commit observed is `4853c39256bbe625806298eb10a0135d7844fbec`. T157 remains a finite link-based model, not a proof of a smooth continuum connection.
 
 This pass synchronizes the registry only; it does not alter scientific classifications or perform branch/issue cleanup.
 
 ## Live pull-request state — 2026-11-27
 
-A fresh GitHub PR search returned **two pre-existing research PRs in `theorem`: #518 and #519; this documentation reconciliation is itself PR #522**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published.
+A fresh GitHub PR search returned **six open research PRs in `theorem`: #518, #519, #520, #521, #523 and #524**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published. This registry reconciliation will be submitted as a separate documentation-only PR.
 
 ### theorem — open PRs
 
@@ -20,7 +20,11 @@ A fresh GitHub PR search returned **two pre-existing research PRs in `theorem`: 
 |---|---|---|---|---|
 | [#518](https://github.com/fabianleonaressi95/theorem/pull/518) | Clarify C60 pyracylene SW_5|6 patch and add regression test | OPEN | Not independently assessed in this registry pass | Owner review; verify the graph patch and regression test against the already merged C60 Stone–Wales audit. Do not infer a universal molecular or physical law. |
 | [#519](https://github.com/fabianleonaressi95/theorem/pull/519) | Audit SGC-003 against the documented 1837 Ohsu Kannon Sangaku | OPEN | Not independently assessed in this registry pass | Owner review; preserve source provenance and separate historical reconstruction from any generalized geometric claim. |
-| [#522](https://github.com/fabianleonaressi95/theorem/pull/522) | Sync project registry with live repository state | OPEN, documentation-only | Checks pending | This registry update; owner review before merge. |
+| [#520](https://github.com/fabianleonaressi95/theorem/pull/520) | T124 — Prove the mixed tensor decomposition 3 ⊗ 3′ = 4 ⊕ 5 | OPEN | Not independently assessed in this registry pass | Owner review; check the stated representation-theoretic proof and its hypotheses. |
+| [#521](https://github.com/fabianleonaressi95/theorem/pull/521) | Add Q6 many-body mean-field and RGS Berry-cycle audits | OPEN | Not independently assessed in this registry pass | Owner review; keep computational and physical interpretations separate. |
+| [#523](https://github.com/fabianleonaressi95/theorem/pull/523) | Add reproducible CI audit for T099 bicircular-annular geometry | OPEN | Not independently assessed in this registry pass | Owner review; inspect test scope and reproducibility. |
+| [#524](https://github.com/fabianleonaressi95/theorem/pull/524) | Audit Pellis GSR register and correct T150/T151 statements | OPEN | Not independently assessed in this registry pass | Owner review; verify source provenance and exact statement corrections. |
+
 
 ### Selected subsequent merges verified on 2026-11-27
 
@@ -78,7 +82,7 @@ PRs **#20, #21, #22 are MERGED** into `main` (`eca7b9a`, verified 2026-11-26): E
 ## Verified merged (results preserved)
 
 - theorem **#344** (SE(3) tetrahedral defect fixture, merged 2026-11-21), **#131** (Volterra dipole-to-edge elastic limit, merged 2026-11-11), **#232** (T103/T105/T107 Actions hardening, merged 2026-11-12) — all MERGED; content present on main.
-- theorem recent merges #413–#517 cover the Q6/TSMR/Jitterbug/FEEC, geometry, graph-inventory and In2Infinity programmes; T157 audit code/tests/workflow and its theorem record were then added by direct commits on `main` (see REPOSITORY_MAP.md).
+- theorem recent merges #413–#517 cover the Q6/TSMR/Jitterbug/FEEC, geometry, graph-inventory and In2Infinity programmes; T157 and T158 audit code/tests/workflows were then added by direct commits on `main` (see REPOSITORY_MAP.md).
 
 ## Closed-unmerged PRs
 
