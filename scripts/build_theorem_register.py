@@ -25,8 +25,8 @@ TAXONOMY = [
     "CANDIDATE", "HYPOTHESIS", "OPEN", "SUPERSEDED", "QUARANTINED",
 ]
 
-ID_RE = re.compile(r"^(T\d{3}|S\d{3}|B\d+-B\d+|C60[A-Z0-9_]*|EQC[-A-Z0-9]*|TSMR-[A-Z0-9]+|MQM?-?\d*|Q\d|FACTOR[A-Z_]*)")
-DEP_RE = re.compile(r"\bT\d{3}\b")
+ID_RE = re.compile(r"^(T\d{3}|S\d{3}|B\d+-B\d+|C60[A-Z0-9_]*|EQC[-A-Z0-9]*|TSMR-[A-Z0-9]+|MQ-T\d{3}|MQM?-?\d*|Q\d|FACTOR[A-Z_]*)")
+DEP_RE = re.compile(r"\bMQ-T\d{3}\b|\bT\d{3}\b")
 SCRIPT_RE = re.compile(r"(?:scripts|tests)/[\w./() -]+\.(?:py|json|npz|npy)")
 
 
