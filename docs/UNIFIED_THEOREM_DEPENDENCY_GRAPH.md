@@ -164,7 +164,7 @@ The 280 classification arrows ensure that every theorem record in the 27-Novembe
 The machine-readable graph includes T152 and backfills the previously omitted existing records T144, T145, and T147–T151, together with the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153, both distinct T154 records, and T155. The new backfill also indexes CYM-T001, MQ-T002, MQ-T003, MQM-2, T070, and T113-H. The two T149 records are distinct and remain separate nodes. The T027 open-obligation edge uses its canonical node ID (`THM:T027-mckay-molien-rumin-bridge`), and T144 has an explicit `comparison-only` edge to T152. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. These are index/crosswalk repairs, not new mathematical implications. The resulting inventory is 280 theorem records, 334 nodes, and 370 directed edges. MQ-T005 is indexed under H-RGS; both T154 and both T155 records remain separate nodes keyed by their full filename stems.
 
 
-## T154 — RGS spatial coframe and labelled constraint splitting
+## T154-RGS — RGS spatial coframe and labelled constraint splitting
 
 - [T154](../theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the finite algebraic \(3+1\) **constraint-normal** splitting for the centred 64-site seed: three uniform Cartesian translation covectors and one fixed-radius covector, with \(JJ^T=\operatorname{diag}(64,64,64,240)\).
 - The archived edge feature \((\Delta X,\Delta r)\) decomposes under \(SO(3)\) as the standard spatial vector representation plus a radial scalar singlet. The archived \(SU(2)\) links lift the spatial \(SO(3)\) transport; the radial component is not time.

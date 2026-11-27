@@ -116,8 +116,8 @@ theorem/
 
 - **[TSMR-H — Half-balance principle](theorems/TSMR-H_half_balance_fractal_pentagon.md)** — proves the Bernoulli first-level overlap threshold at λ=1/2, the maximum-entropy probability p=1/2, and the pentagonal projector balance ||Pq||²=1/2; distinguishes the golden singular Bernoulli regime λ=φ⁻¹ from the uniform critical model and keeps the De Aquino coupling conditional. Reproducible audit: `audits/tsmr_h_half_balance.py`; tests: `tests/test_tsmr_h_half_balance.py`.
 
-- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 248 theorem records and 14 companion catalogue entries are represented in a 302-node, 338-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
-- **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 248 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
+- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 280 theorem records and 14 companion catalogue entries are represented in a 334-node, 370-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
+- **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 280 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 - **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 280 theorem records and 14 companion catalogue entries are represented in a 334-node, 370-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 280 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 
@@ -751,9 +751,9 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 - [GEC-6 and RGS vierbein evidence crosswalk](research/COMPANION_RGS_GEC6_VIERBEIN_CROSSWALK_2026-11-27.md) — maps merged companion PRs #233–#235 to Q6/GEC-6, antipodal action and T154 without duplicating theorem statements.
 
-### T154 — RGS spatial coframe and labelled constraint splitting
+### T154-RGS — RGS spatial coframe and labelled constraint splitting
 
-- [T154](theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the exact finite decomposition of the four constraint normals into three uniform Cartesian translations and one fixed-radius/radial normal, and the \(SO(3)\)-equivariant split \(\mathbb R^4=\mathbb R^3\oplus\mathbb R\) of the archived edge feature.
+- [T154-RGS](theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the exact finite decomposition of the four constraint normals into three uniform Cartesian translations and one fixed-radius/radial normal, and the \(SO(3)\)-equivariant split \(\mathbb R^4=\mathbb R^3\oplus\mathbb R\) of the archived edge feature.
 - A13/A14 reports numerically verify the 188D tangent projector, the labelled 3+1 constraint-normal decomposition, common edge indexing, and the active \(SU(2)\to SO(3)\) lift. The fourth edge component is a radial scalar singlet, **not Lorentz time**.
 - The nonzero covariant face-torsion diagnostic is finite-graph evidence only. The raw edge coframe is used for the integrated cochain; the normalized edge feature is not. No continuum tetrad, Levi-Civita connection, teleparallel GR, or \(K_0\)-factorization theorem is claimed.
 
