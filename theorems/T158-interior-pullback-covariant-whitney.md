@@ -148,3 +148,8 @@ python -m unittest tests.test_t158_interior_covariant_whitney
 ```
 
 Machine-readable report: `results/json/t158_interior_covariant_whitney.json`. Workflow: `.github/workflows/t158-interior-covariant-whitney.yml`.
+
+
+## 7. Refinement follow-up — T159
+
+[T159 — curved FEEC mesh-refinement audit](T159-curved-feec-mesh-refinement.md) refines the same 32–90–60 surface by factors 1–4 while keeping the parent T158 normal map fixed through parent barycentric coordinates. The lowest covariant Hodge-0 triplet stabilizes numerically from 2.28896737 to 2.37155870; the successive first-eigenvalue increments decrease. This is finite numerical evidence only: spectral convergence, a curved-FEEC error theorem, and the Q6/RGS intertwiner remain open.
