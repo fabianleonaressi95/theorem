@@ -4,7 +4,7 @@
 **Scope:** mathematical and operator-theoretic questions arising from the correspondence with Stergios Pellis and the *Fine-Structure Constant via the Golden Spheres Resonance* preprint.  
 **Status:** research register only. No open item below is promoted to a theorem or to an experimentally validated physical claim.
 
-This register complements [the Fibonacci–Fricke/Q6 two-sheet bridge](../docs/PELLIS_FIBONACCI_Q6_TWO_SHEET_BRIDGE.md), [T138](../theorems/T138-c6-exact-two-sheet-spin3-decomposition.md), [T150](../theorems/T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence.md), and [T151](../theorems/T151-spectral-expectation-weights.md). T151 proves a limitation on spectral-expectation inverse design; it does **not** solve the independent state-selection problem.
+The independent H4 rotation investigation is recorded in [the 600-cell two-plane cyclotomic audit](../docs/H4_600_CELL_TWO_PLANE_CYCLOTOMIC_AUDIT_2026-11-26.md). The independent mathematical review of PEL-01–PEL-11 is recorded in [the 27 November audit](../docs/PELLIS_GSR_REGISTER_AUDIT_2026-11-27.md); it corrects the countable-spectrum wording in T151 and the ambient-group label in T150 §9 without closing any PEL item. This register complements [the Fibonacci–Fricke/Q6 two-sheet bridge](../docs/PELLIS_FIBONACCI_Q6_TWO_SHEET_BRIDGE.md), [T138](../theorems/T138-c6-exact-two-sheet-spin3-decomposition.md), [T150](../theorems/T150-d6-fibonacci-hexagram-antipodal-two-sheet-correspondence.md), and [T151](../theorems/T151-spectral-expectation-weights-state-selection.md). T151 proves a limitation on spectral-expectation inverse design; it does **not** solve the independent state-selection problem.
 
 ## Epistemic labels
 
