@@ -39,7 +39,22 @@ F(1-b)=-F(b),
 \]
 hence 32 antipodal pairs. The finite audit checks that all 64 vectors are distinct and recovers four radial shells with multiplicities \(12+20+20+12\). A Q6 edge flips one sign, so its unscaled Euclidean chord has length exactly 2.
 
-This signed-vector construction is a spatial realization of the hexagram labels. It is not, by definition, a list of tetrahedron centroids.
+This signed-vector construction is not an unrelated golden point cloud: it is exactly the physical projection already defined in T129. With low-bit-first indexing and the fixed relabelling mask \(53=1+4+16+32\),
+\[
+\boxed{
+P_\parallel\left(b-\frac12\mathbf1\right)
+=\frac{1}{2\sqrt2}F_\phi(b\oplus53).
+}
+\]
+The same identity holds in internal space for the algebraic conjugate \(\phi_*=(1-\sqrt5)/2\):
+\[
+\boxed{
+P_\perp\left(b-\frac12\mathbf1\right)
+=\frac{1}{2\sqrt2}F_{\phi_*}(b\oplus53).
+}
+\]
+The two identities follow directly by comparing the six columns of \(A(\phi)\) and \(A(\phi_*)\) with the signed axes; the sign changes in columns 2 and 4 and the centred-cube factor produce the fixed bit relabelling and scale. The executable audit checks both coordinate identities with residuals below \(10^{-12}\). Thus the 64 golden vectors are the physical 3D cut-and-project image of the 64 hexagrams, while the internal 3D image is its algebraic conjugate. They are still not the 64 tetrahedron *cells*.
+
 
 ## 3. Distinguish the three geometric objects
 
@@ -62,13 +77,19 @@ For centres \(P_b=\lambda F(b)\), non-overlap of equal PSU spheres requires
 \[
 \lambda\min_{b\ne c}\|F(b)-F(c)\|\ge\ell_P.
 \]
-The finite pair-distance audit gives
+The finite pair-distance audit in the \(F_\phi\) normalization gives
 \[
-d_{min}=1.125554844510479,
+d_{min}^{(F)}=1.125554844510479,
 \qquad
-\lambda\ge0.8884507093343064\,\ell_P.
+\lambda_F\ge0.8884507093343064\,\ell_P.
 \]
-This is a necessary separation scale for this particular point set. It does not establish a space-filling packing, a density, a surface/volume holographic law, or a physical Planck-scale lattice.
+In the T129 physical projection coordinates \(x_\parallel=F_\phi(b\oplus53)/(2\sqrt2)\), the minimum separation is
+\[
+d_{min}^{(\parallel)}=0.3979437315753649,
+\qquad
+\lambda_\parallel\ge2.5129180852811452\,\ell_P.
+\]
+These are the same geometric bound in two coordinate normalizations, not two independent predictions. It does not establish a space-filling packing, a density, a surface/volume holographic law, or a physical Planck-scale lattice.
 
 ## 5. Spatial spinorial model on Q6
 
