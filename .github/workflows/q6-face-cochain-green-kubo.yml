@@ -11,8 +11,10 @@ on:
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
       - "scripts/audit_q6_ivm_psu_spinor.py"
       - "scripts/audit_q6_spin6_clifford.py"
+      - "scripts/audit_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_ivm_psu_spinor.py"
       - "tests/test_q6_spin6_clifford.py"
+      - "tests/test_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - "tests/test_q6_se3_cartan_bianchi.py"
@@ -25,7 +27,9 @@ on:
       - "scripts/audit_q6_discrete_cartan.py"
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
       - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "scripts/audit_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
@@ -74,3 +78,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_q6_spin6_clifford.py" -v
       - name: Audit golden SO6 frame and Spin6 plane lift
         run: python scripts/audit_q6_spin6_clifford.py
+      - name: Test PSU Anti-Twin chiral fluid gauge locking
+        run: python -m unittest discover -s tests -p "test_q6_psu_antitwin_chiral_fluid.py" -v
+      - name: Audit PSU Anti-Twin chiral fluid gauge locking
+        run: python scripts/audit_q6_psu_antitwin_chiral_fluid.py
