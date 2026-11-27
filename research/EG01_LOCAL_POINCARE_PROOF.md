@@ -147,7 +147,7 @@ Here ((P_\varepsilon v)_\Omega) denotes the Lebesgue mean of the Voronoi embeddi
 
 Replace the earlier statement that (G1)-(G6) do not provide a uniform path-length bound: for local pairs, that bound follows immediately by packing as shown in Section 3. Also replace the blanket statement that the path-tube condition gives no uniform local congestion: Section 4 proves bounded congestion for fixed-radius local pairs.
 
-The correct remaining open questions are the explicit localized measure-property verification, the subsequential cell-density identification, and uniqueness of the effective tensor needed for full-sequence convergence. Boundary-complete fill remains a standing strengthened hypothesis.
+The companion H1/integral-representation note records the localized measure-property argument. Remaining work is an independent audit of that localization/diagonal step, identification of the subsequential cell density, and uniqueness of the effective tensor needed for full-sequence convergence. Boundary-complete fill remains a standing strengthened hypothesis.
 
 ## 9. Classification
 
@@ -156,7 +156,7 @@ The correct remaining open questions are the explicit localized measure-property
 - Graph-to-nonlocal-energy domination: **proved** under (S), (D_b), (P), (W), and the stated Voronoi boundary geometry.
 - Uniform Poincare / strong \(L^2\) compactness: **proved conditionally** under the same assumptions and the standard nonlocal compactness lemma.
 - H1 interpolation, upper growth, and fundamental estimate: **proved conditionally** in the companion note.
-- Subsequential integral representation: **conditional** on the localized measure-property verification.
+- Subsequential integral representation: **conditional on the standard local quadratic integral-representation theorem**, with the graph-specific measure-property argument recorded in the companion note.
 - Full-sequence Gamma-convergence: **open without a uniqueness/homogenization hypothesis**.
 
 
