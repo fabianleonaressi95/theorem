@@ -214,3 +214,24 @@ Numbering caution: T154 is reused by an unrelated In2Infinity card; use the full
 - No field-equation derivation establishes a Tesla/MHD/QHD coupling to torsion.
 
 These are the next proof obligations, not reasons to discard the already recovered finite geometry.
+
+
+## 8. New finite spatial discrete Cartan construction (27 November 2026)
+
+The first executable Cartan layer has now been added in:
+- scripts/audit_q6_discrete_cartan.py;
+- tests/test_q6_discrete_cartan.py;
+- audits/Q6_DISCRETE_CARTAN_AUDIT.json;
+- research/Q6_DISCRETE_CARTAN_TORSION_CURVATURE_AUDIT_2026-11-27.md.
+
+It uses the original 64 six-bit I Ching states, the 192 Hamming-1 Q6 edges, and all 240 coordinate-square faces. The archived SPD site coframes define edge increments theta_(g->h)=E_g(X_h-X_g). The existing shortest-radial-rotation links define an SO(3) edge connection. On each face, torsion is the developed boundary closure defect T_p=sum_i P_i^{-1} theta_i; curvature is the ordered face holonomy H_p=U_3 U_2 U_1 U_0.
+
+A deterministic independent local SO(3) gauge at every vertex verifies:
+- torsion covariance max residual 5.76e-15;
+- curvature conjugation max residual 2.17e-15;
+- edge-link orthogonality max residual 2.09e-15;
+- edge-link determinant max residual 1.44e-15.
+
+For this specified finite data, 236/240 faces have both nonzero developed torsion and nonzero curvature angle. This is the first explicit finite spatial construction in this programme in which both are present together. It is not yet a Lorentzian 4D Cartan field, a teleparallel flat representative, or a continuum theorem. In particular, the current SO(3) links are not derived from a common variational action, and no non-Abelian cube Bianchi or Mosco limit is claimed.
+
+The static Levi-Civita audit remains a torsion-free benchmark only; the discrete Cartan construction above is the active finite spatial connection layer.
