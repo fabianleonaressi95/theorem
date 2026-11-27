@@ -87,7 +87,7 @@ def hartree_fock_state(phi):
 
 
 def one_body_density(psi):
-    """Unnormalized 1-RDM gamma[p,q]=<a_p^dagger a_q>, trace(gamma)=2."""
+    """Unnormalized 1-RDM gamma[p,q]=<a_q^dagger a_p>, trace(gamma)=2."""
     psi = np.asarray(psi, dtype=complex)
     if psi.shape != (2080,) or not np.isclose(np.vdot(psi, psi).real, 1.0,
                                                atol=1e-8):
@@ -113,7 +113,7 @@ def one_body_density(psi):
                 occupied = np.flatnonzero(new_occ)
                 dest = tuple(int(v) for v in occupied for _ in range(new_occ[v]))
                 row = lookup[dest]
-                gamma[p, q] += np.conjugate(psi[row]) * psi[col] * amp
+                gamma[q, p] += np.conjugate(psi[row]) * psi[col] * amp
     return 0.5 * (gamma + gamma.conj().T)
 
 
