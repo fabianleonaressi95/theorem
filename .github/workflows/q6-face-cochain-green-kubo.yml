@@ -9,6 +9,8 @@ on:
       - "scripts/audit_q6_se3_cartan_bianchi.py"
       - "scripts/audit_q6_cubical_chain_complex.py"
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
+      - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_ivm_psu_spinor.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - "tests/test_q6_se3_cartan_bianchi.py"
@@ -20,6 +22,8 @@ on:
       - "scripts/audit_q6_antitwin_temporal_chain.py"
       - "scripts/audit_q6_discrete_cartan.py"
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
+      - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_ivm_psu_spinor.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
@@ -60,3 +64,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_q6_se3_cartan_bianchi.py" -v
       - name: Audit affine SE3 Cartan links and cubical Bianchi identity
         run: python scripts/audit_q6_se3_cartan_bianchi.py
+      - name: Test Q6 golden-vector PSU and SU2 spin lift
+        run: python -m unittest discover -s tests -p "test_q6_ivm_psu_spinor.py" -v
+      - name: Audit Q6 golden-vector PSU and SU2 spin lift
+        run: python scripts/audit_q6_ivm_psu_spinor.py
