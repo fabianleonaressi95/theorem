@@ -30,3 +30,15 @@ The minimal common action has a symmetrized Cartan-covariant Dirac term and sepa
 The finite audit checks the Minkowski Clifford identities, rank-four locking projector, right/left sheet decomposition, parity-plus-exchange invariance, charge conjugation under sheet exchange, vector/axial gauge reduction, conjugate link covariance, fluid even/odd variables, and PSU volume/area normalization.
 
 This does not prove a continuum Q6 Dirac spectrum or evade Nielsen–Ninomiya; the two sheets instead form a vector-like Dirac pair. The 64 tetrahedron/Q6 match remains a candidate bipartition labeling until cell coordinates, incidence and symmetry actions are supplied. The fluid constitutive action and any Q-ball/Higgs phase remain to be derived.
+
+
+## Continuous-gauge and anomaly boundary
+
+The validated prior symmetry is the sheet-exchange \(Z_2\), not a local relative \(U(1)\). The local phase law is a proposed extension. In its pure axial limit, the locked pair has \(q_R=+q_0\), \(q_L=-q_0\), giving
+\[
+\mathcal A_{\rm grav}\propto q_L-q_R=-2q_0,\qquad
+\mathcal A_{U(1)^3}\propto q_L^3-q_R^3=-2q_0^3.
+\]
+Thus a single such pair cannot define a standalone quantum axial \(U(1)\) gauge theory. Additional anomaly-cancelling matter/inflow is required, or the relative fluid one-form must remain an effective/background field. The finite audit checks the nonzero coefficients.
+
+This is why the construction does not promote the established Anti-Twin \(Z_2\) into an unsupported continuous gauge group. A bare Dirac mass also breaks the relative axial phase symmetry; a massive chiral phase requires a charged inter-sheet bridge field with its phase and dynamics derived.
