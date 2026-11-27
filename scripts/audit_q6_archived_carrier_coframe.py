@@ -231,7 +231,8 @@ def run(fibre_path: Path, embedding_path: Path, output_path: Path) -> dict:
             gauges[int(g)] @ local_coframes[k]
             for k, (g, _h, _d) in enumerate(edges)
         ])
-        # Evaluate the transformed coframe directly, preserving the local gauge action.\n        transformed_direct = []
+        # Evaluate the transformed coframe directly, preserving the local gauge action.
+        transformed_direct = []
         for cycle in squares:
             total = np.zeros(3)
             prefix = np.eye(3)
