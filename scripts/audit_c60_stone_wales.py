@@ -122,6 +122,37 @@ def make_chain_map(g,fg,h,fh):
         if not np.array_equal(nb2@x,target[:,j]): raise ValueError("no integral 2-chain filling for face "+str(j))
         s2[:,j]=x
     if not np.array_equal(nb2@s2,s1@ob2): raise ValueError("B2' S2 != S1 B2")
+
+    # Fix the otherwise-free H2 component of each face filling so that this
+    # chain map has degree +1 on the oriented spherical fundamental class.
+    # Adding a target 2-cycle to one column does not change B2' S2, because
+    # that cycle lies in ker(B2'). This is an explicit homology normalization,
+    # not a consequence of the boundary identities alone.
+    def sphere_fundamental_cycle(b2):
+        _, singular_values, vh = np.linalg.svd(b2.astype(float), full_matrices=True)
+        rank = int(np.sum(singular_values > 1e-8))
+        if b2.shape[1] - rank != 1:
+            raise ValueError("expected one-dimensional H2 cycle space")
+        z = np.rint(vh[-1] / np.max(np.abs(vh[-1]))).astype(np.int64)
+        if not np.all(np.abs(z) == 1) or np.any(b2 @ z):
+            raise ValueError("failed to construct integral spherical fundamental cycle")
+        return z
+
+    z_old = sphere_fundamental_cycle(ob2)
+    z_new = sphere_fundamental_cycle(nb2)
+    image = s2 @ z_old
+    degree = int(round(float(np.dot(image, z_new) / np.dot(z_new, z_new))))
+    if not np.array_equal(image, degree * z_new):
+        raise ValueError("chain-map image is not an integral multiple of the target fundamental cycle")
+    # Normalize the degree to +1 by changing one face filling by a target
+    # fundamental cycle; the chain-map identity remains exact.
+    column = 0
+    s2[:, column] += (1 - degree) * int(z_old[column]) * z_new
+    if not np.array_equal(s2 @ z_old, z_new):
+        raise ValueError("failed to normalize induced H2 degree to +1")
+    if not np.array_equal(nb2 @ s2, s1 @ ob2):
+        raise ValueError("H2 normalization broke the chain-map identity")
+
     return {"B1S1_equals_B1":True,"B2S2_equals_S1B2":True,
       "S1_shape":list(s1.shape),"S2_shape":list(s2.shape),
       "S1_rank":int(np.linalg.matrix_rank(s1)),"S2_rank":int(np.linalg.matrix_rank(s2)),
