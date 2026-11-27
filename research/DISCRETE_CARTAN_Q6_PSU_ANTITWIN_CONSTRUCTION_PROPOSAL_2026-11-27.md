@@ -271,3 +271,45 @@ Le dieci famiglie sono quindi raccordate dalla medesima struttura \(K_h,\partial
 | Identificazione dello scambio Anti-Twin con torsione | **esclusa** |
 
 **Criterio di promozione:** questa proposta può diventare un teorema soltanto dopo aver fissato un complesso 4D effettivo, dimostrato la covarianza e le identità discrete, costruito una successione di raffinamenti e provato le stime di consistenza/convergenza. Fino ad allora resta un programma di costruzione controllato e falsificabile.
+
+
+## 15. Identità affine esatta sul bordo di un tetraedro
+
+Per ogni spigolo si considera l'elemento del gruppo di Poincaré
+\[
+G_{vw}=(L_{vw},E_{vw})\in SO^+(1,3)\ltimes\mathbb R^{1,3},
+\]
+con prodotto
+\[
+(H,T)(K,S)=(HK,T+HS),\qquad
+(H,T)^{-1}=(H^{-1},-H^{-1}T).
+\]
+La parte lineare è il trasporto di Lorentz; la parte traslazionale è il coframe trasportato. Per una faccia triangolare, il prodotto dei tre elementi orientati del bordo è
+\[
+F_{ijk}=G_{ij}G_{jk}G_{ki}=(H_{ijk},\mathcal T_{ijk}).
+\]
+Quindi \(H_{ijk}\) coincide con l'olonomia lorentziana e \(\mathcal T_{ijk}\) con il difetto di chiusura già definito.
+
+Per il tetraedro ordinato \([0,1,2,3]\), definiamo quattro elementi basati nel frame 0:
+\[
+A=F_{012},\quad B=F_{023},\quad C=F_{031},\quad
+D=G_{01}F_{123}G_{01}^{-1}.
+\]
+Il cammino di collegamento \(0\to1\) in \(D\) è essenziale: tutte le quattro olonomie sono così confrontate nello stesso frame. Cancellando gli spigoli inversi, senza commutare alcun fattore, si ottiene l'identità esatta
+\[
+\boxed{ABC D^{-1}=\mathbf1
+\quad\text{in }SO^+(1,3)\ltimes\mathbb R^{1,3}.}
+\]
+Scrivendo \(A=(H_A,T_A)\), ecc., la componente lorentziana è
+\[
+H_AH_BH_CH_D^{-1}=I,
+\]
+mentre la componente traslazionale è
+\[
+\boxed{T_A+H_AT_B+H_AH_BT_C-T_D=0.}
+\]
+Questa seconda equazione è la relazione discreta covariante: i difetti di chiusura delle facce non si sommano nudi, ma vengono trasportati dai prodotti di curvatura. È la struttura algebrica che deve tendere, sotto ipotesi di raffinamento e consistenza, alla relazione continua \(DT=R\wedge e\). La componente lineare è la corrispondente identità di bordo per le olonomie, candidata discreta a \(DR=0\).
+
+**Portata esatta e limite:** l'identità boxed è un'identità combinatoria-algebrica finita, valida per assegnazioni arbitrarie di \(L,E\) che rispettano le regole degli spigoli inversi. Non è ancora una dimostrazione di convergenza alle identità differenziali di Bianchi. Non impone che la curvatura o la torsione siano nulle e non richiede che \(L\) sia derivato da \(E\). Per un 4-simplesso, la stessa verifica va eseguita su tutte e cinque le facce tetraedriche; la coerenza tra le cinque identità è un controllo supplementare di implementazione.
+
+**Test computazionale associato:** funzione tetrahedron_boundary_bianchi in rgs-qlg-quaternion-bridge/scripts/discrete_cartan_core.py; il test usa boost non commutanti e coframe generici. L'audit su tutte le cinque celle tetraedriche del 4-simplesso è richiesto prima di affrontare raffinamenti.
