@@ -167,7 +167,6 @@ def initial_guess(width: float, kappa_floor: float, mesh: np.ndarray) -> np.ndar
     kappa = 0.20 + 0.30*np.sin(mesh) + (kappa_floor-0.20)*mesh/HALF_L
     eta = eta0*np.cos(mesh/2.0)
     eta_prime = -0.5*eta0*np.sin(mesh/2.0)
-    eta_second = -0.25*eta0*np.cos(mesh/2.0)
     q = np.arctanh(-0.90*np.sin(mesh/2.0))
     _, Vp, _ = _v_and_derivatives(eta_prime, width)
     V, _, _ = _v_and_derivatives(eta_prime, width)
