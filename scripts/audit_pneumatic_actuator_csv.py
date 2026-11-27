@@ -92,9 +92,11 @@ def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> d
         periods = [b - a for a, b in zip(minima, minima[1:])]
     period_units = median(periods) if periods else None
 
+    if time_scale_to_seconds is not None and (not math.isfinite(time_scale_to_seconds) or time_scale_to_seconds <= 0):
+        raise ValueError("time_scale_to_seconds must be finite and positive")
     frequency_hz = None
-    if time_unit == "s" and period_units and period_units > 0:
-        frequency_hz = 1.0 / period_units
+    if time_scale_to_seconds is not None and period_units and period_units > 0:
+        frequency_hz = 1.0 / (period_units * time_scale_to_seconds)
 
     report = {
         "dataset": "Zenodo 10.5281/zenodo.15584329 — pneumatic bending actuator",
@@ -125,7 +127,7 @@ def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> d
             "reported_period_s": 1.0 / PAPER_FREQUENCY_HZ,
             "frequency_comparison": (
                 "COMPARABLE_IN_SECONDS"
-                if time_unit == "s" and frequency_hz is not None
+                if time_scale_to_seconds is not None and frequency_hz is not None
                 else "UNRESOLVED_TIME_UNIT"
             ),
         },
@@ -147,8 +149,8 @@ def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> d
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("csv", type=Path)
-    parser.add_argument("--time-unit", choices=("s",), default=None,
-                        help="confirm Time is in seconds; omitted means unknown")
+    parser.add_argument("--time-scale-to-seconds", type=float, default=None,
+                        help="verified seconds per raw Time unit; omitted means unknown")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     payload = json.dumps(audit_csv(args.csv, args.time_scale_to_seconds), indent=2) + "\n"
