@@ -86,35 +86,40 @@ def hartree_fock_state(phi):
     return out
 
 
+def two_particle_tensor(psi):
+    """Return the normalized symmetric 64x64 wavefunction tensor."""
+    psi = np.asarray(psi, dtype=complex)
+    if psi.shape != (2080,):
+        raise ValueError("psi must have 2080 Fock coefficients")
+    tensor = np.zeros((64, 64), dtype=complex)
+    for k, (i, j) in enumerate(fock_pairs()):
+        if i == j:
+            tensor[i, i] = psi[k]
+        else:
+            tensor[i, j] = tensor[j, i] = psi[k] / np.sqrt(2.0)
+    return tensor
+
+
 def one_body_density(psi):
     """Unnormalized 1-RDM gamma[p,q]=<a_q^dagger a_p>, trace(gamma)=2."""
-    psi = np.asarray(psi, dtype=complex)
-    if psi.shape != (2080,) or not np.isclose(np.vdot(psi, psi).real, 1.0,
-                                               atol=1e-8):
-        raise ValueError("psi must be a normalized two-boson Fock state")
-    pairs = fock_pairs()
-    lookup = {pair: k for k, pair in enumerate(pairs)}
-    gamma = np.zeros((64, 64), dtype=complex)
-    for col, (i, j) in enumerate(pairs):
-        occ = np.zeros(64, dtype=int)
-        occ[i] += 1; occ[j] += 1
-        for q in sorted(set((i, j))):
-            nq = int(occ[q])
-            if nq == 0:
-                continue
-            for p in range(64):
-                if p == q:
-                    amp = float(nq)
-                else:
-                    amp = float(np.sqrt(nq * (occ[p] + 1)))
-                new_occ = occ.copy()
-                new_occ[q] -= 1
-                new_occ[p] += 1
-                occupied = np.flatnonzero(new_occ)
-                dest = tuple(int(v) for v in occupied for _ in range(new_occ[v]))
-                row = lookup[dest]
-                gamma[q, p] += np.conjugate(psi[row]) * psi[col] * amp
-    return 0.5 * (gamma + gamma.conj().T)
+    tensor = two_particle_tensor(psi)
+    return 2.0 * (tensor @ tensor.conj().T)
+
+
+def two_boson_hamiltonian_action(h, psi, interaction):
+    """Apply dGamma(h) + U/2 sum_v n_v(n_v-1) without building a 2080^2 matrix."""
+    h = np.asarray(h, dtype=float)
+    if h.shape != (64, 64) or not np.allclose(h, h.T, atol=1e-12):
+        raise ValueError("h must be a real symmetric 64x64 matrix")
+    if not np.isfinite(interaction):
+        raise ValueError("interaction must be finite")
+    tensor = two_particle_tensor(psi)
+    evolved = h @ tensor + tensor @ h.T
+    evolved[np.diag_indices(64)] += float(interaction) * np.diag(tensor)
+    out = np.empty(2080, dtype=complex)
+    for k, (i, j) in enumerate(fock_pairs()):
+        out[k] = evolved[i, i] if i == j else np.sqrt(2.0) * evolved[i, j]
+    return out
 
 
 def geometry_gradient_from_density(x, gamma, x_reference, *, stiffness=2.0,
@@ -163,13 +168,12 @@ def run_comparison(*, phi=None, x0=None, x_reference=None, params=Parameters(),
         x = y[:192].real
         psi = y[192:]
         h = one_body_hamiltonian(x, hopping=params.hopping)
-        H2 = two_boson_hamiltonian(h, params.interaction)
         gamma = one_body_density(psi)
         gx = geometry_gradient_from_density(
             x, gamma, xref, stiffness=params.stiffness, hopping=params.hopping
         )
         return np.r_[-params.mobility * gx,
-                     -1j * (H2 @ psi) / params.hbar]
+                     -1j * two_boson_hamiltonian_action(h, psi, params.interaction) / params.hbar]
 
     def mf_rhs(_t, y):
         x = y[:192].real
