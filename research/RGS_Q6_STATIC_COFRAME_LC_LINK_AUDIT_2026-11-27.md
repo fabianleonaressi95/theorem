@@ -88,7 +88,7 @@ Their oriented angular rates are \(+\Omega\) and \(-\Omega\). Under a time-depen
 \[
 \omega'_t=S\omega_tS^{-1}-\dot S S^{-1},
 \]
-so \(D'_tB'=S(D_tB)\). The rotating coframe has \(\omega_t=-\dot S S^{-1}\), and its temporal Cartan torsion cancels: \(\dot S+\omega_tS=0\). The CI audit checks 33 sample times: positive/negative sequence rates are +2.3/−2.3; maximum frame-covariance residual is \(8.89\times10^{-16}\). The same rotation is lifted by \(q=(\cos(\Omega t/2),0,0,\sin(\Omega t/2))\) to \(SU(2)\); the audit checks the adjoint \(SU(2)\to SO(3)\) map, unitarity, \(U(2\pi)=-I\) and \(U(4\pi)=I\). This is the tetrad/quaternionic kinematic bridge, not a new Maxwell or gravitational field equation.
+so \(D'_tB'=S(D_tB)\). The rotating coframe has \(\omega_t=-\dot S S^{-1}\), and its temporal Cartan torsion cancels: \(\dot S+\omega_tS=0\). The CI audit checks 33 sample times: positive/negative sequence rates are +2.3/−2.3; maximum frame-covariance residual is \(8.88\times10^{-16}\), and maximum temporal-torsion residual is \(7.02\times10^{-16}\). The same rotation is lifted by \(q=(\cos(\Omega t/2),0,0,\sin(\Omega t/2))\) to \(SU(2)\): maximum unitarity and adjoint \(SU(2)\to SO(3)\) residuals are both below \(3.2\times10^{-16}\), while \(U(2\pi)=-I\) and \(U(4\pi)=I\) hold to below \(3.5\times10^{-16}\). This is the tetrad/quaternionic kinematic bridge, not a new Maxwell or gravitational field equation.
 
 ## 6. Reproduction
 
