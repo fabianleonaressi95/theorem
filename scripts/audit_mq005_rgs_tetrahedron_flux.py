@@ -85,6 +85,10 @@ def build_audit() -> dict:
 
     areas = np.asarray([item["area"] for item in face_records])
     q6_edge_count = sum(item["is_q6_edge"] for item in edge_records)
+    q6_edges_bipartite = all(
+        (u.bit_count() & 1) != ((u ^ (1 << bit)).bit_count() & 1)
+        for u in range(64) for bit in range(6) if (u & (1 << bit)) == 0
+    )
 
     result = {
         "title": "MQ-005 RGS carrier tetrahedron classical face-flux audit",
@@ -100,11 +104,14 @@ def build_audit() -> dict:
         "edges": edge_records,
         "q6_induced_edge_count": q6_edge_count,
         "q6_complete_graph_k4": q6_edge_count == 6,
+        "q6_graph_bipartite": q6_edges_bipartite,
+        "q6_global_k4_obstruction": q6_edges_bipartite,
         "tolerance": TOL,
         "classification": {
             "tetrahedral_area_vector_closure": "exact_general_identity",
             "rgs_seed_instance": "finite_numerical_audit",
             "selected_vertices_form_q6_k4": False,
+            "q6_global_k4_obstruction": "exact_bipartite_parity_argument",
             "q6_cellular_identification": "not_established_and_direct_k4_test_fails",
             "su2_spin_assignment": "open_not_assigned",
             "physical_area_scale": "open_not_assigned",
@@ -115,6 +122,8 @@ def build_audit() -> dict:
 
     if closure_residual > TOL:
         raise AssertionError(f"flux closure residual {closure_residual} exceeds {TOL}")
+    if not q6_edges_bipartite:
+        raise AssertionError("Q6 parity bipartition check failed")
     if q6_edge_count != 2:
         raise AssertionError(f"expected exactly two Q6 edges, found {q6_edge_count}")
     if result["q6_complete_graph_k4"]:
