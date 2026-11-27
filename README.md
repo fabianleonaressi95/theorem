@@ -787,3 +787,5 @@ The MQ programme records exact quantum-tetrahedron results (MQ-002/003) and a fi
 ## Discrete Cartan construction proposal
 
 - [Discrete Cartan construction proposal](research/DISCRETE_CARTAN_Q6_PSU_ANTITWIN_CONSTRUCTION_PROPOSAL_2026-11-27.md) — defines Lorentz links, edge coframes, face holonomy, transported coframe closure, gauge covariance, Bianchi obligations, spin-lift gates and the separation of Riemann–Cartan, teleparallel and torsion-free branches. Status: proposal/open, not a proved physical bridge.
+
+The Cartan proposal now includes an exact affine Poincare boundary identity on a tetrahedral 3-cell, with its finite-complex audit in the companion implementation repository. The identity is not promoted to a continuum Bianchi theorem.
