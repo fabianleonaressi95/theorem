@@ -1,0 +1,29 @@
+{
+  "schema": "cymatics-wave-benchmarks/v1",
+  "model": "dimensionless simply-supported square Kirchhoff-Love plate and Q6 graph control",
+  "numpy_version": "2.3.5",
+  "C01": {
+    "grid_interior": 18,
+    "max_abs_error_first_12": 5.748006515204906e-10,
+    "continuum_relative_error_mode_11": 0.002276226781163027,
+    "first_mode_vector_norm": 0.9999999999999999
+  },
+  "C02": {
+    "mode_12": 2397.7759457063125,
+    "mode_21": 2397.7759457063125,
+    "absolute_degeneracy_gap": 0.0
+  },
+  "C03": {
+    "perturbation_relative_diagonal": 0.05,
+    "unperturbed_pair_gap": 2.5283952709287405e-10,
+    "perturbed_pair_gap": 1111.8778748203463
+  },
+  "C04": {
+    "eigenvalues": [0, 2, 4, 6, 8, 10, 12],
+    "multiplicities": [1, 6, 15, 20, 15, 6, 1],
+    "expected_eigenvalues": [0, 2, 4, 6, 8, 10, 12],
+    "expected_multiplicities": [1, 6, 15, 20, 15, 6, 1],
+    "exact_integer_spectrum_match": true,
+    "interpretation": "Q6 graph control only; not a plate or plasma discretization"
+  }
+}
