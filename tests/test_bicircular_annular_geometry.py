@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -11,6 +14,7 @@ from models.bicircular_annular_geometry import (
     sample_loop_closure,
     strain_anisotropy,
 )
+from scripts.run_bicircular_annular_audit import run_audit
 
 
 def test_classical_vesica_chord_area_and_centroid():
@@ -72,3 +76,40 @@ def test_nonintersecting_or_nested_disks_are_rejected():
         lens_geometry(1.0, 1.0, 2.0)
     with pytest.raises(ValueError):
         lens_geometry(1.0, 0.2, 0.5)
+
+
+def test_committed_audit_report_matches_fresh_manufactured_replay():
+    """The archived JSON must remain numerically consistent with the runner."""
+    root = Path(__file__).resolve().parents[1]
+    archived = json.loads((root / "reports" / "bicircular_annular_audit.json").read_text())
+    replay = run_audit()
+
+    e1, r1 = archived["E001_vesica_baseline"], replay["E001_vesica_baseline"]
+    for key in ("chord", "chord_error", "area_quadrature", "area_exact",
+                "area_classical", "area_error"):
+        assert e1[key] == pytest.approx(r1[key], rel=1e-12, abs=1e-14)
+    assert np.allclose(e1["centroid"], r1["centroid"], atol=1e-12)
+
+    e2, r2 = archived["E002_asymmetric_lens"], replay["E002_asymmetric_lens"]
+    for key in ("area_quadrature", "area_exact", "area_relative_error"):
+        assert e2[key] == pytest.approx(r2[key], rel=1e-12, abs=1e-14)
+    assert np.allclose(e2["centroid"], r2["centroid"], atol=1e-12)
+
+    e3, r3 = archived["E003_affine_anisotropy"], replay["E003_affine_anisotropy"]
+    assert np.allclose(e3["F_exact"], r3["F_exact"], atol=1e-14)
+    assert np.allclose(e3["F_reconstructed"], r3["F_reconstructed"], atol=1e-12)
+    assert e3["F_error_frobenius"] == pytest.approx(r3["F_error_frobenius"], abs=1e-14)
+    assert e3["strain_anisotropy"] == pytest.approx(r3["strain_anisotropy"], rel=1e-12)
+
+    e4, r4 = archived["E004_annular_gradient_convergence"], replay["E004_annular_gradient_convergence"]
+    assert [item["h"] for item in e4] == [item["h"] for item in r4]
+    for old, new in zip(e4, r4):
+        assert old["gradient_error"] == pytest.approx(new["gradient_error"], rel=1e-12)
+
+    e5, r5 = archived["E005_defect_loop_closure"], replay["E005_defect_loop_closure"]
+    assert np.allclose(e5["target_burgers"], r5["target_burgers"], atol=1e-14)
+    assert e5["target_frank"] == pytest.approx(r5["target_frank"], abs=1e-14)
+    assert [item["n"] for item in e5["levels"]] == [item["n"] for item in r5["levels"]]
+    for old, new in zip(e5["levels"], r5["levels"]):
+        assert old["burgers_error"] == pytest.approx(new["burgers_error"], rel=1e-12)
+        assert old["frank_error"] == pytest.approx(new["frank_error"], rel=1e-12)

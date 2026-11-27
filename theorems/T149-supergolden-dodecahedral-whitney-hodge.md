@@ -180,4 +180,9 @@ Machine-readable report: results/json/t149_supergolden_dodecahedron_feec_hodge.j
 
 The previously open inter-face connection on the 12 pentagonal frames has now been constructed independently in [T155](T155-dodecahedral-gauss-map-levi-civita-hodge.md). T155 uses the Gauss-map normals, minimal SO(3) rotations, the vesica-axis gauge, geometric face-area masses and shared-edge/centroid-distance conductances. Its antipodal frame covariance and 4π holonomy total pass.
 
-This closes the face-graph connection gap identified in the original T149 conclusion. T157 subsequently extends the link connection to all 32 vertices and 90 edges, constructs link-transported Whitney mass matrices on the 32–90–60 centroid-fan triangulation, and records the nonzero curvature defect in the covariant derivative sequence. The finite curved model and its spectra are now audited. A smooth connection specified inside each triangle, refinement convergence, a continuum curved-FEEC error theory, and derivation of the Q6/RGS polynomial f remain open.
+This closes the face-graph connection gap identified in the original T149 conclusion. T157 subsequently extends the link connection to all 32 vertices and 90 edges, constructs link-transported Whitney mass matrices on the 32–90–60 centroid-fan triangulation, and records the nonzero curvature defect in the covariant derivative sequence. The finite curved model and its spectra are now audited. T158 specifies a piecewise-smooth pullback connection inside each triangle and path-transported Whitney masses. Mesh-refinement convergence, a continuum curved-FEEC error theory, and derivation of the Q6/RGS polynomial f remain open.
+
+
+## 10. Refinement follow-up — T159
+
+The fixed T158 parent normal map has now been tested on conforming barycentric refinements through factor 4 in [T159](T159-curved-feec-mesh-refinement.md). The lowest covariant Hodge-0 triplet stabilizes numerically; this does not change T149's original scalar FEEC spectrum or establish a continuum convergence theorem.

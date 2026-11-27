@@ -90,7 +90,9 @@ r_3=r_4=x^2/r.
 \]
 For x/r=1/3, this gives r1/r=4/9 and r3/r=r4/r=1/9.
 
-This is an exact algebraic identity for the displayed model. It is not yet certified as a reconstruction of a specific 1837 Sangaku: the original tablet/diagram, circle labels, and each internal/external tangency condition must be checked before historical attribution.
+This is an exact algebraic identity for the displayed model. The geometric description and equations are also given by a secondary Cut-the-Knot reconstruction, whose wording says it “purports to suggest” an 1837 Aichi Sangaku and cites *Temple Geometry* 1.5.7. This does not constitute inspection of the original tablet.
+
+Do not identify this model with the 1837 Ohsu Kannon Problem 16 as described and illustrated by Fukagawa–Rothman (2008), Figure 4.15, p. 101: that problem has four equal circles inside a larger circle and auxiliary p/q circles, a different incidence/tangency graph. Its published solution gives p=q. The two configurations are separately documented in [SOURCE_AUDIT_1837.md](SOURCE_AUDIT_1837.md). The exact 1989 *Temple Geometry* 1.5.7 page and the original tablet or archival photograph remain to be inspected before SGC-003 receives a stronger historical identification.
 
 ## 7. Case study D — Hirano's Sangaku pentagon construction
 
