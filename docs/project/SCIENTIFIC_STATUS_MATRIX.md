@@ -36,5 +36,11 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 
 | 29 | Q6 PSU carrier-derived coframe / connection audit (PR #527) | theorem | OPEN — proposed audit under owner review | PR #527 | no coframe/connection identity is promoted until the derivation, conventions and tests are reviewed |
 | 30 | Q6 many-body mean-field and RGS Berry-cycle controls (PR #528 follow-up to #521) | theorem | OPEN — control refinement under review | merged #521 artifacts; open PR #528 | finite benchmark controls do not establish a physical Berry-phase law or general many-body result |
+| 28 | Matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark (PR #526) | theorem | OPEN — proposed benchmark awaiting owner review and validation | PR #526; compare with merged Volterra audits #131/#450/#479 | separate FEM run had 4 ARPACK residual-certification failures and 8 cancellations; no certified comparison yet; do not infer model falsification or a continuum/Gamma-limit result |
+
+| 29 | Q6 PSU carrier-derived coframe / connection audit (PR #527) | theorem | OPEN — proposed audit under owner review | PR #527 | no coframe/connection identity is promoted until the derivation, conventions and tests are reviewed |
+| 30 | Q6 many-body mean-field and RGS Berry-cycle controls (PR #528 follow-up to #521) | theorem | OPEN — control refinement under review | merged #521 artifacts; open PR #528 | finite benchmark controls do not establish a physical Berry-phase law or general many-body result |
+
+| 31 | Q6–NL/NLT hysteresis pilot (T1–T4) | theorem | LIMITED NUMERICAL PILOT; overall NON DIMOSTRATA | corrected pilot JSON; PR #477 merged; follow-up diagnostics in `PR_ISSUE_AUDIT.md` | T1 has no second stable root; T3/T4 evidence is limited to the reported local subset; robustness is at sigma 1.25 only; full sweep/T2/T4 dwell coverage remain open; CI does not execute the full numerical sweep |
 
 **Explicit non-claims:** no item above is EXPERIMENTALLY VALIDATED except where a repo documents an actual comparison with independent measurements (none found for transport; rheomarine lab datasets are calibration inputs, not field validation). All "per repo" numerical claims await the owner's confirmation before external citation.

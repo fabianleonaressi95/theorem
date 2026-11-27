@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 import numpy as np
 from scipy.integrate import solve_ivp
-from scipy.sparse import coo_matrix, csr_matrix
+from scipy.sparse import coo_matrix
 
 from audits.morphodynamics.q6_quantum_geometry import q6_incidence
 
