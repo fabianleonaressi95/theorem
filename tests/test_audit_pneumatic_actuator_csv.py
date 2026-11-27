@@ -22,18 +22,28 @@ def test_audit_preserves_raw_checksum_and_does_not_assume_seconds(tmp_path):
     assert report["rows"] == len(rows)
     assert report["md5"] == hashlib.md5(path.read_bytes()).hexdigest()
     assert report["sha256"] == hashlib.sha256(path.read_bytes()).hexdigest()
-    assert report["time"]["unit"] == "UNSPECIFIED"
+    assert report["time"]["raw_unit"] == "UNSPECIFIED"
     assert report["time"]["frequency_hz"] is None
     assert report["source_article"]["frequency_comparison"] == "UNRESOLVED_TIME_UNIT"
     assert report["preprocessing"]["applied"] is False
 
 
-def test_frequency_is_reported_only_after_explicit_seconds_confirmation(tmp_path):
+def test_frequency_is_reported_only_after_explicit_time_scale_confirmation(tmp_path):
     path = tmp_path / "actuator.csv"
     rows = [(0, 0.1, 0), (1, 0.8, 10), (0, 0.2, 20),
             (1, 0.9, 30), (0, 0.3, 40), (1, 1.0, 50)]
     _write_csv(path, rows)
-    report = audit_csv(path, time_unit="s")
+    report = audit_csv(path, time_scale_to_seconds=1.0)
+    assert report["time"]["frequency_hz"] == pytest.approx(0.05)
+
+
+def test_centisecond_scale_reconciles_2000_units_with_0_05_hz(tmp_path):
+    path = tmp_path / "actuator.csv"
+    rows = [(0, 0.1, 0), (1, 0.8, 1000), (0, 0.2, 2000),
+            (1, 0.9, 3000), (0, 0.3, 4000), (1, 1.0, 5000)]
+    _write_csv(path, rows)
+    report = audit_csv(path, time_scale_to_seconds=0.01)
+    assert report["time"]["median_peak_to_peak_period_in_time_units"] == pytest.approx(2000)
     assert report["time"]["frequency_hz"] == pytest.approx(0.05)
 
 
