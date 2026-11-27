@@ -140,12 +140,12 @@ The degree-one zero mode is a kernel of this curved discrete Hodge operator; bec
 
 **Still open**
 1. Prove a uniqueness or optimality principle for the area-weighted nodal-normal extension; the present choice is explicit and symmetry-compatible, not unique by fiat.
-2. Replace the endpoint-link mass approximation by a continuum connection (A) specified inside each triangle, with path-independent gauge-covariant quadrature data where possible.
+2. T158 now replaces the endpoint-link mass approximation by a piecewise-smooth pullback of the sphere Levi-Civita connection inside every triangle, with path-transported Whitney masses.
 3. Establish convergence under mesh refinement and a compatible curved-connection FEEC error theory.
 4. Derive, rather than fit, any map from this 32–90–60 operator to the selected Q6/RGS sector.
 5. Derive the T144 polynomial (f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}) from geometry, if such a derivation exists.
 
-**Conclusion:** T157 closes the finite 32–90–60 *link-connection and covariant Whitney mass* construction. It does not claim a flat FEEC complex or a continuum convergence theorem. Nonzero curvature is retained explicitly in (D_1^AD_0^A), as required.
+**Conclusion:** T157 closes the finite 32–90–60 link-connection and endpoint-transport Whitney mass construction. Its T158 follow-up specifies the connection inside each triangle and replaces endpoint-only mass transport with interior path transport. Neither record claims a flat FEEC complex or a mesh-refinement convergence theorem; nonzero curvature remains explicit in (D_1^AD_0^A).
 
 ## 7. Reproduction
 
