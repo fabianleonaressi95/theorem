@@ -133,7 +133,7 @@ def audit():
     spread_gap = float(max(gaps) - min(gaps))
     spread_anisotropy = float(max(anisotropies) - min(anisotropies))
 
-    post_group = automorphism_group_report(moves[0]["graph"])
+    same_postgraph_class = all(nx.is_isomorphic(moves[0]["graph"], move["graph"]) for move in moves[1:])\n    if not same_postgraph_class:\n        raise RuntimeError("The 30 labelled SW moves do not form one unlabelled postgraph class")\n    post_group = automorphism_group_report(moves[0]["graph"])
     q6 = q6_one_skeleton()
     c60_has_odd_face = any(len(face) % 2 for face in c60_faces)
     q6_bipartite = nx.is_bipartite(q6)
@@ -161,7 +161,7 @@ def audit():
         },
         "SW_5_6": {
             "labelled_moves": len(moves),
-            "postgraph_isomorphism_classes": 1,
+            "postgraph_isomorphism_classes": 1 if same_postgraph_class else None,\n            "all_30_postgraphs_isomorphic_to_selected": same_postgraph_class,
             "postgraph_automorphism_group": post_group,
             "selected_move": {
                 "dual_edge": list(moves[0]["dual_edge"]),
