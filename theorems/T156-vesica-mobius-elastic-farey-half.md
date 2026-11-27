@@ -217,3 +217,65 @@ The finite checks are regression evidence only. They do not prove global identit
 - Repository companion: [Factor 1/2 origins and Liouville dossier](FACTOR_HALF_ORIGINS_LIOUVILLE_LITERATURE_2026-11-24.md).
 
 **Final classification:** exact Euclidean and projective identities; established Möbius/developable-strip mathematics; finite regression checks; candidate Vesica–FDT coordinate; open physical identification and elastic-equilibrium selection.
+
+
+## 11. Vesica-derived aspect-ratio candidate and finite-width elastic BVP
+
+The Vesica lens has perimeter
+
+\[
+P_v=4R\arccos\chi
+\]
+
+and half-height
+
+\[
+b=R\sqrt{1-\chi^2}.
+\]
+
+A specific, reproducible *candidate reduction* is to identify the strip centreline length with the lens perimeter and the strip half-width with the lens half-height:
+
+\[
+L:=P_v,\qquad w:=b.
+\]
+
+This is a modelling choice, not a geometric identity about a physical ribbon. It gives
+
+\[
+\frac{w}{L}=
+\frac{\sqrt{1-\chi^2}}{4\arccos\chi}.
+\]
+
+At \(\chi=1/2\),
+
+\[
+\frac{w}{L}=\frac{3\sqrt3}{8\pi},\qquad
+\frac{L}{2w}=\frac{4\pi}{3\sqrt3},\qquad
+L=2\pi\Longrightarrow w=\frac{3\sqrt3}{4}\simeq1.299038.
+\]
+
+This aspect ratio lies between the \(w=1.0\) and \(w=1.5\) finite-width examples plotted by Starostin–van der Heijden with \(L=2\pi\). It is therefore a useful interpolation benchmark, not evidence that the lens physically selects this strip.
+
+### Finite-width equilibrium system
+
+The numerical companion implements the 15-dimensional symmetric half-strip BVP in Starostin–van der Heijden (2015), Eqs. (23)–(29), with their boundary conditions (30)–(39) and the constitutive boundary condition (21). The finite-width Wunderlich density is
+
+\[
+h(\kappa,\eta,\eta')=
+\kappa^2(1+\eta^2)^2
+\frac{\operatorname{atanh}(w\eta')}{w\eta'}.
+\]
+
+The solver uses the bounded variable \(q=\operatorname{atanh}(w\eta')\) so that \(|w\eta'|<1\) is enforced during iteration. It continues the switching-point regularization through
+
+\[
+\kappa(L/2)\in\{0.05,0.02,0.01,0.005\},
+\]
+
+rather than imposing the singular endpoint directly. This follows the published numerical strategy, which reports continuation towards values around \(10^{-3}\).
+
+The audit records the collocation residual, maximum \(|w\eta'|\), normalized Wunderlich energy, boundary residual, and drift in the first integrals \(|F|^2\), \(F\cdot M\) and the Hamiltonian. The linking value \(Lk=1/2\) is selected by the symmetric Möbius BVP class; it is not independently reconstructed from the computed curve in this implementation.
+
+### Interpretation gate
+
+A successful regularized BVP would establish a numerical finite-width Möbius equilibrium for the *candidate Vesica aspect ratio*. It would not establish that the Vesica generates the Möbius material frame, that \(\chi=h(\alpha)\) follows from FDT, or that the topological \(1/2\) and Farey \(1/2\) have a common physical cause. The exact switching-point limit and an independent linking-number calculation remain separate proof obligations.
