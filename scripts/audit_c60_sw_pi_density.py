@@ -36,7 +36,7 @@ def pi_density(graph: nx.Graph, electrons: int = 60, degeneracy_tol: float = 1e-
 
 
 def population_covariance(coords: np.ndarray, populations: np.ndarray):
-    weights = np.asarray(populations, dtype=float)
+    weights = np.array(populations, dtype=float, copy=True)
     total = float(weights.sum())
     if not np.isclose(total, 60.0, atol=1e-8):
         raise ValueError(f"pi population must sum to 60, got {total}")
