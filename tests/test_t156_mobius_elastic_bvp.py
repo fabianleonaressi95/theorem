@@ -59,6 +59,7 @@ class T156MobiusElasticBVPTests(unittest.TestCase):
         residual = boundary_conditions(y[:, 0], y[:, -1], 5e-2)
         self.assertEqual(residual.shape, (15,))
         self.assertTrue(np.all(np.isfinite(residual)))
+        np.testing.assert_allclose(residual, 0.0, atol=1e-10, rtol=0.0)
 
 
 if __name__ == "__main__":
