@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 """Construct an integral primitive beta with d beta = m for A18 Q6 defects.
+
+Requires numpy and scipy (scipy.optimize.milp / HiGHS). The domain is the
+finite non-periodic cubical 6-cube; this is not a continuum monopole solver.
+"""
+import argparse, itertools, json
 Requires numpy and scipy (scipy.optimize.milp / HiGHS).
 """
 import argparse, json
@@ -58,6 +63,7 @@ def solve(path):
                (g,a,c,1),(g^(1<<c),a,b,1),(g,a,b,-1)]
         for fg,fa,fb,s in terms: D[i,fi[(fg,fa,fb)]]+=s
     D=csr_matrix(D); m=np.array([charge[c] for c in cubes],dtype=np.int64)
+    # beta = p - n; minimize ||beta||_1 over integral p,n >= 0.
     A=hstack([D,-D],format="csr")
     opt=milp(c=np.ones(480),integrality=np.ones(480),
              bounds=Bounds(np.zeros(480),np.full(480,np.inf)),
@@ -69,6 +75,12 @@ def solve(path):
     bnon=[{"base_vertex":int(g),"axes":[int(a),int(b)],"coefficient":int(beta[i])}
           for i,(g,a,b) in enumerate(faces) if beta[i]]
     from collections import Counter
+    return {
+      "classification":"EXPLICIT_INTEGER_COBBOUNDARY",
+      "method":"L1-minimizing integer MILP (HiGHS) for d:C^2(I^6;Z)->C^3(I^6;Z)",
+      "complex":{"type":"full_nonperiodic_6_cube","oriented_2_faces":240,"oriented_3_cells":160},
+      "optimization":{"status":opt.message,"l1_norm":int(np.abs(beta).sum()),
+                      "nonzero_coefficients":len(bnon),"optimality_certified_by_solver":True},
     return {"classification":"EXPLICIT_INTEGER_COBBOUNDARY",
       "method":"L1-minimizing integer MILP (HiGHS) for d:C^2(I^6;Z)->C^3(I^6;Z)",
       "complex":{"type":"full_nonperiodic_6_cube","oriented_2_faces":240,"oriented_3_cells":160},
@@ -81,6 +93,8 @@ def solve(path):
       "beta_nonzero_faces":bnon,
       "conventions":{"face_orientation":"positive (a,b): +a,+b,-a,-b",
                      "cube_coboundary":"Delta_a beta_bc - Delta_b beta_ac + Delta_c beta_ab"},
+      "nonuniqueness":"Any integral closed 2-cochain may be added to beta without changing d beta. The L1 minimizer is one convention-dependent representative, not a canonical physical sheet.",
+      "interpretation_limits":["Finite cubical cochain identity only.",
       "nonuniqueness":"Any integral closed 2-cochain may be added to beta without changing d beta.",
       "limits":["Finite cubical cochain identity only.",
         "No physical Dirac sheet, magnetic monopole, or continuum source is established.",
