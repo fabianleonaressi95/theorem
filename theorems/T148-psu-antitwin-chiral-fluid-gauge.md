@@ -84,14 +84,10 @@ On the locked subspace, \(\tau_3=\gamma^5\), so
 \]
 Consequently the right-handed component couples to \(a_+=a_e+a_o\), while the left-handed component couples to \(a_-=a_e-a_o\). This is an exact projector identity. In the strict Anti-Twin conjugate limit \(a_-=-a_+\), one has \(a_e=0\) and the coupling is purely relative/axial.
 
-The validated symmetry of the existing two-sheet construction is the discrete exchange \(Z_2\). The following local phase law is a **continuous extension ansatz**, not a previously established symmetry:
-\[
-\psi_\pm\mapsto e^{-iq\chi_\pm}\psi_\pm,\qquad a_\pm\mapsto a_\pm+d\chi_\pm/q.
-\]
-If this extension is promoted to a fundamental relative axial \(U(1)\), it has an anomaly gate (below). For local sheet phases \(\chi_\pm=\chi_e\pm\chi_o\), the candidate law is
+The validated symmetry of the existing two-sheet construction is the discrete exchange \(Z_2\), not a proven local \(U(1)\). If one extends it to a continuous sheet-phase gauge symmetry, the candidate transformations are
 \[
 \psi_\pm\mapsto e^{-iq\chi_\pm}\psi_\pm,\qquad
-a_\pm\mapsto a_\pm+d\chi_\pm/q.
+a_\pm\mapsto a_\pm+d\chi_\pm/q,\qquad \chi_\pm=\chi_e\pm\chi_o.
 \]
 On the locked spinor this is
 \[
