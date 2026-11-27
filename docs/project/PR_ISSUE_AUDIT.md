@@ -6,6 +6,13 @@ Policy: nothing merged or closed by the audit itself; recommendations only.
 
 The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
 
+Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added T157 and T158 covariant Whitney records, scripts, tests and workflows; T158 reports order-8/order-12 quadrature agreement near 10^-14 while explicitly leaving mesh-refinement convergence open. PR #523 added the T099 reproducibility workflow. The separate T156 FEEC draft (which reused the T156 identifier already assigned to the rhombicuboctahedron–snub-cube audit) was subsequently removed from `main`; the owner directed continuation within the existing T149–T158 line. Latest main commit observed: `55753bc57ff564a0d69787949a72904b1f7eadac` (subsequent change repairs the NL/NLT pilot JSON artifact). None of these integrations alone establishes a smooth-continuum theorem.
+
+This pass synchronizes the registry only; it does not alter scientific classifications or perform branch/issue cleanup.
+
+## Live pull-request state — 2026-11-27
+
+A fresh GitHub PR search returned **five open research PRs in `theorem`: #524, #525, #526, #527 and #528**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published. This registry reconciliation will be submitted as a separate documentation-only PR.
 Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), #517 (In2Infinity T154/T155 source and transition work), #518 (C60 pyracylene patch clarification), #519 (SGC-003 / Ohsu Kannon source audit), #520 (T124 character proof), #521 (Q6 many-body / RGS Berry audits), and #523 (T099 reproducibility workflow). Direct commits also document T157/T158 covariant Whitney constructions and the T156 FEEC draft withdrawal. T158 reports order-8/order-12 quadrature agreement near 10^-14 while leaving mesh-refinement convergence open. The duplicate T156 FEEC draft was removed; work continues in the existing T149–T158 sequence. Latest main commit observed: `520cf684148272a2be9932e1a50d5fe6659162cc`.
 
 This registry pass is documentation-only. It does not promote scientific claims, alter theorem proofs, or perform branch/issue cleanup.
@@ -20,12 +27,15 @@ A fresh GitHub PR search returned **five open research PRs in `theorem`: #524–
 |---|---|---|---|---|
 | [#524](https://github.com/fabianleonaressi95/theorem/pull/524) | Audit Pellis GSR register and correct T150/T151 statements | OPEN | Not independently assessed in this registry pass | Owner review; verify source provenance and exact statement corrections. |
 | [#525](https://github.com/fabianleonaressi95/theorem/pull/525) | Develop PEL-05: independent spectral-state selection criteria | OPEN | Not independently assessed in this registry pass | Owner review; check independent criteria and avoid circular spectral selection. |
+| [#526](https://github.com/fabianleonaressi95/theorem/pull/526) | Add matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark | OPEN | Not independently assessed in this registry pass | Owner review; keep the benchmark's reproducibility evidence separate from continuum/Gamma-limit claims. |
+| [#527](https://github.com/fabianleonaressi95/theorem/pull/527) | Audit carrier-derived coframe on the full Q6 PSU connection | OPEN | Not independently assessed in this registry pass | Owner review; verify the carrier-to-connection construction and avoid assuming the coframe identity. |
+| [#528](https://github.com/fabianleonaressi95/theorem/pull/528) | Refine Q6 mean-field and Berry audits with verified controls | OPEN | Not independently assessed in this registry pass | Owner review; preserve separation between finite benchmark controls and physical interpretation. |
 | [#526](https://github.com/fabianleonaressi95/theorem/pull/526) | Add matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark | OPEN | Not independently assessed in this registry pass | Owner review; a separate Morandotti FEM workflow had four ARPACK residual-certification failures and eight cancellations; do not treat those uncertified eigenpairs as physical/model falsification. |
 | [#527](https://github.com/fabianleonaressi95/theorem/pull/527) | Audit carrier-derived coframe on the full Q6 PSU connection | OPEN | Not independently assessed in this registry pass | Owner review; verify the carrier-to-connection construction and avoid assuming the coframe identity. |
 | [#528](https://github.com/fabianleonaressi95/theorem/pull/528) | Refine Q6 mean-field and Berry audits with verified controls | OPEN | Not independently assessed in this registry pass | Owner review; preserve separation between finite benchmark controls and physical interpretation. |
 | [#531](https://github.com/fabianleonaressi95/theorem/pull/531) | Reconcile project registry with live theorem audit | OPEN, documentation-only | Checks pending | This registry update; owner review before merge. |
 
-### Merged since first audit pass (2026-11-26 ~17:17–17:47Z)
+### Selected subsequent merges verified on 2026-11-27
 
 | PR | Title | Merged at (UTC) |
 |---|---|---|
@@ -105,7 +115,7 @@ The workflow `.github/workflows/qn-nl-nlt-t3-t4.yml` performs compilation and cu
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
-| #1 | C64 fullerene computational audit | OPEN, mergeable | **No CI configured** | `c64-audit`→`main`, +46,885/−1 (bulk is data/logs under `data/`). Self-contained repo; acceptance tests exist (`tests/test_audit.py`, reported 11 pass locally). Large diff is mostly generated artifacts — acceptable for an audit-data repo but consider whether `data/` logs belong in git. **Recommend: merge after owner confirms artifact policy; optionally add a minimal CI running `pytest tests/test_audit.py`.** |
+| #1 | C64 fullerene computational audit | OPEN | No CI was reported in the previous audit | Current open-PR search confirms #1 remains open. The earlier report recorded a large data/log diff and 11 local acceptance tests; neither CI nor artifact policy was re-audited here. |
 
 ### rheomarine — verification result
 
@@ -114,6 +124,7 @@ PRs **#20, #21, #22 are MERGED** into `main` (`eca7b9a`, verified 2026-11-26): E
 ## Verified merged (results preserved)
 
 - theorem **#344** (SE(3) tetrahedral defect fixture, merged 2026-11-21), **#131** (Volterra dipole-to-edge elastic limit, merged 2026-11-11), **#232** (T103/T105/T107 Actions hardening, merged 2026-11-12) — all MERGED; content present on main.
+- theorem recent merges #413–#523 cover Q6/TSMR/Jitterbug/FEEC, geometry, graph inventory, In2Infinity, C60, T124, Q6 many-body/Berry, and T099 reproducibility. T157/T158 covariant Whitney artifacts are documented on `main`; the duplicate T156 FEEC draft was removed in favor of continuing within T149–T158 (see REPOSITORY_MAP.md).
 - theorem recent merges #413–#523 cover Q6/TSMR/Jitterbug/FEEC, geometry, graph inventory, In2Infinity, C60, T124, Q6 many-body/Berry and T099 reproducibility (see REPOSITORY_MAP.md).
 
 ## Closed-unmerged PRs
