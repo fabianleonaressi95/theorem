@@ -80,7 +80,7 @@ theorem/
 
 ### Programme-wide integration
 
-- **[T161 programme-wide integration map](docs/T150_PROGRAMME_WIDE_INTEGRATION_MAP_2026-11-27.md)** — connects the 27-chapter monograph, the theorem corpus and the companion 51-step formal suite to the Q6–golden cut-and-project–rhombic triacontahedron–IVM–Lorentzian spin geometric spine. Programme membership and topic links are explicitly distinguished from proof dependencies; all theorem IDs and epistemic statuses are preserved.
+- **[T161 programme-wide integration map](docs/T161_PROGRAMME_WIDE_INTEGRATION_MAP_2026-11-27.md)** — connects the 27-chapter monograph, the theorem corpus and the companion 51-step formal suite to the Q6–golden cut-and-project–rhombic triacontahedron–IVM–Lorentzian spin geometric spine. Programme membership and topic links are explicitly distinguished from proof dependencies; all theorem IDs and epistemic statuses are preserved.
 
 ## Main indexes
 - **[In2Infinity technical contact brief](collaborations/in2infinity/01-initial-technical-contact-brief-2026-11-26.md)** — prepares the independently reconstructed five-solid coordinate/radius results, the unresolved multi-face IN convention, targeted questions for Colin Power and Dr Heike Bielek, and a carefully separated optional (S^3/2I) / Stergios Pellis discussion.
