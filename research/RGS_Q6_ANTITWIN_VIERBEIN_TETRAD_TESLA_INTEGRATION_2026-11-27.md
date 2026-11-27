@@ -6,6 +6,12 @@
 
 ## 0. Objective and evidence separation
 
+## 0.1 Recovered 4D–6D–3D and Cartan/teleparallel synthesis
+
+The consolidated dependency map, including the 21 October 188D→6D embedding, the golden (3+3) split, the projected-cube rhombic-triacontahedral window, the torsion-coupled internal-time candidate, and the general Cartan/teleparallel connection distinction, is recorded in [RGS 4D–6D–3D geometry: recovered embedding, Cartan connection and teleparallel correspondence](RGS_4D6D3D_RC_TELEPARALLEL_CUT_PROJECT_SYNTHESIS_2026-11-27.md). This synthesis reuses T063, T115, T154, T113-G, T129 and S.9; it does not promote the internal temporal axis to physical time or claim a completed continuum theory.
+
+
+
 The tetrad is not an accessory to the Anti-Twin connection. It is the soldering field identifying the internal Lorentz frame with spacetime tangent directions. The programme must start from a 4D coframe and connection, then express electromagnetic fields, fluid currents and spinorial transport in that local frame.
 
 The repository already contains distinct objects:
