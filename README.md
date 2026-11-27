@@ -118,7 +118,6 @@ theorem/
 
 - **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 280 theorem records and 14 companion catalogue entries are represented in a 334-node, 370-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 280 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
-- **[Unified theorem dependency graph](docs/UNIFIED_THEOREM_DEPENDENCY_GRAPH.md)** — all 280 theorem records and 14 companion catalogue entries are represented in a 334-node, 370-edge graph; see the machine-readable [edge registry](docs/UNIFIED_THEOREM_EDGES.json).
 - **[Unified two-repository theorem programme](docs/UNIFIED_TWO_REPOSITORY_THEOREM_PROGRAM.md)** — master architecture for the theorem inventory, proof-status schema, cross-repository dependencies, and the shared Pellis/Morandotti workstreams. The current revision inventories 280 theorem Markdown records in this repository; the companion RGS–QLG repository is linked by explicit typed arrows in the dependency graph.
 
 
