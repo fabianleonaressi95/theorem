@@ -782,3 +782,8 @@ These are finite mathematical/software checks. They do not establish physical ca
 ## Morfodinamica Quantistica
 
 The MQ programme records exact quantum-tetrahedron results (MQ-002/003) and a finite RGS-carrier classical-flux construction (MQ-005), with explicit limits on Q6 incidence and spin quantization. See [morfodinamica-quantistica/README.md](morfodinamica-quantistica/README.md).
+
+
+## Discrete Cartan construction proposal
+
+- [Discrete Cartan construction proposal](research/DISCRETE_CARTAN_Q6_PSU_ANTITWIN_CONSTRUCTION_PROPOSAL_2026-11-27.md) — defines Lorentz links, edge coframes, face holonomy, transported coframe closure, gauge covariance, Bianchi obligations, spin-lift gates and the separation of Riemann–Cartan, teleparallel and torsion-free branches. Status: proposal/open, not a proved physical bridge.
