@@ -5,6 +5,7 @@ on:
     paths:
       - "audits/q6_face_cochain_green_kubo.py"
       - "scripts/audit_q6_antitwin_temporal_chain.py"
+      - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
   pull_request:
@@ -28,9 +29,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install numerical dependency for coframe audit
+        run: python -m pip install --disable-pip-version-check numpy
       - name: Run exact Q6 face-cochain unit tests
         run: python -m unittest discover -s tests -p "test_q6_face_cochain_green_kubo.py" -v
       - name: Reproduce exact incidence and Green-Kubo audit
         run: python audits/q6_face_cochain_green_kubo.py
       - name: Audit exact Anti-Twin temporal chain generator
         run: python scripts/audit_q6_antitwin_temporal_chain.py
+      - name: Audit static RGS coframe and Q6 Levi-Civita links
+        run: python scripts/audit_rgs_q6_static_coframe_lc_links.py
