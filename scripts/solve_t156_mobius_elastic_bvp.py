@@ -30,6 +30,7 @@ L = 2.0 * math.pi
 HALF_L = math.pi
 CHI = 0.5
 KAPPA_FLOORS = (5e-2, 2e-2, 1e-2, 5e-3)
+EDGE_MARGIN = 1e-4
 WIDTH_CONTINUATION = (1.0, 1.15)
 
 
@@ -96,8 +97,11 @@ def rhs(s: np.ndarray, y: np.ndarray, width: float) -> np.ndarray:
     kappa, eta, q = y[6], y[7], y[8]
     psi, theta, phi = y[9], y[10], y[11]
     del s
-    tanh_q = np.tanh(q)
-    eta_prime = tanh_q / width
+    exp_tail = np.exp(-2.0*np.minimum(np.abs(q), 350.0))
+    tanh_q = np.sign(q)*(1.0-exp_tail)/(1.0+exp_tail)
+    sech2_q = 4.0*exp_tail/(1.0+exp_tail)**2
+    zeta = (1.0-EDGE_MARGIN)*tanh_q
+    eta_prime = zeta / width
     a1, a2, a3, a4, b2, b3, b4, _ = wunderlich_coefficients(eta_prime, width)
     one_eta2 = 1.0 + eta**2
     denom_k = 4.0*a1*one_eta2**2
@@ -110,7 +114,7 @@ def rhs(s: np.ndarray, y: np.ndarray, width: float) -> np.ndarray:
     eta_second = (
         a2*M1 - a4*F2 - 4.0*a3*kappa*eta*one_eta2
     ) / denom_eta
-    q_prime = width*eta_second/(1.0-tanh_q**2)
+    q_prime = width*eta_second/((1.0-EDGE_MARGIN)*sech2_q)
     sin_theta = np.sin(theta)
     if np.any(np.abs(sin_theta) < 1e-8):
         raise FloatingPointError("Euler-angle chart singularity: sin(theta) is too small")
@@ -198,15 +202,26 @@ def solve_width(width: float, seed=None, previous_width=None):
         elif solution is not None:
             y_guess = solution.y.copy()
             y_guess[6] += floor - previous_floor
-        result = solve_bvp(
-            lambda s, y: rhs(s, y, width),
-            lambda ya, yb: boundary_conditions(ya, yb, floor),
-            mesh,
-            y_guess,
-            tol=2e-3,
-            max_nodes=12000,
-            verbose=0,
-        )
+        try:
+            result = solve_bvp(
+                lambda s, y: rhs(s, y, width),
+                lambda ya, yb: boundary_conditions(ya, yb, floor),
+                mesh,
+                y_guess,
+                tol=2e-3,
+                max_nodes=12000,
+                verbose=0,
+            )
+        except Exception as exc:
+            attempts.append({
+                "kappa_floor": floor,
+                "success": False,
+                "status": -1,
+                "message": f"{type(exc).__name__}: {exc}",
+                "nodes": int(mesh.size),
+                "max_rms_residual": None,
+            })
+            return None, attempts
         attempts.append({
             "kappa_floor": floor,
             "success": bool(result.success),
@@ -229,8 +244,10 @@ def summarize(solution, width: float, attempts: list[dict]) -> dict:
     y = solution.y
     F1, F2, F3, M1, M2, M3 = y[0:6]
     kappa, eta, q = y[6], y[7], y[8]
-    eta_prime = np.tanh(q)/width
-    zeta = width*eta_prime
+    exp_tail = np.exp(-2.0*np.minimum(np.abs(q), 350.0))
+    tanh_q = np.sign(q)*(1.0-exp_tail)/(1.0+exp_tail)
+    zeta = (1.0-EDGE_MARGIN)*tanh_q
+    eta_prime = zeta/width
     _, _, _, _, _, _, _, V = wunderlich_coefficients(eta_prime, width)
     density = kappa**2*(1.0+eta**2)**2*V
     energy = float(np.trapezoid(density, s))
@@ -255,6 +272,7 @@ def summarize(solution, width: float, attempts: list[dict]) -> dict:
         "mesh_nodes": int(s.size),
         "max_rms_collocation_residual": float(np.max(solution.rms_residuals)),
         "max_abs_w_eta_prime": float(np.max(np.abs(zeta))),
+        "edge_singularity_margin": EDGE_MARGIN,
         "minimum_kappa": float(np.min(kappa)),
         "endpoint_eta": float(eta[-1]),
         "endpoint_torsion": float(torsion[-1]),
