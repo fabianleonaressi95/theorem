@@ -1,6 +1,6 @@
 # Cartan refinement consistency: local theorem and open convergence gates
 
-**Status:** local consistency for smooth sampled fields is proved under the stated hypotheses. Convergence of arbitrary discrete fields or discrete solutions is open. A Q6-derived 4D Lorentzian refinement family is not yet constructed.
+**Status:** CONDITIONAL local consistency proposition for smooth sampled fields; the Taylor/Magnus proof is outlined below, while fully expanded coordinate remainder estimates remain to be written before promotion to PROVED. Convergence of arbitrary discrete fields or discrete solutions is open. A Q6-derived 4D Lorentzian refinement family is not yet constructed.
 
 This record formalizes the next step after the exact finite affine-Poincare tetrahedral boundary identity. It must not be read as a continuum theorem derived from Q6 alone.
 
@@ -41,7 +41,7 @@ mathscr R_f=2h^{-2}log H_f,qquad mathscr T_f=2h^{-2}	au_f,
 ]
 with the principal logarithm near the identity.
 
-## 3. Local consistency proposition
+## 3. Local consistency proposition (conditional; proof outline)
 
 **Proposition.** If the edge data are exact samples of the same smooth pair ((e,omega)), then
 [
@@ -82,7 +82,7 @@ This is a consistency comparison for smooth sampled fields. It is not a derivati
 
 ## 5. Established and open
 
-**Established conditionally:** local Lorentz covariance; curvature consistency of the face logarithm; torsion consistency of the affine translation; exact finite tetrahedral affine boundary identity; compatibility of that identity with the smooth Cartan Bianchi identities under sampling/refinement.
+**Established exactly or conditionally:** local Lorentz covariance; the exact finite tetrahedral affine boundary identity; the stated curvature/torsion leading terms under smooth sampling, subject to completing the detailed uniform remainder estimates; compatibility with the smooth Cartan Bianchi identities under sampling/refinement. The local consistency statement is not promoted to PROVED until the coordinate-level remainder bounds and convention checks are fully written out.
 
 **Open:** a Q6-incidence-derived 4D Lorentzian mesh; coframe nondegeneracy and signature control; compactness/stability for arbitrary discrete fields; a gauge-invariant discrete action with independent coframe and connection variations; convergence of discrete critical points; compatible (mathrm{Spin}^+(1,3)) lift and Dirac-operator limit; selection of time from the 6D Euclidean golden split.
 
