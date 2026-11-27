@@ -69,15 +69,15 @@ In the DOLFINx 0.11 / Gmsh / PETSc-MUMPS environment:
 
 ```bash
 python scripts/rgs_volterra_morandotti_c0_ipdg.py \
-  --mesh-sizes 0.06 0.045 \
-  --separations 0.48 0.56 \
-  --core-radius 0.06 \
+  --separations 0.48 \
+  --core-radii 0.06 0.04 0.03 \
+  --mesh-size-factors 1.0 0.75 \
   --alpha 10 \
   --young-modulus 1.0 --poisson-ratio 0.0 \
   --out artifacts/volterra_morandotti_c0_ipdg/report.json
 ```
 
-The CI workflow runs the algebraic moment tests and uploads the complete JSON report. No numerical outcome is asserted in this specification before that run completes.
+The CI workflow runs the algebraic moment tests and uploads the complete JSON report. It now varies the core radius at fixed separation and refines the mesh relative to the core radius. This separates the fixed-core source comparison from the core-shrinking asymptotic question.
 
 ## 5. Relation to the existing periodic Fourier experiment
 
@@ -95,3 +95,29 @@ The new driver supplies the missing independent C0-IPDG calculation for a dipole
 
 - Cesana, De Luca, Morandotti (2024), *Semi-discrete modeling of systems of wedge disclinations and edge dislocations via the Airy stress function method*, SIAM J. Math. Anal. 56(1), 79–136, DOI 10.1137/22M1523443.
 - Cesana, Fabbrini, León Baldelli, Morandotti (2026), *Semidiscrete Modeling of Dislocation-Disclination Systems: Finite Element Formulation*, arXiv:2609.29614.
+
+
+## 7. First fixed-core pilot result (CI run 46020780577)
+
+The first run completed successfully and produced artifact `volterra-morandotti-three-core-c0-ipdg-46020780577-1` (artifact ID `15206804672`). It used (a=0.06), (d\in\{0.48,0.56\}), and (h\in\{0.06,0.045\}).
+
+| d | h | cells | relative stress difference | relative bulk-energy difference | interaction-matrix condition |
+|---:|---:|---:|---:|---:|---:|
+| 0.48 | 0.060 | 2,332 | 0.9913 | 0.6667 | 604 |
+| 0.48 | 0.045 | 3,947 | 0.9890 | 0.6723 | 656 |
+| 0.56 | 0.060 | 2,344 | 1.0235 | 0.7213 | 343 |
+| 0.56 | 0.045 | 3,955 | 1.0456 | 0.7042 | 346 |
+
+Additional diagnostics:
+
+- Global first-moment residual: exactly zero in all four rows (up to floating-point representation).
+- Interaction matrix: symmetric to the assembled precision; minimum eigenvalue between 3.90 and 4.31.
+- Outer-boundary traction L2 residuals: approximately (6.7\times10^{-6}) to (1.15\times10^{-5}).
+- Core-boundary traction residuals are larger, reaching approximately (10^{-3}); they remain a validation blocker and must be studied under further refinement.
+- The Hessian-product versus Laplacian-product interaction-matrix discrepancy ranges from about 0.59% to 4.83%.
+
+**Interpretation:** equality of global Frank/Burgers first moments does not make the finite-separation stress fields or bulk energies close in this finite-core pilot. The stress differences are about 99–105%, and the bulk-energy differences about 67–72%. This is not a failure of the moment identity; it shows that matching the global first moment is not enough to replace the full local (3N) defect data at finite separation. The core traction and matrix-form discrepancies also mean this first run is a pilot, not a validated convergence result.
+
+## 8. Core-radius refinement gate
+
+The updated workflow now fixes (d=0.48), varies (a\in\{0.06,0.04,0.03\}), and uses (h/a\in\{1,0.75\}). The next artifact will test whether the stress and bulk-energy discrepancies change as the cores shrink while the defect separation remains fixed. It does not by itself establish the full singular-core energy equivalence: the correct core-energy subtraction/renormalization from the 2024 variational theorem must be implemented before that claim can be tested.
