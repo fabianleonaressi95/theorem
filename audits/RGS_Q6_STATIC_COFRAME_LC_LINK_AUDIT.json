@@ -1,0 +1,112 @@
+{
+  "status": "STATIC_3PLUS1_COFRAME_INTERPOLATION_CANDIDATE; LC_LINK_MISMATCH_MEASURED",
+  "ci": {
+    "workflow": "Q6 face-cochain Green-Kubo audit",
+    "run_number": 20,
+    "run_id": 46057132145,
+    "conclusion": "success"
+  },
+  "provenance": {
+    "seed_coordinate_sha256": "6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e67f286126e419cf",
+    "q6_edge_sha256": "da7854ca655577b629dc508208918326fde1d50563485f953ea0fdc1b2fb78e8",
+    "coframe_rule": "principal SPD square root of archived local Gaussian covariance",
+    "interpolation": "exact Gaussian RBF of symmetric matrix logarithms",
+    "rbf_width_rule": "median Euclidean length of 192 Q6 edges",
+    "rbf_sigma": 1.4387555831265582,
+    "rbf_kernel_condition_number": 4176.136366231421,
+    "rbf_site_interpolation_residual": 2.400977615376677e-15,
+    "edge_path": "straight chord in reconstructed X_Oh coordinate chart",
+    "q6_link": "minimal SO(3) rotation from X_g/|X_g| to X_h/|X_h|"
+  },
+  "static_spacetime_lift": {
+    "coframe": "e^0=dt; e^a=E^a_i(x)dx^i",
+    "lapse": 1,
+    "shift": [
+      0,
+      0,
+      0
+    ],
+    "time_derivatives": "zero by static ansatz",
+    "metric_signature": "(-,+,+,+)",
+    "interpretation": "static Lorentzian extension, not a solution of gravitational field equations"
+  },
+  "site_coframe": {
+    "shape": [
+      64,
+      3,
+      3
+    ],
+    "determinant_min": 0.793963083312426,
+    "determinant_max": 1.0109830110606244,
+    "metric_condition_max": 3.0057588321757107,
+    "max_site_omega_antisymmetry_residual": 4.91496863906145e-16,
+    "max_site_tetrad_postulate_residual": 1.6787203295358438e-16,
+    "max_site_cartan_torsion_residual": 2.0786519557395855e-16
+  },
+  "edge_transport": {
+    "integration_steps": [
+      8,
+      16
+    ],
+    "max_RK4_refinement_difference": {
+      "mean": 0.000003434472131999374,
+      "rms": 0.000009390243022653554,
+      "max": 0.00003640750862817334,
+      "p95": 0.00003640750862763758
+    },
+    "LC_metric_preservation": {
+      "mean": 1.9955952591016307e-8,
+      "rms": 5.8985078446062585e-8,
+      "max": 2.2778177472297292e-7,
+      "p95": 2.277817690940383e-7
+    },
+    "Q6_link_metric_compatibility_defect": {
+      "mean": 0.13523162286707943,
+      "rms": 0.27870970726533706,
+      "max": 0.7718270008809472,
+      "p95": 0.7718270008809452
+    },
+    "LC_vs_Q6_coordinate_link_difference": {
+      "mean": 0.7858762615917184,
+      "rms": 0.9461189701652598,
+      "max": 2.306612226823843,
+      "p95": 2.306612226823836
+    },
+    "comparison_contract": "LC transport is converted from orthonormal-frame to coordinate components as E_h^{-1} P_LC E_g"
+  },
+  "face_holonomy": {
+    "face_count": 240,
+    "LC_vs_Q6_matrix_difference": {
+      "mean": 0.7071819145143636,
+      "rms": 1.037378169299279,
+      "max": 2.8890011377581057,
+      "p95": 2.756539528442324
+    },
+    "absolute_Wilson_trace_difference": {
+      "mean": 0.3344878013930038,
+      "rms": 0.7455823232696692,
+      "max": 2.716441215977615,
+      "p95": 2.1732760934660638
+    }
+  },
+  "tesla_rotating_field": {
+    "electrical_angular_frequency": 2.3,
+    "positive_sequence_rotation_rate": 2.3,
+    "negative_sequence_rotation_rate": -2.3,
+    "sample_times": 33,
+    "co_rotating_frame_covariance_residual": {
+      "mean": 1.6867948550679995e-16,
+      "rms": 2.9672286115031485e-16,
+      "max": 8.882964164503775e-16,
+      "p95": 6.353474745585468e-16
+    },
+    "status": "EXACT_ROTATING_FRAME_COVARIANCE_IDENTITY_NUMERICALLY_AUDITED"
+  },
+  "epistemic_limits": [
+    "Log-Gaussian interpolation is a declared candidate, not uniquely determined by the 64 samples.",
+    "Static lift fixes lapse N=1 and shift N^i=0; it does not derive physical time evolution.",
+    "Q6 minimal-radial-rotation links are not metric-compatible with this interpolated RGS coframe metric in general.",
+    "The measured link/holonomy mismatch applies to this interpolated metric and straight-chord paths.",
+    "No TEGR, Einstein-Cartan field solution, coupled Maxwell-QHD action, or continuum/Mosco convergence is established."
+  ]
+}
