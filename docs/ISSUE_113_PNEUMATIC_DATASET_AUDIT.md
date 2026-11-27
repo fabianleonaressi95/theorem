@@ -25,9 +25,10 @@ The paper reports in-sample GA fits, with three repeated optimization runs. Its 
 
 ## Time-axis discrepancy: do not overstate
 
-The article reports 0.05 Hz and hence a 20 s period. The repository-side CSV audit previously reported a Time span of 0–8000 and a cycle period near 2000 *Time units*. The header is simply `Time`; it does not encode seconds. Therefore the numerical value 0.0005 Hz is valid **only if** the time unit is independently confirmed to be seconds. This audit deliberately leaves frequency unset unless run with `--time-unit s`.
+The article reports 0.05 Hz and hence a 20 s period. The repository-side CSV audit previously reported a Time span of 0–8000 and a cycle period near 2000 *Time units*. The header is simply `Time`; it does not encode seconds. If one raw Time unit equals 0.01 s, then 2000 units equal 20 s and 8000 units equal 80 s: this exactly reconciles four cycles with the paper's 0.05 Hz. It is a strong candidate scale, **not yet a verified unit declaration**. The earlier 0.0005 Hz value follows only from the unverified assumption that one raw unit is one second.
 
-The immediate task is to verify the Zenodo file byte-for-byte against the repository copy, then establish the Time unit from source metadata or the authors. A factor-of-1000 conversion (e.g. milliseconds) must not be silently applied.
+The new auditor therefore accepts `--time-scale-to-seconds` and leaves frequency unset by default. Once the scale is confirmed from acquisition metadata or the authors, run it with `--time-scale-to-seconds 0.01`. Do not silently convert the raw file or promote this candidate scale to fact before provenance is established.
+
 
 ## Implementation in this PR
 
