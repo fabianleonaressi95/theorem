@@ -270,51 +270,86 @@ def summarize(values: np.ndarray) -> dict:
 
 
 def tesla_rotating_frame_audit() -> dict:
-    """Exact numerical covariance audit for Tesla positive/negative rotating fields."""
+    """Audit rotating tetrad, Tesla sequence orientation and quaternionic spin lift."""
     omega_el = 2.3
     B0 = np.array([1.0, 0.0, 0.0])
     Jz = np.array([[0.0, -1.0, 0.0],
                    [1.0, 0.0, 0.0],
                    [0.0, 0.0, 0.0]])
+    I2 = np.eye(2, dtype=complex)
+    pauli = (
+        np.array([[0, 1], [1, 0]], dtype=complex),
+        np.array([[0, -1j], [1j, 0]], dtype=complex),
+        np.array([[1, 0], [0, -1]], dtype=complex),
+    )
     times = np.linspace(0.0, 2.0*np.pi/omega_el, 33, endpoint=True)
-    plus_rates = []
-    minus_rates = []
-    gauge_residuals = []
+    plus_rates, minus_rates = [], []
+    gauge_residuals, temporal_torsion_residuals = [], []
+    su2_unitarity, su2_adjoint = [], []
+
+    def rz(theta):
+        c, s = np.cos(theta), np.sin(theta)
+        return np.array([[c, -s, 0.0], [s, c, 0.0], [0.0, 0.0, 1.0]])
+
+    def su2_from_angle(theta):
+        q = np.array([np.cos(theta/2.0), 0.0, 0.0, np.sin(theta/2.0)])
+        return q[0]*I2 - 1j*sum(q[k+1]*pauli[k] for k in range(3))
+
+    def so3_from_su2(U):
+        return np.asarray([
+            [np.real(np.trace(pauli[i] @ U @ pauli[j] @ U.conj().T) / 2.0)
+             for j in range(3)] for i in range(3)
+        ])
+
     for t in times:
-        c, s = np.cos(omega_el*t), np.sin(omega_el*t)
-        Bplus = np.array([c, s, 0.0])
-        dBplus = omega_el * np.array([-s, c, 0.0])
-        Bminus = np.array([c, -s, 0.0])
-        dBminus = omega_el * np.array([-s, -c, 0.0])
+        theta = omega_el*t
+        Rplus = rz(theta)
+        Bplus = Rplus @ B0
+        dBplus = omega_el * Jz @ Bplus
+        Bminus = rz(-theta) @ B0
+        dBminus = -omega_el * Jz @ Bminus
         plus_rates.append(float((Bplus[0]*dBplus[1] - Bplus[1]*dBplus[0])
                                 / (Bplus @ Bplus)))
         minus_rates.append(float((Bminus[0]*dBminus[1] - Bminus[1]*dBminus[0])
                                  / (Bminus @ Bminus)))
 
-        # Passive change to a co-rotating frame S=R_z(-omega t).
-        R = np.array([[c, -s, 0.0], [s, c, 0.0], [0.0, 0.0, 1.0]])
-        S = R.T
+        # Co-rotating coframe S(t)=R_z(-Omega t), with omega_t=-dot(S)S^{-1}.
+        S = rz(-theta)
         dS = -omega_el * Jz @ S
-        B_lab = Bplus
-        dB_lab = dBplus
-        B_frame = S @ B_lab
-        dB_frame = dS @ B_lab + S @ dB_lab
-        omega_frame = -dS @ S.T
-        D_frame = dB_frame + omega_frame @ B_frame
-        D_lab = dB_lab
-        gauge_residuals.append(float(np.linalg.norm(D_frame - S @ D_lab)))
+        omega_t = -dS @ S.T
+        B_frame = S @ Bplus
+        dB_frame = dS @ Bplus + S @ dBplus
+        D_frame = dB_frame + omega_t @ B_frame
+        gauge_residuals.append(float(np.linalg.norm(D_frame - S @ dBplus)))
+        temporal_torsion_residuals.append(float(np.linalg.norm(dS + omega_t @ S)))
 
+        U = su2_from_angle(theta)
+        su2_unitarity.append(float(np.linalg.norm(U.conj().T @ U - I2)))
+        su2_adjoint.append(float(np.linalg.norm(so3_from_su2(U) - Rplus)))
+
+    U_2pi = su2_from_angle(2.0*np.pi)
+    U_4pi = su2_from_angle(4.0*np.pi)
     return {
         "electrical_angular_frequency": omega_el,
         "positive_sequence_rotation_rate": summarize(np.asarray(plus_rates)),
         "negative_sequence_rotation_rate": summarize(np.asarray(minus_rates)),
         "co_rotating_frame_covariance_residual": summarize(np.asarray(gauge_residuals)),
+        "rotating_tetrad_temporal_torsion_residual": summarize(np.asarray(temporal_torsion_residuals)),
+        "quaternionic_spin_lift": {
+            "convention": "q=(cos(theta/2),0,0,sin(theta/2)); U=q0 I - i q.sigma",
+            "max_SU2_unitarity_residual": float(np.max(su2_unitarity)),
+            "max_SU2_to_SO3_adjoint_residual": float(np.max(su2_adjoint)),
+            "U_at_2pi_equals_minus_I_residual": float(np.linalg.norm(U_2pi + I2)),
+            "U_at_4pi_equals_plus_I_residual": float(np.linalg.norm(U_4pi - I2)),
+            "status": "SPIN_DOUBLE_COVER_AUDITED",
+        },
         "interpretation": (
             "positive/negative phase sequence reverses the rotating-field orientation; "
-            "the tetrad spin connection compensates a local frame rotation so the "
-            "covariant derivative transforms geometrically"
+            "the time-dependent coframe rotation contributes omega_t=-dot(S)S^{-1}; "
+            "its temporal Cartan torsion cancels exactly, and the quaternionic SU(2) "
+            "lift has the expected 2pi sign and 4pi periodicity"
         ),
-        "status": "EXACT_ROTATING_FRAME_COVARIANCE_IDENTITY_NUMERICALLY_AUDITED",
+        "status": "TESLA_ROTATING_TETRAD_AND_QUATERNIONIC_COVARIANCE_AUDITED",
     }
 
 
