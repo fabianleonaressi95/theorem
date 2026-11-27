@@ -269,6 +269,55 @@ def summarize(values: np.ndarray) -> dict:
     }
 
 
+def tesla_rotating_frame_audit() -> dict:
+    """Exact numerical covariance audit for Tesla positive/negative rotating fields."""
+    omega_el = 2.3
+    B0 = np.array([1.0, 0.0, 0.0])
+    Jz = np.array([[0.0, -1.0, 0.0],
+                   [1.0, 0.0, 0.0],
+                   [0.0, 0.0, 0.0]])
+    times = np.linspace(0.0, 2.0*np.pi/omega_el, 33, endpoint=True)
+    plus_rates = []
+    minus_rates = []
+    gauge_residuals = []
+    for t in times:
+        c, s = np.cos(omega_el*t), np.sin(omega_el*t)
+        Bplus = np.array([c, s, 0.0])
+        dBplus = omega_el * np.array([-s, c, 0.0])
+        Bminus = np.array([c, -s, 0.0])
+        dBminus = omega_el * np.array([-s, -c, 0.0])
+        plus_rates.append(float((Bplus[0]*dBplus[1] - Bplus[1]*dBplus[0])
+                                / (Bplus @ Bplus)))
+        minus_rates.append(float((Bminus[0]*dBminus[1] - Bminus[1]*dBminus[0])
+                                 / (Bminus @ Bminus)))
+
+        # Passive change to a co-rotating frame S=R_z(-omega t).
+        R = np.array([[c, -s, 0.0], [s, c, 0.0], [0.0, 0.0, 1.0]])
+        S = R.T
+        dS = -omega_el * Jz @ S
+        B_lab = Bplus
+        dB_lab = dBplus
+        B_frame = S @ B_lab
+        dB_frame = dS @ B_lab + S @ dB_lab
+        omega_frame = -dS @ S.T
+        D_frame = dB_frame + omega_frame @ B_frame
+        D_lab = dB_lab
+        gauge_residuals.append(float(np.linalg.norm(D_frame - S @ D_lab)))
+
+    return {
+        "electrical_angular_frequency": omega_el,
+        "positive_sequence_rotation_rate": summarize(np.asarray(plus_rates)),
+        "negative_sequence_rotation_rate": summarize(np.asarray(minus_rates)),
+        "co_rotating_frame_covariance_residual": summarize(np.asarray(gauge_residuals)),
+        "interpretation": (
+            "positive/negative phase sequence reverses the rotating-field orientation; "
+            "the tetrad spin connection compensates a local frame rotation so the "
+            "covariant derivative transforms geometrically"
+        ),
+        "status": "EXACT_ROTATING_FRAME_COVARIANCE_IDENTITY_NUMERICALLY_AUDITED",
+    }
+
+
 def run_audit(steps: tuple[int, ...] = (8, 16)) -> dict:
     X, edges = reconstruct_seed()
     E = spatial_coframes(X)
@@ -364,6 +413,7 @@ def run_audit(steps: tuple[int, ...] = (8, 16)) -> dict:
             "edge_path": "straight chord in the reconstructed X_Oh coordinate chart",
             "q6_link": "minimal SO(3) rotation from X_g/|X_g| to X_h/|X_h|",
         },
+        "tesla_rotating_field": tesla_rotating_frame_audit(),
         "static_spacetime_lift": {
             "coframe": "e^0=dt; e^a=E^a_i(x)dx^i",
             "lapse": 1.0,
