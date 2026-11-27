@@ -1,0 +1,24 @@
+name: T158 interior covariant Whitney audit
+on:
+  push:
+    paths:
+      - "scripts/audit_t158_interior_covariant_whitney.py"
+      - "tests/test_t158_interior_covariant_whitney.py"
+      - ".github/workflows/t158-interior-covariant-whitney.yml"
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy scipy
+      - run: python scripts/audit_t158_interior_covariant_whitney.py
+      - run: python -m unittest tests.test_t158_interior_covariant_whitney
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t158-interior-covariant-whitney-report
+          path: results/json/t158_interior_covariant_whitney.json
+          retention-days: 30
