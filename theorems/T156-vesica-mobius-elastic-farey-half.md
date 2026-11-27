@@ -266,7 +266,7 @@ h(\kappa,\eta,\eta')=
 \frac{\operatorname{atanh}(w\eta')}{w\eta'}.
 \]
 
-The solver uses the bounded variable \(q=\operatorname{atanh}(w\eta')\) so that \(|w\eta'|<1\) is enforced during iteration. It continues the switching-point regularization through
+The solver uses the bounded variable \(q=\operatorname{atanh}(w\eta')\) with an explicit edge margin \(\delta=10^{-4}\), so the iterates satisfy \(|w\eta'|\le 1-\delta\). This is a numerical regularization of the edge singularity, not the exact limiting surface. It continues the switching-point regularization through
 
 \[
 \kappa(L/2)\in\{0.05,0.02,0.01,0.005\},
@@ -274,7 +274,7 @@ The solver uses the bounded variable \(q=\operatorname{atanh}(w\eta')\) so that 
 
 rather than imposing the singular endpoint directly. This follows the published numerical strategy, which reports continuation towards values around \(10^{-3}\).
 
-The audit records the collocation residual, maximum \(|w\eta'|\), normalized Wunderlich energy, boundary residual, and drift in the first integrals \(|F|^2\), \(F\cdot M\) and the Hamiltonian. The linking value \(Lk=1/2\) is selected by the symmetric Möbius BVP class; it is not independently reconstructed from the computed curve in this implementation.
+The audit records the collocation residual, maximum \(|w\eta'|\), normalized Wunderlich energy, boundary residual, and drift in the first integrals \(|F|^2\), \(F\cdot M\) and the Hamiltonian. Reproduction files: [solver](../scripts/solve_t156_mobius_elastic_bvp.py), [BVP tests](../tests/test_t156_mobius_elastic_bvp.py), [workflow](../.github/workflows/t156-mobius-elastic-bvp.yml); the exact algebra audit and its tests are [here](../scripts/audit_t156_vesica_mobius_farey.py) and [here](../tests/test_t156_vesica_mobius_farey.py). The linking value \(Lk=1/2\) is selected by the symmetric Möbius BVP class; it is not independently reconstructed from the computed curve in this implementation.
 
 ### Interpretation gate
 
