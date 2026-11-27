@@ -31,6 +31,8 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
+| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `archive/dec_se3_legacy/` (legacy package), PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 open (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
 | SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | no open PR; further continuum/Γ-limit claims remain separately scoped |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
@@ -51,6 +53,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
+| FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `archive/dec_se3_legacy/` (archived 2026-11-26), PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
 | FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `test_volumetric_complex.py`, `holonomy.py`, `connection.py`, PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
 | T156 dodecahedral Whitney–FEEC Hodge audit | `theorem` | `theorems/T156-whitney-feec-hodge-dodecahedral-surface.md`, `scripts/audit_t156_dodecahedral_feec_hodge.py`, tests and workflow | NUMERICALLY VERIFIED for the finite FEEC model; antipodal equivariance checked | Q6 spectral intertwining remains OPEN; note identifier collision with the separate T156 rhombicuboctahedron–snub-cube record; do not conflate them |
 | T157 covariant Whitney curvature audit | `theorem` | `theorems/T157-full-covariant-whitney-curvature.md`, `scripts/audit_t157_full_covariant_whitney_curvature.py`, regression test and workflow | NUMERICALLY VERIFIED for the finite link-based model (per committed report) | nonzero covariant curvature defect is intentional; smooth-continuum identification and uniqueness of the nodal-normal/gauge convention remain OPEN |
@@ -79,7 +82,7 @@ Maps each active research thread to its canonical repository, key files, verific
 |---|---|---|---|
 | RheoMarine HFR–M0 transport | `rheomarine` | PILOT-REPRODUCED (Lagrangian); solver masks SOFTWARE VERIFIED; validation DATA-BLOCKED (issue #2) | independent ADCP/drifter/particle observations; coastline mask; longer HFR windows |
 | DS1/DS2 lab rheology analysis | `rheomarine` | ANALYZED (derived CSVs/JSON committed) | absolute z-calibration for DS1; DS2 recipes |
-| Hysteresis datasets (188D, JA, actuator) | `theorem` (`Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
+| Hysteresis datasets (188D, JA, actuator) | `theorem` (`data/Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
 | Shape–Field / electrostatic discharge FEM | `theorem` (protocol); dedicated app repo TBD | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` (CADFEM/Fuger 2026-04-10 reference) | OPEN — protocol only | FEM implementation, §8 verification tests, inception-voltage module |
 | SSA / scaling laws | `ASTRAQ` | SOFTWARE VERIFIED (stale since Aug) | — |
 | CosModex galaxy map | `cosmodex` | SOFTWARE (stale; hygiene issues) | — |

@@ -6,6 +6,15 @@ It brings together source literature, manuscript records, reproducible computati
 
 > **Scientific-status policy.** A symbolic proof, a numerical verification, a model-dependent conclusion, and a research hypothesis are different kinds of evidence. This repository labels them separately and does not treat computational agreement as a substitute for proof or physical validation.
 
+## Repository status at a glance (reorganized 2026-11-26)
+
+- **Purpose:** canonical home for theorem-level mathematics of the RGS–PSU–PRISM–Q6 programme — statements, proofs, audits, dependency graphs. Experimental software, datasets and application code live in companion repositories (see `docs/project/`).
+- **Theorem register:** every card under `theorems/` is inventoried in **[docs/THEOREM_MASTER_REGISTER.md](docs/THEOREM_MASTER_REGISTER.md)** / **[.csv](docs/THEOREM_MASTER_REGISTER.csv)** — one row per card, with epistemic status, proof type, verification scripts/tests, dependencies and limits. Regenerate with `python3 scripts/build_theorem_register.py`; validate with `python3 scripts/check_theorem_register.py`.
+- **Cards:** 272 markdown records in `theorems/` (incl. `theorems/spectral/`). Status distribution (heuristic classification, see register `status_note` column): **PROVED 44, EXACT_CERTIFICATE 14, NUMERICALLY_VERIFIED 80, CONDITIONAL 83, CANDIDATE 6, HYPOTHESIS 2, OPEN 43**. SUPERSEDED/QUARANTINED: 0. *Classification is conservative and machine-assisted; ~100 rows carry a low-confidence note pending author review.*
+- **Known numbering issue:** 29 card-id prefixes are reused by multiple files (e.g. T113×9, T049×6, T143×4). The register keys rows by file path; renumbering is an author decision (see `docs/project/PR_ISSUE_AUDIT.md` and the reorganization audit report).
+- **Reproduce checks:** `python3 -m pytest tests/` (unit tests), `python3 scripts/check_theorem_register.py` (register consistency), plus per-workflow audit scripts under `scripts/` and `audits/`.
+- **Declared limits:** no card is EXPERIMENTALLY VALIDATED; numerical audits are not proofs; quarantined/unverified material is preserved under `archive/` rather than deleted.
+
 ## Research scope
 - [Q6–C60 restriction to V4](docs/Q6_C60_V4_EQUIVARIANCE.md) — verified 64D representation equivalence with an explicit orthogonal intertwiner (maximum residual 6.63e-15); all four V4 actions preserve Q6 adjacency. Only R_geo_tangent, not K0/P_G/T_transport, is V4-covariant on the archived 188D space. [Machine-readable audit](audits/Q6_C60_V4_equivariance.json).
 - [Q6–C60 V4 face-locality diagnostic](docs/Q6_C60_V4_LOCALITY.md) — transports the archived Q6 adjacency to the 32 C60 face-tangent fibres and measures block support against actual face adjacency; explicitly records the unresolved O(16)^4 intertwiner freedom.
@@ -33,18 +42,40 @@ The tree below summarizes the principal areas. The live repository may contain a
 
 ```text
 theorem/
-├── .github/workflows/       # Continuous-integration workflows
-├── archive/                 # Quarantined source files retained for provenance
-├── audits/                  # Reproducible mathematical/computational audits
-├── bibliography/             # Source literature and formula audits
-├── data/                    # Machine-readable data and audit outputs
-├── docs/                    # User and research documentation
-├── models/                  # Explicit mathematical and phenomenological models
-├── open-problems/           # Validation matrices and unresolved questions
-├── projects/                # Research-strand index
+├── .github/workflows/       # Continuous-integration workflows (80)
+├── theorems/                # 272 numbered/themed result cards (+ spectral/)
+├── foundations/             # Established definitions, laws, results
+├── conjectures/             # Unproved hypotheses (reserved; see register)
+├── proofs/                  # Standalone formal proofs/certificates (reserved)
+├── verification/            # Symbolic/numerical verification suites
 ├── scripts/                 # Executable research and verification scripts
-├── tests/                   # Automated tests
-└── theorems/                # Numbered theorem statements and proof records
+├── tests/                   # Automated tests (pytest)
+├── src/                     # Reusable library modules (dec-se3, RGS, Q6)
+├── data/                    # Source datasets (incl. Hysteresis_datasets.xlsx)
+├── artifacts/               # Generated results and binary arrays (K0/P_G/Z_*/npz)
+├── audits/                  # Reproducible mathematical/computional audits + K0 JSON reports
+├── docs/                    # User and research documentation (+ project/ registry)
+├── research/                # Dossiers and in-progress research
+├── models/                  # Explicit mathematical and phenomenological models
+├── experiments/             # Computational experiments
+├── reports/                 # Generated report collections
+├── manuscripts/             # Manuscript records
+├── monographs/              # Book-length syntheses
+├── bibliography/            # Source literature, PDFs, formula audits
+├── applications/            # Application-specific records
+├── collaborations/          # External collaboration records
+├── documents/               # Formal documents (e.g. Document A1)
+├── evidence/                # Evidence bundles
+├── projects/                # Research-strand index (e.g. de Rham benchmark)
+├── herasymov_audit/         # Herasymov-related audit material
+├── morfodinamica-quantistica/ # Quantum morphodynamics material
+├── open-problems/           # Validation matrices and unresolved questions
+├── results/                 # Machine-readable JSON/NPZ results
+├── library-inventory/       # Library/source inventory
+├── archive/                 # Historical/superseded material (dec_se3_legacy, zips, orphans)
+├── conftest.py              # pytest configuration
+├── pyproject.toml           # Package metadata (dec-se3)
+└── requirements-audit.txt   # Pinned audit dependencies
 ```
 
 ### Main indexes
@@ -560,7 +591,7 @@ The implementation integrates ordered edge transports for a smooth noncommuting 
 
 The two-core reconstruction has passed two successive GitHub Actions audits and both changes are merged:
 
-- [PR #161](https://github.com/fabianleonaressi95/theorem/pull/161) adds the interior-facet traction-jump decomposition into Frank/disclination, Burgers/dislocation, and the signed mixed cross term. It records the additivity residual and total/sector second-moment tensors in laboratory and longitudinal/transverse frames. See [MORANDOTTI_ANISOTROPY.md](MORANDOTTI_ANISOTROPY.md). The [PR audit run](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760) completed successfully.
+- [PR #161](https://github.com/fabianleonaressi95/theorem/pull/161) adds the interior-facet traction-jump decomposition into Frank/disclination, Burgers/dislocation, and the signed mixed cross term. It records the additivity residual and total/sector second-moment tensors in laboratory and longitudinal/transverse frames. See [MORANDOTTI_ANISOTROPY.md](docs/MORANDOTTI_ANISOTROPY.md). The [PR audit run](https://github.com/fabianleonaressi95/theorem/actions/runs/43051485760) completed successfully.
 - [PR #162](https://github.com/fabianleonaressi95/theorem/pull/162) adds a dedicated DOLFINx 0.11.0 refinement workflow at five mesh sizes, h = 0.08, 0.06, 0.045, 0.035, 0.027, retains the 13 algebraic reconstruction tests, and uploads the JSON report and per-level FE fields. The [five-level refinement run](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448456) and [base two-core audit run](https://github.com/fabianleonaressi95/theorem/actions/runs/43052448351) both completed successfully.
 
 The five-level report records a nonzero signed Frank–Burgers traction cross term in the mixed-source case, with additivity residuals at roundoff level. The exact tensor composition identity, normalized axis-resolved anisotropy formula, and operator variation–residual sensitivity identity are formalized in [T091 — Frank–Burgers tensorial interaction and anisotropy composition law](theorems/T091-frank-burgers-tensorial-anisotropy-composition-law.md). These finite-dimensional identities are proved under their stated hypotheses; the continuum limit, constitutive interpretation and universal distance law remain open. The numerical evidence and limitations are documented in [the two-core audit](docs/rgs_defect_benchmark/MORANDOTTI_TWO_CORE_AUDIT.md).
@@ -704,7 +735,7 @@ These are finite mathematical/software checks. They do not establish physical ca
 
 ### T152 — Binary McKay–ADE, Calabi–Yau orbifolds and crepant resolutions
 
-- **Graph reconciliation (26 November 2026):** T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153 and T154 are indexed as theorem records; T027 uses its canonical node identifier, and T144 is linked to T152 only by a `comparison-only` edge. The two T149 records are distinct. The Liouville half-factor literature dossier is intentionally not counted as a theorem. Current inventory: 263 theorem records, 317 nodes, 353 edges. The two distinct T154 records (In2Infinity and RGS spatial coframe) are retained under separate canonical slugs; T155 is indexed separately.
+- **Graph reconciliation (26 November 2026):** T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153 and T154 are indexed as theorem records; T027 uses its canonical node identifier, and T144 is linked to T152 only by a `comparison-only` edge. The two T149 records are distinct. The Liouville half-factor literature dossier is intentionally not counted as a theorem. Current inventory: 263 theorem records, 317 nodes, 353 edges. *Update 2026-11-26: the master register now inventories 272 cards under `theorems/` (4 SE(3) spec documents moved in from the repository root during reorganization); the dependency graph edge set predates this count and is pending regeneration.* The two distinct T154 records (In2Infinity and RGS spatial coframe) are retained under separate canonical slugs; T155 is indexed separately.
 
 - [T152 — Binary McKay–ADE correspondence, Calabi–Yau orbifolds and crepant resolutions](theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) — integrates the \(2I\subset SU(2)\), \(\mathbb C^2/2I\), affine \(\widetilde E_8\) and minimal crepant resolution chain; distinguishes the surface theorem from the threefold \(G\)-Hilb/BKR derived equivalence and the special, non-general existence problem in dimensions \(n>3\). Cross-links T119, T121, T144, T146, A1 and T027 without duplicating their audits or claiming an unproved RGS/Q6 operator identification.
 
