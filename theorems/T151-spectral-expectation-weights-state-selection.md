@@ -98,7 +98,7 @@ The present theorem does not refute the possibility of a later variational deriv
 ## 7. Scope
 
 - The diagonal expectation identity and the finite/countable convex-hull statements are proved.
-- For countably infinite (I), the attainable set is a barycentre set whose closure, not necessarily the set itself, is the closed convex hull.
+- For a countably infinite index set, the attainable set is a barycentre set whose closure, not necessarily the set itself, is the closed convex hull.
 - The non-uniqueness statement applies whenever the number of independently variable modes exceeds the number of independent constraints.
 - The application concerns the expectation-value construction in the cited GSR preprint; it is not a claim about every possible future version of the Pellis operator.
 - No identification with the Q6, PRISM or Fibonacci \(D_6\) operators is asserted.
