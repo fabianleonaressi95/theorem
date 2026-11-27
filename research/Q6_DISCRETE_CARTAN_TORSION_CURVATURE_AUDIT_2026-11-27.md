@@ -114,3 +114,10 @@ From the repository root:
 python -m unittest discover -s tests -p "test_q6_discrete_cartan.py" -v
 python scripts/audit_q6_discrete_cartan.py
 \`\`\`
+
+
+## 9. CI reproduction
+
+GitHub Actions workflow run #43 completed successfully, including the existing exact Q6 incidence/Hodge and Anti-Twin audits, the static coframe reference audit, the four discrete-Cartan unit tests, and the discrete-Cartan numerical report.
+
+[Workflow run #43](https://github.com/fabianleonaressi95/theorem/actions/runs/46059768375)
