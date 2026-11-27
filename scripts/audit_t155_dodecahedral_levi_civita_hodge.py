@@ -141,7 +141,8 @@ def main():
         assert case["transport_orthogonality_residual"]<TOL
         assert case["transport_determinant_residual"]<TOL
         assert case["antipodal_frame_covariance_residual"]<TOL
-        assert case["gauss_bonnet_4pi_residual"]<TOL\n        assert case["holonomy_spherical_area_max_residual"]<TOL
+        assert case["gauss_bonnet_4pi_residual"]<TOL
+        assert case["holonomy_spherical_area_max_residual"]<TOL
         assert case["covariant_hodge_hermiticity_residual"]<TOL
         assert case["covariant_hodge_minimum_eigenvalue"]>0
         assert case["constant_section_energy"]>1e-4
