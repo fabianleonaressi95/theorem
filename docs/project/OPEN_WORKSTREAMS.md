@@ -20,6 +20,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | Q6–PRISM obstruction programme | `rgs-qlg` (PRs #207–#213 merged) | `rgs-qlg/docs` PRISM/Q6 bridge notes | NUMERICALLY VERIFIED (obstructions proved per repo) | issue #402 unified theorem graph expansion OPEN |
 | Krist-All / Kathara chain maps | `theorem` + `rgs-qlg` + `fullerene-c64-audit` (interface doc) | `rgs-qlg/docs/KATHARA_*`, `theorem/docs/KTHNY_N4_SYM_RGS_PRISM.md`, fullerene `docs/KRIST_ALL_KATHARA_Q6_INTERFACE.md` | CANDIDATE — interface explicitly conjectural | issue #109 source-data import; fullerene PR #1 unmerged |
 | Pellis Fibonacci two-sheet / D6 | `rgs-qlg` + `theorem` | `rgs-qlg` PRs #223–#226, `theorem/docs/PELLIS_*` | NUMERICALLY VERIFIED per repo | — |
+| Pellis GSR register / PEL-05 spectral-state selection | `theorem` | open PRs #524 (GSR register / T150–T151 corrections) and #525 (independent spectral-state criteria) | OPEN — owner review pending | keep the source register, spectral selection criteria and earlier Pellis/D6 results distinct; verify independence of selection criteria |
 | Supergolden special functions / dodecahedral Hodge | `theorem` | PRs #460, #451 merged; `docs/DIGAMMA_SUPERGOLDEN_*` | SOFTWARE VERIFIED | — |
 
 ## C. Geometry / defects / elasticity / Cartan–SE(3)
@@ -29,7 +30,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 merged (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | no open PR; further continuum/Γ-limit claims remain separately scoped |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
-| In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | `theorem` | T154/T155 merged in #517; T156 merged in #516; source review and coordinate/incidence tests | PARTIALLY VERIFIED: static coordinate and finite incidence results only | continuous 22.5° hinge path, chirality/orientation map, and physical/atomic interpretations remain OPEN; PR #517 merge does not close these claims |
+| In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | `theorem` | T154/T155 merged in #517; T156 rhombicuboctahedron–snub-cube audit merged in #516 | PARTIALLY VERIFIED: static coordinate and finite incidence results only | continuous 22.5° hinge path, chirality/orientation map, and physical/atomic interpretations remain OPEN; this T156 ID is distinct from the separate T156 FEEC/Hodge record and needs disambiguation |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
 | 2I / Poincaré quotient / McKay correspondence | `theorem` + `rgs-qlg` | `theorem/docs/binary-icosahedral-2i.md`? (rgs-qlg `docs/binary-icosahedral-2i.md`), PR #444 (binary McKay–ADE) | ANALYTICALLY VERIFIED per repo | — |
 
@@ -38,8 +39,9 @@ Maps each active research thread to its canonical repository, key files, verific
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
 | FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `test_volumetric_complex.py`, `holonomy.py`, `connection.py`, PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
-| T157 covariant Whitney curvature audit | `theorem` | `theorems/T157-full-covariant-whitney-curvature.md`, `scripts/audit_t157_full_covariant_whitney_curvature.py`, regression test and workflow | NUMERICALLY VERIFIED for the finite link-based model (per committed report) | nonzero covariant curvature defect is intentional; smooth-continuum identification and uniqueness of the nodal-normal/gauge convention remain OPEN |
-| T158 interior pullback connection Whitney mass audit | `theorem` | `scripts/audit_t158_interior_covariant_whitney.py`, `tests/test_t158_interior_covariant_whitney.py`, `.github/workflows/t158-interior-covariant-whitney.yml` | IMPLEMENTED; validation not independently assessed in this registry pass | inspect numerical output and CI; no continuum theorem or physical interpretation is inferred |
+| T156 dodecahedral Whitney–FEEC Hodge audit | `theorem` | `theorems/T156-whitney-feec-hodge-dodecahedral-surface.md`, `scripts/audit_t156_dodecahedral_feec_hodge.py`, tests and workflow | NUMERICALLY VERIFIED for the finite FEEC model; antipodal equivariance checked | Q6 spectral intertwining remains OPEN; note identifier collision with the separate T156 rhombicuboctahedron–snub-cube record; do not conflate them |
+| T157 covariant Whitney curvature audit | `theorem` | `theorems/T157-full-covariant-whitney-curvature.md`, script, regression test and workflow | NUMERICALLY VERIFIED for the finite link-based model (per committed report) | T158 now supplies an interior pullback connection and path-transported masses; mesh-refinement convergence remains OPEN; curvature defect is intentionally nonzero |
+| T158 interior pullback connection Whitney mass audit | `theorem` | `theorems/T158-interior-pullback-covariant-whitney.md`, script, tests and workflow | NUMERICALLY VERIFIED for the specified finite-mesh model (per committed report; order-8/order-12 mass residuals near 10^-14) | mesh-refinement convergence and smooth-continuum identification remain OPEN |
 | Mosco convergence / graph Γ-limits | `rgs-qlg` (PR #230 formalization) + `theorem` PR #451 | `rgs-qlg/docs/FLAT_TORUS_G6_P1_MOSCO_PROOF.md`, `theorem` PR #451 | ANALYTICALLY VERIFIED per repo | — |
 | Rumin / Kitaoka / spectral geometry | `theorem` (DEC/spectral zeta in description) | search `theorem/docs` for spectral notes; `K0_SPECTRAL_*` audits | PARTIALLY MAPPED — needs dedicated inventory pass | dedicated sub-audit recommended |
 | Quantum Lindblad / FSS | `quantum-lindblad` (stale) + `rgs-qlg` (`FSS_FIB_PROTOCOL.md`, Fibonacci Aubry–André PR #232) | split across repos | SOFTWARE VERIFIED in rgs-qlg; `quantum-lindblad` repo STALE | decide canonical home for Lindblad work; consider archiving `quantum-lindblad` |
@@ -48,7 +50,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Status | Missing |
 |---|---|---|---|
-| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged; follow-up PR #518 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | follow-up PR #518 review pending; do not treat it as new physical validation |
+| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PRs #449 and #518 merged) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | preserve the distinction between graph-patch regression tests and electronic-structure/physical validation |
 | C64 enumeration/audit | `fullerene-c64-audit` | NUMERICALLY VERIFIED (per PR #1 body; tests reported passing; **no CI**) | PR #1 unmerged; add CI |
 | Fullerene↔Q6/Kathara interface | `theorem` + `fullerene-c64-audit` doc | HYPOTHESIS (explicitly conjectural) | needs theorem + data bridge |
 
