@@ -67,7 +67,7 @@ def run_audit():
     gc=float(np.linalg.norm(np.kron(np.eye(64),gs)@Dg+Dg@np.kron(np.eye(64),gs)))
     Dm,_=gauged_graph_dirac(-phases)
     Ddouble=np.block([[Dg,np.zeros_like(Dg)],[np.zeros_like(Dg),Dm]])
-    tau1=np.asarray([[0,1],[1,0]],complex); J=np.kron(np.eye(512),tau1)
+    tau1=np.asarray([[0,1],[1,0]],complex); J=np.kron(tau1,np.eye(512))
     Dswap=np.block([[Dm,np.zeros_like(Dm)],[np.zeros_like(Dg),Dg]])
     sex=float(np.linalg.norm(J@Ddouble@J-Dswap))
     checks={
