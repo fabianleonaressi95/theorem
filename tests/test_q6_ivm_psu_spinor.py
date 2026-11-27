@@ -27,7 +27,6 @@ class Q6IVMPSUSpinorTests(unittest.TestCase):
         self.assertEqual(len({tuple(row.round(10)) for row in points}), 64)
         self.assertEqual(len(q6_edges()), 192)
         self.assertEqual(len(q6_squares()), 240)
-        radii = sorted(set(points.__class__([]))) if False else None
         import numpy as np
         values, counts = np.unique(np.round(np.linalg.norm(points, axis=1), 10),
                                    return_counts=True)
