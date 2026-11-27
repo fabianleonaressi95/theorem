@@ -44,6 +44,14 @@ class T156MobiusElasticBVPTests(unittest.TestCase):
         self.assertEqual(dy.shape, y.shape)
         self.assertTrue(np.all(np.isfinite(dy)))
 
+    def test_constitutive_endpoint_sign_matches_eq21(self):
+        mesh = np.linspace(0.0, math.pi, 40)
+        width = 3.0*math.sqrt(3.0)/4.0
+        y = initial_guess(width, 5e-2, mesh)
+        y[5, 0] = 2.0*y[6, 0]*(1.0+y[7, 0]**2)**2 - y[7, 0]*y[3, 0]
+        residual = boundary_conditions(y[:, 0], y[:, -1], 5e-2)
+        self.assertAlmostEqual(float(residual[-1]), 0.0, places=12)
+
     def test_boundary_condition_count_and_seed_residual_shape(self):
         mesh = np.linspace(0.0, math.pi, 40)
         width = 3.0*math.sqrt(3.0)/4.0
