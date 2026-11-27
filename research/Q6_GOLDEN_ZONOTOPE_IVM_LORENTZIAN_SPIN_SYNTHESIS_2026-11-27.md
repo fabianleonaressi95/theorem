@@ -21,7 +21,7 @@ The 64 centred Q6 states (c(q)=q-mathbf1/2) project to 64 distinct internal poin
 
 ## Why this does not yet identify the IVM
 
-The IVM/FCC vector equilibrium has its own 12-vector/6-antipodal-axis cubic symmetry convention, including the previously audited tight-frame normalization (NN^T=2I_3). The golden projected-cube window is icosahedral. A metric or equivariant map between the two cannot be inferred from shared six-direction language, 64-state cardinality, or antipodality. It needs explicit coordinates, incidence data, and a declared preservation condition. No such map is claimed in T150.
+The IVM/FCC vector equilibrium has its own 12-vector/6-antipodal-axis cubic symmetry convention, including the previously audited tight-frame normalization (NN^T=2I_3). The golden projected-cube window is icosahedral. A metric or equivariant map between the two cannot be inferred from shared six-direction language, 64-state cardinality, or antipodality. It needs explicit coordinates, incidence data, and a declared preservation condition. No such map is claimed in T161.
 
 ## Conditional Lorentzian bridge
 
@@ -42,6 +42,6 @@ T149's identity-link Q6 Clifford operator is exactly gapped, (D_{Q6}^2=-3I/2). A
 ## Reproduction
 
 ```bash
-python scripts/audit_q6_golden_zonotope_t150.py
-python -m unittest discover -s tests -p "test_q6_golden_zonotope_t150.py" -v
+python scripts/audit_q6_golden_zonotope_t161.py
+python -m unittest discover -s tests -p "test_q6_golden_zonotope_t161.py" -v
 ```
