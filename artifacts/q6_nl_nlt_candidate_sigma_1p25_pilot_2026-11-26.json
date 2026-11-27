@@ -1,7 +1,6 @@
 {
   "protocol": "Q6-NL-NLT-candidate-sigma-1.25-pilot",
   "execution_date": "2026-11-26",
-  "implementation": "Independent Numba-compiled implementation of the frozen rhs and RK4 equations; Qn incidence matrices constructed from oriented cubical cells. Equations and frequency-frame convention matched to models/q6_topological_synchronization.py.",
   "implementation": "Independent Numba-compiled implementation of the frozen rhs and RK4 equations; Qn incidence matrices constructed from oriented cubical cells. Equations and frequency-frame convention matched to models/q6_topological_synchronization.py. A direct RHS cross-check against the equations gives maximum absolute component error below 9e-16 for both models.",
   "seed_set": [
     11,
@@ -190,7 +189,6 @@
     ],
     "NL_long_over_short_ratio": 0.235084,
     "NL_nondecreasing": false,
-    "interpretation": "NLT passes the dwell-persistence criterion in this three-point local sigma window; NL fails it. This is a local-window pilot, not the complete 41-point sweep."
     "interpretation": "NLT passes the dwell-persistence criterion in this three-point local sigma window; NL fails it. This is a local-window pilot, not the complete 41-point sweep.",
     "NL_mean_gap_by_sigma": {
       "1.2": [
@@ -289,7 +287,6 @@
     "T4 used only dwell=640 and the same three-point sigma window.",
     "Robustness was checked only at sigma=1.25, not across the full preregistered sigma subset."
   ],
-  "scientific_conclusion": "The current pilot supports a strong, persistent NLT initial-family separation near sigma=1.25, with NL failing the corresponding T2/T3/T4 local checks. It does not yet establish two stable fixed points or bistability. No Lyapunov function, effective potential, barrier, tunnelling or wormhole interpretation follows from these data."
   "scientific_conclusion": "The current pilot supports a strong, persistent NLT initial-family separation near sigma=1.25, with NL failing the corresponding T2/T3/T4 local checks. It does not yet establish two stable fixed points or bistability. No Lyapunov function, effective potential, barrier, tunnelling or wormhole interpretation follows from these data.",
   "implementation_rhs_crosscheck_max_abs_error": 8.881784197001252e-16
 }
