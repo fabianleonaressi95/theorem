@@ -40,7 +40,7 @@ def _turning_points(values: list[float]) -> list[dict]:
             continue
         if previous and sign != previous:
             # The reversal is between the previous non-flat segment and this one.
-            extrema.append({"index": i, "kind": "maximum" if previous > 0 else "minimum"})
+            extrema.append({"index": i + 1, "kind": "maximum" if previous > 0 else "minimum"})
         previous = sign
     return extrema
 
