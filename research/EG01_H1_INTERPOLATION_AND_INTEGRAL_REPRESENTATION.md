@@ -184,6 +184,17 @@ The estimates above provide the standard ingredients:
 3. **Upper growth:** (3.1) supplies recovery sequences and \(F(u)\le C\int_\Omega|\nabla u|^2dx\).
 4. **Locality and fundamental estimate:** interactions have range at most \(C_e\varepsilon\), and (4.1) permits gluing across cutoff layers. The associated edge-energy measures are supported at edge midpoints and have uniformly bounded mass on bounded-energy sequences.
 
+### Measure-property check (De Giorgi-Letta criterion)
+
+Fix a subsequence along which the localized functionals converge on a countable basis of open subsets, and define \(F(u,U)\) by the corresponding localized Gamma-limit.
+
+- Monotonicity follows from \(E_\varepsilon(v,U)\le E_\varepsilon(v,V)\) for \(U\subset V\).
+- Superadditivity on disjoint open sets follows from additivity of the midpoint-localized edge sum: for disjoint \(U,V\), an edge midpoint is counted in at most one of them.
+- Subadditivity for a finite open cover follows by choosing local recovery sequences, taking a Lipschitz partition of unity subordinate to the cover, and gluing them with (4.1). For a fixed cutoff layer, all local recovery sequences converge strongly to the same target \(u\), so the \(L^2\) discrepancy term in (4.1) vanishes as \(\varepsilon\to0\). Exhaustion by relatively compact subsets gives inner regularity.
+- The uniform energy bound gives local boundedness of the resulting set function.
+
+The De Giorgi-Letta criterion therefore identifies \(U\mapsto F(u,U)\) with a Radon measure. This is the measure property required by the local integral-representation theorem. The argument depends on using the same midpoint convention for every localized energy; changing that convention only changes an \(O(\varepsilon)\) boundary layer.
+
 Consequently, every sequence \(\varepsilon_n\downarrow0\) has a subsequence along which \(F_{\varepsilon_n}\) Gamma-converges in strong \(L^2\). For each such subsequential limit, the standard integral-representation theorem for local quadratic energies on \(H^1\), together with the quadratic-form/Mosco structure, yields
 \[
 F(u)=
