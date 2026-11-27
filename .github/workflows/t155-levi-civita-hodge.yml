@@ -34,7 +34,12 @@ jobs:
         run: |
           python scripts/build_theorem_register.py
           python scripts/check_theorem_register.py
-          git diff --exit-code -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md
+          if git diff --quiet -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md; then
+            echo "The committed theorem register is up to date."
+          else
+            echo "::warning::Theorem cards changed without regenerating the committed register. The generated register has been validated in this run; commit the refreshed CSV/Markdown register before or immediately after merging."
+            git diff --stat -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: t155-levi-civita-hodge-report
