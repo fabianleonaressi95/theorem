@@ -1,0 +1,324 @@
+{
+  "schema": "npz-provenance-manifest/v1",
+  "generated": "2026-11-27",
+  "scan_dirs": [
+    "artifacts",
+    "data",
+    "audits",
+    "archive",
+    "results",
+    "output"
+  ],
+  "total_files": 26,
+  "unique_hashes": 20,
+  "duplicate_groups": 3,
+  "classification": "alias-candidate: byte-identical files under different names. May be repeated exports, aliases or mislabeled artifacts; provenance unresolved pending author review. No file was deleted, renamed or modified.",
+  "groups": [
+    {
+      "md5": "3e27794773fa2a678a8c762b05aed3b6",
+      "count": 3,
+      "files": [
+        {
+          "path": "artifacts/two_time_kernel_N16_J0_0.004.npz",
+          "size_bytes": 2354578,
+          "md5": "3e27794773fa2a678a8c762b05aed3b6",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N24_J0_0.004.npz",
+          "size_bytes": 2354578,
+          "md5": "3e27794773fa2a678a8c762b05aed3b6",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N48_J0_0.004.npz",
+          "size_bytes": 2354578,
+          "md5": "3e27794773fa2a678a8c762b05aed3b6",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        }
+      ]
+    },
+    {
+      "md5": "a58090f4e7293eb9afead2937e12d802",
+      "count": 3,
+      "files": [
+        {
+          "path": "artifacts/two_time_kernel_N16_J0_0.001.npz",
+          "size_bytes": 2268780,
+          "md5": "a58090f4e7293eb9afead2937e12d802",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N24_J0_0.001.npz",
+          "size_bytes": 2268780,
+          "md5": "a58090f4e7293eb9afead2937e12d802",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N48_J0_0.001.npz",
+          "size_bytes": 2268780,
+          "md5": "a58090f4e7293eb9afead2937e12d802",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        }
+      ]
+    },
+    {
+      "md5": "f93bd54463c9e0d18a263232fbd911ef",
+      "count": 3,
+      "files": [
+        {
+          "path": "artifacts/two_time_kernel_N16_J0_0.002.npz",
+          "size_bytes": 2306692,
+          "md5": "f93bd54463c9e0d18a263232fbd911ef",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N32_J0_0.002.npz",
+          "size_bytes": 2306692,
+          "md5": "f93bd54463c9e0d18a263232fbd911ef",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        },
+        {
+          "path": "artifacts/two_time_kernel_N64_J0_0.002.npz",
+          "size_bytes": 2306692,
+          "md5": "f93bd54463c9e0d18a263232fbd911ef",
+          "arrays": {
+            "times": {
+              "shape": [
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M2": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            },
+            "Gamma_M1": {
+              "shape": [
+                401,
+                401
+              ],
+              "dtype": "float64"
+            }
+          },
+          "npz_metadata_keys": [
+            "Gamma_M1",
+            "Gamma_M2",
+            "times"
+          ]
+        }
+      ]
+    }
+  ]
+}

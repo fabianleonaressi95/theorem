@@ -1,7 +1,6 @@
 # Unified theorem dependency graph — cross-repository arrows
 
-This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 248 Markdown theorem records from `theorem`, all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 60 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
-This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 263 Markdown theorem records from `theorem`, all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 60 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
+This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 279 Markdown theorem records from `theorem` (synchronised 27-November-2026 against the post-reorganisation inventory covered by `docs/THEOREM_MASTER_REGISTER`), all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 60 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
 
 ## 1. Graph
 
@@ -143,14 +142,14 @@ The quaternion/QLG-side copy of this graph is maintained at [the companion repos
 
 ## 5. Full-coverage inventory and interpretation
 
-The machine-readable edge registry now contains **317 nodes and 353 directed edges**:
+The machine-readable edge registry now contains **333 nodes and 369 directed edges**:
 
-- 263 theorem-record nodes from `theorem/theorems/`;
+- 279 theorem-record nodes from `theorem/theorems/`;
 - 14 catalogue-entry nodes from the companion `results/catalogue/laws_theorems_registry.json`;
 - 8 thematic hubs, plus application-dossier and companion-document nodes;
-- 263 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
+- 279 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
 
-The 263 classification arrows ensure that every theorem record in the 26-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
+The 279 classification arrows ensure that every theorem record in the 27-November-2026 post-reorganisation snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
 
 
 ## T152 — McKay–ADE and crepant Calabi–Yau orbifolds (26 November 2026)
