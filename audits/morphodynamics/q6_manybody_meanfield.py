@@ -9,7 +9,7 @@ Finite-dimensional numerical benchmark; not a continuum or physical claim.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.sparse import coo_matrix, csr_matrix
@@ -210,4 +210,30 @@ def run_comparison(*, phi=None, x0=None, x_reference=None, params=Parameters(),
         "max_geometry_error": max(geometry_errors),
         "max_norm_error": max(norm_errors),
         "classification": "finite-dimensional numerical comparison; no mean-field limit theorem",
+    }
+
+
+def interaction_sweep(interactions=(0.0, 0.1, 0.5, 1.0), *, params=Parameters(), **kwargs):
+    """Run the same initial-value problem over an explicit interaction grid."""
+    records = []
+    for value in interactions:
+        if not np.isfinite(value):
+            raise ValueError("all interaction values must be finite")
+        result = run_comparison(params=replace(params, interaction=float(value)),
+                                **kwargs)
+        records.append({
+            "interaction": float(value),
+            "max_one_body_error": result["max_one_body_error"],
+            "max_geometry_error": result["max_geometry_error"],
+            "max_norm_error": result["max_norm_error"],
+            "classification": result["classification"],
+        })
+    return {
+        "schema": "q6-two-boson-interaction-sweep/v1",
+        "records": records,
+        "interpretation": (
+            "The U=0 row is the product-state regression. Growth of the "
+            "finite-N discrepancy with U measures this benchmark's closure "
+            "error; it is not a mean-field convergence theorem."
+        ),
     }
