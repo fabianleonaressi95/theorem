@@ -90,5 +90,5 @@ jobs:
         run: python scripts/audit_q6_psu_antitwin_chiral_fluid.py
       - name: Test exact Q6 Clifford graph Dirac operator
         run: python -m unittest discover -s tests -p "test_q6_clifford_graph_dirac.py" -v
-      - name: Audit Q6 Clifford graph spectrum and gauge covariance
+      - name: Audit Q6 Clifford graph spectrum and corrected sheet covariance
         run: python scripts/audit_q6_clifford_graph_dirac.py
