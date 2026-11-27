@@ -1,0 +1,47 @@
+{
+  "status": "FINITE_SPATIAL_DISCRETE_CARTAN_CANDIDATE_GAUGE_COVARIANCE_AUDITED",
+  "origin": {
+    "carrier": "64 six-bit I Ching hexagrams",
+    "adjacency": "single-line flip / Hamming distance one",
+    "vertices": 64,
+    "edges": 192,
+    "degree": 6,
+    "square_faces": 240,
+    "seed_sha256": "6a158cb30a671a5c994d8ab223e9283b57ac703808041d46e67f286126e419cf",
+    "edge_sha256": "da7854ca655577b629dc508208918326fde1d50563485f953ea0fdc1b2fb78e8"
+  },
+  "discrete_geometry": {
+    "coframe": "theta_(g->h) = E_g (X_h-X_g), source orthonormal frame",
+    "connection": "U_(g->h) = shortest SO(3) radial rotation",
+    "face_torsion": "developed boundary closure defect sum_i P_i^{-1} theta_i",
+    "face_curvature": "ordered face holonomy U_3 U_2 U_1 U_0",
+    "link_orthogonality_max": 2.0890611678812595e-15,
+    "link_determinant_residual_max": 1.4432899320127035e-15,
+    "torsion_norm": {
+      "mean": 1.8525813160054148,
+      "rms": 2.364804814473499,
+      "max": 5.957710833788747,
+      "p95": 5.095047299270552
+    },
+    "curvature_angle_radians": {
+      "mean": 0.6692474408678497,
+      "rms": 1.0062929279515107,
+      "max": 3.020912654710447,
+      "p95": 2.1407209800090423
+    },
+    "faces_with_both_nonzero": 236
+  },
+  "gauge_covariance": {
+    "deterministic_seed": 20261127,
+    "torsion_covariance_max": 5.760335218184685e-15,
+    "curvature_conjugation_max": 2.1652469311575958e-15
+  },
+  "epistemic_limits": [
+    "finite spatial SO(3) construction only",
+    "no Lorentzian Spin(1,3) or physical time leg",
+    "no teleparallel flat representative",
+    "no discrete non-Abelian cube Bianchi audit",
+    "no common variational action",
+    "no continuum Cartan or Mosco convergence theorem"
+  ]
+}
