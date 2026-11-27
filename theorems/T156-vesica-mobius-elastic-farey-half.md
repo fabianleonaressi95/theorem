@@ -288,7 +288,7 @@ The SciPy solve_bvp collocation attempt is retained as a diagnostic and currentl
 The AUTO implementation is in `scripts/t156_auto/mobius.f90`, with constants in `scripts/t156_auto/c.mobius` and driver `scripts/t156_auto/mobius.auto`. It continues the regularized endpoint parameter
 
 \[
-\kappa(L/2): 0.10\to0.05\to0.02\to0.01\to0.005
+direct regularized solve at \(\kappa(L/2)=0.005\), with the target width set from the Vesica candidate
 \]
 
 at the Vesica candidate width \(w=3\sqrt3/4\) after \(L=2\pi\) normalization. It uses the constitutive-consistent endpoint sign from Eqs. (20)–(21), not the conflicting sign printed in Eq. (39). The GitHub Actions workflow builds AUTO-07p from its public source and archives the continuation output.
