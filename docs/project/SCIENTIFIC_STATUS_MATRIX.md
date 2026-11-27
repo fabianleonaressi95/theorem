@@ -1,4 +1,4 @@
-# Scientific status matrix — 26 November 2026
+# Scientific status matrix — 27 November 2026
 
 Conservative labeling. "Per repo" = claimed in that repository's own audit documents with passing CI; it is NOT independent verification. Nothing below is upgraded on the basis of code/CI alone.
 
@@ -28,5 +28,10 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 22 | SSA + scaling laws | ASTRAQ | SOFTWARE VERIFIED — STALE | repo scripts | — |
 | 23 | CosModex | cosmodex | SOFTWARE — STALE | repo | hygiene: keystore/node_modules committed |
 | 24 | Shape–Field electrostatic discharge FEM | `theorem` (protocol) | OPEN — protocol only, no results | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` | CADFEM/Fuger ref; RGS link exploratory |
+
+| 25 | In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | theorem | PARTIALLY VERIFIED: static coordinate audit (T154), exact endpoint count compatibility (T155), software-checked exhaustive incidence correspondence (T156) | `theorems/T154-*`, `theorems/T155-*`, `theorems/T156-*`, associated audit scripts/tests | continuous 22.5° hinge motion, chirality/orientation map, and physical/atomic interpretations remain OPEN; incidence is not a kinematic proof |
+| 26 | T157 covariant Whitney curvature audit | theorem | NUMERICALLY VERIFIED for the finite link-based model (per committed report) | `theorems/T157-full-covariant-whitney-curvature.md`, script, test and workflow | curvature defect is deliberately nonzero; not yet identified with a smooth continuum connection; no flat cochain-complex claim |
+
+| 27 | T158 interior pullback connection Whitney mass audit | theorem | IMPLEMENTED; numerical/CI validation not independently assessed | `scripts/audit_t158_interior_covariant_whitney.py`, regression test and workflow | do not promote to numerical verification or a continuum theorem until the audit output and workflow are reviewed |
 
 **Explicit non-claims:** no item above is EXPERIMENTALLY VALIDATED except where a repo documents an actual comparison with independent measurements (none found for transport; rheomarine lab datasets are calibration inputs, not field validation). All "per repo" numerical claims await the owner's confirmation before external citation.
