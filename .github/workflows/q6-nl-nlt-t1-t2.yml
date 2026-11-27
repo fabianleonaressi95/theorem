@@ -21,12 +21,31 @@ on:
       - "scripts/run_q6_nl_nlt_t1_t2.py"
       - "models/q6_topological_synchronization.py"
       - ".github/workflows/q6-nl-nlt-t1-t2.yml"
+  pull_request:
+    paths:
+      - "scripts/run_q6_nl_nlt_t1_t2.py"
+      - "models/q6_topological_synchronization.py"
+      - ".github/workflows/q6-nl-nlt-t1-t2.yml"
 
 permissions:
   contents: read
 
 jobs:
+  import-smoke:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install import dependencies
+        run: python -m pip install numpy scipy
+      - name: Verify direct script imports from repository root
+        run: python scripts/run_q6_nl_nlt_t1_t2.py --help
+
   verify:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
