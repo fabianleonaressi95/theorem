@@ -1,12 +1,12 @@
-# Repository map — fabianleonaressi95 (audit 2026-11-26)
+# Repository map — fabianleonaressi95 (audit 2026-11-27)
 
 ## theorem (canonical mathematics)
 
-- **HEAD:** `main` @ `38d139c` ("Update T149 index after T155 connection construction", 2026-11-26). CI on main: latest runs green.
-- **Scale:** ~85 MB, 1,419 files at depth-1 clone; **428 merged PRs**, 29 closed unmerged, **5 open PRs** (#471, #476, #477 draft, #478 draft, #479 — see PR_ISSUE_AUDIT.md); **10 open issues** (#84, #109, #113, #114, #398–#402, #409); **~393 branches** (large stale-branch accumulation — see PR_ISSUE_AUDIT.md).
+- **HEAD:** `main` @ `cb649369` (T156 incidence audit, 2026-11-27), latest commit returned by repository commit search at audit time.
+- **Scale:** ~85 MB and 1,419 files are the previous depth-1 census (not remeasured). Live PR search (2026-11-27): **1 open PR** (#517); 10 open issues (#84, #109, #113, #114, #398–#402, #409). Merged-PR, closed-unmerged, and branch totals are deliberately not repeated: the available search result is capped and no complete branch census was run.
 - **Key directories:** `docs/` (~120 audit/theorem notes), `theorems/`, `models/`, `experiments/`, `scripts/`, `tests/`, `reports/`, `research/`, `applications/`, `manuscripts/`, `monographs/`, `bibliography/`, `data/`, `evidence/`, `verification/`.
 - **Root hygiene problems (documented, not yet fixed):** committed `__pycache__`/`.pyc` files, duplicate `" (1)"`/`" (2)"` filenames (`README (6).md` … `README (8).md`, `bianchi (1).py`, `test_*.py` duplicates), loose `.npy`/`.npz`/`.zip` artifacts at root. Cleanup candidate — preserve before deleting.
-- **Recent merged work (2026-11-24→26):** Q6/Walsh filtration, TSMR/Jitterbug Green–Kubo, Q6–PRISM obstruction programme, Q6–C60 equivariance, Pellis D6 decomposition, RGS Killing geometry, Q4–Q6 NL/NLT audits, Jiles–Atherton local identifiability, supergolden dodecahedral Whitney–Hodge (T149 FEEC).
+- **Recent merged work (2026-11-26→27):** registry sync (#480), Ellis circumcentric audit cleanup (#487), live theorem-graph inventory repair (#508; 263 theorem records, 317 nodes, 353 directed edges), updated Ellis circumcentric audit (#514), and T156 rhombicuboctahedron–snub-cube incidence audit (#516). These are repository-integration facts; scientific status remains governed by the theorem records and their stated limitations.
 
 ## rgs-qlg-quaternion-bridge (QLG/quaternionic track)
 
@@ -18,12 +18,12 @@
 ## rheomarine (applied transport modelling)
 
 - **HEAD:** `main` @ `eca7b9a` — PRs #20 (Eulerian wet/QC-barrier/open-edge solver), #21 (HFR pilot input recovery + bit-identical reproduction), #22 (status docs) **all merged 2026-11-26**; verified on `origin/main`.
-- **State:** 21 merged PRs, 0 open. Suite 64/64 locally + CI. Raw HFR inputs published as release `hfr-m0-pilot-inputs-2026-11-25`.
+- **State:** PRs #20–#22 remain merged; live open-PR search returned none. The earlier 21-merged-PR total and 64/64 suite result are retained as the 2026-11-26 audit, not independently recounted in this pass. Raw HFR inputs published as release `hfr-m0-pilot-inputs-2026-11-25`.
 - **Status:** Lagrangian pilot PILOT-REPRODUCED; independent validation DATA-BLOCKED (issue #2 open).
 
 ## fullerene-c64-audit
 
-- **HEAD:** default branch `c64-audit`; **PR #1 OPEN** (`c64-audit`→`main`, +46,885/−1, mergeable, **no CI checks configured**).
+- **HEAD:** default branch `c64-audit`; **PR #1 remains OPEN** (`c64-audit`→`main`); no CI checks were reported in the previous audit. Current open-PR search confirms it remains open.
 - Contents: `scripts/fullerene_lib.py`, `scripts/run_audit.py`, `scripts/sw_benchmark_c60.py`, `tests/test_audit.py`, `results/C64/*`, `docs/C64_FULLERENE_COMPUTATIONAL_AUDIT.md`, `docs/KRIST_ALL_KATHARA_Q6_INTERFACE.md`, plantri/fullgen data + logs.
 - Claims (per PR body): 3,465 C64 isomers enumerated, cross-validated vs Massey CTCP; Hückel spectra; nauty orbits; SW graph 8,550 links/70 components; C60 benchmark 1,710-isomer component. Krist-All/Q6 interface explicitly conjectural.
 
