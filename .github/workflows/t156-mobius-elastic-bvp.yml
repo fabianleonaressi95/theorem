@@ -8,6 +8,13 @@ on:
       - "scripts/solve_t156_mobius_elastic_bvp.py"
       - "tests/test_t156_mobius_elastic_bvp.py"
       - ".github/workflows/t156-mobius-elastic-bvp.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_t156_vesica_mobius_farey.py"
+      - "tests/test_t156_vesica_mobius_farey.py"
+      - "scripts/solve_t156_mobius_elastic_bvp.py"
+      - "tests/test_t156_mobius_elastic_bvp.py"
+      - ".github/workflows/t156-mobius-elastic-bvp.yml"
   workflow_dispatch:
 
 permissions:
