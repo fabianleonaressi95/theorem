@@ -88,7 +88,7 @@ Their oriented angular rates are \(+\Omega\) and \(-\Omega\). Under a time-depen
 \[
 \omega'_t=S\omega_tS^{-1}-\dot S S^{-1},
 \]
-so \(D'_tB'=S(D_tB)\). This is the exact tetrad-frame covariance bridge for a rotating field; it is not a new Maxwell or gravitational field equation. The CI audit checks the identity at 33 sample times: the positive-sequence rate is +2.3, the negative-sequence rate is −2.3, and the maximum co-rotating-frame covariance residual is (8.89\times10^{-16}).
+so \(D'_tB'=S(D_tB)\). The rotating coframe has \(\omega_t=-\dot S S^{-1}\), and its temporal Cartan torsion cancels: \(\dot S+\omega_tS=0\). The CI audit checks 33 sample times: positive/negative sequence rates are +2.3/−2.3; maximum frame-covariance residual is \(8.89\times10^{-16}\). The same rotation is lifted by \(q=(\cos(\Omega t/2),0,0,\sin(\Omega t/2))\) to \(SU(2)\); the audit checks the adjoint \(SU(2)\to SO(3)\) map, unitarity, \(U(2\pi)=-I\) and \(U(4\pi)=I\). This is the tetrad/quaternionic kinematic bridge, not a new Maxwell or gravitational field equation.
 
 ## 6. Reproduction
 
