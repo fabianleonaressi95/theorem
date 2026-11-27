@@ -217,6 +217,10 @@ After the 6D data are fixed, declare the lattice L⊂E_parallel⊕E_perp, projec
 \]
 Derive neighbour stars, phonon/phason coordinates, interactions and symmetry from this actual projected set. Only then compare its induced 3D geometry with the RGS 64-site seed and 188D tangent sector. Do not infer a 6D cut-and-project scheme from the 64-by-3 coordinates alone, and do not impose anisotropy or isotropy before deriving the symmetry of the complete data.
 
+## 10. Integration with QHD, Maxwell and quaternionic transport
+
+The full formal crosswalk is maintained in `research/RGS_Q6_ANTITWIN_QHD_MAXWELL_QUATERNION_FORMALIZATION_2026-11-27.md`. It reuses the established QHD/MHD, Maxwell, quaternionic SU(2), S011 variational and T063 results, while separating exact discrete Bianchi/chain identities from the still-open coupled action and continuum limit. This document remains the 4D geometric/transport specification; the companion formalization is the field-theory interface. Both retain the ordered continuation 4D → 6D → 3D cut-and-project.
+
 ## 10. Status ledger
 
 | Item | Status |
