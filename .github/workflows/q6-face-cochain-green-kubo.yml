@@ -10,7 +10,9 @@ on:
       - "scripts/audit_q6_cubical_chain_complex.py"
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
       - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "scripts/audit_q6_spin6_clifford.py"
       - "tests/test_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_spin6_clifford.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - "tests/test_q6_se3_cartan_bianchi.py"
@@ -68,3 +70,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_q6_ivm_psu_spinor.py" -v
       - name: Audit Q6 golden-vector PSU and SU2 spin lift
         run: python scripts/audit_q6_ivm_psu_spinor.py
+      - name: Test Cl6 and Spin6 Clifford representation
+        run: python -m unittest discover -s tests -p "test_q6_spin6_clifford.py" -v
+      - name: Audit golden SO6 frame and Spin6 plane lift
+        run: python scripts/audit_q6_spin6_clifford.py
