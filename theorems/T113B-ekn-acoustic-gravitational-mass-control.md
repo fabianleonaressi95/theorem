@@ -61,14 +61,16 @@ The cancellation of the leading rest-energy contribution and the surviving term 
 
 ## 3. Isotropic solid control
 
-For an isotropic elastic solid, longitudinal and transverse branches have different speeds and energies. EKN derive the mode-resolved nonrelativistic result
+For an isotropic elastic solid, longitudinal and transverse branches have different speeds and energies. EKN's nonlinear Green-function calculation gives
 \[
-\boxed{
-M_g=-\frac{d\log c_L}{d\log\rho_m}\frac{E_L}{c_L^2}
--\frac{d\log c_T}{d\log\rho_m}\frac{E_T}{c_T^2},
-}
+M_g=-\frac{b_0}{c_L^2}\left(\frac{c_L'}{c_L}E_L+\frac{c_T'}{c_T}E_T\right),
+\qquad \rho_m\propto b_0,
 \]
-when both components are included in a packet; after the branches spatially separate, each packet obeys its own term. The derivatives are taken under hydrostatic compression, with no pure shear. This is the relevant solid control for any anisotropic extension.
+where primes denote derivatives with respect to the hydrostatic compression parameter. Thus, for a separated packet of either branch,
+\[
+\boxed{M_s=-\frac{d\log c_s}{d\log\rho_m}\frac{E_s}{c_L^2},\quad s=L,T.}
+\]
+The denominator is the longitudinal speed squared for **both** branches, because the nonlinear mass correction is obtained from the divergence equation and its longitudinal Green operator. It is not \(c_T^2\) for a transverse packet. In the perfect-fluid limit, \(c_T\to0\) and \(c_L\to c_s\), recovering the fluid formula. See [T113-I](T113I-ekn-solid-nonlinear-tail-and-mass.md) for the equation-level derivation audit.
 
 ## 4. Exact power-law regression
 

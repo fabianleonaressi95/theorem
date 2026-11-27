@@ -5,9 +5,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "K0.npy"
-      - "Z_A.npy"
-      - "Z_S.npy"
+      - "artifacts/K0.npy"
+      - "artifacts/Z_A.npy"
+      - "artifacts/Z_S.npy"
       - "scripts/audit_t145_square_biverse_rgs.py"
       - "theorems/T145-square-reflection-prism-biverse-rgs-carrier.md"
       - ".github/workflows/t145-square-biverse-rgs.yml"

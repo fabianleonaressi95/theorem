@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+import numpy as np
 SCRIPT=Path(__file__).resolve().parents[1]/"scripts"/"audit_t155_dodecahedral_levi_civita_hodge.py"
 spec=importlib.util.spec_from_file_location("audit_t155",SCRIPT)
 audit=importlib.util.module_from_spec(spec); spec.loader.exec_module(audit)
@@ -13,6 +14,7 @@ class T155ConnectionHodge(unittest.TestCase):
             if not isinstance(c,dict) or "counts" not in c: continue
             self.assertEqual(c["counts"],{"pentagonal_faces":12,"dual_edges":30,"gauss_map_triangles":20})
             self.assertLess(c["gauss_bonnet_4pi_residual"],2e-9)
+            self.assertLess(c["holonomy_spherical_area_max_residual"],2e-9)
     def test_transport_and_antipodes(self):
         for c in (self.report["supergolden"],self.report["regular_control"]):
             self.assertLess(c["transport_orthogonality_residual"],2e-9)
@@ -24,6 +26,14 @@ class T155ConnectionHodge(unittest.TestCase):
             self.assertGreater(c["covariant_hodge_minimum_eigenvalue"],0)
             self.assertGreater(c["constant_section_energy"],1e-4)
             self.assertEqual(len(c["covariant_hodge_spectrum"]),12)
+    def test_spectrum_matches_recorded_values(self):
+        expected = {
+            "supergolden": [2.67266956]*3 + [10.05977279]*2 + [10.66910015]*3 + [13.89611089] + [14.09865578]*3,
+            "regular_control": [0.49643312]*3 + [1.93332265]*5 + [2.59935757]*4,
+        }
+        for name, values in expected.items():
+            np.testing.assert_allclose(self.report[name]["covariant_hodge_spectrum"], values, rtol=0, atol=1e-7)
+
     def test_not_q6_triplet(self):
         for c in (self.report["supergolden"],self.report["regular_control"]):
             s=c["covariant_hodge_spectrum"]

@@ -6,10 +6,10 @@ on:
     paths:
       - ".github/workflows/q6-vesica-rgs-audit.yml"
       - "audits/audit_q6_vesica_rgs_spectral_intertwiner.py"
-      - "K0.npy"
-      - "P_G.npy"
-      - "Z_A.npy"
-      - "Z_S.npy"
+      - "artifacts/K0.npy"
+      - "artifacts/P_G.npy"
+      - "artifacts/Z_A.npy"
+      - "artifacts/Z_S.npy"
   workflow_dispatch:
 
 permissions:

@@ -76,11 +76,16 @@ def run_case(t, regular_control):
         kk=edge_index[tuple(sorted((bi,bj)))]
         Tbar=transports[kk] if bi<bj else transports[kk].T
         anti_residuals.append(float(np.linalg.norm(Tbar@A[i]-A[j]@transports[k])))
-    holonomy_angles=[]
+    holonomy_angles=[]; spherical_areas=[]
     for facet in facets:
         tri=list(facet)
         if np.dot(np.cross(x[tri[1]]-x[tri[0]],x[tri[2]]-x[tri[0]]),x[tri].mean(axis=0))<0:
             tri=[tri[0],tri[2],tri[1]]
+        # Independent spherical-triangle area on the Gauss map.
+        na,nb,nc=normals[tri]
+        area_num=float(np.dot(na,np.cross(nb,nc)))
+        area_den=float(1+na@nb+nb@nc+nc@na)
+        spherical_areas.append(float(2*np.arctan2(abs(area_num),area_den)))
         P=np.eye(2)
         for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
             kk=edge_index[tuple(sorted((a,b)))]
@@ -105,7 +110,9 @@ def run_case(t, regular_control):
       "transport_orthogonality_residual":max(float(np.linalg.norm(T.T@T-np.eye(2))) for T in transports),
       "transport_determinant_residual":max(abs(float(np.linalg.det(T))-1) for T in transports),
       "antipodal_frame_covariance_residual":max(anti_residuals),
-      "holonomy_angles_radians":holonomy_angles,"holonomy_sum":float(sum(holonomy_angles)),
+      "holonomy_angles_radians":holonomy_angles,"spherical_triangle_areas_radians":spherical_areas,
+      "holonomy_spherical_area_max_residual":float(max(abs(a-b) for a,b in zip(holonomy_angles,spherical_areas))),
+      "holonomy_sum":float(sum(holonomy_angles)),
       "gauss_bonnet_4pi_residual":float(abs(sum(holonomy_angles)-4*np.pi)),
       "covariant_hodge_hermiticity_residual":float(np.linalg.norm(Kcov-Kcov.conj().T)),
       "covariant_hodge_spectrum":spectrum.tolist(),
@@ -135,6 +142,7 @@ def main():
         assert case["transport_determinant_residual"]<TOL
         assert case["antipodal_frame_covariance_residual"]<TOL
         assert case["gauss_bonnet_4pi_residual"]<TOL
+        assert case["holonomy_spherical_area_max_residual"]<TOL
         assert case["covariant_hodge_hermiticity_residual"]<TOL
         assert case["covariant_hodge_minimum_eigenvalue"]>0
         assert case["constant_section_energy"]>1e-4

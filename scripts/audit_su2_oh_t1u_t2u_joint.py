@@ -85,8 +85,8 @@ def delta_profile(B,V):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--npz",default="data/RGS_PSU_all_matrices.npz")
-    ap.add_argument("--k0",default="K0.npy"); ap.add_argument("--zs",default="Z_S.npy")
-    ap.add_argument("--za",default="Z_A.npy"); ap.add_argument("--pg",default="P_G.npy")
+    ap.add_argument("--k0",default="artifacts/K0.npy"); ap.add_argument("--zs",default="artifacts/Z_S.npy")
+    ap.add_argument("--za",default="artifacts/Z_A.npy"); ap.add_argument("--pg",default="artifacts/P_G.npy")
     ap.add_argument("--basis-map",required=True,
       help="188x188 orthogonal C: operator coordinates = C @ geometric coordinates")
     ap.add_argument("--out",default="audits/SU2_OH_DOUBLE_GROUP_T1U_T2U_NUMERICAL.json")

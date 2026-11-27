@@ -1,0 +1,30 @@
+name: Spherical Kathara to Q6 nondegenerate lift
+on:
+  push:
+    branches:
+      - research/kathara-spherical-q6-h2-lift
+    paths:
+      - "scripts/audit_kathara_spherical_q6_lift.py"
+      - "tests/test_kathara_spherical_q6_lift.py"
+      - ".github/workflows/kathara-spherical-q6-lift.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_kathara_spherical_q6_lift.py"
+      - "tests/test_kathara_spherical_q6_lift.py"
+      - ".github/workflows/kathara-spherical-q6-lift.yml"
+  workflow_dispatch:
+jobs:
+  spherical-lift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy pytest
+      - run: python scripts/audit_kathara_spherical_q6_lift.py --out kathara_spherical_q6_lift.json
+      - run: pytest -q tests/test_kathara_spherical_q6_lift.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kathara-spherical-q6-lift
+          path: kathara_spherical_q6_lift.json

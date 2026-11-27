@@ -118,6 +118,11 @@ The optimizer is nonconvex and uses finite random restarts. The result is a nume
 The next question was whether some point in the full `O(16)^4` intertwiner family makes **every** block between distinct nonadjacent C60 faces exactly zero. The parameter space has 480 continuous degrees of freedom. The target imposes 812 directed 2x2 block-zero conditions (3248 scalar entries before accounting for symmetry redundancy).
 
 The new reproducible search is `scripts/test_q6_c60_v4_exact_locality.py`. It uses the same isotypic parameterization as the preceding optimizer, with a fixed seed and three stages: quadratic nonlocal-energy reduction, block-L1 sparsification, and a final quadratic refinement. It requires NumPy and PyTorch. Reproduce from the two NPZ inputs in the `q6-c60-v4-equivariance` Actions artifact:
+## Exact-locality feasibility test (2026-11-27)
+
+The next question was whether some point in the full `O(16)^4` intertwiner family makes **every** block between distinct nonadjacent C60 faces exactly zero. The parameter space has 480 continuous degrees of freedom. The target imposes 812 directed 2x2 block-zero conditions (3248 scalar entries before accounting for symmetry redundancy).
+
+The reproducible search is `scripts/test_q6_c60_v4_exact_locality.py`. It uses the same isotypic parameterization as the preceding optimizer, with a fixed seed and three stages: quadratic nonlocal-energy reduction, block-L1 sparsification, and a final quadratic refinement. It requires NumPy and PyTorch. Reproduce from the two NPZ inputs in the `q6-c60-v4-equivariance` Actions artifact:
 
 ```bash
 python scripts/test_q6_c60_v4_exact_locality.py \

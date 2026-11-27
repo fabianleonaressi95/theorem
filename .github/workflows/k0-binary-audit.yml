@@ -5,13 +5,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "K0.npy"
-      - "K0_inv.npy"
-      - "K0_*REPORT.json"
-      - "K0_*CERTIFICATION.json"
-      - "RGS_PSU_OH_K0_AUDIT.zip"
-      - "RGS_PSU_alignment_K0_audit.zip"
-      - "two_time_kernel_*.npz"
+      - "artifacts/K0.npy"
+      - "artifacts/K0_inv.npy"
+      - "audits/K0_*REPORT.json"
+      - "audits/K0_*CERTIFICATION.json"
+      - "archive/RGS_PSU_OH_K0_AUDIT.zip"
+      - "archive/RGS_PSU_alignment_K0_audit.zip"
+      - "artifacts/two_time_kernel_*.npz"
       - ".github/workflows/k0-binary-audit.yml"
 
 permissions:
@@ -66,7 +66,7 @@ jobs:
 
           matrices = {}
           for name in ("K0.npy", "K0_inv.npy"):
-              path = Path(name)
+              path = Path("artifacts") / name
               if not path.is_file():
                   report["errors"].append(f"missing {name}")
                   continue
@@ -111,7 +111,7 @@ jobs:
                   except Exception as exc:
                       report["errors"].append(f"pseudoinverse tests: {type(exc).__name__}: {exc}")
 
-          for path in sorted(Path(".").glob("*.zip")):
+          for path in sorted(Path("archive").glob("*.zip")):
               if "k0" not in path.name.lower() or "audit" not in path.name.lower():
                   continue
               item = {"file": path.name, "bytes": path.stat().st_size, "sha256": sha256(path), "members": []}
@@ -131,7 +131,7 @@ jobs:
                   report["errors"].append(f"{path.name}: {item['error']}")
               report["archives"].append(item)
 
-          for path in sorted(Path(".").glob("two_time_kernel_*.npz")):
+          for path in sorted(Path("artifacts").glob("two_time_kernel_*.npz")):
               item = {"file": path.name, "bytes": path.stat().st_size, "sha256": sha256(path), "arrays": []}
               try:
                   with np.load(path, allow_pickle=False) as data:
@@ -148,7 +148,7 @@ jobs:
                   report["errors"].append(f"{path.name}: {item['error']}")
               report["npz_files"].append(item)
 
-          for path in sorted(Path(".").glob("K0_*.json")):
+          for path in sorted(Path("audits").glob("K0_*.json")):
               try:
                   data = json.loads(path.read_text(encoding="utf-8"))
                   report["json_reports"][path.name] = {

@@ -3,8 +3,16 @@ name: Q6-C60 V4 face-fibre equivariance audit
 on:
   push:
     branches:
+      - main
       - audit/q6-v4-face-fibre-equivariance-2026-11-26
       - q6-c60-v4-locality-clean-2026-11-27
+    paths:
+      - "scripts/audit_q6_c60_v4_equivariance.py"
+      - "scripts/audit_q6_c60_v4_locality.py"
+      - "scripts/optimize_q6_c60_v4_intertwiner_locality.py"
+      - "scripts/test_q6_c60_v4_exact_locality.py"
+      - "data/RGS_PSU_all_matrices.npz"
+      - ".github/workflows/q6-c60-v4-equivariance.yml"
   pull_request:
     branches:
       - main
@@ -15,6 +23,7 @@ on:
       - "scripts/test_q6_c60_v4_exact_locality.py"
       - "data/RGS_PSU_all_matrices.npz"
       - ".github/workflows/q6-c60-v4-equivariance.yml"
+  workflow_dispatch:
 
 jobs:
   v4-equivariance:
