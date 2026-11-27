@@ -25,10 +25,10 @@ TOL = 1e-9
 
 
 def main() -> None:
-    Z = np.load(ROOT / "Z_S.npy")
-    Za = np.load(ROOT / "Z_A.npy")
-    K = np.load(ROOT / "K0.npy")
-    P_G = np.load(ROOT / "P_G.npy")
+    Z = np.load(ROOT / "artifacts" / "Z_S.npy")
+    Za = np.load(ROOT / "artifacts" / "Z_A.npy")
+    K = np.load(ROOT / "artifacts" / "K0.npy")
+    P_G = np.load(ROOT / "artifacts" / "P_G.npy")
     n = Z.shape[0]
 
     # --- locate the carrier: eigenvectors of Z_S with |eig| = 1/2 ---

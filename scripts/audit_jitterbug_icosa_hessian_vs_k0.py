@@ -64,7 +64,7 @@ def main() -> None:
     n_zero = int(np.sum(ev_all <= 1e-8))
 
     # K0 ladder for comparison
-    K = np.load(ROOT / "K0.npy")
+    K = np.load(ROOT / "artifacts" / "K0.npy")
     wk = np.linalg.eigvalsh(K)
     kpos = np.sort(wk[wk > 1e-8])
 

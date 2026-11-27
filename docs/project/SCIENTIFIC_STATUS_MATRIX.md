@@ -11,7 +11,7 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 5 | Q6–PRISM correspondence/obstructions | rgs-qlg | NUMERICALLY VERIFIED (per repo, PRs #207–213) | merged PRs | — |
 | 6 | PSU–Anti-Twin Q-ball | rgs-qlg | NUMERICALLY VERIFIED (PR #220) | merged | — |
 | 7 | Yang–Mills gap via PSU/Anti-Twin | biverse | **HYPOTHESIS** (quarantined) | README claim only; no artifact | needs proof or archive |
-| 8 | SE(3) tetrahedral defects / Bianchi | theorem | SOFTWARE VERIFIED (PRs #344, #461 merged) | `se3.py`, tests | torsion Bianchi OPEN (#400) |
+| 8 | SE(3) tetrahedral defects / Bianchi | theorem | SOFTWARE VERIFIED (PRs #344, #461 merged) | `archive/dec_se3_legacy/` | torsion Bianchi OPEN (#400) |
 | 9 | Volterra dipole→edge elasticity | theorem | NUMERICALLY VERIFIED (PRs #131, #450 merged) | merged | — |
 | 10 | Cartan torsion / frame field laws | theorem | OPEN | issues #398–#400 | — |
 | 11 | Vesica/Jitterbug geometry + immersion | theorem | NUMERICALLY VERIFIED (kinematics); immersion OPEN | `docs/VESICA_*`, `JITTERBUG_*`; issues #401/#409 | — |
@@ -23,7 +23,7 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 17 | C60 fullerene audits | theorem | NUMERICALLY + SOFTWARE VERIFIED (PR #449 merged) | `docs/C60_*`, SW audit scripts | MMFF94s proxy ≠ DFT |
 | 18 | C64 enumeration/SW graph | fullerene-c64-audit | NUMERICALLY VERIFIED (per PR #1; no CI) | `results/C64/*` | PR #1 unmerged |
 | 19 | Fullerene↔Q6/Kathara | theorem + fullerene | HYPOTHESIS | `KRIST_ALL_KATHARA_Q6_INTERFACE.md` | explicitly conjectural |
-| 20 | Hysteresis (188D/JA/actuator) | theorem | NUMERICALLY VERIFIED (per repo; PR #452) | `Hysteresis_datasets.xlsx`, issues #113/#114 open | — |
+| 20 | Hysteresis (188D/JA/actuator) | theorem | NUMERICALLY VERIFIED (per repo; PR #452) | `data/Hysteresis_datasets.xlsx`, issues #113/#114 open | — |
 | 21 | Naressi golden-resonance / morphodynamics | naressi-* repos | SOFTWARE (toy sims) — STALE | repo scripts | unverified claims in READMEs |
 | 22 | SSA + scaling laws | ASTRAQ | SOFTWARE VERIFIED — STALE | repo scripts | — |
 | 23 | CosModex | cosmodex | SOFTWARE — STALE | repo | hygiene: keystore/node_modules committed |

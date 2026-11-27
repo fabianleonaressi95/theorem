@@ -26,7 +26,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
-| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
+| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `archive/dec_se3_legacy/` (legacy package), PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
 | Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 open (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
@@ -36,7 +36,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
-| FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `test_volumetric_complex.py`, `holonomy.py`, `connection.py`, PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
+| FEEC exterior calculus, DEC, Hodge, T149 dodecahedron | `theorem` | `archive/dec_se3_legacy/` (archived 2026-11-26), PR #460/#445 | SOFTWARE VERIFIED + NUMERICALLY VERIFIED | — |
 | Mosco convergence / graph Γ-limits | `rgs-qlg` (PR #230 formalization) + `theorem` PR #451 | `rgs-qlg/docs/FLAT_TORUS_G6_P1_MOSCO_PROOF.md`, `theorem` PR #451 | ANALYTICALLY VERIFIED per repo | — |
 | Rumin / Kitaoka / spectral geometry | `theorem` (DEC/spectral zeta in description) | search `theorem/docs` for spectral notes; `K0_SPECTRAL_*` audits | PARTIALLY MAPPED — needs dedicated inventory pass | dedicated sub-audit recommended |
 | Quantum Lindblad / FSS | `quantum-lindblad` (stale) + `rgs-qlg` (`FSS_FIB_PROTOCOL.md`, Fibonacci Aubry–André PR #232) | split across repos | SOFTWARE VERIFIED in rgs-qlg; `quantum-lindblad` repo STALE | decide canonical home for Lindblad work; consider archiving `quantum-lindblad` |
@@ -55,7 +55,7 @@ Maps each active research thread to its canonical repository, key files, verific
 |---|---|---|---|
 | RheoMarine HFR–M0 transport | `rheomarine` | PILOT-REPRODUCED (Lagrangian); solver masks SOFTWARE VERIFIED; validation DATA-BLOCKED (issue #2) | independent ADCP/drifter/particle observations; coastline mask; longer HFR windows |
 | DS1/DS2 lab rheology analysis | `rheomarine` | ANALYZED (derived CSVs/JSON committed) | absolute z-calibration for DS1; DS2 recipes |
-| Hysteresis datasets (188D, JA, actuator) | `theorem` (`Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
+| Hysteresis datasets (188D, JA, actuator) | `theorem` (`data/Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
 | Shape–Field / electrostatic discharge FEM | `theorem` (protocol); dedicated app repo TBD | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` (CADFEM/Fuger 2026-04-10 reference) | OPEN — protocol only | FEM implementation, §8 verification tests, inception-voltage module |
 | SSA / scaling laws | `ASTRAQ` | SOFTWARE VERIFIED (stale since Aug) | — |
 | CosModex galaxy map | `cosmodex` | SOFTWARE (stale; hygiene issues) | — |

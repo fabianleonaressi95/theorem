@@ -12,9 +12,9 @@ This documents a spectral coincidence; it does NOT derive f from K0 or Z_S.
 import json
 import numpy as np
 
-K0 = np.load("K0.npy")
-ZS = np.load("Z_S.npy")
-ZA = np.load("Z_A.npy")
+K0 = np.load("artifacts/K0.npy")
+ZS = np.load("artifacts/Z_S.npy")
+ZA = np.load("artifacts/Z_A.npy")
 
 report = {}
 

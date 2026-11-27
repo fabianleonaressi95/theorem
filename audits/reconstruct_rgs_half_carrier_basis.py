@@ -7,7 +7,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "npz"
 OUT.mkdir(parents=True, exist_ok=True)
-K, P, ZA, ZS = [np.load(ROOT / n, allow_pickle=False)
+K, P, ZA, ZS = [np.load(ROOT / "artifacts" / n, allow_pickle=False)
                  for n in ("K0.npy", "P_G.npy", "Z_A.npy", "Z_S.npy")]
 n = K.shape[0]
 assert all(x.shape == (n, n) for x in (P, ZA, ZS))
