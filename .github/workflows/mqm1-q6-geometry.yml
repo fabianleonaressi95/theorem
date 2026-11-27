@@ -4,6 +4,11 @@ on:
   pull_request:
     paths:
       - "audits/morphodynamics/q6_quantum_geometry.py"
+      - "audits/morphodynamics/eqc_rgs_q6_gates.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "audits/morphodynamics/mqm_dynamical_rgs_q6_symmetry.py"
+      - "tests/test_mqm_dynamical_rgs_q6_symmetry.py"
+      - "theorems/MQM2-dynamical-rgs-q6-symmetry.md"
       - "tests/test_mqm1_q6_quantum_geometry.py"
       - "audits/morphodynamics/q6_discriminant.py"
       - "tests/test_mqm1_q6_discriminant.py"
@@ -21,4 +26,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check numpy pytest
-      - run: python -m pytest -q tests/test_mqm1_q6_quantum_geometry.py tests/test_mqm1_q6_discriminant.py
+      - run: python -m pytest -q tests/test_mqm1_q6_quantum_geometry.py tests/test_mqm1_q6_discriminant.py tests/test_mqm_dynamical_rgs_q6_symmetry.py
