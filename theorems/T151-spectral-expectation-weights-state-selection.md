@@ -31,7 +31,17 @@ satisfies
 \[
 \langle\psi_w,G\psi_w\rangle=\sum_iw_i\lambda_i.
 \]
-Consequently, the set of all possible expectation values is the convex hull of the spectrum (or its closure in the countably infinite case).
+Consequently, if \(I\) is finite, the set of all possible expectation values is exactly the finite convex hull of the eigenvalues. If \(I\) is countably infinite, it is exactly the set of probability barycentres
+\[
+\mathcal E_G=\left\{\sum_{i\in I}w_i\lambda_i:
+w_i\ge0,\quad\sum_iw_i=1\right\}.
+\]
+Its closure is the closed convex hull:
+\[
+\overline{\mathcal E_G}
+=\overline{\operatorname{conv}\{\lambda_i:i\in I\}}.
+\]
+The countable expectation set need not itself be closed.
 
 **Proof.** Orthonormality gives \(\|\psi_w\|^2=\sum_iw_i=1\). Since \(G\) is diagonal,
 \[
@@ -39,7 +49,7 @@ Consequently, the set of all possible expectation values is the convex hull of t
 =\sum_{i,j}\sqrt{w_iw_j}\langle e_i,Ge_j\rangle
 =\sum_iw_i\lambda_i.
 \]
-Every normalized state supplies a probability distribution \(w_i=|c_i|^2\), so the converse inclusion also holds. \(\square\)
+Every normalized state supplies a probability distribution \(w_i=|c_i|^2\), so the converse inclusion also holds. In the countable case boundedness of \(G\) makes the barycentre absolutely convergent. Finite-support distributions give the ordinary convex hull; truncation and renormalization approximate every countably supported barycentre, proving the closure identity. \(\square\)
 
 ## 3. Non-uniqueness of the inverse expectation problem
 
@@ -87,7 +97,8 @@ The present theorem does not refute the possibility of a later variational deriv
 
 ## 7. Scope
 
-- The diagonal expectation identity and convex-hull characterization are proved.
+- The diagonal expectation identity and the finite/countable convex-hull statements are proved.
+- For countably infinite (I), the attainable set is a barycentre set whose closure, not necessarily the set itself, is the closed convex hull.
 - The non-uniqueness statement applies whenever the number of independently variable modes exceeds the number of independent constraints.
 - The application concerns the expectation-value construction in the cited GSR preprint; it is not a claim about every possible future version of the Pellis operator.
 - No identification with the Q6, PRISM or Fibonacci \(D_6\) operators is asserted.
