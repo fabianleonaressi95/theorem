@@ -1,3 +1,4 @@
+import json
 import unittest
 import numpy as np
 from scripts.audit_q6_psu_antitwin_chiral_fluid import dirac_matrices, run_audit
@@ -7,6 +8,7 @@ class Q6PSUAntiTwinChiralFluidTests(unittest.TestCase):
         result = run_audit()
         self.assertTrue(result["pass"], result["checks"])
         self.assertTrue(all(result["checks"].values()))
+        json.dumps(result)  # audit artifact must be serializable
 
     def test_right_left_sheet_lock(self):
         g0, g1, g2, g3, g5 = dirac_matrices()
