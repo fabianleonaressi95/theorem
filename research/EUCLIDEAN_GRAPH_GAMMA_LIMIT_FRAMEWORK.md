@@ -1,6 +1,6 @@
 # Euclidean graph energies: a first discrete-to-continuum theorem
 
-**Status:** conditional theorem framework; the graph-to-compactness and graph-to-integral-representation steps are not yet proved under the geometric hypotheses alone.
+**Status:** conditional Euclidean graph theorem package. Under boundary-complete fill, the graph-to-Sobolev interpolation, compactness, upper growth, and discrete fundamental estimate are derived in the companion EG-01 proof notes. Subsequence integral representation follows conditionally from the standard local quadratic integral-representation theorem. Full-sequence homogenization remains open.
 
 **Scope:** scalar-valued, uniformly elliptic, quadratic nearest-edge energies on embedded graphs in a fixed Euclidean domain. This is deliberately a baseline problem, not yet an RGS, curved-metric, Hodge, or de Rham convergence theorem.
 
@@ -33,7 +33,7 @@ The central distinction is:
 - they do **not** by themselves imply that the entire sequence has one limit;
 - uniqueness of the cell limit, or another mechanism identifying all subsequential densities, is an additional obligation.
 
-No convergence theorem for arbitrary graphs follows merely from vertex separation, relative density, short edges, and approximate-geodesic paths. In particular, those geometric assumptions do not by themselves exclude bottlenecks, poor directional sampling, or oscillating effective coefficients.
+The initial interior-only density condition is not enough for the Voronoi boundary estimates. With boundary-complete fill on \\(\\overline{\\Omega}\\), separation, the path-tube property, and a positive lower conductance bound imply local path-length and congestion bounds and hence uniform nonlocal coercivity. This excludes the single-bridge bottleneck when (G5) is imposed. The assumptions still do not force a unique effective tensor: oscillating conductance or graph families can have distinct subsequential limits.
 
 ## 2. Euclidean graph hypotheses
 
@@ -65,7 +65,7 @@ The lower bound follows from (G2) for distinct endpoints, but is recorded to mak
 
 **(G5) Approximate-geodesic connectivity.** For every pair \(x,y\in V_\varepsilon\), there is an edge path \(P_\varepsilon(x,y)\) joining them whose vertices lie in the \(C_{\rm path}\varepsilon\)-neighbourhood of the Euclidean segment \([x,y]\). Every edge on the path satisfies (G4).
 
-The path condition is stronger than bare connectivity. Together with uniform separation, it gives a uniform bound on path length and edge congestion for all vertex pairs at any fixed multiple of the mesh scale. This yields a comparison with a continuum nonlocal difference quotient and, with boundary-complete fill, a uniform discrete Poincaré inequality; see [EG-01 local Poincare proof](EG01_LOCAL_POINCARE_PROOF.md). It does not by itself provide a global all-pairs congestion bound or the interpolation/upper-growth estimates needed for the full Gamma-limit.
+The path condition is stronger than bare connectivity. Together with uniform separation, it gives a uniform bound on path length and edge congestion for all vertex pairs at any fixed multiple of the mesh scale. With boundary-complete fill, this yields nonlocal coercivity and a uniform discrete Poincare inequality; see [EG01_LOCAL_POINCARE_PROOF.md](EG01_LOCAL_POINCARE_PROOF.md). The boundary-adapted averaging operator in [EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md](EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md) then gives the H1 interpolation estimate, upper growth, and the discrete fundamental estimate.
 
 **(G6) Edge weights.** Each edge has a scalar conductance \(a_e^\varepsilon\) with
 \[
@@ -134,7 +134,7 @@ Then bounded energy and bounded \(L^2\)-norm give boundedness of \(I_\varepsilon
 \]
 together with uniform \(L^2\) boundedness and a boundary-extension/equi-tightness condition. For sequences \(\varepsilon_n\to0\), (4.2) yields the translation control needed by the Fréchet–Kolmogorov criterion.
 
-**Important:** the EG-01 proof note derives a uniform Poincare inequality and L2 compactness under boundary-complete fill. It does not derive the full H1 interpolation estimate (C1), nor does it establish the fundamental estimate or integral representation. Those remain additional obligations.
+**Status:** (C1) is now derived from the nonlocal comparison by the normalized local averaging operator in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. The same note proves upper growth and the discrete fundamental estimate. The remaining analytic check is the localized measure property required by the abstract integral-representation theorem; the conclusion is therefore stated subsequentially and conditionally.
 
 ## 5. Locality, growth, and the integral-representation target
 
@@ -158,7 +158,7 @@ The integral-representation argument requires, in addition to compactness:
 - **(L5) measure property:** localized energies have the required subadditivity and inner-regularity properties in the limit;
 - **(L6) quadratic stability:** the limit of the quadratic forms remains a quadratic form (for example, through an appropriate Mosco convergence theorem for closed forms on the fixed \(L^2\) space).
 
-These are proof obligations. The cited lattice theorems provide a model for the integral-representation and homogenization strategy, but their hypotheses are not automatically verified for the present arbitrary embedded graph class.
+The graph-specific estimates for (L1)–(L4) are derived in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. For (L5), use the edge-energy measures supported at edge midpoints, weak-* compactness on bounded-energy sequences, and the gluing estimate (4.1) to verify the De Giorgi–Letta measure property. This final measure-property verification should be recorded explicitly before promoting the integral-representation status beyond conditional. The cited lattice theorems are methodological references; their stochastic-lattice hypotheses are not automatically inherited by arbitrary embedded graphs.
 
 ## 6. Conditional theorem (the first target)
 
@@ -189,7 +189,7 @@ where \(A_0\in L^\infty(\Omega;\mathbb R^{d\times d}_{\rm sym})\) and
 
 The constants in (6.2) depend on the uniform growth/coercivity constants, not just on vertex separation and edge length.
 
-**Status of Theorem A:** this is a conditional theorem target, not a completed proof for (G1)–(G6). The main open work is to derive (C1)/(C2), the fundamental estimate, and the required locality/growth bounds from verifiable graph hypotheses. The abstract integral-representation machinery can only be invoked after these hypotheses have been checked.
+**Status of Theorem A:** compactness, (C1), upper growth, and the graph fundamental estimate are now derived under boundary-complete fill and the stated graph hypotheses. The subsequential integral-representation conclusion remains conditional on completing the localized measure-property verification in (L5). No full-sequence convergence is claimed.
 
 ## 7. Cell formula and full-sequence convergence
 
@@ -299,4 +299,4 @@ The existing E(2) graph-transport convergence result concerns transport along ap
 | EG-08 | Characterize effective tensors realizable by graph geometry | Open |
 | EG-09 | Extend the scalar result to de Rham/Hodge energies on varying spaces | Deferred |
 
-**Overall classification:** RESEARCH FRAMEWORK / CONDITIONAL THEOREM TARGET. No theorem is marked proved by this document.
+**Overall classification:** CONDITIONAL THEOREM PACKAGE. The local geometric, interpolation, growth, and gluing estimates are proved under the strengthened boundary-complete assumptions. The abstract integral representation remains conditional on the localized measure-property check; full-sequence homogenization and the cell-tensor uniqueness criterion remain open.
