@@ -53,8 +53,8 @@ The calculation was performed on the ideal truncated icosahedron with unchanged 
 | HOMO–LUMO gap / t | 0.7565982539 | 0.3184344809 |
 | Site population minimum | 1.0000000000 | 0.9508443551 |
 | Site population maximum | 1.0000000000 | 1.0196297095 |
-| Site population standard deviation | <4e-16 | 0.0134917469 |
-| A_pi | 2.44e-16 | 0.0016099344 |
+| Site population standard deviation | 4.39e-16 | 0.0134917469 |
+| A_pi | 3.66e-16 | 0.0016099344 |
 
 The Hückel HOMO–LUMO gap narrows by approximately **57.91%** in units of the chosen hopping parameter. The post-switch site populations are no longer uniform, and the population covariance becomes weakly anisotropic.
 
