@@ -68,6 +68,9 @@ def run_audit() -> dict:
     ell_psu, r_psu = lambda_psu * ell_p, lambda_psu * ell_p / 2
     volume_psu, area_psu = 4 * np.pi * r_psu**3 / 3, np.pi * r_psu**2
     alpha_G, q0 = 0.25, np.sqrt(0.25)
+    # In the pure relative/Anti-Twin U(1) limit, q_R=+q0 and q_L=-q0.
+    anomaly_gravitational = (-q0) - (+q0)
+    anomaly_cubic = (-q0)**3 - (+q0)**3
 
     checks = {
         "Minkowski_Cl13_and_gamma5": (
@@ -96,6 +99,7 @@ def run_audit() -> dict:
         ),
         "PSU_radius_volume_area_normalization": abs(r_psu - ell_psu / 2) < 1e-12 and abs(volume_psu - np.pi * ell_psu**3 / 6) < 1e-12 and abs(area_psu - np.pi * ell_psu**2 / 4) < 1e-12,
         "PSU_charge_normalization": abs(q0**2 - alpha_G) < 1e-12,
+        "pure_axial_U1_has_nonzero_anomaly": abs(anomaly_gravitational) > 1e-12 and abs(anomaly_cubic) > 1e-12,
     }
     return {
         "status": "FINITE_PSU_ANTITWIN_CHIRAL_FLUID_GAUGE_IDENTITIES_AUDITED",
@@ -103,11 +107,14 @@ def run_audit() -> dict:
         "chiral_sheet_lock": {"constraint": "gamma5 tensor tau3 = +1", "PSU_sheet": "right-handed sector", "AntiTwin_sheet": "left-handed sector", "locked_complex_dimension": 4, "projector": "(I + gamma5 tensor tau3)/2", "AntiTwin_exchange": "I4 tensor tau1", "combined_parity_exchange": "gamma0 tensor tau1, with x -> parity(x)"},
         "fluid_gauge": {"definitions": "Phi_s=log(N_s), n_s=A_s/N_s, xi_s=(n_s dot n_s) Phi_s", "even_odd": "X_e=(X_+ + X_-)/2; X_o=(X_+ - X_-)/2", "chiral_connection": "a_e I + a_o gamma5", "right_coupling": "a_+=a_e+a_o", "left_coupling": "a_-=a_e-a_o", "anti_twin_conjugate_limit": "a_-=-a_+; a_e=0; purely axial/relative connection", "sample_conjugate_link_residual": conjugate_link_residual},
         "PSU": {"radius_over_ellP": r_psu / ell_p, "volume_over_ellP3": volume_psu / ell_p**3, "equatorial_area_over_ellP2": area_psu / ell_p**2, "lambda_PSU": lambda_psu, "alpha_G_sample": alpha_G, "q0_sample": q0, "charge_operator": "Q=q0 tau3; J Q J^-1 = -Q"},
+        "anomaly_gate": {"pure_axial_charges": {"q_R": q0, "q_L": -q0}, "mixed_gravitational_coefficient": anomaly_gravitational, "cubic_U1_coefficient": anomaly_cubic, "conclusion": "a standalone gauged relative U(1) with only this chiral pair is anomalous; require anomaly-cancelling matter/inflow or keep the relative fluid connection non-fundamental/effective"},
         "fluid_sample": {"Phi_even": phi_even, "Phi_odd": phi_odd, "n_even": n_even.tolist(), "n_odd": n_odd.tolist(), "xi_even": xi_even, "xi_odd": xi_odd},
         "checks": checks, "pass": all(checks.values()),
         "epistemic_limits": [
             "The right/left identification is a proposed locking of 4D chirality to the PSU/Anti-Twin sheet index; it is not inferred from Spin(6) alone.",
             "The conjugate U(1) Anti-Twin link is exact; non-Abelian conjugate representations require their stated intertwiner.",
+            "Only the Z2 sheet exchange is part of the validated prior model; a local relative U(1) is an extension, not an established result.",
+            "A standalone gauged relative axial U(1) for this one chiral pair has nonzero cubic and mixed gravitational anomalies.",
             "A Dirac mass breaks the relative axial U(1) unless a charged inter-sheet bridge field is included.",
             "The fluid constitutive action and its coefficients are not fixed by these kinematic identities.",
             "The finite checks do not prove a Q6 continuum Dirac spectrum or evade Nielsen-Ninomiya.",
