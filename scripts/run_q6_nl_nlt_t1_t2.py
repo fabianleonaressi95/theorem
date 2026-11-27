@@ -12,6 +12,13 @@ import json
 import platform
 import subprocess
 from pathlib import Path
+import sys
+
+# Make direct execution (python scripts/<name>.py) resolve repository packages.
+# Python otherwise puts only scripts/ at sys.path[0] on GitHub Actions runners.
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 import numpy as np
 from scipy.linalg import eigvals
