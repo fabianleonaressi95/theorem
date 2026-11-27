@@ -76,7 +76,6 @@ def berry_holonomy(*, band_index=8, amplitude=0.04, steps=240,
         raise ValueError("steps must be >=8 and band_index nonnegative")
     vectors = []
     min_gap = np.inf
-    min_overlap = 1.0
     eigenvalues = []
     for j in range(steps):
         theta = 2.0 * np.pi * j / steps
