@@ -29,4 +29,6 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 23 | CosModex | cosmodex | SOFTWARE — STALE | repo | hygiene: keystore/node_modules committed |
 | 24 | Shape–Field electrostatic discharge FEM | `theorem` (protocol) | OPEN — protocol only, no results | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` | CADFEM/Fuger ref; RGS link exploratory |
 
+| 25 | In2Infinity Extended Jitterbug endpoint/transition audits (T154–T156) | theorem | PARTIALLY VERIFIED: static coordinate audit (T154), exact endpoint count compatibility (T155), software-checked exhaustive incidence correspondence (T156) | `theorems/T154-*`, `theorems/T155-*`, `theorems/T156-*`, associated audit scripts/tests | continuous 22.5° hinge motion, chirality/orientation map, and physical/atomic interpretations remain OPEN; incidence is not a kinematic proof |
+
 **Explicit non-claims:** no item above is EXPERIMENTALLY VALIDATED except where a repo documents an actual comparison with independent measurements (none found for transport; rheomarine lab datasets are calibration inputs, not field validation). All "per repo" numerical claims await the owner's confirmation before external citation.
