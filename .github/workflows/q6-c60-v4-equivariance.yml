@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - audit/q6-v4-face-fibre-equivariance-2026-11-26
+      - q6-c60-v4-locality-clean-2026-11-27
   pull_request:
     branches:
       - main
     paths:
       - "scripts/audit_q6_c60_v4_equivariance.py"
       - "scripts/audit_q6_c60_v4_locality.py"
+      - "scripts/optimize_q6_c60_v4_intertwiner_locality.py"
       - "data/RGS_PSU_all_matrices.npz"
       - ".github/workflows/q6-c60-v4-equivariance.yml"
 
@@ -28,6 +30,7 @@ jobs:
       - name: Syntax check
         run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py scripts/audit_q6_c60_v4_locality.py
         run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py
+        run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py scripts/audit_q6_c60_v4_locality.py scripts/optimize_q6_c60_v4_intertwiner_locality.py
       - name: Run V4 representation and operator audit
         run: |
           python scripts/audit_q6_c60_v4_equivariance.py \

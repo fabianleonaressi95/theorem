@@ -14,6 +14,9 @@ Independent geometry workstream within THEOREM. It starts from source-verified S
 - [Research note and theorem](MANUSCRIPT.md)
 - [Classification protocol](CLASSIFICATION_PROTOCOL.md)
 - [Case sheets](case_sheets/)
+- [Source register and transcription status](SOURCE_REGISTER.md)
+- [SGC-004 — Hirano's Sangaku pentagon reconstruction](case_sheets/hirano_pentagon_sangaku.md)
+- [Exact coordinate reconstruction](hirano_sangaku.py)
 - [Exact symbolic checks](symbolic_checks.py)
 - [Tests](tests/test_symbolic_checks.py)
 
