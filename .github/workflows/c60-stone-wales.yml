@@ -12,7 +12,9 @@ on:
       - "scripts/audit_c60_stone_wales.py"
       - "scripts/audit_c60_mmff94s_relaxed_coulomb.py"
       - "scripts/classify_c60_sw_orbits.py"
+      - "scripts/audit_c60_sw_pi_density.py"
       - "tests/test_c60_stone_wales.py"
+      - "tests/test_c60_sw_pi_density.py"
       - "tests/test_c60_sw_orbits.py"
       - "tests/test_c60_stone_wales.py"
       - "docs/C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md"
@@ -29,7 +31,8 @@ jobs:
       - run: python -m pip install numpy scipy networkx rdkit pytest
       - run: python scripts/audit_c60_stone_wales.py --out-dir c60_stone_wales_audit --relax
       - run: python scripts/classify_c60_sw_orbits.py --out c60_stone_wales_audit/orbit_classification.json
-      - run: pytest -q tests/test_c60_stone_wales.py tests/test_c60_sw_orbits.py
+      - run: python scripts/audit_c60_sw_pi_density.py --out c60_stone_wales_audit/pi_density_q6_parity.json
+      - run: pytest -q tests/test_c60_stone_wales.py tests/test_c60_sw_orbits.py tests/test_c60_sw_pi_density.py
       - run: pytest -q tests/test_c60_stone_wales.py
       - uses: actions/upload-artifact@v4
         with:

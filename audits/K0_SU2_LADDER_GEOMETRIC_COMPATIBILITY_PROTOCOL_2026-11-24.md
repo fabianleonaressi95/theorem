@@ -59,10 +59,10 @@ All required arrays are committed on `main` (verified 2026-11-24, `git ls-files`
 
 | Array | Repository path | SHA-256 |
 | --- | --- | --- |
-| \(K_0\) | `K0.npy` (188×188 float64) | `1aa4a6c0e237f5fb43d1d05e2de5a073087f3a2c1d1d200946fd693f1476aaa1` |
-| \(Z_S\) | `Z_S.npy` (188×188 float64) | `a37b6d13a7c97122d6adaf015764c992ca6380cca023f43dce2b01fecf350d16` |
-| \(Z_A\) | `Z_A.npy` (188×188 float64) | `e526e9ae82a2a71e1f636ba6c19c9bf3a755768093f9a234cd3d7bc88427412f` |
-| \(P_G\) | `P_G.npy` (188×188 float64) | `2eb41891a2b545499f80078eafb504e01c3f26f583310e49a60d3bf5be787493` |
+| \(K_0\) | `artifacts/K0.npy` (188×188 float64) | `1aa4a6c0e237f5fb43d1d05e2de5a073087f3a2c1d1d200946fd693f1476aaa1` |
+| \(Z_S\) | `artifacts/Z_S.npy` (188×188 float64) | `a37b6d13a7c97122d6adaf015764c992ca6380cca023f43dce2b01fecf350d16` |
+| \(Z_A\) | `artifacts/Z_A.npy` (188×188 float64) | `e526e9ae82a2a71e1f636ba6c19c9bf3a755768093f9a234cd3d7bc88427412f` |
+| \(P_G\) | `artifacts/P_G.npy` (188×188 float64) | `2eb41891a2b545499f80078eafb504e01c3f26f583310e49a60d3bf5be787493` |
 | full bundle | `data/RGS_PSU_all_matrices.npz` | `29b758d56c20ba9eb488d1846d1439c0fc145973762421d03083239ee832bba1` |
 
 The NPZ additionally contains `T_transport`, `R_geo_tangent`, `Pi_AT`, `B_PG_A`, `U_polar`, `A_geometry_orthonormal`, `A_raw`, `Q_tangent`, `X_Oh_reconstructed`, `Q6_states`, `Q6_adjacency`, `Q6_laplacian`, `Q6_antipodal`, each in the same 188D (or stated) coordinate basis. Loading example:
@@ -70,7 +70,7 @@ The NPZ additionally contains `T_transport`, `R_geo_tangent`, `Pi_AT`, `B_PG_A`,
 ```python
 import numpy as np
 d = np.load("data/RGS_PSU_all_matrices.npz")
-K0, ZS, ZA, PG, T = d["K0"], np.load("Z_S.npy"), np.load("Z_A.npy"), d["P_G"], d["T_transport"]
+K0, ZS, ZA, PG, T = d["K0"], np.load("artifacts/Z_S.npy"), np.load("artifacts/Z_A.npy"), d["P_G"], d["T_transport"]
 ```
 
 Coordinate-basis provenance: all arrays share the archived 188D tangent coordinate system documented in `docs/RGS_188D_OPERATOR_PROVENANCE.md`; the basis-identification certificate itself remains an open item (see §6 of that document). A filename alone is insufficient — the SHA-256 values above are the content certificate.
@@ -152,7 +152,7 @@ These verdicts must be kept separate. A PASS in the first two categories does no
 
 The three JSON reports and `q6-d5-integer-fiber.yml` are now present on `main`. The workflow is an exact-arithmetic Q6-D5 audit; its declared path filters and commands do not run the geometric ladder-compatibility test in this document.
 
-**Input status corrected (2026-11-24):** the required arrays are in fact already on `main` — see §3.1 for exact paths and SHA-256 hashes. The earlier statement that they were missing was incorrect: `K0.npy`, `Z_S.npy`, `Z_A.npy`, `P_G.npy` are tracked at repository root and `data/RGS_PSU_all_matrices.npz` contains `T_transport` and the remaining operators in the same coordinate basis.
+**Input status corrected (2026-11-24):** the required arrays are in fact already on `main` — see §3.1 for exact paths and SHA-256 hashes. The earlier statement that they were missing was incorrect: `K0.npy`, `Z_S.npy`, `Z_A.npy`, `P_G.npy` are tracked under `artifacts/` (moved from repository root in the 2026-11-26 repository reorganization) and `data/RGS_PSU_all_matrices.npz` contains `T_transport` and the remaining operators in the same coordinate basis.
 
 **Test 2 executed (2026-11-24) — cubic-sector variant:** the joint \(SU(2)\times O_h\) audit was run via `scripts/audit_k0_su2_oh_joint_compatibility.py` (report `audits/K0_SU2_OH_JOINT_COMPATIBILITY_2026-11-24.json`). The \(O_h\) character projectors were reconstructed in the same 188D tangent basis as `models/tangent_triplet_anisotropy.py`): \(P_{T_{1u}}\) has rank 39 and \(P_{T_{2u}}\) rank 30, reproducing the reported 13 and 10 triplets. Results:
 

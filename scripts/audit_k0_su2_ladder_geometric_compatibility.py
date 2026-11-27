@@ -19,7 +19,8 @@ def sha256(path):
 
 # ---------- load + certify inputs ----------
 paths = {
-    "K0": "K0.npy", "Z_S": "Z_S.npy", "Z_A": "Z_A.npy", "P_G": "P_G.npy",
+    "K0": "artifacts/K0.npy", "Z_S": "artifacts/Z_S.npy",
+    "Z_A": "artifacts/Z_A.npy", "P_G": "artifacts/P_G.npy",
 }
 npz = np.load("data/RGS_PSU_all_matrices.npz")
 K0 = np.load(paths["K0"]); ZS = np.load(paths["Z_S"]); ZA = np.load(paths["Z_A"])

@@ -158,7 +158,7 @@ Its regular pentagon frame residuals are at machine precision. This is a geometr
 
 The canonical face-centroid refinement, barycentric gradients, Whitney mass matrices, mass-induced adjoints, antipodal parity blocks and scalar condensation are now numerically assembled. The local face frames are compatible with the regular pentagon only in the φ control. In the supergolden metric, the faces are genuinely deformed even though the same pentagonal combinatorics remains.
 
-The local Hodge mass matrices are invariant under rotations of an individual face frame. Therefore the discrete 72° pentagonal phases do not by themselves define a global connection. A nontrivial inter-face phase transport still requires independently specified transition maps across shared edges and a holonomy calculation. No torsion or spin connection is inferred from the local frames alone.
+At the stage of the original T149 assembly, the local Hodge mass matrices were invariant under rotations of an individual face frame, so the discrete 72° pentagonal phases did not by themselves define a global connection. The subsequent T155/T157 records supply explicit inter-face and full-mesh transports with holonomy. No torsion or spin connection is inferred from the local frames or these SO(2) transports alone.
 
 **Conclusion:** T149's FEEC assembly and antipodal gates pass. The canonical scalar Hodge operator and scalar Schur condensation do not produce the selected Q6 spectrum or an intertwiner. The polynomial
 \[
@@ -180,4 +180,9 @@ Machine-readable report: results/json/t149_supergolden_dodecahedron_feec_hodge.j
 
 The previously open inter-face connection on the 12 pentagonal frames has now been constructed independently in [T155](T155-dodecahedral-gauss-map-levi-civita-hodge.md). T155 uses the Gauss-map normals, minimal SO(3) rotations, the vesica-axis gauge, geometric face-area masses and shared-edge/centroid-distance conductances. Its antipodal frame covariance and 4π holonomy total pass.
 
-This closes the face-graph connection gap identified in the original T149 conclusion. It does **not** yet produce a covariant Whitney differential on all 32 vertices, 90 edges and 60 triangles. The full 32–90–60 covariant FEEC extension, its Hodge spectrum, and the derivation of the Q6/RGS polynomial f remain open.
+This closes the face-graph connection gap identified in the original T149 conclusion. T157 subsequently extends the link connection to all 32 vertices and 90 edges, constructs link-transported Whitney mass matrices on the 32–90–60 centroid-fan triangulation, and records the nonzero curvature defect in the covariant derivative sequence. The finite curved model and its spectra are now audited. T158 specifies a piecewise-smooth pullback connection inside each triangle and path-transported Whitney masses. Mesh-refinement convergence, a continuum curved-FEEC error theory, and derivation of the Q6/RGS polynomial f remain open.
+
+
+## 10. Refinement follow-up — T159
+
+The fixed T158 parent normal map has now been tested on conforming barycentric refinements through factor 4 in [T159](T159-curved-feec-mesh-refinement.md). The lowest covariant Hodge-0 triplet stabilizes numerically; this does not change T149's original scalar FEEC spectrum or establish a continuum convergence theorem.

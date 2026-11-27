@@ -1,0 +1,77 @@
+name: T156 Vesica–Mobius–Farey and finite-width elastic BVP
+# Direct solve at kappa(L/2)=0.005; artifact captures AUTO continuation files.
+
+on:
+  push:
+    paths:
+      - "scripts/audit_t156_vesica_mobius_farey.py"
+      - "tests/test_t156_vesica_mobius_farey.py"
+      - "scripts/solve_t156_mobius_elastic_bvp.py"
+      - "tests/test_t156_mobius_elastic_bvp.py"
+      - "scripts/t156_auto/**"
+      - ".github/workflows/t156-mobius-elastic-bvp.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_t156_vesica_mobius_farey.py"
+      - "tests/test_t156_vesica_mobius_farey.py"
+      - "scripts/solve_t156_mobius_elastic_bvp.py"
+      - "tests/test_t156_mobius_elastic_bvp.py"
+      - "scripts/t156_auto/**"
+      - ".github/workflows/t156-mobius-elastic-bvp.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  t156-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install numerical dependencies
+        run: python -m pip install numpy scipy
+      - name: Run exact Vesica–Farey algebra audit
+        run: python scripts/audit_t156_vesica_mobius_farey.py
+      - name: Run exact algebra regression tests
+        run: python -m unittest discover -s tests -p "test_t156_vesica_mobius_farey.py" -v
+      - name: SciPy collocation diagnostic (not the primary continuation solver)
+        continue-on-error: true
+        run: python scripts/solve_t156_mobius_elastic_bvp.py
+      - name: Install AUTO-07p build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran make
+      - name: Build AUTO-07p
+        run: |
+          git clone --depth 1 https://github.com/auto-07p/auto-07p.git /tmp/auto-07p
+          cd /tmp/auto-07p
+          ./configure
+          make
+      - name: Run AUTO-07p Möbius continuation
+        run: |
+          export AUTO_DIR=/tmp/auto-07p
+          source "$AUTO_DIR/cmds/auto.env.sh"
+          export PATH="$AUTO_DIR/bin:$AUTO_DIR/cmds:$PATH"
+          mkdir -p /tmp/t156-auto
+          cp scripts/t156_auto/* /tmp/t156-auto/
+          cd /tmp/t156-auto
+          auto mobius.auto
+          mkdir -p "$GITHUB_WORKSPACE/results/t156_auto"
+          cp -a . "$GITHUB_WORKSPACE/results/t156_auto/"
+      - name: Run BVP formulation tests
+        if: always()
+        run: python -m unittest discover -s tests -p "test_t156_mobius_elastic_bvp.py" -v
+      - name: Upload BVP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t156-mobius-elastic-bvp-report
+          path: |
+            results/t156_mobius_elastic_bvp.json
+            results/t156_auto/
+          if-no-files-found: warn
+          retention-days: 30

@@ -10,7 +10,7 @@ import json
 import numpy as np
 
 ROOT=Path(__file__).resolve().parents[1]
-K0,PG,ZA,ZS=[np.load(ROOT/n,allow_pickle=False) for n in
+K0,PG,ZA,ZS=[np.load(ROOT/"artifacts"/n,allow_pickle=False) for n in
              ("K0.npy","P_G.npy","Z_A.npy","Z_S.npy")]
 n=K0.shape[0]
 assert n==188 and all(x.shape==(n,n) for x in (PG,ZA,ZS))
