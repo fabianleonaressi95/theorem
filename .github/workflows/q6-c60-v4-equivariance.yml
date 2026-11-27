@@ -11,6 +11,7 @@ on:
     paths:
       - "scripts/audit_q6_c60_v4_equivariance.py"
       - "scripts/audit_q6_c60_v4_locality.py"
+      - "scripts/optimize_q6_c60_v4_intertwiner_locality.py"
       - "data/RGS_PSU_all_matrices.npz"
       - ".github/workflows/q6-c60-v4-equivariance.yml"
 
