@@ -261,3 +261,8 @@ Immediate implementation gates:
 7. Only when 4D geometry and field couplings are fixed, return to canonical 6D split and 3D cut-and-project.
 
 **No new theorem number is assigned here.** T115, T154, S009, S011 and T063 remain canonical for their own claims; global spacetime tetrad compatibility remains a candidate/open theorem.
+
+
+## Discrete Cartan layer from the I Ching/Kirchhoff carrier
+
+The executable finite spatial construction is documented in [Q6 discrete Cartan torsion and curvature audit](Q6_DISCRETE_CARTAN_TORSION_CURVATURE_AUDIT_2026-11-27.md). It starts from the 64 six-bit hexagrams, 192 single-line-flip edges and 240 square faces. Edge coframe increments and SO(3) link transports define a gauge-covariant developed torsion on each face and an ordered curvature holonomy. Both are simultaneously nonzero on 236 of 240 faces for the declared finite data. This is a spatial discrete candidate, not yet the 4D Lorentzian or teleparallel field solution.
