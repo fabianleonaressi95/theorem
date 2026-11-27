@@ -70,7 +70,15 @@ s_{\rm AT}=\frac{v_+-v_-}{2}.
 \]
 The latter is the relative/Anti-Twin fluid mode.
 
-Treat the normalized sheet one-forms \(a_\pm\) as the two fluid gauge connections. Their diagonal/relative decomposition is
+The direct PSU-normalized connection is defined from these same fluid variables, rather than introduced as a disconnected gauge field:
+\[
+\widehat n_{\pm\mu}=\ell_P n_{\pm\mu},\qquad
+g_{\rm PSU}=g_*\lambda_{\rm PSU}\sqrt{\alpha_G},\qquad
+a_{\pm\mu}=g_{\rm PSU}\widehat n_{\pm\mu}.
+\]
+Here \(g_*\) remains an action parameter; this fixes the normalization convention, not a measured coupling. Thus \(a_e=g_{\rm PSU}\ell_P n_e\) and \(a_o=g_{\rm PSU}\ell_P n_o\).
+
+Their diagonal/relative decomposition is
 \[
 a_e=\frac{a_++a_-}{2},\qquad a_o=\frac{a_+-a_-}{2},\qquad a_\pm=a_e\pm a_o.
 \]
