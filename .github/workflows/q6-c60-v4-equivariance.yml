@@ -36,9 +36,9 @@ jobs:
             --matrices artifacts/Q6_C60_V4_intertwiner.npz
       - name: Run face-adjacency locality diagnostic
         run: |
-          python scripts/audit_q6_c60_v4_locality.py \\
-            data/RGS_PSU_all_matrices.npz \\
-            --out audits/Q6_C60_V4_locality.json \\
+          python scripts/audit_q6_c60_v4_locality.py \
+            data/RGS_PSU_all_matrices.npz \
+            --out audits/Q6_C60_V4_locality.json \
             --matrices artifacts/Q6_C60_V4_locality.npz
       - name: Upload audit outputs
         uses: actions/upload-artifact@v4
