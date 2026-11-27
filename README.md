@@ -78,7 +78,11 @@ theorem/
 └── requirements-audit.txt   # Pinned audit dependencies
 ```
 
-### Main indexes
+### Programme-wide integration
+
+- **[T150 programme-wide integration map](docs/T150_PROGRAMME_WIDE_INTEGRATION_MAP_2026-11-27.md)** — connects the 27-chapter monograph, the theorem corpus and the companion 51-step formal suite to the Q6–golden cut-and-project–rhombic triacontahedron–IVM–Lorentzian spin geometric spine. Programme membership and topic links are explicitly distinguished from proof dependencies; all theorem IDs and epistemic statuses are preserved.
+
+## Main indexes
 - **[In2Infinity technical contact brief](collaborations/in2infinity/01-initial-technical-contact-brief-2026-11-26.md)** — prepares the independently reconstructed five-solid coordinate/radius results, the unresolved multi-face IN convention, targeted questions for Colin Power and Dr Heike Bielek, and a carefully separated optional (S^3/2I) / Stergios Pellis discussion.
 - **[T155-RC→SC — Rhombic cuboctahedron to snub cube](theorems/T155-rhombic-cuboctahedron-snub-cube-transition.md)** — proves exact V/E/F and face-size compatibility of the reported twelve-square split; treats the 22.5° hinge motion, vertex correspondence and chirality as open. [incidence-count test](tests/test_t155_rhombic_cuboctahedron_snub_cube.py).
 - **[Sangaku Geometry — circle-construction classification](research/sangaku_geometry/README.md)** — independent workstream classifying marked circle configurations by incidence/tangency structure, Euclidean symmetry and normalized coordinate/distance fields. Includes the proved quadratic-tower theorem for intersection constructions, exact Vesica Piscis and pentagon records, a clearly conditional tangency model, SymPy checks and a source-verification protocol.
