@@ -107,7 +107,8 @@ def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> d
         "rows": len(rows),
         "columns": list(fields),
         "time": {
-            "raw_unit": "UNSPECIFIED",\n            "scale_to_seconds": time_scale_to_seconds,
+            "raw_unit": "UNSPECIFIED",
+            "scale_to_seconds": time_scale_to_seconds,
             "start": t[0],
             "end": t[-1],
             "median_step": dt_med,
