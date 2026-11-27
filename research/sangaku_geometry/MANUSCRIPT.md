@@ -92,6 +92,21 @@ For x/r=1/3, this gives r1/r=4/9 and r3/r=r4/r=1/9.
 
 This is an exact algebraic identity for the displayed model. It is not yet certified as a reconstruction of a specific 1837 Sangaku: the original tablet/diagram, circle labels, and each internal/external tangency condition must be checked before historical attribution.
 
+## 7. Case study D — Hirano's Sangaku pentagon construction
+
+Sparavigna and Baldi's 2016 digital Sangaku article transcribes a construction attributed to Yosifusa Hirano: perpendicular diameters AB and CD of a unit circle; circles with diameters AO and BO; the intersection T of line CQ with the circle centred at Q; and the circle centred at C with radius CT. Its intersections E,F with the unit circle are adjacent vertices of a regular pentagon.
+
+In the normalized frame O=(0,0), A=(-1,0), B=(1,0), C=(0,1), D=(0,-1), P=(-1/2,0), Q=(1/2,0), exact calculation gives
+\[
+CT=(\sqrt5-1)/2,\quad
+E,F=\left(\pm\frac{\sqrt{10-2\sqrt5}}4,\frac{1+\sqrt5}{4}\right).
+\]
+Consequently
+\[
+|EF|^2=(5-\sqrt5)/2,\qquad E\cdot F=(\sqrt5-1)/4=\cos(72^\circ).
+\]
+Thus the source construction is verified as an exact Euclidean pentagon construction. The coordinate implementation and regression test are in \`hirano_sangaku.py\` and \`tests/test_hirano_sangaku.py\`; the source transcription and its visual-inspection limitation are recorded in SGC-004 and SOURCE_REGISTER.md. The paper's pixel-based digital rendering is not used as the mathematical proof.
+
 ## 7. Classification questions
 1. Which finite list of combinatorial, metric and field invariants classifies marked circle configurations up to congruence or similarity?
 2. When does a geometric symmetry group constrain the coordinate-field or distance-field Galois action?
