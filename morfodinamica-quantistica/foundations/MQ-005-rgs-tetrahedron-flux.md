@@ -107,7 +107,7 @@ The selected carrier indices are binary Q6 labels. Their pairwise Hamming distan
 
 The induced Q6 graph on these four vertices has only two of the six tetrahedral edges. It is therefore **not** a \(K_4\), and this geometric tetrahedron is not a Q6 tetrahedral subcomplex. Its four triangular faces are geometric faces of the selected Euclidean tetrahedron, not Q6 2-cells.
 
-This is not a defect in the geometric closure calculation. It is a precise obstruction to identifying this selected four-point fixture directly with a Q6 tetrahedral cell. Any RGS–QLG incidence map must use a different verified cell selection or an explicitly constructed refinement/dual complex.
+This is not a defect in the geometric closure calculation. It is a precise obstruction to identifying this selected four-point fixture directly with a Q6 tetrahedral cell. More strongly, the entire Q6 graph is bipartite: the parity function on six-bit labels changes across every Q6 edge. Hence Q6 contains no odd cycle and in particular no triangle or (K_4). No alternative choice of four Q6 vertices can make a tetrahedron whose six edges are Q6 edges. An RGS–QLG tetrahedral incidence map therefore requires a distinct, explicitly constructed 3-complex/refinement/dual complex and a separately verified map from Q6 data; it cannot identify tetrahedral edges with the Q6 1-skeleton.
 
 ## 6. Conditional quantum interpretation
 
