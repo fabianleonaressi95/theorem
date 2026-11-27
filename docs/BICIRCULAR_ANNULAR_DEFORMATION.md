@@ -17,11 +17,16 @@ The geometric parameters alone are not enough to reconstruct an arbitrary deform
 
 ## Numerical replay
 
-The five manufactured checks have a recorded numerical replay in [`reports/bicircular_annular_audit.json`](../reports/bicircular_annular_audit.json). This replay is not a GitHub Actions/pytest certification and is not physical validation.
+The five manufactured checks have a recorded numerical replay in [`reports/bicircular_annular_audit.json`](../reports/bicircular_annular_audit.json). The committed JSON is an archive of numerical values, not by itself a CI/pytest certification and not a physical validation.
 
-## Run
+The focused GitHub Actions workflow regenerates the audit, runs the six geometry tests plus the archive-versus-replay consistency test, and uploads the generated JSON as the `t099-bicircular-annular-audit` artifact. A passing workflow verifies only these manufactured numerical checks.
+
+## Run locally
+
+Install the project and its test extra, then run:
 
 ```bash
+python -m pip install -e ".[test]"
 python scripts/run_bicircular_annular_audit.py --out artifacts/bicircular_annular_audit.json
 python -m pytest -q tests/test_bicircular_annular_geometry.py
 ```
@@ -34,3 +39,10 @@ python -m pytest -q tests/test_bicircular_annular_geometry.py
 4. Do not identify a nonzero residual with a dislocation/disclination without a loop/connection definition.
 5. Treat the Frank/Burgers runner as a manufactured circulation test, not as an elasticity solution.
 6. For Möbius or other non-orientable domains, use local frames and explicit transition maps; do not impose a global orientation.
+
+## Verification boundary
+
+- **Automated numerical replay:** established only when the focused workflow passes on the relevant commit.
+- **Physical validation:** not performed.
+- **Continuum reconstruction:** open.
+- **Theorem status:** this workflow does not promote T099 to a physical or continuum theorem.

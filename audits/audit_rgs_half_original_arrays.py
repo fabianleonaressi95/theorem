@@ -6,7 +6,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 names = ("K0.npy", "P_G.npy", "Z_A.npy", "Z_S.npy")
-A = {n: np.load(ROOT / n, allow_pickle=False) for n in names}
+A = {n: np.load(ROOT / "artifacts" / n, allow_pickle=False) for n in names}
 for n, x in A.items():
     if x.shape != (188, 188) or x.dtype != np.float64:
         raise ValueError(f"{n}: expected float64 (188,188), got {x.dtype} {x.shape}")

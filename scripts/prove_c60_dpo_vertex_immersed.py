@@ -25,7 +25,7 @@ OUT_DIR = Path(__file__).resolve().parent / "audits"
 OUT_DIR.mkdir(exist_ok=True)
 STAMP = date.today().isoformat()
 
-src = Path(__file__).resolve().parent / "build_truncated_icosahedron_transports.py"
+src = Path(__file__).resolve().parent / "c60_truncated_icosahedron_transports.py"
 exec(src.read_text().split("# ---------- 7. Verifiche")[0])
 
 def angle_of(M):

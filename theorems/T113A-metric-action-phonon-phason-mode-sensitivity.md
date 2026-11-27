@@ -74,7 +74,11 @@ M_{g,\alpha}^{\rm candidate}
 =-\frac{d\log c_\alpha}{d\log\rho_m}
 \frac{E_\alpha}{c_\alpha^2}
 \]
-is only a candidate diagnostic for coupled quasicrystals. It becomes a mass formula only if the full metric variation of the medium-plus-wave system reduces to it. Anisotropic stress, mode mixing, phason dynamics, and nonlinear medium response may contribute additional terms. The Esposito–Krichevsky–Nicolis fluid result and isotropic-solid longitudinal/transverse results are mandatory controls.
+is only a candidate diagnostic for coupled quasicrystals. It becomes a mass formula only if the full metric variation of the medium-plus-wave system reduces to it. Anisotropic stress, mode mixing, phason dynamics, and nonlinear medium response may contribute additional terms. The Esposito–Krichevsky–Nicolis fluid result and isotropic-solid longitudinal/transverse results are mandatory controls. In particular, the isotropic-solid EKN control is
+\[
+M_s=-\frac{d\log c_s}{d\log\rho_m}\frac{E_s}{c_L^2},\qquad s=L,T,
+\]
+with the **longitudinal** Green-function scale \(c_L^2\) in the denominator for both branches; it is not \(E_T/c_T^2\) for the transverse packet. See [T113-I](T113I-ekn-solid-nonlinear-tail-and-mass.md).
 
 ## A.4 Falsifiable sequence
 
