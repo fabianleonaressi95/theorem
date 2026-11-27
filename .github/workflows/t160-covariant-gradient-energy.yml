@@ -8,6 +8,12 @@ on:
       - "tests/test_t160_covariant_gradient_energy.py"
       - "theorems/T160-covariant-gradient-galerkin.md"
       - ".github/workflows/t160-covariant-gradient-energy.yml"
+  pull_request:
+    paths:
+      - "scripts/audit_t160_covariant_gradient_energy.py"
+      - "tests/test_t160_covariant_gradient_energy.py"
+      - "theorems/T160-covariant-gradient-galerkin.md"
+      - ".github/workflows/t160-covariant-gradient-energy.yml"
   workflow_dispatch:
 
 permissions:
