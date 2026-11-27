@@ -51,7 +51,7 @@ def _turning_points(values: list[float]) -> list[dict]:
     return extrema
 
 
-def audit_csv(path: str | Path, time_unit: str | None = None) -> dict:
+def audit_csv(path: str | Path, time_scale_to_seconds: float | None = None) -> dict:
     path = Path(path)
     raw = path.read_bytes()
     md5 = hashlib.md5(raw).hexdigest()
@@ -105,7 +105,7 @@ def audit_csv(path: str | Path, time_unit: str | None = None) -> dict:
         "rows": len(rows),
         "columns": list(fields),
         "time": {
-            "unit": time_unit or "UNSPECIFIED",
+            "raw_unit": "UNSPECIFIED",\n            "scale_to_seconds": time_scale_to_seconds,
             "start": t[0],
             "end": t[-1],
             "median_step": dt_med,
@@ -151,7 +151,7 @@ def main() -> None:
                         help="confirm Time is in seconds; omitted means unknown")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    payload = json.dumps(audit_csv(args.csv, args.time_unit), indent=2) + "\n"
+    payload = json.dumps(audit_csv(args.csv, args.time_scale_to_seconds), indent=2) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(payload, encoding="utf-8")
