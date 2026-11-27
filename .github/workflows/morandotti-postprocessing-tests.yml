@@ -10,8 +10,11 @@ on:
       - 'tests/test_morandotti_independent_remeshing.py'
       - 'tests/test_morandotti_resolution_decomposition.py'
       - 'tests/test_morandotti_mesh_realization_diagnostics.py'
+      - 'tests/test_morandotti_loglog_convergence_audit.py'
       - 'scripts/morandotti_resolution_decomposition.py'
       - 'scripts/morandotti_mesh_realization_diagnostics.py'
+      - 'scripts/morandotti_loglog_convergence_audit.py'
+      - 'docs/rgs_defect_benchmark/MORANDOTTI_TRACTION_CONVERGENCE_POSTAUDIT.md'
       - '.github/workflows/morandotti-postprocessing-tests.yml'
 
 permissions:
@@ -35,3 +38,4 @@ jobs:
           tests/test_morandotti_independent_remeshing.py
           tests/test_morandotti_resolution_decomposition.py
           tests/test_morandotti_mesh_realization_diagnostics.py
+          tests/test_morandotti_loglog_convergence_audit.py

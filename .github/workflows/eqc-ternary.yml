@@ -11,6 +11,10 @@ on:
       - "theorems/EQC-3-hexagram-geometry-gates.md"
       - "tests/test_eqc_language.py"
       - "theorems/EQC-1-ternary-hexagram-qutrit-register.md"
+      - "audits/morphodynamics/eqc_rgs_q6_gates.py"
+      - "audits/morphodynamics/q6_mqm_symmetry.py"
+      - "tests/test_eqc_rgs_q6_gates.py"
+      - "theorems/EQC-RGS-Q6-gate-realization.md"
       - ".github/workflows/eqc-ternary.yml"
 
 jobs:
@@ -27,3 +31,4 @@ jobs:
           python -m unittest discover -s tests -p "test_eqc_ternary.py" -v
           python -m unittest discover -s tests -p "test_eqc_language.py" -v
           python -m unittest discover -s tests -p "test_eqc_automorphism.py" -v
+          python -m unittest discover -s tests -p "test_eqc_rgs_q6_gates.py" -v

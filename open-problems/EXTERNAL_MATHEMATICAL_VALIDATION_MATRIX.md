@@ -80,3 +80,10 @@ The mathematical specifications are now present in THEOREM:
 - [Five-torus Wilson marginal](../docs/Q6_D5_WILSON_FIVE_TORUS_MARGINAL.md)
 
 The exact quotient and convergence arguments are not the same as a certified numerical evaluation of the complete fibre sum. The implementation and tests still need to be ported into this repository with all dependencies resolved. The next acceptance gate is: (i) exact reconstruction of the cycle matrix and rational top-mode map; (ii) Smith-certified saturated kernel basis and unimodular splitting; (iii) independently checked tail enclosure; (iv) a reproducible finite enumeration plus rigorous remainder; (v) explicit comparison of the resulting effective quadratic form with the Poisson-summed theta representation. Do not claim a Hua/Bergman limit from this finite-coupling work.
+
+
+## Pellis / Golden Spheres Resonance — separate open-problem register
+
+The Pellis correspondence has a dedicated, prioritized register: [PELLIS_GSR_OPEN_PROBLEMS.md](PELLIS_GSR_OPEN_PROBLEMS.md). It contains PEL-01–PEL-11 and acceptance criteria for the independent derivation of the Pellis coefficients, the Golden Resonance Operator and state-selection principle, the scale \(s=2\ln\varphi\), the \(2I\) invariant-theory bridge, the Anti-Twin/two-sheet operator, the three-mode \(SO(3)\) question, and the discrete-to-continuum limit.
+
+These questions are not external validations and are not promoted to theorem status. Relevant existing finite results (T138, T150, T151 and the Pellis Fibonacci/Q6 note) are cross-referenced in that register. The priority order begins with PEL-05 because spectral weights cannot be predictions until the state is selected independently of the target value.

@@ -1,10 +1,23 @@
 name: Hysteresis dataset audit
 on:
   push:
-    branches: [main]
+    branches: [main, 'feat/zenodo-hysteresis-validation']
     paths:
       - 'Hysteresis_datasets.xlsx'
       - 'scripts/audit_hysteresis_dataset.py'
+      - 'scripts/audit_ja_local_identifiability.py'
+      - 'scripts/audit_hysteresis_antipodal_symmetry.py'
+      - 'tests/test_ja_local_identifiability.py'
+      - 'tests/test_hysteresis_antipodal_symmetry.py'
+      - '.github/workflows/hysteresis-audit.yml'
+  pull_request:
+    paths:
+      - 'Hysteresis_datasets.xlsx'
+      - 'scripts/audit_hysteresis_dataset.py'
+      - 'scripts/audit_ja_local_identifiability.py'
+      - 'scripts/audit_hysteresis_antipodal_symmetry.py'
+      - 'tests/test_ja_local_identifiability.py'
+      - 'tests/test_hysteresis_antipodal_symmetry.py'
       - '.github/workflows/hysteresis-audit.yml'
   workflow_dispatch:
 permissions:
@@ -20,11 +33,24 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install analysis dependencies
-        run: python -m pip install --upgrade numpy pandas scipy openpyxl
+        run: python -m pip install --upgrade numpy pandas scipy openpyxl pytest
       - name: Verify workbook and run audit
         run: |
           test -s Hysteresis_datasets.xlsx
           python scripts/audit_hysteresis_dataset.py Hysteresis_datasets.xlsx --out hysteresis_audit
+      - name: Run local JA identifiability diagnostic
+        run: |
+          python scripts/audit_ja_local_identifiability.py \
+            hysteresis_audit/hysteresis_analysis_report.json \
+            hysteresis_audit/reconstructed_BH_loops.csv \
+            --out hysteresis_audit/ja_local_identifiability.json
+      - name: Run antipodal loop-symmetry diagnostic
+        run: |
+          python scripts/audit_hysteresis_antipodal_symmetry.py \
+            hysteresis_audit/reconstructed_BH_loops.csv \
+            --out hysteresis_audit/antipodal_symmetry.json
+      - name: Run diagnostic regression tests
+        run: pytest -q tests/test_ja_local_identifiability.py tests/test_hysteresis_antipodal_symmetry.py
       - name: Upload reproducible audit
         uses: actions/upload-artifact@v4
         with:

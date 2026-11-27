@@ -1,0 +1,44 @@
+{
+  "classification": "NUMERICAL_VERIFICATION",
+  "complex": {"type":"full_nonperiodic_6_cube","vertices":64,"edges":192,"plaquettes":240,"three_cells":160,"four_cells":60},
+  "branch_charge": {
+    "histogram": {"-2":5,"-1":9,"0":137,"1":9},
+    "nonzero_cells":23,
+    "total_integer_charge":-10,
+    "components_by_shared_square_face": [
+      {"size":22,"charge_sum":-8,"charge_histogram":{"-2":4,"-1":9,"1":9},
+       "cells":[
+        {"base_vertex":0,"axes":[0,1,2],"charge":-2},
+        {"base_vertex":0,"axes":[0,2,4],"charge":1},
+        {"base_vertex":0,"axes":[1,2,3],"charge":-1},
+        {"base_vertex":1,"axes":[1,2,3],"charge":1},
+        {"base_vertex":2,"axes":[0,2,4],"charge":-1},
+        {"base_vertex":8,"axes":[0,1,4],"charge":-1},
+        {"base_vertex":8,"axes":[1,2,4],"charge":1},
+        {"base_vertex":8,"axes":[1,2,5],"charge":1},
+        {"base_vertex":9,"axes":[1,2,4],"charge":-1},
+        {"base_vertex":9,"axes":[1,2,5],"charge":-1},
+        {"base_vertex":12,"axes":[0,1,4],"charge":1},
+        {"base_vertex":16,"axes":[0,1,3],"charge":-1},
+        {"base_vertex":16,"axes":[0,2,3],"charge":-1},
+        {"base_vertex":16,"axes":[0,2,5],"charge":-1},
+        {"base_vertex":18,"axes":[0,2,3],"charge":1},
+        {"base_vertex":18,"axes":[0,2,5],"charge":1},
+        {"base_vertex":20,"axes":[0,1,3],"charge":1},
+        {"base_vertex":24,"axes":[0,1,5],"charge":1},
+        {"base_vertex":28,"axes":[0,1,5],"charge":-1},
+        {"base_vertex":40,"axes":[0,1,2],"charge":-2},
+        {"base_vertex":48,"axes":[0,1,2],"charge":-2},
+        {"base_vertex":56,"axes":[0,1,2],"charge":-2}
+       ]},
+      {"size":1,"charge_sum":-2,"charge_histogram":{"-2":1},
+       "cells":[{"base_vertex":32,"axes":[0,1,2],"charge":-2}]}
+    ]
+  },
+  "closure":{"max_abs_integer_d_m_on_four_cells":0,"nonzero_four_cell_boundaries":0,"status":"PASS"},
+  "cohomology":{"space":"integral cellular cochains of I^6","H3_Z":0,
+    "reason":"I^6 is contractible; integral cohomology vanishes in positive degree.",
+    "consequence":"Every closed integral 3-cochain m is exact: m=d(beta) for an integral 2-cochain beta.",
+    "interpretation":"No absolute H^3 obstruction on the nonperiodic cube; no physical monopole or continuum magnetic charge follows."},
+  "limits":["Finite cubical complex only; not a periodic 6-torus.","Branch defects are not established physical monopoles.","No continuum limit or physical source interpretation is established."]
+}

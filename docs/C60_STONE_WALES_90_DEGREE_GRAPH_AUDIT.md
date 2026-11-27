@@ -16,6 +16,11 @@ The audit works in the **dual triangulation**. Each vertex of the dual is a pent
 (H_1,H_2)\longmapsto(P_1,P_2).
 \]
 This is the dual description of the pyracylene Stone–Wales move. Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. The direct-graph operation is then recorded as its two removed and two added C–C bonds.
+For a central edge \(B-C\) shared by a pentagon and a hexagon, enumerate the four-site Stone-Wales switch
+\[
+AB,CD\mapsto AC,BD,
+\]
+retaining \(BC\). Keep only resulting graphs that are planar, trivalent, have 60 vertices and 90 edges, and retain exactly 12 pentagons and 20 hexagons. Distinct post-graphs are deduplicated.
 
 ## Chain-map construction
 
@@ -46,6 +51,7 @@ The workflow uploads JSON/Markdown reports and graph arrays. Inspect the artifac
 | C60 starting topology is (60,90,32;12,20) | Existing repository audit |
 | SW switch preserves vertex/edge counts and degree 3 | Exact property of specified switch |
 | At least one admissible planar Stone–Wales 2-switch exists | Pending run |
+| An admissible planar SW_5|6 post-graph exists | Pending run |
 | Both chain-map identities hold for selected maps | Pending run |
 | MMFF94s nuclear-coordinate covariance changes | Pending run |
 | Electronic density anisotropy changes and matches vesica tensor | Open; not computed |
@@ -112,3 +118,4 @@ Thus the 30 labelled operations are one symmetry orbit and produce one unlabelle
 ### Chemical identification of the local move
 
 The dual flip has two degree-6 endpoints (hexagons) and two opposite degree-5 vertices (pentagons). In the direct fullerene surface, this is the pyracylene (mathrm{SW}_{5|6}) rearrangement, with the local four-ring pattern (5/6/6/5 \rightarrow 6/5/5/6). It is not the graphenic (mathrm{SW}_{6|6}) operation, whose initial four-ring patch consists of four hexagons and produces a (5/7/7/5) defect. The distinction follows the established fullerene/graphene terminology in Ori et al. (2011) and the dual-edge description in Sabirov & Ori (2020).
+The 30 labelled flips are consistent with the classical C60 Stone–Wales patch count reported in the C60 isomer literature; labelled flips should not be confused with 30 non-isomorphic chemical isomers.

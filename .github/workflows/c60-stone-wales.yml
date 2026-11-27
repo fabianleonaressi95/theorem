@@ -14,6 +14,7 @@ on:
       - "scripts/classify_c60_sw_orbits.py"
       - "tests/test_c60_stone_wales.py"
       - "tests/test_c60_sw_orbits.py"
+      - "tests/test_c60_stone_wales.py"
       - "docs/C60_STONE_WALES_90_DEGREE_GRAPH_AUDIT.md"
       - ".github/workflows/c60-stone-wales.yml"
   workflow_dispatch:
@@ -29,6 +30,7 @@ jobs:
       - run: python scripts/audit_c60_stone_wales.py --out-dir c60_stone_wales_audit --relax
       - run: python scripts/classify_c60_sw_orbits.py --out c60_stone_wales_audit/orbit_classification.json
       - run: pytest -q tests/test_c60_stone_wales.py tests/test_c60_sw_orbits.py
+      - run: pytest -q tests/test_c60_stone_wales.py
       - uses: actions/upload-artifact@v4
         with:
           name: c60-stone-wales-90-degree-audit

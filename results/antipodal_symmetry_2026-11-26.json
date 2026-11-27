@@ -1,0 +1,14 @@
+{
+  "definition": "RMS of J_desc(H)+J_asc(-H) over the common symmetric field interval; branches are sorted by H and duplicate H values averaged before interpolation.",
+  "interpretation": "Candidate central-inversion/Anti-Twin diagnostic only. No pass/fail threshold is justified without repeated loops and instrument uncertainty.",
+  "source_artifact": "hysteresis-audit, GitHub Actions run 42653094685",
+  "sheets": {
+    "CIPSQ": {"status":"COMPUTED","rms_mT":1.7038671,"mean_mT":0.9327056,"J_peak_to_peak_mT":493.2,"nrmse_percent":0.3454718},
+    "CIPHS": {"status":"COMPUTED","rms_mT":3.6007538,"mean_mT":2.4550374,"J_peak_to_peak_mT":506.79,"nrmse_percent":0.7105021},
+    "Fe85Si15": {"status":"COMPUTED","rms_mT":10.7154844,"mean_mT":-10.4377519,"J_peak_to_peak_mT":272.87,"nrmse_percent":3.9269558},
+    "NdFeB": {"status":"COMPUTED","rms_mT":28.3281670,"mean_mT":20.0768401,"J_peak_to_peak_mT":296.49,"nrmse_percent":9.5545101},
+    "SF-D360": {"status":"COMPUTED","rms_mT":6.4878891,"mean_mT":-5.7050333,"J_peak_to_peak_mT":154.84,"nrmse_percent":4.1900601},
+    "Fe3O4": {"status":"COMPUTED","rms_mT":2.67205696,"mean_mT":-0.4042217,"J_peak_to_peak_mT":180.95,"nrmse_percent":1.4766825},
+    "Fe2O3": {"status":"COMPUTED","rms_mT":5.9729154,"mean_mT":5.9039375,"J_peak_to_peak_mT":8.83,"nrmse_percent":67.6434363,"caveat":"Relative defect is amplified by the very small J peak-to-peak signal; inspect absolute mT residual."}
+  }
+}

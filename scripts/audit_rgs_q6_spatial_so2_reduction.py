@@ -85,10 +85,11 @@ def audit(path: Path) -> dict:
                 j = g ^ (1 << a)
                 k = j ^ (1 << b)
                 l = g ^ (1 << b)
-                H = (edge_map[(i, j)][0] @ edge_map[(j, k)][0]
-                     @ edge_map[(k, l)][0] @ edge_map[(l, i)][0])
-                Hu = (edge_map[(i, j)][1] @ edge_map[(j, k)][1]
-                      @ edge_map[(k, l)][1] @ edge_map[(l, i)][1])
+                # Column-vector transport: the next edge acts on the left.
+                H = (edge_map[(l, i)][0] @ edge_map[(k, l)][0]
+                     @ edge_map[(j, k)][0] @ edge_map[(i, j)][0])
+                Hu = (edge_map[(l, i)][1] @ edge_map[(k, l)][1]
+                      @ edge_map[(j, k)][1] @ edge_map[(i, j)][1])
                 P = np.outer(n[i], n[i])
                 holonomy_so3.append(fro(H.T @ H - I3))
                 holonomy_fix.append(float(np.linalg.norm(H @ n[i] - n[i])))

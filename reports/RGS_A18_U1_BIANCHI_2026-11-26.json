@@ -1,0 +1,42 @@
+{
+  "title": "RGS/Q6 discrete U(1) Bianchi audit",
+  "status": "PASS",
+  "classification": "NUMERICAL_VERIFICATION_FINITE_CUBICAL_COMPLEX",
+  "conventions": {
+    "face_orientation": "positive (a,b): +a,+b,-a,-b",
+    "cube_boundary": "dF = Δ_a F_bc - Δ_b F_ac + Δ_c F_ab",
+    "cube_integer_charge": "m = oriented sum of principal plaquette angles divided by 2π",
+    "warning": "Nonzero integer charge is a compact-angle/branch defect candidate, not by itself a physical monopole."
+  },
+  "residuals": {
+    "cube_count": 160,
+    "four_cell_count": 60,
+    "max_abs_wrapped_bianchi_residual_rad": 3.0628549591415595e-15,
+    "max_abs_quantization_error_rad": 3.552713678800501e-15,
+    "max_abs_four_cell_integer_boundary": 0,
+    "nonzero_four_cell_boundaries": 0,
+    "cube_charge_histogram": {
+      "0": 137,
+      "1": 9,
+      "2": 0,
+      "-2": 5,
+      "-1": 9
+    },
+    "nonzero_cube_charges": 23,
+    "oriented_angle_sum_min_rad": -12.566370614359176,
+    "oriented_angle_sum_max_rad": 6.283185307179587,
+    "oriented_angle_sum_rms_rad": 3.062045750970239,
+    "total_integer_cube_charge": -10
+  },
+  "checks": {
+    "all_160_cube_bianchi_identities_mod_2pi": true,
+    "cube_defects_quantized_in_2pi": true,
+    "integer_defect_current_closed_on_all_60_four_cells": true
+  },
+  "interpretation": [
+    "Compact U(1) Bianchi identity holds on every 3-cube modulo 2π.",
+    "Principal plaquette angles produce nonzero integer cube charges on some cubes because of the principal branch.",
+    "The integer charges form a closed integer cochain: their oriented boundary vanishes on every 4-cube.",
+    "No continuum magnetic monopole, continuum Bianchi equation, or physical source is established."
+  ]
+}

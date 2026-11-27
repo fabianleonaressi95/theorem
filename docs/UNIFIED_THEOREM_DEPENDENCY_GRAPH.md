@@ -1,6 +1,7 @@
 # Unified theorem dependency graph — cross-repository arrows
 
-This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 239 Markdown theorem records from `theorem`, all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 54 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
+This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 248 Markdown theorem records from `theorem`, all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 60 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
+This file records **directed, typed edges** between specific mathematical records in the two repositories. The machine-readable registry contains all 254 Markdown theorem records from `theorem`, all 14 entries in the companion catalogue, 8 thematic hubs, application dossiers and companion-document nodes. Each theorem has a provisional filename-based thematic-index arrow; this is explicitly not a proof dependency. The 60 direct crosswalk arrows are separately typed and caveated. An arrow is never an unqualified implication: its relation type and evidential force are stated explicitly. Original theorem identifiers and source files remain canonical.
 
 ## 1. Graph
 
@@ -142,11 +143,31 @@ The quaternion/QLG-side copy of this graph is maintained at [the companion repos
 
 ## 5. Full-coverage inventory and interpretation
 
-The machine-readable edge registry now contains **292 nodes and 323 directed edges**:
+The machine-readable edge registry now contains **309 nodes and 345 directed edges**:
 
-- 239 theorem-record nodes from `theorem/theorems/`;
+- 255 theorem-record nodes from `theorem/theorems/`;
 - 14 catalogue-entry nodes from the companion `results/catalogue/laws_theorems_registry.json`;
 - 8 thematic hubs, plus application-dossier and companion-document nodes;
-- 239 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 54 direct typed crosswalk arrows.
+- 255 provisional theorem-to-hub classification arrows, 30 hub-to-companion links, and 60 direct typed crosswalk arrows.
 
-The 239 classification arrows ensure that every theorem file in the 24-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
+The 255 classification arrows ensure that every theorem record in the 26-November-2026 primary-repository snapshot is present in the common graph, but they are **indexing arrows inferred from filenames**, not mathematical proof dependencies. Only direct arrows whose relation and caveat are explicitly recorded may be treated as reviewed crosswalks. The remaining theorem bodies must be audited to replace provisional topic edges with precise dependency, implementation, comparison or independent-root classifications.
+
+
+## T152 — McKay–ADE and crepant Calabi–Yau orbifolds (26 November 2026)
+
+- [T152](../theorems/T152-mckay-ade-calabi-yau-crepant-resolutions.md) is the new theorem record for the binary McKay correspondence and dimension-dependent crepant-resolution theory.
+- **Representation input:** T119 supplies the exact \(2I\) quaternionic group and selected representations; T121 supplies the ordinary \(A_5\) action. These are distinct central-character sectors.
+- **Comparison links:** T144's invariant-count/Molien data and A1's \(S^3/2I\) scalar spectrum are representation/spectral comparisons, not proofs of the geometric resolution.
+- **Geometric comparison:** T146 supplies the dodecahedral dual and Q6 chain map; its recorded spectral obstruction is retained and is not identified with the \(E_8\) Cartan/intersection form.
+- **Open obligation:** T027's Rumin complex is not identified with the derived McKay equivalence; such a link requires a functorial construction and an operator-intertwining proof.
+- Surface result: \(\mathbb C^2/2I\) is the \(E_8\) Kleinian singularity and has a unique minimal crepant resolution. Threefold result: \(G\)-Hilb/BKR applies under its stated hypotheses. For \(n>3\), no universal existence assertion is made.
+
+The machine-readable graph includes T152 and backfills the previously omitted existing records T144, T145, and T147–T151, together with the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, T153, and T154. The two T149 records are distinct and remain separate nodes. The T027 open-obligation edge uses its canonical node ID (`THM:T027-mckay-molien-rumin-bridge`), and T144 has an explicit `comparison-only` edge to T152. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. These are index/crosswalk repairs, not new mathematical implications. The resulting inventory is 255 theorem records, 309 nodes, and 345 directed edges.
+
+
+## T154 — RGS spatial coframe and labelled constraint splitting
+
+- [T154](../theorems/T154-rgs-spatial-coframe-constraint-splitting.md) proves the finite algebraic \(3+1\) **constraint-normal** splitting for the centred 64-site seed: three uniform Cartesian translation covectors and one fixed-radius covector, with \(JJ^T=\operatorname{diag}(64,64,64,240)\).
+- The archived edge feature \((\Delta X,\Delta r)\) decomposes under \(SO(3)\) as the standard spatial vector representation plus a radial scalar singlet. The archived \(SU(2)\) links lift the spatial \(SO(3)\) transport; the radial component is not time.
+- A13/A14 numerical reports verify the tangent/normal projectors, edge-list identity, and \(SU(2)\to SO(3)\) convention. The discrete covariant-torsion diagnostic is kept separate from continuum Cartan/TEGR claims; the induced geometric Gram operator is not identified with \(K_0\).
+- The theorem record classifies the exact finite algebra as proved, the archived residuals as numerical verification, and the continuum coframe/connection identification as open.

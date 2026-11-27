@@ -1,17 +1,6 @@
 name: Morandotti two-core P3 C0-IPDG audit
 
 on:
-  push:
-    branches:
-      - main
-      - 'work/rgs-defect-benchmark-torino'
-      - 'work/morandotti-cell-reconstruction'
-      - 'fix/morandotti-actions-triggers'
-    paths:
-      - 'models/morandotti_cell_reconstruction.py'
-      - 'scripts/rgs_morandotti_two_core_c0_ipdg.py'
-      - 'tests/test_morandotti_cell_reconstruction.py'
-      - '.github/workflows/morandotti-two-core-c0-ipdg.yml'
   pull_request:
     branches:
       - main

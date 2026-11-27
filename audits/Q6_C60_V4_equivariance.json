@@ -1,0 +1,99 @@
+{
+  "classification": "numerically verified finite-group representation equivalence on V4; no canonical geometric face-to-state map claimed",
+  "date": "2026-11-26",
+  "workflow_run": "https://github.com/fabianleonaressi95/theorem/actions/runs/45868725620",
+  "workflow_artifact": "q6-c60-v4-equivariance",
+  "group": {
+    "Q6_coordinate_A4_order": 12,
+    "Q6_V4_order": 4,
+    "C60_icosahedral_rotation_group_order": 60,
+    "C60_A4_order": 12,
+    "C60_V4_order": 4,
+    "isomorphism_convention": "identity maps to identity; three nonidentity elements paired in lexicographic rounded-matrix order in their respective Cartesian frames"
+  },
+  "representations": {
+    "Q6_V4_state_characters": [
+      64,
+      0,
+      0,
+      0
+    ],
+    "C60_V4_face_fibre_characters": [
+      64,
+      0,
+      0,
+      0
+    ],
+    "characters_equal": true,
+    "irreducible_real_multiplicities": {
+      "-1,-1": {
+        "Q6": 16,
+        "C60": 16
+      },
+      "-1,+1": {
+        "Q6": 16,
+        "C60": 16
+      },
+      "+1,-1": {
+        "Q6": 16,
+        "C60": 16
+      },
+      "+1,+1": {
+        "Q6": 16,
+        "C60": 16
+      }
+    },
+    "explicit_orthogonal_intertwiner": {
+      "shape": [
+        64,
+        64
+      ],
+      "orthogonality_residual": 8.036806395220963e-15,
+      "per_element_intertwining_residuals": [
+        1.771012785969577e-15,
+        6.6259296777465715e-15,
+        6.307746747285595e-15,
+        5.989278139807425e-15
+      ],
+      "max_intertwining_residual": 6.6259296777465715e-15,
+      "status": "verified"
+    }
+  },
+  "Q6_graph": {
+    "adjacency_residuals": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "all_V4_elements_preserve_adjacency": true
+  },
+  "tangent_188D": {
+    "projector_invariance_max_residual": 1.181554198305488e-14,
+    "induced_orthogonality_max_residual": 3.493375127584563e-14,
+    "operator_covariance": {
+      "K0": {
+        "preserved_count": 1,
+        "group_order": 4,
+        "max_relative_residual": 0.9897387721162312
+      },
+      "R_geo_tangent": {
+        "preserved_count": 4,
+        "group_order": 4,
+        "max_relative_residual": 2.6422629774789397e-15
+      },
+      "P_G": {
+        "preserved_count": 1,
+        "group_order": 4,
+        "max_relative_residual": 1.1530236120682376
+      },
+      "T_transport": {
+        "preserved_count": 1,
+        "group_order": 4,
+        "max_relative_residual": 1.3618898127953938
+      }
+    }
+  },
+  "conclusion": "Q6 and the actual C60 face-tangent bundle carry equivalent 64D real representations after restriction to V4, with an explicit orthogonal intertwiner and exact Q6 adjacency preservation. The intertwiner is not a canonical geometric face-to-state assignment. Of the archived 188D operators, only R_geo_tangent is V4-covariant. Spectral comparison of K0, P_G, or T_transport with a C60 operator remains unauthorized.",
+  "spectral_comparison_authorized": false
+}
