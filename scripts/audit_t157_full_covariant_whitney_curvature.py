@@ -209,8 +209,16 @@ def run_case(t, regular_control):
     t155_residuals = []
     for i, j in face_edges:
         ni, nj = x[i] / np.linalg.norm(x[i]), x[j] / np.linalg.norm(x[j])
-        T_old = frames[20 + j].T @ minimal_rotation(ni, nj) @ frames[20 + i]
-        t155_residuals.append(np.linalg.norm(T_old - T_old.T.T))
+        def t155_frame(normal):
+            e1 = AXIS - (AXIS @ normal) * normal
+            e1 /= np.linalg.norm(e1)
+            e2 = np.cross(normal, e1)
+            e2 /= np.linalg.norm(e2)
+            return np.column_stack((e1, e2))
+        F_i, F_j = t155_frame(ni), t155_frame(nj)
+        T_centroid = frames[20 + j].T @ minimal_rotation(ni, nj) @ frames[20 + i]
+        T_t155 = F_j.T @ minimal_rotation(ni, nj) @ F_i
+        t155_residuals.append(np.linalg.norm(T_centroid - T_t155))
 
     # Antipodal covariance in real tangent-frame coordinates.
     facet_index = {face: i for i, face in enumerate(facets)}
