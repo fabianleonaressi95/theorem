@@ -9,7 +9,7 @@ The archive contains the following executable source records:
 
 - `A13_RGS_PSU_QLG_TWINE_ANTITWIN.py`: integrated QLG audit. It loads `RGS_PSU_all_matrices.npz`, the fibre-connection archive, `sea_operators.npz`, and the Giacosa twin/anti-twin bridge.
 - `A14_RGS_PSU_QLG_JACOBIAN.py`: independently reconstructs the labelled (4\times192) constraint Jacobian from the (64\times3) embedding and compares its tangent projector with the archived (Q).
-- `RGS_QLG_QAT_generalization_audit.py`: historical QAT generalization audit, which combines A13/A14 archives with `Q6_exact_incidence_and_H241.npz).
+- `RGS_QLG_QAT_generalization_audit.py`: historical QAT generalization audit, which combines A13/A14 archives with `Q6_exact_incidence_and_H241.npz`.
 - `RGS_PSU_construct_geometric_intertwiner.py`: tests a proposed geometry-to-kernel map, while explicitly warning that a projected-polar extension commuting with (K_0) is not evidence of geometric alignment.
 
 The original binary arrays and the full source bundle are not currently present in the accessible `fabianleonaressi95/theorem` branch. The source scripts and reports were recovered from the user's file archive. Therefore this document records the recovered definitions and audit requirements, not a fresh execution of those binaries.
@@ -111,7 +111,7 @@ Restore the exact bundle inputs before rerunning:
 - `psu_fibre_connection_matrices.npz`;
 - `sea_operators.npz`;
 - `A14_jacobian_matrices.npz`;
-- `Q6_exact_incidence_and_H241.npz);
+- `Q6_exact_incidence_and_H241.npz`;
 - original (C_i), (E_i), and tetrad arrays, with hashes and provenance.
 
 Then run A13, A14, and QAT in that order, preserving the original arrays. Report both absolute and relative residuals, numerical ranks with thresholds, eigenvalue spectra, array hashes, and the exact source file for each input. Only after that should one attempt a tetrad-level audit. The tetrad audit must define the base coordinates, coframe/tetrad conventions, metric signature, spin connection, and discrete derivative before evaluating torsion or curvature.
