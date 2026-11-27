@@ -30,18 +30,24 @@ def _finite_float(value: str, column: str, row: int) -> float:
 
 
 def _turning_points(values: list[float]) -> list[dict]:
-    """Return extrema indices, ignoring flat steps and preserving plateau centres."""
+    """Return extrema indices; flat reversal plateaus are represented by their centre."""
     diffs = [b - a for a, b in zip(values, values[1:])]
     signs = [1 if d > 0 else (-1 if d < 0 else 0) for d in diffs]
     extrema = []
     previous = 0
+    previous_index = None
     for i, sign in enumerate(signs):
         if sign == 0:
             continue
         if previous and sign != previous:
-            # The reversal is between the previous non-flat segment and this one.
-            extrema.append({"index": i + 1, "kind": "maximum" if previous > 0 else "minimum"})
+            left = previous_index + 1
+            right = i
+            extrema.append({
+                "index": (left + right) // 2,
+                "kind": "maximum" if previous > 0 else "minimum",
+            })
         previous = sign
+        previous_index = i
     return extrema
 
 
