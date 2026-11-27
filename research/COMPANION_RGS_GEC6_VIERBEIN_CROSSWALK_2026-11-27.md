@@ -23,7 +23,7 @@ The exact finite algebra is:
 =\Lambda^2L\oplus(L\otimes U)\oplus\Lambda^2U,
 \qquad 3+9+3=15,
 \]
-where \\(L=\\langle e_0,e_1,e_2\\rangle\\) and \\(U=\\langle e_3,e_4,e_5\\rangle\\). The block-preserving wreath group \\((S_3\\times S_3)\\rtimes C_2\\) has order 72. Under the contraction
+where \\(L=\langle e_0,e_1,e_2\rangle\\) and \\(U=\langle e_3,e_4,e_5\rangle\\). The block-preserving wreath group \\((S_3\times S_3)\rtimes C_2\\) has order 72. Under the contraction
 \[
 c(e_i\wedge e_j)=e_j-e_i,
 \]
@@ -31,11 +31,11 @@ the mixed block alone surjects onto the rank-five root lattice \\(A_5\\), with r
 
 ### Orientation correction required by review
 
-With graph edges globally oriented from bit 0 to bit 1, translation by (t\in(\mathbb Z/2)^6) acts on the oriented (ij)-square generator by
+With graph edges globally oriented from bit 0 to bit 1, translation by `t` in `(Z/2Z)^6` acts on the oriented `ij`-square generator by
 \[
 \epsilon_{ij}(t)=(-1)^{t_i+t_j}.
 \]
-Thus a general bit translation is not the identity on the exterior-square module and need not preserve (\ker c); it does not generally descend to \\(A_5\\). For the global antipode \\(t=(1,1,1,1,1,1)\\), every pair receives sign \\(+1\\), so the antipodal action on the GEC-6 quotient is indeed trivial. The companion dossier/test correction is tracked in [the follow-up audit PR](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/236) opened as PR #236; until it is merged, use the explicit qualification above.
+Thus a general bit translation is not the identity on the exterior-square module and need not preserve `ker(c)`; it does not generally descend to \\(A_5\\). For the global antipode \\(t=(1,1,1,1,1,1)\\), every pair receives sign \\(+1\\), so the antipodal action on the GEC-6 quotient is indeed trivial. The companion dossier/test correction is tracked in [the follow-up audit PR](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/pull/236) currently open as PR #236; until it is merged, use the explicit qualification above.
 
 ### Existing theorem links — related, not interchangeable
 
