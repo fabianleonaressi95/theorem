@@ -7,6 +7,7 @@ on:
       - "tests/test_t156_vesica_mobius_farey.py"
       - "scripts/solve_t156_mobius_elastic_bvp.py"
       - "tests/test_t156_mobius_elastic_bvp.py"
+      - "scripts/t156_auto/**"
       - ".github/workflows/t156-mobius-elastic-bvp.yml"
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - "tests/test_t156_vesica_mobius_farey.py"
       - "scripts/solve_t156_mobius_elastic_bvp.py"
       - "tests/test_t156_mobius_elastic_bvp.py"
+      - "scripts/t156_auto/**"
       - ".github/workflows/t156-mobius-elastic-bvp.yml"
   workflow_dispatch:
 
