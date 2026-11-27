@@ -1,0 +1,62 @@
+{
+  "classification": "finite seeded nonconvex exact-locality feasibility search; not a global no-go theorem",
+  "date": "2026-11-27",
+  "seed": 20261127,
+  "parameterization": "Phi = sum_k Bf_k W0_k exp(S_k) Bq_k^T; S_k skew-symmetric 16x16",
+  "commutant_degrees_of_freedom": 480,
+  "exact_locality_target": {
+    "nonadjacent_directed_face_blocks": 812,
+    "scalar_entries_before_symmetry_redundancy": 3248,
+    "target": "Every 2x2 block between distinct nonadjacent C60 faces is exactly zero"
+  },
+  "face_graph": {
+    "faces": 32,
+    "adjacency_edges": 90,
+    "degree_counts": {"5": 12, "6": 20}
+  },
+  "optimization_stages": [
+    {"objective": "nonadjacent off-diagonal Frobenius energy fraction", "steps": 1400, "learning_rate": 0.015, "learning_rate_after_step_1000": 0.003},
+    {"objective": "nonadjacent block Frobenius L1 ratio", "steps": 1800, "learning_rate": 0.0001},
+    {"objective": "nonadjacent off-diagonal Frobenius energy fraction", "steps": 1600, "learning_rate": 0.001}
+  ],
+  "candidate": {
+    "nonadjacent_offdiagonal_frobenius_energy_fraction": 0.017915178684278436,
+    "adjacent_offdiagonal_frobenius_energy_fraction": 0.9820848213157215,
+    "block_support": {
+      "1e-12": {"nonzero_blocks": 1024, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 812},
+      "1e-10": {"nonzero_blocks": 1024, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 812},
+      "1e-08": {"nonzero_blocks": 1024, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 812},
+      "1e-06": {"nonzero_blocks": 1024, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 812},
+      "1e-04": {"nonzero_blocks": 1024, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 812},
+      "1e-02": {"nonzero_blocks": 832, "diagonal_blocks": 32, "adjacent_blocks": 180, "nonadjacent_blocks": 620}
+    },
+    "orthogonality_residual": 4.3707458505824076e-14,
+    "V4_intertwining_residuals": [
+      1.9124032427405902e-15,
+      6.2286438802661114e-15,
+      6.059129504798509e-15,
+      6.06339639811656e-15
+    ],
+    "max_V4_intertwining_residual": 6.2286438802661114e-15,
+    "transported_operator_symmetry_residual": 1.2518880987064574e-14,
+    "spectrum": {
+      "-6.0": 1,
+      "-4.0": 6,
+      "-2.0": 15,
+      "0.0": 20,
+      "2.0": 15,
+      "4.0": 6,
+      "6.0": 1
+    }
+  },
+  "conclusion": "The search finds a near-local V4 intertwiner but not an exactly local one. At threshold 1e-2, 620 nonadjacent blocks remain; at threshold 1e-6, all 812 remain. The positive residual is not a rigorous lower bound. Exact existence/nonexistence remains open.",
+  "reproducibility": {
+    "script": "scripts/test_q6_c60_v4_exact_locality.py",
+    "inputs": [
+      "Q6_C60_V4_intertwiner.npz",
+      "Q6_C60_V4_locality.npz"
+    ],
+    "dependencies": ["numpy", "torch"],
+    "output_matrix_bundle": "artifacts/Q6_C60_V4_exact_locality.npz"
+  }
+}

@@ -3,14 +3,26 @@ name: Q6-C60 V4 face-fibre equivariance audit
 on:
   push:
     branches:
+      - main
       - audit/q6-v4-face-fibre-equivariance-2026-11-26
+      - q6-c60-v4-locality-clean-2026-11-27
+    paths:
+      - "scripts/audit_q6_c60_v4_equivariance.py"
+      - "scripts/audit_q6_c60_v4_locality.py"
+      - "scripts/optimize_q6_c60_v4_intertwiner_locality.py"
+      - "scripts/test_q6_c60_v4_exact_locality.py"
+      - "data/RGS_PSU_all_matrices.npz"
+      - ".github/workflows/q6-c60-v4-equivariance.yml"
   pull_request:
     branches:
       - main
     paths:
       - "scripts/audit_q6_c60_v4_equivariance.py"
+      - "scripts/audit_q6_c60_v4_locality.py"
+      - "scripts/optimize_q6_c60_v4_intertwiner_locality.py"
       - "data/RGS_PSU_all_matrices.npz"
       - ".github/workflows/q6-c60-v4-equivariance.yml"
+  workflow_dispatch:
 
 jobs:
   v4-equivariance:
@@ -25,13 +37,19 @@ jobs:
       - name: Install numerical dependencies
         run: python -m pip install --upgrade numpy scipy
       - name: Syntax check
-        run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py
+        run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py scripts/audit_q6_c60_v4_locality.py scripts/optimize_q6_c60_v4_intertwiner_locality.py scripts/test_q6_c60_v4_exact_locality.py
       - name: Run V4 representation and operator audit
         run: |
           python scripts/audit_q6_c60_v4_equivariance.py \
             data/RGS_PSU_all_matrices.npz \
             --out audits/Q6_C60_V4_equivariance.json \
             --matrices artifacts/Q6_C60_V4_intertwiner.npz
+      - name: Run face-adjacency locality diagnostic
+        run: |
+          python scripts/audit_q6_c60_v4_locality.py \
+            data/RGS_PSU_all_matrices.npz \
+            --out audits/Q6_C60_V4_locality.json \
+            --matrices artifacts/Q6_C60_V4_locality.npz
       - name: Upload audit outputs
         uses: actions/upload-artifact@v4
         with:
@@ -39,4 +57,6 @@ jobs:
           path: |
             audits/Q6_C60_V4_equivariance.json
             artifacts/Q6_C60_V4_intertwiner.npz
+            audits/Q6_C60_V4_locality.json
+            artifacts/Q6_C60_V4_locality.npz
           if-no-files-found: error

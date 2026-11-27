@@ -1,0 +1,164 @@
+{
+  "schema": "duplicate-card-id-map/v1",
+  "generated": "2026-11-27",
+  "policy": "File paths under theorems/ are the stable identifiers. Card-id prefixes are reused across distinct records and are NOT unique; do not use them as primary keys. Renumbering and cross-reference rewrites require explicit author approval.",
+  "total_cards": 279,
+  "unique_ids": 225,
+  "duplicated_ids": 33,
+  "cards_in_duplicate_groups": 87,
+  "duplicates": {
+    "EQC-3-": [
+      "theorems/EQC-3-hexagram-geometry-gates.md",
+      "theorems/EQC-3-rgs-native-symmetry-gates.md"
+    ],
+    "EQC-RGS-Q6-": [
+      "theorems/EQC-RGS-Q6-gate-realization.md",
+      "theorems/EQC-RGS-Q6-minimal-gates.md"
+    ],
+    "MQ-": [
+      "theorems/MQ-T002-four-valent-spin-half-intertwiner-dimension.md",
+      "theorems/MQ-T003-invariant-one-link-gluing.md"
+    ],
+    "MQM-": [
+      "theorems/MQM-Q6-symmetry-stabilizer.md",
+      "theorems/MQM-multidimensional-structure.md"
+    ],
+    "MQM1": [
+      "theorems/MQM1-discriminant-analysis.md",
+      "theorems/MQM1-local-determinant-coupling.md",
+      "theorems/MQM1-local-psu-scalar-field.md",
+      "theorems/MQM1-q6-quantum-geometry-backreaction.md",
+      "theorems/MQM1-rgs-metric-reference.md"
+    ],
+    "Q6": [
+      "theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md",
+      "theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md"
+    ],
+    "S009": [
+      "theorems/S009-three-phase-ferraris-coframe-tetrad-bridge.md",
+      "theorems/S009-weber-dedekind-eta-supergolden-class-invariant.md"
+    ],
+    "S010": [
+      "theorems/S010-dirichlet-eta-lambert-series-quadratic-zeta.md",
+      "theorems/S010-kathara-quaternionic-rgs-triplet-response.md"
+    ],
+    "S011": [
+      "theorems/S011-fdt-density-cone-riemann-cartan-kathara-maxwell.md",
+      "theorems/S011-ikeda-binary-tetrahedral-spectrum.md"
+    ],
+    "T": [
+      "theorems/T-BIANCHI.md",
+      "theorems/T-DEC-SE3.md",
+      "theorems/T-DEWIT.md",
+      "theorems/T-H2-DISLOC.md"
+    ],
+    "T010": [
+      "theorems/T010-para-kahler-liouville-psu.md",
+      "theorems/T010-rumin-spectrum-poincare-sphere.md"
+    ],
+    "T021": [
+      "theorems/T021-critical-sobolev-gauge-trace-audit.md",
+      "theorems/T021-rumin-analytic-torsion-2I.md"
+    ],
+    "T024": [
+      "theorems/T024-reynolds-intertwiners-rumin-2I.md",
+      "theorems/T024-rumin-kitaoka-operator-matching-3d.md"
+    ],
+    "T030": [
+      "theorems/T030-rumin-explicit-central-differential.md",
+      "theorems/T030-rumin-polar-factorization.md"
+    ],
+    "T032": [
+      "theorems/T032-2i-irrep-molien-projectors.md",
+      "theorems/T032-rumin-fixed-harmonic-matrix.md"
+    ],
+    "T033": [
+      "theorems/T033-2i-exact-matrix-units.md",
+      "theorems/T033-equivariant-rumin-torsion-synthesis.md"
+    ],
+    "T034": [
+      "theorems/T034-exact-2i-character-table.md",
+      "theorems/T034-explicit-2i-representations.md"
+    ],
+    "T045": [
+      "theorems/T045-exact-2i-representation-certificate.md",
+      "theorems/T045-individual-rumin-zeta-poles.md"
+    ],
+    "T049": [
+      "theorems/T049-ellis-rgs-radial-icosphere-discretization.md",
+      "theorems/T049-microscopic-spin-correlation-invariant.md",
+      "theorems/T049A-q6-prism-spin-correlator.md",
+      "theorems/T049B-rgs-ec-q6-prism-axial-current.md",
+      "theorems/T049C-qlg-dirac-intertwiner-classification.md",
+      "theorems/T049D-lorentz-chiral-qlg-embedding.md"
+    ],
+    "T070": [
+      "theorems/T070-dirichlet-barycentric-phase-moments.md",
+      "theorems/T070-oriented-circumcentric-dual-spherical-icosphere.md"
+    ],
+    "T071": [
+      "theorems/T071-angular-dec-consistency-proof-obligations.md",
+      "theorems/T071-conditional-angular-dec-consistency-ellis-icosphere.md",
+      "theorems/T071-q6-cubical-topological-synchronization-audit.md"
+    ],
+    "T099": [
+      "theorems/T099-bicircular-annular-deformation-reconstruction.md",
+      "theorems/T099-nonaffine-vesica-parameter-koopman-bridge.md",
+      "theorems/T099-shao-yong-q6-kirchhoff-network.md"
+    ],
+    "T113": [
+      "theorems/T113-quasicrystal-phonon-phason-gravitational-mass.md",
+      "theorems/T113A-metric-action-phonon-phason-mode-sensitivity.md",
+      "theorems/T113B-ekn-acoustic-gravitational-mass-control.md",
+      "theorems/T113C-icosahedral-phonon-phason-elasticity.md",
+      "theorems/T113D-q6-rgs-phonon-internal-mode.md",
+      "theorems/T113E-q6-rgs-t2u-triplet-stability.md",
+      "theorems/T113F-q6-graph-elastic-stabilization.md",
+      "theorems/T113G-cut-project-symmetry-rank-two-isotropy.md",
+      "theorems/T113H-metric-variation-control-suite.md",
+      "theorems/T113I-ekn-solid-nonlinear-tail-and-mass.md"
+    ],
+    "T124": [
+      "theorems/T124-frank-read-source-line-tension-atomistic-core.md",
+      "theorems/T124-mixed-tensor-product-3x3prime.md"
+    ],
+    "T129": [
+      "theorems/T129-a5-equivariance-obstruction-and-calibrated-q6-purcell-map.md",
+      "theorems/T129-q6-cut-project-purcell-shape-map.md"
+    ],
+    "T134": [
+      "theorems/T134-exact-integration-certification-gap.md",
+      "theorems/T134-morandotti-c0-ipdg-conditional-coercivity.md"
+    ],
+    "T137": [
+      "theorems/T137-q6-real-weighted-hodge-green-resolvent.md",
+      "theorems/T137-vesica-piscis-two-circle-hexagon-pi-sqrt3.md"
+    ],
+    "T143": [
+      "theorems/T143-vesica-q6-isometric-antipodal-embedding.md",
+      "theorems/T143A-antipodal-equivariance-minimal-so3-su2-connection.md",
+      "theorems/T143C-clifford-symmetry-fibre-operator.md",
+      "theorems/T143D-antitwin-isospectrality-normal-operator.md"
+    ],
+    "T149": [
+      "theorems/T149-supergolden-dodecahedral-whitney-hodge.md",
+      "theorems/T149-symmetric-fibonacci-fricke-period-three-period-six-orbits.md"
+    ],
+    "T154": [
+      "theorems/T154-in2infinity-extended-jitterbug-audit.md",
+      "theorems/T154-rgs-spatial-coframe-constraint-splitting.md"
+    ],
+    "T155": [
+      "theorems/T155-dodecahedral-gauss-map-levi-civita-hodge.md",
+      "theorems/T155-rhombic-cuboctahedron-snub-cube-transition.md"
+    ],
+    "T156": [
+      "theorems/T156-rhombicuboctahedron-snub-cube-incidence.md",
+      "theorems/T156-vesica-mobius-elastic-farey-half.md"
+    ],
+    "TSMR-C": [
+      "theorems/TSMR-C-I_iching_golden_q6_lift.md",
+      "theorems/TSMR-C_cumulative_morphodynamics.md"
+    ]
+  }
+}
