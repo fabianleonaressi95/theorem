@@ -78,3 +78,36 @@ The Frobenius energy is also predominantly nonlocal: 76.73% lies in nonadjacent 
 
 Workflow: https://github.com/fabianleonaressi95/theorem/actions/runs/46015219978  
 Artifact: `q6-c60-v4-equivariance` (includes the JSON report and NPZ matrix bundle).
+
+
+## 7. Optimization over the full V4 commutant
+
+The initial deterministic intertwiner was not the end of the test. The four 16-dimensional isotypic sectors leave an `O(16)^4` freedom. The optional PyTorch script `scripts/optimize_q6_c60_v4_intertwiner_locality.py` parameterizes it as
+\[
+\Phi=\sum_{k=1}^4 B_{f,k}\,W_{0,k}\exp(S_k)\,B_{q,k}^{T},
+\qquad S_k^T=-S_k,
+\]
+and runs two stages: (i) minimize nonadjacent off-diagonal face-block Frobenius energy, with eight seeded random starts; (ii) refine the block-L1 objective to suppress weak nonadjacent blocks.
+
+Reproduction requires the two NPZ files in the GitHub Actions artifact `q6-c60-v4-equivariance` (from run 17): `Q6_C60_V4_intertwiner.npz` and `Q6_C60_V4_locality.npz`. Install PyTorch, then run:
+
+```bash
+python scripts/optimize_q6_c60_v4_intertwiner_locality.py \
+  --representations artifacts/Q6_C60_V4_intertwiner.npz \
+  --locality artifacts/Q6_C60_V4_locality.npz \
+  --out audits/Q6_C60_V4_locality_optimization.json \
+  --matrices artifacts/Q6_C60_V4_locality_optimization.npz
+```
+
+### Numerical outcome
+
+The deterministic starting intertwiner placed 76.73% of its off-diagonal face-block Frobenius energy on nonadjacent face pairs. The quadratic stage reduced this to 1.81%; after the block-L1 refinement the final nonadjacent energy fraction was 2.10%, with 97.90% on adjacent face pairs. The nonadjacent block-L1 fraction fell from 79.96% to 9.72%.
+
+The optimized map still satisfies the constraints numerically:
+- orthogonality residual: `4.42e-14`;
+- maximum V4 intertwining residual: `6.18e-15`;
+- transported-matrix symmetry residual: `1.19e-14`.
+
+At block threshold `1e-2`, all 90 undirected C60 face adjacencies are represented, while the number of nonzero 2x2 blocks falls to 368/1024; 156 off-diagonal nonadjacent blocks remain above threshold. At thresholds through `1e-6`, all 1024 blocks remain nonzero. Thus this is **near-local concentration, not exact locality**.
+
+The optimizer is nonconvex and uses finite random restarts. The result is a numerical local optimum, not a global-optimality certificate. The exact-locality question remains open. Machine-readable values: `audits/Q6_C60_V4_locality_optimization.json`.
