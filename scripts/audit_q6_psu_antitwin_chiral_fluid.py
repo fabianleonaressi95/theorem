@@ -101,6 +101,7 @@ def run_audit() -> dict:
         "PSU_charge_normalization": abs(q0**2 - alpha_G) < 1e-12,
         "pure_axial_U1_has_nonzero_anomaly": abs(anomaly_gravitational) > 1e-12 and abs(anomaly_cubic) > 1e-12,
     }
+    checks = {name: bool(value) for name, value in checks.items()}
     return {
         "status": "FINITE_PSU_ANTITWIN_CHIRAL_FLUID_GAUGE_IDENTITIES_AUDITED",
         "carrier": {"Q6_vertices_per_sheet": 64, "sheets": 2, "total_states": 128, "Q6_edges_per_sheet": 192, "Q6_faces_per_sheet": 240},
