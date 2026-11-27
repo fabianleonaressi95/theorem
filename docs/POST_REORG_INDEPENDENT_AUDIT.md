@@ -35,6 +35,11 @@ the author (they touch theorem records).
 (`git show 8477df3:docs/UNIFIED_THEOREM_EDGES.json`), not just re-run:
 
 - **Edge preservation:** all 353 pre-existing edges present in the new graph;
+  **0 removed, 0 modified**. Exactly **17 edges added** (16 initial + MQ-T005 after main merge) — all
+  `thematic-index-classification` → `H-OTHER`, `status: provisional`, with an
+  explicit "post-reorg graph sync / pending author topic assignment" caveat.
+- **Node preservation:** 0 nodes removed, 0 nodes modified; 17 theorem-record
+  nodes added, ids `THM:<unique filename stem>`.
   **0 removed, 0 modified**. Exactly **17 edges added** by the sync runs —
   16 `thematic-index-classification` → `H-OTHER` (`status: provisional`,
   explicit "post-reorg graph sync / pending author topic assignment" caveat).
@@ -137,6 +142,7 @@ SHA-256 (identical within each group):
 | 2 | 27 card-referenced test/script paths absent | Low-Medium | Pre-existing card gaps; author to reconcile |
 | 3 | T095 dependency unresolved (T096–T099) | Medium | Author decision |
 | 4 | `two_time_kernel` N labels unverifiable | Medium | `unresolved`; data preserved |
+| 5 | 17 new graph nodes parked at H-OTHER | Low | Provisional by design; author topic assignment |
 | 5 | 16 new graph nodes parked at H-OTHER (MQ-T005 later assigned H-RGS by #561) | Low | Provisional by design; author topic assignment for the remaining 16 |
 | 6 | 112 low-confidence heuristic register statuses | Medium | Sign-off caveat in place; no promotion |
 
@@ -146,6 +152,7 @@ SHA-256 (identical within each group):
 |---|---|
 | Register and graph coherent | ✅ verified independently |
 | Independent tests pass | ✅ 19/19 |
+| No invented dependencies | ✅ verified vs git history (+17 provisional only) |
 | No invented dependencies | ✅ verified vs git history (+17 provisional; 16 still H-OTHER, MQ-T005 → H-RGS by #561) |
 | No ambiguous data deleted/promoted | ✅ NPZ preserved, statuses unchanged |
 | Scientific decisions under author control | ✅ all open items documented |
