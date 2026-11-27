@@ -44,8 +44,28 @@ def deformed_metric_hamiltonian(theta, *, amplitude=0.04, coordinates=None):
     return (B * weights) @ B.T
 
 
-def berry_holonomy(*, band_index=1, amplitude=0.04, steps=240,
-                   gap_tolerance=1e-9, coordinates=None):
+def wilson_phase(vectors, *, overlap_tolerance=1e-4):
+    """Gauge-invariant phase of a closed sequence of normalized eigenvectors."""
+    vectors = [np.asarray(v, dtype=complex) for v in vectors]
+    if len(vectors) < 3 or any(v.ndim != 1 for v in vectors):
+        raise ValueError("at least three one-dimensional state vectors are required")
+    product = 1.0 + 0.0j
+    min_overlap = 1.0
+    for j in range(len(vectors)):
+        overlap = np.vdot(vectors[j], vectors[(j + 1) % len(vectors)])
+        magnitude = abs(overlap)
+        min_overlap = min(min_overlap, float(magnitude))
+        if magnitude <= overlap_tolerance:
+            raise ValueError(
+                f"neighboring eigenvectors are insufficiently resolved: overlap={magnitude:.6g}"
+            )
+        product *= overlap / magnitude
+    phase = float((-np.angle(product) + np.pi) % (2.0 * np.pi) - np.pi)
+    return phase, min_overlap
+
+
+def berry_holonomy(*, band_index=8, amplitude=0.04, steps=240,
+                   gap_tolerance=1e-9, overlap_tolerance=1e-4, coordinates=None):
     """Return Wilson-loop phase from normalized neighboring eigenvector overlaps.
 
     Convention: gamma = -arg product_j <u(theta_j)|u(theta_{j+1})>.
@@ -56,7 +76,6 @@ def berry_holonomy(*, band_index=1, amplitude=0.04, steps=240,
         raise ValueError("steps must be >=8 and band_index nonnegative")
     vectors = []
     min_gap = np.inf
-    min_overlap = 1.0
     eigenvalues = []
     for j in range(steps):
         theta = 2.0 * np.pi * j / steps
@@ -78,15 +97,7 @@ def berry_holonomy(*, band_index=1, amplitude=0.04, steps=240,
         raise ValueError(
             f"selected eigenline is not isolated: minimum adjacent gap={min_gap:.6g}"
         )
-    product = 1.0 + 0.0j
-    for j in range(steps):
-        overlap = np.vdot(vectors[j], vectors[(j + 1) % steps])
-        magnitude = abs(overlap)
-        min_overlap = min(min_overlap, float(magnitude))
-        if magnitude <= 1e-12:
-            raise ValueError("neighboring eigenvectors are orthogonal; refine the loop")
-        product *= overlap / magnitude
-    phase = float((-np.angle(product) + np.pi) % (2.0 * np.pi) - np.pi)
+    phase, min_overlap = wilson_phase(vectors, overlap_tolerance=overlap_tolerance)
     return {
         "schema": "q6-rgs-berry-holonomy/v1",
         "band_index": int(band_index),

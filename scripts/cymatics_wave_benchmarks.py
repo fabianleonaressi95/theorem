@@ -97,11 +97,11 @@ def run_benchmarks(n: int = 18) -> dict[str, Any]:
     # have different amplitudes; the central point is nodal for both.
     row, col = n // 3, n // 4
     idx = row * n + col
-    perturbation[idx, idx] = 0.05 * float(np.max(np.diag(stiffness)))
+    perturbation[idx, idx] = 1e-5 * float(np.max(np.diag(stiffness)))
     perturbed_values = np.linalg.eigvalsh(stiffness + perturbation)
     # The unperturbed (1,2)/(2,1) pair occupies sorted indices 1 and 2.
     c03 = {
-        "perturbation_relative_diagonal": 0.05,
+        "perturbation_relative_diagonal": 1e-5,
         "unperturbed_pair_gap": float(values[2] - values[1]),
         "perturbed_pair_gap": float(perturbed_values[2] - perturbed_values[1]),
     }
