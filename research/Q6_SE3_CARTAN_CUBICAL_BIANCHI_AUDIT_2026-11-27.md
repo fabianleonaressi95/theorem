@@ -74,3 +74,19 @@ The test suite checks:
 ## 5. Scope and limits
 
 This is an exact finite group identity for the present Q6 link data. The translational face holonomy is a discrete closure/dislocation observable and a candidate torsion diagnostic. A continuum Cartan torsion 2-form, its Bianchi identity DT=R wedge e, and convergence under refinement remain to be established. The current model is spatial SO(3) semidirect R^3, not Lorentzian Spin(1,3); no variational action, physical time direction, TEGR equivalence, or direct polariton/Q-ball realization is claimed.
+
+
+## CI result
+
+Focused workflow run 46062090773 completed successfully:
+https://github.com/fabianleonaressi95/theorem/actions/runs/46062090773
+
+Measured residuals on the archived Q6 seed:
+- affine rotational face holonomy versus the previous SO(3) plaquette holonomy: \(2.95\times10^{-16}\);
+- affine base-frame closure versus the previous developed face torsion: \(1.40\times10^{-14}\);
+- maximum rotational cube-Bianchi residual over 160 cubes: \(1.75\times10^{-14}\);
+- maximum translational cube-Bianchi residual over 160 cubes: \(2.62\times10^{-14}\);
+- full local SE(3) face-conjugation residuals: \(1.81\times10^{-15}\) (rotation), \(5.05\times10^{-15}\) (translation);
+- Bianchi residuals after arbitrary local SE(3) frame changes: \(1.80\times10^{-14}\) (rotation), \(3.11\times10^{-14}\) (translation).
+
+All four dedicated unit tests passed, and both cubical-chain and affine-Bianchi audit scripts completed successfully. These are finite-lattice numerical residuals; they do not prove a continuum limit or a physical field equation.
