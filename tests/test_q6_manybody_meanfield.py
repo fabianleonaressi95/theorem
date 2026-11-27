@@ -13,6 +13,7 @@ def test_two_boson_basis_dimension_and_product_normalization():
     psi = hartree_fock_state(phi)
     assert np.isclose(np.vdot(psi, psi).real, 1.0)
     assert np.isclose(np.trace(one_body_density(psi)).real, 2.0)
+    assert np.allclose(one_body_density(psi), 2 * np.outer(phi, phi.conj()))
 
 
 def test_two_boson_hamiltonian_is_hermitian_and_interaction_exact():
