@@ -133,3 +133,6 @@ The two boundary identities establish a chain map, but do not alone prove that t
 ## CI provenance
 
 The previously reported successful workflow run was attached to an earlier commit SHA, not the final PR #449 head SHA. Until the new regression passes on this branch and the resulting run SHA is recorded, the merged implementation should not be described as fully CI-verified.
+## 8. Pi-only electronic-population diagnostic
+
+A separate fixed-geometry Hückel calculation is documented in C60_SW_PI_ELECTRONIC_POPULATION_AUDIT.md. It uses the 60-site adjacency Hamiltonian H=-A, 60 pi electrons, and the diagonal of the spin-summed occupied-orbital density matrix. This yields a site-population covariance, **not** a continuous real-space electron-density tensor or DFT result. The pristine-to-SW HOMO–LUMO gap changes from 0.7565982539 t to 0.3184344809 t, and the site-population anisotropy from numerical zero to 0.0016099344. All 30 labelled flips give the same spectral and covariance invariants to numerical tolerance. The separate Q6 parity audit rules out a direct C60-carbon-graph to Q6-1-skeleton graph homomorphism, but not a chain map with multi-edge images or a face-fibre construction.
