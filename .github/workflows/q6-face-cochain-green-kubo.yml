@@ -6,9 +6,13 @@ on:
       - "audits/q6_face_cochain_green_kubo.py"
       - "scripts/audit_q6_antitwin_temporal_chain.py"
       - "scripts/audit_q6_discrete_cartan.py"
+      - "scripts/audit_q6_se3_cartan_bianchi.py"
+      - "scripts/audit_q6_cubical_chain_complex.py"
       - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
+      - "tests/test_q6_se3_cartan_bianchi.py"
+      - "tests/test_q6_cubical_chain_complex.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
   pull_request:
     paths:
@@ -48,3 +52,11 @@ jobs:
         run: python -m unittest discover -s tests -p "test_q6_discrete_cartan.py" -v
       - name: Audit discrete Q6 Cartan face torsion and holonomy
         run: python scripts/audit_q6_discrete_cartan.py
+      - name: Test exact Q6 cubical chain complex
+        run: python -m unittest discover -s tests -p "test_q6_cubical_chain_complex.py" -v
+      - name: Audit exact Q6 cubical chain complex
+        run: python scripts/audit_q6_cubical_chain_complex.py
+      - name: Test affine SE3 Cartan links and cubical Bianchi identity
+        run: python -m unittest discover -s tests -p "test_q6_se3_cartan_bianchi.py" -v
+      - name: Audit affine SE3 Cartan links and cubical Bianchi identity
+        run: python scripts/audit_q6_se3_cartan_bianchi.py
