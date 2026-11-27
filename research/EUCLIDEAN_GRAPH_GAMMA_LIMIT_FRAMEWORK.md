@@ -33,7 +33,7 @@ The central distinction is:
 - they do **not** by themselves imply that the entire sequence has one limit;
 - uniqueness of the cell limit, or another mechanism identifying all subsequential densities, is an additional obligation.
 
-The initial interior-only density condition is not enough for the Voronoi boundary estimates. With boundary-complete fill on \\(\\overline{\\Omega}\\), separation, the path-tube property, and a positive lower conductance bound imply local path-length and congestion bounds and hence uniform nonlocal coercivity. This excludes the single-bridge bottleneck when (G5) is imposed. The assumptions still do not force a unique effective tensor: oscillating conductance or graph families can have distinct subsequential limits.
+The initial interior-only density condition is not enough for the Voronoi boundary estimates. With boundary-complete fill on the closure of Omega, separation, the path-tube property, and a positive lower conductance bound imply local path-length and congestion bounds and hence uniform nonlocal coercivity. This excludes the single-bridge bottleneck when (G5) is imposed. The assumptions still do not force a unique effective tensor: oscillating conductance or graph families can have distinct subsequential limits.
 
 ## 2. Euclidean graph hypotheses
 
@@ -134,7 +134,7 @@ Then bounded energy and bounded \(L^2\)-norm give boundedness of \(I_\varepsilon
 \]
 together with uniform \(L^2\) boundedness and a boundary-extension/equi-tightness condition. For sequences \(\varepsilon_n\to0\), (4.2) yields the translation control needed by the Fréchet–Kolmogorov criterion.
 
-**Status:** (C1) is now derived from the nonlocal comparison by the normalized local averaging operator in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. The same note proves upper growth and the discrete fundamental estimate. The remaining analytic check is the localized measure property required by the abstract integral-representation theorem; the conclusion is therefore stated subsequentially and conditionally.
+**Status:** (C1) is derived from the nonlocal comparison by the normalized local averaging operator in EG01_H1_INTERPOLATION_AND_INTEGRAL_REPRESENTATION.md. The same note proves upper growth, the discrete fundamental estimate, and records the localized measure-property argument. The integral-representation conclusion is subsequential and invokes the standard local quadratic theorem.
 
 ## 5. Locality, growth, and the integral-representation target
 
