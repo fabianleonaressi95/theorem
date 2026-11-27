@@ -14,6 +14,8 @@ It brings together source literature, manuscript records, reproducible computati
 
 The main research strands include:
 
+- [RGS–Ellis radial reparametrization audit (2026-11-27)](audits/RGS_ELLIS_RADIAL_REPARAMETRIZATION_2026-11-27.md) — proves the unique global minimum of the stated areal-radius profile and the exact monotone reparametrization to the Ellis radial form, while explicitly classifying the wormhole identification as conditional on a separately chosen spatial metric. It does not claim that the original RGS ansatz derives the Ellis metric, lapse, Einstein source, or a valid global raccordo.
+
 - **RGS–PSU–PRISM:** discrete geometric structures, variable-space limits, Dirichlet forms, Hodge operators, and candidate continuum descriptions.
 - **Q6 and QLG:** the 64-state six-bit configuration space, its graph and cell structures, discrete Dirac constructions, and the question of how quaternionic or two-component fibres can be related to Lorentzian spinors.
 - **Binary icosahedral geometry:** the group (2I), its irreducible representations, the Poincaré quotient (S^3/2I), and Rumin-type spectral and analytic-torsion calculations.
