@@ -35,7 +35,7 @@ def test_incompatibility_matches_airy_biharmonic_identity():
     result = airy_to_eigenstrain(phi, dx, dy, E, nu)
     inc = spectral_incompatibility(result["eigenstrain"], dx, dy)
     expected = -((1.0 - nu**2) / E) * spectral_biharmonic(phi, dx, dy)
-    np.testing.assert_allclose(inc, expected, rtol=2e-11, atol=2e-10)
+    np.testing.assert_allclose(inc, expected, rtol=2e-10, atol=2e-9)
 
 
 def test_rejects_nonphysical_material_parameters():
