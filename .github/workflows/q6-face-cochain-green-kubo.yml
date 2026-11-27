@@ -80,5 +80,5 @@ jobs:
         run: python scripts/audit_q6_spin6_clifford.py
       - name: Test PSU Anti-Twin chiral fluid gauge locking
         run: python -m unittest discover -s tests -p "test_q6_psu_antitwin_chiral_fluid.py" -v
-      - name: Audit PSU Anti-Twin chiral fluid gauge locking
+      - name: Audit PSU Anti-Twin chiral fluid gauge locking and JSON artifact
         run: python scripts/audit_q6_psu_antitwin_chiral_fluid.py
