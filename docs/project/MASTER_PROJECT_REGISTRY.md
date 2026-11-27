@@ -22,7 +22,7 @@
 
 | Repository | Visibility | Default branch | Purpose / canonical role | Status |
 |---|---|---|---|---|
-| `theorem` (formerly `theroem` — GitHub redirect confirmed) | public | `main` | **Canonical home for theorem-level mathematics**: Q6/QXL/QLG, RGS, PSU/Anti-Twin, Vesica/Jitterbug, SE(3)/Cartan, C60/fullerenes, FEEC/discretization, hysteresis datasets. 89 merged PRs, ~393 branches, 10 open issues | ACTIVE — consolidation target |
+| `theorem` (formerly `theroem` — GitHub redirect confirmed) | public | `main` | **Canonical home for theorem-level mathematics**: Q6/QXL/QLG, RGS, PSU/Anti-Twin, Vesica/Jitterbug, SE(3)/Cartan, C60/fullerenes, FEEC/discretization, hysteresis datasets. 428 merged PRs, ~393 branches, 5 open PRs (#471, #476–#479), 10 open issues | ACTIVE — consolidation target |
 | `rgs-qlg-quaternion-bridge` | public | `main` | Quaternionic SU(2)/SO(3), lattice holonomies, QLG gauge-equivariant operators, Wilson/Kirchhoff fluid audits, Pellis/Q6 programme. 90 merged PRs, ~200 branches | ACTIVE — overlaps theorem on Q6/RGS topics |
 | `rheomarine` | public | `main` | Microplastic transport modelling: HFR ingestion (IZOL/PIRA), Lagrangian + Eulerian M0, lab datasets DS1/DS2, RISTANC application support. 21 merged PRs | ACTIVE — applied/experimental track |
 | `fullerene-c64-audit` | private | `c64-audit` | Reproducible enumeration/analysis of all 3,465 C64 fullerene isomers (plantri/fullgen, Hückel, nauty, Stone–Wales graph) | ACTIVE — PR #1 open |

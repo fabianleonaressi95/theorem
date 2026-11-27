@@ -26,8 +26,8 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Key locations | Status | Missing |
 |---|---|---|---|---|
-| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PR #344 merged; **PR #461 open** (non-Abelian Bianchi); issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
-| Volterra dipole→edge dislocation elasticity | `theorem` | PR #131 merged; PR #450 draft (Airy limit) | NUMERICALLY VERIFIED | draft review pending |
+| SE(3) connection, tetrahedral defects, Bianchi | `theorem` | `se3.py`, `test_se3_connection.py`, PRs #344, #461 merged; issue #400 torsion OPEN | SOFTWARE VERIFIED | torsion Bianchi + deWit/Nye identification OPEN |
+| Volterra dipole→edge dislocation elasticity | `theorem` | PRs #131, #450 merged; PR #479 open (C0-IPDG comparison manuscript) | NUMERICALLY VERIFIED | PR #479 review pending |
 | Cartan torsion / mixed frame field / Vesica–Jitterbug phase map | `theorem` | issues #398, #399, #400 | OPEN | derivations not started |
 | Vesica Piscis / Jitterbug / 64-TG immersion | `theorem` | `docs/VESICA_*`, `JITTERBUG_*`, issues #401, #409 | NUMERICALLY VERIFIED (kinematics); immersion OPEN | #401, #409 open |
 | 2I / Poincaré quotient / McKay correspondence | `theorem` + `rgs-qlg` | `theorem/docs/binary-icosahedral-2i.md`? (rgs-qlg `docs/binary-icosahedral-2i.md`), PR #444 (binary McKay–ADE) | ANALYTICALLY VERIFIED per repo | — |

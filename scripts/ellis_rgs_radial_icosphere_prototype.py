@@ -49,7 +49,9 @@ class EllisGraph:
             if len(adj) != 2:
                 raise RuntimeError("Icosphere triangulation is not closed")
             primal = _angle(vertices[a], vertices[b])
-            dual = _angle(face_centres[adj[0]], face_centres[adj[1]])
+            dual = _signed_circumcentric_dual_length(
+                vertices, a, b, face_centres, adj
+            )
             w = dual / primal
             if not np.isfinite(w) or w <= 0:
                 raise RuntimeError("Non-positive spherical finite-volume weight")
@@ -89,6 +91,53 @@ class EllisGraph:
 
 def _angle(a: np.ndarray, b: np.ndarray) -> float:
     return float(math.acos(np.clip(np.dot(a, b), -1.0, 1.0)))
+
+
+def _signed_circumcentric_dual_length(
+    vertices: np.ndarray,
+    a: int,
+    b: int,
+    face_centres: np.ndarray,
+    adjacent_faces: list[int],
+    tol: float = 1e-10,
+) -> float:
+    """Return dual arc length only when it crosses the primal edge orthogonally.
+
+    The normalized edge midpoint and the two spherical face circumcentres lie
+    on the great circle orthogonal to the primal chord.  Signed angles from
+    the midpoint must have opposite signs: otherwise the shortest centre arc
+    does not cross the primal edge and is not its circumcentric dual.
+    """
+    if len(adjacent_faces) != 2:
+        raise ValueError("A closed spherical edge must have two adjacent faces")
+    midpoint = vertices[a] + vertices[b]
+    midpoint_norm = float(np.linalg.norm(midpoint))
+    if midpoint_norm <= tol:
+        raise RuntimeError("Antipodal primal edge has no unique midpoint")
+    midpoint /= midpoint_norm
+
+    c0 = face_centres[adjacent_faces[0]]
+    tangent = c0 - float(np.dot(c0, midpoint)) * midpoint
+    tangent_norm = float(np.linalg.norm(tangent))
+    if tangent_norm <= tol:
+        raise RuntimeError("Degenerate first circumcentre at primal-edge midpoint")
+    tangent /= tangent_norm
+
+    def signed_angle(c: np.ndarray) -> float:
+        return math.atan2(float(np.dot(c, tangent)),
+                          float(np.dot(c, midpoint)))
+
+    theta0 = signed_angle(c0)
+    theta1 = signed_angle(face_centres[adjacent_faces[1]])
+    if theta0 <= tol or theta1 >= -tol:
+        raise RuntimeError(
+            "Circumcentres are not on opposite sides of the primal edge; "
+            "unsigned centre distance is not a valid circumcentric dual"
+        )
+    dual = theta0 - theta1
+    if not np.isfinite(dual) or dual <= 0 or dual >= math.pi:
+        raise RuntimeError("Invalid oriented circumcentric dual arc")
+    return float(dual)
 
 
 def _icosphere(level: int) -> tuple[np.ndarray, np.ndarray]:
@@ -153,7 +202,9 @@ def spherical_l1_rayleigh(subdivisions: int) -> float:
     values = vertices[:, 2]
     for (a, b), adjacent in edge_faces.items():
         primal = _angle(vertices[a], vertices[b])
-        dual = _angle(centres[adjacent[0]], centres[adjacent[1]])
+        dual = _signed_circumcentric_dual_length(
+            vertices, a, b, centres, adjacent
+        )
         energy += (dual / primal) * (values[a] - values[b]) ** 2
     norm2 = float(np.dot(areas, values ** 2))
     if norm2 <= 0:

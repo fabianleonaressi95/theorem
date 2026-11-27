@@ -11,8 +11,8 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 5 | Q6–PRISM correspondence/obstructions | rgs-qlg | NUMERICALLY VERIFIED (per repo, PRs #207–213) | merged PRs | — |
 | 6 | PSU–Anti-Twin Q-ball | rgs-qlg | NUMERICALLY VERIFIED (PR #220) | merged | — |
 | 7 | Yang–Mills gap via PSU/Anti-Twin | biverse | **HYPOTHESIS** (quarantined) | README claim only; no artifact | needs proof or archive |
-| 8 | SE(3) tetrahedral defects / Bianchi | theorem | SOFTWARE VERIFIED (PRs #344 merged, #461 open) | `se3.py`, tests | torsion Bianchi OPEN (#400) |
-| 9 | Volterra dipole→edge elasticity | theorem | NUMERICALLY VERIFIED (PR #131); extension draft #450 | merged + draft | — |
+| 8 | SE(3) tetrahedral defects / Bianchi | theorem | SOFTWARE VERIFIED (PRs #344, #461 merged) | `se3.py`, tests | torsion Bianchi OPEN (#400) |
+| 9 | Volterra dipole→edge elasticity | theorem | NUMERICALLY VERIFIED (PRs #131, #450 merged) | merged | — |
 | 10 | Cartan torsion / frame field laws | theorem | OPEN | issues #398–#400 | — |
 | 11 | Vesica/Jitterbug geometry + immersion | theorem | NUMERICALLY VERIFIED (kinematics); immersion OPEN | `docs/VESICA_*`, `JITTERBUG_*`; issues #401/#409 | — |
 | 12 | 2I / Poincaré / McKay | theorem + rgs-qlg | ANALYTICALLY VERIFIED (per repo; PR #444) | merged docs | — |
@@ -20,7 +20,7 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 14 | Mosco/graph Γ-limit | rgs-qlg + theorem | ANALYTICALLY VERIFIED (per repo) | `FLAT_TORUS_G6_P1_MOSCO_PROOF.md`, PR #451 | — |
 | 15 | Rumin/Kitaoka spectral geometry | theorem | PARTIALLY MAPPED | `K0_SPECTRAL_*` audits | needs dedicated inventory |
 | 16 | Lindblad / FSS | rgs-qlg (FSS) + quantum-lindblad (stale) | SOFTWARE VERIFIED (rgs-qlg); quantum-lindblad STALE | `FSS_FIB_PROTOCOL.md`, PR #232 | canonical home undecided |
-| 17 | C60 fullerene audits | theorem | NUMERICALLY + SOFTWARE VERIFIED | `docs/C60_*`; PR #449 pending | MMFF94s proxy ≠ DFT |
+| 17 | C60 fullerene audits | theorem | NUMERICALLY + SOFTWARE VERIFIED (PR #449 merged) | `docs/C60_*`, SW audit scripts | MMFF94s proxy ≠ DFT |
 | 18 | C64 enumeration/SW graph | fullerene-c64-audit | NUMERICALLY VERIFIED (per PR #1; no CI) | `results/C64/*` | PR #1 unmerged |
 | 19 | Fullerene↔Q6/Kathara | theorem + fullerene | HYPOTHESIS | `KRIST_ALL_KATHARA_Q6_INTERFACE.md` | explicitly conjectural |
 | 20 | Hysteresis (188D/JA/actuator) | theorem | NUMERICALLY VERIFIED (per repo; PR #452) | `Hysteresis_datasets.xlsx`, issues #113/#114 open | — |

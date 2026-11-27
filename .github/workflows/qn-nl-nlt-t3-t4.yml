@@ -30,6 +30,6 @@ jobs:
       - name: Install test dependencies
         run: python -m pip install numpy scipy pytest
       - name: Compile scripts
-        run: python -m py_compile models/q6_topological_synchronization.py scripts/run_qn_nl_nlt_t3_t4.py scripts/run_q6_nl_nlt_robustness.py tests/test_qn_cubical_complex.py
+        run: python -m py_compile models/q6_topological_synchronization.py scripts/run_qn_nl_nlt_t3_t4.py scripts/run_q6_nl_nlt_robustness.py scripts/run_q6_nl_nlt_t1_t2.py tests/test_qn_cubical_complex.py
       - name: Test Q4/Q5/Q6 incidence and frozen vector fields
         run: python -m pytest -q tests/test_qn_cubical_complex.py

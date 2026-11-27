@@ -27,6 +27,7 @@ jobs:
         run: python -m pip install --upgrade numpy scipy
       - name: Syntax check
         run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py scripts/audit_q6_c60_v4_locality.py
+        run: python -m py_compile scripts/audit_q6_c60_v4_equivariance.py
       - name: Run V4 representation and operator audit
         run: |
           python scripts/audit_q6_c60_v4_equivariance.py \

@@ -54,3 +54,13 @@ def test_affine_radial_mode_has_exact_ellis_interior_radial_energy():
     continuum_energy = 4 * math.pi * (primitive(u_right) - primitive(u_left))
     assert nr == 17
     assert abs(discrete_energy - continuum_energy) < 1e-10
+
+
+def test_circumcentric_dual_crosses_every_primal_edge_at_refinement_levels():
+    # EllisGraph.build now rejects same-side circumcentres instead of
+    # accepting their unsigned distance as a positive conductance.
+    for level in (0, 1, 2, 3):
+        result = EllisGraph(radial_cells=3, sphere_subdivisions=level).build()
+        assert result["angular_edges_per_layer"] == 30 * (4 ** level)
+        assert np.all(np.isfinite(result["edges"][:, 2]))
+        assert np.all(result["edges"][:, 2] > 0)
