@@ -2,6 +2,11 @@
 
 ## theorem (canonical mathematics)
 
+- **HEAD:** `main` @ `cb649369` (T156 incidence audit, 2026-11-27), latest commit returned by repository commit search at audit time.
+- **Scale:** ~85 MB and 1,419 files are the previous depth-1 census (not remeasured). Live PR search (2026-11-27): **1 open PR** (#517); 10 open issues (#84, #109, #113, #114, #398–#402, #409). Merged-PR, closed-unmerged, and branch totals are deliberately not repeated: the available search result is capped and no complete branch census was run.
+- **Key directories:** `docs/` (~120 audit/theorem notes), `theorems/`, `models/`, `experiments/`, `scripts/`, `tests/`, `reports/`, `research/`, `applications/`, `manuscripts/`, `monographs/`, `bibliography/`, `data/`, `evidence/`, `verification/`.
+- **Root hygiene problems (documented, not yet fixed):** committed `__pycache__`/`.pyc` files, duplicate `" (1)"`/`" (2)"` filenames (`README (6).md` … `README (8).md`, `bianchi (1).py`, `test_*.py` duplicates), loose `.npy`/`.npz`/`.zip` artifacts at root. Cleanup candidate — preserve before deleting.
+- **Recent merged work (2026-11-26→27):** registry sync (#480), Ellis circumcentric audit cleanup (#487), live theorem-graph inventory repair (#508; 263 theorem records, 317 nodes, 353 directed edges), updated Ellis circumcentric audit (#514), and T156 rhombicuboctahedron–snub-cube incidence audit (#516). These are repository-integration facts; scientific status remains governed by the theorem records and their stated limitations.
 - **HEAD:** `main` @ `e5e395b5` (merge of T154/T155 In2Infinity extended-Jitterbug work, PR #517, 2026-11-27), latest commit returned by repository commit search at audit time.
 - **Scale:** ~85 MB and 1,419 files are the previous depth-1 census (not remeasured). Live PR search (2026-11-27): **1 open PR** (#518); 10 open issues (#84, #109, #113, #114, #398–#402, #409). Merged-PR, closed-unmerged, and branch totals are deliberately not repeated: the available search result is capped and no complete branch census was run.
 - **Key directories:** `docs/` (~120 audit/theorem notes), `theorems/`, `models/`, `experiments/`, `scripts/`, `tests/`, `reports/`, `research/`, `applications/`, `manuscripts/`, `monographs/`, `bibliography/`, `data/`, `evidence/`, `verification/`.

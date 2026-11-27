@@ -4,6 +4,13 @@ Policy: nothing merged or closed by the audit itself; recommendations only.
 
 ## Registry publication and subsequent reconciliations
 
+The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 subsequently reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
+
+This pass creates a further documentation-only synchronization because the #480 snapshot is superseded by later merges through #516. No theorem status is promoted by this update.
+
+## Live pull-request state — 2026-11-27
+
+A fresh GitHub PR search returned **one open PR in `theorem`: #517**. The search result is capped for merged PRs, so this pass does not publish a new total for merged or closed-unmerged PRs. Latest repository commit observed: `cb6493694927906d49d07deeda249c3542c8672a` (T156, #516).
 The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
 
 Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). The latest main commit observed is `e5e395b52ac32f9602e1736b05c901e34313b6d0`.
@@ -31,6 +38,7 @@ A fresh GitHub PR search returned **five open research PRs in `theorem`: #524–
 
 | PR | Title | State | CI | Assessment |
 |---|---|---|---|---|
+| [#517](https://github.com/fabianleonaressi95/theorem/pull/517) | Formalize/In2Infinity extended Jitterbug T154 | OPEN | Not independently assessed in this registry pass | Owner review; keep the T154 incidence/geometry results distinct from the still-open continuous-motion and physical claims. |
 | [#518](https://github.com/fabianleonaressi95/theorem/pull/518) | Clarify C60 pyracylene SW_5|6 patch and add regression test | OPEN | Not independently assessed in this registry pass | Owner review; verify the graph patch and regression test against the already merged C60 Stone–Wales audit. Do not infer a universal molecular or physical law. |
 | [#519](https://github.com/fabianleonaressi95/theorem/pull/519) | Audit SGC-003 against the documented 1837 Ohsu Kannon Sangaku | OPEN | Not independently assessed in this registry pass | Owner review; preserve source provenance and separate historical reconstruction from any generalized geometric claim. |
 | [#524](https://github.com/fabianleonaressi95/theorem/pull/524) | Audit Pellis GSR register and correct T150/T151 statements | OPEN | Not independently assessed in this registry pass | Owner review; verify source provenance and exact statement corrections. |
@@ -132,6 +140,7 @@ PRs **#20, #21, #22 are MERGED** into `main` (`eca7b9a`, verified 2026-11-26): E
 ## Verified merged (results preserved)
 
 - theorem **#344** (SE(3) tetrahedral defect fixture, merged 2026-11-21), **#131** (Volterra dipole-to-edge elastic limit, merged 2026-11-11), **#232** (T103/T105/T107 Actions hardening, merged 2026-11-12) — all MERGED; content present on main.
+- theorem recent merges #413–#516 cover the Q6/TSMR/Jitterbug/FEEC, geometry, graph-inventory and T156 programmes (see REPOSITORY_MAP.md).
 - theorem recent merges #413–#517 cover the Q6/TSMR/Jitterbug/FEEC, geometry, graph-inventory and In2Infinity programmes (see REPOSITORY_MAP.md).
 - theorem recent merges #413–#517 cover the Q6/TSMR/Jitterbug/FEEC, geometry, graph-inventory and In2Infinity programmes; T157 audit code/tests/workflow were then added by direct commits on `main` (see REPOSITORY_MAP.md).
 - theorem recent merges #413–#523 cover Q6/TSMR/Jitterbug/FEEC, geometry, graph inventory, In2Infinity, C60, T124, Q6 many-body/Berry, and T099 reproducibility. T157/T158 covariant Whitney artifacts are documented on `main`; the duplicate T156 FEEC draft was removed in favor of continuing within T149–T158 (see REPOSITORY_MAP.md).
