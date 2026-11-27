@@ -1,4 +1,4 @@
-# Scientific status matrix — 26 November 2026
+# Scientific status matrix — 27 November 2026
 
 Conservative labeling. "Per repo" = claimed in that repository's own audit documents with passing CI; it is NOT independent verification. Nothing below is upgraded on the basis of code/CI alone.
 
