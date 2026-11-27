@@ -16,11 +16,9 @@ The audit works in the **dual triangulation**. Each vertex of the dual is a pent
 (H_1,H_2)\longmapsto(P_1,P_2).
 \]
 This is the dual description of the pyracylene Stone–Wales move. Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. The direct-graph operation is then recorded as its two removed and two added C–C bonds.
-For a central edge \(B-C\) shared by a pentagon and a hexagon, enumerate the four-site Stone-Wales switch
-\[
-AB,CD\mapsto AC,BD,
-\]
-retaining \(BC\). Keep only resulting graphs that are planar, trivalent, have 60 vertices and 90 edges, and retain exactly 12 pentagons and 20 hexagons. Distinct post-graphs are deduplicated.
+This is the dual description of the fullerene **pyracylene** move, conventionally denoted \\(SW_{5|6}\\). The notation labels the four-ring patch, not the ring pair sharing the rotated bond. The central direct-graph bond is a \\(6|6\\) bond shared by hexagons \\(H_1,H_2\\); the two opposite dual vertices \\(P_1,P_2\\) are pentagons. The initial patch is therefore \\(5/6/6/5\\), and the dual flip \\(H_1H_2\\to P_1P_2\\) changes it to \\(6/5/5/6\\). Reconstruct the direct graph as the dual of the flipped triangulation and retain candidates only if they have 60 vertices, 90 edges, 32 faces, degree 3 at every carbon, and exactly 12 pentagons and 20 hexagons. Record the two removed and two added C–C bonds.
+
+This is distinct from graphenic \\(SW_{6|6}\\), whose initial patch is \\(6/6/6/6\\) and whose product contains the \\(5/7/7/5\\) defect. A criterion requiring the central direct bond itself to be 5|6 would select a different local environment, not the C60 pyracylene patch audited here.
 
 ## Chain-map construction
 
