@@ -270,3 +270,28 @@ The corresponding ordered face-product factorization is checked on the 240 squar
 **Validation status:** the source, tests and dossiers are committed to the PR branch. No CI workflow run was returned for the latest connection-difference commit when queried; therefore these latest tests are pending and must not be reported as passed.
 
 **Remaining bridge:** define a compatible discrete covariant derivative and coframe difference, establish refinement/convergence, lift to \(SO(1,3)\)/Spin(1,3), and derive an action selecting the flat representative. The internal golden 3-space remains a candidate source for a distinguished direction only after an independent gauge-covariant torsion trace is supplied. No physical time coordinate, Lorentzian tetrad, TEGR field equation or RGS action is claimed.
+
+
+## Affine SE(3) links and cubical Bianchi identity (27 November 2026)
+
+The Q6 coframe increments and rotational links are now packaged as affine links
+\[
+\mathsf G_{gh}=(U_{gh},b_{gh}),\qquad b_{gh}=U_{gh}\theta_{gh},
+\]
+with \(SE(3)\) multiplication \((U,b)(V,c)=(UV,b+Uc)\). This choice makes reverse-edge inversion exact and agrees with the existing source-frame convention:
+\[
+\mathsf G_{hg}=\mathsf G_{gh}^{-1}=(U_{gh}^{T},-\theta_{gh}),\quad
+U_{hg}=U_{gh}^{T},\quad \theta_{hg}=-U_{gh}\theta_{gh}.
+\]
+The affine face holonomy is \((H_p,t_p)\); its base-frame developed closure is \(H_p^{-1}t_p\), matching the previous discrete face torsion observable.
+
+For each of the 160 Q6 elementary 3-cubes, the non-Abelian Bianchi consistency relation is formed from the six adjacent swaps in the permutation cycle
+\(abc\to bac\to bca\to cba\to cab\to acb\to abc\).
+Each square holonomy is transported to the cube base before ordered multiplication. The six based loops telescope to the identity in \(SE(3)\), with rotational and translational residuals checked separately. The audit also applies arbitrary local \(SE(3)\) frame changes and checks face-holonomy conjugation and the cube identity.
+
+Implementation:
+- scripts/audit_q6_se3_cartan_bianchi.py
+- tests/test_q6_se3_cartan_bianchi.py
+- research/Q6_SE3_CARTAN_CUBICAL_BIANCHI_AUDIT_2026-11-27.md
+
+This is an exact finite groupoid identity for the present Q6 links, not yet a continuum Cartan theorem. The translational face holonomy is a closure/dislocation observable and candidate torsion diagnostic; identifying it with the continuum Cartan torsion 2-form requires a refinement/consistency result. The current model remains spatial \(SO(3)\ltimes\mathbb R^3\), with no variational action, Lorentzian lift, physical time leg, TEGR equivalence, or polariton/Q-ball identification established.
