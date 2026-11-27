@@ -258,7 +258,7 @@ This aspect ratio lies between the \(w=1.0\) and \(w=1.5\) finite-width examples
 
 ### Finite-width equilibrium system
 
-The numerical companion implements the 15-dimensional symmetric half-strip BVP in Starostin–van der Heijden (2015), Eqs. (23)–(29), with their boundary conditions (30)–(39) and the constitutive boundary condition (21). The finite-width Wunderlich density is
+The numerical companion implements the 15-dimensional symmetric half-strip BVP in Starostin–van der Heijden (2015), Eqs. (23)–(29), with boundary conditions (30)–(38) and the constitutive boundary condition (21). **Source-consistency correction:** the printed Eq. (39) gives a sign for the (2\kappa(1+\eta^2)^2) term that contradicts Eqs. (20)–(21). At \(\eta'(0)=0\), Eq. (21) and \(h=\kappa^2(1+\eta^2)^2V\), (V(0)=1\), require \(M_3(0)=2\kappa(0)(1+\eta(0)^2)^2-\eta(0)M_1(0)\). The solver uses this constitutive-consistent sign and includes a regression test; this discrepancy is explicitly flagged for independent source/author confirmation rather than silently attributed to the paper. The finite-width Wunderlich density is
 
 \[
 h(\kappa,\eta,\eta')=
