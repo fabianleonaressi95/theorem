@@ -110,7 +110,7 @@ def equal(A: Sparse, B: Sparse) -> bool:
 def hodge_laplacian(Bk: Sparse, Bkp1: Sparse, nk: int) -> Sparse:
     # Bk: C_k -> C_(k-1); Bkp1: C_(k+1) -> C_k.
     term_down = matmul(transpose(Bk, nk), Bk)
-    term_up = matmul(Bkp1, transpose(Bkp1, len(Bkp1)))
+    term_up = matmul(Bkp1, transpose(Bkp1, nk))
     return add(term_down, term_up)
 
 
