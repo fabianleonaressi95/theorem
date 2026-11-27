@@ -103,3 +103,18 @@ is a model template until its coefficients are derived from those projected star
 - T091–T093: Frank–Burgers tensorial composition and holonomy.
 - T104: Q6 cycle/cocycle and cubical holonomy distinctions.
 - `src/rgs_seed_64_reconstruction.py`: canonical hash-checked 64-by-3 RGS seed.
+
+
+## 7. Later recovered Q6/RGS projection implementation (27 November 2026)
+
+The original repository audit in §5 correctly recorded that the then-inspected Q6 seed alone did not determine a 6D split or acceptance window. A later explicit construction is now available in the companion repository `fabianleonaressi95/rgs-qlg-quaternion-bridge`, `src/rgs_psu_cut_project.py`, and is used by theorem card T129:
+
+- the golden matrices (P_\parallel,P_\perp\) built from (A(\phi)) and (A(\phi_*));
+- the orthogonal (3+3) split of (mathbb R^6);
+- the 64 centred Q6 cube vertices and their physical/internal projections;
+- the acceptance window (P_\perp([-1/2,1/2]^6)), whose convex hull is the 32-vertex, 30-facet rhombic triacontahedron for this convention;
+- a finite-radius model-set enumerator with a certified integer search bound.
+
+This later implementation supersedes the earlier statement that no explicit projection/window implementation was available. It does **not** make the infinite model-set limit, physical identification, full decorated point-group symmetry, phonon–phason constitutive law, or continuum convergence automatic. The isotropy theorem in this card remains conditional on invariance under the actual point group of the complete model. T129's two-angle calibration remains additional data, not a consequence of the 6D split.
+
+The 188D embedding (J\in\mathbb R^{188\times6}) and its archived orthogonality residuals are cross-referenced in `research/RGS_4D6D3D_RC_TELEPARALLEL_CUT_PROJECT_SYNTHESIS_2026-11-27.md`. The torsion-coupled internal-time selector in the companion implementation requires an independent (64\times m) torsion trace and remains a candidate; (E_\perp) is not itself physical time.
