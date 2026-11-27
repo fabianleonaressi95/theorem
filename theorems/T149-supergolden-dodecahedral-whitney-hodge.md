@@ -158,7 +158,7 @@ Its regular pentagon frame residuals are at machine precision. This is a geometr
 
 The canonical face-centroid refinement, barycentric gradients, Whitney mass matrices, mass-induced adjoints, antipodal parity blocks and scalar condensation are now numerically assembled. The local face frames are compatible with the regular pentagon only in the φ control. In the supergolden metric, the faces are genuinely deformed even though the same pentagonal combinatorics remains.
 
-The local Hodge mass matrices are invariant under rotations of an individual face frame. Therefore the discrete 72° pentagonal phases do not by themselves define a global connection. A nontrivial inter-face phase transport still requires independently specified transition maps across shared edges and a holonomy calculation. No torsion or spin connection is inferred from the local frames alone.
+At the stage of the original T149 assembly, the local Hodge mass matrices were invariant under rotations of an individual face frame, so the discrete 72° pentagonal phases did not by themselves define a global connection. The subsequent T155/T157 records supply explicit inter-face and full-mesh transports with holonomy. No torsion or spin connection is inferred from the local frames or these SO(2) transports alone.
 
 **Conclusion:** T149's FEEC assembly and antipodal gates pass. The canonical scalar Hodge operator and scalar Schur condensation do not produce the selected Q6 spectrum or an intertwiner. The polynomial
 \[
