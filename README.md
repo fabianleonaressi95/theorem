@@ -716,3 +716,7 @@ These are finite mathematical/software checks. They do not establish physical ca
 - [Monograph chapter: Cymatics and wave morphogenesis](docs/CYMATICS_WAVE_MORPHOGENESIS_CHAPTER.md) — distinguishes mechanical Chladni patterns from electromagnetic helicon modes and specifies the falsifiable validation protocol.
 - [CYM-T001 — Courant nodal-domain bound](theorems/CYM-T001-courant-nodal-domain-bound.md) is a classical theorem used as a scalar-mode constraint. [CYM-T002](open-problems/CYM-T002-spectral-morphology-stability.md) and [CYM-T003](open-problems/CYM-T003-rgs-prism-mode-compatibility.md) remain open; no new RGS morphogenesis theorem is claimed.
 - [C01–C04 numerical controls](scripts/cymatics_wave_benchmarks.py) and [regression tests](tests/test_cymatics_wave_benchmarks.py) cover a simply supported square Kirchhoff–Love plate, square-mode degeneracy, controlled symmetry breaking, and the exact Q6 hypercube graph spectrum. These controls are not experimental Chladni data or a plasma simulation.
+
+## Morfodinamica Quantistica — quantum geometry
+
+- [MQ research index](morfodinamica-quantistica/README.md) — MQ-002 proves the dimension-two four-valent spin-1/2 SU(2) intertwiner space; MQ-003 proves invariance under one-link gluing and distinguishes area matching from shape matching. Includes explicit flux matrices, NumPy audit, regression tests, and an explicit open gate for the RGS–QLG identification.
