@@ -235,3 +235,38 @@ A deterministic independent local SO(3) gauge at every vertex verifies:
 For this specified finite data, 236/240 faces have both nonzero developed torsion and nonzero curvature angle. This is the first explicit finite spatial construction in this programme in which both are present together. It is not yet a Lorentzian 4D Cartan field, a teleparallel flat representative, or a continuum theorem. In particular, the current SO(3) links are not derived from a common variational action, and no non-Abelian cube Bianchi or Mosco limit is claimed.
 
 The static Levi-Civita audit remains a torsion-free benchmark only; the discrete Cartan construction above is the active finite spatial connection layer.
+
+
+## 9. Flat Q6 branch and exact finite connection-difference identity (27 November 2026)
+
+A second spatial connection has been added on the same Q6 carrier and same reconstructed site coframe:
+- \`scripts/audit_q6_teleparallel_branch.py\`;
+- \`tests/test_q6_teleparallel_branch.py\`;
+- \`research/Q6_TELEPARALLEL_FLAT_BRANCH_AUDIT_2026-11-27.md\`.
+
+In a chosen global trivialization, the flat branch is \(U^{\mathrm W}_{gh}=I_3\) on every edge. Under local vertex-frame changes it transforms as \(G_hU^{\mathrm W}_{gh}G_g^{-1}\), so all 240 square holonomies are identity. The same edge coframe can still have a nonzero developed face closure defect. This is a finite spatial pure-gauge flat representative, not yet a variationally selected TEGR connection.
+
+The curved branch is not relabelled: its nontrivial face holonomy remains a distinct connection choice.
+
+The exact finite comparison is now recorded in:
+- \`scripts/audit_q6_connection_difference.py\`;
+- \`tests/test_q6_connection_difference.py\`;
+- \`research/Q6_DISCRETE_CONTORSION_IDENTITY_2026-11-27.md\`.
+
+For each oriented edge \(g\to h\), define the relative link
+\[
+V_{gh}=U^{\mathrm C}_{gh}(U^{\mathrm W}_{gh})^{-1}.
+\]
+It is based at the target frame and transforms by conjugation:
+\[
+V'_{gh}=G_hV_{gh}G_h^{-1}.
+\]
+Its principal logarithm \(A_{gh}=\operatorname{Log}(V_{gh})\in\mathfrak{so}(3)\) gives the exact link-group factorization
+\[
+U^{\mathrm C}_{gh}=\exp(A_{gh})U^{\mathrm W}_{gh}.
+\]
+The corresponding ordered face-product factorization is checked on the 240 square faces. This is the exact finite lattice connection-difference identity; it is **not** yet the continuum Cartan contorsion 1-form or the differential identity \(R(\omega^{\mathrm C})=R(\omega^{\mathrm W})+D^{\mathrm W}K+K\wedge K\).
+
+**Validation status:** the source, tests and dossiers are committed to the PR branch. No CI workflow run was returned for the latest connection-difference commit when queried; therefore these latest tests are pending and must not be reported as passed.
+
+**Remaining bridge:** define a compatible discrete covariant derivative and coframe difference, establish refinement/convergence, lift to \(SO(1,3)\)/Spin(1,3), and derive an action selecting the flat representative. The internal golden 3-space remains a candidate source for a distinguished direction only after an independent gauge-covariant torsion trace is supplied. No physical time coordinate, Lorentzian tetrad, TEGR field equation or RGS action is claimed.
