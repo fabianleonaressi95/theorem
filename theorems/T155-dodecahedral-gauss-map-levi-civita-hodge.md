@@ -92,9 +92,9 @@ Both operators are Hermitian positive definite. Antipodal frame covariance is at
 
 ## 7. Scope and remaining obstruction
 
-T155 constructs the global connection on the 12 pentagonal face frames and its curvature/holonomy. It does not yet replace the full 32–90–60 Whitney FEEC operator of T149 by a covariant Whitney complex. That requires extending the face-frame bundle to all 32 vertices, 90 edges and 60 triangles, with transition/parallel-transport data on every simplex and a compatible covariant differential.
+T155 constructs the Levi-Civita connection on the 12 pentagonal face frames and its curvature/holonomy. The subsequent T157 record extends the nodal-normal connection to all 32 centroid-fan nodes and 90 edges, constructs link-transported Whitney masses on the 60 triangles, and verifies the curvature defect \(D_1^A D_0^A\ne0\) by an exact Wilson-loop identity. T157 is a finite curved cochain sequence, not a flat cochain complex.
 
-The current \(\Delta_A\) is a face-centred finite-volume Hodge operator, not the 32–90–60 Whitney Laplacian. Its spectrum does not derive \(f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}\). The Q6/RGS interpolation remains the exact result recorded in T144; its derivation from the dodecahedral geometry remains open.
+The present \(\Delta_A\) remains the 12-dimensional face-centred finite-volume Hodge operator, distinct from the 32–90–60 link-covariant Whitney Hodge operators of T157. A smooth connection specified inside each triangle, refinement convergence, and a continuum curved-FEEC error theory remain open. Neither construction derives \(f(x)=\frac12+\frac{x}{120}+\frac{x^2}{240}\); the Q6/RGS interpolation remains the exact result recorded in T144, and its derivation from dodecahedral geometry remains open.
 
 ## 8. Reproduction
 
