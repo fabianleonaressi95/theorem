@@ -1,7 +1,7 @@
 # Independent mathematical audit — Pellis / GSR register (PEL-01–PEL-11)
 
 **Date:** 27 November 2026  
-**Repository:** \`fabianleonaressi95/theorem\`  
+**Repository:** `fabianleonaressi95/theorem`  
 **Scope:** direct review of the PEL register against the GSR preprint and repository records T138, T150, T151, S013, T119, T032, T034, T144, the H4 audit, and the Fibonacci/Q6 bridge.  
 **Classification:** audit report, not a new physical theorem.  
 **Overall result:** the register is structurally sound. Two technical wording defects are corrected in this branch. No PEL item is promoted to solved.
@@ -81,4 +81,4 @@ No PEL item is closed by this audit. The order PEL-05 → PEL-04 → PEL-01–03
 ## 7. Sources and repository records
 
 - Stergios Pellis, *Fine-Structure Constant via the Golden Spheres Resonance*, DOI [10.13140/RG.2.2.35410.00968](https://doi.org/10.13140/RG.2.2.35410.00968), 11 September 2025; SSRN [5473588](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5473588), posted 2 October 2025.
-- Repository records audited: T138, T150, T151, S013, T119, T032, T034, T144, \`docs/H4_600_CELL_TWO_PLANE_CYCLOTOMIC_AUDIT_2026-11-26.md\`, and \`docs/PELLIS_FIBONACCI_Q6_TWO_SHEET_BRIDGE.md\`.
+- Repository records audited: T138, T150, T151, S013, T119, T032, T034, T144, `docs/H4_600_CELL_TWO_PLANE_CYCLOTOMIC_AUDIT_2026-11-26.md`, and `docs/PELLIS_FIBONACCI_Q6_TWO_SHEET_BRIDGE.md`.
