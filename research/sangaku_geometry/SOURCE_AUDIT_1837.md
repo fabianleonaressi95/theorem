@@ -49,3 +49,21 @@ At x=r/3, r1=4r/9 and r3=r4=r/9. This proves the identity for the idealized diag
 - Fukagawa, Hidetoshi; Rothman, Tony, *Sacred Mathematics: Japanese Temple Geometry*, Princeton University Press, 2008, Chapter 4, Problem 16, Figure 4.15, printed p. 101; selected solution, printed p. 126. [Accessible PDF copy](https://nnty.fun/downloads/books/TAEL/HISTORY/SCIENCE/MATHEMATICS/Sacred%20Mathematics%20Japanese%20Temple%20Geometry%20-%20Hidetoshi%20Fukagawa%2C%20Tony%20Rothman%202008.pdf).
 
 The accessible 2008 book is a published secondary source. It is not the original 1837 tablet or Nagata Toshimasa's unpublished manuscript. This audit therefore avoids claiming direct inspection of the historical artifact.
+
+## Follow-up check: the exact 1989 reference 1.5.7
+
+The bibliographic identity of the cited 1989 book is confirmed independently by Google Books and WorldCat: Hidetoshi Fukagawa and Daniel Pedoe, *Japanese Temple Geometry Problems*, Charles Babbage Research Centre, Winnipeg, 1989, 206 pp., ISBN 0919611214 / 9780919611214. Google Books identifies its digitized exemplar as originating from the University of Michigan.
+
+Bogomolny's page explicitly cites the item as *Temple Geometry*, **1.5.7** and gives the SGC-003 incidence description and equations. However, the accessible Google Books record exposes bibliographic metadata and partial indexing, not a readable scan or searchable transcription of the exact 1.5.7 page. I therefore cannot independently verify from the 1989 volume that the problem statement, date 1837, Aichi attribution, diagram and labels are transcribed faithfully. The citation itself is verifiable; the content of that cited page remains uninspected.
+
+Do not confuse the two editions/references:
+- **1989, Fukagawa–Pedoe, item 1.5.7:** cited by Bogomolny for the SGC-003-style four-circle/semicircle arrangement; exact page content not yet independently inspected.
+- **2008, Fukagawa–Rothman, Chapter 4, Problem 16, Figure 4.15, p. 101:** explicitly describes a different 1837 tablet presented to Ohsu Kannon, with four equal circles inside a larger circle and auxiliary p/q circles. Its published solution is on p. 126.
+
+Thus the 2008 Problem 16 comparison disproves an identification of SGC-003 with **that particular Ohsu Kannon Problem 16**, but it does not disprove the separate 1989 item 1.5.7 cited by Bogomolny. These may be distinct Sangaku problems associated with Aichi in 1837. Resolving whether the 1989 item 1.5.7 is faithfully represented requires direct inspection of that page (physical copy, library scan, or a full-view digital copy) and ideally its cited source image.
+
+Additional catalogue references:
+- [Google Books record for the 1989 Fukagawa–Pedoe volume](https://books.google.com/books?id=JVjvAAAAMAAJ)
+- [WorldCat record](https://search.worldcat.org/title/613367446)
+- [Bogomolny's explicit 1.5.7 citation and transcription](https://www.cut-the-knot.org/Curriculum/Geometry/CirclesInCirclesSangaku.shtml)
+- [2008 Problem 16, Figure 4.15, page 101 (accessible searchable transcription)](https://anyflip.com/iurx/mipd/basic/101-150)
