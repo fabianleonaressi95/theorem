@@ -56,3 +56,25 @@ Therefore:
 ## Status
 
 The numerical report `audits/Q6_C60_V4_locality.json` is the authoritative output of the workflow. The classification remains **numerical diagnostic / open optimization problem** until the intertwiner freedom is handled explicitly.
+
+
+## Numerical result (GitHub Actions run 17)
+
+The workflow completed successfully on 2026-11-27. The actual C60 face graph was reconstructed with 32 faces (12 pentagons and 20 hexagons), 90 shared edges, and degree counts 12 of degree 5 and 20 of degree 6.
+
+The transported matrix is symmetric to residual `4.46e-15`. The intertwiner has orthogonality residual `8.33e-15` and maximum V4 intertwining residual `5.66e-15`.
+
+For the deterministic projector-built intertwiner, at every tested block threshold from `1e-12` through `1e-2`:
+
+- 944 of the 1024 possible `2x2` face blocks are nonzero;
+- 24 diagonal blocks and 160 directed adjacent-face blocks are nonzero;
+- 760 off-diagonal blocks connect nonadjacent faces;
+- 82.61% of the off-diagonal support is therefore nonadjacent;
+- only 80 of the 90 undirected face adjacencies have a nonzero transported block (88.89% coverage).
+
+The Frobenius energy is also predominantly nonlocal: 76.73% lies in nonadjacent off-diagonal face blocks, while 23.27% lies in adjacent-face blocks.
+
+**Conclusion for this representative:** the explicit transported Q6 adjacency is dense and not face-local with respect to the C60 face graph. This is a strong negative result for the current deterministic intertwiner, but it is not a no-go theorem: the unresolved `O(16)^4` freedom could change block locality. An optimization or a structural obstruction over the full intertwiner family is still required.
+
+Workflow: https://github.com/fabianleonaressi95/theorem/actions/runs/46015219978  
+Artifact: `q6-c60-v4-equivariance` (includes the JSON report and NPZ matrix bundle).
