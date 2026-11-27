@@ -23,7 +23,7 @@ For the standard 2-skeleton:
 \dim C_0=64,\quad \dim C_1=192,\quad \dim C_2=240,
 \]
 and B_1 is 64×192, B_2 is 192×240, with B_1B_2=0.
-Orient each cell by the increasing order of its free coordinate axes. The 240 faces must retain their orientation signs; unsigned face permutations are insufficient.
+Orient each cell by the increasing order of its free coordinate axes. The 240 faces must retain their orientation signs; unsigned face permutations are insufficient. The full cubical complex also has 160 three-cells; these are required to define the degree-2 Hodge Laplacian through B_3.
 
 The Anti-Twin double is
 \[
@@ -223,8 +223,8 @@ Derive neighbour stars, phonon/phason coordinates, interactions and symmetry fro
 |---|---|
 | Q6 counts and oriented cubical boundary identity | Exact finite combinatorics |
 | Anti-Twin doubled chain complex and even/odd projectors | Exact algebraic construction |
-| Temporal chain-map condition (2.1) | Exact criterion; concrete U_k(n) still to be built from data |
-| Möbius sheet-exchange transition | Exact topological model |
+| Temporal chain-map condition (2.1) | Exact criterion; Hodge-generated model supplied in §2.1 |
+| Hodge-generated Anti-Twin time generator | Exact finite algebraic model; physical identification open |\n| Möbius sheet-exchange transition | Exact topological model |
 | Static RGS spatial coframe reconstruction | Reproducible companion result; not a dynamical tetrad |
 | 4D Lorentzian tetrad, lapse/shift and inertial spin connection | Open |
 | TEGR torsion/curvature identity for this RGS model | Not certified |
@@ -238,6 +238,6 @@ Derive neighbour stars, phonon/phason coordinates, interactions and symmetry fro
 - docs/RGS_QLG_QAT_VIERBEIN_RECOVERY_AUDIT.md — separates archived edge coframe, spatial vertex field and proposed Lorentzian tetrad.
 - theorems/Q6_FACE_COCHAINS_HODGE_GREEN_KUBO_2026-11-23.md — exact face-cochain and OU/Green–Kubo result.
 - docs/DISCRETE_COFRAME_TORSION_TETRAHEDRON_2026-11-26.md — candidate discrete coframe/face torsion definition and limitations.
-- theorems/T113G-cut-project-symmetry-rank-two-isotropy.md — current Q6/RGS cut-and-project data boundary.
+- theorems/T113G-cut-project-symmetry-rank-two-isotropy.md — current Q6/RGS cut-and-project data boundary.\n- scripts/audit_q6_antitwin_temporal_chain.py — exact sparse-rational audit of the Hodge-generated temporal chain identities (not yet executed in this PR).
 - Companion repository rgs-qlg-quaternion-bridge, PR #234 — deterministic spatial coframe/static-lift reconstruction; not a dynamical spacetime tetrad.
 - Teleparallel convention: tetrad/coframe plus inertial flat Lorentz spin connection are the fundamental data; torsion is computed only after both are specified. See EPJC (2021), DOI 10.1140/epjc/s10052-021-09165-x.
