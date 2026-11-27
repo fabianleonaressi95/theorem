@@ -1,0 +1,36 @@
+name: T156 finite-width Mobius elastic BVP
+
+on:
+  push:
+    paths:
+      - "scripts/solve_t156_mobius_elastic_bvp.py"
+      - "tests/test_t156_mobius_elastic_bvp.py"
+      - ".github/workflows/t156-mobius-elastic-bvp.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  t156-elastic-bvp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install numerical dependencies
+        run: python -m pip install numpy scipy
+      - name: Run T156 finite-width symmetric Mobius BVP
+        run: python scripts/solve_t156_mobius_elastic_bvp.py
+      - name: Run T156 BVP formulation tests
+        run: python -m unittest discover -s tests -p "test_t156_mobius_elastic_bvp.py" -v
+      - name: Upload BVP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t156-mobius-elastic-bvp-report
+          path: results/t156_mobius_elastic_bvp.json
+          if-no-files-found: warn
+          retention-days: 30
