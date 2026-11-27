@@ -768,3 +768,8 @@ These are finite mathematical/software checks. They do not establish physical ca
 ## Morfodinamica Quantistica — quantum geometry
 
 - [MQ research index](morfodinamica-quantistica/README.md) — MQ-002 proves the dimension-two four-valent spin-1/2 SU(2) intertwiner space; MQ-003 proves invariance under one-link gluing and distinguishes area matching from shape matching. Includes explicit flux matrices, NumPy audit, regression tests, and an explicit open gate for the RGS–QLG identification.
+
+
+## Morfodinamica Quantistica
+
+The MQ programme records exact quantum-tetrahedron results (MQ-002/003) and a finite RGS-carrier classical-flux construction (MQ-005), with explicit limits on Q6 incidence and spin quantization. See [morfodinamica-quantistica/README.md](morfodinamica-quantistica/README.md).
