@@ -6,13 +6,13 @@ Policy: nothing merged or closed by the audit itself; recommendations only.
 
 The original project-registry bundle **#464** and its delta updates **#475** and **#480** are merged. PR #508 reconciled the theorem-record inventory and graph counts; its stated validation is 263/263 theorem records indexed, zero missing indexed records, zero stale graph paths, 317 nodes and 353 directed edges. These are inventory checks, not mathematical proof upgrades.
 
-Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added T157 and T158 covariant Whitney records, scripts, tests and workflows; T158 reports order-8/order-12 quadrature agreement near 10^-14 while explicitly leaving mesh-refinement convergence open. PR #523 added the T099 reproducibility workflow. The separate T156 FEEC draft (which reused the T156 identifier already assigned to the rhombicuboctahedron–snub-cube audit) was subsequently removed from `main`; the owner directed continuation within the existing T149–T158 line. Latest main commit observed: `5ed31f8fd5c307c679dca9087a6e204b3444f2f7`. None of these integrations alone establishes a smooth-continuum theorem.
+Subsequent verified merges include #487 (Ellis circumcentric cleanup), #514 (Ellis audit v2), #516 (T156 incidence audit), and #517 (In2Infinity T154/T155 source and transition work). Direct commits on 2026-11-27 added T157 and T158 covariant Whitney records, scripts, tests and workflows; T158 reports order-8/order-12 quadrature agreement near 10^-14 while explicitly leaving mesh-refinement convergence open. PR #523 added the T099 reproducibility workflow. The separate T156 FEEC draft (which reused the T156 identifier already assigned to the rhombicuboctahedron–snub-cube audit) was subsequently removed from `main`; the owner directed continuation within the existing T149–T158 line. Latest main commit observed: `55753bc57ff564a0d69787949a72904b1f7eadac` (subsequent change repairs the NL/NLT pilot JSON artifact). None of these integrations alone establishes a smooth-continuum theorem.
 
 This pass synchronizes the registry only; it does not alter scientific classifications or perform branch/issue cleanup.
 
 ## Live pull-request state — 2026-11-27
 
-A fresh GitHub PR search returned **three open research PRs in `theorem`: #524, #525 and #526**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published. This registry reconciliation will be submitted as a separate documentation-only PR.
+A fresh GitHub PR search returned **five open research PRs in `theorem`: #524, #525, #526, #527 and #528**. Their diffs and CI were not independently assessed in this registry pass. The merged-PR search is capped, so no new total merged or closed-unmerged count is published. This registry reconciliation will be submitted as a separate documentation-only PR.
 
 ### theorem — open PRs
 
@@ -21,6 +21,8 @@ A fresh GitHub PR search returned **three open research PRs in `theorem`: #524, 
 | [#524](https://github.com/fabianleonaressi95/theorem/pull/524) | Audit Pellis GSR register and correct T150/T151 statements | OPEN | Not independently assessed in this registry pass | Owner review; verify source provenance and exact statement corrections. |
 | [#525](https://github.com/fabianleonaressi95/theorem/pull/525) | Develop PEL-05: independent spectral-state selection criteria | OPEN | Not independently assessed in this registry pass | Owner review; check independent criteria and avoid circular spectral selection. |
 | [#526](https://github.com/fabianleonaressi95/theorem/pull/526) | Add matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark | OPEN | Not independently assessed in this registry pass | Owner review; keep the benchmark's reproducibility evidence separate from continuum/Gamma-limit claims. |
+| [#527](https://github.com/fabianleonaressi95/theorem/pull/527) | Audit carrier-derived coframe on the full Q6 PSU connection | OPEN | Not independently assessed in this registry pass | Owner review; verify the carrier-to-connection construction and avoid assuming the coframe identity. |
+| [#528](https://github.com/fabianleonaressi95/theorem/pull/528) | Refine Q6 mean-field and Berry audits with verified controls | OPEN | Not independently assessed in this registry pass | Owner review; preserve separation between finite benchmark controls and physical interpretation. |
 
 ### Selected subsequent merges verified on 2026-11-27
 
