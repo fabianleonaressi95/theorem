@@ -2,8 +2,8 @@
   "status": "STATIC_3PLUS1_COFRAME_INTERPOLATION_CANDIDATE; LC_LINK_MISMATCH_MEASURED",
   "ci": {
     "workflow": "Q6 face-cochain Green-Kubo audit",
-    "run_number": 20,
-    "run_id": 46057132145,
+    "run_number": 25,
+    "run_id": 46057454034,
     "conclusion": "success"
   },
   "provenance": {
@@ -95,12 +95,26 @@
     "negative_sequence_rotation_rate": -2.3,
     "sample_times": 33,
     "co_rotating_frame_covariance_residual": {
-      "mean": 1.6867948550679995e-16,
-      "rms": 2.9672286115031485e-16,
-      "max": 8.882964164503775e-16,
-      "p95": 6.353474745585468e-16
+      "mean": 2.1072376516419175e-16,
+      "rms": 3.094864191189169e-16,
+      "max": 8.883153268655137e-16,
+      "p95": 4.634892252425777e-16
     },
-    "status": "EXACT_ROTATING_FRAME_COVARIANCE_IDENTITY_NUMERICALLY_AUDITED"
+    "status": "EXACT_ROTATING_FRAME_COVARIANCE_IDENTITY_NUMERICALLY_AUDITED",
+    "rotating_tetrad_temporal_torsion_residual": {
+      "mean": 1.9505723068617677e-16,
+      "rms": 3.0512011779200933e-16,
+      "max": 7.021666937153402e-16,
+      "p95": 6.314610898259732e-16
+    },
+    "quaternionic_spin_lift": {
+      "convention": "q=(cos(theta/2),0,0,sin(theta/2)); U=q0 I - i q.sigma",
+      "max_SU2_unitarity_residual": 3.14034529239556e-16,
+      "max_SU2_to_SO3_adjoint_residual": 3.1401849173675503e-16,
+      "U_at_2pi_equals_minus_I_residual": 1.7319121124709866e-16,
+      "U_at_4pi_equals_plus_I_residual": 3.463824224941973e-16,
+      "status": "SPIN_DOUBLE_COVER_AUDITED"
+    }
   },
   "epistemic_limits": [
     "Log-Gaussian interpolation is a declared candidate, not uniquely determined by the 64 samples.",
