@@ -9,7 +9,20 @@ F(b)=\sum_{i=1}^6(-1)^{b_i}n_i,
 \]
 where the six \(n_i\) are the normalized icosahedral axes in T146. The complement operation gives 32 exact antipodal pairs; numerical coordinate checks give four radial shells with counts 12, 20, 20, 12.
 
-The minimum separation of the 64 points is 1.125554844510479 in the chosen dimensionless normalization. For PSU spheres of radius \(\ell_P/2\), the centre separation must be at least \(\ell_P\). Thus a uniformly scaled point set \(P_b=\lambda F(b)\) must satisfy \(\lambda\ge0.8884507093343064\ell_P\). This is only a non-overlap bound; no packing fraction or space filling follows.
+## Exact T129 cut-and-project identity
+
+The signed golden vector set is exactly the physical projection of the centred Q6 cube, not a second unrelated construction. In the low-bit-first convention of the code, with relabelling mask 53,
+\[
+P_\parallel(b-\tfrac12\mathbf1)=\frac{1}{2\sqrt2}F_\phi(b\oplus53).
+\]
+The internal projection obeys the conjugate identity
+\[
+P_\perp(b-\tfrac12\mathbf1)=\frac{1}{2\sqrt2}F_{\phi_*}(b\oplus53),
+\qquad \phi_*=(1-\sqrt5)/2.
+\]
+Both residuals are checked in the audit. Thus Q6's 64 hexagrams map to a physical golden 64-point cloud and to its algebraic-conjugate internal cloud through the already recovered 6D \(3+3\) split.
+
+The minimum separation in the \(F_\phi\) normalization is 1.125554844510479. For PSU spheres of radius \(\ell_P/2\), non-overlap requires \(\lambda_F\ge0.8884507093343064\ell_P\). In the T129 projected physical coordinates the minimum separation is 0.3979437315753649, so the equivalent scale is \(\lambda_\parallel\ge2.5129180852811452\ell_P\). These are the same geometric condition in different coordinate normalizations. This is only a non-overlap bound; no packing fraction or space filling follows.
 
 ## Spinor lift
 
