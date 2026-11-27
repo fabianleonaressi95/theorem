@@ -157,7 +157,7 @@ def boundary_conditions(ya: np.ndarray, yb: np.ndarray, kappa_floor: float):
         ya[13],                             # y(0)=0
         ya[14],                             # z(0)=0
         yb[14],                             # z(L/2)=0
-        ya[5] + eta0*ya[3] + 2.0*kappa0*(1.0+eta0**2)**2,
+        ya[5] + eta0*ya[3] - 2.0*kappa0*(1.0+eta0**2)**2,
     ])
 
 
@@ -172,7 +172,7 @@ def initial_guess(width: float, kappa_floor: float, mesh: np.ndarray) -> np.ndar
     y[2] = 0.0
     y[3] = 0.0
     y[4] = 0.0
-    y[5] = -2.0*kappa[0]*(1.0+eta[0]**2)**2
+    y[5] = 2.0*kappa[0]*(1.0+eta[0]**2)**2
     y[6] = kappa
     y[7] = eta
     y[8] = q
