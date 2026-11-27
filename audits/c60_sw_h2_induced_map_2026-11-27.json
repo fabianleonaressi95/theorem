@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-27",
+  "checks": {
+    "B1p_S1_eq_B1": true,
+    "B2p_S2_eq_S1B2_lib": true,
+    "dim_ker_B2": 1,
+    "dim_ker_B2p": 1,
+    "z_primitive_gcd": 1,
+    "zp_primitive_gcd": 1,
+    "z_entries_set": [
+      1
+    ],
+    "zp_entries_set": [
+      1
+    ],
+    "S2z_is_cycle": true
+  },
+  "induced": {
+    "S2z_max_abs": 0,
+    "numerator_c_dot_zp": 0,
+    "denominator_zp_sq": 32,
+    "k_rational": "0/32",
+    "k_integer": true,
+    "k": 0
+  },
+  "gauge_sweep": {
+    "trials": 200,
+    "k_min": -31.0,
+    "k_max": 29.0,
+    "k_values": [
+      -31.0,
+      -30.0,
+      -27.0,
+      -23.0,
+      -21.0,
+      -20.0,
+      -19.0,
+      -17.0,
+      -16.0,
+      -15.0,
+      -14.0,
+      -13.0,
+      -12.0,
+      -11.0,
+      -10.0,
+      -9.0,
+      -8.0,
+      -7.0,
+      -6.0,
+      -5.0,
+      -4.0,
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      18.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      29.0
+    ],
+    "gauge_invariant": false
+  },
+  "verdict": "H2_GAUGE_DEPENDENT"
+}
