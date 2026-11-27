@@ -254,7 +254,7 @@ def main():
     g = report["full_SE3_gauge_covariance"]
     if max(b["max_rotation_residual"], b["max_translation_residual"]) > 1e-10:
         raise SystemExit("SE(3) cubical Bianchi identity failed")
-    if max(g.values()) > 1e-10:
+    if max(v for k, v in g.items() if k != "seed") > 1e-10:
         raise SystemExit("full SE(3) gauge covariance failed")
     a = report["affine_link"]
     if max(a["max_rotation_difference_from_previous_face_holonomy"],
