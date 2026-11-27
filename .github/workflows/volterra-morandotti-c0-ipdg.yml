@@ -37,9 +37,9 @@ jobs:
       - name: Run matched three-core C0-IPDG benchmark
         run: |
           python3 scripts/rgs_volterra_morandotti_c0_ipdg.py \
-            --mesh-sizes 0.06 0.045 \
-            --separations 0.48 0.56 \
-            --core-radius 0.06 \
+            --separations 0.48 \
+            --core-radii 0.06 0.04 0.03 \
+            --mesh-size-factors 1.0 0.75 \
             --alpha 10 \
             --young-modulus 1.0 \
             --poisson-ratio 0.0 \
