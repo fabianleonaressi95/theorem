@@ -48,7 +48,7 @@ For each ordered coordinate square (v_0\to v_1\to v_2\to v_3\to v_0), define
 =E_{v_0v_1}
 +(R_{01})^{-1}E_{v_1v_2}
 +(R_{12}R_{01})^{-1}E_{v_2v_3}
-+(R_{30}R_{23}R_{12}R_{01})^{-1}E_{v_3v_0}.
++(R_{23}R_{12}R_{01})^{-1}E_{v_3v_0}.
 }
 \]
 Here (R_{ab}=R^{\mathrm{loc}}_{ab}), and every summand is transported to the fibre at (v_0). Under independent vertex-frame rotations (S_g\in SO(3)),
