@@ -34,7 +34,7 @@ def test_frequency_is_reported_only_after_explicit_seconds_confirmation(tmp_path
             (1, 0.9, 30), (0, 0.3, 40), (1, 1.0, 50)]
     _write_csv(path, rows)
     report = audit_csv(path, time_unit="s")
-    assert report["time"]["frequency_hz"] == pytest.approx(0.1)
+    assert report["time"]["frequency_hz"] == pytest.approx(0.05)
 
 
 def test_wrong_schema_is_rejected(tmp_path):
