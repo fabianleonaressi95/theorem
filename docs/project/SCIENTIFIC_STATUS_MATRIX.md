@@ -34,4 +34,7 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 
 | 28 | Matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark (PR #526) | theorem | OPEN — proposed benchmark awaiting owner review and validation | PR #526; compare with merged Volterra audits #131/#450/#479 | do not promote to numerical verification or a continuum/Gamma-limit result until the benchmark, CI and assumptions are reviewed |
 
+| 29 | Q6 PSU carrier-derived coframe / connection audit (PR #527) | theorem | OPEN — proposed audit under owner review | PR #527 | no coframe/connection identity is promoted until the derivation, conventions and tests are reviewed |
+| 30 | Q6 many-body mean-field and RGS Berry-cycle controls (PR #528 follow-up to #521) | theorem | OPEN — control refinement under review | merged #521 artifacts; open PR #528 | finite benchmark controls do not establish a physical Berry-phase law or general many-body result |
+
 **Explicit non-claims:** no item above is EXPERIMENTALLY VALIDATED except where a repo documents an actual comparison with independent measurements (none found for transport; rheomarine lab datasets are calibration inputs, not field validation). All "per repo" numerical claims await the owner's confirmation before external citation.
