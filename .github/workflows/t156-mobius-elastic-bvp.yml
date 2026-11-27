@@ -1,4 +1,5 @@
 name: T156 Vesica–Mobius–Farey and finite-width elastic BVP
+# Direct solve at kappa(L/2)=0.005; artifact captures AUTO continuation files.
 
 on:
   push:
