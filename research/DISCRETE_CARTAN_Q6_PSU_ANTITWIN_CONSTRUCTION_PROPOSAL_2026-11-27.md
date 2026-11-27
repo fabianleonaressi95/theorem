@@ -247,7 +247,6 @@ Le dieci famiglie sono quindi raccordate dalla medesima struttura \(K_h,\partial
 1. T. Regge, “General Relativity Without Coordinates”, *Nuovo Cimento* 19 (1961), 558–571. DOI: 10.1007/BF02733251.
 2. A. N. Hirani, *Discrete Exterior Calculus*, PhD thesis, Caltech (2003). DOI: 10.7907/ZHY8-V329.
 3. D. N. Arnold, R. S. Falk, R. Winther, “Finite element exterior calculus, homological techniques, and applications”, *Acta Numerica* 15 (2006), 1–155. DOI: 10.1017/S0962492906210018.
-4. A. H. Chamseddine, D. Wyler? **Non usato come fondamento della costruzione:** ogni formulazione specifica di gravità discreta con torsione deve essere confrontata separatamente e non inferita da una citazione generica.
 5. Y. Xue, “Quantum Regge calculus of Einstein-Cartan theory”, *Physics Letters B* 682 (2009),  ఉత్త. DOI: 10.1016/j.physletb.2009.10.082.
 6. Y. Cho, “Gauge theory of Poincaré symmetry”, *Physical Review D* 14 (1976), 3335. DOI: 10.1103/PhysRevD.14.3335.
 7. D. Braune, A. Gillespie, M. B. Tong, P. Desbrun, “Discrete Torsion of Connection Forms on Simplicial Meshes”, *ACM Transactions on Graphics* 44(4), Article 67 (2025). DOI: 10.1145/3731197.
@@ -255,7 +254,7 @@ Le dieci famiglie sono quindi raccordate dalla medesima struttura \(K_h,\partial
 9. J. M. Lee, *Introduction to Riemannian Manifolds*, per le convenzioni geometriche continue; la segnatura lorentziana richiede la formulazione pseudo-riemanniana corrispondente.
 10. Yan et al., “Dynamics of Regge calculus with torsion”, arXiv:2610.00593 (2026), **preprint non peer-reviewed**; da usare soltanto come confronto esplorativo.
 
-**Nota bibliografica:** il riferimento Xue deve essere verificato sul record editoriale prima della pubblicazione; il carattere corrotto del numero di pagina in eventuali esportazioni va corretto. La voce Chamseddine è intenzionalmente esclusa come citazione incompleta: non va reinserita senza titolo e dati bibliografici verificati.
+**Nota bibliografica:** il riferimento Xue è stato verificato sul record editoriale: *Physics Letters B* 682(3), 300–304 (7 dicembre 2009). La sua formulazione euclidea e torsione-libera va tenuta distinta dal programma Riemann–Cartan qui proposto. Il seguito di Xue, *Physical Review D* 82, 064039 (2010), DOI 10.1103/PhysRevD.82.064039, costituisce un ulteriore confronto su complessi simpliciali 4D, tetradi e connessioni, non una validazione indipendente del nostro schema.
 
 ## 14. Classificazione conclusiva
 
