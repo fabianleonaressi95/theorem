@@ -4,6 +4,10 @@ on:
     paths:
       - "scripts/audit_t155_dodecahedral_levi_civita_hodge.py"
       - "tests/test_t155_dodecahedral_levi_civita_hodge.py"
+      - "docs/THEOREM_MASTER_REGISTER.csv"
+      - "docs/THEOREM_MASTER_REGISTER.md"
+      - "scripts/build_theorem_register.py"
+      - "scripts/check_theorem_register.py"
       - ".github/workflows/t155-levi-civita-hodge.yml"
   pull_request:
     paths:
@@ -22,6 +26,11 @@ jobs:
       - run: pip install numpy scipy
       - run: python scripts/audit_t155_dodecahedral_levi_civita_hodge.py
       - run: python -m unittest tests.test_t155_dodecahedral_levi_civita_hodge
+      - name: Rebuild and validate the theorem register
+        run: |
+          python scripts/build_theorem_register.py
+          python scripts/check_theorem_register.py
+          git diff --exit-code -- docs/THEOREM_MASTER_REGISTER.csv docs/THEOREM_MASTER_REGISTER.md
       - uses: actions/upload-artifact@v4
         with:
           name: t155-levi-civita-hodge-report
