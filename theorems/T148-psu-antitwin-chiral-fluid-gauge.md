@@ -84,7 +84,11 @@ On the locked subspace, \(\tau_3=\gamma^5\), so
 \]
 Consequently the right-handed component couples to \(a_+=a_e+a_o\), while the left-handed component couples to \(a_-=a_e-a_o\). This is an exact projector identity. In the strict Anti-Twin conjugate limit \(a_-=-a_+\), one has \(a_e=0\) and the coupling is purely relative/axial.
 
-For local sheet phases \(\chi_\pm=\chi_e\pm\chi_o\), use
+The validated symmetry of the existing two-sheet construction is the discrete exchange \(Z_2\). The following local phase law is a **continuous extension ansatz**, not a previously established symmetry:
+\[
+\psi_\pm\mapsto e^{-iq\chi_\pm}\psi_\pm,\qquad a_\pm\mapsto a_\pm+d\chi_\pm/q.
+\]
+If this extension is promoted to a fundamental relative axial \(U(1)\), it has an anomaly gate (below). For local sheet phases \(\chi_\pm=\chi_e\pm\chi_o\), the candidate law is
 \[
 \psi_\pm\mapsto e^{-iq\chi_\pm}\psi_\pm,\qquad
 a_\pm\mapsto a_\pm+d\chi_\pm/q.
@@ -141,6 +145,15 @@ S_\Delta=-\int d^4x\,e\,
 \]
 The earlier \(\rho\) is a relative-sheet modulus; it does not supply the phase of \(\Delta\) by itself. A complex bridge phase, Q-ball \(SO(2)\), or Higgs mechanism must be derived, not assumed.
 
+### Continuous-gauge anomaly gate
+
+The established Anti-Twin operation is \(Z_2\), not a validated local \(U(1)\). If the pure relative connection is nevertheless gauged continuously, the locked pair has \(q_R=+q_0\), \(q_L=-q_0\). Its four-dimensional anomaly coefficients (up to the overall chirality sign convention) are
+\[
+\mathcal A_{\rm grav}\propto q_L-q_R=-2q_0,\qquad
+\mathcal A_{U(1)^3}\propto q_L^3-q_R^3=-2q_0^3.
+\]
+Both are nonzero for \(q_0\ne0\). Therefore the minimal one-pair axial \(U(1)\) action is not a consistent standalone quantum gauge theory. It must remain an effective/background fluid connection, or additional fermions/anomaly inflow must cancel both anomalies. The finite audit explicitly checks that these coefficients are nonzero. This is not a defect of the \(Z_2\) exchange itself.
+
 ## 6. Q6 discretization and Nielsen–Ninomiya
 
 Q6 is finite and has no Brillouin torus of a translationally invariant periodic lattice. The theorem's hypotheses therefore cannot be transferred verbatim from an infinite periodic hypercubic lattice. Nevertheless, finiteness alone is not a proof of absence of doubling.
@@ -157,11 +170,11 @@ Q6 is bipartite with 32 even and 32 odd vertices. Some 64-tetrahedron-grid descr
 |---|---|
 | \(J^2=I\), \(JQJ^{-1}=-Q\) | Exact two-sheet representation identity |
 | Right-on-PSU / left-on-AntiTwin locking projector | Exact finite Clifford/projector identity; physical assignment is a model postulate |
-| \(a_e\) vector and \(a_o\) axial fluid gauge | Exact decomposition once sheet connections are specified |
+| \(a_e\) vector and \(a_o\) axial fluid one-forms | Exact even/odd decomposition; local (U(1)) is only a candidate extension |
 | \(a_-=-a_+\Rightarrow a_e=0\) | Exact conjugate \(U(1)\) limit |
 | \(v_0,s_{\rm AT},\Phi_\pm,n_\pm,\xi_\pm\) parity | Exact exchange decomposition |
 | PSU radius/volume/area and \(q_0^2=\alpha_G\) | Algebraic normalization |
-| Gauge/fermion action | Minimal proposed common action; fluid constitutive coefficients open |
+| Gauge/fermion action | Classical/effective ansatz; fundamental axial (U(1)) blocked by anomaly unless cancelled |
 | Massive chiral phase | Requires a charged inter-sheet bridge \(\Delta\) |
 | One isolated Weyl fermion without mirror | Not claimed; Nielsen–Ninomiya remains |
 | Q6–64 tetrahedron metric correspondence | Open pending coordinates/incidence |
