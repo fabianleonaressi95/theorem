@@ -1,0 +1,25 @@
+name: T156 Vesica–Mobius–Farey regression audit
+
+on:
+  push:
+    paths:
+      - "scripts/audit_t156_vesica_mobius_farey.py"
+      - "tests/test_t156_vesica_mobius_farey.py"
+      - ".github/workflows/t156-vesica-mobius-farey.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  t156-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run exact-arithmetic and geometry audit
+        run: python scripts/audit_t156_vesica_mobius_farey.py
+      - name: Run T156 regression tests
+        run: python -m unittest discover -s tests -p "test_t156_vesica_mobius_farey.py" -v
