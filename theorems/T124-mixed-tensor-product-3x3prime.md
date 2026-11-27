@@ -1,6 +1,6 @@
 # T124 — Mixed tensor product of the two icosahedral three-dimensional modules
 
-**Status:** character-theoretic decomposition proved; explicit 9×9 projector realization is pending.
+**Status:** character-theoretic decomposition proved; an exact-arithmetic 9×9 matrix audit has now been added, but its execution result is not yet certified in this PR.
 **Depends on:** T121 (the exact signed-axis action of A5 on Q6 and the splitting 6 = 3 ⊕ 3′).
 **Scope:** this record does not modify or subsume T123.
 
@@ -55,8 +55,10 @@ P_4+P_5=I_9,
 \]
 and \(\operatorname{rank}P_4=4\), \(\operatorname{rank}P_5=5\), together with commutation with all 60 tensor-action matrices.
 
-## Verification boundary
+## Matrix realization and verification boundary
 
-The character identity above is an exact proof of the representation decomposition, conditional only on the T121 identification of the two three-dimensional irreducibles. This PR does **not** claim that the 9×9 matrices, central projectors, or their exact ranks have already been computed. Those explicit matrix checks remain a separately identifiable implementation task; they must not be reported as passed until a reproducible exact-arithmetic audit is committed and run.
+The companion audit `audits/t124_mixed_tensor_character_check.py` now constructs exact bases from the columns of the T121 projectors, computes the restricted 3×3 matrices for all 60 group elements, forms the 9×9 Kronecker-product action, and constructs the central projectors P4 and P5. It is designed to check the representation laws, invariance, idempotence, mutual orthogonality, completeness, ranks 4 and 5, and centrality.
+
+The T121 audit now exports the signed actions and conjugacy-class membership as an exact data interface for this downstream calculation. The matrix audit has been committed but has **not yet been executed in this environment**; therefore its checks are implementation assertions, not a reported passing test run. Run `python audits/t124_mixed_tensor_character_check.py` from the repository root before promoting this PR from draft. The character identity above independently proves the decomposition, conditional only on the T121 identification of the two three-dimensional irreducibles.
 
 T123 is intentionally untouched.
