@@ -118,7 +118,11 @@ with \(P_{\rm even/odd}=(I_8\pm S_{\rm AT})/2\). An exchange-symmetric operator 
 
 The 4D fibre can therefore be organized as \(\mathbb C^4_{\rm Dirac}\otimes\mathbb C^2_{\rm AntiTwin}\), with separate Lorentz-spin, electromagnetic \(U(1)\), and sheet-exchange factors. A six-dimensional internal spinor factor may be retained as an additional internal representation only after its coupling and reduction map are specified; it must not be counted twice as a second spacetime spinor.
 
-## 9. Status ledger
+## 9. PSU–Anti-Twin chiral-fluid specialization
+
+The two-sheet chirality locking and the fluid-gauge connection are specialized in **T148**. In particular, do not treat the generic \(I_4\otimes\tau_1\) doublet written here as an unconstrained second Dirac species: T148 imposes \(P_R\) on the PSU sheet and \(P_L\) on the Anti-Twin sheet. The validated symmetry remains \(Z_2\); a continuous relative axial \(U(1)\) is only a candidate extension and is subject to the anomaly and mass gates in T148.
+
+## 10. Status ledger
 
 | Component | Status |
 |---|---|
