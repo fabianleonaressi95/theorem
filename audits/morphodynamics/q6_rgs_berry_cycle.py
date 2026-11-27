@@ -29,8 +29,8 @@ def deformed_metric_hamiltonian(theta, *, amplitude=0.04, coordinates=None):
     X = np.asarray(coordinates, dtype=float)
     if X.shape != (64, 3) or not np.all(np.isfinite(X)):
         raise ValueError("RGS coordinates must be a finite 64x3 array")
-    if not np.isfinite(amplitude) or amplitude <= 0:
-        raise ValueError("amplitude must be finite and positive")
+    if not np.isfinite(amplitude) or amplitude < 0:
+        raise ValueError("amplitude must be finite and nonnegative")
     strain = amplitude * (np.cos(theta) * STRAIN_1 + np.sin(theta) * STRAIN_2)
     F = expm(strain)
     Y = X @ F.T
