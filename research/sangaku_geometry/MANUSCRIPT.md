@@ -145,7 +145,7 @@ Sparavigna and Baldi (2016, DOI 10.2139/ssrn.2756099) discuss a Mycenaean gold r
 3. Which tangency-only construction systems remain within quadratic towers, and which produce higher algebraic degree?
 4. Can a source-verified Sangaku corpus be encoded so that diagrams, equations, construction graphs and proof status are machine-checkable?
 
-## 8. Current status
+## 10. Current status
 | Item | Status |
 |---|---|
 | Quadratic-tower theorem under stated operations | PROVED |
@@ -156,5 +156,5 @@ Sparavigna and Baldi (2016, DOI 10.2139/ssrn.2756099) discuss a Mycenaean gold r
 | Complete classification theorem | OPEN |
 | General Apollonius/tangency degree bounds | OPEN |
 
-## References and provenance
+## 11. References and provenance
 The initial source set includes Sparavigna–Baldi studies on the regular pentagon, Vesica Piscis, Japanese temple geometry/Sangaku, Flower of Life and overlapping-circle constructions (2016). Add exact bibliographic metadata, source snapshots where permitted, and diagram transcriptions only after each item has been checked against the original publication. No claim of historical priority or novelty is made here.
