@@ -27,6 +27,6 @@ Conservative labeling. "Per repo" = claimed in that repository's own audit docum
 | 21 | Naressi golden-resonance / morphodynamics | naressi-* repos | SOFTWARE (toy sims) — STALE | repo scripts | unverified claims in READMEs |
 | 22 | SSA + scaling laws | ASTRAQ | SOFTWARE VERIFIED — STALE | repo scripts | — |
 | 23 | CosModex | cosmodex | SOFTWARE — STALE | repo | hygiene: keystore/node_modules committed |
-| 24 | Shape–Field experimental research | unmapped | UNMAPPED | — | owner clarification needed |
+| 24 | Shape–Field electrostatic discharge FEM | `theorem` (protocol) | OPEN — protocol only, no results | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` | CADFEM/Fuger ref; RGS link exploratory |
 
 **Explicit non-claims:** no item above is EXPERIMENTALLY VALIDATED except where a repo documents an actual comparison with independent measurements (none found for transport; rheomarine lab datasets are calibration inputs, not field validation). All "per repo" numerical claims await the owner's confirmation before external citation.

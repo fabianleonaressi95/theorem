@@ -56,7 +56,7 @@ Maps each active research thread to its canonical repository, key files, verific
 | RheoMarine HFR–M0 transport | `rheomarine` | PILOT-REPRODUCED (Lagrangian); solver masks SOFTWARE VERIFIED; validation DATA-BLOCKED (issue #2) | independent ADCP/drifter/particle observations; coastline mask; longer HFR windows |
 | DS1/DS2 lab rheology analysis | `rheomarine` | ANALYZED (derived CSVs/JSON committed) | absolute z-calibration for DS1; DS2 recipes |
 | Hysteresis datasets (188D, JA, actuator) | `theorem` (`Hysteresis_datasets.xlsx`, `INDUSTRIAL_HYSTERESIS_DATASETS.md`, PR #452) | NUMERICALLY VERIFIED per repo | issues #113, #114 open |
-| Shape–Field experimental research | **not found as a distinct repo** — possibly inside `kilaw`/`naressi-*`/ChatGPT threads | UNMAPPED | owner clarification needed |
+| Shape–Field / electrostatic discharge FEM | `theorem` (protocol); dedicated app repo TBD | `docs/SHAPE_FIELD_CADFEM_ELECTROSTATIC_PROTOCOL_2026-11-26.md` (CADFEM/Fuger 2026-04-10 reference) | OPEN — protocol only | FEM implementation, §8 verification tests, inception-voltage module |
 | SSA / scaling laws | `ASTRAQ` | SOFTWARE VERIFIED (stale since Aug) | — |
 | CosModex galaxy map | `cosmodex` | SOFTWARE (stale; hygiene issues) | — |
 
