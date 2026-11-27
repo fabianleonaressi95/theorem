@@ -14,9 +14,9 @@
     "absolute_degeneracy_gap": 0.0
   },
   "C03": {
-    "perturbation_relative_diagonal": 0.05,
+    "perturbation_relative_diagonal": 1e-05,
     "unperturbed_pair_gap": 2.5283952709287405e-10,
-    "perturbed_pair_gap": 1111.8778748203463
+    "perturbed_pair_gap": 0.3251493169263995
   },
   "C04": {
     "eigenvalues": [0, 2, 4, 6, 8, 10, 12],
