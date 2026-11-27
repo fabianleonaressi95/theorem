@@ -5,15 +5,15 @@
     "fabianleonaressi95/rgs-qlg-quaternion-bridge"
   ],
   "coverage": {
-    "theorem_markdown_records": 254,
+    "theorem_markdown_records": 263,
     "companion_catalogue_entries": 14,
     "topic_hubs": 8,
     "verified_or_reviewed_direct_edges": 60,
-    "classification_edges": 254,
+    "classification_edges": 263,
     "hub_to_companion_edges": 30,
-    "note": "Updated 26-November-2026: T152 adds the binary McKay–ADE / Calabi–Yau orbifold / crepant-resolution record; T144–T151, the RGS half-scale numerical proposition, TSMR-H/TSMR-I, EQC-RGS-Q6, the distinct T149 dodecahedral FEEC record, and T153 are indexed as theorem records. T027 uses its canonical node ID. The Liouville half-factor literature dossier is intentionally excluded from theorem-record counts. Typed comparison links do not assert equivalence.",
-    "total_nodes": 308,
-    "total_edges": 344
+    "note": "Updated 27-November-2026: reconciles the live 263-record theorem inventory, including the previously unindexed CYM/MQ records, T070, T113-H, the distinct In2Infinity T154 record, and T155. The RGS spatial-coframe T154 remains a separate record with its own canonical slug. T144–T151 and earlier backfills remain indexed; typed comparison links do not assert equivalence.",
+    "total_nodes": 317,
+    "total_edges": 353
   },
   "nodes": [
     {
@@ -731,13 +731,6 @@
       "topic_hub": "H-OTHER"
     },
     {
-      "id": "THM:EQC-RGS-Q6-gate-realization",
-      "kind": "theorem-record",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/EQC-RGS-Q6-gate-realization.md",
-      "topic_hub": "H-RGS"
-    },
-    {
       "id": "THM:KRYSTALLO_SUPERGOLDEN_FINE_STRUCTURE_BRIDGE_AUDIT_2026-11-23",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
@@ -841,13 +834,6 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/Q6_GREEN_KUBO_KRYSTALLO_SCALE_BRIDGE_2026-11-23.md",
       "topic_hub": "H-Q6"
-    },
-    {
-      "id": "THM:RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24",
-      "kind": "theorem-record",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24.md",
-      "topic_hub": "H-RGS"
     },
     {
       "id": "THM:S001-silver-ratio-square-corner-tangency",
@@ -2180,13 +2166,6 @@
       "topic_hub": "H-SPECTRAL"
     },
     {
-      "id": "THM:T149-supergolden-dodecahedral-whitney-hodge",
-      "kind": "theorem-record",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/T149-supergolden-dodecahedral-whitney-hodge.md",
-      "topic_hub": "H-PRISM"
-    },
-    {
       "id": "THM:T149-symmetric-fibonacci-fricke-period-three-period-six-orbits",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
@@ -2206,6 +2185,27 @@
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/T151-spectral-expectation-weights-state-selection.md",
       "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:EQC-RGS-Q6-gate-realization",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/EQC-RGS-Q6-gate-realization.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/RGS_HALF_SCALE_CARRIER_PROPOSITION_2026-11-24.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:T149-supergolden-dodecahedral-whitney-hodge",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T149-supergolden-dodecahedral-whitney-hodge.md",
+      "topic_hub": "H-PRISM"
     },
     {
       "id": "THM:T152-mckay-ade-calabi-yau-crepant-resolutions",
@@ -2229,18 +2229,18 @@
       "topic_hub": "H-PRISM"
     },
     {
-      "id": "THM:TSMR-C-I_iching_golden_q6_lift",
-      "kind": "theorem-record",
-      "repository": "fabianleonaressi95/theorem",
-      "path": "theorems/TSMR-C-I_iching_golden_q6_lift.md",
-      "topic_hub": "H-Q6"
-    },
-    {
       "id": "THM:TSMR-F_multifractal_morphological_equation",
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/TSMR-F_multifractal_morphological_equation.md",
       "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:TSMR-C-I_iching_golden_q6_lift",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/TSMR-C-I_iching_golden_q6_lift.md",
+      "topic_hub": "H-Q6"
     },
     {
       "id": "THM:TSMR-H_half_balance_fractal_pentagon",
@@ -2254,6 +2254,69 @@
       "kind": "theorem-record",
       "repository": "fabianleonaressi95/theorem",
       "path": "theorems/TSMR-I_singular_cumulative_pentagonal_lift.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T154-rgs-spatial-coframe-constraint-splitting",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T154-rgs-spatial-coframe-constraint-splitting.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:CYM-T001-courant-nodal-domain-bound",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/CYM-T001-courant-nodal-domain-bound.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:MQ-T002-four-valent-spin-half-intertwiner-dimension",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQ-T002-four-valent-spin-half-intertwiner-dimension.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:MQ-T003-invariant-one-link-gluing",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQ-T003-invariant-one-link-gluing.md",
+      "topic_hub": "H-OTHER"
+    },
+    {
+      "id": "THM:MQM2-dynamical-rgs-q6-symmetry",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/MQM2-dynamical-rgs-q6-symmetry.md",
+      "topic_hub": "H-RGS"
+    },
+    {
+      "id": "THM:T070-oriented-circumcentric-dual-spherical-icosphere",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T070-oriented-circumcentric-dual-spherical-icosphere.md",
+      "topic_hub": "H-PRISM"
+    },
+    {
+      "id": "THM:T113H-metric-variation-control-suite",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T113H-metric-variation-control-suite.md",
+      "topic_hub": "H-SPECTRAL"
+    },
+    {
+      "id": "THM:T154-in2infinity-extended-jitterbug-audit",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T154-in2infinity-extended-jitterbug-audit.md",
+      "topic_hub": "H-VESICA"
+    },
+    {
+      "id": "THM:T155-dodecahedral-gauss-map-levi-civita-hodge",
+      "kind": "theorem-record",
+      "repository": "fabianleonaressi95/theorem",
+      "path": "theorems/T155-dodecahedral-gauss-map-levi-civita-hodge.md",
       "topic_hub": "H-PRISM"
     }
   ],
@@ -4665,6 +4728,69 @@
       "relation": "thematic-index-classification",
       "status": "provisional",
       "caveat": "Topic assignment is an index edge, not a proof dependency."
+    },
+    {
+      "from": "THM:T154-rgs-spatial-coframe-constraint-splitting",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic classification only. The exact finite splitting is proved under the stated seed hypotheses; the continuum/physical connection interpretation remains open."
+    },
+    {
+      "from": "THM:CYM-T001-courant-nodal-domain-bound",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQ-T002-four-valent-spin-half-intertwiner-dimension",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQ-T003-invariant-one-link-gluing",
+      "to": "H-OTHER",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:MQM2-dynamical-rgs-q6-symmetry",
+      "to": "H-RGS",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T070-oriented-circumcentric-dual-spherical-icosphere",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T113H-metric-variation-control-suite",
+      "to": "H-SPECTRAL",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T154-in2infinity-extended-jitterbug-audit",
+      "to": "H-VESICA",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
+    },
+    {
+      "from": "THM:T155-dodecahedral-gauss-map-levi-civita-hodge",
+      "to": "H-PRISM",
+      "relation": "thematic-index-classification",
+      "status": "provisional",
+      "caveat": "Topic assignment is provisional and filename-derived. This is a thematic index edge, not a proof dependency; inspect the record and assumptions before adding direct mathematical edges."
     }
   ]
 }

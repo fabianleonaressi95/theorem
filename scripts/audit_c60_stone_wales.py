@@ -145,6 +145,17 @@ def main():
     if not cs: raise RuntimeError("no admissible planar SW_5|6 dual-edge-flip switch found")
     c=cs[0]; h,fh=c["graph"],c["faces"]; t1=topology(h,fh)
     chain=make_chain_map(g,fg,h,fh)
+    report={"status":"computed_graph_audit","operation":"dual edge flip / equivalent direct-graph 2-switch; Stone-Wales dual diagonal flip; direct graph changes by a degree-preserving 2-switch",
+      "distinct_admissible_postgraphs":len(cs),"selected_switch":{k:v for k,v in c.items() if k not in ("graph","faces")},
+      "before":t0,"after":t1,"chain_map":{k:v for k,v in chain.items() if k not in ("S1","S2")},
+      "limitations":["Topological switch, not an atomistic transition-state trajectory.",
+       "Chain-map path and filling choices are not unique and do not establish an embedding isotopy.",
+       "Nuclear-coordinate covariance is not electron-density covariance.",
+       "MMFF94s is empirical molecular mechanics, not DFT or experiment.","No Kathara/Q6 map is constructed."]}
+    if a.relax:
+        x0,m0=mmff_relax(xyz,bonds,a.max_iterations)
+        x1,m1=mmff_relax(xyz,sorted(h.edges()),a.max_iterations)
+        patch=set()
     report={
       "status":"computed_graph_audit",
       "operation":"Stone-Wales dual diagonal flip; direct graph changes by a degree-preserving 2-switch",

@@ -132,7 +132,7 @@ def _signed_circumcentric_dual_length(
     if theta0 <= tol or theta1 >= -tol:
         raise RuntimeError(
             "Circumcentres are not on opposite sides of the primal edge; "
-            "the unsigned centre distance is not a valid circumcentric dual"
+            "unsigned centre distance is not a valid circumcentric dual"
         )
     dual = theta0 - theta1
     if not np.isfinite(dual) or dual <= 0 or dual >= math.pi:

@@ -1,0 +1,112 @@
+{
+  "classification": "numerical local optimization over the V4 intertwiner commutant; not a global-optimality proof",
+  "date": "2026-11-27",
+  "method": {
+    "parameterization": "Phi = sum_k Bf_k W0_k exp(S_k) Bq_k^T, with S_k real skew-symmetric 16x16",
+    "commutant_freedom": "O(16)^4",
+    "quadratic_stage": {
+      "objective": "nonadjacent off-diagonal face-block Frobenius energy divided by total off-diagonal face-block Frobenius energy",
+      "random_restarts": 8,
+      "steps_per_restart": 1500,
+      "seed": 100,
+      "restart_results": [
+        {"seed": 100, "fraction": 0.019816956706419347},
+        {"seed": 101, "fraction": 0.01993351406831178},
+        {"seed": 102, "fraction": 0.018777464156358958},
+        {"seed": 103, "fraction": 0.019748946097505878},
+        {"seed": 104, "fraction": 0.018703308788433844},
+        {"seed": 105, "fraction": 0.02070553580763746},
+        {"seed": 106, "fraction": 0.019943216945072926},
+        {"seed": 107, "fraction": 0.019361639823555935}
+      ],
+      "best_restart_seed": 104,
+      "refinement_steps": 5000,
+      "best_quadratic_fraction_after_refinement": 0.01809670216515344
+    },
+    "sparsity_stage": {
+      "objective": "sum of nonadjacent 2x2 block Frobenius norms divided by sum of all off-diagonal 2x2 block Frobenius norms",
+      "steps": 3000,
+      "final_block_L1_fraction": 0.09717874713896496
+    },
+    "optimizer": "PyTorch Adam, CPU float64"
+  },
+  "baseline_deterministic_intertwiner": {
+    "nonadjacent_frobenius_energy_fraction": 0.7673425657621921,
+    "adjacent_frobenius_energy_fraction": 0.23265743423780794,
+    "nonadjacent_block_l1_fraction": 0.7996269586483977,
+    "block_support_at_1e-2": {
+      "nonzero_2x2_blocks": 944,
+      "diagonal_blocks": 24,
+      "adjacent_face_blocks": 160,
+      "nonadjacent_offdiagonal_blocks": 760
+    }
+  },
+  "optimized_intertwiner": {
+    "nonadjacent_frobenius_energy_fraction": 0.02097949630446722,
+    "adjacent_frobenius_energy_fraction": 0.9790205036955327,
+    "diagonal_face_block_energy_fraction": 0.052173627843192114,
+    "nonadjacent_block_l1_fraction": 0.09717874713896496,
+    "block_support_thresholds": {
+      "1e-12": {
+        "nonzero_2x2_blocks": 1024,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 812,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8185483870967742
+      },
+      "1e-10": {
+        "nonzero_2x2_blocks": 1024,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 812,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8185483870967742
+      },
+      "1e-8": {
+        "nonzero_2x2_blocks": 1024,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 812,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8185483870967742
+      },
+      "1e-6": {
+        "nonzero_2x2_blocks": 1024,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 812,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.8185483870967742
+      },
+      "1e-4": {
+        "nonzero_2x2_blocks": 920,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 708,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.7972972972972973
+      },
+      "1e-2": {
+        "nonzero_2x2_blocks": 368,
+        "diagonal_blocks": 32,
+        "adjacent_face_blocks": 180,
+        "nonadjacent_offdiagonal_blocks": 156,
+        "adjacent_edge_coverage": 1.0,
+        "nonadjacent_fraction_of_offdiagonal_support": 0.4642857142857143
+      }
+    },
+    "orthogonality_residual": 4.4162299354958706e-14,
+    "per_element_V4_intertwining_residuals": [
+      1.8764785419011098e-15,
+      6.18394583265048e-15,
+      5.9755653393610505e-15,
+      6.109276614245031e-15
+    ],
+    "max_V4_intertwining_residual": 6.18394583265048e-15,
+    "transported_operator_symmetry_residual": 1.189855408190708e-14,
+    "max_block_norm": 3.2682813273202456,
+    "median_nonadjacent_block_norm": 0.00018552999353368363
+  },
+  "interpretation": "The numerical optimization moves most transported adjacency energy onto adjacent C60 face pairs while preserving orthogonality and V4 intertwining to numerical precision. It does not produce exact locality: nonadjacent blocks remain nonzero. The result is a local optimum found by finite random restarts, not a global optimum or a proof that exact locality is impossible."
+}

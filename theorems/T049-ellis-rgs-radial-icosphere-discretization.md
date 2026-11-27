@@ -50,12 +50,12 @@ For angular neighbours j~k, use the circumcentric spherical dual:
 \[
 b^{(omega)}_{(i,j),(i,k)}=\delta_i\frac{\ell^*_{jk}}{\ell_{jk}},
 \]
-where ell_jk is the spherical primal-edge length and ell*_jk is the oriented dual-arc length between the circumcentres of its two adjacent spherical triangles. The implementation measures signed angles from the normalized primal-edge midpoint and accepts the dual only when the two circumcentres lie on opposite sides of that midpoint; see T070. It therefore rejects a same-side pair instead of treating its unsigned geodesic separation as a valid dual. The graph energy convention is
+where ell_jk is the spherical primal-edge length and ell*_jk is the oriented dual-arc length between the circumcentres of its two adjacent spherical triangles. The implementation measures signed angles from the normalized primal-edge midpoint and accepts the dual only when the two circumcentres lie on opposite sides of that midpoint; see T070. It rejects a same-side pair instead of treating its unsigned geodesic separation as a valid dual. The graph energy convention is
 \[
 \mathcal E_h(v)=\frac12\sum_{x,y}b_h(x,y)|v(x)-v(y)|^2.
 \]
 
-These formulas define a concrete finite-volume graph family. The oriented circumcentric crossing condition is now checked edge-by-edge in the constructor. Its execution across refinement levels remains a test obligation; failure of the crossing or positivity checks is a hard error, not repaired by clipping weights. The geometric crossing check is necessary but does not by itself prove angular DEC energy consistency.
+These formulas define a concrete finite-volume graph family. The oriented circumcentric crossing condition is checked edge-by-edge in the constructor. Its execution across refinement levels remains a test obligation; failure of crossing or positivity is a hard error, not repaired by clipping weights. This geometric check is necessary but does not by itself prove angular DEC energy consistency.
 
 ## Identification maps
 

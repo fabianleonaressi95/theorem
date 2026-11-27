@@ -1,0 +1,101 @@
+{
+  "module": "MQ-002/MQ-003",
+  "status": {
+    "MQ-T002": "proved_analytically",
+    "MQ-T003": "proved_analytically_under_dual_representation_pairing",
+    "numerical_checks": "passed_in_independent_numpy_replay",
+    "repository_pytest": "authored_not_yet_run_in_GitHub_CI"
+  },
+  "intertwiner_dimension": 2,
+  "basis_orthogonality_residual": 4.965439621636996e-16,
+  "total_spin_invariance_residuals": [
+    1.5700924586837752e-16,
+    1.5700924586837752e-16,
+    0
+  ],
+  "pair_flux_matrices": {
+    "12": [
+      [
+        -0.75,
+        0
+      ],
+      [
+        0,
+        0.25
+      ]
+    ],
+    "13": [
+      [
+        0,
+        -0.4330127018922193
+      ],
+      [
+        -0.4330127018922193,
+        -0.5
+      ]
+    ],
+    "14": [
+      [
+        0,
+        0.4330127018922193
+      ],
+      [
+        0.4330127018922193,
+        -0.5
+      ]
+    ],
+    "23": [
+      [
+        0,
+        0.4330127018922193
+      ],
+      [
+        0.4330127018922193,
+        -0.5
+      ]
+    ],
+    "24": [
+      [
+        0,
+        -0.4330127018922193
+      ],
+      [
+        -0.4330127018922193,
+        -0.5
+      ]
+    ],
+    "34": [
+      [
+        -0.75,
+        0
+      ],
+      [
+        0,
+        0.25
+      ]
+    ]
+  },
+  "pairwise_closure_residuals": [
+    3.3306690738754696e-16,
+    3.3306690738754696e-16,
+    3.3320649733686404e-16,
+    3.3320649733686404e-16
+  ],
+  "two_node_gluing": {
+    "input_basis_pairs": 4,
+    "unnormalized_output_norms": [
+      0.4999999999999998,
+      0.4999999999999999,
+      0.49999999999999983,
+      0.5
+    ],
+    "normalized_output_factor": 2,
+    "max_global_su2_invariance_residual": 9.205483015737869e-17,
+    "shared_spin": "j=1/2 on both ends",
+    "area_matching": true,
+    "shape_matching_imposed": false
+  },
+  "max_numerical_residual": 4.965439621636996e-16,
+  "tolerance": 1e-12,
+  "interpretation": "Finite-dimensional checks support the exact representation-theoretic statements. They do not establish shape matching, a Regge continuum limit, or an RGS/Q6 identification."
+}

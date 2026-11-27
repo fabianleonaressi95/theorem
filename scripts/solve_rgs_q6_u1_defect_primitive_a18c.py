@@ -5,6 +5,9 @@ Requires numpy and scipy (scipy.optimize.milp / HiGHS). The domain is the
 finite non-periodic cubical 6-cube; this is not a continuum monopole solver.
 """
 import argparse, itertools, json
+Requires numpy and scipy (scipy.optimize.milp / HiGHS).
+"""
+import argparse, json
 from pathlib import Path
 import numpy as np
 from scipy.optimize import milp, LinearConstraint, Bounds
@@ -78,6 +81,11 @@ def solve(path):
       "complex":{"type":"full_nonperiodic_6_cube","oriented_2_faces":240,"oriented_3_cells":160},
       "optimization":{"status":opt.message,"l1_norm":int(np.abs(beta).sum()),
                       "nonzero_coefficients":len(bnon),"optimality_certified_by_solver":True},
+    return {"classification":"EXPLICIT_INTEGER_COBBOUNDARY",
+      "method":"L1-minimizing integer MILP (HiGHS) for d:C^2(I^6;Z)->C^3(I^6;Z)",
+      "complex":{"type":"full_nonperiodic_6_cube","oriented_2_faces":240,"oriented_3_cells":160},
+      "optimization":{"status":opt.message,"l1_norm":int(np.abs(beta).sum()),
+                      "nonzero_coefficients":len(bnon)},
       "verification":{"max_abs_d_beta_minus_m":int(np.max(np.abs(residual))),
                       "exact_all_160_equations":bool(np.all(residual==0)),
                       "charge_histogram":{str(k):int(v) for k,v in sorted(Counter(m.tolist()).items())},
@@ -87,6 +95,8 @@ def solve(path):
                      "cube_coboundary":"Delta_a beta_bc - Delta_b beta_ac + Delta_c beta_ab"},
       "nonuniqueness":"Any integral closed 2-cochain may be added to beta without changing d beta. The L1 minimizer is one convention-dependent representative, not a canonical physical sheet.",
       "interpretation_limits":["Finite cubical cochain identity only.",
+      "nonuniqueness":"Any integral closed 2-cochain may be added to beta without changing d beta.",
+      "limits":["Finite cubical cochain identity only.",
         "No physical Dirac sheet, magnetic monopole, or continuum source is established.",
         "The non-periodic cube has boundary; do not infer periodic neutrality."]}
 

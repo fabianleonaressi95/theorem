@@ -27,4 +27,22 @@
   "conventions": {"face_orientation":"positive (a,b): +a,+b,-a,-b","cube_coboundary":"Delta_a beta_bc - Delta_b beta_ac + Delta_c beta_ab"},
   "nonuniqueness":"Any integral closed 2-cochain may be added to beta without changing d beta. The L1 minimizer is one convention-dependent representative, not a canonical physical sheet.",
   "interpretation_limits":["Finite cubical cochain identity only.","No physical Dirac sheet, magnetic monopole, or continuum source is established.","The non-periodic cube has boundary; do not infer periodic neutrality."]
+ "classification":"EXPLICIT_INTEGER_COBBOUNDARY",
+ "method":"L1-minimizing integer MILP (HiGHS) for d:C^2(I^6;Z)->C^3(I^6;Z)",
+ "complex":{"type":"full_nonperiodic_6_cube","oriented_2_faces":240,"oriented_3_cells":160},
+ "optimization":{"status":"Optimal","l1_norm":18,"nonzero_coefficients":18},
+ "verification":{"max_abs_d_beta_minus_m":0,"exact_all_160_equations":true,"charge_histogram":{"-2":5,"-1":9,"0":137,"1":9},"total_charge":-10},
+ "beta_nonzero_faces":[
+  {"base_vertex":0,"axes":[0,1],"coefficient":1},{"base_vertex":8,"axes":[0,1],"coefficient":1},
+  {"base_vertex":16,"axes":[0,1],"coefficient":1},{"base_vertex":28,"axes":[0,1],"coefficient":1},
+  {"base_vertex":32,"axes":[0,1],"coefficient":1},{"base_vertex":40,"axes":[0,1],"coefficient":1},
+  {"base_vertex":48,"axes":[0,1],"coefficient":1},{"base_vertex":56,"axes":[0,1],"coefficient":1},
+  {"base_vertex":0,"axes":[0,2],"coefficient":-1},{"base_vertex":8,"axes":[0,2],"coefficient":-1},
+  {"base_vertex":18,"axes":[0,2],"coefficient":-1},{"base_vertex":24,"axes":[0,2],"coefficient":-1},
+  {"base_vertex":32,"axes":[0,2],"coefficient":-1},{"base_vertex":40,"axes":[0,2],"coefficient":-1},
+  {"base_vertex":48,"axes":[0,2],"coefficient":-1},{"base_vertex":56,"axes":[0,2],"coefficient":-1},
+  {"base_vertex":8,"axes":[1,2],"coefficient":-1},{"base_vertex":9,"axes":[1,2],"coefficient":1}
+ ],
+ "nonuniqueness":"Adding any integral closed 2-cochain leaves d beta unchanged.",
+ "limits":["Finite cubical cochain identity only.","No physical Dirac sheet, monopole, or continuum source is established."]
 }

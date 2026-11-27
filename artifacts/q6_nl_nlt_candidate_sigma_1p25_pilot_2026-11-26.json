@@ -1,0 +1,292 @@
+{
+  "protocol": "Q6-NL-NLT-candidate-sigma-1.25-pilot",
+  "execution_date": "2026-11-26",
+  "implementation": "Independent Numba-compiled implementation of the frozen rhs and RK4 equations; Qn incidence matrices constructed from oriented cubical cells. Equations and frequency-frame convention matched to models/q6_topological_synchronization.py. A direct RHS cross-check against the equations gives maximum absolute component error below 9e-16 for both models.",
+  "seed_set": [
+    11,
+    23,
+    37,
+    51,
+    67,
+    79,
+    97,
+    109,
+    127,
+    139,
+    151,
+    163,
+    179,
+    191,
+    211,
+    223,
+    239,
+    251,
+    263,
+    277
+  ],
+  "frequency_seed": 20261109,
+  "frame": {
+    "node_mean_removed": true,
+    "link_mean_removed": false,
+    "omega0": 2,
+    "omega1": 2,
+    "tau0": 1,
+    "tau1": 1
+  },
+  "T2": {
+    "design": {
+      "models": [
+        "NL",
+        "NLT"
+      ],
+      "sigma_coarse_grid": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        1.25,
+        1.5,
+        1.75,
+        2
+      ],
+      "seeds": 20,
+      "dt": 0.025,
+      "T_steps": 640,
+      "snapshots_steps": [
+        640,
+        1280,
+        2560
+      ],
+      "same_frequency_realization_for_both_initial_families": true
+    },
+    "sigma_1_25": {
+      "NL": [
+        {
+          "steps": 640,
+          "mean_delta_R0": 0.02823762,
+          "sd_paired": 0.133133,
+          "abs_separation": 0.02823762,
+          "separation_over_sd": 0.212101,
+          "pass": false
+        },
+        {
+          "steps": 1280,
+          "mean_delta_R0": -0.003570354,
+          "sd_paired": 0.005638,
+          "abs_separation": 0.003570354,
+          "separation_over_sd": 0.633292,
+          "pass": false
+        },
+        {
+          "steps": 2560,
+          "mean_delta_R0": -0.0009946703,
+          "sd_paired": 0.006898,
+          "abs_separation": 0.0009946703,
+          "separation_over_sd": 0.144202,
+          "pass": false
+        }
+      ],
+      "NLT": [
+        {
+          "steps": 640,
+          "mean_delta_R0": 0.74141,
+          "sd_paired": 0.086138,
+          "abs_separation": 0.74141,
+          "separation_over_sd": 8.607197,
+          "pass": true
+        },
+        {
+          "steps": 1280,
+          "mean_delta_R0": 0.803764,
+          "sd_paired": 0.053685,
+          "abs_separation": 0.803764,
+          "separation_over_sd": 14.971959,
+          "pass": true
+        },
+        {
+          "steps": 2560,
+          "mean_delta_R0": 0.777396,
+          "sd_paired": 0.094768,
+          "abs_separation": 0.777396,
+          "separation_over_sd": 8.203189,
+          "pass": true
+        }
+      ],
+      "NLT_persistence_4T_over_T": 1.0485
+    }
+  },
+  "T1": {
+    "sigma": 1.25,
+    "random_multistart_per_model": 200,
+    "NL": {
+      "newton_converged_roots": 0,
+      "min_residual_rms": 0.0120599
+    },
+    "NLT": {
+      "newton_converged_roots": 0,
+      "min_residual_rms": 7.26424e-7
+    },
+    "near_origin_control": {
+      "starts_per_model": 20,
+      "converged_to_origin": 20,
+      "distinct_roots": 1
+    },
+    "origin_fixed_point": {
+      "models": [
+        "NL",
+        "NLT"
+      ],
+      "stable_on_global_phase_quotient": true,
+      "node_laplacian_positive_spectrum_min": 2,
+      "edge_hodge_positive_spectrum_min": 2,
+      "quotient_max_real_eigenvalue": -2.5
+    },
+    "interpretation": "Only the origin fixed point was verified as stable. The 200 random starts did not converge; this is not evidence that a second stable fixed point does not exist. T1 bistability criterion is not passed."
+  },
+  "T3": {
+    "model": "NLT and NL",
+    "sigma_window": [
+      1.2,
+      1.25,
+      1.3
+    ],
+    "seeds": 20,
+    "dwell_steps": [
+      640,
+      2560,
+      10240
+    ],
+    "metric": "mean over seeds of |R0_forward-R0_backward| at each sigma; forward ascending sweep, reverse sweep initialized from forward terminal state",
+    "NLT_mean_gap_by_sigma": {
+      "1.2": [
+        0.08150215,
+        0.09404456,
+        0.09583358
+      ],
+      "1.25": [
+        0.1028237,
+        0.30814091,
+        0.58319102
+      ],
+      "1.3": [
+        0.08544815,
+        0.2445031,
+        0.27891496
+      ]
+    },
+    "NLT_window_mean_gap_by_dwell": [
+      0.08992467,
+      0.21556286,
+      0.31931318
+    ],
+    "NLT_long_over_short_ratio": 3.550896,
+    "NLT_nondecreasing": true,
+    "NL_window_mean_gap_by_dwell": [
+      0.02256663,
+      0.00655987,
+      0.00530506
+    ],
+    "NL_long_over_short_ratio": 0.235084,
+    "NL_nondecreasing": false,
+    "interpretation": "NLT passes the dwell-persistence criterion in this three-point local sigma window; NL fails it. This is a local-window pilot, not the complete 41-point sweep.",
+    "NL_mean_gap_by_sigma": {
+      "1.2": [
+        0.05898009,
+        0.00652882,
+        0.00573412
+      ],
+      "1.25": [
+        0.00398121,
+        0.00677699,
+        0.00534791
+      ],
+      "1.3": [
+        0.00473859,
+        0.00637382,
+        0.00483315
+      ]
+    }
+  },
+  "T4": {
+    "dwell_steps": 640,
+    "sigma_window": [
+      1.2,
+      1.25,
+      1.3
+    ],
+    "seeds": 20,
+    "cubical_counts": {
+      "Q4": {
+        "vertices": 16,
+        "edges": 32,
+        "faces": 24,
+        "B1B2_zero": true
+      },
+      "Q5": {
+        "vertices": 32,
+        "edges": 80,
+        "faces": 80,
+        "B1B2_zero": true
+      },
+      "Q6": {
+        "vertices": 64,
+        "edges": 192,
+        "faces": 240,
+        "B1B2_zero": true
+      }
+    },
+    "NLT_Q6_over_Q4_R0_gap_by_sigma": {
+      "1.2": 0.60982927,
+      "1.25": 0.51677271,
+      "1.3": 0.40729095
+    },
+    "NL_Q6_over_Q4_R0_gap_by_sigma": {
+      "1.2": 0.29814898,
+      "1.25": 0.02317545,
+      "1.3": 0.02968714
+    },
+    "interpretation": "NLT clears the 0.50 size threshold at sigma=1.20 and 1.25 but not 1.30. NL fails at all three tested points. T4 remains local-window and dwell-640 only."
+  },
+  "robustness": {
+    "sigma": 1.25,
+    "models": [
+      "NL",
+      "NLT"
+    ],
+    "seeds": 20,
+    "initial_families": [
+      "aligned",
+      "random"
+    ],
+    "cases": 80,
+    "physical_time": 16,
+    "comparisons": [
+      "RK4 dt=0.025 vs RK4 dt=0.0125",
+      "RK4 dt=0.025 vs DOP853 rtol=1e-10 atol=1e-12"
+    ],
+    "max_relative_difference_dt_halving": {
+      "R0": 0.00134466,
+      "R1_down": 0.00162361,
+      "R1_up": 0.00037896
+    },
+    "max_relative_difference_DOP853": {
+      "R0": 0.00136669,
+      "R1_down": 0.00164236,
+      "R1_up": 0.00033773
+    },
+    "cases_passing_10_percent": 80,
+    "total_cases": 80,
+    "pass": true
+  },
+  "overall_decision": "NON DIMOSTRATA",
+  "blockers": [
+    "T1 did not verify a second stable fixed point; random Newton multistart failed to converge.",
+    "T2 used a coarse 9-point sigma scan, not the full preregistered 0.05 grid.",
+    "T3 used only sigma=1.20,1.25,1.30; the full 41-point sweep remains outstanding.",
+    "T4 used only dwell=640 and the same three-point sigma window.",
+    "Robustness was checked only at sigma=1.25, not across the full preregistered sigma subset."
+  ],
+  "scientific_conclusion": "The current pilot supports a strong, persistent NLT initial-family separation near sigma=1.25, with NL failing the corresponding T2/T3/T4 local checks. It does not yet establish two stable fixed points or bistability. No Lyapunov function, effective potential, barrier, tunnelling or wormhole interpretation follows from these data.",
+  "implementation_rhs_crosscheck_max_abs_error": 8.881784197001252e-16
+}
