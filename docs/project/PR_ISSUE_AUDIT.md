@@ -23,6 +23,7 @@ A fresh GitHub PR search returned **five open research PRs in `theorem`: #524–
 | [#526](https://github.com/fabianleonaressi95/theorem/pull/526) | Add matched Volterra dipole-to-edge Morandotti C0-IPDG benchmark | OPEN | Not independently assessed in this registry pass | Owner review; a separate Morandotti FEM workflow had four ARPACK residual-certification failures and eight cancellations; do not treat those uncertified eigenpairs as physical/model falsification. |
 | [#527](https://github.com/fabianleonaressi95/theorem/pull/527) | Audit carrier-derived coframe on the full Q6 PSU connection | OPEN | Not independently assessed in this registry pass | Owner review; verify the carrier-to-connection construction and avoid assuming the coframe identity. |
 | [#528](https://github.com/fabianleonaressi95/theorem/pull/528) | Refine Q6 mean-field and Berry audits with verified controls | OPEN | Not independently assessed in this registry pass | Owner review; preserve separation between finite benchmark controls and physical interpretation. |
+| [#531](https://github.com/fabianleonaressi95/theorem/pull/531) | Reconcile project registry with live theorem audit | OPEN, documentation-only | Checks pending | This registry update; owner review before merge. |
 
 ### Merged since first audit pass (2026-11-26 ~17:17–17:47Z)
 
