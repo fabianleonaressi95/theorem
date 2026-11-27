@@ -13,12 +13,12 @@ on:
       - "scripts/audit_q6_spin6_clifford.py"
       - "scripts/audit_q6_psu_antitwin_chiral_fluid.py"
       - "scripts/audit_q6_clifford_graph_dirac.py"
-      - "scripts/audit_q6_golden_zonotope_t150.py"
+      - "scripts/audit_q6_golden_zonotope_t161.py"
       - "tests/test_q6_ivm_psu_spinor.py"
       - "tests/test_q6_spin6_clifford.py"
       - "tests/test_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_clifford_graph_dirac.py"
-      - "tests/test_q6_golden_zonotope_t150.py"
+      - "tests/test_q6_golden_zonotope_t161.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
       - "tests/test_q6_discrete_cartan.py"
       - "tests/test_q6_se3_cartan_bianchi.py"
@@ -94,7 +94,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_q6_clifford_graph_dirac.py" -v
       - name: Audit Q6 Clifford graph spectrum and corrected sheet covariance
         run: python scripts/audit_q6_clifford_graph_dirac.py
-      - name: Test T150 golden Q6 zonotope and antipodal projection
-        run: python -m unittest discover -s tests -p "test_q6_golden_zonotope_t150.py" -v
-      - name: Audit T150 golden 6D frame and rhombic triacontahedron window
-        run: python scripts/audit_q6_golden_zonotope_t150.py
+      - name: Test T161 golden Q6 zonotope and antipodal projection
+        run: python -m unittest discover -s tests -p "test_q6_golden_zonotope_t161.py" -v
+      - name: Audit T161 golden 6D frame and rhombic triacontahedron window
+        run: python scripts/audit_q6_golden_zonotope_t161.py
