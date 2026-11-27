@@ -10,7 +10,7 @@ on:
       - '.github/workflows/airy-eigenstrain-source-map.yml'
   workflow_dispatch:
 
-permissions:
+  # Focused numerical identity checks only; no FE solver dependency.\n\npermissions:
   contents: read
 
 jobs:
