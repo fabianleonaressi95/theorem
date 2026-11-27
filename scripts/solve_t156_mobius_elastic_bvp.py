@@ -162,17 +162,35 @@ def boundary_conditions(ya: np.ndarray, yb: np.ndarray, kappa_floor: float):
 
 
 def initial_guess(width: float, kappa_floor: float, mesh: np.ndarray) -> np.ndarray:
+    """Build a symmetry-compatible seed from the constitutive and balance laws."""
     eta0 = 1.8/width
     kappa = 0.20 + 0.30*np.sin(mesh) + (kappa_floor-0.20)*mesh/HALF_L
     eta = eta0*np.cos(mesh/2.0)
+    eta_prime = -0.5*eta0*np.sin(mesh/2.0)
+    eta_second = -0.25*eta0*np.cos(mesh/2.0)
     q = np.arctanh(-0.90*np.sin(mesh/2.0))
+    _, Vp, _ = _v_and_derivatives(eta_prime, width)
+    V, _, _ = _v_and_derivatives(eta_prime, width)
+    one_eta2 = 1.0 + eta**2
+    partial_eta_h = 4.0*kappa**2*eta*one_eta2*V
+    partial_eta_prime_h = kappa**2*one_eta2**2*Vp
+    euler_eta = partial_eta_h - np.gradient(partial_eta_prime_h, mesh, edge_order=2)
+    M1 = euler_eta/kappa
+    M3 = 2.0*kappa*one_eta2**2*V - eta*M1
+    M2 = np.gradient(M1, mesh, edge_order=2)/kappa
+    F2 = -np.gradient(M3, mesh, edge_order=2) - kappa*eta*M2
+    F3 = np.gradient(M2, mesh, edge_order=2) + kappa*M1 - kappa*eta*M3
+    F1 = (kappa*eta*F3 - np.gradient(F2, mesh, edge_order=2))/kappa
+    # Enforce the exact symmetry endpoint conditions on the seed.
+    F2[0] = 0.0
+    M2[0] = 0.0
     y = np.zeros((15, mesh.size))
-    y[0] = 0.0
-    y[1] = 0.0
-    y[2] = 0.0
-    y[3] = 0.0
-    y[4] = 0.0
-    y[5] = 2.0*kappa[0]*(1.0+eta[0]**2)**2
+    y[0] = F1
+    y[1] = F2
+    y[2] = F3
+    y[3] = M1
+    y[4] = M2
+    y[5] = M3
     y[6] = kappa
     y[7] = eta
     y[8] = q
