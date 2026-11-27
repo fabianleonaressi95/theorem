@@ -162,7 +162,7 @@ Both are nonzero for \(q_0\ne0\). Therefore the minimal one-pair axial \(U(1)\) 
 
 Q6 is finite and has no Brillouin torus of a translationally invariant periodic lattice. The theorem's hypotheses therefore cannot be transferred verbatim from an infinite periodic hypercubic lattice. Nevertheless, finiteness alone is not a proof of absence of doubling.
 
-The two-sheet lock supplies a vector-like Dirac pair: the right component on PSU and the left component on Anti-Twin form one four-component Dirac field. It does **not** claim a single isolated Weyl fermion or evade Nielsen–Ninomiya. A discrete kinetic operator must still be tested for locality, Hermiticity, low-energy zeros and species multiplicity. The existing \(D_{\rm DK}=d_\nabla+d_\nabla^\dagger\) is a cochain operator, not yet a proven one-Dirac operator.
+The two-sheet lock supplies a vector-like Dirac pair: the right component on PSU and the left component on Anti-Twin form one four-component Dirac field. It does **not** claim a single isolated Weyl fermion or evade Nielsen–Ninomiya. A discrete kinetic operator must still be tested for locality, Hermiticity, low-energy zeros and species multiplicity. The existing \(D_{\rm DK}=d_\nabla+d_\nabla^\dagger\) is a cochain operator, not yet a proven one-Dirac operator. T149 now supplies and audits a first finite Clifford graph operator; its identity-link spectrum is exactly flat and gapped, so it is a diagnostic rather than the physical low-energy operator.
 
 ## 7. 64 tetrahedra and Q6
 
