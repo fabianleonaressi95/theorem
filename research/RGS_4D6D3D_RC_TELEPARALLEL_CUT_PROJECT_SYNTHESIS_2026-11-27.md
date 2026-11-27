@@ -6,6 +6,32 @@
 
 ## 0. Executive correction
 
+## 0.1 Combinatorial origin: six-line I Ching hexagrams and Kirchhoff Q6
+
+The 64-site carrier is not an arbitrary geometric sampling of a 6-cube. It originates in the 64 six-line binary hexagrams:
+[
+\mathcal H=\{0,1\}^6,\qquad |\mathcal H|=2^6=64.
+]
+Under the explicitly chosen elementary mutation rule that flips exactly one line, two hexagrams are adjacent precisely when their Hamming distance is one. This defines the six-dimensional hypercube graph (Q_6). The rule must remain explicit: it is a mathematically exact encoding, but should not be conflated without further evidence with every traditional I Ching relation or ordering (e.g. King Wen sequence).
+
+Let (B\in\mathbb R^{64\times192}) be an oriented vertex-edge incidence matrix and (W=I_{192}) for the unweighted graph. The Kirchhoff/combinatorial Laplacian is
+[
+L=BWB^T=D-A=6I-A.
+]
+Exact graph identities:
+- 64 vertices, degree 6, 192 undirected edges;
+- 240 elementary square 2-faces, counted as (inom62 2^4);
+- bipartition by parity of the six-bit Hamming weight, 32+32;
+- connected graph and graph cycle rank (E-V+1=192-64+1=129);
+- Laplacian spectrum (lambda_k=2k), multiplicity (inom6k), (k=0,\ldots,6).
+
+**Topology convention:** (eta_1=129) is the cycle rank/first Betti number of the graph 1-skeleton. If all 240 square faces are attached as 2-cells, the first homology changes; for the full cubical 6-cell the resulting cubical complex is contractible. Never quote (eta_1=129) for the square-filled 2-skeleton or full cube without specifying the chain complex and computing its boundary ranks.
+
+The centred coordinates (v_c=v-\frac12\mathbf1\in\{-\frac12,+\frac12\}^6) used by the golden cut-and-project implementation are therefore the coordinate realization of the six binary line states. The order of construction is: hexagram states → single-line-flip incidence graph and Kirchhoff operator → centred six-coordinate carrier → golden physical/internal projections. The finite 64-state carrier and the infinite (mathbb Z^6) model-set extension are related constructions, not identical objects; the latter requires its own lattice/window and patch-limit statements.
+
+The archived RGS arrays (X_{Oh}\ (64\times3)), (Q_{rebuilt}\ (192\times188)), and (K_{tangent}\ (188\times188)) connect the 64-state/192-edge carrier to the reconstructed spatial and tangent data. Earlier recovery notes explicitly found no stored original 64×64 adjacency or incidence array in that archive; the Gray-code/Hamming-1 adjacency, edge list and Laplacian were separately reconstructed and audited. Preserve this provenance distinction and regenerate/hash the incidence and Laplacian alongside the RGS arrays in the consolidated audit.
+
+
 The 6D golden physical/internal split is not merely a generic proposal. It is explicitly implemented in the companion repository `fabianleonaressi95/rgs-qlg-quaternion-bridge`, in `src/rgs_psu_cut_project.py`, and is used by theorem card T129. The earlier spherical acceptance window of radius 1.5 was provisional and is superseded by the projected-cube window described below.
 
 The 4D→6D→3D programme must nevertheless keep three different mathematical operations distinct:
