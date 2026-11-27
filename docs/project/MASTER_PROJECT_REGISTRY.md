@@ -1,6 +1,6 @@
 # Master project registry — fabianleonaressi95
 
-**Audit date:** 26 November 2026
+**Audit date:** 27 November 2026
 **Scope:** all accessible repositories of `fabianleonaressi95` (public and private), reconciled with the active research threads.
 **Rule:** repository organization is not scientific proof. Status labels below are evidence classes, not quality judgments; see `SCIENTIFIC_STATUS_MATRIX.md` for per-topic detail.
 
@@ -22,7 +22,7 @@
 
 | Repository | Visibility | Default branch | Purpose / canonical role | Status |
 |---|---|---|---|---|
-| `theorem` (formerly `theroem` — GitHub redirect confirmed) | public | `main` | **Canonical home for theorem-level mathematics**: Q6/QXL/QLG, RGS, PSU/Anti-Twin, Vesica/Jitterbug, SE(3)/Cartan, C60/fullerenes, FEEC/discretization, hysteresis datasets. 428 merged PRs, ~393 branches, 5 open PRs (#471, #476–#479), 10 open issues | ACTIVE — consolidation target |
+| `theorem` (formerly `theroem` — GitHub redirect confirmed) | public | `main` | **Canonical home for theorem-level mathematics**: Q6/QXL/QLG, RGS, PSU/Anti-Twin, Vesica/Jitterbug, SE(3)/Cartan, C60/fullerenes, FEEC/discretization, hysteresis datasets. Live PR check (2026-11-27): two open research PRs (#524, #525); registry reconciliation PR to be opened after this update; merged-PR and branch totals are not restated because the search result is capped. 10 open issues | ACTIVE — consolidation target |
 | `rgs-qlg-quaternion-bridge` | public | `main` | Quaternionic SU(2)/SO(3), lattice holonomies, QLG gauge-equivariant operators, Wilson/Kirchhoff fluid audits, Pellis/Q6 programme. 90 merged PRs, ~200 branches | ACTIVE — overlaps theorem on Q6/RGS topics |
 | `rheomarine` | public | `main` | Microplastic transport modelling: HFR ingestion (IZOL/PIRA), Lagrangian + Eulerian M0, lab datasets DS1/DS2, RISTANC application support. 21 merged PRs | ACTIVE — applied/experimental track |
 | `fullerene-c64-audit` | private | `c64-audit` | Reproducible enumeration/analysis of all 3,465 C64 fullerene isomers (plantri/fullgen, Hückel, nauty, Stone–Wales graph) | ACTIVE — PR #1 open |
