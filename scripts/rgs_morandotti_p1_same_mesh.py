@@ -42,6 +42,7 @@ def run(input_path: str, output_path: str, young_modulus=1.0, poisson_ratio=0.0)
     if centers.shape != (2, 2):
         raise ValueError("the P1 transfer currently requires the archived two-core geometry")
     mesh, tags = make_mesh(1.0, 0.12, tuple(map(tuple, centers)), h, MPI.COMM_WORLD)
+    mesh.topology.create_connectivity(0, mesh.topology.dim)
 
     # Refuse a nominally identical but actually different remesh.
     geometry = np.asarray(mesh.geometry.x)
