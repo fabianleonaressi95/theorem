@@ -29,7 +29,7 @@ The full and Hartree geometric forces use the same unnormalized one-body density
 dE/dx_e = kappa * (x_e - x*_e) + t * exp(x_e) * b_e^T Gamma b_e
 ```
 
-For Hartree, `Gamma = 2 |phi><phi|`. For the exact state, `Gamma[p,q] = <a_p^dagger a_q>` is reconstructed from the Fock amplitudes. Thus the comparison isolates the closure error due to correlations while retaining a common backreaction law.
+For Hartree, `Gamma = 2 |phi><phi|`. For the exact state, `Gamma[p,q] = <a_q^dagger a_p>` is reconstructed from the Fock amplitudes. Thus the comparison isolates the closure error due to correlations while retaining a common backreaction law.
 
 Reported diagnostics:
 - Frobenius norm of the difference between trace-one one-body density matrices;
