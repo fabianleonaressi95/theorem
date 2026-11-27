@@ -46,7 +46,7 @@ Maps each active research thread to its canonical repository, key files, verific
 
 | Thread | Canonical repo | Status | Missing |
 |---|---|---|---|
-| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged; follow-up PR #518 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | PR #449 pending |
+| C60 audits (TH comparison, Coulomb, DPO, local defects, Stone–Wales) | `theorem` (`docs/C60_*`, PR #449 merged; follow-up PR #518 open) | NUMERICALLY VERIFIED + SOFTWARE VERIFIED | follow-up PR #518 review pending; do not treat it as new physical validation |
 | C64 enumeration/audit | `fullerene-c64-audit` | NUMERICALLY VERIFIED (per PR #1 body; tests reported passing; **no CI**) | PR #1 unmerged; add CI |
 | Fullerene↔Q6/Kathara interface | `theorem` + `fullerene-c64-audit` doc | HYPOTHESIS (explicitly conjectural) | needs theorem + data bridge |
 
