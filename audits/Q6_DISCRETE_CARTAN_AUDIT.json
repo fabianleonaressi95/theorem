@@ -43,5 +43,12 @@
     "no discrete non-Abelian cube Bianchi audit",
     "no common variational action",
     "no continuum Cartan or Mosco convergence theorem"
-  ]
+  ],
+  "ci": {
+    "workflow": "Q6 face-cochain Green-Kubo audit",
+    "run_number": 43,
+    "run_id": 46059768375,
+    "conclusion": "success",
+    "url": "https://github.com/fabianleonaressi95/theorem/actions/runs/46059768375"
+  }
 }
