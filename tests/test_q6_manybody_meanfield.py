@@ -2,7 +2,7 @@ import numpy as np
 
 from audits.morphodynamics.q6_manybody_meanfield import (
     Parameters, fock_pairs, hartree_fock_state, one_body_density,
-    two_boson_hamiltonian, one_body_hamiltonian, run_comparison,
+    two_boson_hamiltonian, two_boson_hamiltonian_action, one_body_hamiltonian, run_comparison,
 )
 
 
@@ -31,3 +31,14 @@ def test_noninteracting_hartree_product_is_invariant_under_full_dynamics():
     assert result["max_norm_error"] < 2e-6
     assert result["max_one_body_error"] < 2e-5
     assert result["max_geometry_error"] < 2e-5
+
+
+def test_matrix_free_two_boson_action_matches_fock_matrix():
+    rng = np.random.default_rng(20261127)
+    x = rng.normal(scale=0.03, size=192)
+    h = one_body_hamiltonian(x)
+    z = rng.normal(size=2080) + 1j * rng.normal(size=2080)
+    z /= np.linalg.norm(z)
+    matrix = two_boson_hamiltonian(h, interaction=0.4)
+    action = two_boson_hamiltonian_action(h, z, interaction=0.4)
+    assert np.allclose(action, matrix @ z, atol=2e-11, rtol=2e-11)

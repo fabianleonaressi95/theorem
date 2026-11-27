@@ -1,0 +1,23 @@
+name: EQC RGS-Q6 minimal gates
+on:
+  pull_request:
+    paths:
+      - "audits/morphodynamics/eqc_rgs_q6_gates.py"
+      - "tests/test_eqc_rgs_q6_gates.py"
+      - "theorems/EQC-RGS-Q6-minimal-gates.md"
+      - ".github/workflows/eqc-rgs-q6-gates.yml"
+  push:
+    branches: [main]
+    paths:
+      - "audits/morphodynamics/eqc_rgs_q6_gates.py"
+      - "tests/test_eqc_rgs_q6_gates.py"
+      - ".github/workflows/eqc-rgs-q6-gates.yml"
+jobs:
+  focused-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m unittest tests.test_eqc_rgs_q6_gates -v
