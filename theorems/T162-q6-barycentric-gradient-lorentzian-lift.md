@@ -108,3 +108,8 @@ an independent numerical reconstruction of the committed formulas gives:
 - for the declared non-affine parity test field (f_v=(-1)^{|v|_1}(1+v/64)), maximum Q6/P1 operator mismatch (6.850733090221455).
 
 The last number is not an error estimate tending to zero: it is a finite diagnostic showing that the two operators differ on a non-affine field at this resolution. A refinement study and a calibrated projection are required before asserting convergence or replacing one operator by the other. These are local numerical checks; the GitHub Actions status remains separate.
+
+
+## 9. Extension to the explicit four-dimensional carrier
+
+T163 now constructs a rank-four 4x6 golden cut-project frame and defines the corresponding six-neighbour Q6 gradient directly in the projected 4D chart. Its affine patch audit supersedes the conditional two-plane lift here as the operative 4D gradient test. T162 remains the local 2D T130/P1 compatibility theorem and the general conditional tangent-lift identity; T163 supplies the distinct 4D cut-project construction and records its three-way branch incidence.
