@@ -4,12 +4,48 @@ on:
   push:
     paths:
       - "audits/q6_face_cochain_green_kubo.py"
+      - "scripts/audit_q6_antitwin_temporal_chain.py"
+      - "scripts/audit_q6_discrete_cartan.py"
+      - "scripts/audit_q6_se3_cartan_bianchi.py"
+      - "scripts/audit_q6_cubical_chain_complex.py"
+      - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
+      - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "scripts/audit_q6_spin6_clifford.py"
+      - "scripts/audit_q6_psu_antitwin_chiral_fluid.py"
+      - "scripts/audit_q6_clifford_graph_dirac.py"
+      - "scripts/audit_q6_golden_zonotope_t161.py"
+      - "theorems/T161-q6-ivm-rhombic-triacontahedron-lorentzian-spin-lift.md"
+      - "research/Q6_GOLDEN_ZONOTOPE_IVM_LORENTZIAN_SPIN_SYNTHESIS_2026-11-27.md"
+      - "tests/test_q6_golden_zonotope_t161.py"
+      - "scripts/audit_q6_golden_zonotope_t161.py"
+      - "theorems/T161-q6-ivm-rhombic-triacontahedron-lorentzian-spin-lift.md"
+      - "research/Q6_GOLDEN_ZONOTOPE_IVM_LORENTZIAN_SPIN_SYNTHESIS_2026-11-27.md"
+      - "tests/test_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_spin6_clifford.py"
+      - "tests/test_q6_psu_antitwin_chiral_fluid.py"
+      - "tests/test_q6_clifford_graph_dirac.py"
+      - "tests/test_q6_golden_zonotope_t161.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
+      - "tests/test_q6_discrete_cartan.py"
+      - "tests/test_q6_se3_cartan_bianchi.py"
+      - "tests/test_q6_cubical_chain_complex.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
   pull_request:
     paths:
       - "audits/q6_face_cochain_green_kubo.py"
+      - "scripts/audit_q6_antitwin_temporal_chain.py"
+      - "scripts/audit_q6_discrete_cartan.py"
+      - "scripts/audit_rgs_q6_static_coframe_lc_links.py"
+      - "scripts/audit_q6_ivm_psu_spinor.py"
+      - "scripts/audit_q6_psu_antitwin_chiral_fluid.py"
+      - "scripts/audit_q6_spin6_clifford.py"
+      - "scripts/audit_q6_clifford_graph_dirac.py"
+      - "tests/test_q6_ivm_psu_spinor.py"
+      - "tests/test_q6_spin6_clifford.py"
+      - "tests/test_q6_clifford_graph_dirac.py"
+      - "tests/test_q6_psu_antitwin_chiral_fluid.py"
       - "tests/test_q6_face_cochain_green_kubo.py"
+      - "tests/test_q6_discrete_cartan.py"
       - ".github/workflows/q6-face-cochain-green-kubo.yml"
   workflow_dispatch:
 
@@ -26,7 +62,45 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install numerical dependency for coframe audit
+        run: python -m pip install --disable-pip-version-check numpy
       - name: Run exact Q6 face-cochain unit tests
         run: python -m unittest discover -s tests -p "test_q6_face_cochain_green_kubo.py" -v
       - name: Reproduce exact incidence and Green-Kubo audit
         run: python audits/q6_face_cochain_green_kubo.py
+      - name: Audit exact Anti-Twin temporal chain generator
+        run: python scripts/audit_q6_antitwin_temporal_chain.py
+      - name: Audit static RGS coframe and Q6 Levi-Civita reference links
+        run: python scripts/audit_rgs_q6_static_coframe_lc_links.py
+      - name: Test discrete Q6 Cartan torsion, curvature and gauge covariance
+        run: python -m unittest discover -s tests -p "test_q6_discrete_cartan.py" -v
+      - name: Audit discrete Q6 Cartan face torsion and holonomy
+        run: python scripts/audit_q6_discrete_cartan.py
+      - name: Test exact Q6 cubical chain complex
+        run: python -m unittest discover -s tests -p "test_q6_cubical_chain_complex.py" -v
+      - name: Audit exact Q6 cubical chain complex
+        run: python scripts/audit_q6_cubical_chain_complex.py
+      - name: Test affine SE3 Cartan links and cubical Bianchi identity
+        run: python -m unittest discover -s tests -p "test_q6_se3_cartan_bianchi.py" -v
+      - name: Audit affine SE3 Cartan links and cubical Bianchi identity
+        run: python scripts/audit_q6_se3_cartan_bianchi.py
+      - name: Test Q6 golden-vector PSU and SU2 spin lift
+        run: python -m unittest discover -s tests -p "test_q6_ivm_psu_spinor.py" -v
+      - name: Audit Q6 golden-vector PSU and SU2 spin lift
+        run: python scripts/audit_q6_ivm_psu_spinor.py
+      - name: Test Cl6 and Spin6 Clifford representation
+        run: python -m unittest discover -s tests -p "test_q6_spin6_clifford.py" -v
+      - name: Audit golden SO6 frame and Spin6 plane lift
+        run: python scripts/audit_q6_spin6_clifford.py
+      - name: Test PSU Anti-Twin chiral fluid gauge locking
+        run: python -m unittest discover -s tests -p "test_q6_psu_antitwin_chiral_fluid.py" -v
+      - name: Audit PSU Anti-Twin chiral fluid gauge locking and JSON artifact
+        run: python scripts/audit_q6_psu_antitwin_chiral_fluid.py
+      - name: Test exact Q6 Clifford graph Dirac operator
+        run: python -m unittest discover -s tests -p "test_q6_clifford_graph_dirac.py" -v
+      - name: Audit Q6 Clifford graph spectrum and corrected sheet covariance
+        run: python scripts/audit_q6_clifford_graph_dirac.py
+      - name: Test T161 golden Q6 zonotope and antipodal projection
+        run: python -m unittest discover -s tests -p "test_q6_golden_zonotope_t161.py" -v
+      - name: Audit T161 golden 6D frame and rhombic triacontahedron window
+        run: python scripts/audit_q6_golden_zonotope_t161.py

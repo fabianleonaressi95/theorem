@@ -10,7 +10,7 @@ It brings together source literature, manuscript records, reproducible computati
 
 - **Purpose:** canonical home for theorem-level mathematics of the RGS–PSU–PRISM–Q6 programme — statements, proofs, audits, dependency graphs. Experimental software, datasets and application code live in companion repositories (see `docs/project/`).
 - **Theorem register:** every card under `theorems/` is inventoried in **[docs/THEOREM_MASTER_REGISTER.md](docs/THEOREM_MASTER_REGISTER.md)** / **[.csv](docs/THEOREM_MASTER_REGISTER.csv)** — one row per card, with epistemic status, proof type, verification scripts/tests, dependencies and limits. Regenerate with `python3 scripts/build_theorem_register.py`; validate with `python3 scripts/check_theorem_register.py`.
-- **Cards:** 280 markdown records in `theorems/` (incl. `theorems/spectral/`). Status distribution (heuristic classification, see register `status_note` column): **PROVED 45, EXACT_CERTIFICATE 14, NUMERICALLY_VERIFIED 86, CONDITIONAL 83, CANDIDATE 6, HYPOTHESIS 2, OPEN 44**. SUPERSEDED/QUARANTINED: 0. *Classification is conservative and machine-assisted; ~100 rows carry a low-confidence note pending author review.*
+- **Cards:** the live 27-November-2026 `main` tree contains **284 Markdown records** under `theorems/` (including `theorems/spectral/`). The status distribution in the checked-in master register is an older snapshot and must be regenerated with `python3 scripts/build_theorem_register.py` before quoting current status totals. Preserve full filename stems because legacy display IDs are reused.
 - **Known numbering issue:** some legacy card prefixes are reused by multiple files, including T154 and T155. The register preserves display IDs but now adds a unique `record_key` (the full filename stem) alongside the file path; graph node IDs use the same slug-based distinction. Renumbering theorem titles remains an author decision.
 - **Reproduce checks:** `python3 -m pytest tests/` (unit tests), `python3 scripts/check_theorem_register.py` (register consistency), plus per-workflow audit scripts under `scripts/` and `audits/`.
 - **Declared limits:** no card is EXPERIMENTALLY VALIDATED; numerical audits are not proofs; quarantined/unverified material is preserved under `archive/` rather than deleted.
@@ -43,7 +43,7 @@ The tree below summarizes the principal areas. The live repository may contain a
 ```text
 theorem/
 ├── .github/workflows/       # Continuous-integration workflows (80)
-├── theorems/                # 272 numbered/themed result cards (+ spectral/)
+├── theorems/                # 284 Markdown result records in the 27-Nov-2026 tree snapshot (+ spectral/)
 ├── foundations/             # Established definitions, laws, results
 ├── conjectures/             # Unproved hypotheses (reserved; see register)
 ├── proofs/                  # Standalone formal proofs/certificates (reserved)
@@ -78,7 +78,11 @@ theorem/
 └── requirements-audit.txt   # Pinned audit dependencies
 ```
 
-### Main indexes
+### Programme-wide integration
+
+- **[T161 programme-wide integration map](docs/T161_PROGRAMME_WIDE_INTEGRATION_MAP_2026-11-27.md)** — connects the 27-chapter monograph, the theorem corpus and the companion 51-step formal suite to the Q6–golden cut-and-project–rhombic triacontahedron–IVM–Lorentzian spin geometric spine. Programme membership and topic links are explicitly distinguished from proof dependencies; all theorem IDs and epistemic statuses are preserved.
+
+## Main indexes
 - **[In2Infinity technical contact brief](collaborations/in2infinity/01-initial-technical-contact-brief-2026-11-26.md)** — prepares the independently reconstructed five-solid coordinate/radius results, the unresolved multi-face IN convention, targeted questions for Colin Power and Dr Heike Bielek, and a carefully separated optional (S^3/2I) / Stergios Pellis discussion.
 - **[T155-RC→SC — Rhombic cuboctahedron to snub cube](theorems/T155-rhombic-cuboctahedron-snub-cube-transition.md)** — proves exact V/E/F and face-size compatibility of the reported twelve-square split; treats the 22.5° hinge motion, vertex correspondence and chirality as open. [incidence-count test](tests/test_t155_rhombic_cuboctahedron_snub_cube.py).
 - **[Sangaku Geometry — circle-construction classification](research/sangaku_geometry/README.md)** — independent workstream classifying marked circle configurations by incidence/tangency structure, Euclidean symmetry and normalized coordinate/distance fields. Includes the proved quadratic-tower theorem for intersection constructions, exact Vesica Piscis and pentagon records, a clearly conditional tangency model, SymPy checks and a source-verification protocol.
@@ -778,3 +782,10 @@ These are finite mathematical/software checks. They do not establish physical ca
 ## Morfodinamica Quantistica
 
 The MQ programme records exact quantum-tetrahedron results (MQ-002/003) and a finite RGS-carrier classical-flux construction (MQ-005), with explicit limits on Q6 incidence and spin quantization. See [morfodinamica-quantistica/README.md](morfodinamica-quantistica/README.md).
+
+
+## Discrete Cartan construction proposal
+
+- [Discrete Cartan construction proposal](research/DISCRETE_CARTAN_Q6_PSU_ANTITWIN_CONSTRUCTION_PROPOSAL_2026-11-27.md) — defines Lorentz links, edge coframes, face holonomy, transported coframe closure, gauge covariance, Bianchi obligations, spin-lift gates and the separation of Riemann–Cartan, teleparallel and torsion-free branches. Status: proposal/open, not a proved physical bridge.
+
+The Cartan proposal now includes an exact affine Poincare boundary identity on a tetrahedral 3-cell, with its finite-complex audit in the companion implementation repository. The identity is not promoted to a continuum Bianchi theorem.
