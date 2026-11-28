@@ -103,3 +103,13 @@ Until these are supplied, the status is **local smooth-sampling consistency prov
 ## 7. Ten-family interface
 
 Q6 is the finite carrier, not automatically a 4D triangulation. GOLDEN supplies a Euclidean (3+3) split, not a time direction. IVM/CELL must provide explicit incidence data. SPACETIME must provide the Lorentzian coframe and independent connection. REP must provide a (mathrm{Spin}^+(1,3)) lift, not identify it with (mathrm{Spin}(6)). ANALYSIS supplies consistency/stability/compactness methods; DYNAMICS supplies the action and variations. PSU–Anti-Twin remains a two-sheet sector distinct from torsion. Family-interface graph edges are architectural links, not proof dependencies.
+
+
+## 8. Numerical manufactured-solution audit (companion implementation)
+
+The companion repository now contains a reproducible RK4 audit with a smooth noncommuting Lorentz connection and nonzero Cartan torsion:
+- [audit script](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/t150-programme-wide-integration/scripts/audit_cartan_refinement_consistency.py)
+- [focused tests](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/t150-programme-wide-integration/tests/test_cartan_refinement_consistency.py)
+- [numerical table and interpretation](https://github.com/fabianleonaressi95/rgs-qlg-quaternion-bridge/blob/t150-programme-wide-integration/research/CARTAN_REFINEMENT_CONSISTENCY_THEOREM_2026-11-27.md#8-manufactured-solution-convergence-audit)
+
+The manufactured example exhibits (O(h^4)) curvature face error (a special cancellation) and (O(h^3)) torsion face error. This is numerical evidence for one smooth sampled field, not the uniform analytic remainder proof required to promote the local proposition to PROVED.
