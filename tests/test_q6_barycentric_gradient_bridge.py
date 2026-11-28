@@ -21,7 +21,8 @@ def test_q6_square_cells_and_triangle_split_have_expected_counts():
     triangles = q6_square_triangulation()
     assert faces.shape == (240, 4)
     assert triangles.shape == (480, 3)
-    assert np.all(np.sort(triangles[0::2], axis=1)[:, 0] >= 0)
+    assert np.all((triangles >= 0) & (triangles < 64))
+    assert len({tuple(sorted(t)) for t in triangles}) == 480
 
 
 def test_triangle_p1_gradient_is_exact_for_affine_fields():
@@ -50,7 +51,7 @@ def test_non_affine_field_operator_mismatch_is_reported_not_hidden():
     report = audit_q6_barycentric_gradient_bridge(CALIBRATION, values)
     assert report["affine_patch_pass"] is None
     assert np.isfinite(report["max_operator_residual"])
-    assert report["max_operator_residual"] >= 0
+    assert report["max_operator_residual"] > 1e-6
 
 
 def test_lorentzian_gradient_lift_satisfies_tangent_duality():
