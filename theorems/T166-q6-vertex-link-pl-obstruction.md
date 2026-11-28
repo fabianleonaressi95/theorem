@@ -84,3 +84,9 @@ The link audit must be rerun on (K'); the old link (mathbb Z^5) is a baseline ob
 - **OPEN:** explicit global (K'), its vertex-link certificates, global spin structure, Lorentzian Cartan fields and convergence.
 
 This theorem deliberately separates the exact obstruction from the still-open construction.
+
+## 7. First manifold carrier — T167
+
+T167 gives a constructive alternative that retains the Q6 square 2-skeleton as a spine: a smooth 4D 0/1/2-handlebody with handle counts (1,129,240). Its homotopy type is Q6^(2), with H1=0, H2=Z^111, and chi=112.
+
+This bypasses the raw singular vertex links by changing the 4D carrier, not by subdividing the original 4-skeleton. It does **not** yet realize the 160 triple 3-faces or 60 4-cells. See theorems/T167-q6-square-complex-4d-handlebody-thickening.md.
