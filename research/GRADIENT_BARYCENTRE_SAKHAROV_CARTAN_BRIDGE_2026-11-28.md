@@ -206,11 +206,3 @@ S_F^{(2)}=A_F N V\left[\det E(c_F)+\frac12 D^2(\det E)(c_F):\Sigma_F\right].
 Because (E(x)) is affine and (E) is (3\times3), (det E(x)) is cubic. The implementation therefore also evaluates the exact cubic cell integral with a degree-three barycentric rule and reports the cubic remainder (S_F^{\rm exact}-S_F^{(2)}). This makes the approximation error visible instead of silently treating the Hessian correction as exact.
 
 The coframe variation is evaluated independently by complex-step differentiation of the implemented corrected action and checked against centred finite differences. A local numerical check gave maximum absolute gradient discrepancy (3.65\times10^{-11}) for the manufactured nondegenerate triangle/coframe fixture. This is a local implementation audit, not a continuum theorem or a Lorentzian 4D action result. The companion CI run triggered by the code commit is recorded separately and must pass before the test is marked CI-verified.
-
-
-The executable cell model has subsequently been extended to include a P1 scalar field (f) through
-\[
-\mathscr L_F(x)=N\det E(x)\left[V+\frac{\lambda_g}{2}|\nabla_F f|^2\right],
-\qquad \nabla_F f=J_F^{-T}(f_1-f_0,f_2-f_0)^T.
-\]
-The affine P1 gradient is recovered exactly from the three nodal values. Since it is constant on the cell, the coframe determinant remains the only cubic spatial factor. Both coframe and scalar nodal variations are checked by complex-step differentiation against independent centred finite differences. This is the first executable insertion of the gradient law itself into the barycentric cell action; the coefficient (lambda_g) is a declared model coupling, not yet derived from the PSU continuum action.
