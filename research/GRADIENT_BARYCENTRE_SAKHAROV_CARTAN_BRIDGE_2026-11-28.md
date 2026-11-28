@@ -191,3 +191,18 @@ The heat-kernel coefficients \(a_0,a_2,a_4\) are not modified by an ad hoc subst
 - T137 — two-circle Vesica construction.
 - Sakharov–Seeley–DeWitt toroidal Cartan baseline, 2026-11-28.
 - Unified PSU–RGS–Anti-Twin wormhole construction, 2026-11-28.
+
+
+## 10. First executable cell-action insertion (companion implementation, 2026-11-28)
+
+The companion repository now contains `src/barycentric_cell_action.py` and `tests/test_barycentric_cell_action.py`. The module implements a concrete spatial cell model with an affine (3\times3) coframe (E(x)) over a triangle and density
+\[
+\mathscr L(x)=N V\det E(x).
+\]
+It assembles the barycentre/Hessian approximation
+\[
+S_F^{(2)}=A_F N V\left[\det E(c_F)+\frac12 D^2(\det E)(c_F):\Sigma_F\right].
+\]
+Because (E(x)) is affine and (E) is (3\times3), (det E(x)) is cubic. The implementation therefore also evaluates the exact cubic cell integral with a degree-three barycentric rule and reports the cubic remainder (S_F^{\rm exact}-S_F^{(2)}). This makes the approximation error visible instead of silently treating the Hessian correction as exact.
+
+The coframe variation is evaluated independently by complex-step differentiation of the implemented corrected action and checked against centred finite differences. A local numerical check gave maximum absolute gradient discrepancy (3.65\times10^{-11}) for the manufactured nondegenerate triangle/coframe fixture. This is a local implementation audit, not a continuum theorem or a Lorentzian 4D action result. The companion CI run triggered by the code commit is recorded separately and must pass before the test is marked CI-verified.
