@@ -50,7 +50,8 @@ jobs:
           git clone --depth 1 https://github.com/auto-07p/auto-07p.git /tmp/auto-07p
           cd /tmp/auto-07p
           ./configure
-          make
+          # AUTO-07p's legacy Fortran makefiles race when compiled in parallel.
+          make -j1
       - name: Run AUTO-07p Möbius continuation
         run: |
           export AUTO_DIR=/tmp/auto-07p
