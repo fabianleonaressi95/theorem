@@ -75,6 +75,26 @@ R(\omega)=R(\omega_{\rm LC})+D_{\rm LC}K+K\wedge K.
 \]
 This is the explicit bridge between the toroidal throat coframe and the independent Cartan sector. The Levi-Civita connection here is only a reference decomposition, not the fundamental connection and not a restriction \(K=0\).
 
+### Explicit throat-localized transport candidate
+
+A minimal independent contortion component that produces both a radial throat transport and nonzero torsion is
+\[
+K^{02}=\kappa(l)e^1=\kappa(l)\,dl,\qquad K^{20}=-K^{02},
+\]
+with all other independent components set to zero for this test ansatz. With \(\eta=(+---)\),
+\[
+T^0=-\kappa(l)e^1\wedge e^2,\qquad
+T^2=-\kappa(l)e^1\wedge e^0,
+\]
+up to the fixed orientation convention for the internal generators. Hence a smooth bounded \(\kappa\) gives finite torsion at \(l=0\), while \(\kappa\not\equiv0\) gives a nonzero torsion sector.
+
+Along a radial path \(\gamma:l_-\to l_+\), the displayed diagonal reference coframe has no Levi-Civita connection component proportional to \(dl\). For this one-generator test ansatz the radial transport is therefore
+\[
+\mathcal P_\gamma=
+\exp\!\left[-J_{02}\int_{l_-}^{l_+}\kappa(l)\,dl\right],
+\]
+where \(J_{02}\) is the Lorentz boost generator in the \(0\)-\(2\) plane. This is an explicit finite throat-transport candidate, not yet a solution of the field equations. Its curvature must be computed from \(R_{\rm LC}+D_{\rm LC}K+K\wedge K\), and its profile must be matched across the PSU/Anti-Twin interface by the actual transition map. A compactly supported smooth \(\kappa\) localizes the relative transport near the throat; the integral controls the net boost. Setting \(\kappa=0\) removes this torsional transport but does not by itself decouple the full two-sheet geometry.
+
 The earlier spherical two-ended comparison ansatz
 \[
 ds^2=-N(u)^2dt^2+du^2+(u^2+r_0^2)d\Omega^2
