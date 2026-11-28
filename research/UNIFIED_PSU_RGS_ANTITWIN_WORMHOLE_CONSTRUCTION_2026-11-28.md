@@ -169,7 +169,7 @@ Use a first-order Palatini–Cartan action with independent coframe and Lorentz 
 \[
 S[e,\omega,\Psi]=
 \frac{1}{4\kappa}\int_{\mathcal M}\epsilon_{abcd}e^a\wedge e^b\wedge R^{cd}(\omega)
--\frac{\Lambda}{12\kappa}\int_{\mathcal M}\epsilon_{abcd}e^a\wedge e^b\wedge e^c\wedge e^d
+-\frac{\Lambda}{24\kappa}\int_{\mathcal M}\epsilon_{abcd}e^a\wedge e^b\wedge e^c\wedge e^d
 +S_m[e,\omega,\Psi]+S_\Sigma.
 \]
 The interface term \(S_\Sigma\) must be derived from the chosen variational boundary data; it is not optional when the two sheets are glued and variations are independent on either side.
