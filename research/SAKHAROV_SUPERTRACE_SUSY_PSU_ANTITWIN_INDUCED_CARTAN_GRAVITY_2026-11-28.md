@@ -188,3 +188,8 @@ Dependencies: WQ6-01 (4D Q6 resolution) precedes WQ6-09; WQ6-02 (two-sheet gluin
 6. Keep the 188D algebraic SUSY candidate separate until a physical local supersymmetry construction is supplied.
 
 **Conclusion:** Sakharov induced gravity is now a defined branch of the unified programme: Q6 heat trace is its microscopic spectral-input candidate; the independent Cartan wormhole is its background; the field supertrace is its one-loop mechanism; and the 188D SUSY construction remains a separate algebraic candidate.
+
+
+## T163 4D carrier prerequisite
+
+A candidate affine Lorentzian 4D carrier has now been constructed from the golden 6D cut-project frame: 60 nondegenerate coordinate 4-cells and 1440 Freudenthal 4-simplices. The carrier is branched (each 3-face has incidence three), and projected-cell overlap has not yet been audited. Therefore it is not yet a geometric Lorentzian 4-manifold. The Sakharov heat operator, Dirac square, and (a_0,a_2,a_4) coefficients cannot yet be assembled on it as a physical continuum model. The previously derived continuum Seeley–DeWitt baseline remains conditional and unchanged; no induced Newton constant is inferred from T163.
