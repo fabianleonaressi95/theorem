@@ -2,7 +2,6 @@
 
 **Date:** 27 November 2026  
 **Classification:** exact geometric identities; exact projective conjugacy; finite rational regression; elastic-strip relation from the literature; physical bridge open.  
-**Status:** framework and reproducibility tests added. No elastic equilibrium solver or FDT derivation is claimed.
 **Status:** exact algebraic framework plus a finite-width symmetric Möbius BVP implementation; numerical convergence is pending CI execution. Physical FDT identification remains open.
 
 ## 1. Why this is T156, not T057
@@ -92,7 +91,6 @@ V_S=Dw\int_0^L
 
 on intervals where \(\kappa\ne0\). This relation supplies a legitimate geometric mechanism for nonzero centreline torsion in a developable ribbon. It does not imply that every Möbius strip has nonzero torsion, and it does not determine an equilibrium without boundary conditions, admissible configurations and an energy minimization.
 
-**Benchmark boundary:** the published Starostin–van der Heijden equilibrium is the external reference problem. The present audit checks the algebraic developability identity and the Sadowsky energy density on supplied test profiles; it does not claim to reproduce the published minimizer.
 **Benchmark boundary:** the algebraic audit checks the developability identity and Sadowsky density on supplied profiles. A separate finite-width solver now implements the published symmetric Möbius BVP; until its CI run converges and its invariants are checked, no reproduction of the published minimizer is claimed.
 
 ## 6. The second half: FDT threshold to Farey branch
