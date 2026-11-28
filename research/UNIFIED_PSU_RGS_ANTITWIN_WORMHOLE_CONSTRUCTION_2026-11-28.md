@@ -349,3 +349,8 @@ The PSU–Anti-Twin exchange (J_{AT}=\tau_x) remains a separate sheet factor, no
 ### Global incidence-level quaternionic sign result
 
 The 60 Q6 four-cells form a connected 16-regular pairwise-interface graph with 480 edges. The 160 triple 3-faces define 160 edge-disjoint 3-cycles: every pair of four-cells is used by exactly one junction. Therefore one can assign a single negative SU(2)-lift sign to one edge of each cycle, cancelling (q_*^3=-1) at every junction without conflicting edge assignments. This solves the discrete Z2 lift-sign constraints on the incidence graph. It does not yet solve the geometric subdivision compatibility along shared lower-dimensional cells or prove the vertex-link (S^3) condition.
+
+
+### Lorentzian spin lift — T165
+
+The quaternionic junction rotations now admit an exact Lorentzian extension. With (X=x^0I+x^i\sigma_i), (det X=x^T\eta x), and (A\in SL(2,\mathbb C)), the action (X\mapsto AXA^\dagger) preserves the Minkowski metric. (SU(2)) unit quaternions provide the rotational subgroup; Hermitian exponentials provide boosts. T165 gives the implementation and tests. The remaining task is to assign these (SL(2,\mathbb C)) transports to the globally compatible pairwise interfaces and couple them to the independent Cartan coframe.
