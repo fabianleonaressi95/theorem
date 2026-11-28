@@ -2,7 +2,11 @@
 
 **Date:** 27 November 2026  
 **Classification:** exact geometric identities; exact projective conjugacy; finite rational regression; elastic-strip relation from the literature; physical bridge open.  
-**Status:** exact algebraic framework plus a finite-width symmetric Möbius BVP implementation; numerical convergence is pending CI execution. Physical FDT identification remains open.
+**Status:** exact algebraic framework plus a finite-width symmetric Möbius BVP implementation. The 2026-11-28 CI workflow successfully built and ran AUTO-07p, but its archived output does not establish a converged elastic equilibrium; the SciPy diagnostic reports `BVP_FAILED` with a singular collocation Jacobian. No elastic equilibrium or physical FDT identification is claimed.
+
+## 0. CI result and numerical boundary (2026-11-28)
+
+The workflow completed successfully as a software/build job: AUTO-07p compiled and the continuation command exited successfully. This is **not** equivalent to convergence of the elastic boundary-value problem. The archived SciPy diagnostic reports `BVP_FAILED` after a singular collocation Jacobian (maximum RMS residual approximately 700.3). The AUTO output contains only the configured two continuation points and does not provide an independently validated equilibrium branch. Accordingly, the BVP implementation is a reproducible computational attempt, not a numerically verified elastic equilibrium. The open variational and physical-identification obligations below remain open.
 
 ## 1. Why this is T156, not T057
 
