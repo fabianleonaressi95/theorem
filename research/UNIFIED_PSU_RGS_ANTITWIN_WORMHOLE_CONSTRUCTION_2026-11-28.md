@@ -40,6 +40,41 @@ N(l)>0,\quad r(l)>0,\quad R(l)-r(l)>0
 \]
 on the coordinate patch, together with sufficient smoothness and finite curvature invariants. A reflection-symmetric throat may impose \(r'(0)=R'(0)=N'(0)=0\), with the appropriate flare-out condition determined from the chosen embedding/areal geometry. These conditions must be checked for an actual solution, not imposed as proof of one.
 
+### Explicit toroidal coframe and independent connection
+
+Set \(A(l,\theta)=R(l)+r(l)\cos\theta\). On a regular toroidal chart a concrete orthonormal coframe for signature \((+---)\) is
+\[
+e^0=N(l)c\,dt,\quad e^1=dl,\quad
+e^2=r(l)d\theta,\quad e^3=A(l,\theta)d\varphi.
+\]
+Its oriented volume density is
+\[
+e^0\wedge e^1\wedge e^2\wedge e^3
+=NcrA\,dt\wedge dl\wedge d\theta\wedge d\varphi.
+\]
+Thus the coframe is nondegenerate on this chart precisely when \(N>0\), \(r>0\), and \(A>0\); the sufficient toroidal condition \(R-r>0\) guarantees the last inequality for every \(\theta\). At a smooth reflection-symmetric throat \(l=0\), with \(N,r,R\) even and positive, the determinant remains finite and nonzero. This is a local chart statement; the periodic angular coordinates require the usual overlapping charts and are not a physical singularity.
+
+For reference, the torsion-free metric-compatible connection of this coframe has the nonzero mixed components
+\[
+\omega_{\rm LC}{}^0{}_1=\frac{N'}{N}e^0,\quad
+\omega_{\rm LC}{}^2{}_1=\frac{r'}{r}e^2,\quad
+\omega_{\rm LC}{}^3{}_1=\frac{\partial_l A}{A}e^3,\quad
+\omega_{\rm LC}{}^3{}_2=\frac{\partial_\theta A}{rA}e^3
+=-\frac{\sin\theta}{A}e^3,
+\]
+with the remaining components fixed by metric compatibility. This gives a concrete regular reference connection at the throat: the first three displayed coefficients vanish there for even profiles, while the angular connection is finite wherever \(A>0\).
+
+The independent Cartan connection is then parameterized as
+\[
+\omega=\omega_{\rm LC}+K,\qquad K_{ab}=-K_{ba},
+\]
+where \(K\) is an independently varied contortion 1-form. Consequently
+\[
+T^a=K^a{}_b\wedge e^b,\qquad
+R(\omega)=R(\omega_{\rm LC})+D_{\rm LC}K+K\wedge K.
+\]
+This is the explicit bridge between the toroidal throat coframe and the independent Cartan sector. The Levi-Civita connection here is only a reference decomposition, not the fundamental connection and not a restriction \(K=0\).
+
 The earlier spherical two-ended comparison ansatz
 \[
 ds^2=-N(u)^2dt^2+du^2+(u^2+r_0^2)d\Omega^2
