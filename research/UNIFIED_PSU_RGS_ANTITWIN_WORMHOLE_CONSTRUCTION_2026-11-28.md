@@ -186,7 +186,39 @@ Variations are independent:
 \[
 \delta_eS_h=0,\qquad \delta_LS_h=0.
 \]
-The connection variation must use the Fréchet derivative of the matrix logarithm (or an equivalent group-valued variational formula); replacing \(\delta\log H\) by \(H^{-1}\delta H\) is not valid in general for noncommuting matrices. The resulting discrete Euler–Lagrange equations, gauge identities, constraints and boundary matching equations must be derived from the same action.
+The connection variation must use the Fréchet derivative of the matrix logarithm (or an equivalent group-valued variational formula); replacing \(\delta\log H\) by \(H^{-1}\delta H\) is not valid in general for noncommuting matrices. The variation has the exact structural form
+\[
+\delta_eS_h=\frac{1}{4\kappa}\sum_f
+\epsilon_{abcd}\,(\delta_e B_f^{ab})X_f^{cd}
++\delta_e(S_{\Lambda,h}+S_{m,h}+S_{\Sigma,h}),
+\]
+\[
+\delta_LS_h=\frac{1}{4\kappa}\sum_f\epsilon_{abcd}
+\left[(\delta_LB_f^{ab})X_f^{cd}
++B_f^{ab}\,\mathrm D(\log)_{H_f}[\delta H_f]^{cd}\right]
++\delta_L(S_{m,h}+S_{\Sigma,h}).
+\]
+Here \(\mathrm D(\log)_{H_f}\) is the Fréchet derivative of the matrix logarithm on the selected local branch. If \(H_f=L_1\cdots L_m\), then
+\[
+\delta H_f=\sum_{j=1}^m
+L_1\cdots L_{j-1}(\delta L_j)L_{j+1}\cdots L_m.
+\]
+These expressions make the two independent variations explicit; the discrete Euler–Lagrange residuals are obtained by collecting the coefficients of each independent \(\delta e\) and each Lie-algebra variation \(\delta L\,L^{-1}\). The face transports entering \(B_f\) must also be varied in the connection equation.
+
+For comparison, the continuum Palatini–Cartan variation (before adding matter and boundary terms) is
+\[
+\delta_eS_{\rm PC}=\frac{1}{2\kappa}\int
+\epsilon_{abcd}\,\delta e^a\wedge e^b\wedge R^{cd},
+\]
+\[
+\delta_\omega S_{\rm PC}=
+-\frac{1}{2\kappa}\int
+\epsilon_{abcd}\,T^a\wedge e^b\wedge\delta\omega^{cd}
++\text{boundary term},
+\]
+using \(D(e^a\wedge e^b)=T^a\wedge e^b-e^a\wedge T^b\). This verifies why the connection variation imposes the torsion equation in vacuum and why a spin-current source changes it. It also identifies the interface contribution that must be cancelled or retained by the chosen throat boundary action.
+
+The resulting discrete Euler–Lagrange equations, gauge identities, constraints and boundary matching equations must be derived from the same action.
 
 In the smooth limit the vacuum equations target
 \[
