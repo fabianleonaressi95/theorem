@@ -1,0 +1,216 @@
+# Gradient–barycentre law integrated with Sakharov–Cartan–PSU geometry
+
+**Date:** 2026-11-28  
+**Role:** programme integration record for T068, T070, T077, T079, T098 and T130.  
+**Status:** component laws are proved under their stated hypotheses; their coupling to the Q6-derived Lorentzian wormhole and Sakharov effective action is a defined discretization programme, not yet a physical field-equation result.
+
+## 1. Why this is part of the same construction
+
+The gradient and barycentre laws provide the local geometric sampling layer between the Q6/RGS carrier and the continuum matter operators on the toroidal PSU–Anti-Twin Cartan background. They must be used before evaluating cell energies, fluctuation operators and their heat traces.
+
+The chain is
+\[
+\text{Q6 adjacency / two-circle geometry}
+\to (\nabla_h, c_F,\Sigma_F)
+\to \text{cell matter and gauge densities}
+\to S_h[e,\omega,\Psi]
+\to \mathcal O_i[e,\omega]
+\to \operatorname{Str}_{\rm fields}e^{-s\mathcal O_i}
+\to \Gamma_{\rm Sakharov}[e,\omega].
+\]
+The cell covariance is not an extra fitted weight: it is the second central moment of the same cell measure used to sample the action. Its role is to retain anisotropy and quantify the error of barycentric one-point evaluation.
+
+## 2. Q6 discrete gradient: T130
+
+Let \(x_v=\Phi(v)\in\mathbb R^2\) be the calibrated shape coordinate of a Q6 vertex and \(f_v\) a scalar vertex field. For the six incident neighbours define
+\[
+G_v=\sum_{w\sim v}\omega_{vw}(x_w-x_v)(x_w-x_v)^T,
+\qquad
+b_v=\sum_{w\sim v}\omega_{vw}(x_w-x_v)(f_w-f_v),
+\]
+and, whenever \(G_v\) is positive definite,
+\[
+\boxed{\nabla_{Q6}f(v)=G_v^{-1}b_v.}
+\]
+This is the weighted least-squares tangent gradient. It exactly reproduces affine scalar fields when the local six-edge star spans the two-dimensional shape tangent plane. Rank-deficient stars must be rejected; the local condition number must be recorded. This is the finite-dimensional result in T130, not yet a four-dimensional spacetime derivative.
+
+For a vector-valued or bundle-valued field, differences at neighbouring vertices cannot be subtracted until they have been transported to a common fibre. A gauge-covariant version therefore replaces \(f_w-f_v\) by a link-transported difference, e.g.
+\[
+\Delta_A\Psi_{vw}=U_{vw}\Psi_w-\Psi_v,
+\]
+with the link orientation and representation fixed. The resulting least-squares operator is a proposed covariant extension; its gauge covariance, locality and continuum consistency must be tested. The scalar T130 theorem alone does not prove this extension.
+
+## 3. Barycentre and covariance: T068 and T070
+
+For a nondegenerate triangular cell \(F\subset\mathbb R^3\), with area \(A_F\), define
+\[
+c_F=\frac1{A_F}\int_Fx\,dA,\qquad
+\Sigma_F=\frac1{A_F}\int_F(x-c_F)(x-c_F)^T\,dA.
+\]
+For vertices \(v_0,v_1,v_2\),
+\[
+c_F=\frac{v_0+v_1+v_2}{3},\qquad
+\Sigma_F=\frac1{12}\sum_{i=0}^2(v_i-c_F)(v_i-c_F)^T.
+\]
+For positive Dirichlet weights \(a_i>0\), \(S=\sum_i a_i\), and vertex matrix \(V\) with rows \(v_i^T\),
+\[
+c_{F,a}=V^T\frac aS,\qquad
+C_{ij}=\frac{a_i(S\delta_{ij}-a_j)}{S^2(S+1)},\qquad
+\Sigma_{F,a}=V^TCV.
+\]
+The uniform case is \(a=(1,1,1)\). \(\Sigma\) is positive semidefinite and tangent to the cell plane (rank at most two).
+
+For \(g\in C^3\) on a neighbourhood of \(F\), the proved barycentric–covariance law is
+\[
+\boxed{
+\int_Fg(x)\,dA
+=A_Fg(c_F)+\frac{A_F}{2}D^2g(c_F):\Sigma_F+\mathcal R_F,
+}
+\]
+with
+\[
+|\mathcal R_F|\leq
+\frac{A_Fh_F^3}{6}\sup_F\|D^3g\|_{op}.
+\]
+For a quadratic density the formula is exact. The linear Taylor term vanishes exactly because \(\int_F(x-c_F)dA=0\). For the weighted probability measure of T070,
+\[
+\int_Fg\,d\mu_{F,a}
+=g(c_{F,a})+\tfrac12D^2g(c_{F,a}):\Sigma_{F,a}+R_{F,a},
+\quad |R_{F,a}|\leq h_F^3\sup_F\|D^3g\|_{op}/6.
+\]
+The unnormalized weighted integral is multiplied by the exact Dirichlet partition function
+\[
+Z_F(a)=2A_F\frac{\prod_i\Gamma(a_i)}{\Gamma(S)}.
+\]
+
+**Important distinction:** the triangle covariance, the Q6 vertex covariance and the Q6 antipodal-pair covariance are different measures in different dimensions. They must not be interchanged.
+
+## 4. Two-circle generator: T098 and Vesica geometry
+
+For circle centres \(C_1,C_2\) with \(|C_2-C_1|=r\), put
+\[
+u=(C_2-C_1)/r,\quad M=(C_1+C_2)/2,\quad
+P_\pm=M\pm\frac{\sqrt3r}{2}u^\perp.
+\]
+The two equal-radius circles intersect at \(P_\pm\), generating equilateral triangles \(\Delta_\pm\) of opposite orientation. Their barycentres satisfy
+\[
+\boxed{B_\pm=M\pm\frac{r}{2\sqrt3}u^\perp,\quad
+(B_++B_-)/2=M.}
+\]
+For a scalar field \(f\in C^1(\overline{\Delta_+})\), the positive-branch mean gradient is
+\[
+\mathcal G_+[f]=\frac1{|\Delta_+|}\int_{\Delta_+}\nabla f\,dA
+=\frac1{|\Delta_+|}\int_{\partial\Delta_+}f n_+\,ds.
+\]
+Under the reflection \(Q=2uu^T-I\), the transported field has
+\[
+\mathcal G_-[f\circ\mathcal R^{-1}]=Q\mathcal G_+[f],
+\qquad \Sigma_-=Q\Sigma_+Q^T.
+\]
+Thus the positive-gradient branch and negative-barycentre branch are generated by one two-circle geometry. This is a proved Euclidean identity; a physical identification with PSU/Anti-Twin sheet fields remains model-dependent. The Vesica area and midpoint-centroid identities are retained in T137 as the associated two-circle overlap geometry.
+
+## 5. Structured gradients and the two physical sectors: T077 and T079
+
+For a structured deformation,
+\[
+\nabla y=G+\mathsf D,\qquad \mathsf D:=\nabla y-G,
+\]
+where \(G\) is the limiting microscopic gradient and \(\mathsf D\) the structured-gradient mismatch. It is not automatically a seam defect or Cartan torsion. On a surface, row-wise incompatibility is represented by \(\operatorname{Curl}_S\mathsf D\), with the corresponding Stokes/Burgers circulation under the hypotheses of T079.
+
+Preserve the established sector convention:
+- left/fluid: scalar Bernoulli observable \(B_L\) and its tangential gradient \(\nabla_SB_L\);
+- right/gauge: bundle field \(\Psi\), connection \(A\), and covariant gradient \(D_A\Psi\);
+- shell mechanics: \(\mathsf D=\nabla_Sy-G\).
+
+The common object is the cell barycentre and covariance, not an identification of these three gradients. A useful dimensionless anisotropy is
+\[
+M_{F,a}=\frac{\Sigma_{F,a}}{\operatorname{tr}\Sigma_{F,a}},
+\]
+and the sector diagnostics are
+\[
+Q_{L,F}=(\nabla_SB_L)^TM_{F,a}\nabla_SB_L,
+\qquad
+Q_{R,F}=\langle D_A\Psi,(M_{F,a}\otimes K_R)D_A\Psi\rangle.
+\]
+These are covariance-weighted observables; their coupling constants and constitutive interpretation must come from the action, not from geometric resemblance.
+
+## 6. Insertion into the Palatini–Cartan and Sakharov action
+
+For a specified smooth local Lagrangian density \(\mathscr L(x,\Phi,\nabla_A\Phi,e,\omega)\), define its cell contribution by
+\[
+S_F=\int_F\mathscr L\,dA
+=A_F\left[
+\mathscr L(c_F)+\frac12D^2\mathscr L(c_F):\Sigma_F
+\right]+\mathcal R_F.
+\]
+For Dirichlet-weighted sampling, use the exact normalization \(Z_F(a)\) and measure \(\mu_{F,a}\) consistently. The same construction applies to the local densities generated by the matter action whose second variation defines the fluctuation operators. Thus barycentric covariance enters the discretized matter action and its Hessian through the actual derivatives of \(\mathscr L\), rather than as an arbitrary cube–sphere weight.
+
+The programme-level insertion is:
+1. construct the cell coordinates and tangent frames from the chosen Q6 4D resolution (still open);
+2. compute scalar T130 gradients, and use link-transported covariant gradients for bundle fields;
+3. compute \(c_F,\Sigma_F\) from the same cell measure;
+4. assemble the cell action with the Hessian correction and the T068/T070 remainder estimate;
+5. vary the assembled action independently with respect to coframe and Cartan connection;
+6. derive the gauge-fixed boson, fermion and ghost fluctuation operators from that same action;
+7. only then compute their heat traces and field supertrace for Sakharov induced gravity.
+
+The heat-kernel coefficients \(a_0,a_2,a_4\) are not modified by an ad hoc substitution \(R\mapsto R+\Sigma\). Instead, the covariance correction changes the discrete action/operator through its explicit cell derivatives; the continuum coefficients are then computed from the resulting well-defined operator. A continuum limit is needed before interpreting the finite-cell correction as a contribution to \(G_{\rm ind}\).
+
+## 7. Exact identities versus open extensions
+
+| Component | Status |
+|---|---|
+| Q6 six-neighbour weighted least-squares scalar gradient; affine reproduction under rank condition (T130) | Finite-dimensional identity / tests recorded in T130 |
+| Triangle centroid and covariance (T068) | Proved |
+| Dirichlet weighted barycentre, covariance and Taylor remainder (T070) | Proved |
+| Two-circle positive mean-gradient / negative barycentre duality (T098) | Proved Euclidean theorem |
+| Structured-gradient split and surface Stokes identity (T079) | Established under stated hypotheses |
+| Left-fluid/right-gauge barycentric diagnostics (T077) | Exact local moment identities; coupled functional is candidate |
+| Gauge-covariant Q6 least-squares gradient for spinors | Proposed extension; requires tests |
+| Extension from 2D Q6 shape coordinates to the Q6-derived Lorentzian 4-complex | Open; depends on the T162 manifold-like resolution |
+| Convergence of cell actions and their Hessians | Open |
+| Effect on physical Sakharov coefficients and wormhole backreaction | Open |
+
+## 8. Required audits
+
+- affine scalar recovery on every full-rank Q6 star; reject rank-deficient stars and report condition numbers;
+- covariance positivity, tangency, reflection covariance and weighted/unweighted normalization;
+- exactness for quadratic cell densities and the cubic remainder bound under refinement;
+- gauge covariance of transported edge differences and independence from local frame choice;
+- independent coframe and connection finite-difference checks after inserting the cell action;
+- convergence of the assembled operators before comparing heat traces or induced couplings.
+
+## 9. Source records
+
+- T068 — Barycentric–covariance quadrature law on a planar triangle.
+- T070 — Dirichlet barycentres, covariance and phase moments.
+- T077 — Bernoulli–gradient–barycentre bridge between right gauge and left fluid sectors.
+- T079 — Morandotti structured gradients and surface incompatibility.
+- T098 — Universal two-circle positive-gradient / negative-barycentre duality.
+- T130 — Q6 discrete gradients, barycentres, traction moments and resistance assembly.
+- T137 — two-circle Vesica construction.
+- Sakharov–Seeley–DeWitt toroidal Cartan baseline, 2026-11-28.
+- Unified PSU–RGS–Anti-Twin wormhole construction, 2026-11-28.
+
+
+## 10. First executable cell-action insertion (companion implementation, 2026-11-28)
+
+The companion repository now contains `src/barycentric_cell_action.py` and `tests/test_barycentric_cell_action.py`. The module implements a concrete spatial cell model with an affine (3\times3) coframe (E(x)) over a triangle and density
+\[
+\mathscr L(x)=N V\det E(x).
+\]
+It assembles the barycentre/Hessian approximation
+\[
+S_F^{(2)}=A_F N V\left[\det E(c_F)+\frac12 D^2(\det E)(c_F):\Sigma_F\right].
+\]
+Because (E(x)) is affine and (E) is (3\times3), (det E(x)) is cubic. The implementation therefore also evaluates the exact cubic cell integral with a degree-three barycentric rule and reports the cubic remainder (S_F^{\rm exact}-S_F^{(2)}). This makes the approximation error visible instead of silently treating the Hessian correction as exact.
+
+The coframe variation is evaluated independently by complex-step differentiation of the implemented corrected action and checked against centred finite differences. A local numerical check gave maximum absolute gradient discrepancy (3.65\times10^{-11}) for the manufactured nondegenerate triangle/coframe fixture. This is a local implementation audit, not a continuum theorem or a Lorentzian 4D action result. The companion CI run triggered by the code commit is recorded separately and must pass before the test is marked CI-verified.
+
+
+The executable cell model has subsequently been extended to include a P1 scalar field (f) through
+\[
+\mathscr L_F(x)=N\det E(x)\left[V+\frac{\lambda_g}{2}|\nabla_F f|^2\right],
+\qquad \nabla_F f=J_F^{-T}(f_1-f_0,f_2-f_0)^T.
+\]
+The affine P1 gradient is recovered exactly from the three nodal values. Since it is constant on the cell, the coframe determinant remains the only cubic spatial factor. Both coframe and scalar nodal variations are checked by complex-step differentiation against independent centred finite differences. This is the first executable insertion of the gradient law itself into the barycentric cell action; the coefficient (lambda_g) is a declared model coupling, not yet derived from the PSU continuum action.
