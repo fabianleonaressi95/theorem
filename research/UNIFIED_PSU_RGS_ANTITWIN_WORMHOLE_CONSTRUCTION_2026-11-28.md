@@ -23,10 +23,10 @@ Generic Riemann–Cartan geometry permits both \(R\ne0\) and \(T\ne0\). The tele
 
 ## 1. Historical geometric seed: retain the toroidal PSU ansatz
 
-The earlier PSU–Anti-Twin work used a toroidal throat, not merely a spherical Morris–Thorne throat. Its reference metric was
+The earlier PSU–Anti-Twin work used a toroidal throat, not merely a spherical Morris–Thorne throat. Its reference metric was originally written in signature \((-+++ )\). For consistency with T161 and the Cartan/spin sections, this document uses \((+---)\), i.e. the overall-sign-equivalent form
 \[
-ds^2=-N(l)^2c^2dt^2+dl^2+r(l)^2d\theta^2+
-[R(l)+r(l)\cos\theta]^2d\varphi^2,
+ds^2=+N(l)^2c^2dt^2-dl^2-r(l)^2d\theta^2-
+[R(l)+r(l)\cos\theta]^2d\varphi^2.
 \]
 with PSU on one side, Anti-Twin on the other, and \(l=0\) the throat. The associated sheet variables were written
 \[
@@ -105,7 +105,7 @@ The Anti-Twin operation exchanges the sheet labels; \(g_{+-}\) is the independen
 
 The earlier spherical two-ended comparison ansatz
 \[
-ds^2=-N(u)^2dt^2+du^2+(u^2+r_0^2)d\Omega^2
+ds^2=+N(u)^2dt^2-du^2-(u^2+r_0^2)d\Omega^2
 \]
 is a distinct comparison geometry. It has \(R(0)=r_0>0\), \(R'(0)=0\), and a regular local coframe when \(N(0)>0\). It must not silently replace the historically used toroidal throat. Spherical and toroidal branches are separate symmetry sectors of the unified programme.
 
