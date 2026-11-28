@@ -319,3 +319,19 @@ Reuse without changing their status: T129/T146/T147/T148/T149/T161; the exact af
 - **M7 — convergence:** establish uniform estimates and a solution-convergence theorem only after M1–M6 provide the required hypotheses.
 
 **No physical wormhole solution, Q6-derived Lorentzian manifold, complete discrete action variation, discrete-solution convergence theorem or massless spinorial limit is claimed by this specification.**
+
+
+## 11. Partial Q6 4D cut-project resolution — T163
+
+The first explicit 6D-to-Lorentzian-4D cut-project carrier is now constructed in `theorems/T163-q6-golden-cut-project-lorentzian-4complex.md`, with audit code in `audits/q6_lorentzian_4d_cut_project.py`.
+
+The selected frame is
+[
+\Pi_4=\begin{pmatrix}(1,1,2)P_\perp/\sqrt6\\P_\parallel\end{pmatrix},
+quad \eta=\operatorname{diag}(1,-1,-1,-1).
+]
+The internal time direction is a reproducible generic choice selected to keep all fifteen 4x4 coordinate minors nonzero; it is not yet derived by the PSU action.
+
+The 4-skeleton gives 60 nondegenerate projected 4-cells, triangulated into 1440 4-simplices. Its 160 coordinate 3-faces each have incidence three. Therefore this construction is a **branched Lorentzian 4-complex, not a 4-manifold**. The six-neighbour 4D least-squares gradient and volume-weighted P1 gradient pass the affine patch test (independent residual about (1.1\times10^{-14})); a non-affine parity field gives a finite operator mismatch about 8.66.
+
+This advances WQ6-01 from an unconstructed 4D carrier to an explicit branched 4-complex. It does not close WQ6-01: branch resolution/manifold gluing, throat matching, independent Cartan equations, spin structure and continuum convergence remain open. No wormhole solution or Sakharov coefficient is inferred.
