@@ -129,3 +129,10 @@ This edge-disjointness gives an explicit global solution of the **incidence-leve
 This proves consistency of the Z2 signs on the pairwise-interface graph. It does **not** yet prove compatibility of the geometric 3D interface subdivisions where different junctions meet along lower-dimensional Q6 cells. The global PL 4-manifold condition, including every vertex link being (S^3), remains open.
 
 The executable companion audit is `audit_global_q6_spin_lift_cocycle()` in `src/quaternionic_branch_junction.py`; tests are in `tests/test_quaternionic_branch_junction.py`.
+
+
+## 10. Lorentzian completion of the quaternionic rotation factor — T165
+
+The compact (SU(2)) junction transport now has an explicit Lorentzian extension through (Spin^+(1,3)\simeq SL(2,\mathbb C)). Minkowski vectors are Hermitian (2\times2) matrices (X=x^0I+x^i\sigma_i), and (X\mapsto AXA^\dagger) preserves (det X=x^T\eta x). Unit quaternions give the spatial rotation subgroup; Hermitian exponentials (\exp(\chi n\cdot\sigma/2)) give boosts. See T165 for the exact representation and numerical audit.
+
+This removes the algebraic gap between compact quaternionic rotations and Lorentzian spin transformations. It does not yet provide the actual edge field (A_{vw}\in SL(2,\mathbb C)) on the globally resolved Q6 complex or solve its Cartan equations.
