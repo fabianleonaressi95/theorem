@@ -92,3 +92,19 @@ The audit constructs the 240 square faces, their 480-triangle split, compares T1
 - **PROVED:** affine patch identity under the stated rank/nondegeneracy assumptions; conditional Lorentzian tangent-lift identity.
 - **NUMERICAL TESTS:** Q6 face/triangle counts, affine patch, arbitrary-field residual reporting, and degenerate-plane rejection; CI status is reported separately.
 - **OPEN:** physical calibration of (Phi); robustness of the chosen square diagonal; non-affine operator convergence; map from this two-dimensional shape plane to a full four-dimensional tetrad; Q6 4D cell closure; Cartan curvature/torsion equations and Sakharov heat coefficients on that resolved 4D complex.
+
+
+## 8. Independent numerical patch/residual audit
+
+For the declared calibration
+[
+C=\begin{pmatrix}1&0.2&-0.1\\0.3&0.8&0.4\end{pmatrix},
+]
+an independent numerical reconstruction of the committed formulas gives:
+- 64 vertices, 192 edges, 240 square faces and 480 triangles;
+- minimum projected triangle area (8.766444521870514\times10^{-3});
+- maximum Q6 star condition number (2.0212145278087736);
+- affine-patch operator residual (8.01\times10^{-16});
+- for the declared non-affine parity test field (f_v=(-1)^{|v|_1}(1+v/64)), maximum Q6/P1 operator mismatch (6.850733090221455).
+
+The last number is not an error estimate tending to zero: it is a finite diagnostic showing that the two operators differ on a non-affine field at this resolution. A refinement study and a calibrated projection are required before asserting convergence or replacing one operator by the other. These are local numerical checks; the GitHub Actions status remains separate.
