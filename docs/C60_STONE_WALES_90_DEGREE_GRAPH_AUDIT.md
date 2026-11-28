@@ -1,6 +1,6 @@
 # C60 Stone-Wales 90° graph and covariance audit
 
-**Status:** graph reconstruction, topology checks, chain-map identities and the 30-site enumeration were verified by the 2026-11-26 GitHub Actions run. The present clarification makes the pyracylene patch signature explicit and adds a regression test.
+**Status:** the repository contains the graph reconstruction, exact boundary-identity checks and the pyracylene patch regression. The recorded 2026-11-26 successful Actions run tested an earlier branch SHA, not the final merged PR #449 head. Therefore the exact merged revision still requires a fresh CI run. The chain map is not yet certified to induce an isomorphism on H₂; the new regression below tests that separately.
 
 ## Starting graph
 
@@ -126,6 +126,13 @@ For each accepted dual flip, the two endpoints of the flipped dual edge must hav
 The 30 labelled flips remain one symmetry orbit, not 30 distinct isomer classes. This is a finite-graph result and does not by itself establish a transition-state trajectory or activation barrier.
 
 
+## Homology qualification
+
+The two boundary identities establish a chain map, but do not alone prove that the induced map on homology is an isomorphism. In particular, the rank of the chosen face-chain matrix \(S_2\) is not a substitute for checking the fundamental class. The regression test constructs the one-dimensional kernel of each cellular boundary matrix \(B_2\) and verifies that the selected chain map sends a generator of the old spherical fundamental class to a generator of the new one. The face-filling matrix has a cycle-valued freedom: after solving the boundary identities, one may add a target fundamental 2-cycle to a face column without changing \(B_2' S_2=S_1 B_2\). The implementation fixes this freedom explicitly to normalize the induced degree to \(+1\). Thus the chain map is homology-preserving by construction, but this normalization is noncanonical; it is not evidence that the initial path-filling choice already had degree \(\pm1\), nor does it establish an embedding isotopy or a chemical transition path.
+
+## CI provenance
+
+The previously reported successful workflow run was attached to an earlier commit SHA, not the final PR #449 head SHA. Until the new regression passes on this branch and the resulting run SHA is recorded, the merged implementation should not be described as fully CI-verified.
 ## 8. Pi-only electronic-population diagnostic
 
 A separate fixed-geometry Hückel calculation is documented in C60_SW_PI_ELECTRONIC_POPULATION_AUDIT.md. It uses the 60-site adjacency Hamiltonian H=-A, 60 pi electrons, and the diagonal of the spin-summed occupied-orbital density matrix. This yields a site-population covariance, **not** a continuous real-space electron-density tensor or DFT result. The pristine-to-SW HOMO–LUMO gap changes from 0.7565982539 t to 0.3184344809 t, and the site-population anisotropy from numerical zero to 0.0016099344. All 30 labelled flips give the same spectral and covariance invariants to numerical tolerance. The separate Q6 parity audit rules out a direct C60-carbon-graph to Q6-1-skeleton graph homomorphism, but not a chain map with multi-edge images or a face-fibre construction.
