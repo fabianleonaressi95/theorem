@@ -95,6 +95,14 @@ Along a radial path \(\gamma:l_-\to l_+\), the displayed diagonal reference cofr
 \]
 where \(J_{02}\) is the Lorentz boost generator in the \(0\)-\(2\) plane. This is an explicit finite throat-transport candidate, not yet a solution of the field equations. Its curvature must be computed from \(R_{\rm LC}+D_{\rm LC}K+K\wedge K\), and its profile must be matched across the PSU/Anti-Twin interface by the actual transition map. A compactly supported smooth \(\kappa\) localizes the relative transport near the throat; the integral controls the net boost. Setting \(\kappa=0\) removes this torsional transport but does not by itself decouple the full two-sheet geometry.
 
+For the two-sheet interface, use this same boost as the candidate transition:
+\[
+g_{+-}=\exp(-\chi_\Sigma J_{02}),\qquad
+g_{-+}=g_{+-}^{-1},\qquad
+\chi_\Sigma=\int_{\gamma_\Sigma}\kappa(l)\,dl.
+\]
+The Anti-Twin operation exchanges the sheet labels; \(g_{+-}\) is the independent Lorentz-frame transport between their fibres. They must not be identified. The coframe and connection traces on the interface are matched by this transition, and the reverse path uses its inverse. This gives a concrete candidate throat gluing map whose parameter is computed from the connection profile rather than chosen independently. The field equations must still determine whether such a profile exists and whether it is compatible with the global two-sheet topology.
+
 The earlier spherical two-ended comparison ansatz
 \[
 ds^2=-N(u)^2dt^2+du^2+(u^2+r_0^2)d\Omega^2
