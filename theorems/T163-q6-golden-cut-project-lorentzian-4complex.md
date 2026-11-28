@@ -131,3 +131,6 @@ The audit reports frame orthogonality, all 4-face minors, 4-cell/3-face counts, 
 - **PROVED by finite algebra:** row orthogonality of the selected frame; 60/160 cell counts; incidence three for every 3-face; 24-simplex Freudenthal count per 4-cell; conditional affine patch identity.
 - **NUMERICALLY AUDITED:** nonzero minors, simplex volumes, Lorentzian Gram determinants, local gradient conditioning and the stated residuals. CI remains a separate status.
 - **OPEN:** physical derivation of the internal time direction; resolution of the three-way branch incidence into a Lorentzian 4-manifold (if a manifold is required); PSU–Anti-Twin throat gluing on this complex; discrete Cartan field equations; spinorial transport; spectral convergence and Sakharov induced gravity.
+
+
+**Additional geometric limitation.** The nonzero (4\times4) minors prove that each individual coordinate 4-face has a nondegenerate affine image. They do not prove that distinct projected 4-cells intersect only along their prescribed common faces, nor that the global projection is injective. Pairwise projected-cell intersection and overlap audits are still required before treating the image as a geometric CW embedding.
