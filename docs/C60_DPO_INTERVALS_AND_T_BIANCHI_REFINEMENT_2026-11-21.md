@@ -255,6 +255,10 @@ refinement study.
 - `output/dec_se3/src/dec_se3/refinement.py` and a separate convergence
   driver: mesh hierarchy, field sampling/integration, covariant operators,
   manufactured solutions, and gauge/basepoint regression.
+  *(2026-11-27 note: the legacy `dec_se3` package was archived to
+  `archive/dec_se3_legacy/` during the repository reorganisation; the planned
+  `output/dec_se3` path no longer exists. This item remains an open
+  requirement — see `docs/POST_REORG_CONSISTENCY_AUDIT.md` §4.)*
 - Raw JSON outputs and tests tied to exact source hashes.
 
 These scripts must be added only together with the actual mathematical input

@@ -2,10 +2,10 @@
   "schema": "duplicate-card-id-map/v1",
   "generated": "2026-11-27",
   "policy": "File paths under theorems/ are the stable identifiers. Card-id prefixes are reused across distinct records and are NOT unique; do not use them as primary keys. Renumbering and cross-reference rewrites require explicit author approval.",
-  "total_cards": 279,
-  "unique_ids": 225,
-  "duplicated_ids": 33,
-  "cards_in_duplicate_groups": 87,
+  "total_cards": 280,
+  "unique_ids": 227,
+  "duplicated_ids": 32,
+  "cards_in_duplicate_groups": 85,
   "duplicates": {
     "EQC-3-": [
       "theorems/EQC-3-hexagram-geometry-gates.md",
@@ -14,10 +14,6 @@
     "EQC-RGS-Q6-": [
       "theorems/EQC-RGS-Q6-gate-realization.md",
       "theorems/EQC-RGS-Q6-minimal-gates.md"
-    ],
-    "MQ-": [
-      "theorems/MQ-T002-four-valent-spin-half-intertwiner-dimension.md",
-      "theorems/MQ-T003-invariant-one-link-gluing.md"
     ],
     "MQM-": [
       "theorems/MQM-Q6-symmetry-stabilizer.md",
