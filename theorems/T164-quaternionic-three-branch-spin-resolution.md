@@ -112,3 +112,20 @@ The audit checks (2I)-membership, quaternion norm and powers, cyclic conjugation
 - **PROVED LOCALLY BY THE MODEL:** three wedges fill a transverse disk; each interface has two incident sectors; the transverse link is (C_3simeq S^1).
 - **NUMERICAL TESTS:** implementation diagnostics and tensor-factor commutator; CI must be checked separately.
 - **OPEN:** global PL gluing, global spin structure, Lorentzian (SL(2,mathbb C)) lift, Cartan equations and continuum/Sakharov limit.
+
+
+## 9. Global incidence-level audit over the 60 Q6 four-cells
+
+The combinatorial part of the junction network can be solved globally, before solving the geometric embedding.
+
+Enumerate the 60 coordinate 4-faces as vertices of an adjacency graph. Each of the 160 coordinate 3-faces determines an ordered triple of incident 4-cells. Replace that triple by its three pairwise interface edges. The exact counts are:
+[
+|V|=60,qquad |J|=160,qquad |E_{m pair}|=3|J|=480.
+]
+No pairwise interface edge is repeated: every pair of 4-cells occurs in exactly one triple junction. Consequently every 4-cell has degree 16 in this graph, and the graph is connected.
+
+This edge-disjointness gives an explicit global solution of the **incidence-level** spin-lift sign constraints. On each ordered junction cycle ((a,b),(b,c),(c,a)), assign lift signs ((-1,+1,+1)). Their product is (-1), which cancels (q_*^3=-1); hence every junction spin product is (+1). Since each pairwise interface belongs to only one junction, no edge receives conflicting sign assignments.
+
+This proves consistency of the Z2 signs on the pairwise-interface graph. It does **not** yet prove compatibility of the geometric 3D interface subdivisions where different junctions meet along lower-dimensional Q6 cells. The global PL 4-manifold condition, including every vertex link being (S^3), remains open.
+
+The executable companion audit is `audit_global_q6_spin_lift_cocycle()` in `src/quaternionic_branch_junction.py`; tests are in `tests/test_quaternionic_branch_junction.py`.
