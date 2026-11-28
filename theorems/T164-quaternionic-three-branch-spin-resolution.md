@@ -10,6 +10,12 @@ A quaternion-valued frame change alone cannot alter this incidence number. The t
 
 ## 2. A local PL replacement: three sectors around a codimension-two core
 
+
+For the Lorentzian realization, take the core tangent plane to have signature ((+,-)), spanned by time and the spatial axis (n=(1,1,1)/\sqrt3). Its orthogonal normal 2-plane is spacelike. The three (2\pi/3) wedges therefore lie in a Euclidean transverse disk, and the quaternion (q_*) rotates precisely this normal plane while leaving the timelike core plane fixed. The local model is
+[
+\mathbb R^{1,1}_{\rm core}\times D^2_{\rm spacelike}.
+]
+
 Replace the neighbourhood of a triple 3-face by
 [
 mathcal N simeq mathbb R^2_{m core}	imes D^2_{perp}.
