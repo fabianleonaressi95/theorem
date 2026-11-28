@@ -103,3 +103,7 @@ In particular, this is not yet a global resolution of the T164 three-branch junc
 - **OPEN:** canonical Q6 framing, 3-/4-handle extension, preservation of the 160/60 higher-cell incidence, global T164/T165 transport, and Lorentzian Cartan dynamics.
 
 T167 is deliberately a first manifold carrier and not a claim that the full Q6 4-skeleton has become a 4-manifold.
+
+## 7. Explicit combinatorial input — T168
+
+The formerly abstract phrase "take the square attaching words" is now made deterministic in T168. The lexicographic breadth-first tree rooted at vertex 0, the 129 oriented chord generators, and all 240 cyclic square words are specified algorithmically. The exact rational audit returns rank 129 and kernel rank 111. T168 does not choose geometric attaching curves or framings; those remain genuine geometric data, not consequences of the word list.
